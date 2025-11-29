@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { Shield } from "lucide-react";
+import logo from "@/assets/clean-check-logo.png";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -81,9 +81,8 @@ const Auth = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <Shield className="h-12 w-12 text-primary" />
+            <img src={logo} alt="Clean Check" className="h-24 w-auto" />
           </div>
-          <CardTitle className="text-3xl">Clean Check</CardTitle>
           <CardDescription>Professional Cleaning QA & Certification</CardDescription>
         </CardHeader>
         <CardContent>

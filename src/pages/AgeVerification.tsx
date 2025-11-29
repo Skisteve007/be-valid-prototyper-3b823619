@@ -5,6 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
 import { useAgeVerification } from '@/hooks/useAgeVerification';
+import logo from '@/assets/clean-check-logo.png';
 
 const AgeVerification = () => {
   const navigate = useNavigate();
@@ -29,7 +30,9 @@ const AgeVerification = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-2xl">
         <CardHeader className="text-center space-y-4">
-          <CardTitle className="text-4xl font-bold">Clean Check</CardTitle>
+          <div className="flex justify-center">
+            <img src={logo} alt="Clean Check Logo" className="h-32 w-auto" />
+          </div>
           <CardDescription className="text-xl font-semibold">Age Verification Required</CardDescription>
           
           <div className="flex items-center justify-center gap-2 p-4 bg-destructive/10 rounded-lg">

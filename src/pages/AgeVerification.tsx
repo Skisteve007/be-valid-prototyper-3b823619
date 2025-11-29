@@ -66,7 +66,7 @@ const AgeVerification = () => {
                 onCheckedChange={(checked) => setAgreement(checked === true)}
               />
               <label htmlFor="agreement" className="text-sm font-semibold leading-tight cursor-pointer">
-                I am 18 years of age or older, and I agree to the Terms of Service and Privacy Policy and Consent.
+                I am 18 years of age or older and agree to the Terms of Service, Privacy Policy, and Consent.
               </label>
             </div>
           </div>

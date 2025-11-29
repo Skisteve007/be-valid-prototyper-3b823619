@@ -83,7 +83,7 @@ const Auth = () => {
           <div className="flex justify-center mb-4">
             <img src={logo} alt="Clean Check" className="h-24 w-auto" />
           </div>
-          <CardDescription>Professional Cleaning QA & Certification</CardDescription>
+          <CardDescription>Elevating Intimacy through QR Code Speed with Verified Transparency & Mutual Trust.</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="login" className="w-full">

@@ -7,7 +7,14 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { Fingerprint } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
+import { 
+  isBiometricAvailable, 
+  authenticateWithBiometric, 
+  getStoredCredentials,
+  setupBiometricLogin 
+} from "@/lib/biometric";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -17,6 +24,8 @@ const Auth = () => {
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   const [signupFullName, setSignupFullName] = useState("");
+  const [biometricAvailable, setBiometricAvailable] = useState(false);
+  const [enableBiometric, setEnableBiometric] = useState(false);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -26,7 +35,39 @@ const Auth = () => {
       }
     };
     checkUser();
+    
+    // Check if biometric is available
+    isBiometricAvailable().then(setBiometricAvailable);
   }, [navigate]);
+
+  const handleBiometricLogin = async () => {
+    setLoading(true);
+    try {
+      const authenticated = await authenticateWithBiometric();
+      if (!authenticated) {
+        throw new Error("Biometric authentication failed");
+      }
+
+      const credentials = await getStoredCredentials();
+      if (!credentials) {
+        throw new Error("No stored credentials found");
+      }
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email: credentials.email,
+        password: credentials.password,
+      });
+
+      if (error) throw error;
+
+      toast.success("Logged in with biometrics");
+      navigate("/dashboard");
+    } catch (error: any) {
+      toast.error(error.message || "Biometric login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,7 +95,7 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: signupEmail,
         password: signupPassword,
         options: {
@@ -67,7 +108,45 @@ const Auth = () => {
 
       if (error) throw error;
 
-      toast.success("Account created successfully");
+      // Get the member ID from the profile
+      if (data.user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("member_id")
+          .eq("user_id", data.user.id)
+          .single();
+
+        if (profile?.member_id) {
+          // Send welcome email with member ID
+          try {
+            await supabase.functions.invoke("send-welcome-email", {
+              body: {
+                email: signupEmail,
+                fullName: signupFullName,
+                memberId: profile.member_id,
+              },
+            });
+          } catch (emailError) {
+            console.error("Failed to send welcome email:", emailError);
+          }
+
+          toast.success(`Account created! Your Member ID: ${profile.member_id}`, {
+            duration: 6000,
+          });
+
+          // Set up biometric if enabled and available
+          if (enableBiometric && biometricAvailable) {
+            try {
+              await setupBiometricLogin(signupEmail, signupPassword);
+              toast.success("Biometric login enabled!");
+            } catch (bioError: any) {
+              console.error("Biometric setup failed:", bioError);
+              toast.error("Biometric setup failed, but you can enable it later");
+            }
+          }
+        }
+      }
+
       navigate("/dashboard");
     } catch (error: any) {
       toast.error(error.message || "Signup failed");
@@ -119,6 +198,31 @@ const Auth = () => {
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? "Logging in..." : "Login"}
                 </Button>
+                
+                {biometricAvailable && (
+                  <>
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-background px-2 text-muted-foreground">
+                          Or
+                        </span>
+                      </div>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={handleBiometricLogin}
+                      disabled={loading}
+                    >
+                      <Fingerprint className="mr-2 h-4 w-4" />
+                      Login with Biometrics
+                    </Button>
+                  </>
+                )}
               </form>
             </TabsContent>
             
@@ -158,6 +262,25 @@ const Auth = () => {
                     minLength={6}
                   />
                 </div>
+                
+                {biometricAvailable && (
+                  <div className="flex items-center space-x-2 rounded-lg border p-3 bg-muted/50">
+                    <input
+                      type="checkbox"
+                      id="enable-biometric"
+                      checked={enableBiometric}
+                      onChange={(e) => setEnableBiometric(e.target.checked)}
+                      className="rounded border-primary"
+                    />
+                    <Label htmlFor="enable-biometric" className="text-sm cursor-pointer">
+                      <div className="flex items-center gap-2">
+                        <Fingerprint className="h-4 w-4 text-primary" />
+                        <span>Enable biometric login (fingerprint/Face ID)</span>
+                      </div>
+                    </Label>
+                  </div>
+                )}
+                
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? "Creating account..." : "Sign Up"}
                 </Button>

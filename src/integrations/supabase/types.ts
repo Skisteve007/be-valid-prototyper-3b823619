@@ -59,6 +59,7 @@ export type Database = {
           created_at: string
           full_name: string | null
           id: string
+          member_id: string | null
           payment_date: string | null
           payment_status: string | null
           phone: string | null
@@ -72,6 +73,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          member_id?: string | null
           payment_date?: string | null
           payment_status?: string | null
           phone?: string | null
@@ -85,6 +87,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          member_id?: string | null
           payment_date?: string | null
           payment_status?: string | null
           phone?: string | null
@@ -183,6 +186,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_member_id: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

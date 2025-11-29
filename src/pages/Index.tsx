@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Shield, Award, QrCode, Users, CheckCircle } from "lucide-react";
+import logo from "@/assets/clean-check-logo.png";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -10,8 +11,7 @@ const Index = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <Shield className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-bold">Clean Check</h1>
+            <img src={logo} alt="Clean Check" className="h-12 w-auto" />
           </div>
           <Button onClick={() => navigate("/auth")}>Get Started</Button>
         </div>

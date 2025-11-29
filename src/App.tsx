@@ -6,7 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import AgeVerification from "./pages/AgeVerification";
 import NotFound from "./pages/NotFound";
+import { AgeGate } from "./components/AgeGate";
 
 const queryClient = new QueryClient();
 
@@ -17,11 +19,12 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/age-verification" element={<AgeVerification />} />
+          <Route path="/" element={<AgeGate><Index /></AgeGate>} />
+          <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
+          <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

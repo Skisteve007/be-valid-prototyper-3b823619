@@ -47,7 +47,19 @@ const AgeVerification = () => {
           <div className="space-y-4">
             <h3 className="font-semibold text-lg">Terms of Service & Consent</h3>
             
-            <div className="flex items-start gap-3 p-4 border rounded-lg">
+            <ul className="space-y-2 text-sm list-disc list-inside">
+              <li>I confirm that I am 18 years of age or older</li>
+              <li>I understand this is a peer-to-peer health information sharing platform</li>
+              <li>Clean Check is not a medical or financial service provider</li>
+              <li>I release Clean Check from all liability for health, financial, or informational consequences</li>
+              <li>All membership contributions are non-refundable and final</li>
+              <li>I agree to provide accurate and truthful health information</li>
+              <li>I understand that sharing false information may have legal consequences</li>
+            </ul>
+          </div>
+
+          <div className="pt-4 border-t">
+            <div className="flex items-start gap-3">
               <Checkbox 
                 id="agreement" 
                 checked={agreement}

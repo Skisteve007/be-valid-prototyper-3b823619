@@ -494,7 +494,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         <div className="space-y-4">
           <Label>Choose your status color (appears as a glow around your QR code)</Label>
           <p className="text-sm text-foreground/70 italic font-medium">
-            💡 Tip: Choose Gray Incognito Mode for event entries. Only Gray mode activates automatic screen brightening on mobile devices for easy reading in dark environments.
+            💡 Tip: Choose Gray Incognito Mode for event entries. Only Gray mode activates automatic screen brightening on mobile devices for easy reading in dark environments. Incognito mode only shares name and email for event scanning purposes.
           </p>
           <div className="grid grid-cols-4 gap-3">
             <button

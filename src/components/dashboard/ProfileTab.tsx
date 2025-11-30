@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -52,7 +52,6 @@ interface ProfileFormData {
 const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [autoSaving, setAutoSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
@@ -72,9 +71,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [initialReferenceIds, setInitialReferenceIds] = useState<string[]>(["", "", ""]);
   const [initialEmailShareable, setInitialEmailShareable] = useState(false);
   const [initialReferencesLocked, setInitialReferencesLocked] = useState(true);
-
-  // Autosave timer ref
-  const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const { register, handleSubmit, setValue, watch, getValues, formState, reset } = useForm<ProfileFormData>({
     defaultValues: {
@@ -337,19 +333,13 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     }
   };
 
-  const performSave = async (data: ProfileFormData, isAutoSave = false) => {
+  const performSave = async (data: ProfileFormData) => {
     if (!profileImageUrl) {
-      if (!isAutoSave) {
-        toast.error("Profile photo is required");
-      }
+      toast.error("Profile photo is required");
       return;
     }
 
-    if (isAutoSave) {
-      setAutoSaving(true);
-    } else {
-      setSaving(true);
-    }
+    setSaving(true);
 
     try {
       const birthday = data.birthday_year && data.birthday_month && data.birthday_day
@@ -389,10 +379,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
 
       if (error) throw error;
 
-      if (isAutoSave) {
-        console.log("Auto-saved profile data");
-      }
-
       // Save reference relationships
       const validReferences = referenceProfiles.filter(p => p !== null) as Array<{id: string, user_id: string, full_name: string, member_id: string, verified?: boolean}>;
       
@@ -421,9 +407,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         }
       }
 
-      if (!isAutoSave) {
-        toast.success("Profile updated successfully");
-      }
+      toast.success("Profile updated successfully");
       
       // Reset initial values for change detection
       setInitialProfileImageUrl(profileImageUrl);
@@ -433,17 +417,15 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       setInitialEmailShareable(emailShareable);
       setInitialReferencesLocked(referencesLocked);
       
-      if (!isAutoSave) {
-        // Show success state
-        setSaveSuccess(true);
-        console.log("Save successful, showing green button");
-        
-        // Reset success state after 2 seconds
-        setTimeout(() => {
-          setSaveSuccess(false);
-          console.log("Resetting save success state");
-        }, 2000);
-      }
+      // Show success state
+      setSaveSuccess(true);
+      console.log("Save successful, showing green button");
+      
+      // Reset success state after 2 seconds
+      setTimeout(() => {
+        setSaveSuccess(false);
+        console.log("Resetting save success state");
+      }, 2000);
       
       // Notify parent component to refresh QR code
       if (onUpdate) {
@@ -456,55 +438,16 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         reset(undefined, { keepValues: true });
       }, 100);
     } catch (error: any) {
-      if (!isAutoSave) {
-        toast.error(error.message || "Failed to update profile");
-      }
+      toast.error(error.message || "Failed to update profile");
       console.error("Save error:", error);
     } finally {
-      if (isAutoSave) {
-        setAutoSaving(false);
-      } else {
-        setSaving(false);
-      }
+      setSaving(false);
     }
   };
 
   const onSubmit = async (data: ProfileFormData) => {
-    await performSave(data, false);
+    await performSave(data);
   };
-
-  // Debounced autosave function
-  const triggerAutoSave = useCallback(() => {
-    if (autoSaveTimerRef.current) {
-      clearTimeout(autoSaveTimerRef.current);
-    }
-
-    autoSaveTimerRef.current = setTimeout(async () => {
-      const data = getValues();
-      await performSave(data, true);
-    }, 2000); // 2 second debounce
-  }, [getValues, performSave]);
-
-  // Watch for changes and trigger autosave
-  useEffect(() => {
-    if (loading) return;
-    
-    if (hasChanges && profileImageUrl) {
-      console.log("Changes detected, triggering autosave...");
-      triggerAutoSave();
-    }
-
-    return () => {
-      if (autoSaveTimerRef.current) {
-        clearTimeout(autoSaveTimerRef.current);
-      }
-    };
-  }, [
-    hasChanges,
-    profileImageUrl,
-    triggerAutoSave,
-    loading
-  ]);
 
   if (loading) {
     return (
@@ -801,14 +744,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         )}
       </div>
 
-      {/* Floating Save Button and Autosave Status */}
+      {/* Floating Save Button */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-        {autoSaving && (
-          <div className="bg-blue-600/90 text-white text-sm px-4 py-2 rounded-lg shadow-lg flex items-center gap-2">
-            <Loader2 className="h-3 w-3 animate-spin" />
-            Auto-saving...
-          </div>
-        )}
         {!profileImageUrl ? (
           <div className="text-right">
             <p className="text-sm text-red-500 font-semibold mb-2 bg-red-50 dark:bg-red-950/30 px-4 py-2 rounded-lg border border-red-500">

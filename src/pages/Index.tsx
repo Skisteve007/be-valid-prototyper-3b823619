@@ -654,7 +654,7 @@ const Index = () => {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={200}>
-              <Accordion type="single" collapsible className="w-full space-y-4">
+              <Accordion type="single" collapsible className="w-full space-y-2">
                 <AccordionItem value="item-1" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">

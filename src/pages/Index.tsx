@@ -92,43 +92,54 @@ const Index = () => {
               Confidently share verified health status information for mutual safety and informed intimacy.
             </p>
             
-            {/* Featured Sponsors */}
-            {sponsors.slice(0, 3).length > 0 && (
-              <div className="mt-12">
-                <div className="flex flex-wrap justify-center items-center gap-12">
-                  {sponsors.slice(0, 3).map((sponsor) => (
-                    <div key={sponsor.id} className="flex items-center justify-center">
-                      {sponsor.logo_url ? (
+            {/* Featured Sponsors - Always show 3 slots */}
+            <div className="mt-12">
+              <p className="text-sm text-muted-foreground mb-6">Trusted Community Sponsors</p>
+              <div className="flex flex-wrap justify-center items-center gap-12">
+                {[0, 1, 2].map((index) => {
+                  const sponsor = sponsors[index];
+                  return (
+                    <div key={index} className="flex items-center justify-center">
+                      {sponsor?.logo_url ? (
                         sponsor.website_url ? (
                           <a 
                             href={sponsor.website_url} 
                             target="_blank" 
                             rel="noopener noreferrer"
                             onClick={() => handleSponsorClick(sponsor.id)}
+                            className="transform transition-transform hover:scale-110"
                           >
                             <img 
                               src={sponsor.logo_url} 
                               alt={sponsor.name} 
-                              className={`${getSponsorSize(sponsor.tier)} w-auto hover:scale-110 transition-transform duration-300 filter drop-shadow-lg`}
+                              className={`${getSponsorSize(sponsor.tier || 'silver')} w-auto filter drop-shadow-2xl`}
                             />
                           </a>
                         ) : (
                           <img 
                             src={sponsor.logo_url} 
                             alt={sponsor.name} 
-                            className={`${getSponsorSize(sponsor.tier)} w-auto filter drop-shadow-lg`}
+                            className={`${getSponsorSize(sponsor.tier || 'silver')} w-auto filter drop-shadow-2xl`}
                           />
                         )
                       ) : (
-                        <div className={`w-32 ${getSponsorSize(sponsor.tier)} bg-muted/50 border-2 border-dashed border-muted-foreground/30 rounded-lg flex items-center justify-center`}>
-                          <span className="text-xs text-muted-foreground">{sponsor.name}</span>
+                        <div className="w-48 h-20 bg-muted/40 border-2 border-dashed border-primary/30 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary/60 transition-colors">
+                          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                            <span className="text-2xl">🏢</span>
+                          </div>
+                          <span className="text-xs font-medium text-muted-foreground">Sponsor Slot {index + 1}</span>
                         </div>
                       )}
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            )}
+              {sponsors.length === 0 && (
+                <p className="text-xs text-muted-foreground mt-4 text-center">
+                  Sponsor logos managed by administrators
+                </p>
+              )}
+            </div>
           </div>
         </section>
 

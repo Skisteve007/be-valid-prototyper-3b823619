@@ -92,52 +92,69 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-6 relative">
-          <div className="flex justify-center items-center">
-            <div className="relative">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            {/* Logo on the left */}
+            <div className="relative flex-shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative h-28 w-auto" />
+              <img src={logo} alt="Clean Check" className="relative h-20 w-auto" />
+            </div>
+
+            {/* Tagline in the middle */}
+            <div className="hidden lg:flex flex-1 justify-center px-8">
+              <p className="text-lg font-semibold text-center bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                Confidently share verified health status information for mutual safety and informed intimacy
+              </p>
+            </div>
+
+            {/* Buttons on the right */}
+            <div className="flex flex-col md:flex-row gap-2 items-end flex-shrink-0">
+              <Button 
+                onClick={() => navigate("/auth?mode=login")}
+                className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-base"
+              >
+                <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
+                Member Log In
+              </Button>
+              <div className="flex gap-2">
+                <Button 
+                  variant="ghost" 
+                  onClick={() => {
+                    if (session) {
+                      navigate("/dashboard?tab=qrcode");
+                    } else {
+                      navigate("/auth");
+                    }
+                  }}
+                  className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
+                >
+                  <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
+                  QR Code
+                </Button>
+                <Button 
+                  onClick={() => {
+                    console.log("Profile button clicked, session:", session);
+                    if (session) {
+                      navigate("/dashboard");
+                    } else {
+                      navigate("/auth");
+                    }
+                  }}
+                  className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15"
+                >
+                  <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>
+                  Profile
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col md:flex-row gap-2 items-end">
-            <Button 
-              onClick={() => navigate("/auth?mode=login")}
-              className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-base"
-            >
-              <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
-              Member Log In
-            </Button>
-            <div className="flex gap-2">
-              <Button 
-                variant="ghost" 
-                onClick={() => {
-                  if (session) {
-                    navigate("/dashboard?tab=qrcode");
-                  } else {
-                    navigate("/auth");
-                  }
-                }}
-                className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
-              >
-                <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
-                QR Code
-              </Button>
-              <Button 
-                onClick={() => {
-                  console.log("Profile button clicked, session:", session);
-                  if (session) {
-                    navigate("/dashboard");
-                  } else {
-                    navigate("/auth");
-                  }
-                }}
-                className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15"
-              >
-                <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>
-                Profile
-              </Button>
-            </div>
+          
+          {/* Mobile tagline below */}
+          <div className="lg:hidden mt-4 text-center">
+            <p className="text-sm font-semibold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent">
+              Confidently share verified health status information for mutual safety and informed intimacy
+            </p>
           </div>
         </div>
       </header>

@@ -150,6 +150,7 @@ export const PersonalInfoSection = ({
             <SelectItem value="Single">Single</SelectItem>
             <SelectItem value="In a Relationship">In a Relationship</SelectItem>
             <SelectItem value="Married">Married</SelectItem>
+            <SelectItem value="Open Relationship">Open Relationship</SelectItem>
             <SelectItem value="It's Complicated">It's Complicated</SelectItem>
           </SelectContent>
         </Select>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,11 +16,21 @@ import logo from "@/assets/clean-check-logo.png";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [qrRefreshKey, setQrRefreshKey] = useState(0);
+  const [activeTab, setActiveTab] = useState("profile");
   const { isAdmin } = useIsAdmin();
+
+  // Check if tab parameter is in URL
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -82,6 +92,13 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
+            <Button 
+              onClick={() => setActiveTab("qrcode")}
+              className="bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg shadow-green-500/50 animate-pulse"
+            >
+              <QrCode className="h-4 w-4 mr-2" />
+              QR Code
+            </Button>
             {isAdmin && (
               <Button 
                 onClick={() => navigate("/admin")} 
@@ -110,7 +127,7 @@ const Dashboard = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="profile" className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-blue-500/40 blur-3xl rounded-lg"></div>
                 <div className="absolute inset-0 bg-blue-400/30 blur-2xl rounded-lg animate-pulse"></div>

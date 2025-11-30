@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const PricingSection = () => {
   return (
@@ -13,6 +13,7 @@ export const PricingSection = () => {
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
               <CardTitle className="text-2xl text-center">Single Monthly</CardTitle>
+              <CardDescription className="text-center">Perfect for individual members</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-4xl font-bold text-primary text-center">$29.00 / Month</div>
@@ -35,6 +36,7 @@ export const PricingSection = () => {
           <Card className="shadow-lg hover:shadow-xl transition-shadow border-primary">
             <CardHeader>
               <CardTitle className="text-2xl text-center">Couple Monthly</CardTitle>
+              <CardDescription className="text-center">Great for couples</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-4xl font-bold text-primary text-center">$49.00 / Month</div>
@@ -66,6 +68,7 @@ export const PricingSection = () => {
           <Card className="shadow-lg hover:shadow-xl transition-shadow border-green-500">
             <CardHeader>
               <CardTitle className="text-2xl text-center">Single 6-Month Pass</CardTitle>
+              <CardDescription className="text-center">6 months of access - pay once</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-4xl font-bold text-primary text-center">$129.00</div>
@@ -86,6 +89,7 @@ export const PricingSection = () => {
           <Card className="shadow-lg hover:shadow-xl transition-shadow border-green-500">
             <CardHeader>
               <CardTitle className="text-2xl text-center">Couple 6-Month Pass</CardTitle>
+              <CardDescription className="text-center">6 months for two - pay once</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-4xl font-bold text-primary text-center">$219.00</div>

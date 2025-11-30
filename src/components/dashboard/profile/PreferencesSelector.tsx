@@ -28,12 +28,12 @@ const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
   {
     id: "sensory_preferences",
     title: "Sensory Preferences",
-    items: ["Light Touch", "Firm Touch", "Roleplay", "Costumes", "Blindfolds"],
+    items: ["Light Touch", "Firm Touch", "Roleplay", "Costumes", "Blindfolds", "All"],
   },
   {
     id: "specific_activities",
     title: "Specific Activities",
-    items: ["Group Activities", "Threesomes", "Outdoor", "Indoor", "Experimental"],
+    items: ["Group Activities", "Threesomes", "Experimental"],
   },
 ];
 

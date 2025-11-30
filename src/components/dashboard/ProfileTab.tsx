@@ -88,6 +88,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const covidVaccinated = watch("covid_vaccinated");
   const circumcised = watch("circumcised");
   const smoker = watch("smoker");
+  const fullName = watch("full_name");
+  const email = watch("email");
+  const whereFrom = watch("where_from");
+  const currentHomeCity = watch("current_home_city");
+  const relationshipStatus = watch("relationship_status");
   
   // Detect if any changes have been made
   const hasChanges = 
@@ -496,6 +501,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         profileImageUrl={profileImageUrl}
         uploadingImage={uploadingImage}
         handleImageUpload={handleImageUpload}
+        fullName={fullName}
+        email={email}
+        whereFrom={whereFrom}
+        currentHomeCity={currentHomeCity}
+        relationshipStatus={relationshipStatus}
       />
 
       <div className="relative py-4">

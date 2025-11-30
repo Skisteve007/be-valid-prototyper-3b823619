@@ -588,13 +588,13 @@ const Auth = () => {
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 bg-primary/10 rounded-lg">
-                      <Lock className="h-6 w-6 text-primary" />
+                      <Zap className="h-6 w-6 text-primary" />
                     </div>
-                    <CardTitle>🔒 Private & Secure</CardTitle>
+                    <CardTitle>⚡ Instant - No Awkward Conversations</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">Your data encrypted and protected</p>
+                  <p className="text-muted-foreground">Quick reveal through your unique QR code</p>
                 </CardContent>
               </Card>
 
@@ -644,13 +644,13 @@ const Auth = () => {
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 bg-primary/10 rounded-lg">
-                      <Zap className="h-6 w-6 text-primary" />
+                      <Lock className="h-6 w-6 text-primary" />
                     </div>
-                    <CardTitle>⚡ Instant - No Awkward Conversations</CardTitle>
+                    <CardTitle>🔒 Private & Secure</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">Quick reveal through your unique QR code</p>
+                  <p className="text-muted-foreground">Your data encrypted and protected</p>
                 </CardContent>
               </Card>
             </div>

@@ -88,9 +88,9 @@ const Dashboard = () => {
           <CardContent>
             <Tabs defaultValue="profile" className="w-full">
               <div className="relative mb-6">
-                <div className="absolute inset-0 bg-green-500/40 blur-3xl rounded-lg"></div>
-                <div className="absolute inset-0 bg-green-400/30 blur-2xl rounded-lg animate-pulse"></div>
-                <TabsList className="relative grid w-full grid-cols-4 bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-green-500/50 shadow-2xl shadow-green-500/40 ring-2 ring-green-400/30">
+                <div className="absolute inset-0 bg-blue-500/40 blur-3xl rounded-lg"></div>
+                <div className="absolute inset-0 bg-blue-400/30 blur-2xl rounded-lg animate-pulse"></div>
+                <TabsList className="relative grid w-full grid-cols-4 bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-blue-500/50 shadow-2xl shadow-blue-500/40 ring-2 ring-blue-400/30">
                   <TabsTrigger 
                     value="profile" 
                     className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-lg hover:shadow-green-500/30"

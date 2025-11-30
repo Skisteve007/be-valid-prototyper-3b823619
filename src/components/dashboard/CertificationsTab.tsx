@@ -426,9 +426,6 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Badge variant={cert.status === "approved" ? "default" : "secondary"}>
-                      {cert.status}
-                    </Badge>
                     {cert.document_url && (
                       <Button
                         size="sm"
@@ -448,7 +445,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                       variant="destructive"
                       onClick={() => handleDeleteDocument(cert.id, cert.document_url)}
                       disabled={deletingId === cert.id}
-                      className="flex items-center gap-1"
+                      className="flex items-center gap-1 h-7 text-xs"
                     >
                       {deletingId === cert.id ? (
                         <Loader2 className="h-3 w-3 animate-spin" />

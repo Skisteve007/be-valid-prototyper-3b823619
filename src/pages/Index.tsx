@@ -359,6 +359,30 @@ const Index = () => {
           </section>
         )}
 
+        {/* Member Login Quick Access */}
+        <section className="py-12 px-4">
+          <div className="container mx-auto max-w-md">
+            <ScrollReveal direction="up" delay={50}>
+              <div className="text-center">
+                <h3 className="text-xl font-semibold mb-6 bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">
+                  Already a Member?
+                </h3>
+                <Button 
+                  onClick={() => navigate("/auth?mode=login")}
+                  size="lg"
+                  className="w-full max-w-xs relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-lg py-6"
+                >
+                  <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
+                  Member Log In
+                </Button>
+                <p className="text-sm text-muted-foreground mt-4">
+                  Access your profile, QR code, and documents
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* Membership Section */}
         <section className="pt-4 pb-16 px-4">
           <div className="container mx-auto max-w-4xl">

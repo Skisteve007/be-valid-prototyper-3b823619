@@ -68,7 +68,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [initialSelectedInterests, setInitialSelectedInterests] = useState<string[]>([]);
   const [initialReferenceIds, setInitialReferenceIds] = useState<string[]>(["", "", ""]);
 
-  const { register, handleSubmit, setValue, watch, formState } = useForm<ProfileFormData>({
+  const { register, handleSubmit, setValue, watch, formState, reset } = useForm<ProfileFormData>({
     defaultValues: {
       partner_preferences: [],
       covid_vaccinated: false,
@@ -167,6 +167,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setInitialStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
         setInitialSelectedInterests((data.selected_interests as string[]) || []);
         setInitialReferenceIds(refs);
+        
+        // Reset form state to mark as not dirty after loading
+        setTimeout(() => {
+          reset(undefined, { keepValues: true });
+        }, 0);
       }
     } catch (error: any) {
       toast.error("Failed to load profile");
@@ -378,6 +383,9 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       setInitialStatusColor(statusColor);
       setInitialSelectedInterests([...selectedInterests]);
       setInitialReferenceIds([...referenceIds]);
+      
+      // Reset form state to mark as not dirty after save
+      reset(undefined, { keepValues: true });
       
       // Show success state
       setSaveSuccess(true);

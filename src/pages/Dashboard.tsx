@@ -84,20 +84,23 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="profile" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="profile">
-                  <UserIcon className="h-4 w-4 mr-2" />
-                  Profile
-                </TabsTrigger>
-                <TabsTrigger value="certifications">
-                  <Award className="h-4 w-4 mr-2" />
-                  Documents
-                </TabsTrigger>
-                <TabsTrigger value="qrcode">
-                  <QrCode className="h-4 w-4 mr-2" />
-                  QR Code
-                </TabsTrigger>
-              </TabsList>
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-green-500/20 blur-2xl rounded-lg"></div>
+                <TabsList className="relative grid w-full grid-cols-3 bg-background/80 backdrop-blur-sm border-2 border-green-500/30 shadow-lg shadow-green-500/20">
+                  <TabsTrigger value="profile">
+                    <UserIcon className="h-4 w-4 mr-2" />
+                    Profile
+                  </TabsTrigger>
+                  <TabsTrigger value="certifications">
+                    <Award className="h-4 w-4 mr-2" />
+                    Documents
+                  </TabsTrigger>
+                  <TabsTrigger value="qrcode">
+                    <QrCode className="h-4 w-4 mr-2" />
+                    QR Code
+                  </TabsTrigger>
+                </TabsList>
+              </div>
               
               <TabsContent value="profile">
                 <ProfileTab userId={user.id} />

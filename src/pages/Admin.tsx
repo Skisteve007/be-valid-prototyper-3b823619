@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/clean-check-logo.png";
+import StorageSponsorManager from "@/components/admin/StorageSponsorManager";
 import {
   DndContext,
   closestCenter,
@@ -484,7 +485,9 @@ const Admin = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 space-y-8">
+        <StorageSponsorManager />
+        
         <Card>
           <CardHeader>
             <div className="flex justify-between items-center">

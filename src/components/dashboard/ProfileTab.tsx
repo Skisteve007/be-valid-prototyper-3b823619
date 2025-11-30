@@ -10,6 +10,7 @@ import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
+import { InterestsSelector } from "./profile/InterestsSelector";
 
 interface ProfileTabProps {
   userId: string;
@@ -50,6 +51,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
   const [userInterests, setUserInterests] = useState<Record<string, string[]>>({});
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
   const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
     defaultValues: {
@@ -117,6 +119,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         
         setProfileImageUrl(data.profile_image_url || "");
         setUserInterests((data.user_interests as Record<string, string[]>) || {});
+        setSelectedInterests((data.selected_interests as string[]) || []);
       }
     } catch (error: any) {
       toast.error("Failed to load profile");
@@ -191,6 +194,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
           user_references: data.user_references,
           sexual_preferences: data.sexual_preferences,
           user_interests: userInterests,
+          selected_interests: selectedInterests,
         })
         .eq("user_id", userId);
 
@@ -237,6 +241,11 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       <PreferencesSelector
         selectedPreferences={userInterests}
         onPreferencesChange={setUserInterests}
+      />
+
+      <InterestsSelector
+        selectedInterests={selectedInterests}
+        onInterestsChange={setSelectedInterests}
       />
 
       <div className="space-y-6">

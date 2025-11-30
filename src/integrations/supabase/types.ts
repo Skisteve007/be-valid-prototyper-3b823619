@@ -53,6 +53,27 @@ export type Database = {
         }
         Relationships: []
       }
+      interest_tags: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          label: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          label: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          label?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           birthday: string | null
@@ -78,6 +99,7 @@ export type Database = {
           profile_image_url: string | null
           qr_code_url: string | null
           relationship_status: string | null
+          selected_interests: string[] | null
           sexual_orientation: string | null
           sexual_preferences: string | null
           smoker: boolean | null
@@ -115,6 +137,7 @@ export type Database = {
           profile_image_url?: string | null
           qr_code_url?: string | null
           relationship_status?: string | null
+          selected_interests?: string[] | null
           sexual_orientation?: string | null
           sexual_preferences?: string | null
           smoker?: boolean | null
@@ -152,6 +175,7 @@ export type Database = {
           profile_image_url?: string | null
           qr_code_url?: string | null
           relationship_status?: string | null
+          selected_interests?: string[] | null
           sexual_orientation?: string | null
           sexual_preferences?: string | null
           smoker?: boolean | null

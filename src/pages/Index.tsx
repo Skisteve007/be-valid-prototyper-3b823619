@@ -654,75 +654,107 @@ const Index = () => {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={200}>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className="text-left">
-                    How does Clean Check membership work?
+              <Accordion type="single" collapsible className="w-full space-y-4">
+                <AccordionItem value="item-1" className="border-none">
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
+                      <p className="text-base font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">
+                        How does Clean Check membership work?
+                      </p>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-muted-foreground pt-4 px-2">
                     After signing up and completing payment, you'll receive instant account activation. Upload your health documents to your profile, and your unique QR code will be generated automatically. This QR code can be shared with partners to show your verified health status.
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem value="item-2">
-                  <AccordionTrigger className="text-left">
-                    What's included in the membership?
+                <AccordionItem value="item-2" className="border-none">
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
+                      <p className="text-base font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                        What's included in the membership?
+                      </p>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-muted-foreground pt-4 px-2">
                     Your membership includes: instant account activation, personalized QR code, secure health document storage, member profile with privacy controls, universal access across all partner sites using Clean Check services, and premium features including photo galleries and member secrets.
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem value="item-3">
-                  <AccordionTrigger className="text-left">
-                    Is my health information secure and private?
+                <AccordionItem value="item-3" className="border-none">
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
+                      <p className="text-base font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-purple-500 bg-clip-text text-transparent">
+                        Is my health information secure and private?
+                      </p>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-muted-foreground pt-4 px-2">
                     Absolutely. All your data is encrypted and protected with industry-standard security. You control who sees your information through your QR code. We never share your personal health information without your explicit consent.
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem value="item-4">
-                  <AccordionTrigger className="text-left">
-                    How do I cancel my membership?
+                <AccordionItem value="item-4" className="border-none">
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
+                      <p className="text-base font-bold bg-gradient-to-r from-purple-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                        How do I cancel my membership?
+                      </p>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-muted-foreground pt-4 px-2">
                     You can cancel anytime through your PayPal account by going to Settings → Payments → Manage automatic payments → Cancel Clean Check subscription. Your membership will remain active until the end of your current billing period.
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem value="item-5">
-                  <AccordionTrigger className="text-left">
-                    What's the difference between Single and Joint/Couple memberships?
+                <AccordionItem value="item-5" className="border-none">
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
+                      <p className="text-base font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-pink-500 bg-clip-text text-transparent">
+                        What's the difference between Single and Joint/Couple memberships?
+                      </p>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-muted-foreground pt-4 px-2">
                     Single membership ($29/month) is for one person with their own profile and QR code. Joint/Couple membership ($49/month) provides two linked profiles with separate QR codes, perfect for couples who want to maintain their health transparency together.
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem value="item-6">
-                  <AccordionTrigger className="text-left">
-                    Can I use Clean Check on multiple sites?
+                <AccordionItem value="item-6" className="border-none">
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
+                      <p className="text-base font-bold bg-gradient-to-r from-pink-500 via-pink-500 to-pink-600 bg-clip-text text-transparent">
+                        Can I use Clean Check on multiple sites?
+                      </p>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-muted-foreground pt-4 px-2">
                     Yes! Your Clean Check membership is universal and works across all partner sites that employ Clean Check services. One membership gives you verified access everywhere.
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem value="item-7">
-                  <AccordionTrigger className="text-left">
-                    What if I need to update my health documents?
+                <AccordionItem value="item-7" className="border-none">
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
+                      <p className="text-base font-bold bg-gradient-to-r from-pink-600 via-pink-600 to-pink-600 bg-clip-text text-transparent">
+                        What if I need to update my health documents?
+                      </p>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-muted-foreground pt-4 px-2">
                     You can update your health documents anytime through your dashboard. Your QR code automatically reflects the age of your documents with color-coded indicators: green (1-60 days), yellow (61-120 days), and red (121+ days).
                   </AccordionContent>
                 </AccordionItem>
 
-                <AccordionItem value="item-8">
-                  <AccordionTrigger className="text-left">
-                    Are there any refunds?
+                <AccordionItem value="item-8" className="border-none">
+                  <AccordionTrigger className="text-left hover:no-underline">
+                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
+                      <p className="text-base font-bold bg-gradient-to-r from-pink-600 via-pink-700 to-pink-600 bg-clip-text text-transparent">
+                        Are there any refunds?
+                      </p>
+                    </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-muted-foreground pt-4 px-2">
                     All membership contributions are non-refundable and final once processed. This is a digital subscription service, and no refunds are provided after your QR code is generated.
                   </AccordionContent>
                 </AccordionItem>

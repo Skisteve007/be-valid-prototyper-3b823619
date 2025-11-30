@@ -33,7 +33,7 @@ const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
   {
     id: "specific_activities",
     title: "Specific Activities",
-    items: ["Group Activities", "Threesomes", "Experimental"],
+    items: ["Group Activities", "Threesomes", "Multiple Men Only", "Multiple Women Only", "Experimental"],
   },
 ];
 

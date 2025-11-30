@@ -31,6 +31,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
   const loadProfileAndDocuments = async () => {
     try {
+      console.log("QRCodeTab: Loading profile and documents");
       // Load profile to get status color and ID
       const { data: profileData } = await supabase
         .from("profiles")
@@ -39,6 +40,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         .single();
       
       if (profileData) {
+        console.log("QRCodeTab: Loaded status color:", profileData.status_color);
         setStatusColor((profileData.status_color as "green" | "yellow" | "red" | "gray") || "green");
         setProfileId(profileData.id);
         

@@ -53,6 +53,7 @@ const Dashboard = () => {
 
   const handleProfileUpdate = () => {
     // Increment the key to force QR Code tab to refresh
+    console.log("Dashboard: Refreshing QR code tab");
     setQrRefreshKey(prev => prev + 1);
   };
 

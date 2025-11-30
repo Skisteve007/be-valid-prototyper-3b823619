@@ -245,40 +245,38 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
         </div>
       )}
 
-      {certifications.length > 0 && (
-        <div className="space-y-4 mt-6">
-          <div className="space-y-4 p-4 bg-muted rounded-lg">
-            <p className="text-sm">
-              By checking this box, I certify that all information provided is accurate and I understand that 
-              Clean Check is a platform for sharing health information. I take full responsibility for the 
-              accuracy of my information and understand the importance of maintaining up-to-date health records.
-            </p>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                checked={disclaimerAccepted}
-                onCheckedChange={(checked) => setDisclaimerAccepted(checked === true)}
-                required
-              />
-              <Label className="cursor-pointer">I accept the disclaimer and certify all information is accurate *</Label>
-            </div>
+      <div className="space-y-4 mt-6">
+        <div className="space-y-4 p-4 bg-muted rounded-lg">
+          <p className="text-sm">
+            By checking this box, I certify that all information provided is accurate and I understand that 
+            Clean Check is a platform for sharing health information. I take full responsibility for the 
+            accuracy of my information and understand the importance of maintaining up-to-date health records.
+          </p>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              checked={disclaimerAccepted}
+              onCheckedChange={(checked) => setDisclaimerAccepted(checked === true)}
+              required
+            />
+            <Label className="cursor-pointer">I accept the disclaimer and certify all information is accurate *</Label>
           </div>
-
-          <Button 
-            onClick={handleComplete} 
-            disabled={saving || !disclaimerAccepted || certifications.length === 0}
-            className="w-full"
-          >
-            {saving ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Saving...
-              </>
-            ) : (
-              "Save & Close"
-            )}
-          </Button>
         </div>
-      )}
+
+        <Button 
+          onClick={handleComplete} 
+          disabled={saving || !disclaimerAccepted || certifications.length === 0}
+          className="w-full"
+        >
+          {saving ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            "Save & Close"
+          )}
+        </Button>
+      </div>
     </div>
   );
 };

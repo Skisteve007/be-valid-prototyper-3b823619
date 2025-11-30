@@ -180,9 +180,9 @@ const Index = () => {
             
             {/* Featured Sponsors - Always show 3 slots */}
             <ScrollReveal direction="up" delay={400}>
-              <div className="mt-12">
-                <p className="text-sm text-muted-foreground mb-6">Trusted Community Sponsors</p>
-                <div className="flex flex-wrap justify-center items-center gap-12">
+              <div className="mt-16">
+                <p className="text-base text-muted-foreground mb-8 font-semibold">Trusted Community Sponsors</p>
+                <div className="flex flex-wrap justify-center items-center gap-16">
                 {[0, 1, 2].map((index) => {
                   const sponsor = sponsors[index];
                   return (
@@ -199,22 +199,22 @@ const Index = () => {
                             <img 
                               src={sponsor.logo_url} 
                               alt={sponsor.name} 
-                              className={`${getSponsorSize(sponsor.tier || 'silver')} w-auto filter drop-shadow-2xl`}
+                              className="h-28 w-auto filter drop-shadow-2xl"
                             />
                           </a>
                         ) : (
                           <img 
                             src={sponsor.logo_url} 
                             alt={sponsor.name} 
-                            className={`${getSponsorSize(sponsor.tier || 'silver')} w-auto filter drop-shadow-2xl`}
+                            className="h-28 w-auto filter drop-shadow-2xl"
                           />
                         )
                       ) : (
-                        <div className="w-48 h-20 bg-muted/40 border-2 border-dashed border-primary/30 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary/60 transition-colors">
-                          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                            <span className="text-2xl">🏢</span>
+                        <div className="w-64 h-28 bg-muted/40 border-2 border-dashed border-primary/30 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary/60 transition-colors">
+                          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                            <span className="text-3xl">🏢</span>
                           </div>
-                          <span className="text-xs font-medium text-muted-foreground">Sponsor Slot {index + 1}</span>
+                          <span className="text-sm font-medium text-muted-foreground">Sponsor Slot {index + 1}</span>
                         </div>
                       )}
                     </div>

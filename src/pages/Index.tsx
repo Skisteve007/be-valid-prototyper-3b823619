@@ -100,35 +100,44 @@ const Index = () => {
               <img src={logo} alt="Clean Check" className="relative h-28 w-auto" />
             </div>
           </div>
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col md:flex-row gap-2 items-end">
             <Button 
-              variant="ghost" 
-              onClick={() => {
-                if (session) {
-                  navigate("/dashboard?tab=qrcode");
-                } else {
-                  navigate("/auth");
-                }
-              }}
-              className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
+              onClick={() => navigate("/auth?mode=login")}
+              className="relative shadow-[0_0_30px_rgba(147,51,234,0.7)] hover:shadow-[0_0_40px_rgba(147,51,234,0.9)] border-2 border-purple-600/60 bg-purple-600/15 text-white font-bold text-base"
             >
-              <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
-              QR Code
+              <div className="absolute inset-0 bg-purple-600/25 blur-lg rounded-md -z-10"></div>
+              Member Log In
             </Button>
-            <Button 
-              onClick={() => {
-                console.log("Profile button clicked, session:", session);
-                if (session) {
-                  navigate("/dashboard");
-                } else {
-                  navigate("/auth");
-                }
-              }}
-              className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15"
-            >
-              <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>
-              Profile
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant="ghost" 
+                onClick={() => {
+                  if (session) {
+                    navigate("/dashboard?tab=qrcode");
+                  } else {
+                    navigate("/auth");
+                  }
+                }}
+                className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
+              >
+                <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
+                QR Code
+              </Button>
+              <Button 
+                onClick={() => {
+                  console.log("Profile button clicked, session:", session);
+                  if (session) {
+                    navigate("/dashboard");
+                  } else {
+                    navigate("/auth");
+                  }
+                }}
+                className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15"
+              >
+                <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>
+                Profile
+              </Button>
+            </div>
           </div>
         </div>
       </header>

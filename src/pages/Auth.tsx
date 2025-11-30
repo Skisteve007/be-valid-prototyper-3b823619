@@ -19,6 +19,8 @@ import Footer from "@/components/Footer";
 const Auth = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const mode = searchParams.get("mode") || "signup";
   const [loading, setLoading] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<"single" | "couple">(
     location.state?.selectedPlan || "single"
@@ -26,6 +28,8 @@ const Auth = () => {
   const [signupFullName, setSignupFullName] = useState(location.state?.fullName || "");
   const [signupEmail, setSignupEmail] = useState(location.state?.email || "");
   const [signupPassword, setSignupPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const [biometricAvailable, setBiometricAvailable] = useState(false);
   const [enableBiometric, setEnableBiometric] = useState(false);
   const [sponsors, setSponsors] = useState<Array<{ id: string; name: string; logo_url: string | null; website_url: string | null; tier: string; section: number }>>([]);
@@ -67,12 +71,64 @@ const Auth = () => {
   };
 
 
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: loginEmail,
+        password: loginPassword,
+      });
+
+      if (error) throw error;
+
+      toast.success("Welcome back!");
+      navigate("/dashboard");
+    } catch (error: any) {
+      toast.error(error.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBiometricLogin = async () => {
+    try {
+      const credentials = await getStoredCredentials();
+      if (!credentials) {
+        toast.error("No saved credentials. Please log in with email/password first.");
+        return;
+      }
+
+      const authenticated = await authenticateWithBiometric();
+      if (!authenticated) {
+        toast.error("Biometric authentication failed");
+        return;
+      }
+
+      setLoading(true);
+      const { error } = await supabase.auth.signInWithPassword({
+        email: credentials.email,
+        password: credentials.password,
+      });
+
+      if (error) throw error;
+
+      toast.success("Welcome back!");
+      navigate("/dashboard");
+    } catch (error: any) {
+      toast.error(error.message || "Biometric login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { data, error} = await supabase.auth.signUp({
         email: signupEmail,
         password: signupPassword,
         options: {
@@ -155,13 +211,88 @@ const Auth = () => {
         <section className="py-12 px-4 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto text-center max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Complete Your Membership
+              {mode === "login" ? "Member Login" : "Complete Your Membership"}
             </h1>
             <p className="text-lg text-muted-foreground">
-              Confidently share verified health status information for mutual safety and informed intimacy.
+              {mode === "login" 
+                ? "Welcome back! Access your profile and QR code" 
+                : "Confidently share verified health status information for mutual safety and informed intimacy."}
             </p>
           </div>
         </section>
+
+        {/* Login Section - Only show when mode=login */}
+        {mode === "login" && (
+          <section className="py-16 px-4">
+            <div className="container mx-auto max-w-md">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl">Welcome Back</CardTitle>
+                  <CardDescription>Log in to access your member dashboard</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleLogin} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="login-email">Email Address</Label>
+                      <Input 
+                        id="login-email"
+                        type="email"
+                        placeholder="your.email@example.com"
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="login-password">Password</Label>
+                      <Input 
+                        id="login-password"
+                        type="password"
+                        placeholder="Enter your password"
+                        value={loginPassword}
+                        onChange={(e) => setLoginPassword(e.target.value)}
+                        required
+                      />
+                    </div>
+                    
+                    <Button 
+                      size="lg" 
+                      className="w-full" 
+                      type="submit"
+                      disabled={loading}
+                    >
+                      {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+
+                    {biometricAvailable && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="lg"
+                        className="w-full"
+                        onClick={handleBiometricLogin}
+                        disabled={loading}
+                      >
+                        <Fingerprint className="mr-2 h-5 w-5" />
+                        Login with Biometric
+                      </Button>
+                    )}
+
+                    <div className="text-center pt-4">
+                      <Button 
+                        type="button" 
+                        variant="link" 
+                        onClick={() => navigate("/auth")}
+                      >
+                        New member? Sign up here
+                      </Button>
+                    </div>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        )}
 
         {/* Sponsors Sections */}
         {sponsors.length > 0 && (
@@ -276,7 +407,8 @@ const Auth = () => {
           </section>
         )}
 
-        {/* Membership Section */}
+        {/* Membership Section - Only show when mode=signup */}
+        {mode !== "login" && (
         <section className="py-16 px-4">
           <div className="container mx-auto max-w-4xl">
             <div className="text-center mb-12">
@@ -420,6 +552,7 @@ const Auth = () => {
             </Card>
           </div>
         </section>
+        )}
 
         {/* Benefits Section */}
         <section className="py-16 px-4 bg-muted/30">

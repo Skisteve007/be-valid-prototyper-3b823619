@@ -100,6 +100,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const birthdayDay = watch("birthday_day");
   const birthdayMonth = watch("birthday_month");
   const birthdayYear = watch("birthday_year");
+  const instagramHandle = watch("instagram_handle");
+  const tiktokHandle = watch("tiktok_handle");
+  const facebookHandle = watch("facebook_handle");
+  const onlyfansHandle = watch("onlyfans_handle");
+  const twitterHandle = watch("twitter_handle");
   
   // Detect if any changes have been made
   const hasChanges = 
@@ -574,7 +579,14 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         </div>
       </div>
 
-      <SocialMediaSection register={register} />
+      <SocialMediaSection 
+        register={register}
+        instagramHandle={instagramHandle || ""}
+        tiktokHandle={tiktokHandle || ""}
+        facebookHandle={facebookHandle || ""}
+        onlyfansHandle={onlyfansHandle || ""}
+        twitterHandle={twitterHandle || ""}
+      />
 
       <div className="relative py-4">
         <div className="absolute inset-0 flex items-center">

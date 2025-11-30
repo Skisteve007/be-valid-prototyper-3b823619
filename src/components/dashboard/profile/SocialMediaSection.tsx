@@ -1,13 +1,47 @@
 import { UseFormRegister } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Instagram, Music, Facebook, User, Share2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Instagram, Music, Facebook, User, Share2, ExternalLink, Linkedin } from "lucide-react";
 
 interface SocialMediaSectionProps {
   register: UseFormRegister<any>;
+  instagramHandle: string;
+  tiktokHandle: string;
+  facebookHandle: string;
+  onlyfansHandle: string;
+  twitterHandle: string;
 }
 
-export const SocialMediaSection = ({ register }: SocialMediaSectionProps) => {
+const getSocialMediaUrl = (platform: string, handle: string): string | null => {
+  if (!handle || !handle.trim()) return null;
+  
+  const cleanHandle = handle.replace(/^@/, '').trim();
+  
+  switch (platform) {
+    case 'instagram':
+      return `https://instagram.com/${cleanHandle}`;
+    case 'tiktok':
+      return `https://tiktok.com/@${cleanHandle}`;
+    case 'facebook':
+      return handle.startsWith('http') ? handle : `https://facebook.com/${cleanHandle}`;
+    case 'onlyfans':
+      return `https://onlyfans.com/${cleanHandle}`;
+    case 'twitter':
+      return `https://x.com/${cleanHandle}`;
+    default:
+      return null;
+  }
+};
+
+export const SocialMediaSection = ({ 
+  register, 
+  instagramHandle,
+  tiktokHandle,
+  facebookHandle,
+  onlyfansHandle,
+  twitterHandle
+}: SocialMediaSectionProps) => {
   return (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
@@ -21,7 +55,20 @@ export const SocialMediaSection = ({ register }: SocialMediaSectionProps) => {
             <Instagram className="w-4 h-4 text-pink-500" />
             Instagram
           </Label>
-          <Input id="instagram_handle" {...register("instagram_handle")} placeholder="@username" />
+          <div className="flex gap-2">
+            <Input id="instagram_handle" {...register("instagram_handle")} placeholder="@username" className="flex-1" />
+            {instagramHandle && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => window.open(getSocialMediaUrl('instagram', instagramHandle) || '', '_blank')}
+                title="Visit Instagram profile"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -29,7 +76,20 @@ export const SocialMediaSection = ({ register }: SocialMediaSectionProps) => {
             <Music className="w-4 h-4 text-cyan-500" />
             TikTok
           </Label>
-          <Input id="tiktok_handle" {...register("tiktok_handle")} placeholder="@username" />
+          <div className="flex gap-2">
+            <Input id="tiktok_handle" {...register("tiktok_handle")} placeholder="@username" className="flex-1" />
+            {tiktokHandle && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => window.open(getSocialMediaUrl('tiktok', tiktokHandle) || '', '_blank')}
+                title="Visit TikTok profile"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -37,7 +97,20 @@ export const SocialMediaSection = ({ register }: SocialMediaSectionProps) => {
             <Facebook className="w-4 h-4 text-blue-600" />
             Facebook
           </Label>
-          <Input id="facebook_handle" {...register("facebook_handle")} placeholder="Profile URL" />
+          <div className="flex gap-2">
+            <Input id="facebook_handle" {...register("facebook_handle")} placeholder="Profile URL or username" className="flex-1" />
+            {facebookHandle && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => window.open(getSocialMediaUrl('facebook', facebookHandle) || '', '_blank')}
+                title="Visit Facebook profile"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -45,7 +118,41 @@ export const SocialMediaSection = ({ register }: SocialMediaSectionProps) => {
             <User className="w-4 h-4 text-sky-500" />
             OnlyFans
           </Label>
-          <Input id="onlyfans_handle" {...register("onlyfans_handle")} placeholder="@username" />
+          <div className="flex gap-2">
+            <Input id="onlyfans_handle" {...register("onlyfans_handle")} placeholder="@username" className="flex-1" />
+            {onlyfansHandle && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => window.open(getSocialMediaUrl('onlyfans', onlyfansHandle) || '', '_blank')}
+                title="Visit OnlyFans profile"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="twitter_handle" className="flex items-center gap-2">
+            <Share2 className="w-4 h-4 text-slate-900 dark:text-slate-100" />
+            X (Twitter)
+          </Label>
+          <div className="flex gap-2">
+            <Input id="twitter_handle" {...register("twitter_handle")} placeholder="@username" className="flex-1" />
+            {twitterHandle && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => window.open(getSocialMediaUrl('twitter', twitterHandle) || '', '_blank')}
+                title="Visit X profile"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>

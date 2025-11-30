@@ -22,7 +22,7 @@ interface PreferencesSelectorProps {
 const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
   {
     id: "relationship_styles",
-    title: "Relationship Styles",
+    title: "Relationship Style",
     items: ["Casual", "Serious", "Open", "Throuple", "Together"],
   },
   {

@@ -125,11 +125,11 @@ export const InterestsSelector = ({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="space-y-6">
         {Object.entries(groupedTags).map(([category, categoryTags]) => (
-          <div key={category} className="space-y-3 flex flex-col items-center">
-            <h4 className="text-base font-medium text-center w-full">{category}</h4>
-            <div className="flex flex-wrap gap-2 justify-center w-full">
+          <div key={category} className="space-y-3">
+            <h4 className="text-base font-medium">{category}</h4>
+            <div className="flex flex-wrap gap-2">
               {categoryTags.map((tag) => {
                 const IconComponent = getIconForTag(tag.label);
                 return (

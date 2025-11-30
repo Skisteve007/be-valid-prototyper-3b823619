@@ -181,12 +181,14 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setUserInterests((data.user_interests as Record<string, string[]>) || {});
         setSelectedInterests((data.selected_interests as string[]) || []);
         setStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
+        setEmailShareable(data.email_shareable || false);
         
         // Set initial values for change detection
         setInitialProfileImageUrl(data.profile_image_url || "");
         setInitialStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
         setInitialSelectedInterests((data.selected_interests as string[]) || []);
         setInitialReferenceIds(refs);
+        setInitialEmailShareable(data.email_shareable || false);
         
         // Reset form state to mark as not dirty after loading
         setTimeout(() => {
@@ -369,6 +371,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           user_interests: userInterests,
           selected_interests: selectedInterests,
           status_color: statusColor,
+          email_shareable: emailShareable,
         })
         .eq("user_id", userId);
 
@@ -415,6 +418,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       setInitialStatusColor(statusColor);
       setInitialSelectedInterests([...selectedInterests]);
       setInitialReferenceIds([...referenceIds]);
+      setInitialEmailShareable(emailShareable);
       
       if (!isAutoSave) {
         // Show success state

@@ -109,7 +109,11 @@ const Dashboard = () => {
                 Admin Panel
               </Button>
             )}
-            <Button variant="outline" onClick={handleLogout} className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30">
+            <Button 
+              onClick={handleLogout} 
+              className="relative bg-gradient-to-r from-pink-500 to-pink-600 text-white hover:from-pink-600 hover:to-pink-700 border-0"
+            >
+              <div className="absolute inset-0 bg-pink-500/40 blur-lg rounded-md -z-10"></div>
               <LogOut className="h-4 w-4 mr-2" />
               Logout
             </Button>

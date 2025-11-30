@@ -174,7 +174,7 @@ const Index = () => {
               <p className="text-2xl md:text-3xl mb-8 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
                 <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Elevating</span>{" "}
                 <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Intimacy</span>{" "}
-                <span className="bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">through Verified Transparency and Mutual Trust.</span>
+                <span className="bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Through Verified Transparency and Mutual Trust.</span>
               </p>
             </ScrollReveal>
             

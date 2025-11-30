@@ -66,7 +66,7 @@ const Dashboard = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-6 relative">
           <div className="flex justify-center items-center">
-            <img src={logo} alt="Clean Check" className="h-30 w-auto" />
+            <img src={logo} alt="Clean Check" className="h-24 w-auto" />
           </div>
           <Button variant="outline" onClick={handleLogout} className="absolute right-4 top-1/2 -translate-y-1/2">
             <LogOut className="h-4 w-4 mr-2" />
@@ -78,8 +78,8 @@ const Dashboard = () => {
       <main className="container mx-auto px-4 py-8">
         <Card>
           <CardHeader>
-            <CardTitle className="text-3xl bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent font-bold">
-              Dashboard
+            <CardTitle className="text-3xl">
+              <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Dashboard</span>
             </CardTitle>
             <CardDescription className="text-base">
               Manage your profile, documents, and QR code

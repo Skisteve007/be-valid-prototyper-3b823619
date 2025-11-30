@@ -116,9 +116,9 @@ export const InterestsSelector = ({
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">
+        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
           <Smile className="w-5 h-5 text-teal-500" />
-          User Preferences
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">User Preferences</span>
         </h3>
         <p className="text-sm text-muted-foreground mt-2">
           Select your interests and preferences

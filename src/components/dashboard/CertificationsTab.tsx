@@ -138,9 +138,9 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   return (
     <div className="space-y-4 py-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold flex items-center gap-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">
+        <h3 className="text-lg font-semibold flex items-center gap-2">
           <FileText className="w-5 h-5 text-blue-500" />
-          Your Documents
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Your Documents</span>
         </h3>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>

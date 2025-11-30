@@ -28,7 +28,9 @@ export const PreferencesHealthSection = ({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold border-b pb-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">Partner Preferences & Health</h3>
+      <h3 className="text-lg font-semibold border-b pb-2">
+        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Partner Preferences & Health</span>
+      </h3>
       
       <div className="space-y-3">
         <Label className="flex items-center gap-2">

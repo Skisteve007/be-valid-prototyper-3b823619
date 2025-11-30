@@ -324,7 +324,7 @@ const Index = () => {
                 </div>
                 <Button 
                   size="lg" 
-                  className="w-full bg-gradient-to-r from-blue-400 to-pink-400 hover:from-blue-500 hover:to-pink-500 text-white shadow-[0_0_30px_rgba(59,130,246,0.5),0_0_30px_rgba(236,72,153,0.5)] hover:shadow-[0_0_40px_rgba(59,130,246,0.7),0_0_40px_rgba(236,72,153,0.7)] transition-all" 
+                  className="w-full bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(37,99,235,0.5),0_0_30px_rgba(219,39,119,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7),0_0_40px_rgba(219,39,119,0.7)] transition-all" 
                   onClick={handleContinue}
                   disabled={!fullName || !email}
                 >

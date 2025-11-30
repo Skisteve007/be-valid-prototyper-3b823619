@@ -91,28 +91,30 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   };
 
   const getGlowColor = () => {
-    switch (statusColor) {
+    const color = getTimestampColor();
+    switch (color) {
       case "green":
-        return "shadow-[0_0_20px_8px_rgba(34,197,94,0.6)]";
+        return "shadow-[0_0_40px_12px_rgba(34,197,94,0.8)] shadow-green-500/60 animate-pulse";
       case "yellow":
-        return "shadow-[0_0_20px_8px_rgba(234,179,8,0.6)]";
+        return "shadow-[0_0_40px_12px_rgba(234,179,8,0.8)] shadow-yellow-500/60 animate-pulse";
       case "red":
-        return "shadow-[0_0_20px_8px_rgba(239,68,68,0.6)]";
+        return "shadow-[0_0_40px_12px_rgba(239,68,68,0.8)] shadow-red-500/60 animate-pulse";
       default:
-        return "";
+        return "shadow-[0_0_20px_8px_rgba(156,163,175,0.5)]";
     }
   };
 
   const getBorderColor = () => {
-    switch (statusColor) {
+    const color = getTimestampColor();
+    switch (color) {
       case "green":
-        return "border-green-500";
+        return "border-green-500 ring-4 ring-green-500/30";
       case "yellow":
-        return "border-yellow-500";
+        return "border-yellow-500 ring-4 ring-yellow-500/30";
       case "red":
-        return "border-red-500";
+        return "border-red-500 ring-4 ring-red-500/30";
       default:
-        return "border-border";
+        return "border-gray-400";
     }
   };
 
@@ -174,34 +176,55 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             Share this QR code with clients and partners to showcase your certifications
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col items-center space-y-4">
-          <div className={`p-4 bg-card border-4 ${getBorderColor()} rounded-lg ${getGlowColor()} transition-all duration-300`}>
-            {qrCodeUrl ? (
-              <img
-                src={qrCodeUrl}
-                alt="QR Code"
-                className="w-64 h-64"
-              />
-            ) : (
-              <div className="w-64 h-64 flex items-center justify-center bg-muted">
-                <QrCode className="h-16 w-16 text-muted-foreground" />
+        <CardContent className="flex flex-col items-center space-y-6">
+          <div className="relative">
+            <div className={`p-6 bg-white dark:bg-card border-4 ${getBorderColor()} rounded-2xl ${getGlowColor()} transition-all duration-500`}>
+              {qrCodeUrl ? (
+                <img
+                  src={qrCodeUrl}
+                  alt="QR Code"
+                  className="w-64 h-64"
+                />
+              ) : (
+                <div className="w-64 h-64 flex items-center justify-center bg-muted">
+                  <QrCode className="h-16 w-16 text-muted-foreground" />
+                </div>
+              )}
+            </div>
+            
+            {lastDocumentDate && (
+              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-full flex justify-center">
+                <Badge className={`${getTimestampBadgeClass()} flex items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg`}>
+                  <Clock className="h-4 w-4" />
+                  <span>{documentAge} {documentAge === 1 ? 'day' : 'days'} ago</span>
+                </Badge>
               </div>
             )}
           </div>
 
           {lastDocumentDate && (
-            <div className="flex flex-col items-center gap-2">
-              <Badge className={`${getTimestampBadgeClass()} flex items-center gap-1.5 px-3 py-1.5`}>
-                <Clock className="h-3.5 w-3.5" />
-                <span>Document uploaded {documentAge} {documentAge === 1 ? 'day' : 'days'} ago</span>
-              </Badge>
+            <div className="text-center space-y-1 mt-4">
               <p className="text-xs text-muted-foreground">
-                {lastDocumentDate.toLocaleDateString('en-US', { 
+                Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
                   year: 'numeric', 
                   month: 'long', 
                   day: 'numeric' 
                 })}
               </p>
+              <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground mt-2">
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  <span>1-60 days</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                  <span>61-120 days</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <span>121+ days</span>
+                </div>
+              </div>
             </div>
           )}
           

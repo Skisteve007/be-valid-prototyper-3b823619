@@ -220,9 +220,13 @@ const Auth = () => {
                 <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Complete Your Membership</span>
               )}
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground mb-0">
               {mode === "login" 
-                ? "Welcome back! Access your profile and QR code" 
+                ? (
+                  <span className="inline-block px-8 py-3 bg-gradient-to-r from-blue-600/20 via-pink-600/20 to-blue-600/20 rounded-full border border-primary/30">
+                    Welcome back! Access your profile and QR code
+                  </span>
+                )
                 : "Confidently share verified health status information for mutual safety and informed intimacy."}
             </p>
           </div>

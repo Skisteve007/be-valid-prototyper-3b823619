@@ -103,8 +103,8 @@ const Index = () => {
 
             {/* Tagline in the middle */}
             <div className="hidden lg:flex flex-1 justify-center px-8">
-              <p className="text-lg font-semibold text-center bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                Confidently share verified health status information for mutual safety and informed intimacy
+              <p className="text-lg font-semibold text-center bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                Confidently share verified record status information for mutual safety and informed intimacy
               </p>
             </div>
 

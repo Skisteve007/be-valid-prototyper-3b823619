@@ -201,7 +201,7 @@ const Index = () => {
         )}
 
         {/* Membership Section */}
-        <section className="py-16 px-4">
+        <section className="pt-8 pb-16 px-4">
           <div className="container mx-auto max-w-4xl">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-12">

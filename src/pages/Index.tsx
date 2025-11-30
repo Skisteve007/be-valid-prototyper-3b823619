@@ -69,11 +69,11 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="Clean Check" className="h-12 w-auto" />
+        <div className="container mx-auto px-4 py-6 relative">
+          <div className="flex justify-center items-center">
+            <img src={logo} alt="Clean Check" className="h-20 w-auto" />
           </div>
-          <div className="flex gap-2">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
             <Button variant="ghost" onClick={() => navigate("/auth")}>QR Code</Button>
             <Button onClick={() => navigate("/auth")}>Profile</Button>
           </div>

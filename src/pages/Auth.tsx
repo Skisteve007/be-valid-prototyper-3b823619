@@ -127,11 +127,11 @@ const Auth = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-card sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="Clean Check" className="h-12 w-auto" />
+        <div className="container mx-auto px-4 py-6 relative">
+          <div className="flex justify-center items-center">
+            <img src={logo} alt="Clean Check" className="h-20 w-auto" />
           </div>
-          <Button variant="ghost" onClick={() => navigate("/")}>
+          <Button variant="ghost" onClick={() => navigate("/")} className="absolute right-4 top-1/2 -translate-y-1/2">
             Back to Home
           </Button>
         </div>

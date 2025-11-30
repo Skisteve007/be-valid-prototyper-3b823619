@@ -345,8 +345,8 @@ const Index = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <ScrollReveal direction="up" delay={200}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/30 shadow-lg shadow-blue-500/20">
+                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 bg-blue-500/10 rounded-lg">
@@ -364,12 +364,13 @@ const Index = () => {
 
               <ScrollReveal direction="up" delay={250}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/30 shadow-lg shadow-blue-500/20">
+                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
+                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-blue-500/10 rounded-lg">
-                          <Zap className="h-6 w-6 text-blue-500" />
+                        <div className="p-2 bg-pink-500/10 rounded-lg">
+                          <Zap className="h-6 w-6 text-pink-500" />
                         </div>
                         <CardTitle>Instant - No Awkward Conversations</CardTitle>
                       </div>
@@ -383,8 +384,8 @@ const Index = () => {
 
               <ScrollReveal direction="up" delay={300}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/30 shadow-lg shadow-blue-500/20">
+                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 bg-blue-500/10 rounded-lg">
@@ -402,12 +403,13 @@ const Index = () => {
 
               <ScrollReveal direction="up" delay={350}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/30 shadow-lg shadow-blue-500/20">
+                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
+                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-blue-500/10 rounded-lg">
-                          <Star className="h-6 w-6 text-blue-500" />
+                        <div className="p-2 bg-pink-500/10 rounded-lg">
+                          <Star className="h-6 w-6 text-pink-500" />
                         </div>
                         <CardTitle>Premium Features</CardTitle>
                       </div>
@@ -421,8 +423,8 @@ const Index = () => {
 
               <ScrollReveal direction="up" delay={400}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/30 shadow-lg shadow-blue-500/20">
+                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 bg-blue-500/10 rounded-lg">
@@ -440,12 +442,13 @@ const Index = () => {
 
               <ScrollReveal direction="up" delay={450}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/30 shadow-lg shadow-blue-500/20">
+                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
+                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-blue-500/10 rounded-lg">
-                          <Lock className="h-6 w-6 text-blue-500" />
+                        <div className="p-2 bg-pink-500/10 rounded-lg">
+                          <Lock className="h-6 w-6 text-pink-500" />
                         </div>
                         <CardTitle>Private & Secure</CardTitle>
                       </div>

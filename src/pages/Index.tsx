@@ -103,9 +103,9 @@ const Index = () => {
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col md:flex-row gap-2 items-end">
             <Button 
               onClick={() => navigate("/auth?mode=login")}
-              className="relative shadow-[0_0_30px_rgba(147,51,234,0.7)] hover:shadow-[0_0_40px_rgba(147,51,234,0.9)] border-2 border-purple-600/60 bg-purple-600/15 text-white font-bold text-base"
+              className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-base"
             >
-              <div className="absolute inset-0 bg-purple-600/25 blur-lg rounded-md -z-10"></div>
+              <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
               Member Log In
             </Button>
             <div className="flex gap-2">
@@ -118,9 +118,9 @@ const Index = () => {
                     navigate("/auth");
                   }
                 }}
-                className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
+                className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
               >
-                <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
+                <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
                 QR Code
               </Button>
               <Button 

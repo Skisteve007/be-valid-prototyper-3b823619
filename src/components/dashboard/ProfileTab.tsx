@@ -62,12 +62,14 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [referenceIds, setReferenceIds] = useState<string[]>(["", "", ""]);
   const [referenceProfiles, setReferenceProfiles] = useState<Array<{id: string, user_id: string, full_name: string, member_id: string, verified?: boolean} | null>>([null, null, null]);
   const [existingReferences, setExistingReferences] = useState<string[]>([]);
+  const [emailShareable, setEmailShareable] = useState(false);
   
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
   const [initialStatusColor, setInitialStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
   const [initialSelectedInterests, setInitialSelectedInterests] = useState<string[]>([]);
   const [initialReferenceIds, setInitialReferenceIds] = useState<string[]>(["", "", ""]);
+  const [initialEmailShareable, setInitialEmailShareable] = useState(false);
 
   // Autosave timer ref
   const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -93,12 +95,16 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const whereFrom = watch("where_from");
   const currentHomeCity = watch("current_home_city");
   const relationshipStatus = watch("relationship_status");
+  const birthdayDay = watch("birthday_day");
+  const birthdayMonth = watch("birthday_month");
+  const birthdayYear = watch("birthday_year");
   
   // Detect if any changes have been made
   const hasChanges = 
     formState.isDirty ||
     profileImageUrl !== initialProfileImageUrl ||
     statusColor !== initialStatusColor ||
+    emailShareable !== initialEmailShareable ||
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
     JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
 
@@ -506,6 +512,12 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         whereFrom={whereFrom}
         currentHomeCity={currentHomeCity}
         relationshipStatus={relationshipStatus}
+        birthdayDay={birthdayDay}
+        birthdayMonth={birthdayMonth}
+        birthdayYear={birthdayYear}
+        userInterests={userInterests}
+        emailShareable={emailShareable}
+        onEmailShareableChange={setEmailShareable}
       />
 
       <div className="relative py-4">

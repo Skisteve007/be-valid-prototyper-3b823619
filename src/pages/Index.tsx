@@ -82,6 +82,13 @@ const Index = () => {
     }
   };
 
+  const scrollToGetStarted = () => {
+    const element = document.getElementById('get-started-form');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card sticky top-0 z-50">
@@ -324,10 +331,14 @@ const Index = () => {
           <div className="container mx-auto max-w-4xl">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
+                <button 
+                  onClick={scrollToGetStarted}
+                  className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4 hover:bg-primary/20 transition-colors cursor-pointer"
+                >
                   <Zap className="h-4 w-4" />
                   <span className="font-semibold bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Complete Your Membership</span>
-                </div>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
                 <p className="text-lg mb-2">Automatic Approval! Your account will be activated instantly after payment.</p>
                 <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
                   <CheckCircle className="h-4 w-4 text-primary" />
@@ -420,7 +431,7 @@ const Index = () => {
 
             {/* Sign Up Form */}
             <ScrollReveal direction="up" delay={300}>
-              <Card className="max-w-2xl mx-auto">
+              <Card id="get-started-form" className="max-w-2xl mx-auto scroll-mt-8">
               <CardHeader>
                 <CardTitle className="text-2xl bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Get Started</CardTitle>
                 <CardDescription>Both fields are required to proceed</CardDescription>

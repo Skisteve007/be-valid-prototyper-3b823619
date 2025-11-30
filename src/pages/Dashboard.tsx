@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [qrRefreshKey, setQrRefreshKey] = useState(0);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -46,6 +47,11 @@ const Dashboard = () => {
     await supabase.auth.signOut();
     toast.success("Logged out successfully");
     navigate("/");
+  };
+
+  const handleProfileUpdate = () => {
+    // Increment the key to force QR Code tab to refresh
+    setQrRefreshKey(prev => prev + 1);
   };
 
   if (loading) {
@@ -127,7 +133,7 @@ const Dashboard = () => {
               </div>
               
               <TabsContent value="profile">
-                <ProfileTab userId={user.id} />
+                <ProfileTab userId={user.id} onUpdate={handleProfileUpdate} />
               </TabsContent>
               
               <TabsContent value="certifications">
@@ -135,7 +141,7 @@ const Dashboard = () => {
               </TabsContent>
               
               <TabsContent value="qrcode">
-                <QRCodeTab userId={user.id} />
+                <QRCodeTab key={qrRefreshKey} userId={user.id} />
               </TabsContent>
               
               <TabsContent value="references">

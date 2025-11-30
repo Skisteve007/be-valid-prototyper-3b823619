@@ -397,6 +397,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cleanup_expired_qr_tokens: { Args: never; Returns: undefined }
       generate_member_id: { Args: never; Returns: string }
       has_role: {
         Args: {

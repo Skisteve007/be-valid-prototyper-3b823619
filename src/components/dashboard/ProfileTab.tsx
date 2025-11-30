@@ -447,7 +447,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-12 h-12 rounded-full bg-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.6)]"></div>
                 <span className="font-semibold">Clean</span>
-                <span className="text-sm text-muted-foreground text-center">Recently verified and cleared</span>
+                <span className="text-sm text-muted-foreground text-center">I'm all clean. Let's keep it that way.</span>
               </div>
             </button>
             
@@ -463,7 +463,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-12 h-12 rounded-full bg-yellow-500 shadow-[0_0_20px_8px_rgba(234,179,8,0.6)]"></div>
                 <span className="font-semibold">Proceed with Caution</span>
-                <span className="text-sm text-muted-foreground text-center">Verification in progress or pending</span>
+                <span className="text-sm text-muted-foreground text-center">Take a close look please.</span>
               </div>
             </button>
             
@@ -479,7 +479,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-12 h-12 rounded-full bg-red-500 shadow-[0_0_20px_8px_rgba(239,68,68,0.6)]"></div>
                 <span className="font-semibold">Be Aware</span>
-                <span className="text-sm text-muted-foreground text-center">Requires attention or update needed</span>
+                <span className="text-sm text-muted-foreground text-center">Examine docs. please</span>
               </div>
             </button>
           </div>

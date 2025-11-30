@@ -71,6 +71,7 @@ serve(async (req) => {
         profile_image_url,
         qr_code_url,
         status_color,
+        user_id,
         where_from,
         current_home_city,
         birthday,
@@ -105,6 +106,39 @@ serve(async (req) => {
     }
 
     console.log('Profile viewed with token for member:', profile.member_id);
+
+    // If gray incognito mode, only return name and email for event scanning
+    if (profile.status_color === 'gray') {
+      // Fetch user email from auth.users
+      const { data: userData, error: userError } = await supabase.auth.admin.getUserById(profile.user_id);
+      
+      const limitedProfile = {
+        id: profile.id,
+        member_id: profile.member_id,
+        full_name: profile.full_name,
+        email: userData?.user?.email || null,
+        status_color: profile.status_color,
+      };
+
+      console.log('Gray incognito mode - limited profile data returned for event scanning');
+
+      // Record QR code view
+      await supabase
+        .from('qr_code_views')
+        .insert({
+          profile_id: profile.id,
+          viewed_by_ip: req.headers.get('x-forwarded-for') || 'unknown'
+        });
+
+      return new Response(
+        JSON.stringify({ 
+          profile: limitedProfile,
+          tokenExpiresAt: tokenData.expires_at,
+          isIncognitoMode: true
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Record QR code view
     await supabase

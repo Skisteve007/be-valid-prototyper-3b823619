@@ -11,29 +11,30 @@ interface ProfileData {
   id: string;
   member_id: string;
   full_name: string;
-  profile_image_url: string | null;
+  email?: string | null;
+  profile_image_url?: string | null;
   status_color: string;
-  where_from: string | null;
-  current_home_city: string | null;
-  birthday: string | null;
-  gender_identity: string | null;
-  sexual_orientation: string | null;
-  relationship_status: string | null;
-  partner_preferences: string[];
-  covid_vaccinated: boolean;
-  circumcised: boolean | null;
-  smoker: boolean;
-  instagram_handle: string | null;
-  tiktok_handle: string | null;
-  facebook_handle: string | null;
-  onlyfans_handle: string | null;
-  twitter_handle: string | null;
-  sexual_preferences: string | null;
-  std_acknowledgment: string | null;
-  health_document_uploaded_at: string | null;
-  selected_interests: string[];
-  user_interests: any;
-  created_at: string;
+  where_from?: string | null;
+  current_home_city?: string | null;
+  birthday?: string | null;
+  gender_identity?: string | null;
+  sexual_orientation?: string | null;
+  relationship_status?: string | null;
+  partner_preferences?: string[];
+  covid_vaccinated?: boolean;
+  circumcised?: boolean | null;
+  smoker?: boolean;
+  instagram_handle?: string | null;
+  tiktok_handle?: string | null;
+  facebook_handle?: string | null;
+  onlyfans_handle?: string | null;
+  twitter_handle?: string | null;
+  sexual_preferences?: string | null;
+  std_acknowledgment?: string | null;
+  health_document_uploaded_at?: string | null;
+  selected_interests?: string[];
+  user_interests?: any;
+  created_at?: string;
 }
 
 const ViewProfile = () => {
@@ -43,6 +44,7 @@ const ViewProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tokenExpiresAt, setTokenExpiresAt] = useState<string | null>(null);
+  const [isIncognitoMode, setIsIncognitoMode] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -70,6 +72,7 @@ const ViewProfile = () => {
         if (data?.profile) {
           setProfile(data.profile);
           setTokenExpiresAt(data.tokenExpiresAt);
+          setIsIncognitoMode(data.isIncognitoMode || false);
         } else {
           setError("Profile not found");
         }
@@ -134,6 +137,67 @@ const ViewProfile = () => {
     return new Date(dateString).toLocaleDateString();
   };
 
+  // If incognito mode, show limited event scanning view
+  if (isIncognitoMode) {
+    return (
+      <div className="min-h-screen bg-background p-4 md:p-8">
+        <div className="max-w-2xl mx-auto space-y-6">
+          <Card className="shadow-[0_0_25px_10px_rgba(107,114,128,0.4)]">
+            <CardHeader>
+              <CardTitle className="text-center text-2xl">Event Check-In</CardTitle>
+              <p className="text-center text-muted-foreground">Incognito Mode - Limited Information</p>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="flex flex-col items-center gap-6">
+                <Avatar className="h-32 w-32 border-4 border-gray-500 shadow-[0_0_20px_8px_rgba(107,114,128,0.6)]">
+                  <AvatarFallback className="text-2xl bg-gray-500 text-white">
+                    {profile.full_name?.charAt(0) || "?"}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="text-center space-y-3 w-full">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Member Name</p>
+                    <h1 className="text-2xl font-bold">{profile.full_name}</h1>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Email Address</p>
+                    <p className="text-lg font-medium">{profile.email || "Not available"}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Member ID</p>
+                    <p className="text-lg font-mono">{profile.member_id}</p>
+                  </div>
+                  <Badge variant="secondary" className="mt-4">
+                    Event Scanning Mode
+                  </Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {tokenExpiresAt && (
+            <Card className="bg-muted">
+              <CardContent className="pt-6">
+                <p className="text-sm text-center text-muted-foreground">
+                  This access expires on {new Date(tokenExpiresAt).toLocaleString()}
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
+          <Card className="bg-primary/5 border-primary/20">
+            <CardContent className="pt-6">
+              <p className="text-sm text-center text-muted-foreground">
+                📋 This information can be captured for event marketing and future communications.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  // Full profile view for non-incognito modes
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">

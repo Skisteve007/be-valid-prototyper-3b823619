@@ -102,6 +102,12 @@ export const PersonalInfoSection = ({
                     <span className="font-semibold text-lg">{fullName}</span>
                   </div>
                 )}
+                {emailShareable && email && (
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-purple-500" />
+                    <span className="text-sm text-muted-foreground">{email}</span>
+                  </div>
+                )}
                 {seekingPreference && (
                   <div className="flex items-center gap-2">
                     <Target className="w-4 h-4 text-orange-500" />

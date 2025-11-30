@@ -683,7 +683,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
               saveSuccess
                 ? 'bg-green-600 hover:bg-green-600 text-white ring-4 ring-green-400/50 shadow-green-500/60'
                 : hasChanges && !saving
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white ring-4 ring-blue-400/50 shadow-blue-500/60 animate-pulse'
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white ring-4 ring-blue-400/50 shadow-blue-500/60 animate-[pulse_3s_ease-in-out_infinite]'
                   : !saving
                     ? 'shadow-primary/50 hover:shadow-primary/60' 
                     : ''

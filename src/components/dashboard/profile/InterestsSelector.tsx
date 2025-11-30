@@ -2,6 +2,21 @@ import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { 
+  Users, 
+  UserPlus, 
+  Heart, 
+  Sparkles,
+  Activity,
+  Eye,
+  Hand,
+  Music,
+  Flame,
+  Shield,
+  Zap,
+  Star,
+  LucideIcon
+} from "lucide-react";
 
 interface InterestTag {
   id: string;
@@ -53,6 +68,31 @@ export const InterestsSelector = ({
 
   const isSelected = (tagId: string) => selectedInterests.includes(tagId);
 
+  // Map tag labels to icons
+  const getIconForTag = (label: string): LucideIcon => {
+    const iconMap: Record<string, LucideIcon> = {
+      // Social Dynamic
+      "Threesome": Users,
+      "Group Play": UserPlus,
+      "Throuple": Heart,
+      "Full Swap": Sparkles,
+      "Soft Swap": Star,
+      
+      // Sensory Preferences
+      "Visual": Eye,
+      "Touch": Hand,
+      "Auditory": Music,
+      
+      // Specific Activities
+      "Bondage": Shield,
+      "Role Play": Activity,
+      "Sensory Play": Zap,
+      "Impact Play": Flame,
+    };
+    
+    return iconMap[label] || Activity; // Default icon
+  };
+
   // Group tags by category
   const groupedTags = tags.reduce((acc, tag) => {
     if (!acc[tag.category]) {
@@ -80,16 +120,20 @@ export const InterestsSelector = ({
           <div key={category} className="space-y-2">
             <h4 className="text-base font-medium">{category}</h4>
             <div className="flex flex-wrap gap-2">
-              {categoryTags.map((tag) => (
-                <Badge
-                  key={tag.id}
-                  variant={isSelected(tag.id) ? "default" : "outline"}
-                  className="cursor-pointer px-4 py-2 text-sm transition-colors hover:bg-primary/80"
-                  onClick={() => toggleInterest(tag.id)}
-                >
-                  {tag.label}
-                </Badge>
-              ))}
+              {categoryTags.map((tag) => {
+                const IconComponent = getIconForTag(tag.label);
+                return (
+                  <Badge
+                    key={tag.id}
+                    variant={isSelected(tag.id) ? "default" : "outline"}
+                    className="cursor-pointer px-4 py-2 text-sm transition-colors hover:bg-primary/80 flex items-center gap-2"
+                    onClick={() => toggleInterest(tag.id)}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                    {tag.label}
+                  </Badge>
+                );
+              })}
             </div>
           </div>
         ))}

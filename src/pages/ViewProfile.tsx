@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, MapPin, Calendar, Heart, User, CheckCircle2, XCircle } from "lucide-react";
+import { Loader2, MapPin, Calendar, Heart, User, CheckCircle2, XCircle, Instagram, Music, Facebook, Twitter, Share2 } from "lucide-react";
 import { toast } from "sonner";
 
 interface ProfileData {
@@ -135,6 +135,26 @@ const ViewProfile = () => {
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "Not specified";
     return new Date(dateString).toLocaleDateString();
+  };
+
+  const getSocialMediaUrl = (platform: string, handle: string | null) => {
+    if (!handle) return null;
+    const cleanHandle = handle.replace('@', '');
+    
+    switch (platform) {
+      case 'instagram':
+        return `https://instagram.com/${cleanHandle}`;
+      case 'tiktok':
+        return `https://tiktok.com/@${cleanHandle}`;
+      case 'facebook':
+        return handle.startsWith('http') ? handle : `https://facebook.com/${cleanHandle}`;
+      case 'onlyfans':
+        return `https://onlyfans.com/${cleanHandle}`;
+      case 'twitter':
+        return `https://x.com/${cleanHandle}`;
+      default:
+        return null;
+    }
   };
 
   // If incognito mode, show limited event scanning view
@@ -316,6 +336,77 @@ const ViewProfile = () => {
             )}
           </CardContent>
         </Card>
+
+        {/* Social Media Links */}
+        {(profile.instagram_handle || profile.tiktok_handle || profile.facebook_handle || profile.onlyfans_handle || profile.twitter_handle) && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Share2 className="h-5 w-5" />
+                Social Media
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-3">
+                {profile.instagram_handle && (
+                  <a
+                    href={getSocialMediaUrl('instagram', profile.instagram_handle)!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:opacity-90 transition-opacity"
+                  >
+                    <Instagram className="h-4 w-4" />
+                    <span>Instagram</span>
+                  </a>
+                )}
+                {profile.tiktok_handle && (
+                  <a
+                    href={getSocialMediaUrl('tiktok', profile.tiktok_handle)!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:opacity-90 transition-opacity"
+                  >
+                    <Music className="h-4 w-4" />
+                    <span>TikTok</span>
+                  </a>
+                )}
+                {profile.facebook_handle && (
+                  <a
+                    href={getSocialMediaUrl('facebook', profile.facebook_handle)!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+                  >
+                    <Facebook className="h-4 w-4" />
+                    <span>Facebook</span>
+                  </a>
+                )}
+                {profile.onlyfans_handle && (
+                  <a
+                    href={getSocialMediaUrl('onlyfans', profile.onlyfans_handle)!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:opacity-90 transition-opacity"
+                  >
+                    <User className="h-4 w-4" />
+                    <span>OnlyFans</span>
+                  </a>
+                )}
+                {profile.twitter_handle && (
+                  <a
+                    href={getSocialMediaUrl('twitter', profile.twitter_handle)!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:opacity-90 transition-opacity"
+                  >
+                    <Twitter className="h-4 w-4" />
+                    <span>X/Twitter</span>
+                  </a>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Token expiration notice */}
         {tokenExpiresAt && (

@@ -7,19 +7,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 interface DocumentDisclaimerSectionProps {
   register: UseFormRegister<any>;
   setValue: UseFormSetValue<any>;
-  uploadingDocument: boolean;
-  healthDocumentUrl: string;
   disclaimerAccepted: boolean;
-  handleDocumentUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const DocumentDisclaimerSection = ({
   register,
   setValue,
-  uploadingDocument,
-  healthDocumentUrl,
   disclaimerAccepted,
-  handleDocumentUpload,
 }: DocumentDisclaimerSectionProps) => {
   return (
     <>
@@ -63,22 +57,8 @@ export const DocumentDisclaimerSection = ({
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2">Health Document & Disclaimer</h3>
+        <h3 className="text-lg font-semibold border-b pb-2">Disclaimer</h3>
         
-        <div className="space-y-2">
-          <Label>Health Document Upload</Label>
-          <Input
-            type="file"
-            accept=".pdf,.jpg,.jpeg,.png"
-            onChange={handleDocumentUpload}
-            disabled={uploadingDocument}
-          />
-          {uploadingDocument && <p className="text-sm text-muted-foreground">Uploading...</p>}
-          {healthDocumentUrl && (
-            <p className="text-sm text-muted-foreground">Document uploaded successfully</p>
-          )}
-        </div>
-
         <div className="space-y-4 p-4 bg-muted rounded-lg">
           <p className="text-sm">
             By checking this box, I certify that all information provided is accurate and I understand that 

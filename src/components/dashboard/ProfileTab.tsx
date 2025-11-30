@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, FileText, UserCheck } from "lucide-react";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
@@ -249,7 +249,10 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       <SocialMediaSection register={register} />
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2">STD Acknowledgment</h3>
+        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
+          <FileText className="w-5 h-5" />
+          STD Acknowledgment
+        </h3>
         <div className="space-y-2">
           <Label htmlFor="std_acknowledgment">STD Status & Information</Label>
           <Textarea
@@ -262,7 +265,10 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2">References</h3>
+        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
+          <UserCheck className="w-5 h-5" />
+          References
+        </h3>
         <div className="space-y-2">
           <Label htmlFor="user_references">Reference Information</Label>
           <Textarea

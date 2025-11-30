@@ -7,6 +7,23 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Heart,
+  Sparkles,
+  Lock,
+  Users,
+  UserPlus,
+  Hand,
+  Grip,
+  Drama,
+  Shirt,
+  Eye,
+  CheckCircle,
+  UsersRound,
+  User,
+  Zap,
+  LucideIcon
+} from "lucide-react";
 
 interface PreferenceCategory {
   id: string;
@@ -59,6 +76,35 @@ export const PreferencesSelector = ({
     return selectedPreferences[categoryId]?.includes(item) || false;
   };
 
+  // Map preference items to icons
+  const getIconForPreference = (item: string): LucideIcon => {
+    const iconMap: Record<string, LucideIcon> = {
+      // Relationship Style
+      "Casual": Sparkles,
+      "Serious": Heart,
+      "Open": Lock,
+      "Throuple": Users,
+      "Couple": UserPlus,
+      
+      // Sensory Preferences
+      "Light Touch": Hand,
+      "Firm Touch": Grip,
+      "Roleplay": Drama,
+      "Costumes": Shirt,
+      "Blindfolds": Eye,
+      "All": CheckCircle,
+      
+      // Specific Activities
+      "Group Activities": UsersRound,
+      "Threesomes": Users,
+      "Multiple Men Only": User,
+      "Multiple Women Only": User,
+      "Experimental": Zap,
+    };
+    
+    return iconMap[item] || Sparkles; // Default icon
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -81,16 +127,20 @@ export const PreferencesSelector = ({
             </AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-wrap gap-2 pt-2">
-                {category.items.map((item) => (
-                  <Badge
-                    key={item}
-                    variant={isSelected(category.id, item) ? "default" : "outline"}
-                    className="cursor-pointer px-4 py-2 text-sm transition-colors hover:bg-primary/80"
-                    onClick={() => togglePreference(category.id, item)}
-                  >
-                    {item}
-                  </Badge>
-                ))}
+                {category.items.map((item) => {
+                  const IconComponent = getIconForPreference(item);
+                  return (
+                    <Badge
+                      key={item}
+                      variant={isSelected(category.id, item) ? "default" : "outline"}
+                      className="cursor-pointer px-4 py-2 text-sm transition-colors hover:bg-primary/80 flex items-center gap-2"
+                      onClick={() => togglePreference(category.id, item)}
+                    >
+                      <IconComponent className="w-4 h-4" />
+                      {item}
+                    </Badge>
+                  );
+                })}
               </div>
             </AccordionContent>
           </AccordionItem>

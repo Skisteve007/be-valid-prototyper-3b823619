@@ -49,7 +49,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
       if (error) throw error;
       setCertifications(data || []);
     } catch (error: any) {
-      toast.error("Failed to load certifications");
+      toast.error("Failed to load documents");
     } finally {
       setLoading(false);
     }
@@ -71,12 +71,12 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
 
       if (error) throw error;
 
-      toast.success("Certification added successfully");
+      toast.success("Document added successfully");
       setDialogOpen(false);
       setNewCert({ title: "", issuer: "", issue_date: "", expiry_date: "" });
       loadCertifications();
     } catch (error: any) {
-      toast.error(error.message || "Failed to add certification");
+      toast.error(error.message || "Failed to add document");
     } finally {
       setSaving(false);
     }
@@ -93,24 +93,24 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   return (
     <div className="space-y-4 py-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold">Your Certifications</h3>
+        <h3 className="text-lg font-semibold">Your Documents</h3>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="h-4 w-4 mr-2" />
-              Add Certification
+              Add Document
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add New Certification</DialogTitle>
+              <DialogTitle>Add New Document</DialogTitle>
               <DialogDescription>
-                Add a new professional certification to your profile
+                Add a new professional document to your profile
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleAddCertification} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="title">Certification Title</Label>
+                <Label htmlFor="title">Document Title</Label>
                 <Input
                   id="title"
                   value={newCert.title}
@@ -153,7 +153,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                     Adding...
                   </>
                 ) : (
-                  "Add Certification"
+                  "Add Document"
                 )}
               </Button>
             </form>
@@ -166,7 +166,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           <CardContent className="flex flex-col items-center justify-center py-12">
             <Award className="h-12 w-12 text-muted-foreground mb-4" />
             <p className="text-muted-foreground text-center">
-              No certifications added yet. Add your first certification to get started.
+              No documents added yet. Add your first document to get started.
             </p>
           </CardContent>
         </Card>

@@ -77,12 +77,18 @@ const Index = () => {
             <Button 
               variant="ghost" 
               onClick={() => navigate("/auth")}
-              className="relative shadow-[0_0_30px_rgba(34,197,94,0.6)] hover:shadow-[0_0_40px_rgba(34,197,94,0.8)] border-2 border-green-500/50 bg-green-500/10 text-green-400 hover:text-green-300 animate-pulse"
+              className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-green-300 hover:text-green-200 animate-pulse"
             >
-              <div className="absolute inset-0 bg-green-500/20 blur-lg rounded-md -z-10 animate-pulse"></div>
+              <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
               QR Code
             </Button>
-            <Button onClick={() => navigate("/auth")}>Profile</Button>
+            <Button 
+              onClick={() => navigate("/auth")}
+              className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15 animate-pulse"
+            >
+              <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10 animate-pulse"></div>
+              Profile
+            </Button>
           </div>
         </div>
       </header>

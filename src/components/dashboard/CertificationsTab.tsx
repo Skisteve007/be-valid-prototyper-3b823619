@@ -469,7 +469,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           </p>
           <p className="text-sm text-blue-800 dark:text-blue-200">
             By checking this box, I certify that all information provided is accurate and I understand that 
-            Clean Check is a platform for sharing health information. I take full responsibility for the 
+            Clean Check is a peer to peer platform for sharing information. I take full responsibility for the 
             accuracy of my information and understand the importance of maintaining up-to-date health records.
           </p>
           <div className="flex items-start space-x-2">

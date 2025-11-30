@@ -94,8 +94,9 @@ const Dashboard = () => {
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
             <Button 
               onClick={() => setActiveTab("qrcode")}
-              className="bg-gradient-to-r from-green-600 to-teal-600 text-white hover:from-green-700 hover:to-teal-700 shadow-lg shadow-green-500/50"
+              className="relative bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30"
             >
+              <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
               <QrCode className="h-4 w-4 mr-2" />
               QR Code
             </Button>

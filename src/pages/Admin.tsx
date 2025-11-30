@@ -40,6 +40,7 @@ interface Sponsor {
   active: boolean;
   display_order: number;
   tier: 'platinum' | 'gold' | 'silver';
+  section: number;
 }
 
 interface SponsorAnalytics {
@@ -118,6 +119,9 @@ const SortableItem = ({ sponsor, onDelete, onToggleActive, analytics }: {
                 <Badge className={getTierColor(sponsor.tier)}>
                   {sponsor.tier.toUpperCase()}
                 </Badge>
+                <Badge variant="outline">
+                  Section {sponsor.section}
+                </Badge>
               </div>
               <p className="text-sm text-muted-foreground">Order: {sponsor.display_order}</p>
               {sponsor.website_url && (
@@ -187,6 +191,7 @@ const Admin = () => {
     logo_url: "",
     display_order: 0,
     tier: "silver" as 'platinum' | 'gold' | 'silver',
+    section: 1,
   });
 
   const sensors = useSensors(
@@ -394,6 +399,7 @@ const Admin = () => {
             logo_url: newSponsor.logo_url || null,
             display_order: sponsors.length,
             tier: newSponsor.tier,
+            section: newSponsor.section,
             active: true,
           },
         ]);
@@ -402,7 +408,7 @@ const Admin = () => {
 
       toast.success("Sponsor added successfully");
       setDialogOpen(false);
-      setNewSponsor({ name: "", website_url: "", logo_url: "", display_order: 0, tier: "silver" });
+      setNewSponsor({ name: "", website_url: "", logo_url: "", display_order: 0, tier: "silver", section: 1 });
       loadSponsors();
     } catch (error: any) {
       toast.error(error.message || "Failed to add sponsor");
@@ -543,6 +549,19 @@ const Admin = () => {
                               Silver (Standard)
                             </div>
                           </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="section">Display Section *</Label>
+                      <Select value={newSponsor.section.toString()} onValueChange={(value) => setNewSponsor({ ...newSponsor, section: parseInt(value) })}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">Section 1</SelectItem>
+                          <SelectItem value="2">Section 2</SelectItem>
+                          <SelectItem value="3">Section 3</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

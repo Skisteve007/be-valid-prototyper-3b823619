@@ -16,13 +16,13 @@ const Index = () => {
   const [selectedPlan, setSelectedPlan] = useState<"single" | "couple">("single");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [sponsors, setSponsors] = useState<Array<{ id: string; name: string; logo_url: string | null; website_url: string | null; tier: string }>>([]);
+  const [sponsors, setSponsors] = useState<Array<{ id: string; name: string; logo_url: string | null; website_url: string | null; tier: string; section: number }>>([]);
 
   useEffect(() => {
     const fetchSponsors = async () => {
       const { data, error } = await supabase
         .from("sponsors")
-        .select("id, name, logo_url, website_url, tier")
+        .select("id, name, logo_url, website_url, tier, section")
         .eq("active", true)
         .order("display_order", { ascending: true });
 
@@ -175,46 +175,129 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Sponsors Section */}
+        {/* Sponsors Sections */}
         {sponsors.length > 0 && (
           <section className="py-12 px-4 bg-muted/30 border-y">
             <div className="container mx-auto text-center">
-              <div className="flex items-center justify-center gap-2 mb-6">
+              <div className="flex items-center justify-center gap-2 mb-8">
                 <Lock className="h-5 w-5 text-primary" />
                 <h3 className="text-xl font-semibold">Trusted By Community Sponsors</h3>
               </div>
-              <div className="flex flex-wrap justify-center items-center gap-8 mb-4">
-                {sponsors.map((sponsor) => (
-                  <div key={sponsor.id} className="flex items-center justify-center">
-                    {sponsor.logo_url ? (
-                      sponsor.website_url ? (
-                        <a 
-                          href={sponsor.website_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          onClick={() => handleSponsorClick(sponsor.id)}
-                        >
-                          <img 
-                            src={sponsor.logo_url} 
-                            alt={sponsor.name} 
-                            className={`${getSponsorSize(sponsor.tier)} w-auto grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100`}
-                          />
-                        </a>
-                      ) : (
-                        <img 
-                          src={sponsor.logo_url} 
-                          alt={sponsor.name} 
-                          className={`${getSponsorSize(sponsor.tier)} w-auto opacity-70`}
-                        />
-                      )
-                    ) : (
-                      <div className="px-6 py-3 bg-card border rounded-lg">
-                        <span className="text-sm font-medium text-muted-foreground">{sponsor.name}</span>
+              
+              {/* Section 1 */}
+              {sponsors.filter(s => s.section === 1).length > 0 && (
+                <div className="mb-8">
+                  <div className="flex flex-wrap justify-center items-center gap-8">
+                    {sponsors.filter(s => s.section === 1).map((sponsor) => (
+                      <div key={sponsor.id} className="flex items-center justify-center">
+                        {sponsor.logo_url ? (
+                          sponsor.website_url ? (
+                            <a 
+                              href={sponsor.website_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              onClick={() => handleSponsorClick(sponsor.id)}
+                            >
+                              <img 
+                                src={sponsor.logo_url} 
+                                alt={sponsor.name} 
+                                className={`${getSponsorSize(sponsor.tier)} w-auto grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100`}
+                              />
+                            </a>
+                          ) : (
+                            <img 
+                              src={sponsor.logo_url} 
+                              alt={sponsor.name} 
+                              className={`${getSponsorSize(sponsor.tier)} w-auto opacity-70`}
+                            />
+                          )
+                        ) : (
+                          <div className="px-6 py-3 bg-card border rounded-lg">
+                            <span className="text-sm font-medium text-muted-foreground">{sponsor.name}</span>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+              
+              {/* Section 2 */}
+              {sponsors.filter(s => s.section === 2).length > 0 && (
+                <div className="mb-8">
+                  <div className="flex flex-wrap justify-center items-center gap-8">
+                    {sponsors.filter(s => s.section === 2).map((sponsor) => (
+                      <div key={sponsor.id} className="flex items-center justify-center">
+                        {sponsor.logo_url ? (
+                          sponsor.website_url ? (
+                            <a 
+                              href={sponsor.website_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              onClick={() => handleSponsorClick(sponsor.id)}
+                            >
+                              <img 
+                                src={sponsor.logo_url} 
+                                alt={sponsor.name} 
+                                className={`${getSponsorSize(sponsor.tier)} w-auto grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100`}
+                              />
+                            </a>
+                          ) : (
+                            <img 
+                              src={sponsor.logo_url} 
+                              alt={sponsor.name} 
+                              className={`${getSponsorSize(sponsor.tier)} w-auto opacity-70`}
+                            />
+                          )
+                        ) : (
+                          <div className="px-6 py-3 bg-card border rounded-lg">
+                            <span className="text-sm font-medium text-muted-foreground">{sponsor.name}</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Section 3 */}
+              {sponsors.filter(s => s.section === 3).length > 0 && (
+                <div className="mb-4">
+                  <div className="flex flex-wrap justify-center items-center gap-8">
+                    {sponsors.filter(s => s.section === 3).map((sponsor) => (
+                      <div key={sponsor.id} className="flex items-center justify-center">
+                        {sponsor.logo_url ? (
+                          sponsor.website_url ? (
+                            <a 
+                              href={sponsor.website_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              onClick={() => handleSponsorClick(sponsor.id)}
+                            >
+                              <img 
+                                src={sponsor.logo_url} 
+                                alt={sponsor.name} 
+                                className={`${getSponsorSize(sponsor.tier)} w-auto grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100`}
+                              />
+                            </a>
+                          ) : (
+                            <img 
+                              src={sponsor.logo_url} 
+                              alt={sponsor.name} 
+                              className={`${getSponsorSize(sponsor.tier)} w-auto opacity-70`}
+                            />
+                          )
+                        ) : (
+                          <div className="px-6 py-3 bg-card border rounded-lg">
+                            <span className="text-sm font-medium text-muted-foreground">{sponsor.name}</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
               <p className="text-sm text-muted-foreground">Supporting community health and transparency</p>
             </div>
           </section>

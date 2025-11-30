@@ -340,6 +340,7 @@ export type Database = {
           id: string
           logo_url: string | null
           name: string
+          section: number | null
           tier: string | null
           updated_at: string
           website_url: string | null
@@ -351,6 +352,7 @@ export type Database = {
           id?: string
           logo_url?: string | null
           name: string
+          section?: number | null
           tier?: string | null
           updated_at?: string
           website_url?: string | null
@@ -362,6 +364,7 @@ export type Database = {
           id?: string
           logo_url?: string | null
           name?: string
+          section?: number | null
           tier?: string | null
           updated_at?: string
           website_url?: string | null

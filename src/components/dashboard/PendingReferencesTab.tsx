@@ -190,27 +190,6 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
 
   return (
     <div className="space-y-6 py-4">
-      <div className="flex justify-end mb-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleToggleLock}
-          className="gap-2"
-        >
-          {referencesLocked ? (
-            <>
-              <Lock className="h-4 w-4" />
-              Unlock References
-            </>
-          ) : (
-            <>
-              <Unlock className="h-4 w-4" />
-              Lock References
-            </>
-          )}
-        </Button>
-      </div>
-
       {!referencesLocked && pendingRequests.length > 0 && (
         <Card>
           <CardHeader>
@@ -287,11 +266,24 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
 
       {referencesLocked && (
         <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Eye className="h-5 w-5 text-blue-500" />
+              <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">My Clear Check Reference Member</span>
+              <button
+                onClick={handleToggleLock}
+                className="ml-auto p-1 hover:bg-muted rounded transition-colors"
+                title="Unlock references"
+              >
+                <Lock className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+              </button>
+            </CardTitle>
+          </CardHeader>
           <CardContent className="p-8 text-center">
             <Lock className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
             <p className="text-lg font-semibold text-muted-foreground">References Locked</p>
             <p className="text-sm text-muted-foreground mt-2">
-              Your references are currently private. Unlock to view and manage them.
+              Click the lock icon above to view and manage your references.
             </p>
           </CardContent>
         </Card>
@@ -299,15 +291,26 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
 
       {!referencesLocked && (
         <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Eye className="h-5 w-5 text-blue-500" />
-            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">My Clear Check Reference Member</span>
-          </CardTitle>
-          <CardDescription>
-            Members you've added as references (from your profile)
-          </CardDescription>
-        </CardHeader>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Eye className="h-5 w-5 text-blue-500" />
+              <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">My Clear Check Reference Member</span>
+              <button
+                onClick={handleToggleLock}
+                className="ml-auto p-1 hover:bg-muted rounded transition-colors"
+                title={referencesLocked ? "Unlock references" : "Lock references"}
+              >
+                {referencesLocked ? (
+                  <Lock className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                ) : (
+                  <Unlock className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                )}
+              </button>
+            </CardTitle>
+            <CardDescription>
+              Members you've added as references (from your profile)
+            </CardDescription>
+          </CardHeader>
         <CardContent className="space-y-4">
           {myReferences.length === 0 ? (
             <p className="text-center text-muted-foreground py-8">

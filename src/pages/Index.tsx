@@ -290,8 +290,8 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:shadow-[0_0_50px_rgba(34,197,94,0.7)] border-2 border-green-500/30">
-                  <div className="absolute inset-0 bg-green-500/10 blur-xl rounded-lg -z-10"></div>
+                <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">
+                  <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader>
                     <div>
                       <CardTitle className="text-3xl mb-2">$129</CardTitle>
@@ -303,8 +303,8 @@ const Index = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:shadow-[0_0_50px_rgba(34,197,94,0.7)] border-2 border-green-500/30">
-                  <div className="absolute inset-0 bg-green-500/10 blur-xl rounded-lg -z-10"></div>
+                <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(236,72,153,0.5)] hover:shadow-[0_0_50px_rgba(236,72,153,0.7)] border-2 border-pink-500/30">
+                  <div className="absolute inset-0 bg-pink-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader>
                     <div>
                       <CardTitle className="text-3xl mb-2">$219</CardTitle>

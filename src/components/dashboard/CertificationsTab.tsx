@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Plus, Award, FileText } from "lucide-react";
+import { Loader2, Plus, Award, FileText, Download, Eye } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 interface Certification {
@@ -17,6 +17,7 @@ interface Certification {
   issue_date: string;
   expiry_date: string;
   status: string;
+  document_url: string | null;
 }
 
 interface CertificationsTabProps {
@@ -272,26 +273,73 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           {certifications.map((cert) => (
             <Card key={cert.id}>
               <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-xl">{cert.title}</CardTitle>
-                    <CardDescription>{cert.issuer}</CardDescription>
+                <div className="flex justify-between items-start gap-4">
+                  <div className="flex gap-4 flex-1">
+                    {cert.document_url && (
+                      <div className="flex-shrink-0">
+                        <img
+                          src={cert.document_url}
+                          alt={cert.title}
+                          className="w-24 h-24 object-cover rounded-lg border-2 border-border"
+                          onError={(e) => {
+                            // If image fails to load, show a placeholder
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                          }}
+                        />
+                        <div className="hidden w-24 h-24 bg-muted rounded-lg border-2 border-border flex items-center justify-center">
+                          <FileText className="h-8 w-8 text-muted-foreground" />
+                        </div>
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <CardTitle className="text-xl">{cert.title}</CardTitle>
+                      <CardDescription>{cert.issuer}</CardDescription>
+                      <div className="text-sm text-muted-foreground space-y-1 mt-2">
+                        {cert.issue_date && (
+                          <p>Issued: {new Date(cert.issue_date).toLocaleDateString()}</p>
+                        )}
+                        {cert.expiry_date && (
+                          <p>Expires: {new Date(cert.expiry_date).toLocaleDateString()}</p>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <Badge variant={cert.status === "approved" ? "default" : "secondary"}>
-                    {cert.status}
-                  </Badge>
+                  <div className="flex flex-col gap-2">
+                    <Badge variant={cert.status === "approved" ? "default" : "secondary"}>
+                      {cert.status}
+                    </Badge>
+                    {cert.document_url && (
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => window.open(cert.document_url!, '_blank')}
+                          className="flex items-center gap-1"
+                        >
+                          <Eye className="h-3 w-3" />
+                          View
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = cert.document_url!;
+                            link.download = `${cert.title}.pdf`;
+                            link.click();
+                            toast.success("Document download started");
+                          }}
+                          className="flex items-center gap-1"
+                        >
+                          <Download className="h-3 w-3" />
+                          Download
+                        </Button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-sm text-muted-foreground space-y-1">
-                  {cert.issue_date && (
-                    <p>Issued: {new Date(cert.issue_date).toLocaleDateString()}</p>
-                  )}
-                  {cert.expiry_date && (
-                    <p>Expires: {new Date(cert.expiry_date).toLocaleDateString()}</p>
-                  )}
-                </div>
-              </CardContent>
             </Card>
           ))}
         </div>

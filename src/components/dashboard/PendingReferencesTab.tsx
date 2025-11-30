@@ -27,6 +27,7 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
   const [loading, setLoading] = useState(true);
   const [pendingRequests, setPendingRequests] = useState<ReferenceRequest[]>([]);
   const [verifiedRequests, setVerifiedRequests] = useState<ReferenceRequest[]>([]);
+  const [myReferences, setMyReferences] = useState<ReferenceRequest[]>([]);
   const [processing, setProcessing] = useState<string | null>(null);
 
   useEffect(() => {
@@ -35,41 +36,74 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
 
   const loadReferences = async () => {
     try {
-      const { data, error } = await supabase
+      // Load incoming references (where I'm the referee)
+      const { data: incomingData, error: incomingError } = await supabase
         .from("member_references")
         .select("*")
         .eq("referee_user_id", userId)
         .order("created_at", { ascending: false });
 
-      if (error) throw error;
+      if (incomingError) throw incomingError;
 
-      // Fetch profiles for all referrer_user_ids
-      const referrerUserIds = (data || []).map((ref: any) => ref.referrer_user_id);
+      // Load my outgoing references (where I'm the referrer)
+      const { data: outgoingData, error: outgoingError } = await supabase
+        .from("member_references")
+        .select("*")
+        .eq("referrer_user_id", userId)
+        .order("created_at", { ascending: false });
+
+      if (outgoingError) throw outgoingError;
+
+      // Fetch profiles for incoming references
+      const referrerUserIds = (incomingData || []).map((ref: any) => ref.referrer_user_id);
       
-      const { data: profiles, error: profileError } = await supabase
+      const { data: referrerProfiles, error: referrerProfileError } = await supabase
         .from("profiles")
         .select("user_id, full_name, member_id, profile_image_url")
         .in("user_id", referrerUserIds);
 
-      if (profileError) throw profileError;
+      if (referrerProfileError) throw referrerProfileError;
 
-      // Map profiles to references
-      const profileMap = new Map(profiles?.map(p => [p.user_id, p]) || []);
+      // Fetch profiles for outgoing references
+      const refereeUserIds = (outgoingData || []).map((ref: any) => ref.referee_user_id);
       
-      const enrichedData = (data || []).map((ref: any) => ({
+      const { data: refereeProfiles, error: refereeProfileError } = await supabase
+        .from("profiles")
+        .select("user_id, full_name, member_id, profile_image_url")
+        .in("user_id", refereeUserIds);
+
+      if (refereeProfileError) throw refereeProfileError;
+
+      // Map profiles to incoming references
+      const referrerProfileMap = new Map(referrerProfiles?.map(p => [p.user_id, p]) || []);
+      
+      const enrichedIncomingData = (incomingData || []).map((ref: any) => ({
         ...ref,
-        referrer_profile: profileMap.get(ref.referrer_user_id) || {
+        referrer_profile: referrerProfileMap.get(ref.referrer_user_id) || {
           full_name: "Unknown",
           member_id: "N/A",
           profile_image_url: null
         }
       }));
 
-      const pending = enrichedData.filter((ref: any) => !ref.verified);
-      const verified = enrichedData.filter((ref: any) => ref.verified);
+      // Map profiles to outgoing references
+      const refereeProfileMap = new Map(refereeProfiles?.map(p => [p.user_id, p]) || []);
+      
+      const enrichedOutgoingData = (outgoingData || []).map((ref: any) => ({
+        ...ref,
+        referrer_profile: refereeProfileMap.get(ref.referee_user_id) || {
+          full_name: "Unknown",
+          member_id: "N/A",
+          profile_image_url: null
+        }
+      }));
+
+      const pending = enrichedIncomingData.filter((ref: any) => !ref.verified);
+      const verified = enrichedIncomingData.filter((ref: any) => ref.verified);
 
       setPendingRequests(pending as ReferenceRequest[]);
       setVerifiedRequests(verified as ReferenceRequest[]);
+      setMyReferences(enrichedOutgoingData as ReferenceRequest[]);
     } catch (error: any) {
       console.error("Failed to load references:", error);
       toast.error("Failed to load reference requests");
@@ -260,6 +294,77 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
                     >
                       <ExternalLink className="h-4 w-4" />
                     </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <ExternalLink className="h-5 w-5 text-blue-500" />
+            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">My References</span>
+          </CardTitle>
+          <CardDescription>
+            Members you've added as references (from your profile)
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {myReferences.length === 0 ? (
+            <p className="text-center text-muted-foreground py-8">
+              No references added yet. Add member IDs in your Profile tab.
+            </p>
+          ) : (
+            myReferences.map((request) => (
+              <Card key={request.id}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 flex-1">
+                      {request.referrer_profile.profile_image_url ? (
+                        <img
+                          src={request.referrer_profile.profile_image_url}
+                          alt={request.referrer_profile.full_name}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+                          <span className="text-lg font-semibold text-muted-foreground">
+                            {request.referrer_profile.full_name?.charAt(0)}
+                          </span>
+                        </div>
+                      )}
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold">{request.referrer_profile.full_name}</p>
+                          {request.verified ? (
+                            <Badge variant="default" className="bg-green-500">
+                              <CheckCircle className="h-3 w-3 mr-1" />
+                              Verified
+                            </Badge>
+                          ) : (
+                            <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400">
+                              <Clock className="h-3 w-3 mr-1" />
+                              Pending
+                            </Badge>
+                          )}
+                        </div>
+                        <p className="text-sm text-muted-foreground font-mono">
+                          {request.referrer_profile.member_id}
+                        </p>
+                        {request.verified ? (
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Verified {new Date(request.verified_at!).toLocaleDateString()}
+                          </p>
+                        ) : (
+                          <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-1">
+                            Awaiting verification from member
+                          </p>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

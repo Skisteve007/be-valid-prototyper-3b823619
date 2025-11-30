@@ -52,6 +52,7 @@ interface ProfileFormData {
 const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
   const [userInterests, setUserInterests] = useState<Record<string, string[]>>({});
@@ -352,10 +353,18 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
 
       toast.success("Profile updated successfully");
       
+      // Show success state
+      setSaveSuccess(true);
+      
       // Notify parent component to refresh QR code
       if (onUpdate) {
         onUpdate();
       }
+      
+      // Reset success state after 2 seconds
+      setTimeout(() => {
+        setSaveSuccess(false);
+      }, 2000);
     } catch (error: any) {
       toast.error(error.message || "Failed to update profile");
     } finally {
@@ -609,9 +618,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           disabled={saving || !profileImageUrl}
           size="lg"
           className={`shadow-2xl transition-all duration-300 ${
-            !saving && profileImageUrl 
-              ? 'shadow-green-500/50 hover:shadow-green-500/60 ring-2 ring-green-400/50 bg-green-600 hover:bg-green-700' 
-              : ''
+            saveSuccess
+              ? 'bg-green-600 hover:bg-green-600 ring-2 ring-green-400/50 shadow-green-500/60'
+              : !saving && profileImageUrl 
+                ? 'shadow-primary/50 hover:shadow-primary/60' 
+                : ''
           }`}
         >
           {saving ? (
@@ -620,7 +631,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
               Saving...
             </>
           ) : (
-            "Save & Close"
+            "Save"
           )}
         </Button>
       </div>

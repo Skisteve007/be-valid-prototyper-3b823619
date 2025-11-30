@@ -73,29 +73,8 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
     }
   };
 
-  const handleDisclaimerChange = async (checked: boolean) => {
-    try {
-      const { error } = await supabase
-        .from("profiles")
-        .update({ disclaimer_accepted: checked })
-        .eq("user_id", userId);
-
-      if (error) throw error;
-      setDisclaimerAccepted(checked);
-      toast.success(checked ? "Disclaimer accepted" : "Disclaimer unchecked");
-    } catch (error: any) {
-      toast.error("Failed to update disclaimer");
-    }
-  };
-
   const handleAddCertification = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!disclaimerAccepted) {
-      toast.error("You must accept the disclaimer before adding documents");
-      return;
-    }
-    
     setSaving(true);
 
     try {
@@ -121,6 +100,33 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
     }
   };
 
+  const handleComplete = async () => {
+    if (!disclaimerAccepted) {
+      toast.error("You must accept the disclaimer to complete this section");
+      return;
+    }
+
+    if (certifications.length === 0) {
+      toast.error("Please add at least one document before completing");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const { error } = await supabase
+        .from("profiles")
+        .update({ disclaimer_accepted: true })
+        .eq("user_id", userId);
+
+      if (error) throw error;
+      toast.success("Documents section completed successfully");
+    } catch (error: any) {
+      toast.error("Failed to save disclaimer");
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center py-8">
@@ -131,22 +137,6 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
 
   return (
     <div className="space-y-4 py-4">
-      <div className="space-y-4 p-4 bg-muted rounded-lg mb-6">
-        <p className="text-sm">
-          By checking this box, I certify that all information provided is accurate and I understand that 
-          Clean Check is a platform for sharing health information. I take full responsibility for the 
-          accuracy of my information and understand the importance of maintaining up-to-date health records.
-        </p>
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            checked={disclaimerAccepted}
-            onCheckedChange={handleDisclaimerChange}
-            required
-          />
-          <Label className="cursor-pointer">I accept the disclaimer and certify all information is accurate *</Label>
-        </div>
-      </div>
-
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">Your Documents</h3>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -252,6 +242,41 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {certifications.length > 0 && (
+        <div className="space-y-4 mt-6">
+          <div className="space-y-4 p-4 bg-muted rounded-lg">
+            <p className="text-sm">
+              By checking this box, I certify that all information provided is accurate and I understand that 
+              Clean Check is a platform for sharing health information. I take full responsibility for the 
+              accuracy of my information and understand the importance of maintaining up-to-date health records.
+            </p>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                checked={disclaimerAccepted}
+                onCheckedChange={(checked) => setDisclaimerAccepted(checked === true)}
+                required
+              />
+              <Label className="cursor-pointer">I accept the disclaimer and certify all information is accurate *</Label>
+            </div>
+          </div>
+
+          <Button 
+            onClick={handleComplete} 
+            disabled={saving || !disclaimerAccepted || certifications.length === 0}
+            className="w-full"
+          >
+            {saving ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Save & Close"
+            )}
+          </Button>
         </div>
       )}
     </div>

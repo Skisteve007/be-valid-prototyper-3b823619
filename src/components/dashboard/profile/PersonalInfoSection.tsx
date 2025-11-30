@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Home, MapPin, Cake, Users } from "lucide-react";
+import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart } from "lucide-react";
+import { useRef } from "react";
 
 interface PersonalInfoSectionProps {
   register: UseFormRegister<any>;
@@ -14,6 +15,11 @@ interface PersonalInfoSectionProps {
   profileImageUrl: string;
   uploadingImage: boolean;
   handleImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  fullName?: string;
+  email?: string;
+  whereFrom?: string;
+  currentHomeCity?: string;
+  relationshipStatus?: string;
 }
 
 export const PersonalInfoSection = ({
@@ -24,7 +30,13 @@ export const PersonalInfoSection = ({
   profileImageUrl,
   uploadingImage,
   handleImageUpload,
+  fullName,
+  email,
+  whereFrom,
+  currentHomeCity,
+  relationshipStatus,
 }: PersonalInfoSectionProps) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
   const months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -47,16 +59,73 @@ export const PersonalInfoSection = ({
                 <User className="h-12 w-12 text-blue-500" />
               </AvatarFallback>
             </Avatar>
-            <div className="flex-1">
-              <Input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                disabled={uploadingImage}
-                className="max-w-xs"
-              />
-              {uploadingImage && <p className="text-sm text-muted-foreground mt-1">Uploading...</p>}
-            </div>
+            
+            {profileImageUrl ? (
+              <div className="flex-1 space-y-3">
+                {fullName && (
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-blue-500" />
+                    <span className="font-semibold text-lg">{fullName}</span>
+                  </div>
+                )}
+                {email && (
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-purple-500" />
+                    <span className="text-sm text-muted-foreground">{email}</span>
+                  </div>
+                )}
+                <div className="flex items-center gap-4 flex-wrap text-sm">
+                  {whereFrom && (
+                    <div className="flex items-center gap-1">
+                      <Home className="w-3.5 h-3.5 text-blue-500" />
+                      <span className="text-muted-foreground">{whereFrom}</span>
+                    </div>
+                  )}
+                  {currentHomeCity && (
+                    <div className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-red-500" />
+                      <span className="text-muted-foreground">{currentHomeCity}</span>
+                    </div>
+                  )}
+                  {relationshipStatus && (
+                    <div className="flex items-center gap-1">
+                      <Heart className="w-3.5 h-3.5 text-pink-500" />
+                      <span className="text-muted-foreground">{relationshipStatus}</span>
+                    </div>
+                  )}
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploadingImage}
+                  className="mt-2"
+                >
+                  <Camera className="w-4 h-4 mr-2" />
+                  {uploadingImage ? "Uploading..." : "Change Photo"}
+                </Button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={uploadingImage}
+                  className="hidden"
+                />
+              </div>
+            ) : (
+              <div className="flex-1">
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={uploadingImage}
+                  className="max-w-xs"
+                />
+                {uploadingImage && <p className="text-sm text-muted-foreground mt-1">Uploading...</p>}
+              </div>
+            )}
           </div>
         </div>
       </div>

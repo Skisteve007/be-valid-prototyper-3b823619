@@ -316,17 +316,33 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         </div>
       </div>
 
-      <div className="flex gap-4">
-        <Button type="submit" disabled={saving || !profileImageUrl} className="flex-1">
-          {saving ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Saving...
-            </>
-          ) : (
-            "Save & Close"
-          )}
-        </Button>
+      <div className="relative">
+        {!saving && profileImageUrl && (
+          <>
+            <div className="absolute inset-0 bg-green-500/40 blur-2xl rounded-lg animate-pulse"></div>
+            <div className="absolute inset-0 bg-green-400/30 blur-xl rounded-lg"></div>
+          </>
+        )}
+        <div className="relative flex gap-4">
+          <Button 
+            type="submit" 
+            disabled={saving || !profileImageUrl} 
+            className={`flex-1 transition-all duration-300 ${
+              !saving && profileImageUrl 
+                ? 'shadow-lg shadow-green-500/50 hover:shadow-xl hover:shadow-green-500/60 ring-2 ring-green-400/50' 
+                : ''
+            }`}
+          >
+            {saving ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Save & Close"
+            )}
+          </Button>
+        </div>
       </div>
     </form>
   );

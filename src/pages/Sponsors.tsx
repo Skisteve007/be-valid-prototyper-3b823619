@@ -160,7 +160,10 @@ const Sponsors = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-6 relative">
           <div className="flex justify-center items-center">
-            <img src={logo} alt="Clean Check" className="h-28 w-auto cursor-pointer" onClick={() => navigate("/")} />
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 via-pink-500/30 to-blue-500/30 blur-3xl rounded-full scale-150"></div>
+              <img src={logo} alt="Clean Check" className="relative h-28 w-auto cursor-pointer" onClick={() => navigate("/")} />
+            </div>
           </div>
           <Button variant="outline" onClick={() => navigate("/")} className="absolute right-4 top-1/2 -translate-y-1/2">
             Back to Home

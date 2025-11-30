@@ -462,7 +462,10 @@ const Admin = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="Clean Check" className="h-18 w-auto" />
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 via-pink-500/30 to-blue-500/30 blur-3xl rounded-full scale-150"></div>
+              <img src={logo} alt="Clean Check" className="relative h-18 w-auto" />
+            </div>
             <div className="flex items-center gap-2 ml-4">
               <Shield className="h-5 w-5 text-primary" />
               <span className="font-semibold">Admin Panel</span>

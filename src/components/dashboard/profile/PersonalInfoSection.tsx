@@ -36,20 +36,25 @@ export const PersonalInfoSection = ({
       
       <div className="space-y-2">
         <Label className="text-base">Profile Photo *</Label>
-        <div className="flex items-center gap-4">
-          <Avatar className="h-24 w-24">
-            <AvatarImage src={profileImageUrl} />
-            <AvatarFallback><User className="h-12 w-12" /></AvatarFallback>
-          </Avatar>
-          <div>
-            <Input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              disabled={uploadingImage}
-              className="max-w-xs"
-            />
-            {uploadingImage && <p className="text-sm text-muted-foreground mt-1">Uploading...</p>}
+        <div className="relative">
+          <div className="absolute inset-0 bg-green-500/20 blur-2xl rounded-full"></div>
+          <div className="relative flex items-center gap-4 p-6 rounded-lg border-2 border-green-500/30 bg-background/50 backdrop-blur-sm">
+            <Avatar className="h-24 w-24 ring-4 ring-green-500/50 shadow-lg shadow-green-500/30">
+              <AvatarImage src={profileImageUrl} />
+              <AvatarFallback className="bg-green-500/10">
+                <User className="h-12 w-12 text-green-500" />
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                disabled={uploadingImage}
+                className="max-w-xs"
+              />
+              {uploadingImage && <p className="text-sm text-muted-foreground mt-1">Uploading...</p>}
+            </div>
           </div>
         </div>
       </div>
@@ -67,7 +72,7 @@ export const PersonalInfoSection = ({
 
         <div className="space-y-2">
           <Label htmlFor="where_from" className="flex items-center gap-2">
-            <Home className="w-4 h-4" />
+            <Home className="w-4 h-4 text-blue-500" />
             Where You From
           </Label>
           <Input id="where_from" {...register("where_from")} placeholder="Los Angeles, CA" />
@@ -75,7 +80,7 @@ export const PersonalInfoSection = ({
 
         <div className="space-y-2">
           <Label htmlFor="current_home_city" className="flex items-center gap-2">
-            <MapPin className="w-4 h-4" />
+            <MapPin className="w-4 h-4 text-red-500" />
             Current Home City
           </Label>
           <Input id="current_home_city" {...register("current_home_city")} placeholder="Miami, FL" />
@@ -84,7 +89,7 @@ export const PersonalInfoSection = ({
 
       <div className="space-y-2">
         <Label className="flex items-center gap-2">
-          <Cake className="w-4 h-4" />
+          <Cake className="w-4 h-4 text-pink-500" />
           Birthday *
         </Label>
         <div className="grid grid-cols-3 gap-2">
@@ -119,7 +124,7 @@ export const PersonalInfoSection = ({
 
       <div className="space-y-2">
         <Label className="flex items-center gap-2">
-          <Users className="w-4 h-4" />
+          <Users className="w-4 h-4 text-purple-500" />
           I Identify As *
         </Label>
         <div className="flex gap-2">

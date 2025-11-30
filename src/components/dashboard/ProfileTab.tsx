@@ -250,7 +250,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
 
       <div className="space-y-6">
         <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
-          <FileText className="w-5 h-5" />
+          <FileText className="w-5 h-5 text-green-500" />
           STD Acknowledgment
         </h3>
         <div className="space-y-2">
@@ -266,7 +266,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
 
       <div className="space-y-6">
         <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
-          <UserCheck className="w-5 h-5" />
+          <UserCheck className="w-5 h-5 text-blue-500" />
           References
         </h3>
         <div className="space-y-2">

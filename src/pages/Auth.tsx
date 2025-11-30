@@ -208,7 +208,7 @@ const Auth = () => {
 
       <main>
         {/* Hero Section */}
-        <section className="py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
+        <section className="py-6 px-4 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto text-center max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               {mode === "login" ? (
@@ -230,7 +230,7 @@ const Auth = () => {
 
         {/* Login Section - Only show when mode=login */}
         {mode === "login" && (
-          <section className="py-8 px-4">
+          <section className="py-4 px-4">
             <div className="container mx-auto max-w-md">
               <Card>
                 <CardHeader>

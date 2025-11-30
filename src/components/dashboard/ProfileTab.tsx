@@ -55,7 +55,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
   const [userInterests, setUserInterests] = useState<Record<string, string[]>>({});
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red">("green");
+  const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
   const [referenceIds, setReferenceIds] = useState<string[]>(["", "", ""]);
   const [referenceProfiles, setReferenceProfiles] = useState<Array<{id: string, user_id: string, full_name: string, member_id: string, verified?: boolean} | null>>([null, null, null]);
   const [existingReferences, setExistingReferences] = useState<string[]>([]);
@@ -144,7 +144,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         setProfileImageUrl(data.profile_image_url || "");
         setUserInterests((data.user_interests as Record<string, string[]>) || {});
         setSelectedInterests((data.selected_interests as string[]) || []);
-        setStatusColor((data.status_color as "green" | "yellow" | "red") || "green");
+        setStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
       }
     } catch (error: any) {
       toast.error("Failed to load profile");
@@ -434,7 +434,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         </h3>
         <div className="space-y-4">
           <Label>Choose your status color (appears as a glow around your QR code)</Label>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <button
               type="button"
               onClick={() => setStatusColor("green")}
@@ -480,6 +480,22 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
                 <div className="w-12 h-12 rounded-full bg-red-500 shadow-[0_0_20px_8px_rgba(239,68,68,0.6)]"></div>
                 <span className="font-semibold">Be Aware</span>
                 <span className="text-sm text-muted-foreground text-center">Examine Docs Please</span>
+              </div>
+            </button>
+            
+            <button
+              type="button"
+              onClick={() => setStatusColor("gray")}
+              className={`p-4 rounded-lg border-2 transition-all ${
+                statusColor === "gray"
+                  ? "border-gray-500 bg-gray-500/10 shadow-lg shadow-gray-500/50"
+                  : "border-border hover:border-gray-500/50"
+              }`}
+            >
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 rounded-full bg-gray-500 shadow-[0_0_20px_8px_rgba(107,114,128,0.6)]"></div>
+                <span className="font-semibold">Gray</span>
+                <span className="text-sm text-muted-foreground text-center">Incognito Mode</span>
               </div>
             </button>
           </div>

@@ -13,7 +13,7 @@ interface QRCodeTabProps {
 
 const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const [qrCodeUrl, setQrCodeUrl] = useState("");
-  const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red">("green");
+  const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
   const [lastDocumentDate, setLastDocumentDate] = useState<Date | null>(null);
   const [documentAge, setDocumentAge] = useState<number>(0);
   const [wakeLock, setWakeLock] = useState<any>(null);
@@ -39,7 +39,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         .single();
       
       if (profileData) {
-        setStatusColor((profileData.status_color as "green" | "yellow" | "red") || "green");
+        setStatusColor((profileData.status_color as "green" | "yellow" | "red" | "gray") || "green");
         setProfileId(profileData.id);
         
         // Generate access token for this profile
@@ -137,7 +137,8 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   };
 
   const getGlowColor = () => {
-    const color = getTimestampColor();
+    // Use statusColor for the glow if it's set, otherwise use document age color
+    const color = statusColor === "gray" ? "gray" : getTimestampColor();
     switch (color) {
       case "green":
         return "shadow-[0_0_40px_12px_rgba(34,197,94,0.8)] shadow-green-500/60 animate-pulse";
@@ -145,13 +146,16 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         return "shadow-[0_0_40px_12px_rgba(234,179,8,0.8)] shadow-yellow-500/60 animate-pulse";
       case "red":
         return "shadow-[0_0_40px_12px_rgba(239,68,68,0.8)] shadow-red-500/60 animate-pulse";
+      case "gray":
+        return "shadow-[0_0_20px_8px_rgba(107,114,128,0.6)] shadow-gray-500/40";
       default:
         return "shadow-[0_0_20px_8px_rgba(156,163,175,0.5)]";
     }
   };
 
   const getBorderColor = () => {
-    const color = getTimestampColor();
+    // Use statusColor for the border if it's set, otherwise use document age color
+    const color = statusColor === "gray" ? "gray" : getTimestampColor();
     switch (color) {
       case "green":
         return "border-green-500 ring-4 ring-green-500/30";
@@ -159,6 +163,8 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         return "border-yellow-500 ring-4 ring-yellow-500/30";
       case "red":
         return "border-red-500 ring-4 ring-red-500/30";
+      case "gray":
+        return "border-gray-500 ring-4 ring-gray-500/30";
       default:
         return "border-gray-400";
     }

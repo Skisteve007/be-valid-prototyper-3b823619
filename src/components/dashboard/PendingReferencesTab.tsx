@@ -26,7 +26,6 @@ interface ReferenceRequest {
 const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
   const [loading, setLoading] = useState(true);
   const [pendingRequests, setPendingRequests] = useState<ReferenceRequest[]>([]);
-  const [verifiedRequests, setVerifiedRequests] = useState<ReferenceRequest[]>([]);
   const [myReferences, setMyReferences] = useState<ReferenceRequest[]>([]);
   const [processing, setProcessing] = useState<string | null>(null);
 
@@ -99,10 +98,8 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
       }));
 
       const pending = enrichedIncomingData.filter((ref: any) => !ref.verified);
-      const verified = enrichedIncomingData.filter((ref: any) => ref.verified);
 
       setPendingRequests(pending as ReferenceRequest[]);
-      setVerifiedRequests(verified as ReferenceRequest[]);
       setMyReferences(enrichedOutgoingData as ReferenceRequest[]);
     } catch (error: any) {
       console.error("Failed to load references:", error);
@@ -236,71 +233,6 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
           </CardContent>
         </Card>
       )}
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-green-500" />
-            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Verified References</span>
-          </CardTitle>
-          <CardDescription>
-            Members you've confirmed as references
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {verifiedRequests.length === 0 ? (
-            <p className="text-center text-muted-foreground py-8">
-              No verified references yet
-            </p>
-          ) : (
-            verifiedRequests.map((request) => (
-              <Card key={request.id}>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3 flex-1">
-                      {request.referrer_profile.profile_image_url ? (
-                        <img
-                          src={request.referrer_profile.profile_image_url}
-                          alt={request.referrer_profile.full_name}
-                          className="w-12 h-12 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
-                          <span className="text-lg font-semibold text-muted-foreground">
-                            {request.referrer_profile.full_name?.charAt(0)}
-                          </span>
-                        </div>
-                      )}
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <p className="font-semibold">{request.referrer_profile.full_name}</p>
-                          <Badge variant="default" className="bg-green-500">
-                            <CheckCircle className="h-3 w-3 mr-1" />
-                            Verified
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground font-mono">
-                          {request.referrer_profile.member_id}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Verified {new Date(request.verified_at!).toLocaleDateString()}
-                        </p>
-                      </div>
-                    </div>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => window.open(`/profile/${request.referrer_user_id}`, '_blank')}
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-          )}
-        </CardContent>
-      </Card>
 
       <Card>
         <CardHeader>

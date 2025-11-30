@@ -22,12 +22,16 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
   useEffect(() => {
     loadProfileAndDocuments();
-    increaseBrightness();
+    
+    // Only activate brightness for gray/incognito mode
+    if (statusColor === "gray") {
+      increaseBrightness();
+    }
     
     return () => {
       resetBrightness();
     };
-  }, [userId]);
+  }, [userId, statusColor]);
 
   const loadProfileAndDocuments = async () => {
     try {

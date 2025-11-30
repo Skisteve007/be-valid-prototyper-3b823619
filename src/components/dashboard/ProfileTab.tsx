@@ -163,13 +163,13 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       const filePath = `${userId}/profile.${fileExt}`;
 
       const { error: uploadError } = await supabase.storage
-        .from('sponsor-logos')
+        .from('profile-images')
         .upload(filePath, file, { upsert: true });
 
       if (uploadError) throw uploadError;
 
       const { data: { publicUrl } } = supabase.storage
-        .from('sponsor-logos')
+        .from('profile-images')
         .getPublicUrl(filePath);
 
       setProfileImageUrl(publicUrl);

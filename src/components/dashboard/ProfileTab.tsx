@@ -17,6 +17,7 @@ import { InterestsSelector } from "./profile/InterestsSelector";
 
 interface ProfileTabProps {
   userId: string;
+  onUpdate?: () => void;
 }
 
 interface ProfileFormData {
@@ -48,7 +49,7 @@ interface ProfileFormData {
   disclaimer_accepted: boolean;
 }
 
-const ProfileTab = ({ userId }: ProfileTabProps) => {
+const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -350,6 +351,11 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       }
 
       toast.success("Profile updated successfully");
+      
+      // Notify parent component to refresh QR code
+      if (onUpdate) {
+        onUpdate();
+      }
     } catch (error: any) {
       toast.error(error.message || "Failed to update profile");
     } finally {

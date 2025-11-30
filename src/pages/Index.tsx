@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
+import { Session } from "@supabase/supabase-js";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -17,6 +18,21 @@ const Index = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [sponsors, setSponsors] = useState<Array<{ id: string; name: string; logo_url: string | null; website_url: string | null; tier: string; section: number }>>([]);
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchSponsors = async () => {
@@ -80,17 +96,29 @@ const Index = () => {
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
             <Button 
               variant="ghost" 
-              onClick={() => navigate("/auth")}
-              className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
+              onClick={() => session ? navigate("/dashboard?tab=qrcode") : undefined}
+              disabled={!session}
+              className={`relative border-2 font-bold text-base ${
+                session 
+                  ? "shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-green-600/60 bg-green-600/15 text-orange-500 hover:text-orange-400 cursor-pointer"
+                  : "border-gray-400/30 bg-gray-400/10 text-gray-500 cursor-not-allowed opacity-50"
+              }`}
             >
-              <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
+              {!session && <Lock className="h-4 w-4 mr-1" />}
+              {session && <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>}
               QR Code
             </Button>
             <Button 
-              onClick={() => navigate("/auth")}
-              className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15"
+              onClick={() => session ? navigate("/dashboard") : undefined}
+              disabled={!session}
+              className={`relative border-2 ${
+                session
+                  ? "shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-blue-500/60 bg-blue-500/15 cursor-pointer"
+                  : "border-gray-400/30 bg-gray-400/10 text-gray-500 cursor-not-allowed opacity-50"
+              }`}
             >
-              <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>
+              {!session && <Lock className="h-4 w-4 mr-1" />}
+              {session && <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>}
               Profile
             </Button>
           </div>

@@ -282,7 +282,7 @@ const Auth = () => {
                       <Button 
                         type="button" 
                         variant="link" 
-                        onClick={() => navigate("/auth")}
+                        onClick={() => navigate("/")}
                       >
                         New member? Sign up here
                       </Button>

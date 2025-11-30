@@ -180,7 +180,7 @@ const Index = () => {
             
             {/* Featured Sponsors - Always show 3 slots */}
             <ScrollReveal direction="up" delay={400}>
-              <div className="mt-16">
+              <div className="mt-8">
                 <p className="text-base text-muted-foreground mb-8 font-semibold">Trusted Community Sponsors</p>
                 <div className="flex justify-center items-center gap-16">
                 {[0, 1, 2].map((index) => {

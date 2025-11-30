@@ -204,66 +204,66 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
               Add Document
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Add New Document</DialogTitle>
-              <DialogDescription>
-                Add a new professional document to your profile
-              </DialogDescription>
+              <DialogTitle>Add Document</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleAddCertification} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="document-file">Upload Document *</Label>
+            <form onSubmit={handleAddCertification} className="space-y-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="document-file" className="text-sm">Upload Document *</Label>
                 <Input
                   id="document-file"
                   type="file"
                   accept="image/*,.pdf,.doc,.docx"
                   onChange={handleFileChange}
                   required
-                  className="cursor-pointer"
+                  className="cursor-pointer text-sm"
                 />
-                <p className="text-xs text-muted-foreground">
-                  Accepted formats: Images, PDF, Word documents (Max 20MB)
-                </p>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="title">Document Title</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="title" className="text-sm">Title</Label>
                 <Input
                   id="title"
                   value={newCert.title}
                   onChange={(e) => setNewCert({ ...newCert, title: e.target.value })}
-                  placeholder="e.g., Health Certificate"
+                  placeholder="Health Certificate"
                   required
+                  className="text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="issuer">Issuing Organization</Label>
-                <Input
-                  id="issuer"
-                  value={newCert.issuer}
-                  onChange={(e) => setNewCert({ ...newCert, issuer: e.target.value })}
-                  placeholder="e.g., IICRC"
-                />
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1.5">
+                  <Label htmlFor="issuer" className="text-sm">Issuing Org</Label>
+                  <Input
+                    id="issuer"
+                    value={newCert.issuer}
+                    onChange={(e) => setNewCert({ ...newCert, issuer: e.target.value })}
+                    placeholder="IICRC"
+                    className="text-sm"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="issue_date" className="text-sm">Issue Date</Label>
+                  <Input
+                    id="issue_date"
+                    type="date"
+                    value={newCert.issue_date}
+                    onChange={(e) => setNewCert({ ...newCert, issue_date: e.target.value })}
+                    className="text-sm"
+                  />
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="issue_date">Issue Date</Label>
-                <Input
-                  id="issue_date"
-                  type="date"
-                  value={newCert.issue_date}
-                  onChange={(e) => setNewCert({ ...newCert, issue_date: e.target.value })}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="expiry_date">Expiry Date</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="expiry_date" className="text-sm">Expiry Date (Optional)</Label>
                 <Input
                   id="expiry_date"
                   type="date"
                   value={newCert.expiry_date}
                   onChange={(e) => setNewCert({ ...newCert, expiry_date: e.target.value })}
+                  className="text-sm"
                 />
               </div>
-              <Button type="submit" disabled={saving || uploading} className="w-full">
+              <Button type="submit" disabled={saving || uploading} className="w-full mt-4">
                 {saving || uploading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

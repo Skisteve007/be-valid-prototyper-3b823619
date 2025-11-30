@@ -32,7 +32,7 @@ export const PreferencesHealthSection = ({
       
       <div className="space-y-3">
         <Label className="flex items-center gap-2">
-          <Heart className="w-4 h-4" />
+          <Heart className="w-4 h-4 text-red-500" />
           Partner Preferences
         </Label>
         {["Men", "Women", "Couples", "Groups"].map((pref) => (
@@ -52,7 +52,7 @@ export const PreferencesHealthSection = ({
           onCheckedChange={(checked) => setValue("covid_vaccinated", checked as boolean)}
         />
         <Label className="cursor-pointer flex items-center gap-2">
-          <Syringe className="w-4 h-4" />
+          <Syringe className="w-4 h-4 text-blue-500" />
           COVID Vaccination Status
         </Label>
       </div>
@@ -63,7 +63,7 @@ export const PreferencesHealthSection = ({
           onCheckedChange={(checked) => setValue("circumcised", checked as boolean)}
         />
         <Label className="cursor-pointer flex items-center gap-2">
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-4 h-4 text-yellow-500" />
           Circumcised
         </Label>
       </div>
@@ -74,7 +74,7 @@ export const PreferencesHealthSection = ({
           onCheckedChange={(checked) => setValue("smoker", checked as boolean)}
         />
         <Label className="cursor-pointer flex items-center gap-2">
-          <Cigarette className="w-4 h-4" />
+          <Cigarette className="w-4 h-4 text-orange-500" />
           Smoker
         </Label>
       </div>

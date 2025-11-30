@@ -41,32 +41,20 @@ export const authenticateWithBiometric = async (): Promise<boolean> => {
 };
 
 export const saveCredentialsSecurely = async (credentials: BiometricCredentials): Promise<void> => {
-  // In a real app, use Capacitor's SecureStorage or Keychain plugin
-  // For now, we'll use localStorage (Note: This is not secure for production!)
-  // TODO: Implement secure storage using @capacitor/preferences with encryption
-  try {
-    const credentialsString = JSON.stringify(credentials);
-    localStorage.setItem(CREDENTIALS_KEY, btoa(credentialsString));
-  } catch (error) {
-    console.error('Failed to save credentials:', error);
-    throw error;
-  }
+  // SECURITY: We no longer store passwords client-side
+  // Biometric authentication now relies on Supabase session persistence
+  // This function is kept for backward compatibility but does nothing
+  console.log('Biometric login enabled - relying on session persistence');
 };
 
 export const getStoredCredentials = async (): Promise<BiometricCredentials | null> => {
-  try {
-    const stored = localStorage.getItem(CREDENTIALS_KEY);
-    if (!stored) return null;
-    
-    const decoded = atob(stored);
-    return JSON.parse(decoded);
-  } catch (error) {
-    console.error('Failed to retrieve credentials:', error);
-    return null;
-  }
+  // SECURITY: We no longer retrieve stored passwords
+  // Biometric authentication now uses Supabase session tokens
+  return null;
 };
 
 export const clearStoredCredentials = async (): Promise<void> => {
+  // Clean up any legacy stored credentials
   try {
     localStorage.removeItem(CREDENTIALS_KEY);
   } catch (error) {
@@ -85,6 +73,9 @@ export const setupBiometricLogin = async (email: string, password: string): Prom
     throw new Error('Biometric authentication failed');
   }
 
-  await saveCredentialsSecurely({ email, password });
+  // SECURITY: No longer storing credentials
+  // Biometric setup now just verifies capability
+  // Actual authentication uses Supabase session persistence
+  console.log('Biometric authentication enabled');
   return true;
 };

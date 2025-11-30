@@ -23,7 +23,48 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { email, fullName, memberId }: WelcomeEmailRequest = await req.json();
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+    
+    // Create client with anon key for auth verification
+    const authClient = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: req.headers.get('Authorization')! } }
+    });
+
+    // Verify authentication
+    const { data: { user }, error: authError } = await authClient.auth.getUser();
+    
+    if (authError || !user) {
+      console.error('Authentication failed:', authError);
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - authentication required' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log('Sending welcome email for authenticated user:', user.id);
+    
+    // Get email and member data from authenticated user's profile
+    const supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
+    
+    const { data: profile, error: profileError } = await supabaseClient
+      .from('profiles')
+      .select('full_name, member_id')
+      .eq('user_id', user.id)
+      .single();
+    
+    if (profileError || !profile) {
+      console.error('Failed to fetch profile:', profileError);
+      return new Response(
+        JSON.stringify({ error: 'Profile not found' }),
+        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const email = user.email!;
+    const fullName = profile.full_name || 'Member';
+    const memberId = profile.member_id;
 
     console.log("Sending welcome email to:", email, "with member ID:", memberId);
 

@@ -11,8 +11,7 @@ import logo from "@/assets/clean-check-logo.png";
 import { 
   isBiometricAvailable, 
   authenticateWithBiometric, 
-  getStoredCredentials,
-  setupBiometricLogin 
+  getStoredCredentials
 } from "@/lib/biometric";
 import Footer from "@/components/Footer";
 
@@ -27,8 +26,6 @@ const Auth = () => {
   const [signupPassword, setSignupPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [biometricAvailable, setBiometricAvailable] = useState(false);
-  const [enableBiometric, setEnableBiometric] = useState(false);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -38,9 +35,6 @@ const Auth = () => {
       }
     };
     checkUser();
-    
-    // Check if biometric is available
-    isBiometricAvailable().then(setBiometricAvailable);
 
     // Load saved email from localStorage
     const savedEmail = localStorage.getItem('loginEmail');
@@ -72,32 +66,11 @@ const Auth = () => {
 
   const handleBiometricLogin = async () => {
     try {
-      const credentials = await getStoredCredentials();
-      if (!credentials) {
-        toast.error("No saved credentials. Please log in with email/password first.");
-        return;
-      }
-
-      const authenticated = await authenticateWithBiometric();
-      if (!authenticated) {
-        toast.error("Biometric authentication failed");
-        return;
-      }
-
-      setLoading(true);
-      const { error } = await supabase.auth.signInWithPassword({
-        email: credentials.email,
-        password: credentials.password,
-      });
-
-      if (error) throw error;
-
-      toast.success("Welcome back!");
-      navigate("/dashboard");
+      // SECURITY: Biometric login no longer stores passwords
+      // Users should use WebAuthn/Passkeys instead
+      toast.error("Please use WebAuthn/Passkeys for biometric login. This legacy method has been disabled for security.");
     } catch (error: any) {
       toast.error(error.message || "Biometric login failed");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -128,14 +101,10 @@ const Auth = () => {
           .single();
 
         if (profile?.member_id) {
-          // Send welcome email with member ID
+          // Send welcome email - now authenticated via JWT
           try {
             await supabase.functions.invoke("send-welcome-email", {
-              body: {
-                email: signupEmail,
-                fullName: signupFullName,
-                memberId: profile.member_id,
-              },
+              body: {},
             });
           } catch (emailError) {
             console.error("Failed to send welcome email:", emailError);
@@ -144,17 +113,6 @@ const Auth = () => {
           toast.success(`Account created! Your Member ID: ${profile.member_id}`, {
             duration: 6000,
           });
-
-          // Set up biometric if enabled and available
-          if (enableBiometric && biometricAvailable) {
-            try {
-              await setupBiometricLogin(signupEmail, signupPassword);
-              toast.success("Biometric login enabled!");
-            } catch (bioError: any) {
-              console.error("Biometric setup failed:", bioError);
-              toast.error("Biometric setup failed, but you can enable it later");
-            }
-          }
         }
       }
 
@@ -248,20 +206,6 @@ const Auth = () => {
                       {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    {biometricAvailable && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="lg"
-                        className="w-full"
-                        onClick={handleBiometricLogin}
-                        disabled={loading}
-                      >
-                        <Fingerprint className="mr-2 h-5 w-5" />
-                        Login with Biometric
-                      </Button>
-                    )}
-
                     <div className="text-center pt-4">
                       <Button 
                         type="button" 
@@ -321,24 +265,6 @@ const Auth = () => {
                         minLength={6}
                       />
                     </div>
-
-                    {biometricAvailable && (
-                      <div className="flex items-center space-x-2 rounded-lg border p-3 bg-muted/50">
-                        <input
-                          type="checkbox"
-                          id="enable-biometric"
-                          checked={enableBiometric}
-                          onChange={(e) => setEnableBiometric(e.target.checked)}
-                          className="rounded border-primary"
-                        />
-                        <Label htmlFor="enable-biometric" className="text-sm cursor-pointer">
-                          <div className="flex items-center gap-2">
-                            <Fingerprint className="h-4 w-4 text-primary" />
-                            <span>Enable biometric login</span>
-                          </div>
-                        </Label>
-                      </div>
-                    )}
                     
                     <Button 
                       size="lg" 

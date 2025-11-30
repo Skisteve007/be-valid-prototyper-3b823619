@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Plus, Award, FileText, Download, Eye } from "lucide-react";
+import { Loader2, Plus, Award, FileText, Eye } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 interface Certification {
@@ -28,6 +28,8 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   const [loading, setLoading] = useState(true);
   const [certifications, setCertifications] = useState<Certification[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -310,32 +312,18 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                       {cert.status}
                     </Badge>
                     {cert.document_url && (
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => window.open(cert.document_url!, '_blank')}
-                          className="flex items-center gap-1"
-                        >
-                          <Eye className="h-3 w-3" />
-                          View
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => {
-                            const link = document.createElement('a');
-                            link.href = cert.document_url!;
-                            link.download = `${cert.title}.pdf`;
-                            link.click();
-                            toast.success("Document download started");
-                          }}
-                          className="flex items-center gap-1"
-                        >
-                          <Download className="h-3 w-3" />
-                          Download
-                        </Button>
-                      </div>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setSelectedDocument(cert.document_url);
+                          setViewerOpen(true);
+                        }}
+                        className="flex items-center gap-1"
+                      >
+                        <Eye className="h-3 w-3" />
+                        View
+                      </Button>
                     )}
                   </div>
                 </div>
@@ -377,6 +365,36 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           )}
         </Button>
       </div>
+
+      {/* Document Viewer Modal */}
+      <Dialog open={viewerOpen} onOpenChange={setViewerOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+          <DialogHeader>
+            <DialogTitle>Document Viewer</DialogTitle>
+            <DialogDescription>
+              View-only access. Download is restricted for privacy protection.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="relative">
+            {selectedDocument && (
+              <img
+                src={selectedDocument}
+                alt="Document"
+                className="w-full h-auto rounded-lg"
+                onContextMenu={(e) => e.preventDefault()}
+                style={{ userSelect: 'none', pointerEvents: 'none' }}
+                draggable={false}
+              />
+            )}
+            {/* Overlay to prevent right-click and interactions */}
+            <div 
+              className="absolute inset-0 bg-transparent"
+              onContextMenu={(e) => e.preventDefault()}
+              style={{ userSelect: 'none' }}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

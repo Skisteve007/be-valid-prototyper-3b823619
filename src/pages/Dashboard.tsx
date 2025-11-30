@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Shield, Settings } from "lucide-react";
+import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Shield, Settings, Home } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
@@ -183,6 +183,15 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </main>
+
+      {/* Floating Back to Home Button */}
+      <Button
+        onClick={() => navigate("/")}
+        className="fixed bottom-8 left-8 h-14 w-14 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-2xl shadow-blue-500/50 hover:shadow-blue-600/60 transition-all duration-300 hover:scale-110 z-50"
+        title="Back to Home"
+      >
+        <Home className="h-6 w-6 text-white" />
+      </Button>
 
       {/* Floating Admin Button - Only visible for admins */}
       {isAdmin && (

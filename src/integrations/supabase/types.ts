@@ -141,6 +141,7 @@ export type Database = {
           phone: string | null
           profile_image_url: string | null
           qr_code_url: string | null
+          references_locked: boolean | null
           relationship_status: string | null
           selected_interests: string[] | null
           sexual_orientation: string | null
@@ -180,6 +181,7 @@ export type Database = {
           phone?: string | null
           profile_image_url?: string | null
           qr_code_url?: string | null
+          references_locked?: boolean | null
           relationship_status?: string | null
           selected_interests?: string[] | null
           sexual_orientation?: string | null
@@ -219,6 +221,7 @@ export type Database = {
           phone?: string | null
           profile_image_url?: string | null
           qr_code_url?: string | null
+          references_locked?: boolean | null
           relationship_status?: string | null
           selected_interests?: string[] | null
           sexual_orientation?: string | null

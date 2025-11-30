@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, FileText, UserCheck, QrCode, ExternalLink, CheckCircle } from "lucide-react";
+import { Loader2, FileText, UserCheck, QrCode, ExternalLink, CheckCircle, Lock, Unlock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
@@ -63,6 +63,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [referenceProfiles, setReferenceProfiles] = useState<Array<{id: string, user_id: string, full_name: string, member_id: string, verified?: boolean} | null>>([null, null, null]);
   const [existingReferences, setExistingReferences] = useState<string[]>([]);
   const [emailShareable, setEmailShareable] = useState(false);
+  const [referencesLocked, setReferencesLocked] = useState(true);
   
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
@@ -70,6 +71,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [initialSelectedInterests, setInitialSelectedInterests] = useState<string[]>([]);
   const [initialReferenceIds, setInitialReferenceIds] = useState<string[]>(["", "", ""]);
   const [initialEmailShareable, setInitialEmailShareable] = useState(false);
+  const [initialReferencesLocked, setInitialReferencesLocked] = useState(true);
 
   // Autosave timer ref
   const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -105,6 +107,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     profileImageUrl !== initialProfileImageUrl ||
     statusColor !== initialStatusColor ||
     emailShareable !== initialEmailShareable ||
+    referencesLocked !== initialReferencesLocked ||
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
     JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
 
@@ -182,6 +185,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setSelectedInterests((data.selected_interests as string[]) || []);
         setStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
         setEmailShareable(data.email_shareable || false);
+        setReferencesLocked(data.references_locked !== false); // Default to true
         
         // Set initial values for change detection
         setInitialProfileImageUrl(data.profile_image_url || "");
@@ -189,6 +193,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setInitialSelectedInterests((data.selected_interests as string[]) || []);
         setInitialReferenceIds(refs);
         setInitialEmailShareable(data.email_shareable || false);
+        setInitialReferencesLocked(data.references_locked !== false);
         
         // Reset form state to mark as not dirty after loading
         setTimeout(() => {
@@ -372,6 +377,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           selected_interests: selectedInterests,
           status_color: statusColor,
           email_shareable: emailShareable,
+          references_locked: referencesLocked,
         })
         .eq("user_id", userId);
 
@@ -419,6 +425,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       setInitialSelectedInterests([...selectedInterests]);
       setInitialReferenceIds([...referenceIds]);
       setInitialEmailShareable(emailShareable);
+      setInitialReferencesLocked(referencesLocked);
       
       if (!isAutoSave) {
         // Show success state
@@ -685,68 +692,100 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
-          <UserCheck className="w-5 h-5 text-blue-500" />
-          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Member References</span>
-        </h3>
-        <p className="text-sm text-muted-foreground">
-          Enter up to 3 member IDs to link reference profiles
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[0, 1, 2].map((index) => (
-            <Card key={index} className="overflow-hidden">
-              <CardContent className="p-4">
-                <div className="space-y-3">
-                  <Label htmlFor={`reference-${index}`}>Reference #{index + 1}</Label>
-                  <Input
-                    id={`reference-${index}`}
-                    value={referenceIds[index]}
-                    onChange={(e) => handleReferenceIdChange(index, e.target.value)}
-                    placeholder="CC-12345678"
-                    className="font-mono"
-                  />
-                  {referenceProfiles[index] && (
-                    <div className="mt-2 p-3 bg-primary/10 border border-primary/20 rounded-lg space-y-2">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <div className={`w-2 h-2 rounded-full ${referenceProfiles[index]?.verified ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                          <p className="font-semibold text-sm">{referenceProfiles[index]?.full_name}</p>
-                          {referenceProfiles[index]?.verified && (
-                            <Badge variant="default" className="bg-green-500 text-white text-xs">
-                              <CheckCircle className="h-2.5 w-2.5 mr-1" />
-                              Verified
-                            </Badge>
-                          )}
-                        </div>
-                        <p className="text-xs text-muted-foreground font-mono">
-                          {referenceProfiles[index]?.member_id}
-                        </p>
-                        {!referenceProfiles[index]?.verified && (
-                          <p className="text-xs text-yellow-600 dark:text-yellow-400">
-                            Pending verification from member
-                          </p>
-                        )}
-                        <Button
-                          type="button"
-                          size="sm"
-                          variant="default"
-                          className="w-full mt-2"
-                          onClick={() => window.open(`/profile/${referenceProfiles[index]?.id}`, '_blank')}
-                        >
-                          <ExternalLink className="h-3 w-3 mr-2" />
-                          View Profile
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                  {referenceIds[index] && !referenceProfiles[index] && (
-                    <p className="text-xs text-destructive">Member ID not found</p>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="flex items-center justify-between border-b pb-2">
+          <h3 className="text-lg font-semibold flex items-center gap-2">
+            <UserCheck className="w-5 h-5 text-blue-500" />
+            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Member References</span>
+          </h3>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => setReferencesLocked(!referencesLocked)}
+            className="h-auto py-1 px-3"
+          >
+            {referencesLocked ? (
+              <>
+                <Lock className="w-4 h-4 text-red-500 mr-1" />
+                <span className="text-xs text-red-500">Private</span>
+              </>
+            ) : (
+              <>
+                <Unlock className="w-4 h-4 text-green-500 mr-1" />
+                <span className="text-xs text-green-500">Shareable</span>
+              </>
+            )}
+          </Button>
         </div>
+        
+        {referencesLocked ? (
+          <div className="text-center py-8 text-muted-foreground">
+            <Lock className="w-12 h-12 mx-auto mb-3 opacity-50" />
+            <p className="text-sm">References are private</p>
+            <p className="text-xs mt-1">Click unlock to make them shareable via QR code</p>
+          </div>
+        ) : (
+          <>
+            <p className="text-sm text-muted-foreground">
+              Enter up to 3 member IDs to link reference profiles
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[0, 1, 2].map((index) => (
+                <Card key={index} className="overflow-hidden">
+                  <CardContent className="p-4">
+                    <div className="space-y-3">
+                      <Label htmlFor={`reference-${index}`}>Reference #{index + 1}</Label>
+                      <Input
+                        id={`reference-${index}`}
+                        value={referenceIds[index]}
+                        onChange={(e) => handleReferenceIdChange(index, e.target.value)}
+                        placeholder="CC-12345678"
+                        className="font-mono"
+                      />
+                      {referenceProfiles[index] && (
+                        <div className="mt-2 p-3 bg-primary/10 border border-primary/20 rounded-lg space-y-2">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <div className={`w-2 h-2 rounded-full ${referenceProfiles[index]?.verified ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+                              <p className="font-semibold text-sm">{referenceProfiles[index]?.full_name}</p>
+                              {referenceProfiles[index]?.verified && (
+                                <Badge variant="default" className="bg-green-500 text-white text-xs">
+                                  <CheckCircle className="h-2.5 w-2.5 mr-1" />
+                                  Verified
+                                </Badge>
+                              )}
+                            </div>
+                            <p className="text-xs text-muted-foreground font-mono">
+                              {referenceProfiles[index]?.member_id}
+                            </p>
+                            {!referenceProfiles[index]?.verified && (
+                              <p className="text-xs text-yellow-600 dark:text-yellow-400">
+                                Pending verification from member
+                              </p>
+                            )}
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="default"
+                              className="w-full mt-2"
+                              onClick={() => window.open(`/profile/${referenceProfiles[index]?.id}`, '_blank')}
+                            >
+                              <ExternalLink className="h-3 w-3 mr-2" />
+                              View Profile
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                      {referenceIds[index] && !referenceProfiles[index] && (
+                        <p className="text-xs text-destructive">Member ID not found</p>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Floating Save Button and Autosave Status */}

@@ -434,7 +434,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                           setSelectedDocument(cert.document_url);
                           setViewerOpen(true);
                         }}
-                        className="flex items-center gap-1"
+                        className="flex items-center gap-1 border-green-500 text-green-600 hover:bg-green-50 dark:border-green-600 dark:text-green-400 dark:hover:bg-green-950/30"
                       >
                         <Eye className="h-3 w-3" />
                         View

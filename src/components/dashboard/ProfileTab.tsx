@@ -45,9 +45,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [uploadingDocument, setUploadingDocument] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
-  const [healthDocumentUrl, setHealthDocumentUrl] = useState<string>("");
 
   const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
     defaultValues: {
@@ -113,7 +111,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         setValue("disclaimer_accepted", data.disclaimer_accepted || false);
         
         setProfileImageUrl(data.profile_image_url || "");
-        setHealthDocumentUrl(data.health_document_url || "");
       }
     } catch (error: any) {
       toast.error("Failed to load profile");
@@ -150,33 +147,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
     }
   };
 
-  const handleDocumentUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    setUploadingDocument(true);
-    try {
-      const fileExt = file.name.split('.').pop();
-      const filePath = `${userId}/health-document.${fileExt}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('sponsor-logos')
-        .upload(filePath, file, { upsert: true });
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('sponsor-logos')
-        .getPublicUrl(filePath);
-
-      setHealthDocumentUrl(publicUrl);
-      toast.success("Health document uploaded");
-    } catch (error: any) {
-      toast.error("Failed to upload document");
-    } finally {
-      setUploadingDocument(false);
-    }
-  };
 
   const onSubmit = async (data: ProfileFormData) => {
     if (!profileImageUrl) {
@@ -219,8 +189,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
           std_acknowledgment: data.std_acknowledgment,
           user_references: data.user_references,
           sexual_preferences: data.sexual_preferences,
-          health_document_url: healthDocumentUrl || null,
-          health_document_uploaded_at: healthDocumentUrl ? new Date().toISOString() : null,
           disclaimer_accepted: data.disclaimer_accepted,
         })
         .eq("user_id", userId);
@@ -268,10 +236,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       <DocumentDisclaimerSection
         register={register}
         setValue={setValue}
-        uploadingDocument={uploadingDocument}
-        healthDocumentUrl={healthDocumentUrl}
         disclaimerAccepted={disclaimerAccepted}
-        handleDocumentUpload={handleDocumentUpload}
       />
 
       <div className="flex gap-4">

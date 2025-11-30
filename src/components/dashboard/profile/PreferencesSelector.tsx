@@ -23,7 +23,7 @@ const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
   {
     id: "relationship_styles",
     title: "Relationship Style",
-    items: ["Casual", "Serious", "Open", "Throuple", "Together"],
+    items: ["Casual", "Serious", "Open", "Throuple", "Couple"],
   },
   {
     id: "sensory_preferences",

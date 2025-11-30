@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Plus, Award } from "lucide-react";
+import { Loader2, Plus, Award, FileText } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 interface Certification {
@@ -138,7 +138,10 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   return (
     <div className="space-y-4 py-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold">Your Documents</h3>
+        <h3 className="text-lg font-semibold flex items-center gap-2">
+          <FileText className="w-5 h-5 text-blue-500" />
+          Your Documents
+        </h3>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button>
@@ -246,7 +249,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
       )}
 
       <div className="space-y-4 mt-6">
-        <div className="space-y-4 p-4 bg-muted rounded-lg">
+        <div className="space-y-4 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border-2 border-blue-200 dark:border-blue-800">
           <p className="text-sm">
             By checking this box, I certify that all information provided is accurate and I understand that 
             Clean Check is a platform for sharing health information. I take full responsibility for the 

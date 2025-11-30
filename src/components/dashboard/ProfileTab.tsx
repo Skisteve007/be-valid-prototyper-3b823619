@@ -384,20 +384,25 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       setInitialSelectedInterests([...selectedInterests]);
       setInitialReferenceIds([...referenceIds]);
       
-      // Reset form state to mark as not dirty after save
-      reset(undefined, { keepValues: true });
-      
       // Show success state
       setSaveSuccess(true);
+      console.log("Save successful, showing green button");
       
       // Notify parent component to refresh QR code
       if (onUpdate) {
+        console.log("Calling onUpdate to refresh QR code");
         onUpdate();
       }
+      
+      // Reset form state to mark as not dirty after save (do this after setting success state)
+      setTimeout(() => {
+        reset(undefined, { keepValues: true });
+      }, 100);
       
       // Reset success state after 2 seconds
       setTimeout(() => {
         setSaveSuccess(false);
+        console.log("Resetting save success state");
       }, 2000);
     } catch (error: any) {
       toast.error(error.message || "Failed to update profile");
@@ -653,9 +658,9 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           size="lg"
           className={`shadow-2xl transition-all duration-300 ${
             saveSuccess
-              ? 'bg-green-600 hover:bg-green-600 ring-2 ring-green-400/50 shadow-green-500/60'
+              ? 'bg-green-600 hover:bg-green-600 text-white ring-2 ring-green-400/50 shadow-green-500/60'
               : hasChanges && !saving && profileImageUrl
-                ? 'bg-blue-600 hover:bg-blue-700 ring-2 ring-blue-400/50 shadow-blue-500/60'
+                ? 'bg-blue-600 hover:bg-blue-700 text-white ring-2 ring-blue-400/50 shadow-blue-500/60'
                 : !saving && profileImageUrl 
                   ? 'shadow-primary/50 hover:shadow-primary/60' 
                   : ''
@@ -665,6 +670,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Saving...
+            </>
+          ) : saveSuccess ? (
+            <>
+              <CheckCircle className="mr-2 h-4 w-4" />
+              Saved!
             </>
           ) : (
             "Save"

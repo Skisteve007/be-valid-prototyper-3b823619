@@ -7,7 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/clean-check-logo.png";
@@ -176,6 +179,8 @@ const Admin = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [dateFrom, setDateFrom] = useState<Date>();
+  const [dateTo, setDateTo] = useState<Date>();
   const [newSponsor, setNewSponsor] = useState({
     name: "",
     website_url: "",
@@ -227,6 +232,12 @@ const Admin = () => {
     }
   };
 
+  useEffect(() => {
+    if (isAdmin) {
+      loadAnalytics();
+    }
+  }, [dateFrom, dateTo, isAdmin]);
+
   const loadSponsors = async () => {
     try {
       const { data, error } = await supabase
@@ -243,9 +254,20 @@ const Admin = () => {
 
   const loadAnalytics = async () => {
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from("sponsor_analytics")
-        .select("sponsor_id, event_type");
+        .select("sponsor_id, event_type, viewed_at");
+
+      if (dateFrom) {
+        query = query.gte("viewed_at", dateFrom.toISOString());
+      }
+      if (dateTo) {
+        const endOfDay = new Date(dateTo);
+        endOfDay.setHours(23, 59, 59, 999);
+        query = query.lte("viewed_at", endOfDay.toISOString());
+      }
+
+      const { data, error } = await query;
 
       if (error) throw error;
 
@@ -271,6 +293,35 @@ const Admin = () => {
     } catch (error: any) {
       console.error("Failed to load analytics:", error);
     }
+  };
+
+  const exportToCSV = () => {
+    const csvRows = [];
+    csvRows.push(['Sponsor Name', 'Tier', 'Views', 'Clicks', 'CTR (%)', 'Status'].join(','));
+    
+    sponsors.forEach((sponsor) => {
+      const stats = analytics[sponsor.id] || { views: 0, clicks: 0, ctr: 0 };
+      csvRows.push([
+        sponsor.name,
+        sponsor.tier,
+        stats.views,
+        stats.clicks,
+        stats.ctr.toFixed(2),
+        sponsor.active ? 'Active' : 'Inactive'
+      ].join(','));
+    });
+
+    const csvContent = csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', `sponsor-analytics-${format(new Date(), 'yyyy-MM-dd')}.csv`);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    toast.success("Analytics exported to CSV");
   };
 
   const handleDragEnd = async (event: DragEndEvent) => {
@@ -433,13 +484,18 @@ const Admin = () => {
                   Drag to reorder sponsors. Tier determines display size: Platinum (largest), Gold (medium), Silver (standard)
                 </CardDescription>
               </div>
-              <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Sponsor
-                  </Button>
-                </DialogTrigger>
+              <div className="flex gap-2">
+                <Button variant="outline" onClick={exportToCSV}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Export CSV
+                </Button>
+                <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Sponsor
+                    </Button>
+                  </DialogTrigger>
                 <DialogContent className="max-w-md">
                   <DialogHeader>
                     <DialogTitle>Add New Sponsor</DialogTitle>
@@ -522,7 +578,59 @@ const Admin = () => {
                     </Button>
                   </form>
                 </DialogContent>
-              </Dialog>
+                </Dialog>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 mt-6">
+              <div className="flex items-center gap-2">
+                <Label>Date From:</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-[240px] justify-start text-left font-normal">
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {dateFrom ? format(dateFrom, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={dateFrom}
+                      onSelect={setDateFrom}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Label>Date To:</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-[240px] justify-start text-left font-normal">
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {dateTo ? format(dateTo, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={dateTo}
+                      onSelect={setDateTo}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+              
+              {(dateFrom || dateTo) && (
+                <Button variant="ghost" onClick={() => {
+                  setDateFrom(undefined);
+                  setDateTo(undefined);
+                }}>
+                  Clear Filters
+                </Button>
+              )}
             </div>
           </CardHeader>
           <CardContent>

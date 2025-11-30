@@ -74,7 +74,14 @@ const Index = () => {
             <img src={logo} alt="Clean Check" className="h-20 w-auto" />
           </div>
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
-            <Button variant="ghost" onClick={() => navigate("/auth")}>QR Code</Button>
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate("/auth")}
+              className="relative shadow-[0_0_30px_rgba(34,197,94,0.6)] hover:shadow-[0_0_40px_rgba(34,197,94,0.8)] border-2 border-green-500/50 bg-green-500/10 text-green-400 hover:text-green-300 animate-pulse"
+            >
+              <div className="absolute inset-0 bg-green-500/20 blur-lg rounded-md -z-10 animate-pulse"></div>
+              QR Code
+            </Button>
             <Button onClick={() => navigate("/auth")}>Profile</Button>
           </div>
         </div>

@@ -69,7 +69,7 @@ export const PersonalInfoSection = ({
 
         <div className="space-y-2">
           <Label htmlFor="email">Email Address *</Label>
-          <Input id="email" type="email" {...register("email")} required placeholder="donor@cleancheck.com" disabled />
+          <Input id="email" type="email" {...register("email")} required placeholder="donor@cleancheck.com" />
         </div>
 
         <div className="space-y-2">

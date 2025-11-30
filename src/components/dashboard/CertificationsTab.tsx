@@ -295,7 +295,13 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex gap-4 flex-1">
                     {cert.document_url && (
-                      <div className="flex-shrink-0">
+                      <div 
+                        className="flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => {
+                          setSelectedDocument(cert.document_url);
+                          setViewerOpen(true);
+                        }}
+                      >
                         <img
                           src={cert.document_url}
                           alt={cert.title}

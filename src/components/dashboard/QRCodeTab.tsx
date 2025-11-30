@@ -16,6 +16,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red">("green");
   const [lastDocumentDate, setLastDocumentDate] = useState<Date | null>(null);
   const [documentAge, setDocumentAge] = useState<number>(0);
+  const [wakeLock, setWakeLock] = useState<any>(null);
 
   useEffect(() => {
     generateQRCode();
@@ -72,15 +73,29 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const increaseBrightness = async () => {
     try {
       if ('wakeLock' in navigator) {
-        await (navigator as any).wakeLock.request('screen');
+        const lock = await (navigator as any).wakeLock.request('screen');
+        setWakeLock(lock);
+        console.log('Screen wake lock activated - screen will stay bright');
+        
+        // Handle wake lock release
+        lock.addEventListener('release', () => {
+          console.log('Screen wake lock released');
+        });
       }
     } catch (error) {
-      console.log("Screen brightness control not available");
+      console.log("Screen wake lock not available on this device");
     }
   };
 
   const resetBrightness = () => {
-    // Wake lock is automatically released when component unmounts
+    if (wakeLock) {
+      wakeLock.release()
+        .then(() => {
+          setWakeLock(null);
+          console.log('Screen wake lock manually released');
+        })
+        .catch((err: any) => console.log('Wake lock release error:', err));
+    }
   };
 
   const getTimestampColor = () => {

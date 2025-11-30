@@ -66,7 +66,7 @@ const Dashboard = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-6 relative">
           <div className="flex justify-center items-center">
-            <img src={logo} alt="Clean Check" className="h-24 w-auto" />
+            <img src={logo} alt="Clean Check" className="h-28 w-auto" />
           </div>
           <Button variant="outline" onClick={handleLogout} className="absolute right-4 top-1/2 -translate-y-1/2">
             <LogOut className="h-4 w-4 mr-2" />

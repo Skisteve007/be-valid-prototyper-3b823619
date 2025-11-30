@@ -462,7 +462,7 @@ const Admin = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="Clean Check" className="h-16 w-auto" />
+            <img src={logo} alt="Clean Check" className="h-18 w-auto" />
             <div className="flex items-center gap-2 ml-4">
               <Shield className="h-5 w-5 text-primary" />
               <span className="font-semibold">Admin Panel</span>

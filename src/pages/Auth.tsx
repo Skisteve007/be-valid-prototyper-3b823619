@@ -46,6 +46,12 @@ const Auth = () => {
     // Check if biometric is available
     isBiometricAvailable().then(setBiometricAvailable);
 
+    // Load saved email from localStorage
+    const savedEmail = localStorage.getItem('loginEmail');
+    if (savedEmail) {
+      setLoginEmail(savedEmail);
+    }
+
     // Fetch sponsors
     const fetchSponsors = async () => {
       const { data, error } = await supabase
@@ -236,71 +242,77 @@ const Auth = () => {
         {mode === "login" && (
           <section className="py-4 px-4">
             <div className="container mx-auto max-w-md">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl">Welcome Back</CardTitle>
-                  <CardDescription>Log in to access your member dashboard</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleLogin} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="login-email">Email Address</Label>
-                      <Input 
-                        id="login-email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="login-password">Password</Label>
-                      <Input 
-                        id="login-password"
-                        type="password"
-                        placeholder="Enter your password"
-                        value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
-                        required
-                      />
-                    </div>
-                    
-                    <Button 
-                      size="lg" 
-                      className="w-full" 
-                      type="submit"
-                      disabled={loading}
-                    >
-                      {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-
-                    {biometricAvailable && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="lg"
-                        className="w-full"
-                        onClick={handleBiometricLogin}
+              <div className="relative">
+                <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
+                <Card className="relative border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.5)] hover:shadow-[0_0_40px_rgba(59,130,246,0.7)]">
+                  <CardHeader>
+                    <CardTitle className="text-2xl">Welcome Back</CardTitle>
+                    <CardDescription>Log in to access your member dashboard</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleLogin} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="login-email">Email Address</Label>
+                        <Input 
+                          id="login-email"
+                          type="email"
+                          placeholder="your.email@example.com"
+                          value={loginEmail}
+                          onChange={(e) => {
+                            setLoginEmail(e.target.value);
+                            localStorage.setItem('loginEmail', e.target.value);
+                          }}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="login-password">Password</Label>
+                        <Input 
+                          id="login-password"
+                          type="password"
+                          placeholder="Enter your password"
+                          value={loginPassword}
+                          onChange={(e) => setLoginPassword(e.target.value)}
+                          required
+                        />
+                      </div>
+                      
+                      <Button 
+                        size="lg" 
+                        className="w-full" 
+                        type="submit"
                         disabled={loading}
                       >
-                        <Fingerprint className="mr-2 h-5 w-5" />
-                        Login with Biometric
+                        {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
-                    )}
 
-                    <div className="text-center pt-4">
-                      <Button 
-                        type="button" 
-                        variant="link" 
-                        onClick={() => navigate("/")}
-                      >
-                        New member? Sign up here
-                      </Button>
-                    </div>
-                  </form>
-                </CardContent>
-              </Card>
+                      {biometricAvailable && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="lg"
+                          className="w-full"
+                          onClick={handleBiometricLogin}
+                          disabled={loading}
+                        >
+                          <Fingerprint className="mr-2 h-5 w-5" />
+                          Login with Biometric
+                        </Button>
+                      )}
+
+                      <div className="text-center pt-4">
+                        <Button 
+                          type="button" 
+                          variant="link" 
+                          onClick={() => navigate("/")}
+                        >
+                          New member? Sign up here
+                        </Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </section>
         )}

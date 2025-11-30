@@ -428,9 +428,9 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">
+        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
           <QrCode className="w-5 h-5 text-primary" />
-          QR Code Status Color
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">QR Code Status Color</span>
         </h3>
         <div className="space-y-4">
           <Label>Choose your status color (appears as a glow around your QR code)</Label>
@@ -515,9 +515,9 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">
+        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
           <UserCheck className="w-5 h-5 text-blue-500" />
-          Member References
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Member References</span>
         </h3>
         <p className="text-sm text-muted-foreground">
           Enter up to 3 member IDs to link reference profiles

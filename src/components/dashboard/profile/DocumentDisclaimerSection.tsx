@@ -18,7 +18,9 @@ export const DocumentDisclaimerSection = ({
   return (
     <>
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">STD Acknowledgment</h3>
+        <h3 className="text-lg font-semibold border-b pb-2">
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">STD Acknowledgment</span>
+        </h3>
         <div className="space-y-2">
           <Label htmlFor="std_acknowledgment">STD Status & Information</Label>
           <Textarea
@@ -31,7 +33,9 @@ export const DocumentDisclaimerSection = ({
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">References</h3>
+        <h3 className="text-lg font-semibold border-b pb-2">
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">References</span>
+        </h3>
         <div className="space-y-2">
           <Label htmlFor="user_references">Reference Information</Label>
           <Textarea
@@ -44,7 +48,9 @@ export const DocumentDisclaimerSection = ({
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">Sexual Preferences</h3>
+        <h3 className="text-lg font-semibold border-b pb-2">
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Sexual Preferences</span>
+        </h3>
         <div className="space-y-2">
           <Label htmlFor="sexual_preferences">Your Preferences</Label>
           <Textarea
@@ -57,7 +63,9 @@ export const DocumentDisclaimerSection = ({
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">Disclaimer</h3>
+        <h3 className="text-lg font-semibold border-b pb-2">
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Disclaimer</span>
+        </h3>
         
         <div className="space-y-4 p-4 bg-muted rounded-lg">
           <p className="text-sm">

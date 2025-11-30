@@ -222,7 +222,9 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
     <div className="space-y-6 py-4">
       <Card>
         <CardHeader>
-          <CardTitle className="bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">Your QR Code</CardTitle>
+          <CardTitle>
+            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Your QR Code</span>
+          </CardTitle>
           <CardDescription>
             Share this secure QR code to give temporary access to your verified profile. Access expires after 24 hours.
           </CardDescription>

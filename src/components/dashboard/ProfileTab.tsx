@@ -460,21 +460,24 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
                     className="font-mono"
                   />
                   {referenceProfiles[index] && (
-                    <div className="mt-2 p-3 bg-muted rounded-lg space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div>
+                    <div className="mt-2 p-3 bg-primary/10 border border-primary/20 rounded-lg space-y-2">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
                           <p className="font-semibold text-sm">{referenceProfiles[index]?.full_name}</p>
-                          <p className="text-xs text-muted-foreground font-mono">
-                            {referenceProfiles[index]?.member_id}
-                          </p>
                         </div>
+                        <p className="text-xs text-muted-foreground font-mono">
+                          {referenceProfiles[index]?.member_id}
+                        </p>
                         <Button
                           type="button"
                           size="sm"
-                          variant="ghost"
+                          variant="default"
+                          className="w-full mt-2"
                           onClick={() => window.open(`/profile/${referenceProfiles[index]?.id}`, '_blank')}
                         >
-                          <ExternalLink className="h-4 w-4" />
+                          <ExternalLink className="h-3 w-3 mr-2" />
+                          View Profile
                         </Button>
                       </div>
                     </div>

@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Loader2, FileText, UserCheck, QrCode } from "lucide-react";
+import { Loader2, FileText, UserCheck, QrCode, ExternalLink } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
@@ -53,6 +55,8 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
   const [userInterests, setUserInterests] = useState<Record<string, string[]>>({});
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red">("green");
+  const [referenceIds, setReferenceIds] = useState<string[]>(["", "", ""]);
+  const [referenceProfiles, setReferenceProfiles] = useState<Array<{id: string, full_name: string, member_id: string} | null>>([null, null, null]);
 
   const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
     defaultValues: {
@@ -113,8 +117,24 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         setValue("onlyfans_handle", data.onlyfans_handle || "");
         setValue("twitter_handle", data.twitter_handle || "");
         setValue("std_acknowledgment", data.std_acknowledgment || "");
-        setValue("user_references", data.user_references || "");
         setValue("sexual_preferences", data.sexual_preferences || "");
+        
+        // Parse user_references as JSON array or split by commas
+        let refs = ["", "", ""];
+        if (data.user_references) {
+          try {
+            const parsed = JSON.parse(data.user_references);
+            if (Array.isArray(parsed)) {
+              refs = [...parsed, "", "", ""].slice(0, 3);
+            }
+          } catch {
+            // If not JSON, treat as comma-separated
+            const split = data.user_references.split(',').map((s: string) => s.trim());
+            refs = [...split, "", "", ""].slice(0, 3);
+          }
+        }
+        setReferenceIds(refs);
+        loadReferenceProfiles(refs);
         setValue("user_interests", (data.user_interests as Record<string, string[]>) || {});
         setValue("disclaimer_accepted", data.disclaimer_accepted || false);
         
@@ -158,6 +178,56 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
     }
   };
 
+  const loadReferenceProfiles = async (memberIds: string[]) => {
+    const profiles = await Promise.all(
+      memberIds.map(async (memberId) => {
+        if (!memberId || memberId.trim() === "") return null;
+        
+        try {
+          const { data, error } = await supabase
+            .from("profiles")
+            .select("id, full_name, member_id")
+            .eq("member_id", memberId.trim())
+            .maybeSingle();
+          
+          if (error || !data) return null;
+          return data;
+        } catch {
+          return null;
+        }
+      })
+    );
+    setReferenceProfiles(profiles);
+  };
+
+  const handleReferenceIdChange = async (index: number, value: string) => {
+    const newReferenceIds = [...referenceIds];
+    newReferenceIds[index] = value;
+    setReferenceIds(newReferenceIds);
+    
+    // Fetch profile for this member ID
+    if (value.trim() !== "") {
+      try {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("id, full_name, member_id")
+          .eq("member_id", value.trim())
+          .maybeSingle();
+        
+        const newProfiles = [...referenceProfiles];
+        newProfiles[index] = (error || !data) ? null : data;
+        setReferenceProfiles(newProfiles);
+      } catch {
+        const newProfiles = [...referenceProfiles];
+        newProfiles[index] = null;
+        setReferenceProfiles(newProfiles);
+      }
+    } else {
+      const newProfiles = [...referenceProfiles];
+      newProfiles[index] = null;
+      setReferenceProfiles(newProfiles);
+    }
+  };
 
   const onSubmit = async (data: ProfileFormData) => {
     if (!profileImageUrl) {
@@ -193,7 +263,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
           onlyfans_handle: data.onlyfans_handle,
           twitter_handle: data.twitter_handle,
           std_acknowledgment: data.std_acknowledgment,
-          user_references: data.user_references,
+          user_references: JSON.stringify(referenceIds.filter(id => id.trim() !== "")),
           sexual_preferences: data.sexual_preferences,
           user_interests: userInterests,
           selected_interests: selectedInterests,
@@ -371,16 +441,51 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       <div className="space-y-6">
         <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
           <UserCheck className="w-5 h-5 text-blue-500" />
-          References
+          Member References
         </h3>
-        <div className="space-y-2">
-          <Label htmlFor="user_references">Reference Information</Label>
-          <Textarea
-            id="user_references"
-            {...register("user_references")}
-            rows={4}
-            placeholder="Add reference contacts or information..."
-          />
+        <p className="text-sm text-muted-foreground">
+          Enter up to 3 member IDs to link reference profiles
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[0, 1, 2].map((index) => (
+            <Card key={index} className="overflow-hidden">
+              <CardContent className="p-4">
+                <div className="space-y-3">
+                  <Label htmlFor={`reference-${index}`}>Reference #{index + 1}</Label>
+                  <Input
+                    id={`reference-${index}`}
+                    value={referenceIds[index]}
+                    onChange={(e) => handleReferenceIdChange(index, e.target.value)}
+                    placeholder="CC-12345678"
+                    className="font-mono"
+                  />
+                  {referenceProfiles[index] && (
+                    <div className="mt-2 p-3 bg-muted rounded-lg space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-semibold text-sm">{referenceProfiles[index]?.full_name}</p>
+                          <p className="text-xs text-muted-foreground font-mono">
+                            {referenceProfiles[index]?.member_id}
+                          </p>
+                        </div>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => window.open(`/profile/${referenceProfiles[index]?.id}`, '_blank')}
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                  {referenceIds[index] && !referenceProfiles[index] && (
+                    <p className="text-xs text-destructive">Member ID not found</p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
 

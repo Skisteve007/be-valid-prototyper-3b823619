@@ -253,19 +253,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         </div>
       </div>
 
-      <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2">Sexual Preferences</h3>
-        <div className="space-y-2">
-          <Label htmlFor="sexual_preferences">Your Preferences</Label>
-          <Textarea
-            id="sexual_preferences"
-            {...register("sexual_preferences")}
-            rows={4}
-            placeholder="Describe your preferences..."
-          />
-        </div>
-      </div>
-
       <div className="flex gap-4">
         <Button type="submit" disabled={saving || !profileImageUrl} className="flex-1">
           {saving ? (

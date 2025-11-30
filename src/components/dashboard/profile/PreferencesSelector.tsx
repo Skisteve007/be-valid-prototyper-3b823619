@@ -26,11 +26,6 @@ const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
     items: ["Casual", "Serious", "Open", "Parallel", "Together"],
   },
   {
-    id: "social_dynamic",
-    title: "Social Dynamic",
-    items: ["Couples", "Singles", "Groups", "One-on-One", "Observing"],
-  },
-  {
     id: "sensory_preferences",
     title: "Sensory Preferences",
     items: ["Light Touch", "Firm Touch", "Roleplay", "Costumes", "Blindfolds"],

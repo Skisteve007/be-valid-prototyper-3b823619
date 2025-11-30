@@ -15,6 +15,9 @@ import {
   Shield,
   Zap,
   Star,
+  User,
+  UsersRound,
+  UserCheck,
   LucideIcon
 } from "lucide-react";
 
@@ -72,9 +75,12 @@ export const InterestsSelector = ({
   const getIconForTag = (label: string): LucideIcon => {
     const iconMap: Record<string, LucideIcon> = {
       // Social Dynamic
-      "Threesome": Users,
-      "Group Play": UserPlus,
-      "Throuple": Heart,
+      "Couples": Heart,
+      "Singles": User,
+      "Groups": UsersRound,
+      "One-on-One": UserCheck,
+      "Observing": Eye,
+      "Throuple": Users,
       "Full Swap": Sparkles,
       "Soft Swap": Star,
       

@@ -208,10 +208,17 @@ const Auth = () => {
 
       <main>
         {/* Hero Section */}
-        <section className="py-12 px-4 bg-gradient-to-b from-primary/5 to-background">
+        <section className="py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto text-center max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              {mode === "login" ? "Member Login" : "Complete Your Membership"}
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {mode === "login" ? (
+                <>
+                  <span className="bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Member</span>{" "}
+                  <span className="bg-gradient-to-br from-pink-400 via-pink-500 to-pink-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Login</span>
+                </>
+              ) : (
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Complete Your Membership</span>
+              )}
             </h1>
             <p className="text-lg text-muted-foreground">
               {mode === "login" 
@@ -223,7 +230,7 @@ const Auth = () => {
 
         {/* Login Section - Only show when mode=login */}
         {mode === "login" && (
-          <section className="py-16 px-4">
+          <section className="py-8 px-4">
             <div className="container mx-auto max-w-md">
               <Card>
                 <CardHeader>

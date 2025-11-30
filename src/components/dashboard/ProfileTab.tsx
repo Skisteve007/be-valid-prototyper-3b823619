@@ -236,8 +236,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         smoker={smoker}
       />
 
-      <SocialMediaSection register={register} />
-
       <PreferencesSelector
         selectedPreferences={userInterests}
         onPreferencesChange={setUserInterests}
@@ -247,6 +245,8 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         selectedInterests={selectedInterests}
         onInterestsChange={setSelectedInterests}
       />
+
+      <SocialMediaSection register={register} />
 
       <div className="space-y-6">
         <h3 className="text-lg font-semibold border-b pb-2">STD Acknowledgment</h3>

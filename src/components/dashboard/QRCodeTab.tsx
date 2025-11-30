@@ -131,17 +131,23 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
   const getTimestampColor = () => {
     if (documentAge === 0) return "gray";
-    if (documentAge <= 60) return "green";
-    if (documentAge <= 120) return "yellow";
-    return "red";
+    if (documentAge <= 60) return "blue";
+    if (documentAge <= 120) return "pink";
+    return "purple";
   };
 
   const getGlowColor = () => {
-    // Use statusColor for the glow if it's set, otherwise use document age color
-    const color = statusColor === "gray" ? "gray" : getTimestampColor();
+    // Use statusColor for the glow if it's set and not gray, otherwise use document age color
+    const color = statusColor !== "gray" ? statusColor : getTimestampColor();
     switch (color) {
       case "green":
         return "shadow-[0_0_25px_8px_rgba(34,197,94,0.4)] shadow-green-500/30";
+      case "blue":
+        return "shadow-[0_0_25px_8px_rgba(59,130,246,0.4)] shadow-blue-500/30";
+      case "pink":
+        return "shadow-[0_0_25px_8px_rgba(236,72,153,0.4)] shadow-pink-500/30";
+      case "purple":
+        return "shadow-[0_0_25px_8px_rgba(168,85,247,0.4)] shadow-purple-500/30";
       case "yellow":
         return "shadow-[0_0_25px_8px_rgba(234,179,8,0.4)] shadow-yellow-500/30";
       case "red":
@@ -154,11 +160,17 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   };
 
   const getBorderColor = () => {
-    // Use statusColor for the border if it's set, otherwise use document age color
-    const color = statusColor === "gray" ? "gray" : getTimestampColor();
+    // Use statusColor for the border if it's set and not gray, otherwise use document age color
+    const color = statusColor !== "gray" ? statusColor : getTimestampColor();
     switch (color) {
       case "green":
         return "border-green-500 ring-4 ring-green-500/30";
+      case "blue":
+        return "border-blue-500 ring-4 ring-blue-500/30";
+      case "pink":
+        return "border-pink-500 ring-4 ring-pink-500/30";
+      case "purple":
+        return "border-purple-500 ring-4 ring-purple-500/30";
       case "yellow":
         return "border-yellow-500 ring-4 ring-yellow-500/30";
       case "red":
@@ -179,12 +191,12 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const getTimestampBadgeClass = () => {
     const color = getTimestampColor();
     switch (color) {
-      case "green":
-        return "bg-green-500 hover:bg-green-600 text-white";
-      case "yellow":
-        return "bg-yellow-500 hover:bg-yellow-600 text-white";
-      case "red":
-        return "bg-red-500 hover:bg-red-600 text-white";
+      case "blue":
+        return "bg-blue-500 hover:bg-blue-600 text-white";
+      case "pink":
+        return "bg-pink-500 hover:bg-pink-600 text-white";
+      case "purple":
+        return "bg-purple-500 hover:bg-purple-600 text-white";
       default:
         return "";
     }
@@ -250,16 +262,16 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                 </div>
               )}
             </div>
-            
-            {lastDocumentDate && (
-              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-full flex justify-center">
-                <Badge className={`${getTimestampBadgeClass()} flex items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg`}>
-                  <Clock className="h-4 w-4" />
-                  <span>{documentAge} {documentAge === 1 ? 'day' : 'days'} ago</span>
-                </Badge>
-              </div>
-            )}
           </div>
+            
+          {lastDocumentDate && (
+            <div className="flex justify-center -mt-2">
+              <Badge className={`${getTimestampBadgeClass()} flex items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg`}>
+                <Clock className="h-4 w-4" />
+                <span>{documentAge} {documentAge === 1 ? 'day' : 'days'} ago</span>
+              </Badge>
+            </div>
+          )}
 
           {lastDocumentDate && (
             <div className="text-center space-y-1 mt-4">
@@ -272,15 +284,15 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
               </p>
               <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground mt-2">
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                   <span>1-60 days</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-pink-500"></div>
                   <span>61-120 days</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-purple-500"></div>
                   <span>121+ days</span>
                 </div>
               </div>

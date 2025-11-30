@@ -6,10 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Award, QrCode } from "lucide-react";
+import { LogOut, User as UserIcon, Award, QrCode, UserCheck } from "lucide-react";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
 import QRCodeTab from "@/components/dashboard/QRCodeTab";
+import PendingReferencesTab from "@/components/dashboard/PendingReferencesTab";
 import logo from "@/assets/clean-check-logo.png";
 
 const Dashboard = () => {
@@ -87,7 +88,7 @@ const Dashboard = () => {
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-green-500/40 blur-3xl rounded-lg"></div>
                 <div className="absolute inset-0 bg-green-400/30 blur-2xl rounded-lg animate-pulse"></div>
-                <TabsList className="relative grid w-full grid-cols-3 bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-green-500/50 shadow-2xl shadow-green-500/40 ring-2 ring-green-400/30">
+                <TabsList className="relative grid w-full grid-cols-4 bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-green-500/50 shadow-2xl shadow-green-500/40 ring-2 ring-green-400/30">
                   <TabsTrigger 
                     value="profile" 
                     className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-lg hover:shadow-green-500/30"
@@ -109,6 +110,13 @@ const Dashboard = () => {
                     <QrCode className="h-4 w-4 mr-2" />
                     QR Code
                   </TabsTrigger>
+                  <TabsTrigger 
+                    value="references"
+                    className="transition-all duration-300 hover:scale-105 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:shadow-lg hover:shadow-orange-500/30"
+                  >
+                    <UserCheck className="h-4 w-4 mr-2" />
+                    References
+                  </TabsTrigger>
                 </TabsList>
               </div>
               
@@ -122,6 +130,10 @@ const Dashboard = () => {
               
               <TabsContent value="qrcode">
                 <QRCodeTab userId={user.id} />
+              </TabsContent>
+              
+              <TabsContent value="references">
+                <PendingReferencesTab userId={user.id} />
               </TabsContent>
             </Tabs>
           </CardContent>

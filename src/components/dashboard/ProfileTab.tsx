@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
+import { PreferencesSelector } from "./profile/PreferencesSelector";
 
 interface ProfileTabProps {
   userId: string;
@@ -38,6 +39,7 @@ interface ProfileFormData {
   std_acknowledgment: string;
   user_references: string;
   sexual_preferences: string;
+  user_interests: Record<string, string[]>;
   health_document_url?: string;
   disclaimer_accepted: boolean;
 }
@@ -47,12 +49,14 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
+  const [userInterests, setUserInterests] = useState<Record<string, string[]>>({});
 
   const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
     defaultValues: {
       partner_preferences: [],
       covid_vaccinated: false,
       smoker: false,
+      user_interests: {},
       disclaimer_accepted: false,
     }
   });
@@ -108,9 +112,11 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         setValue("std_acknowledgment", data.std_acknowledgment || "");
         setValue("user_references", data.user_references || "");
         setValue("sexual_preferences", data.sexual_preferences || "");
+        setValue("user_interests", (data.user_interests as Record<string, string[]>) || {});
         setValue("disclaimer_accepted", data.disclaimer_accepted || false);
         
         setProfileImageUrl(data.profile_image_url || "");
+        setUserInterests((data.user_interests as Record<string, string[]>) || {});
       }
     } catch (error: any) {
       toast.error("Failed to load profile");
@@ -184,6 +190,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
           std_acknowledgment: data.std_acknowledgment,
           user_references: data.user_references,
           sexual_preferences: data.sexual_preferences,
+          user_interests: userInterests,
         })
         .eq("user_id", userId);
 
@@ -226,6 +233,11 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       />
 
       <SocialMediaSection register={register} />
+
+      <PreferencesSelector
+        selectedPreferences={userInterests}
+        onPreferencesChange={setUserInterests}
+      />
 
       <div className="space-y-6">
         <h3 className="text-lg font-semibold border-b pb-2">STD Acknowledgment</h3>

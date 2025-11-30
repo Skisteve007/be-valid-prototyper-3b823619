@@ -87,6 +87,7 @@ export type Database = {
           twitter_handle: string | null
           updated_at: string
           user_id: string
+          user_interests: Json | null
           user_references: string | null
           where_from: string | null
         }
@@ -123,6 +124,7 @@ export type Database = {
           twitter_handle?: string | null
           updated_at?: string
           user_id: string
+          user_interests?: Json | null
           user_references?: string | null
           where_from?: string | null
         }
@@ -159,6 +161,7 @@ export type Database = {
           twitter_handle?: string | null
           updated_at?: string
           user_id?: string
+          user_interests?: Json | null
           user_references?: string | null
           where_from?: string | null
         }

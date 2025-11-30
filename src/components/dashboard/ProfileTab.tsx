@@ -63,6 +63,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [existingReferences, setExistingReferences] = useState<string[]>([]);
   const [emailShareable, setEmailShareable] = useState(false);
   const [referencesLocked, setReferencesLocked] = useState(true);
+  const [stdAcknowledgmentLocked, setStdAcknowledgmentLocked] = useState(true);
   
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
@@ -71,6 +72,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [initialReferenceIds, setInitialReferenceIds] = useState<string[]>(["", "", ""]);
   const [initialEmailShareable, setInitialEmailShareable] = useState(false);
   const [initialReferencesLocked, setInitialReferencesLocked] = useState(true);
+  const [initialStdAcknowledgmentLocked, setInitialStdAcknowledgmentLocked] = useState(true);
 
   const { register, handleSubmit, setValue, watch, getValues, formState, reset } = useForm<ProfileFormData>({
     defaultValues: {
@@ -109,6 +111,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     statusColor !== initialStatusColor ||
     emailShareable !== initialEmailShareable ||
     referencesLocked !== initialReferencesLocked ||
+    stdAcknowledgmentLocked !== initialStdAcknowledgmentLocked ||
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
     JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
 
@@ -188,6 +191,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
         setEmailShareable(data.email_shareable || false);
         setReferencesLocked(data.references_locked !== false); // Default to true
+        setStdAcknowledgmentLocked(data.std_acknowledgment_locked !== false); // Default to true
         
         // Set initial values for change detection
         setInitialProfileImageUrl(data.profile_image_url || "");
@@ -196,6 +200,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setInitialReferenceIds(refs);
         setInitialEmailShareable(data.email_shareable || false);
         setInitialReferencesLocked(data.references_locked !== false);
+        setInitialStdAcknowledgmentLocked(data.std_acknowledgment_locked !== false);
         
         // Reset form state to mark as not dirty after loading
         setTimeout(() => {
@@ -374,6 +379,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           status_color: statusColor,
           email_shareable: emailShareable,
           references_locked: referencesLocked,
+          std_acknowledgment_locked: stdAcknowledgmentLocked,
         })
         .eq("user_id", userId);
 
@@ -416,6 +422,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       setInitialReferenceIds([...referenceIds]);
       setInitialEmailShareable(emailShareable);
       setInitialReferencesLocked(referencesLocked);
+      setInitialStdAcknowledgmentLocked(stdAcknowledgmentLocked);
       
       // Show success state
       setSaveSuccess(true);
@@ -625,20 +632,50 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
-          <FileText className="w-5 h-5 text-green-500" />
-          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">STD Acknowledgment</span>
-        </h3>
-        <div className="space-y-2">
-          <Label htmlFor="std_acknowledgment">STD Status & Information</Label>
-          <p className="text-xs text-muted-foreground italic">This is voluntary shared information for full transparency.</p>
-          <Textarea
-            id="std_acknowledgment"
-            {...register("std_acknowledgment")}
-            rows={4}
-            placeholder="Please provide any relevant health information..."
-          />
+        <div className="flex items-center justify-between border-b pb-2">
+          <h3 className="text-lg font-semibold flex items-center gap-2">
+            <FileText className="w-5 h-5 text-green-500" />
+            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">STD Acknowledgment</span>
+          </h3>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => setStdAcknowledgmentLocked(!stdAcknowledgmentLocked)}
+            className="h-auto py-1 px-3"
+          >
+            {stdAcknowledgmentLocked ? (
+              <>
+                <Lock className="w-4 h-4 text-red-500 mr-1" />
+                <span className="text-xs text-red-500">Private</span>
+              </>
+            ) : (
+              <>
+                <Unlock className="w-4 h-4 text-green-500 mr-1" />
+                <span className="text-xs text-green-500">Viewable</span>
+              </>
+            )}
+          </Button>
         </div>
+        
+        {stdAcknowledgmentLocked ? (
+          <div className="text-center py-8 text-muted-foreground">
+            <Lock className="w-12 h-12 mx-auto mb-3 opacity-50" />
+            <p className="text-sm">STD acknowledgment is private</p>
+            <p className="text-xs mt-1">Click unlock to make it viewable via QR code</p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <Label htmlFor="std_acknowledgment">STD Status & Information</Label>
+            <p className="text-xs text-muted-foreground italic">This is voluntary shared information for full transparency.</p>
+            <Textarea
+              id="std_acknowledgment"
+              {...register("std_acknowledgment")}
+              rows={4}
+              placeholder="Please provide any relevant health information..."
+            />
+          </div>
+        )}
       </div>
 
       <div className="relative py-4">

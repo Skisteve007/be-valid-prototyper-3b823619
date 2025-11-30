@@ -149,6 +149,7 @@ export type Database = {
           smoker: boolean | null
           status_color: string | null
           std_acknowledgment: string | null
+          std_acknowledgment_locked: boolean | null
           tiktok_handle: string | null
           twitter_handle: string | null
           updated_at: string
@@ -189,6 +190,7 @@ export type Database = {
           smoker?: boolean | null
           status_color?: string | null
           std_acknowledgment?: string | null
+          std_acknowledgment_locked?: boolean | null
           tiktok_handle?: string | null
           twitter_handle?: string | null
           updated_at?: string
@@ -229,6 +231,7 @@ export type Database = {
           smoker?: boolean | null
           status_color?: string | null
           std_acknowledgment?: string | null
+          std_acknowledgment_locked?: boolean | null
           tiktok_handle?: string | null
           twitter_handle?: string | null
           updated_at?: string

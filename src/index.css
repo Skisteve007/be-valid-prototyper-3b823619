@@ -158,3 +158,10 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Scroll reveal animation */
+@layer utilities {
+  .animate-in {
+    @apply translate-y-0 opacity-100;
+  }
+}

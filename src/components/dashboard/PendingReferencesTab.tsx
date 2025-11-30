@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { CheckCircle, XCircle, Clock, ExternalLink, Loader2 } from "lucide-react";
+import { CheckCircle, XCircle, Clock, ExternalLink, Loader2, Eye } from "lucide-react";
 
 interface PendingReferencesTabProps {
   userId: string;
@@ -237,8 +237,8 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <ExternalLink className="h-5 w-5 text-blue-500" />
-            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">My References</span>
+            <Eye className="h-5 w-5 text-blue-500" />
+            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">My Clear Check Reference Member</span>
           </CardTitle>
           <CardDescription>
             Members you've added as references (from your profile)

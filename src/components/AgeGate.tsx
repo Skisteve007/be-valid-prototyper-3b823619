@@ -1,25 +1,29 @@
-import { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { useAgeVerification } from '@/hooks/useAgeVerification';
+import { AgeVerificationDialog } from './AgeVerificationDialog';
 
 interface AgeGateProps {
   children: React.ReactNode;
 }
 
 export const AgeGate = ({ children }: AgeGateProps) => {
-  const { isVerified } = useAgeVerification();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { isVerified, setVerified } = useAgeVerification();
 
-  useEffect(() => {
-    if (!isVerified && location.pathname !== '/age-verification') {
-      navigate('/age-verification', { replace: true, state: { from: location.pathname } });
-    }
-  }, [isVerified, navigate, location]);
+  const handleVerify = () => {
+    setVerified(true);
+  };
 
-  if (!isVerified && location.pathname !== '/age-verification') {
-    return null;
-  }
+  const handleExit = () => {
+    window.location.href = 'https://www.google.com';
+  };
 
-  return <>{children}</>;
+  return (
+    <>
+      <AgeVerificationDialog 
+        open={!isVerified} 
+        onVerify={handleVerify}
+        onExit={handleExit}
+      />
+      {children}
+    </>
+  );
 };

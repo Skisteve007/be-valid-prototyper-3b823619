@@ -6,7 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
-import AgeVerification from "./pages/AgeVerification";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Refund from "./pages/Refund";
+import Compliance2257 from "./pages/Compliance2257";
 import NotFound from "./pages/NotFound";
 import { AgeGate } from "./components/AgeGate";
 
@@ -19,10 +22,13 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/age-verification" element={<AgeVerification />} />
           <Route path="/" element={<AgeGate><Index /></AgeGate>} />
           <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
           <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
+          <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
+          <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
+          <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />
+          <Route path="/2257-compliance" element={<AgeGate><Compliance2257 /></AgeGate>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
         </Routes>

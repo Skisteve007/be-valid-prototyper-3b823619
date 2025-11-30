@@ -250,8 +250,9 @@ const Index = () => {
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-3xl mb-2">$29</CardTitle>
-                        <CardDescription className="text-base">Single Member</CardDescription>
+                        <CardTitle className="text-3xl mb-1">$29</CardTitle>
+                        <CardDescription className="text-base mb-1">Single Member</CardDescription>
+                        <p className="text-sm text-muted-foreground">Per month</p>
                       </div>
                       {selectedPlan === "single" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">
@@ -261,9 +262,6 @@ const Index = () => {
                       )}
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">Per month</p>
-                  </CardContent>
                 </Card>
 
                 <Card 
@@ -274,8 +272,9 @@ const Index = () => {
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-3xl mb-2">$49</CardTitle>
-                        <CardDescription className="text-base">Joint/Couple</CardDescription>
+                        <CardTitle className="text-3xl mb-1">$49</CardTitle>
+                        <CardDescription className="text-base mb-1">Joint/Couple</CardDescription>
+                        <p className="text-sm text-muted-foreground">Per month</p>
                       </div>
                       {selectedPlan === "couple" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">
@@ -285,9 +284,6 @@ const Index = () => {
                       )}
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">Per month</p>
-                  </CardContent>
                 </Card>
 
                 <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">

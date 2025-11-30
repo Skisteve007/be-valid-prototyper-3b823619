@@ -110,7 +110,10 @@ const Index = () => {
               QR Code
             </Button>
             <Button 
-              onClick={() => navigate("/dashboard?tab=profile")}
+              onClick={() => {
+                console.log("Profile button clicked");
+                navigate("/dashboard");
+              }}
               className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15"
             >
               <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>

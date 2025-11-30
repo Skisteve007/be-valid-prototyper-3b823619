@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { CheckCircle, XCircle, Clock, ExternalLink, Loader2, Eye } from "lucide-react";
+import { CheckCircle, XCircle, Clock, ExternalLink, Loader2, Eye, Lock, Unlock } from "lucide-react";
 
 interface PendingReferencesTabProps {
   userId: string;
@@ -28,6 +28,7 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
   const [pendingRequests, setPendingRequests] = useState<ReferenceRequest[]>([]);
   const [myReferences, setMyReferences] = useState<ReferenceRequest[]>([]);
   const [processing, setProcessing] = useState<string | null>(null);
+  const [referencesLocked, setReferencesLocked] = useState(true);
 
   useEffect(() => {
     loadReferences();
@@ -35,6 +36,17 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
 
   const loadReferences = async () => {
     try {
+      // Load user's profile to get references_locked status
+      const { data: profileData, error: profileError } = await supabase
+        .from("profiles")
+        .select("references_locked")
+        .eq("user_id", userId)
+        .single();
+
+      if (profileError) throw profileError;
+      
+      setReferencesLocked(profileData?.references_locked ?? true);
+
       // Load incoming references (where I'm the referee)
       const { data: incomingData, error: incomingError } = await supabase
         .from("member_references")
@@ -150,6 +162,24 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
     }
   };
 
+  const handleToggleLock = async () => {
+    try {
+      const newLockedState = !referencesLocked;
+      
+      const { error } = await supabase
+        .from("profiles")
+        .update({ references_locked: newLockedState })
+        .eq("user_id", userId);
+
+      if (error) throw error;
+
+      setReferencesLocked(newLockedState);
+      toast.success(newLockedState ? "References locked and hidden" : "References unlocked and visible");
+    } catch (error: any) {
+      toast.error("Failed to update reference privacy");
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center py-8">
@@ -160,7 +190,28 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
 
   return (
     <div className="space-y-6 py-4">
-      {pendingRequests.length > 0 && (
+      <div className="flex justify-end mb-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleToggleLock}
+          className="gap-2"
+        >
+          {referencesLocked ? (
+            <>
+              <Lock className="h-4 w-4" />
+              Unlock References
+            </>
+          ) : (
+            <>
+              <Unlock className="h-4 w-4" />
+              Lock References
+            </>
+          )}
+        </Button>
+      </div>
+
+      {!referencesLocked && pendingRequests.length > 0 && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -234,7 +285,20 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
         </Card>
       )}
 
-      <Card>
+      {referencesLocked && (
+        <Card>
+          <CardContent className="p-8 text-center">
+            <Lock className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+            <p className="text-lg font-semibold text-muted-foreground">References Locked</p>
+            <p className="text-sm text-muted-foreground mt-2">
+              Your references are currently private. Unlock to view and manage them.
+            </p>
+          </CardContent>
+        </Card>
+      )}
+
+      {!referencesLocked && (
+        <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Eye className="h-5 w-5 text-blue-500" />
@@ -304,6 +368,7 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
           )}
         </CardContent>
       </Card>
+      )}
     </div>
   );
 };

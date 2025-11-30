@@ -228,6 +228,12 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         handleImageUpload={handleImageUpload}
       />
 
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-green-500 via-emerald-400 to-green-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
+
       <PreferencesHealthSection
         setValue={setValue}
         partnerPreferences={partnerPreferences}
@@ -236,17 +242,41 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         smoker={smoker}
       />
 
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-pink-500 via-purple-400 to-pink-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
+
       <PreferencesSelector
         selectedPreferences={userInterests}
         onPreferencesChange={setUserInterests}
       />
+
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-teal-500 via-cyan-400 to-teal-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
 
       <InterestsSelector
         selectedInterests={selectedInterests}
         onInterestsChange={setSelectedInterests}
       />
 
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-indigo-500 via-blue-400 to-indigo-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
+
       <SocialMediaSection register={register} />
+
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-green-500 via-lime-400 to-green-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
 
       <div className="space-y-6">
         <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
@@ -261,6 +291,12 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
             rows={4}
             placeholder="Please provide any relevant health information..."
           />
+        </div>
+      </div>
+
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-blue-500 via-sky-400 to-blue-500 rounded-full opacity-60"></div>
         </div>
       </div>
 

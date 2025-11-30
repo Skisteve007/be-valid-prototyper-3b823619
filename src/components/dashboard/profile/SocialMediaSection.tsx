@@ -1,7 +1,7 @@
 import { UseFormRegister } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Instagram, Music, Facebook, User, Twitter, Share2 } from "lucide-react";
+import { Instagram, Music, Facebook, User, Share2 } from "lucide-react";
 
 interface SocialMediaSectionProps {
   register: UseFormRegister<any>;
@@ -46,14 +46,6 @@ export const SocialMediaSection = ({ register }: SocialMediaSectionProps) => {
             OnlyFans
           </Label>
           <Input id="onlyfans_handle" {...register("onlyfans_handle")} placeholder="@username" />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="twitter_handle" className="flex items-center gap-2">
-            <Twitter className="w-4 h-4 text-blue-400" />
-            X/Twitter
-          </Label>
-          <Input id="twitter_handle" {...register("twitter_handle")} placeholder="@username" />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, MapPin, Calendar, Heart, User, CheckCircle2, XCircle, Instagram, Music, Facebook, Twitter, Share2 } from "lucide-react";
+import { Loader2, MapPin, Calendar, Heart, User, CheckCircle2, XCircle, Instagram, Music, Facebook, Share2 } from "lucide-react";
 import { toast } from "sonner";
 
 interface ProfileData {
@@ -338,7 +338,7 @@ const ViewProfile = () => {
         </Card>
 
         {/* Social Media Links */}
-        {(profile.instagram_handle || profile.tiktok_handle || profile.facebook_handle || profile.onlyfans_handle || profile.twitter_handle) && (
+        {(profile.instagram_handle || profile.tiktok_handle || profile.facebook_handle || profile.onlyfans_handle) && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -390,17 +390,6 @@ const ViewProfile = () => {
                   >
                     <User className="h-4 w-4" />
                     <span>OnlyFans</span>
-                  </a>
-                )}
-                {profile.twitter_handle && (
-                  <a
-                    href={getSocialMediaUrl('twitter', profile.twitter_handle)!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    <Twitter className="h-4 w-4" />
-                    <span>X/Twitter</span>
                   </a>
                 )}
               </div>

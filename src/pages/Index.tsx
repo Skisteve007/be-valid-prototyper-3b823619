@@ -98,13 +98,13 @@ const Index = () => {
             <div className="relative flex-shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative h-20 w-auto" />
+              <img src={logo} alt="Clean Check" className="relative h-22 w-auto" />
             </div>
 
             {/* Tagline in the middle */}
             <div className="hidden lg:flex flex-1 justify-center px-8">
               <p className="text-lg font-semibold text-center bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                Confidently Share Peer-To-Peer Record Status Information For Mutual Safety And Informed Intimacy
+                Confidently Share Peer-To-Peer Record Status For Mutual Safety And Informed Intimacy
               </p>
             </div>
 

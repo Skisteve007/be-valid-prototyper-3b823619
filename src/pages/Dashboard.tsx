@@ -88,15 +88,24 @@ const Dashboard = () => {
                 <div className="absolute inset-0 bg-green-500/40 blur-3xl rounded-lg"></div>
                 <div className="absolute inset-0 bg-green-400/30 blur-2xl rounded-lg animate-pulse"></div>
                 <TabsList className="relative grid w-full grid-cols-3 bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-green-500/50 shadow-2xl shadow-green-500/40 ring-2 ring-green-400/30">
-                  <TabsTrigger value="profile">
+                  <TabsTrigger 
+                    value="profile" 
+                    className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-lg hover:shadow-green-500/30"
+                  >
                     <UserIcon className="h-4 w-4 mr-2" />
                     Profile
                   </TabsTrigger>
-                  <TabsTrigger value="certifications">
+                  <TabsTrigger 
+                    value="certifications"
+                    className="transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:shadow-lg hover:shadow-blue-500/30"
+                  >
                     <Award className="h-4 w-4 mr-2" />
                     Documents
                   </TabsTrigger>
-                  <TabsTrigger value="qrcode">
+                  <TabsTrigger 
+                    value="qrcode"
+                    className="transition-all duration-300 hover:scale-105 hover:bg-purple-100 dark:hover:bg-purple-900/30 hover:shadow-lg hover:shadow-purple-500/30"
+                  >
                     <QrCode className="h-4 w-4 mr-2" />
                     QR Code
                   </TabsTrigger>

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User } from "lucide-react";
+import { User, Home, MapPin, Cake, Users } from "lucide-react";
 
 interface PersonalInfoSectionProps {
   register: UseFormRegister<any>;
@@ -66,18 +66,27 @@ export const PersonalInfoSection = ({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="where_from">🏠 Where You From</Label>
+          <Label htmlFor="where_from" className="flex items-center gap-2">
+            <Home className="w-4 h-4" />
+            Where You From
+          </Label>
           <Input id="where_from" {...register("where_from")} placeholder="Los Angeles, CA" />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="current_home_city">🌍 Current Home City</Label>
+          <Label htmlFor="current_home_city" className="flex items-center gap-2">
+            <MapPin className="w-4 h-4" />
+            Current Home City
+          </Label>
           <Input id="current_home_city" {...register("current_home_city")} placeholder="Miami, FL" />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label>🎂 Birthday *</Label>
+        <Label className="flex items-center gap-2">
+          <Cake className="w-4 h-4" />
+          Birthday *
+        </Label>
         <div className="grid grid-cols-3 gap-2">
           <Select onValueChange={(value) => setValue("birthday_day", value)}>
             <SelectTrigger>
@@ -109,7 +118,10 @@ export const PersonalInfoSection = ({
       </div>
 
       <div className="space-y-2">
-        <Label>I Identify As *</Label>
+        <Label className="flex items-center gap-2">
+          <Users className="w-4 h-4" />
+          I Identify As *
+        </Label>
         <div className="flex gap-2">
           {["Male", "Female", "Transgender"].map((gender) => (
             <Button

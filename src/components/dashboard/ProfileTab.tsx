@@ -447,7 +447,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-12 h-12 rounded-full bg-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.6)]"></div>
                 <span className="font-semibold">Clean</span>
-                <span className="text-sm text-muted-foreground text-center">I'm all clean. Let's keep it that way.</span>
+                <span className="text-sm text-muted-foreground text-center">I'm All Clean. Let's Keep It That Way.</span>
               </div>
             </button>
             
@@ -463,7 +463,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-12 h-12 rounded-full bg-yellow-500 shadow-[0_0_20px_8px_rgba(234,179,8,0.6)]"></div>
                 <span className="font-semibold">Proceed with Caution</span>
-                <span className="text-sm text-muted-foreground text-center">Take a close look please.</span>
+                <span className="text-sm text-muted-foreground text-center">Take A Close Look Please.</span>
               </div>
             </button>
             
@@ -493,9 +493,9 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">
+        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
           <FileText className="w-5 h-5 text-green-500" />
-          STD Acknowledgment
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">STD Acknowledgment</span>
         </h3>
         <div className="space-y-2">
           <Label htmlFor="std_acknowledgment">STD Status & Information</Label>

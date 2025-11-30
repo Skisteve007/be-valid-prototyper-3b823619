@@ -493,7 +493,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         </h3>
         <div className="space-y-4">
           <Label>Choose your status color (appears as a glow around your QR code)</Label>
-          <p className="text-sm text-muted-foreground italic">
+          <p className="text-sm text-foreground/70 italic font-medium">
             💡 Tip: Choose Gray Incognito Mode for event entries. Only Gray mode activates automatic screen brightening on mobile devices for easy reading in dark environments.
           </p>
           <div className="grid grid-cols-4 gap-3">
@@ -560,7 +560,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-12 h-12 rounded-full bg-gray-500 shadow-[0_0_20px_8px_rgba(107,114,128,0.6)]"></div>
                 <span className="font-semibold">Gray</span>
-                <span className="text-sm text-muted-foreground text-center">Incognito Mode</span>
+                <span className="text-sm text-muted-foreground text-center">Incognito Mode<br />Event Scanning</span>
               </div>
             </button>
           </div>

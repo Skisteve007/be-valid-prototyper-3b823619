@@ -125,6 +125,7 @@ export type Database = {
           created_at: string
           current_home_city: string | null
           disclaimer_accepted: boolean | null
+          email_shareable: boolean | null
           facebook_handle: string | null
           full_name: string | null
           gender_identity: string | null
@@ -163,6 +164,7 @@ export type Database = {
           created_at?: string
           current_home_city?: string | null
           disclaimer_accepted?: boolean | null
+          email_shareable?: boolean | null
           facebook_handle?: string | null
           full_name?: string | null
           gender_identity?: string | null
@@ -201,6 +203,7 @@ export type Database = {
           created_at?: string
           current_home_city?: string | null
           disclaimer_accepted?: boolean | null
+          email_shareable?: boolean | null
           facebook_handle?: string | null
           full_name?: string | null
           gender_identity?: string | null

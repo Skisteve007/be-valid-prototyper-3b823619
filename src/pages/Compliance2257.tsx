@@ -48,9 +48,9 @@ const Compliance2257 = () => {
             <div className="bg-muted p-6 rounded-lg mt-4">
               <p className="font-semibold mb-2">Custodian of Records</p>
               <p>Clean Check</p>
-              <p>[Business Address]</p>
-              <p>[City, State ZIP]</p>
-              <p>Email: [compliance email]</p>
+              <p>13492 Research Blvd Suite 120 #306</p>
+              <p>Austin, TX 78750</p>
+              <p>Email: HelpDeskCCK@gmail.com</p>
             </div>
           </section>
 
@@ -116,7 +116,10 @@ const Compliance2257 = () => {
             </p>
             <p className="mt-4">
               <strong>Custodian of Records</strong><br />
-              [Contact details]
+              Clean Check<br />
+              13492 Research Blvd Suite 120 #306<br />
+              Austin, TX 78750<br />
+              Email: HelpDeskCCK@gmail.com
             </p>
           </section>
         </div>

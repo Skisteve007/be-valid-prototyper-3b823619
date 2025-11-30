@@ -434,7 +434,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         </h3>
         <div className="space-y-4">
           <Label>Choose your status color (appears as a glow around your QR code)</Label>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-3">
             <button
               type="button"
               onClick={() => setStatusColor("green")}

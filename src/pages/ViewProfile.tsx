@@ -304,29 +304,44 @@ const ViewProfile = () => {
             )}
             <div className="flex items-center gap-2">
               {profile.covid_vaccinated ? (
-                <CheckCircle2 className="h-4 w-4 text-green-500" />
+                <>
+                  <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  <span>COVID Vaccinated: <strong className="text-green-500">Yes</strong></span>
+                </>
               ) : (
-                <XCircle className="h-4 w-4 text-red-500" />
+                <>
+                  <XCircle className="h-4 w-4 text-red-500" />
+                  <span>COVID Vaccinated: <strong className="text-red-500">No</strong></span>
+                </>
               )}
-              <span>COVID Vaccinated</span>
             </div>
             {profile.circumcised !== null && (
               <div className="flex items-center gap-2">
                 {profile.circumcised ? (
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  <>
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    <span>Circumcised: <strong className="text-green-500">Yes</strong></span>
+                  </>
                 ) : (
-                  <XCircle className="h-4 w-4 text-red-500" />
+                  <>
+                    <XCircle className="h-4 w-4 text-red-500" />
+                    <span>Circumcised: <strong className="text-red-500">No</strong></span>
+                  </>
                 )}
-                <span>Circumcised</span>
               </div>
             )}
             <div className="flex items-center gap-2">
               {profile.smoker ? (
-                <CheckCircle2 className="h-4 w-4 text-orange-500" />
+                <>
+                  <CheckCircle2 className="h-4 w-4 text-orange-500" />
+                  <span>Smoker: <strong className="text-orange-500">Yes</strong></span>
+                </>
               ) : (
-                <XCircle className="h-4 w-4 text-green-500" />
+                <>
+                  <XCircle className="h-4 w-4 text-green-500" />
+                  <span>Smoker: <strong className="text-green-500">No</strong></span>
+                </>
               )}
-              <span>{profile.smoker ? "Smoker" : "Non-smoker"}</span>
             </div>
             {profile.health_document_uploaded_at && (
               <div>

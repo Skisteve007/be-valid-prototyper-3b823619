@@ -129,7 +129,7 @@ const Auth = () => {
       <header className="border-b bg-card sticky top-0 z-50">
         <div className="container mx-auto px-4 py-6 relative">
           <div className="flex justify-center items-center">
-            <img src={logo} alt="Clean Check" className="h-24 w-auto" />
+            <img src={logo} alt="Clean Check" className="h-28 w-auto" />
           </div>
           <Button variant="ghost" onClick={() => navigate("/")} className="absolute right-4 top-1/2 -translate-y-1/2">
             Back to Home

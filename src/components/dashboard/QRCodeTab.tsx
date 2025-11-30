@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { QrCode, Share2, Download, Clock } from "lucide-react";
 import { toast } from "sonner";
+import SponsorUpload from "./SponsorUpload";
 
 interface QRCodeTabProps {
   userId: string;
@@ -223,6 +224,8 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           </div>
         </CardContent>
       </Card>
+
+      <SponsorUpload userId={userId} />
     </div>
   );
 };

@@ -29,6 +29,8 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [documentFile, setDocumentFile] = useState<File | null>(null);
   const [newCert, setNewCert] = useState({
     title: "",
     issuer: "",
@@ -73,30 +75,63 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
     }
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setDocumentFile(file);
+    }
+  };
+
   const handleAddCertification = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!documentFile) {
+      toast.error("Please select a document file to upload");
+      return;
+    }
+
     setSaving(true);
+    setUploading(true);
 
     try {
+      // Upload file to storage
+      const fileExt = documentFile.name.split('.').pop();
+      const fileName = `${userId}/${Date.now()}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('profile-images')
+        .upload(fileName, documentFile);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('profile-images')
+        .getPublicUrl(fileName);
+
+      // Insert certification record with document URL
       const { error } = await supabase
         .from("certifications")
         .insert([
           {
             user_id: userId,
+            document_url: publicUrl,
             ...newCert,
           },
         ]);
 
       if (error) throw error;
 
-      toast.success("Document added successfully");
+      toast.success("Document uploaded successfully");
       setDialogOpen(false);
       setNewCert({ title: "", issuer: "", issue_date: "", expiry_date: "" });
+      setDocumentFile(null);
       loadCertifications();
     } catch (error: any) {
-      toast.error(error.message || "Failed to add document");
+      toast.error(error.message || "Failed to upload document");
     } finally {
       setSaving(false);
+      setUploading(false);
     }
   };
 
@@ -158,12 +193,26 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
             </DialogHeader>
             <form onSubmit={handleAddCertification} className="space-y-4">
               <div className="space-y-2">
+                <Label htmlFor="document-file">Upload Document *</Label>
+                <Input
+                  id="document-file"
+                  type="file"
+                  accept="image/*,.pdf,.doc,.docx"
+                  onChange={handleFileChange}
+                  required
+                  className="cursor-pointer"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Accepted formats: Images, PDF, Word documents (Max 20MB)
+                </p>
+              </div>
+              <div className="space-y-2">
                 <Label htmlFor="title">Document Title</Label>
                 <Input
                   id="title"
                   value={newCert.title}
                   onChange={(e) => setNewCert({ ...newCert, title: e.target.value })}
-                  placeholder="e.g., IICRC Water Damage Restoration"
+                  placeholder="e.g., Health Certificate"
                   required
                 />
               </div>
@@ -194,14 +243,14 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                   onChange={(e) => setNewCert({ ...newCert, expiry_date: e.target.value })}
                 />
               </div>
-              <Button type="submit" disabled={saving} className="w-full">
-                {saving ? (
+              <Button type="submit" disabled={saving || uploading} className="w-full">
+                {saving || uploading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Adding...
+                    {uploading ? "Uploading..." : "Adding..."}
                   </>
                 ) : (
-                  "Add Document"
+                  "Upload Document"
                 )}
               </Button>
             </form>

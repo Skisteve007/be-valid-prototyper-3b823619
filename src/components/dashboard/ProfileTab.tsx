@@ -93,6 +93,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
     JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
 
+  // Debug logging
+  useEffect(() => {
+    console.log("Change detection - isDirty:", formState.isDirty, "statusColor:", statusColor, "initial:", initialStatusColor, "hasChanges:", hasChanges);
+  }, [formState.isDirty, statusColor, initialStatusColor, hasChanges]);
+
   useEffect(() => {
     loadProfile();
   }, [userId]);
@@ -491,7 +496,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           <div className="grid grid-cols-4 gap-3">
             <button
               type="button"
-              onClick={() => setStatusColor("green")}
+              onClick={() => {
+                console.log("Status color changed to green");
+                setStatusColor("green");
+              }}
               className={`p-4 rounded-lg border-2 transition-all ${
                 statusColor === "green"
                   ? "border-green-500 bg-green-500/10 shadow-lg shadow-green-500/50"
@@ -656,6 +664,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           type="submit" 
           disabled={saving || !profileImageUrl}
           size="lg"
+          onClick={() => console.log("Save button clicked - saveSuccess:", saveSuccess, "hasChanges:", hasChanges, "statusColor:", statusColor)}
           className={`shadow-2xl transition-all duration-300 ${
             saveSuccess
               ? 'bg-green-600 hover:bg-green-600 text-white ring-2 ring-green-400/50 shadow-green-500/60'
@@ -677,7 +686,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
               Saved!
             </>
           ) : (
-            "Save"
+            <>Save {hasChanges ? "(•)" : ""}</>
           )}
         </Button>
       </div>

@@ -18,7 +18,8 @@ import {
   User,
   UsersRound,
   UserCheck,
-  LucideIcon
+  LucideIcon,
+  Smile
 } from "lucide-react";
 
 interface InterestTag {
@@ -115,7 +116,10 @@ export const InterestsSelector = ({
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold border-b pb-2">User Preferences</h3>
+        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
+          <Smile className="w-5 h-5 text-teal-500" />
+          User Preferences
+        </h3>
         <p className="text-sm text-muted-foreground mt-2">
           Select your interests and preferences
         </p>

@@ -22,7 +22,9 @@ import {
   UsersRound,
   User,
   Zap,
-  LucideIcon
+  LucideIcon,
+  Palette,
+  Flame
 } from "lucide-react";
 
 interface PreferenceCategory {
@@ -53,6 +55,15 @@ const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
     items: ["Group Activities", "Threesomes", "Multiple Men Only", "Multiple Women Only", "Experimental"],
   },
 ];
+
+const getCategoryIcon = (categoryId: string): { Icon: LucideIcon; color: string } => {
+  const iconMap: Record<string, { Icon: LucideIcon; color: string }> = {
+    relationship_styles: { Icon: Heart, color: "text-pink-500" },
+    sensory_preferences: { Icon: Palette, color: "text-purple-500" },
+    specific_activities: { Icon: Flame, color: "text-orange-500" },
+  };
+  return iconMap[categoryId] || { Icon: Sparkles, color: "text-primary" };
+};
 
 export const PreferencesSelector = ({
   selectedPreferences,
@@ -115,36 +126,42 @@ export const PreferencesSelector = ({
       </div>
 
       <Accordion type="multiple" className="w-full">
-        {PREFERENCE_CATEGORIES.map((category) => (
-          <AccordionItem key={category.id} value={category.id}>
-            <AccordionTrigger className="text-base font-medium">
-              {category.title}
-              {selectedPreferences[category.id]?.length > 0 && (
-                <Badge variant="secondary" className="ml-2">
-                  {selectedPreferences[category.id].length}
-                </Badge>
-              )}
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="flex flex-wrap gap-2 pt-2">
-                {category.items.map((item) => {
-                  const IconComponent = getIconForPreference(item);
-                  return (
-                    <Badge
-                      key={item}
-                      variant={isSelected(category.id, item) ? "default" : "outline"}
-                      className="cursor-pointer px-4 py-2 text-sm transition-colors hover:bg-primary/80 flex items-center gap-2"
-                      onClick={() => togglePreference(category.id, item)}
-                    >
-                      <IconComponent className="w-4 h-4" />
-                      {item}
-                    </Badge>
-                  );
-                })}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
+        {PREFERENCE_CATEGORIES.map((category) => {
+          const { Icon, color } = getCategoryIcon(category.id);
+          return (
+            <AccordionItem key={category.id} value={category.id}>
+              <AccordionTrigger className="text-base font-medium">
+                <div className="flex items-center gap-2">
+                  <Icon className={`w-5 h-5 ${color}`} />
+                  {category.title}
+                </div>
+                {selectedPreferences[category.id]?.length > 0 && (
+                  <Badge variant="secondary" className="ml-2">
+                    {selectedPreferences[category.id].length}
+                  </Badge>
+                )}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {category.items.map((item) => {
+                    const IconComponent = getIconForPreference(item);
+                    return (
+                      <Badge
+                        key={item}
+                        variant={isSelected(category.id, item) ? "default" : "outline"}
+                        className="cursor-pointer px-4 py-2 text-sm transition-colors hover:bg-primary/80 flex items-center gap-2"
+                        onClick={() => togglePreference(category.id, item)}
+                      >
+                        <IconComponent className="w-4 h-4" />
+                        {item}
+                      </Badge>
+                    );
+                  })}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          );
+        })}
       </Accordion>
     </div>
   );

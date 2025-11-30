@@ -7,8 +7,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Plus, Award, FileText, Eye } from "lucide-react";
+import { Loader2, Plus, Award, FileText, Eye, X } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Progress } from "@/components/ui/progress";
 
 interface Certification {
   id: string;
@@ -33,8 +34,9 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   const [saving, setSaving] = useState(false);
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [documentFile, setDocumentFile] = useState<File | null>(null);
+  const [documentFiles, setDocumentFiles] = useState<File[]>([]);
   const [viewerMemberId, setViewerMemberId] = useState<string>("");
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [newCert, setNewCert] = useState({
     title: "",
     issuer: "",
@@ -96,59 +98,76 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setDocumentFile(file);
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) {
+      setDocumentFiles(files);
     }
+  };
+
+  const removeFile = (index: number) => {
+    setDocumentFiles(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleAddCertification = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!documentFile) {
-      toast.error("Please select a document file to upload");
+    if (documentFiles.length === 0) {
+      toast.error("Please select at least one document to upload");
       return;
     }
 
     setSaving(true);
     setUploading(true);
+    setUploadProgress(0);
 
     try {
-      // Upload file to storage
-      const fileExt = documentFile.name.split('.').pop();
-      const fileName = `${userId}/${Date.now()}.${fileExt}`;
-      
-      const { error: uploadError } = await supabase.storage
-        .from('profile-images')
-        .upload(fileName, documentFile);
+      const totalFiles = documentFiles.length;
+      let completedFiles = 0;
 
-      if (uploadError) throw uploadError;
+      for (const file of documentFiles) {
+        // Upload file to storage
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${userId}/${Date.now()}_${file.name}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from('profile-images')
+          .upload(fileName, file);
 
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('profile-images')
-        .getPublicUrl(fileName);
+        if (uploadError) throw uploadError;
 
-      // Insert certification record with document URL
-      const { error } = await supabase
-        .from("certifications")
-        .insert([
-          {
-            user_id: userId,
-            document_url: publicUrl,
-            ...newCert,
-          },
-        ]);
+        // Get public URL
+        const { data: { publicUrl } } = supabase.storage
+          .from('profile-images')
+          .getPublicUrl(fileName);
 
-      if (error) throw error;
+        // Insert certification record with document URL
+        const { error } = await supabase
+          .from("certifications")
+          .insert([
+            {
+              user_id: userId,
+              document_url: publicUrl,
+              title: newCert.title || file.name.split('.')[0],
+              issuer: newCert.issuer,
+              issue_date: newCert.issue_date || null,
+              expiry_date: newCert.expiry_date || null,
+            },
+          ]);
 
-      toast.success("Document uploaded successfully");
+        if (error) throw error;
+
+        completedFiles++;
+        setUploadProgress(Math.round((completedFiles / totalFiles) * 100));
+      }
+
+      toast.success(`${totalFiles} document(s) uploaded successfully`);
       setDialogOpen(false);
       setNewCert({ title: "", issuer: "", issue_date: "", expiry_date: "" });
-      setDocumentFile(null);
+      setDocumentFiles([]);
+      setUploadProgress(0);
       loadCertifications();
     } catch (error: any) {
-      toast.error(error.message || "Failed to upload document");
+      toast.error(error.message || "Failed to upload documents");
     } finally {
       setSaving(false);
       setUploading(false);
@@ -206,28 +225,53 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           </DialogTrigger>
           <DialogContent className="max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Add Document</DialogTitle>
+              <DialogTitle>Add Documents</DialogTitle>
+              <DialogDescription className="text-xs">
+                Upload multiple documents at once. Shared info applies to all.
+              </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleAddCertification} className="space-y-3">
               <div className="space-y-1.5">
-                <Label htmlFor="document-file" className="text-sm">Upload Document *</Label>
+                <Label htmlFor="document-file" className="text-sm">Select Files *</Label>
                 <Input
                   id="document-file"
                   type="file"
                   accept="image/*,.pdf,.doc,.docx"
                   onChange={handleFileChange}
-                  required
+                  multiple
                   className="cursor-pointer text-sm"
                 />
               </div>
+              
+              {documentFiles.length > 0 && (
+                <div className="space-y-1.5">
+                  <Label className="text-sm">Selected Files ({documentFiles.length})</Label>
+                  <div className="max-h-32 overflow-y-auto space-y-1 rounded-md border border-border p-2">
+                    {documentFiles.map((file, index) => (
+                      <div key={index} className="flex items-center justify-between text-xs bg-muted/50 px-2 py-1 rounded">
+                        <span className="truncate flex-1">{file.name}</span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeFile(index)}
+                          className="h-5 w-5 p-0 ml-2"
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-1.5">
-                <Label htmlFor="title" className="text-sm">Title</Label>
+                <Label htmlFor="title" className="text-sm">Title (Optional)</Label>
                 <Input
                   id="title"
                   value={newCert.title}
                   onChange={(e) => setNewCert({ ...newCert, title: e.target.value })}
-                  placeholder="Health Certificate"
-                  required
+                  placeholder="Leave blank to use file names"
                   className="text-sm"
                 />
               </div>
@@ -254,7 +298,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                 </div>
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="expiry_date" className="text-sm">Expiry Date (Optional)</Label>
+                <Label htmlFor="expiry_date" className="text-sm">Expiry Date</Label>
                 <Input
                   id="expiry_date"
                   type="date"
@@ -263,14 +307,25 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                   className="text-sm"
                 />
               </div>
-              <Button type="submit" disabled={saving || uploading} className="w-full mt-4">
+
+              {uploading && uploadProgress > 0 && (
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>Uploading...</span>
+                    <span>{uploadProgress}%</span>
+                  </div>
+                  <Progress value={uploadProgress} className="h-2" />
+                </div>
+              )}
+
+              <Button type="submit" disabled={saving || uploading || documentFiles.length === 0} className="w-full mt-4">
                 {saving || uploading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {uploading ? "Uploading..." : "Adding..."}
+                    Uploading {documentFiles.length} file(s)...
                   </>
                 ) : (
-                  "Upload Document"
+                  `Upload ${documentFiles.length > 0 ? documentFiles.length : ''} Document${documentFiles.length !== 1 ? 's' : ''}`
                 )}
               </Button>
             </form>

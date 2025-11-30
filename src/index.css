@@ -165,3 +165,17 @@ All colors MUST be HSL.
     @apply translate-y-0 opacity-100;
   }
 }
+
+/* Custom gentle glow animation for save button */
+@keyframes gentle-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px 4px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px 8px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.animate-gentle-glow {
+  animation: gentle-glow 3s ease-in-out infinite;
+}

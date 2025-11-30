@@ -77,7 +77,7 @@ const Index = () => {
             <Button 
               variant="ghost" 
               onClick={() => navigate("/auth")}
-              className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-red-500 hover:text-red-400 animate-pulse font-semibold"
+              className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
             >
               <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
               QR Code

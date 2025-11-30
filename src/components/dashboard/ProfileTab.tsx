@@ -479,7 +479,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
               <div className="flex flex-col items-center gap-2">
                 <div className="w-12 h-12 rounded-full bg-red-500 shadow-[0_0_20px_8px_rgba(239,68,68,0.6)]"></div>
                 <span className="font-semibold">Be Aware</span>
-                <span className="text-sm text-muted-foreground text-center">Examine docs. please</span>
+                <span className="text-sm text-muted-foreground text-center">Examine Docs Please</span>
               </div>
             </button>
           </div>

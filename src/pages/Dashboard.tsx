@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Award, QrCode, UserCheck } from "lucide-react";
+import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Shield, Settings } from "lucide-react";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
 import QRCodeTab from "@/components/dashboard/QRCodeTab";
@@ -19,6 +20,7 @@ const Dashboard = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [qrRefreshKey, setQrRefreshKey] = useState(0);
+  const { isAdmin } = useIsAdmin();
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -78,10 +80,21 @@ const Dashboard = () => {
               <img src={logo} alt="Clean Check" className="relative h-28 w-auto" />
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout} className="absolute right-4 top-1/2 -translate-y-1/2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30">
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </Button>
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
+            {isAdmin && (
+              <Button 
+                onClick={() => navigate("/admin")} 
+                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50"
+              >
+                <Shield className="h-4 w-4 mr-2" />
+                Admin Panel
+              </Button>
+            )}
+            <Button variant="outline" onClick={handleLogout} className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30">
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -151,6 +164,17 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </main>
+
+      {/* Floating Admin Button - Only visible for admins */}
+      {isAdmin && (
+        <Button
+          onClick={() => navigate("/admin")}
+          className="fixed bottom-8 right-8 h-14 w-14 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-2xl shadow-purple-500/50 hover:shadow-purple-600/60 transition-all duration-300 hover:scale-110 z-50"
+          title="Go to Admin Panel"
+        >
+          <Settings className="h-6 w-6 text-white" />
+        </Button>
+      )}
     </div>
   );
 };

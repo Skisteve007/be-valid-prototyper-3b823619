@@ -178,12 +178,6 @@ const Index = () => {
               </p>
             </ScrollReveal>
             
-            <ScrollReveal direction="up" delay={300}>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Confidently share verified health status information for mutual safety and informed intimacy.
-              </p>
-            </ScrollReveal>
-            
             {/* Featured Sponsors - Always show 3 slots */}
             <ScrollReveal direction="up" delay={400}>
               <div className="mt-12">

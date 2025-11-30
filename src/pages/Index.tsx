@@ -14,23 +14,49 @@ const Index = () => {
   const [selectedPlan, setSelectedPlan] = useState<"single" | "couple">("single");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [sponsors, setSponsors] = useState<Array<{ id: string; name: string; logo_url: string | null; website_url: string | null }>>([]);
+  const [sponsors, setSponsors] = useState<Array<{ id: string; name: string; logo_url: string | null; website_url: string | null; tier: string }>>([]);
 
   useEffect(() => {
     const fetchSponsors = async () => {
       const { data, error } = await supabase
         .from("sponsors")
-        .select("id, name, logo_url, website_url")
+        .select("id, name, logo_url, website_url, tier")
         .eq("active", true)
         .order("display_order", { ascending: true });
 
       if (!error && data) {
         setSponsors(data);
+        // Track sponsor views
+        data.forEach((sponsor) => {
+          supabase.from("sponsor_analytics").insert({
+            sponsor_id: sponsor.id,
+            event_type: "view",
+            page_url: window.location.href,
+          });
+        });
       }
     };
 
     fetchSponsors();
   }, []);
+
+  const handleSponsorClick = (sponsorId: string) => {
+    // Track sponsor click
+    supabase.from("sponsor_analytics").insert({
+      sponsor_id: sponsorId,
+      event_type: "click",
+      page_url: window.location.href,
+    });
+  };
+
+  const getSponsorSize = (tier: string) => {
+    switch (tier) {
+      case 'platinum': return 'h-20';
+      case 'gold': return 'h-16';
+      case 'silver': return 'h-12';
+      default: return 'h-12';
+    }
+  };
 
   const handleContinue = () => {
     if (fullName && email) {
@@ -74,22 +100,27 @@ const Index = () => {
                     <div key={sponsor.id} className="flex items-center justify-center">
                       {sponsor.logo_url ? (
                         sponsor.website_url ? (
-                          <a href={sponsor.website_url} target="_blank" rel="noopener noreferrer">
+                          <a 
+                            href={sponsor.website_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            onClick={() => handleSponsorClick(sponsor.id)}
+                          >
                             <img 
                               src={sponsor.logo_url} 
                               alt={sponsor.name} 
-                              className="h-16 w-auto hover:scale-110 transition-transform duration-300 filter drop-shadow-lg"
+                              className={`${getSponsorSize(sponsor.tier)} w-auto hover:scale-110 transition-transform duration-300 filter drop-shadow-lg`}
                             />
                           </a>
                         ) : (
                           <img 
                             src={sponsor.logo_url} 
                             alt={sponsor.name} 
-                            className="h-16 w-auto filter drop-shadow-lg"
+                            className={`${getSponsorSize(sponsor.tier)} w-auto filter drop-shadow-lg`}
                           />
                         )
                       ) : (
-                        <div className="w-32 h-16 bg-muted/50 border-2 border-dashed border-muted-foreground/30 rounded-lg flex items-center justify-center">
+                        <div className={`w-32 ${getSponsorSize(sponsor.tier)} bg-muted/50 border-2 border-dashed border-muted-foreground/30 rounded-lg flex items-center justify-center`}>
                           <span className="text-xs text-muted-foreground">{sponsor.name}</span>
                         </div>
                       )}
@@ -114,18 +145,23 @@ const Index = () => {
                   <div key={sponsor.id} className="flex items-center justify-center">
                     {sponsor.logo_url ? (
                       sponsor.website_url ? (
-                        <a href={sponsor.website_url} target="_blank" rel="noopener noreferrer">
+                        <a 
+                          href={sponsor.website_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          onClick={() => handleSponsorClick(sponsor.id)}
+                        >
                           <img 
                             src={sponsor.logo_url} 
                             alt={sponsor.name} 
-                            className="h-12 w-auto grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100"
+                            className={`${getSponsorSize(sponsor.tier)} w-auto grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100`}
                           />
                         </a>
                       ) : (
                         <img 
                           src={sponsor.logo_url} 
                           alt={sponsor.name} 
-                          className="h-12 w-auto opacity-70"
+                          className={`${getSponsorSize(sponsor.tier)} w-auto opacity-70`}
                         />
                       )
                     ) : (

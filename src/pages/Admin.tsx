@@ -5,10 +5,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/clean-check-logo.png";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface Sponsor {
   id: string;
@@ -17,13 +36,143 @@ interface Sponsor {
   website_url: string | null;
   active: boolean;
   display_order: number;
+  tier: 'platinum' | 'gold' | 'silver';
 }
+
+interface SponsorAnalytics {
+  views: number;
+  clicks: number;
+  ctr: number;
+}
+
+const SortableItem = ({ sponsor, onDelete, onToggleActive, analytics }: { 
+  sponsor: Sponsor; 
+  onDelete: (id: string) => void; 
+  onToggleActive: (sponsor: Sponsor) => void;
+  analytics: SponsorAnalytics;
+}) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id: sponsor.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  const getTierColor = (tier: string) => {
+    switch (tier) {
+      case 'platinum': return 'bg-purple-500';
+      case 'gold': return 'bg-yellow-500';
+      case 'silver': return 'bg-gray-400';
+      default: return 'bg-gray-400';
+    }
+  };
+
+  const getTierSize = (tier: string) => {
+    switch (tier) {
+      case 'platinum': return 'h-20';
+      case 'gold': return 'h-16';
+      case 'silver': return 'h-12';
+      default: return 'h-12';
+    }
+  };
+
+  return (
+    <Card ref={setNodeRef} style={style} className={!sponsor.active ? "opacity-50" : ""}>
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between gap-4">
+          <div 
+            {...attributes} 
+            {...listeners} 
+            className="cursor-grab active:cursor-grabbing p-2 hover:bg-muted rounded"
+          >
+            <GripVertical className="h-5 w-5 text-muted-foreground" />
+          </div>
+          
+          <div className="flex items-center gap-4 flex-1">
+            <div className={`flex items-center justify-center ${sponsor.logo_url ? '' : 'w-24'}`}>
+              {sponsor.logo_url ? (
+                <img 
+                  src={sponsor.logo_url} 
+                  alt={sponsor.name} 
+                  className={`w-auto ${getTierSize(sponsor.tier)}`}
+                />
+              ) : (
+                <div className={`${getTierSize(sponsor.tier)} bg-muted rounded flex items-center justify-center w-24`}>
+                  <span className="text-xs text-muted-foreground">No logo</span>
+                </div>
+              )}
+            </div>
+            
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h4 className="font-semibold">{sponsor.name}</h4>
+                <Badge className={getTierColor(sponsor.tier)}>
+                  {sponsor.tier.toUpperCase()}
+                </Badge>
+              </div>
+              <p className="text-sm text-muted-foreground">Order: {sponsor.display_order}</p>
+              {sponsor.website_url && (
+                <a 
+                  href={sponsor.website_url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-sm text-primary hover:underline flex items-center gap-1"
+                >
+                  Visit website <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
+              
+              <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Eye className="h-4 w-4" />
+                  <span>{analytics.views} views</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <MousePointerClick className="h-4 w-4" />
+                  <span>{analytics.clicks} clicks</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <TrendingUp className="h-4 w-4" />
+                  <span>{analytics.ctr.toFixed(1)}% CTR</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex gap-2">
+            <Button
+              variant={sponsor.active ? "outline" : "default"}
+              size="sm"
+              onClick={() => onToggleActive(sponsor)}
+            >
+              {sponsor.active ? "Deactivate" : "Activate"}
+            </Button>
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => onDelete(sponsor.id)}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 const Admin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
+  const [analytics, setAnalytics] = useState<Record<string, SponsorAnalytics>>({});
   const [dialogOpen, setDialogOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
@@ -32,7 +181,15 @@ const Admin = () => {
     website_url: "",
     logo_url: "",
     display_order: 0,
+    tier: "silver" as 'platinum' | 'gold' | 'silver',
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     checkAdminAccess();
@@ -47,13 +204,12 @@ const Admin = () => {
         return;
       }
 
-      // Check if user has admin role
       const { data: roleData, error: roleError } = await supabase
         .from("user_roles")
         .select("role")
         .eq("user_id", user.id)
         .eq("role", "administrator")
-        .single();
+        .maybeSingle();
 
       if (roleError || !roleData) {
         toast.error("Access denied. Administrator privileges required.");
@@ -62,7 +218,7 @@ const Admin = () => {
       }
 
       setIsAdmin(true);
-      loadSponsors();
+      await Promise.all([loadSponsors(), loadAnalytics()]);
     } catch (error) {
       toast.error("Failed to verify admin access");
       navigate("/");
@@ -79,9 +235,68 @@ const Admin = () => {
         .order("display_order", { ascending: true });
 
       if (error) throw error;
-      setSponsors(data || []);
+      setSponsors((data as Sponsor[]) || []);
     } catch (error: any) {
       toast.error("Failed to load sponsors");
+    }
+  };
+
+  const loadAnalytics = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("sponsor_analytics")
+        .select("sponsor_id, event_type");
+
+      if (error) throw error;
+
+      const analyticsMap: Record<string, SponsorAnalytics> = {};
+      
+      data?.forEach((event) => {
+        if (!analyticsMap[event.sponsor_id]) {
+          analyticsMap[event.sponsor_id] = { views: 0, clicks: 0, ctr: 0 };
+        }
+        if (event.event_type === 'view') {
+          analyticsMap[event.sponsor_id].views++;
+        } else if (event.event_type === 'click') {
+          analyticsMap[event.sponsor_id].clicks++;
+        }
+      });
+
+      Object.keys(analyticsMap).forEach((sponsorId) => {
+        const stats = analyticsMap[sponsorId];
+        stats.ctr = stats.views > 0 ? (stats.clicks / stats.views) * 100 : 0;
+      });
+
+      setAnalytics(analyticsMap);
+    } catch (error: any) {
+      console.error("Failed to load analytics:", error);
+    }
+  };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = sponsors.findIndex((s) => s.id === active.id);
+    const newIndex = sponsors.findIndex((s) => s.id === over.id);
+
+    const newSponsors = arrayMove(sponsors, oldIndex, newIndex);
+    setSponsors(newSponsors);
+
+    try {
+      const updates = newSponsors.map((sponsor, index) => 
+        supabase
+          .from("sponsors")
+          .update({ display_order: index })
+          .eq("id", sponsor.id)
+      );
+
+      await Promise.all(updates);
+      toast.success("Sponsor order updated");
+    } catch (error: any) {
+      toast.error("Failed to update order");
+      loadSponsors();
     }
   };
 
@@ -126,7 +341,8 @@ const Admin = () => {
             name: newSponsor.name,
             website_url: newSponsor.website_url || null,
             logo_url: newSponsor.logo_url || null,
-            display_order: newSponsor.display_order,
+            display_order: sponsors.length,
+            tier: newSponsor.tier,
             active: true,
           },
         ]);
@@ -135,7 +351,7 @@ const Admin = () => {
 
       toast.success("Sponsor added successfully");
       setDialogOpen(false);
-      setNewSponsor({ name: "", website_url: "", logo_url: "", display_order: 0 });
+      setNewSponsor({ name: "", website_url: "", logo_url: "", display_order: 0, tier: "silver" });
       loadSponsors();
     } catch (error: any) {
       toast.error(error.message || "Failed to add sponsor");
@@ -214,7 +430,7 @@ const Admin = () => {
               <div>
                 <CardTitle className="text-3xl">Sponsor Management</CardTitle>
                 <CardDescription>
-                  Manage sponsor logos displayed across the website
+                  Drag to reorder sponsors. Tier determines display size: Platinum (largest), Gold (medium), Silver (standard)
                 </CardDescription>
               </div>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -243,6 +459,34 @@ const Admin = () => {
                       />
                     </div>
                     <div className="space-y-2">
+                      <Label htmlFor="tier">Tier *</Label>
+                      <Select value={newSponsor.tier} onValueChange={(value: any) => setNewSponsor({ ...newSponsor, tier: value })}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="platinum">
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+                              Platinum (Largest)
+                            </div>
+                          </SelectItem>
+                          <SelectItem value="gold">
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                              Gold (Medium)
+                            </div>
+                          </SelectItem>
+                          <SelectItem value="silver">
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 rounded-full bg-gray-400"></div>
+                              Silver (Standard)
+                            </div>
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
                       <Label htmlFor="logo">Logo Image</Label>
                       <Input
                         id="logo"
@@ -264,16 +508,6 @@ const Admin = () => {
                         value={newSponsor.website_url}
                         onChange={(e) => setNewSponsor({ ...newSponsor, website_url: e.target.value })}
                         placeholder="https://example.com"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="order">Display Order</Label>
-                      <Input
-                        id="order"
-                        type="number"
-                        value={newSponsor.display_order}
-                        onChange={(e) => setNewSponsor({ ...newSponsor, display_order: parseInt(e.target.value) })}
-                        placeholder="0"
                       />
                     </div>
                     <Button type="submit" disabled={saving || uploadingLogo} className="w-full">
@@ -298,55 +532,28 @@ const Admin = () => {
                   No sponsors added yet. Click "Add Sponsor" to get started.
                 </div>
               ) : (
-                <div className="grid gap-4">
-                  {sponsors.map((sponsor) => (
-                    <Card key={sponsor.id} className={!sponsor.active ? "opacity-50" : ""}>
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between gap-4">
-                          <div className="flex items-center gap-4 flex-1">
-                            {sponsor.logo_url ? (
-                              <img src={sponsor.logo_url} alt={sponsor.name} className="h-12 w-auto" />
-                            ) : (
-                              <div className="w-24 h-12 bg-muted rounded flex items-center justify-center">
-                                <span className="text-xs text-muted-foreground">No logo</span>
-                              </div>
-                            )}
-                            <div className="flex-1">
-                              <h4 className="font-semibold">{sponsor.name}</h4>
-                              <p className="text-sm text-muted-foreground">Order: {sponsor.display_order}</p>
-                              {sponsor.website_url && (
-                                <a 
-                                  href={sponsor.website_url} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-sm text-primary hover:underline flex items-center gap-1"
-                                >
-                                  Visit website <ExternalLink className="h-3 w-3" />
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                          <div className="flex gap-2">
-                            <Button
-                              variant={sponsor.active ? "outline" : "default"}
-                              size="sm"
-                              onClick={() => handleToggleActive(sponsor)}
-                            >
-                              {sponsor.active ? "Deactivate" : "Activate"}
-                            </Button>
-                            <Button
-                              variant="destructive"
-                              size="sm"
-                              onClick={() => handleDeleteSponsor(sponsor.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                <DndContext
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
+                  onDragEnd={handleDragEnd}
+                >
+                  <SortableContext
+                    items={sponsors.map(s => s.id)}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <div className="space-y-4">
+                      {sponsors.map((sponsor) => (
+                        <SortableItem
+                          key={sponsor.id}
+                          sponsor={sponsor}
+                          onDelete={handleDeleteSponsor}
+                          onToggleActive={handleToggleActive}
+                          analytics={analytics[sponsor.id] || { views: 0, clicks: 0, ctr: 0 }}
+                        />
+                      ))}
+                    </div>
+                  </SortableContext>
+                </DndContext>
               )}
             </div>
           </CardContent>

@@ -220,6 +220,41 @@ export type Database = {
           },
         ]
       }
+      sponsor_analytics: {
+        Row: {
+          event_type: string
+          id: string
+          page_url: string | null
+          sponsor_id: string
+          user_ip: string | null
+          viewed_at: string
+        }
+        Insert: {
+          event_type: string
+          id?: string
+          page_url?: string | null
+          sponsor_id: string
+          user_ip?: string | null
+          viewed_at?: string
+        }
+        Update: {
+          event_type?: string
+          id?: string
+          page_url?: string | null
+          sponsor_id?: string
+          user_ip?: string | null
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sponsor_analytics_sponsor_id_fkey"
+            columns: ["sponsor_id"]
+            isOneToOne: false
+            referencedRelation: "sponsors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sponsors: {
         Row: {
           active: boolean | null
@@ -228,6 +263,7 @@ export type Database = {
           id: string
           logo_url: string | null
           name: string
+          tier: string | null
           updated_at: string
           website_url: string | null
         }
@@ -238,6 +274,7 @@ export type Database = {
           id?: string
           logo_url?: string | null
           name: string
+          tier?: string | null
           updated_at?: string
           website_url?: string | null
         }
@@ -248,6 +285,7 @@ export type Database = {
           id?: string
           logo_url?: string | null
           name?: string
+          tier?: string | null
           updated_at?: string
           website_url?: string | null
         }

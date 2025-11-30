@@ -764,7 +764,7 @@ const Index = () => {
         </section>
 
         {/* Payment Information */}
-        <section className="py-16 px-4 bg-destructive/10 border-y border-destructive/20">
+        <section className="py-16 px-4 bg-gradient-to-br from-muted/80 via-pink-500/10 to-muted/80 border-y border-border/20">
           <div className="container mx-auto max-w-4xl">
             <h3 className="text-2xl font-bold mb-6 text-destructive">⚠️ Important Payment Information:</h3>
             <ul className="space-y-4 text-foreground">
@@ -793,7 +793,7 @@ const Index = () => {
         </section>
 
         {/* Legal Disclaimer */}
-        <section className="py-16 px-4 bg-muted">
+        <section className="py-16 px-4 bg-gradient-to-br from-muted/80 via-pink-500/10 to-muted/80">
           <div className="container mx-auto max-w-4xl">
             <h3 className="text-2xl font-bold mb-6">⚖️ LEGAL DISCLAIMER</h3>
             <p className="mb-6 text-foreground">By using Clean Check, you acknowledge and agree that:</p>

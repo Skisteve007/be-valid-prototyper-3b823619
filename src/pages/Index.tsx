@@ -182,7 +182,7 @@ const Index = () => {
             <ScrollReveal direction="up" delay={400}>
               <div className="mt-16">
                 <p className="text-base text-muted-foreground mb-8 font-semibold">Trusted Community Sponsors</p>
-                <div className="flex flex-wrap justify-center items-center gap-16">
+                <div className="flex justify-center items-center gap-16 overflow-x-auto">
                 {[0, 1, 2].map((index) => {
                   const sponsor = sponsors[index];
                   return (

@@ -644,12 +644,12 @@ const Index = () => {
         <section className="py-16 px-4 bg-background">
           <div className="container mx-auto max-w-4xl">
             <ScrollReveal direction="up" delay={100}>
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-2">
                   <HelpCircle className="h-4 w-4" />
                   <span className="font-semibold bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Frequently Asked Questions</span>
                 </div>
-                <h3 className="text-3xl font-bold"><span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Got</span> <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Questions</span><span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">?</span> <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">We&apos;ve</span> <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Got</span> <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Answers</span></h3>
+                <h3 className="text-4xl font-bold"><span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Got</span> <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Questions</span><span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">?</span> <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">We&apos;ve</span> <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Got</span> <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Answers</span></h3>
               </div>
             </ScrollReveal>
 

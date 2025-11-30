@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Loader2, FileText, UserCheck } from "lucide-react";
+import { Loader2, FileText, UserCheck, QrCode } from "lucide-react";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
@@ -52,6 +52,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
   const [userInterests, setUserInterests] = useState<Record<string, string[]>>({});
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red">("green");
 
   const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
     defaultValues: {
@@ -120,6 +121,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         setProfileImageUrl(data.profile_image_url || "");
         setUserInterests((data.user_interests as Record<string, string[]>) || {});
         setSelectedInterests((data.selected_interests as string[]) || []);
+        setStatusColor((data.status_color as "green" | "yellow" | "red") || "green");
       }
     } catch (error: any) {
       toast.error("Failed to load profile");
@@ -195,6 +197,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
           sexual_preferences: data.sexual_preferences,
           user_interests: userInterests,
           selected_interests: selectedInterests,
+          status_color: statusColor,
         })
         .eq("user_id", userId);
 
@@ -275,6 +278,71 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       <div className="relative py-4">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full h-1 bg-gradient-to-r from-green-500 via-lime-400 to-green-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
+          <QrCode className="w-5 h-5 text-primary" />
+          QR Code Status Color
+        </h3>
+        <div className="space-y-4">
+          <Label>Choose your status color (appears as a glow around your QR code)</Label>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button
+              type="button"
+              onClick={() => setStatusColor("green")}
+              className={`p-4 rounded-lg border-2 transition-all ${
+                statusColor === "green"
+                  ? "border-green-500 bg-green-500/10 shadow-lg shadow-green-500/50"
+                  : "border-border hover:border-green-500/50"
+              }`}
+            >
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 rounded-full bg-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.6)]"></div>
+                <span className="font-semibold">Clean</span>
+                <span className="text-sm text-muted-foreground text-center">Recently verified and cleared</span>
+              </div>
+            </button>
+            
+            <button
+              type="button"
+              onClick={() => setStatusColor("yellow")}
+              className={`p-4 rounded-lg border-2 transition-all ${
+                statusColor === "yellow"
+                  ? "border-yellow-500 bg-yellow-500/10 shadow-lg shadow-yellow-500/50"
+                  : "border-border hover:border-yellow-500/50"
+              }`}
+            >
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 rounded-full bg-yellow-500 shadow-[0_0_20px_8px_rgba(234,179,8,0.6)]"></div>
+                <span className="font-semibold">Proceed with Caution</span>
+                <span className="text-sm text-muted-foreground text-center">Verification in progress or pending</span>
+              </div>
+            </button>
+            
+            <button
+              type="button"
+              onClick={() => setStatusColor("red")}
+              className={`p-4 rounded-lg border-2 transition-all ${
+                statusColor === "red"
+                  ? "border-red-500 bg-red-500/10 shadow-lg shadow-red-500/50"
+                  : "border-border hover:border-red-500/50"
+              }`}
+            >
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 rounded-full bg-red-500 shadow-[0_0_20px_8px_rgba(239,68,68,0.6)]"></div>
+                <span className="font-semibold">Be Aware</span>
+                <span className="text-sm text-muted-foreground text-center">Requires attention or update needed</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-green-500 via-emerald-400 to-green-500 rounded-full opacity-60"></div>
         </div>
       </div>
 

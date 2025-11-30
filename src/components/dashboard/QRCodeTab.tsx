@@ -17,9 +17,10 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const [lastDocumentDate, setLastDocumentDate] = useState<Date | null>(null);
   const [documentAge, setDocumentAge] = useState<number>(0);
   const [wakeLock, setWakeLock] = useState<any>(null);
+  const [accessToken, setAccessToken] = useState<string>("");
+  const [profileId, setProfileId] = useState<string>("");
 
   useEffect(() => {
-    generateQRCode();
     loadProfileAndDocuments();
     increaseBrightness();
     
@@ -30,15 +31,19 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
   const loadProfileAndDocuments = async () => {
     try {
-      // Load profile to get status color
+      // Load profile to get status color and ID
       const { data: profileData } = await supabase
         .from("profiles")
-        .select("status_color")
+        .select("id, status_color")
         .eq("user_id", userId)
         .single();
       
       if (profileData) {
         setStatusColor((profileData.status_color as "green" | "yellow" | "red") || "green");
+        setProfileId(profileData.id);
+        
+        // Generate access token for this profile
+        await generateAccessToken(profileData.id);
       }
 
       // Load most recent document
@@ -64,8 +69,34 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
     }
   };
 
+  const generateAccessToken = async (profileId: string) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-qr-token', {
+        body: { profileId },
+      });
+
+      if (error) {
+        console.error("Failed to generate access token:", error);
+        toast.error("Failed to generate secure access token");
+        return;
+      }
+
+      if (data?.token) {
+        setAccessToken(data.token);
+        // Generate QR code with token
+        const profileUrl = `${window.location.origin}/view-profile?token=${data.token}`;
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(profileUrl)}`;
+        setQrCodeUrl(qrUrl);
+      }
+    } catch (error) {
+      console.error("Error generating access token:", error);
+      toast.error("Failed to generate secure access token");
+    }
+  };
+
   const generateQRCode = () => {
-    const profileUrl = `${window.location.origin}/profile/${userId}`;
+    if (!accessToken) return;
+    const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(profileUrl)}`;
     setQrCodeUrl(qrUrl);
   };
@@ -154,13 +185,18 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   };
 
   const handleShare = async () => {
-    const profileUrl = `${window.location.origin}/profile/${userId}`;
+    if (!accessToken) {
+      toast.error("Access token not available yet");
+      return;
+    }
+    
+    const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
     
     if (navigator.share) {
       try {
         await navigator.share({
           title: "My Clean Check Profile",
-          text: "View my professional cleaning certifications",
+          text: "View my verified health profile",
           url: profileUrl,
         });
       } catch (error) {
@@ -168,7 +204,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
       }
     } else {
       navigator.clipboard.writeText(profileUrl);
-      toast.success("Profile link copied to clipboard");
+      toast.success("Secure profile link copied to clipboard");
     }
   };
 
@@ -188,7 +224,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         <CardHeader>
           <CardTitle>Your QR Code</CardTitle>
           <CardDescription>
-            Share this QR code with clients and partners to showcase your certifications
+            Share this secure QR code to give temporary access to your verified profile. Access expires after 24 hours.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center space-y-6">
@@ -255,9 +291,9 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           </div>
 
           <div className="text-sm text-muted-foreground text-center">
-            <p>Profile URL:</p>
-            <code className="text-xs bg-muted px-2 py-1 rounded">
-              {window.location.origin}/profile/{userId}
+            <p>Secure Profile Link (expires in 24 hours):</p>
+            <code className="text-xs bg-muted px-2 py-1 rounded break-all">
+              {accessToken ? `${window.location.origin}/view-profile?token=${accessToken}` : "Generating..."}
             </code>
           </div>
         </CardContent>

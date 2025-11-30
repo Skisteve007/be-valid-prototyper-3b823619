@@ -65,6 +65,7 @@ export type Database = {
           phone: string | null
           profile_image_url: string | null
           qr_code_url: string | null
+          status_color: string | null
           updated_at: string
           user_id: string
         }
@@ -79,6 +80,7 @@ export type Database = {
           phone?: string | null
           profile_image_url?: string | null
           qr_code_url?: string | null
+          status_color?: string | null
           updated_at?: string
           user_id: string
         }
@@ -93,6 +95,7 @@ export type Database = {
           phone?: string | null
           profile_image_url?: string | null
           qr_code_url?: string | null
+          status_color?: string | null
           updated_at?: string
           user_id?: string
         }

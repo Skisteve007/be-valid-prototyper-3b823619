@@ -78,8 +78,10 @@ const Dashboard = () => {
       <main className="container mx-auto px-4 py-8">
         <Card>
           <CardHeader>
-            <CardTitle className="text-3xl">Dashboard</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-3xl bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent font-bold">
+              Dashboard
+            </CardTitle>
+            <CardDescription className="text-base">
               Manage your profile, documents, and QR code
             </CardDescription>
           </CardHeader>

@@ -132,7 +132,7 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
       {pendingRequests.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">
               <Clock className="h-5 w-5 text-yellow-500" />
               Pending Reference Requests
             </CardTitle>
@@ -205,7 +205,7 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">
             <CheckCircle className="h-5 w-5 text-green-500" />
             Verified References
           </CardTitle>

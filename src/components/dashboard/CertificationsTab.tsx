@@ -138,7 +138,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   return (
     <div className="space-y-4 py-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold flex items-center gap-2">
+        <h3 className="text-lg font-semibold flex items-center gap-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">
           <FileText className="w-5 h-5 text-blue-500" />
           Your Documents
         </h3>

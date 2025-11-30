@@ -98,8 +98,9 @@ const Index = () => {
         <section className="py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto text-center max-w-4xl">
             <ScrollReveal direction="fade" delay={100}>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-br from-slate-300 via-primary to-slate-500 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] [text-shadow:_0_1px_20px_rgb(148_163_184_/_50%)]">
-                Clean Check
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                <span className="bg-gradient-to-br from-slate-300 via-primary to-slate-500 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] [text-shadow:_0_1px_20px_rgb(148_163_184_/_50%)]">Clean </span>
+                <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Check</span>
               </h1>
             </ScrollReveal>
             

@@ -472,7 +472,7 @@ const Index = () => {
                   <HelpCircle className="h-4 w-4" />
                   <span className="font-semibold bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Frequently Asked Questions</span>
                 </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Got Questions? We've Got Answers</h3>
+                <h3 className="text-3xl font-bold">Got <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Questions</span>? We've Got <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Answers</span></h3>
               </div>
             </ScrollReveal>
 

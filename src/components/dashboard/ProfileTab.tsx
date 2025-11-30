@@ -139,10 +139,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setValue("current_home_city", data.current_home_city || "");
         
         if (data.birthday) {
-          const date = new Date(data.birthday);
-          setValue("birthday_day", date.getDate().toString());
-          setValue("birthday_month", (date.getMonth() + 1).toString());
-          setValue("birthday_year", date.getFullYear().toString());
+          // Parse date string manually to avoid timezone issues
+          const [year, month, day] = data.birthday.split('-');
+          setValue("birthday_day", parseInt(day).toString());
+          setValue("birthday_month", parseInt(month).toString());
+          setValue("birthday_year", parseInt(year).toString());
         }
         
         setValue("gender_identity", data.gender_identity || "");

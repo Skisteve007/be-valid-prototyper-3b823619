@@ -79,7 +79,7 @@ const Dashboard = () => {
           <CardHeader>
             <CardTitle className="text-3xl">Dashboard</CardTitle>
             <CardDescription>
-              Manage your profile, certifications, and QR code
+              Manage your profile, documents, and QR code
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -91,7 +91,7 @@ const Dashboard = () => {
                 </TabsTrigger>
                 <TabsTrigger value="certifications">
                   <Award className="h-4 w-4 mr-2" />
-                  Certifications
+                  Documents
                 </TabsTrigger>
                 <TabsTrigger value="qrcode">
                   <QrCode className="h-4 w-4 mr-2" />

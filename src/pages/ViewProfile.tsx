@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, MapPin, Calendar, Heart, User, CheckCircle2, XCircle, Instagram, Music, Facebook, Share2 } from "lucide-react";
+import { Loader2, Heart, User, CheckCircle2, XCircle } from "lucide-react";
 import { toast } from "sonner";
 
 interface ProfileData {
@@ -14,26 +14,13 @@ interface ProfileData {
   email?: string | null;
   profile_image_url?: string | null;
   status_color: string;
-  where_from?: string | null;
-  current_home_city?: string | null;
-  birthday?: string | null;
   gender_identity?: string | null;
   sexual_orientation?: string | null;
   relationship_status?: string | null;
-  partner_preferences?: string[];
   covid_vaccinated?: boolean;
-  circumcised?: boolean | null;
   smoker?: boolean;
-  instagram_handle?: string | null;
-  tiktok_handle?: string | null;
-  facebook_handle?: string | null;
-  onlyfans_handle?: string | null;
-  twitter_handle?: string | null;
-  sexual_preferences?: string | null;
-  std_acknowledgment?: string | null;
   health_document_uploaded_at?: string | null;
   selected_interests?: string[];
-  user_interests?: any;
   created_at?: string;
 }
 
@@ -122,39 +109,21 @@ const ViewProfile = () => {
   const getStatusColorClass = (color: string) => {
     switch (color) {
       case "green":
-        return "text-green-500";
+        return "border-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.6)]";
       case "yellow":
-        return "text-yellow-500";
+        return "border-yellow-500 shadow-[0_0_20px_8px_rgba(234,179,8,0.6)]";
       case "red":
-        return "text-red-500";
+        return "border-red-500 shadow-[0_0_20px_8px_rgba(239,68,68,0.6)]";
+      case "gray":
+        return "border-gray-500 shadow-[0_0_20px_8px_rgba(107,114,128,0.6)]";
       default:
-        return "text-green-500";
+        return "border-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.6)]";
     }
   };
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "Not specified";
     return new Date(dateString).toLocaleDateString();
-  };
-
-  const getSocialMediaUrl = (platform: string, handle: string | null) => {
-    if (!handle) return null;
-    const cleanHandle = handle.replace('@', '');
-    
-    switch (platform) {
-      case 'instagram':
-        return `https://instagram.com/${cleanHandle}`;
-      case 'tiktok':
-        return `https://tiktok.com/@${cleanHandle}`;
-      case 'facebook':
-        return handle.startsWith('http') ? handle : `https://facebook.com/${cleanHandle}`;
-      case 'onlyfans':
-        return `https://onlyfans.com/${cleanHandle}`;
-      case 'twitter':
-        return `https://x.com/${cleanHandle}`;
-      default:
-        return null;
-    }
   };
 
   // If incognito mode, show limited event scanning view
@@ -217,12 +186,12 @@ const ViewProfile = () => {
     );
   }
 
-  // Full profile view for non-incognito modes
+  // Full profile view for non-incognito modes - Only shows safe-to-share info
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header with status */}
-        <Card>
+        <Card className={getStatusColorClass(profile.status_color)}>
           <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row items-center gap-6">
               <Avatar className={`h-32 w-32 border-4 ${getStatusColorClass(profile.status_color)}`}>
@@ -235,7 +204,9 @@ const ViewProfile = () => {
                 <h1 className="text-3xl font-bold mb-2">{profile.full_name}</h1>
                 <p className="text-muted-foreground mb-2">Member ID: {profile.member_id}</p>
                 <Badge variant={profile.status_color === "green" ? "default" : "secondary"}>
-                  Status: {profile.status_color.toUpperCase()}
+                  {profile.status_color === "green" && "✅ Clean Status"}
+                  {profile.status_color === "yellow" && "⚠️ Proceed with Caution"}
+                  {profile.status_color === "red" && "🔴 Be Aware"}
                 </Badge>
               </div>
             </div>
@@ -247,28 +218,10 @@ const ViewProfile = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <User className="h-5 w-5" />
-              Basic Information
+              Shared Information
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {profile.where_from && (
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium">From:</span> {profile.where_from}
-              </div>
-            )}
-            {profile.current_home_city && (
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium">Current City:</span> {profile.current_home_city}
-              </div>
-            )}
-            {profile.birthday && (
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium">Birthday:</span> {formatDate(profile.birthday)}
-              </div>
-            )}
             {profile.gender_identity && (
               <div>
                 <span className="font-medium">Gender Identity:</span> {profile.gender_identity}
@@ -284,24 +237,28 @@ const ViewProfile = () => {
                 <span className="font-medium">Relationship Status:</span> {profile.relationship_status}
               </div>
             )}
+            {profile.selected_interests && profile.selected_interests.length > 0 && (
+              <div>
+                <span className="font-medium">Interests:</span>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {profile.selected_interests.map((interest, index) => (
+                    <Badge key={index} variant="outline">{interest}</Badge>
+                  ))}
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 
-        {/* Preferences & Health */}
+        {/* Health Status */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Heart className="h-5 w-5" />
-              Preferences & Health
+              Health Status Verification
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {profile.partner_preferences && profile.partner_preferences.length > 0 && (
-              <div>
-                <span className="font-medium">Partner Preferences:</span>{" "}
-                {profile.partner_preferences.join(", ")}
-              </div>
-            )}
             <div className="flex items-center gap-2">
               {profile.covid_vaccinated ? (
                 <>
@@ -315,21 +272,6 @@ const ViewProfile = () => {
                 </>
               )}
             </div>
-            {profile.circumcised !== null && (
-              <div className="flex items-center gap-2">
-                {profile.circumcised ? (
-                  <>
-                    <CheckCircle2 className="h-4 w-4 text-green-500" />
-                    <span>Circumcised: <strong className="text-green-500">Yes</strong></span>
-                  </>
-                ) : (
-                  <>
-                    <XCircle className="h-4 w-4 text-red-500" />
-                    <span>Circumcised: <strong className="text-red-500">No</strong></span>
-                  </>
-                )}
-              </div>
-            )}
             <div className="flex items-center gap-2">
               {profile.smoker ? (
                 <>
@@ -344,73 +286,25 @@ const ViewProfile = () => {
               )}
             </div>
             {profile.health_document_uploaded_at && (
-              <div>
-                <span className="font-medium">Health Document Updated:</span>{" "}
-                {formatDate(profile.health_document_uploaded_at)}
+              <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                <p className="text-sm font-medium">Health Document Verification</p>
+                <p className="text-sm text-muted-foreground">
+                  Last updated: {formatDate(profile.health_document_uploaded_at)}
+                </p>
               </div>
             )}
           </CardContent>
         </Card>
 
-        {/* Social Media Links */}
-        {(profile.instagram_handle || profile.tiktok_handle || profile.facebook_handle || profile.onlyfans_handle) && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Share2 className="h-5 w-5" />
-                Social Media
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-3">
-                {profile.instagram_handle && (
-                  <a
-                    href={getSocialMediaUrl('instagram', profile.instagram_handle)!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    <Instagram className="h-4 w-4" />
-                    <span>Instagram</span>
-                  </a>
-                )}
-                {profile.tiktok_handle && (
-                  <a
-                    href={getSocialMediaUrl('tiktok', profile.tiktok_handle)!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    <Music className="h-4 w-4" />
-                    <span>TikTok</span>
-                  </a>
-                )}
-                {profile.facebook_handle && (
-                  <a
-                    href={getSocialMediaUrl('facebook', profile.facebook_handle)!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    <Facebook className="h-4 w-4" />
-                    <span>Facebook</span>
-                  </a>
-                )}
-                {profile.onlyfans_handle && (
-                  <a
-                    href={getSocialMediaUrl('onlyfans', profile.onlyfans_handle)!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    <User className="h-4 w-4" />
-                    <span>OnlyFans</span>
-                  </a>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        )}
+        {/* Privacy Notice */}
+        <Card className="bg-muted border-primary/20">
+          <CardContent className="pt-6">
+            <p className="text-sm text-center text-muted-foreground">
+              🔒 This profile shows limited, verified information shared for transparency and safety. 
+              Personal details, documents, and contact information remain private.
+            </p>
+          </CardContent>
+        </Card>
 
         {/* Token expiration notice */}
         {tokenExpiresAt && (

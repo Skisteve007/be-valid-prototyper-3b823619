@@ -98,7 +98,7 @@ const Index = () => {
             <div className="relative flex-shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative h-20 w-auto" />
+              <img src={logo} alt="Clean Check" className="relative w-auto" style={{ height: '84px' }} />
             </div>
 
             {/* Tagline in the middle */}

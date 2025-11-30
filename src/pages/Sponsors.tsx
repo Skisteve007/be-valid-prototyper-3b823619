@@ -158,9 +158,11 @@ const Sponsors = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <img src={logo} alt="Clean Check" className="h-12 w-auto cursor-pointer" onClick={() => navigate("/")} />
-          <Button variant="outline" onClick={() => navigate("/")}>
+        <div className="container mx-auto px-4 py-6 relative">
+          <div className="flex justify-center items-center">
+            <img src={logo} alt="Clean Check" className="h-20 w-auto cursor-pointer" onClick={() => navigate("/")} />
+          </div>
+          <Button variant="outline" onClick={() => navigate("/")} className="absolute right-4 top-1/2 -translate-y-1/2">
             Back to Home
           </Button>
         </div>

@@ -64,11 +64,11 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="Clean Check" className="h-12 w-auto" />
+        <div className="container mx-auto px-4 py-6 relative">
+          <div className="flex justify-center items-center">
+            <img src={logo} alt="Clean Check" className="h-20 w-auto" />
           </div>
-          <Button variant="outline" onClick={handleLogout}>
+          <Button variant="outline" onClick={handleLogout} className="absolute right-4 top-1/2 -translate-y-1/2">
             <LogOut className="h-4 w-4 mr-2" />
             Logout
           </Button>

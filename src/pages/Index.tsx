@@ -241,7 +241,7 @@ const Index = () => {
             <ScrollReveal direction="up" delay={200}>
               <div className="mb-12">
                 <h3 className="text-2xl font-bold text-center mb-6 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">💳 Membership Pricing - Click to Select</h3>
-              <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 <Card 
                   className={`cursor-pointer transition-all relative ${selectedPlan === "single" ? "ring-2 ring-primary shadow-lg" : "hover:shadow-md"} shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30`}
                   onClick={() => setSelectedPlan("single")}
@@ -287,6 +287,32 @@ const Index = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">Per month</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:shadow-[0_0_50px_rgba(34,197,94,0.7)] border-2 border-green-500/30">
+                  <div className="absolute inset-0 bg-green-500/10 blur-xl rounded-lg -z-10"></div>
+                  <CardHeader>
+                    <div>
+                      <CardTitle className="text-3xl mb-2">$129</CardTitle>
+                      <CardDescription className="text-base">Single 6-Month</CardDescription>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">One-time payment</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:shadow-[0_0_50px_rgba(34,197,94,0.7)] border-2 border-green-500/30">
+                  <div className="absolute inset-0 bg-green-500/10 blur-xl rounded-lg -z-10"></div>
+                  <CardHeader>
+                    <div>
+                      <CardTitle className="text-3xl mb-2">$219</CardTitle>
+                      <CardDescription className="text-base">Couple 6-Month</CardDescription>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">One-time payment</p>
                   </CardContent>
                 </Card>
               </div>

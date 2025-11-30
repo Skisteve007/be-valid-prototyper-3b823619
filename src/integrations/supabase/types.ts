@@ -74,6 +74,33 @@ export type Database = {
         }
         Relationships: []
       }
+      member_references: {
+        Row: {
+          created_at: string
+          id: string
+          referee_user_id: string
+          referrer_user_id: string
+          verified: boolean
+          verified_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          referee_user_id: string
+          referrer_user_id: string
+          verified?: boolean
+          verified_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          referee_user_id?: string
+          referrer_user_id?: string
+          verified?: boolean
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           birthday: string | null

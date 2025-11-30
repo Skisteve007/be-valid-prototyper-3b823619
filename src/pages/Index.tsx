@@ -7,6 +7,7 @@ import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -384,12 +385,7 @@ const Index = () => {
           </div>
         </section>
       </main>
-
-      <footer className="border-t py-8 bg-card">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; 2025 Clean Check. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

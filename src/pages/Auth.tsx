@@ -14,6 +14,7 @@ import {
   getStoredCredentials,
   setupBiometricLogin 
 } from "@/lib/biometric";
+import Footer from "@/components/Footer";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -499,12 +500,7 @@ const Auth = () => {
           </div>
         </section>
       </main>
-
-      <footer className="border-t py-8 bg-card">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; 2025 Clean Check. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

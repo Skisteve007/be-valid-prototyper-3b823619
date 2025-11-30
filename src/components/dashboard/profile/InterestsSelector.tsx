@@ -109,6 +109,16 @@ export const InterestsSelector = ({
     return acc;
   }, {} as Record<string, InterestTag[]>);
 
+  // Custom sorting for Social Dynamic category
+  if (groupedTags["Social Dynamic"]) {
+    const customOrder = ["Couples", "Singles", "Groups", "One-on-One", "Observing", "Full Swap", "Soft Swap", "Throuple"];
+    groupedTags["Social Dynamic"].sort((a, b) => {
+      const indexA = customOrder.indexOf(a.label);
+      const indexB = customOrder.indexOf(b.label);
+      return indexA - indexB;
+    });
+  }
+
   if (loading) {
     return <div className="text-sm text-muted-foreground">Loading interests...</div>;
   }

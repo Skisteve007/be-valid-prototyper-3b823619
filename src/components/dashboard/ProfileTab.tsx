@@ -61,8 +61,14 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [referenceIds, setReferenceIds] = useState<string[]>(["", "", ""]);
   const [referenceProfiles, setReferenceProfiles] = useState<Array<{id: string, user_id: string, full_name: string, member_id: string, verified?: boolean} | null>>([null, null, null]);
   const [existingReferences, setExistingReferences] = useState<string[]>([]);
+  
+  // Track initial values for change detection
+  const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
+  const [initialStatusColor, setInitialStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
+  const [initialSelectedInterests, setInitialSelectedInterests] = useState<string[]>([]);
+  const [initialReferenceIds, setInitialReferenceIds] = useState<string[]>(["", "", ""]);
 
-  const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
+  const { register, handleSubmit, setValue, watch, formState } = useForm<ProfileFormData>({
     defaultValues: {
       partner_preferences: [],
       covid_vaccinated: false,
@@ -78,6 +84,14 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const covidVaccinated = watch("covid_vaccinated");
   const circumcised = watch("circumcised");
   const smoker = watch("smoker");
+  
+  // Detect if any changes have been made
+  const hasChanges = 
+    formState.isDirty ||
+    profileImageUrl !== initialProfileImageUrl ||
+    statusColor !== initialStatusColor ||
+    JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
+    JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
 
   useEffect(() => {
     loadProfile();
@@ -147,6 +161,12 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setUserInterests((data.user_interests as Record<string, string[]>) || {});
         setSelectedInterests((data.selected_interests as string[]) || []);
         setStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
+        
+        // Set initial values for change detection
+        setInitialProfileImageUrl(data.profile_image_url || "");
+        setInitialStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
+        setInitialSelectedInterests((data.selected_interests as string[]) || []);
+        setInitialReferenceIds(refs);
       }
     } catch (error: any) {
       toast.error("Failed to load profile");
@@ -352,6 +372,12 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       }
 
       toast.success("Profile updated successfully");
+      
+      // Reset initial values for change detection
+      setInitialProfileImageUrl(profileImageUrl);
+      setInitialStatusColor(statusColor);
+      setInitialSelectedInterests([...selectedInterests]);
+      setInitialReferenceIds([...referenceIds]);
       
       // Show success state
       setSaveSuccess(true);
@@ -620,9 +646,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           className={`shadow-2xl transition-all duration-300 ${
             saveSuccess
               ? 'bg-green-600 hover:bg-green-600 ring-2 ring-green-400/50 shadow-green-500/60'
-              : !saving && profileImageUrl 
-                ? 'shadow-primary/50 hover:shadow-primary/60' 
-                : ''
+              : hasChanges && !saving && profileImageUrl
+                ? 'bg-blue-600 hover:bg-blue-700 ring-2 ring-blue-400/50 shadow-blue-500/60'
+                : !saving && profileImageUrl 
+                  ? 'shadow-primary/50 hover:shadow-primary/60' 
+                  : ''
           }`}
         >
           {saving ? (

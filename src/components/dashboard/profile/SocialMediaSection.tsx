@@ -1,7 +1,7 @@
 import { UseFormRegister } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Instagram, Music, Facebook, User, Twitter } from "lucide-react";
+import { Instagram, Music, Facebook, User, Twitter, Share2 } from "lucide-react";
 
 interface SocialMediaSectionProps {
   register: UseFormRegister<any>;
@@ -10,7 +10,10 @@ interface SocialMediaSectionProps {
 export const SocialMediaSection = ({ register }: SocialMediaSectionProps) => {
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold border-b pb-2">Social Media Links</h3>
+      <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
+        <Share2 className="w-5 h-5 text-indigo-500" />
+        Social Media Links
+      </h3>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">

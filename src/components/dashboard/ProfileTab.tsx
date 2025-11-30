@@ -660,35 +660,50 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
 
       {/* Floating Save Button */}
       <div className="fixed bottom-6 right-6 z-50">
-        <Button 
-          type="submit" 
-          disabled={saving || !profileImageUrl}
-          size="lg"
-          onClick={() => console.log("Save button clicked - saveSuccess:", saveSuccess, "hasChanges:", hasChanges, "statusColor:", statusColor)}
-          className={`shadow-2xl transition-all duration-300 ${
-            saveSuccess
-              ? 'bg-green-600 hover:bg-green-600 text-white ring-2 ring-green-400/50 shadow-green-500/60'
-              : hasChanges && !saving && profileImageUrl
-                ? 'bg-blue-600 hover:bg-blue-700 text-white ring-2 ring-blue-400/50 shadow-blue-500/60'
-                : !saving && profileImageUrl 
-                  ? 'shadow-primary/50 hover:shadow-primary/60' 
-                  : ''
-          }`}
-        >
-          {saving ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Saving...
-            </>
-          ) : saveSuccess ? (
-            <>
-              <CheckCircle className="mr-2 h-4 w-4" />
-              Saved!
-            </>
-          ) : (
-            <>Save {hasChanges ? "(•)" : ""}</>
-          )}
-        </Button>
+        {!profileImageUrl ? (
+          <div className="text-right">
+            <p className="text-sm text-red-500 font-semibold mb-2 bg-red-50 dark:bg-red-950/30 px-4 py-2 rounded-lg border border-red-500">
+              ⚠️ Profile photo required to save
+            </p>
+            <Button 
+              type="button"
+              size="lg"
+              disabled
+              className="shadow-2xl opacity-50 cursor-not-allowed"
+            >
+              Save
+            </Button>
+          </div>
+        ) : (
+          <Button 
+            type="submit" 
+            disabled={saving}
+            size="lg"
+            className={`shadow-2xl transition-all duration-300 ${
+              saveSuccess
+                ? 'bg-green-600 hover:bg-green-600 text-white ring-4 ring-green-400/50 shadow-green-500/60'
+                : hasChanges && !saving
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white ring-4 ring-blue-400/50 shadow-blue-500/60 animate-pulse'
+                  : !saving
+                    ? 'shadow-primary/50 hover:shadow-primary/60' 
+                    : ''
+            }`}
+          >
+            {saving ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : saveSuccess ? (
+              <>
+                <CheckCircle className="mr-2 h-4 w-4" />
+                Saved!
+              </>
+            ) : (
+              <>Save {hasChanges ? "•" : ""}</>
+            )}
+          </Button>
+        )}
       </div>
     </form>
   );

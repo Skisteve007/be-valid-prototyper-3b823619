@@ -72,7 +72,7 @@ const Dashboard = () => {
               <img src={logo} alt="Clean Check" className="relative h-28 w-auto" />
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout} className="absolute right-4 top-1/2 -translate-y-1/2">
+          <Button variant="outline" onClick={handleLogout} className="absolute right-4 top-1/2 -translate-y-1/2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30">
             <LogOut className="h-4 w-4 mr-2" />
             Logout
           </Button>

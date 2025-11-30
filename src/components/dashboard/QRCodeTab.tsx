@@ -141,15 +141,15 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
     const color = statusColor === "gray" ? "gray" : getTimestampColor();
     switch (color) {
       case "green":
-        return "shadow-[0_0_40px_12px_rgba(34,197,94,0.8)] shadow-green-500/60 animate-pulse";
+        return "shadow-[0_0_25px_8px_rgba(34,197,94,0.4)] shadow-green-500/30";
       case "yellow":
-        return "shadow-[0_0_40px_12px_rgba(234,179,8,0.8)] shadow-yellow-500/60 animate-pulse";
+        return "shadow-[0_0_25px_8px_rgba(234,179,8,0.4)] shadow-yellow-500/30";
       case "red":
-        return "shadow-[0_0_40px_12px_rgba(239,68,68,0.8)] shadow-red-500/60 animate-pulse";
+        return "shadow-[0_0_25px_8px_rgba(239,68,68,0.4)] shadow-red-500/30";
       case "gray":
-        return "shadow-[0_0_20px_8px_rgba(107,114,128,0.6)] shadow-gray-500/40";
+        return "shadow-[0_0_20px_6px_rgba(107,114,128,0.3)] shadow-gray-500/20";
       default:
-        return "shadow-[0_0_20px_8px_rgba(156,163,175,0.5)]";
+        return "shadow-[0_0_20px_6px_rgba(156,163,175,0.3)]";
     }
   };
 

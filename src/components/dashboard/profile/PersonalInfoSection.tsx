@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart } from "lucide-react";
-import { useRef } from "react";
+import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, Target } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface PersonalInfoSectionProps {
   register: UseFormRegister<any>;
@@ -20,6 +20,12 @@ interface PersonalInfoSectionProps {
   whereFrom?: string;
   currentHomeCity?: string;
   relationshipStatus?: string;
+  birthdayDay?: string;
+  birthdayMonth?: string;
+  birthdayYear?: string;
+  userInterests?: Record<string, string[]>;
+  emailShareable?: boolean;
+  onEmailShareableChange?: (shareable: boolean) => void;
 }
 
 export const PersonalInfoSection = ({
@@ -35,12 +41,40 @@ export const PersonalInfoSection = ({
   whereFrom,
   currentHomeCity,
   relationshipStatus,
+  birthdayDay,
+  birthdayMonth,
+  birthdayYear,
+  userInterests,
+  emailShareable = false,
+  onEmailShareableChange,
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
   const months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const years = Array.from({ length: 100 }, (_, i) => (new Date().getFullYear() - 18 - i).toString());
+  
+  // Get a seeking preference from user interests
+  const getSeekingPreference = () => {
+    if (!userInterests) return null;
+    
+    // Try to get from "Specific Activities" first
+    const specificActivities = userInterests["Specific Activities"];
+    if (specificActivities && specificActivities.length > 0) {
+      return specificActivities[0];
+    }
+    
+    // Fall back to any other category
+    for (const category in userInterests) {
+      if (userInterests[category] && userInterests[category].length > 0) {
+        return userInterests[category][0];
+      }
+    }
+    
+    return null;
+  };
+  
+  const seekingPreference = getSeekingPreference();
 
   return (
     <div className="space-y-6">
@@ -68,10 +102,12 @@ export const PersonalInfoSection = ({
                     <span className="font-semibold text-lg">{fullName}</span>
                   </div>
                 )}
-                {email && (
+                {seekingPreference && (
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-purple-500" />
-                    <span className="text-sm text-muted-foreground">{email}</span>
+                    <Target className="w-4 h-4 text-orange-500" />
+                    <span className="text-sm font-medium">
+                      Seeking: <span className="text-muted-foreground">{seekingPreference}</span>
+                    </span>
                   </div>
                 )}
                 <div className="flex items-center gap-4 flex-wrap text-sm">
@@ -137,8 +173,31 @@ export const PersonalInfoSection = ({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email Address *</Label>
+          <Label htmlFor="email" className="flex items-center justify-between">
+            <span>Email Address *</span>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => onEmailShareableChange?.(!emailShareable)}
+              className="h-auto py-1 px-2"
+            >
+              {emailShareable ? (
+                <Unlock className="w-4 h-4 text-green-500" />
+              ) : (
+                <Lock className="w-4 h-4 text-red-500" />
+              )}
+              <span className="text-xs ml-1">
+                {emailShareable ? "Shareable" : "Private"}
+              </span>
+            </Button>
+          </Label>
           <Input id="email" type="email" {...register("email")} required placeholder="donor@cleancheck.com" />
+          <p className="text-xs text-muted-foreground">
+            {emailShareable 
+              ? "Email will be shared when you share your QR code" 
+              : "Email is private and will not be shared via QR code"}
+          </p>
         </div>
 
         <div className="space-y-2">
@@ -164,7 +223,10 @@ export const PersonalInfoSection = ({
           Birthday *
         </Label>
         <div className="grid grid-cols-3 gap-2">
-          <Select onValueChange={(value) => setValue("birthday_day", value)}>
+          <Select 
+            value={birthdayDay}
+            onValueChange={(value) => setValue("birthday_day", value)}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Day" />
             </SelectTrigger>
@@ -173,7 +235,10 @@ export const PersonalInfoSection = ({
             </SelectContent>
           </Select>
 
-          <Select onValueChange={(value) => setValue("birthday_month", value)}>
+          <Select 
+            value={birthdayMonth}
+            onValueChange={(value) => setValue("birthday_month", value)}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Month" />
             </SelectTrigger>
@@ -182,7 +247,10 @@ export const PersonalInfoSection = ({
             </SelectContent>
           </Select>
 
-          <Select onValueChange={(value) => setValue("birthday_year", value)}>
+          <Select 
+            value={birthdayYear}
+            onValueChange={(value) => setValue("birthday_year", value)}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Year" />
             </SelectTrigger>

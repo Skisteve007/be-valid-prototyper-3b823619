@@ -39,12 +39,12 @@ export const PersonalInfoSection = ({
       <div className="space-y-2">
         <Label className="text-base">Profile Photo *</Label>
         <div className="relative">
-          <div className="absolute inset-0 bg-green-500/20 blur-2xl rounded-full"></div>
-          <div className="relative flex items-center gap-4 p-6 rounded-lg border-2 border-green-500/30 bg-background/50 backdrop-blur-sm">
-            <Avatar className="h-24 w-24 ring-4 ring-green-500/50 shadow-lg shadow-green-500/30">
+          <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
+          <div className="relative flex items-center gap-4 p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
+            <Avatar className="h-24 w-24 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
               <AvatarImage src={profileImageUrl} />
-              <AvatarFallback className="bg-green-500/10">
-                <User className="h-12 w-12 text-green-500" />
+              <AvatarFallback className="bg-blue-500/10">
+                <User className="h-12 w-12 text-blue-500" />
               </AvatarFallback>
             </Avatar>
             <div className="flex-1">

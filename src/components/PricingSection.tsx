@@ -1,132 +1,109 @@
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const PAYPAL_CLIENT_ID = "your-paypal-client-id-placeholder";
-
-interface PricingSectionProps {
-  onPaymentSuccess?: (amount: string, type: string) => void;
-}
-
-export const PricingSection = ({ onPaymentSuccess }: PricingSectionProps) => {
-  const { toast } = useToast();
-
-  const handleApprove = async (amount: string, type: string) => {
-    try {
-      // Notify admin via edge function
-      await supabase.functions.invoke('notify-payment', {
-        body: { amount, type, timestamp: new Date().toISOString() }
-      });
-
-      toast({
-        title: "Payment Successful",
-        description: `Payment Successful for $${amount}`,
-      });
-
-      onPaymentSuccess?.(amount, type);
-    } catch (error) {
-      console.error('Error notifying admin:', error);
-    }
-  };
-
+export const PricingSection = () => {
   return (
-    <PayPalScriptProvider options={{ clientId: PAYPAL_CLIENT_ID, vault: true, intent: "subscription" }}>
-      <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto p-6">
-        <Card className="shadow-lg hover:shadow-xl transition-shadow">
-          <CardHeader>
-            <CardTitle className="text-2xl">Single Account</CardTitle>
-            <CardDescription>Perfect for individual members</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-4xl font-bold text-primary">$29.00</div>
-            <p className="text-sm text-muted-foreground">per month</p>
-            <PayPalButtons
-              createOrder={(data, actions) => {
-                return actions.order.create({
-                  intent: "CAPTURE",
-                  purchase_units: [
-                    {
-                      amount: {
-                        currency_code: "USD",
-                        value: "29.00",
-                      },
-                      description: "Single Account Membership",
-                    },
-                  ],
-                });
-              }}
-              onApprove={async (data, actions) => {
-                if (actions.order) {
-                  await actions.order.capture();
-                  await handleApprove("29.00", "Single");
-                }
-              }}
-              onError={(err) => {
-                console.error("PayPal error:", err);
-                toast({
-                  title: "Payment Failed",
-                  description: "There was an error processing your payment.",
-                  variant: "destructive",
-                });
-              }}
-              style={{
-                layout: "vertical",
-                color: "blue",
-                shape: "rect",
-                label: "pay",
-              }}
-            />
-          </CardContent>
-        </Card>
+    <div className="max-w-4xl mx-auto p-6 space-y-8">
+      {/* Monthly Subscriptions */}
+      <div>
+        <h3 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">
+          Monthly Subscriptions
+        </h3>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">Single Monthly</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="text-4xl font-bold text-primary text-center">$29.00 / Month</div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="flex justify-center">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Cloud Hosting - Single (Monthly)" />
+                <input type="hidden" name="no_shipping" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=29&type=Single+Member" />
+                <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                <input type="hidden" name="a3" value="29.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" name="submit" alt="Subscribe" />
+              </form>
+            </CardContent>
+          </Card>
 
-        <Card className="shadow-lg hover:shadow-xl transition-shadow border-primary">
-          <CardHeader>
-            <CardTitle className="text-2xl">Joint Account</CardTitle>
-            <CardDescription>Great for couples</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-4xl font-bold text-primary">$49.00</div>
-            <p className="text-sm text-muted-foreground">per month</p>
-            <PayPalButtons
-              createOrder={(data, actions) => {
-                return actions.order.create({
-                  intent: "CAPTURE",
-                  purchase_units: [
-                    {
-                      amount: {
-                        currency_code: "USD",
-                        value: "49.00",
-                      },
-                      description: "Joint Account Membership",
-                    },
-                  ],
-                });
-              }}
-              onApprove={async (data, actions) => {
-                if (actions.order) {
-                  await actions.order.capture();
-                  await handleApprove("49.00", "Joint");
-                }
-              }}
-              onError={(err) => {
-                console.error("PayPal error:", err);
-                toast({
-                  title: "Payment Failed",
-                  description: "There was an error processing your payment.",
-                  variant: "destructive",
-                });
-              }}
-              style={{
-                layout: "vertical",
-                color: "blue",
-                shape: "rect",
-                label: "pay",
-              }}
-            />
-          </CardContent>
-        </Card>
+          <Card className="shadow-lg hover:shadow-xl transition-shadow border-primary">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">Couple Monthly</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="text-4xl font-bold text-primary text-center">$49.00 / Month</div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="flex justify-center">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Cloud Hosting - Joint (Monthly)" />
+                <input type="hidden" name="no_shipping" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=49&type=Joint+Couple" />
+                <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                <input type="hidden" name="a3" value="49.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" name="submit" alt="Subscribe" />
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </PayPalScriptProvider>
+
+      {/* 6-Month Passes */}
+      <div>
+        <h3 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">
+          6-Month Passes (One-Time Payment)
+        </h3>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow border-green-500">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">Single 6-Month Pass</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="text-4xl font-bold text-primary text-center">$129.00</div>
+              <p className="text-sm text-muted-foreground text-center">One-Time Payment</p>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="flex justify-center">
+                <input type="hidden" name="cmd" value="_xclick" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Cloud Hosting - Single (6 Mo Pass)" />
+                <input type="hidden" name="amount" value="129.00" />
+                <input type="hidden" name="no_shipping" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=129&type=Single+6-Month" />
+                <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" name="submit" alt="Buy Now" />
+              </form>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow border-green-500">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">Couple 6-Month Pass</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="text-4xl font-bold text-primary text-center">$219.00</div>
+              <p className="text-sm text-muted-foreground text-center">One-Time Payment</p>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="flex justify-center">
+                <input type="hidden" name="cmd" value="_xclick" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Cloud Hosting - Joint (6 Mo Pass)" />
+                <input type="hidden" name="amount" value="219.00" />
+                <input type="hidden" name="no_shipping" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=219&type=Joint+6-Month" />
+                <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" name="submit" alt="Buy Now" />
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
 };

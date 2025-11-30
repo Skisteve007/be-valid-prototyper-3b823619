@@ -13,6 +13,7 @@ import Privacy from "./pages/Privacy";
 import Refund from "./pages/Refund";
 import Compliance2257 from "./pages/Compliance2257";
 import ViewProfile from "./pages/ViewProfile";
+import PaymentSuccess from "./pages/PaymentSuccess";
 import NotFound from "./pages/NotFound";
 import { AgeGate } from "./components/AgeGate";
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />
           <Route path="/2257-compliance" element={<AgeGate><Compliance2257 /></AgeGate>} />
           <Route path="/view-profile" element={<AgeGate><ViewProfile /></AgeGate>} />
+          <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
         </Routes>

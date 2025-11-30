@@ -32,7 +32,7 @@ export const PersonalInfoSection = ({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold border-b pb-2">Personal Information & Locations</h3>
+      <h3 className="text-lg font-semibold border-b pb-2 bg-gradient-to-r from-blue-600 via-primary to-pink-600 bg-clip-text text-transparent">Personal Information & Locations</h3>
       
       <div className="space-y-2">
         <Label className="text-base">Profile Photo *</Label>

@@ -515,7 +515,7 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         </h3>
         <div className="space-y-2">
           <Label htmlFor="std_acknowledgment">STD Status & Information</Label>
-          <p className="text-xs text-muted-foreground italic">These are voluntarily shared information for full transparency.</p>
+          <p className="text-xs text-muted-foreground italic">This is voluntary shared information for full transparency.</p>
           <Textarea
             id="std_acknowledgment"
             {...register("std_acknowledgment")}

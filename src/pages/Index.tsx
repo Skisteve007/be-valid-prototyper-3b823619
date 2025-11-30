@@ -431,15 +431,15 @@ const Index = () => {
 
                 <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">
                   <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
-                  <CardHeader>
+                  <CardHeader className="pb-3">
                     <div>
-                      <CardTitle className="text-3xl mb-2">$129</CardTitle>
+                      <CardTitle className="text-3xl mb-1">$129</CardTitle>
                       <CardDescription className="text-base">Single 6-Month</CardDescription>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">One-time payment</p>
-                    <p className="text-sm font-semibold mt-2">
+                  <CardContent className="pt-0">
+                    <p className="text-muted-foreground text-sm mb-1">One-time payment</p>
+                    <p className="text-base font-bold">
                       <span className="text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">Save</span>{" "}
                       <span className="text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">30%</span>
                     </p>
@@ -448,15 +448,15 @@ const Index = () => {
 
                 <Card className="cursor-pointer transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(236,72,153,0.5)] hover:shadow-[0_0_50px_rgba(236,72,153,0.7)] border-2 border-pink-500/30">
                   <div className="absolute inset-0 bg-pink-500/10 blur-xl rounded-lg -z-10"></div>
-                  <CardHeader>
+                  <CardHeader className="pb-3">
                     <div>
-                      <CardTitle className="text-3xl mb-2">$219</CardTitle>
+                      <CardTitle className="text-3xl mb-1">$219</CardTitle>
                       <CardDescription className="text-base">Couple 6-Month</CardDescription>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">One-time payment</p>
-                    <p className="text-sm font-semibold mt-2">
+                  <CardContent className="pt-0">
+                    <p className="text-muted-foreground text-sm mb-1">One-time payment</p>
+                    <p className="text-base font-bold">
                       <span className="text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">Save</span>{" "}
                       <span className="text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">30%</span>
                     </p>

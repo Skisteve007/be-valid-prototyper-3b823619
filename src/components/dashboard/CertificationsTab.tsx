@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Loader2, Plus, Award } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -27,6 +28,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   const [certifications, setCertifications] = useState<Certification[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [newCert, setNewCert] = useState({
     title: "",
     issuer: "",
@@ -36,7 +38,23 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
 
   useEffect(() => {
     loadCertifications();
+    loadDisclaimer();
   }, [userId]);
+
+  const loadDisclaimer = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("disclaimer_accepted")
+        .eq("user_id", userId)
+        .single();
+
+      if (error) throw error;
+      setDisclaimerAccepted(data?.disclaimer_accepted || false);
+    } catch (error: any) {
+      console.error("Failed to load disclaimer status");
+    }
+  };
 
   const loadCertifications = async () => {
     try {
@@ -55,8 +73,29 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
     }
   };
 
+  const handleDisclaimerChange = async (checked: boolean) => {
+    try {
+      const { error } = await supabase
+        .from("profiles")
+        .update({ disclaimer_accepted: checked })
+        .eq("user_id", userId);
+
+      if (error) throw error;
+      setDisclaimerAccepted(checked);
+      toast.success(checked ? "Disclaimer accepted" : "Disclaimer unchecked");
+    } catch (error: any) {
+      toast.error("Failed to update disclaimer");
+    }
+  };
+
   const handleAddCertification = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!disclaimerAccepted) {
+      toast.error("You must accept the disclaimer before adding documents");
+      return;
+    }
+    
     setSaving(true);
 
     try {
@@ -92,6 +131,22 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
 
   return (
     <div className="space-y-4 py-4">
+      <div className="space-y-4 p-4 bg-muted rounded-lg mb-6">
+        <p className="text-sm">
+          By checking this box, I certify that all information provided is accurate and I understand that 
+          Clean Check is a platform for sharing health information. I take full responsibility for the 
+          accuracy of my information and understand the importance of maintaining up-to-date health records.
+        </p>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            checked={disclaimerAccepted}
+            onCheckedChange={handleDisclaimerChange}
+            required
+          />
+          <Label className="cursor-pointer">I accept the disclaimer and certify all information is accurate *</Label>
+        </div>
+      </div>
+
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">Your Documents</h3>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

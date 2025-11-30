@@ -7,7 +7,6 @@ import { Loader2 } from "lucide-react";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
-import { DocumentDisclaimerSection } from "./profile/DocumentDisclaimerSection";
 
 interface ProfileTabProps {
   userId: string;
@@ -62,7 +61,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
   const covidVaccinated = watch("covid_vaccinated");
   const circumcised = watch("circumcised");
   const smoker = watch("smoker");
-  const disclaimerAccepted = watch("disclaimer_accepted");
 
   useEffect(() => {
     loadProfile();
@@ -154,11 +152,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       return;
     }
 
-    if (!data.disclaimer_accepted) {
-      toast.error("You must accept the disclaimer to continue");
-      return;
-    }
-
     setSaving(true);
 
     try {
@@ -189,7 +182,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
           std_acknowledgment: data.std_acknowledgment,
           user_references: data.user_references,
           sexual_preferences: data.sexual_preferences,
-          disclaimer_accepted: data.disclaimer_accepted,
         })
         .eq("user_id", userId);
 
@@ -232,12 +224,6 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       />
 
       <SocialMediaSection register={register} />
-
-      <DocumentDisclaimerSection
-        register={register}
-        setValue={setValue}
-        disclaimerAccepted={disclaimerAccepted}
-      />
 
       <div className="flex gap-4">
         <Button type="submit" disabled={saving || !profileImageUrl} className="flex-1">

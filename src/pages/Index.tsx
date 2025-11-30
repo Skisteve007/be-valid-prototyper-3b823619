@@ -96,29 +96,17 @@ const Index = () => {
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
             <Button 
               variant="ghost" 
-              onClick={() => session ? navigate("/dashboard?tab=qrcode") : undefined}
-              disabled={!session}
-              className={`relative border-2 font-bold text-base ${
-                session 
-                  ? "shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-green-600/60 bg-green-600/15 text-orange-500 hover:text-orange-400 cursor-pointer"
-                  : "border-gray-400/30 bg-gray-400/10 text-gray-500 cursor-not-allowed opacity-50"
-              }`}
+              onClick={() => navigate("/dashboard?tab=qrcode")}
+              className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base"
             >
-              {!session && <Lock className="h-4 w-4 mr-1" />}
-              {session && <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>}
+              <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
               QR Code
             </Button>
             <Button 
-              onClick={() => session ? navigate("/dashboard") : undefined}
-              disabled={!session}
-              className={`relative border-2 ${
-                session
-                  ? "shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-blue-500/60 bg-blue-500/15 cursor-pointer"
-                  : "border-gray-400/30 bg-gray-400/10 text-gray-500 cursor-not-allowed opacity-50"
-              }`}
+              onClick={() => navigate("/dashboard")}
+              className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15"
             >
-              {!session && <Lock className="h-4 w-4 mr-1" />}
-              {session && <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>}
+              <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>
               Profile
             </Button>
           </div>

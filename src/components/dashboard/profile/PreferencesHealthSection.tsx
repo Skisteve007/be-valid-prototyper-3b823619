@@ -55,7 +55,7 @@ export const PreferencesHealthSection = ({
         />
         <Label className="cursor-pointer flex items-center gap-2">
           <Syringe className="w-4 h-4 text-blue-500" />
-          COVID Vaccination Status
+          COVID Vaccinated (check if yes)
         </Label>
       </div>
 
@@ -66,7 +66,7 @@ export const PreferencesHealthSection = ({
         />
         <Label className="cursor-pointer flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-yellow-500" />
-          Circumcised
+          Circumcised (check if yes)
         </Label>
       </div>
 
@@ -77,7 +77,7 @@ export const PreferencesHealthSection = ({
         />
         <Label className="cursor-pointer flex items-center gap-2">
           <Cigarette className="w-4 h-4 text-orange-500" />
-          Smoker
+          Smoker (check if yes)
         </Label>
       </div>
     </div>

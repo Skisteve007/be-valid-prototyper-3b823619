@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
@@ -224,6 +226,45 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       />
 
       <SocialMediaSection register={register} />
+
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold border-b pb-2">STD Acknowledgment</h3>
+        <div className="space-y-2">
+          <Label htmlFor="std_acknowledgment">STD Status & Information</Label>
+          <Textarea
+            id="std_acknowledgment"
+            {...register("std_acknowledgment")}
+            rows={4}
+            placeholder="Please provide any relevant health information..."
+          />
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold border-b pb-2">References</h3>
+        <div className="space-y-2">
+          <Label htmlFor="user_references">Reference Information</Label>
+          <Textarea
+            id="user_references"
+            {...register("user_references")}
+            rows={4}
+            placeholder="Add reference contacts or information..."
+          />
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold border-b pb-2">Sexual Preferences</h3>
+        <div className="space-y-2">
+          <Label htmlFor="sexual_preferences">Your Preferences</Label>
+          <Textarea
+            id="sexual_preferences"
+            {...register("sexual_preferences")}
+            rows={4}
+            placeholder="Describe your preferences..."
+          />
+        </div>
+      </div>
 
       <div className="flex gap-4">
         <Button type="submit" disabled={saving || !profileImageUrl} className="flex-1">

@@ -223,9 +223,10 @@ const Index = () => {
                 <h3 className="text-2xl font-bold text-center mb-6 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">💳 Membership Pricing - Click to Select</h3>
               <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
                 <Card 
-                  className={`cursor-pointer transition-all ${selectedPlan === "single" ? "ring-2 ring-primary shadow-lg" : "hover:shadow-md"}`}
+                  className={`cursor-pointer transition-all relative ${selectedPlan === "single" ? "ring-2 ring-primary shadow-lg" : "hover:shadow-md"} shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30`}
                   onClick={() => setSelectedPlan("single")}
                 >
+                  <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>
@@ -246,9 +247,10 @@ const Index = () => {
                 </Card>
 
                 <Card 
-                  className={`cursor-pointer transition-all ${selectedPlan === "couple" ? "ring-2 ring-primary shadow-lg" : "hover:shadow-md"}`}
+                  className={`cursor-pointer transition-all relative ${selectedPlan === "couple" ? "ring-2 ring-primary shadow-lg" : "hover:shadow-md"} shadow-[0_0_40px_rgba(236,72,153,0.5)] hover:shadow-[0_0_50px_rgba(236,72,153,0.7)] border-2 border-pink-500/30`}
                   onClick={() => setSelectedPlan("couple")}
                 >
+                  <div className="absolute inset-0 bg-pink-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>

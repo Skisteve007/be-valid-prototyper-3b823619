@@ -55,49 +55,112 @@ export type Database = {
       }
       profiles: {
         Row: {
+          birthday: string | null
+          circumcised: boolean | null
           company_name: string | null
+          covid_vaccinated: boolean | null
           created_at: string
+          current_home_city: string | null
+          disclaimer_accepted: boolean | null
+          facebook_handle: string | null
           full_name: string | null
+          gender_identity: string | null
+          health_document_uploaded_at: string | null
+          health_document_url: string | null
           id: string
+          instagram_handle: string | null
           member_id: string | null
+          onlyfans_handle: string | null
+          partner_preferences: Json | null
           payment_date: string | null
           payment_status: string | null
           phone: string | null
           profile_image_url: string | null
           qr_code_url: string | null
+          relationship_status: string | null
+          sexual_orientation: string | null
+          sexual_preferences: string | null
+          smoker: boolean | null
           status_color: string | null
+          std_acknowledgment: string | null
+          tiktok_handle: string | null
+          twitter_handle: string | null
           updated_at: string
           user_id: string
+          user_references: string | null
+          where_from: string | null
         }
         Insert: {
+          birthday?: string | null
+          circumcised?: boolean | null
           company_name?: string | null
+          covid_vaccinated?: boolean | null
           created_at?: string
+          current_home_city?: string | null
+          disclaimer_accepted?: boolean | null
+          facebook_handle?: string | null
           full_name?: string | null
+          gender_identity?: string | null
+          health_document_uploaded_at?: string | null
+          health_document_url?: string | null
           id?: string
+          instagram_handle?: string | null
           member_id?: string | null
+          onlyfans_handle?: string | null
+          partner_preferences?: Json | null
           payment_date?: string | null
           payment_status?: string | null
           phone?: string | null
           profile_image_url?: string | null
           qr_code_url?: string | null
+          relationship_status?: string | null
+          sexual_orientation?: string | null
+          sexual_preferences?: string | null
+          smoker?: boolean | null
           status_color?: string | null
+          std_acknowledgment?: string | null
+          tiktok_handle?: string | null
+          twitter_handle?: string | null
           updated_at?: string
           user_id: string
+          user_references?: string | null
+          where_from?: string | null
         }
         Update: {
+          birthday?: string | null
+          circumcised?: boolean | null
           company_name?: string | null
+          covid_vaccinated?: boolean | null
           created_at?: string
+          current_home_city?: string | null
+          disclaimer_accepted?: boolean | null
+          facebook_handle?: string | null
           full_name?: string | null
+          gender_identity?: string | null
+          health_document_uploaded_at?: string | null
+          health_document_url?: string | null
           id?: string
+          instagram_handle?: string | null
           member_id?: string | null
+          onlyfans_handle?: string | null
+          partner_preferences?: Json | null
           payment_date?: string | null
           payment_status?: string | null
           phone?: string | null
           profile_image_url?: string | null
           qr_code_url?: string | null
+          relationship_status?: string | null
+          sexual_orientation?: string | null
+          sexual_preferences?: string | null
+          smoker?: boolean | null
           status_color?: string | null
+          std_acknowledgment?: string | null
+          tiktok_handle?: string | null
+          twitter_handle?: string | null
           updated_at?: string
           user_id?: string
+          user_references?: string | null
+          where_from?: string | null
         }
         Relationships: []
       }

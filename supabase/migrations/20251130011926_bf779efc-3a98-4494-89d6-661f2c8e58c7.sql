@@ -1,0 +1,23 @@
+-- Add new columns to profiles table for comprehensive profile setup
+ALTER TABLE public.profiles
+ADD COLUMN IF NOT EXISTS where_from TEXT,
+ADD COLUMN IF NOT EXISTS current_home_city TEXT,
+ADD COLUMN IF NOT EXISTS birthday DATE,
+ADD COLUMN IF NOT EXISTS gender_identity TEXT,
+ADD COLUMN IF NOT EXISTS sexual_orientation TEXT,
+ADD COLUMN IF NOT EXISTS relationship_status TEXT,
+ADD COLUMN IF NOT EXISTS partner_preferences JSONB DEFAULT '[]'::jsonb,
+ADD COLUMN IF NOT EXISTS covid_vaccinated BOOLEAN DEFAULT false,
+ADD COLUMN IF NOT EXISTS circumcised BOOLEAN,
+ADD COLUMN IF NOT EXISTS smoker BOOLEAN DEFAULT false,
+ADD COLUMN IF NOT EXISTS instagram_handle TEXT,
+ADD COLUMN IF NOT EXISTS tiktok_handle TEXT,
+ADD COLUMN IF NOT EXISTS facebook_handle TEXT,
+ADD COLUMN IF NOT EXISTS onlyfans_handle TEXT,
+ADD COLUMN IF NOT EXISTS twitter_handle TEXT,
+ADD COLUMN IF NOT EXISTS std_acknowledgment TEXT,
+ADD COLUMN IF NOT EXISTS user_references TEXT,
+ADD COLUMN IF NOT EXISTS sexual_preferences TEXT,
+ADD COLUMN IF NOT EXISTS health_document_url TEXT,
+ADD COLUMN IF NOT EXISTS health_document_uploaded_at TIMESTAMP WITH TIME ZONE,
+ADD COLUMN IF NOT EXISTS disclaimer_accepted BOOLEAN DEFAULT false;

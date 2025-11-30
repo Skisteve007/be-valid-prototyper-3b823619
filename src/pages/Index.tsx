@@ -134,7 +134,7 @@ const Index = () => {
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-3xl mb-2">$39</CardTitle>
+                        <CardTitle className="text-3xl mb-2">$29</CardTitle>
                         <CardDescription className="text-base">Single Member</CardDescription>
                       </div>
                       {selectedPlan === "single" && (
@@ -157,7 +157,7 @@ const Index = () => {
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-3xl mb-2">$69</CardTitle>
+                        <CardTitle className="text-3xl mb-2">$49</CardTitle>
                         <CardDescription className="text-base">Joint/Couple</CardDescription>
                       </div>
                       {selectedPlan === "couple" && (

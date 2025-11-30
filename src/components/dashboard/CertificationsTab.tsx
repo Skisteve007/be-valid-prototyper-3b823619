@@ -34,6 +34,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [documentFile, setDocumentFile] = useState<File | null>(null);
+  const [viewerMemberId, setViewerMemberId] = useState<string>("");
   const [newCert, setNewCert] = useState({
     title: "",
     issuer: "",
@@ -44,6 +45,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   useEffect(() => {
     loadCertifications();
     loadDisclaimer();
+    loadViewerMemberId();
   }, [userId]);
 
   const loadDisclaimer = async () => {
@@ -58,6 +60,21 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
       setDisclaimerAccepted(data?.disclaimer_accepted || false);
     } catch (error: any) {
       console.error("Failed to load disclaimer status");
+    }
+  };
+
+  const loadViewerMemberId = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("member_id")
+        .eq("user_id", userId)
+        .single();
+
+      if (error) throw error;
+      setViewerMemberId(data?.member_id || "");
+    } catch (error: any) {
+      console.error("Failed to load member ID");
     }
   };
 
@@ -386,6 +403,44 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                 draggable={false}
               />
             )}
+            {/* Watermark overlay with member ID */}
+            <div 
+              className="absolute inset-0 pointer-events-none select-none"
+              onContextMenu={(e) => e.preventDefault()}
+              style={{
+                background: `repeating-linear-gradient(
+                  45deg,
+                  transparent,
+                  transparent 200px,
+                  rgba(0, 0, 0, 0.03) 200px,
+                  rgba(0, 0, 0, 0.03) 201px
+                )`
+              }}
+            >
+              {/* Multiple watermarks across the document */}
+              <div className="absolute top-[20%] left-[10%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
+                {viewerMemberId}
+              </div>
+              <div className="absolute top-[40%] right-[10%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
+                {viewerMemberId}
+              </div>
+              <div className="absolute bottom-[20%] left-[30%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
+                {viewerMemberId}
+              </div>
+              <div className="absolute top-[60%] left-[50%] transform -translate-x-1/2 -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
+                {viewerMemberId}
+              </div>
+              <div className="absolute top-[10%] right-[40%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
+                {viewerMemberId}
+              </div>
+              <div className="absolute bottom-[40%] right-[30%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
+                {viewerMemberId}
+              </div>
+              {/* Timestamp watermark */}
+              <div className="absolute bottom-4 right-4 opacity-30 text-gray-900 dark:text-gray-100 text-xs font-mono select-none pointer-events-none bg-white/50 dark:bg-black/50 px-2 py-1 rounded">
+                Viewed: {new Date().toLocaleString()} | {viewerMemberId}
+              </div>
+            </div>
             {/* Overlay to prevent right-click and interactions */}
             <div 
               className="absolute inset-0 bg-transparent"

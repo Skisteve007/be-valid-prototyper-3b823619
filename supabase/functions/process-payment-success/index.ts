@@ -21,15 +21,35 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { userId, paymentAmount, paymentType }: PaymentSuccessRequest = await req.json();
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
     
-    console.log('Processing payment success for user:', userId);
+    // Create client with anon key for auth verification
+    const authClient = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: req.headers.get('Authorization')! } }
+    });
 
-    // Initialize Supabase client
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-    );
+    // Verify authentication
+    const { data: { user }, error: authError } = await authClient.auth.getUser();
+    
+    if (authError || !user) {
+      console.error('Authentication failed:', authError);
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - authentication required' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const { paymentAmount, paymentType }: Omit<PaymentSuccessRequest, 'userId'> = await req.json();
+    
+    // Use authenticated user's ID instead of client-provided userId
+    const userId = user.id;
+    
+    console.log('Processing payment success for authenticated user:', userId);
+
+    // Initialize Supabase client with service key for profile updates
+    const supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
 
     // Update user profile to Paid Member status
     const { data: profile, error: updateError } = await supabaseClient

@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Plus, Award, FileText, Eye, X } from "lucide-react";
+import { Loader2, Plus, Award, FileText, Eye, X, Trash2 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 
@@ -37,6 +37,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   const [documentFiles, setDocumentFiles] = useState<File[]>([]);
   const [viewerMemberId, setViewerMemberId] = useState<string>("");
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [newCert, setNewCert] = useState({
     title: "",
     issuer: "",
@@ -181,7 +182,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
     }
 
     if (certifications.length === 0) {
-      toast.error("Please add at least one document before completing");
+      toast.error("Please upload at least one document before completing");
       return;
     }
 
@@ -198,6 +199,45 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
       toast.error("Failed to save disclaimer");
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleDeleteDocument = async (certId: string, documentUrl: string | null) => {
+    if (!confirm("Are you sure you want to delete this document? This action cannot be undone.")) {
+      return;
+    }
+
+    setDeletingId(certId);
+    try {
+      // Delete from storage if document URL exists
+      if (documentUrl) {
+        const urlParts = documentUrl.split('/');
+        const fileName = urlParts.slice(-2).join('/'); // Get userId/filename
+        
+        const { error: storageError } = await supabase.storage
+          .from('profile-images')
+          .remove([fileName]);
+        
+        if (storageError) {
+          console.error("Storage deletion error:", storageError);
+          // Continue even if storage deletion fails
+        }
+      }
+
+      // Delete from database
+      const { error } = await supabase
+        .from("certifications")
+        .delete()
+        .eq("id", certId);
+
+      if (error) throw error;
+
+      toast.success("Document deleted successfully");
+      loadCertifications();
+    } catch (error: any) {
+      toast.error(error.message || "Failed to delete document");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -403,6 +443,20 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                         View
                       </Button>
                     )}
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => handleDeleteDocument(cert.id, cert.document_url)}
+                      disabled={deletingId === cert.id}
+                      className="flex items-center gap-1"
+                    >
+                      {deletingId === cert.id ? (
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                      ) : (
+                        <Trash2 className="h-3 w-3" />
+                      )}
+                      Delete
+                    </Button>
                   </div>
                 </div>
               </CardHeader>
@@ -413,18 +467,24 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
 
       <div className="space-y-4 mt-6">
         <div className="space-y-4 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border-2 border-blue-200 dark:border-blue-800">
-          <p className="text-sm">
+          <p className="text-sm font-semibold text-blue-900 dark:text-blue-100">
+            ⚠️ Important: You must upload at least one document and accept this disclaimer to complete your profile.
+          </p>
+          <p className="text-sm text-blue-800 dark:text-blue-200">
             By checking this box, I certify that all information provided is accurate and I understand that 
             Clean Check is a platform for sharing health information. I take full responsibility for the 
             accuracy of my information and understand the importance of maintaining up-to-date health records.
           </p>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-start space-x-2">
             <Checkbox
+              id="disclaimer"
               checked={disclaimerAccepted}
               onCheckedChange={(checked) => setDisclaimerAccepted(checked === true)}
               required
             />
-            <Label className="cursor-pointer">I accept the disclaimer and certify all information is accurate *</Label>
+            <Label htmlFor="disclaimer" className="cursor-pointer text-sm leading-tight">
+              I accept the disclaimer and certify all information is accurate *
+            </Label>
           </div>
         </div>
 
@@ -442,6 +502,12 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
             "Save & Close"
           )}
         </Button>
+        
+        {certifications.length === 0 && (
+          <p className="text-xs text-center text-muted-foreground">
+            Upload at least one document to enable Save & Close
+          </p>
+        )}
       </div>
 
       {/* Document Viewer Modal */}

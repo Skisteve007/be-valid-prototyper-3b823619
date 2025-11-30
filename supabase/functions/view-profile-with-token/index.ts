@@ -61,7 +61,7 @@ serve(async (req) => {
         .eq('id', tokenData.id);
     }
 
-    // Fetch profile data
+    // Fetch profile data - ONLY non-sensitive fields for QR sharing
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select(`
@@ -69,29 +69,15 @@ serve(async (req) => {
         member_id,
         full_name,
         profile_image_url,
-        qr_code_url,
         status_color,
         user_id,
-        where_from,
-        current_home_city,
-        birthday,
         gender_identity,
         sexual_orientation,
         relationship_status,
-        partner_preferences,
         covid_vaccinated,
-        circumcised,
         smoker,
-        instagram_handle,
-        tiktok_handle,
-        facebook_handle,
-        onlyfans_handle,
-        twitter_handle,
-        sexual_preferences,
-        std_acknowledgment,
         health_document_uploaded_at,
         selected_interests,
-        user_interests,
         created_at
       `)
       .eq('id', tokenData.profile_id)

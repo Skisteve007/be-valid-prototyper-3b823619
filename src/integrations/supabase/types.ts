@@ -99,7 +99,22 @@ export type Database = {
           verified?: boolean
           verified_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "member_references_referee_user_id_fkey"
+            columns: ["referee_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "member_references_referrer_user_id_fkey"
+            columns: ["referrer_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
       }
       profiles: {
         Row: {

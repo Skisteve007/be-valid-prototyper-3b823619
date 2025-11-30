@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, FileText, UserCheck, QrCode, ExternalLink } from "lucide-react";
+import { Loader2, FileText, UserCheck, QrCode, ExternalLink, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
@@ -56,7 +57,8 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red">("green");
   const [referenceIds, setReferenceIds] = useState<string[]>(["", "", ""]);
-  const [referenceProfiles, setReferenceProfiles] = useState<Array<{id: string, full_name: string, member_id: string} | null>>([null, null, null]);
+  const [referenceProfiles, setReferenceProfiles] = useState<Array<{id: string, user_id: string, full_name: string, member_id: string, verified?: boolean} | null>>([null, null, null]);
+  const [existingReferences, setExistingReferences] = useState<string[]>([]);
 
   const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
     defaultValues: {
@@ -134,7 +136,8 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
           }
         }
         setReferenceIds(refs);
-        loadReferenceProfiles(refs);
+        await loadReferenceProfiles(refs);
+        await loadExistingReferences();
         setValue("user_interests", (data.user_interests as Record<string, string[]>) || {});
         setValue("disclaimer_accepted", data.disclaimer_accepted || false);
         
@@ -178,6 +181,21 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
     }
   };
 
+  const loadExistingReferences = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("member_references")
+        .select("referee_user_id")
+        .eq("referrer_user_id", userId);
+
+      if (error) throw error;
+      
+      setExistingReferences((data || []).map((ref: any) => ref.referee_user_id));
+    } catch (error) {
+      console.error("Failed to load existing references:", error);
+    }
+  };
+
   const loadReferenceProfiles = async (memberIds: string[]) => {
     const profiles = await Promise.all(
       memberIds.map(async (memberId) => {
@@ -186,12 +204,24 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         try {
           const { data, error } = await supabase
             .from("profiles")
-            .select("id, full_name, member_id")
+            .select("id, user_id, full_name, member_id")
             .eq("member_id", memberId.trim())
             .maybeSingle();
           
           if (error || !data) return null;
-          return data;
+          
+          // Check if this reference is verified
+          const { data: refData } = await supabase
+            .from("member_references")
+            .select("verified")
+            .eq("referrer_user_id", userId)
+            .eq("referee_user_id", data.user_id)
+            .maybeSingle();
+          
+          return {
+            ...data,
+            verified: refData?.verified || false
+          };
         } catch {
           return null;
         }
@@ -210,12 +240,30 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
       try {
         const { data, error } = await supabase
           .from("profiles")
-          .select("id, full_name, member_id")
+          .select("id, user_id, full_name, member_id")
           .eq("member_id", value.trim())
           .maybeSingle();
         
+        if (error || !data) {
+          const newProfiles = [...referenceProfiles];
+          newProfiles[index] = null;
+          setReferenceProfiles(newProfiles);
+          return;
+        }
+
+        // Check if this reference is verified
+        const { data: refData } = await supabase
+          .from("member_references")
+          .select("verified")
+          .eq("referrer_user_id", userId)
+          .eq("referee_user_id", data.user_id)
+          .maybeSingle();
+        
         const newProfiles = [...referenceProfiles];
-        newProfiles[index] = (error || !data) ? null : data;
+        newProfiles[index] = {
+          ...data,
+          verified: refData?.verified || false
+        };
         setReferenceProfiles(newProfiles);
       } catch {
         const newProfiles = [...referenceProfiles];
@@ -272,6 +320,34 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
         .eq("user_id", userId);
 
       if (error) throw error;
+
+      // Save reference relationships
+      const validReferences = referenceProfiles.filter(p => p !== null) as Array<{id: string, user_id: string, full_name: string, member_id: string, verified?: boolean}>;
+      
+      // Delete references that are no longer in the list
+      const currentRefereeIds = validReferences.map(p => p.user_id);
+      const toDelete = existingReferences.filter(id => !currentRefereeIds.includes(id));
+      
+      if (toDelete.length > 0) {
+        await supabase
+          .from("member_references")
+          .delete()
+          .eq("referrer_user_id", userId)
+          .in("referee_user_id", toDelete);
+      }
+
+      // Add new references
+      for (const profile of validReferences) {
+        if (!existingReferences.includes(profile.user_id)) {
+          await supabase
+            .from("member_references")
+            .insert({
+              referrer_user_id: userId,
+              referee_user_id: profile.user_id,
+              verified: false
+            });
+        }
+      }
 
       toast.success("Profile updated successfully");
     } catch (error: any) {
@@ -463,12 +539,23 @@ const ProfileTab = ({ userId }: ProfileTabProps) => {
                     <div className="mt-2 p-3 bg-primary/10 border border-primary/20 rounded-lg space-y-2">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                          <div className={`w-2 h-2 rounded-full ${referenceProfiles[index]?.verified ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
                           <p className="font-semibold text-sm">{referenceProfiles[index]?.full_name}</p>
+                          {referenceProfiles[index]?.verified && (
+                            <Badge variant="default" className="bg-green-500 text-white text-xs">
+                              <CheckCircle className="h-2.5 w-2.5 mr-1" />
+                              Verified
+                            </Badge>
+                          )}
                         </div>
                         <p className="text-xs text-muted-foreground font-mono">
                           {referenceProfiles[index]?.member_id}
                         </p>
+                        {!referenceProfiles[index]?.verified && (
+                          <p className="text-xs text-yellow-600 dark:text-yellow-400">
+                            Pending verification from member
+                          </p>
+                        )}
                         <Button
                           type="button"
                           size="sm"

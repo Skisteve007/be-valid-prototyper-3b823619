@@ -37,25 +37,36 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
     try {
       const { data, error } = await supabase
         .from("member_references")
-        .select(`
-          id,
-          referrer_user_id,
-          verified,
-          created_at,
-          verified_at,
-          referrer_profile:profiles!member_references_referrer_user_id_fkey(
-            full_name,
-            member_id,
-            profile_image_url
-          )
-        `)
+        .select("*")
         .eq("referee_user_id", userId)
         .order("created_at", { ascending: false });
 
       if (error) throw error;
 
-      const pending = (data || []).filter((ref: any) => !ref.verified);
-      const verified = (data || []).filter((ref: any) => ref.verified);
+      // Fetch profiles for all referrer_user_ids
+      const referrerUserIds = (data || []).map((ref: any) => ref.referrer_user_id);
+      
+      const { data: profiles, error: profileError } = await supabase
+        .from("profiles")
+        .select("user_id, full_name, member_id, profile_image_url")
+        .in("user_id", referrerUserIds);
+
+      if (profileError) throw profileError;
+
+      // Map profiles to references
+      const profileMap = new Map(profiles?.map(p => [p.user_id, p]) || []);
+      
+      const enrichedData = (data || []).map((ref: any) => ({
+        ...ref,
+        referrer_profile: profileMap.get(ref.referrer_user_id) || {
+          full_name: "Unknown",
+          member_id: "N/A",
+          profile_image_url: null
+        }
+      }));
+
+      const pending = enrichedData.filter((ref: any) => !ref.verified);
+      const verified = enrichedData.filter((ref: any) => ref.verified);
 
       setPendingRequests(pending as ReferenceRequest[]);
       setVerifiedRequests(verified as ReferenceRequest[]);

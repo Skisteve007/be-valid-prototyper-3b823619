@@ -65,6 +65,39 @@ const Index = () => {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Confidently share verified health status information for mutual safety and informed intimacy.
             </p>
+            
+            {/* Featured Sponsors */}
+            {sponsors.slice(0, 3).length > 0 && (
+              <div className="mt-12">
+                <div className="flex flex-wrap justify-center items-center gap-12">
+                  {sponsors.slice(0, 3).map((sponsor) => (
+                    <div key={sponsor.id} className="flex items-center justify-center">
+                      {sponsor.logo_url ? (
+                        sponsor.website_url ? (
+                          <a href={sponsor.website_url} target="_blank" rel="noopener noreferrer">
+                            <img 
+                              src={sponsor.logo_url} 
+                              alt={sponsor.name} 
+                              className="h-16 w-auto hover:scale-110 transition-transform duration-300 filter drop-shadow-lg"
+                            />
+                          </a>
+                        ) : (
+                          <img 
+                            src={sponsor.logo_url} 
+                            alt={sponsor.name} 
+                            className="h-16 w-auto filter drop-shadow-lg"
+                          />
+                        )
+                      ) : (
+                        <div className="w-32 h-16 bg-muted/50 border-2 border-dashed border-muted-foreground/30 rounded-lg flex items-center justify-center">
+                          <span className="text-xs text-muted-foreground">{sponsor.name}</span>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
 

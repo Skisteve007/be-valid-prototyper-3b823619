@@ -206,14 +206,25 @@ const Auth = () => {
                       {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4">
-                      <Button 
-                        type="button" 
-                        variant="link" 
-                        onClick={() => navigate("/")}
-                      >
-                        New member? Sign up here
-                      </Button>
+                    <div className="text-center pt-4 space-y-2">
+                      <div>
+                        <Button 
+                          type="button" 
+                          variant="link" 
+                          onClick={() => navigate("/")}
+                        >
+                          New member? Sign up here
+                        </Button>
+                      </div>
+                      <div>
+                        <Button 
+                          type="button" 
+                          variant="link" 
+                          onClick={() => navigate("/")}
+                        >
+                          ← Back to Home
+                        </Button>
+                      </div>
                     </div>
                   </form>
                 </CardContent>
@@ -275,14 +286,25 @@ const Auth = () => {
                       {loading ? "Creating Account..." : "Create Account"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4">
-                      <Button 
-                        type="button" 
-                        variant="link" 
-                        onClick={() => navigate("/auth?mode=login")}
-                      >
-                        Already a member? Log in
-                      </Button>
+                    <div className="text-center pt-4 space-y-2">
+                      <div>
+                        <Button 
+                          type="button" 
+                          variant="link" 
+                          onClick={() => navigate("/auth?mode=login")}
+                        >
+                          Already a member? Log in
+                        </Button>
+                      </div>
+                      <div>
+                        <Button 
+                          type="button" 
+                          variant="link" 
+                          onClick={() => navigate("/")}
+                        >
+                          ← Back to Home
+                        </Button>
+                      </div>
                     </div>
                   </form>
                 </CardContent>

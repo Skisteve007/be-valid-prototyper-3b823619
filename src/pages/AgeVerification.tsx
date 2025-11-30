@@ -31,7 +31,7 @@ const AgeVerification = () => {
       <Card className="w-full max-w-2xl">
         <CardHeader className="text-center space-y-4">
           <div className="flex justify-center">
-            <img src={logo} alt="Clean Check Logo" className="h-32 w-auto" />
+            <img src={logo} alt="Clean Check Logo" className="h-48 w-auto" />
           </div>
           <CardDescription className="text-xl font-semibold">Age Verification Required</CardDescription>
           

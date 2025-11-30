@@ -91,7 +91,7 @@ const Index = () => {
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>
-              <p className="text-2xl md:text-3xl mb-8 text-foreground">
+              <p className="text-2xl md:text-3xl mb-8 bg-gradient-to-br from-slate-200 via-primary to-slate-400 bg-clip-text text-transparent font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
                 Elevating Intimacy through Verified Transparency and Mutual Trust.
               </p>
             </ScrollReveal>
@@ -207,7 +207,7 @@ const Index = () => {
               <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
                   <Zap className="h-4 w-4" />
-                  <span className="font-semibold">Complete Your Membership</span>
+                  <span className="font-semibold bg-gradient-to-r from-slate-200 via-primary to-slate-400 bg-clip-text text-transparent">Complete Your Membership</span>
                 </div>
                 <p className="text-lg mb-2">Automatic Approval! Your account will be activated instantly after payment.</p>
                 <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
@@ -220,7 +220,7 @@ const Index = () => {
             {/* Pricing Cards */}
             <ScrollReveal direction="up" delay={200}>
               <div className="mb-12">
-                <h3 className="text-2xl font-bold text-center mb-6">💳 Membership Pricing - Click to Select</h3>
+                <h3 className="text-2xl font-bold text-center mb-6 bg-gradient-to-br from-slate-200 via-primary to-slate-400 bg-clip-text text-transparent">💳 Membership Pricing - Click to Select</h3>
               <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
                 <Card 
                   className={`cursor-pointer transition-all ${selectedPlan === "single" ? "ring-2 ring-primary shadow-lg" : "hover:shadow-md"}`}
@@ -279,7 +279,7 @@ const Index = () => {
             <ScrollReveal direction="up" delay={300}>
               <Card className="max-w-2xl mx-auto">
               <CardHeader>
-                <CardTitle className="text-2xl">Get Started</CardTitle>
+                <CardTitle className="text-2xl bg-gradient-to-br from-slate-200 via-primary to-slate-400 bg-clip-text text-transparent">Get Started</CardTitle>
                 <CardDescription>Both fields are required to proceed</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -322,7 +322,7 @@ const Index = () => {
         <section className="py-16 px-4 bg-muted/30">
           <div className="container mx-auto max-w-6xl">
             <ScrollReveal direction="up" delay={100}>
-              <h3 className="text-3xl font-bold text-center mb-12">Why Join Clean Check?</h3>
+              <h3 className="text-3xl font-bold text-center mb-12 bg-gradient-to-br from-slate-200 via-primary to-slate-400 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Why Join Clean Check?</h3>
             </ScrollReveal>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <ScrollReveal direction="up" delay={200}>
@@ -431,9 +431,9 @@ const Index = () => {
               <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
                   <HelpCircle className="h-4 w-4" />
-                  <span className="font-semibold">Frequently Asked Questions</span>
+                  <span className="font-semibold bg-gradient-to-r from-slate-200 via-primary to-slate-400 bg-clip-text text-transparent">Frequently Asked Questions</span>
                 </div>
-                <h3 className="text-3xl font-bold">Got Questions? We've Got Answers</h3>
+                <h3 className="text-3xl font-bold bg-gradient-to-br from-slate-200 via-primary to-slate-400 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Got Questions? We've Got Answers</h3>
               </div>
             </ScrollReveal>
 

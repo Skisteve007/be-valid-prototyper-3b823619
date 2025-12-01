@@ -24,6 +24,7 @@ interface Sponsor {
   tier: string;
   section: number;
   active: boolean;
+  category: string;
 }
 
 const StorageSponsorManager = () => {
@@ -39,6 +40,7 @@ const StorageSponsorManager = () => {
     tier: "platinum" as 'platinum' | 'gold' | 'silver',
     section: 1,
     logo_url: "",
+    category: "general" as 'general' | 'lab_certified' | 'toxicology',
   });
 
   useEffect(() => {
@@ -137,6 +139,7 @@ const StorageSponsorManager = () => {
         tier: "platinum",
         section: 1,
         logo_url: urlData.publicUrl,
+        category: "general",
       });
       setEditingFile(fileName);
       setDialogOpen(true);
@@ -251,6 +254,7 @@ const StorageSponsorManager = () => {
       tier: "platinum" as 'platinum' | 'gold' | 'silver',
       section: 1,
       logo_url: file.publicUrl,
+      category: "general" as 'general' | 'lab_certified' | 'toxicology',
     };
     console.log("Setting new sponsor data:", newData);
     setNewSponsorData(newData);
@@ -266,6 +270,7 @@ const StorageSponsorManager = () => {
       tier: sponsor.tier as 'platinum' | 'gold' | 'silver',
       section: sponsor.section,
       logo_url: sponsor.logo_url,
+      category: sponsor.category as 'general' | 'lab_certified' | 'toxicology',
     });
     setEditingFile(sponsor.logo_url.split("/").pop() || "");
     setDialogOpen(true);
@@ -334,7 +339,14 @@ const StorageSponsorManager = () => {
 
       setDialogOpen(false);
       setEditingFile(null);
-      setNewSponsorData({ name: "", website_url: "", tier: "platinum", section: 1, logo_url: "" });
+      setNewSponsorData({ 
+        name: "", 
+        website_url: "", 
+        tier: "platinum", 
+        section: 1, 
+        logo_url: "",
+        category: "general",
+      });
       await loadSponsors();
     } catch (error: any) {
       toast.error(error.message || "Failed to save sponsor");
@@ -434,6 +446,9 @@ const StorageSponsorManager = () => {
                           </Badge>
                           <Badge variant="outline">
                             Section {sponsor.section}
+                          </Badge>
+                          <Badge variant="outline" className="capitalize">
+                            {sponsor.category.replace('_', ' ')}
                           </Badge>
                           {sponsor.active && <Badge className="bg-green-500">Active</Badge>}
                         </div>
@@ -556,6 +571,45 @@ const StorageSponsorManager = () => {
                   />
                   <p className="text-xs text-muted-foreground">
                     Optional - When clicked, logo will open this URL
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="sponsor-category" className="text-base font-semibold">
+                    Sponsor Category *
+                  </Label>
+                  <Select
+                    value={newSponsorData.category}
+                    onValueChange={(value: 'general' | 'lab_certified' | 'toxicology') => {
+                      setNewSponsorData({ ...newSponsorData, category: value });
+                    }}
+                  >
+                    <SelectTrigger id="sponsor-category" className="w-full h-11">
+                      <SelectValue placeholder="Choose sponsor category" />
+                    </SelectTrigger>
+                    <SelectContent className="z-50 bg-popover">
+                      <SelectItem value="general">
+                        <div className="flex items-center gap-2">
+                          <span>General Sponsor</span>
+                          <span className="text-xs text-muted-foreground">(Homepage)</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="lab_certified">
+                        <div className="flex items-center gap-2">
+                          <span>Lab Partner - Sexual Health</span>
+                          <span className="text-xs text-muted-foreground">(Get Lab Certified tab)</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="toxicology">
+                        <div className="flex items-center gap-2">
+                          <span>Lab Partner - Toxicology</span>
+                          <span className="text-xs text-muted-foreground">(Toxicology Lab Certified tab)</span>
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    Choose where this sponsor logo will appear
                   </p>
                 </div>
 

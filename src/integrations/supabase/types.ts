@@ -712,6 +712,7 @@ export type Database = {
       sponsors: {
         Row: {
           active: boolean | null
+          category: string | null
           created_at: string
           display_order: number | null
           id: string
@@ -724,6 +725,7 @@ export type Database = {
         }
         Insert: {
           active?: boolean | null
+          category?: string | null
           created_at?: string
           display_order?: number | null
           id?: string
@@ -736,6 +738,7 @@ export type Database = {
         }
         Update: {
           active?: boolean | null
+          category?: string | null
           created_at?: string
           display_order?: number | null
           id?: string

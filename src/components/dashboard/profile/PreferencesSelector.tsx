@@ -133,15 +133,15 @@ export const PreferencesSelector = ({
           return (
             <AccordionItem key={category.id} value={category.id}>
               <AccordionTrigger className="text-base font-medium">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-1">
                   <Icon className={`w-5 h-5 ${color}`} />
-                  {category.title}
+                  <span className="flex-1">{category.title}</span>
+                  {selectedPreferences[category.id]?.length > 0 && (
+                    <Badge variant="secondary" className="mr-2">
+                      {selectedPreferences[category.id].length}
+                    </Badge>
+                  )}
                 </div>
-                {selectedPreferences[category.id]?.length > 0 && (
-                  <Badge variant="secondary" className="ml-2">
-                    {selectedPreferences[category.id].length}
-                  </Badge>
-                )}
               </AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-wrap gap-2 pt-2">

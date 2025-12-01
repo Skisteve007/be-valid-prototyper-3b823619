@@ -563,16 +563,51 @@ const StorageSponsorManager = () => {
                     <SelectTrigger id="sponsor-section" className="w-full h-11">
                       <SelectValue placeholder="Choose section placement" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">Section 1 (Platinum)</SelectItem>
-                      <SelectItem value="2">Section 2 (Platinum)</SelectItem>
-                      <SelectItem value="3">Section 3 (Gold)</SelectItem>
+                    <SelectContent className="z-50 bg-popover">
+                      {[1, 2, 3].map((sectionNum) => {
+                        const sponsorsInSection = sponsors.filter(s => s.section === sectionNum);
+                        const isCurrentSection = getSponsorForFile(newSponsorData.logo_url)?.section === sectionNum;
+                        const count = isCurrentSection ? sponsorsInSection.length - 1 : sponsorsInSection.length;
+                        const tierLabel = sectionNum === 1 || sectionNum === 2 ? 'Platinum' : 'Gold';
+                        
+                        return (
+                          <SelectItem key={sectionNum} value={sectionNum.toString()}>
+                            <div className="flex items-center justify-between w-full gap-3">
+                              <span>Section {sectionNum} ({tierLabel})</span>
+                              {count > 0 ? (
+                                <Badge variant="secondary" className="ml-auto text-xs">
+                                  {count} sponsor{count !== 1 ? 's' : ''}
+                                </Badge>
+                              ) : (
+                                <Badge variant="outline" className="ml-auto text-xs bg-green-500/10 text-green-600 border-green-500/30">
+                                  Empty
+                                </Badge>
+                              )}
+                            </div>
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
-                  <div className="bg-muted/50 rounded-lg p-3 space-y-1">
-                    <p className="text-xs font-medium">Section Info:</p>
-                    <p className="text-xs text-muted-foreground">• Section 1 & 2: Platinum (top sponsors)</p>
-                    <p className="text-xs text-muted-foreground">• Section 3: Gold (regular sponsors)</p>
+                  <div className="bg-muted/50 rounded-lg p-3 space-y-2">
+                    <p className="text-xs font-medium">Current Section Status:</p>
+                    {[1, 2, 3].map((sectionNum) => {
+                      const sponsorsInSection = sponsors.filter(s => s.section === sectionNum);
+                      const isCurrentSection = getSponsorForFile(newSponsorData.logo_url)?.section === sectionNum;
+                      const count = isCurrentSection ? sponsorsInSection.length - 1 : sponsorsInSection.length;
+                      const tierLabel = sectionNum === 1 || sectionNum === 2 ? 'Platinum' : 'Gold';
+                      
+                      return (
+                        <div key={sectionNum} className="flex items-center justify-between text-xs">
+                          <span className="text-muted-foreground">Section {sectionNum} ({tierLabel}):</span>
+                          {count > 0 ? (
+                            <span className="font-medium">{count} sponsor{count !== 1 ? 's' : ''} assigned</span>
+                          ) : (
+                            <span className="text-green-600 font-medium">✓ Available</span>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </form>

@@ -14,9 +14,13 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground mb-4 italic">
               "Elevating Intimacy through Verified Transparency and Mutual Trust"
             </p>
-            <p className="text-xs text-muted-foreground">
-              © 2025 Clean Check. All rights reserved.
-            </p>
+            <div className="text-xs text-muted-foreground space-y-1">
+              <p>© 2025 Clean Check. All Rights Reserved.</p>
+              <p>Confidential & Proprietary.</p>
+              <p>Clean Check™, The Safety Shield™, and the Dual-Verification System™ are pending trademarks.</p>
+              <p>Protected under U.S. Copyright Law and Provisional Patent Application.</p>
+              <p className="font-semibold">Unauthorized reproduction or replication of this logic flow will be prosecuted.</p>
+            </div>
           </div>
           
           <div className="flex flex-col gap-2">

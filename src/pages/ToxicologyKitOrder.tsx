@@ -69,7 +69,7 @@ const ToxicologyKitOrder = () => {
                     <ShieldCheck className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-2xl">Toxicology Lab Certified Kit</CardTitle>
+                    <CardTitle className="text-2xl">Lab-Certified 10-Panel Toxicology</CardTitle>
                     <CardDescription>10-Panel Tox Screen - Professional Lab Verification</CardDescription>
                   </div>
                 </div>
@@ -219,38 +219,47 @@ const ToxicologyKitOrder = () => {
                 <CardContent className="space-y-4">
                   <div className="bg-muted/50 rounded-lg p-4 space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="font-medium">Toxicology Lab Certified Kit</span>
+                      <span className="font-medium">Lab-Certified 10-Panel Toxicology</span>
                       <span className="text-xl font-bold text-green-700 dark:text-green-400">$129.00</span>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      One-time payment • Includes kit delivery and lab processing
+                      Choose one-time payment or quarterly subscription (Save 10%)
                     </p>
                   </div>
 
-                  <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-500/30 rounded-lg p-4">
-                    <p className="text-sm text-muted-foreground">
-                      <strong className="text-foreground">PayPal Integration:</strong> Payment buttons will be configured by admin. Click continue below to generate your order tracking.
-                    </p>
-                  </div>
+                  {/* PayPal Payment Forms */}
+                  <div className="space-y-6">
+                    {/* One-Time Payment */}
+                    <div id="tox-onetime" className="space-y-3">
+                      <p className="font-bold text-lg">$129.00 (One-Time)</p>
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_xclick" />
+                        <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                        <input type="hidden" name="item_name" value="Safety Tox Kit (10-Panel) - One Time" />
+                        <input type="hidden" name="amount" value="129.00" />
+                        <input type="hidden" name="no_shipping" value="2" />
+                        <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" name="submit" alt="Buy Now" />
+                      </form>
+                    </div>
 
-                  {/* PayPal Buttons Placeholder */}
-                  <div className="border-2 border-dashed border-muted rounded-lg p-8 text-center">
-                    <ShieldCheck className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                    <p className="text-sm text-muted-foreground">
-                      PayPal payment buttons will appear here once configured by admin
-                    </p>
+                    {/* Subscription Payment */}
+                    <div id="tox-sub" className="space-y-3">
+                      <p className="font-bold text-green-600 text-lg">$116.10 / Quarter (Save 10%)</p>
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                        <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                        <input type="hidden" name="item_name" value="Safety Tox Kit (10-Panel) - Auto-Ship" />
+                        <input type="hidden" name="no_shipping" value="2" />
+                        <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                        <input type="hidden" name="a3" value="116.10" />
+                        <input type="hidden" name="p3" value="3" />
+                        <input type="hidden" name="t3" value="M" />
+                        <input type="hidden" name="src" value="1" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribe_LG.gif" name="submit" alt="Subscribe" />
+                      </form>
+                    </div>
                   </div>
-
-                  <Button
-                    onClick={() => {
-                      toast.success("Order tracking information will be sent to your email!");
-                      setTimeout(() => navigate("/dashboard"), 2000);
-                    }}
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
-                    size="lg"
-                  >
-                    Continue (Demo)
-                  </Button>
                 </CardContent>
               </Card>
             )}

@@ -333,7 +333,7 @@ const Index = () => {
                       <div className="space-y-1">
                         <CardTitle className="text-3xl">$39</CardTitle>
                         <CardDescription className="text-base font-semibold">Single Member</CardDescription>
-                        <p className="text-sm text-muted-foreground">Per 3 Months</p>
+                        <p className="text-sm text-muted-foreground whitespace-nowrap">Per 3 Months</p>
                       </div>
                       {selectedPlan === "single" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">
@@ -355,7 +355,7 @@ const Index = () => {
                       <div className="space-y-1">
                         <CardTitle className="text-3xl">$69</CardTitle>
                         <CardDescription className="text-base font-semibold">Joint/Couple</CardDescription>
-                        <p className="text-sm text-muted-foreground">Per 3 Months</p>
+                        <p className="text-sm text-muted-foreground whitespace-nowrap">Per 3 Months</p>
                       </div>
                       {selectedPlan === "couple" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">
@@ -372,14 +372,14 @@ const Index = () => {
                   <CardHeader className="pb-3">
                     <div>
                       <CardTitle className="text-3xl mb-1">$129</CardTitle>
-                      <CardDescription className="text-base">Single 6-Month</CardDescription>
+                      <CardDescription className="text-base">Single One Year</CardDescription>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <p className="text-muted-foreground text-sm mb-1">One-time payment</p>
                     <p className="text-base font-bold">
                       <span className="text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">Save</span>{" "}
-                      <span className="text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">30%</span>
+                      <span className="text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">20%</span>
                     </p>
                   </CardContent>
                 </Card>
@@ -389,14 +389,14 @@ const Index = () => {
                   <CardHeader className="pb-3">
                     <div>
                       <CardTitle className="text-3xl mb-1">$219</CardTitle>
-                      <CardDescription className="text-base">Couple 6-Month</CardDescription>
+                      <CardDescription className="text-base">Couple One Year</CardDescription>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <p className="text-muted-foreground text-sm mb-1">One-time payment</p>
                     <p className="text-base font-bold">
                       <span className="text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">Save</span>{" "}
-                      <span className="text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">30%</span>
+                      <span className="text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">20%</span>
                     </p>
                   </CardContent>
                 </Card>

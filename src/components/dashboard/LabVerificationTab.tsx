@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { FlaskConical, Loader2, ShieldCheck, Heart, CreditCard, Package, Droplet, CheckCircle, ArrowRight } from "lucide-react";
 import Barcode from "react-barcode";
+import { LabSponsorLogos } from "./LabSponsorLogos";
 
 interface LabOrder {
   id: string;
@@ -147,6 +148,9 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
           </p>
         </CardHeader>
       </Card>
+
+      {/* Lab Sponsor Logos */}
+      <LabSponsorLogos category="lab_certified" />
 
       {/* Peace of Mind Timeline */}
       <Card className="border-2 border-primary/30 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-pink-950/20 shadow-lg">

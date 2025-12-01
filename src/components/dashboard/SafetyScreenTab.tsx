@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { ShieldCheck, Loader2, AlertCircle, CreditCard, Package, Plane, CheckCircle, ArrowRight, Heart, Droplet } from "lucide-react";
 import Barcode from "react-barcode";
 import { SafetyQRCode } from "./SafetyQRCode";
+import { LabSponsorLogos } from "./LabSponsorLogos";
 
 interface LabOrder {
   id: string;
@@ -144,6 +145,9 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
           </p>
         </CardHeader>
       </Card>
+
+      {/* Lab Sponsor Logos */}
+      <LabSponsorLogos category="toxicology" />
 
       {/* Timeline Visual - The Speed Selling Point */}
       <Card className="border-2 border-green-500/30 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20 shadow-lg">

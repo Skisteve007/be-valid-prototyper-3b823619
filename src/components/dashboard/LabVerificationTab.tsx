@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { FlaskConical, Loader2 } from "lucide-react";
+import { FlaskConical, Loader2, ShieldCheck } from "lucide-react";
 import Barcode from "react-barcode";
 
 interface LabOrder {
@@ -110,12 +110,28 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
 
   return (
     <div className="space-y-6 p-6">
-      <Card className="shadow-lg border-primary/20">
-        <CardHeader>
+      <Card className="shadow-lg border-border/20 bg-card">
+        <CardHeader className="space-y-4 pb-6">
           <CardTitle className="flex items-center gap-2 text-2xl bg-gradient-to-r from-pink-500 via-primary to-blue-500 bg-clip-text text-transparent">
             <FlaskConical className="h-6 w-6 text-primary" />
             Get Clinically Verified
           </CardTitle>
+          
+          <div className="bg-muted/30 border border-border/40 rounded-lg p-4 space-y-3">
+            <h3 className="text-base font-semibold text-foreground tracking-tight">
+              Sexual Health Verification for High-Frequency Dating Communities.
+            </h3>
+            
+            <div className="flex items-start gap-3">
+              <ShieldCheck className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-foreground">Medical Grade Security</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  The industry standard for privacy and precision. We bridge the gap between your lifestyle freedom and clinical accuracy.
+                </p>
+              </div>
+            </div>
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-muted-foreground">

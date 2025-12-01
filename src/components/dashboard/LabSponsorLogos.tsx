@@ -48,16 +48,17 @@ export const LabSponsorLogos = ({ category }: LabSponsorLogosProps) => {
     );
   }
 
-  if (sponsors.length === 0) {
-    return null;
-  }
-
   return (
     <Card className="border-border/40 bg-muted/20">
       <CardContent className="p-4">
         <p className="text-xs text-muted-foreground text-center mb-3">
           Lab Testing Partner{sponsors.length > 1 ? 's' : ''}
         </p>
+        {sponsors.length === 0 ? (
+          <p className="text-xs text-muted-foreground text-center italic">
+            Lab partner logos will display here when configured by admin
+          </p>
+        ) : (
         <div className="flex flex-wrap items-center justify-center gap-4">
           {sponsors.map((sponsor) => (
             <a
@@ -79,6 +80,7 @@ export const LabSponsorLogos = ({ category }: LabSponsorLogosProps) => {
             </a>
           ))}
         </div>
+        )}
       </CardContent>
     </Card>
   );

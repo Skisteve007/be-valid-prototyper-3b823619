@@ -372,7 +372,7 @@ const Index = () => {
                   <CardHeader className="pb-3">
                     <div>
                       <CardTitle className="text-3xl mb-1">$129</CardTitle>
-                      <CardDescription className="text-base">Single One Year</CardDescription>
+                      <CardDescription className="text-base font-bold">Single One Year</CardDescription>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
@@ -389,7 +389,7 @@ const Index = () => {
                   <CardHeader className="pb-3">
                     <div>
                       <CardTitle className="text-3xl mb-1">$219</CardTitle>
-                      <CardDescription className="text-base">Couple One Year</CardDescription>
+                      <CardDescription className="text-base font-bold">Couple One Year</CardDescription>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">

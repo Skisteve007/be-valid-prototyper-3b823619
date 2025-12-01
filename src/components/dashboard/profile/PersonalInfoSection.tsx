@@ -206,8 +206,8 @@ export const PersonalInfoSection = ({
                 
                 {/* Lab Certified Section - Always visible with status badge */}
                 <div className="space-y-2 mt-2">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 flex-1 p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
                       {isAdmin ? (
                         <Checkbox
                           id="lab_certified"
@@ -223,23 +223,23 @@ export const PersonalInfoSection = ({
                           {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
                         </div>
                       )}
-                      <Label htmlFor="lab_certified" className={`text-sm font-semibold text-cyan-600 flex items-center gap-2 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
+                      <Label htmlFor="lab_certified" className={`text-sm font-semibold text-cyan-600 flex items-center gap-1.5 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
                         <CheckCircle className="w-4 h-4" />
                         Lab Certified
                       </Label>
                       
                       {labCertified ? (
-                        <Badge className="ml-auto bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50">
+                        <Badge className="bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50">
                           ✓ Certified
                         </Badge>
                       ) : (
-                        <Badge variant="secondary" className="ml-auto bg-gray-200 text-gray-600 border border-gray-300">
+                        <Badge variant="secondary" className="bg-gray-200 text-gray-600 border border-gray-300">
                           Not Certified
                         </Badge>
                       )}
                     </div>
                     
-                    {/* Lab Logo Thumbnail - Outside the box */}
+                    {/* Lab Logo Thumbnail - Next to the box */}
                     <div className="flex flex-col items-center gap-1">
                       <div className="w-16 h-16 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden shadow-md">
                         {labLogoUrl ? (

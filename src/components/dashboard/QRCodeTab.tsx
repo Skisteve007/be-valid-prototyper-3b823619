@@ -335,42 +335,33 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           )}
 
           {/* Border Color Explainer */}
-          <div className="w-full max-w-md space-y-3 p-4 rounded-lg border bg-muted/50">
-            <h4 className="text-sm font-semibold text-center">QR Code Border Color</h4>
-            <p className="text-xs text-muted-foreground text-center">
-              The colored border around your QR code is a <strong>voluntary member-chosen identifier</strong> that signals your health status preference to others.
-            </p>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="flex items-center gap-2 p-2 rounded bg-background">
-                <div className="w-3 h-3 rounded-full bg-green-500 ring-2 ring-green-500/30"></div>
-                <span>All Clean</span>
+          <div className="w-full max-w-md space-y-2 p-3 rounded-lg border bg-muted/50">
+            <h4 className="text-xs font-semibold text-center">Border Color Key</h4>
+            <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30"></div>
+                <span>Clean</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded bg-background">
-                <div className="w-3 h-3 rounded-full bg-yellow-500 ring-2 ring-yellow-500/30"></div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 ring-1 ring-yellow-500/30"></div>
                 <span>Caution</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded bg-background">
-                <div className="w-3 h-3 rounded-full bg-red-500 ring-2 ring-red-500/30"></div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500 ring-1 ring-red-500/30"></div>
                 <span>Be Aware</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded bg-background">
-                <div className="w-3 h-3 rounded-full bg-gray-500 ring-2 ring-gray-500/30"></div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-gray-500 ring-1 ring-gray-500/30"></div>
                 <span>Incognito</span>
               </div>
             </div>
             {statusColor === "gray" && (
-              <div className="mt-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
-                <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-2">
+              <div className="p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
+                <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5">
                   <span className="text-green-500">✓</span> Screen Brightness Active
-                </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400 text-center mt-1">
-                  Your screen will stay bright for easy scanning in dark environments
                 </p>
               </div>
             )}
-            <p className="text-xs text-muted-foreground text-center italic">
-              You can change your status color in the Profile tab
-            </p>
           </div>
 
           {lastDocumentDate && (

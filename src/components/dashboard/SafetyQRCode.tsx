@@ -117,12 +117,12 @@ export const SafetyQRCode = ({ userId }: SafetyQRCodeProps) => {
   const handleShare = async () => {
     if (!qrCodeUrl) return;
 
-    const shareText = `My 10-Panel Safety Screen Result - Verified Negative\n\nView my certificate: ${qrCodeUrl}`;
+    const shareText = `My 10-Panel Toxicology Lab Certified Result - Verified Negative\n\nView my certificate: ${qrCodeUrl}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Safety Screen Certificate",
+          title: "Toxicology Lab Certified Certificate",
           text: shareText,
         });
         toast.success("Shared successfully!");
@@ -184,7 +184,7 @@ export const SafetyQRCode = ({ userId }: SafetyQRCodeProps) => {
               <div className="flex items-center justify-center gap-2">
                 <ShieldCheck className="h-5 w-5 text-green-600" />
                 <p className="font-bold text-green-700 dark:text-green-400">
-                  10-Panel Safety Screen: NEGATIVE
+                  10-Panel Toxicology Lab Certified: NEGATIVE
                 </p>
               </div>
               <p className="text-sm text-muted-foreground">

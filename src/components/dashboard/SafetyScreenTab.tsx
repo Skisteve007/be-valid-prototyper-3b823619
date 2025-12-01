@@ -44,8 +44,8 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
       if (error) throw error;
       setOrders(data || []);
     } catch (error: any) {
-      console.error("Error fetching safety screen orders:", error);
-      toast.error("Failed to load safety screen orders");
+      console.error("Error fetching toxicology lab orders:", error);
+      toast.error("Failed to load toxicology lab orders");
     } finally {
       setFetchingOrders(false);
     }
@@ -75,7 +75,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
 
       if (error) throw error;
 
-      toast.success("Safety Shield kit ordered successfully! Check your email for shipping details.");
+      toast.success("Toxicology Lab Certified kit ordered successfully! Check your email for shipping details.");
       setPaymentModalOpen(false);
       await fetchOrders();
     } catch (error: any) {
@@ -131,7 +131,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
         <CardHeader className="space-y-4 pb-6">
           <CardTitle className="flex items-center gap-2 text-2xl bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 bg-clip-text text-transparent">
             <ShieldCheck className="h-6 w-6 text-green-600" />
-            Safety Screen
+            Toxicology Lab Certified
           </CardTitle>
           
           <div className="bg-green-50/50 dark:bg-green-950/30 border border-green-500/40 rounded-lg p-4 space-y-3">
@@ -160,7 +160,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
                     <ShieldCheck className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg">The Safety Shield</h3>
+                    <h3 className="font-bold text-lg">Toxicology Lab Certified</h3>
                     <p className="text-sm text-muted-foreground">10-Panel Tox Screen</p>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
           <div className="space-y-4 py-4">
             <div className="bg-muted/50 rounded-lg p-4 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-medium">The Safety Shield</span>
+                <span className="font-medium">Toxicology Lab Certified</span>
                 <span className="font-bold text-lg">$89.00</span>
               </div>
               <p className="text-xs text-muted-foreground">
@@ -246,7 +246,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
       {orders.length > 0 && (
         <div className="space-y-4">
           <h3 className="text-xl font-semibold bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 bg-clip-text text-transparent">
-            Your Safety Screen Orders
+            Your Toxicology Lab Certified Orders
           </h3>
           {orders.map((order) => (
             <Card key={order.id} className="shadow-md border-green-500/20">

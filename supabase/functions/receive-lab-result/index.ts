@@ -21,6 +21,35 @@ serve(async (req) => {
 
     console.log("Receiving lab result webhook...");
 
+    // Extract and validate API key from Authorization header
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      throw new Error("Missing or invalid Authorization header. Use: Authorization: Bearer YOUR_API_KEY");
+    }
+
+    const apiKey = authHeader.replace("Bearer ", "");
+
+    // Validate API key against lab_partners table
+    const { data: labPartner, error: authError } = await supabase
+      .from("lab_partners")
+      .select("*")
+      .eq("api_key", apiKey)
+      .eq("active", true)
+      .single();
+
+    if (authError || !labPartner) {
+      console.error("Invalid or inactive API key");
+      throw new Error("Unauthorized: Invalid or inactive API key");
+    }
+
+    console.log(`Authenticated lab partner: ${labPartner.name}`);
+
+    // Update last_used_at timestamp
+    await supabase
+      .from("lab_partners")
+      .update({ last_used_at: new Date().toISOString() })
+      .eq("id", labPartner.id);
+
     const { requisition_id, result, barcode } = await req.json();
 
     if (!requisition_id && !barcode) {

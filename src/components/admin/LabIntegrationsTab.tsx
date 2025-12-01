@@ -16,10 +16,12 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { FlaskConical, Loader2, TestTube } from "lucide-react";
+import { FlaskConical, Loader2, TestTube, Key } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { LabPartnersManager } from "./LabPartnersManager";
 
 interface LabOrder {
   id: string;
@@ -166,14 +168,27 @@ export const LabIntegrationsTab = () => {
 
   return (
     <div className="space-y-6 p-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-2xl">
-            <FlaskConical className="h-6 w-6" />
-            Lab Integrations
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      <Tabs defaultValue="orders" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="orders">
+            <FlaskConical className="h-4 w-4 mr-2" />
+            Lab Orders
+          </TabsTrigger>
+          <TabsTrigger value="partners">
+            <Key className="h-4 w-4 mr-2" />
+            API Partners
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="orders" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-2xl">
+                <FlaskConical className="h-6 w-6" />
+                Lab Orders
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
           <div className="rounded-md border">
             <Table>
               <TableHeader>
@@ -227,9 +242,15 @@ export const LabIntegrationsTab = () => {
                 )}
               </TableBody>
             </Table>
-          </div>
-        </CardContent>
-      </Card>
+            </div>
+          </CardContent>
+        </Card>
+        </TabsContent>
+
+        <TabsContent value="partners">
+          <LabPartnersManager />
+        </TabsContent>
+      </Tabs>
 
       <Dialog open={simulateDialogOpen} onOpenChange={setSimulateDialogOpen}>
         <DialogContent>

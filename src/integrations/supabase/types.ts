@@ -107,6 +107,39 @@ export type Database = {
         }
         Relationships: []
       }
+      lab_partners: {
+        Row: {
+          active: boolean
+          api_key: string
+          contact_email: string | null
+          created_at: string
+          id: string
+          last_used_at: string | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          api_key: string
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          last_used_at?: string | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          api_key?: string
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          last_used_at?: string | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       member_references: {
         Row: {
           created_at: string
@@ -166,6 +199,8 @@ export type Database = {
           health_document_url: string | null
           id: string
           instagram_handle: string | null
+          lab_disclaimer_accepted: boolean | null
+          lab_disclaimer_accepted_at: string | null
           member_id: string | null
           onlyfans_handle: string | null
           partner_preferences: Json | null
@@ -207,6 +242,8 @@ export type Database = {
           health_document_url?: string | null
           id?: string
           instagram_handle?: string | null
+          lab_disclaimer_accepted?: boolean | null
+          lab_disclaimer_accepted_at?: string | null
           member_id?: string | null
           onlyfans_handle?: string | null
           partner_preferences?: Json | null
@@ -248,6 +285,8 @@ export type Database = {
           health_document_url?: string | null
           id?: string
           instagram_handle?: string | null
+          lab_disclaimer_accepted?: boolean | null
+          lab_disclaimer_accepted_at?: string | null
           member_id?: string | null
           onlyfans_handle?: string | null
           partner_preferences?: Json | null

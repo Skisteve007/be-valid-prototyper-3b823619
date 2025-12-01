@@ -90,8 +90,52 @@ const Terms = () => {
             </p>
           </section>
 
+          <section className="mb-8 border-l-4 border-yellow-500 pl-6 bg-yellow-50 dark:bg-yellow-950/20 p-6 rounded-r">
+            <h2 className="text-2xl font-semibold mb-4 text-yellow-800 dark:text-yellow-400">10. Laboratory Integration Disclaimer</h2>
+            <p className="font-bold mb-4 text-yellow-900 dark:text-yellow-300">
+              ⚠️ CRITICAL LEGAL NOTICE: Clean Check is NOT affiliated with, endorsed by, or responsible for any laboratory testing facility or lab integrator.
+            </p>
+            <div className="space-y-4 text-gray-800 dark:text-gray-200">
+              <p>
+                <strong>No Medical Relationship:</strong> Clean Check does NOT provide medical services, laboratory testing, diagnostic services, or healthcare advice. We are solely a technology platform that facilitates the communication of test result statuses.
+              </p>
+              <p>
+                <strong>Lab Partner Responsibility:</strong> Any laboratory or testing facility ("Lab Partner") that integrates with Clean Check's API:
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Is solely and exclusively responsible for HIPAA compliance and all federal, state, and local healthcare privacy laws</li>
+                <li>Must maintain their own Business Associate Agreements (BAAs) with patients</li>
+                <li>Is responsible for all medical testing, result accuracy, and patient care</li>
+                <li>Must implement and maintain appropriate technical, physical, and administrative safeguards for Protected Health Information (PHI)</li>
+                <li>Bears full liability for any breach of patient data or HIPAA violations</li>
+              </ul>
+              <p>
+                <strong>Clean Check's Limited Role:</strong> Clean Check provides ONLY a secure API endpoint for receiving test result status updates (e.g., "negative," "positive," "inconclusive"). We do NOT:
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Store, access, or process any Protected Health Information (PHI) beyond basic result status</li>
+                <li>Conduct medical testing or diagnostics</li>
+                <li>Provide medical advice or interpretation of test results</li>
+                <li>Act as a healthcare provider or Business Associate under HIPAA</li>
+                <li>Assume any liability for lab results, medical decisions, or patient outcomes</li>
+              </ul>
+              <p>
+                <strong>Data Protection:</strong> Lab Partners must ensure that:
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>All PHI is encrypted in transit using industry-standard protocols (TLS 1.2+)</li>
+                <li>API keys are stored securely and never exposed in client-side code</li>
+                <li>Only minimum necessary information is transmitted via the API</li>
+                <li>Patient consent is obtained for result sharing through Clean Check</li>
+              </ul>
+              <p className="font-bold mt-4 text-yellow-900 dark:text-yellow-300">
+                By using Clean Check's laboratory integration API, Lab Partners acknowledge they have read, understood, and agree to comply with all terms of this disclaimer. Lab Partners indemnify and hold harmless Clean Check from any claims, damages, or liabilities arising from lab services, test results, or HIPAA compliance failures.
+              </p>
+            </div>
+          </section>
+
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">10. Contact</h2>
+            <h2 className="text-2xl font-semibold mb-4">11. Contact</h2>
             <p>
               For questions about these Terms of Service, please contact us through our support channels.
             </p>

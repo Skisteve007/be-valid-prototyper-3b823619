@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { Mail, Send, Edit, Users, Clock, Filter } from "lucide-react";
 import { LaunchRoadmap } from "./LaunchRoadmap";
 import { SalesAssets } from "./SalesAssets";
+import { SocialMediaRotation } from "./SocialMediaRotation";
+import { MediaGallery } from "./MediaGallery";
 
 interface MarketingTemplate {
   id: string;
@@ -188,8 +190,17 @@ export function CampaignsTab() {
 
       {/* Strategy Execution Section */}
       <div className="grid lg:grid-cols-2 gap-6">
-        <LaunchRoadmap onNavigateToTemplate={handleNavigateToTemplate} />
-        <SalesAssets />
+        {/* Left Column */}
+        <div className="space-y-6">
+          <LaunchRoadmap onNavigateToTemplate={handleNavigateToTemplate} />
+          <SalesAssets />
+        </div>
+        
+        {/* Right Column: Social Media Command Center */}
+        <div className="space-y-6">
+          <SocialMediaRotation />
+          <MediaGallery />
+        </div>
       </div>
 
       {/* Campaign Track Filter */}

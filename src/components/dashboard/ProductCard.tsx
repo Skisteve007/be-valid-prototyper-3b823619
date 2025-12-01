@@ -111,7 +111,7 @@ export const ProductCard = ({ type, title, price, icon: Icon, onOrderClick }: Pr
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-base">🟢</span>
-                  <span><strong className="text-foreground">90-Day Pass:</strong> Negative results activate your Green Pass instantly.</span>
+                  <span><strong className="text-foreground">90-Day Pass:</strong> Negative results activate to your QR Green Code, and posts the Lab Certified Badge instantly to your profile.</span>
                 </li>
               </ul>
               

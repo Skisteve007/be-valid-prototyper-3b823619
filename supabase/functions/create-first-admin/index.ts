@@ -46,39 +46,62 @@ serve(async (req) => {
       throw new Error("An administrator already exists. Please use the login page.");
     }
 
-    // Create the user account
-    const { data: userData, error: signUpError } = await supabaseAdmin.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true, // Auto-confirm email for admin
-      user_metadata: {
-        full_name: "Administrator",
-      },
-    });
+    // Check if user already exists
+    const { data: existingUser } = await supabaseAdmin.auth.admin.listUsers();
+    const userExists = existingUser?.users.find(u => u.email?.toLowerCase() === email.toLowerCase());
 
-    if (signUpError) {
-      console.error("Error creating user:", signUpError);
-      throw new Error(signUpError.message || "Failed to create user account");
+    let userId: string;
+
+    if (userExists) {
+      console.log("User already exists:", userExists.id);
+      userId = userExists.id;
+
+      // Update their password
+      const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
+        userId,
+        { password }
+      );
+
+      if (updateError) {
+        console.error("Error updating user password:", updateError);
+        throw new Error("User exists but failed to update password");
+      }
+
+      console.log("Password updated for existing user");
+    } else {
+      // Create the user account
+      const { data: userData, error: signUpError } = await supabaseAdmin.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: true, // Auto-confirm email for admin
+        user_metadata: {
+          full_name: "Administrator",
+        },
+      });
+
+      if (signUpError) {
+        console.error("Error creating user:", signUpError);
+        throw new Error(signUpError.message || "Failed to create user account");
+      }
+
+      if (!userData.user) {
+        throw new Error("User creation returned no user data");
+      }
+
+      console.log("User created:", userData.user.id);
+      userId = userData.user.id;
     }
-
-    if (!userData.user) {
-      throw new Error("User creation returned no user data");
-    }
-
-    console.log("User created:", userData.user.id);
 
     // Add administrator role using service role (bypasses RLS)
     const { error: roleError } = await supabaseAdmin
       .from("user_roles")
       .insert({
-        user_id: userData.user.id,
+        user_id: userId,
         role: "administrator",
       });
 
     if (roleError) {
       console.error("Error adding admin role:", roleError);
-      // Try to delete the user if role assignment fails
-      await supabaseAdmin.auth.admin.deleteUser(userData.user.id);
       throw new Error("Failed to assign administrator role");
     }
 
@@ -88,7 +111,7 @@ serve(async (req) => {
       JSON.stringify({
         success: true,
         message: "Admin account created successfully",
-        userId: userData.user.id,
+        userId: userId,
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,6 +24,7 @@ interface SafetyScreenTabProps {
 }
 
 export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<LabOrder[]>([]);
   const [fetchingOrders, setFetchingOrders] = useState(true);
@@ -52,7 +54,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
   };
 
   const handleProductSelect = () => {
-    setPaymentModalOpen(true);
+    navigate("/toxicology-kit-order");
   };
 
   const handlePaymentComplete = async () => {

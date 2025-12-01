@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useNavigate } from "react-router-dom";
-import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle } from "lucide-react";
+import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle, Package, Plane, ShieldCheck } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -405,49 +405,159 @@ const Index = () => {
                   <Star className="h-4 w-4 text-secondary" />
                   Universal membership - works on all sites employing Clean Check services
                 </p>
-                
-                {/* Lab Certified Testing Kit - Horizontal Card */}
-                <div className="mt-2 md:mt-4">
-                  <Card className="relative overflow-hidden border-cyan-500/40 bg-gradient-to-r from-cyan-50/50 via-blue-50/50 to-cyan-50/50 dark:from-cyan-950/20 dark:via-blue-950/20 dark:to-cyan-950/20 hover:shadow-xl transition-shadow max-w-3xl mx-auto">
-                    <div className="absolute inset-0 bg-cyan-500/10 blur-2xl"></div>
-                    <CardContent className="relative p-4">
-                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div className="flex-1 text-center md:text-left">
-                          <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
-                            <div className="p-1.5 bg-cyan-600 rounded-full">
-                              <CheckCircle className="h-4 w-4 text-white" />
-                            </div>
-                            <h3 className="text-xl font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                              Lab Certified Testing Kit
-                            </h3>
+              </div>
+            </ScrollReveal>
+
+          </div>
+        </section>
+
+        {/* Toxicology Lab Certified Kit Section */}
+        <section className="py-12 px-4 bg-gradient-to-b from-background to-muted/30">
+          <div className="container mx-auto max-w-5xl">
+            <ScrollReveal direction="up" delay={100}>
+              <div className="text-center mb-8">
+                <h2 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-br from-green-600 via-emerald-500 to-green-600 bg-clip-text text-transparent">
+                  Lab-Certified 10-Panel Toxicology Verification
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Go beyond instant cups. Get a GC/MS Lab-Confirmed report directly in your app.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            {/* Timeline Visual */}
+            <ScrollReveal direction="up" delay={200}>
+              <div className="mb-12 relative">
+                <div className="absolute inset-0 bg-green-500/10 blur-3xl rounded-lg -z-10"></div>
+                <Card className="border-2 border-green-500/30 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20">
+                  <CardContent className="p-8">
+                    <div className="grid md:grid-cols-3 gap-8 md:gap-4">
+                      {/* Step 1 */}
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-green-500/30 blur-xl rounded-full"></div>
+                          <div className="relative p-4 bg-green-600 rounded-full">
+                            <Package className="h-8 w-8 text-white" />
                           </div>
-                          <p className="text-sm text-muted-foreground mb-1">
-                            Add to your peer-to-peer QR code with lab-verified results for enhanced trust and credibility.
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            Includes at-home kit delivery + certified lab processing
-                          </p>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <div className="text-center md:text-right">
-                            <p className="text-3xl font-bold text-cyan-700 dark:text-cyan-400">$149</p>
-                            <p className="text-xs text-muted-foreground">One-time payment</p>
+                        <div>
+                          <h3 className="font-bold text-lg mb-2 text-green-700 dark:text-green-400">Priority Dispatch</h3>
+                          <p className="text-sm text-muted-foreground">Kit ships same-day in discreet packaging.</p>
+                        </div>
+                      </div>
+
+                      {/* Arrow for desktop */}
+                      <div className="hidden md:flex items-center justify-center">
+                        <ArrowRight className="h-8 w-8 text-green-600/50" />
+                      </div>
+
+                      {/* Step 2 */}
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-blue-500/30 blur-xl rounded-full"></div>
+                          <div className="relative p-4 bg-blue-600 rounded-full">
+                            <Plane className="h-8 w-8 text-white" />
                           </div>
-                          <Button
-                            className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white shadow-lg shadow-cyan-500/50 min-h-[48px] touch-manipulation"
-                            onClick={() => {
-                              window.scrollTo(0, 0);
-                              navigate("/lab-kit-order");
-                            }}
-                          >
-                            Get Lab Certified
-                          </Button>
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg mb-2 text-blue-700 dark:text-blue-400">Overnight Return</h3>
+                          <p className="text-sm text-muted-foreground">Includes pre-paid priority return label for fastest lab arrival.</p>
+                        </div>
+                      </div>
+
+                      {/* Arrow for desktop */}
+                      <div className="hidden md:flex items-center justify-center">
+                        <ArrowRight className="h-8 w-8 text-green-600/50" />
+                      </div>
+
+                      {/* Step 3 */}
+                      <div className="flex flex-col items-center text-center space-y-4">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-emerald-500/30 blur-xl rounded-full"></div>
+                          <div className="relative p-4 bg-emerald-600 rounded-full">
+                            <ShieldCheck className="h-8 w-8 text-white" />
+                          </div>
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg mb-2 text-emerald-700 dark:text-emerald-400">24-Hour Lab Processing</h3>
+                          <p className="text-sm text-muted-foreground">Results certified within 24 hours of lab receipt.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </ScrollReveal>
+
+            {/* Technical Specs Accordion */}
+            <ScrollReveal direction="up" delay={300}>
+              <div className="mb-8">
+                <Accordion type="single" collapsible className="w-full max-w-2xl mx-auto">
+                  <AccordionItem value="specs" className="border-2 border-green-500/30 rounded-lg px-6 bg-card">
+                    <AccordionTrigger className="text-lg font-semibold hover:text-green-600">
+                      Technical Specs - What It Screens
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground space-y-2 pt-2">
+                      <p className="font-medium">10-Panel Comprehensive Screening:</p>
+                      <ul className="list-disc list-inside space-y-1 ml-2">
+                        <li>Amphetamines (AMP)</li>
+                        <li>Cannabinoids / THC (THC)</li>
+                        <li>Cocaine (COC)</li>
+                        <li>Opiates (OPI)</li>
+                        <li>Phencyclidine / PCP (PCP)</li>
+                        <li>Benzodiazepines (BZO)</li>
+                        <li>Barbiturates (BAR)</li>
+                        <li>Methadone (MTD)</li>
+                        <li>Methamphetamine (mAMP)</li>
+                        <li>Ecstasy / MDMA (MDMA)</li>
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </ScrollReveal>
+
+            {/* CTA Section */}
+            <ScrollReveal direction="up" delay={400}>
+              <div className="text-center">
+                <div className="relative inline-block">
+                  <div className="absolute inset-0 bg-green-500/20 blur-2xl rounded-lg"></div>
+                  <Card className="relative border-2 border-green-500/40 bg-gradient-to-br from-green-50/80 to-emerald-50/80 dark:from-green-950/40 dark:to-emerald-950/40 shadow-[0_0_40px_rgba(34,197,94,0.3)]">
+                    <CardContent className="p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                      <div className="text-center md:text-left">
+                        <p className="text-4xl font-bold text-green-700 dark:text-green-400 mb-1">$129</p>
+                        <p className="text-sm text-muted-foreground">One-time payment</p>
+                      </div>
+                      <div className="flex flex-col items-center gap-3">
+                        <Button
+                          size="lg"
+                          onClick={() => navigate("/toxicology-kit-order")}
+                          className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-[0_0_30px_rgba(34,197,94,0.5)] hover:shadow-[0_0_40px_rgba(34,197,94,0.7)] text-lg px-8 py-6 min-h-[56px] touch-manipulation"
+                        >
+                          <ShieldCheck className="mr-2 h-5 w-5" />
+                          Order Toxicology Kit - $129
+                        </Button>
+                        <div className="flex items-center gap-2 bg-green-600/10 px-4 py-2 rounded-full border border-green-500/30">
+                          <CheckCircle className="h-4 w-4 text-green-600" />
+                          <span className="text-sm font-medium text-green-700 dark:text-green-400">
+                            Results valid for Clean Check Verification
+                          </span>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
               </div>
+            </ScrollReveal>
+
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="py-6 px-4 bg-muted/30">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollReveal direction="up" delay={100}>
+              <h3 className="text-4xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-wide">Why Join Clean Check?</h3>
             </ScrollReveal>
 
           </div>

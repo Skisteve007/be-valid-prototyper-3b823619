@@ -330,10 +330,10 @@ const Index = () => {
                   <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader>
                     <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle className="text-3xl mb-1">$39</CardTitle>
-                        <CardDescription className="text-base mb-1">Single Member</CardDescription>
-                        <p className="text-sm text-muted-foreground">Per 3 months</p>
+                      <div className="space-y-1">
+                        <CardTitle className="text-3xl">$39</CardTitle>
+                        <CardDescription className="text-base font-semibold">Single Member</CardDescription>
+                        <p className="text-sm text-muted-foreground">Per 3 Months</p>
                       </div>
                       {selectedPlan === "single" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">
@@ -352,10 +352,10 @@ const Index = () => {
                   <div className="absolute inset-0 bg-pink-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader>
                     <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle className="text-3xl mb-1">$69</CardTitle>
-                        <CardDescription className="text-base mb-1">Joint/Couple</CardDescription>
-                        <p className="text-sm text-muted-foreground">Per 3 months</p>
+                      <div className="space-y-1">
+                        <CardTitle className="text-3xl">$69</CardTitle>
+                        <CardDescription className="text-base font-semibold">Joint/Couple</CardDescription>
+                        <p className="text-sm text-muted-foreground">Per 3 Months</p>
                       </div>
                       {selectedPlan === "couple" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">

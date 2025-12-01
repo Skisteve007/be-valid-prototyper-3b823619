@@ -7,6 +7,17 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2, Heart, User, CheckCircle2, XCircle } from "lucide-react";
 import { toast } from "sonner";
 
+interface Document {
+  id: string;
+  title: string;
+  document_url: string | null;
+  issue_date: string | null;
+  expiry_date: string | null;
+  issuer: string | null;
+  status: string | null;
+  created_at: string;
+}
+
 interface ProfileData {
   id: string;
   member_id: string;
@@ -21,6 +32,7 @@ interface ProfileData {
   smoker?: boolean;
   health_document_uploaded_at?: string | null;
   selected_interests?: string[];
+  documents?: Document[];
   created_at?: string;
 }
 
@@ -295,6 +307,47 @@ const ViewProfile = () => {
             )}
           </CardContent>
         </Card>
+
+        {/* Uploaded Documents */}
+        {profile.documents && profile.documents.length > 0 && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5" />
+                Verification Documents
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-3">
+                {profile.documents.map((doc) => (
+                  <div
+                    key={doc.id}
+                    className="flex items-center justify-between p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+                  >
+                    <div className="flex-1">
+                      <p className="font-medium">{doc.title}</p>
+                      {doc.issue_date && (
+                        <p className="text-sm text-muted-foreground">
+                          Issued: {formatDate(doc.issue_date)}
+                        </p>
+                      )}
+                    </div>
+                    {doc.document_url && (
+                      <a
+                        href={doc.document_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        View
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Privacy Notice */}
         <Card className="bg-muted border-primary/20">

@@ -14,7 +14,7 @@ import QRCodeTab from "@/components/dashboard/QRCodeTab";
 import PendingReferencesTab from "@/components/dashboard/PendingReferencesTab";
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/clean-check-logo-v2.png";
 
 const Dashboard = () => {
   const navigate = useNavigate();

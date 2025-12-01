@@ -408,6 +408,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); }}
           onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); }}
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
         >
           <div style={{ fontSize: '0.75rem', fontWeight: 600, textAlign: 'center', marginBottom: '0.5rem' }}>
             Border Color Key
@@ -457,6 +458,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); }}
             onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); }}
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+            onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
           >
             <div style={{ fontSize: '0.75rem', textAlign: 'center', fontWeight: 500, marginBottom: '0.5rem' }}>
               Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 

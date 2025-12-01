@@ -503,6 +503,9 @@ const Admin = () => {
               <Code className="h-4 w-4 mr-2" />
               Developers & Integrations
             </TabsTrigger>
+            <TabsTrigger value="campaigns" className="cursor-pointer flex-1">
+              Campaigns
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="sponsors" className="space-y-8">

@@ -69,20 +69,20 @@ const HealthPanelOrder = () => {
                     <Heart className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-2xl">Gold-Standard Sexual Health Panel</CardTitle>
-                    <CardDescription>10-Panel Comprehensive Screen - Professional Lab Verification</CardDescription>
+                    <CardTitle className="text-2xl">Platinum 13-Panel Sexual Health Screen</CardTitle>
+                    <CardDescription>Platinum Comprehensive Screen - Professional Lab Verification</CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="p-4 bg-white dark:bg-gray-900 rounded-lg border-2 border-pink-500/30 space-y-4">
                   <p className="text-sm text-muted-foreground">
-                    The clinical accuracy of a doctor's visit, with the privacy of your own home. Add lab-verified sexual health results to your Clean Check profile.
+                    The most comprehensive at-home verification available. Covers 30% more than standard clinic tests. Add lab-verified sexual health results to your Clean Check profile.
                   </p>
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
                       <p className="text-sm text-muted-foreground">Total Amount</p>
-                      <p className="text-3xl font-bold text-pink-700 dark:text-pink-400">$149.00</p>
+                      <p className="text-3xl font-bold text-pink-700 dark:text-pink-400">$249.00</p>
                     </div>
                     <div className="text-right text-sm text-muted-foreground">
                       <p>✓ At-home kit delivery</p>
@@ -219,8 +219,8 @@ const HealthPanelOrder = () => {
                 <CardContent className="space-y-4">
                   <div className="bg-muted/50 rounded-lg p-4 space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="font-medium">Sexual Health Panel</span>
-                      <span className="text-xl font-bold text-pink-700 dark:text-pink-400">$149.00</span>
+                      <span className="font-medium">Platinum 13-Panel Sexual Health Screen</span>
+                      <span className="text-xl font-bold text-pink-700 dark:text-pink-400">$249.00</span>
                     </div>
                     <p className="text-xs text-muted-foreground">
                       One-time payment • Includes kit delivery and lab processing

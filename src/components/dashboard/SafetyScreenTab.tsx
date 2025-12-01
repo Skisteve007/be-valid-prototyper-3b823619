@@ -303,11 +303,11 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
         <CardHeader className="space-y-4 pb-6">
           <CardTitle className="flex items-center gap-2 text-3xl md:text-4xl bg-gradient-to-r from-pink-600 via-rose-500 to-pink-600 bg-clip-text text-transparent">
             <Heart className="h-8 w-8 text-pink-600" />
-            Gold-Standard Sexual Health Panel (10-Panel)
+            Platinum 13-Panel Sexual Health Screen
           </CardTitle>
           
           <p className="text-lg text-muted-foreground">
-            The clinical accuracy of a doctor's visit, with the privacy of your own home.
+            The most comprehensive at-home verification available. Covers 30% more than standard clinic tests.
           </p>
         </CardHeader>
       </Card>
@@ -387,21 +387,18 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="panel" className="border-pink-500/30">
               <AccordionTrigger className="text-lg font-semibold hover:text-pink-600">
-                Comprehensive 10-Panel Screen
+                Platinum 13-Panel Comprehensive Screen
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground space-y-2 pt-2">
-                <p className="font-medium">Full lab-certified screening for:</p>
+                <p className="font-medium">Full lab-certified screening for 13 targets:</p>
                 <ul className="list-disc list-inside space-y-1 ml-2">
-                  <li>HIV I/II Antibody Testing</li>
-                  <li>Herpes Simplex Virus I & II (HSV-1, HSV-2)</li>
-                  <li>Syphilis (RPR with Reflex to TP-PA)</li>
-                  <li>Chlamydia Trachomatis</li>
-                  <li>Neisseria Gonorrhoeae (Gonorrhea)</li>
-                  <li>Hepatitis B Surface Antigen</li>
-                  <li>Hepatitis C Antibody</li>
-                  <li>Trichomonas Vaginalis</li>
-                  <li>Mycoplasma Genitalium</li>
-                  <li>Ureaplasma Species</li>
+                  <li>HIV I & II</li>
+                  <li>Herpes I & II (HSV)</li>
+                  <li>Syphilis</li>
+                  <li>Hepatitis B & C</li>
+                  <li>Chlamydia & Gonorrhea</li>
+                  <li>Trichomoniasis (Bonus)</li>
+                  <li>Mycoplasma & Ureaplasma (Bonus)</li>
                 </ul>
               </AccordionContent>
             </AccordionItem>
@@ -414,8 +411,8 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
         <CardContent className="p-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
-              <p className="text-4xl font-bold text-pink-700 dark:text-pink-400 mb-1">$149</p>
-              <p className="text-sm text-muted-foreground">One-time payment</p>
+              <p className="text-4xl font-bold text-pink-700 dark:text-pink-400 mb-1">$249.00</p>
+              <p className="text-sm text-muted-foreground">(One-Time)</p>
               <p className="text-xs text-muted-foreground mt-1">Includes Kit + Lab Processing Fee</p>
             </div>
             <div className="flex flex-col items-center gap-3">
@@ -425,12 +422,12 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
                 className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white shadow-[0_0_30px_rgba(236,72,153,0.5)] hover:shadow-[0_0_40px_rgba(236,72,153,0.7)] text-lg px-8 py-6 min-h-[56px] touch-manipulation"
               >
                 <Heart className="mr-2 h-5 w-5" />
-                Order Health Panel - $149
+                Order Health Panel - $249
               </Button>
-              <div className="flex items-center gap-2 bg-pink-600/10 px-4 py-2 rounded-full border border-pink-500/30 animate-pulse">
-                <Heart className="h-4 w-4 text-pink-600" />
+              <div className="flex items-center gap-2 bg-pink-600/10 px-4 py-2 rounded-full border border-pink-500/30">
+                <ShieldCheck className="h-4 w-4 text-pink-600" />
                 <span className="text-sm font-medium text-pink-700 dark:text-pink-400">
-                  ❤️ The 'Responsible Fun' Standard. Order Monday, Verified Friday.
+                  🛡️ Clinical Platinum Standard
                 </span>
               </div>
             </div>

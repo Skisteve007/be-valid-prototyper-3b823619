@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { FlaskConical, Loader2, ShieldCheck } from "lucide-react";
+import { FlaskConical, Loader2, ShieldCheck, Heart, CreditCard } from "lucide-react";
 import Barcode from "react-barcode";
 
 interface LabOrder {
@@ -11,6 +13,7 @@ interface LabOrder {
   barcode_value: string;
   order_status: string;
   result_status: string | null;
+  test_type: string;
   created_at: string;
 }
 
@@ -18,10 +21,14 @@ interface LabVerificationTabProps {
   userId: string;
 }
 
+type ProductType = 'safety_shield' | 'health_heart';
+
 export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<LabOrder[]>([]);
   const [fetchingOrders, setFetchingOrders] = useState(true);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null);
 
   useEffect(() => {
     fetchOrders();
@@ -33,6 +40,7 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
         .from("lab_orders")
         .select("*")
         .eq("user_id", userId)
+        .eq("test_type", "STD_PANEL")
         .order("created_at", { ascending: false });
 
       if (error) throw error;
@@ -45,7 +53,12 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
     }
   };
 
-  const generateLabOrder = async () => {
+  const handleProductSelect = (product: ProductType) => {
+    setSelectedProduct(product);
+    setPaymentModalOpen(true);
+  };
+
+  const handlePaymentComplete = async () => {
     setLoading(true);
     try {
       // Generate unique 12-digit alphanumeric code
@@ -56,15 +69,19 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
       const { data: authData } = await supabase.auth.getUser();
       if (!authData.user) throw new Error("Not authenticated");
 
+      const testType = selectedProduct === 'safety_shield' ? 'TOX_10_PANEL' : 'STD_PANEL';
+
       const { error } = await supabase.from("lab_orders").insert({
         user_id: authData.user.id,
         barcode_value: barcodeValue,
         order_status: "pending",
+        test_type: testType,
       });
 
       if (error) throw error;
 
-      toast.success("Lab order generated successfully!");
+      toast.success("Lab kit ordered successfully! Check your email for shipping details.");
+      setPaymentModalOpen(false);
       await fetchOrders();
     } catch (error: any) {
       console.error("Error generating lab order:", error);
@@ -114,58 +131,189 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
         <CardHeader className="space-y-4 pb-6">
           <CardTitle className="flex items-center gap-2 text-2xl bg-gradient-to-r from-pink-500 via-primary to-blue-500 bg-clip-text text-transparent">
             <FlaskConical className="h-6 w-6 text-primary" />
-            Get Clinically Verified
+            Get Certified Status
           </CardTitle>
           
           <div className="bg-muted/30 border border-border/40 rounded-lg p-4 space-y-3">
             <h3 className="text-base font-semibold text-foreground tracking-tight">
-              Sexual Health Verification for High-Frequency Dating Communities.
+              Professional Verification for High-Trust Communities
             </h3>
             
             <div className="flex items-start gap-3">
               <ShieldCheck className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
               <div className="space-y-1">
-                <p className="text-sm font-medium text-foreground">Medical Grade Security</p>
+                <p className="text-sm font-medium text-foreground">Choose Your Verification Level</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  The industry standard for privacy and precision. We bridge the gap between your lifestyle freedom and clinical accuracy.
+                  Select the certification that matches your needs. All tests include at-home kit delivery and certified lab processing.
                 </p>
               </div>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-muted-foreground">
-            Generate a lab order and show the barcode to the lab technician to
-            link your results automatically.
-          </p>
-          <Button
-            onClick={generateLabOrder}
-            disabled={loading}
-            size="lg"
-            className="w-full md:w-auto"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generating...
-              </>
-            ) : (
-              "Generate Lab Order"
-            )}
-          </Button>
+        <CardContent className="space-y-6">
+          {/* Product Cards */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Safety Shield Card */}
+            <Card className="relative overflow-hidden border-green-500/40 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20 hover:shadow-xl transition-shadow">
+              <div className="absolute top-4 right-4">
+                <Badge className="bg-green-600 text-white">
+                  <ShieldCheck className="h-3 w-3 mr-1" />
+                  Safety
+                </Badge>
+              </div>
+              <CardHeader className="space-y-3 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-green-600 rounded-full">
+                    <ShieldCheck className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg">The Safety Shield</h3>
+                    <p className="text-sm text-muted-foreground">10-Panel Tox Screen</p>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  10-Panel Toxicology Verification. Required for high-liability venues.
+                </p>
+                <div className="bg-white dark:bg-gray-900 p-4 rounded-lg border-2 border-green-500/30">
+                  <p className="text-3xl font-bold text-green-700 dark:text-green-400">
+                    $89.00
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Includes Kit + Lab Fee
+                  </p>
+                </div>
+                <Button
+                  onClick={() => handleProductSelect('safety_shield')}
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                  size="lg"
+                >
+                  <ShieldCheck className="mr-2 h-4 w-4" />
+                  Order Safety Kit
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Health Heart Card */}
+            <Card className="relative overflow-hidden border-pink-500/40 bg-gradient-to-br from-pink-50/50 to-rose-50/50 dark:from-pink-950/20 dark:to-rose-950/20 hover:shadow-xl transition-shadow">
+              <div className="absolute top-4 right-4">
+                <Badge className="bg-pink-600 text-white">
+                  <Heart className="h-3 w-3 mr-1" />
+                  Health
+                </Badge>
+              </div>
+              <CardHeader className="space-y-3 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-pink-600 rounded-full">
+                    <Heart className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg">The Health Heart</h3>
+                    <p className="text-sm text-muted-foreground">Comprehensive Panel</p>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Full Clinical Verification (5-Panel Standard). Verified by certified partners.
+                </p>
+                <div className="bg-white dark:bg-gray-900 p-4 rounded-lg border-2 border-pink-500/30">
+                  <p className="text-3xl font-bold text-pink-700 dark:text-pink-400">
+                    $149.00
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Includes Kit + Lab Fee
+                  </p>
+                </div>
+                <Button
+                  onClick={() => handleProductSelect('health_heart')}
+                  className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700"
+                  size="lg"
+                >
+                  <Heart className="mr-2 h-4 w-4" />
+                  Order Health Kit
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Gold Status Note */}
+          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-950/20 dark:to-amber-950/20 border border-yellow-500/30 rounded-lg p-4">
+            <p className="text-sm text-center text-muted-foreground">
+              ✨ <strong className="text-yellow-700 dark:text-yellow-400">Certified Lab Results unlock the 'Gold Border' on your entry pass for 90 days.</strong>
+            </p>
+          </div>
         </CardContent>
       </Card>
+
+      {/* Payment Modal */}
+      <Dialog open={paymentModalOpen} onOpenChange={setPaymentModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CreditCard className="h-5 w-5" />
+              Complete Your Order
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            {selectedProduct && (
+              <div className="bg-muted/50 rounded-lg p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">
+                    {selectedProduct === 'safety_shield' ? 'The Safety Shield' : 'The Health Heart'}
+                  </span>
+                  <span className="font-bold text-lg">
+                    {selectedProduct === 'safety_shield' ? '$89.00' : '$149.00'}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  One-time payment • Includes kit delivery and lab processing
+                </p>
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Payment integration coming soon. For now, clicking "Confirm Order" will generate your kit tracking information.
+              </p>
+              <Button
+                onClick={handlePaymentComplete}
+                disabled={loading}
+                className="w-full"
+                size="lg"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Confirm Order
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {orders.length > 0 && (
         <div className="space-y-4">
           <h3 className="text-xl font-semibold bg-gradient-to-r from-pink-500 via-primary to-blue-500 bg-clip-text text-transparent">
-            Your Lab Orders
+            Your Health Kit Orders
           </h3>
           {orders.map((order) => (
-            <Card key={order.id} className="shadow-md">
+            <Card key={order.id} className="shadow-md border-pink-500/20">
               <CardContent className="p-6 space-y-4">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Heart className="h-4 w-4 text-pink-600" />
+                      <p className="text-sm font-semibold">Health Heart - Comprehensive Panel</p>
+                    </div>
                     <p className="text-sm text-muted-foreground">
                       Order ID: {order.id.slice(0, 8)}...
                     </p>
@@ -196,7 +344,7 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
                     />
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground italic border-l-2 border-primary pl-3">
+                <p className="text-xs text-muted-foreground italic border-l-2 border-pink-500 pl-3">
                   💡 Show this barcode to the lab technician to link your
                   results automatically.
                 </p>

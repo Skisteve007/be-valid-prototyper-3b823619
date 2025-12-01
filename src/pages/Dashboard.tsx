@@ -214,7 +214,7 @@ const Dashboard = () => {
                     className="transition-all duration-300 hover:scale-105 hover:bg-cyan-100 dark:hover:bg-cyan-900/30 hover:shadow-lg hover:shadow-cyan-500/30"
                   >
                     <FlaskConical className="h-4 w-4 mr-2" />
-                    Lab Verify
+                    Get Certified
                   </TabsTrigger>
                   <TabsTrigger 
                     value="safety-screen"

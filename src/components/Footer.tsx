@@ -60,18 +60,16 @@ const Footer = () => {
               <Button 
                 onClick={() => navigate("/admin/login")}
                 size="sm"
-                className="relative shadow-[0_0_20px_rgba(109,40,217,0.5)] hover:shadow-[0_0_30px_rgba(109,40,217,0.7)] border border-purple-600/50 bg-purple-700/20 text-purple-200 font-semibold"
+                className="relative shadow-[0_0_15px_rgba(109,40,217,0.4)] hover:shadow-[0_0_20px_rgba(109,40,217,0.6)] border-2 border-purple-500/60 bg-purple-900/40 text-white font-semibold hover:bg-purple-800/50 transition-all"
               >
-                <div className="absolute inset-0 bg-purple-600/20 blur-lg rounded-md -z-10"></div>
                 <Shield className="h-4 w-4 mr-2" />
                 Admin Login
               </Button>
               <Button 
                 onClick={() => navigate("/admin")}
                 size="sm"
-                className="relative shadow-[0_0_20px_rgba(192,132,252,0.5)] hover:shadow-[0_0_30px_rgba(192,132,252,0.7)] border border-purple-400/40 bg-purple-500/10 text-purple-300 font-semibold"
+                className="relative shadow-[0_0_15px_rgba(147,51,234,0.4)] hover:shadow-[0_0_20px_rgba(147,51,234,0.6)] border-2 border-purple-400/60 bg-purple-800/40 text-white font-semibold hover:bg-purple-700/50 transition-all"
               >
-                <div className="absolute inset-0 bg-purple-400/15 blur-lg rounded-md -z-10"></div>
                 <Shield className="h-4 w-4 mr-2" />
                 Admin Panel
               </Button>

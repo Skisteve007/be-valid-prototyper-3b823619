@@ -53,6 +53,41 @@ export type Database = {
         }
         Relationships: []
       }
+      email_campaign_log: {
+        Row: {
+          campaign_name: string
+          email_address: string
+          id: string
+          sent_at: string
+          template_id: string | null
+          user_id: string
+        }
+        Insert: {
+          campaign_name: string
+          email_address: string
+          id?: string
+          sent_at?: string
+          template_id?: string | null
+          user_id: string
+        }
+        Update: {
+          campaign_name?: string
+          email_address?: string
+          id?: string
+          sent_at?: string
+          template_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_campaign_log_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "marketing_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       exception_queue: {
         Row: {
           created_at: string
@@ -193,6 +228,36 @@ export type Database = {
         }
         Relationships: []
       }
+      marketing_templates: {
+        Row: {
+          body_content: string
+          campaign_name: string
+          created_at: string
+          id: string
+          subject_line: string
+          target_segment: string
+          updated_at: string
+        }
+        Insert: {
+          body_content: string
+          campaign_name: string
+          created_at?: string
+          id?: string
+          subject_line: string
+          target_segment: string
+          updated_at?: string
+        }
+        Update: {
+          body_content?: string
+          campaign_name?: string
+          created_at?: string
+          id?: string
+          subject_line?: string
+          target_segment?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       member_references: {
         Row: {
           created_at: string
@@ -254,6 +319,8 @@ export type Database = {
           instagram_handle: string | null
           lab_disclaimer_accepted: boolean | null
           lab_disclaimer_accepted_at: string | null
+          last_campaign_received: string | null
+          last_marketing_email_sent_at: string | null
           member_id: string | null
           onlyfans_handle: string | null
           partner_preferences: Json | null
@@ -297,6 +364,8 @@ export type Database = {
           instagram_handle?: string | null
           lab_disclaimer_accepted?: boolean | null
           lab_disclaimer_accepted_at?: string | null
+          last_campaign_received?: string | null
+          last_marketing_email_sent_at?: string | null
           member_id?: string | null
           onlyfans_handle?: string | null
           partner_preferences?: Json | null
@@ -340,6 +409,8 @@ export type Database = {
           instagram_handle?: string | null
           lab_disclaimer_accepted?: boolean | null
           lab_disclaimer_accepted_at?: string | null
+          last_campaign_received?: string | null
+          last_marketing_email_sent_at?: string | null
           member_id?: string | null
           onlyfans_handle?: string | null
           partner_preferences?: Json | null

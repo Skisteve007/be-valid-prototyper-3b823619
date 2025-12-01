@@ -18,6 +18,7 @@ import logo from "@/assets/clean-check-logo.png";
 import StorageSponsorManager from "@/components/admin/StorageSponsorManager";
 import { LabIntegrationsTab } from "@/components/admin/LabIntegrationsTab";
 import { DevelopersIntegrationsTab } from "@/components/admin/DevelopersIntegrationsTab";
+import { CampaignsTab } from "@/components/admin/CampaignsTab";
 import {
   DndContext,
   closestCenter,
@@ -719,6 +720,10 @@ const Admin = () => {
           
           <TabsContent value="developers">
             <DevelopersIntegrationsTab />
+          </TabsContent>
+          
+          <TabsContent value="campaigns">
+            <CampaignsTab />
           </TabsContent>
         </Tabs>
       </main>

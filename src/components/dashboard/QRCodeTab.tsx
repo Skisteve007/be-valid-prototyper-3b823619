@@ -354,9 +354,8 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
               role="presentation"
               aria-hidden="true"
               tabIndex={-1}
-              className="space-y-2 p-3 rounded-lg border bg-muted/50"
+              className="space-y-2 p-3 rounded-lg border bg-muted/50 pointer-events-none"
               style={{ 
-                pointerEvents: 'none',
                 touchAction: 'none',
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
@@ -411,9 +410,8 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                 role="presentation"
                 aria-hidden="true"
                 tabIndex={-1}
-                className="p-3 rounded-lg border bg-muted/50 space-y-2"
+                className="p-3 rounded-lg border bg-muted/50 space-y-2 pointer-events-none"
                 style={{ 
-                  pointerEvents: 'none',
                   touchAction: 'none',
                   userSelect: 'none',
                   WebkitUserSelect: 'none',

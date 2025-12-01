@@ -532,100 +532,169 @@ const Admin = () => {
                       Add Sponsor
                     </Button>
                   </DialogTrigger>
-                <DialogContent className="max-w-md">
-                  <DialogHeader>
-                    <DialogTitle>Add New Sponsor</DialogTitle>
+                <DialogContent className="sm:max-w-[500px] max-h-[70vh] flex flex-col p-0 top-[15%] translate-y-0">
+                  <DialogHeader className="px-6 pt-6 pb-4 border-b flex-shrink-0">
+                    <DialogTitle className="text-xl">Add New Sponsor</DialogTitle>
                     <DialogDescription>
-                      Upload a sponsor logo and provide details
+                      Upload a sponsor logo and assign to a section
                     </DialogDescription>
                   </DialogHeader>
-                  <form onSubmit={handleAddSponsor} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Sponsor Name *</Label>
-                      <Input
-                        id="name"
-                        value={newSponsor.name}
-                        onChange={(e) => setNewSponsor({ ...newSponsor, name: e.target.value })}
-                        placeholder="e.g., Company Name"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="tier">Tier *</Label>
-                      <Select value={newSponsor.tier} onValueChange={(value: any) => setNewSponsor({ ...newSponsor, tier: value })}>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="platinum">
-                            <div className="flex items-center gap-2">
-                              <div className="w-3 h-3 rounded-full bg-purple-500"></div>
-                              Platinum (Largest)
+                  
+                  <div className="overflow-y-auto flex-1 px-6 py-4 min-h-0">
+                    <form id="add-sponsor-form" onSubmit={handleAddSponsor} className="space-y-5">
+                      <div className="space-y-2">
+                        <Label htmlFor="logo" className="text-base font-semibold">
+                          Logo Image *
+                        </Label>
+                        <div className="border-2 border-dashed rounded-lg p-4 hover:border-primary transition-colors">
+                          <Input
+                            id="logo"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleLogoUpload}
+                            disabled={uploadingLogo}
+                            className="cursor-pointer"
+                          />
+                          {uploadingLogo && (
+                            <div className="flex items-center gap-2 mt-2">
+                              <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                              <p className="text-sm text-muted-foreground">Uploading...</p>
                             </div>
-                          </SelectItem>
-                          <SelectItem value="gold">
-                            <div className="flex items-center gap-2">
-                              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                              Gold (Medium)
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="silver">
-                            <div className="flex items-center gap-2">
-                              <div className="w-3 h-3 rounded-full bg-gray-400"></div>
-                              Silver (Standard)
-                            </div>
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="section">Display Section *</Label>
-                      <Select value={newSponsor.section.toString()} onValueChange={(value) => setNewSponsor({ ...newSponsor, section: parseInt(value) })}>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">Section 1</SelectItem>
-                          <SelectItem value="2">Section 2</SelectItem>
-                          <SelectItem value="3">Section 3</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="logo">Logo Image</Label>
-                      <Input
-                        id="logo"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleLogoUpload}
-                        disabled={uploadingLogo}
-                      />
-                      {uploadingLogo && <p className="text-sm text-muted-foreground">Uploading...</p>}
-                      {newSponsor.logo_url && (
-                        <img src={newSponsor.logo_url} alt="Preview" className="h-16 w-auto mt-2" />
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="website">Website URL</Label>
-                      <Input
-                        id="website"
-                        type="url"
-                        value={newSponsor.website_url}
-                        onChange={(e) => setNewSponsor({ ...newSponsor, website_url: e.target.value })}
-                        placeholder="https://example.com"
-                      />
-                    </div>
-                    <Button type="submit" disabled={saving || uploadingLogo} className="w-full">
+                          )}
+                        </div>
+                        {newSponsor.logo_url && (
+                          <div className="aspect-video bg-muted rounded-lg overflow-hidden border-2 border-border mt-3">
+                            <img
+                              src={newSponsor.logo_url}
+                              alt="Preview"
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="name" className="text-base font-semibold">
+                          Sponsor Name *
+                        </Label>
+                        <Input
+                          id="name"
+                          value={newSponsor.name}
+                          onChange={(e) => setNewSponsor({ ...newSponsor, name: e.target.value })}
+                          placeholder="Enter sponsor name"
+                          required
+                          className="h-11"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="website" className="text-base font-semibold">
+                          Website URL
+                        </Label>
+                        <Input
+                          id="website"
+                          type="url"
+                          value={newSponsor.website_url}
+                          onChange={(e) => setNewSponsor({ ...newSponsor, website_url: e.target.value })}
+                          placeholder="https://example.com"
+                          className="h-11"
+                        />
+                        <p className="text-xs text-muted-foreground">
+                          Optional - When clicked, logo will open this URL
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="section" className="text-base font-semibold">
+                          Display Section *
+                        </Label>
+                        <Select 
+                          value={newSponsor.section.toString()} 
+                          onValueChange={(value) => {
+                            const section = parseInt(value);
+                            const tier = (section === 1 || section === 2) ? 'platinum' : 'gold';
+                            setNewSponsor({ ...newSponsor, section, tier });
+                          }}
+                        >
+                          <SelectTrigger id="section" className="w-full h-11">
+                            <SelectValue placeholder="Choose section placement" />
+                          </SelectTrigger>
+                          <SelectContent className="z-50 bg-popover">
+                            {[1, 2, 3].map((sectionNum) => {
+                              const sponsorsInSection = sponsors.filter(s => s.section === sectionNum);
+                              const count = sponsorsInSection.length;
+                              const tierLabel = sectionNum === 1 || sectionNum === 2 ? 'Platinum' : 'Gold';
+                              
+                              return (
+                                <SelectItem key={sectionNum} value={sectionNum.toString()}>
+                                  <div className="flex items-center justify-between w-full gap-3">
+                                    <span>Section {sectionNum} ({tierLabel})</span>
+                                    {count > 0 ? (
+                                      <Badge variant="secondary" className="ml-auto text-xs">
+                                        {count} sponsor{count !== 1 ? 's' : ''}
+                                      </Badge>
+                                    ) : (
+                                      <Badge variant="outline" className="ml-auto text-xs bg-green-500/10 text-green-600 border-green-500/30">
+                                        Empty
+                                      </Badge>
+                                    )}
+                                  </div>
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectContent>
+                        </Select>
+                        <div className="bg-muted/50 rounded-lg p-3 space-y-2">
+                          <p className="text-xs font-medium">Current Section Status:</p>
+                          {[1, 2, 3].map((sectionNum) => {
+                            const sponsorsInSection = sponsors.filter(s => s.section === sectionNum);
+                            const count = sponsorsInSection.length;
+                            const tierLabel = sectionNum === 1 || sectionNum === 2 ? 'Platinum' : 'Gold';
+                            
+                            return (
+                              <div key={sectionNum} className="flex items-center justify-between text-xs">
+                                <span className="text-muted-foreground">Section {sectionNum} ({tierLabel}):</span>
+                                {count > 0 ? (
+                                  <span className="font-medium">{count} sponsor{count !== 1 ? 's' : ''} assigned</span>
+                                ) : (
+                                  <span className="text-green-600 font-medium">✓ Available</span>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div className="px-6 py-4 border-t bg-muted/20 flex gap-3 flex-shrink-0">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setDialogOpen(false);
+                        setNewSponsor({ name: "", website_url: "", logo_url: "", display_order: 0, tier: "silver", section: 1 });
+                      }}
+                      className="flex-1"
+                    >
+                      Cancel
+                    </Button>
+                    <Button 
+                      type="submit" 
+                      form="add-sponsor-form"
+                      disabled={saving || uploadingLogo || !newSponsor.logo_url}
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold"
+                    >
                       {saving ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           Adding...
                         </>
                       ) : (
-                        "Add Sponsor"
+                        "✓ Accept & Save"
                       )}
                     </Button>
-                  </form>
+                  </div>
                 </DialogContent>
                 </Dialog>
               </div>

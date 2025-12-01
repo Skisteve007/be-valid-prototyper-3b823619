@@ -14,6 +14,8 @@ import { SalesAssets } from "./SalesAssets";
 import { SocialMediaRotation } from "./SocialMediaRotation";
 import { MediaGallery } from "./MediaGallery";
 
+import { VideoLibrary } from "./VideoLibrary";
+
 interface MarketingTemplate {
   id: string;
   campaign_name: string;
@@ -24,8 +26,17 @@ interface MarketingTemplate {
   updated_at: string;
 }
 
+interface MarketingVideo {
+  id: string;
+  internal_name: string;
+  youtube_id: string;
+  is_active: boolean;
+}
+
 export function CampaignsTab() {
   const [templates, setTemplates] = useState<MarketingTemplate[]>([]);
+  const [videos, setVideos] = useState<MarketingVideo[]>([]);
+  const [selectedVideoId, setSelectedVideoId] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [campaignTrack, setCampaignTrack] = useState<string>("All");
   const [editingTemplate, setEditingTemplate] = useState<MarketingTemplate | null>(null);
@@ -43,6 +54,7 @@ export function CampaignsTab() {
 
   useEffect(() => {
     fetchTemplates();
+    fetchVideos();
   }, []);
 
   const fetchTemplates = async () => {
@@ -59,6 +71,21 @@ export function CampaignsTab() {
       console.error(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchVideos = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("marketing_videos")
+        .select("*")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setVideos(data || []);
+    } catch (error: any) {
+      console.error("Failed to load videos:", error);
     }
   };
 
@@ -109,6 +136,7 @@ export function CampaignsTab() {
 
       setRecipientCount(count || 0);
       setSendingTemplate(template);
+      setSelectedVideoId(""); // Reset video selection
     } catch (error: any) {
       toast.error("Failed to calculate recipients");
       console.error(error);
@@ -125,6 +153,7 @@ export function CampaignsTab() {
           template_id: sendingTemplate.id,
           campaign_name: sendingTemplate.campaign_name,
           target_segment: sendingTemplate.target_segment,
+          video_id: selectedVideoId || null,
         },
       });
 
@@ -132,6 +161,7 @@ export function CampaignsTab() {
 
       toast.success(`Campaign sent to ${data.sent_count} recipients!`);
       setSendingTemplate(null);
+      setSelectedVideoId("");
     } catch (error: any) {
       toast.error("Failed to send campaign");
       console.error(error);
@@ -202,6 +232,9 @@ export function CampaignsTab() {
           <MediaGallery />
         </div>
       </div>
+
+      {/* Video Library Section */}
+      <VideoLibrary />
 
       {/* Campaign Track Filter */}
       <Card className="bg-muted/50">
@@ -380,6 +413,29 @@ export function CampaignsTab() {
               This campaign will be sent to all users matching the "{sendingTemplate?.target_segment}" segment.
               Users who have already received this campaign will be skipped.
             </p>
+
+            {/* Video Selection */}
+            <div className="mt-4 space-y-2">
+              <Label htmlFor="video_select">Attach Video Asset (Optional)</Label>
+              <Select value={selectedVideoId} onValueChange={setSelectedVideoId}>
+                <SelectTrigger id="video_select">
+                  <SelectValue placeholder="No Video" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">No Video</SelectItem>
+                  {videos.map((video) => (
+                    <SelectItem key={video.id} value={video.id}>
+                      {video.internal_name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {selectedVideoId && (
+                <p className="text-xs text-muted-foreground">
+                  A clickable video preview will be added to the email
+                </p>
+              )}
+            </div>
           </div>
 
           <DialogFooter>

@@ -320,6 +320,33 @@ export type Database = {
         }
         Relationships: []
       }
+      marketing_videos: {
+        Row: {
+          created_at: string
+          id: string
+          internal_name: string
+          is_active: boolean
+          updated_at: string
+          youtube_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          internal_name: string
+          is_active?: boolean
+          updated_at?: string
+          youtube_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          internal_name?: string
+          is_active?: boolean
+          updated_at?: string
+          youtube_id?: string
+        }
+        Relationships: []
+      }
       member_references: {
         Row: {
           created_at: string

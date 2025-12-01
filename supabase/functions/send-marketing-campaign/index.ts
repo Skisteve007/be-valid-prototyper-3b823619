@@ -13,6 +13,7 @@ interface CampaignRequest {
   template_id: string;
   campaign_name: string;
   target_segment: string;
+  video_id?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -50,7 +51,7 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Unauthorized: Admin access required");
     }
 
-    const { template_id, campaign_name, target_segment }: CampaignRequest = await req.json();
+    const { template_id, campaign_name, target_segment, video_id }: CampaignRequest = await req.json();
 
     console.log(`Starting campaign: ${campaign_name} for segment: ${target_segment}`);
 
@@ -63,6 +64,21 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (templateError || !template) {
       throw new Error("Template not found");
+    }
+
+    // Fetch video asset if video_id is provided
+    let videoAsset = null;
+    if (video_id) {
+      const { data: videoData, error: videoError } = await supabase
+        .from("marketing_videos")
+        .select("*")
+        .eq("id", video_id)
+        .single();
+
+      if (!videoError && videoData) {
+        videoAsset = videoData;
+        console.log(`Video asset attached: ${videoData.internal_name}`);
+      }
     }
 
     // Fetch sales assets for B2B emails (Lab Partners & Club/Community)
@@ -148,6 +164,30 @@ const handler = async (req: Request): Promise<Response> => {
       
       // Replace {{first_name}} placeholder
       let personalizedBody = template.body_content.replace(/\{\{first_name\}\}/g, firstName);
+
+      // Inject video HTML if video asset is attached
+      if (videoAsset) {
+        const videoHtml = `
+<div style="margin: 20px 0; text-align: center; cursor: pointer;">
+  <p style="font-style: italic; color: #555; margin-bottom: 10px;">Watch: ${videoAsset.internal_name}</p>
+  
+  <a href="https://www.youtube.com/watch?v=${videoAsset.youtube_id}" target="_blank">
+    <div style="position: relative; display: inline-block; width: 100%; max-width: 480px;">
+      <img src="https://img.youtube.com/vi/${videoAsset.youtube_id}/hqdefault.jpg" 
+           alt="Watch Video" 
+           style="width: 100%; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+           
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                  background: rgba(204, 0, 0, 0.9); width: 60px; height: 40px; border-radius: 10px; 
+                  display: flex; align-items: center; justify-content: center;">
+        <span style="color: white; font-size: 24px; font-weight: bold;">▶</span>
+      </div>
+    </div>
+  </a>
+</div>
+`;
+        personalizedBody = personalizedBody + videoHtml;
+      }
 
       // Append sales assets for B2B emails
       if (isB2BEmail && salesAssets) {

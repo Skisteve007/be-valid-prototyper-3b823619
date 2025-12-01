@@ -14,6 +14,68 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_sales_assets: {
+        Row: {
+          calendly_link: string | null
+          created_at: string
+          demo_video_url: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          calendly_link?: string | null
+          created_at?: string
+          demo_video_url?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          calendly_link?: string | null
+          created_at?: string
+          demo_video_url?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      admin_strategy_checklist: {
+        Row: {
+          created_at: string
+          day_number: number
+          id: string
+          status: boolean
+          task_name: string
+          template_id_ref: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          day_number: number
+          id?: string
+          status?: boolean
+          task_name: string
+          template_id_ref?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          day_number?: number
+          id?: string
+          status?: boolean
+          task_name?: string
+          template_id_ref?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_strategy_checklist_template_id_ref_fkey"
+            columns: ["template_id_ref"]
+            isOneToOne: false
+            referencedRelation: "marketing_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       certifications: {
         Row: {
           created_at: string

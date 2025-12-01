@@ -251,8 +251,15 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
             Your Toxicology Lab Certified Orders
           </h3>
           {orders.map((order) => (
-            <Card key={order.id} className="shadow-md border-green-500/20">
-              <CardContent className="p-6 space-y-4">
+            <Card key={order.id} className="shadow-md border-green-500/20 relative overflow-hidden">
+              {/* Sample Only Watermark */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                <div className="text-6xl md:text-8xl font-bold text-muted-foreground/10 rotate-[-30deg] select-none">
+                  SAMPLE ONLY
+                </div>
+              </div>
+              
+              <CardContent className="p-6 space-y-4 relative z-0">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
@@ -289,10 +296,15 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
                     />
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground italic border-l-2 border-green-500 pl-3 flex items-start gap-2">
-                  <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0" />
-                  <span>Register your kit by scanning this barcode on your sample cup to link results automatically.</span>
-                </p>
+                <div className="bg-muted/30 rounded-lg p-3 space-y-2 border border-green-500/20">
+                  <p className="text-xs text-muted-foreground flex items-start gap-2">
+                    <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0 text-green-600" />
+                    <span className="font-medium">This barcode communicates directly with our lab partners. Only the lab can scan and process this barcode to link your test results.</span>
+                  </p>
+                  <p className="text-xs text-muted-foreground pl-5">
+                    Once results are verified, they automatically appear in your shareable QR code, giving you instant proof of your toxicology status.
+                  </p>
+                </div>
               </CardContent>
             </Card>
           ))}

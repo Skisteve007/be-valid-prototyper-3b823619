@@ -171,51 +171,50 @@ const Dashboard = () => {
             onTouchEnd={handleTouchEnd}
           >
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="relative mb-6 -mx-4 px-4 overflow-x-auto scrollbar-hide">
-                <div className="absolute inset-0 bg-blue-500/40 blur-3xl rounded-lg pointer-events-none"></div>
-                <div className="absolute inset-0 bg-blue-400/30 blur-2xl rounded-lg animate-pulse pointer-events-none"></div>
-                <TabsList className="relative inline-flex w-auto min-w-full bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-blue-500/50 shadow-2xl shadow-blue-500/40 ring-2 ring-blue-400/30">
+              <div className="relative mb-6 overflow-x-auto scrollbar-hide">
+                <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full pointer-events-none"></div>
+                <TabsList className="relative inline-flex w-full bg-muted/50 backdrop-blur-sm border border-border rounded-full p-1 gap-1">
                   <TabsTrigger 
                     value="profile" 
-                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-lg hover:shadow-green-500/30 touch-manipulation"
+                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
                   >
-                    <UserIcon className="h-4 w-4 mr-2" />
-                    <span className="whitespace-nowrap">Profile</span>
+                    <UserIcon className="h-4 w-4 mr-1.5" />
+                    <span className="whitespace-nowrap text-sm">Profile</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="certifications"
-                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:shadow-lg hover:shadow-blue-500/30 touch-manipulation"
+                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
                   >
-                    <Award className="h-4 w-4 mr-2" />
-                    <span className="whitespace-nowrap">Documents</span>
+                    <Award className="h-4 w-4 mr-1.5" />
+                    <span className="whitespace-nowrap text-sm">Documents</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="qrcode"
-                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-purple-100 dark:hover:bg-purple-900/30 hover:shadow-lg hover:shadow-purple-500/30 touch-manipulation"
+                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
                   >
-                    <QrCode className="h-4 w-4 mr-2" />
-                    <span className="whitespace-nowrap">QR Code</span>
+                    <QrCode className="h-4 w-4 mr-1.5" />
+                    <span className="whitespace-nowrap text-sm">QR Code</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="references"
-                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:shadow-lg hover:shadow-orange-500/30 touch-manipulation"
+                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
                   >
-                    <UserCheck className="h-4 w-4 mr-2" />
-                    <span className="whitespace-nowrap">References</span>
+                    <UserCheck className="h-4 w-4 mr-1.5" />
+                    <span className="whitespace-nowrap text-sm">References</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="lab-verification"
-                    className="flex-1 min-w-[160px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-cyan-100 dark:hover:bg-cyan-900/30 hover:shadow-lg hover:shadow-cyan-500/30 touch-manipulation"
+                    className="flex-1 min-w-[130px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
                   >
-                    <FlaskConical className="h-4 w-4 mr-2" />
-                    <span className="whitespace-nowrap">Get Lab Certified</span>
+                    <FlaskConical className="h-4 w-4 mr-1.5" />
+                    <span className="whitespace-nowrap text-sm">Get Lab Certified</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="safety-screen"
-                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:shadow-lg hover:shadow-emerald-500/30 touch-manipulation"
+                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
                   >
-                    <ShieldCheck className="h-4 w-4 mr-2" />
-                    <span className="whitespace-nowrap">Safety</span>
+                    <ShieldCheck className="h-4 w-4 mr-1.5" />
+                    <span className="whitespace-nowrap text-sm">Safety</span>
                   </TabsTrigger>
                 </TabsList>
               </div>

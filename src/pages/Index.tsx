@@ -89,34 +89,34 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden w-full max-w-full">
       <header className="border-b bg-card sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            {/* Logo on the left */}
-            <div className="relative flex-shrink-0">
+        <div className="container mx-auto px-4 py-4 md:py-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            {/* Logo on top for mobile, left for desktop */}
+            <div className="relative flex-shrink-0 flex justify-center md:justify-start">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto" style={{ height: '84px' }} />
+              <img src={logo} alt="Clean Check" className="relative w-auto h-16 md:h-20" />
             </div>
 
-            {/* Tagline in the middle */}
+            {/* Tagline in the middle - desktop only */}
             <div className="hidden lg:flex flex-1 justify-center px-8">
-              <p className="text-lg font-semibold text-center bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+              <p className="text-base xl:text-lg font-semibold text-center bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
                 Confidently Share Peer-To-Peer Record Status For Mutual Safety And Informed Intimacy
               </p>
             </div>
 
-            {/* Buttons on the right */}
-            <div className="flex flex-col md:flex-row gap-2 items-end flex-shrink-0">
+            {/* Buttons - stacked on mobile, row on desktop */}
+            <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto items-stretch md:items-end flex-shrink-0">
               <Button 
                 onClick={() => navigate("/auth?mode=login")}
-                className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-base min-h-[48px] px-6 touch-manipulation"
+                className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-sm md:text-base min-h-[48px] py-3 px-6 touch-manipulation w-full md:w-auto"
               >
                 <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
                 Member Log In
               </Button>
-              <div className="flex gap-2">
+              <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
                 <Button 
                   variant="ghost" 
                   onClick={() => {
@@ -126,7 +126,7 @@ const Index = () => {
                       navigate("/auth");
                     }
                   }}
-                  className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-base min-h-[48px] px-4 touch-manipulation"
+                  className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-sm md:text-base min-h-[48px] py-3 px-4 touch-manipulation w-full md:w-auto"
                 >
                   <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
                   QR Code
@@ -140,7 +140,7 @@ const Index = () => {
                       navigate("/auth");
                     }
                   }}
-                  className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15 min-h-[48px] px-4 touch-manipulation"
+                  className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15 min-h-[48px] py-3 px-4 touch-manipulation w-full md:w-auto"
                 >
                   <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>
                   Profile
@@ -150,27 +150,27 @@ const Index = () => {
           </div>
           
           {/* Mobile tagline below */}
-          <div className="lg:hidden mt-4 text-center">
-            <p className="text-sm font-semibold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent">
+          <div className="lg:hidden text-center">
+            <p className="text-xs md:text-sm font-semibold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent leading-tight">
               Confidently share verified health status information for mutual safety and informed intimacy
             </p>
           </div>
         </div>
       </header>
 
-      <main>
+      <main className="w-full overflow-x-hidden">
         {/* Hero Section */}
-        <section className="py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
-          <div className="container mx-auto text-center max-w-4xl">
+        <section className="py-6 md:py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
+          <div className="container mx-auto text-center max-w-4xl px-4">
             <ScrollReveal direction="fade" delay={100}>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
                 <span className="bg-gradient-to-br from-slate-300 via-primary to-slate-500 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] [text-shadow:_0_1px_20px_rgb(148_163_184_/_50%)]">Clean </span>
                 <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Check</span>
               </h1>
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>
-              <p className="text-2xl md:text-3xl mb-8 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+              <p className="text-lg md:text-2xl lg:text-3xl mb-6 md:mb-8 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
                 <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Elevating</span>{" "}
                 <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Intimacy</span>{" "}
                 <span className="bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Through Verified Transparency and Mutual Trust.</span>
@@ -179,15 +179,15 @@ const Index = () => {
             
             {/* Featured Sponsors - Always show 3 slots */}
             <ScrollReveal direction="up" delay={400}>
-              <div className="mt-8">
-                <p className="text-base text-muted-foreground mb-8 font-semibold">Trusted Community Sponsors</p>
+              <div className="mt-6 md:mt-8">
+                <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-8 font-semibold">Trusted Community Sponsors</p>
                 
                 {/* Oval container with gradient background */}
-                <div className="relative inline-block px-12 py-8 rounded-full bg-gradient-to-br from-muted/60 via-primary/10 to-muted/60 border-2 border-border/40 shadow-[0_0_40px_rgba(59,130,246,0.3)]">
+                <div className="relative inline-block px-6 md:px-12 py-6 md:py-8 rounded-full bg-gradient-to-br from-muted/60 via-primary/10 to-muted/60 border-2 border-border/40 shadow-[0_0_40px_rgba(59,130,246,0.3)] w-full max-w-full">
                   {/* Gradient glow backdrop */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-2xl rounded-full -z-10"></div>
                   
-                  <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-16">
+                  <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-16">
                   {[0, 1, 2].map((index) => {
                     const sponsor = sponsors[index];
                     return (
@@ -239,17 +239,17 @@ const Index = () => {
         </section>
 
         {/* Member Login Quick Access */}
-        <section className="py-6 px-4">
-          <div className="container mx-auto max-w-md">
+        <section className="py-4 md:py-6 px-4">
+          <div className="container mx-auto max-w-md px-4">
             <ScrollReveal direction="up" delay={50}>
               <div className="text-center">
-                <h3 className="text-xl font-semibold mb-6 bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">
+                <h3 className="text-lg md:text-xl font-semibold mb-4 md:mb-6 bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">
                   Already a Member?
                 </h3>
                 <Button 
                   onClick={() => navigate("/auth?mode=login")}
                   size="lg"
-                  className="w-full max-w-xs relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-lg py-6"
+                  className="w-full max-w-xs relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-base md:text-lg py-4 md:py-6 min-h-[48px] touch-manipulation"
                 >
                   <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
                   Member Log In
@@ -264,7 +264,7 @@ const Index = () => {
 
         {/* Membership Section */}
         <section className="pt-2 pb-4 px-4">
-          <div className="container mx-auto max-w-4xl">
+          <div className="container mx-auto max-w-4xl px-4">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-12">
                 {/* Get Started Form */}
@@ -272,22 +272,23 @@ const Index = () => {
                   <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
                   <Card id="get-started-form" className="max-w-2xl mx-auto scroll-mt-8 relative shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">
                     <CardHeader>
-                      <CardTitle className="text-2xl bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Get Started</CardTitle>
-                      <CardDescription>Both fields are required to proceed</CardDescription>
+                      <CardTitle className="text-xl md:text-2xl bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Get Started</CardTitle>
+                      <CardDescription className="text-sm">Both fields are required to proceed</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-4 px-4 md:px-6">
                       <div className="space-y-2">
-                        <Label htmlFor="fullName">Full Name *</Label>
+                        <Label htmlFor="fullName" className="text-sm md:text-base">Full Name *</Label>
                         <Input 
                           id="fullName"
                           placeholder="Enter your full name"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                           required
+                          className="min-h-[48px] touch-manipulation"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
+                        <Label htmlFor="email" className="text-sm md:text-base">Email Address *</Label>
                         <Input 
                           id="email"
                           type="email"
@@ -295,11 +296,12 @@ const Index = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
+                          className="min-h-[48px] touch-manipulation"
                         />
                       </div>
                       <Button 
                         size="lg" 
-                        className="w-full bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(37,99,235,0.5),0_0_30px_rgba(219,39,119,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7),0_0_40px_rgba(219,39,119,0.7)] transition-all" 
+                        className="w-full bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(37,99,235,0.5),0_0_30px_rgba(219,39,119,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7),0_0_40px_rgba(219,39,119,0.7)] transition-all min-h-[48px] py-4 touch-manipulation" 
                         onClick={handleContinue}
                         disabled={!fullName || !email}
                       >
@@ -319,9 +321,9 @@ const Index = () => {
 
             {/* Pricing Cards */}
             <ScrollReveal direction="up" delay={200}>
-              <div className="mb-12">
-                <h3 className="text-2xl font-bold text-center mb-6 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">💳 Membership Pricing - Click to Select</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              <div className="mb-8 md:mb-12">
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent px-4">💳 Membership Pricing - Click to Select</h3>
+              <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4">
                 <Card 
                   className={`cursor-pointer transition-all relative ${selectedPlan === "single" ? "ring-2 ring-primary shadow-lg" : "hover:shadow-md"} shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30`}
                   onClick={() => setSelectedPlan("single")}
@@ -412,11 +414,11 @@ const Index = () => {
 
         {/* Benefits Section */}
         <section className="py-6 px-4 bg-muted/30">
-          <div className="container mx-auto max-w-6xl">
+          <div className="container mx-auto max-w-6xl px-4">
             <ScrollReveal direction="up" delay={100}>
-              <h3 className="text-4xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-wide">Why Join Clean Check?</h3>
+              <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-wide">Why Join Clean Check?</h3>
             </ScrollReveal>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               <ScrollReveal direction="up" delay={200}>
                 <div className="relative h-full">
                   <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
@@ -538,15 +540,15 @@ const Index = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 px-4 bg-background">
-          <div className="container mx-auto max-w-4xl">
+        <section className="py-8 md:py-16 px-4 bg-background">
+          <div className="container mx-auto max-w-4xl px-4">
             <ScrollReveal direction="up" delay={100}>
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-2">
-                  <HelpCircle className="h-4 w-4" />
-                  <span className="font-semibold bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Frequently Asked Questions</span>
+              <div className="text-center mb-6 md:mb-8">
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 md:px-4 py-2 rounded-full mb-2">
+                  <HelpCircle className="h-3 w-3 md:h-4 md:w-4" />
+                  <span className="text-xs md:text-sm font-semibold bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Frequently Asked Questions</span>
                 </div>
-                <h3 className="text-4xl font-bold"><span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Got</span> <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Questions</span><span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">?</span> <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">We&apos;ve</span> <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Got</span> <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Answers</span></h3>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold"><span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Got</span> <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Questions</span><span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">?</span> <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">We&apos;ve</span> <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Got</span> <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Answers</span></h3>
               </div>
             </ScrollReveal>
 

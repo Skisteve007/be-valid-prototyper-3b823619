@@ -233,25 +233,30 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
     
     const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
     
-    // Try native share if available
+    // Check if native share is available (works on mobile)
     if (navigator.share) {
       try {
+        console.log("Attempting native share with URL:", profileUrl);
         await navigator.share({
           title: "My Clean Check Profile",
           text: "View my verified health profile",
           url: profileUrl,
         });
+        console.log("Share successful");
         toast.success("Shared successfully!");
       } catch (error: any) {
-        // User cancelled or error occurred
-        if (error.name !== 'AbortError') {
-          console.error('Share error:', error);
-          // Fallback to copy
+        console.error('Share error:', error);
+        // Only show error if user didn't cancel
+        if (error.name === 'AbortError') {
+          console.log('User cancelled share');
+        } else {
+          toast.error("Share failed. Link copied to clipboard instead.");
           handleCopyLink();
         }
       }
     } else {
-      // No native share available, copy to clipboard
+      // Desktop fallback - copy to clipboard
+      console.log("Native share not available, copying to clipboard");
       handleCopyLink();
     }
   };
@@ -383,23 +388,28 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           </div>
           
           <div className="flex flex-col gap-2 w-full max-w-xs">
+            {/* Primary share button for mobile - uses native share */}
+            <Button 
+              onClick={handleShare}
+              className="w-full min-h-[48px] bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white touch-manipulation shadow-lg" 
+              type="button"
+            >
+              <Share2 className="h-5 w-5 mr-2" />
+              Share My Profile
+            </Button>
+            
+            {/* Additional sharing options in dropdown */}
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button 
-                  className="w-full min-h-[48px] bg-blue-100 hover:bg-blue-200 text-blue-700 border-blue-200 touch-manipulation" 
+                  className="w-full min-h-[44px] touch-manipulation" 
                   variant="outline"
                   type="button"
-                  onClick={(e) => e.preventDefault()}
                 >
-                  <Share2 className="h-4 w-4 mr-2" />
-                  Share QR Code
+                  More Share Options
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center" className="w-56 z-50">
-                <DropdownMenuItem onClick={handleShare} className="min-h-[44px] touch-manipulation">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Share via Device
-                </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleCopyLink} className="min-h-[44px] touch-manipulation">
                   <Copy className="h-4 w-4 mr-2" />
                   Copy Link

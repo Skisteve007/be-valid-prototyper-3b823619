@@ -122,8 +122,24 @@ const StorageSponsorManager = () => {
 
       if (uploadError) throw uploadError;
 
-      toast.success("Logo uploaded successfully");
+      // Get the public URL for the newly uploaded file
+      const { data: urlData } = supabase.storage
+        .from("sponsor-logos")
+        .getPublicUrl(fileName);
+
+      toast.success("Logo uploaded! Now assign it to a section.");
       await loadStorageFiles();
+
+      // Immediately open the dialog to assign the new logo
+      setNewSponsorData({
+        name: "",
+        website_url: "",
+        tier: "platinum",
+        section: 1,
+        logo_url: urlData.publicUrl,
+      });
+      setEditingFile(fileName);
+      setDialogOpen(true);
     } catch (error: any) {
       toast.error(error.message || "Failed to upload logo");
     } finally {

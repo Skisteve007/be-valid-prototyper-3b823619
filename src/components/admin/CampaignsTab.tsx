@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Mail, Send, Edit, Users, Clock } from "lucide-react";
+import { Mail, Send, Edit, Users, Clock, Filter } from "lucide-react";
 
 interface MarketingTemplate {
   id: string;
@@ -23,6 +23,7 @@ interface MarketingTemplate {
 export function CampaignsTab() {
   const [templates, setTemplates] = useState<MarketingTemplate[]>([]);
   const [loading, setLoading] = useState(true);
+  const [campaignTrack, setCampaignTrack] = useState<string>("All");
   const [editingTemplate, setEditingTemplate] = useState<MarketingTemplate | null>(null);
   const [sendingTemplate, setSendingTemplate] = useState<MarketingTemplate | null>(null);
   const [recipientCount, setRecipientCount] = useState<number>(0);
@@ -138,6 +139,21 @@ export function CampaignsTab() {
     return <div className="p-6">Loading campaigns...</div>;
   }
 
+  // Filter templates based on campaign track
+  const filteredTemplates = templates.filter((template) => {
+    if (campaignTrack === "All") return true;
+    if (campaignTrack === "Member Growth") {
+      return ["All Users", "Unpaid Users", "Expired Members", "Monthly Subscribers"].includes(template.target_segment);
+    }
+    if (campaignTrack === "Lab Partners") {
+      return template.target_segment === "Lab Partners";
+    }
+    if (campaignTrack === "Club/Community") {
+      return template.target_segment === "Club/Community";
+    }
+    return true;
+  });
+
   return (
     <div className="space-y-6 p-6">
       <div className="flex items-center justify-between">
@@ -150,8 +166,34 @@ export function CampaignsTab() {
         <Mail className="h-8 w-8 text-primary" />
       </div>
 
+      {/* Campaign Track Filter */}
+      <Card className="bg-muted/50">
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-4">
+            <Label className="flex items-center gap-2 text-base font-semibold">
+              <Filter className="h-5 w-5 text-primary" />
+              Campaign Track:
+            </Label>
+            <Select value={campaignTrack} onValueChange={setCampaignTrack}>
+              <SelectTrigger className="w-64 bg-background">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="All">All Campaigns</SelectItem>
+                <SelectItem value="Member Growth">Member Growth</SelectItem>
+                <SelectItem value="Lab Partners">Lab Partners</SelectItem>
+                <SelectItem value="Club/Community">Club/Community</SelectItem>
+              </SelectContent>
+            </Select>
+            <span className="text-sm text-muted-foreground">
+              Showing {filteredTemplates.length} of {templates.length} campaigns
+            </span>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="grid gap-6">
-        {templates.map((template) => (
+        {filteredTemplates.map((template) => (
           <Card key={template.id} className="shadow-md hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex items-start justify-between">
@@ -240,6 +282,8 @@ export function CampaignsTab() {
                   <SelectItem value="Unpaid Users">Unpaid Users</SelectItem>
                   <SelectItem value="Expired Members">Expired Members</SelectItem>
                   <SelectItem value="Monthly Subscribers">Monthly Subscribers</SelectItem>
+                  <SelectItem value="Lab Partners">Lab Partners</SelectItem>
+                  <SelectItem value="Club/Community">Club/Community</SelectItem>
                 </SelectContent>
               </Select>
             </div>

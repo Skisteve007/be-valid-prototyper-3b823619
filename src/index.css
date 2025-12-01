@@ -179,3 +179,44 @@ All colors MUST be HSL.
 .animate-gentle-glow {
   animation: gentle-glow 3s ease-in-out infinite;
 }
+
+/* Mobile Optimizations */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+  
+  /* Smooth scroll for mobile */
+  @media (max-width: 768px) {
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Optimize touch targets */
+    button, a, [role="button"] {
+      min-height: 44px;
+      padding: 0.75rem 1rem;
+    }
+    
+    /* Better form inputs on mobile */
+    input, select, textarea {
+      font-size: 16px; /* Prevents zoom on iOS */
+      min-height: 44px;
+    }
+    
+    /* Prevent double-tap zoom */
+    * {
+      touch-action: manipulation;
+    }
+  }
+}

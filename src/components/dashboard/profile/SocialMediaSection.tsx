@@ -10,7 +10,6 @@ interface SocialMediaSectionProps {
   tiktokHandle: string;
   facebookHandle: string;
   onlyfansHandle: string;
-  twitterHandle: string;
 }
 
 const getSocialMediaUrl = (platform: string, handle: string): string | null => {
@@ -27,8 +26,6 @@ const getSocialMediaUrl = (platform: string, handle: string): string | null => {
       return handle.startsWith('http') ? handle : `https://facebook.com/${cleanHandle}`;
     case 'onlyfans':
       return `https://onlyfans.com/${cleanHandle}`;
-    case 'twitter':
-      return `https://x.com/${cleanHandle}`;
     default:
       return null;
   }
@@ -39,8 +36,7 @@ export const SocialMediaSection = ({
   instagramHandle,
   tiktokHandle,
   facebookHandle,
-  onlyfansHandle,
-  twitterHandle
+  onlyfansHandle
 }: SocialMediaSectionProps) => {
   return (
     <div className="space-y-6">
@@ -127,27 +123,6 @@ export const SocialMediaSection = ({
                 size="icon"
                 onClick={() => window.open(getSocialMediaUrl('onlyfans', onlyfansHandle) || '', '_blank')}
                 title="Visit OnlyFans profile"
-              >
-                <ExternalLink className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="twitter_handle" className="flex items-center gap-2">
-            <Share2 className="w-4 h-4 text-slate-900 dark:text-slate-100" />
-            X (Twitter)
-          </Label>
-          <div className="flex gap-2">
-            <Input id="twitter_handle" {...register("twitter_handle")} placeholder="@username" className="flex-1" />
-            {twitterHandle && (
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                onClick={() => window.open(getSocialMediaUrl('twitter', twitterHandle) || '', '_blank')}
-                title="Visit X profile"
               >
                 <ExternalLink className="h-4 w-4" />
               </Button>

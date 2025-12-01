@@ -334,38 +334,39 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             </div>
           )}
 
-          {/* Border Color Explainer */}
-          <div className="w-full max-w-md space-y-2 p-3 rounded-lg border bg-muted/50">
-            <h4 className="text-xs font-semibold text-center">Border Color Key</h4>
-            <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30"></div>
-                <span>Clean</span>
+          {/* Border Color Explainer and Document Date - grouped closer together */}
+          <div className="w-full max-w-md space-y-3">
+            <div className="space-y-2 p-3 rounded-lg border bg-muted/50">
+              <h4 className="text-xs font-semibold text-center">Border Color Key</h4>
+              <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30"></div>
+                  <span>Clean</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 ring-1 ring-yellow-500/30"></div>
+                  <span>Caution</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 ring-1 ring-red-500/30"></div>
+                  <span>Be Aware</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-gray-500 ring-1 ring-gray-500/30"></div>
+                  <span>Incognito</span>
+                </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 ring-1 ring-yellow-500/30"></div>
-                <span>Caution</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-500 ring-1 ring-red-500/30"></div>
-                <span>Be Aware</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-gray-500 ring-1 ring-gray-500/30"></div>
-                <span>Incognito</span>
-              </div>
+              {statusColor === "gray" && (
+                <div className="p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
+                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5">
+                    <span className="text-green-500">✓</span> Screen Brightness Active
+                  </p>
+                </div>
+              )}
             </div>
-            {statusColor === "gray" && (
-              <div className="p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
-                <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5">
-                  <span className="text-green-500">✓</span> Screen Brightness Active
-                </p>
-              </div>
-            )}
-          </div>
 
-          {lastDocumentDate && (
-            <div className="w-full max-w-md p-3 rounded-lg border bg-muted/50 space-y-2">
+            {lastDocumentDate && (
+              <div className="p-3 rounded-lg border bg-muted/50 space-y-2">
               <p className="text-xs text-center font-medium">
                 Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
                   year: 'numeric', 
@@ -389,12 +390,13 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
               </div>
             </div>
           )}
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-2 w-full max-w-xs">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="flex-1 min-h-[44px]" variant="outline">
-                  <Share2 className="h-4 w-4 mr-2" />
+                <Button className="flex-1 min-h-[40px] bg-blue-100 hover:bg-blue-200 text-blue-700 border-blue-200" variant="outline" size="sm">
+                  <Share2 className="h-3.5 w-3.5 mr-2" />
                   Share
                 </Button>
               </DropdownMenuTrigger>
@@ -422,8 +424,8 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button onClick={handleDownload} className="flex-1 min-h-[44px]">
-              <Download className="h-4 w-4 mr-2" />
+            <Button onClick={handleDownload} className="flex-1 min-h-[40px]" size="sm">
+              <Download className="h-3.5 w-3.5 mr-2" />
               Download
             </Button>
           </div>

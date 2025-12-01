@@ -1,21 +1,25 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { Upload, X, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface SponsorUploadProps {
   userId: string;
 }
 
+interface Sponsor {
+  id: string;
+  name: string;
+  logo_url: string | null;
+  website_url: string | null;
+  tier: string;
+  section: number;
+}
+
 const SponsorUpload = ({ userId }: SponsorUploadProps) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState<number | null>(null);
-  const [sponsors, setSponsors] = useState<string[]>(["", "", ""]);
+  const [sponsors, setSponsors] = useState<Sponsor[]>([]);
 
   useEffect(() => {
     checkAdminStatus();
@@ -43,102 +47,29 @@ const SponsorUpload = ({ userId }: SponsorUploadProps) => {
   const loadSponsors = async () => {
     try {
       const { data, error } = await supabase
-        .storage
-        .from("sponsor-logos")
-        .list("", {
-          limit: 10,
-          sortBy: { column: "created_at", order: "desc" },
-        });
+        .from("sponsors")
+        .select("id, name, logo_url, website_url, tier, section")
+        .eq("active", true)
+        .order("display_order", { ascending: true })
+        .limit(3);
 
       if (error) throw error;
 
       if (data && data.length > 0) {
-        // Filter out directories and only get actual image files
-        const imageFiles = data.filter(file => file.id !== null && file.metadata);
-        
-        const urls = await Promise.all(
-          imageFiles.slice(0, 3).map(async (file) => {
-            const { data: urlData } = supabase.storage
-              .from("sponsor-logos")
-              .getPublicUrl(file.name);
-            return urlData.publicUrl;
-          })
-        );
-        setSponsors([...urls, "", ""].slice(0, 3));
+        setSponsors(data);
       }
     } catch (error) {
       console.error("Error loading sponsors:", error);
     }
   };
 
-  const handleFileUpload = async (index: number, file: File) => {
-    if (!file) return;
-    
-    // Validate file type
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please upload an image file");
-      return;
-    }
-
-    // Validate file size (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      toast.error("Image must be less than 2MB");
-      return;
-    }
-
-    setUploading(index);
-
-    try {
-      const fileExt = file.name.split(".").pop();
-      const fileName = `sponsor-${index + 1}-${Date.now()}.${fileExt}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("sponsor-logos")
-        .upload(fileName, file, {
-          cacheControl: "3600",
-          upsert: true,
-        });
-
-      if (uploadError) throw uploadError;
-
-      const { data: urlData } = supabase.storage
-        .from("sponsor-logos")
-        .getPublicUrl(fileName);
-
-      const newSponsors = [...sponsors];
-      newSponsors[index] = urlData.publicUrl;
-      setSponsors(newSponsors);
-
-      toast.success("Sponsor logo uploaded successfully");
-    } catch (error: any) {
-      toast.error(error.message || "Failed to upload sponsor logo");
-    } finally {
-      setUploading(null);
-    }
-  };
-
-  const handleRemoveSponsor = async (index: number) => {
-    const url = sponsors[index];
-    if (!url) return;
-
-    try {
-      const fileName = url.split("/").pop();
-      if (!fileName) return;
-
-      const { error } = await supabase.storage
-        .from("sponsor-logos")
-        .remove([fileName]);
-
-      if (error) throw error;
-
-      const newSponsors = [...sponsors];
-      newSponsors[index] = "";
-      setSponsors(newSponsors);
-
-      toast.success("Sponsor logo removed");
-    } catch (error: any) {
-      toast.error(error.message || "Failed to remove sponsor logo");
-    }
+  const handleSponsorClick = (sponsorId: string) => {
+    // Track sponsor click
+    supabase.from("sponsor_analytics").insert({
+      sponsor_id: sponsorId,
+      event_type: "click",
+      page_url: window.location.href,
+    });
   };
 
   if (loading) {
@@ -149,7 +80,7 @@ const SponsorUpload = ({ userId }: SponsorUploadProps) => {
     );
   }
 
-  if (!isAdmin) {
+  if (!isAdmin || sponsors.length === 0) {
     return null;
   }
 
@@ -158,56 +89,39 @@ const SponsorUpload = ({ userId }: SponsorUploadProps) => {
       <CardHeader>
         <CardTitle>This Month's Sponsors</CardTitle>
         <CardDescription>
-          Upload sponsor logos to display on your QR code page (Admin only)
+          Thank you to our community sponsors
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {sponsors.map((sponsor, index) => (
-            <div key={index} className="space-y-2">
-              <Label>Sponsor {index + 1}</Label>
-              <div className="relative border-2 border-dashed rounded-lg p-4 hover:border-primary transition-colors">
-                {sponsor ? (
-                  <>
+          {sponsors.map((sponsor) => (
+            <div key={sponsor.id} className="space-y-2">
+              <div className="relative border-2 border-border rounded-lg p-4 hover:border-primary transition-colors bg-card">
+                {sponsor.logo_url ? (
+                  sponsor.website_url ? (
+                    <a
+                      href={sponsor.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => handleSponsorClick(sponsor.id)}
+                      className="block transform transition-transform hover:scale-105"
+                    >
+                      <img
+                        src={sponsor.logo_url}
+                        alt={sponsor.name}
+                        className="w-full h-32 object-contain cursor-pointer"
+                      />
+                    </a>
+                  ) : (
                     <img
-                      src={sponsor}
-                      alt={`Sponsor ${index + 1}`}
+                      src={sponsor.logo_url}
+                      alt={sponsor.name}
                       className="w-full h-32 object-contain"
                     />
-                    <Button
-                      size="icon"
-                      variant="destructive"
-                      className="absolute top-2 right-2"
-                      onClick={() => handleRemoveSponsor(index)}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </>
+                  )
                 ) : (
-                  <div className="flex flex-col items-center justify-center h-32 text-center">
-                    {uploading === index ? (
-                      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                    ) : (
-                      <>
-                        <Upload className="h-8 w-8 text-muted-foreground mb-2" />
-                        <Label
-                          htmlFor={`sponsor-${index}`}
-                          className="cursor-pointer text-sm text-muted-foreground hover:text-primary"
-                        >
-                          Click to upload
-                        </Label>
-                        <Input
-                          id={`sponsor-${index}`}
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) handleFileUpload(index, file);
-                          }}
-                        />
-                      </>
-                    )}
+                  <div className="flex flex-col items-center justify-center h-32 text-center text-muted-foreground">
+                    <p className="text-sm">{sponsor.name}</p>
                   </div>
                 )}
               </div>

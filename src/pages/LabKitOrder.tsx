@@ -70,6 +70,9 @@ const LabKitOrder = () => {
                 </div>
               </CardHeader>
               <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Add to your peer-to-peer QR code with lab-verified results for enhanced trust and credibility.
+                </p>
                 <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-900 rounded-lg border-2 border-cyan-500/30">
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">Total Amount</p>

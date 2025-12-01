@@ -147,63 +147,72 @@ export const PersonalInfoSection = ({
                   )}
                 </div>
                 
-                {/* Lab Certified Section - Admin Only */}
-                {isAdmin && (
+                {/* Lab Certified Section - Visible to all, editable by admins only */}
+                {(labCertified || isAdmin) && (
                   <div className="flex items-center gap-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 mt-2">
                     <div className="flex items-center gap-2">
                       <Checkbox
                         id="lab_certified"
                         checked={labCertified}
                         onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
+                        disabled={!isAdmin}
                       />
-                      <Label htmlFor="lab_certified" className="text-sm font-semibold text-cyan-600 cursor-pointer flex items-center gap-1">
+                      <Label htmlFor="lab_certified" className={`text-sm font-semibold text-cyan-600 flex items-center gap-1 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
                         <CheckCircle className="w-4 h-4" />
                         Lab Certified
                       </Label>
+                      {!isAdmin && labCertified && (
+                        <Badge variant="secondary" className="ml-2 bg-cyan-500/20 text-cyan-700 text-xs">
+                          Verified
+                        </Badge>
+                      )}
                     </div>
                     
-                    {labCertified && (
+                    {labCertified && labLogoUrl && (
                       <div className="flex items-center gap-2 ml-auto">
-                        {labLogoUrl ? (
-                          <div className="flex items-center gap-2">
-                            <img 
-                              src={labLogoUrl} 
-                              alt="Lab Logo" 
-                              className="h-8 w-auto object-contain rounded border border-cyan-500/30"
-                            />
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => labLogoInputRef.current?.click()}
-                              disabled={uploadingLabLogo}
-                              className="h-7 px-2"
-                            >
-                              <Upload className="w-3 h-3" />
-                            </Button>
-                          </div>
-                        ) : (
+                        <img 
+                          src={labLogoUrl} 
+                          alt="Lab Logo" 
+                          className="h-8 w-auto object-contain rounded border border-cyan-500/30"
+                        />
+                        {isAdmin && (
                           <Button
                             type="button"
-                            variant="outline"
+                            variant="ghost"
                             size="sm"
                             onClick={() => labLogoInputRef.current?.click()}
                             disabled={uploadingLabLogo}
-                            className="h-7 px-3 text-xs border-cyan-500/30"
+                            className="h-7 px-2"
                           >
-                            <Upload className="w-3 h-3 mr-1" />
-                            {uploadingLabLogo ? "Uploading..." : "Upload Lab Logo"}
+                            <Upload className="w-3 h-3" />
                           </Button>
                         )}
-                        <input
-                          ref={labLogoInputRef}
-                          type="file"
-                          accept="image/*"
-                          onChange={onLabLogoUpload}
-                          disabled={uploadingLabLogo}
-                          className="hidden"
-                        />
                       </div>
+                    )}
+                    
+                    {isAdmin && labCertified && !labLogoUrl && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => labLogoInputRef.current?.click()}
+                        disabled={uploadingLabLogo}
+                        className="h-7 px-3 text-xs border-cyan-500/30 ml-auto"
+                      >
+                        <Upload className="w-3 h-3 mr-1" />
+                        {uploadingLabLogo ? "Uploading..." : "Upload Lab Logo"}
+                      </Button>
+                    )}
+                    
+                    {isAdmin && (
+                      <input
+                        ref={labLogoInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={onLabLogoUpload}
+                        disabled={uploadingLabLogo}
+                        className="hidden"
+                      />
                     )}
                   </div>
                 )}

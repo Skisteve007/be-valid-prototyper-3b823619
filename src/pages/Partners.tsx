@@ -161,7 +161,7 @@ const Partners = () => {
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-4">
               Built for Modern API Integration
             </h2>
-            <p className="text-xl text-slate-700 font-medium">
+            <p className="text-xl text-slate-700 font-medium italic">
               Enterprise-grade infrastructure designed for seamless lab partner integration
             </p>
           </div>

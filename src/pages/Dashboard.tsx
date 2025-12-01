@@ -208,7 +208,7 @@ const Dashboard = () => {
                       className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
                     >
                       <FlaskConical className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">Get Lab Certified</span>
+                      <span className="text-sm">Get Health Lab Certified</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="safety-screen"

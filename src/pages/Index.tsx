@@ -268,18 +268,10 @@ const Index = () => {
           <div className="container mx-auto max-w-4xl">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-12">
-                <button 
-                  onClick={scrollToGetStarted}
-                  className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4 hover:bg-primary/20 transition-colors cursor-pointer"
-                >
-                  <Zap className="h-4 w-4" />
-                  <span className="font-semibold bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Complete Your Membership</span>
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-
                 {/* Get Started Form */}
-                <div className="mb-8">
-                  <Card id="get-started-form" className="max-w-2xl mx-auto scroll-mt-8">
+                <div className="mb-8 relative">
+                  <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
+                  <Card id="get-started-form" className="max-w-2xl mx-auto scroll-mt-8 relative shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">
                     <CardHeader>
                       <CardTitle className="text-2xl bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Get Started</CardTitle>
                       <CardDescription>Both fields are required to proceed</CardDescription>

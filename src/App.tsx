@@ -18,6 +18,7 @@ import Compliance2257 from "./pages/Compliance2257";
 import ViewProfile from "./pages/ViewProfile";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import SafetyCertificate from "./pages/SafetyCertificate";
+import LabKitOrder from "./pages/LabKitOrder";
 import NotFound from "./pages/NotFound";
 import { AgeGate } from "./components/AgeGate";
 import { AdminFooter } from "./components/AdminFooter";
@@ -44,9 +45,10 @@ const App = () => (
             <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
             <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />
             <Route path="/2257-compliance" element={<AgeGate><Compliance2257 /></AgeGate>} />
-            <Route path="/view-profile" element={<AgeGate><ViewProfile /></AgeGate>} />
-            <Route path="/safety-certificate" element={<AgeGate><SafetyCertificate /></AgeGate>} />
-            <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
+          <Route path="/view-profile" element={<AgeGate><ViewProfile /></AgeGate>} />
+          <Route path="/safety-certificate" element={<AgeGate><SafetyCertificate /></AgeGate>} />
+          <Route path="/lab-kit-order" element={<AgeGate><LabKitOrder /></AgeGate>} />
+          <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>

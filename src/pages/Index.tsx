@@ -394,7 +394,7 @@ const Index = () => {
                           <Button
                             size="lg"
                             className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white shadow-lg shadow-cyan-500/50"
-                            onClick={() => navigate("/auth", { state: { labCertified: true } })}
+                            onClick={() => navigate("/lab-kit-order")}
                           >
                             Get Lab Certified
                           </Button>

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Eye, EyeOff, Shield } from "lucide-react";
+import { Shield, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import logo from "@/assets/clean-check-logo.png";
 
@@ -15,20 +15,20 @@ const ADMIN_EMAILS = [
   "office@bigtexasroof.com"
 ];
 
-const AdminLogin = () => {
+const AdminSetup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [checkingSetup, setCheckingSetup] = useState(true);
+  const [checkingAdmin, setCheckingAdmin] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    checkIfSetupNeeded();
+    checkExistingAdmin();
   }, []);
 
-  const checkIfSetupNeeded = async () => {
+  const checkExistingAdmin = async () => {
     try {
       // Check if any admin exists
       const { data, error } = await supabase
@@ -39,84 +39,91 @@ const AdminLogin = () => {
 
       if (error) throw error;
 
-      if (!data || data.length === 0) {
-        // No admin exists, redirect to setup
-        navigate("/admin/setup");
+      if (data && data.length > 0) {
+        // Admin exists, redirect to login
+        navigate("/admin/login");
       }
     } catch (err) {
-      console.error("Error checking admin setup:", err);
+      console.error("Error checking admin:", err);
     } finally {
-      setCheckingSetup(false);
+      setCheckingAdmin(false);
     }
   };
 
-  const isValidAdminEmail = (email: string) => {
-    return ADMIN_EMAILS.includes(email.toLowerCase().trim());
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSetup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    // Validate admin email
-    if (!isValidAdminEmail(email)) {
+    // Validation
+    if (!ADMIN_EMAILS.includes(email.toLowerCase().trim())) {
       setError("This email is not authorized for admin access.");
       return;
     }
 
-    if (!password) {
-      setError("Please enter your password.");
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
       return;
     }
 
     setLoading(true);
 
     try {
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      // Sign up the user
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/admin`,
+          data: {
+            full_name: "Administrator"
+          }
+        }
+      });
+
+      if (signUpError) throw signUpError;
+      if (!signUpData.user) throw new Error("User creation failed");
+
+      // Add administrator role
+      const { error: roleError } = await supabase
+        .from("user_roles")
+        .insert({
+          user_id: signUpData.user.id,
+          role: "administrator"
+        });
+
+      if (roleError) throw roleError;
+
+      toast.success("Admin account created successfully!");
+      
+      // Sign in the user
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
       });
 
-      if (signInError) {
-        setError("Invalid email or password.");
-        return;
-      }
+      if (signInError) throw signInError;
 
-      if (!data.user) {
-        setError("Authentication failed. Please try again.");
-        return;
-      }
-
-      // Verify admin role
-      const { data: roleData, error: roleError } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", data.user.id)
-        .eq("role", "administrator")
-        .maybeSingle();
-
-      if (roleError || !roleData) {
-        await supabase.auth.signOut();
-        setError("This account does not have administrator privileges.");
-        return;
-      }
-
-      toast.success("Admin login successful!");
+      // Redirect to admin panel
       navigate("/admin");
-    } catch (err) {
-      console.error("Admin login error:", err);
-      setError("An unexpected error occurred. Please try again.");
+    } catch (err: any) {
+      console.error("Admin setup error:", err);
+      setError(err.message || "Failed to create admin account. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  if (checkingSetup) {
+  if (checkingAdmin) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <Shield className="h-12 w-12 text-purple-400 animate-pulse mx-auto mb-4" />
-          <p className="text-muted-foreground">Checking admin setup...</p>
+          <p className="text-muted-foreground">Checking admin status...</p>
         </div>
       </div>
     );
@@ -149,84 +156,86 @@ const AdminLogin = () => {
               </div>
             </div>
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
-              Administrator Access
+              Create First Admin
             </CardTitle>
             <CardDescription className="text-base">
-              Authorized personnel only
+              Set up your administrator account
             </CardDescription>
           </CardHeader>
 
           <CardContent className="relative">
-            <form onSubmit={handleLogin} className="space-y-6">
+            <form onSubmit={handleSetup} className="space-y-4">
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
 
+              <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 space-y-2">
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                  <div className="text-sm space-y-1">
+                    <p className="font-medium text-foreground">Authorized emails:</p>
+                    {ADMIN_EMAILS.map((adminEmail) => (
+                      <p key={adminEmail} className="text-muted-foreground">{adminEmail}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="email">Admin Email</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="admin@example.com"
+                  placeholder="Enter authorized email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="bg-background/50"
+                  autoComplete="username"
                 />
-                <p className="text-xs text-muted-foreground">
-                  Only authorized admin emails can access this panel
-                </p>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="bg-background/50 pr-10"
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-muted-foreground" />
-                    )}
-                  </Button>
-                </div>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Choose a secure password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  className="bg-background/50"
+                  autoComplete="new-password"
+                />
+                <p className="text-xs text-muted-foreground">At least 6 characters</p>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="Re-enter password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  className="bg-background/50"
+                  autoComplete="new-password"
+                />
               </div>
 
               <Button
                 type="submit"
-                className="w-full relative shadow-[0_0_30px_rgba(168,85,247,0.7)] hover:shadow-[0_0_40px_rgba(168,85,247,0.9)] border-2 border-purple-500/60 bg-purple-600/20 text-purple-300 font-bold text-base"
+                className="w-full relative shadow-[0_0_30px_rgba(168,85,247,0.7)] hover:shadow-[0_0_40px_rgba(168,85,247,0.9)] border-2 border-purple-500/60 bg-purple-600/20 text-purple-300 font-bold text-base mt-6"
                 disabled={loading}
               >
                 <div className="absolute inset-0 bg-purple-500/25 blur-lg rounded-md -z-10"></div>
-                {loading ? "Authenticating..." : "Sign In as Admin"}
+                {loading ? "Creating Admin..." : "Create Admin Account"}
               </Button>
-
-              <div className="text-center space-y-2">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  onClick={() => navigate("/")}
-                  className="text-sm text-muted-foreground hover:text-foreground"
-                >
-                  ← Back to Home
-                </Button>
-              </div>
             </form>
           </CardContent>
         </Card>
@@ -235,4 +244,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default AdminSetup;

@@ -23,7 +23,7 @@ import ToxicologyKitOrder from "./pages/ToxicologyKitOrder";
 import HealthPanelOrder from "./pages/HealthPanelOrder";
 import NotFound from "./pages/NotFound";
 import { AgeGate } from "./components/AgeGate";
-import { AdminFooter } from "./components/AdminFooter";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -56,7 +56,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>
-          <AdminFooter />
+          <Footer />
         </div>
       </BrowserRouter>
     </TooltipProvider>

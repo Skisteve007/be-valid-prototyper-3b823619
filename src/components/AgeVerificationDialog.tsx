@@ -18,7 +18,7 @@ interface AgeVerificationDialogProps {
 export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificationDialogProps) => {
   return (
     <AlertDialog open={open}>
-      <AlertDialogContent className="w-[95vw] max-w-lg !top-[35%] md:!top-[40%] translate-y-[-35%] md:translate-y-[-40%]">
+      <AlertDialogContent className="!w-[95vw] !max-w-[95vw] sm:!max-w-lg !top-[35%] md:!top-[40%] translate-y-[-35%] md:translate-y-[-40%]">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-3xl md:text-2xl text-center">
             🔞 Age Verification Required
@@ -37,7 +37,7 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
           <Button
             variant="outline"
             onClick={onExit}
-            className="w-full"
+            className="w-full h-14"
           >
             ❌ Exit
           </Button>

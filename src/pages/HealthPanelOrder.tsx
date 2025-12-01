@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 import { Heart, Home, Package, MapPin } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
@@ -19,6 +20,7 @@ const HealthPanelOrder = () => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [showPayPal, setShowPayPal] = useState(false);
+  const [paymentType, setPaymentType] = useState<"onetime" | "subscription">("subscription");
 
   // Scroll to top on component mount
   useEffect(() => {
@@ -215,50 +217,75 @@ const HealthPanelOrder = () => {
                   </CardTitle>
                   <CardDescription>Pay securely with PayPal</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium">Platinum 13-Panel Sexual Health Screen</span>
-                      <span className="text-xl font-bold text-pink-700 dark:text-pink-400">$249.00</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Choose one-time payment or quarterly subscription (Save 10%)
-                    </p>
+                <CardContent className="space-y-6">
+                  {/* Payment Type Selector */}
+                  <div className="space-y-4">
+                    <Label className="text-base font-semibold">Choose Your Payment Option</Label>
+                    <RadioGroup value={paymentType} onValueChange={(value) => setPaymentType(value as "onetime" | "subscription")}>
+                      <div className="flex flex-col gap-3">
+                        <div className={`flex items-center space-x-3 rounded-lg border-2 p-4 cursor-pointer transition-all ${
+                          paymentType === "onetime" ? "border-blue-600 bg-blue-50/50 dark:bg-blue-950/20" : "border-border hover:border-blue-300"
+                        }`}>
+                          <RadioGroupItem value="onetime" id="onetime" />
+                          <Label htmlFor="onetime" className="flex-1 cursor-pointer">
+                            <div className="font-semibold text-lg">One-Time Order</div>
+                            <div className="text-sm text-muted-foreground">Standard Price - $249.00</div>
+                          </Label>
+                        </div>
+                        
+                        <div className={`flex items-center space-x-3 rounded-lg border-2 p-4 cursor-pointer transition-all ${
+                          paymentType === "subscription" ? "border-green-600 bg-green-50/50 dark:bg-green-950/20" : "border-border hover:border-green-300"
+                        }`}>
+                          <RadioGroupItem value="subscription" id="subscription" />
+                          <Label htmlFor="subscription" className="flex-1 cursor-pointer">
+                            <div className="font-semibold text-lg flex items-center gap-2">
+                              Subscribe & Save 10%
+                              <span className="text-xs bg-green-600 text-white px-2 py-0.5 rounded-full">BEST VALUE</span>
+                            </div>
+                            <div className="text-sm text-green-600 dark:text-green-400 font-semibold">$224.10 per quarter</div>
+                            <div className="text-xs text-muted-foreground mt-1">Billed quarterly • Kit ships automatically every 90 days • Cancel anytime</div>
+                          </Label>
+                        </div>
+                      </div>
+                    </RadioGroup>
                   </div>
 
                   {/* PayPal Payment Forms */}
-                  <div className="space-y-6">
-                    {/* One-Time Payment */}
-                    <div id="std-onetime" className="space-y-3">
-                      <p className="font-bold text-lg">$249.00 (One-Time)</p>
-                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                  {paymentType === "onetime" ? (
+                    <div className="space-y-3">
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="w-full">
                         <input type="hidden" name="cmd" value="_xclick" />
                         <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
                         <input type="hidden" name="item_name" value="Platinum Health Kit (13-Panel) - One Time" />
                         <input type="hidden" name="amount" value="249.00" />
                         <input type="hidden" name="no_shipping" value="2" />
                         <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" name="submit" alt="Buy Now" />
+                        <button type="submit" className="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors h-14 text-lg">
+                          Pay $249.00 (One-Time)
+                        </button>
                       </form>
                     </div>
-
-                    {/* Subscription Payment */}
-                    <div id="std-sub" className="space-y-3">
-                      <p className="font-bold text-green-600 text-lg">$224.10 / Quarter (Save 10%)</p>
-                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                  ) : (
+                    <div className="space-y-3">
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="w-full">
                         <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                         <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                        <input type="hidden" name="item_name" value="Platinum Health Kit (13-Panel) - Auto-Ship" />
+                        <input type="hidden" name="item_name" value="Platinum Health Kit - Auto-Ship (Quarterly)" />
                         <input type="hidden" name="no_shipping" value="2" />
                         <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                         <input type="hidden" name="a3" value="224.10" />
                         <input type="hidden" name="p3" value="3" />
                         <input type="hidden" name="t3" value="M" />
                         <input type="hidden" name="src" value="1" />
-                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribe_LG.gif" name="submit" alt="Subscribe" />
+                        <button type="submit" className="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors h-14 text-lg">
+                          Subscribe: $224.10 / Quarter
+                        </button>
                       </form>
+                      <p className="text-xs text-center text-muted-foreground">
+                        🔄 Automatic quarterly billing and shipping • Cancel anytime via PayPal
+                      </p>
                     </div>
-                  </div>
+                  )}
                 </CardContent>
               </Card>
             )}

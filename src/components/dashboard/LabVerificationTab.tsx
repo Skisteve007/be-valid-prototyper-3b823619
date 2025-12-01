@@ -151,56 +151,13 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Product Cards */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Safety Shield Card */}
-            <Card className="relative overflow-hidden border-green-500/40 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20 hover:shadow-xl transition-shadow">
-              <div className="absolute top-4 right-4">
-                <Badge className="bg-green-600 text-white">
-                  <ShieldCheck className="h-3 w-3 mr-1" />
-                  Safety
-                </Badge>
-              </div>
-              <CardHeader className="space-y-3 pb-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-green-600 rounded-full">
-                    <ShieldCheck className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">The Safety Shield</h3>
-                    <p className="text-sm text-muted-foreground">10-Panel Tox Screen</p>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  10-Panel Toxicology Verification. Required for high-liability venues.
-                </p>
-                <div className="bg-white dark:bg-gray-900 p-4 rounded-lg border-2 border-green-500/30">
-                  <p className="text-3xl font-bold text-green-700 dark:text-green-400">
-                    $89.00
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Includes Kit + Lab Fee
-                  </p>
-                </div>
-                <Button
-                  onClick={() => handleProductSelect('safety_shield')}
-                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
-                  size="lg"
-                >
-                  <ShieldCheck className="mr-2 h-4 w-4" />
-                  Order Safety Kit
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Health Heart Card */}
+          {/* STD Panel Product Card */}
+          <div className="max-w-2xl mx-auto">
             <Card className="relative overflow-hidden border-pink-500/40 bg-gradient-to-br from-pink-50/50 to-rose-50/50 dark:from-pink-950/20 dark:to-rose-950/20 hover:shadow-xl transition-shadow">
               <div className="absolute top-4 right-4">
                 <Badge className="bg-pink-600 text-white">
                   <Heart className="h-3 w-3 mr-1" />
-                  Health
+                  Sexual Health
                 </Badge>
               </div>
               <CardHeader className="space-y-3 pb-4">
@@ -209,14 +166,14 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
                     <Heart className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg">The Health Heart</h3>
-                    <p className="text-sm text-muted-foreground">Comprehensive Panel</p>
+                    <h3 className="font-bold text-lg">Complete STD Panel</h3>
+                    <p className="text-sm text-muted-foreground">Comprehensive Sexual Health Verification</p>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Full Clinical Verification (5-Panel Standard). Verified by certified partners.
+                  Full Clinical Verification (5-Panel Standard). Verified by certified lab partners for complete peace of mind.
                 </p>
                 <div className="bg-white dark:bg-gray-900 p-4 rounded-lg border-2 border-pink-500/30">
                   <p className="text-3xl font-bold text-pink-700 dark:text-pink-400">
@@ -232,7 +189,7 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
                   size="lg"
                 >
                   <Heart className="mr-2 h-4 w-4" />
-                  Order Health Kit
+                  Order STD Panel Kit
                 </Button>
               </CardContent>
             </Card>
@@ -260,12 +217,8 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
             {selectedProduct && (
               <div className="bg-muted/50 rounded-lg p-4 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium">
-                    {selectedProduct === 'safety_shield' ? 'The Safety Shield' : 'The Health Heart'}
-                  </span>
-                  <span className="font-bold text-lg">
-                    {selectedProduct === 'safety_shield' ? '$89.00' : '$149.00'}
-                  </span>
+                  <span className="font-medium">Complete STD Panel</span>
+                  <span className="font-bold text-lg">$149.00</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   One-time payment • Includes kit delivery and lab processing

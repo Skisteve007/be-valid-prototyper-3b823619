@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { ShieldCheck, Loader2, AlertCircle } from "lucide-react";
+import { ShieldCheck, Loader2, AlertCircle, CreditCard } from "lucide-react";
 import Barcode from "react-barcode";
 import { SafetyQRCode } from "./SafetyQRCode";
 
@@ -24,6 +26,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<LabOrder[]>([]);
   const [fetchingOrders, setFetchingOrders] = useState(true);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
   useEffect(() => {
     fetchOrders();
@@ -48,7 +51,11 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
     }
   };
 
-  const generateSafetyOrder = async () => {
+  const handleProductSelect = () => {
+    setPaymentModalOpen(true);
+  };
+
+  const handlePaymentComplete = async () => {
     setLoading(true);
     try {
       // Generate unique 12-digit alphanumeric code
@@ -68,7 +75,8 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
 
       if (error) throw error;
 
-      toast.success("At-Home Safety Kit order generated!");
+      toast.success("Safety Shield kit ordered successfully! Check your email for shipping details.");
+      setPaymentModalOpen(false);
       await fetchOrders();
     } catch (error: any) {
       console.error("Error generating safety order:", error);
@@ -142,30 +150,106 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-muted-foreground">
-            Order your at-home safety kit and register it using the barcode on your sample cup.
-          </p>
-          <Button
-            onClick={generateSafetyOrder}
-            disabled={loading}
-            size="lg"
-            className="w-full md:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generating...
-              </>
-            ) : (
-              <>
-                <ShieldCheck className="mr-2 h-4 w-4" />
-                Order At-Home Safety Kit
-              </>
-            )}
-          </Button>
+        <CardContent className="space-y-6">
+          {/* Safety Shield Product Card */}
+          <div className="max-w-2xl mx-auto">
+            <Card className="relative overflow-hidden border-green-500/40 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20 hover:shadow-xl transition-shadow">
+              <div className="absolute top-4 right-4">
+                <Badge className="bg-green-600 text-white">
+                  <ShieldCheck className="h-3 w-3 mr-1" />
+                  Safety
+                </Badge>
+              </div>
+              <CardHeader className="space-y-3 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-green-600 rounded-full">
+                    <ShieldCheck className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg">The Safety Shield</h3>
+                    <p className="text-sm text-muted-foreground">10-Panel Tox Screen</p>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  10-Panel Toxicology Verification. Required for high-liability venues.
+                </p>
+                <div className="bg-white dark:bg-gray-900 p-4 rounded-lg border-2 border-green-500/30">
+                  <p className="text-3xl font-bold text-green-700 dark:text-green-400">
+                    $89.00
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Includes Kit + Lab Fee
+                  </p>
+                </div>
+                <Button
+                  onClick={handleProductSelect}
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                  size="lg"
+                >
+                  <ShieldCheck className="mr-2 h-4 w-4" />
+                  Order Safety Kit
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Gold Status Note */}
+          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-950/20 dark:to-amber-950/20 border border-yellow-500/30 rounded-lg p-4">
+            <p className="text-sm text-center text-muted-foreground">
+              ✨ <strong className="text-yellow-700 dark:text-yellow-400">Certified Lab Results unlock the 'Gold Border' on your entry pass for 90 days.</strong>
+            </p>
+          </div>
         </CardContent>
       </Card>
+
+      {/* Payment Modal */}
+      <Dialog open={paymentModalOpen} onOpenChange={setPaymentModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CreditCard className="h-5 w-5" />
+              Complete Your Order
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="bg-muted/50 rounded-lg p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-medium">The Safety Shield</span>
+                <span className="font-bold text-lg">$89.00</span>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                One-time payment • Includes kit delivery and lab processing
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Payment integration coming soon. For now, clicking "Confirm Order" will generate your kit tracking information.
+              </p>
+              <Button
+                onClick={handlePaymentComplete}
+                disabled={loading}
+                className="w-full"
+                size="lg"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Confirm Order
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Show Safety QR Code if verified */}
       {hasVerifiedResult && (

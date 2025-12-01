@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, Target } from "lucide-react";
 import { useRef, useState } from "react";
 
@@ -26,6 +27,7 @@ interface PersonalInfoSectionProps {
   userInterests?: Record<string, string[]>;
   emailShareable?: boolean;
   onEmailShareableChange?: (shareable: boolean) => void;
+  memberId?: string;
 }
 
 export const PersonalInfoSection = ({
@@ -47,12 +49,26 @@ export const PersonalInfoSection = ({
   userInterests,
   emailShareable = false,
   onEmailShareableChange,
+  memberId,
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
   const months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const years = Array.from({ length: 100 }, (_, i) => (new Date().getFullYear() - 18 - i).toString());
+  
+  // Calculate age from birthday
+  const calculateAge = () => {
+    if (!birthdayDay || !birthdayMonth || !birthdayYear) return null;
+    const today = new Date();
+    const birthDate = new Date(parseInt(birthdayYear), parseInt(birthdayMonth) - 1, parseInt(birthdayDay));
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
   
   // Get a seeking preference from user interests
   const getSeekingPreference = () => {
@@ -74,6 +90,7 @@ export const PersonalInfoSection = ({
     return null;
   };
   
+  const age = calculateAge();
   const seekingPreference = getSeekingPreference();
 
   return (
@@ -86,11 +103,11 @@ export const PersonalInfoSection = ({
         <Label className="text-base">Profile Photo *</Label>
         <div className="relative">
           <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
-          <div className="relative flex items-center gap-4 p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
-            <Avatar className="h-24 w-24 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
+          <div className="relative flex items-center gap-6 p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
+            <Avatar className="h-32 w-32 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
               <AvatarImage src={profileImageUrl} />
               <AvatarFallback className="bg-blue-500/10">
-                <User className="h-12 w-12 text-blue-500" />
+                <User className="h-16 w-16 text-blue-500" />
               </AvatarFallback>
             </Avatar>
             
@@ -99,23 +116,43 @@ export const PersonalInfoSection = ({
                 {fullName && (
                   <div className="flex items-center gap-2">
                     <User className="w-4 h-4 text-blue-500" />
-                    <span className="font-semibold text-lg">{fullName}</span>
+                    <span className="font-semibold text-xl">{fullName}</span>
                   </div>
                 )}
+                
+                <div className="flex items-center gap-3 flex-wrap">
+                  {memberId && (
+                    <span className="text-sm font-medium text-muted-foreground">
+                      Member: <span className="text-blue-500">{memberId}</span>
+                    </span>
+                  )}
+                  {age && (
+                    <span className="text-sm font-medium text-muted-foreground">
+                      Age: <span className="text-blue-500">{age}</span>
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-2 flex-wrap">
+                  {genderIdentity && (
+                    <Badge variant="secondary" className="bg-blue-500/10 text-blue-600 border-blue-500/30">
+                      {genderIdentity}
+                    </Badge>
+                  )}
+                  {sexualOrientation && (
+                    <Badge variant="secondary" className="bg-purple-500/10 text-purple-600 border-purple-500/30">
+                      {sexualOrientation}
+                    </Badge>
+                  )}
+                </div>
+                
                 {emailShareable && email && (
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-purple-500" />
                     <span className="text-sm text-muted-foreground">{email}</span>
                   </div>
                 )}
-                {seekingPreference && (
-                  <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4 text-orange-500" />
-                    <span className="text-sm font-medium">
-                      Seeking: <span className="text-muted-foreground">{seekingPreference}</span>
-                    </span>
-                  </div>
-                )}
+                
                 <div className="flex items-center gap-4 flex-wrap text-sm">
                   {whereFrom && (
                     <div className="flex items-center gap-1">
@@ -136,6 +173,16 @@ export const PersonalInfoSection = ({
                     </div>
                   )}
                 </div>
+                
+                {seekingPreference && (
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-orange-500" />
+                    <span className="text-sm font-medium">
+                      Seeking: <span className="text-muted-foreground">{seekingPreference}</span>
+                    </span>
+                  </div>
+                )}
+                
                 <Button
                   type="button"
                   variant="outline"

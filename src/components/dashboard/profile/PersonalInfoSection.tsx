@@ -252,12 +252,21 @@ export const PersonalInfoSection = ({
               </span>
             </Button>
           </Label>
-          <Input id="email" type="email" {...register("email")} required placeholder="donor@cleancheck.com" />
-          <p className="text-xs text-muted-foreground">
-            {emailShareable 
-              ? "Email will be shared when you share your QR code" 
-              : "Email is private and will not be shared via QR code"}
-          </p>
+          {emailShareable ? (
+            <>
+              <Input id="email" type="email" {...register("email")} required placeholder="donor@cleancheck.com" />
+              <p className="text-xs text-muted-foreground">
+                Email will be shared when you share your QR code
+              </p>
+            </>
+          ) : (
+            <div className="flex items-center gap-2 p-3 rounded-md border border-red-500/30 bg-red-500/5">
+              <Lock className="w-4 h-4 text-red-500" />
+              <p className="text-sm text-muted-foreground">
+                Email is private and hidden
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="space-y-2">

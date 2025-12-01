@@ -117,16 +117,40 @@ export const PersonalInfoSection = ({
         <Label className="text-base">Profile Photo *</Label>
         <div className="relative">
           <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
-          <div className="relative flex items-center gap-6 p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
-            <Avatar className="h-32 w-32 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
-              <AvatarImage src={profileImageUrl} />
-              <AvatarFallback className="bg-blue-500/10">
-                <User className="h-16 w-16 text-blue-500" />
-              </AvatarFallback>
-            </Avatar>
+          <div className="relative flex items-start gap-6 p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
+            <div className="flex flex-col items-center gap-2">
+              <Avatar className="h-32 w-32 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
+                <AvatarImage src={profileImageUrl} />
+                <AvatarFallback className="bg-blue-500/10">
+                  <User className="h-16 w-16 text-blue-500" />
+                </AvatarFallback>
+              </Avatar>
+              
+              {profileImageUrl && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploadingImage}
+                  className="h-7 px-2 text-xs"
+                >
+                  <Camera className="w-3 h-3 mr-1" />
+                  {uploadingImage ? "..." : "Change"}
+                </Button>
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                disabled={uploadingImage}
+                className="hidden"
+              />
+            </div>
             
             {profileImageUrl ? (
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 space-y-3 pt-2">
                 {fullName && (
                   <div className="flex items-center gap-2">
                     <User className="w-4 h-4 text-blue-500" />
@@ -283,26 +307,6 @@ export const PersonalInfoSection = ({
                     Lab certification approved through lab testing only, not by member.
                   </p>
                 </div>
-                
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={uploadingImage}
-                  className="mt-2 h-8 px-3 text-xs"
-                >
-                  <Camera className="w-3 h-3 mr-1.5" />
-                  {uploadingImage ? "Uploading..." : "Change Photo"}
-                </Button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  disabled={uploadingImage}
-                  className="hidden"
-                />
               </div>
             ) : (
               <div className="flex-1">

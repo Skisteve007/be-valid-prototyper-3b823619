@@ -264,7 +264,7 @@ const Index = () => {
         </section>
 
         {/* Membership Section */}
-        <section className="pt-2 pb-16 px-4">
+        <section className="pt-2 pb-4 px-4">
           <div className="container mx-auto max-w-4xl">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-12">
@@ -454,7 +454,7 @@ const Index = () => {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-4 md:py-8 px-4 bg-muted/30">
+        <section className="py-6 px-4 bg-muted/30">
           <div className="container mx-auto max-w-6xl">
             <ScrollReveal direction="up" delay={100}>
               <h3 className="text-4xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-wide">Why Join Clean Check?</h3>

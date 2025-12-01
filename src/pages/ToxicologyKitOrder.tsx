@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { ShieldCheck, Home, Package, MapPin } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
-import Footer from "@/components/Footer";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const ToxicologyKitOrder = () => {
@@ -275,8 +274,6 @@ const ToxicologyKitOrder = () => {
             </Button>
           </div>
         </main>
-
-        <Footer />
       </div>
     </PayPalScriptProvider>
   );

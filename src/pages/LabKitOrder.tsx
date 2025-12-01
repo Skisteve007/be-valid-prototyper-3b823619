@@ -34,11 +34,10 @@ const LabKitOrder = () => {
   return (
     <PayPalScriptProvider
       options={{
-        clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID || "",
-        vault: true,
+        clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID || "test",
+        vault: false,
         intent: "capture",
-        "enable-funding": "venmo,paylater,card",
-        "disable-funding": "",
+        currency: "USD",
         components: "buttons",
       }}
     >

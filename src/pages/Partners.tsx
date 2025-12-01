@@ -75,6 +75,12 @@ const Partners = () => {
       <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 py-24 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(100,116,139,0.08),transparent_50%)]"></div>
+        
+        {/* Animated Radar Scan Line */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-scan opacity-40 shadow-[0_0_15px_rgba(59,130,246,0.6)]"></div>
+        </div>
+        
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-6 leading-tight">
             Sexual Health Verification for<br />High-Frequency Dating Communities

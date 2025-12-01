@@ -284,17 +284,25 @@ const StorageSponsorManager = () => {
       return;
     }
 
-    // Validate URL if provided
+    // Validate URL or email if provided
     if (newSponsorData.website_url.trim()) {
-      try {
-        const url = new URL(newSponsorData.website_url.trim());
-        if (!url.protocol.startsWith('http')) {
-          toast.error("Website URL must start with http:// or https://");
+      const input = newSponsorData.website_url.trim();
+      // Check if it's an email
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const isEmail = emailPattern.test(input);
+      
+      // If not email, must be valid URL
+      if (!isEmail) {
+        try {
+          const url = new URL(input);
+          if (!url.protocol.startsWith('http')) {
+            toast.error("Website URL must start with http:// or https://");
+            return;
+          }
+        } catch {
+          toast.error("Please enter a valid website URL (e.g., https://example.com) or email address");
           return;
         }
-      } catch {
-        toast.error("Please enter a valid website URL (e.g., https://example.com)");
-        return;
       }
     }
 
@@ -328,12 +336,40 @@ const StorageSponsorManager = () => {
               logo_url: newSponsorData.logo_url,
               tier: newSponsorData.tier,
               section: newSponsorData.section,
+              category: newSponsorData.category,
               display_order: sponsors.length,
               active: true,
             },
           ]);
 
         if (error) throw error;
+        
+        // Send onboarding email if this is a lab partner
+        if (newSponsorData.category === 'lab_certified' || newSponsorData.category === 'toxicology') {
+          const emailMatch = newSponsorData.website_url?.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+          const partnerEmail = emailMatch ? emailMatch[0] : "partner@example.com";
+          
+          try {
+            const { data: emailData, error: emailError } = await supabase.functions.invoke('send-lab-partner-onboarding', {
+              body: {
+                partnerName: newSponsorData.name,
+                partnerEmail: partnerEmail,
+                category: newSponsorData.category,
+                websiteUrl: newSponsorData.website_url || undefined,
+              }
+            });
+
+            if (emailError) {
+              console.error("Failed to send onboarding email:", emailError);
+              toast.warning("Sponsor created, but onboarding email failed to send");
+            } else {
+              console.log("Onboarding email sent successfully:", emailData);
+            }
+          } catch (emailError) {
+            console.error("Error sending onboarding email:", emailError);
+          }
+        }
+        
         toast.success("Sponsor created successfully");
       }
 
@@ -559,19 +595,25 @@ const StorageSponsorManager = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="sponsor-website" className="text-base font-semibold">
-                    Website URL
+                    Website URL or Contact Email
                   </Label>
                   <Input
                     id="sponsor-website"
-                    type="url"
                     value={newSponsorData.website_url}
                     onChange={(e) => setNewSponsorData({ ...newSponsorData, website_url: e.target.value })}
-                    placeholder="https://example.com"
+                    placeholder="https://example.com or contact@lab.com"
                     className="h-11"
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Optional - When clicked, logo will open this URL
-                  </p>
+                  {(newSponsorData.category === 'lab_certified' || newSponsorData.category === 'toxicology') && (
+                    <p className="text-xs text-blue-600 font-medium">
+                      💡 For lab partners: Include an email address to automatically send onboarding instructions
+                    </p>
+                  )}
+                  {newSponsorData.category === 'general' && (
+                    <p className="text-xs text-muted-foreground">
+                      Optional - When clicked, logo will open this URL
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">

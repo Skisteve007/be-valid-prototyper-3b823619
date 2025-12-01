@@ -124,12 +124,15 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
       // Release existing lock first
       if (wakeLock) {
         await wakeLock.release();
+        setWakeLock(null);
       }
       
       if ('wakeLock' in navigator) {
+        console.log('Requesting screen wake lock for mobile brightness...');
         const lock = await (navigator as any).wakeLock.request('screen');
         setWakeLock(lock);
-        console.log('✅ Screen wake lock activated - screen will stay bright for gray QR code');
+        console.log('✅ Screen wake lock activated - screen will stay bright');
+        toast.success("Screen brightness activated", { duration: 2000 });
         
         // Handle wake lock release
         lock.addEventListener('release', () => {
@@ -140,9 +143,11 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         return lock;
       } else {
         console.log("⚠️ Screen wake lock not supported on this browser");
+        toast.error("Screen brightness control not available on this device");
       }
     } catch (error) {
-      console.log("⚠️ Screen wake lock error:", error);
+      console.error("⚠️ Screen wake lock error:", error);
+      toast.error("Could not activate screen brightness");
     }
   };
 
@@ -330,57 +335,57 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           )}
 
           {/* Border Color Explainer and Document Date - grouped closer together */}
-          <div className="w-full max-w-md space-y-3 pointer-events-none select-none">
-            <div className="space-y-2 p-3 rounded-lg border bg-muted/50">
-              <h4 className="text-xs font-semibold text-center">Border Color Key</h4>
-              <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30"></div>
-                  <span>Clean</span>
+          <div className="w-full max-w-md space-y-3 pointer-events-none select-none touch-none">
+            <div className="space-y-2 p-3 rounded-lg border bg-muted/50 pointer-events-none touch-none">
+              <h4 className="text-xs font-semibold text-center pointer-events-none">Border Color Key</h4>
+              <div className="flex items-center justify-center gap-3 text-xs flex-wrap pointer-events-none">
+                <div className="flex items-center gap-1.5 pointer-events-none">
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30 pointer-events-none"></div>
+                  <span className="pointer-events-none">Clean</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 ring-1 ring-yellow-500/30"></div>
-                  <span>Caution</span>
+                <div className="flex items-center gap-1.5 pointer-events-none">
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 ring-1 ring-yellow-500/30 pointer-events-none"></div>
+                  <span className="pointer-events-none">Caution</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 ring-1 ring-red-500/30"></div>
-                  <span>Be Aware</span>
+                <div className="flex items-center gap-1.5 pointer-events-none">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 ring-1 ring-red-500/30 pointer-events-none"></div>
+                  <span className="pointer-events-none">Be Aware</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-gray-500 ring-1 ring-gray-500/30"></div>
-                  <span>Incognito</span>
+                <div className="flex items-center gap-1.5 pointer-events-none">
+                  <div className="w-2.5 h-2.5 rounded-full bg-gray-500 ring-1 ring-gray-500/30 pointer-events-none"></div>
+                  <span className="pointer-events-none">Incognito</span>
                 </div>
               </div>
               {statusColor === "gray" && (
-                <div className="p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
-                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5">
-                    <span className="text-green-500">✓</span> Screen Brightness Active
+                <div className="p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30 pointer-events-none touch-none">
+                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5 pointer-events-none">
+                    <span className="text-green-500 pointer-events-none">✓</span> Screen Brightness Active
                   </p>
                 </div>
               )}
             </div>
 
             {lastDocumentDate && (
-              <div className="p-3 rounded-lg border bg-muted/50 space-y-2 pointer-events-none select-none">
-              <p className="text-xs text-center font-medium">
+              <div className="p-3 rounded-lg border bg-muted/50 space-y-2 pointer-events-none select-none touch-none">
+              <p className="text-xs text-center font-medium pointer-events-none">
                 Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
                   year: 'numeric', 
                   month: 'long', 
                   day: 'numeric' 
                 })}
               </p>
-              <div className="flex items-center justify-center gap-4 text-xs">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                  <span>1-60 days</span>
+              <div className="flex items-center justify-center gap-4 text-xs pointer-events-none">
+                <div className="flex items-center gap-1.5 pointer-events-none">
+                  <div className="w-2 h-2 rounded-full bg-blue-500 pointer-events-none"></div>
+                  <span className="pointer-events-none">1-60 days</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-pink-500"></div>
-                  <span>61-120 days</span>
+                <div className="flex items-center gap-1.5 pointer-events-none">
+                  <div className="w-2 h-2 rounded-full bg-pink-500 pointer-events-none"></div>
+                  <span className="pointer-events-none">61-120 days</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                  <span>121+ days</span>
+                <div className="flex items-center gap-1.5 pointer-events-none">
+                  <div className="w-2 h-2 rounded-full bg-purple-500 pointer-events-none"></div>
+                  <span className="pointer-events-none">121+ days</span>
                 </div>
               </div>
             </div>

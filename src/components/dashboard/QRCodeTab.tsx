@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { QrCode, Share2, Download, Clock, Mail, MessageSquare, Copy, ExternalLink } from "lucide-react";
+import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import SponsorUpload from "./SponsorUpload";
 
@@ -287,16 +287,6 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
     toast.success("Opening WhatsApp...");
   };
 
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = qrCodeUrl;
-    link.download = "cleancheck-qr-code.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    toast.success("QR code downloaded");
-  };
-
   return (
     <div className="space-y-6 py-4">
       <Card>
@@ -392,42 +382,43 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           )}
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-2 w-full max-w-xs">
-            <DropdownMenu>
+          <div className="flex flex-col gap-2 w-full max-w-xs">
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
-                <Button className="flex-1 min-h-[40px] bg-blue-100 hover:bg-blue-200 text-blue-700 border-blue-200" variant="outline" size="sm">
-                  <Share2 className="h-3.5 w-3.5 mr-2" />
-                  Share
+                <Button 
+                  className="w-full min-h-[48px] bg-blue-100 hover:bg-blue-200 text-blue-700 border-blue-200 touch-manipulation" 
+                  variant="outline"
+                  type="button"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <Share2 className="h-4 w-4 mr-2" />
+                  Share QR Code
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="center" className="w-56">
-                <DropdownMenuItem onClick={handleShare}>
+              <DropdownMenuContent align="center" className="w-56 z-50">
+                <DropdownMenuItem onClick={handleShare} className="min-h-[44px] touch-manipulation">
                   <ExternalLink className="h-4 w-4 mr-2" />
                   Share via Device
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleCopyLink}>
+                <DropdownMenuItem onClick={handleCopyLink} className="min-h-[44px] touch-manipulation">
                   <Copy className="h-4 w-4 mr-2" />
                   Copy Link
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleShareEmail}>
+                <DropdownMenuItem onClick={handleShareEmail} className="min-h-[44px] touch-manipulation">
                   <Mail className="h-4 w-4 mr-2" />
                   Share via Email
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleShareSMS}>
+                <DropdownMenuItem onClick={handleShareSMS} className="min-h-[44px] touch-manipulation">
                   <MessageSquare className="h-4 w-4 mr-2" />
                   Share via SMS
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleShareWhatsApp}>
+                <DropdownMenuItem onClick={handleShareWhatsApp} className="min-h-[44px] touch-manipulation">
                   <MessageSquare className="h-4 w-4 mr-2" />
                   Share via WhatsApp
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button onClick={handleDownload} className="flex-1 min-h-[40px]" size="sm">
-              <Download className="h-3.5 w-3.5 mr-2" />
-              Download
-            </Button>
           </div>
 
           <div className="text-sm text-muted-foreground text-center px-4">

@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 export const AdminFooter = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAdmin } = useIsAdmin();
 
-  if (!isAdmin) return null;
+  if (!isAdmin || location.pathname === "/lab-kit-order") return null;
 
   return (
     <footer className="border-t bg-card/50 backdrop-blur-sm mt-auto">

@@ -7,7 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { FlaskConical, Loader2, ShieldCheck, Heart, CreditCard, Package, Droplet, CheckCircle, ArrowRight } from "lucide-react";
+import { FlaskConical, Loader2, ShieldCheck, Heart, CreditCard, Package, Droplet, CheckCircle, ArrowRight, AlertCircle } from "lucide-react";
 import Barcode from "react-barcode";
 import { LabSponsorLogos } from "./LabSponsorLogos";
 
@@ -373,17 +373,24 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
 
       {orders.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold bg-gradient-to-r from-pink-500 via-primary to-blue-500 bg-clip-text text-transparent">
-            Your Health Kit Orders
+          <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 via-purple-500 to-pink-600 bg-clip-text text-transparent">
+            Your Sexual Health Panel Orders
           </h3>
           {orders.map((order) => (
-            <Card key={order.id} className="shadow-md border-pink-500/20">
-              <CardContent className="p-6 space-y-4">
+            <Card key={order.id} className="shadow-md border-primary/20 relative overflow-hidden">
+              {/* Sample Only Watermark */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                <div className="text-6xl md:text-8xl font-bold text-muted-foreground/10 rotate-[-30deg] select-none">
+                  SAMPLE ONLY
+                </div>
+              </div>
+              
+              <CardContent className="p-6 space-y-4 relative z-0">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <Heart className="h-4 w-4 text-pink-600" />
-                      <p className="text-sm font-semibold">Health Heart - Comprehensive Panel</p>
+                      <Heart className="h-4 w-4 text-purple-600" />
+                      <p className="text-sm font-semibold">13-Panel Sexual Health Screen</p>
                     </div>
                     <p className="text-sm text-muted-foreground">
                       Order ID: {order.id.slice(0, 8)}...
@@ -415,10 +422,15 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
                     />
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground italic border-l-2 border-pink-500 pl-3">
-                  💡 Show this barcode to the lab technician to link your
-                  results automatically.
-                </p>
+                <div className="bg-muted/30 rounded-lg p-3 space-y-2 border border-primary/20">
+                  <p className="text-xs text-muted-foreground flex items-start gap-2">
+                    <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0 text-purple-600" />
+                    <span className="font-medium">This barcode communicates directly with our lab partners. Only the lab can scan and process this barcode to link your test results.</span>
+                  </p>
+                  <p className="text-xs text-muted-foreground pl-5">
+                    Once results are verified, they automatically appear in your shareable QR code, giving you instant proof of your sexual health status.
+                  </p>
+                </div>
               </CardContent>
             </Card>
           ))}

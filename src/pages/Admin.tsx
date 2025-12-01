@@ -490,13 +490,15 @@ const Admin = () => {
 
       <main className="container mx-auto px-4 py-8 space-y-8">
         <Tabs defaultValue="sponsors" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="sponsors">Sponsor Management</TabsTrigger>
-            <TabsTrigger value="lab-integrations">
+          <TabsList className="flex w-full justify-between relative z-10">
+            <TabsTrigger value="sponsors" className="cursor-pointer flex-1">
+              Sponsor Management
+            </TabsTrigger>
+            <TabsTrigger value="lab-integrations" className="cursor-pointer flex-1">
               <FlaskConical className="h-4 w-4 mr-2" />
               Lab Integrations
             </TabsTrigger>
-            <TabsTrigger value="developers">
+            <TabsTrigger value="developers" className="cursor-pointer flex-1">
               <Code className="h-4 w-4 mr-2" />
               Developers & Integrations
             </TabsTrigger>

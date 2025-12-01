@@ -136,7 +136,7 @@ const Dashboard = () => {
             <div className="flex justify-center md:justify-end gap-2 flex-wrap md:flex-1">
               <Button 
                 onClick={() => setActiveTab("qrcode")}
-                className="relative bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30"
+                className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold"
               >
                 <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
                 <QrCode className="h-4 w-4 mr-2" />
@@ -144,9 +144,9 @@ const Dashboard = () => {
               </Button>
               <Button 
                 onClick={handleLogout} 
-                className="relative bg-gradient-to-r from-pink-500 to-pink-600 text-white hover:from-pink-600 hover:to-pink-700 border-0"
+                className="relative shadow-[0_0_30px_rgba(236,72,153,0.7)] hover:shadow-[0_0_40px_rgba(236,72,153,0.9)] border-2 border-pink-500/60 bg-pink-500/15 text-pink-500 hover:text-pink-400 font-bold"
               >
-                <div className="absolute inset-0 bg-pink-500/40 blur-lg rounded-md -z-10"></div>
+                <div className="absolute inset-0 bg-pink-500/25 blur-lg rounded-md -z-10"></div>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>

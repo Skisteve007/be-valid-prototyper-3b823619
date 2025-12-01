@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { FlaskConical, Loader2, ShieldCheck, Heart, CreditCard, Package, Droplet, CheckCircle, ArrowRight, AlertCircle } from "lucide-react";
 import Barcode from "react-barcode";
 import { LabSponsorLogos } from "./LabSponsorLogos";
+import { ProductCard } from "./ProductCard";
 
 interface LabOrder {
   id: string;
@@ -293,34 +294,14 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
         </CardContent>
       </Card>
 
-      {/* Call To Action - Health Panel */}
-      <Card className="border-2 border-primary/40 bg-gradient-to-br from-blue-50/80 via-purple-50/80 to-pink-50/80 dark:from-blue-950/40 dark:via-purple-950/40 dark:to-pink-950/40 shadow-[0_0_40px_rgba(139,92,246,0.3)]">
-        <CardContent className="p-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <p className="text-4xl font-bold bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent mb-1">$249.00</p>
-              <p className="text-sm text-muted-foreground">(One-Time)</p>
-              <p className="text-xs text-muted-foreground mt-1">Includes Kit + Lab Processing Fee</p>
-            </div>
-            <div className="flex flex-col items-center gap-3">
-              <Button
-                onClick={handleHealthPanelSelect}
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_40px_rgba(139,92,246,0.7)] text-lg px-8 py-6 min-h-[56px] touch-manipulation"
-              >
-                <Heart className="mr-2 h-5 w-5" />
-                Order Health Panel - $249
-              </Button>
-              <div className="flex items-center gap-2 bg-purple-600/10 px-4 py-2 rounded-full border border-purple-500/30">
-                <ShieldCheck className="h-4 w-4 text-purple-600" />
-                <span className="text-sm font-medium bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
-                  🛡️ Clinical Platinum Standard
-                </span>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Product Card - Sexual Health */}
+      <ProductCard
+        type="sexual_health"
+        title="Platinum 13-Panel Sexual Health Screen"
+        price="$249.00"
+        icon={Heart}
+        onOrderClick={handleHealthPanelSelect}
+      />
 
       {/* Payment Modal */}
       <Dialog open={paymentModalOpen} onOpenChange={setPaymentModalOpen}>

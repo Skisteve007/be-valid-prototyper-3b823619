@@ -11,6 +11,7 @@ import { ShieldCheck, Loader2, AlertCircle, CreditCard, Package, Plane, CheckCir
 import Barcode from "react-barcode";
 import { SafetyQRCode } from "./SafetyQRCode";
 import { LabSponsorLogos } from "./LabSponsorLogos";
+import { ProductCard } from "./ProductCard";
 
 interface LabOrder {
   id: string;
@@ -241,34 +242,14 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
         </CardContent>
       </Card>
 
-      {/* Call To Action - Toxicology */}
-      <Card className="border-2 border-green-500/40 bg-gradient-to-br from-green-50/80 to-emerald-50/80 dark:from-green-950/40 dark:to-emerald-950/40 shadow-[0_0_40px_rgba(34,197,94,0.3)]">
-        <CardContent className="p-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <p className="text-4xl font-bold text-green-700 dark:text-green-400 mb-1">$129</p>
-              <p className="text-sm text-muted-foreground">One-time payment</p>
-              <p className="text-xs text-muted-foreground mt-1">Includes Kit + Lab Processing Fee</p>
-            </div>
-            <div className="flex flex-col items-center gap-3">
-              <Button
-                onClick={handleProductSelect}
-                size="lg"
-                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-[0_0_30px_rgba(34,197,94,0.5)] hover:shadow-[0_0_40px_rgba(34,197,94,0.7)] text-lg px-8 py-6 min-h-[56px] touch-manipulation"
-              >
-                <ShieldCheck className="mr-2 h-5 w-5" />
-                Order Toxicology Kit - $129
-              </Button>
-              <div className="flex items-center gap-2 bg-green-600/10 px-4 py-2 rounded-full border border-green-500/30">
-                <CheckCircle className="h-4 w-4 text-green-600" />
-                <span className="text-sm font-medium text-green-700 dark:text-green-400">
-                  Results valid for Clean Check Verification
-                </span>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Product Card - Toxicology */}
+      <ProductCard
+        type="toxicology"
+        title="Lab-Certified 10-Panel Toxicology"
+        price="$129.00"
+        icon={ShieldCheck}
+        onOrderClick={handleProductSelect}
+      />
 
       {/* Payment Modal */}
       <Dialog open={paymentModalOpen} onOpenChange={setPaymentModalOpen}>

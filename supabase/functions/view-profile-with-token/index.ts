@@ -172,10 +172,10 @@ serve(async (req) => {
       sharedProfile.references = references || [];
     }
 
-    // Fetch uploaded documents/certifications
+    // Fetch uploaded documents/certifications with document URLs
     const { data: documents } = await supabase
       .from('certifications')
-      .select('id, title, issue_date, expiry_date, issuer, status, created_at')
+      .select('id, title, issue_date, expiry_date, issuer, status, document_url, created_at')
       .eq('user_id', profile.user_id)
       .order('created_at', { ascending: false });
 

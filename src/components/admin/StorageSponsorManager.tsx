@@ -393,94 +393,114 @@ const StorageSponsorManager = () => {
         )}
 
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>
+          <DialogContent className="sm:max-w-[500px] max-h-[85vh] flex flex-col p-0">
+            <DialogHeader className="px-6 pt-6 pb-4 border-b">
+              <DialogTitle className="text-xl">
                 {getSponsorForFile(newSponsorData.logo_url) ? "Edit Sponsor" : "Create Sponsor"}
               </DialogTitle>
               <DialogDescription>
-                Enter sponsor name and choose which section to display
+                Enter sponsor details and choose display section
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSaveSponsor} className="space-y-4">
-              {newSponsorData.logo_url && (
-                <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                  <img
-                    src={newSponsorData.logo_url}
-                    alt="Preview"
-                    className="w-full h-full object-contain"
+
+            <div className="overflow-y-auto flex-1 px-6 py-4">
+              <form id="sponsor-form" onSubmit={handleSaveSponsor} className="space-y-5">
+                {newSponsorData.logo_url && (
+                  <div className="aspect-video bg-muted rounded-lg overflow-hidden border-2 border-border">
+                    <img
+                      src={newSponsorData.logo_url}
+                      alt="Preview"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                )}
+                
+                <div className="space-y-2">
+                  <Label htmlFor="sponsor-name" className="text-base font-semibold">
+                    Sponsor Name *
+                  </Label>
+                  <Input
+                    id="sponsor-name"
+                    value={newSponsorData.name}
+                    onChange={(e) => setNewSponsorData({ ...newSponsorData, name: e.target.value })}
+                    placeholder="Enter sponsor name"
+                    required
+                    className="h-11"
                   />
                 </div>
-              )}
-              
-              <div className="space-y-2">
-                <Label htmlFor="sponsor-name">Sponsor Name *</Label>
-                <Input
-                  id="sponsor-name"
-                  value={newSponsorData.name}
-                  onChange={(e) => setNewSponsorData({ ...newSponsorData, name: e.target.value })}
-                  placeholder="Enter sponsor name"
-                  required
-                />
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="sponsor-website">Website URL</Label>
-                <Input
-                  id="sponsor-website"
-                  type="url"
-                  value={newSponsorData.website_url}
-                  onChange={(e) => setNewSponsorData({ ...newSponsorData, website_url: e.target.value })}
-                  placeholder="https://example.com"
-                />
-              </div>
+                <div className="space-y-2">
+                  <Label htmlFor="sponsor-website" className="text-base font-semibold">
+                    Website URL
+                  </Label>
+                  <Input
+                    id="sponsor-website"
+                    type="url"
+                    value={newSponsorData.website_url}
+                    onChange={(e) => setNewSponsorData({ ...newSponsorData, website_url: e.target.value })}
+                    placeholder="https://example.com"
+                    className="h-11"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Optional - When clicked, logo will open this URL
+                  </p>
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="sponsor-section">Display Section *</Label>
-                <Select
-                  value={newSponsorData.section.toString()}
-                  onValueChange={(value) => {
-                    const section = parseInt(value);
-                    const tier = (section === 1 || section === 2) ? 'platinum' : 'gold';
-                    console.log("Section selected:", section, "Tier:", tier);
-                    setNewSponsorData({ 
-                      ...newSponsorData, 
-                      section, 
-                      tier 
-                    });
-                  }}
-                >
-                  <SelectTrigger id="sponsor-section" className="w-full">
-                    <SelectValue placeholder="Choose section placement" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">Section 1 (Platinum)</SelectItem>
-                    <SelectItem value="2">Section 2 (Platinum)</SelectItem>
-                    <SelectItem value="3">Section 3 (Gold)</SelectItem>
-                  </SelectContent>
-                </Select>
-                <p className="text-xs text-muted-foreground">
-                  • Section 1 & 2: Platinum tier (top sponsors)<br />
-                  • Section 3: Gold tier (regular sponsors)
-                </p>
-              </div>
+                <div className="space-y-2">
+                  <Label htmlFor="sponsor-section" className="text-base font-semibold">
+                    Display Section *
+                  </Label>
+                  <Select
+                    value={newSponsorData.section.toString()}
+                    onValueChange={(value) => {
+                      const section = parseInt(value);
+                      const tier = (section === 1 || section === 2) ? 'platinum' : 'gold';
+                      console.log("Section selected:", section, "Tier:", tier);
+                      setNewSponsorData({ 
+                        ...newSponsorData, 
+                        section, 
+                        tier 
+                      });
+                    }}
+                  >
+                    <SelectTrigger id="sponsor-section" className="w-full h-11">
+                      <SelectValue placeholder="Choose section placement" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">Section 1 (Platinum)</SelectItem>
+                      <SelectItem value="2">Section 2 (Platinum)</SelectItem>
+                      <SelectItem value="3">Section 3 (Gold)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <div className="bg-muted/50 rounded-lg p-3 space-y-1">
+                    <p className="text-xs font-medium">Section Info:</p>
+                    <p className="text-xs text-muted-foreground">• Section 1 & 2: Platinum (top sponsors)</p>
+                    <p className="text-xs text-muted-foreground">• Section 3: Gold (regular sponsors)</p>
+                  </div>
+                </div>
+              </form>
+            </div>
 
-              <div className="flex gap-2 justify-end">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => {
-                    setDialogOpen(false);
-                    setEditingFile(null);
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit">
-                  {getSponsorForFile(newSponsorData.logo_url) ? "Update" : "Create"} Sponsor
-                </Button>
-              </div>
-            </form>
+            <div className="px-6 py-4 border-t bg-muted/20 flex gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setDialogOpen(false);
+                  setEditingFile(null);
+                }}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button 
+                type="submit" 
+                form="sponsor-form"
+                className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold"
+              >
+                ✓ Accept & Save
+              </Button>
+            </div>
           </DialogContent>
         </Dialog>
       </CardContent>

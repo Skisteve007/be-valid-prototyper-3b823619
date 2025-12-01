@@ -165,14 +165,18 @@ const StorageSponsorManager = () => {
   };
 
   const handleAssignToSection = (file: StorageFile) => {
-    setNewSponsorData({
+    console.log("Assigning file to section:", file.name);
+    const newData = {
       name: "",
       website_url: "",
-      tier: "platinum", // Default to platinum for section 1
+      tier: "platinum" as 'platinum' | 'gold' | 'silver',
       section: 1,
       logo_url: file.publicUrl,
-    });
+    };
+    console.log("Setting new sponsor data:", newData);
+    setNewSponsorData(newData);
     setEditingFile(file.name);
+    console.log("Opening dialog");
     setDialogOpen(true);
   };
 
@@ -373,13 +377,13 @@ const StorageSponsorManager = () => {
         )}
 
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogContent>
+          <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
                 {getSponsorForFile(newSponsorData.logo_url) ? "Edit Sponsor" : "Create Sponsor"}
               </DialogTitle>
               <DialogDescription>
-                Assign this logo to a sponsor and section
+                Enter sponsor name and choose which section to display
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSaveSponsor} className="space-y-4">
@@ -432,24 +436,15 @@ const StorageSponsorManager = () => {
                   <SelectTrigger id="sponsor-section" className="bg-background/50">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-popover border-border z-50">
-                    <SelectItem value="1" className="hover:bg-accent focus:bg-accent">
-                      <div className="flex items-center gap-2">
-                        <span>Section 1</span>
-                        <Badge variant="secondary" className="bg-purple-500/20 text-purple-300">Platinum</Badge>
-                      </div>
+                  <SelectContent className="bg-popover border-border z-[100]">
+                    <SelectItem value="1">
+                      Section 1 (Platinum)
                     </SelectItem>
-                    <SelectItem value="2" className="hover:bg-accent focus:bg-accent">
-                      <div className="flex items-center gap-2">
-                        <span>Section 2</span>
-                        <Badge variant="secondary" className="bg-purple-500/20 text-purple-300">Platinum</Badge>
-                      </div>
+                    <SelectItem value="2">
+                      Section 2 (Platinum)
                     </SelectItem>
-                    <SelectItem value="3" className="hover:bg-accent focus:bg-accent">
-                      <div className="flex items-center gap-2">
-                        <span>Section 3</span>
-                        <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-300">Gold</Badge>
-                      </div>
+                    <SelectItem value="3">
+                      Section 3 (Gold)
                     </SelectItem>
                   </SelectContent>
                 </Select>

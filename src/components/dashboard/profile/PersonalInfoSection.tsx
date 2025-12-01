@@ -117,9 +117,9 @@ export const PersonalInfoSection = ({
         <Label className="text-base">Profile Photo *</Label>
         <div className="relative">
           <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
-          <div className="relative flex items-start gap-6 p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
-            <div className="flex flex-col items-center gap-2">
-              <Avatar className="h-32 w-32 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
+          <div className="relative flex flex-col md:flex-row items-start gap-4 md:gap-6 p-4 md:p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
+            <div className="flex flex-col items-center gap-2 w-full md:w-auto">
+              <Avatar className="h-24 w-24 md:h-32 md:w-32 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
                 <AvatarImage src={profileImageUrl} />
                 <AvatarFallback className="bg-blue-500/10">
                   <User className="h-16 w-16 text-blue-500" />
@@ -150,7 +150,7 @@ export const PersonalInfoSection = ({
             </div>
             
             {profileImageUrl ? (
-              <div className="flex-1 space-y-3 pt-2">
+              <div className="flex-1 space-y-2 md:space-y-3 pt-0 md:pt-2 w-full">
                 {fullName && (
                   <div className="flex items-center gap-2">
                     <User className="w-4 h-4 text-blue-500" />

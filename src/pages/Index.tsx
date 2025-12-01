@@ -8,7 +8,6 @@ import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle, Package, P
 import logo from "@/assets/clean-check-logo.png";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Session } from "@supabase/supabase-js";
 
@@ -734,7 +733,6 @@ const Index = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 };

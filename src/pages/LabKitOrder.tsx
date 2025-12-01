@@ -37,6 +37,9 @@ const LabKitOrder = () => {
         clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID || "",
         vault: true,
         intent: "capture",
+        "enable-funding": "venmo,paylater,card",
+        "disable-funding": "",
+        components: "buttons",
       }}
     >
       <div className="min-h-screen bg-background flex flex-col">
@@ -207,7 +210,13 @@ const LabKitOrder = () => {
                   </div>
 
                   <PayPalButtons
-                    style={{ layout: "vertical", label: "pay" }}
+                    style={{ 
+                      layout: "vertical", 
+                      label: "pay",
+                      shape: "rect",
+                      height: 45
+                    }}
+                    fundingSource={undefined}
                     createOrder={(data, actions) => {
                       return actions.order.create({
                         intent: "CAPTURE",

@@ -183,7 +183,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
                   size="lg"
                 >
                   <ShieldCheck className="mr-2 h-4 w-4" />
-                  Order Safety Kit
+                  Order Toxicology Lab Certified Kit
                 </Button>
               </CardContent>
             </Card>

@@ -110,13 +110,22 @@ const Index = () => {
 
             {/* Buttons on the right */}
             <div className="flex flex-col md:flex-row gap-2 items-end flex-shrink-0">
-              <Button 
-                onClick={() => navigate("/auth?mode=login")}
-                className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-base"
-              >
-                <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
-                Member Log In
-              </Button>
+              <div className="flex flex-col md:flex-row gap-2">
+                <Button 
+                  onClick={() => navigate("/admin")}
+                  className="relative shadow-[0_0_30px_rgba(168,85,247,0.7)] hover:shadow-[0_0_40px_rgba(168,85,247,0.9)] border-2 border-purple-500/60 bg-purple-600/15 text-purple-300 font-bold text-base"
+                >
+                  <div className="absolute inset-0 bg-purple-500/25 blur-lg rounded-md -z-10"></div>
+                  Admin Login
+                </Button>
+                <Button 
+                  onClick={() => navigate("/auth?mode=login")}
+                  className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-base"
+                >
+                  <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
+                  Member Log In
+                </Button>
+              </div>
               <div className="flex gap-2">
                 <Button 
                   variant="ghost" 

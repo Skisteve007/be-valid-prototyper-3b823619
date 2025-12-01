@@ -135,10 +135,10 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
   return (
     <div className="space-y-6 p-6">
       {/* Hero Section */}
-      <Card className="shadow-lg border-pink-500/30 bg-gradient-to-br from-pink-50/50 to-rose-50/50 dark:from-pink-950/20 dark:to-rose-950/20">
+      <Card className="shadow-lg border-primary/30 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-pink-950/20">
         <CardHeader className="space-y-4 pb-6">
-          <CardTitle className="flex items-center gap-2 text-3xl md:text-4xl bg-gradient-to-r from-pink-600 via-rose-500 to-pink-600 bg-clip-text text-transparent">
-            <Heart className="h-8 w-8 text-pink-600" />
+          <CardTitle className="flex items-center gap-2 text-3xl md:text-4xl bg-gradient-to-r from-blue-600 via-purple-500 to-pink-600 bg-clip-text text-transparent">
+            <Heart className="h-8 w-8 text-purple-600" />
             Platinum 13-Panel Sexual Health Screen
           </CardTitle>
           
@@ -149,9 +149,9 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
       </Card>
 
       {/* Peace of Mind Timeline */}
-      <Card className="border-2 border-pink-500/30 bg-gradient-to-br from-pink-50/50 to-rose-50/50 dark:from-pink-950/20 dark:to-rose-950/20 shadow-lg">
+      <Card className="border-2 border-primary/30 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-pink-950/20 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-xl text-center bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+          <CardTitle className="text-xl text-center bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
             Your Peace of Mind Timeline
           </CardTitle>
         </CardHeader>
@@ -160,39 +160,39 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="relative">
-                <div className="absolute inset-0 bg-pink-500/30 blur-xl rounded-full"></div>
-                <div className="relative p-4 bg-pink-600 rounded-full">
+                <div className="absolute inset-0 bg-blue-500/30 blur-xl rounded-full"></div>
+                <div className="relative p-4 bg-blue-600 rounded-full">
                   <Package className="h-8 w-8 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-2 text-pink-700 dark:text-pink-400">Total Privacy</h3>
+                <h3 className="font-bold text-lg mb-2 text-blue-700 dark:text-blue-400">Total Privacy</h3>
                 <p className="text-sm text-muted-foreground">Arrives in unmarked packaging. No insurance record. No awkward conversations.</p>
               </div>
             </div>
 
             {/* Arrow for desktop */}
             <div className="hidden md:flex items-center justify-center">
-              <ArrowRight className="h-8 w-8 text-pink-600/50" />
+              <ArrowRight className="h-8 w-8 text-purple-600/50" />
             </div>
 
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="relative">
-                <div className="absolute inset-0 bg-rose-500/30 blur-xl rounded-full"></div>
-                <div className="relative p-4 bg-rose-600 rounded-full">
+                <div className="absolute inset-0 bg-purple-500/30 blur-xl rounded-full"></div>
+                <div className="relative p-4 bg-purple-600 rounded-full">
                   <Droplet className="h-8 w-8 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-2 text-rose-700 dark:text-rose-400">Simple Collection</h3>
+                <h3 className="font-bold text-lg mb-2 text-purple-700 dark:text-purple-400">Simple Collection</h3>
                 <p className="text-sm text-muted-foreground">Easy-to-follow instructions for urine/swab collection at home.</p>
               </div>
             </div>
 
             {/* Arrow for desktop */}
             <div className="hidden md:flex items-center justify-center">
-              <ArrowRight className="h-8 w-8 text-pink-600/50" />
+              <ArrowRight className="h-8 w-8 text-purple-600/50" />
             </div>
 
             {/* Step 3 */}
@@ -213,16 +213,16 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
       </Card>
 
       {/* What It Covers Accordion */}
-      <Card className="border-2 border-pink-500/30 bg-card shadow-lg">
+      <Card className="border-2 border-primary/30 bg-gradient-to-br from-blue-50/30 via-purple-50/30 to-pink-50/30 dark:from-blue-950/10 dark:via-purple-950/10 dark:to-pink-950/10 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-xl bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+          <CardTitle className="text-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
             What's Included
           </CardTitle>
         </CardHeader>
         <CardContent>
           <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="panel" className="border-pink-500/30">
-              <AccordionTrigger className="text-lg font-semibold hover:text-pink-600">
+            <AccordionItem value="panel" className="border-primary/30">
+              <AccordionTrigger className="text-lg font-semibold hover:text-purple-600">
                 Platinum 13-Panel Comprehensive Screen
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground space-y-2 pt-2">
@@ -243,11 +243,11 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
       </Card>
 
       {/* Call To Action - Health Panel */}
-      <Card className="border-2 border-pink-500/40 bg-gradient-to-br from-pink-50/80 to-rose-50/80 dark:from-pink-950/40 dark:to-rose-950/40 shadow-[0_0_40px_rgba(236,72,153,0.3)]">
+      <Card className="border-2 border-primary/40 bg-gradient-to-br from-blue-50/80 via-purple-50/80 to-pink-50/80 dark:from-blue-950/40 dark:via-purple-950/40 dark:to-pink-950/40 shadow-[0_0_40px_rgba(139,92,246,0.3)]">
         <CardContent className="p-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
-              <p className="text-4xl font-bold text-pink-700 dark:text-pink-400 mb-1">$249.00</p>
+              <p className="text-4xl font-bold bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent mb-1">$249.00</p>
               <p className="text-sm text-muted-foreground">(One-Time)</p>
               <p className="text-xs text-muted-foreground mt-1">Includes Kit + Lab Processing Fee</p>
             </div>
@@ -255,14 +255,14 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
               <Button
                 onClick={handleHealthPanelSelect}
                 size="lg"
-                className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white shadow-[0_0_30px_rgba(236,72,153,0.5)] hover:shadow-[0_0_40px_rgba(236,72,153,0.7)] text-lg px-8 py-6 min-h-[56px] touch-manipulation"
+                className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_40px_rgba(139,92,246,0.7)] text-lg px-8 py-6 min-h-[56px] touch-manipulation"
               >
                 <Heart className="mr-2 h-5 w-5" />
                 Order Health Panel - $249
               </Button>
-              <div className="flex items-center gap-2 bg-pink-600/10 px-4 py-2 rounded-full border border-pink-500/30">
-                <ShieldCheck className="h-4 w-4 text-pink-600" />
-                <span className="text-sm font-medium text-pink-700 dark:text-pink-400">
+              <div className="flex items-center gap-2 bg-purple-600/10 px-4 py-2 rounded-full border border-purple-500/30">
+                <ShieldCheck className="h-4 w-4 text-purple-600" />
+                <span className="text-sm font-medium bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                   🛡️ Clinical Platinum Standard
                 </span>
               </div>

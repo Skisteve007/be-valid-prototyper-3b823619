@@ -334,47 +334,72 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             </div>
           )}
 
-          {/* Border Color Explainer and Document Date - NON-INTERACTIVE INFO BOXES */}
+          {/* Border Color Explainer and Document Date - COMPLETELY NON-INTERACTIVE INFO BOXES */}
           <div 
-            className="w-full max-w-md space-y-3 pointer-events-none select-none touch-none cursor-default user-select-none"
-            style={{ pointerEvents: 'none', touchAction: 'none' }}
-            onTouchStart={(e) => e.stopPropagation()}
-            onTouchEnd={(e) => e.stopPropagation()}
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+            role="presentation"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="w-full max-w-md space-y-3"
+            style={{ 
+              pointerEvents: 'none',
+              touchAction: 'none',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              cursor: 'default',
+              position: 'relative',
+              zIndex: 1
+            }}
           >
             <div 
-              className="space-y-2 p-3 rounded-lg border bg-muted/50 pointer-events-none touch-none cursor-default select-none"
-              style={{ pointerEvents: 'none', touchAction: 'none', userSelect: 'none' }}
-              onTouchStart={(e) => e.stopPropagation()}
-              onTouchEnd={(e) => e.stopPropagation()}
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              role="presentation"
+              aria-hidden="true"
+              tabIndex={-1}
+              className="space-y-2 p-3 rounded-lg border bg-muted/50"
+              style={{ 
+                pointerEvents: 'none',
+                touchAction: 'none',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                cursor: 'default'
+              }}
             >
-              <h4 className="text-xs font-semibold text-center pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>Border Color Key</h4>
-              <div className="flex items-center justify-center gap-3 text-xs flex-wrap pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                <div className="flex items-center gap-1.5 pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30 pointer-events-none cursor-default" style={{ pointerEvents: 'none' }}></div>
-                  <span className="pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>Clean</span>
+              <h4 
+                className="text-xs font-semibold text-center"
+                style={{ pointerEvents: 'none', userSelect: 'none' }}
+              >
+                Border Color Key
+              </h4>
+              <div 
+                className="flex items-center justify-center gap-3 text-xs flex-wrap"
+                style={{ pointerEvents: 'none', userSelect: 'none' }}
+              >
+                <div className="flex items-center gap-1.5" style={{ pointerEvents: 'none' }}>
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30" style={{ pointerEvents: 'none' }}></div>
+                  <span style={{ pointerEvents: 'none', userSelect: 'none' }}>Clean</span>
                 </div>
-                <div className="flex items-center gap-1.5 pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 ring-1 ring-yellow-500/30 pointer-events-none cursor-default" style={{ pointerEvents: 'none' }}></div>
-                  <span className="pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>Caution</span>
+                <div className="flex items-center gap-1.5" style={{ pointerEvents: 'none' }}>
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 ring-1 ring-yellow-500/30" style={{ pointerEvents: 'none' }}></div>
+                  <span style={{ pointerEvents: 'none', userSelect: 'none' }}>Caution</span>
                 </div>
-                <div className="flex items-center gap-1.5 pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 ring-1 ring-red-500/30 pointer-events-none cursor-default" style={{ pointerEvents: 'none' }}></div>
-                  <span className="pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>Be Aware</span>
+                <div className="flex items-center gap-1.5" style={{ pointerEvents: 'none' }}>
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 ring-1 ring-red-500/30" style={{ pointerEvents: 'none' }}></div>
+                  <span style={{ pointerEvents: 'none', userSelect: 'none' }}>Be Aware</span>
                 </div>
-                <div className="flex items-center gap-1.5 pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                  <div className="w-2.5 h-2.5 rounded-full bg-gray-500 ring-1 ring-gray-500/30 pointer-events-none cursor-default" style={{ pointerEvents: 'none' }}></div>
-                  <span className="pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>Incognito</span>
+                <div className="flex items-center gap-1.5" style={{ pointerEvents: 'none' }}>
+                  <div className="w-2.5 h-2.5 rounded-full bg-gray-500 ring-1 ring-gray-500/30" style={{ pointerEvents: 'none' }}></div>
+                  <span style={{ pointerEvents: 'none', userSelect: 'none' }}>Incognito</span>
                 </div>
               </div>
               {statusColor === "gray" && (
                 <div 
-                  className="p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30 pointer-events-none touch-none cursor-default select-none"
-                  style={{ pointerEvents: 'none', touchAction: 'none' }}
+                  className="p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30"
+                  style={{ pointerEvents: 'none', touchAction: 'none', userSelect: 'none' }}
                 >
-                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5 pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                    <span className="text-green-500 pointer-events-none cursor-default" style={{ pointerEvents: 'none' }}>✓</span> Screen Brightness Active
+                  <p 
+                    className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5"
+                    style={{ pointerEvents: 'none', userSelect: 'none' }}
+                  >
+                    <span className="text-green-500" style={{ pointerEvents: 'none' }}>✓</span> Screen Brightness Active
                   </p>
                 </div>
               )}
@@ -382,35 +407,47 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
             {lastDocumentDate && (
               <div 
-                className="p-3 rounded-lg border bg-muted/50 space-y-2 pointer-events-none select-none touch-none cursor-default"
-                style={{ pointerEvents: 'none', touchAction: 'none', userSelect: 'none' }}
-                onTouchStart={(e) => e.stopPropagation()}
-                onTouchEnd={(e) => e.stopPropagation()}
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                role="presentation"
+                aria-hidden="true"
+                tabIndex={-1}
+                className="p-3 rounded-lg border bg-muted/50 space-y-2"
+                style={{ 
+                  pointerEvents: 'none',
+                  touchAction: 'none',
+                  userSelect: 'none',
+                  WebkitUserSelect: 'none',
+                  cursor: 'default'
+                }}
               >
-              <p className="text-xs text-center font-medium pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}
-              </p>
-              <div className="flex items-center justify-center gap-4 text-xs pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                <div className="flex items-center gap-1.5 pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                  <div className="w-2 h-2 rounded-full bg-blue-500 pointer-events-none cursor-default" style={{ pointerEvents: 'none' }}></div>
-                  <span className="pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>1-60 days</span>
-                </div>
-                <div className="flex items-center gap-1.5 pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                  <div className="w-2 h-2 rounded-full bg-pink-500 pointer-events-none cursor-default" style={{ pointerEvents: 'none' }}></div>
-                  <span className="pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>61-120 days</span>
-                </div>
-                <div className="flex items-center gap-1.5 pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>
-                  <div className="w-2 h-2 rounded-full bg-purple-500 pointer-events-none cursor-default" style={{ pointerEvents: 'none' }}></div>
-                  <span className="pointer-events-none cursor-default select-none" style={{ pointerEvents: 'none' }}>121+ days</span>
+                <p 
+                  className="text-xs text-center font-medium"
+                  style={{ pointerEvents: 'none', userSelect: 'none' }}
+                >
+                  Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </p>
+                <div 
+                  className="flex items-center justify-center gap-4 text-xs"
+                  style={{ pointerEvents: 'none', userSelect: 'none' }}
+                >
+                  <div className="flex items-center gap-1.5" style={{ pointerEvents: 'none' }}>
+                    <div className="w-2 h-2 rounded-full bg-blue-500" style={{ pointerEvents: 'none' }}></div>
+                    <span style={{ pointerEvents: 'none', userSelect: 'none' }}>1-60 days</span>
+                  </div>
+                  <div className="flex items-center gap-1.5" style={{ pointerEvents: 'none' }}>
+                    <div className="w-2 h-2 rounded-full bg-pink-500" style={{ pointerEvents: 'none' }}></div>
+                    <span style={{ pointerEvents: 'none', userSelect: 'none' }}>61-120 days</span>
+                  </div>
+                  <div className="flex items-center gap-1.5" style={{ pointerEvents: 'none' }}>
+                    <div className="w-2 h-2 rounded-full bg-purple-500" style={{ pointerEvents: 'none' }}></div>
+                    <span style={{ pointerEvents: 'none', userSelect: 'none' }}>121+ days</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
           </div>
           
           <div className="flex flex-col gap-2 w-full max-w-xs">

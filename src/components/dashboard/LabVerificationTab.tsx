@@ -223,19 +223,66 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="panel" className="border-primary/30">
               <AccordionTrigger className="text-lg font-semibold hover:text-purple-600">
-                Platinum 13-Panel Comprehensive Screen
+                13-Point Verification Checklist
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground space-y-2 pt-2">
-                <p className="font-medium">Full lab-certified screening for 13 targets:</p>
-                <ul className="list-disc list-inside space-y-1 ml-2">
-                  <li>HIV I & II</li>
-                  <li>Herpes I & II (HSV)</li>
-                  <li>Syphilis</li>
-                  <li>Hepatitis B & C</li>
-                  <li>Chlamydia & Gonorrhea</li>
-                  <li>Trichomoniasis (Bonus)</li>
-                  <li>Mycoplasma & Ureaplasma (Bonus)</li>
-                </ul>
+              <AccordionContent className="text-muted-foreground space-y-4 pt-2">
+                <div className="grid md:grid-cols-2 gap-x-6 gap-y-2">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">HIV-1 (Early Detection)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">HIV-2 (Antibody)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Herpes Simplex 1 (HSV-1)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Herpes Simplex 2 (HSV-2)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Hepatitis B</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Hepatitis C</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Syphilis</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Chlamydia</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Gonorrhea</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Trichomoniasis</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Mycoplasma Genitalium</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Ureaplasma Urealyticum</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">Gardnerella (BV)</span>
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground italic pt-2 border-t border-border/40">
+                  Includes the 3 "Hidden" Infections standard clinics often miss (Trich, Mycoplasma, Ureaplasma).
+                </p>
               </AccordionContent>
             </AccordionItem>
           </Accordion>

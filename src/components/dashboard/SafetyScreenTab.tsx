@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { ShieldCheck, Loader2, AlertCircle, CreditCard, Package, Plane, CheckCircle, ArrowRight } from "lucide-react";
+import { ShieldCheck, Loader2, AlertCircle, CreditCard, Package, Plane, CheckCircle, ArrowRight, Heart, Droplet } from "lucide-react";
 import Barcode from "react-barcode";
 import { SafetyQRCode } from "./SafetyQRCode";
 
@@ -55,6 +56,10 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
 
   const handleProductSelect = () => {
     navigate("/toxicology-kit-order");
+  };
+
+  const handleHealthPanelSelect = () => {
+    navigate("/health-panel-order");
   };
 
   const handlePaymentComplete = async () => {
@@ -235,7 +240,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
         </CardContent>
       </Card>
 
-      {/* Call To Action */}
+      {/* Call To Action - Toxicology */}
       <Card className="border-2 border-green-500/40 bg-gradient-to-br from-green-50/80 to-emerald-50/80 dark:from-green-950/40 dark:to-emerald-950/40 shadow-[0_0_40px_rgba(34,197,94,0.3)]">
         <CardContent className="p-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -257,6 +262,158 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
                 <CheckCircle className="h-4 w-4 text-green-600" />
                 <span className="text-sm font-medium text-green-700 dark:text-green-400">
                   Results valid for Clean Check Verification
+                </span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Divider */}
+      <div className="relative py-8">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t-2 border-dashed border-muted-foreground/30"></div>
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-background px-4 text-sm font-medium text-muted-foreground">
+            Additional Verification Options
+          </span>
+        </div>
+      </div>
+
+      {/* Comprehensive Sexual Health Panel Section */}
+      <Card className="shadow-lg border-pink-500/30 bg-gradient-to-br from-pink-50/50 to-rose-50/50 dark:from-pink-950/20 dark:to-rose-950/20">
+        <CardHeader className="space-y-4 pb-6">
+          <CardTitle className="flex items-center gap-2 text-3xl md:text-4xl bg-gradient-to-r from-pink-600 via-rose-500 to-pink-600 bg-clip-text text-transparent">
+            <Heart className="h-8 w-8 text-pink-600" />
+            Gold-Standard Sexual Health Panel (10-Panel)
+          </CardTitle>
+          
+          <p className="text-lg text-muted-foreground">
+            The clinical accuracy of a doctor's visit, with the privacy of your own home.
+          </p>
+        </CardHeader>
+      </Card>
+
+      {/* Peace of Mind Timeline */}
+      <Card className="border-2 border-pink-500/30 bg-gradient-to-br from-pink-50/50 to-rose-50/50 dark:from-pink-950/20 dark:to-rose-950/20 shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-xl text-center bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+            Your Peace of Mind Timeline
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="grid md:grid-cols-3 gap-8 md:gap-4">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="relative">
+                <div className="absolute inset-0 bg-pink-500/30 blur-xl rounded-full"></div>
+                <div className="relative p-4 bg-pink-600 rounded-full">
+                  <Package className="h-8 w-8 text-white" />
+                </div>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-2 text-pink-700 dark:text-pink-400">Total Privacy</h3>
+                <p className="text-sm text-muted-foreground">Arrives in unmarked packaging. No insurance record. No awkward conversations.</p>
+              </div>
+            </div>
+
+            {/* Arrow for desktop */}
+            <div className="hidden md:flex items-center justify-center">
+              <ArrowRight className="h-8 w-8 text-pink-600/50" />
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="relative">
+                <div className="absolute inset-0 bg-rose-500/30 blur-xl rounded-full"></div>
+                <div className="relative p-4 bg-rose-600 rounded-full">
+                  <Droplet className="h-8 w-8 text-white" />
+                </div>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-2 text-rose-700 dark:text-rose-400">Simple Collection</h3>
+                <p className="text-sm text-muted-foreground">Easy-to-follow instructions for urine/swab collection at home.</p>
+              </div>
+            </div>
+
+            {/* Arrow for desktop */}
+            <div className="hidden md:flex items-center justify-center">
+              <ArrowRight className="h-8 w-8 text-pink-600/50" />
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="relative">
+                <div className="absolute inset-0 bg-green-500/30 blur-xl rounded-full"></div>
+                <div className="relative p-4 bg-green-600 rounded-full">
+                  <CheckCircle className="h-8 w-8 text-white" />
+                </div>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-2 text-green-700 dark:text-green-400">72-Hour Verification</h3>
+                <p className="text-sm text-muted-foreground">Results verified and Status updated to 'Green' within 2-3 days of lab receipt.</p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* What It Covers Accordion */}
+      <Card className="border-2 border-pink-500/30 bg-card shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-xl bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+            What's Included
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="panel" className="border-pink-500/30">
+              <AccordionTrigger className="text-lg font-semibold hover:text-pink-600">
+                Comprehensive 10-Panel Screen
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground space-y-2 pt-2">
+                <p className="font-medium">Full lab-certified screening for:</p>
+                <ul className="list-disc list-inside space-y-1 ml-2">
+                  <li>HIV I/II Antibody Testing</li>
+                  <li>Herpes Simplex Virus I & II (HSV-1, HSV-2)</li>
+                  <li>Syphilis (RPR with Reflex to TP-PA)</li>
+                  <li>Chlamydia Trachomatis</li>
+                  <li>Neisseria Gonorrhoeae (Gonorrhea)</li>
+                  <li>Hepatitis B Surface Antigen</li>
+                  <li>Hepatitis C Antibody</li>
+                  <li>Trichomonas Vaginalis</li>
+                  <li>Mycoplasma Genitalium</li>
+                  <li>Ureaplasma Species</li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </CardContent>
+      </Card>
+
+      {/* Call To Action - Health Panel */}
+      <Card className="border-2 border-pink-500/40 bg-gradient-to-br from-pink-50/80 to-rose-50/80 dark:from-pink-950/40 dark:to-rose-950/40 shadow-[0_0_40px_rgba(236,72,153,0.3)]">
+        <CardContent className="p-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <p className="text-4xl font-bold text-pink-700 dark:text-pink-400 mb-1">$149</p>
+              <p className="text-sm text-muted-foreground">One-time payment</p>
+              <p className="text-xs text-muted-foreground mt-1">Includes Kit + Lab Processing Fee</p>
+            </div>
+            <div className="flex flex-col items-center gap-3">
+              <Button
+                onClick={handleHealthPanelSelect}
+                size="lg"
+                className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white shadow-[0_0_30px_rgba(236,72,153,0.5)] hover:shadow-[0_0_40px_rgba(236,72,153,0.7)] text-lg px-8 py-6 min-h-[56px] touch-manipulation"
+              >
+                <Heart className="mr-2 h-5 w-5" />
+                Order Health Panel - $149
+              </Button>
+              <div className="flex items-center gap-2 bg-pink-600/10 px-4 py-2 rounded-full border border-pink-500/30 animate-pulse">
+                <Heart className="h-4 w-4 text-pink-600" />
+                <span className="text-sm font-medium text-pink-700 dark:text-pink-400">
+                  ❤️ The 'Responsible Fun' Standard. Order Monday, Verified Friday.
                 </span>
               </div>
             </div>

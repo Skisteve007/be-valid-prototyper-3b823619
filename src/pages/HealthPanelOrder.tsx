@@ -1,0 +1,276 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+import { Heart, Home, Package, MapPin } from "lucide-react";
+import logo from "@/assets/clean-check-logo.png";
+import Footer from "@/components/Footer";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+
+const HealthPanelOrder = () => {
+  const navigate = useNavigate();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [showPayPal, setShowPayPal] = useState(false);
+
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  const isFormValid = fullName && email && phone && address && city && state && zipCode;
+
+  const handleContinueToPayment = () => {
+    if (!isFormValid) {
+      toast.error("Please fill in all delivery information");
+      return;
+    }
+    setShowPayPal(true);
+  };
+
+  return (
+    <PayPalScriptProvider
+      options={{
+        clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID || "test",
+        vault: false,
+        intent: "capture",
+        currency: "USD",
+        components: "buttons",
+      }}
+    >
+      <div className="min-h-screen bg-background flex flex-col">
+        <header className="border-b bg-card sticky top-0 z-50">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex items-center justify-center">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
+                <img src={logo} alt="Clean Check" className="relative h-20 w-auto" />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main className="flex-1 container mx-auto px-4 py-12">
+          <div className="max-w-3xl mx-auto space-y-8">
+            {/* Product Summary */}
+            <Card className="border-pink-500/40 bg-gradient-to-r from-pink-50/50 via-rose-50/50 to-pink-50/50 dark:from-pink-950/20 dark:via-rose-950/20 dark:to-pink-950/20">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-pink-600 rounded-full">
+                    <Heart className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl">Gold-Standard Sexual Health Panel</CardTitle>
+                    <CardDescription>10-Panel Comprehensive Screen - Professional Lab Verification</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="p-4 bg-white dark:bg-gray-900 rounded-lg border-2 border-pink-500/30 space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    The clinical accuracy of a doctor's visit, with the privacy of your own home. Add lab-verified sexual health results to your Clean Check profile.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <p className="text-sm text-muted-foreground">Total Amount</p>
+                      <p className="text-3xl font-bold text-pink-700 dark:text-pink-400">$149.00</p>
+                    </div>
+                    <div className="text-right text-sm text-muted-foreground">
+                      <p>✓ At-home kit delivery</p>
+                      <p>✓ Certified lab processing</p>
+                      <p>✓ Digital results in 72 hours</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 bg-red-50/50 dark:bg-red-950/20 border border-red-500/30 rounded-lg">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">HIPAA Disclaimer:</strong> Clean Check is a technology platform connecting users to independent third-party labs. Third-party labs are solely responsible for HIPAA compliance. Clean Check assumes no liability for partner labs' HIPAA violations.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Delivery Address Form */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Package className="h-5 w-5 text-pink-600" />
+                  <CardTitle>Delivery Information</CardTitle>
+                </div>
+                <CardDescription>Where should we send your testing kit?</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="fullName">Full Name *</Label>
+                    <Input
+                      id="fullName"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="john@example.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number *</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="(555) 123-4567"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="address" className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-pink-600" />
+                    Street Address *
+                  </Label>
+                  <Input
+                    id="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="123 Main Street"
+                    required
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="city">City *</Label>
+                    <Input
+                      id="city"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      placeholder="Los Angeles"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="state">State *</Label>
+                    <Input
+                      id="state"
+                      value={state}
+                      onChange={(e) => setState(e.target.value)}
+                      placeholder="CA"
+                      maxLength={2}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="zipCode">ZIP Code *</Label>
+                    <Input
+                      id="zipCode"
+                      value={zipCode}
+                      onChange={(e) => setZipCode(e.target.value)}
+                      placeholder="90210"
+                      maxLength={5}
+                      required
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Payment Section */}
+            {!showPayPal ? (
+              <Button
+                onClick={handleContinueToPayment}
+                disabled={!isFormValid}
+                className="w-full h-14 text-lg bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700"
+                size="lg"
+              >
+                Continue to Payment
+              </Button>
+            ) : (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Heart className="h-5 w-5 text-pink-600" />
+                    Complete Your Order
+                  </CardTitle>
+                  <CardDescription>Pay securely with PayPal</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="bg-muted/50 rounded-lg p-4 space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium">Sexual Health Panel</span>
+                      <span className="text-xl font-bold text-pink-700 dark:text-pink-400">$149.00</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      One-time payment • Includes kit delivery and lab processing
+                    </p>
+                  </div>
+
+                  <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-500/30 rounded-lg p-4">
+                    <p className="text-sm text-muted-foreground">
+                      <strong className="text-foreground">PayPal Integration:</strong> Payment buttons will be configured by admin. Click continue below to generate your order tracking.
+                    </p>
+                  </div>
+
+                  {/* PayPal Buttons Placeholder */}
+                  <div className="border-2 border-dashed border-muted rounded-lg p-8 text-center">
+                    <Heart className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
+                    <p className="text-sm text-muted-foreground">
+                      PayPal payment buttons will appear here once configured by admin
+                    </p>
+                  </div>
+
+                  <Button
+                    onClick={() => {
+                      toast.success("Order tracking information will be sent to your email!");
+                      setTimeout(() => navigate("/dashboard"), 2000);
+                    }}
+                    className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700"
+                    size="lg"
+                  >
+                    Continue (Demo)
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Back Button */}
+            <Button
+              onClick={() => navigate("/dashboard")}
+              variant="outline"
+              className="w-full"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              Back to Dashboard
+            </Button>
+          </div>
+        </main>
+
+        <Footer />
+      </div>
+    </PayPalScriptProvider>
+  );
+};
+
+export default HealthPanelOrder;

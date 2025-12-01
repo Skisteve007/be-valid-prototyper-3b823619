@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle } from "lucide-react";
-import logo from "@/assets/clean-check-logo-v2.png";
+import logo from "@/assets/clean-check-logo.png";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Footer from "@/components/Footer";

@@ -16,7 +16,7 @@ import {
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import Footer from "@/components/Footer";
-import logo from "@/assets/clean-check-logo-v2.png";
+import logo from "@/assets/clean-check-logo.png";
 import { useNavigate } from "react-router-dom";
 
 const Partners = () => {

@@ -14,7 +14,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import logo from "@/assets/clean-check-logo-v2.png";
+import logo from "@/assets/clean-check-logo.png";
 import StorageSponsorManager from "@/components/admin/StorageSponsorManager";
 import { LabIntegrationsTab } from "@/components/admin/LabIntegrationsTab";
 import { DevelopersIntegrationsTab } from "@/components/admin/DevelopersIntegrationsTab";

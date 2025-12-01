@@ -162,7 +162,7 @@ const Auth = () => {
       </header>
 
       <main className="min-h-[calc(100vh-200px)] flex items-start md:items-center justify-center py-6 md:py-12 px-4">
-        <div className="container mx-auto max-w-[90vw] sm:max-w-md w-full mt-4 md:mt-0">
+        <div className="container mx-auto w-[95vw] max-w-[95vw] md:max-w-md mt-4 md:mt-0">
           {/* Login Form */}
           {mode === "login" ? (
             <div className="relative">
@@ -174,7 +174,7 @@ const Auth = () => {
                   </CardTitle>
                   <CardDescription className="text-center">Welcome back! Access your profile and QR code</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="login-email">Email Address</Label>
@@ -188,6 +188,7 @@ const Auth = () => {
                           localStorage.setItem('loginEmail', e.target.value);
                         }}
                         required
+                        className="h-12"
                       />
                     </div>
                     <div className="space-y-2">
@@ -200,7 +201,7 @@ const Auth = () => {
                           value={loginPassword}
                           onChange={(e) => setLoginPassword(e.target.value)}
                           required
-                          className="pr-10"
+                          className="pr-10 h-12"
                         />
                         <Button
                           type="button"
@@ -264,7 +265,7 @@ const Auth = () => {
                   </CardTitle>
                   <CardDescription className="text-center">Create your account to get started</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   <form onSubmit={handleSignup} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="signup-name">Full Name *</Label>
@@ -274,6 +275,7 @@ const Auth = () => {
                         value={signupFullName}
                         onChange={(e) => setSignupFullName(e.target.value)}
                         required
+                        className="h-12"
                       />
                     </div>
                     <div className="space-y-2">
@@ -285,6 +287,7 @@ const Auth = () => {
                         value={signupEmail}
                         onChange={(e) => setSignupEmail(e.target.value)}
                         required
+                        className="h-12"
                       />
                     </div>
                     <div className="space-y-2">
@@ -298,7 +301,7 @@ const Auth = () => {
                           onChange={(e) => setSignupPassword(e.target.value)}
                           required
                           minLength={6}
-                          className="pr-10"
+                          className="pr-10 h-12"
                         />
                         <Button
                           type="button"

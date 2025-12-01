@@ -18,19 +18,19 @@ interface AgeVerificationDialogProps {
 export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificationDialogProps) => {
   return (
     <AlertDialog open={open}>
-      <AlertDialogContent className="max-w-[90vw] sm:max-w-md !top-[35%] md:!top-[40%] translate-y-[-35%] md:translate-y-[-40%]">
+      <AlertDialogContent className="w-[95vw] max-w-[95vw] md:max-w-md !top-[35%] md:!top-[40%] translate-y-[-35%] md:translate-y-[-40%]">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-2xl text-center">
+          <AlertDialogTitle className="text-3xl md:text-2xl text-center">
             🔞 Age Verification Required
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-center text-lg py-4">
+          <AlertDialogDescription className="text-center text-xl md:text-lg py-4">
             You must be 18 years of age or older to enter this site.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex-col sm:flex-col gap-3">
           <AlertDialogAction
             onClick={onVerify}
-            className="w-full"
+            className="w-full h-14"
           >
             ✅ I am 18+ (Enter)
           </AlertDialogAction>

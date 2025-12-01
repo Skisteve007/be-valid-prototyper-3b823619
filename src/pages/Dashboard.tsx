@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Shield, Settings, Home, FlaskConical, ShieldCheck } from "lucide-react";
+import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Home, FlaskConical, ShieldCheck } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
@@ -139,15 +139,6 @@ const Dashboard = () => {
                 <QrCode className="h-4 w-4 mr-2" />
                 QR Code
               </Button>
-              {isAdmin && (
-                <Button 
-                  onClick={() => navigate("/admin")} 
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50"
-                >
-                  <Shield className="h-4 w-4 mr-2" />
-                  Admin Panel
-                </Button>
-              )}
               <Button 
                 onClick={handleLogout} 
                 className="relative bg-gradient-to-r from-pink-500 to-pink-600 text-white hover:from-pink-600 hover:to-pink-700 border-0"
@@ -257,22 +248,11 @@ const Dashboard = () => {
       {/* Floating Back to Home Button */}
       <Button
         onClick={() => navigate("/")}
-        className="fixed bottom-4 left-4 md:bottom-8 md:left-8 h-12 w-12 md:h-14 md:w-14 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 shadow-2xl shadow-blue-400/40 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-110 z-50"
+        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 h-12 w-12 md:h-14 md:w-14 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 shadow-2xl shadow-blue-400/40 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-110 z-50"
         title="Back to Home"
       >
         <Home className="h-5 w-5 md:h-6 md:w-6 text-white" />
       </Button>
-
-      {/* Floating Admin Button - Only visible for admins */}
-      {isAdmin && (
-        <Button
-          onClick={() => navigate("/admin")}
-          className="fixed bottom-4 right-4 md:bottom-8 md:right-8 h-12 w-12 md:h-14 md:w-14 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-2xl shadow-purple-500/50 hover:shadow-purple-600/60 transition-all duration-300 hover:scale-110 z-50"
-          title="Go to Admin Panel"
-        >
-          <Settings className="h-5 w-5 md:h-6 md:w-6 text-white" />
-        </Button>
-      )}
     </div>
   );
 };

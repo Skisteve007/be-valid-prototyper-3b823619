@@ -269,6 +269,31 @@ const LabKitOrder = () => {
               </Card>
             )}
           </div>
+
+          {/* HIPAA Legal Disclaimer */}
+          <Card className="border-muted-foreground/20 bg-muted/30">
+            <CardHeader>
+              <CardTitle className="text-sm font-semibold">Important Legal Notice - HIPAA Compliance</CardTitle>
+            </CardHeader>
+            <CardContent className="text-xs text-muted-foreground space-y-2">
+              <p>
+                <strong>Clean Check is not a healthcare provider or medical laboratory.</strong> We are a technology platform that facilitates connections between members and independent third-party laboratory partners.
+              </p>
+              <p>
+                By ordering this lab testing kit, you acknowledge and agree that:
+              </p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li>The laboratory processing your test is an independent third-party entity, not affiliated with or controlled by Clean Check.</li>
+                <li>The laboratory partner is solely responsible for all HIPAA compliance, including the proper handling, storage, and protection of your Protected Health Information (PHI).</li>
+                <li>Clean Check does not access, store, or process your laboratory test results or medical information beyond what is necessary to facilitate the connection between you and the laboratory.</li>
+                <li>Any concerns regarding HIPAA compliance or the handling of your medical information should be directed to the laboratory partner processing your sample.</li>
+                <li>Clean Check is not liable for any HIPAA violations, data breaches, or mishandling of Protected Health Information by third-party laboratory partners.</li>
+              </ul>
+              <p className="pt-2">
+                For questions regarding how your health information is handled by our laboratory partners, please contact the lab directly or reach out to our support team at <strong>HelpDeskCCK@gmail.com</strong>.
+              </p>
+            </CardContent>
+          </Card>
         </main>
 
         <Footer />

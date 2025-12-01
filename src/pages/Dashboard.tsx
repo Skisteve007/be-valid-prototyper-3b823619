@@ -248,10 +248,10 @@ const Dashboard = () => {
       {/* Floating Back to Home Button */}
       <Button
         onClick={() => navigate("/")}
-        className="fixed bottom-4 left-4 md:bottom-8 md:left-8 h-12 w-12 md:h-14 md:w-14 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 shadow-2xl shadow-blue-400/40 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-110 z-50"
+        className="fixed bottom-4 left-4 md:bottom-8 md:left-8 h-10 w-10 md:h-11 md:w-11 rounded-full bg-gradient-to-br from-blue-400/60 to-cyan-400/60 hover:from-blue-500/70 hover:to-cyan-500/70 shadow-lg shadow-blue-400/20 hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 z-50 opacity-70 hover:opacity-90"
         title="Back to Home"
       >
-        <Home className="h-5 w-5 md:h-6 md:w-6 text-white" />
+        <Home className="h-4 w-4 md:h-5 md:w-5 text-white" />
       </Button>
     </div>
   );

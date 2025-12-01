@@ -165,17 +165,11 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   };
 
   const getGlowColor = () => {
-    // Use statusColor for the glow if it's set and not gray, otherwise use document age color
-    const color = statusColor !== "gray" ? statusColor : getTimestampColor();
+    // Use statusColor directly - gray stays gray
+    const color = statusColor;
     switch (color) {
       case "green":
         return "shadow-[0_0_25px_8px_rgba(34,197,94,0.4)] shadow-green-500/30";
-      case "blue":
-        return "shadow-[0_0_25px_8px_rgba(59,130,246,0.4)] shadow-blue-500/30";
-      case "pink":
-        return "shadow-[0_0_25px_8px_rgba(236,72,153,0.4)] shadow-pink-500/30";
-      case "purple":
-        return "shadow-[0_0_25px_8px_rgba(168,85,247,0.4)] shadow-purple-500/30";
       case "yellow":
         return "shadow-[0_0_25px_8px_rgba(234,179,8,0.4)] shadow-yellow-500/30";
       case "red":
@@ -188,17 +182,11 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   };
 
   const getBorderColor = () => {
-    // Use statusColor for the border if it's set and not gray, otherwise use document age color
-    const color = statusColor !== "gray" ? statusColor : getTimestampColor();
+    // Use statusColor directly - gray stays gray
+    const color = statusColor;
     switch (color) {
       case "green":
         return "border-green-500 ring-4 ring-green-500/30";
-      case "blue":
-        return "border-blue-500 ring-4 ring-blue-500/30";
-      case "pink":
-        return "border-pink-500 ring-4 ring-pink-500/30";
-      case "purple":
-        return "border-purple-500 ring-4 ring-purple-500/30";
       case "yellow":
         return "border-yellow-500 ring-4 ring-yellow-500/30";
       case "red":

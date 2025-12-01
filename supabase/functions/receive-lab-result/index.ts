@@ -13,35 +13,50 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  try {
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+  let labPartner: any = null;
+  let requestPayload: any = {};
+  
+  try {
     console.log("Receiving lab result webhook...");
 
     // Extract and validate API key from Authorization header
     const authHeader = req.headers.get("Authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      await logWebhookEvent(supabase, {
+        event_type: "result.received",
+        payload: {},
+        response_status: 401,
+        error_message: "Missing or invalid Authorization header"
+      });
       throw new Error("Missing or invalid Authorization header. Use: Authorization: Bearer YOUR_API_KEY");
     }
 
     const apiKey = authHeader.replace("Bearer ", "");
 
     // Validate API key against lab_partners table
-    const { data: labPartner, error: authError } = await supabase
+    const { data: partner, error: authError } = await supabase
       .from("lab_partners")
       .select("*")
       .eq("api_key", apiKey)
       .eq("active", true)
       .single();
 
-    if (authError || !labPartner) {
+    if (authError || !partner) {
       console.error("Invalid or inactive API key");
+      await logWebhookEvent(supabase, {
+        event_type: "result.received",
+        payload: {},
+        response_status: 403,
+        error_message: "Unauthorized: Invalid or inactive API key"
+      });
       throw new Error("Unauthorized: Invalid or inactive API key");
     }
 
+    labPartner = partner;
     console.log(`Authenticated lab partner: ${labPartner.name}`);
 
     // Update last_used_at timestamp
@@ -50,14 +65,29 @@ serve(async (req) => {
       .update({ last_used_at: new Date().toISOString() })
       .eq("id", labPartner.id);
 
-    const { requisition_id, result, barcode } = await req.json();
+    requestPayload = await req.json();
+    const { requisition_id, result, barcode } = requestPayload;
 
     if (!requisition_id && !barcode) {
+      await logWebhookEvent(supabase, {
+        event_type: "result.received",
+        payload: requestPayload,
+        response_status: 400,
+        error_message: "Either requisition_id or barcode is required",
+        lab_partner_id: labPartner.id
+      });
       throw new Error("Either requisition_id or barcode is required");
     }
 
-    if (!result || !["negative", "positive", "inconclusive"].includes(result.toLowerCase())) {
-      throw new Error("Invalid result value. Must be: negative, positive, or inconclusive");
+    if (!result || !["negative", "positive", "inconclusive", "sample_damaged"].includes(result.toLowerCase())) {
+      await logWebhookEvent(supabase, {
+        event_type: "result.received",
+        payload: requestPayload,
+        response_status: 400,
+        error_message: "Invalid result value. Must be: negative, positive, inconclusive, or sample_damaged",
+        lab_partner_id: labPartner.id
+      });
+      throw new Error("Invalid result value. Must be: negative, positive, inconclusive, or sample_damaged");
     }
 
     console.log(`Processing lab result for requisition: ${requisition_id || barcode}`);
@@ -71,10 +101,36 @@ serve(async (req) => {
 
     if (fetchError || !labOrder) {
       console.error("Lab order not found:", fetchError);
+      await logWebhookEvent(supabase, {
+        event_type: "result.received",
+        payload: requestPayload,
+        response_status: 404,
+        error_message: "Lab order not found",
+        lab_partner_id: labPartner.id
+      });
       throw new Error("Lab order not found");
     }
 
     console.log(`Found lab order: ${labOrder.id}`);
+
+    // Handle exception cases (sample_damaged, inconclusive)
+    if (["sample_damaged", "inconclusive"].includes(result.toLowerCase())) {
+      const exceptionType = result.toLowerCase() === "sample_damaged" ? "sample_damaged" : "inconclusive_result";
+      const exceptionReason = result.toLowerCase() === "sample_damaged" 
+        ? "Lab reported sample was damaged or insufficient for testing"
+        : "Lab result was inconclusive and requires retest";
+
+      await supabase.from("exception_queue").insert({
+        order_id: labOrder.id,
+        user_id: labOrder.user_id,
+        exception_type: exceptionType,
+        exception_reason: exceptionReason,
+        status: "notified",
+        notified_at: new Date().toISOString()
+      });
+
+      console.log(`Exception created for ${exceptionType}`);
+    }
 
     // Update the lab order with result
     const { error: updateError } = await supabase
@@ -87,6 +143,14 @@ serve(async (req) => {
 
     if (updateError) {
       console.error("Failed to update lab order:", updateError);
+      await logWebhookEvent(supabase, {
+        event_type: "result.received",
+        payload: requestPayload,
+        response_status: 500,
+        error_message: updateError.message,
+        lab_partner_id: labPartner.id,
+        related_order_id: labOrder.id
+      });
       throw updateError;
     }
 
@@ -109,7 +173,21 @@ serve(async (req) => {
       }
     }
 
-    // TODO: Send notification to user (email/SMS)
+    // Log successful webhook event
+    await logWebhookEvent(supabase, {
+      event_type: "result.received",
+      payload: requestPayload,
+      response_status: 200,
+      response_body: {
+        success: true,
+        message: "Lab result processed successfully",
+        order_id: labOrder.id,
+        result: result.toLowerCase()
+      },
+      lab_partner_id: labPartner.id,
+      related_order_id: labOrder.id
+    });
+
     console.log(`User ${labOrder.profiles?.full_name} should be notified of result: ${result}`);
 
     return new Response(
@@ -125,6 +203,18 @@ serve(async (req) => {
     );
   } catch (error: any) {
     console.error("Error processing lab result:", error);
+    
+    // Log failed webhook event
+    if (labPartner) {
+      await logWebhookEvent(supabase, {
+        event_type: "result.received",
+        payload: requestPayload,
+        response_status: 400,
+        error_message: error.message || "Unknown error",
+        lab_partner_id: labPartner.id
+      });
+    }
+    
     return new Response(
       JSON.stringify({
         success: false,
@@ -137,3 +227,31 @@ serve(async (req) => {
     );
   }
 });
+
+// Helper function to log webhook events
+async function logWebhookEvent(
+  supabase: any,
+  event: {
+    event_type: string;
+    payload: any;
+    response_status: number;
+    response_body?: any;
+    error_message?: string;
+    lab_partner_id?: string;
+    related_order_id?: string;
+  }
+) {
+  try {
+    await supabase.from("webhook_events").insert({
+      event_type: event.event_type,
+      payload: event.payload,
+      response_status: event.response_status,
+      response_body: event.response_body || null,
+      error_message: event.error_message || null,
+      lab_partner_id: event.lab_partner_id || null,
+      related_order_id: event.related_order_id || null
+    });
+  } catch (error) {
+    console.error("Failed to log webhook event:", error);
+  }
+}

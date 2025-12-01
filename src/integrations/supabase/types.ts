@@ -53,6 +53,59 @@ export type Database = {
         }
         Relationships: []
       }
+      exception_queue: {
+        Row: {
+          created_at: string
+          exception_reason: string
+          exception_type: string
+          id: string
+          notes: string | null
+          notified_at: string | null
+          order_id: string
+          resolved_at: string | null
+          resolved_by: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          exception_reason: string
+          exception_type: string
+          id?: string
+          notes?: string | null
+          notified_at?: string | null
+          order_id: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          exception_reason?: string
+          exception_type?: string
+          id?: string
+          notes?: string | null
+          notified_at?: string | null
+          order_id?: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exception_queue_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       interest_tags: {
         Row: {
           category: string
@@ -472,6 +525,57 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      webhook_events: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          event_type: string
+          id: string
+          lab_partner_id: string | null
+          payload: Json
+          related_order_id: string | null
+          response_body: Json | null
+          response_status: number
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          event_type: string
+          id?: string
+          lab_partner_id?: string | null
+          payload: Json
+          related_order_id?: string | null
+          response_body?: Json | null
+          response_status: number
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          event_type?: string
+          id?: string
+          lab_partner_id?: string | null
+          payload?: Json
+          related_order_id?: string | null
+          response_body?: Json | null
+          response_status?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhook_events_lab_partner_id_fkey"
+            columns: ["lab_partner_id"]
+            isOneToOne: false
+            referencedRelation: "lab_partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "webhook_events_related_order_id_fkey"
+            columns: ["related_order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

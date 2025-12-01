@@ -162,7 +162,7 @@ const Auth = () => {
       </header>
 
       <main className="min-h-[calc(100vh-200px)] flex items-start md:items-center justify-center py-6 md:py-12 px-4">
-        <div className="container mx-auto max-w-md w-full mt-4 md:mt-0">
+        <div className="container mx-auto max-w-[90vw] sm:max-w-md w-full mt-4 md:mt-0">
           {/* Login Form */}
           {mode === "login" ? (
             <div className="relative">

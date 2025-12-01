@@ -171,52 +171,54 @@ const Dashboard = () => {
             onTouchEnd={handleTouchEnd}
           >
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="relative mb-6 overflow-x-auto scrollbar-hide">
-                <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full pointer-events-none"></div>
-                <TabsList className="relative inline-flex w-full bg-muted/50 backdrop-blur-sm border border-border rounded-full p-1 gap-1">
-                  <TabsTrigger 
-                    value="profile" 
-                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
-                  >
-                    <UserIcon className="h-4 w-4 mr-1.5" />
-                    <span className="whitespace-nowrap text-sm">Profile</span>
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="certifications"
-                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
-                  >
-                    <Award className="h-4 w-4 mr-1.5" />
-                    <span className="whitespace-nowrap text-sm">Documents</span>
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="qrcode"
-                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
-                  >
-                    <QrCode className="h-4 w-4 mr-1.5" />
-                    <span className="whitespace-nowrap text-sm">QR Code</span>
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="references"
-                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
-                  >
-                    <UserCheck className="h-4 w-4 mr-1.5" />
-                    <span className="whitespace-nowrap text-sm">References</span>
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="lab-verification"
-                    className="flex-1 min-w-[130px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
-                  >
-                    <FlaskConical className="h-4 w-4 mr-1.5" />
-                    <span className="whitespace-nowrap text-sm">Get Lab Certified</span>
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="safety-screen"
-                    className="flex-1 min-w-[110px] py-2.5 px-3 rounded-full transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation"
-                  >
-                    <ShieldCheck className="h-4 w-4 mr-1.5" />
-                    <span className="whitespace-nowrap text-sm">Safety</span>
-                  </TabsTrigger>
-                </TabsList>
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-primary/10 blur-xl pointer-events-none"></div>
+                <div className="overflow-x-auto scrollbar-hide -mx-2 px-2">
+                  <TabsList className="relative inline-flex bg-muted/50 backdrop-blur-sm border border-border rounded-lg p-1.5 gap-1.5 w-auto min-w-full">
+                    <TabsTrigger 
+                      value="profile" 
+                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                    >
+                      <UserIcon className="h-4 w-4 mr-1.5" />
+                      <span className="text-sm">Profile</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="certifications"
+                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                    >
+                      <Award className="h-4 w-4 mr-1.5" />
+                      <span className="text-sm">Documents</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="qrcode"
+                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                    >
+                      <QrCode className="h-4 w-4 mr-1.5" />
+                      <span className="text-sm">QR Code</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="references"
+                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                    >
+                      <UserCheck className="h-4 w-4 mr-1.5" />
+                      <span className="text-sm">References</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="lab-verification"
+                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                    >
+                      <FlaskConical className="h-4 w-4 mr-1.5" />
+                      <span className="text-sm">Get Lab Certified</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="safety-screen"
+                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                    >
+                      <ShieldCheck className="h-4 w-4 mr-1.5" />
+                      <span className="text-sm">Safety</span>
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
               </div>
               
               <TabsContent value="profile">

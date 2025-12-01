@@ -232,6 +232,7 @@ export type Database = {
           lab_requisition_id: string | null
           order_status: Database["public"]["Enums"]["order_status"]
           result_status: Database["public"]["Enums"]["result_status"] | null
+          test_type: Database["public"]["Enums"]["test_type"]
           updated_at: string
           user_id: string
         }
@@ -242,6 +243,7 @@ export type Database = {
           lab_requisition_id?: string | null
           order_status?: Database["public"]["Enums"]["order_status"]
           result_status?: Database["public"]["Enums"]["result_status"] | null
+          test_type?: Database["public"]["Enums"]["test_type"]
           updated_at?: string
           user_id: string
         }
@@ -252,6 +254,7 @@ export type Database = {
           lab_requisition_id?: string | null
           order_status?: Database["public"]["Enums"]["order_status"]
           result_status?: Database["public"]["Enums"]["result_status"] | null
+          test_type?: Database["public"]["Enums"]["test_type"]
           updated_at?: string
           user_id?: string
         }
@@ -591,6 +594,44 @@ export type Database = {
           },
         ]
       }
+      safety_certificates: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          profile_id: string
+          test_type: Database["public"]["Enums"]["test_type"]
+          token: string
+          used_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          profile_id: string
+          test_type: Database["public"]["Enums"]["test_type"]
+          token: string
+          used_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          profile_id?: string
+          test_type?: Database["public"]["Enums"]["test_type"]
+          token?: string
+          used_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "safety_certificates_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       social_content_rotation: {
         Row: {
           asset_placeholder: string
@@ -798,6 +839,7 @@ export type Database = {
         | "administrator"
       order_status: "pending" | "sample_collected" | "result_received"
       result_status: "negative" | "positive" | "inconclusive"
+      test_type: "STD_PANEL" | "TOX_10_PANEL"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -934,6 +976,7 @@ export const Constants = {
       ],
       order_status: ["pending", "sample_collected", "result_received"],
       result_status: ["negative", "positive", "inconclusive"],
+      test_type: ["STD_PANEL", "TOX_10_PANEL"],
     },
   },
 } as const

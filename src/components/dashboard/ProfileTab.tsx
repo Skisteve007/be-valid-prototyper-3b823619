@@ -15,6 +15,7 @@ import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
 import { InterestsSelector } from "./profile/InterestsSelector";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface ProfileTabProps {
   userId: string;
@@ -51,6 +52,7 @@ interface ProfileFormData {
 }
 
 const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
+  const { isAdmin } = useIsAdmin();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -66,6 +68,9 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [referencesLocked, setReferencesLocked] = useState(true);
   const [stdAcknowledgmentLocked, setStdAcknowledgmentLocked] = useState(true);
   const [memberId, setMemberId] = useState<string>("");
+  const [labCertified, setLabCertified] = useState(false);
+  const [labLogoUrl, setLabLogoUrl] = useState<string>("");
+  const [uploadingLabLogo, setUploadingLabLogo] = useState(false);
   
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
@@ -75,6 +80,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [initialEmailShareable, setInitialEmailShareable] = useState(false);
   const [initialReferencesLocked, setInitialReferencesLocked] = useState(true);
   const [initialStdAcknowledgmentLocked, setInitialStdAcknowledgmentLocked] = useState(true);
+  const [initialLabCertified, setInitialLabCertified] = useState(false);
+  const [initialLabLogoUrl, setInitialLabLogoUrl] = useState<string>("");
 
   const { register, handleSubmit, setValue, watch, getValues, formState, reset } = useForm<ProfileFormData>({
     defaultValues: {
@@ -115,6 +122,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     emailShareable !== initialEmailShareable ||
     referencesLocked !== initialReferencesLocked ||
     stdAcknowledgmentLocked !== initialStdAcknowledgmentLocked ||
+    labCertified !== initialLabCertified ||
+    labLogoUrl !== initialLabLogoUrl ||
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
     JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
 
@@ -196,6 +205,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setReferencesLocked(data.references_locked !== false); // Default to true
         setStdAcknowledgmentLocked(data.std_acknowledgment_locked !== false); // Default to true
         setMemberId(data.member_id || "");
+        setLabCertified(data.lab_certified || false);
+        setLabLogoUrl(data.lab_logo_url || "");
         
         // Set initial values for change detection
         setInitialProfileImageUrl(data.profile_image_url || "");
@@ -205,6 +216,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setInitialEmailShareable(data.email_shareable || false);
         setInitialReferencesLocked(data.references_locked !== false);
         setInitialStdAcknowledgmentLocked(data.std_acknowledgment_locked !== false);
+        setInitialLabCertified(data.lab_certified || false);
+        setInitialLabLogoUrl(data.lab_logo_url || "");
         
         // Reset form state to mark as not dirty after loading
         setTimeout(() => {
@@ -243,6 +256,34 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       toast.error("Failed to upload image");
     } finally {
       setUploadingImage(false);
+    }
+  };
+
+  const handleLabLogoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadingLabLogo(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const filePath = `${userId}/lab-logo.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('profile-images')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('profile-images')
+        .getPublicUrl(filePath);
+
+      setLabLogoUrl(publicUrl);
+      toast.success("Lab logo uploaded");
+    } catch (error: any) {
+      toast.error("Failed to upload lab logo");
+    } finally {
+      setUploadingLabLogo(false);
     }
   };
 
@@ -384,6 +425,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           email_shareable: emailShareable,
           references_locked: referencesLocked,
           std_acknowledgment_locked: stdAcknowledgmentLocked,
+          lab_certified: labCertified,
+          lab_logo_url: labLogoUrl,
         })
         .eq("user_id", userId);
 
@@ -427,6 +470,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       setInitialEmailShareable(emailShareable);
       setInitialReferencesLocked(referencesLocked);
       setInitialStdAcknowledgmentLocked(stdAcknowledgmentLocked);
+      setInitialLabCertified(labCertified);
+      setInitialLabLogoUrl(labLogoUrl);
       
       // Show success state
       setSaveSuccess(true);
@@ -490,6 +535,12 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         emailShareable={emailShareable}
         onEmailShareableChange={setEmailShareable}
         memberId={memberId}
+        labCertified={labCertified}
+        labLogoUrl={labLogoUrl}
+        onLabCertifiedChange={setLabCertified}
+        onLabLogoUpload={handleLabLogoUpload}
+        uploadingLabLogo={uploadingLabLogo}
+        isAdmin={isAdmin}
       />
 
       <div className="relative py-4">

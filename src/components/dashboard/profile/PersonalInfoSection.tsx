@@ -5,7 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, Target } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, Target, CheckCircle, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 
 interface PersonalInfoSectionProps {
@@ -28,6 +29,12 @@ interface PersonalInfoSectionProps {
   emailShareable?: boolean;
   onEmailShareableChange?: (shareable: boolean) => void;
   memberId?: string;
+  labCertified?: boolean;
+  labLogoUrl?: string;
+  onLabCertifiedChange?: (certified: boolean) => void;
+  onLabLogoUpload?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  uploadingLabLogo?: boolean;
+  isAdmin?: boolean;
 }
 
 export const PersonalInfoSection = ({
@@ -50,8 +57,15 @@ export const PersonalInfoSection = ({
   emailShareable = false,
   onEmailShareableChange,
   memberId,
+  labCertified = false,
+  labLogoUrl,
+  onLabCertifiedChange,
+  onLabLogoUpload,
+  uploadingLabLogo = false,
+  isAdmin = false,
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const labLogoInputRef = useRef<HTMLInputElement>(null);
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
   const months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -132,6 +146,67 @@ export const PersonalInfoSection = ({
                     </span>
                   )}
                 </div>
+                
+                {/* Lab Certified Section - Admin Only */}
+                {isAdmin && (
+                  <div className="flex items-center gap-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 mt-2">
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="lab_certified"
+                        checked={labCertified}
+                        onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
+                      />
+                      <Label htmlFor="lab_certified" className="text-sm font-semibold text-cyan-600 cursor-pointer flex items-center gap-1">
+                        <CheckCircle className="w-4 h-4" />
+                        Lab Certified
+                      </Label>
+                    </div>
+                    
+                    {labCertified && (
+                      <div className="flex items-center gap-2 ml-auto">
+                        {labLogoUrl ? (
+                          <div className="flex items-center gap-2">
+                            <img 
+                              src={labLogoUrl} 
+                              alt="Lab Logo" 
+                              className="h-8 w-auto object-contain rounded border border-cyan-500/30"
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => labLogoInputRef.current?.click()}
+                              disabled={uploadingLabLogo}
+                              className="h-7 px-2"
+                            >
+                              <Upload className="w-3 h-3" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => labLogoInputRef.current?.click()}
+                            disabled={uploadingLabLogo}
+                            className="h-7 px-3 text-xs border-cyan-500/30"
+                          >
+                            <Upload className="w-3 h-3 mr-1" />
+                            {uploadingLabLogo ? "Uploading..." : "Upload Lab Logo"}
+                          </Button>
+                        )}
+                        <input
+                          ref={labLogoInputRef}
+                          type="file"
+                          accept="image/*"
+                          onChange={onLabLogoUpload}
+                          disabled={uploadingLabLogo}
+                          className="hidden"
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div className="flex items-center gap-2 flex-wrap">
                   {genderIdentity && (

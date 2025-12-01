@@ -30,15 +30,20 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   useEffect(() => {
     loadProfileAndDocuments();
     
-    // Only activate brightness for gray/incognito mode
-    if (statusColor === "gray") {
-      increaseBrightness();
-    }
-    
     return () => {
       resetBrightness();
     };
-  }, [userId, statusColor]);
+  }, [userId]);
+
+  // Separate effect to handle brightness when status color changes
+  useEffect(() => {
+    if (statusColor === "gray") {
+      console.log("Gray QR code detected - activating screen wake lock");
+      increaseBrightness();
+    } else {
+      resetBrightness();
+    }
+  }, [statusColor]);
 
   const loadProfileAndDocuments = async () => {
     try {
@@ -116,18 +121,28 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
   const increaseBrightness = async () => {
     try {
+      // Release existing lock first
+      if (wakeLock) {
+        await wakeLock.release();
+      }
+      
       if ('wakeLock' in navigator) {
         const lock = await (navigator as any).wakeLock.request('screen');
         setWakeLock(lock);
-        console.log('Screen wake lock activated - screen will stay bright');
+        console.log('✅ Screen wake lock activated - screen will stay bright for gray QR code');
         
         // Handle wake lock release
         lock.addEventListener('release', () => {
           console.log('Screen wake lock released');
+          setWakeLock(null);
         });
+        
+        return lock;
+      } else {
+        console.log("⚠️ Screen wake lock not supported on this browser");
       }
     } catch (error) {
-      console.log("Screen wake lock not available on this device");
+      console.log("⚠️ Screen wake lock error:", error);
     }
   };
 
@@ -219,6 +234,13 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
     if (!accessToken) {
       toast.error("Access token not available yet");
       return;
+    }
+    
+    // Ensure screen stays bright when sharing gray QR code
+    if (statusColor === "gray") {
+      console.log("Sharing gray QR code - ensuring screen brightness");
+      await increaseBrightness();
+      toast.success("Screen brightness activated for scanning", { duration: 2000 });
     }
     
     const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
@@ -348,6 +370,16 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                 <span>Incognito</span>
               </div>
             </div>
+            {statusColor === "gray" && (
+              <div className="mt-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
+                <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-2">
+                  <span className="text-green-500">✓</span> Screen Brightness Active
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 text-center mt-1">
+                  Your screen will stay bright for easy scanning in dark environments
+                </p>
+              </div>
+            )}
             <p className="text-xs text-muted-foreground text-center italic">
               You can change your status color in the Profile tab
             </p>

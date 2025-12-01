@@ -73,30 +73,24 @@ const AdminSetup = () => {
     setLoading(true);
 
     try {
-      // Sign up the user
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email: email.trim(),
-        password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/admin`,
-          data: {
-            full_name: "Administrator"
-          }
+      // Call the edge function to create first admin
+      const { data: createData, error: createError } = await supabase.functions.invoke(
+        "create-first-admin",
+        {
+          body: {
+            email: email.trim(),
+            password,
+          },
         }
-      });
+      );
 
-      if (signUpError) throw signUpError;
-      if (!signUpData.user) throw new Error("User creation failed");
+      if (createError) {
+        throw new Error(createError.message || "Failed to create admin account");
+      }
 
-      // Add administrator role
-      const { error: roleError } = await supabase
-        .from("user_roles")
-        .insert({
-          user_id: signUpData.user.id,
-          role: "administrator"
-        });
-
-      if (roleError) throw roleError;
+      if (!createData?.success) {
+        throw new Error(createData?.error || "Failed to create admin account");
+      }
 
       toast.success("Admin account created successfully!");
       
@@ -106,7 +100,9 @@ const AdminSetup = () => {
         password,
       });
 
-      if (signInError) throw signInError;
+      if (signInError) {
+        throw new Error("Account created but login failed. Please try logging in.");
+      }
 
       // Redirect to admin panel
       navigate("/admin");

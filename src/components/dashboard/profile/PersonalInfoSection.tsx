@@ -146,6 +146,63 @@ export const PersonalInfoSection = ({
                     </span>
                   )}
                 </div>
+
+                <div className="flex items-center gap-2 flex-wrap">
+                  {genderIdentity && (
+                    <Badge variant="secondary" className="bg-blue-500/10 text-blue-600 border-blue-500/30">
+                      {genderIdentity}
+                    </Badge>
+                  )}
+                  {sexualOrientation && (
+                    <Badge variant="secondary" className="bg-purple-500/10 text-purple-600 border-purple-500/30">
+                      {sexualOrientation}
+                    </Badge>
+                  )}
+                </div>
+                
+                {emailShareable === true && email && (
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-purple-500" />
+                    <span className="text-sm text-muted-foreground">{email}</span>
+                  </div>
+                )}
+                
+                {emailShareable === false && (
+                  <div className="flex items-center gap-2">
+                    <Lock className="w-4 h-4 text-red-500" />
+                    <span className="text-sm text-muted-foreground italic">Email Private</span>
+                  </div>
+                )}
+                
+                <div className="flex items-center gap-4 flex-wrap text-sm">
+                  {whereFrom && (
+                    <div className="flex items-center gap-1">
+                      <Home className="w-3.5 h-3.5 text-blue-500" />
+                      <span className="text-muted-foreground">{whereFrom}</span>
+                    </div>
+                  )}
+                  {currentHomeCity && (
+                    <div className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-red-500" />
+                      <span className="text-muted-foreground">{currentHomeCity}</span>
+                    </div>
+                  )}
+                  {relationshipStatus && (
+                    <div className="flex items-center gap-1">
+                      <Heart className="w-3.5 h-3.5 text-pink-500" />
+                      <span className="text-muted-foreground">{relationshipStatus}</span>
+                    </div>
+                  )}
+                </div>
+                
+                {seekingPreference && (
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-orange-500" />
+                    <span className="text-sm font-medium">
+                      Seeking: <span className="text-muted-foreground">{seekingPreference}</span>
+                    </span>
+                  </div>
+                )}
                 
                 {/* Lab Certified Section - Always visible with status badge */}
                 <div className="flex items-center gap-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 mt-2">
@@ -228,63 +285,6 @@ export const PersonalInfoSection = ({
                     />
                   )}
                 </div>
-
-                <div className="flex items-center gap-2 flex-wrap">
-                  {genderIdentity && (
-                    <Badge variant="secondary" className="bg-blue-500/10 text-blue-600 border-blue-500/30">
-                      {genderIdentity}
-                    </Badge>
-                  )}
-                  {sexualOrientation && (
-                    <Badge variant="secondary" className="bg-purple-500/10 text-purple-600 border-purple-500/30">
-                      {sexualOrientation}
-                    </Badge>
-                  )}
-                </div>
-                
-                {emailShareable === true && email && (
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-purple-500" />
-                    <span className="text-sm text-muted-foreground">{email}</span>
-                  </div>
-                )}
-                
-                {emailShareable === false && (
-                  <div className="flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-red-500" />
-                    <span className="text-sm text-muted-foreground italic">Email Private</span>
-                  </div>
-                )}
-                
-                <div className="flex items-center gap-4 flex-wrap text-sm">
-                  {whereFrom && (
-                    <div className="flex items-center gap-1">
-                      <Home className="w-3.5 h-3.5 text-blue-500" />
-                      <span className="text-muted-foreground">{whereFrom}</span>
-                    </div>
-                  )}
-                  {currentHomeCity && (
-                    <div className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-red-500" />
-                      <span className="text-muted-foreground">{currentHomeCity}</span>
-                    </div>
-                  )}
-                  {relationshipStatus && (
-                    <div className="flex items-center gap-1">
-                      <Heart className="w-3.5 h-3.5 text-pink-500" />
-                      <span className="text-muted-foreground">{relationshipStatus}</span>
-                    </div>
-                  )}
-                </div>
-                
-                {seekingPreference && (
-                  <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4 text-orange-500" />
-                    <span className="text-sm font-medium">
-                      Seeking: <span className="text-muted-foreground">{seekingPreference}</span>
-                    </span>
-                  </div>
-                )}
                 
                 <Button
                   type="button"
@@ -292,9 +292,9 @@ export const PersonalInfoSection = ({
                   size="sm"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploadingImage}
-                  className="mt-2"
+                  className="mt-2 h-8 px-3 text-xs"
                 >
-                  <Camera className="w-4 h-4 mr-2" />
+                  <Camera className="w-3 h-3 mr-1.5" />
                   {uploadingImage ? "Uploading..." : "Change Photo"}
                 </Button>
                 <input

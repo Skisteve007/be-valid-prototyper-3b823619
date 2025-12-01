@@ -434,8 +434,11 @@ const Index = () => {
                             <p className="text-xs text-muted-foreground">One-time payment</p>
                           </div>
                           <Button
-                            className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white shadow-lg shadow-cyan-500/50"
-                            onClick={() => navigate("/lab-kit-order")}
+                            className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white shadow-lg shadow-cyan-500/50 min-h-[48px] touch-manipulation"
+                            onClick={() => {
+                              window.scrollTo(0, 0);
+                              navigate("/lab-kit-order");
+                            }}
                           >
                             Get Lab Certified
                           </Button>

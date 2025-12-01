@@ -65,6 +65,22 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Template not found");
     }
 
+    // Fetch sales assets for B2B emails (Lab Partners & Club/Community)
+    const isB2BEmail = target_segment === "Lab Partners" || target_segment === "Club/Community";
+    let salesAssets = null;
+
+    if (isB2BEmail) {
+      const { data: assetsData, error: assetsError } = await supabase
+        .from("admin_sales_assets")
+        .select("*")
+        .single();
+
+      if (!assetsError && assetsData) {
+        salesAssets = assetsData;
+        console.log("B2B email detected - appending sales assets");
+      }
+    }
+
     // Build query for target segment
     let query = supabase
       .from("profiles")
@@ -131,7 +147,19 @@ const handler = async (req: Request): Promise<Response> => {
       const firstName = profile.full_name?.split(" ")[0] || "there";
       
       // Replace {{first_name}} placeholder
-      const personalizedBody = template.body_content.replace(/\{\{first_name\}\}/g, firstName);
+      let personalizedBody = template.body_content.replace(/\{\{first_name\}\}/g, firstName);
+
+      // Append sales assets for B2B emails
+      if (isB2BEmail && salesAssets) {
+        let footer = "\n\n---\n";
+        if (salesAssets.demo_video_url) {
+          footer += `🎥 See CleanCheck in action: ${salesAssets.demo_video_url}\n`;
+        }
+        if (salesAssets.calendly_link) {
+          footer += `📅 Book a quick demo call: ${salesAssets.calendly_link}\n`;
+        }
+        personalizedBody += footer;
+      }
 
       try {
         await resend.emails.send({

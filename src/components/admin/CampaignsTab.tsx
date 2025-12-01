@@ -9,6 +9,8 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Mail, Send, Edit, Users, Clock, Filter } from "lucide-react";
+import { LaunchRoadmap } from "./LaunchRoadmap";
+import { SalesAssets } from "./SalesAssets";
 
 interface MarketingTemplate {
   id: string;
@@ -28,6 +30,7 @@ export function CampaignsTab() {
   const [sendingTemplate, setSendingTemplate] = useState<MarketingTemplate | null>(null);
   const [recipientCount, setRecipientCount] = useState<number>(0);
   const [sending, setSending] = useState(false);
+  const [highlightedTemplateId, setHighlightedTemplateId] = useState<string | null>(null);
 
   const [editForm, setEditForm] = useState({
     campaign_name: "",
@@ -135,6 +138,23 @@ export function CampaignsTab() {
     }
   };
 
+  const handleNavigateToTemplate = (templateId: string) => {
+    setHighlightedTemplateId(templateId);
+    
+    // Scroll to the template card
+    setTimeout(() => {
+      const element = document.getElementById(`template-${templateId}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
+
+    // Clear highlight after 3 seconds
+    setTimeout(() => {
+      setHighlightedTemplateId(null);
+    }, 3000);
+  };
+
   if (loading) {
     return <div className="p-6">Loading campaigns...</div>;
   }
@@ -166,6 +186,12 @@ export function CampaignsTab() {
         <Mail className="h-8 w-8 text-primary" />
       </div>
 
+      {/* Strategy Execution Section */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        <LaunchRoadmap onNavigateToTemplate={handleNavigateToTemplate} />
+        <SalesAssets />
+      </div>
+
       {/* Campaign Track Filter */}
       <Card className="bg-muted/50">
         <CardContent className="pt-6">
@@ -194,7 +220,15 @@ export function CampaignsTab() {
 
       <div className="grid gap-6">
         {filteredTemplates.map((template) => (
-          <Card key={template.id} className="shadow-md hover:shadow-lg transition-shadow">
+          <Card
+            key={template.id}
+            id={`template-${template.id}`}
+            className={`shadow-md hover:shadow-lg transition-all ${
+              highlightedTemplateId === template.id
+                ? "ring-4 ring-primary ring-offset-2 bg-primary/5"
+                : ""
+            }`}
+          >
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="flex-1">

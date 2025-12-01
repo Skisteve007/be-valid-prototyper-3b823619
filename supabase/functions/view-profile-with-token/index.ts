@@ -61,25 +61,10 @@ serve(async (req) => {
         .eq('id', tokenData.id);
     }
 
-    // Fetch profile data - ONLY non-sensitive fields for QR sharing
+    // Fetch complete profile data with lock states
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select(`
-        id,
-        member_id,
-        full_name,
-        profile_image_url,
-        status_color,
-        user_id,
-        gender_identity,
-        sexual_orientation,
-        relationship_status,
-        covid_vaccinated,
-        smoker,
-        health_document_uploaded_at,
-        selected_interests,
-        created_at
-      `)
+      .select('*')
       .eq('id', tokenData.profile_id)
       .single();
 
@@ -96,7 +81,7 @@ serve(async (req) => {
     // If gray incognito mode, only return name and email for event scanning
     if (profile.status_color === 'gray') {
       // Fetch user email from auth.users
-      const { data: userData, error: userError } = await supabase.auth.admin.getUserById(profile.user_id);
+      const { data: userData } = await supabase.auth.admin.getUserById(profile.user_id);
       
       const limitedProfile = {
         id: profile.id,
@@ -104,6 +89,7 @@ serve(async (req) => {
         full_name: profile.full_name,
         email: userData?.user?.email || null,
         status_color: profile.status_color,
+        profile_image_url: profile.profile_image_url,
       };
 
       console.log('Gray incognito mode - limited profile data returned for event scanning');
@@ -126,6 +112,75 @@ serve(async (req) => {
       );
     }
 
+    // Build response with all non-locked data
+    const sharedProfile: any = {
+      id: profile.id,
+      member_id: profile.member_id,
+      full_name: profile.full_name,
+      profile_image_url: profile.profile_image_url,
+      status_color: profile.status_color,
+      gender_identity: profile.gender_identity,
+      sexual_orientation: profile.sexual_orientation,
+      relationship_status: profile.relationship_status,
+      birthday: profile.birthday,
+      where_from: profile.where_from,
+      current_home_city: profile.current_home_city,
+      partner_preferences: profile.partner_preferences,
+      covid_vaccinated: profile.covid_vaccinated,
+      circumcised: profile.circumcised,
+      smoker: profile.smoker,
+      selected_interests: profile.selected_interests,
+      user_interests: profile.user_interests,
+      sexual_preferences: profile.sexual_preferences,
+      health_document_uploaded_at: profile.health_document_uploaded_at,
+      instagram_handle: profile.instagram_handle,
+      tiktok_handle: profile.tiktok_handle,
+      facebook_handle: profile.facebook_handle,
+      onlyfans_handle: profile.onlyfans_handle,
+      twitter_handle: profile.twitter_handle,
+      created_at: profile.created_at,
+    };
+
+    // Only include email if shareable
+    if (profile.email_shareable === true) {
+      const { data: userData } = await supabase.auth.admin.getUserById(profile.user_id);
+      sharedProfile.email = userData?.user?.email || null;
+    }
+
+    // Only include STD acknowledgment if not locked
+    if (profile.std_acknowledgment_locked === false) {
+      sharedProfile.std_acknowledgment = profile.std_acknowledgment;
+    }
+
+    // Fetch and include references if not locked
+    if (profile.references_locked === false) {
+      const { data: references } = await supabase
+        .from('member_references')
+        .select(`
+          id,
+          verified,
+          created_at,
+          referee:profiles!member_references_referee_user_id_fkey(
+            member_id,
+            full_name,
+            profile_image_url
+          )
+        `)
+        .eq('referrer_user_id', profile.user_id)
+        .eq('verified', true);
+
+      sharedProfile.references = references || [];
+    }
+
+    // Fetch uploaded documents/certifications
+    const { data: documents } = await supabase
+      .from('certifications')
+      .select('id, title, issue_date, expiry_date, issuer, status, created_at')
+      .eq('user_id', profile.user_id)
+      .order('created_at', { ascending: false });
+
+    sharedProfile.documents = documents || [];
+
     // Record QR code view
     await supabase
       .from('qr_code_views')
@@ -134,10 +189,17 @@ serve(async (req) => {
         viewed_by_ip: req.headers.get('x-forwarded-for') || 'unknown'
       });
 
+    console.log('Complete profile data shared (respecting privacy locks)');
+
     return new Response(
       JSON.stringify({ 
-        profile,
-        tokenExpiresAt: tokenData.expires_at
+        profile: sharedProfile,
+        tokenExpiresAt: tokenData.expires_at,
+        privacySettings: {
+          emailShared: profile.email_shareable === true,
+          referencesShared: profile.references_locked === false,
+          stdAcknowledgmentShared: profile.std_acknowledgment_locked === false,
+        }
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

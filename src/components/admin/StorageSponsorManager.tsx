@@ -36,7 +36,7 @@ const StorageSponsorManager = () => {
   const [newSponsorData, setNewSponsorData] = useState({
     name: "",
     website_url: "",
-    tier: "silver" as 'platinum' | 'gold' | 'silver',
+    tier: "platinum" as 'platinum' | 'gold' | 'silver',
     section: 1,
     logo_url: "",
   });
@@ -168,7 +168,7 @@ const StorageSponsorManager = () => {
     setNewSponsorData({
       name: "",
       website_url: "",
-      tier: "silver",
+      tier: "platinum", // Default to platinum for section 1
       section: 1,
       logo_url: file.publicUrl,
     });
@@ -235,7 +235,7 @@ const StorageSponsorManager = () => {
 
       setDialogOpen(false);
       setEditingFile(null);
-      setNewSponsorData({ name: "", website_url: "", tier: "silver", section: 1, logo_url: "" });
+      setNewSponsorData({ name: "", website_url: "", tier: "platinum", section: 1, logo_url: "" });
       await loadSponsors();
     } catch (error: any) {
       toast.error(error.message || "Failed to save sponsor");
@@ -415,44 +415,47 @@ const StorageSponsorManager = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="sponsor-tier">Tier</Label>
-                  <Select
-                    value={newSponsorData.tier}
-                    onValueChange={(value: 'platinum' | 'gold' | 'silver') =>
-                      setNewSponsorData({ ...newSponsorData, tier: value })
-                    }
-                  >
-                    <SelectTrigger id="sponsor-tier">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="platinum">Platinum</SelectItem>
-                      <SelectItem value="gold">Gold</SelectItem>
-                      <SelectItem value="silver">Silver</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="sponsor-section">Section</Label>
-                  <Select
-                    value={newSponsorData.section.toString()}
-                    onValueChange={(value) =>
-                      setNewSponsorData({ ...newSponsorData, section: parseInt(value) })
-                    }
-                  >
-                    <SelectTrigger id="sponsor-section">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">Section 1</SelectItem>
-                      <SelectItem value="2">Section 2</SelectItem>
-                      <SelectItem value="3">Section 3</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="sponsor-section">Display Section *</Label>
+                <Select
+                  value={newSponsorData.section.toString()}
+                  onValueChange={(value) => {
+                    const section = parseInt(value);
+                    const tier = (section === 1 || section === 2) ? 'platinum' : 'gold';
+                    setNewSponsorData({ 
+                      ...newSponsorData, 
+                      section, 
+                      tier 
+                    });
+                  }}
+                >
+                  <SelectTrigger id="sponsor-section" className="bg-background/50">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-popover border-border z-50">
+                    <SelectItem value="1" className="hover:bg-accent focus:bg-accent">
+                      <div className="flex items-center gap-2">
+                        <span>Section 1</span>
+                        <Badge variant="secondary" className="bg-purple-500/20 text-purple-300">Platinum</Badge>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="2" className="hover:bg-accent focus:bg-accent">
+                      <div className="flex items-center gap-2">
+                        <span>Section 2</span>
+                        <Badge variant="secondary" className="bg-purple-500/20 text-purple-300">Platinum</Badge>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="3" className="hover:bg-accent focus:bg-accent">
+                      <div className="flex items-center gap-2">
+                        <span>Section 3</span>
+                        <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-300">Gold</Badge>
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  Sections 1 & 2 are Platinum tier • Section 3 is Gold tier
+                </p>
               </div>
 
               <div className="flex gap-2 justify-end">

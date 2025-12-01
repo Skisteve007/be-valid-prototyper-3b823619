@@ -42,7 +42,6 @@ interface ProfileFormData {
   tiktok_handle: string;
   facebook_handle: string;
   onlyfans_handle: string;
-  twitter_handle: string;
   std_acknowledgment: string;
   user_references: string;
   sexual_preferences: string;
@@ -107,7 +106,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const tiktokHandle = watch("tiktok_handle");
   const facebookHandle = watch("facebook_handle");
   const onlyfansHandle = watch("onlyfans_handle");
-  const twitterHandle = watch("twitter_handle");
   
   // Detect if any changes have been made
   const hasChanges = 
@@ -167,7 +165,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setValue("tiktok_handle", data.tiktok_handle || "");
         setValue("facebook_handle", data.facebook_handle || "");
         setValue("onlyfans_handle", data.onlyfans_handle || "");
-        setValue("twitter_handle", data.twitter_handle || "");
         setValue("std_acknowledgment", data.std_acknowledgment || "");
         setValue("sexual_preferences", data.sexual_preferences || "");
         
@@ -378,7 +375,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           tiktok_handle: data.tiktok_handle,
           facebook_handle: data.facebook_handle,
           onlyfans_handle: data.onlyfans_handle,
-          twitter_handle: data.twitter_handle,
           std_acknowledgment: data.std_acknowledgment,
           user_references: JSON.stringify(referenceIds.filter(id => id.trim() !== "")),
           sexual_preferences: data.sexual_preferences,
@@ -555,7 +551,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         tiktokHandle={tiktokHandle || ""}
         facebookHandle={facebookHandle || ""}
         onlyfansHandle={onlyfansHandle || ""}
-        twitterHandle={twitterHandle || ""}
       />
 
       <div className="relative py-4">

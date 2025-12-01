@@ -109,7 +109,7 @@ const SafetyCertificate = () => {
                 </div>
               </div>
               <CardTitle className="text-3xl bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 bg-clip-text text-transparent">
-                Safety Screen Certificate
+                Toxicology Lab Certified Certificate
               </CardTitle>
             </CardHeader>
 

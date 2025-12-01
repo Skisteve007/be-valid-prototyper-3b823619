@@ -40,14 +40,28 @@ const Dashboard = () => {
 
   // Swipe gesture handlers for mobile navigation
   const handleTouchStart = (e: React.TouchEvent) => {
+    // Don't start swipe if touching interactive elements
+    const target = e.target as HTMLElement;
+    const isInteractive = target.closest('button, a, [role="button"], [data-radix-accordion-trigger], [data-radix-accordion-content]');
+    
+    if (isInteractive) {
+      touchStartX.current = 0;
+      return;
+    }
+    
     touchStartX.current = e.touches[0].clientX;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current === 0) return;
     touchEndX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = () => {
+    if (touchStartX.current === 0) {
+      return;
+    }
+    
     const swipeThreshold = 75; // minimum distance for swipe
     const diff = touchStartX.current - touchEndX.current;
 

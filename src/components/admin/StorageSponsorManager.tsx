@@ -200,6 +200,22 @@ const StorageSponsorManager = () => {
       return;
     }
 
+    // Validate URL if provided
+    if (newSponsorData.website_url.trim()) {
+      try {
+        const url = new URL(newSponsorData.website_url.trim());
+        if (!url.protocol.startsWith('http')) {
+          toast.error("Website URL must start with http:// or https://");
+          return;
+        }
+      } catch {
+        toast.error("Please enter a valid website URL (e.g., https://example.com)");
+        return;
+      }
+    }
+
+    console.log("Saving sponsor:", newSponsorData);
+
     try {
       const existingSponsor = getSponsorForFile(newSponsorData.logo_url);
 
@@ -209,7 +225,7 @@ const StorageSponsorManager = () => {
           .from("sponsors")
           .update({
             name: newSponsorData.name,
-            website_url: newSponsorData.website_url || null,
+            website_url: newSponsorData.website_url.trim() || null,
             tier: newSponsorData.tier,
             section: newSponsorData.section,
           })
@@ -224,7 +240,7 @@ const StorageSponsorManager = () => {
           .insert([
             {
               name: newSponsorData.name,
-              website_url: newSponsorData.website_url || null,
+              website_url: newSponsorData.website_url.trim() || null,
               logo_url: newSponsorData.logo_url,
               tier: newSponsorData.tier,
               section: newSponsorData.section,
@@ -426,6 +442,7 @@ const StorageSponsorManager = () => {
                   onValueChange={(value) => {
                     const section = parseInt(value);
                     const tier = (section === 1 || section === 2) ? 'platinum' : 'gold';
+                    console.log("Section selected:", section, "Tier:", tier);
                     setNewSponsorData({ 
                       ...newSponsorData, 
                       section, 
@@ -433,23 +450,18 @@ const StorageSponsorManager = () => {
                     });
                   }}
                 >
-                  <SelectTrigger id="sponsor-section" className="bg-background/50">
-                    <SelectValue />
+                  <SelectTrigger id="sponsor-section" className="w-full">
+                    <SelectValue placeholder="Choose section placement" />
                   </SelectTrigger>
-                  <SelectContent className="bg-popover border-border z-[100]">
-                    <SelectItem value="1">
-                      Section 1 (Platinum)
-                    </SelectItem>
-                    <SelectItem value="2">
-                      Section 2 (Platinum)
-                    </SelectItem>
-                    <SelectItem value="3">
-                      Section 3 (Gold)
-                    </SelectItem>
+                  <SelectContent>
+                    <SelectItem value="1">Section 1 (Platinum)</SelectItem>
+                    <SelectItem value="2">Section 2 (Platinum)</SelectItem>
+                    <SelectItem value="3">Section 3 (Gold)</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-xs text-muted-foreground">
-                  Sections 1 & 2 are Platinum tier • Section 3 is Gold tier
+                  • Section 1 & 2: Platinum tier (top sponsors)<br />
+                  • Section 3: Gold tier (regular sponsors)
                 </p>
               </div>
 

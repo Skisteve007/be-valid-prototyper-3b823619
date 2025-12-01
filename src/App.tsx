@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
+import AdminLogin from "./pages/AdminLogin";
 import Sponsors from "./pages/Sponsors";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
           <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
           <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />
+          <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />
           <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
           <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
           <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />

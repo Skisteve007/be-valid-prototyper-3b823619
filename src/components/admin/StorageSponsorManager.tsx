@@ -33,7 +33,6 @@ const StorageSponsorManager = () => {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [editingFile, setEditingFile] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [replacingLogoFor, setReplacingLogoFor] = useState<string | null>(null);
   const [newSponsorData, setNewSponsorData] = useState({
     name: "",
     website_url: "",
@@ -191,7 +190,6 @@ const StorageSponsorManager = () => {
       toast.error(error.message || "Failed to replace logo");
     } finally {
       setUploading(false);
-      setReplacingLogoFor(null);
       event.target.value = ""; // Reset input
     }
   };
@@ -374,18 +372,13 @@ const StorageSponsorManager = () => {
               <Card key={file.name} className="overflow-hidden">
                 <CardContent className="p-4">
                   <div 
-                    className="aspect-video relative bg-muted rounded-lg mb-3 overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary transition-all group"
-                    onClick={() => setReplacingLogoFor(file.name)}
-                    title="Click to replace logo"
+                    className="aspect-video relative bg-muted rounded-lg mb-3 overflow-hidden"
                   >
                     <img
                       src={file.publicUrl}
                       alt={file.name}
                       className="w-full h-full object-contain"
                     />
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <Upload className="h-8 w-8 text-white" />
-                    </div>
                   </div>
                   <input
                     type="file"
@@ -395,17 +388,18 @@ const StorageSponsorManager = () => {
                     onChange={(e) => handleLogoReplace(e, file.name)}
                     disabled={uploading}
                   />
-                  {replacingLogoFor === file.name && (
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      id={`trigger-replace-${file.name}`}
-                      onChange={(e) => handleLogoReplace(e, file.name)}
-                      disabled={uploading}
-                      ref={(input) => input?.click()}
-                    />
-                  )}
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="w-full mb-3 text-xs"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      document.getElementById(`replace-${file.name}`)?.click();
+                    }}
+                  >
+                    <Upload className="h-3 w-3 mr-1" />
+                    Replace Logo
+                  </Button>
                   
                   <div className="space-y-2">
                     <p className="text-xs text-muted-foreground truncate" title={file.name}>
@@ -432,7 +426,10 @@ const StorageSponsorManager = () => {
                             size="sm"
                             variant="outline"
                             className="flex-1"
-                            onClick={() => handleEditSponsor(sponsor)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleEditSponsor(sponsor);
+                            }}
                           >
                             <Edit className="h-3 w-3 mr-1" />
                             Edit
@@ -440,7 +437,10 @@ const StorageSponsorManager = () => {
                           <Button
                             size="sm"
                             variant="destructive"
-                            onClick={() => handleDeleteFile(file.name)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteFile(file.name);
+                            }}
                           >
                             <Trash2 className="h-3 w-3" />
                           </Button>
@@ -456,14 +456,20 @@ const StorageSponsorManager = () => {
                           <Button
                             size="sm"
                             className="flex-1"
-                            onClick={() => handleAssignToSection(file)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleAssignToSection(file);
+                            }}
                           >
                             Assign to Section
                           </Button>
                           <Button
                             size="sm"
                             variant="destructive"
-                            onClick={() => handleDeleteFile(file.name)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteFile(file.name);
+                            }}
                           >
                             <Trash2 className="h-3 w-3" />
                           </Button>

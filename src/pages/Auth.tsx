@@ -13,7 +13,6 @@ import {
   authenticateWithBiometric, 
   getStoredCredentials
 } from "@/lib/biometric";
-import Footer from "@/components/Footer";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -357,8 +356,6 @@ const Auth = () => {
           )}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

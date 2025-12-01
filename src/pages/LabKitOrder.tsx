@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { FlaskConical, Home, Package, MapPin } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
-import Footer from "@/components/Footer";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const LabKitOrder = () => {
@@ -305,8 +304,6 @@ const LabKitOrder = () => {
             </CardContent>
           </Card>
         </main>
-
-        <Footer />
 
         {/* Floating Home Button */}
         <Button

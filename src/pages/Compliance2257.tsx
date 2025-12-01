@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import Footer from '@/components/Footer';
 
 const Compliance2257 = () => {
   return (
@@ -124,7 +123,6 @@ const Compliance2257 = () => {
           </section>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

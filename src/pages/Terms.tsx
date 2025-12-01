@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import Footer from '@/components/Footer';
 
 const Terms = () => {
   return (
@@ -142,7 +141,6 @@ const Terms = () => {
           </section>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

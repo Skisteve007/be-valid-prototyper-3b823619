@@ -360,6 +360,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                 touchAction: 'none',
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
+                WebkitTapHighlightColor: 'transparent',
                 cursor: 'default'
               }}
             >
@@ -416,6 +417,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                   touchAction: 'none',
                   userSelect: 'none',
                   WebkitUserSelect: 'none',
+                  WebkitTapHighlightColor: 'transparent',
                   cursor: 'default'
                 }}
               >

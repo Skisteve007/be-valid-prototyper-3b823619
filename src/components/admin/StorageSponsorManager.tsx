@@ -33,6 +33,7 @@ const StorageSponsorManager = () => {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [editingFile, setEditingFile] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [replacingLogoFor, setReplacingLogoFor] = useState<string | null>(null);
   const [newSponsorData, setNewSponsorData] = useState({
     name: "",
     website_url: "",
@@ -128,6 +129,70 @@ const StorageSponsorManager = () => {
       toast.error(error.message || "Failed to upload logo");
     } finally {
       setUploading(false);
+      event.target.value = ""; // Reset input
+    }
+  };
+
+  const handleLogoReplace = async (event: React.ChangeEvent<HTMLInputElement>, oldFileName: string) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please upload an image file");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Image must be less than 2MB");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split(".").pop();
+      const newFileName = `sponsor-${Date.now()}.${fileExt}`;
+
+      // Upload new logo
+      const { error: uploadError } = await supabase.storage
+        .from("sponsor-logos")
+        .upload(newFileName, file, {
+          cacheControl: "3600",
+          upsert: true,
+        });
+
+      if (uploadError) throw uploadError;
+
+      // Get new public URL
+      const { data: urlData } = supabase.storage
+        .from("sponsor-logos")
+        .getPublicUrl(newFileName);
+
+      // Update sponsor with new logo URL if exists
+      const sponsor = sponsors.find(s => s.logo_url.includes(oldFileName));
+      if (sponsor) {
+        const { error: updateError } = await supabase
+          .from("sponsors")
+          .update({ logo_url: urlData.publicUrl })
+          .eq("id", sponsor.id);
+
+        if (updateError) throw updateError;
+      }
+
+      // Delete old logo
+      const { error: deleteError } = await supabase.storage
+        .from("sponsor-logos")
+        .remove([oldFileName]);
+
+      if (deleteError) console.warn("Failed to delete old logo:", deleteError);
+
+      toast.success("Logo replaced successfully");
+      await loadData();
+    } catch (error: any) {
+      toast.error(error.message || "Failed to replace logo");
+    } finally {
+      setUploading(false);
+      setReplacingLogoFor(null);
+      event.target.value = ""; // Reset input
     }
   };
 
@@ -308,13 +373,39 @@ const StorageSponsorManager = () => {
             return (
               <Card key={file.name} className="overflow-hidden">
                 <CardContent className="p-4">
-                  <div className="aspect-video relative bg-muted rounded-lg mb-3 overflow-hidden">
+                  <div 
+                    className="aspect-video relative bg-muted rounded-lg mb-3 overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary transition-all group"
+                    onClick={() => setReplacingLogoFor(file.name)}
+                    title="Click to replace logo"
+                  >
                     <img
                       src={file.publicUrl}
                       alt={file.name}
                       className="w-full h-full object-contain"
                     />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Upload className="h-8 w-8 text-white" />
+                    </div>
                   </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    id={`replace-${file.name}`}
+                    onChange={(e) => handleLogoReplace(e, file.name)}
+                    disabled={uploading}
+                  />
+                  {replacingLogoFor === file.name && (
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      id={`trigger-replace-${file.name}`}
+                      onChange={(e) => handleLogoReplace(e, file.name)}
+                      disabled={uploading}
+                      ref={(input) => input?.click()}
+                    />
+                  )}
                   
                   <div className="space-y-2">
                     <p className="text-xs text-muted-foreground truncate" title={file.name}>

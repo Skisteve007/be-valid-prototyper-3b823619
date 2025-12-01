@@ -334,75 +334,86 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             </div>
           )}
 
-          {/* STATIC INFO CARDS - REBUILT FROM SCRATCH */}
-          <div className="w-full max-w-md space-y-3">
-            {/* BORDER COLOR KEY - PURELY STATIC DISPLAY */}
+          {/* RAW HTML STATIC DISPLAYS - NO COMPONENT LIBRARY */}
+          <div style={{ width: '100%', maxWidth: '28rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            
+            {/* BORDER COLOR KEY - RAW DIV ONLY */}
             <div 
-              className="p-3 rounded-lg border bg-muted/50"
               style={{ 
+                padding: '0.75rem',
+                borderRadius: '0.5rem',
+                border: '1px solid hsl(var(--border))',
+                backgroundColor: 'hsl(var(--muted) / 0.5)',
                 WebkitTapHighlightColor: 'transparent',
                 userSelect: 'none',
-                cursor: 'default'
+                pointerEvents: 'none',
+                cursor: 'default',
+                touchAction: 'none'
               }}
             >
-              <div className="text-xs font-semibold text-center mb-2">
+              <div style={{ fontSize: '0.75rem', fontWeight: 600, textAlign: 'center', marginBottom: '0.5rem' }}>
                 Border Color Key
               </div>
-              <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30"></div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', fontSize: '0.75rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                  <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(34, 197, 94)', border: '1px solid rgba(34, 197, 94, 0.3)' }}></div>
                   <span>Clean</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 ring-1 ring-yellow-500/30"></div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                  <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(234, 179, 8)', border: '1px solid rgba(234, 179, 8, 0.3)' }}></div>
                   <span>Caution</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 ring-1 ring-red-500/30"></div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                  <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(239, 68, 68)', border: '1px solid rgba(239, 68, 68, 0.3)' }}></div>
                   <span>Be Aware</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-gray-500 ring-1 ring-gray-500/30"></div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                  <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(107, 114, 128)', border: '1px solid rgba(107, 114, 128, 0.3)' }}></div>
                   <span>Incognito</span>
                 </div>
               </div>
               {statusColor === "gray" && (
-                <div className="mt-2 p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
-                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5">
-                    <span className="text-green-500">✓</span> Screen Brightness Active
+                <div style={{ marginTop: '0.5rem', padding: '0.5rem', borderRadius: '0.25rem', backgroundColor: 'rgb(243, 244, 246)', border: '1px solid rgba(107, 114, 128, 0.3)' }}>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'rgb(55, 65, 81)', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.375rem' }}>
+                    <span style={{ color: 'rgb(34, 197, 94)' }}>✓</span> Screen Brightness Active
                   </p>
                 </div>
               )}
             </div>
 
-            {/* DOCUMENT UPLOAD DATE - PURELY STATIC DISPLAY */}
+            {/* DOCUMENT UPLOAD DATE - RAW DIV ONLY */}
             {lastDocumentDate && (
               <div 
-                className="p-3 rounded-lg border bg-muted/50"
                 style={{ 
+                  padding: '0.75rem',
+                  borderRadius: '0.5rem',
+                  border: '1px solid hsl(var(--border))',
+                  backgroundColor: 'hsl(var(--muted) / 0.5)',
                   WebkitTapHighlightColor: 'transparent',
                   userSelect: 'none',
-                  cursor: 'default'
+                  pointerEvents: 'none',
+                  cursor: 'default',
+                  touchAction: 'none'
                 }}
               >
-                <div className="text-xs text-center font-medium mb-2">
+                <div style={{ fontSize: '0.75rem', textAlign: 'center', fontWeight: 500, marginBottom: '0.5rem' }}>
                   Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
                     year: 'numeric', 
                     month: 'long', 
                     day: 'numeric' 
                   })}
                 </div>
-                <div className="flex items-center justify-center gap-4 text-xs">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', fontSize: '0.75rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                    <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(59, 130, 246)' }}></div>
                     <span>1-60 days</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-pink-500"></div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                    <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(236, 72, 153)' }}></div>
                     <span>61-120 days</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                    <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(168, 85, 247)' }}></div>
                     <span>121+ days</span>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,6 +20,11 @@ const LabKitOrder = () => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [showPayPal, setShowPayPal] = useState(false);
+
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
 
   const isFormValid = fullName && email && phone && address && city && state && zipCode;
 

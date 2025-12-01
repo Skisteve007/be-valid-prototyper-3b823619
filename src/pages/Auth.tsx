@@ -30,6 +30,9 @@ const Auth = () => {
   const [showSignupPassword, setShowSignupPassword] = useState(false);
 
   useEffect(() => {
+    // Scroll to top when page loads
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
@@ -43,7 +46,7 @@ const Auth = () => {
     if (savedEmail) {
       setLoginEmail(savedEmail);
     }
-  }, [navigate]);
+  }, [navigate, mode]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -158,8 +161,8 @@ const Auth = () => {
         </div>
       </header>
 
-      <main className="min-h-[calc(100vh-200px)] flex items-center justify-center py-6 md:py-12 px-4">
-        <div className="container mx-auto max-w-md w-full">
+      <main className="min-h-[calc(100vh-200px)] flex items-start md:items-center justify-center py-6 md:py-12 px-4">
+        <div className="container mx-auto max-w-md w-full mt-4 md:mt-0">
           {/* Login Form */}
           {mode === "login" ? (
             <div className="relative">

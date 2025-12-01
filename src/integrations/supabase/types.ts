@@ -74,6 +74,39 @@ export type Database = {
         }
         Relationships: []
       }
+      lab_orders: {
+        Row: {
+          barcode_value: string
+          created_at: string
+          id: string
+          lab_requisition_id: string | null
+          order_status: Database["public"]["Enums"]["order_status"]
+          result_status: Database["public"]["Enums"]["result_status"] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          barcode_value: string
+          created_at?: string
+          id?: string
+          lab_requisition_id?: string | null
+          order_status?: Database["public"]["Enums"]["order_status"]
+          result_status?: Database["public"]["Enums"]["result_status"] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          barcode_value?: string
+          created_at?: string
+          id?: string
+          lab_requisition_id?: string | null
+          order_status?: Database["public"]["Enums"]["order_status"]
+          result_status?: Database["public"]["Enums"]["result_status"] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       member_references: {
         Row: {
           created_at: string
@@ -427,6 +460,8 @@ export type Database = {
         | "paid"
         | "active_member"
         | "administrator"
+      order_status: "pending" | "sample_collected" | "result_received"
+      result_status: "negative" | "positive" | "inconclusive"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -561,6 +596,8 @@ export const Constants = {
         "active_member",
         "administrator",
       ],
+      order_status: ["pending", "sample_collected", "result_received"],
+      result_status: ["negative", "positive", "inconclusive"],
     },
   },
 } as const

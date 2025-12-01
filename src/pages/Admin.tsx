@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -15,6 +16,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/clean-check-logo.png";
 import StorageSponsorManager from "@/components/admin/StorageSponsorManager";
+import { LabIntegrationsTab } from "@/components/admin/LabIntegrationsTab";
 import {
   DndContext,
   closestCenter,
@@ -486,9 +488,19 @@ const Admin = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8 space-y-8">
-        <StorageSponsorManager />
-        
-        <Card>
+        <Tabs defaultValue="sponsors" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="sponsors">Sponsor Management</TabsTrigger>
+            <TabsTrigger value="lab-integrations">
+              <FlaskConical className="h-4 w-4 mr-2" />
+              Lab Integrations
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="sponsors" className="space-y-8">
+            <StorageSponsorManager />
+            
+            <Card>
           <CardHeader>
             <div className="flex justify-between items-center">
               <div>
@@ -691,7 +703,13 @@ const Admin = () => {
               )}
             </div>
           </CardContent>
-        </Card>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="lab-integrations">
+            <LabIntegrationsTab />
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );

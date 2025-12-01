@@ -182,7 +182,7 @@ const Index = () => {
             <ScrollReveal direction="up" delay={400}>
               <div className="mt-8">
                 <p className="text-base text-muted-foreground mb-8 font-semibold">Trusted Community Sponsors</p>
-                <div className="flex justify-center items-center gap-16">
+                <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-16">
                 {[0, 1, 2].map((index) => {
                   const sponsor = sponsors[index];
                   return (
@@ -199,22 +199,22 @@ const Index = () => {
                             <img 
                               src={sponsor.logo_url} 
                               alt={sponsor.name} 
-                              className="h-28 w-auto filter drop-shadow-2xl"
+                              className="h-16 md:h-20 lg:h-28 w-auto filter drop-shadow-2xl"
                             />
                           </a>
                         ) : (
                           <img 
                             src={sponsor.logo_url} 
                             alt={sponsor.name} 
-                            className="h-28 w-auto filter drop-shadow-2xl"
+                            className="h-16 md:h-20 lg:h-28 w-auto filter drop-shadow-2xl"
                           />
                         )
                       ) : (
-                        <div className="w-64 h-28 bg-muted/40 border-2 border-dashed border-primary/30 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary/60 transition-colors">
-                          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                            <span className="text-3xl">🏢</span>
+                        <div className="w-40 h-16 md:w-48 md:h-20 lg:w-64 lg:h-28 bg-muted/40 border-2 border-dashed border-primary/30 rounded-xl flex flex-col items-center justify-center gap-1 md:gap-2 hover:border-primary/60 transition-colors">
+                          <div className="w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                            <span className="text-xl md:text-2xl lg:text-3xl">🏢</span>
                           </div>
-                          <span className="text-sm font-medium text-muted-foreground">Sponsor Slot {index + 1}</span>
+                          <span className="text-xs md:text-sm font-medium text-muted-foreground">Sponsor Slot {index + 1}</span>
                         </div>
                       )}
                     </div>
@@ -243,7 +243,7 @@ const Index = () => {
               {/* Section 1 */}
               {sponsors.filter(s => s.section === 1).length > 0 && (
                 <div className="mb-8">
-                  <div className="flex flex-wrap justify-center items-center gap-8">
+                  <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 lg:gap-8">
                     {sponsors.filter(s => s.section === 1).map((sponsor) => (
                       <div key={sponsor.id} className="flex items-center justify-center">
                         {sponsor.logo_url ? (
@@ -281,7 +281,7 @@ const Index = () => {
               {/* Section 2 */}
               {sponsors.filter(s => s.section === 2).length > 0 && (
                 <div className="mb-8">
-                  <div className="flex flex-wrap justify-center items-center gap-8">
+                  <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 lg:gap-8">
                     {sponsors.filter(s => s.section === 2).map((sponsor) => (
                       <div key={sponsor.id} className="flex items-center justify-center">
                         {sponsor.logo_url ? (
@@ -319,7 +319,7 @@ const Index = () => {
               {/* Section 3 */}
               {sponsors.filter(s => s.section === 3).length > 0 && (
                 <div className="mb-4">
-                  <div className="flex flex-wrap justify-center items-center gap-8">
+                  <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 lg:gap-8">
                     {sponsors.filter(s => s.section === 3).map((sponsor) => (
                       <div key={sponsor.id} className="flex items-center justify-center">
                         {sponsor.logo_url ? (

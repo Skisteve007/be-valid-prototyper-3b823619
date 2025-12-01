@@ -82,7 +82,7 @@ const ToxicologyKitOrder = () => {
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
                       <p className="text-sm text-muted-foreground">Total Amount</p>
-                      <p className="text-3xl font-bold text-green-700 dark:text-green-400">$89.00</p>
+                      <p className="text-3xl font-bold text-green-700 dark:text-green-400">$129.00</p>
                     </div>
                     <div className="text-right text-sm text-muted-foreground">
                       <p>✓ At-home kit delivery</p>
@@ -217,10 +217,10 @@ const ToxicologyKitOrder = () => {
                   <CardDescription>Pay securely with PayPal</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="p-4 bg-muted/50 rounded-lg space-y-2">
+                  <div className="bg-muted/50 rounded-lg p-4 space-y-2">
                     <div className="flex justify-between items-center">
                       <span className="font-medium">Toxicology Lab Certified Kit</span>
-                      <span className="text-xl font-bold text-green-700 dark:text-green-400">$89.00</span>
+                      <span className="text-xl font-bold text-green-700 dark:text-green-400">$129.00</span>
                     </div>
                     <p className="text-xs text-muted-foreground">
                       One-time payment • Includes kit delivery and lab processing

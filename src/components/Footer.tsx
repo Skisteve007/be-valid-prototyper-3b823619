@@ -45,6 +45,12 @@ const Footer = () => {
             >
               2257 Compliance
             </Link>
+            <Link 
+              to="/partners" 
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Lab Partner Solutions
+            </Link>
           </div>
         </div>
         

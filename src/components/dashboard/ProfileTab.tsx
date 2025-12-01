@@ -64,6 +64,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [emailShareable, setEmailShareable] = useState(false);
   const [referencesLocked, setReferencesLocked] = useState(true);
   const [stdAcknowledgmentLocked, setStdAcknowledgmentLocked] = useState(true);
+  const [memberId, setMemberId] = useState<string>("");
   
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
@@ -192,6 +193,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setEmailShareable(data.email_shareable || false);
         setReferencesLocked(data.references_locked !== false); // Default to true
         setStdAcknowledgmentLocked(data.std_acknowledgment_locked !== false); // Default to true
+        setMemberId(data.member_id || "");
         
         // Set initial values for change detection
         setInitialProfileImageUrl(data.profile_image_url || "");
@@ -485,6 +487,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         userInterests={userInterests}
         emailShareable={emailShareable}
         onEmailShareableChange={setEmailShareable}
+        memberId={memberId}
       />
 
       <div className="relative py-4">

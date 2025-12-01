@@ -83,40 +83,45 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-6 relative">
-          <div className="flex justify-center items-center">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative h-28 w-auto" />
+        <div className="container mx-auto px-4 py-4 md:py-6">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+            {/* Logo - centered on mobile and desktop */}
+            <div className="flex justify-center md:flex-1">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
+                <img src={logo} alt="Clean Check" className="relative h-20 md:h-28 w-auto" />
+              </div>
             </div>
-          </div>
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
-            <Button 
-              onClick={() => setActiveTab("qrcode")}
-              className="relative bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30"
-            >
-              <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
-              <QrCode className="h-4 w-4 mr-2" />
-              QR Code
-            </Button>
-            {isAdmin && (
+            
+            {/* Buttons - centered row on mobile, right-aligned on desktop */}
+            <div className="flex justify-center md:justify-end gap-2 flex-wrap">
               <Button 
-                onClick={() => navigate("/admin")} 
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50"
+                onClick={() => setActiveTab("qrcode")}
+                className="relative bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30"
               >
-                <Shield className="h-4 w-4 mr-2" />
-                Admin Panel
+                <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
+                <QrCode className="h-4 w-4 mr-2" />
+                QR Code
               </Button>
-            )}
-            <Button 
-              onClick={handleLogout} 
-              className="relative bg-gradient-to-r from-pink-500 to-pink-600 text-white hover:from-pink-600 hover:to-pink-700 border-0"
-            >
-              <div className="absolute inset-0 bg-pink-500/40 blur-lg rounded-md -z-10"></div>
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </Button>
+              {isAdmin && (
+                <Button 
+                  onClick={() => navigate("/admin")} 
+                  className="bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50"
+                >
+                  <Shield className="h-4 w-4 mr-2" />
+                  Admin Panel
+                </Button>
+              )}
+              <Button 
+                onClick={handleLogout} 
+                className="relative bg-gradient-to-r from-pink-500 to-pink-600 text-white hover:from-pink-600 hover:to-pink-700 border-0"
+              >
+                <div className="absolute inset-0 bg-pink-500/40 blur-lg rounded-md -z-10"></div>
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
           </div>
         </div>
       </header>

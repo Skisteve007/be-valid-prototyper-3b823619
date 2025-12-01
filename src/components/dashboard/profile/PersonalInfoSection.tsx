@@ -206,8 +206,8 @@ export const PersonalInfoSection = ({
                 
                 {/* Lab Certified Section - Always visible with status badge */}
                 <div className="space-y-2 mt-2">
-                  <div className="flex items-center gap-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
-                    <div className="flex items-center gap-2 flex-1">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 flex-1 p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
                       {isAdmin ? (
                         <Checkbox
                           id="lab_certified"
@@ -239,7 +239,7 @@ export const PersonalInfoSection = ({
                       )}
                     </div>
                     
-                    {/* Lab Logo Thumbnail - Always visible */}
+                    {/* Lab Logo Thumbnail - Outside the box */}
                     <div className="flex flex-col items-center gap-1">
                       <div className="w-16 h-16 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden shadow-md">
                         {labLogoUrl ? (

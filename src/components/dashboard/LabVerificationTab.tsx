@@ -154,12 +154,6 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
           {/* STD Panel Product Card */}
           <div className="max-w-2xl mx-auto">
             <Card className="relative overflow-hidden border-pink-500/40 bg-gradient-to-br from-pink-50/50 to-rose-50/50 dark:from-pink-950/20 dark:to-rose-950/20 hover:shadow-xl transition-shadow">
-              <div className="absolute top-4 right-4">
-                <Badge className="bg-pink-600 text-white">
-                  <Heart className="h-3 w-3 mr-1" />
-                  Sexual Health
-                </Badge>
-              </div>
               <CardHeader className="space-y-3 pb-4">
                 <div className="flex items-center gap-3">
                   <div className="p-3 bg-pink-600 rounded-full">

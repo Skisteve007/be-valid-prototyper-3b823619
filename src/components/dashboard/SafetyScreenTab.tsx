@@ -154,12 +154,6 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
           {/* Safety Shield Product Card */}
           <div className="max-w-2xl mx-auto">
             <Card className="relative overflow-hidden border-green-500/40 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-950/20 dark:to-emerald-950/20 hover:shadow-xl transition-shadow">
-              <div className="absolute top-4 right-4">
-                <Badge className="bg-green-600 text-white">
-                  <ShieldCheck className="h-3 w-3 mr-1" />
-                  Safety
-                </Badge>
-              </div>
               <CardHeader className="space-y-3 pb-4">
                 <div className="flex items-center gap-3">
                   <div className="p-3 bg-green-600 rounded-full">

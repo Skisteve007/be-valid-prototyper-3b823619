@@ -299,6 +299,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
   return (
     <div className="space-y-6 py-4">
+      {/* SECTION A: MAIN QR CODE CARD - INTERACTIVE */}
       <Card>
         <CardHeader>
           <CardTitle>
@@ -333,95 +334,6 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
               </div>
             </div>
           )}
-
-          {/* RAW HTML STATIC DISPLAYS - NO COMPONENT LIBRARY */}
-          <div style={{ width: '100%', maxWidth: '28rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            
-            {/* BORDER COLOR KEY - RAW DIV ONLY */}
-            <div 
-              data-static-info="true"
-              style={{ 
-                padding: '0.75rem',
-                borderRadius: '0.5rem',
-                border: '1px solid hsl(var(--border))',
-                backgroundColor: 'hsl(var(--muted) / 0.5)',
-                WebkitTapHighlightColor: 'transparent',
-                userSelect: 'none',
-                pointerEvents: 'none',
-                cursor: 'default',
-                touchAction: 'none'
-              }}
-            >
-              <div style={{ fontSize: '0.75rem', fontWeight: 600, textAlign: 'center', marginBottom: '0.5rem' }}>
-                Border Color Key
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', fontSize: '0.75rem', flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                  <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(34, 197, 94)', border: '1px solid rgba(34, 197, 94, 0.3)' }}></div>
-                  <span>Clean</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                  <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(234, 179, 8)', border: '1px solid rgba(234, 179, 8, 0.3)' }}></div>
-                  <span>Caution</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                  <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(239, 68, 68)', border: '1px solid rgba(239, 68, 68, 0.3)' }}></div>
-                  <span>Be Aware</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                  <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(107, 114, 128)', border: '1px solid rgba(107, 114, 128, 0.3)' }}></div>
-                  <span>Incognito</span>
-                </div>
-              </div>
-              {statusColor === "gray" && (
-                <div style={{ marginTop: '0.5rem', padding: '0.5rem', borderRadius: '0.25rem', backgroundColor: 'rgb(243, 244, 246)', border: '1px solid rgba(107, 114, 128, 0.3)' }}>
-                  <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'rgb(55, 65, 81)', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.375rem' }}>
-                    <span style={{ color: 'rgb(34, 197, 94)' }}>✓</span> Screen Brightness Active
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* DOCUMENT UPLOAD DATE - RAW DIV ONLY */}
-            {lastDocumentDate && (
-              <div 
-                data-static-info="true"
-                style={{ 
-                  padding: '0.75rem',
-                  borderRadius: '0.5rem',
-                  border: '1px solid hsl(var(--border))',
-                  backgroundColor: 'hsl(var(--muted) / 0.5)',
-                  WebkitTapHighlightColor: 'transparent',
-                  userSelect: 'none',
-                  pointerEvents: 'none',
-                  cursor: 'default',
-                  touchAction: 'none'
-                }}
-              >
-                <div style={{ fontSize: '0.75rem', textAlign: 'center', fontWeight: 500, marginBottom: '0.5rem' }}>
-                  Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', fontSize: '0.75rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                    <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(59, 130, 246)' }}></div>
-                    <span>1-60 days</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                    <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(236, 72, 153)' }}></div>
-                    <span>61-120 days</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                    <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(168, 85, 247)' }}></div>
-                    <span>121+ days</span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
           
           <div className="flex flex-col gap-2 w-full max-w-xs">
             {/* Primary share button for mobile - uses native share */}
@@ -475,6 +387,101 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           </div>
         </CardContent>
       </Card>
+
+      {/* SECTION B: STATIC INFO CARDS - NON-INTERACTIVE */}
+      {/* These are physically separated from the main card to prevent any inherited click behaviors */}
+      <div className="space-y-3 max-w-md mx-auto">
+        {/* BORDER COLOR KEY - HARDCODED STATIC DIV */}
+        <div 
+          data-static-info="true"
+          style={{ 
+            padding: '0.75rem',
+            borderRadius: '0.5rem',
+            border: '1px solid hsl(var(--border))',
+            backgroundColor: 'hsl(var(--muted) / 0.5)',
+            WebkitTapHighlightColor: 'transparent',
+            userSelect: 'none',
+            pointerEvents: 'none',
+            cursor: 'default',
+            touchAction: 'none'
+          }}
+          onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+        >
+          <div style={{ fontSize: '0.75rem', fontWeight: 600, textAlign: 'center', marginBottom: '0.5rem' }}>
+            Border Color Key
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', fontSize: '0.75rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+              <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(34, 197, 94)', border: '1px solid rgba(34, 197, 94, 0.3)' }}></div>
+              <span>Clean</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+              <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(234, 179, 8)', border: '1px solid rgba(234, 179, 8, 0.3)' }}></div>
+              <span>Caution</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+              <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(239, 68, 68)', border: '1px solid rgba(239, 68, 68, 0.3)' }}></div>
+              <span>Be Aware</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+              <div style={{ width: '0.625rem', height: '0.625rem', borderRadius: '9999px', backgroundColor: 'rgb(107, 114, 128)', border: '1px solid rgba(107, 114, 128, 0.3)' }}></div>
+              <span>Incognito</span>
+            </div>
+          </div>
+          {statusColor === "gray" && (
+            <div style={{ marginTop: '0.5rem', padding: '0.5rem', borderRadius: '0.25rem', backgroundColor: 'rgb(243, 244, 246)', border: '1px solid rgba(107, 114, 128, 0.3)' }}>
+              <p style={{ fontSize: '0.75rem', fontWeight: 600, color: 'rgb(55, 65, 81)', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.375rem' }}>
+                <span style={{ color: 'rgb(34, 197, 94)' }}>✓</span> Screen Brightness Active
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* DOCUMENT UPLOAD DATE - HARDCODED STATIC DIV */}
+        {lastDocumentDate && (
+          <div 
+            data-static-info="true"
+            style={{ 
+              padding: '0.75rem',
+              borderRadius: '0.5rem',
+              border: '1px solid hsl(var(--border))',
+              backgroundColor: 'hsl(var(--muted) / 0.5)',
+              WebkitTapHighlightColor: 'transparent',
+              userSelect: 'none',
+              pointerEvents: 'none',
+              cursor: 'default',
+              touchAction: 'none'
+            }}
+            onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); }}
+            onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); }}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          >
+            <div style={{ fontSize: '0.75rem', textAlign: 'center', fontWeight: 500, marginBottom: '0.5rem' }}>
+              Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', fontSize: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(59, 130, 246)' }}></div>
+                <span>1-60 days</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(236, 72, 153)' }}></div>
+                <span>61-120 days</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                <div style={{ width: '0.5rem', height: '0.5rem', borderRadius: '9999px', backgroundColor: 'rgb(168, 85, 247)' }}></div>
+                <span>121+ days</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       <SponsorUpload userId={userId} />
     </div>

@@ -100,7 +100,7 @@ const Partners = () => {
       </section>
 
       {/* Value Props Section */}
-      <section className="py-24 px-4 bg-gradient-to-b from-white to-slate-50">
+      <section className="py-24 px-4 pb-12 bg-gradient-to-b from-white to-slate-50">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Card 1: Recurring Volume */}
@@ -155,7 +155,7 @@ const Partners = () => {
       </section>
 
       {/* Technical Showcase Section */}
-      <section className="py-24 px-4 bg-gradient-to-b from-slate-50 to-white">
+      <section className="pt-12 pb-24 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-4">

@@ -371,71 +371,120 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
         </DialogContent>
       </Dialog>
 
-      {orders.length > 0 && (
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 via-purple-500 to-pink-600 bg-clip-text text-transparent">
-            Your Sexual Health Panel Orders
-          </h3>
-          {orders.map((order) => (
-            <Card key={order.id} className="shadow-md border-primary/20 relative overflow-hidden">
-              {/* Sample Only Watermark */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                <div className="text-6xl md:text-8xl font-bold text-muted-foreground/10 rotate-[-30deg] select-none">
-                  SAMPLE ONLY
+      {/* Sample Order Card - Always Visible */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 via-purple-500 to-pink-600 bg-clip-text text-transparent">
+          Your Sexual Health Panel Orders
+        </h3>
+        <Card className="shadow-md border-primary/20 relative overflow-hidden">
+          {/* Sample Only Watermark */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+            <div className="text-6xl md:text-8xl font-bold text-muted-foreground/10 rotate-[-30deg] select-none">
+              SAMPLE ONLY
+            </div>
+          </div>
+          
+          <CardContent className="p-6 space-y-4 relative z-0">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Heart className="h-4 w-4 text-purple-600" />
+                  <p className="text-sm font-semibold">Platinum 13-Panel Sexual Health Screen</p>
                 </div>
+                <p className="text-sm text-muted-foreground">
+                  Order ID: SAMPLE123...
+                </p>
+                <p className="text-sm">
+                  Status:{" "}
+                  <span className="text-yellow-500">
+                    PENDING
+                  </span>
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Sample Kit Preview
+                </p>
               </div>
-              
-              <CardContent className="p-6 space-y-4 relative z-0">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Heart className="h-4 w-4 text-purple-600" />
-                      <p className="text-sm font-semibold">13-Panel Sexual Health Screen</p>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Order ID: {order.id.slice(0, 8)}...
-                    </p>
+              <div className="bg-white p-4 rounded-lg">
+                <Barcode
+                  value="SAMPLESTD123"
+                  height={80}
+                  displayValue={true}
+                  fontSize={14}
+                />
+              </div>
+            </div>
+            <div className="bg-muted/30 rounded-lg p-3 space-y-2 border border-primary/20">
+              <p className="text-xs text-muted-foreground flex items-start gap-2">
+                <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0 text-purple-600" />
+                <span className="font-medium">This barcode communicates directly with our lab partners. Only the lab can scan and process this barcode to link your test results.</span>
+              </p>
+              <p className="text-xs text-muted-foreground pl-5">
+                Once results are verified, they automatically appear in your shareable QR code, giving you instant proof of your sexual health status.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Actual Orders */}
+        {orders.length > 0 && orders.map((order) => (
+          <Card key={order.id} className="shadow-md border-primary/20 relative overflow-hidden">
+            {/* Sample Only Watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+              <div className="text-6xl md:text-8xl font-bold text-muted-foreground/10 rotate-[-30deg] select-none">
+                SAMPLE ONLY
+              </div>
+            </div>
+            
+            <CardContent className="p-6 space-y-4 relative z-0">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Heart className="h-4 w-4 text-purple-600" />
+                    <p className="text-sm font-semibold">Platinum 13-Panel Sexual Health Screen</p>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Order ID: {order.id.slice(0, 8)}...
+                  </p>
+                  <p className="text-sm">
+                    Status:{" "}
+                    <span className={getStatusColor(order.order_status)}>
+                      {order.order_status.replace("_", " ").toUpperCase()}
+                    </span>
+                  </p>
+                  {order.result_status && (
                     <p className="text-sm">
-                      Status:{" "}
-                      <span className={getStatusColor(order.order_status)}>
-                        {order.order_status.replace("_", " ").toUpperCase()}
+                      Result:{" "}
+                      <span className={getResultColor(order.result_status)}>
+                        {order.result_status.toUpperCase()}
                       </span>
                     </p>
-                    {order.result_status && (
-                      <p className="text-sm">
-                        Result:{" "}
-                        <span className={getResultColor(order.result_status)}>
-                          {order.result_status.toUpperCase()}
-                        </span>
-                      </p>
-                    )}
-                    <p className="text-xs text-muted-foreground">
-                      Created: {new Date(order.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg">
-                    <Barcode
-                      value={order.barcode_value}
-                      height={80}
-                      displayValue={true}
-                      fontSize={14}
-                    />
-                  </div>
-                </div>
-                <div className="bg-muted/30 rounded-lg p-3 space-y-2 border border-primary/20">
-                  <p className="text-xs text-muted-foreground flex items-start gap-2">
-                    <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0 text-purple-600" />
-                    <span className="font-medium">This barcode communicates directly with our lab partners. Only the lab can scan and process this barcode to link your test results.</span>
-                  </p>
-                  <p className="text-xs text-muted-foreground pl-5">
-                    Once results are verified, they automatically appear in your shareable QR code, giving you instant proof of your sexual health status.
+                  )}
+                  <p className="text-xs text-muted-foreground">
+                    Created: {new Date(order.created_at).toLocaleDateString()}
                   </p>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+                <div className="bg-white p-4 rounded-lg">
+                  <Barcode
+                    value={order.barcode_value}
+                    height={80}
+                    displayValue={true}
+                    fontSize={14}
+                  />
+                </div>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-3 space-y-2 border border-primary/20">
+                <p className="text-xs text-muted-foreground flex items-start gap-2">
+                  <AlertCircle className="h-3 w-3 mt-0.5 flex-shrink-0 text-purple-600" />
+                  <span className="font-medium">This barcode communicates directly with our lab partners. Only the lab can scan and process this barcode to link your test results.</span>
+                </p>
+                <p className="text-xs text-muted-foreground pl-5">
+                  Once results are verified, they automatically appear in your shareable QR code, giving you instant proof of your sexual health status.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };

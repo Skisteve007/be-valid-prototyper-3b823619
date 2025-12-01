@@ -366,33 +366,32 @@ const Index = () => {
                 
                 {/* Lab Certified Testing Kit - Horizontal Card */}
                 <div className="mt-8">
-                  <Card className="relative overflow-hidden border-cyan-500/40 bg-gradient-to-r from-cyan-50/50 via-blue-50/50 to-cyan-50/50 dark:from-cyan-950/20 dark:via-blue-950/20 dark:to-cyan-950/20 hover:shadow-xl transition-shadow">
+                  <Card className="relative overflow-hidden border-cyan-500/40 bg-gradient-to-r from-cyan-50/50 via-blue-50/50 to-cyan-50/50 dark:from-cyan-950/20 dark:via-blue-950/20 dark:to-cyan-950/20 hover:shadow-xl transition-shadow max-w-3xl mx-auto">
                     <div className="absolute inset-0 bg-cyan-500/10 blur-2xl"></div>
-                    <CardContent className="relative p-6">
-                      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <CardContent className="relative p-4">
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <div className="flex-1 text-center md:text-left">
-                          <div className="flex items-center gap-3 justify-center md:justify-start mb-2">
-                            <div className="p-2 bg-cyan-600 rounded-full">
-                              <CheckCircle className="h-5 w-5 text-white" />
+                          <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
+                            <div className="p-1.5 bg-cyan-600 rounded-full">
+                              <CheckCircle className="h-4 w-4 text-white" />
                             </div>
-                            <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                            <h3 className="text-xl font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
                               Lab Certified Testing Kit
                             </h3>
                           </div>
-                          <p className="text-muted-foreground mb-1">
-                            Complete STD Panel - Professional lab verification for certified status
+                          <p className="text-sm text-muted-foreground mb-1">
+                            Add to your peer-to-peer QR code with lab-verified results for enhanced trust and credibility.
                           </p>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             Includes at-home kit delivery + certified lab processing
                           </p>
                         </div>
-                        <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-4">
                           <div className="text-center md:text-right">
-                            <p className="text-4xl font-bold text-cyan-700 dark:text-cyan-400">$149</p>
-                            <p className="text-sm text-muted-foreground">One-time payment</p>
+                            <p className="text-3xl font-bold text-cyan-700 dark:text-cyan-400">$149</p>
+                            <p className="text-xs text-muted-foreground">One-time payment</p>
                           </div>
                           <Button
-                            size="lg"
                             className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white shadow-lg shadow-cyan-500/50"
                             onClick={() => navigate("/lab-kit-order")}
                           >

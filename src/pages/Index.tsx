@@ -268,6 +268,48 @@ const Index = () => {
                   <span className="font-semibold bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Complete Your Membership</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
+
+                {/* Get Started Form */}
+                <div className="mb-8">
+                  <Card id="get-started-form" className="max-w-2xl mx-auto scroll-mt-8">
+                    <CardHeader>
+                      <CardTitle className="text-2xl bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Get Started</CardTitle>
+                      <CardDescription>Both fields are required to proceed</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="fullName">Full Name *</Label>
+                        <Input 
+                          id="fullName"
+                          placeholder="Enter your full name"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Email Address *</Label>
+                        <Input 
+                          id="email"
+                          type="email"
+                          placeholder="your.email@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <Button 
+                        size="lg" 
+                        className="w-full bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(37,99,235,0.5),0_0_30px_rgba(219,39,119,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7),0_0_40px_rgba(219,39,119,0.7)] transition-all" 
+                        onClick={handleContinue}
+                        disabled={!fullName || !email}
+                      >
+                        Continue to Payment <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
                 <p className="text-lg mb-2">Automatic Approval! Your account will be activated instantly after payment.</p>
                 <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
                   <CheckCircle className="h-4 w-4 text-primary" />
@@ -405,46 +447,6 @@ const Index = () => {
               </div>
             </ScrollReveal>
 
-            {/* Sign Up Form */}
-            <ScrollReveal direction="up" delay={300}>
-              <Card id="get-started-form" className="max-w-2xl mx-auto scroll-mt-8">
-              <CardHeader>
-                <CardTitle className="text-2xl bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Get Started</CardTitle>
-                <CardDescription>Both fields are required to proceed</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name *</Label>
-                  <Input 
-                    id="fullName"
-                    placeholder="Enter your full name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address *</Label>
-                  <Input 
-                    id="email"
-                    type="email"
-                    placeholder="your.email@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <Button 
-                  size="lg" 
-                  className="w-full bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(37,99,235,0.5),0_0_30px_rgba(219,39,119,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7),0_0_40px_rgba(219,39,119,0.7)] transition-all" 
-                  onClick={handleContinue}
-                  disabled={!fullName || !email}
-                >
-                  Continue to Payment <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-              </Card>
-            </ScrollReveal>
           </div>
         </section>
 

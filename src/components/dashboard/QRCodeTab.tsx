@@ -208,11 +208,11 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
     const color = getTimestampColor();
     switch (color) {
       case "blue":
-        return "bg-blue-500 hover:bg-blue-600 text-white";
+        return "bg-blue-500 text-white";
       case "pink":
-        return "bg-pink-500 hover:bg-pink-600 text-white";
+        return "bg-pink-500 text-white";
       case "purple":
-        return "bg-purple-500 hover:bg-purple-600 text-white";
+        return "bg-purple-500 text-white";
       default:
         return "";
     }
@@ -327,15 +327,15 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             
           {lastDocumentDate && (
             <div className="flex justify-center -mt-2">
-              <Badge className={`${getTimestampBadgeClass()} flex items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg`}>
+              <div className={`${getTimestampBadgeClass()} flex items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg rounded-full pointer-events-none`}>
                 <Clock className="h-4 w-4" />
                 <span>{documentAge} {documentAge === 1 ? 'day' : 'days'} ago</span>
-              </Badge>
+              </div>
             </div>
           )}
 
           {/* Border Color Explainer and Document Date - grouped closer together */}
-          <div className="w-full max-w-md space-y-3">
+          <div className="w-full max-w-md space-y-3 pointer-events-none select-none">
             <div className="space-y-2 p-3 rounded-lg border bg-muted/50">
               <h4 className="text-xs font-semibold text-center">Border Color Key</h4>
               <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
@@ -366,7 +366,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             </div>
 
             {lastDocumentDate && (
-              <div className="p-3 rounded-lg border bg-muted/50 space-y-2">
+              <div className="p-3 rounded-lg border bg-muted/50 space-y-2 pointer-events-none select-none">
               <p className="text-xs text-center font-medium">
                 Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
                   year: 'numeric', 

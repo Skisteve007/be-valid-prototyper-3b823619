@@ -365,24 +365,24 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           </div>
 
           {lastDocumentDate && (
-            <div className="text-center space-y-1">
-              <p className="text-xs text-muted-foreground">
+            <div className="w-full max-w-md p-3 rounded-lg border bg-muted/50 space-y-2">
+              <p className="text-xs text-center font-medium">
                 Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
                   year: 'numeric', 
                   month: 'long', 
                   day: 'numeric' 
                 })}
               </p>
-              <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground mt-2">
-                <div className="flex items-center gap-1">
+              <div className="flex items-center justify-center gap-4 text-xs">
+                <div className="flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                   <span>1-60 days</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full bg-pink-500"></div>
                   <span>61-120 days</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full bg-purple-500"></div>
                   <span>121+ days</span>
                 </div>

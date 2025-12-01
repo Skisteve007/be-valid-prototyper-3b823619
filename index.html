@@ -2,7 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes" />
+    
+    <!-- Mobile Optimization -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Clean Check" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    
+    <!-- Touch & Interaction Optimization -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="width" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     
     <!-- Primary Meta Tags -->
     <title>Clean Check - Verified Health Transparency Platform</title>
@@ -10,14 +24,6 @@
     <meta name="description" content="Share verified health status information for mutual safety and informed intimacy. Peer-to-peer transparency through QR codes." />
     <meta name="author" content="Clean Check" />
     <meta name="keywords" content="health verification, QR code, health transparency, verified status, peer-to-peer" />
-    
-    <!-- Mobile App Meta Tags (Critical for iOS/Android) -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Clean Check" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="theme-color" content="#3b82f6" />
-    <meta name="apple-touch-fullscreen" content="yes" />
     
     <!-- App Icons for iOS -->
     <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png" />
@@ -55,5 +61,31 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Mobile Scroll Optimization -->
+    <style>
+      * {
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+      }
+      
+      html {
+        -webkit-text-size-adjust: 100%;
+        touch-action: manipulation;
+      }
+      
+      body {
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* Improve touch targets on mobile */
+      @media (max-width: 768px) {
+        button, a, input, select, textarea {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+    </style>
   </body>
 </html>

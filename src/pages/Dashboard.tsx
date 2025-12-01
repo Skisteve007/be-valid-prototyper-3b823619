@@ -136,7 +136,7 @@ const Dashboard = () => {
             <div className="flex justify-center md:justify-end gap-2 flex-wrap md:flex-1">
               <Button 
                 onClick={() => setActiveTab("qrcode")}
-                className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold"
+                className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold min-h-[48px] px-6 touch-manipulation"
               >
                 <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
                 <QrCode className="h-4 w-4 mr-2" />
@@ -144,7 +144,7 @@ const Dashboard = () => {
               </Button>
               <Button 
                 onClick={handleLogout} 
-                className="relative shadow-[0_0_30px_rgba(236,72,153,0.7)] hover:shadow-[0_0_40px_rgba(236,72,153,0.9)] border-2 border-pink-500/60 bg-pink-500/15 text-pink-500 hover:text-pink-400 font-bold"
+                className="relative shadow-[0_0_30px_rgba(236,72,153,0.7)] hover:shadow-[0_0_40px_rgba(236,72,153,0.9)] border-2 border-pink-500/60 bg-pink-500/15 text-pink-500 hover:text-pink-400 font-bold min-h-[48px] px-6 touch-manipulation"
               >
                 <div className="absolute inset-0 bg-pink-500/25 blur-lg rounded-md -z-10"></div>
                 <LogOut className="h-4 w-4 mr-2" />
@@ -155,13 +155,13 @@ const Dashboard = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-4 md:py-8">
         <Card>
-          <CardHeader>
-            <CardTitle className="text-3xl">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-2xl md:text-3xl">
               <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Dashboard</span>
             </CardTitle>
-            <CardDescription className="text-base">
+            <CardDescription className="text-sm md:text-base">
               Manage your profile, documents, and QR code
             </CardDescription>
           </CardHeader>
@@ -171,51 +171,51 @@ const Dashboard = () => {
             onTouchEnd={handleTouchEnd}
           >
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="relative mb-6 overflow-x-auto">
-                <div className="absolute inset-0 bg-blue-500/40 blur-3xl rounded-lg"></div>
-                <div className="absolute inset-0 bg-blue-400/30 blur-2xl rounded-lg animate-pulse"></div>
-                <TabsList className="relative grid w-full grid-cols-6 bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-blue-500/50 shadow-2xl shadow-blue-500/40 ring-2 ring-blue-400/30 min-w-max">
+              <div className="relative mb-6 -mx-4 px-4 overflow-x-auto scrollbar-hide">
+                <div className="absolute inset-0 bg-blue-500/40 blur-3xl rounded-lg pointer-events-none"></div>
+                <div className="absolute inset-0 bg-blue-400/30 blur-2xl rounded-lg animate-pulse pointer-events-none"></div>
+                <TabsList className="relative inline-flex w-auto min-w-full bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-blue-500/50 shadow-2xl shadow-blue-500/40 ring-2 ring-blue-400/30">
                   <TabsTrigger 
                     value="profile" 
-                    className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-lg hover:shadow-green-500/30"
+                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-lg hover:shadow-green-500/30 touch-manipulation"
                   >
                     <UserIcon className="h-4 w-4 mr-2" />
-                    Profile
+                    <span className="whitespace-nowrap">Profile</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="certifications"
-                    className="transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:shadow-lg hover:shadow-blue-500/30"
+                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:shadow-lg hover:shadow-blue-500/30 touch-manipulation"
                   >
                     <Award className="h-4 w-4 mr-2" />
-                    Documents
+                    <span className="whitespace-nowrap">Documents</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="qrcode"
-                    className="transition-all duration-300 hover:scale-105 hover:bg-purple-100 dark:hover:bg-purple-900/30 hover:shadow-lg hover:shadow-purple-500/30"
+                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-purple-100 dark:hover:bg-purple-900/30 hover:shadow-lg hover:shadow-purple-500/30 touch-manipulation"
                   >
                     <QrCode className="h-4 w-4 mr-2" />
-                    QR Code
+                    <span className="whitespace-nowrap">QR Code</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="references"
-                    className="transition-all duration-300 hover:scale-105 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:shadow-lg hover:shadow-orange-500/30"
+                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-orange-100 dark:hover:bg-orange-900/30 hover:shadow-lg hover:shadow-orange-500/30 touch-manipulation"
                   >
                     <UserCheck className="h-4 w-4 mr-2" />
-                    References
+                    <span className="whitespace-nowrap">References</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="lab-verification"
-                    className="transition-all duration-300 hover:scale-105 hover:bg-cyan-100 dark:hover:bg-cyan-900/30 hover:shadow-lg hover:shadow-cyan-500/30"
+                    className="flex-1 min-w-[160px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-cyan-100 dark:hover:bg-cyan-900/30 hover:shadow-lg hover:shadow-cyan-500/30 touch-manipulation"
                   >
                     <FlaskConical className="h-4 w-4 mr-2" />
-                    Get Lab Certified
+                    <span className="whitespace-nowrap">Get Lab Certified</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="safety-screen"
-                    className="transition-all duration-300 hover:scale-105 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:shadow-lg hover:shadow-emerald-500/30"
+                    className="flex-1 min-w-[140px] py-3 px-4 transition-all duration-300 hover:scale-105 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:shadow-lg hover:shadow-emerald-500/30 touch-manipulation"
                   >
                     <ShieldCheck className="h-4 w-4 mr-2" />
-                    Safety
+                    <span className="whitespace-nowrap">Safety</span>
                   </TabsTrigger>
                 </TabsList>
               </div>

@@ -393,7 +393,7 @@ const StorageSponsorManager = () => {
         )}
 
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogContent className="sm:max-w-[500px] max-h-[85vh] flex flex-col p-0">
+          <DialogContent className="sm:max-w-[500px] max-h-[80vh] flex flex-col p-0 my-auto">
             <DialogHeader className="px-6 pt-6 pb-4 border-b">
               <DialogTitle className="text-xl">
                 {getSponsorForFile(newSponsorData.logo_url) ? "Edit Sponsor" : "Create Sponsor"}

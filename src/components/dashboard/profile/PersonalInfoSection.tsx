@@ -146,10 +146,17 @@ export const PersonalInfoSection = ({
                   )}
                 </div>
                 
-                {emailShareable && email && (
+                {emailShareable === true && email && (
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-purple-500" />
                     <span className="text-sm text-muted-foreground">{email}</span>
+                  </div>
+                )}
+                
+                {emailShareable === false && (
+                  <div className="flex items-center gap-2">
+                    <Lock className="w-4 h-4 text-red-500" />
+                    <span className="text-sm text-muted-foreground italic">Email Private</span>
                   </div>
                 )}
                 

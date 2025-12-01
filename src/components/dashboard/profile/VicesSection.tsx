@@ -28,27 +28,27 @@ export const VicesSection = ({
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       <h3 className="text-lg font-semibold border-b pb-2">
         <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Vices</span>
       </h3>
       
-      <div className="space-y-3">
-        <Label className="flex items-center gap-2 text-base">
+      <div className="space-y-1">
+        <Label className="flex items-center gap-2 text-sm mb-2">
           Select your preferences
         </Label>
         {viceOptions.map((option) => {
           const IconComponent = option.icon;
           return (
-            <div key={option.value} className="flex items-center space-x-3 p-2 rounded hover:bg-muted/50 transition-colors">
+            <div key={option.value} className="flex items-center space-x-2 p-1.5 rounded hover:bg-muted/50 transition-colors">
               <Checkbox
                 checked={vices?.includes(option.value)}
                 onCheckedChange={() => toggleVice(option.value)}
                 className="min-h-[20px] min-w-[20px]"
               />
               <Label className="cursor-pointer flex items-center gap-2 flex-1">
-                <IconComponent className={`w-5 h-5 ${option.color}`} />
-                <span className="text-base">{option.value}</span>
+                <IconComponent className={`w-4 h-4 ${option.color}`} />
+                <span className="text-sm">{option.value}</span>
               </Label>
             </div>
           );

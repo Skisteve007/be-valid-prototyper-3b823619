@@ -232,7 +232,7 @@ const Index = () => {
         </section>
 
         {/* Member Login Quick Access */}
-        <section className="py-12 px-4">
+        <section className="py-6 px-4">
           <div className="container mx-auto max-w-md">
             <ScrollReveal direction="up" delay={50}>
               <div className="text-center">
@@ -256,7 +256,7 @@ const Index = () => {
         </section>
 
         {/* Membership Section */}
-        <section className="pt-4 pb-16 px-4">
+        <section className="pt-2 pb-16 px-4">
           <div className="container mx-auto max-w-4xl">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-12">

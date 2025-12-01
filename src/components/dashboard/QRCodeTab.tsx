@@ -334,23 +334,20 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             </div>
           )}
 
-          {/* Border Color Explainer and Document Date - COMPLETELY NON-INTERACTIVE INFO BOXES */}
-          <section className="w-full max-w-md space-y-3">
-            <section 
-              className="space-y-2 p-3 rounded-lg border bg-muted/50 pointer-events-none"
+          {/* STATIC INFO CARDS - REBUILT FROM SCRATCH */}
+          <div className="w-full max-w-md space-y-3">
+            {/* BORDER COLOR KEY - PURELY STATIC DISPLAY */}
+            <div 
+              className="p-3 rounded-lg border bg-muted/50"
               style={{ 
                 WebkitTapHighlightColor: 'transparent',
-                outline: 'none',
                 userSelect: 'none',
-                WebkitUserSelect: 'none',
-                WebkitTouchCallout: 'none',
-                touchAction: 'none',
                 cursor: 'default'
               }}
             >
-              <h4 className="text-xs font-semibold text-center">
+              <div className="text-xs font-semibold text-center mb-2">
                 Border Color Key
-              </h4>
+              </div>
               <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500 ring-1 ring-green-500/30"></div>
@@ -370,34 +367,31 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                 </div>
               </div>
               {statusColor === "gray" && (
-                <div className="p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
+                <div className="mt-2 p-2 rounded bg-gray-100 dark:bg-gray-900 border border-gray-500/30">
                   <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center flex items-center justify-center gap-1.5">
                     <span className="text-green-500">✓</span> Screen Brightness Active
                   </p>
                 </div>
               )}
-            </section>
+            </div>
 
+            {/* DOCUMENT UPLOAD DATE - PURELY STATIC DISPLAY */}
             {lastDocumentDate && (
-              <section 
-                className="p-3 rounded-lg border bg-muted/50 space-y-2 pointer-events-none"
+              <div 
+                className="p-3 rounded-lg border bg-muted/50"
                 style={{ 
                   WebkitTapHighlightColor: 'transparent',
-                  outline: 'none',
                   userSelect: 'none',
-                  WebkitUserSelect: 'none',
-                  WebkitTouchCallout: 'none',
-                  touchAction: 'none',
                   cursor: 'default'
                 }}
               >
-                <p className="text-xs text-center font-medium">
+                <div className="text-xs text-center font-medium mb-2">
                   Document uploaded: {lastDocumentDate.toLocaleDateString('en-US', { 
                     year: 'numeric', 
                     month: 'long', 
                     day: 'numeric' 
                   })}
-                </p>
+                </div>
                 <div className="flex items-center justify-center gap-4 text-xs">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-blue-500"></div>
@@ -412,9 +406,9 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                     <span>121+ days</span>
                   </div>
                 </div>
-              </section>
+              </div>
             )}
-          </section>
+          </div>
           
           <div className="flex flex-col gap-2 w-full max-w-xs">
             {/* Primary share button for mobile - uses native share */}

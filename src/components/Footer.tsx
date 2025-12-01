@@ -6,10 +6,10 @@ const Footer = () => {
   const navigate = useNavigate();
   
   return (
-    <footer className="bg-card border-t border-border mt-auto">
-      <div className="container mx-auto px-4 py-6">
+    <footer className="bg-card border-t border-border mt-auto w-full">
+      <div className="container mx-auto px-4 py-4 md:py-6">
         {/* Row 1: Copyright & IP */}
-        <div className="mb-4">
+        <div className="mb-3 md:mb-4 text-center md:text-left">
           <p className="text-[10px] leading-relaxed text-muted-foreground">
             © 2025 Clean Check. All Rights Reserved.<br />
             Confidential & Proprietary. Clean Check™, The Safety Shield™, and the Dual-Verification System™ are pending trademarks.<br />
@@ -18,7 +18,7 @@ const Footer = () => {
         </div>
 
         {/* Row 2: Medical & Liability Disclaimer */}
-        <div className="mb-4">
+        <div className="mb-3 md:mb-4 text-center md:text-left">
           <p className="text-[10px] leading-relaxed text-muted-foreground">
             <strong>Medical & Liability Disclaimer:</strong> Clean Check is a technology platform, not a healthcare provider or medical laboratory. We facilitate access to diagnostic testing via certified third-party laboratory partners.<br />
             <strong>• Not Medical Advice:</strong> Services provided are for informational and verification purposes only and do not constitute medical advice, diagnosis, or treatment.<br />
@@ -27,15 +27,15 @@ const Footer = () => {
         </div>
 
         {/* Row 3: HIPAA & Privacy */}
-        <div className="mb-4">
+        <div className="mb-3 md:mb-4 text-center md:text-left">
           <p className="text-[10px] leading-relaxed text-muted-foreground">
             <strong>HIPAA & Privacy:</strong> Your data security is our priority. Health data is transmitted via HIPAA-compliant encryption standards. We do not sell your Personal Health Information (PHI) to third parties.
           </p>
         </div>
 
         {/* Row 4: Essential Links */}
-        <div className="mb-4">
-          <div className="flex flex-wrap gap-3 text-[10px] text-muted-foreground">
+        <div className="mb-3 md:mb-4">
+          <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-3 text-[10px] text-muted-foreground">
             <Link to="/terms" className="hover:text-foreground transition-colors underline">
               Terms of Service
             </Link>

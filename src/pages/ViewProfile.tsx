@@ -130,31 +130,31 @@ const ViewProfile = () => {
   if (isIncognitoMode) {
     return (
       <div className="min-h-screen bg-background p-4 md:p-8">
-        <div className="max-w-2xl mx-auto space-y-6">
+        <div className="max-w-2xl mx-auto space-y-4 md:space-y-6">
           <Card className="shadow-[0_0_25px_10px_rgba(107,114,128,0.4)]">
-            <CardHeader>
-              <CardTitle className="text-center text-2xl">Event Check-In</CardTitle>
-              <p className="text-center text-muted-foreground">Incognito Mode - Limited Information</p>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-center text-xl md:text-2xl">Event Check-In</CardTitle>
+              <p className="text-center text-sm text-muted-foreground">Incognito Mode - Limited Information</p>
             </CardHeader>
-            <CardContent className="pt-6">
-              <div className="flex flex-col items-center gap-6">
-                <Avatar className="h-32 w-32 border-4 border-gray-500 shadow-[0_0_20px_8px_rgba(107,114,128,0.6)]">
-                  <AvatarFallback className="text-2xl bg-gray-500 text-white">
+            <CardContent className="pt-4 md:pt-6">
+              <div className="flex flex-col items-center gap-4 md:gap-6">
+                <Avatar className="h-24 w-24 md:h-32 md:w-32 border-4 border-gray-500 shadow-[0_0_20px_8px_rgba(107,114,128,0.6)]">
+                  <AvatarFallback className="text-xl md:text-2xl bg-gray-500 text-white">
                     {profile.full_name?.charAt(0) || "?"}
                   </AvatarFallback>
                 </Avatar>
                 <div className="text-center space-y-3 w-full">
                   <div>
-                    <p className="text-sm text-muted-foreground">Member Name</p>
-                    <h1 className="text-2xl font-bold">{profile.full_name}</h1>
+                    <p className="text-xs md:text-sm text-muted-foreground">Member Name</p>
+                    <h1 className="text-xl md:text-2xl font-bold break-words">{profile.full_name}</h1>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Email Address</p>
-                    <p className="text-lg font-medium">{profile.email || "Not available"}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">Email Address</p>
+                    <p className="text-base md:text-lg font-medium break-all">{profile.email || "Not available"}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Member ID</p>
-                    <p className="text-lg font-mono">{profile.member_id}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">Member ID</p>
+                    <p className="text-base md:text-lg font-mono">{profile.member_id}</p>
                   </div>
                   <Badge variant="secondary" className="mt-4">
                     Event Scanning Mode
@@ -189,21 +189,21 @@ const ViewProfile = () => {
   // Full profile view for non-incognito modes - Only shows safe-to-share info
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-4xl mx-auto space-y-4 md:space-y-6">
         {/* Header with status */}
         <Card className={getStatusColorClass(profile.status_color)}>
-          <CardContent className="pt-6">
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <Avatar className={`h-32 w-32 border-4 ${getStatusColorClass(profile.status_color)}`}>
+          <CardContent className="pt-4 md:pt-6">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+              <Avatar className={`h-24 w-24 md:h-32 md:w-32 border-4 ${getStatusColorClass(profile.status_color)}`}>
                 <AvatarImage src={profile.profile_image_url || undefined} />
-                <AvatarFallback className="text-2xl">
+                <AvatarFallback className="text-xl md:text-2xl">
                   {profile.full_name?.charAt(0) || "?"}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 text-center md:text-left">
-                <h1 className="text-3xl font-bold mb-2">{profile.full_name}</h1>
-                <p className="text-muted-foreground mb-2">Member ID: {profile.member_id}</p>
-                <Badge variant={profile.status_color === "green" ? "default" : "secondary"}>
+                <h1 className="text-2xl md:text-3xl font-bold mb-2 break-words">{profile.full_name}</h1>
+                <p className="text-sm md:text-base text-muted-foreground mb-2">Member ID: {profile.member_id}</p>
+                <Badge variant={profile.status_color === "green" ? "default" : "secondary"} className="text-xs md:text-sm">
                   {profile.status_color === "green" && "✅ Clean Status"}
                   {profile.status_color === "yellow" && "⚠️ Proceed with Caution"}
                   {profile.status_color === "red" && "🔴 Be Aware"}

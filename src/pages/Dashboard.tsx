@@ -196,20 +196,20 @@ const Dashboard = () => {
       {/* Floating Back to Home Button */}
       <Button
         onClick={() => navigate("/")}
-        className="fixed bottom-8 left-8 h-14 w-14 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 shadow-2xl shadow-blue-400/40 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-110 z-50"
+        className="fixed bottom-4 left-4 md:bottom-8 md:left-8 h-12 w-12 md:h-14 md:w-14 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 shadow-2xl shadow-blue-400/40 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-110 z-50"
         title="Back to Home"
       >
-        <Home className="h-6 w-6 text-white" />
+        <Home className="h-5 w-5 md:h-6 md:w-6 text-white" />
       </Button>
 
       {/* Floating Admin Button - Only visible for admins */}
       {isAdmin && (
         <Button
           onClick={() => navigate("/admin")}
-          className="fixed bottom-8 right-8 h-14 w-14 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-2xl shadow-purple-500/50 hover:shadow-purple-600/60 transition-all duration-300 hover:scale-110 z-50"
+          className="fixed bottom-4 right-4 md:bottom-8 md:right-8 h-12 w-12 md:h-14 md:w-14 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-2xl shadow-purple-500/50 hover:shadow-purple-600/60 transition-all duration-300 hover:scale-110 z-50"
           title="Go to Admin Panel"
         >
-          <Settings className="h-6 w-6 text-white" />
+          <Settings className="h-5 w-5 md:h-6 md:w-6 text-white" />
         </Button>
       )}
     </div>

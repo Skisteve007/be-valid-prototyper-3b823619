@@ -407,7 +407,7 @@ const Index = () => {
                 </p>
                 
                 {/* Lab Certified Testing Kit - Horizontal Card */}
-                <div className="mt-8">
+                <div className="mt-4">
                   <Card className="relative overflow-hidden border-cyan-500/40 bg-gradient-to-r from-cyan-50/50 via-blue-50/50 to-cyan-50/50 dark:from-cyan-950/20 dark:via-blue-950/20 dark:to-cyan-950/20 hover:shadow-xl transition-shadow max-w-3xl mx-auto">
                     <div className="absolute inset-0 bg-cyan-500/10 blur-2xl"></div>
                     <CardContent className="relative p-4">
@@ -451,7 +451,7 @@ const Index = () => {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-16 px-4 bg-muted/30">
+        <section className="py-8 px-4 bg-muted/30">
           <div className="container mx-auto max-w-6xl">
             <ScrollReveal direction="up" delay={100}>
               <h3 className="text-3xl font-bold text-center mb-12 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Why Join Clean Check?</h3>

@@ -205,46 +205,54 @@ export const PersonalInfoSection = ({
                 )}
                 
                 {/* Lab Certified Section - Always visible with status badge */}
-                <div className="flex items-center gap-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 mt-2">
-                  <div className="flex items-center gap-2">
-                    {isAdmin ? (
-                      <Checkbox
-                        id="lab_certified"
-                        checked={labCertified}
-                        onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
-                      />
-                    ) : (
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                        labCertified 
-                          ? 'border-green-500 bg-green-500' 
-                          : 'border-gray-400 bg-gray-200'
-                      }`}>
-                        {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
-                      </div>
-                    )}
-                    <Label htmlFor="lab_certified" className={`text-sm font-semibold text-cyan-600 flex items-center gap-2 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
-                      <CheckCircle className="w-4 h-4" />
-                      Lab Certified
-                    </Label>
+                <div className="space-y-2 mt-2">
+                  <div className="flex items-center gap-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
+                    <div className="flex items-center gap-2 flex-1">
+                      {isAdmin ? (
+                        <Checkbox
+                          id="lab_certified"
+                          checked={labCertified}
+                          onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
+                        />
+                      ) : (
+                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                          labCertified 
+                            ? 'border-green-500 bg-green-500' 
+                            : 'border-gray-400 bg-gray-200'
+                        }`}>
+                          {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
+                        </div>
+                      )}
+                      <Label htmlFor="lab_certified" className={`text-sm font-semibold text-cyan-600 flex items-center gap-2 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
+                        <CheckCircle className="w-4 h-4" />
+                        Lab Certified
+                      </Label>
+                      
+                      {labCertified ? (
+                        <Badge className="ml-auto bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50">
+                          ✓ Certified
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary" className="ml-auto bg-gray-200 text-gray-600 border border-gray-300">
+                          Not Certified
+                        </Badge>
+                      )}
+                    </div>
                     
-                    {labCertified ? (
-                      <Badge className="ml-auto bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50">
-                        ✓ Certified
-                      </Badge>
-                    ) : (
-                      <Badge variant="secondary" className="ml-auto bg-gray-200 text-gray-600 border border-gray-300">
-                        Not Certified
-                      </Badge>
-                    )}
-                  </div>
-                  
-                  {labCertified && labLogoUrl && (
-                    <div className="flex items-center gap-2 ml-2">
-                      <img 
-                        src={labLogoUrl} 
-                        alt="Lab Logo" 
-                        className="h-10 w-auto object-contain rounded border-2 border-cyan-500/50 shadow-md bg-white p-1"
-                      />
+                    {/* Lab Logo Thumbnail - Always visible */}
+                    <div className="flex flex-col items-center gap-1">
+                      <div className="w-16 h-16 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden shadow-md">
+                        {labLogoUrl ? (
+                          <img 
+                            src={labLogoUrl} 
+                            alt="Testing Lab" 
+                            className="w-full h-full object-contain p-1"
+                          />
+                        ) : (
+                          <span className="text-xs text-gray-400 text-center px-1">Lab Logo</span>
+                        )}
+                      </div>
+                      <span className="text-xs font-medium text-cyan-600">Testing Lab</span>
                       {isAdmin && (
                         <Button
                           type="button"
@@ -252,38 +260,28 @@ export const PersonalInfoSection = ({
                           size="sm"
                           onClick={() => labLogoInputRef.current?.click()}
                           disabled={uploadingLabLogo}
-                          className="h-7 px-2"
+                          className="h-6 px-2 text-xs"
                         >
-                          <Upload className="w-3 h-3" />
+                          <Upload className="w-3 h-3 mr-1" />
+                          {uploadingLabLogo ? "..." : "Upload"}
                         </Button>
                       )}
                     </div>
-                  )}
-                  
-                  {isAdmin && labCertified && !labLogoUrl && (
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => labLogoInputRef.current?.click()}
-                      disabled={uploadingLabLogo}
-                      className="h-7 px-3 text-xs border-cyan-500/30 ml-2"
-                    >
-                      <Upload className="w-3 h-3 mr-1" />
-                      {uploadingLabLogo ? "Uploading..." : "Upload Lab Logo"}
-                    </Button>
-                  )}
-                  
-                  {isAdmin && (
-                    <input
-                      ref={labLogoInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={onLabLogoUpload}
-                      disabled={uploadingLabLogo}
-                      className="hidden"
-                    />
-                  )}
+                    
+                    {isAdmin && (
+                      <input
+                        ref={labLogoInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={onLabLogoUpload}
+                        disabled={uploadingLabLogo}
+                        className="hidden"
+                      />
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground italic">
+                    Lab certification approved through lab testing only, not by member.
+                  </p>
                 </div>
                 
                 <Button

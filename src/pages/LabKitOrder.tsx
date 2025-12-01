@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { FlaskConical, Home, Package, MapPin } from "lucide-react";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/clean-check-logo-v2.png";
 import Footer from "@/components/Footer";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 

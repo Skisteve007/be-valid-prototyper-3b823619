@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Loader2, Lock, Fingerprint, CheckCircle2 } from "lucide-react";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/clean-check-logo-v2.png";
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();

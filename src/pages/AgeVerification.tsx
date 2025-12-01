@@ -5,7 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
 import { useAgeVerification } from '@/hooks/useAgeVerification';
-import logo from '@/assets/clean-check-logo.png';
+import logo from '@/assets/clean-check-logo-v2.png';
 
 const AgeVerification = () => {
   const navigate = useNavigate();

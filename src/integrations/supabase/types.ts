@@ -564,6 +564,39 @@ export type Database = {
           },
         ]
       }
+      social_content_rotation: {
+        Row: {
+          asset_placeholder: string
+          caption_template: string
+          content_type: string
+          created_at: string
+          day_of_week: string
+          hashtags: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          asset_placeholder: string
+          caption_template: string
+          content_type: string
+          created_at?: string
+          day_of_week: string
+          hashtags: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          asset_placeholder?: string
+          caption_template?: string
+          content_type?: string
+          created_at?: string
+          day_of_week?: string
+          hashtags?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       sponsor_analytics: {
         Row: {
           event_type: string

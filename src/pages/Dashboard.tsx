@@ -119,9 +119,12 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 md:py-6">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          <div className="flex flex-col md:flex-row md:items-center gap-4">
+            {/* Spacer for desktop centering */}
+            <div className="hidden md:block md:flex-1"></div>
+            
             {/* Logo - centered on mobile and desktop */}
-            <div className="flex justify-center md:flex-1">
+            <div className="flex justify-center">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
@@ -130,7 +133,7 @@ const Dashboard = () => {
             </div>
             
             {/* Buttons - centered row on mobile, right-aligned on desktop */}
-            <div className="flex justify-center md:justify-end gap-2 flex-wrap">
+            <div className="flex justify-center md:justify-end gap-2 flex-wrap md:flex-1">
               <Button 
                 onClick={() => setActiveTab("qrcode")}
                 className="relative bg-transparent border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30"

@@ -339,6 +339,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             
             {/* BORDER COLOR KEY - RAW DIV ONLY */}
             <div 
+              data-static-info="true"
               style={{ 
                 padding: '0.75rem',
                 borderRadius: '0.5rem',
@@ -384,6 +385,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             {/* DOCUMENT UPLOAD DATE - RAW DIV ONLY */}
             {lastDocumentDate && (
               <div 
+                data-static-info="true"
                 style={{ 
                   padding: '0.75rem',
                   borderRadius: '0.5rem',

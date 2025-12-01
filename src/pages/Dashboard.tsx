@@ -40,9 +40,9 @@ const Dashboard = () => {
 
   // Swipe gesture handlers for mobile navigation
   const handleTouchStart = (e: React.TouchEvent) => {
-    // Don't start swipe if touching interactive elements
+    // Don't start swipe if touching interactive elements or static info cards
     const target = e.target as HTMLElement;
-    const isInteractive = target.closest('button, a, [role="button"], [data-radix-accordion-trigger], [data-radix-accordion-content]');
+    const isInteractive = target.closest('button, a, [role="button"], [data-radix-accordion-trigger], [data-radix-accordion-content], [data-static-info]');
     
     if (isInteractive) {
       touchStartX.current = 0;

@@ -194,13 +194,6 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
               </CardContent>
             </Card>
           </div>
-
-          {/* Gold Status Note */}
-          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-950/20 dark:to-amber-950/20 border border-yellow-500/30 rounded-lg p-4">
-            <p className="text-sm text-center text-muted-foreground">
-              ✨ <strong className="text-yellow-700 dark:text-yellow-400">Certified Lab Results unlock the 'Gold Border' on your entry pass for 90 days.</strong>
-            </p>
-          </div>
         </CardContent>
       </Card>
 

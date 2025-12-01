@@ -30,26 +30,28 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AdminFooter />
-        <Routes>
-          <Route path="/" element={<AgeGate><Index /></AgeGate>} />
-          <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
-          <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
-          <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />
-          <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />
-          <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
-          <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
-          <Route path="/partners" element={<AgeGate><Partners /></AgeGate>} />
-          <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
-          <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
-          <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />
-          <Route path="/2257-compliance" element={<AgeGate><Compliance2257 /></AgeGate>} />
-          <Route path="/view-profile" element={<AgeGate><ViewProfile /></AgeGate>} />
-          <Route path="/safety-certificate" element={<AgeGate><SafetyCertificate /></AgeGate>} />
-          <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
-        </Routes>
+        <div className="min-h-screen flex flex-col">
+          <Routes>
+            <Route path="/" element={<AgeGate><Index /></AgeGate>} />
+            <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
+            <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
+            <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />
+            <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />
+            <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
+            <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
+            <Route path="/partners" element={<AgeGate><Partners /></AgeGate>} />
+            <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
+            <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
+            <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />
+            <Route path="/2257-compliance" element={<AgeGate><Compliance2257 /></AgeGate>} />
+            <Route path="/view-profile" element={<AgeGate><ViewProfile /></AgeGate>} />
+            <Route path="/safety-certificate" element={<AgeGate><SafetyCertificate /></AgeGate>} />
+            <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
+          </Routes>
+          <AdminFooter />
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -11,6 +11,7 @@ import { Loader2, FileText, UserCheck, QrCode, ExternalLink, CheckCircle, Lock, 
 import { Card, CardContent } from "@/components/ui/card";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
+import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
 import { InterestsSelector } from "./profile/InterestsSelector";
@@ -33,6 +34,7 @@ interface ProfileFormData {
   sexual_orientation: string;
   relationship_status: string;
   partner_preferences: string[];
+  vices: string[];
   covid_vaccinated: boolean;
   circumcised?: boolean;
   smoker: boolean;
@@ -78,6 +80,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const { register, handleSubmit, setValue, watch, getValues, formState, reset } = useForm<ProfileFormData>({
     defaultValues: {
       partner_preferences: [],
+      vices: [],
       covid_vaccinated: false,
       smoker: false,
       user_interests: {},
@@ -88,6 +91,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const genderIdentity = watch("gender_identity");
   const sexualOrientation = watch("sexual_orientation");
   const partnerPreferences = watch("partner_preferences");
+  const vices = watch("vices");
   const covidVaccinated = watch("covid_vaccinated");
   const circumcised = watch("circumcised");
   const smoker = watch("smoker");
@@ -155,6 +159,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setValue("sexual_orientation", data.sexual_orientation || "");
         setValue("relationship_status", data.relationship_status || "");
         setValue("partner_preferences", (data.partner_preferences as string[]) || []);
+        setValue("vices", (data.vices as string[]) || []);
         setValue("covid_vaccinated", data.covid_vaccinated || false);
         setValue("circumcised", data.circumcised);
         setValue("smoker", data.smoker || false);
@@ -365,6 +370,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           sexual_orientation: data.sexual_orientation,
           relationship_status: data.relationship_status,
           partner_preferences: data.partner_preferences,
+          vices: data.vices,
           covid_vaccinated: data.covid_vaccinated,
           circumcised: data.circumcised,
           smoker: data.smoker,
@@ -502,6 +508,17 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         covidVaccinated={covidVaccinated}
         circumcised={circumcised}
         smoker={smoker}
+      />
+
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-purple-500 via-indigo-400 to-purple-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
+
+      <VicesSection
+        setValue={setValue}
+        vices={vices}
       />
 
       <div className="relative py-4">

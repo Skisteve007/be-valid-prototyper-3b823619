@@ -436,6 +436,7 @@ export type Database = {
           user_id: string
           user_interests: Json | null
           user_references: string | null
+          vices: string[] | null
           where_from: string | null
         }
         Insert: {
@@ -481,6 +482,7 @@ export type Database = {
           user_id: string
           user_interests?: Json | null
           user_references?: string | null
+          vices?: string[] | null
           where_from?: string | null
         }
         Update: {
@@ -526,6 +528,7 @@ export type Database = {
           user_id?: string
           user_interests?: Json | null
           user_references?: string | null
+          vices?: string[] | null
           where_from?: string | null
         }
         Relationships: []

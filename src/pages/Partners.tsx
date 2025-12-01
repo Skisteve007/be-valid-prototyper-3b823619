@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import Footer from "@/components/Footer";
 import logo from "@/assets/clean-check-logo.png";
 import { useNavigate } from "react-router-dom";
 
@@ -351,8 +350,6 @@ const Partners = () => {
           </Card>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

@@ -151,7 +151,7 @@ const AdminLogin = () => {
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
               Administrator Access
             </CardTitle>
-            <CardDescription className="text-base">
+            <CardDescription className="text-base text-white/90">
               Authorized personnel only
             </CardDescription>
           </CardHeader>
@@ -165,7 +165,7 @@ const AdminLogin = () => {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email">Admin Email</Label>
+                <Label htmlFor="email" className="text-white">Admin Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -175,13 +175,13 @@ const AdminLogin = () => {
                   required
                   className="bg-background/50"
                 />
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-white/70">
                   Only authorized admin emails can access this panel
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-white">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -222,7 +222,7 @@ const AdminLogin = () => {
                   type="button"
                   variant="ghost"
                   onClick={() => navigate("/")}
-                  className="text-sm text-muted-foreground hover:text-foreground"
+                  className="text-sm text-white/70 hover:text-white"
                 >
                   ← Back to Home
                 </Button>

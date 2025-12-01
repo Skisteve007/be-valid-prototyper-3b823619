@@ -271,8 +271,13 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
               <Eye className="h-5 w-5 text-blue-500" />
               <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">My Clear Check Reference Member</span>
               <button
-                onClick={handleToggleLock}
-                className="ml-auto p-1 hover:bg-muted rounded transition-colors"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleToggleLock();
+                }}
+                className="ml-auto p-1 hover:bg-muted rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
                 title="Unlock references"
               >
                 <Lock className="h-5 w-5 text-muted-foreground hover:text-foreground" />
@@ -296,8 +301,13 @@ const PendingReferencesTab = ({ userId }: PendingReferencesTabProps) => {
               <Eye className="h-5 w-5 text-blue-500" />
               <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">My Clear Check Reference Member</span>
               <button
-                onClick={handleToggleLock}
-                className="ml-auto p-1 hover:bg-muted rounded transition-colors"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleToggleLock();
+                }}
+                className="ml-auto p-1 hover:bg-muted rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
                 title={referencesLocked ? "Unlock references" : "Lock references"}
               >
                 {referencesLocked ? (

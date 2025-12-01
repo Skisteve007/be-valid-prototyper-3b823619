@@ -20,6 +20,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import SafetyCertificate from "./pages/SafetyCertificate";
 import NotFound from "./pages/NotFound";
 import { AgeGate } from "./components/AgeGate";
+import { AdminFooter } from "./components/AdminFooter";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AdminFooter />
         <Routes>
           <Route path="/" element={<AgeGate><Index /></AgeGate>} />
           <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />

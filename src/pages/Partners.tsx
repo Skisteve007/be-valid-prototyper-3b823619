@@ -11,7 +11,8 @@ import {
   CheckCircle2,
   ArrowRight,
   Database,
-  FileText
+  FileText,
+  Home
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -350,6 +351,15 @@ const Partners = () => {
           </Card>
         </div>
       </section>
+
+      {/* Floating Home Button */}
+      <Button
+        onClick={() => navigate("/")}
+        className="fixed bottom-6 left-6 h-14 w-14 rounded-full shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] bg-primary hover:bg-primary/90 text-white z-50 flex items-center justify-center"
+        size="icon"
+      >
+        <Home className="h-6 w-6" />
+      </Button>
     </div>
   );
 };

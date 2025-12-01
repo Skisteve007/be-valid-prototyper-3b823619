@@ -6,13 +6,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Shield, Settings, Home, FlaskConical } from "lucide-react";
+import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Shield, Settings, Home, FlaskConical, ShieldCheck } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
 import QRCodeTab from "@/components/dashboard/QRCodeTab";
 import PendingReferencesTab from "@/components/dashboard/PendingReferencesTab";
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
+import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
 import logo from "@/assets/clean-check-logo.png";
 
 const Dashboard = () => {
@@ -27,7 +28,7 @@ const Dashboard = () => {
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
 
-  const tabs = ["profile", "certifications", "qrcode", "references", "lab-verification"];
+  const tabs = ["profile", "certifications", "qrcode", "references", "lab-verification", "safety-screen"];
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -176,10 +177,10 @@ const Dashboard = () => {
             onTouchEnd={handleTouchEnd}
           >
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="relative mb-6">
+              <div className="relative mb-6 overflow-x-auto">
                 <div className="absolute inset-0 bg-blue-500/40 blur-3xl rounded-lg"></div>
                 <div className="absolute inset-0 bg-blue-400/30 blur-2xl rounded-lg animate-pulse"></div>
-                <TabsList className="relative grid w-full grid-cols-5 bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-blue-500/50 shadow-2xl shadow-blue-500/40 ring-2 ring-blue-400/30">
+                <TabsList className="relative grid w-full grid-cols-6 bg-blue-50 dark:bg-blue-950/50 backdrop-blur-sm border-2 border-blue-500/50 shadow-2xl shadow-blue-500/40 ring-2 ring-blue-400/30 min-w-max">
                   <TabsTrigger 
                     value="profile" 
                     className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-lg hover:shadow-green-500/30"
@@ -215,6 +216,13 @@ const Dashboard = () => {
                     <FlaskConical className="h-4 w-4 mr-2" />
                     Lab Verify
                   </TabsTrigger>
+                  <TabsTrigger 
+                    value="safety-screen"
+                    className="transition-all duration-300 hover:scale-105 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:shadow-lg hover:shadow-emerald-500/30"
+                  >
+                    <ShieldCheck className="h-4 w-4 mr-2" />
+                    Safety
+                  </TabsTrigger>
                 </TabsList>
               </div>
               
@@ -236,6 +244,10 @@ const Dashboard = () => {
               
               <TabsContent value="lab-verification">
                 <LabVerificationTab userId={user.id} />
+              </TabsContent>
+              
+              <TabsContent value="safety-screen">
+                <SafetyScreenTab userId={user.id} />
               </TabsContent>
             </Tabs>
           </CardContent>

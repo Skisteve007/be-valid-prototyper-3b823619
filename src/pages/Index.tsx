@@ -331,9 +331,9 @@ const Index = () => {
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-3xl mb-1">$29</CardTitle>
+                        <CardTitle className="text-3xl mb-1">$39</CardTitle>
                         <CardDescription className="text-base mb-1">Single Member</CardDescription>
-                        <p className="text-sm text-muted-foreground">Per month</p>
+                        <p className="text-sm text-muted-foreground">Per 3 months</p>
                       </div>
                       {selectedPlan === "single" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">
@@ -353,9 +353,9 @@ const Index = () => {
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div>
-                        <CardTitle className="text-3xl mb-1">$49</CardTitle>
+                        <CardTitle className="text-3xl mb-1">$69</CardTitle>
                         <CardDescription className="text-base mb-1">Joint/Couple</CardDescription>
-                        <p className="text-sm text-muted-foreground">Per month</p>
+                        <p className="text-sm text-muted-foreground">Per 3 months</p>
                       </div>
                       {selectedPlan === "couple" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">

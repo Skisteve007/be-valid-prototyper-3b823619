@@ -409,8 +409,10 @@ export type Database = {
           health_document_url: string | null
           id: string
           instagram_handle: string | null
+          lab_certified: boolean | null
           lab_disclaimer_accepted: boolean | null
           lab_disclaimer_accepted_at: string | null
+          lab_logo_url: string | null
           last_campaign_received: string | null
           last_marketing_email_sent_at: string | null
           member_id: string | null
@@ -455,8 +457,10 @@ export type Database = {
           health_document_url?: string | null
           id?: string
           instagram_handle?: string | null
+          lab_certified?: boolean | null
           lab_disclaimer_accepted?: boolean | null
           lab_disclaimer_accepted_at?: string | null
+          lab_logo_url?: string | null
           last_campaign_received?: string | null
           last_marketing_email_sent_at?: string | null
           member_id?: string | null
@@ -501,8 +505,10 @@ export type Database = {
           health_document_url?: string | null
           id?: string
           instagram_handle?: string | null
+          lab_certified?: boolean | null
           lab_disclaimer_accepted?: boolean | null
           lab_disclaimer_accepted_at?: string | null
+          lab_logo_url?: string | null
           last_campaign_received?: string | null
           last_marketing_email_sent_at?: string | null
           member_id?: string | null

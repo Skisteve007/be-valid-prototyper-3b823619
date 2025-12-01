@@ -130,36 +130,36 @@ const Auth = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-card sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            {/* Logo on the left */}
+        <div className="container mx-auto px-4 py-4 md:py-6">
+          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-3">
+            {/* Single centered logo on mobile, left logo on desktop */}
             <div className="relative flex-shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto" style={{ height: '84px' }} />
+              <img src={logo} alt="Clean Check" className="relative w-auto h-16 md:h-20 lg:h-24" />
             </div>
 
-            {/* Tagline in the middle */}
-            <div className="hidden lg:flex flex-1 justify-center px-8">
-              <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border">
-                <p className="text-base font-bold text-center whitespace-nowrap bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+            {/* Tagline - visible on tablet and up */}
+            <div className="hidden md:flex flex-1 justify-center px-4 lg:px-8">
+              <div className="bg-muted/50 px-4 py-2 lg:px-6 lg:py-3 rounded-full border-2 border-border">
+                <p className="text-xs lg:text-base font-bold text-center whitespace-nowrap bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
                   Confidently Share Peer-To-Peer Record Status For Mutual Safety And Informed Intimacy
                 </p>
               </div>
             </div>
 
-            {/* Logo on the right */}
-            <div className="relative flex-shrink-0">
+            {/* Right logo - only visible on desktop */}
+            <div className="hidden lg:block relative flex-shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto" style={{ height: '84px' }} />
+              <img src={logo} alt="Clean Check" className="relative w-auto h-24" />
             </div>
           </div>
         </div>
       </header>
 
-      <main className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4">
-        <div className="container mx-auto max-w-md">
+      <main className="min-h-[calc(100vh-200px)] flex items-center justify-center py-6 md:py-12 px-4">
+        <div className="container mx-auto max-w-md w-full">
           {/* Login Form */}
           {mode === "login" ? (
             <div className="relative">
@@ -217,19 +217,20 @@ const Auth = () => {
                     
                     <Button 
                       size="lg" 
-                      className="w-full" 
+                      className="w-full min-h-[48px]" 
                       type="submit"
                       disabled={loading}
                     >
                       {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4 space-y-2">
+                    <div className="text-center pt-4 space-y-1">
                       <div>
                         <Button 
                           type="button" 
                           variant="link" 
                           onClick={() => navigate("/")}
+                          className="min-h-[44px]"
                         >
                           New member? Sign up here
                         </Button>
@@ -239,6 +240,7 @@ const Auth = () => {
                           type="button" 
                           variant="link" 
                           onClick={() => navigate("/")}
+                          className="min-h-[44px]"
                         >
                           ← Back to Home
                         </Button>
@@ -313,19 +315,20 @@ const Auth = () => {
                     
                     <Button 
                       size="lg" 
-                      className="w-full" 
+                      className="w-full min-h-[48px]" 
                       type="submit"
                       disabled={loading}
                     >
                       {loading ? "Creating Account..." : "Create Account"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4 space-y-2">
+                    <div className="text-center pt-4 space-y-1">
                       <div>
                         <Button 
                           type="button" 
                           variant="link" 
                           onClick={() => navigate("/auth?mode=login")}
+                          className="min-h-[44px]"
                         >
                           Already a member? Log in
                         </Button>
@@ -335,6 +338,7 @@ const Auth = () => {
                           type="button" 
                           variant="link" 
                           onClick={() => navigate("/")}
+                          className="min-h-[44px]"
                         >
                           ← Back to Home
                         </Button>

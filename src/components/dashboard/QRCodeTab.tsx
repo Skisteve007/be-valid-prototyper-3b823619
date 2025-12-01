@@ -334,20 +334,20 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
             </div>
           )}
           
-          <div className="flex gap-2 w-full max-w-xs">
-            <Button onClick={handleShare} className="flex-1" variant="outline">
+          <div className="flex flex-col sm:flex-row gap-2 w-full max-w-xs">
+            <Button onClick={handleShare} className="flex-1 min-h-[44px]" variant="outline">
               <Share2 className="h-4 w-4 mr-2" />
               Share
             </Button>
-            <Button onClick={handleDownload} className="flex-1">
+            <Button onClick={handleDownload} className="flex-1 min-h-[44px]">
               <Download className="h-4 w-4 mr-2" />
               Download
             </Button>
           </div>
 
-          <div className="text-sm text-muted-foreground text-center">
-            <p>Secure Profile Link (expires in 24 hours):</p>
-            <code className="text-xs bg-muted px-2 py-1 rounded break-all">
+          <div className="text-sm text-muted-foreground text-center px-4">
+            <p className="mb-2">Secure Profile Link (expires in 24 hours):</p>
+            <code className="text-xs bg-muted px-2 py-1 rounded break-all block">
               {accessToken ? `${window.location.origin}/view-profile?token=${accessToken}` : "Generating..."}
             </code>
           </div>

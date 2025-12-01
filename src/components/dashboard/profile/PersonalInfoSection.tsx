@@ -147,8 +147,8 @@ export const PersonalInfoSection = ({
                   )}
                 </div>
                 
-                {/* Lab Certified Section - Visible to all, editable by admins only */}
-                {(labCertified || isAdmin) && (
+                {/* Lab Certified Section - Always visible to admins, visible to others only when certified */}
+                {isAdmin || labCertified ? (
                   <div className="flex items-center gap-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 mt-2">
                     <div className="flex items-center gap-2">
                       <Checkbox
@@ -215,7 +215,7 @@ export const PersonalInfoSection = ({
                       />
                     )}
                   </div>
-                )}
+                ) : null}
 
                 <div className="flex items-center gap-2 flex-wrap">
                   {genderIdentity && (

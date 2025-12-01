@@ -46,15 +46,18 @@ const SponsorUpload = ({ userId }: SponsorUploadProps) => {
         .storage
         .from("sponsor-logos")
         .list("", {
-          limit: 3,
+          limit: 10,
           sortBy: { column: "created_at", order: "desc" },
         });
 
       if (error) throw error;
 
       if (data && data.length > 0) {
+        // Filter out directories and only get actual image files
+        const imageFiles = data.filter(file => file.id !== null && file.metadata);
+        
         const urls = await Promise.all(
-          data.slice(0, 3).map(async (file) => {
+          imageFiles.slice(0, 3).map(async (file) => {
             const { data: urlData } = supabase.storage
               .from("sponsor-logos")
               .getPublicUrl(file.name);

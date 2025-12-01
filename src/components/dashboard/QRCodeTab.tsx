@@ -3,7 +3,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { QrCode, Share2, Download, Clock } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { QrCode, Share2, Download, Clock, Mail, MessageSquare, Copy, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import SponsorUpload from "./SponsorUpload";
 
@@ -216,6 +223,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
     
     const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
     
+    // Try native share if available
     if (navigator.share) {
       try {
         await navigator.share({
@@ -223,13 +231,50 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           text: "View my verified health profile",
           url: profileUrl,
         });
-      } catch (error) {
-        // User cancelled or share failed
+        toast.success("Shared successfully!");
+      } catch (error: any) {
+        // User cancelled or error occurred
+        if (error.name !== 'AbortError') {
+          console.error('Share error:', error);
+          // Fallback to copy
+          handleCopyLink();
+        }
       }
     } else {
-      navigator.clipboard.writeText(profileUrl);
-      toast.success("Secure profile link copied to clipboard");
+      // No native share available, copy to clipboard
+      handleCopyLink();
     }
+  };
+
+  const handleCopyLink = () => {
+    const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
+    navigator.clipboard.writeText(profileUrl).then(() => {
+      toast.success("Secure profile link copied to clipboard!");
+    }).catch(() => {
+      toast.error("Failed to copy link");
+    });
+  };
+
+  const handleShareEmail = () => {
+    const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
+    const subject = encodeURIComponent("My Clean Check Verified Profile");
+    const body = encodeURIComponent(`View my verified health profile:\n\n${profileUrl}\n\nThis secure link expires in 24 hours.`);
+    window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+    toast.success("Opening email client...");
+  };
+
+  const handleShareSMS = () => {
+    const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
+    const message = encodeURIComponent(`View my Clean Check verified profile: ${profileUrl}`);
+    window.open(`sms:?body=${message}`, '_blank');
+    toast.success("Opening SMS...");
+  };
+
+  const handleShareWhatsApp = () => {
+    const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
+    const message = encodeURIComponent(`View my Clean Check verified profile: ${profileUrl}`);
+    window.open(`https://wa.me/?text=${message}`, '_blank');
+    toast.success("Opening WhatsApp...");
   };
 
   const handleDownload = () => {
@@ -335,10 +380,37 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           )}
           
           <div className="flex flex-col sm:flex-row gap-2 w-full max-w-xs">
-            <Button onClick={handleShare} className="flex-1 min-h-[44px]" variant="outline">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="flex-1 min-h-[44px]" variant="outline">
+                  <Share2 className="h-4 w-4 mr-2" />
+                  Share
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="center" className="w-56">
+                <DropdownMenuItem onClick={handleShare}>
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Share via Device
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleCopyLink}>
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy Link
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleShareEmail}>
+                  <Mail className="h-4 w-4 mr-2" />
+                  Share via Email
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleShareSMS}>
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  Share via SMS
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleShareWhatsApp}>
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  Share via WhatsApp
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Button onClick={handleDownload} className="flex-1 min-h-[44px]">
               <Download className="h-4 w-4 mr-2" />
               Download

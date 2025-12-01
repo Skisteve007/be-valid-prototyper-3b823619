@@ -39,12 +39,16 @@ const Partners = () => {
     setSubmitting(true);
 
     try {
-      // Store partner inquiry (you can create a partner_inquiries table if needed)
-      console.log("Partner inquiry submitted:", formData);
+      const { error } = await supabase.functions.invoke("send-partner-inquiry", {
+        body: formData,
+      });
+
+      if (error) throw error;
       
       toast.success("Thank you! We'll be in touch within 24 hours.");
       setFormData({ name: "", company: "", email: "", apiDocLink: "", message: "" });
     } catch (error: any) {
+      console.error("Error submitting partner inquiry:", error);
       toast.error("Failed to submit inquiry. Please try again.");
     } finally {
       setSubmitting(false);

@@ -173,7 +173,7 @@ const Dashboard = () => {
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-primary/10 blur-xl pointer-events-none"></div>
-                <div className="overflow-x-auto scrollbar-hide -mx-2 px-2">
+                <div className="overflow-x-auto overflow-y-hidden -mx-2 px-2 pb-3 [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-muted/30 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-primary/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-primary/60">
                   <TabsList className="relative inline-flex bg-muted/50 backdrop-blur-sm border border-border rounded-lg p-1.5 gap-1.5 w-auto min-w-full">
                     <TabsTrigger 
                       value="profile" 

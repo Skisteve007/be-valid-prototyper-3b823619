@@ -223,34 +223,43 @@ const HealthPanelOrder = () => {
                       <span className="text-xl font-bold text-pink-700 dark:text-pink-400">$249.00</span>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      One-time payment • Includes kit delivery and lab processing
+                      Choose one-time payment or quarterly subscription (Save 10%)
                     </p>
                   </div>
 
-                  <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-500/30 rounded-lg p-4">
-                    <p className="text-sm text-muted-foreground">
-                      <strong className="text-foreground">PayPal Integration:</strong> Payment buttons will be configured by admin. Click continue below to generate your order tracking.
-                    </p>
-                  </div>
+                  {/* PayPal Payment Forms */}
+                  <div className="space-y-6">
+                    {/* One-Time Payment */}
+                    <div id="std-onetime" className="space-y-3">
+                      <p className="font-bold text-lg">$249.00 (One-Time)</p>
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_xclick" />
+                        <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                        <input type="hidden" name="item_name" value="Platinum Health Kit (13-Panel) - One Time" />
+                        <input type="hidden" name="amount" value="249.00" />
+                        <input type="hidden" name="no_shipping" value="2" />
+                        <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" name="submit" alt="Buy Now" />
+                      </form>
+                    </div>
 
-                  {/* PayPal Buttons Placeholder */}
-                  <div className="border-2 border-dashed border-muted rounded-lg p-8 text-center">
-                    <Heart className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                    <p className="text-sm text-muted-foreground">
-                      PayPal payment buttons will appear here once configured by admin
-                    </p>
+                    {/* Subscription Payment */}
+                    <div id="std-sub" className="space-y-3">
+                      <p className="font-bold text-green-600 text-lg">$224.10 / Quarter (Save 10%)</p>
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                        <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                        <input type="hidden" name="item_name" value="Platinum Health Kit (13-Panel) - Auto-Ship" />
+                        <input type="hidden" name="no_shipping" value="2" />
+                        <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                        <input type="hidden" name="a3" value="224.10" />
+                        <input type="hidden" name="p3" value="3" />
+                        <input type="hidden" name="t3" value="M" />
+                        <input type="hidden" name="src" value="1" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribe_LG.gif" name="submit" alt="Subscribe" />
+                      </form>
+                    </div>
                   </div>
-
-                  <Button
-                    onClick={() => {
-                      toast.success("Order tracking information will be sent to your email!");
-                      setTimeout(() => navigate("/dashboard"), 2000);
-                    }}
-                    className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700"
-                    size="lg"
-                  >
-                    Continue (Demo)
-                  </Button>
                 </CardContent>
               </Card>
             )}

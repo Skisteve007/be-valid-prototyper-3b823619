@@ -316,8 +316,8 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
             {selectedProduct && (
               <div className="bg-muted/50 rounded-lg p-4 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium">Complete STD Panel</span>
-                  <span className="font-bold text-lg">$149.00</span>
+                  <span className="font-medium">Platinum 13-Panel Sexual Health Screen</span>
+                  <span className="font-bold text-lg">$249.00</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   One-time payment • Includes kit delivery and lab processing

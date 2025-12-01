@@ -138,7 +138,7 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
         <CardHeader className="space-y-4 pb-6">
           <CardTitle className="flex items-center gap-2 text-3xl md:text-4xl bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 bg-clip-text text-transparent">
             <ShieldCheck className="h-8 w-8 text-green-600" />
-            Lab-Certified 10-Panel Toxicology Verification
+            Lab-Certified 10-Panel Toxicology
           </CardTitle>
           
           <p className="text-lg text-muted-foreground">

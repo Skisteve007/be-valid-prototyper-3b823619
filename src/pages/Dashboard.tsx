@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,10 @@ const Dashboard = () => {
   const [qrRefreshKey, setQrRefreshKey] = useState(0);
   const [activeTab, setActiveTab] = useState("profile");
   const { isAdmin } = useIsAdmin();
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+
+  const tabs = ["profile", "certifications", "qrcode", "references"];
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -31,6 +35,35 @@ const Dashboard = () => {
       setActiveTab(tab);
     }
   }, [searchParams]);
+
+  // Swipe gesture handlers for mobile navigation
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeThreshold = 75; // minimum distance for swipe
+    const diff = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      const currentIndex = tabs.indexOf(activeTab);
+      
+      if (diff > 0 && currentIndex < tabs.length - 1) {
+        // Swipe left - next tab
+        setActiveTab(tabs[currentIndex + 1]);
+      } else if (diff < 0 && currentIndex > 0) {
+        // Swipe right - previous tab
+        setActiveTab(tabs[currentIndex - 1]);
+      }
+    }
+
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -136,7 +169,11 @@ const Dashboard = () => {
               Manage your profile, documents, and QR code
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent 
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-blue-500/40 blur-3xl rounded-lg"></div>

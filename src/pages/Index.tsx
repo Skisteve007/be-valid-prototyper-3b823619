@@ -115,15 +115,15 @@ const Index = () => {
             </div>
 
             {/* Buttons - stacked on mobile, row on desktop */}
-            <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto items-stretch md:items-end flex-shrink-0">
+            <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto items-stretch md:items-end flex-shrink-0">
               <Button 
                 onClick={() => navigate("/auth?mode=login")}
-                className="relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-sm md:text-base min-h-[48px] py-3 px-6 touch-manipulation w-full md:w-auto"
+                className="relative shadow-[0_0_20px_rgba(22,163,74,0.6)] hover:shadow-[0_0_30px_rgba(22,163,74,0.8)] border border-green-600/60 bg-green-600/15 text-white font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
               >
-                <div className="absolute inset-0 bg-green-600/25 blur-lg rounded-md -z-10"></div>
+                <div className="absolute inset-0 bg-green-600/20 blur-md rounded-md -z-10"></div>
                 Member Log In
               </Button>
-              <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+              <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto">
                 <Button 
                   variant="ghost" 
                   onClick={() => {
@@ -133,9 +133,9 @@ const Index = () => {
                       navigate("/auth");
                     }
                   }}
-                  className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold text-sm md:text-base min-h-[48px] py-3 px-4 touch-manipulation w-full md:w-auto"
+                  className="relative shadow-[0_0_20px_rgba(249,115,22,0.6)] hover:shadow-[0_0_30px_rgba(249,115,22,0.8)] border border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
                 >
-                  <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
+                  <div className="absolute inset-0 bg-orange-600/20 blur-md rounded-md -z-10 animate-pulse"></div>
                   QR Code
                 </Button>
                 <Button 
@@ -147,9 +147,9 @@ const Index = () => {
                       navigate("/auth");
                     }
                   }}
-                  className="relative shadow-[0_0_30px_rgba(59,130,246,0.7)] hover:shadow-[0_0_40px_rgba(59,130,246,0.9)] border-2 border-blue-500/60 bg-blue-500/15 min-h-[48px] py-3 px-4 touch-manipulation w-full md:w-auto"
+                  className="relative shadow-[0_0_20px_rgba(59,130,246,0.6)] hover:shadow-[0_0_30px_rgba(59,130,246,0.8)] border border-blue-500/60 bg-blue-500/15 font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
                 >
-                  <div className="absolute inset-0 bg-blue-500/25 blur-lg rounded-md -z-10"></div>
+                  <div className="absolute inset-0 bg-blue-500/20 blur-md rounded-md -z-10"></div>
                   Profile
                 </Button>
               </div>

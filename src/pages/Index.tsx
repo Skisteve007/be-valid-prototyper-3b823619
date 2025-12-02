@@ -109,8 +109,8 @@ const Index = () => {
                   Insta Proof Health Status
                 </p>
               </div>
-              <p className="text-sm xl:text-base font-semibold text-center text-foreground mt-2">
-                QR-Coded Share. The Fastest Way to Verify Sexual Health & Toxicology Results.
+              <p className="text-sm xl:text-base font-semibold text-center text-foreground mt-2 italic">
+                QR-Coded Share. The Fastest Way to Verify Health & Toxicology Results.
               </p>
             </div>
 
@@ -164,8 +164,8 @@ const Index = () => {
                 Insta Proof Health Status
               </p>
             </div>
-            <p className="text-xs font-semibold text-foreground mt-1">
-              QR-Coded Share. The Fastest Way to Verify Sexual Health & Toxicology Results.
+            <p className="text-xs font-semibold text-foreground mt-1 italic">
+              QR-Coded Share. The Fastest Way to Verify Health & Toxicology Results.
             </p>
           </div>
         </div>

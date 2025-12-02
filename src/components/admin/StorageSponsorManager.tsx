@@ -557,7 +557,7 @@ const StorageSponsorManager = () => {
         )}
 
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogContent className="sm:max-w-[500px] max-h-[70vh] flex flex-col p-0 top-[15%] translate-y-0">
+          <DialogContent className="sm:max-w-[500px] max-h-[80vh] flex flex-col p-0">
             <DialogHeader className="px-6 pt-6 pb-4 border-b flex-shrink-0">
               <DialogTitle className="text-xl">
                 {getSponsorForFile(newSponsorData.logo_url) ? "Edit Sponsor" : "Create Sponsor"}
@@ -567,7 +567,7 @@ const StorageSponsorManager = () => {
               </DialogDescription>
             </DialogHeader>
 
-            <div className="overflow-y-auto flex-1 px-6 py-4 min-h-0">
+            <div className="overflow-y-auto overflow-x-visible flex-1 px-6 py-4 min-h-0">
               <form id="sponsor-form" onSubmit={handleSaveSponsor} className="space-y-5">
                 {newSponsorData.logo_url && (
                   <div className="aspect-video bg-muted rounded-lg overflow-hidden border-2 border-border">
@@ -657,7 +657,7 @@ const StorageSponsorManager = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="sponsor-section" className="text-base font-semibold">
-                    Display Section *
+                    Display Section * <span className="text-sm font-normal text-muted-foreground">(Currently: Section {newSponsorData.section})</span>
                   </Label>
                   <Select
                     value={newSponsorData.section.toString()}
@@ -673,9 +673,11 @@ const StorageSponsorManager = () => {
                     }}
                   >
                     <SelectTrigger id="sponsor-section" className="w-full h-11">
-                      <SelectValue placeholder="Choose section placement" />
+                      <SelectValue>
+                        Section {newSponsorData.section} ({(newSponsorData.section === 1 || newSponsorData.section === 2) ? 'Platinum' : 'Gold'})
+                      </SelectValue>
                     </SelectTrigger>
-                    <SelectContent className="z-50 bg-popover">
+                    <SelectContent position="popper" className="z-[100] bg-popover" sideOffset={5}>
                       {[1, 2, 3].map((sectionNum) => {
                         const sponsorsInSection = sponsors.filter(s => s.section === sectionNum);
                         const isCurrentSection = getSponsorForFile(newSponsorData.logo_url)?.section === sectionNum;

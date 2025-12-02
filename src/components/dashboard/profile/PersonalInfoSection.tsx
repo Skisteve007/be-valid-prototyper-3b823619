@@ -229,42 +229,49 @@ export const PersonalInfoSection = ({
                 )}
                 
                 {/* Lab Certified Section - Always visible with status badge */}
-                <div className="space-y-2 mt-2">
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2 p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
-                      {isAdmin ? (
-                        <Checkbox
-                          id="lab_certified"
-                          checked={labCertified}
-                          onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
-                        />
-                      ) : (
-                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                          labCertified 
-                            ? 'border-green-500 bg-green-500' 
-                            : 'border-gray-400 bg-gray-200'
-                        }`}>
-                          {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
-                        </div>
-                      )}
-                      <Label htmlFor="lab_certified" className={`text-sm font-semibold text-cyan-600 flex items-center gap-1.5 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
-                        <CheckCircle className="w-4 h-4" />
-                        Lab Certified
-                      </Label>
+                <div className="mt-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
+                  <div className="flex items-stretch gap-4">
+                    {/* Left side - Lab certification status */}
+                    <div className="flex-1 flex flex-col justify-center space-y-2">
+                      <div className="flex items-center gap-2">
+                        {isAdmin ? (
+                          <Checkbox
+                            id="lab_certified"
+                            checked={labCertified}
+                            onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
+                          />
+                        ) : (
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                            labCertified 
+                              ? 'border-green-500 bg-green-500' 
+                              : 'border-gray-400 bg-gray-200'
+                          }`}>
+                            {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
+                          </div>
+                        )}
+                        <Label htmlFor="lab_certified" className={`text-sm font-semibold text-cyan-600 flex items-center gap-1.5 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
+                          <CheckCircle className="w-4 h-4" />
+                          Lab Certified
+                        </Label>
+                      </div>
                       
                       {labCertified ? (
-                        <Badge className="bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50">
+                        <Badge className="bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50 w-fit">
                           ✓ Certified
                         </Badge>
                       ) : (
-                        <Badge variant="secondary" className="bg-gray-200 text-gray-600 border border-gray-300">
+                        <Badge variant="secondary" className="bg-gray-200 text-gray-600 border border-gray-300 w-fit">
                           Not Certified
                         </Badge>
                       )}
+                      
+                      <p className="text-xs text-muted-foreground italic">
+                        Lab certification approved through lab testing only, not by member.
+                      </p>
                     </div>
                     
-                    {/* Lab Logo Thumbnail - Next to the box */}
-                    <div className="flex flex-col items-center gap-1">
+                    {/* Right side - Lab Logo centered */}
+                    <div className="flex flex-col items-center justify-center gap-1 min-w-[80px]">
                       <div className="w-16 h-16 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden shadow-md">
                         {labLogoUrl ? (
                           <img 
@@ -303,9 +310,6 @@ export const PersonalInfoSection = ({
                       />
                     )}
                   </div>
-                  <p className="text-xs text-muted-foreground italic">
-                    Lab certification approved through lab testing only, not by member.
-                  </p>
                 </div>
               </div>
             ) : (

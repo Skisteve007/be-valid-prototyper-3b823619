@@ -102,10 +102,10 @@ const Index = () => {
 
             {/* Tagline in the middle - desktop only */}
             <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-8">
-              <div className="relative px-12 py-2 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
+              <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-xl rounded-full animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-pink-400/10 to-blue-400/10 blur-2xl rounded-full"></div>
-                <p className="relative text-lg xl:text-xl font-bold text-center text-foreground italic tracking-wide">
+                <p className="relative text-lg xl:text-xl font-bold text-center text-foreground italic tracking-[0.2em]">
                   Insta Proof Health Status
                 </p>
               </div>
@@ -158,9 +158,9 @@ const Index = () => {
           
           {/* Mobile tagline below */}
           <div className="lg:hidden text-center mt-2">
-            <div className="relative inline-block px-8 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
+            <div className="relative inline-block px-12 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-lg rounded-full animate-pulse"></div>
-              <p className="relative text-sm font-bold text-foreground italic tracking-wide">
+              <p className="relative text-sm font-bold text-foreground italic tracking-[0.15em]">
                 Insta Proof Health Status
               </p>
             </div>

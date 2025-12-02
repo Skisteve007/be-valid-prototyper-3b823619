@@ -110,11 +110,10 @@ export const PersonalInfoSection = ({
   return (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold border-b pb-2">
-        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Information & Locations</span>
+        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Information</span>
       </h3>
       
       <div className="space-y-2">
-        <Label className="text-base">Profile Photo *</Label>
         <div className="relative">
           <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
           <div className="relative flex flex-col md:flex-row items-start gap-4 md:gap-6 p-4 md:p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">

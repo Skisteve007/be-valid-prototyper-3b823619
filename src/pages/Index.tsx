@@ -105,7 +105,7 @@ const Index = () => {
               <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-xl rounded-full animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-pink-400/10 to-blue-400/10 blur-2xl rounded-full"></div>
-                <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap bg-gradient-to-r from-gray-400 via-gray-600 to-gray-400 bg-clip-text text-transparent" style={{ textShadow: '1px 0 0 rgba(128,128,128,0.3), -1px 0 0 rgba(128,128,128,0.3)' }}>
+                <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap bg-gradient-to-r from-gray-500 via-gray-700 to-gray-500 bg-clip-text text-transparent" style={{ textShadow: '1px 0 0 rgba(100,100,100,0.3), -1px 0 0 rgba(100,100,100,0.3)' }}>
                   Instant Proof Health Status
                 </p>
               </div>
@@ -160,7 +160,7 @@ const Index = () => {
           <div className="lg:hidden text-center mt-2">
             <div className="relative inline-block px-12 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-lg rounded-full animate-pulse"></div>
-              <p className="relative text-sm font-black italic tracking-[0.2em] whitespace-nowrap bg-gradient-to-r from-gray-400 via-gray-600 to-gray-400 bg-clip-text text-transparent" style={{ textShadow: '1px 0 0 rgba(128,128,128,0.3), -1px 0 0 rgba(128,128,128,0.3)' }}>
+              <p className="relative text-sm font-black italic tracking-[0.2em] whitespace-nowrap bg-gradient-to-r from-gray-500 via-gray-700 to-gray-500 bg-clip-text text-transparent" style={{ textShadow: '1px 0 0 rgba(100,100,100,0.3), -1px 0 0 rgba(100,100,100,0.3)' }}>
                 Instant Proof Health Status
               </p>
             </div>

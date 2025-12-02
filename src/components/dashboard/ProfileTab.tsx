@@ -763,8 +763,9 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
             <Textarea
               id="std_acknowledgment"
               {...register("std_acknowledgment")}
-              rows={4}
+              rows={2}
               placeholder="Please provide any relevant health information..."
+              className="resize-none"
             />
           </div>
         )}
@@ -814,55 +815,53 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
             <p className="text-sm text-muted-foreground">
               Enter up to 3 member IDs to link reference profiles
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {[0, 1, 2].map((index) => (
                 <Card key={index} className="overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="space-y-3">
-                      <Label htmlFor={`reference-${index}`}>Reference #{index + 1}</Label>
+                  <CardContent className="p-3">
+                    <div className="space-y-2">
+                      <Label htmlFor={`reference-${index}`} className="text-xs">Reference #{index + 1}</Label>
                       <Input
                         id={`reference-${index}`}
                         value={referenceIds[index]}
                         onChange={(e) => handleReferenceIdChange(index, e.target.value)}
                         placeholder="CC-12345678"
-                        className="font-mono"
+                        className="font-mono text-sm h-8"
                       />
                       {referenceProfiles[index] && (
-                        <div className="mt-2 p-3 bg-primary/10 border border-primary/20 rounded-lg space-y-2">
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                              <div className={`w-2 h-2 rounded-full ${referenceProfiles[index]?.verified ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                              <p className="font-semibold text-sm">{referenceProfiles[index]?.full_name}</p>
-                              {referenceProfiles[index]?.verified && (
-                                <Badge variant="default" className="bg-green-500 text-white text-xs">
-                                  <CheckCircle className="h-2.5 w-2.5 mr-1" />
-                                  Verified
-                                </Badge>
-                              )}
-                            </div>
-                            <p className="text-xs text-muted-foreground font-mono">
-                              {referenceProfiles[index]?.member_id}
-                            </p>
-                            {!referenceProfiles[index]?.verified && (
-                              <p className="text-xs text-yellow-600 dark:text-yellow-400">
-                                Pending verification from member
-                              </p>
+                        <div className="mt-1 p-2 bg-primary/10 border border-primary/20 rounded-md space-y-1">
+                          <div className="flex items-center gap-1.5">
+                            <div className={`w-1.5 h-1.5 rounded-full ${referenceProfiles[index]?.verified ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+                            <p className="font-semibold text-xs">{referenceProfiles[index]?.full_name}</p>
+                            {referenceProfiles[index]?.verified && (
+                              <Badge variant="default" className="bg-green-500 text-white text-[10px] px-1 py-0">
+                                <CheckCircle className="h-2 w-2 mr-0.5" />
+                                Verified
+                              </Badge>
                             )}
-                            <Button
-                              type="button"
-                              size="sm"
-                              variant="default"
-                              className="w-full mt-2"
-                              onClick={() => window.open(`/profile/${referenceProfiles[index]?.id}`, '_blank')}
-                            >
-                              <ExternalLink className="h-3 w-3 mr-2" />
-                              View Profile
-                            </Button>
                           </div>
+                          <p className="text-[10px] text-muted-foreground font-mono">
+                            {referenceProfiles[index]?.member_id}
+                          </p>
+                          {!referenceProfiles[index]?.verified && (
+                            <p className="text-[10px] text-yellow-600 dark:text-yellow-400">
+                              Pending verification
+                            </p>
+                          )}
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="default"
+                            className="w-full h-6 text-xs"
+                            onClick={() => window.open(`/profile/${referenceProfiles[index]?.id}`, '_blank')}
+                          >
+                            <ExternalLink className="h-2.5 w-2.5 mr-1" />
+                            View
+                          </Button>
                         </div>
                       )}
                       {referenceIds[index] && !referenceProfiles[index] && (
-                        <p className="text-xs text-destructive">Member ID not found</p>
+                        <p className="text-[10px] text-destructive">Member ID not found</p>
                       )}
                     </div>
                   </CardContent>

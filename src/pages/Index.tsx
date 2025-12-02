@@ -102,10 +102,14 @@ const Index = () => {
 
             {/* Tagline in the middle - desktop only */}
             <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-8">
-              <p className="text-lg xl:text-xl font-bold text-center bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                Your Health Status. Insta Proof.
-              </p>
-              <p className="text-sm xl:text-base font-semibold text-center bg-gradient-to-r from-blue-500 via-pink-500 to-blue-600 bg-clip-text text-transparent mt-1">
+              <div className="relative px-6 py-2 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-xl rounded-full animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-pink-400/10 to-blue-400/10 blur-2xl rounded-full"></div>
+                <p className="relative text-lg xl:text-xl font-bold text-center bg-gradient-to-r from-blue-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                  Your Health Status Insta Proof.
+                </p>
+              </div>
+              <p className="text-sm xl:text-base font-semibold text-center bg-gradient-to-r from-blue-500 via-pink-500 to-blue-600 bg-clip-text text-transparent mt-2">
                 QR-Coded Share. The Fastest Way to Verify Sexual Health & Toxicology Results.
               </p>
             </div>
@@ -153,11 +157,14 @@ const Index = () => {
           </div>
           
           {/* Mobile tagline below */}
-          <div className="lg:hidden text-center">
-            <p className="text-sm md:text-base font-bold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent">
-              Your Health Status. Insta Proof.
-            </p>
-            <p className="text-xs font-semibold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent mt-0.5">
+          <div className="lg:hidden text-center mt-2">
+            <div className="relative inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-lg rounded-full animate-pulse"></div>
+              <p className="relative text-sm font-bold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                Your Health Status Insta Proof.
+              </p>
+            </div>
+            <p className="text-xs font-semibold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent mt-1">
               QR-Coded Share. The Fastest Way to Verify Sexual Health & Toxicology Results.
             </p>
           </div>

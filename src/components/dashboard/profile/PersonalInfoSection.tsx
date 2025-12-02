@@ -109,14 +109,14 @@ export const PersonalInfoSection = ({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold border-b pb-2">
-        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Quick Share Info</span>
-      </h3>
-      
       <div className="space-y-2">
         <div className="relative">
           <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
-          <div className="relative flex flex-col md:flex-row items-start gap-4 md:gap-6 p-4 md:p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
+          <div className="relative flex flex-col p-4 md:p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
+            <h3 className="text-lg font-semibold border-b pb-2 mb-4">
+              <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Quick Share Info</span>
+            </h3>
+            <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">
             <div className="flex flex-col items-center gap-2 w-full md:w-auto">
               <Avatar className="h-24 w-24 md:h-32 md:w-32 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
                 <AvatarImage src={profileImageUrl} />
@@ -323,6 +323,7 @@ export const PersonalInfoSection = ({
                 {uploadingImage && <p className="text-sm text-muted-foreground mt-1">Uploading...</p>}
               </div>
             )}
+            </div>
           </div>
         </div>
       </div>

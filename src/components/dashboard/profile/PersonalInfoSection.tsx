@@ -149,106 +149,172 @@ export const PersonalInfoSection = ({
             </div>
             
             {profileImageUrl ? (
-              <div className="flex-1 space-y-2 md:space-y-3 pt-0 md:pt-2 w-full">
-                {fullName && (
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-blue-500" />
-                    <span className="font-semibold text-xl">{fullName}</span>
+              <>
+                <div className="flex-1 space-y-2 md:space-y-3 pt-0 md:pt-2">
+                  {fullName && (
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4 text-blue-500" />
+                      <span className="font-semibold text-xl">{fullName}</span>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center gap-3 flex-wrap">
+                    {memberId && (
+                      <span className="text-sm font-medium text-muted-foreground">
+                        Member: <span className="text-blue-500">{memberId}</span>
+                      </span>
+                    )}
+                    {age && (
+                      <span className="text-sm font-medium text-muted-foreground">
+                        Age: <span className="text-blue-500">{age}</span>
+                      </span>
+                    )}
                   </div>
-                )}
-                
-                <div className="flex items-center gap-3 flex-wrap">
-                  {memberId && (
-                    <span className="text-sm font-medium text-muted-foreground">
-                      Member: <span className="text-blue-500">{memberId}</span>
-                    </span>
-                  )}
-                  {age && (
-                    <span className="text-sm font-medium text-muted-foreground">
-                      Age: <span className="text-blue-500">{age}</span>
-                    </span>
-                  )}
-                </div>
 
-                <div className="flex items-center gap-2 flex-wrap">
-                  {genderIdentity && (
-                    <Badge variant="secondary" className="bg-blue-500/10 text-blue-600 border-blue-500/30">
-                      {genderIdentity}
-                    </Badge>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {genderIdentity && (
+                      <Badge variant="secondary" className="bg-blue-500/10 text-blue-600 border-blue-500/30">
+                        {genderIdentity}
+                      </Badge>
+                    )}
+                    {sexualOrientation && (
+                      <Badge variant="secondary" className="bg-purple-500/10 text-purple-600 border-purple-500/30">
+                        {sexualOrientation}
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  {emailShareable === true && email && (
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-purple-500" />
+                      <span className="text-sm text-muted-foreground">{email}</span>
+                    </div>
                   )}
-                  {sexualOrientation && (
-                    <Badge variant="secondary" className="bg-purple-500/10 text-purple-600 border-purple-500/30">
-                      {sexualOrientation}
-                    </Badge>
+                  
+                  {emailShareable === false && (
+                    <div className="flex items-center gap-2">
+                      <Lock className="w-4 h-4 text-red-500" />
+                      <span className="text-sm text-muted-foreground italic">Email Private</span>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center gap-4 flex-wrap text-sm">
+                    {whereFrom && (
+                      <div className="flex items-center gap-1">
+                        <Home className="w-3.5 h-3.5 text-blue-500" />
+                        <span className="text-muted-foreground">{whereFrom}</span>
+                      </div>
+                    )}
+                    {currentHomeCity && (
+                      <div className="flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-red-500" />
+                        <span className="text-muted-foreground">{currentHomeCity}</span>
+                      </div>
+                    )}
+                    {relationshipStatus && (
+                      <div className="flex items-center gap-1">
+                        <Heart className="w-3.5 h-3.5 text-pink-500" />
+                        <span className="text-muted-foreground">{relationshipStatus}</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {seekingPreference && (
+                    <div className="flex items-center gap-2">
+                      <Target className="w-4 h-4 text-orange-500" />
+                      <span className="text-sm font-medium">
+                        Seeking: <span className="text-muted-foreground">{seekingPreference}</span>
+                      </span>
+                    </div>
                   )}
                 </div>
                 
-                {emailShareable === true && email && (
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-purple-500" />
-                    <span className="text-sm text-muted-foreground">{email}</span>
+                {/* Lab Certified Section - Right side on desktop */}
+                <div className="hidden md:flex flex-col items-center justify-center p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 min-w-[130px]">
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      {isAdmin ? (
+                        <Checkbox
+                          id="lab_certified"
+                          checked={labCertified}
+                          onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
+                        />
+                      ) : (
+                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                          labCertified 
+                            ? 'border-green-500 bg-green-500' 
+                            : 'border-gray-400 bg-gray-200'
+                        }`}>
+                          {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
+                        </div>
+                      )}
+                      <Label htmlFor="lab_certified" className={`text-xs font-semibold text-cyan-600 flex items-center gap-1 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
+                        <CheckCircle className="w-3 h-3" />
+                        Lab Certified
+                      </Label>
+                    </div>
+                    
+                    {labCertified ? (
+                      <Badge className="bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50 w-fit text-xs">
+                        ✓ Certified
+                      </Badge>
+                    ) : (
+                      <Badge variant="secondary" className="bg-gray-200 text-gray-600 border border-gray-300 w-fit text-xs">
+                        Not Certified
+                      </Badge>
+                    )}
+                    
+                    <div className="w-14 h-14 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden shadow-md mt-1">
+                      {labLogoUrl ? (
+                        <img 
+                          src={labLogoUrl} 
+                          alt="Testing Lab" 
+                          className="w-full h-full object-contain p-1"
+                        />
+                      ) : (
+                        <span className="text-[10px] text-gray-400 text-center px-1">Lab Logo</span>
+                      )}
+                    </div>
+                    <span className="text-[10px] font-medium text-cyan-600">Testing Lab</span>
+                    {isAdmin && (
+                      <>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => labLogoInputRef.current?.click()}
+                          disabled={uploadingLabLogo}
+                          className="h-5 px-2 text-[10px]"
+                        >
+                          <Upload className="w-2.5 h-2.5 mr-1" />
+                          {uploadingLabLogo ? "..." : "Upload"}
+                        </Button>
+                        <input
+                          ref={labLogoInputRef}
+                          type="file"
+                          accept="image/*"
+                          onChange={onLabLogoUpload}
+                          disabled={uploadingLabLogo}
+                          className="hidden"
+                        />
+                      </>
+                    )}
                   </div>
-                )}
-                
-                {emailShareable === false && (
-                  <div className="flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-red-500" />
-                    <span className="text-sm text-muted-foreground italic">Email Private</span>
-                  </div>
-                )}
-                
-                <div className="flex items-center gap-4 flex-wrap text-sm">
-                  {whereFrom && (
-                    <div className="flex items-center gap-1">
-                      <Home className="w-3.5 h-3.5 text-blue-500" />
-                      <span className="text-muted-foreground">{whereFrom}</span>
-                    </div>
-                  )}
-                  {currentHomeCity && (
-                    <div className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-red-500" />
-                      <span className="text-muted-foreground">{currentHomeCity}</span>
-                    </div>
-                  )}
-                  {relationshipStatus && (
-                    <div className="flex items-center gap-1">
-                      <Heart className="w-3.5 h-3.5 text-pink-500" />
-                      <span className="text-muted-foreground">{relationshipStatus}</span>
-                    </div>
-                  )}
                 </div>
                 
-                {seekingPreference && (
-                  <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4 text-orange-500" />
-                    <span className="text-sm font-medium">
-                      Seeking: <span className="text-muted-foreground">{seekingPreference}</span>
-                    </span>
-                  </div>
-                )}
-                
-                {/* Lab Certified Section - Always visible with status badge */}
-                <div className="mt-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
+                {/* Mobile Lab Section */}
+                <div className="md:hidden w-full mt-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
                   <div className="flex items-stretch gap-4">
-                    {/* Left side - Lab certification status */}
                     <div className="flex-1 flex flex-col justify-center space-y-2">
                       <div className="flex items-center gap-2">
-                        {isAdmin ? (
-                          <Checkbox
-                            id="lab_certified"
-                            checked={labCertified}
-                            onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
-                          />
-                        ) : (
-                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                            labCertified 
-                              ? 'border-green-500 bg-green-500' 
-                              : 'border-gray-400 bg-gray-200'
-                          }`}>
-                            {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
-                          </div>
-                        )}
-                        <Label htmlFor="lab_certified" className={`text-sm font-semibold text-cyan-600 flex items-center gap-1.5 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
+                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                          labCertified 
+                            ? 'border-green-500 bg-green-500' 
+                            : 'border-gray-400 bg-gray-200'
+                        }`}>
+                          {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
+                        </div>
+                        <Label className="text-sm font-semibold text-cyan-600 flex items-center gap-1.5">
                           <CheckCircle className="w-4 h-4" />
                           Lab Certified
                         </Label>
@@ -263,13 +329,8 @@ export const PersonalInfoSection = ({
                           Not Certified
                         </Badge>
                       )}
-                      
-                      <p className="text-xs text-muted-foreground italic">
-                        Lab certification approved through lab testing only, not by member.
-                      </p>
                     </div>
                     
-                    {/* Right side - Lab Logo centered */}
                     <div className="flex flex-col items-center justify-center gap-1 min-w-[80px]">
                       <div className="w-16 h-16 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden shadow-md">
                         {labLogoUrl ? (
@@ -283,34 +344,10 @@ export const PersonalInfoSection = ({
                         )}
                       </div>
                       <span className="text-xs font-medium text-cyan-600">Testing Lab</span>
-                      {isAdmin && (
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => labLogoInputRef.current?.click()}
-                          disabled={uploadingLabLogo}
-                          className="h-6 px-2 text-xs"
-                        >
-                          <Upload className="w-3 h-3 mr-1" />
-                          {uploadingLabLogo ? "..." : "Upload"}
-                        </Button>
-                      )}
                     </div>
-                    
-                    {isAdmin && (
-                      <input
-                        ref={labLogoInputRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={onLabLogoUpload}
-                        disabled={uploadingLabLogo}
-                        className="hidden"
-                      />
-                    )}
                   </div>
                 </div>
-              </div>
+              </>
             ) : (
               <div className="flex-1">
                 <Input

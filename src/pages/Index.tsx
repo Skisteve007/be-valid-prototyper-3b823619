@@ -126,11 +126,14 @@ const Index = () => {
             </div>
 
             {/* Buttons + Language Selector - stacked on mobile, row on desktop */}
-            <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto items-stretch md:items-end flex-shrink-0">
+            <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto items-stretch md:items-center flex-shrink-0">
               {/* Language Selector - positioned top right on mobile */}
               <div className="flex justify-end md:hidden mb-2">
                 <LanguageSelector />
               </div>
+              
+              {/* Language Selector - desktop position (before Member Login) */}
+              <LanguageSelector className="hidden md:flex" />
               
               <Button 
                 onClick={() => navigate("/auth?mode=login")}
@@ -168,9 +171,6 @@ const Index = () => {
                   <div className="absolute inset-0 bg-blue-500/20 blur-md rounded-md -z-10"></div>
                   Profile
                 </Button>
-                
-                {/* Language Selector - desktop position */}
-                <LanguageSelector className="hidden md:flex" />
               </div>
             </div>
           </div>

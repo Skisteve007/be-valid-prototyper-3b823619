@@ -751,19 +751,17 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         </div>
         
         {stdAcknowledgmentLocked ? (
-          <div className="text-center py-8 text-muted-foreground">
-            <Lock className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p className="text-sm">STD acknowledgment is private</p>
-            <p className="text-xs mt-1">Click unlock to make it viewable via QR code</p>
+          <div className="text-center py-3 text-muted-foreground">
+            <Lock className="w-6 h-6 mx-auto mb-1 opacity-50" />
+            <p className="text-xs">Private - unlock to share</p>
           </div>
         ) : (
-          <div className="space-y-2">
-            <Label htmlFor="std_acknowledgment">STD Status & Information</Label>
-            <p className="text-xs text-muted-foreground italic">Voluntary shared information for transparency.</p>
+          <div className="space-y-1">
             <Input
               id="std_acknowledgment"
               {...register("std_acknowledgment")}
-              placeholder="Enter health information..."
+              placeholder="Enter STD status..."
+              className="h-8 text-sm"
             />
           </div>
         )}
@@ -803,37 +801,29 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         </div>
         
         {referencesLocked ? (
-          <div className="text-center py-8 text-muted-foreground">
-            <Lock className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p className="text-sm">References are private</p>
-            <p className="text-xs mt-1">Click unlock to make them shareable via QR code</p>
+          <div className="text-center py-3 text-muted-foreground">
+            <Lock className="w-6 h-6 mx-auto mb-1 opacity-50" />
+            <p className="text-xs">Private - unlock to share</p>
           </div>
         ) : (
-          <>
-            <p className="text-xs text-muted-foreground mb-2">
-              Enter up to 3 member IDs to link references
-            </p>
-            <div className="flex flex-col md:flex-row gap-2">
-              {[0, 1, 2].map((index) => (
-                <div key={index} className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <Input
-                      id={`reference-${index}`}
-                      value={referenceIds[index]}
-                      onChange={(e) => handleReferenceIdChange(index, e.target.value)}
-                      placeholder={`Ref #${index + 1}`}
-                      className="font-mono text-xs h-8"
-                    />
-                    {referenceProfiles[index] && (
-                      <Badge variant={referenceProfiles[index]?.verified ? "default" : "secondary"} className="text-[10px] whitespace-nowrap">
-                        {referenceProfiles[index]?.verified ? "✓" : "○"} {referenceProfiles[index]?.full_name?.split(' ')[0]}
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
+          <div className="flex flex-col md:flex-row gap-2">
+            {[0, 1, 2].map((index) => (
+              <div key={index} className="flex-1 flex items-center gap-1">
+                <Input
+                  id={`reference-${index}`}
+                  value={referenceIds[index]}
+                  onChange={(e) => handleReferenceIdChange(index, e.target.value)}
+                  placeholder={`#${index + 1}`}
+                  className="font-mono text-xs h-7"
+                />
+                {referenceProfiles[index] && (
+                  <Badge variant={referenceProfiles[index]?.verified ? "default" : "secondary"} className="text-[9px] px-1 whitespace-nowrap">
+                    {referenceProfiles[index]?.verified ? "✓" : ""}{referenceProfiles[index]?.full_name?.split(' ')[0]}
+                  </Badge>
+                )}
+              </div>
+            ))}
+          </div>
         )}
       </div>
 

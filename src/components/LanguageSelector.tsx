@@ -167,10 +167,10 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
         <Button
           variant="ghost"
           size="icon"
-          className={`relative h-9 w-9 rounded-full border border-border/60 bg-background/80 hover:bg-accent hover:border-primary/40 transition-all shadow-sm ${className}`}
+          className={`relative h-10 w-10 rounded-full border-2 border-green-500/50 bg-gradient-to-br from-blue-500/20 via-green-500/20 to-blue-500/20 hover:from-blue-500/30 hover:via-green-500/30 hover:to-blue-500/30 hover:border-green-400/70 transition-all shadow-[0_0_15px_rgba(34,197,94,0.4)] hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] ${className}`}
           aria-label="Select language"
         >
-          <Globe className="h-5 w-5 text-foreground" />
+          <Globe className="h-6 w-6 text-green-400 drop-shadow-[0_0_4px_rgba(34,197,94,0.8)]" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
@@ -188,9 +188,9 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
               currentLanguage.code === language.code ? "bg-accent" : ""
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="text-lg">{language.flag}</span>
+            <div className="flex items-center gap-2">
               <span className="font-medium">{language.nativeName}</span>
+              <span className="text-sm">{language.flag}</span>
             </div>
             {currentLanguage.code === language.code && (
               <Check className="h-4 w-4 text-primary" />

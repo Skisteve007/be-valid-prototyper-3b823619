@@ -173,9 +173,9 @@ export const VenueDirectoryTab = () => {
           Showing {filteredVenues.length} of {venues.length} venues
         </div>
 
-        {/* Venues Table */}
-        <div className="border rounded-lg overflow-hidden">
-          <Table>
+        {/* Venues Table - Mobile scrollable */}
+        <div className="border rounded-lg overflow-x-auto">
+          <Table className="min-w-[800px]">
             <TableHeader>
               <TableRow>
                 <TableHead>Venue</TableHead>

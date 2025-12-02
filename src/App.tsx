@@ -57,7 +57,6 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>
-          <AdminFooter />
           <Footer />
         </div>
       </BrowserRouter>

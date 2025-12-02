@@ -27,8 +27,23 @@ const Dashboard = () => {
   const { isAdmin } = useIsAdmin();
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
+  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
 
   const tabs = ["profile", "certifications", "qrcode", "references", "lab-verification", "safety-screen"];
+
+  // Long press handlers for logo
+  const handleLogoTouchStart = () => {
+    longPressTimer.current = setTimeout(() => {
+      navigate("/");
+    }, 500);
+  };
+
+  const handleLogoTouchEnd = () => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+  };
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -139,10 +154,17 @@ const Dashboard = () => {
             
             {/* Logo - centered on mobile and desktop */}
             <div className="flex justify-center">
-              <div className="relative">
+              <div 
+                className="relative cursor-pointer"
+                onTouchStart={handleLogoTouchStart}
+                onTouchEnd={handleLogoTouchEnd}
+                onMouseDown={handleLogoTouchStart}
+                onMouseUp={handleLogoTouchEnd}
+                onMouseLeave={handleLogoTouchEnd}
+              >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-                <img src={logo} alt="Clean Check" className="relative h-20 md:h-28 w-auto" />
+                <img src={logo} alt="Clean Check" className="relative h-20 md:h-28 w-auto select-none" draggable={false} />
               </div>
             </div>
             

@@ -480,6 +480,36 @@ export type Database = {
           },
         ]
       }
+      partner_venues: {
+        Row: {
+          category: Database["public"]["Enums"]["venue_category"]
+          city: string
+          created_at: string
+          id: string
+          status: string
+          updated_at: string
+          venue_name: string
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["venue_category"]
+          city: string
+          created_at?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          venue_name: string
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["venue_category"]
+          city?: string
+          created_at?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          venue_name?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           birthday: string | null
@@ -839,6 +869,38 @@ export type Database = {
         }
         Relationships: []
       }
+      user_checkins: {
+        Row: {
+          checkin_date: string
+          created_at: string
+          id: string
+          user_id: string
+          venue_id: string
+        }
+        Insert: {
+          checkin_date?: string
+          created_at?: string
+          id?: string
+          user_id: string
+          venue_id: string
+        }
+        Update: {
+          checkin_date?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_checkins_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -950,6 +1012,7 @@ export type Database = {
         | "verified_active"
       result_status: "negative" | "positive" | "inconclusive"
       test_type: "STD_PANEL" | "TOX_10_PANEL"
+      venue_category: "Nightlife" | "Gentlemen" | "Lifestyle"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1093,6 +1156,7 @@ export const Constants = {
       ],
       result_status: ["negative", "positive", "inconclusive"],
       test_type: ["STD_PANEL", "TOX_10_PANEL"],
+      venue_category: ["Nightlife", "Gentlemen", "Lifestyle"],
     },
   },
 } as const

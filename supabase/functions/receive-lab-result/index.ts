@@ -132,12 +132,13 @@ serve(async (req) => {
       console.log(`Exception created for ${exceptionType}`);
     }
 
-    // Update the lab order with result
+    // PRIVACY FIREWALL: Update the lab order with result but set to LOCKED status
+    // Do NOT automatically update user's profile - user must manually consent
     const { error: updateError } = await supabase
       .from("lab_orders")
       .update({
         result_status: result.toLowerCase(),
-        order_status: "result_received",
+        order_status: "result_received_locked", // Privacy Firewall: Results locked until user reviews
       })
       .eq("id", labOrder.id);
 
@@ -154,24 +155,11 @@ serve(async (req) => {
       throw updateError;
     }
 
-    console.log("Lab order updated successfully");
+    console.log("Lab order updated successfully with LOCKED status (Privacy Firewall active)");
 
-    // If result is negative, update user's profile status to verified
-    if (result.toLowerCase() === "negative") {
-      const { error: profileError } = await supabase
-        .from("profiles")
-        .update({
-          status_color: "green",
-        })
-        .eq("user_id", labOrder.user_id);
-
-      if (profileError) {
-        console.error("Failed to update profile:", profileError);
-        // Don't throw here, lab result was still recorded
-      } else {
-        console.log("Profile status updated to verified");
-      }
-    }
+    // PRIVACY FIREWALL: Do NOT auto-update profile status
+    // User must manually review and consent to publish their status
+    // The old auto-verification code has been removed for privacy protection
 
     // Log successful webhook event
     await logWebhookEvent(supabase, {
@@ -180,22 +168,25 @@ serve(async (req) => {
       response_status: 200,
       response_body: {
         success: true,
-        message: "Lab result processed successfully",
+        message: "Lab result received and locked. User notification pending.",
         order_id: labOrder.id,
-        result: result.toLowerCase()
+        result: result.toLowerCase(),
+        privacy_status: "locked_pending_user_consent"
       },
       lab_partner_id: labPartner.id,
       related_order_id: labOrder.id
     });
 
-    console.log(`User ${labOrder.profiles?.full_name} should be notified of result: ${result}`);
+    console.log(`PRIVACY FIREWALL: User ${labOrder.profiles?.full_name} has a new result awaiting review. Status: ${result}`);
+    console.log("User must log in to review results and manually consent to profile verification.");
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: "Lab result processed successfully",
+        message: "Lab result received and locked. User notification pending.",
         order_id: labOrder.id,
         result: result.toLowerCase(),
+        privacy_status: "locked_pending_user_consent"
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },

@@ -15,6 +15,7 @@ import QRCodeTab from "@/components/dashboard/QRCodeTab";
 import PendingReferencesTab from "@/components/dashboard/PendingReferencesTab";
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
+import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
 import logo from "@/assets/clean-check-logo.png";
 
 const Dashboard = () => {
@@ -189,6 +190,9 @@ const Dashboard = () => {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
+            {/* Private Inbox - Privacy Firewall for locked lab results */}
+            <PrivateInbox userId={user.id} onStatusUpdate={handleProfileUpdate} />
+            
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-primary/10 blur-xl pointer-events-none"></div>

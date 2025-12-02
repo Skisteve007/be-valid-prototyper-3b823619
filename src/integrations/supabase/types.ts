@@ -942,7 +942,12 @@ export type Database = {
         | "paid"
         | "active_member"
         | "administrator"
-      order_status: "pending" | "sample_collected" | "result_received"
+      order_status:
+        | "pending"
+        | "sample_collected"
+        | "result_received"
+        | "result_received_locked"
+        | "verified_active"
       result_status: "negative" | "positive" | "inconclusive"
       test_type: "STD_PANEL" | "TOX_10_PANEL"
     }
@@ -1079,7 +1084,13 @@ export const Constants = {
         "active_member",
         "administrator",
       ],
-      order_status: ["pending", "sample_collected", "result_received"],
+      order_status: [
+        "pending",
+        "sample_collected",
+        "result_received",
+        "result_received_locked",
+        "verified_active",
+      ],
       result_status: ["negative", "positive", "inconclusive"],
       test_type: ["STD_PANEL", "TOX_10_PANEL"],
     },

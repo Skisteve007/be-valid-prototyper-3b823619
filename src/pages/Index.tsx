@@ -183,10 +183,12 @@ const Index = () => {
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>
-              <p className="text-lg md:text-2xl lg:text-3xl mb-6 md:mb-8 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
-                <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">Elevating</span>{" "}
-                <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Intimacy</span>{" "}
-                <span className="bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Through Verified Transparency and Mutual Trust.</span>
+              <p className="text-2xl md:text-3xl lg:text-4xl mb-2 md:mb-3 font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">One Scan.</span>{" "}
+                <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Zero Doubt.</span>
+              </p>
+              <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 text-muted-foreground">
+                Instantly verify sexual health and toxicology results with one secure badge.
               </p>
             </ScrollReveal>
             

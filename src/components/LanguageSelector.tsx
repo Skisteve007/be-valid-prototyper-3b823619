@@ -167,10 +167,10 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
         <Button
           variant="ghost"
           size="icon"
-          className={`relative h-10 w-10 rounded-full border-2 border-green-500/50 bg-gradient-to-br from-blue-500/20 via-green-500/20 to-blue-500/20 hover:from-blue-500/30 hover:via-green-500/30 hover:to-blue-500/30 hover:border-green-400/70 transition-all shadow-[0_0_15px_rgba(34,197,94,0.4)] hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] ${className}`}
+          className={`relative h-10 w-10 rounded-full border-2 border-amber-600/50 bg-gradient-to-br from-amber-700/20 via-amber-600/20 to-amber-700/20 hover:from-amber-700/30 hover:via-amber-600/30 hover:to-amber-700/30 hover:border-amber-500/70 transition-all shadow-[0_0_15px_rgba(180,140,80,0.5)] hover:shadow-[0_0_20px_rgba(180,140,80,0.7)] ${className}`}
           aria-label="Select language"
         >
-          <Globe className="h-6 w-6 text-green-400 drop-shadow-[0_0_4px_rgba(34,197,94,0.8)]" />
+          <Globe className="h-6 w-6 text-white drop-shadow-[0_0_4px_rgba(180,140,80,0.8)]" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 

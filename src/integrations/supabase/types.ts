@@ -484,7 +484,9 @@ export type Database = {
         Row: {
           category: Database["public"]["Enums"]["venue_category"]
           city: string
+          country: string
           created_at: string
+          gm_email: string | null
           id: string
           status: string
           updated_at: string
@@ -493,7 +495,9 @@ export type Database = {
         Insert: {
           category: Database["public"]["Enums"]["venue_category"]
           city: string
+          country?: string
           created_at?: string
+          gm_email?: string | null
           id?: string
           status?: string
           updated_at?: string
@@ -502,7 +506,9 @@ export type Database = {
         Update: {
           category?: Database["public"]["Enums"]["venue_category"]
           city?: string
+          country?: string
           created_at?: string
+          gm_email?: string | null
           id?: string
           status?: string
           updated_at?: string

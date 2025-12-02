@@ -1,13 +1,35 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Shield } from 'lucide-react';
+import { Shield, Settings } from 'lucide-react';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 
 const Footer = () => {
   const navigate = useNavigate();
+  const { isAdmin } = useIsAdmin();
+  
+  const handleAdminClick = () => {
+    if (isAdmin) {
+      navigate("/admin");
+    } else {
+      navigate("/admin/login");
+    }
+  };
   
   return (
     <footer className="bg-card border-t border-border mt-auto w-full">
       <div className="container mx-auto px-4 py-4 md:py-6">
+        {/* Admin Button - Bottom Left */}
+        <div className="mb-3">
+          <Button
+            onClick={handleAdminClick}
+            size="sm"
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50 text-white text-xs"
+          >
+            <Settings className="h-3 w-3 mr-1" />
+            {isAdmin ? "Admin Panel" : "Admin Login"}
+          </Button>
+        </div>
+
         {/* Row 1: Copyright & IP */}
         <div className="mb-3 md:mb-4 text-center md:text-left">
           <p className="text-[10px] leading-relaxed text-muted-foreground">

@@ -227,27 +227,23 @@ const Auth = () => {
                       {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4 space-y-1">
-                      <div>
-                        <Button 
-                          type="button" 
-                          variant="link" 
-                          onClick={() => navigate("/")}
-                          className="min-h-[44px]"
-                        >
-                          New member? Sign up here
-                        </Button>
-                      </div>
-                      <div>
-                        <Button 
-                          type="button" 
-                          variant="link" 
-                          onClick={() => navigate("/")}
-                          className="min-h-[44px]"
-                        >
-                          ← Back to Home
-                        </Button>
-                      </div>
+                    <div className="text-center pt-4 space-y-3">
+                      <Button 
+                        type="button" 
+                        variant="outline"
+                        onClick={() => navigate("/")}
+                        className="w-full min-h-[48px] rounded-full border-2 border-primary/50 hover:bg-primary/10"
+                      >
+                        New member? Sign up here
+                      </Button>
+                      <Button 
+                        type="button" 
+                        variant="outline"
+                        onClick={() => navigate("/")}
+                        className="w-full min-h-[48px] rounded-full border-2 border-muted-foreground/30 hover:bg-muted/50"
+                      >
+                        ← Back to Home
+                      </Button>
                     </div>
                   </form>
                 </CardContent>

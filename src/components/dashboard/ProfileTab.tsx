@@ -723,48 +723,28 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         </div>
       </div>
 
-      <div className="space-y-6">
-        <div className="flex items-center justify-between border-b pb-2">
-          <h3 className="text-lg font-semibold flex items-center gap-2">
-            <FileText className="w-5 h-5 text-green-500" />
-            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">STD Acknowledgment</span>
-          </h3>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => setStdAcknowledgmentLocked(!stdAcknowledgmentLocked)}
-            className="h-auto py-1 px-3"
-          >
-            {stdAcknowledgmentLocked ? (
-              <>
-                <Lock className="w-4 h-4 text-red-500 mr-1" />
-                <span className="text-xs text-red-500">Private</span>
-              </>
-            ) : (
-              <>
-                <Unlock className="w-4 h-4 text-green-500 mr-1" />
-                <span className="text-xs text-green-500">Viewable</span>
-              </>
-            )}
-          </Button>
-        </div>
-        
-        {stdAcknowledgmentLocked ? (
-          <div className="text-center py-3 text-muted-foreground">
-            <Lock className="w-6 h-6 mx-auto mb-1 opacity-50" />
-            <p className="text-xs">Private - unlock to share</p>
-          </div>
-        ) : (
-          <div className="space-y-1">
-            <Input
-              id="std_acknowledgment"
-              {...register("std_acknowledgment")}
-              placeholder="Enter STD status..."
-              className="h-8 text-sm"
-            />
-          </div>
-        )}
+      <div className="flex items-center gap-3 p-3 rounded-full border bg-muted/30">
+        <FileText className="w-4 h-4 text-green-500 flex-shrink-0" />
+        <span className="text-xs font-medium whitespace-nowrap">STD Status:</span>
+        <Input
+          id="std_acknowledgment"
+          {...register("std_acknowledgment")}
+          placeholder="Enter status..."
+          className="h-7 text-xs flex-1 rounded-full border-0 bg-background/50"
+        />
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() => setStdAcknowledgmentLocked(!stdAcknowledgmentLocked)}
+          className="h-6 px-2 rounded-full"
+        >
+          {stdAcknowledgmentLocked ? (
+            <Lock className="w-3 h-3 text-red-500" />
+          ) : (
+            <Unlock className="w-3 h-3 text-green-500" />
+          )}
+        </Button>
       </div>
 
       <div className="relative py-4">

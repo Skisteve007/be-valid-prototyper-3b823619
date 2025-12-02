@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { toast } from "sonner";
 import { ArrowRight, Fingerprint, Eye, EyeOff } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
+import { useLongPressHome } from "@/hooks/useLongPressHome";
 import { 
   isBiometricAvailable, 
   authenticateWithBiometric, 
@@ -17,6 +18,7 @@ import {
 const Auth = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const longPressHandlers = useLongPressHome();
   const searchParams = new URLSearchParams(location.search);
   const mode = searchParams.get("mode") || "signup";
   const [loading, setLoading] = useState(false);
@@ -135,10 +137,13 @@ const Auth = () => {
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-3">
             {/* Single centered logo on mobile, left logo on desktop */}
-            <div className="relative flex-shrink-0">
+            <div 
+              className="relative flex-shrink-0 cursor-pointer"
+              {...longPressHandlers}
+            >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto h-16 md:h-20 lg:h-24" />
+              <img src={logo} alt="Clean Check" className="relative w-auto h-16 md:h-20 lg:h-24 select-none" draggable={false} />
             </div>
 
             {/* Tagline - visible on tablet and up */}

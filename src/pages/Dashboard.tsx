@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
 import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Home, FlaskConical, ShieldCheck, ArrowUp } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
 import QRCodeTab from "@/components/dashboard/QRCodeTab";
@@ -25,25 +26,11 @@ const Dashboard = () => {
   const [qrRefreshKey, setQrRefreshKey] = useState(0);
   const [activeTab, setActiveTab] = useState("profile");
   const { isAdmin } = useIsAdmin();
+  const longPressHandlers = useLongPressHome();
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
-  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
 
   const tabs = ["profile", "certifications", "qrcode", "references", "lab-verification", "safety-screen"];
-
-  // Long press handlers for logo
-  const handleLogoTouchStart = () => {
-    longPressTimer.current = setTimeout(() => {
-      navigate("/");
-    }, 500);
-  };
-
-  const handleLogoTouchEnd = () => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-      longPressTimer.current = null;
-    }
-  };
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -156,11 +143,7 @@ const Dashboard = () => {
             <div className="flex justify-center">
               <div 
                 className="relative cursor-pointer"
-                onTouchStart={handleLogoTouchStart}
-                onTouchEnd={handleLogoTouchEnd}
-                onMouseDown={handleLogoTouchStart}
-                onMouseUp={handleLogoTouchEnd}
-                onMouseLeave={handleLogoTouchEnd}
+                {...longPressHandlers}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>

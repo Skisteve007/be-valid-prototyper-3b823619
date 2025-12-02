@@ -10,9 +10,11 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Session } from "@supabase/supabase-js";
+import { useLongPressHome } from "@/hooks/useLongPressHome";
 
 const Index = () => {
   const navigate = useNavigate();
+  const longPressHandlers = useLongPressHome();
   const [selectedPlan, setSelectedPlan] = useState<"single" | "couple">("single");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -94,10 +96,13 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Logo on top for mobile, left for desktop */}
-            <div className="relative flex-shrink-0 flex justify-center md:justify-start">
+            <div 
+              className="relative flex-shrink-0 flex justify-center md:justify-start cursor-pointer"
+              {...longPressHandlers}
+            >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto h-20 md:h-24" />
+              <img src={logo} alt="Clean Check" className="relative w-auto h-20 md:h-24 select-none" draggable={false} />
             </div>
 
             {/* Tagline in the middle - desktop only */}

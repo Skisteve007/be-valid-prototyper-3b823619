@@ -37,11 +37,17 @@ const AdminSetup = () => {
         .eq("role", "administrator")
         .limit(1);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error checking admin:", error);
+      }
 
       if (data && data.length > 0) {
-        // Admin exists, redirect to login
-        navigate("/admin/login");
+        // Admin exists, redirect to login immediately
+        toast.info("Admin account already exists. Redirecting to login...");
+        setTimeout(() => {
+          navigate("/admin/login", { replace: true });
+        }, 500);
+        return;
       }
     } catch (err) {
       console.error("Error checking admin:", err);

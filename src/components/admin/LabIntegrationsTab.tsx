@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,10 +18,11 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { FlaskConical, Loader2, TestTube, Key } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FlaskConical, Loader2, TestTube, Key, Image, Upload, Trash2 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LabPartnersManager } from "./LabPartnersManager";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface LabOrder {
   id: string;
@@ -35,16 +36,103 @@ interface LabOrder {
   };
 }
 
+interface CertifiedProfile {
+  id: string;
+  user_id: string;
+  full_name: string | null;
+  lab_certified: boolean;
+  lab_logo_url: string | null;
+  member_id: string | null;
+}
+
 export const LabIntegrationsTab = () => {
   const [orders, setOrders] = useState<LabOrder[]>([]);
+  const [certifiedProfiles, setCertifiedProfiles] = useState<CertifiedProfile[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingLogos, setLoadingLogos] = useState(true);
   const [simulateDialogOpen, setSimulateDialogOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<LabOrder | null>(null);
   const [simulating, setSimulating] = useState(false);
+  const [uploadingLogo, setUploadingLogo] = useState<string | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const [selectedProfileForLogo, setSelectedProfileForLogo] = useState<string | null>(null);
 
   useEffect(() => {
     fetchLabOrders();
+    fetchCertifiedProfiles();
   }, []);
+
+  const fetchCertifiedProfiles = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("id, user_id, full_name, lab_certified, lab_logo_url, member_id")
+        .eq("lab_certified", true)
+        .order("full_name", { ascending: true });
+
+      if (error) throw error;
+      setCertifiedProfiles(data || []);
+    } catch (error: any) {
+      console.error("Error fetching certified profiles:", error);
+      toast.error("Failed to load certified profiles");
+    } finally {
+      setLoadingLogos(false);
+    }
+  };
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>, profileId: string) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingLogo(profileId);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `lab-logo-${profileId}-${Date.now()}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('profile-images')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('profile-images')
+        .getPublicUrl(fileName);
+
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ lab_logo_url: publicUrl })
+        .eq('id', profileId);
+
+      if (updateError) throw updateError;
+
+      toast.success("Lab logo updated successfully");
+      await fetchCertifiedProfiles();
+    } catch (error: any) {
+      console.error("Error uploading logo:", error);
+      toast.error("Failed to upload lab logo");
+    } finally {
+      setUploadingLogo(null);
+      setSelectedProfileForLogo(null);
+    }
+  };
+
+  const handleRemoveLogo = async (profileId: string) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ lab_logo_url: null })
+        .eq('id', profileId);
+
+      if (error) throw error;
+
+      toast.success("Lab logo removed");
+      await fetchCertifiedProfiles();
+    } catch (error: any) {
+      console.error("Error removing logo:", error);
+      toast.error("Failed to remove lab logo");
+    }
+  };
 
   const fetchLabOrders = async () => {
     try {
@@ -169,10 +257,14 @@ export const LabIntegrationsTab = () => {
   return (
     <div className="space-y-6 p-6">
       <Tabs defaultValue="orders" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="orders">
             <FlaskConical className="h-4 w-4 mr-2" />
             Lab Orders
+          </TabsTrigger>
+          <TabsTrigger value="logos">
+            <Image className="h-4 w-4 mr-2" />
+            Lab Logos
           </TabsTrigger>
           <TabsTrigger value="partners">
             <Key className="h-4 w-4 mr-2" />
@@ -245,6 +337,89 @@ export const LabIntegrationsTab = () => {
             </div>
           </CardContent>
         </Card>
+        </TabsContent>
+
+        <TabsContent value="logos" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-2xl">
+                <Image className="h-6 w-6" />
+                Lab Logo Management
+              </CardTitle>
+              <CardDescription>
+                Upload and manage lab logos for certified members
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loadingLogos ? (
+                <div className="flex justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                </div>
+              ) : certifiedProfiles.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  No lab-certified members found
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {certifiedProfiles.map((profile) => (
+                    <div key={profile.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden">
+                          {profile.lab_logo_url ? (
+                            <img 
+                              src={profile.lab_logo_url} 
+                              alt="Lab Logo" 
+                              className="w-full h-full object-contain p-1"
+                            />
+                          ) : (
+                            <span className="text-xs text-gray-400 text-center">No Logo</span>
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-semibold">{profile.full_name || "Unknown"}</p>
+                          <p className="text-xs text-muted-foreground font-mono">{profile.member_id}</p>
+                          <Badge className="bg-green-600 mt-1">Lab Certified</Badge>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          id={`logo-upload-${profile.id}`}
+                          onChange={(e) => handleLogoUpload(e, profile.id)}
+                        />
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => document.getElementById(`logo-upload-${profile.id}`)?.click()}
+                          disabled={uploadingLogo === profile.id}
+                        >
+                          {uploadingLogo === profile.id ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <>
+                              <Upload className="h-4 w-4 mr-2" />
+                              {profile.lab_logo_url ? "Change" : "Upload"}
+                            </>
+                          )}
+                        </Button>
+                        {profile.lab_logo_url && (
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => handleRemoveLogo(profile.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="partners">

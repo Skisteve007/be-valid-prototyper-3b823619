@@ -933,6 +933,7 @@ export type Database = {
         Args: { _campaign_id: string; _stat_type: string }
         Returns: undefined
       }
+      restore_stevieg_profile: { Args: never; Returns: undefined }
     }
     Enums: {
       app_role:

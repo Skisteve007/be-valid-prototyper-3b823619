@@ -103,10 +103,10 @@ const Index = () => {
             {/* Tagline in the middle - desktop only */}
             <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-8">
               <p className="text-xl xl:text-2xl font-bold text-center bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                Your Health Status. Insta Proof.
+                QR Coded Share.
               </p>
               <p className="text-sm xl:text-base font-medium text-center text-muted-foreground mt-1">
-                The fastest way to verify sexual health and toxicology results peer-to-peer.
+                The Fastest Way to Verify Sexual Health & Toxicology Results.
               </p>
             </div>
 
@@ -155,10 +155,10 @@ const Index = () => {
           {/* Mobile tagline below */}
           <div className="lg:hidden text-center mt-2">
             <p className="text-sm md:text-base font-bold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent">
-              Your Health Status. Insta Proof.
+              QR Coded Share.
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              The fastest way to verify sexual health and toxicology results peer-to-peer.
+              The Fastest Way to Verify Sexual Health & Toxicology Results.
             </p>
           </div>
         </div>

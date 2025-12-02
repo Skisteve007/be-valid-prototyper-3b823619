@@ -14,7 +14,6 @@ import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
-import { InterestsSelector } from "./profile/InterestsSelector";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface ProfileTabProps {
@@ -619,22 +618,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
 
       <div className="relative py-4">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-1 bg-gradient-to-r from-teal-500 via-cyan-400 to-teal-500 rounded-full opacity-60"></div>
-        </div>
-      </div>
-
-      <InterestsSelector
-        selectedInterests={selectedInterests}
-        onInterestsChange={setSelectedInterests}
-      />
-
-      <div className="relative py-4">
-        <div className="absolute inset-0 flex items-center">
           <div className="w-full h-1 bg-gradient-to-r from-indigo-500 via-blue-400 to-indigo-500 rounded-full opacity-60"></div>
         </div>
       </div>
 
-      <SocialMediaSection 
+      <SocialMediaSection
         register={register}
         instagramHandle={instagramHandle || ""}
         tiktokHandle={tiktokHandle || ""}

@@ -182,6 +182,12 @@ export const PersonalInfoSection = ({
                         {sexualOrientation}
                       </Badge>
                     )}
+                    {relationshipStatus && (
+                      <div className="flex items-center gap-1">
+                        <Heart className="w-3.5 h-3.5 text-pink-500" />
+                        <span className="text-sm text-muted-foreground">{relationshipStatus}</span>
+                      </div>
+                    )}
                   </div>
                   
                   {emailShareable === true && email && (
@@ -211,12 +217,6 @@ export const PersonalInfoSection = ({
                         <span className="text-muted-foreground">{currentHomeCity}</span>
                       </div>
                     )}
-                    {relationshipStatus && (
-                      <div className="flex items-center gap-1">
-                        <Heart className="w-3.5 h-3.5 text-pink-500" />
-                        <span className="text-muted-foreground">{relationshipStatus}</span>
-                      </div>
-                    )}
                   </div>
                   
                   {seekingPreference && (
@@ -230,7 +230,7 @@ export const PersonalInfoSection = ({
                 </div>
                 
                 {/* Lab Certified Section - Right side on desktop */}
-                <div className="hidden md:flex flex-col items-center justify-center p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 min-w-[130px]">
+                <div className="hidden md:flex flex-col items-center justify-center p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 ml-auto">
                   <div className="flex flex-col items-center gap-2">
                     <div className="flex items-center gap-2">
                       {isAdmin ? (

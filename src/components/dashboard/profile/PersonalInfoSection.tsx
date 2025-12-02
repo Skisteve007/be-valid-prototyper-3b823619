@@ -150,7 +150,7 @@ export const PersonalInfoSection = ({
             
             {profileImageUrl ? (
               <>
-                <div className="flex-1 space-y-2 md:space-y-3 pt-0 md:pt-2">
+                <div className="space-y-2 md:space-y-3 pt-0 md:pt-2">
                   {fullName && (
                     <div className="flex items-center gap-2">
                       <User className="w-4 h-4 text-blue-500" />

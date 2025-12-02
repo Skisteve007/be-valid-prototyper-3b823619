@@ -40,6 +40,11 @@ interface PreferencesSelectorProps {
 
 const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
   {
+    id: "social_dynamic",
+    title: "Social Dynamic",
+    items: ["Couples", "Singles", "Groups", "One-on-One", "Observing", "Full Swap", "Soft Swap"],
+  },
+  {
     id: "relationship_styles",
     title: "Relationship Style",
     items: ["Casual", "Serious", "Open", "Throuple", "Couple"],
@@ -58,6 +63,7 @@ const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
 
 const getCategoryIcon = (categoryId: string): { Icon: LucideIcon; color: string } => {
   const iconMap: Record<string, { Icon: LucideIcon; color: string }> = {
+    social_dynamic: { Icon: Users, color: "text-teal-500" },
     relationship_styles: { Icon: Heart, color: "text-pink-500" },
     sensory_preferences: { Icon: Palette, color: "text-purple-500" },
     specific_activities: { Icon: Flame, color: "text-orange-500" },
@@ -90,6 +96,15 @@ export const PreferencesSelector = ({
   // Map preference items to icons
   const getIconForPreference = (item: string): LucideIcon => {
     const iconMap: Record<string, LucideIcon> = {
+      // Social Dynamic
+      "Couples": Heart,
+      "Singles": User,
+      "Groups": UsersRound,
+      "One-on-One": UserPlus,
+      "Observing": Eye,
+      "Full Swap": Sparkles,
+      "Soft Swap": Zap,
+      
       // Relationship Style
       "Casual": Sparkles,
       "Serious": Heart,

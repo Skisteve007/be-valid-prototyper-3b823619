@@ -84,18 +84,17 @@ const AdminSetup = () => {
         }
       );
 
-      if (createError) {
-        throw new Error(createError.message || "Failed to create admin account");
-      }
-
-      if (!createData?.success) {
-        // Check if error is "admin already exists"
-        if (createData?.error && createData.error.includes("administrator already exists")) {
+      // Handle the case where admin already exists (400 response)
+      if (createError || (createData && !createData.success)) {
+        const errorMessage = createData?.error || createError?.message || "Unknown error";
+        
+        if (errorMessage.toLowerCase().includes("administrator already exists")) {
           toast.info("Admin account already exists. Redirecting to login...");
-          navigate("/admin/login");
+          setTimeout(() => navigate("/admin/login"), 1000);
           return;
         }
-        throw new Error(createData?.error || "Failed to create admin account");
+        
+        throw new Error(errorMessage);
       }
 
       toast.success("Admin account created successfully!");
@@ -107,13 +106,23 @@ const AdminSetup = () => {
       });
 
       if (signInError) {
-        throw new Error("Account created but login failed. Please try logging in.");
+        toast.error("Account created but login failed. Please try logging in manually.");
+        setTimeout(() => navigate("/admin/login"), 2000);
+        return;
       }
 
       // Redirect to admin panel
       navigate("/admin");
     } catch (err: any) {
       console.error("Admin setup error:", err);
+      
+      // Double-check if this is the "admin exists" error
+      if (err.message && err.message.toLowerCase().includes("administrator already exists")) {
+        toast.info("Admin account already exists. Redirecting to login...");
+        setTimeout(() => navigate("/admin/login"), 1000);
+        return;
+      }
+      
       setError(err.message || "Failed to create admin account. Please try again.");
     } finally {
       setLoading(false);

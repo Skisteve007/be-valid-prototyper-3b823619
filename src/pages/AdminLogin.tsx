@@ -21,34 +21,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [checkingSetup, setCheckingSetup] = useState(true);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    checkIfSetupNeeded();
-  }, []);
-
-  const checkIfSetupNeeded = async () => {
-    try {
-      // Check if any admin exists
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("id")
-        .eq("role", "administrator")
-        .limit(1);
-
-      if (error) throw error;
-
-      if (!data || data.length === 0) {
-        // No admin exists, redirect to setup
-        navigate("/admin/setup");
-      }
-    } catch (err) {
-      console.error("Error checking admin setup:", err);
-    } finally {
-      setCheckingSetup(false);
-    }
-  };
 
   const isValidAdminEmail = (email: string) => {
     return ADMIN_EMAILS.includes(email.toLowerCase().trim());
@@ -110,17 +83,6 @@ const AdminLogin = () => {
       setLoading(false);
     }
   };
-
-  if (checkingSetup) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <Shield className="h-12 w-12 text-purple-400 animate-pulse mx-auto mb-4" />
-          <p className="text-muted-foreground">Checking admin setup...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background flex flex-col">

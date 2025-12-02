@@ -235,25 +235,44 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error("Please select an image file");
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image must be less than 5MB");
+      return;
+    }
+
     setUploadingImage(true);
     try {
       const fileExt = file.name.split('.').pop();
       const filePath = `${userId}/profile.${fileExt}`;
 
+      console.log("Uploading image to:", filePath);
+
       const { error: uploadError } = await supabase.storage
         .from('profile-images')
         .upload(filePath, file, { upsert: true });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error("Upload error:", uploadError);
+        throw uploadError;
+      }
 
       const { data: { publicUrl } } = supabase.storage
         .from('profile-images')
         .getPublicUrl(filePath);
 
+      console.log("Image uploaded successfully:", publicUrl);
       setProfileImageUrl(publicUrl);
-      toast.success("Profile photo uploaded");
+      toast.success("Profile photo uploaded successfully!");
     } catch (error: any) {
-      toast.error("Failed to upload image");
+      console.error("Image upload failed:", error);
+      toast.error(error.message || "Failed to upload image. Please try again.");
     } finally {
       setUploadingImage(false);
     }
@@ -263,25 +282,44 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error("Please select an image file");
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image must be less than 5MB");
+      return;
+    }
+
     setUploadingLabLogo(true);
     try {
       const fileExt = file.name.split('.').pop();
       const filePath = `${userId}/lab-logo.${fileExt}`;
 
+      console.log("Uploading lab logo to:", filePath);
+
       const { error: uploadError } = await supabase.storage
         .from('profile-images')
         .upload(filePath, file, { upsert: true });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error("Lab logo upload error:", uploadError);
+        throw uploadError;
+      }
 
       const { data: { publicUrl } } = supabase.storage
         .from('profile-images')
         .getPublicUrl(filePath);
 
+      console.log("Lab logo uploaded successfully:", publicUrl);
       setLabLogoUrl(publicUrl);
-      toast.success("Lab logo uploaded");
+      toast.success("Lab logo uploaded successfully!");
     } catch (error: any) {
-      toast.error("Failed to upload lab logo");
+      console.error("Lab logo upload failed:", error);
+      toast.error(error.message || "Failed to upload lab logo. Please try again.");
     } finally {
       setUploadingLabLogo(false);
     }

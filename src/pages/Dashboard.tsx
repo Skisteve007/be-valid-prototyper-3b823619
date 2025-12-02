@@ -175,7 +175,7 @@ const Dashboard = () => {
             <CardTitle className="text-2xl md:text-3xl">
               <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Dashboard</span>
             </CardTitle>
-            <CardDescription className="text-sm md:text-base">
+            <CardDescription className="text-sm md:text-base italic">
               Manage your profile, documents, and QR code
             </CardDescription>
           </CardHeader>

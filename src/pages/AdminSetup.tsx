@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Shield, CheckCircle } from "lucide-react";
+import { Shield, CheckCircle, Settings } from "lucide-react";
 import { toast } from "sonner";
 import logo from "@/assets/clean-check-logo.png";
 
@@ -148,6 +148,19 @@ const AdminSetup = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      {/* Admin Login Button - Bottom Left */}
+      <div className="fixed bottom-4 left-4 z-50">
+        <Button
+          onClick={() => navigate("/admin/login")}
+          size="sm"
+          variant="outline"
+          className="shadow-lg"
+        >
+          <Settings className="h-3 w-3 mr-1" />
+          Admin Login
+        </Button>
+      </div>
+
       {/* Header */}
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-6">

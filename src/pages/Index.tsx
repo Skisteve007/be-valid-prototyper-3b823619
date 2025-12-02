@@ -11,10 +11,13 @@ import { supabase } from "@/integrations/supabase/client";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Session } from "@supabase/supabase-js";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
+import { LanguageSelector, LanguageWelcomeBanner } from "@/components/LanguageSelector";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
   const navigate = useNavigate();
   const longPressHandlers = useLongPressHome();
+  const isMobile = useIsMobile();
   const [selectedPlan, setSelectedPlan] = useState<"single" | "couple">("single");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -92,6 +95,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden w-full max-w-full">
+      {/* Mobile Welcome Banner */}
+      {isMobile && <LanguageWelcomeBanner />}
+      
       <header className="border-b bg-card sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -119,8 +125,13 @@ const Index = () => {
               </p>
             </div>
 
-            {/* Buttons - stacked on mobile, row on desktop */}
+            {/* Buttons + Language Selector - stacked on mobile, row on desktop */}
             <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto items-stretch md:items-end flex-shrink-0">
+              {/* Language Selector - positioned top right on mobile */}
+              <div className="flex justify-end md:hidden mb-2">
+                <LanguageSelector />
+              </div>
+              
               <Button 
                 onClick={() => navigate("/auth?mode=login")}
                 className="relative shadow-[0_0_20px_rgba(22,163,74,0.6)] hover:shadow-[0_0_30px_rgba(22,163,74,0.8)] border border-green-600/60 bg-green-600/15 text-white font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
@@ -157,6 +168,9 @@ const Index = () => {
                   <div className="absolute inset-0 bg-blue-500/20 blur-md rounded-md -z-10"></div>
                   Profile
                 </Button>
+                
+                {/* Language Selector - desktop position */}
+                <LanguageSelector className="hidden md:flex" />
               </div>
             </div>
           </div>

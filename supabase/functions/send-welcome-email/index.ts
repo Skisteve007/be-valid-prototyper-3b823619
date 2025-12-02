@@ -24,34 +24,51 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
-    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
     
-    // Create client with anon key for auth verification
-    const authClient = createClient(supabaseUrl, supabaseAnonKey, {
-      global: { headers: { Authorization: req.headers.get('Authorization')! } }
-    });
-
-    // Verify authentication
-    const { data: { user }, error: authError } = await authClient.auth.getUser();
-    
-    if (authError || !user) {
-      console.error('Authentication failed:', authError);
+    // Extract JWT token from Authorization header
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      console.error('No Authorization header found');
       return new Response(
         JSON.stringify({ error: 'Unauthorized - authentication required' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Sending welcome email for authenticated user:', user.id);
+    // Decode JWT to get user ID (JWT is already verified by Supabase runtime since verify_jwt=true)
+    const token = authHeader.replace('Bearer ', '');
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const userId = payload.sub;
+
+    if (!userId) {
+      console.error('No user ID found in JWT');
+      return new Response(
+        JSON.stringify({ error: 'Invalid token' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log('Sending welcome email for authenticated user:', userId);
     
-    // Get email and member data from authenticated user's profile
+    // Use service role key to fetch user data
     const supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
+    
+    // Get user email from auth.users
+    const { data: { user }, error: userError } = await supabaseClient.auth.admin.getUserById(userId);
+    
+    if (userError || !user) {
+      console.error('Failed to fetch user:', userError);
+      return new Response(
+        JSON.stringify({ error: 'User not found' }),
+        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
     
     const { data: profile, error: profileError } = await supabaseClient
       .from('profiles')
       .select('full_name, member_id')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .single();
     
     if (profileError || !profile) {

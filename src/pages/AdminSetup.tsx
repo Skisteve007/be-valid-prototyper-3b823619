@@ -43,8 +43,9 @@ const AdminSetup = () => {
       }
 
       if (data && data.length > 0) {
-        // Admin exists, show login button instead
-        setAdminExists(true);
+        // Admin exists - immediately redirect, don't show form
+        window.location.href = "/admin/login";
+        return;
       }
     } catch (err) {
       console.error("Error checking admin:", err);

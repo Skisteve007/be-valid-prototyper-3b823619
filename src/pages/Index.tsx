@@ -101,8 +101,11 @@ const Index = () => {
             </div>
 
             {/* Tagline in the middle - desktop only */}
-            <div className="hidden lg:flex flex-1 justify-center px-8">
-              <p className="text-base xl:text-lg font-semibold text-center bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+            <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-8">
+              <p className="text-lg xl:text-xl font-bold text-center bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                Your Health Status. Insta Proof.
+              </p>
+              <p className="text-sm xl:text-base font-semibold text-center bg-gradient-to-r from-blue-500 via-pink-500 to-blue-600 bg-clip-text text-transparent mt-1">
                 QR-Coded Share. The Fastest Way to Verify Sexual Health & Toxicology Results.
               </p>
             </div>
@@ -151,7 +154,10 @@ const Index = () => {
           
           {/* Mobile tagline below */}
           <div className="lg:hidden text-center">
-            <p className="text-xs md:text-sm font-semibold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent leading-tight">
+            <p className="text-sm md:text-base font-bold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent">
+              Your Health Status. Insta Proof.
+            </p>
+            <p className="text-xs font-semibold bg-gradient-to-r from-blue-400 via-pink-400 to-blue-500 bg-clip-text text-transparent mt-0.5">
               QR-Coded Share. The Fastest Way to Verify Sexual Health & Toxicology Results.
             </p>
           </div>

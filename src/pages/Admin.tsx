@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -20,6 +20,7 @@ import StorageSponsorManager from "@/components/admin/StorageSponsorManager";
 import { LabIntegrationsTab } from "@/components/admin/LabIntegrationsTab";
 import { DevelopersIntegrationsTab } from "@/components/admin/DevelopersIntegrationsTab";
 import { CampaignsTab } from "@/components/admin/CampaignsTab";
+import { VenueDirectoryTab } from "@/components/admin/VenueDirectoryTab";
 import {
   DndContext,
   closestCenter,
@@ -511,6 +512,10 @@ const Admin = () => {
             <TabsTrigger value="campaigns" className="cursor-pointer flex-1">
               Campaigns
             </TabsTrigger>
+            <TabsTrigger value="venues" className="cursor-pointer flex-1">
+              <Globe className="h-4 w-4 mr-2" />
+              Venue Directory
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="sponsors" className="space-y-8">
@@ -801,6 +806,10 @@ const Admin = () => {
           
           <TabsContent value="campaigns">
             <CampaignsTab />
+          </TabsContent>
+          
+          <TabsContent value="venues">
+            <VenueDirectoryTab />
           </TabsContent>
         </Tabs>
       </main>

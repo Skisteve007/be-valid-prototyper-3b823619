@@ -725,7 +725,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
 
       <div className="flex items-center gap-3 p-3 rounded-full border bg-muted/30">
         <FileText className="w-4 h-4 text-green-500 flex-shrink-0" />
-        <span className="text-xs font-medium whitespace-nowrap">STD Status:</span>
+        <span className="text-sm font-semibold whitespace-nowrap bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">STD Status:</span>
         <Input
           id="std_acknowledgment"
           {...register("std_acknowledgment")}

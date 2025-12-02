@@ -450,7 +450,7 @@ const StorageSponsorManager = () => {
                         <img
                           src={file.publicUrl}
                           alt={sponsor.name}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain p-2"
                         />
                       </div>
                       
@@ -521,7 +521,7 @@ const StorageSponsorManager = () => {
                       <img
                         src={file.publicUrl}
                         alt={file.name}
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-contain p-2"
                       />
                     </div>
                     

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Home, FlaskConical, ShieldCheck } from "lucide-react";
+import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Home, FlaskConical, ShieldCheck, ArrowUp } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
@@ -201,7 +201,7 @@ const Dashboard = () => {
                       className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
                     >
                       <Award className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">Documents</span>
+                      <span className="text-sm">Document<ArrowUp className="h-3 w-3 inline-block -mt-0.5" /></span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="qrcode"

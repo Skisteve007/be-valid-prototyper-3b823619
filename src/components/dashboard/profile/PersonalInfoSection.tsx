@@ -110,7 +110,7 @@ export const PersonalInfoSection = ({
   return (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold border-b pb-2">
-        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Information</span>
+        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Quick Share Info</span>
       </h3>
       
       <div className="space-y-2">

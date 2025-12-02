@@ -1,16 +1,1 @@
-project_id = "nqhkjngqunmqynymzlbe"
-
-[functions.view-profile-with-token]
-verify_jwt = false
-
-[functions.process-payment-success]
-verify_jwt = true
-
-[functions.send-welcome-email]
-verify_jwt = true
-
-[functions.verify-paypal-webhook]
-verify_jwt = false
-
-[functions.receive-lab-result]
-verify_jwt = false
+project_id = "csfwfxkuyapfakrmhgjh"

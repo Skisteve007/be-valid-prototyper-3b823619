@@ -19,6 +19,7 @@ import StorageSponsorManager from "@/components/admin/StorageSponsorManager";
 import { LabIntegrationsTab } from "@/components/admin/LabIntegrationsTab";
 import { DevelopersIntegrationsTab } from "@/components/admin/DevelopersIntegrationsTab";
 import { CampaignsTab } from "@/components/admin/CampaignsTab";
+import { CampaignAnalytics } from "@/components/admin/CampaignAnalytics";
 import {
   DndContext,
   closestCenter,
@@ -506,6 +507,10 @@ const Admin = () => {
             <TabsTrigger value="campaigns" className="cursor-pointer flex-1">
               Campaigns
             </TabsTrigger>
+            <TabsTrigger value="campaign-analytics" className="cursor-pointer flex-1">
+              <TrendingUp className="h-4 w-4 mr-2" />
+              Campaign Analytics
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="sponsors" className="space-y-8">
@@ -796,6 +801,10 @@ const Admin = () => {
           
           <TabsContent value="campaigns">
             <CampaignsTab />
+          </TabsContent>
+          
+          <TabsContent value="campaign-analytics">
+            <CampaignAnalytics />
           </TabsContent>
         </Tabs>
       </main>

@@ -76,6 +76,56 @@ export type Database = {
           },
         ]
       }
+      campaign_analytics: {
+        Row: {
+          bounce_count: number
+          campaign_id: string | null
+          click_count: number
+          created_at: string
+          delivered_count: number
+          id: string
+          last_sent_at: string | null
+          open_count: number
+          sent_count: number
+          unsubscribe_count: number
+          updated_at: string
+        }
+        Insert: {
+          bounce_count?: number
+          campaign_id?: string | null
+          click_count?: number
+          created_at?: string
+          delivered_count?: number
+          id?: string
+          last_sent_at?: string | null
+          open_count?: number
+          sent_count?: number
+          unsubscribe_count?: number
+          updated_at?: string
+        }
+        Update: {
+          bounce_count?: number
+          campaign_id?: string | null
+          click_count?: number
+          created_at?: string
+          delivered_count?: number
+          id?: string
+          last_sent_at?: string | null
+          open_count?: number
+          sent_count?: number
+          unsubscribe_count?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_analytics_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: true
+            referencedRelation: "marketing_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       certifications: {
         Row: {
           created_at: string
@@ -146,6 +196,44 @@ export type Database = {
             columns: ["template_id"]
             isOneToOne: false
             referencedRelation: "marketing_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_tracking_events: {
+        Row: {
+          campaign_log_id: string | null
+          created_at: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          ip_address: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          campaign_log_id?: string | null
+          created_at?: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          campaign_log_id?: string | null
+          created_at?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_tracking_events_campaign_log_id_fkey"
+            columns: ["campaign_log_id"]
+            isOneToOne: false
+            referencedRelation: "email_campaign_log"
             referencedColumns: ["id"]
           },
         ]
@@ -840,6 +928,10 @@ export type Database = {
       has_valid_qr_token: {
         Args: { _profile_id: string; _token: string }
         Returns: boolean
+      }
+      increment_campaign_stat: {
+        Args: { _campaign_id: string; _stat_type: string }
+        Returns: undefined
       }
     }
     Enums: {

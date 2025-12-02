@@ -22,6 +22,7 @@ const AdminSetup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [checkingAdmin, setCheckingAdmin] = useState(true);
+  const [adminExists, setAdminExists] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -42,12 +43,8 @@ const AdminSetup = () => {
       }
 
       if (data && data.length > 0) {
-        // Admin exists, redirect to login immediately
-        toast.info("Admin account already exists. Redirecting to login...");
-        setTimeout(() => {
-          navigate("/admin/login", { replace: true });
-        }, 500);
-        return;
+        // Admin exists, show login button instead
+        setAdminExists(true);
       }
     } catch (err) {
       console.error("Error checking admin:", err);
@@ -146,21 +143,69 @@ const AdminSetup = () => {
     );
   }
 
+  // If admin already exists, show login prompt
+  if (adminExists) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        {/* Header */}
+        <header className="border-b bg-card">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex items-center justify-center">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/60 via-pink-500/60 to-purple-500/60 blur-3xl rounded-full scale-150"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/40 via-pink-400/40 to-purple-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
+                <img src={logo} alt="Clean Check" className="relative w-auto" style={{ height: '84px' }} />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <main className="flex-1 flex items-center justify-center px-4 py-12">
+          <Card className="w-full max-w-md relative overflow-hidden">
+            <div className="absolute inset-0 bg-purple-500/10 blur-3xl rounded-lg"></div>
+            
+            <CardHeader className="relative text-center space-y-2">
+              <div className="flex justify-center mb-4">
+                <div className="p-4 rounded-full bg-purple-500/20 border-2 border-purple-500/40">
+                  <Shield className="h-12 w-12 text-purple-400" />
+                </div>
+              </div>
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
+                Admin Already Set Up
+              </CardTitle>
+              <CardDescription className="text-base">
+                An administrator account already exists for this system.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="relative">
+              <div className="space-y-4">
+                <Alert>
+                  <CheckCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    Your admin account has already been created. Please proceed to the login page.
+                  </AlertDescription>
+                </Alert>
+
+                <Button
+                  onClick={() => navigate("/admin/login")}
+                  className="w-full relative shadow-[0_0_30px_rgba(168,85,247,0.7)] hover:shadow-[0_0_40px_rgba(168,85,247,0.9)] border-2 border-purple-500/60 bg-purple-600/20 text-purple-300 font-bold text-base"
+                >
+                  <div className="absolute inset-0 bg-purple-500/25 blur-lg rounded-md -z-10"></div>
+                  <Settings className="h-4 w-4 mr-2" />
+                  Go to Admin Login
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Admin Login Button - Bottom Left */}
-      <div className="fixed bottom-4 left-4 z-50">
-        <Button
-          onClick={() => navigate("/admin/login")}
-          size="sm"
-          variant="outline"
-          className="shadow-lg"
-        >
-          <Settings className="h-3 w-3 mr-1" />
-          Admin Login
-        </Button>
-      </div>
-
       {/* Header */}
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-6">

@@ -759,13 +759,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         ) : (
           <div className="space-y-2">
             <Label htmlFor="std_acknowledgment">STD Status & Information</Label>
-            <p className="text-xs text-muted-foreground italic">This is voluntary shared information for full transparency.</p>
-            <Textarea
+            <p className="text-xs text-muted-foreground italic">Voluntary shared information for transparency.</p>
+            <Input
               id="std_acknowledgment"
               {...register("std_acknowledgment")}
-              rows={2}
-              placeholder="Please provide any relevant health information..."
-              className="resize-none"
+              placeholder="Enter health information..."
             />
           </div>
         )}
@@ -812,60 +810,27 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           </div>
         ) : (
           <>
-            <p className="text-sm text-muted-foreground">
-              Enter up to 3 member IDs to link reference profiles
+            <p className="text-xs text-muted-foreground mb-2">
+              Enter up to 3 member IDs to link references
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="flex flex-col md:flex-row gap-2">
               {[0, 1, 2].map((index) => (
-                <Card key={index} className="overflow-hidden">
-                  <CardContent className="p-3">
-                    <div className="space-y-2">
-                      <Label htmlFor={`reference-${index}`} className="text-xs">Reference #{index + 1}</Label>
-                      <Input
-                        id={`reference-${index}`}
-                        value={referenceIds[index]}
-                        onChange={(e) => handleReferenceIdChange(index, e.target.value)}
-                        placeholder="CC-12345678"
-                        className="font-mono text-sm h-8"
-                      />
-                      {referenceProfiles[index] && (
-                        <div className="mt-1 p-2 bg-primary/10 border border-primary/20 rounded-md space-y-1">
-                          <div className="flex items-center gap-1.5">
-                            <div className={`w-1.5 h-1.5 rounded-full ${referenceProfiles[index]?.verified ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                            <p className="font-semibold text-xs">{referenceProfiles[index]?.full_name}</p>
-                            {referenceProfiles[index]?.verified && (
-                              <Badge variant="default" className="bg-green-500 text-white text-[10px] px-1 py-0">
-                                <CheckCircle className="h-2 w-2 mr-0.5" />
-                                Verified
-                              </Badge>
-                            )}
-                          </div>
-                          <p className="text-[10px] text-muted-foreground font-mono">
-                            {referenceProfiles[index]?.member_id}
-                          </p>
-                          {!referenceProfiles[index]?.verified && (
-                            <p className="text-[10px] text-yellow-600 dark:text-yellow-400">
-                              Pending verification
-                            </p>
-                          )}
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant="default"
-                            className="w-full h-6 text-xs"
-                            onClick={() => window.open(`/profile/${referenceProfiles[index]?.id}`, '_blank')}
-                          >
-                            <ExternalLink className="h-2.5 w-2.5 mr-1" />
-                            View
-                          </Button>
-                        </div>
-                      )}
-                      {referenceIds[index] && !referenceProfiles[index] && (
-                        <p className="text-[10px] text-destructive">Member ID not found</p>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
+                <div key={index} className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id={`reference-${index}`}
+                      value={referenceIds[index]}
+                      onChange={(e) => handleReferenceIdChange(index, e.target.value)}
+                      placeholder={`Ref #${index + 1}`}
+                      className="font-mono text-xs h-8"
+                    />
+                    {referenceProfiles[index] && (
+                      <Badge variant={referenceProfiles[index]?.verified ? "default" : "secondary"} className="text-[10px] whitespace-nowrap">
+                        {referenceProfiles[index]?.verified ? "✓" : "○"} {referenceProfiles[index]?.full_name?.split(' ')[0]}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
               ))}
             </div>
           </>

@@ -89,6 +89,12 @@ const AdminSetup = () => {
       }
 
       if (!createData?.success) {
+        // Check if error is "admin already exists"
+        if (createData?.error && createData.error.includes("administrator already exists")) {
+          toast.info("Admin account already exists. Redirecting to login...");
+          navigate("/admin/login");
+          return;
+        }
         throw new Error(createData?.error || "Failed to create admin account");
       }
 

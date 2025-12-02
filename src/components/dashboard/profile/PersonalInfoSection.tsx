@@ -230,7 +230,7 @@ export const PersonalInfoSection = ({
                 </div>
                 
                 {/* Lab Certified Section - Right side on desktop */}
-                <div className="hidden md:flex flex-col items-center justify-center p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 ml-auto">
+                <div className="hidden md:flex flex-col items-center justify-center p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
                   <div className="flex flex-col items-center gap-2">
                     <div className="flex items-center gap-2">
                       {isAdmin ? (

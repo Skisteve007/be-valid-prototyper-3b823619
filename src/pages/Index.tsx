@@ -106,7 +106,7 @@ const Index = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-xl rounded-full animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-pink-400/10 to-blue-400/10 blur-2xl rounded-full"></div>
                 <p className="relative text-lg xl:text-xl font-bold text-center text-foreground">
-                  Your Health Status Insta Proof
+                  Insta Proof Health Status
                 </p>
               </div>
               <p className="text-sm xl:text-base font-semibold text-center text-foreground mt-2">
@@ -161,7 +161,7 @@ const Index = () => {
             <div className="relative inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-pink-500/10 to-blue-500/10 border border-blue-500/20">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-lg rounded-full animate-pulse"></div>
               <p className="relative text-sm font-bold text-foreground">
-                Your Health Status Insta Proof
+                Insta Proof Health Status
               </p>
             </div>
             <p className="text-xs font-semibold text-foreground mt-1">

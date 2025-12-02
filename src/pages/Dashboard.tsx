@@ -16,6 +16,7 @@ import PendingReferencesTab from "@/components/dashboard/PendingReferencesTab";
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
 import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
+import { VenueCheckin } from "@/components/dashboard/VenueCheckin";
 import logo from "@/assets/clean-check-logo.png";
 
 const Dashboard = () => {
@@ -192,6 +193,9 @@ const Dashboard = () => {
           >
             {/* Private Inbox - Privacy Firewall for locked lab results */}
             <PrivateInbox userId={user.id} onStatusUpdate={handleProfileUpdate} />
+            
+            {/* Venue Check-in */}
+            <VenueCheckin userId={user.id} />
             
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">

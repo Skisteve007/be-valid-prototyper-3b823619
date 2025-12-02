@@ -397,16 +397,20 @@ const StorageSponsorManager = () => {
     );
   }
 
+  const assignedLogos = storageFiles.filter(file => getSponsorForFile(file.publicUrl));
+  const unassignedLogos = storageFiles.filter(file => !getSponsorForFile(file.publicUrl));
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Storage & Sponsor Manager</CardTitle>
         <CardDescription>
-          Upload logos to storage and assign them to sections. All files in sponsor-logos bucket are shown below.
+          Upload logos and manage sponsor assignments. Total: {storageFiles.length} logos ({assignedLogos.length} assigned, {unassignedLogos.length} available)
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="mb-6">
+      <CardContent className="space-y-8">
+        {/* Upload Section */}
+        <div>
           <Label htmlFor="file-upload" className="cursor-pointer">
             <div className="flex items-center justify-center gap-2 border-2 border-dashed rounded-lg p-6 hover:border-primary transition-colors">
               {uploading ? (
@@ -429,74 +433,58 @@ const StorageSponsorManager = () => {
           </Label>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {storageFiles.map((file) => {
-            const sponsor = getSponsorForFile(file.publicUrl);
-            return (
-              <Card key={file.name} className="overflow-hidden">
-                <CardContent className="p-4">
-                  <div 
-                    className="aspect-video relative bg-muted rounded-lg mb-3 overflow-hidden"
-                  >
-                    <img
-                      src={file.publicUrl}
-                      alt={file.name}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    id={`replace-${file.name}`}
-                    onChange={(e) => handleLogoReplace(e, file.name)}
-                    disabled={uploading}
-                  />
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="w-full mb-3 text-xs"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      document.getElementById(`replace-${file.name}`)?.click();
-                    }}
-                  >
-                    <Upload className="h-3 w-3 mr-1" />
-                    Replace Logo
-                  </Button>
-                  
-                  <div className="space-y-2">
-                    <p className="text-xs text-muted-foreground truncate" title={file.name}>
-                      {file.name}
-                    </p>
-                    
-                    {sponsor ? (
+        {/* Active Sponsors Section */}
+        {assignedLogos.length > 0 && (
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-lg font-semibold">Active Sponsors ({assignedLogos.length})</h3>
+              <p className="text-sm text-muted-foreground">Currently assigned sponsor logos</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {assignedLogos.map((file) => {
+                const sponsor = getSponsorForFile(file.publicUrl)!;
+                return (
+                  <Card key={file.name} className="overflow-hidden border-green-500/20">
+                    <CardContent className="p-4">
+                      <div className="aspect-video relative bg-muted rounded-lg mb-3 overflow-hidden">
+                        <img
+                          src={file.publicUrl}
+                          alt={sponsor.name}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
-                          <Check className="h-4 w-4 text-green-500" />
-                          <span className="text-sm font-medium">{sponsor.name}</span>
+                          <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                          <span className="text-sm font-semibold truncate">{sponsor.name}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="secondary">
+                        
+                        {sponsor.website_url && (
+                          <p className="text-xs text-muted-foreground truncate" title={sponsor.website_url}>
+                            {sponsor.website_url}
+                          </p>
+                        )}
+                        
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Badge variant="secondary" className="text-xs">
                             {sponsor.tier.toUpperCase()}
                           </Badge>
-                          <Badge variant="outline">
+                          <Badge variant="outline" className="text-xs">
                             Section {sponsor.section}
                           </Badge>
-                          <Badge variant="outline" className="capitalize">
+                          <Badge variant="outline" className="text-xs capitalize">
                             {sponsor.category.replace('_', ' ')}
                           </Badge>
-                          {sponsor.active && <Badge className="bg-green-500">Active</Badge>}
+                          {sponsor.active && <Badge className="bg-green-500 text-xs">Active</Badge>}
                         </div>
-                        <div className="flex gap-2">
+                        
+                        <div className="flex gap-2 pt-2">
                           <Button
                             size="sm"
                             variant="outline"
                             className="flex-1"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleEditSponsor(sponsor);
-                            }}
+                            onClick={() => handleEditSponsor(sponsor)}
                           >
                             <Edit className="h-3 w-3 mr-1" />
                             Edit
@@ -504,51 +492,74 @@ const StorageSponsorManager = () => {
                           <Button
                             size="sm"
                             variant="destructive"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDeleteFile(file.name);
-                            }}
+                            onClick={() => handleDeleteFile(file.name)}
                           >
                             <Trash2 className="h-3 w-3" />
                           </Button>
                         </div>
                       </div>
-                    ) : (
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-muted-foreground">
-                          <X className="h-4 w-4" />
-                          <span className="text-sm">Not assigned</span>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button
-                            size="sm"
-                            className="flex-1"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleAssignToSection(file);
-                            }}
-                          >
-                            Assign to Section
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDeleteFile(file.name);
-                            }}
-                          >
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                        </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Available Logos Library */}
+        {unassignedLogos.length > 0 && (
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-lg font-semibold">Logo Library ({unassignedLogos.length})</h3>
+              <p className="text-sm text-muted-foreground">Available logos ready to assign</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {unassignedLogos.map((file) => (
+                <Card key={file.name} className="overflow-hidden border-yellow-500/20">
+                  <CardContent className="p-4">
+                    <div className="aspect-video relative bg-muted rounded-lg mb-3 overflow-hidden">
+                      <img
+                        src={file.publicUrl}
+                        alt={file.name}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <X className="h-4 w-4 text-yellow-500 flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">Unassigned</span>
                       </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                      
+                      <p className="text-xs text-muted-foreground truncate" title={file.name}>
+                        {file.name}
+                      </p>
+                      
+                      <div className="flex gap-2 pt-2">
+                        <Button
+                          size="sm"
+                          variant="default"
+                          className="flex-1"
+                          onClick={() => handleAssignToSection(file)}
+                        >
+                          <Edit className="h-3 w-3 mr-1" />
+                          Assign
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => handleDeleteFile(file.name)}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
 
         {storageFiles.length === 0 && (
           <div className="text-center py-8 text-muted-foreground">

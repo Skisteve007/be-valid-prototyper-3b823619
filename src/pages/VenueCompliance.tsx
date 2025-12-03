@@ -513,6 +513,52 @@ const VenueCompliance = () => {
         </div>
       </section>
 
+      {/* Affiliate Recruitment Section */}
+      <section className="relative py-8 md:py-12 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <div 
+            className="relative rounded-xl overflow-hidden border border-amber-500/50 text-center"
+            style={{
+              padding: '40px',
+              background: 'linear-gradient(90deg, #111, #222)',
+            }}
+          >
+            {/* Gold Glow Background */}
+            <div 
+              className="absolute pointer-events-none"
+              style={{
+                top: '-50%',
+                left: '-50%',
+                width: '200%',
+                height: '200%',
+                background: 'radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%)',
+              }}
+            />
+
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl font-black mb-3" style={{ color: '#D4AF37' }}>
+                💰 Join the Sales Army
+              </h2>
+              <p className="text-slate-300 text-lg max-w-xl mx-auto mb-6">
+                Know a venue? Know a crowd? Sign up as an official Clean Check Partner and earn{' '}
+                <strong className="text-white">20% recurring commissions</strong> on every deal you close.
+              </p>
+
+              <Button
+                onClick={() => navigate('/sales-portal')}
+                className="text-black font-extrabold text-lg px-10 py-6 rounded-full border-none transition-transform hover:scale-105"
+                style={{
+                  background: '#D4AF37',
+                  boxShadow: '0 0 20px rgba(212,175,55,0.4)',
+                }}
+              >
+                GENERATE AGENT ID
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-slate-800/50 py-8 px-4 bg-slate-950/50">
         <div className="container mx-auto max-w-6xl">

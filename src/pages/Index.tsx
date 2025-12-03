@@ -13,11 +13,13 @@ import { Session } from "@supabase/supabase-js";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import { LanguageSelector, LanguageWelcomeBanner } from "@/components/LanguageSelector";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useReferralTracking } from "@/hooks/useReferralTracking";
 
 const Index = () => {
   const navigate = useNavigate();
   const longPressHandlers = useLongPressHome();
   const isMobile = useIsMobile();
+  useReferralTracking(); // Track affiliate referrals from URL
   const [selectedPlan, setSelectedPlan] = useState<"single" | "couple">("single");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");

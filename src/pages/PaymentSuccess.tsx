@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { toast } from "sonner";
 import { Loader2, Lock, Fingerprint, CheckCircle2 } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
+import { processReferralOnPayment } from "@/hooks/useReferralTracking";
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
@@ -45,6 +46,15 @@ const PaymentSuccess = () => {
       // Get payment details from URL params
       const paymentAmount = searchParams.get('amount') || '29';
       const paymentType = searchParams.get('type') || 'Single Member';
+
+      // Process affiliate referral if exists
+      const numericAmount = parseFloat(paymentAmount);
+      if (!isNaN(numericAmount)) {
+        const referralProcessed = await processReferralOnPayment(user.id, numericAmount);
+        if (referralProcessed) {
+          console.log("Referral commission recorded");
+        }
+      }
 
       // Call edge function to process payment success
       const { data, error } = await supabase.functions.invoke('process-payment-success', {

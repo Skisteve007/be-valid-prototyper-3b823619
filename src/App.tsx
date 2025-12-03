@@ -22,6 +22,7 @@ import LabKitOrder from "./pages/LabKitOrder";
 import ToxicologyKitOrder from "./pages/ToxicologyKitOrder";
 import HealthPanelOrder from "./pages/HealthPanelOrder";
 import VenueCompliance from "./pages/VenueCompliance";
+import SalesPortal from "./pages/SalesPortal";
 import NotFound from "./pages/NotFound";
 import { AgeGate } from "./components/AgeGate";
 import Footer from "./components/Footer";
@@ -56,6 +57,7 @@ const App = () => (
           <Route path="/health-panel-order" element={<AgeGate><HealthPanelOrder /></AgeGate>} />
           <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
           <Route path="/compliance" element={<VenueCompliance />} />
+          <Route path="/sales-portal" element={<AgeGate><SalesPortal /></AgeGate>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>

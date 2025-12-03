@@ -21,6 +21,7 @@ import { LabIntegrationsTab } from "@/components/admin/LabIntegrationsTab";
 import { DevelopersIntegrationsTab } from "@/components/admin/DevelopersIntegrationsTab";
 import { CampaignsTab } from "@/components/admin/CampaignsTab";
 import { VenueDirectoryTab } from "@/components/admin/VenueDirectoryTab";
+import SalesTeamTab from "@/components/admin/SalesTeamTab";
 import {
   DndContext,
   closestCenter,
@@ -516,6 +517,9 @@ const Admin = () => {
               <Globe className="h-4 w-4 mr-2" />
               Venue Directory
             </TabsTrigger>
+            <TabsTrigger value="sales-team" className="cursor-pointer flex-1">
+              💰 Sales Team
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="sponsors" className="space-y-8">
@@ -810,6 +814,10 @@ const Admin = () => {
           
           <TabsContent value="venues">
             <VenueDirectoryTab />
+          </TabsContent>
+          
+          <TabsContent value="sales-team">
+            <SalesTeamTab />
           </TabsContent>
         </Tabs>
       </main>

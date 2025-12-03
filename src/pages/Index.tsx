@@ -234,7 +234,7 @@ const Index = () => {
               <p className="text-base md:text-lg lg:text-xl mb-4 text-muted-foreground italic">
                 Instantly verify sexual health and toxicology results with one secure badge.
               </p>
-              <p className="text-lg md:text-xl lg:text-2xl font-bold mb-2 text-white">
+              <p className="text-lg md:text-xl lg:text-2xl font-bold mb-2 text-white italic">
                 The Trusted Peer-to-Peer Share.
               </p>
               <p className="text-sm md:text-base lg:text-lg mb-6 md:mb-8 text-muted-foreground">

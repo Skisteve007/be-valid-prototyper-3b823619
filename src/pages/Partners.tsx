@@ -188,9 +188,9 @@ const Partners = () => {
                 5
               </div>
               <div>
-                <h4 className="font-bold text-gray-900 text-lg mb-2">Status Verification (Member & Platform Action)</h4>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Status Verification & Compliance Reporting (Member & Platform Action)</h4>
                 <p className="text-gray-700 leading-relaxed">
-                  Upon receiving the results, the member is prompted with the option to <strong>upload and verify</strong> these results to their private <strong>Clean Check</strong> status on the platform. Because the results were already linked via the barcode scan (Step 3), our system instantaneously validates the data, updating the member's compliance status in real-time.
+                  Upon receiving the results, the member grants consent to update their private <strong>Clean Check</strong> status. Our system instantly validates the data, updating the member's compliance status. The platform then securely and instantly shares the member's <strong>compliance status</strong> (Clear/Not Clear) with the requiring <strong>Affiliate Establishment</strong> (Venue, Employer, etc.), ensuring organizational requirements are met without ever revealing the member's raw diagnostic data.
                 </p>
               </div>
             </div>

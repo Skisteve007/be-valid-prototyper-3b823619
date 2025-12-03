@@ -100,45 +100,26 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
     };
   }, []);
 
-  const triggerGoogleTranslate = useCallback((langCode: string, shouldReload: boolean = false) => {
-    // Set cookie for Google Translate
-    document.cookie = `googtrans=/en/${langCode}; path=/`;
-    document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname}`;
-    
-    // Find and trigger Google Translate's select element
-    const selectElement = document.querySelector('.goog-te-combo') as HTMLSelectElement;
-    if (selectElement) {
-      selectElement.value = langCode;
-      selectElement.dispatchEvent(new Event('change'));
-    } else if (shouldReload) {
-      // If Google Translate widget not ready, reload to apply translation
-      window.location.href = window.location.pathname;
-    }
-  }, []);
-
   const handleLanguageChange = useCallback((language: Language) => {
     // Prevent action if already on this language
     if (currentLanguage.code === language.code) return;
     
-    setCurrentLanguage(language);
+    // Save preference
     localStorage.setItem("preferred-language", language.code);
     
     if (language.code === 'en') {
       // Reset to English - clear translation cookies
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
-      // Remove the Google Translate frame if it exists
-      const translateFrame = document.querySelector('.goog-te-banner-frame');
-      if (translateFrame) {
-        translateFrame.remove();
-      }
-      // Single controlled reload to clear translation
-      window.location.href = window.location.pathname;
     } else {
-      // User-initiated change: reload if widget not ready
-      triggerGoogleTranslate(language.googleCode, true);
+      // Set translation cookie
+      document.cookie = `googtrans=/en/${language.googleCode}; path=/`;
+      document.cookie = `googtrans=/en/${language.googleCode}; path=/; domain=${window.location.hostname}`;
     }
-  }, [currentLanguage.code, triggerGoogleTranslate]);
+    
+    // Always reload to apply translation
+    window.location.reload();
+  }, [currentLanguage.code]);
 
   // Auto-detect browser language and show prompt
   useEffect(() => {
@@ -162,20 +143,16 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
     }
   }, [handleLanguageChange]);
 
-  // Load saved language preference
+  // Load saved language preference (just update UI state, translation cookie is already set)
   useEffect(() => {
     const savedLang = localStorage.getItem("preferred-language");
-    if (savedLang && isGoogleLoaded) {
+    if (savedLang) {
       const lang = languages.find(l => l.code === savedLang);
-      if (lang && lang.code !== 'en') {
-        setCurrentLanguage(lang);
-        // Apply translation on load only if Google is ready
-        setTimeout(() => triggerGoogleTranslate(lang.googleCode), 500);
-      } else if (lang) {
+      if (lang) {
         setCurrentLanguage(lang);
       }
     }
-  }, [isGoogleLoaded, triggerGoogleTranslate]);
+  }, []);
 
   return (
     <DropdownMenu>

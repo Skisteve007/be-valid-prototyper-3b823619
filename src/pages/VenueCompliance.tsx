@@ -495,8 +495,8 @@ const VenueCompliance = () => {
               Manage and update sexual health verification records for high-frequency dating community members.
             </p>
             <ul className="space-y-2 text-sm">
-              <li>✅ <strong>Rapid Status Update:</strong> Instantly link lab results to a member's QR code.</li>
-              <li>✅ <strong>HIPAA Compliant:</strong> Encrypted, secure, and fully compliant data handling.</li>
+              <li>✅ <strong>Comprehensive Screening:</strong> Includes <strong>Sexual Health</strong> and <strong>Toxicology</strong> verification services.</li>
+              <li>✅ <strong>Rapid Status Update:</strong> Instantly link test results (both types) to a member's QR code.</li>
               <li>✅ <strong>Batch Processing:</strong> Upload multiple results simultaneously via secure API.</li>
               <li>✅ <strong>Error Reduction:</strong> Automated cross-referencing to eliminate manual entry errors.</li>
             </ul>

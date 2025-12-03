@@ -145,7 +145,7 @@ const Index = () => {
               <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-blue-400/30 via-pink-400/25 to-blue-400/30 border border-blue-300/50">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-300/50 via-pink-300/40 to-blue-300/50 blur-xl rounded-full animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-200/40 via-pink-200/30 to-blue-200/40 blur-2xl rounded-full"></div>
-                <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+              <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap text-slate-900 dark:text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                   Instant Proof Health Status
                 </p>
               </div>
@@ -207,7 +207,7 @@ const Index = () => {
           <div className="lg:hidden text-center mt-2">
             <div className="relative inline-block px-12 py-1.5 rounded-full bg-gradient-to-r from-blue-400/30 via-pink-400/25 to-blue-400/30 border border-blue-300/50">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-300/50 via-pink-300/40 to-blue-300/50 blur-lg rounded-full animate-pulse"></div>
-              <p className="relative text-sm font-black italic tracking-[0.2em] whitespace-nowrap text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+              <p className="relative text-sm font-black italic tracking-[0.2em] whitespace-nowrap text-slate-900 dark:text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 Instant Proof Health Status
               </p>
             </div>
@@ -247,13 +247,13 @@ const Index = () => {
                   style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
                 >Zero Doubt.</span>
               </p>
-              <p className="text-lg md:text-xl lg:text-2xl mb-4 italic" style={{ color: '#e2e8f0' }}>
+              <p className="text-lg md:text-xl lg:text-2xl mb-4 italic text-slate-700 dark:text-slate-200">
                 Instantly verify sexual health and toxicology results with one secure badge.
               </p>
-              <p className="text-lg md:text-xl lg:text-2xl font-bold mb-2 text-white italic">
+              <p className="text-lg md:text-xl lg:text-2xl font-bold mb-2 text-slate-900 dark:text-white italic">
                 The Trusted Peer-to-Peer Share.
               </p>
-              <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8" style={{ color: '#cbd5e1' }}>
+              <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 text-slate-600 dark:text-slate-300">
                 Connect with confidence. Share your status securely, with the option to add Lab-Certified Toxicology & Health results whenever you need the ultimate green light.
               </p>
             </ScrollReveal>

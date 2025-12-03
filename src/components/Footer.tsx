@@ -26,12 +26,12 @@ const Footer = () => {
 
         {/* Links & Compliance Row */}
         <div className="flex flex-wrap items-center justify-center gap-2 text-[9px] text-white border-t border-border pt-2">
-          <Link to="/terms" className="hover:text-foreground transition-colors underline">Terms</Link>
-          <span>|</span>
-          <Link to="/privacy" className="hover:text-foreground transition-colors underline">Privacy</Link>
-          <span>|</span>
-          <Link to="/refund" className="hover:text-foreground transition-colors underline">Refund</Link>
-          <span>|</span>
+          <Link to="/terms" className="hover:text-white/80 transition-colors underline text-white">Terms</Link>
+          <span className="text-white">|</span>
+          <Link to="/privacy" className="hover:text-white/80 transition-colors underline text-white">Privacy</Link>
+          <span className="text-white">|</span>
+          <Link to="/refund" className="hover:text-white/80 transition-colors underline text-white">Refund</Link>
+          <span className="text-white">|</span>
           <Link to="/partners" className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent hover:from-pink-400 hover:to-blue-400 transition-all underline">Partners</Link>
           <span className="mx-2">•</span>
           <span>🔞 18 U.S.C. § 2257: All users 18+</span>

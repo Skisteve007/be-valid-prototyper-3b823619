@@ -15,7 +15,7 @@ interface Language {
   googleCode: string; // Google Translate uses slightly different codes
 }
 
-// The "Boca 7" - South Florida market languages
+// Global market languages - expanded for international reach
 const languages: Language[] = [
   { code: "en", googleCode: "en", flag: "🇺🇸", nativeName: "English" },
   { code: "es", googleCode: "es", flag: "🇪🇸", nativeName: "Español" },
@@ -24,6 +24,11 @@ const languages: Language[] = [
   { code: "pt", googleCode: "pt", flag: "🇧🇷", nativeName: "Português" },
   { code: "ro", googleCode: "ro", flag: "🇷🇴", nativeName: "Română" },
   { code: "ht", googleCode: "ht", flag: "🇭🇹", nativeName: "Kreyòl" },
+  { code: "de", googleCode: "de", flag: "🇩🇪", nativeName: "Deutsch" },
+  { code: "it", googleCode: "it", flag: "🇮🇹", nativeName: "Italiano" },
+  { code: "tl", googleCode: "tl", flag: "🇵🇭", nativeName: "Tagalog" },
+  { code: "th", googleCode: "th", flag: "🇹🇭", nativeName: "ไทย" },
+  { code: "zh-CN", googleCode: "zh-CN", flag: "🇨🇳", nativeName: "中文" },
 ];
 
 // Declare Google Translate types

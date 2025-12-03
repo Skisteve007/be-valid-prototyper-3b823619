@@ -174,7 +174,7 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
-        align="end" 
+        align="start" 
         className="w-52 bg-popover border border-border shadow-lg z-[100]"
       >
         <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground border-b border-border mb-1">

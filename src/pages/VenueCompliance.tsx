@@ -120,8 +120,8 @@ const VenueCompliance = () => {
       hook: "The Industry Standard for Talent.",
       benefits: [
         { label: "Get Booked", text: "Show clubs you are verified safe." },
-        { label: "Liability Shield", text: "Protects you and the venue." },
-        { label: "Auto-Renewal", text: "Billing aligns with your 60-day testing cycle." },
+        { label: "Digital Handshake", text: "Auto-syncs your status with your employer." },
+        { label: "Auto-Renewal", text: "Aligns with 60-day testing cycle." },
       ],
       price: "$39.00",
       period: "Every 60 Days",
@@ -466,13 +466,13 @@ const VenueCompliance = () => {
                     </div>
                   )}
 
-                  {/* Performer Card - Individual $39/60 days */}
+                  {/* Performer Card - Individual $39/60 days with Digital Handshake */}
                   {card.type === "performer" && (
                     <div className="w-full text-center">
                       <div className="text-4xl font-black text-amber-400 mb-1">$39.00</div>
-                      <div className="text-white font-bold mb-6">Every 60 Days</div>
+                      <div className="text-white font-bold mb-4">Every 60 Days</div>
                       
-                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-3">
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                         <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                         <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
                         <input type="hidden" name="item_name" value="Clean Check - Performer Compliance Pass" />
@@ -483,6 +483,34 @@ const VenueCompliance = () => {
                         <input type="hidden" name="p3" value="2" />
                         <input type="hidden" name="t3" value="M" />
                         <input type="hidden" name="src" value="1" />
+                        
+                        <div className="text-left mb-4 space-y-3">
+                          <div>
+                            <label className="text-amber-400 text-xs font-bold block mb-1">1. YOUR STAGE NAME</label>
+                            <input type="hidden" name="on0" value="Stage Name" />
+                            <input
+                              type="text"
+                              name="os0"
+                              placeholder="e.g. Diamond"
+                              required
+                              className="w-full px-3 py-2 rounded text-black"
+                              style={{ border: 'none' }}
+                            />
+                          </div>
+                          <div>
+                            <label className="text-amber-400 text-xs font-bold block mb-1">2. PLACE OF EMPLOYMENT</label>
+                            <input type="hidden" name="on1" value="Workplace" />
+                            <input
+                              type="text"
+                              name="os1"
+                              placeholder="e.g. Club E11EVEN"
+                              required
+                              className="w-full px-3 py-2 rounded text-black"
+                              style={{ border: 'none' }}
+                            />
+                          </div>
+                        </div>
+
                         <button 
                           type="submit" 
                           className="w-full py-4 font-extrabold rounded-lg text-black uppercase transition-colors"

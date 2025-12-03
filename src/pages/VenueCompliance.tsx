@@ -258,8 +258,8 @@ const VenueCompliance = () => {
                   style={{ backgroundImage: `url(${card.bgImage})` }}
                 />
                 
-                {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/95" />
+                {/* Dark Gradient Overlay - Lighter for vibrant backgrounds */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/60" />
                 
                 {/* Premium Badge for Gold Card */}
                 {card.isPremium && (

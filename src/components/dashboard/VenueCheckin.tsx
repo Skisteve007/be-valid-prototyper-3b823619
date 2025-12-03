@@ -156,15 +156,35 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
 
         {/* Google Maps Link - Shows after venue selection */}
         {selectedVenueUrl && (
-          <a
-            href={selectedVenueUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
-          >
-            <ExternalLink className="h-4 w-4" />
-            View {selectedVenueName} on Google Maps
-          </a>
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                // Try multiple methods to open the link
+                try {
+                  if (window.top && window.top !== window) {
+                    window.top.open(selectedVenueUrl, '_blank');
+                  } else {
+                    window.open(selectedVenueUrl, '_blank', 'noopener,noreferrer');
+                  }
+                } catch (e) {
+                  window.open(selectedVenueUrl, '_blank', 'noopener,noreferrer');
+                }
+              }}
+              className="flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Open in Maps
+            </button>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(selectedVenueUrl);
+                toast.success("Link copied! Paste in browser to open.");
+              }}
+              className="py-3 px-4 bg-muted text-foreground rounded-lg font-medium text-sm hover:bg-muted/80 transition-colors border border-border"
+            >
+              Copy Link
+            </button>
+          </div>
         )}
       </div>
     </div>

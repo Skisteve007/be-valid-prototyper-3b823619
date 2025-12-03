@@ -340,6 +340,133 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Benefits Section */}
+        <section className="py-6 px-4 bg-muted/30">
+          <div className="container mx-auto max-w-6xl px-4">
+            <ScrollReveal direction="up" delay={100}>
+              <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-wide">Why Join Clean Check?</h3>
+            </ScrollReveal>
+            <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              <ScrollReveal direction="up" delay={200}>
+                <div className="relative h-full">
+                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-blue-500/10 rounded-lg">
+                          <CheckCircle className="h-6 w-6 text-blue-500" />
+                        </div>
+                        <CardTitle>Verified Health Status</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Share your clean status with confidence</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal direction="up" delay={250}>
+                <div className="relative h-full">
+                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
+                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-pink-500/10 rounded-lg">
+                          <Zap className="h-6 w-6 text-pink-500" />
+                        </div>
+                        <CardTitle>Instant - No Awkward Conversations</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Quick reveal through your unique QR code</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal direction="up" delay={300}>
+                <div className="relative h-full">
+                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-blue-500/10 rounded-lg">
+                          <Zap className="h-6 w-6 text-blue-500" />
+                        </div>
+                        <CardTitle>Instant Activation</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Account active immediately after payment</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal direction="up" delay={350}>
+                <div className="relative h-full">
+                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
+                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-pink-500/10 rounded-lg">
+                          <Star className="h-6 w-6 text-pink-500" />
+                        </div>
+                        <CardTitle>Premium Features</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">QR codes, galleries, Member Profile secrets 😈</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal direction="up" delay={400}>
+                <div className="relative h-full">
+                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-blue-500/10 rounded-lg">
+                          <Globe className="h-6 w-6 text-blue-500" />
+                        </div>
+                        <CardTitle>Universal Membership</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Works on all other sites that employ Clean Check services</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal direction="up" delay={450}>
+                <div className="relative h-full">
+                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
+                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-pink-500/10 rounded-lg">
+                          <Lock className="h-6 w-6 text-pink-500" />
+                        </div>
+                        <CardTitle>Private & Secure</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Your data encrypted and protected</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
         {/* Membership Section */}
         <section className="pt-2 pb-4 px-4">
           <div className="container mx-auto max-w-4xl px-4">
@@ -532,133 +659,6 @@ const Index = () => {
                 Lab kits shipped directly to your door - results in 3-5 business days
               </p>
             </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Benefits Section */}
-        <section className="py-6 px-4 bg-muted/30">
-          <div className="container mx-auto max-w-6xl px-4">
-            <ScrollReveal direction="up" delay={100}>
-              <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-wide">Why Join Clean Check?</h3>
-            </ScrollReveal>
-            <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              <ScrollReveal direction="up" delay={200}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-blue-500/10 rounded-lg">
-                          <CheckCircle className="h-6 w-6 text-blue-500" />
-                        </div>
-                        <CardTitle>Verified Health Status</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Share your clean status with confidence</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={250}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
-                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-pink-500/10 rounded-lg">
-                          <Zap className="h-6 w-6 text-pink-500" />
-                        </div>
-                        <CardTitle>Instant - No Awkward Conversations</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Quick reveal through your unique QR code</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={300}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-blue-500/10 rounded-lg">
-                          <Zap className="h-6 w-6 text-blue-500" />
-                        </div>
-                        <CardTitle>Instant Activation</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Account active immediately after payment</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={350}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
-                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-pink-500/10 rounded-lg">
-                          <Star className="h-6 w-6 text-pink-500" />
-                        </div>
-                        <CardTitle>Premium Features</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">QR codes, galleries, Member Profile secrets 😈</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={400}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-blue-500/10 rounded-lg">
-                          <Globe className="h-6 w-6 text-blue-500" />
-                        </div>
-                        <CardTitle>Universal Membership</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Works on all other sites that employ Clean Check services</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={450}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-pink-500/30 blur-2xl rounded-lg"></div>
-                  <div className="absolute inset-0 bg-pink-400/20 blur-xl rounded-lg animate-pulse"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-pink-500/40 shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-pink-500/10 rounded-lg">
-                          <Lock className="h-6 w-6 text-pink-500" />
-                        </div>
-                        <CardTitle>Private & Secure</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Your data encrypted and protected</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </ScrollReveal>
-            </div>
           </div>
         </section>
 

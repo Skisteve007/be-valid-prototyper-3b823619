@@ -64,19 +64,13 @@ function getCurrentLanguageFromPath(): Language {
   const currentPath = window.location.pathname;
   const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
   
+  // Only check URL path for language prefix - if no prefix, default to English
   if (pathSegments.length > 0 && supportedLangCodes.includes(pathSegments[0])) {
     const lang = languages.find(l => l.code === pathSegments[0]);
     if (lang) return lang;
   }
   
-  // Check localStorage as fallback
-  const savedLang = localStorage.getItem('userLanguage');
-  if (savedLang) {
-    const lang = languages.find(l => l.code === savedLang);
-    if (lang) return lang;
-  }
-  
-  // Default to English
+  // Default to English when no language prefix in URL
   return languages[0];
 }
 

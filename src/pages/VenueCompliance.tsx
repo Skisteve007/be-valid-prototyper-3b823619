@@ -310,15 +310,26 @@ const VenueCompliance = () => {
                         required
                         value={venueNames[card.id] || ""}
                         onChange={(e) => setVenueNames(prev => ({ ...prev, [card.id]: e.target.value }))}
-                        className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-slate-400 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all"
+                        style={{ width: '100%', padding: '8px', marginBottom: '5px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: 'white' }}
                       />
                       
                       <button
                         type="submit"
-                        className={`w-full bg-gradient-to-r ${card.buttonGradient} hover:opacity-90 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg hover:shadow-xl`}
+                        style={{ 
+                          width: '100%', 
+                          padding: '15px', 
+                          background: card.id === 'adult' ? '#D4AF37' : '#4CAF50', 
+                          color: 'white', 
+                          fontWeight: 'bold', 
+                          cursor: 'pointer', 
+                          zIndex: 10000, 
+                          position: 'relative',
+                          border: 'none',
+                          borderRadius: '6px',
+                          fontSize: '14px'
+                        }}
                       >
-                        {card.buttonText}
-                        <ArrowRight className="h-4 w-4" />
+                        {card.id === 'events' ? 'ACTIVATE EVENT ($299/mo)' : 'ACTIVATE SHIELD ($499/mo)'}
                       </button>
                     </form>
                   )}

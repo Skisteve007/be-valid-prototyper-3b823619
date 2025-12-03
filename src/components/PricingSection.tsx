@@ -39,6 +39,7 @@ export const PricingSection = () => {
 
       <div className="pricing-grid-container">
 
+        {/* Single Member - Bi-Monthly */}
         <div className="pricing-card">
           <div>
             <h3>Single Member</h3>
@@ -50,14 +51,10 @@ export const PricingSection = () => {
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
             <input type="hidden" name="item_name" value="Cloud Hosting - Single (Bi-Monthly)" />
-            <input type="hidden" name="no_shipping" value="1" />
-            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
             <input type="hidden" name="a3" value="39.00" />
             <input type="hidden" name="p3" value="2" />
             <input type="hidden" name="t3" value="M" />
             <input type="hidden" name="src" value="1" />
-            
             <button 
               type="submit" 
               style={{
@@ -68,8 +65,9 @@ export const PricingSection = () => {
                 border: 'none',
                 borderRadius: '6px',
                 fontWeight: 'bold',
-                marginTop: '15px',
-                fontSize: '16px'
+                cursor: 'pointer',
+                zIndex: 10000,
+                position: 'relative'
               }}
             >
               SELECT PLAN ($39)
@@ -77,6 +75,7 @@ export const PricingSection = () => {
           </form>
         </div>
 
+        {/* Joint Couple - Bi-Monthly */}
         <div className="pricing-card">
           <div>
             <h3>Joint Couple</h3>
@@ -88,14 +87,10 @@ export const PricingSection = () => {
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
             <input type="hidden" name="item_name" value="Cloud Hosting - Joint (Bi-Monthly)" />
-            <input type="hidden" name="no_shipping" value="1" />
-            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
             <input type="hidden" name="a3" value="69.00" />
             <input type="hidden" name="p3" value="2" />
             <input type="hidden" name="t3" value="M" />
             <input type="hidden" name="src" value="1" />
-            
             <button 
               type="submit" 
               style={{
@@ -106,8 +101,9 @@ export const PricingSection = () => {
                 border: 'none',
                 borderRadius: '6px',
                 fontWeight: 'bold',
-                marginTop: '15px',
-                fontSize: '16px'
+                cursor: 'pointer',
+                zIndex: 10000,
+                position: 'relative'
               }}
             >
               SELECT PLAN ($69)
@@ -115,6 +111,7 @@ export const PricingSection = () => {
           </form>
         </div>
 
+        {/* Single 1-Year Pass */}
         <div className="pricing-card" style={{ border: '2px solid #D4AF37' }}>
           <div>
             <h3 style={{ color: '#D4AF37' }}>Single 1-Year Pass</h3>
@@ -125,12 +122,8 @@ export const PricingSection = () => {
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Cloud Hosting - Single (1 Year Pass)" />
+            <input type="hidden" name="item_name" value="Cloud Hosting - Single (1 Year)" />
             <input type="hidden" name="amount" value="129.00" />
-            <input type="hidden" name="no_shipping" value="1" />
-            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-            
             <button 
               type="submit" 
               style={{
@@ -141,15 +134,17 @@ export const PricingSection = () => {
                 border: 'none',
                 borderRadius: '6px',
                 fontWeight: 'bold',
-                marginTop: '15px',
-                fontSize: '16px'
+                cursor: 'pointer',
+                zIndex: 10000,
+                position: 'relative'
               }}
             >
-              BUY 1-YEAR PASS
+              BUY 1-YEAR ($129)
             </button>
           </form>
         </div>
 
+        {/* Couple 1-Year Pass */}
         <div className="pricing-card" style={{ border: '2px solid #D4AF37' }}>
           <div>
             <h3 style={{ color: '#D4AF37' }}>Couple 1-Year Pass</h3>
@@ -160,12 +155,8 @@ export const PricingSection = () => {
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Cloud Hosting - Joint (1 Year Pass)" />
+            <input type="hidden" name="item_name" value="Cloud Hosting - Joint (1 Year)" />
             <input type="hidden" name="amount" value="219.00" />
-            <input type="hidden" name="no_shipping" value="1" />
-            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-            
             <button 
               type="submit" 
               style={{
@@ -176,11 +167,12 @@ export const PricingSection = () => {
                 border: 'none',
                 borderRadius: '6px',
                 fontWeight: 'bold',
-                marginTop: '15px',
-                fontSize: '16px'
+                cursor: 'pointer',
+                zIndex: 10000,
+                position: 'relative'
               }}
             >
-              BUY 1-YEAR PASS
+              BUY 1-YEAR ($219)
             </button>
           </form>
         </div>

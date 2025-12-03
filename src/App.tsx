@@ -27,7 +27,6 @@ import PartnerApplication from "./pages/PartnerApplication";
 import NotFound from "./pages/NotFound";
 import { AgeGate } from "./components/AgeGate";
 import Footer from "./components/Footer";
-import { AdminFooter } from "./components/AdminFooter";
 
 const queryClient = new QueryClient();
 
@@ -64,7 +63,6 @@ const App = () => (
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>
           <Footer />
-          <AdminFooter />
         </div>
       </BrowserRouter>
     </TooltipProvider>

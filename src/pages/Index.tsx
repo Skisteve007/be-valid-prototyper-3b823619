@@ -113,7 +113,7 @@ const Index = () => {
       {/* Mobile Welcome Banner */}
       {isMobile && <LanguageWelcomeBanner />}
       
-      <header className="relative border-b border-pink-500/20 bg-slate-800/50 backdrop-blur-xl sticky top-0 z-50">
+      <header className="relative border-b border-pink-500/20 bg-slate-600/40 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6 relative">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Logo + Partner Solutions - stacked */}
@@ -724,7 +724,7 @@ const Index = () => {
         </section>
 
         {/* Payment Information */}
-        <section className="py-16 px-4 bg-gradient-to-br from-muted/80 via-pink-500/10 to-muted/80 border-y border-border/20">
+        <section className="py-16 px-4 bg-gradient-to-br from-muted/50 via-pink-500/5 to-muted/50 border-y border-border/20">
           <div className="container mx-auto max-w-4xl">
             <h3 className="text-2xl font-bold mb-6 text-destructive">⚠️ Important Payment Information:</h3>
             <ul className="space-y-4 text-foreground">
@@ -753,7 +753,7 @@ const Index = () => {
         </section>
 
         {/* Legal Disclaimer */}
-        <section className="py-16 px-4 bg-gradient-to-br from-muted/80 via-pink-500/10 to-muted/80">
+        <section className="py-16 px-4 bg-gradient-to-br from-muted/50 via-pink-500/5 to-muted/50">
           <div className="container mx-auto max-w-4xl">
             <h3 className="text-2xl font-bold mb-6">⚖️ LEGAL DISCLAIMER</h3>
             <p className="mb-6 text-foreground">By using Clean Check, you acknowledge and agree that:</p>

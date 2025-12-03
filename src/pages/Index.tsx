@@ -875,41 +875,41 @@ const Index = () => {
         {/* Legal Disclaimer */}
         <section className="py-16 px-4 bg-gradient-to-br from-muted/30 via-pink-500/3 to-muted/30">
           <div className="container mx-auto max-w-4xl">
-            <h3 className="text-2xl font-bold mb-6">⚖️ LEGAL DISCLAIMER</h3>
-            <p className="mb-6 text-white">By using Clean Check, you acknowledge and agree that:</p>
+            <h3 className="text-2xl font-bold mb-6 text-foreground">⚖️ LEGAL DISCLAIMER</h3>
+            <p className="mb-6 text-foreground">By using Clean Check, you acknowledge and agree that:</p>
             
-            <div className="space-y-3 text-sm text-white">
+            <div className="space-y-3 text-sm text-foreground">
               <div>
-                <h4 className="font-bold text-white mb-1">Service Nature:</h4>
+                <h4 className="font-bold text-foreground mb-1">Service Nature:</h4>
                 <p>Clean Check is a peer-to-peer data sharing tool and not a medical or financial service provider. The donor releases Clean Check from all liability for any health, financial, or informational consequences resulting from the use or alteration of this service. All membership contributions are non-refundable and final.</p>
               </div>
 
               <div>
-                <h4 className="font-bold text-white mb-1">Platform Sponsors and Partners:</h4>
+                <h4 className="font-bold text-foreground mb-1">Platform Sponsors and Partners:</h4>
                 <p>All sponsors, advertisers, and supporting partners of Clean Check (collectively "Sponsors") are held with NO LIABILITY for any health, financial, informational, or other consequences resulting from your use of this service.</p>
               </div>
 
               <div>
-                <h4 className="font-bold text-white mb-1">Health Decisions:</h4>
+                <h4 className="font-bold text-foreground mb-1">Health Decisions:</h4>
                 <p>Neither Clean Check nor Sponsors are responsible for any health-related outcomes, medical conditions, infections, or diseases that may result from interactions facilitated through this platform.</p>
               </div>
 
               <div>
-                <h4 className="font-bold text-white mb-1">Financial Matters:</h4>
+                <h4 className="font-bold text-foreground mb-1">Financial Matters:</h4>
                 <p>Neither Clean Check nor Sponsors bear responsibility for membership fees, payment processing issues, refund disputes, or any financial losses incurred.</p>
               </div>
 
               <div>
-                <h4 className="font-bold text-white mb-1">Information Accuracy:</h4>
+                <h4 className="font-bold text-foreground mb-1">Information Accuracy:</h4>
                 <p>Neither Clean Check nor Sponsors are liable for the accuracy, completeness, or reliability of information shared by users, including health status, test results, or personal data.</p>
               </div>
 
               <div>
-                <h4 className="font-bold text-white mb-1">Independent Service:</h4>
+                <h4 className="font-bold text-foreground mb-1">Independent Service:</h4>
                 <p>Sponsors provide advertising or financial support only and are completely separate from the operation, management, and content of Clean Check. Their participation does not constitute endorsement of user behavior or platform practices.</p>
               </div>
 
-              <p className="pt-2 font-semibold text-white">
+              <p className="pt-2 font-semibold text-foreground">
                 You agree to hold harmless and indemnify Clean Check, its operators, and all Sponsors from any claims, damages, or liabilities arising from your use of this service. Use at your own risk.
               </p>
             </div>

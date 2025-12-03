@@ -12,7 +12,7 @@ import logo from "@/assets/clean-check-logo.png";
 
 const ADMIN_EMAILS = [
   "sgrillocce@gmail.com",
-  "office@bigtexasroof.com"
+  "aeidigitalsolutions@gmail.com"
 ];
 
 const AdminLogin = () => {

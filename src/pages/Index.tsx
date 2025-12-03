@@ -289,10 +289,7 @@ const Index = () => {
           <div className="container mx-auto max-w-md px-4">
             <ScrollReveal direction="up" delay={50}>
               <div className="text-center">
-                <h3 className="text-lg md:text-xl font-semibold mb-4 md:mb-6 bg-gradient-to-r from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">
-                  Already a Member?
-                </h3>
-                <Button 
+                <Button
                   onClick={() => navigate("/auth?mode=login")}
                   size="lg"
                   className="w-full max-w-xs relative shadow-[0_0_30px_rgba(22,163,74,0.7)] hover:shadow-[0_0_40px_rgba(22,163,74,0.9)] border-2 border-green-600/60 bg-green-600/15 text-white font-bold text-base md:text-lg py-4 md:py-6 min-h-[48px] touch-manipulation"

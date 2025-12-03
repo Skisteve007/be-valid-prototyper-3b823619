@@ -95,7 +95,7 @@ const Partners = () => {
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
           <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-6 leading-tight">
-            Sexual Health Verification for<br />High-Frequency Dating Communities
+            Integrated Health Compliance for<br />Affiliate Social Ecosystems
           </h1>
           <p className="text-xl text-slate-700 mb-10 max-w-3xl mx-auto font-medium">
             The compliant, high-volume bridge between lifestyle communities and diagnostic precision.

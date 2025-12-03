@@ -1081,7 +1081,7 @@ export type Database = {
         | "verified_active"
       result_status: "negative" | "positive" | "inconclusive"
       test_type: "STD_PANEL" | "TOX_10_PANEL"
-      venue_category: "Nightlife" | "Gentlemen" | "Lifestyle" | "Resort"
+      venue_category: "Nightlife" | "Gentlemen" | "Lifestyle" | "Resort" | "Spa"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1225,7 +1225,7 @@ export const Constants = {
       ],
       result_status: ["negative", "positive", "inconclusive"],
       test_type: ["STD_PANEL", "TOX_10_PANEL"],
-      venue_category: ["Nightlife", "Gentlemen", "Lifestyle", "Resort"],
+      venue_category: ["Nightlife", "Gentlemen", "Lifestyle", "Resort", "Spa"],
     },
   },
 } as const

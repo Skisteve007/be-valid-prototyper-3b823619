@@ -158,11 +158,19 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
         {/* Google Business Link - Shows after venue selection */}
         {selectedVenueUrl && (
           <Button
-            onClick={() => window.open(selectedVenueUrl, '_blank', 'noopener,noreferrer')}
+            onClick={() => {
+              try {
+                // Try to open from top frame (works in iframe context)
+                (window.top || window).open(selectedVenueUrl, '_blank');
+              } catch {
+                // Fallback: direct location change
+                window.location.href = selectedVenueUrl;
+              }
+            }}
             className="w-full py-3 h-auto"
           >
             <ExternalLink className="h-4 w-4" />
-            View {selectedVenueName} on Google
+            View {selectedVenueUrl ? selectedVenueName : ''} on Google
           </Button>
         )}
       </div>

@@ -126,29 +126,17 @@ const Index = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
                 <img src={logo} alt="Clean Check" className="relative w-auto h-20 md:h-24 select-none" draggable={false} />
               </div>
-              {/* Action Pills - Centered Under Logo */}
-              <div className="flex gap-2">
-                <Button
-                  onClick={() => navigate("/compliance")}
-                  variant="outline"
-                  size="sm"
-                  className="relative group overflow-hidden border border-pink-500/50 bg-gradient-to-r from-slate-900/80 via-pink-950/40 to-slate-900/80 hover:from-pink-600 hover:via-pink-500 hover:to-pink-600 text-white hover:text-white font-semibold text-[10px] tracking-wide px-2.5 py-1 h-6 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(236,72,153,0.3)] hover:shadow-[0_0_20px_rgba(236,72,153,0.6)]"
-                >
-                  <span className="relative z-10 flex items-center gap-1">
-                    🏢 Partner Solutions
-                  </span>
-                </Button>
-                <Button
-                  onClick={() => navigate("/partners")}
-                  variant="outline"
-                  size="sm"
-                  className="relative group overflow-hidden border border-sky-500/50 bg-gradient-to-r from-slate-900/80 via-sky-950/40 to-slate-900/80 hover:from-sky-600 hover:via-sky-500 hover:to-sky-600 text-white hover:text-white font-semibold text-[10px] tracking-wide px-2.5 py-1 h-6 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(56,189,248,0.3)] hover:shadow-[0_0_20px_rgba(56,189,248,0.6)]"
-                >
-                  <span className="relative z-10 flex items-center gap-1">
-                    🔬 Lab Access Portal
-                  </span>
-                </Button>
-              </div>
+              {/* Partner Solutions Button - Centered Under Logo */}
+              <Button
+                onClick={() => navigate("/compliance")}
+                variant="outline"
+                size="sm"
+                className="relative group overflow-hidden border border-pink-500/50 bg-gradient-to-r from-slate-900/80 via-pink-950/40 to-slate-900/80 hover:from-pink-600 hover:via-pink-500 hover:to-pink-600 text-white hover:text-white font-semibold text-[10px] tracking-wide px-2.5 py-1 h-6 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(236,72,153,0.3)] hover:shadow-[0_0_20px_rgba(236,72,153,0.6)]"
+              >
+                <span className="relative z-10 flex items-center gap-1">
+                  🏢 Partner Solutions
+                </span>
+              </Button>
             </div>
 
             {/* Tagline in the middle - desktop only */}

@@ -76,6 +76,50 @@ export type Database = {
           },
         ]
       }
+      affiliates: {
+        Row: {
+          created_at: string | null
+          id: string
+          paypal_email: string | null
+          pending_earnings: number | null
+          referral_code: string
+          total_clicks: number | null
+          total_earnings: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          paypal_email?: string | null
+          pending_earnings?: number | null
+          referral_code: string
+          total_clicks?: number | null
+          total_earnings?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          paypal_email?: string | null
+          pending_earnings?: number | null
+          referral_code?: string
+          total_clicks?: number | null
+          total_earnings?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliates_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       campaign_analytics: {
         Row: {
           bounce_count: number
@@ -727,6 +771,54 @@ export type Database = {
           },
         ]
       }
+      referrals: {
+        Row: {
+          affiliate_id: string
+          commission_amount: number
+          created_at: string | null
+          id: string
+          paid_at: string | null
+          referred_user_id: string
+          status: string
+          transaction_amount: number
+        }
+        Insert: {
+          affiliate_id: string
+          commission_amount?: number
+          created_at?: string | null
+          id?: string
+          paid_at?: string | null
+          referred_user_id: string
+          status?: string
+          transaction_amount?: number
+        }
+        Update: {
+          affiliate_id?: string
+          commission_amount?: number
+          created_at?: string | null
+          id?: string
+          paid_at?: string | null
+          referred_user_id?: string
+          status?: string
+          transaction_amount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referrals_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "referrals_referred_user_id_fkey"
+            columns: ["referred_user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       safety_certificates: {
         Row: {
           created_at: string
@@ -1059,6 +1151,10 @@ export type Database = {
       has_valid_qr_token: {
         Args: { _profile_id: string; _token: string }
         Returns: boolean
+      }
+      increment_affiliate_clicks: {
+        Args: { _referral_code: string }
+        Returns: undefined
       }
       increment_campaign_stat: {
         Args: { _campaign_id: string; _stat_type: string }

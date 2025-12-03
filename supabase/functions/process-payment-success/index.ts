@@ -46,18 +46,35 @@ const handler = async (req: Request): Promise<Response> => {
     // Use authenticated user's ID instead of client-provided userId
     const userId = user.id;
     
-    console.log('Processing payment success for authenticated user:', userId);
+    console.log('Processing payment success for authenticated user:', userId, 'Type:', paymentType);
 
     // Initialize Supabase client with service key for profile updates
     const supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Update user profile to Paid Member status
+    // Check if this is a 14-day driver pass
+    const isDriver14DayPass = paymentType === 'driver-14day';
+    
+    // Prepare update object
+    const profileUpdate: Record<string, any> = { 
+      payment_status: 'paid',
+      payment_date: new Date().toISOString()
+    };
+
+    // If it's a 14-day driver pass, set status to green and set expiry
+    if (isDriver14DayPass) {
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 14); // Add 14 days
+      
+      profileUpdate.status_color = 'green';
+      profileUpdate.status_expiry = expiryDate.toISOString();
+      
+      console.log('Setting 14-day driver pass expiry to:', expiryDate.toISOString());
+    }
+
+    // Update user profile
     const { data: profile, error: updateError } = await supabaseClient
       .from('profiles')
-      .update({ 
-        payment_status: 'paid',
-        payment_date: new Date().toISOString()
-      })
+      .update(profileUpdate)
       .eq('user_id', userId)
       .select()
       .single();
@@ -79,12 +96,21 @@ const handler = async (req: Request): Promise<Response> => {
     const userEmail = userData?.user?.email || 'Unknown';
     const userName = profile?.full_name || 'New User';
 
+    // Customize email subject and content based on payment type
+    const emailSubject = isDriver14DayPass 
+      ? "🚗 New Driver 14-Day Pass Purchase - Clean Check"
+      : "🎉 New Payment Received - Clean Check";
+    
+    const membershipTypeDisplay = isDriver14DayPass 
+      ? "Driver Verification Pass (14-Day)"
+      : paymentType;
+
     // Send admin notification email
     try {
       const emailResponse = await resend.emails.send({
         from: "Clean Check <onboarding@resend.dev>",
         to: ["sgrillocce@gmail.com", "Office@bigtexasroof.com"],
-        subject: "🎉 New Payment Received - Clean Check",
+        subject: emailSubject,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h1 style="color: #2563eb;">New Payment Received!</h1>
@@ -94,10 +120,15 @@ const handler = async (req: Request): Promise<Response> => {
               <p><strong>Member ID:</strong> ${profile?.member_id || 'N/A'}</p>
               <p><strong>Email:</strong> ${userEmail}</p>
               <p><strong>Amount:</strong> $${paymentAmount}</p>
-              <p><strong>Membership Type:</strong> ${paymentType}</p>
+              <p><strong>Membership Type:</strong> ${membershipTypeDisplay}</p>
               <p><strong>Payment Date:</strong> ${new Date().toLocaleString()}</p>
+              ${isDriver14DayPass ? `
+              <div style="background: #fef3c7; padding: 10px; border-radius: 4px; margin-top: 10px;">
+                <strong>⏰ 14-Day Pass:</strong> Status expires on ${new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+              </div>
+              ` : ''}
             </div>
-            <p>The user's account has been automatically upgraded to Paid Member status.</p>
+            <p>The user's account has been automatically upgraded${isDriver14DayPass ? ' with a 14-day expiry' : ''}.</p>
             <p style="color: #6b7280; font-size: 14px;">This is an automated notification from Clean Check.</p>
           </div>
         `,
@@ -113,7 +144,8 @@ const handler = async (req: Request): Promise<Response> => {
       JSON.stringify({ 
         success: true,
         message: 'Payment processed successfully',
-        profile: profile
+        profile: profile,
+        isDriver14DayPass: isDriver14DayPass
       }),
       {
         status: 200,

@@ -111,63 +111,8 @@ const Partners = () => {
         </div>
       </section>
 
-      {/* Value Props Section */}
-      <section className="py-24 px-4 pb-12 bg-gradient-to-b from-white to-slate-50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Card 1: Recurring Volume */}
-            <Card className="relative bg-white border-0 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-gradient-to-br from-blue-900 to-blue-700 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-900/30 group-hover:scale-110 transition-transform">
-                  <Activity className="h-7 w-7 text-white" />
-                </div>
-                <CardTitle className="text-2xl text-gray-900 font-bold">Recurring Volume</CardTitle>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <p className="text-gray-700 leading-relaxed">
-                  Our user base requires testing every 90 days. We drive consistent, high-LTV test volume to your lab infrastructure.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Card 2: Zero-Friction Support */}
-            <Card className="relative bg-white border-0 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-gradient-to-br from-blue-900 to-blue-700 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-900/30 group-hover:scale-110 transition-transform">
-                  <Zap className="h-7 w-7 text-white" />
-                </div>
-                <CardTitle className="text-2xl text-gray-900 font-bold">Zero-Friction Support</CardTitle>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <p className="text-gray-700 leading-relaxed">
-                  Our 'Glass Box' API Console handles sample exceptions and re-orders automatically. We reduce your support burden to near zero.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Card 3: Compliance Ready */}
-            <Card className="relative bg-white border-0 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-gradient-to-br from-blue-900 to-blue-700 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-900/30 group-hover:scale-110 transition-transform">
-                  <Shield className="h-7 w-7 text-white" />
-                </div>
-                <CardTitle className="text-2xl text-gray-900 font-bold">Compliance Ready</CardTitle>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <p className="text-gray-700 leading-relaxed">
-                  Built with FHIR-compatible schemas, 2257 identity verification, and HIPAA-compliant data handling.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* Lab Workflow Section */}
-      <section id="lab-workflow" className="py-16 px-4 bg-gradient-to-b from-white to-slate-50">
+      <section id="lab-workflow" className="py-16 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-4">
@@ -249,6 +194,61 @@ const Partners = () => {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Value Props Section */}
+      <section className="py-24 px-4 pb-12 bg-gradient-to-b from-white to-slate-50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Card 1: Recurring Volume */}
+            <Card className="relative bg-white border-0 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <CardHeader className="relative z-10">
+                <div className="h-14 w-14 bg-gradient-to-br from-blue-900 to-blue-700 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-900/30 group-hover:scale-110 transition-transform">
+                  <Activity className="h-7 w-7 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-gray-900 font-bold">Recurring Volume</CardTitle>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <p className="text-gray-700 leading-relaxed">
+                  Our user base requires testing every 90 days. We drive consistent, high-LTV test volume to your lab infrastructure.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Card 2: Zero-Friction Support */}
+            <Card className="relative bg-white border-0 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <CardHeader className="relative z-10">
+                <div className="h-14 w-14 bg-gradient-to-br from-blue-900 to-blue-700 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-900/30 group-hover:scale-110 transition-transform">
+                  <Zap className="h-7 w-7 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-gray-900 font-bold">Zero-Friction Support</CardTitle>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <p className="text-gray-700 leading-relaxed">
+                  Our 'Glass Box' API Console handles sample exceptions and re-orders automatically. We reduce your support burden to near zero.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Card 3: Compliance Ready */}
+            <Card className="relative bg-white border-0 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <CardHeader className="relative z-10">
+                <div className="h-14 w-14 bg-gradient-to-br from-blue-900 to-blue-700 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-blue-900/30 group-hover:scale-110 transition-transform">
+                  <Shield className="h-7 w-7 text-white" />
+                </div>
+                <CardTitle className="text-2xl text-gray-900 font-bold">Compliance Ready</CardTitle>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <p className="text-gray-700 leading-relaxed">
+                  Built with FHIR-compatible schemas, 2257 identity verification, and HIPAA-compliant data handling.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

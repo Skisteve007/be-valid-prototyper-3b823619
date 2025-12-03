@@ -80,14 +80,14 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
       console.error("Error saving check-in:", error);
     }
 
-    // Construct Google Search URL and redirect
+    // Construct Google Maps URL and redirect
     const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country}`);
-    const googleSearchUrl = `https://www.google.com/search?q=${searchQuery}`;
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
     
-    toast.success(`Opening ${venue.venue_name} in Google...`);
+    toast.success(`Opening ${venue.venue_name} in Google Maps...`);
     
     // Open in new tab
-    window.open(googleSearchUrl, "_blank", "noopener,noreferrer");
+    window.open(googleMapsUrl, "_blank", "noopener,noreferrer");
   };
 
   if (loading) {

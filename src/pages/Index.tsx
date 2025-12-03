@@ -141,10 +141,10 @@ const Index = () => {
 
             {/* Tagline in the middle - desktop only */}
             <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-8">
-              <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-blue-500/20 via-pink-500/15 to-blue-500/20 border border-blue-400/40">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/30 to-blue-400/40 blur-xl rounded-full animate-pulse"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-300/30 via-pink-300/20 to-blue-300/30 blur-2xl rounded-full"></div>
-                <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap bg-gradient-to-r from-gray-500 via-gray-700 to-gray-500 bg-clip-text text-transparent" style={{ textShadow: '1px 0 0 rgba(100,100,100,0.3), -1px 0 0 rgba(100,100,100,0.3)' }}>
+              <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-blue-400/30 via-pink-400/25 to-blue-400/30 border border-blue-300/50">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-300/50 via-pink-300/40 to-blue-300/50 blur-xl rounded-full animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-200/40 via-pink-200/30 to-blue-200/40 blur-2xl rounded-full"></div>
+                <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300 bg-clip-text text-transparent" style={{ textShadow: '1px 0 0 rgba(150,150,150,0.3), -1px 0 0 rgba(150,150,150,0.3)' }}>
                   Instant Proof Health Status
                 </p>
               </div>
@@ -201,9 +201,9 @@ const Index = () => {
           
           {/* Mobile tagline below */}
           <div className="lg:hidden text-center mt-2">
-            <div className="relative inline-block px-12 py-1.5 rounded-full bg-gradient-to-r from-blue-500/20 via-pink-500/15 to-blue-500/20 border border-blue-400/40">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/30 to-blue-400/40 blur-lg rounded-full animate-pulse"></div>
-              <p className="relative text-sm font-black italic tracking-[0.2em] whitespace-nowrap bg-gradient-to-r from-gray-500 via-gray-700 to-gray-500 bg-clip-text text-transparent" style={{ textShadow: '1px 0 0 rgba(100,100,100,0.3), -1px 0 0 rgba(100,100,100,0.3)' }}>
+            <div className="relative inline-block px-12 py-1.5 rounded-full bg-gradient-to-r from-blue-400/30 via-pink-400/25 to-blue-400/30 border border-blue-300/50">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-300/50 via-pink-300/40 to-blue-300/50 blur-lg rounded-full animate-pulse"></div>
+              <p className="relative text-sm font-black italic tracking-[0.2em] whitespace-nowrap bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300 bg-clip-text text-transparent" style={{ textShadow: '1px 0 0 rgba(150,150,150,0.3), -1px 0 0 rgba(150,150,150,0.3)' }}>
                 Instant Proof Health Status
               </p>
             </div>

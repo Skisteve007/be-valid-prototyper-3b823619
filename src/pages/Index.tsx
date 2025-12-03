@@ -196,10 +196,6 @@ const Index = () => {
             </p>
           </div>
           
-          {/* Language Selector - Bottom Left of Header */}
-          <div className="absolute bottom-2 left-1">
-            <LanguageSelector />
-          </div>
         </div>
       </header>
 

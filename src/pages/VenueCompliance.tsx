@@ -47,8 +47,10 @@ const VenueCompliance = () => {
           </Button>
         </div>
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-black mb-2">Partner Solutions: Choose Your Industry</h1>
-          <p className="text-slate-400">Automated compliance and risk management for high-liability sectors.</p>
+          <h1 className="text-3xl md:text-4xl font-black mb-4">Partner Solutions: Choose Your Industry</h1>
+          <span className="inline-block px-6 py-2 rounded-full bg-sky-400/20 text-sky-300 font-medium text-sm">
+            Automated compliance and risk management for high-liability sectors.
+          </span>
         </div>
       </div>
 

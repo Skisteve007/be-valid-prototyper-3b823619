@@ -448,24 +448,26 @@ const VenueCompliance = () => {
                     </form>
                   )}
 
-                  {/* Workforce Management Card - System + Kits */}
+                  {/* Workforce Management Card - Tiered Seat Licensing */}
                   {card.type === "workforce" && (
-                    <div className="w-full space-y-4">
-                      {/* Step 1: Command Center */}
-                      <div>
-                        <div className="text-xs text-slate-400 uppercase font-bold mb-1 tracking-wider">Step 1: The Command Center</div>
-                        <div className="text-xl font-bold text-white mb-1">$299 <span className="text-sm font-normal text-slate-400">/ month</span></div>
-                        <p className="text-xs text-slate-400 mb-3">Access to the Employee Roster Dashboard.</p>
-                        
+                    <div className="w-full space-y-3">
+                      <div className="text-xs text-slate-400 uppercase font-bold mb-2 tracking-wider">Monthly Seat License (Select Size)</div>
+                      
+                      {/* Tier 1: Small Business (1-50) */}
+                      <div className="border border-slate-600 p-3 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white font-bold text-sm">Small Biz (1-50 Employees)</span>
+                          <span className="text-slate-300 font-bold">$399/mo</span>
+                        </div>
                         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
                           <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                           <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Workplace System" />
-                          <input type="hidden" name="a3" value="299.00" />
+                          <input type="hidden" name="item_name" value="Clean Check - Workforce Small Biz (1-50)" />
+                          <input type="hidden" name="a3" value="399.00" />
                           <input type="hidden" name="p3" value="1" />
                           <input type="hidden" name="t3" value="M" />
                           <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=299&type=workplace-system" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=workforce-small" />
                           <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
                           <input type="hidden" name="on0" value="Company Name" />
                           <input
@@ -473,39 +475,127 @@ const VenueCompliance = () => {
                             name="os0"
                             placeholder="Enter Company Name"
                             required
-                            className="w-full px-3 py-2 rounded text-white text-sm"
+                            className="w-full px-2 py-1.5 rounded text-white text-xs"
                             style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
                           />
-                          <button
-                            type="submit"
-                            className="w-full py-3 font-bold rounded transition-colors"
-                            style={{ background: '#94a3b8', color: 'black' }}
-                          >
-                            ACTIVATE SYSTEM ($299/mo)
+                          <button type="submit" className="w-full bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded text-xs transition-colors">
+                            ACTIVATE SMALL BIZ
                           </button>
                         </form>
                       </div>
 
-                      <hr className="border-slate-600" />
+                      {/* Tier 2: Mid-Size (50-150) */}
+                      <div className="border border-slate-600 p-3 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white font-bold text-sm">Mid-Size (50-150 Employees)</span>
+                          <span className="text-slate-300 font-bold">$699/mo</span>
+                        </div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
+                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Workforce Mid-Size (50-150)" />
+                          <input type="hidden" name="a3" value="699.00" />
+                          <input type="hidden" name="p3" value="1" />
+                          <input type="hidden" name="t3" value="M" />
+                          <input type="hidden" name="src" value="1" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=workforce-mid" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <input type="hidden" name="on0" value="Company Name" />
+                          <input
+                            type="text"
+                            name="os0"
+                            placeholder="Enter Company Name"
+                            required
+                            className="w-full px-2 py-1.5 rounded text-white text-xs"
+                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+                          />
+                          <button type="submit" className="w-full bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded text-xs transition-colors">
+                            ACTIVATE MID-SIZE
+                          </button>
+                        </form>
+                      </div>
 
-                      {/* Step 2: Order Kits */}
-                      <div>
-                        <div className="text-xs text-slate-400 uppercase font-bold mb-1 tracking-wider">Step 2: Order Test Kits</div>
-                        <p className="text-xs text-slate-400 mb-3">Bulk packs for your crew.</p>
-                        
+                      {/* Tier 3: Large (150-500) */}
+                      <div className="border border-slate-600 p-3 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white font-bold text-sm">Large (150-500 Employees)</span>
+                          <span className="text-slate-300 font-bold">$1,299/mo</span>
+                        </div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
+                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Workforce Large (150-500)" />
+                          <input type="hidden" name="a3" value="1299.00" />
+                          <input type="hidden" name="p3" value="1" />
+                          <input type="hidden" name="t3" value="M" />
+                          <input type="hidden" name="src" value="1" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=workforce-large" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <input type="hidden" name="on0" value="Company Name" />
+                          <input
+                            type="text"
+                            name="os0"
+                            placeholder="Enter Company Name"
+                            required
+                            className="w-full px-2 py-1.5 rounded text-white text-xs"
+                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+                          />
+                          <button type="submit" className="w-full bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded text-xs transition-colors">
+                            ACTIVATE LARGE
+                          </button>
+                        </form>
+                      </div>
+
+                      {/* Tier 4: Enterprise (500-2000) */}
+                      <div className="border border-amber-500/50 p-3 rounded-lg" style={{ background: 'rgba(245,158,11,0.1)' }}>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-amber-400 font-bold text-sm">Enterprise (500-2000)</span>
+                          <span className="text-amber-400 font-bold">$1,999/mo</span>
+                        </div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
+                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Workforce Enterprise (500-2000)" />
+                          <input type="hidden" name="a3" value="1999.00" />
+                          <input type="hidden" name="p3" value="1" />
+                          <input type="hidden" name="t3" value="M" />
+                          <input type="hidden" name="src" value="1" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=workforce-enterprise" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <input type="hidden" name="on0" value="Company Name" />
+                          <input
+                            type="text"
+                            name="os0"
+                            placeholder="Enter Company Name"
+                            required
+                            className="w-full px-2 py-1.5 rounded text-white text-xs"
+                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(245,158,11,0.3)' }}
+                          />
+                          <button type="submit" className="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold py-2 px-4 rounded text-xs transition-colors">
+                            ACTIVATE ENTERPRISE
+                          </button>
+                        </form>
+                      </div>
+
+                      <hr className="border-slate-600 my-2" />
+
+                      {/* Bulk Kits Add-on */}
+                      <div className="p-3 rounded-lg" style={{ background: 'rgba(0,0,0,0.3)' }}>
+                        <div className="text-xs text-slate-400 uppercase font-bold mb-1 tracking-wider">Add-On: Order Test Kits</div>
+                        <p className="text-xs text-slate-500 mb-2">Bulk packs for your crew.</p>
                         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                           <input type="hidden" name="cmd" value="_xclick" />
                           <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
                           <input type="hidden" name="item_name" value="Clean Check - Bulk Employee Kits (10pk)" />
                           <input type="hidden" name="amount" value="890.00" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=890&type=bulk-kits-10" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=bulk-kits-10" />
                           <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
                           <button
                             type="submit"
-                            className="w-full py-3 font-bold rounded transition-colors"
-                            style={{ background: '#333', color: 'white', border: '1px solid white' }}
+                            className="w-full py-2 font-bold rounded transition-colors text-xs"
+                            style={{ background: '#333', color: 'white', border: '1px solid rgba(255,255,255,0.3)' }}
                           >
-                            ORDER 10-PACK ($890)
+                            ORDER 10-PACK KITS ($890)
                           </button>
                         </form>
                       </div>

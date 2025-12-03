@@ -91,16 +91,16 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
     if (venueDetails?.map_link) {
       mapUrl = venueDetails.map_link;
     } else {
-      // Use OpenStreetMap which doesn't block iframe navigation
-      const searchQuery = encodeURIComponent(`${venue.venue_name}, ${venue.city}, ${venue.country}`);
-      mapUrl = `https://www.openstreetmap.org/search?query=${searchQuery}`;
+      // Google Business search URL
+      const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country}`);
+      mapUrl = `https://www.google.com/search?q=${searchQuery}`;
     }
     
     // Store the URL and venue name for the clickable link
     setSelectedVenueUrl(mapUrl);
     setSelectedVenueName(venue.venue_name);
     
-    toast.success(`Tap below to find ${venue.venue_name}`);
+    toast.success(`Tap below to view ${venue.venue_name} on Google`);
   };
 
   if (loading) {
@@ -155,16 +155,16 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
           </SelectContent>
         </Select>
 
-        {/* Maps Link - Shows after venue selection */}
+        {/* Google Business Link - Shows after venue selection */}
         {selectedVenueUrl && (
           <a
             href={selectedVenueUrl}
-            target="_blank"
+            target="_top"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
           >
             <ExternalLink className="h-4 w-4" />
-            Find {selectedVenueName} on Map
+            View {selectedVenueName} on Google
           </a>
         )}
       </div>

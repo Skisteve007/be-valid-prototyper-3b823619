@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, PartyPopper, ShieldCheck, HardHat, ArrowRight, Loader2, BadgeCheck, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Shield, PartyPopper, ShieldCheck, Building2, ArrowRight, Loader2, BadgeCheck, Sparkles, Syringe, FlaskConical } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -82,6 +82,12 @@ const VenueCompliance = () => {
     }
   };
 
+  const [venueNames, setVenueNames] = useState<Record<string, string>>({
+    events: "",
+    adult: "",
+  });
+  const navigate = useNavigate();
+
   const industryCards = [
     {
       id: "events",
@@ -92,7 +98,6 @@ const VenueCompliance = () => {
       benefits: [
         { label: "Speed", text: "Verify guests in 3 seconds." },
         { label: "Insurance", text: "Lower premiums with verified safety." },
-        { label: "Profit", text: "Revenue-share on 'Fast Lane' upgrades." },
       ],
       price: "$299",
       period: "/ month",
@@ -102,10 +107,12 @@ const VenueCompliance = () => {
       borderColor: "border-blue-500/30",
       glowColor: "hover:shadow-[0_0_60px_rgba(59,130,246,0.5)]",
       buttonGradient: "from-blue-600 to-blue-500",
+      inputPlaceholder: "Enter Event/Venue Name",
       paypal: {
         itemName: "Clean Check - Event License",
         amount: "299.00",
       },
+      type: "license" as const,
     },
     {
       id: "adult",
@@ -115,46 +122,43 @@ const VenueCompliance = () => {
       hook: "The Iron Dome for Liability.",
       benefits: [
         { label: "Zero Liability", text: "We hold the medical data, not you." },
-        { label: "Fraud Proof", text: "Direct Lab-to-App integration." },
         { label: "Digital Waiver", text: "Mandatory indemnification for talent." },
       ],
       price: "$499",
       period: "/ month",
-      buttonText: "ACTIVATE COMPLIANCE LICENSE",
+      buttonText: "ACTIVATE VENUE SHIELD",
       subject: "Club Compliance",
       bgImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
       borderColor: "border-amber-500/50",
       glowColor: "hover:shadow-[0_0_60px_rgba(245,158,11,0.5)]",
       buttonGradient: "from-amber-600 to-amber-500",
       isPremium: true,
+      inputPlaceholder: "Enter Club Name",
       paypal: {
-        itemName: "Clean Check - Performer Compliance License",
+        itemName: "Clean Check - Venue Liability Shield",
         amount: "499.00",
       },
+      type: "license" as const,
     },
     {
       id: "workplace",
-      Icon: HardHat,
-      iconColor: "text-emerald-400",
-      headline: "Workplace Safety",
-      hook: "Zero-tolerance screening made simple.",
+      Icon: Building2,
+      iconColor: "text-slate-400",
+      headline: "Workplace Screening",
+      hook: "Protect your crew. Protect your site.",
       benefits: [
-        { label: "DOT Compliant", text: "Federal 10-panel drug testing." },
-        { label: "Bulk Pricing", text: "Volume discounts for teams." },
-        { label: "Dashboard", text: "Real-time compliance tracking." },
+        { label: "Drug-Free", text: "10-Panel toxicology." },
+        { label: "Health", text: "13-Panel STD screens." },
       ],
-      price: "$89",
-      period: "/ kit (min 10)",
-      buttonText: "ORDER BULK KITS",
+      price: "Select Kit Type",
+      period: "",
+      buttonText: "",
       subject: "Bulk Order",
-      bgImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
-      borderColor: "border-emerald-500/30",
-      glowColor: "hover:shadow-[0_0_60px_rgba(16,185,129,0.5)]",
-      buttonGradient: "from-emerald-600 to-emerald-500",
-      paypal: {
-        itemName: "Clean Check - Bulk Kit Order",
-        amount: "890.00",
-      },
+      bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
+      borderColor: "border-slate-500/30",
+      glowColor: "hover:shadow-[0_0_60px_rgba(100,116,139,0.5)]",
+      buttonGradient: "",
+      type: "workplace" as const,
     },
   ];
 
@@ -272,31 +276,65 @@ const VenueCompliance = () => {
                     <span className="text-slate-400 text-lg ml-1">{card.period}</span>
                   </div>
 
-                  {/* PayPal Form */}
-                  <form 
-                    action="https://www.paypal.com/cgi-bin/webscr" 
-                    method="post" 
-                    target="_top"
-                    className="w-full"
-                  >
-                    <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                    <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                    <input type="hidden" name="item_name" value={card.paypal.itemName} />
-                    <input type="hidden" name="a3" value={card.paypal.amount} />
-                    <input type="hidden" name="p3" value="1" />
-                    <input type="hidden" name="t3" value="M" />
-                    <input type="hidden" name="src" value="1" />
-                    <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                    <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                    
-                    <button
-                      type="submit"
-                      className={`w-full bg-gradient-to-r ${card.buttonGradient} hover:opacity-90 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg hover:shadow-xl`}
+                  {/* License Cards - PayPal Form with Venue Input */}
+                  {card.type === "license" && card.paypal && (
+                    <form 
+                      action="https://www.paypal.com/cgi-bin/webscr" 
+                      method="post" 
+                      target="_top"
+                      className="w-full space-y-3"
                     >
-                      {card.buttonText}
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </form>
+                      <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                      <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                      <input type="hidden" name="item_name" value={card.paypal.itemName} />
+                      <input type="hidden" name="a3" value={card.paypal.amount} />
+                      <input type="hidden" name="p3" value="1" />
+                      <input type="hidden" name="t3" value="M" />
+                      <input type="hidden" name="src" value="1" />
+                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                      <input type="hidden" name="on0" value="Venue Name" />
+                      
+                      {/* Venue Name Input */}
+                      <input
+                        type="text"
+                        name="os0"
+                        placeholder={card.inputPlaceholder}
+                        required
+                        value={venueNames[card.id] || ""}
+                        onChange={(e) => setVenueNames(prev => ({ ...prev, [card.id]: e.target.value }))}
+                        className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-slate-400 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all"
+                      />
+                      
+                      <button
+                        type="submit"
+                        className={`w-full bg-gradient-to-r ${card.buttonGradient} hover:opacity-90 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg hover:shadow-xl`}
+                      >
+                        {card.buttonText}
+                        <ArrowRight className="h-4 w-4" />
+                      </button>
+                    </form>
+                  )}
+
+                  {/* Workplace Card - Navigation Buttons */}
+                  {card.type === "workplace" && (
+                    <div className="w-full space-y-3">
+                      <button
+                        onClick={() => navigate("/toxicology-kit-order")}
+                        className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 text-sm tracking-wide flex items-center justify-center gap-2 border border-slate-600"
+                      >
+                        <FlaskConical className="h-5 w-5" />
+                        ORDER TOXICOLOGY KITS
+                      </button>
+                      <button
+                        onClick={() => navigate("/health-panel-order")}
+                        className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 text-sm tracking-wide flex items-center justify-center gap-2 border border-slate-600"
+                      >
+                        <Syringe className="h-5 w-5" />
+                        ORDER STD LAB KITS
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Hover Glow Border Effect */}

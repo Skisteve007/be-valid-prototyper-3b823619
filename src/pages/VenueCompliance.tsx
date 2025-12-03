@@ -7,7 +7,7 @@ const VenueCompliance = () => {
     <div 
       className="min-h-screen text-white font-sans"
       style={{
-        background: 'radial-gradient(circle at 50% 25%, rgba(244, 114, 182, 0.35) 0%, rgba(244, 114, 182, 0.25) 25%, rgba(15, 23, 42, 0.95) 70%)',
+        background: 'radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.15) 0%, rgba(244, 114, 182, 0.2) 25%, rgba(15, 23, 42, 0.95) 60%)',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
       }}

@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { Plus, CheckCircle, DollarSign, Users, TrendingUp, Trash2 } from "lucide-react";
+import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
 
 interface Affiliate {
   id: string;
@@ -261,74 +262,128 @@ const SalesTeamTab = () => {
           ) : affiliates.length === 0 ? (
             <p className="text-muted-foreground text-center py-8">No affiliates yet. Add your first one!</p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Code</TableHead>
-                  <TableHead>Clicks</TableHead>
-                  <TableHead>PayPal</TableHead>
-                  <TableHead>Owed</TableHead>
-                  <TableHead>Total Paid</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {affiliates.map((aff) => (
-                  <TableRow key={aff.id}>
-                    <TableCell>
-                      <div>
-                        <p className="font-medium">{aff.profile?.full_name || "Unknown"}</p>
-                        <p className="text-xs text-muted-foreground">{aff.profile?.member_id}</p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className="font-mono">
-                        {aff.referral_code}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{aff.total_clicks}</TableCell>
-                    <TableCell className="text-xs">
-                      {aff.paypal_email || <span className="text-muted-foreground">Not set</span>}
-                    </TableCell>
-                    <TableCell>
-                      {aff.pending_earnings > 0 ? (
-                        <span className="text-yellow-400 font-semibold">
-                          ${aff.pending_earnings.toFixed(2)}
-                        </span>
-                      ) : (
-                        <span className="text-muted-foreground">$0.00</span>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-green-400">
-                      ${aff.total_earnings?.toFixed(2) || "0.00"}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex gap-2">
-                        {aff.pending_earnings > 0 && aff.paypal_email && (
+            <ResponsiveDataList
+              mobileCards={
+                <div className="space-y-3">
+                  {affiliates.map((aff) => (
+                    <MobileDataCard
+                      key={aff.id}
+                      title={aff.profile?.full_name || "Unknown"}
+                      subtitle={aff.profile?.member_id}
+                      badge={{
+                        text: aff.referral_code,
+                        variant: "outline",
+                        className: "font-mono"
+                      }}
+                      details={[
+                        { label: "Clicks", value: aff.total_clicks.toString() },
+                        { label: "PayPal", value: aff.paypal_email || "Not set" },
+                        { 
+                          label: "Owed", 
+                          value: aff.pending_earnings > 0 
+                            ? <span className="text-yellow-400 font-semibold">${aff.pending_earnings.toFixed(2)}</span>
+                            : "$0.00"
+                        },
+                        { 
+                          label: "Total Paid", 
+                          value: <span className="text-green-400">${aff.total_earnings?.toFixed(2) || "0.00"}</span>
+                        },
+                      ]}
+                      actions={
+                        <>
+                          {aff.pending_earnings > 0 && aff.paypal_email && (
+                            <Button
+                              size="lg"
+                              className="flex-1 h-12 bg-green-600 hover:bg-green-700 text-white"
+                              onClick={() => markAsPaid(aff.id)}
+                            >
+                              <CheckCircle className="h-5 w-5 mr-2" /> Mark Paid
+                            </Button>
+                          )}
+                          <Button
+                            size="lg"
+                            variant="destructive"
+                            className="h-12 px-4"
+                            onClick={() => deleteAffiliate(aff.id)}
+                          >
+                            <Trash2 className="h-5 w-5" />
+                          </Button>
+                        </>
+                      }
+                    />
+                  ))}
+                </div>
+              }
+            >
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Code</TableHead>
+                    <TableHead>Clicks</TableHead>
+                    <TableHead>PayPal</TableHead>
+                    <TableHead>Owed</TableHead>
+                    <TableHead>Total Paid</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {affiliates.map((aff) => (
+                    <TableRow key={aff.id}>
+                      <TableCell>
+                        <div>
+                          <p className="font-medium">{aff.profile?.full_name || "Unknown"}</p>
+                          <p className="text-xs text-muted-foreground">{aff.profile?.member_id}</p>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="font-mono">
+                          {aff.referral_code}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{aff.total_clicks}</TableCell>
+                      <TableCell className="text-xs">
+                        {aff.paypal_email || <span className="text-muted-foreground">Not set</span>}
+                      </TableCell>
+                      <TableCell>
+                        {aff.pending_earnings > 0 ? (
+                          <span className="text-yellow-400 font-semibold">
+                            ${aff.pending_earnings.toFixed(2)}
+                          </span>
+                        ) : (
+                          <span className="text-muted-foreground">$0.00</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-green-400">
+                        ${aff.total_earnings?.toFixed(2) || "0.00"}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          {aff.pending_earnings > 0 && aff.paypal_email && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-green-400 border-green-500/50 hover:bg-green-500/10"
+                              onClick={() => markAsPaid(aff.id)}
+                            >
+                              <CheckCircle className="h-3 w-3 mr-1" /> Mark Paid
+                            </Button>
+                          )}
                           <Button
                             size="sm"
-                            variant="outline"
-                            className="text-green-400 border-green-500/50 hover:bg-green-500/10"
-                            onClick={() => markAsPaid(aff.id)}
+                            variant="ghost"
+                            className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                            onClick={() => deleteAffiliate(aff.id)}
                           >
-                            <CheckCircle className="h-3 w-3 mr-1" /> Mark Paid
+                            <Trash2 className="h-3 w-3" />
                           </Button>
-                        )}
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
-                          onClick={() => deleteAffiliate(aff.id)}
-                        >
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </ResponsiveDataList>
           )}
         </CardContent>
       </Card>

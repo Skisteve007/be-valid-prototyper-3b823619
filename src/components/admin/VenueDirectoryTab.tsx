@@ -7,9 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
-import { Loader2, Search, Mail, Globe, MapPin, Building2 } from "lucide-react";
+import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
 
 interface Venue {
   id: string;
@@ -173,71 +174,43 @@ export const VenueDirectoryTab = () => {
           Showing {filteredVenues.length} of {venues.length} venues
         </div>
 
-        {/* Venues Table - Mobile scrollable */}
-        <div className="border rounded-lg overflow-x-auto">
-          <Table className="min-w-[800px]">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Venue</TableHead>
-                <TableHead>Location</TableHead>
-                <TableHead>Country</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>GM Email</TableHead>
-                <TableHead className="w-[100px]">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+        {/* Venues - Responsive Table/Card */}
+        <ResponsiveDataList
+          mobileCards={
+            <div className="space-y-3">
               {filteredVenues.map((venue) => (
-                <TableRow key={venue.id}>
-                  <TableCell className="font-medium">
-                    <div className="flex items-center gap-2">
-                      <Building2 className="h-4 w-4 text-muted-foreground" />
-                      {venue.venue_name}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-1 text-muted-foreground">
-                      <MapPin className="h-3 w-3" />
-                      {venue.city}
-                    </div>
-                  </TableCell>
-                  <TableCell>{venue.country}</TableCell>
-                  <TableCell>
-                    <Badge className={getCategoryColor(venue.category)}>
-                      {venue.category}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="outline" className={getStatusColor(venue.status)}>
-                      {venue.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {venue.gm_email ? (
-                      <a 
-                        href={`mailto:${venue.gm_email}`}
-                        className="text-primary hover:underline flex items-center gap-1 text-sm"
-                      >
-                        <Mail className="h-3 w-3" />
-                        {venue.gm_email}
-                      </a>
-                    ) : (
-                      <span className="text-muted-foreground text-sm">Not set</span>
-                    )}
-                  </TableCell>
-                  <TableCell>
+                <MobileDataCard
+                  key={venue.id}
+                  title={venue.venue_name}
+                  subtitle={`${venue.city}, ${venue.country}`}
+                  badge={{
+                    text: venue.category,
+                    className: getCategoryColor(venue.category)
+                  }}
+                  details={[
+                    { label: "Status", value: <Badge variant="outline" className={getStatusColor(venue.status)}>{venue.status}</Badge> },
+                    { 
+                      label: "GM Email", 
+                      value: venue.gm_email ? (
+                        <a href={`mailto:${venue.gm_email}`} className="text-primary text-xs truncate block">
+                          {venue.gm_email}
+                        </a>
+                      ) : "Not set"
+                    },
+                  ]}
+                  actions={
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button 
-                          variant="outline" 
-                          size="sm"
+                          size="lg"
+                          variant="outline"
+                          className="flex-1 h-12"
                           onClick={() => {
                             setEditingVenue(venue);
                             setGmEmail(venue.gm_email || "");
                           }}
                         >
-                          Edit
+                          <Edit className="h-5 w-5 mr-2" /> Edit GM Email
                         </Button>
                       </DialogTrigger>
                       <DialogContent>
@@ -249,19 +222,20 @@ export const VenueDirectoryTab = () => {
                         </DialogHeader>
                         <div className="space-y-4 py-4">
                           <div className="space-y-2">
-                            <Label htmlFor="gm-email">GM Email Address</Label>
+                            <Label htmlFor="gm-email-mobile">GM Email Address</Label>
                             <Input
-                              id="gm-email"
+                              id="gm-email-mobile"
                               type="email"
                               placeholder="gm@venue.com"
                               value={gmEmail}
                               onChange={(e) => setGmEmail(e.target.value)}
+                              className="h-12"
                             />
                           </div>
                           <Button 
                             onClick={handleSaveEmail} 
                             disabled={saving}
-                            className="w-full"
+                            className="w-full h-12"
                           >
                             {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
                             Save Email
@@ -269,12 +243,114 @@ export const VenueDirectoryTab = () => {
                         </div>
                       </DialogContent>
                     </Dialog>
-                  </TableCell>
-                </TableRow>
+                  }
+                />
               ))}
-            </TableBody>
-          </Table>
-        </div>
+            </div>
+          }
+        >
+          <div className="border rounded-lg overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Venue</TableHead>
+                  <TableHead>Location</TableHead>
+                  <TableHead>Country</TableHead>
+                  <TableHead>Category</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>GM Email</TableHead>
+                  <TableHead className="w-[100px]">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredVenues.map((venue) => (
+                  <TableRow key={venue.id}>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-2">
+                        <Building2 className="h-4 w-4 text-muted-foreground" />
+                        {venue.venue_name}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-1 text-muted-foreground">
+                        <MapPin className="h-3 w-3" />
+                        {venue.city}
+                      </div>
+                    </TableCell>
+                    <TableCell>{venue.country}</TableCell>
+                    <TableCell>
+                      <Badge className={getCategoryColor(venue.category)}>
+                        {venue.category}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className={getStatusColor(venue.status)}>
+                        {venue.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {venue.gm_email ? (
+                        <a 
+                          href={`mailto:${venue.gm_email}`}
+                          className="text-primary hover:underline flex items-center gap-1 text-sm"
+                        >
+                          <Mail className="h-3 w-3" />
+                          {venue.gm_email}
+                        </a>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">Not set</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => {
+                              setEditingVenue(venue);
+                              setGmEmail(venue.gm_email || "");
+                            }}
+                          >
+                            Edit
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Edit GM Contact</DialogTitle>
+                            <DialogDescription>
+                              Add or update the General Manager email for {editingVenue?.venue_name}
+                            </DialogDescription>
+                          </DialogHeader>
+                          <div className="space-y-4 py-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="gm-email">GM Email Address</Label>
+                              <Input
+                                id="gm-email"
+                                type="email"
+                                placeholder="gm@venue.com"
+                                value={gmEmail}
+                                onChange={(e) => setGmEmail(e.target.value)}
+                              />
+                            </div>
+                            <Button 
+                              onClick={handleSaveEmail} 
+                              disabled={saving}
+                              className="w-full"
+                            >
+                              {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                              Save Email
+                            </Button>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </ResponsiveDataList>
 
         {filteredVenues.length === 0 && (
           <div className="text-center py-8 text-muted-foreground">

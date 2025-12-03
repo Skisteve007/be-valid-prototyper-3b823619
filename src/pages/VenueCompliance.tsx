@@ -231,7 +231,7 @@ const VenueCompliance = () => {
             <BadgeCheck className="h-5 w-5 text-sky-300" />
             <span className="text-sm text-sky-200 font-semibold tracking-wide">Enterprise-Grade Compliance</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 tracking-tight italic">
             Select Your{" "}
             <span className="bg-gradient-to-r from-sky-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
               Industry Solution

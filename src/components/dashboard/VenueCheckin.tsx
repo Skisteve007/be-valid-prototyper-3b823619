@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import { findVenueDetails } from "@/config/venuesConfig";
 
 interface Venue {
   id: string;
@@ -80,9 +81,18 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
       console.error("Error saving check-in:", error);
     }
 
-    // Construct Google Business search URL and redirect
-    const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country} google business`);
-    const googleSearchUrl = `https://www.google.com/search?q=${searchQuery}`;
+    // Check for pre-configured venue details with specific address
+    const venueDetails = findVenueDetails(venue.venue_name, venue.city);
+    
+    let googleSearchUrl: string;
+    if (venueDetails?.map_link) {
+      // Use pre-configured map link with specific address
+      googleSearchUrl = venueDetails.map_link;
+    } else {
+      // Fallback to generic Google Business search
+      const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country} google business`);
+      googleSearchUrl = `https://www.google.com/search?q=${searchQuery}`;
+    }
     
     toast.success(`Finding ${venue.venue_name} on Google...`);
     

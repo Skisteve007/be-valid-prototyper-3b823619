@@ -109,6 +109,8 @@ const PartnerApplication = () => {
           .insert({
             user_id: signUpData.user.id,
             referral_code: referralCode,
+            full_name: formData.fullName,
+            email: formData.email,
             paypal_email: formData.payoutHandle,
             payout_method: formData.payoutMethod,
             phone_number: formData.phone,
@@ -136,6 +138,8 @@ const PartnerApplication = () => {
           .insert({
             user_id: user.id,
             referral_code: referralCode,
+            full_name: formData.fullName,
+            email: formData.email,
             paypal_email: formData.payoutHandle,
             payout_method: formData.payoutMethod,
             phone_number: formData.phone,

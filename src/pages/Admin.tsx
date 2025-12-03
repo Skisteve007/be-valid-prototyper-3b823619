@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -22,6 +22,9 @@ import { DevelopersIntegrationsTab } from "@/components/admin/DevelopersIntegrat
 import { CampaignsTab } from "@/components/admin/CampaignsTab";
 import { VenueDirectoryTab } from "@/components/admin/VenueDirectoryTab";
 import SalesTeamTab from "@/components/admin/SalesTeamTab";
+import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
+import { QuickBrandingTool } from "@/components/admin/QuickBrandingTool";
+import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
 import {
   DndContext,
   closestCenter,
@@ -194,6 +197,8 @@ const Admin = () => {
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [dateFrom, setDateFrom] = useState<Date>();
   const [dateTo, setDateTo] = useState<Date>();
+  const [activeTab, setActiveTab] = useState("sponsors");
+  const [showScanner, setShowScanner] = useState(false);
   const [newSponsor, setNewSponsor] = useState({
     name: "",
     website_url: "",
@@ -474,6 +479,11 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Scanner Fullscreen Mode */}
+      {showScanner && (
+        <ScannerFullscreen onClose={() => setShowScanner(false)} />
+      )}
+      
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -483,22 +493,37 @@ const Admin = () => {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative h-18 w-auto select-none" draggable={false} />
+              <img src={logo} alt="Clean Check" className="relative h-12 md:h-18 w-auto select-none" draggable={false} />
             </div>
-            <div className="flex items-center gap-2 ml-4">
+            <div className="hidden md:flex items-center gap-2 ml-4">
               <Shield className="h-5 w-5 text-primary" />
               <span className="font-semibold">Admin Panel</span>
             </div>
           </div>
-          <Button variant="outline" onClick={() => navigate("/dashboard")}>
-            Back to Dashboard
-          </Button>
+          <div className="flex items-center gap-2">
+            {/* Quick Scanner Button - Mobile */}
+            <Button 
+              variant="outline" 
+              size="icon"
+              className="md:hidden h-12 w-12"
+              onClick={() => setShowScanner(true)}
+            >
+              <QrCode className="h-6 w-6" />
+            </Button>
+            <Button variant="outline" onClick={() => navigate("/dashboard")} className="hidden md:flex">
+              Back to Dashboard
+            </Button>
+          </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-8">
-        <Tabs defaultValue="sponsors" className="w-full">
-          <TabsList className="flex w-full justify-between relative z-10">
+      <main className="container mx-auto px-4 py-4 md:py-8 space-y-4 md:space-y-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          {/* Mobile Navigation */}
+          <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} />
+          
+          {/* Desktop Tab Navigation */}
+          <TabsList className="hidden md:flex w-full justify-between relative z-10 flex-wrap gap-1">
             <TabsTrigger value="sponsors" className="cursor-pointer flex-1">
               Sponsor Management
             </TabsTrigger>
@@ -508,17 +533,25 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="developers" className="cursor-pointer flex-1">
               <Code className="h-4 w-4 mr-2" />
-              Developers & Integrations
+              Developers
             </TabsTrigger>
             <TabsTrigger value="campaigns" className="cursor-pointer flex-1">
               Campaigns
             </TabsTrigger>
             <TabsTrigger value="venues" className="cursor-pointer flex-1">
               <Globe className="h-4 w-4 mr-2" />
-              Venue Directory
+              Venues
             </TabsTrigger>
             <TabsTrigger value="sales-team" className="cursor-pointer flex-1">
               💰 Sales Team
+            </TabsTrigger>
+            <TabsTrigger value="quick-branding" className="cursor-pointer flex-1">
+              <Zap className="h-4 w-4 mr-2" />
+              Fast Setup
+            </TabsTrigger>
+            <TabsTrigger value="scanner" className="cursor-pointer flex-1">
+              <QrCode className="h-4 w-4 mr-2" />
+              Scanner
             </TabsTrigger>
           </TabsList>
           
@@ -818,6 +851,30 @@ const Admin = () => {
           
           <TabsContent value="sales-team">
             <SalesTeamTab />
+          </TabsContent>
+          
+          <TabsContent value="quick-branding">
+            <QuickBrandingTool />
+          </TabsContent>
+          
+          <TabsContent value="scanner">
+            <div className="space-y-6">
+              <div className="text-center py-12">
+                <QrCode className="h-16 w-16 mx-auto text-primary mb-4" />
+                <h2 className="text-2xl font-bold mb-2">QR Scanner Mode</h2>
+                <p className="text-muted-foreground mb-6">
+                  Launch fullscreen scanner for door check-ins
+                </p>
+                <Button 
+                  size="lg" 
+                  className="h-14 px-8 text-lg"
+                  onClick={() => setShowScanner(true)}
+                >
+                  <QrCode className="h-6 w-6 mr-3" />
+                  Open Fullscreen Scanner
+                </Button>
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
       </main>

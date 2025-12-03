@@ -121,7 +121,7 @@ const VenueCompliance = () => {
       headline: "Performer Compliance",
       hook: "The Iron Dome for Liability.",
       benefits: [
-        { label: "Zero Liability", text: "We hold the medical data, not you." },
+        { label: "Zero Liability", text: "Labs hold the medical data, not you." },
         { label: "Digital Waiver", text: "Mandatory indemnification for talent." },
       ],
       price: "$499",

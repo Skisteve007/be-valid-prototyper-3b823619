@@ -31,8 +31,6 @@ const Footer = () => {
           <Link to="/privacy" className="hover:opacity-80 transition-colors underline" style={{ color: '#ffffff' }}>Privacy</Link>
           <span style={{ color: '#ffffff' }}>|</span>
           <Link to="/refund" className="hover:opacity-80 transition-colors underline" style={{ color: '#ffffff' }}>Refund</Link>
-          <span style={{ color: '#ffffff' }}>|</span>
-          <Link to="/partners" className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent hover:from-pink-400 hover:to-blue-400 transition-all underline">Partners</Link>
           <span style={{ color: '#ffffff' }}>•</span>
           <span style={{ color: '#ffffff' }}>🔞 18 U.S.C. § 2257: All users 18+</span>
           <span className="ml-auto">

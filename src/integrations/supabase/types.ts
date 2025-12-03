@@ -80,9 +80,14 @@ export type Database = {
         Row: {
           created_at: string | null
           id: string
+          id_back_url: string | null
+          id_front_url: string | null
+          payout_method: string | null
           paypal_email: string | null
           pending_earnings: number | null
+          phone_number: string | null
           referral_code: string
+          status: string | null
           total_clicks: number | null
           total_earnings: number | null
           updated_at: string | null
@@ -91,9 +96,14 @@ export type Database = {
         Insert: {
           created_at?: string | null
           id?: string
+          id_back_url?: string | null
+          id_front_url?: string | null
+          payout_method?: string | null
           paypal_email?: string | null
           pending_earnings?: number | null
+          phone_number?: string | null
           referral_code: string
+          status?: string | null
           total_clicks?: number | null
           total_earnings?: number | null
           updated_at?: string | null
@@ -102,9 +112,14 @@ export type Database = {
         Update: {
           created_at?: string | null
           id?: string
+          id_back_url?: string | null
+          id_front_url?: string | null
+          payout_method?: string | null
           paypal_email?: string | null
           pending_earnings?: number | null
+          phone_number?: string | null
           referral_code?: string
+          status?: string | null
           total_clicks?: number | null
           total_earnings?: number | null
           updated_at?: string | null

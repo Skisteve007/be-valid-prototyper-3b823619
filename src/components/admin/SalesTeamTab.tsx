@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Plus, CheckCircle, DollarSign, Users, TrendingUp, Trash2 } from "lucide-react";
+import { Plus, CheckCircle, DollarSign, Users, TrendingUp, Trash2, Eye, ShieldCheck, Clock } from "lucide-react";
 import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
 
 interface Affiliate {
@@ -19,6 +19,11 @@ interface Affiliate {
   pending_earnings: number;
   total_clicks: number;
   paypal_email: string | null;
+  payout_method?: string;
+  phone_number?: string;
+  id_front_url?: string;
+  id_back_url?: string;
+  status?: string;
   created_at: string;
   profile?: {
     full_name: string | null;
@@ -39,6 +44,8 @@ const SalesTeamTab = () => {
   const [referrals, setReferrals] = useState<Referral[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showIdDialog, setShowIdDialog] = useState(false);
+  const [selectedAffiliate, setSelectedAffiliate] = useState<Affiliate | null>(null);
   const [newAffiliateEmail, setNewAffiliateEmail] = useState("");
   const [newReferralCode, setNewReferralCode] = useState("");
   const [adding, setAdding] = useState(false);
@@ -191,6 +198,38 @@ const SalesTeamTab = () => {
     fetchAffiliates();
   };
 
+  const viewIdDocuments = (affiliate: Affiliate) => {
+    setSelectedAffiliate(affiliate);
+    setShowIdDialog(true);
+  };
+
+  const approveAffiliate = async (affiliateId: string) => {
+    const { error } = await (supabase
+      .from("affiliates") as any)
+      .update({ status: "approved" })
+      .eq("id", affiliateId);
+
+    if (error) {
+      toast.error("Failed to approve affiliate");
+      return;
+    }
+
+    toast.success("Affiliate approved!");
+    fetchAffiliates();
+    setShowIdDialog(false);
+  };
+
+  const getStatusBadge = (status?: string) => {
+    switch (status) {
+      case "approved":
+        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30"><ShieldCheck className="h-3 w-3 mr-1" /> Verified</Badge>;
+      case "pending":
+        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30"><Clock className="h-3 w-3 mr-1" /> Pending</Badge>;
+      default:
+        return <Badge variant="secondary">Unknown</Badge>;
+    }
+  };
+
   const totalOwed = affiliates.reduce((sum, a) => sum + (a.pending_earnings || 0), 0);
   const totalPaid = affiliates.reduce((sum, a) => sum + (a.total_earnings || 0), 0);
   const totalClicks = affiliates.reduce((sum, a) => sum + (a.total_clicks || 0), 0);
@@ -271,33 +310,40 @@ const SalesTeamTab = () => {
                       title={aff.profile?.full_name || "Unknown"}
                       subtitle={aff.profile?.member_id}
                       badge={{
-                        text: aff.referral_code,
-                        variant: "outline",
-                        className: "font-mono"
+                        text: aff.status === "approved" ? "✓ Verified" : "Pending",
+                        variant: aff.status === "approved" ? "default" : "secondary",
+                        className: aff.status === "approved" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"
                       }}
                       details={[
+                        { label: "Code", value: aff.referral_code },
                         { label: "Clicks", value: aff.total_clicks.toString() },
-                        { label: "PayPal", value: aff.paypal_email || "Not set" },
+                        { label: "Payout", value: aff.paypal_email || "Not set" },
                         { 
                           label: "Owed", 
                           value: aff.pending_earnings > 0 
                             ? <span className="text-yellow-400 font-semibold">${aff.pending_earnings.toFixed(2)}</span>
                             : "$0.00"
                         },
-                        { 
-                          label: "Total Paid", 
-                          value: <span className="text-green-400">${aff.total_earnings?.toFixed(2) || "0.00"}</span>
-                        },
                       ]}
                       actions={
                         <>
+                          {(aff.id_front_url || aff.id_back_url) && (
+                            <Button
+                              size="lg"
+                              variant="outline"
+                              className="h-12 px-4 text-blue-400 border-blue-500/50"
+                              onClick={() => viewIdDocuments(aff)}
+                            >
+                              <Eye className="h-5 w-5 mr-2" /> View ID
+                            </Button>
+                          )}
                           {aff.pending_earnings > 0 && aff.paypal_email && (
                             <Button
                               size="lg"
                               className="flex-1 h-12 bg-green-600 hover:bg-green-700 text-white"
                               onClick={() => markAsPaid(aff.id)}
                             >
-                              <CheckCircle className="h-5 w-5 mr-2" /> Mark Paid
+                              <CheckCircle className="h-5 w-5 mr-2" /> Pay
                             </Button>
                           )}
                           <Button
@@ -319,9 +365,10 @@ const SalesTeamTab = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Name</TableHead>
+                    <TableHead>Status</TableHead>
                     <TableHead>Code</TableHead>
                     <TableHead>Clicks</TableHead>
-                    <TableHead>PayPal</TableHead>
+                    <TableHead>Payout</TableHead>
                     <TableHead>Owed</TableHead>
                     <TableHead>Total Paid</TableHead>
                     <TableHead>Actions</TableHead>
@@ -336,6 +383,7 @@ const SalesTeamTab = () => {
                           <p className="text-xs text-muted-foreground">{aff.profile?.member_id}</p>
                         </div>
                       </TableCell>
+                      <TableCell>{getStatusBadge(aff.status)}</TableCell>
                       <TableCell>
                         <Badge variant="outline" className="font-mono">
                           {aff.referral_code}
@@ -343,7 +391,12 @@ const SalesTeamTab = () => {
                       </TableCell>
                       <TableCell>{aff.total_clicks}</TableCell>
                       <TableCell className="text-xs">
-                        {aff.paypal_email || <span className="text-muted-foreground">Not set</span>}
+                        <div>
+                          <p>{aff.paypal_email || <span className="text-muted-foreground">Not set</span>}</p>
+                          {aff.payout_method && (
+                            <p className="text-muted-foreground capitalize">{aff.payout_method}</p>
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell>
                         {aff.pending_earnings > 0 ? (
@@ -359,6 +412,16 @@ const SalesTeamTab = () => {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
+                          {(aff.id_front_url || aff.id_back_url) && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-blue-400 border-blue-500/50 hover:bg-blue-500/10"
+                              onClick={() => viewIdDocuments(aff)}
+                            >
+                              <Eye className="h-3 w-3 mr-1" /> View ID
+                            </Button>
+                          )}
                           {aff.pending_earnings > 0 && aff.paypal_email && (
                             <Button
                               size="sm"
@@ -432,6 +495,94 @@ const SalesTeamTab = () => {
             <Button onClick={addAffiliate} disabled={adding}>
               {adding ? "Creating..." : "Create Affiliate"}
             </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* View ID Documents Dialog */}
+      <Dialog open={showIdDialog} onOpenChange={setShowIdDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Identity Verification</DialogTitle>
+            <DialogDescription>
+              Review the submitted ID documents for {selectedAffiliate?.profile?.full_name || "this affiliate"}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedAffiliate && (
+            <div className="space-y-4 py-4">
+              <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                <div>
+                  <p className="font-medium">{selectedAffiliate.profile?.full_name}</p>
+                  <p className="text-sm text-muted-foreground">{selectedAffiliate.phone_number || "No phone"}</p>
+                </div>
+                {getStatusBadge(selectedAffiliate.status)}
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Government ID (Front)</Label>
+                  {selectedAffiliate.id_front_url ? (
+                    <a 
+                      href={selectedAffiliate.id_front_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block border rounded-lg overflow-hidden hover:border-primary transition-colors"
+                    >
+                      <img 
+                        src={selectedAffiliate.id_front_url} 
+                        alt="ID Front" 
+                        className="w-full h-48 object-cover"
+                      />
+                    </a>
+                  ) : (
+                    <div className="h-48 bg-muted rounded-lg flex items-center justify-center text-muted-foreground">
+                      Not uploaded
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Government ID (Back)</Label>
+                  {selectedAffiliate.id_back_url ? (
+                    <a 
+                      href={selectedAffiliate.id_back_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block border rounded-lg overflow-hidden hover:border-primary transition-colors"
+                    >
+                      <img 
+                        src={selectedAffiliate.id_back_url} 
+                        alt="ID Back" 
+                        className="w-full h-48 object-cover"
+                      />
+                    </a>
+                  ) : (
+                    <div className="h-48 bg-muted rounded-lg flex items-center justify-center text-muted-foreground">
+                      Not uploaded
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <p className="text-xs text-muted-foreground">
+                Click on an image to view full size in a new tab.
+              </p>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowIdDialog(false)}>
+              Close
+            </Button>
+            {selectedAffiliate?.status === "pending" && (
+              <Button 
+                onClick={() => selectedAffiliate && approveAffiliate(selectedAffiliate.id)}
+                className="bg-green-600 hover:bg-green-700"
+              >
+                <ShieldCheck className="h-4 w-4 mr-2" /> Approve Partner
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

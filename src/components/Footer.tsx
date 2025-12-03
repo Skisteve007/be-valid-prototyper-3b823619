@@ -16,7 +16,7 @@ const Footer = () => {
   };
   
   return (
-    <footer className="bg-card border-t border-border mt-auto w-full">
+    <footer className="bg-slate-900 border-t border-border mt-auto w-full">
       <div className="container mx-auto px-4 py-3">
         {/* Compact Legal Section */}
         <div className="text-[9px] leading-tight text-white space-y-1 mb-2">
@@ -33,8 +33,8 @@ const Footer = () => {
           <Link to="/refund" className="hover:text-white/80 transition-colors underline text-white">Refund</Link>
           <span className="text-white">|</span>
           <Link to="/partners" className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent hover:from-pink-400 hover:to-blue-400 transition-all underline">Partners</Link>
-          <span className="mx-2">•</span>
-          <span>🔞 18 U.S.C. § 2257: All users 18+</span>
+          <span className="text-white mx-2">•</span>
+          <span className="text-white">🔞 18 U.S.C. § 2257: All users 18+</span>
           <span className="ml-auto">
             <button
               onClick={handleAdminClick}

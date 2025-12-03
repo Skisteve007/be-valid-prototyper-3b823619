@@ -231,17 +231,12 @@ All colors MUST be HSL.
   }
 }
 
-/* GLOBAL BACKGROUND OVERRIDE */
-#root > div:first-child {
-  background-color: #2d2d2d !important;
+/* GLOBAL BACKGROUND OVERRIDE - LIGHT MODE */
+html, body, #root, #root > div, #root > div:first-child, .app-wrapper, .main-container {
+  background-color: #F0F0F0 !important;
 }
 
-/* Main content wrapper with bright spotlight gradient */
+/* Main content wrapper */
 .main-content-wrapper {
-  background: radial-gradient(circle at 50% 30%, 
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(244, 114, 182, 0.3) 25%,
-    rgba(15, 23, 42, 1) 90%
-  ) !important;
-  background-attachment: fixed !important;
+  background-color: #F0F0F0 !important;
 }

@@ -134,7 +134,7 @@ const Auth = () => {
     <div 
       className="min-h-screen text-foreground"
       style={{
-        background: 'radial-gradient(circle at 50% 30%, rgba(244, 114, 182, 0.35) 0%, rgba(68, 68, 68, 1) 85%)',
+        background: 'radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.2) 0%, rgba(244, 114, 182, 0.3) 25%, rgba(15, 23, 42, 1) 90%)',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
       }}

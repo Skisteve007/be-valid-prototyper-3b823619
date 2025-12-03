@@ -104,39 +104,39 @@ export const venuesConfig: CityVenues[] = [
     venues: [
       {
         name: 'Café Havana',
-        address: 'Cra. 10 #ESQUINA, Getsemaní',
-        phone_number: '',
-        map_link: 'https://www.google.com/search?q=Café+Havana+Cra.+10+#ESQUINA,+Getsemaní,+Cartagena+google+business'
+        address: 'Calle del Guerrero con Media Luna, Getsemaní',
+        phone_number: '+57 310 610 2324',
+        map_link: 'https://www.google.com/search?q=Café+Havana+Getsemaní+Cartagena+google+business'
       },
       {
         name: 'Bazurto Social Club',
-        address: 'Getsemaní, Av. del Centenario, Cra 9 #30-42',
-        phone_number: '',
-        map_link: 'https://www.google.com/search?q=Bazurto+Social+Club+Cra+9+#30-42,+Cartagena+google+business'
+        address: 'Calle Del Centenario, Cra 9 N# 30-42, Getsemaní',
+        phone_number: '+57 317 648 1183',
+        map_link: 'https://www.google.com/search?q=Bazurto+Social+Club+Cra+9+%2330-42+Cartagena+google+business'
       },
       {
         name: 'La Jugada Club House',
-        address: 'Calle del Colegio, Cra. 6 #34-25',
-        phone_number: '',
-        map_link: 'https://www.google.com/search?q=La+Jugada+Club+House+Calle+del+Colegio,+Cra.+6+#34-25,+Cartagena+google+business'
+        address: 'Calle del Colegio, 34-25, Centro Histórico',
+        phone_number: '+57 321 587 5983',
+        map_link: 'https://www.google.com/search?q=La+Jugada+Club+House+Calle+del+Colegio+34-25+Cartagena+google+business'
       },
       {
         name: 'La Movida',
         address: 'Cl. 31 #3-37, El Centro',
-        phone_number: '',
-        map_link: 'https://www.google.com/search?q=La+Movida+Cl.+31+#3-37,+El+Centro,+Cartagena+google+business'
+        phone_number: '+57 316 587 5350',
+        map_link: 'https://www.google.com/search?q=La+Movida+Cl.+31+%233-37+El+Centro+Cartagena+google+business'
       },
       {
         name: 'Alquímico',
-        address: 'Cl. del Colegio # 34-24',
-        phone_number: '',
-        map_link: 'https://www.google.com/search?q=Alquímico+Cl.+del+Colegio+#34-24,+Cartagena+google+business'
+        address: 'Calle del Colegio 34-24',
+        phone_number: '+57 316 533 1932',
+        map_link: 'https://www.google.com/search?q=Alquímico+Calle+del+Colegio+34-24+Cartagena+google+business'
       },
       {
         name: 'Seven Times',
-        address: 'Calle Media Luna #9-79',
-        phone_number: '',
-        map_link: 'https://www.google.com/search?q=Seven+Times+Calle+Media+Luna+#9-79,+Cartagena+google+business'
+        address: 'Calle Media Luna #9-79, Getsemaní',
+        phone_number: '+57 312 256 3705',
+        map_link: 'https://www.google.com/search?q=Seven+Times+Calle+Media+Luna+%239-79+Cartagena+google+business'
       }
     ]
   }

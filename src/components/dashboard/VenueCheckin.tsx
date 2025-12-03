@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MapPin, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { findVenueDetails } from "@/config/venuesConfig";
+import { Button } from "@/components/ui/button";
 
 interface Venue {
   id: string;
@@ -21,6 +22,8 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedVenue, setSelectedVenue] = useState<string>("");
+  const [selectedVenueUrl, setSelectedVenueUrl] = useState<string>("");
+  const [selectedVenueName, setSelectedVenueName] = useState<string>("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -86,24 +89,17 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
     
     let googleSearchUrl: string;
     if (venueDetails?.map_link) {
-      // Use pre-configured map link with specific address
       googleSearchUrl = venueDetails.map_link;
     } else {
-      // Fallback to Google Maps search (more reliable than Google Search)
       const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country}`);
       googleSearchUrl = `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
     }
     
-    toast.success(`Finding ${venue.venue_name} on Google Maps...`);
+    // Store the URL and venue name for the clickable link
+    setSelectedVenueUrl(googleSearchUrl);
+    setSelectedVenueName(venue.venue_name);
     
-    // Use anchor click method to bypass iframe restrictions
-    const link = document.createElement('a');
-    link.href = googleSearchUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    toast.success(`Tap the link below to view ${venue.venue_name} on Google Maps`);
   };
 
   if (loading) {
@@ -157,6 +153,19 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
             ))}
           </SelectContent>
         </Select>
+
+        {/* Google Maps Link - Shows after venue selection */}
+        {selectedVenueUrl && (
+          <a
+            href={selectedVenueUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
+          >
+            <ExternalLink className="h-4 w-4" />
+            View {selectedVenueName} on Google Maps
+          </a>
+        )}
       </div>
     </div>
   );

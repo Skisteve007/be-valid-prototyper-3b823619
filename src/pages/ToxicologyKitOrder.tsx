@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
-import { ShieldCheck, Home, Package, MapPin } from "lucide-react";
+import { ShieldCheck, Home, Package, MapPin, Truck } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const ToxicologyKitOrder = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isDriverPass = searchParams.get("type") === "driver";
+  
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -20,7 +23,7 @@ const ToxicologyKitOrder = () => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [showPayPal, setShowPayPal] = useState(false);
-  const [paymentType, setPaymentType] = useState<"onetime" | "subscription">("subscription");
+  const [paymentType, setPaymentType] = useState<"onetime" | "subscription" | "driver">(isDriverPass ? "driver" : "subscription");
 
   // Scroll to top on component mount
   useEffect(() => {
@@ -221,8 +224,24 @@ const ToxicologyKitOrder = () => {
                   {/* Payment Type Selector */}
                   <div className="space-y-4">
                     <Label className="text-base font-semibold">Choose Your Payment Option</Label>
-                    <RadioGroup value={paymentType} onValueChange={(value) => setPaymentType(value as "onetime" | "subscription")}>
+                    <RadioGroup value={paymentType} onValueChange={(value) => setPaymentType(value as "onetime" | "subscription" | "driver")}>
                       <div className="flex flex-col gap-3">
+                        {/* Driver Pass Option */}
+                        <div className={`flex items-center space-x-3 rounded-lg border-2 p-4 cursor-pointer transition-all ${
+                          paymentType === "driver" ? "border-amber-500 bg-amber-50/50 dark:bg-amber-950/20" : "border-border hover:border-amber-300"
+                        }`}>
+                          <RadioGroupItem value="driver" id="driver" />
+                          <Label htmlFor="driver" className="flex-1 cursor-pointer">
+                            <div className="font-semibold text-lg flex items-center gap-2">
+                              <Truck className="h-5 w-5 text-amber-600" />
+                              Individual Driver Pass
+                              <span className="text-xs bg-amber-500 text-white px-2 py-0.5 rounded-full">TRANSPORTATION & FLEET</span>
+                            </div>
+                            <div className="text-sm text-amber-600 dark:text-amber-400 font-semibold">$119.00 One-Time</div>
+                            <div className="text-xs text-muted-foreground mt-1">Includes: Membership + 14-Day QR Code + 1 Drug Test Kit</div>
+                          </Label>
+                        </div>
+
                         <div className={`flex items-center space-x-3 rounded-lg border-2 p-4 cursor-pointer transition-all ${
                           paymentType === "onetime" ? "border-blue-600 bg-blue-50/50 dark:bg-blue-950/20" : "border-border hover:border-blue-300"
                         }`}>
@@ -251,7 +270,24 @@ const ToxicologyKitOrder = () => {
                   </div>
 
                   {/* PayPal Payment Forms */}
-                  {paymentType === "onetime" ? (
+                  {paymentType === "driver" ? (
+                    <div className="space-y-3">
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="w-full">
+                        <input type="hidden" name="cmd" value="_xclick" />
+                        <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                        <input type="hidden" name="item_name" value="Clean Check - Driver Verification Pass (14-Day)" />
+                        <input type="hidden" name="amount" value="119.00" />
+                        <input type="hidden" name="no_shipping" value="2" />
+                        <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=driver-14day" />
+                        <button type="submit" style={{ width: '100%', padding: '15px', background: '#f59e0b', color: 'black', fontWeight: 'bold', cursor: 'pointer', zIndex: 10000, position: 'relative', border: 'none', borderRadius: '6px', fontSize: '16px' }}>
+                          BUY DRIVER PASS ($119)
+                        </button>
+                      </form>
+                      <p className="text-xs text-center text-muted-foreground">
+                        🚗 For Transportation & Fleet Drivers • QR Code valid for 14 days
+                      </p>
+                    </div>
+                  ) : paymentType === "onetime" ? (
                     <div className="space-y-3">
                       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="w-full">
                         <input type="hidden" name="cmd" value="_xclick" />

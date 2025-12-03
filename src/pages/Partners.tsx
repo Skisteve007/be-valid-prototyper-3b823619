@@ -76,7 +76,7 @@ const Partners = () => {
             <Button 
               variant="outline"
               onClick={() => navigate("/")}
-              className="border-gray-300 text-gray-700 hover:bg-gray-100"
+              className="border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white"
             >
               ← Back to Home
             </Button>

@@ -85,11 +85,8 @@ interface LanguageSelectorProps {
 }
 
 export function LanguageSelector({ className }: LanguageSelectorProps) {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(languages[0]);
-
-  useEffect(() => {
-    setCurrentLanguage(getCurrentLanguageFromPath());
-  }, []);
+  // Initialize state using the robust function immediately
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(getCurrentLanguageFromPath);
 
   const handleLanguageChange = (language: Language) => {
     if (currentLanguage.code === language.code) return;

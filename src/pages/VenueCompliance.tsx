@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, PartyPopper, ShieldCheck, Building2, ArrowRight, Loader2, BadgeCheck, Sparkles, Syringe, FlaskConical, Car } from "lucide-react";
+import { Shield, PartyPopper, ShieldCheck, Building2, ArrowRight, Loader2, BadgeCheck, Sparkles, Syringe, FlaskConical, Car, Video } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -114,14 +114,14 @@ const VenueCompliance = () => {
     },
     {
       id: "adult",
-      Icon: ShieldCheck,
+      Icon: Video,
       iconColor: "text-amber-400",
-      headline: "Performer Compliance",
-      hook: "The Industry Standard for Talent.",
+      headline: "Talent & Content Creators",
+      hook: "The Professional Standard for Talent.",
       benefits: [
-        { label: "Get Booked", text: "Show clubs you are verified safe." },
-        { label: "Digital Handshake", text: "Auto-syncs your status with your employer." },
-        { label: "Auto-Renewal", text: "Aligns with 60-day testing cycle." },
+        { label: "Bookings", text: "Verified safety for Venues & Sets." },
+        { label: "Collabs", text: "Scan partners before content creation." },
+        { label: "Digital Handshake", text: "Auto-sync status with your Agency." },
       ],
       price: "$39.00",
       period: "Every 60 Days",

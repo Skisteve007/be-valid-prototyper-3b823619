@@ -71,13 +71,26 @@ function setLanguage(langCode: string) {
   // Save preference
   localStorage.setItem('userLanguage', langCode);
 
-  // Use Google Translate cookie approach
-  const googleTranslateCookie = `/en/${langCode}`;
-  document.cookie = `googtrans=${googleTranslateCookie}; path=/`;
-  document.cookie = `googtrans=${googleTranslateCookie}; path=/; domain=${window.location.hostname}`;
+  // If switching to English, reset translation
+  if (langCode === 'en') {
+    // Try to find and click the "Show original" link or reset
+    const iframe = document.querySelector<HTMLIFrameElement>('.goog-te-banner-frame');
+    if (iframe?.contentDocument) {
+      const restoreButton = iframe.contentDocument.querySelector<HTMLElement>('[id="restore"]');
+      if (restoreButton) {
+        restoreButton.click();
+        return;
+      }
+    }
+  }
 
-  // Trigger translation by reloading (Google Translate reads the cookie)
-  window.location.reload();
+  // Programmatically trigger Google Translate via .goog-te-combo dropdown
+  const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+  if (combo) {
+    combo.value = langCode;
+    combo.dispatchEvent(new Event("change"));
+  }
+  // If combo not found, fail gracefully (Google Translate may not have loaded yet)
 }
 
 function getCurrentLanguage(): Language {

@@ -467,6 +467,70 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Lab Kit Section */}
+        <section className="py-6 px-4">
+          <div className="container mx-auto max-w-4xl px-4">
+            <ScrollReveal direction="up" delay={100}>
+              <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent px-4">🧪 Lab Verification Kits</h3>
+              <div className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
+                {/* Toxicology Kit */}
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:shadow-[0_0_50px_rgba(34,197,94,0.7)] border-2 border-green-500/30">
+                  <div className="absolute inset-0 bg-green-500/10 blur-xl rounded-lg -z-10"></div>
+                  <CardHeader className="pb-3">
+                    <div className="space-y-1">
+                      <CardTitle className="text-3xl">$129</CardTitle>
+                      <CardDescription className="text-base font-semibold">Toxicology (10-Panel)</CardDescription>
+                      <p className="text-sm text-muted-foreground">One-time purchase</p>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                      <input type="hidden" name="cmd" value="_xclick" />
+                      <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                      <input type="hidden" name="item_name" value="Verification Kit - Toxicology (10-Panel)" />
+                      <input type="hidden" name="amount" value="129.00" />
+                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                      <Button type="submit" className="w-full bg-green-600 hover:bg-green-700">
+                        ORDER TOX KIT ($129)
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+
+                {/* STD Kit */}
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(168,85,247,0.5)] hover:shadow-[0_0_50px_rgba(168,85,247,0.7)] border-2 border-purple-500/30">
+                  <div className="absolute inset-0 bg-purple-500/10 blur-xl rounded-lg -z-10"></div>
+                  <CardHeader className="pb-3">
+                    <div className="space-y-1">
+                      <CardTitle className="text-3xl">$249</CardTitle>
+                      <CardDescription className="text-base font-semibold">Platinum STD (13-Panel)</CardDescription>
+                      <p className="text-sm text-muted-foreground">One-time purchase</p>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                      <input type="hidden" name="cmd" value="_xclick" />
+                      <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                      <input type="hidden" name="item_name" value="Verification Kit - Platinum STD (13-Panel)" />
+                      <input type="hidden" name="amount" value="249.00" />
+                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                      <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700">
+                        ORDER STD KIT ($249)
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </div>
+              <p className="text-center mt-6 text-muted-foreground flex items-center justify-center gap-2">
+                <Package className="h-4 w-4 text-secondary" />
+                Lab kits shipped directly to your door - results in 3-5 business days
+              </p>
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* Benefits Section */}
         <section className="py-6 px-4 bg-muted/30">
           <div className="container mx-auto max-w-6xl px-4">

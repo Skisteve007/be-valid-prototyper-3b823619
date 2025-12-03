@@ -74,10 +74,10 @@ const Partners = () => {
               Request Integration
             </Button>
             <Button 
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/compliance")}
               className="bg-blue-900 hover:bg-blue-800 text-white"
             >
-              ← Back to Home
+              ← Back to Partner Solutions
             </Button>
           </div>
         </div>

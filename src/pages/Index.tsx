@@ -335,6 +335,14 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground mt-4">
                   Access your profile, QR code, and documents
                 </p>
+                <Button 
+                  onClick={scrollToGetStarted}
+                  size="lg"
+                  className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
               </div>
             </ScrollReveal>
           </div>
@@ -916,17 +924,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Access Profile CTA */}
-        <section className="py-12 px-4 text-center">
-          <Button 
-            onClick={scrollToGetStarted}
-            size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
-          >
-            Access Your Profile QR Code Documents
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </section>
       </main>
     </div>
   );

@@ -343,7 +343,7 @@ const Index = () => {
                       <div className="space-y-1">
                         <CardTitle className="text-3xl">$39</CardTitle>
                         <CardDescription className="text-base font-semibold">Single Member</CardDescription>
-                        <p className="text-sm text-muted-foreground whitespace-nowrap">Per 3 Months</p>
+                        <p className="text-sm text-muted-foreground whitespace-nowrap">Per 60 Days</p>
                       </div>
                       {selectedPlan === "single" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">
@@ -365,7 +365,7 @@ const Index = () => {
                       <div className="space-y-1">
                         <CardTitle className="text-3xl">$69</CardTitle>
                         <CardDescription className="text-base font-semibold">Joint/Couple</CardDescription>
-                        <p className="text-sm text-muted-foreground whitespace-nowrap">Per 3 Months</p>
+                        <p className="text-sm text-muted-foreground whitespace-nowrap">Per 60 Days</p>
                       </div>
                       {selectedPlan === "couple" && (
                         <div className="flex items-center gap-1 text-primary text-sm font-medium">

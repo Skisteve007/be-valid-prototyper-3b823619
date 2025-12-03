@@ -105,13 +105,13 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
       <div className="space-y-3">
         {/* Country Filter - USA First */}
         <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-          <SelectTrigger className="w-full bg-background">
+          <SelectTrigger className="w-full bg-background h-9 text-sm">
             <SelectValue placeholder="Filter by country..." />
           </SelectTrigger>
-          <SelectContent className="bg-background z-50">
-            <SelectItem value="all">All Countries</SelectItem>
+          <SelectContent className="bg-background z-50 max-h-48 overflow-y-auto" side="bottom" align="start" sideOffset={4}>
+            <SelectItem value="all" className="text-sm py-1.5">All Countries</SelectItem>
             {countries.map((country) => (
-              <SelectItem key={country} value={country}>
+              <SelectItem key={country} value={country} className="text-sm py-1.5">
                 {country === "USA" ? "🇺🇸 United States" : country}
               </SelectItem>
             ))}
@@ -120,20 +120,20 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
 
         {/* Venue Selection */}
         <Select value={selectedVenue} onValueChange={handleVenueSelect}>
-          <SelectTrigger className="w-full bg-background">
+          <SelectTrigger className="w-full bg-background h-9 text-sm">
             <SelectValue placeholder="Select a venue..." />
           </SelectTrigger>
-          <SelectContent className="bg-background z-50">
+          <SelectContent className="bg-background z-50 max-h-52 overflow-y-auto" side="bottom" align="start" sideOffset={4}>
             {Object.entries(venuesByCity).map(([city, cityVenues]) => (
               <div key={city}>
-                <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground bg-muted/50">
+                <div className="px-2 py-1 text-xs font-semibold text-muted-foreground bg-muted/50">
                   {city}
                 </div>
                 {cityVenues.map((venue) => (
-                  <SelectItem key={venue.id} value={venue.id}>
-                    <span className="flex items-center gap-2">
+                  <SelectItem key={venue.id} value={venue.id} className="text-sm py-1.5">
+                    <span className="flex items-center gap-1.5">
                       <span>{venue.venue_name}</span>
-                      <span className="text-xs text-muted-foreground">({venue.category})</span>
+                      <span className="text-[10px] text-muted-foreground">({venue.category})</span>
                     </span>
                   </SelectItem>
                 ))}

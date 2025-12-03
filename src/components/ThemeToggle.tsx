@@ -7,11 +7,30 @@ export function ThemeToggle() {
 
   // Function to set theme and update state
   const setTheme = (dark: boolean) => {
+    const root = document.documentElement;
+    const body = document.body;
+    
     if (dark) {
-      document.body.classList.add("dark-theme");
+      // Dark mode - very dark background, white text
+      root.classList.add("dark");
+      body.classList.add("dark-theme");
+      root.style.colorScheme = "dark";
+      
+      // Force dark mode styles
+      body.style.backgroundColor = "#111111";
+      body.style.color = "#ffffff";
+      
       localStorage.setItem("theme", "dark");
     } else {
-      document.body.classList.remove("dark-theme");
+      // Light mode - pure white background, black text
+      root.classList.remove("dark");
+      body.classList.remove("dark-theme");
+      root.style.colorScheme = "light";
+      
+      // Force light mode styles - MAXIMUM BRIGHTNESS
+      body.style.backgroundColor = "#ffffff";
+      body.style.color = "#000000";
+      
       localStorage.setItem("theme", "light");
     }
     setIsDark(dark);
@@ -23,10 +42,8 @@ export function ThemeToggle() {
     
     if (savedTheme === "dark") {
       setTheme(true);
-    } else if (savedTheme === "light") {
-      setTheme(false);
     } else {
-      // No saved preference - default to light theme
+      // Default to light theme for maximum brightness
       setTheme(false);
     }
   }, []);

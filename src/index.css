@@ -153,20 +153,6 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
-  html {
-    background-color: #FFFFFF !important;
-  }
-
-  body {
-    background-color: #FFFFFF !important;
-    color: #000000 !important;
-  }
-
-  #root, #app, .app-wrapper, .main-container {
-    background-color: #FFFFFF !important;
-    min-height: 100vh !important;
-  }
 }
 
 /* Scroll reveal animation */
@@ -231,38 +217,104 @@ All colors MUST be HSL.
   }
 }
 
-/* LIGHT THEME (DEFAULT) STYLES - Exuberant Brightness */
-html, body, #root, #root > div, #root > div:first-child, .app-wrapper, .main-container, .main-content-wrapper {
-  background-color: #FFFFFF !important;
+/* ==========================================
+   THEME SYSTEM - HIGH CONTRAST
+   ========================================== */
+
+/* LIGHT THEME (DEFAULT) - Pure white, black text */
+html:not(.dark),
+html:not(.dark) body {
+  background-color: #ffffff !important;
   color: #000000 !important;
-  transition: background-color 0.4s, color 0.4s;
 }
 
-/* DARK THEME STYLES - Ensure strong contrast for switching back */
-body.dark-theme,
+html:not(.dark) #root,
+html:not(.dark) .app-wrapper,
+html:not(.dark) .main-container {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+html:not(.dark) .card,
+html:not(.dark) [class*="bg-card"],
+html:not(.dark) [class*="bg-background"] {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .text-foreground,
+html:not(.dark) .text-muted-foreground {
+  color: #000000 !important;
+}
+
+html:not(.dark) p,
+html:not(.dark) span,
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) label {
+  color: #000000 !important;
+}
+
+/* DARK THEME - Very dark background, white text */
+html.dark,
+html.dark body,
+body.dark-theme {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+}
+
+html.dark #root,
+html.dark .app-wrapper,
+html.dark .main-container,
 body.dark-theme #root,
-body.dark-theme #root > div,
 body.dark-theme .app-wrapper,
-body.dark-theme .main-container,
-body.dark-theme .main-content-wrapper {
-  background-color: #121212 !important;
-  color: #FFFFFF !important;
+body.dark-theme .main-container {
+  background-color: #111111 !important;
+  color: #ffffff !important;
 }
 
+html.dark .card,
+html.dark [class*="bg-card"],
+html.dark [class*="bg-background"],
 body.dark-theme .card,
 body.dark-theme [class*="bg-card"],
 body.dark-theme [class*="bg-background"] {
-  background-color: #1e1e1e !important;
+  background-color: #1a1a1a !important;
 }
 
+html.dark .text-foreground,
+html.dark .text-muted-foreground,
 body.dark-theme .text-foreground,
-body.dark-theme .text-slate-900,
-body.dark-theme .text-slate-800,
-body.dark-theme .text-slate-700 {
-  color: #FFFFFF !important;
+body.dark-theme .text-muted-foreground {
+  color: #ffffff !important;
 }
 
+html.dark p,
+html.dark span,
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark label,
+body.dark-theme p,
+body.dark-theme span,
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme label {
+  color: #ffffff !important;
+}
+
+html.dark .border-border,
+html.dark [class*="border-"],
 body.dark-theme .border-border,
-body.dark-theme [class*="border-slate"] {
+body.dark-theme [class*="border-"] {
   border-color: #333333 !important;
+}
+
+/* Smooth transitions */
+html, body, #root, .card, [class*="bg-"] {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

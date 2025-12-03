@@ -218,103 +218,105 @@ All colors MUST be HSL.
 }
 
 /* ==========================================
-   THEME SYSTEM - HIGH CONTRAST
+   THEME SYSTEM - MAXIMUM CONTRAST
    ========================================== */
 
-/* LIGHT THEME (DEFAULT) - Pure white, black text */
+/* LIGHT THEME - Bright white background, pure black text */
+:root:not(.dark) {
+  --background: 0 0% 100% !important;
+  --foreground: 0 0% 0% !important;
+  --card: 0 0% 98% !important;
+  --card-foreground: 0 0% 0% !important;
+  --popover: 0 0% 100% !important;
+  --popover-foreground: 0 0% 0% !important;
+  --muted: 0 0% 96% !important;
+  --muted-foreground: 0 0% 20% !important;
+}
+
 html:not(.dark),
-html:not(.dark) body {
+html:not(.dark) body,
+:root:not(.dark) body {
+  background: #ffffff !important;
   background-color: #ffffff !important;
   color: #000000 !important;
 }
 
-html:not(.dark) #root,
-html:not(.dark) .app-wrapper,
-html:not(.dark) .main-container {
+html:not(.dark) #root {
+  background: #ffffff !important;
   background-color: #ffffff !important;
+  color: #000000 !important;
+  min-height: 100vh;
+}
+
+html:not(.dark) *:not([class*="bg-primary"]):not([class*="bg-secondary"]):not([class*="bg-destructive"]):not([class*="gradient"]):not(button) {
+  color: inherit;
+}
+
+html:not(.dark) .bg-background {
+  background: #ffffff !important;
+}
+
+html:not(.dark) .bg-card {
+  background: #f8f8f8 !important;
+}
+
+html:not(.dark) .text-foreground {
   color: #000000 !important;
 }
 
-html:not(.dark) .card,
-html:not(.dark) [class*="bg-card"],
-html:not(.dark) [class*="bg-background"] {
-  background-color: #ffffff !important;
-}
-
-html:not(.dark) .text-foreground,
 html:not(.dark) .text-muted-foreground {
-  color: #000000 !important;
+  color: #333333 !important;
 }
 
-html:not(.dark) p,
-html:not(.dark) span,
-html:not(.dark) h1,
-html:not(.dark) h2,
-html:not(.dark) h3,
-html:not(.dark) h4,
-html:not(.dark) label {
-  color: #000000 !important;
+/* DARK THEME - Deep black background, bright white text */
+.dark {
+  --background: 0 0% 4% !important;
+  --foreground: 0 0% 100% !important;
+  --card: 0 0% 8% !important;
+  --card-foreground: 0 0% 100% !important;
+  --popover: 0 0% 6% !important;
+  --popover-foreground: 0 0% 100% !important;
+  --muted: 0 0% 12% !important;
+  --muted-foreground: 0 0% 75% !important;
 }
 
-/* DARK THEME - Very dark background, white text */
 html.dark,
 html.dark body,
-body.dark-theme {
-  background-color: #111111 !important;
+.dark body {
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
   color: #ffffff !important;
 }
 
-html.dark #root,
-html.dark .app-wrapper,
-html.dark .main-container,
-body.dark-theme #root,
-body.dark-theme .app-wrapper,
-body.dark-theme .main-container {
-  background-color: #111111 !important;
+html.dark #root {
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
+  color: #ffffff !important;
+  min-height: 100vh;
+}
+
+html.dark .bg-background {
+  background: #0a0a0a !important;
+}
+
+html.dark .bg-card {
+  background: #141414 !important;
+}
+
+html.dark .text-foreground {
   color: #ffffff !important;
 }
 
-html.dark .card,
-html.dark [class*="bg-card"],
-html.dark [class*="bg-background"],
-body.dark-theme .card,
-body.dark-theme [class*="bg-card"],
-body.dark-theme [class*="bg-background"] {
-  background-color: #1a1a1a !important;
-}
-
-html.dark .text-foreground,
-html.dark .text-muted-foreground,
-body.dark-theme .text-foreground,
-body.dark-theme .text-muted-foreground {
-  color: #ffffff !important;
-}
-
-html.dark p,
-html.dark span,
-html.dark h1,
-html.dark h2,
-html.dark h3,
-html.dark h4,
-html.dark label,
-body.dark-theme p,
-body.dark-theme span,
-body.dark-theme h1,
-body.dark-theme h2,
-body.dark-theme h3,
-body.dark-theme h4,
-body.dark-theme label {
-  color: #ffffff !important;
+html.dark .text-muted-foreground {
+  color: #cccccc !important;
 }
 
 html.dark .border-border,
-html.dark [class*="border-"],
-body.dark-theme .border-border,
-body.dark-theme [class*="border-"] {
-  border-color: #333333 !important;
+html.dark [class*="border-"] {
+  border-color: #2a2a2a !important;
 }
 
-/* Smooth transitions */
-html, body, #root, .card, [class*="bg-"] {
+/* Smooth theme transitions */
+html, body, #root {
   transition: background-color 0.3s ease, color 0.3s ease;
 }

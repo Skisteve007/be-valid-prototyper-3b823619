@@ -264,14 +264,14 @@ const PartnerApplication = () => {
                 
                 <div className="space-y-2">
                   <Label className="text-slate-300">Payout Method *</Label>
-                  <Select 
-                    value={formData.payoutMethod} 
-                    onValueChange={(value) => setFormData({ ...formData, payoutMethod: value })}
-                  >
-                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
-                      <SelectValue placeholder="Select payout method" />
-                    </SelectTrigger>
-                    <SelectContent>
+                <Select 
+                  value={formData.payoutMethod} 
+                  onValueChange={(value) => setFormData({ ...formData, payoutMethod: value })}
+                >
+                  <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                    <SelectValue placeholder="Select payout method" />
+                  </SelectTrigger>
+                  <SelectContent position="popper" className="z-50">
                       <SelectItem value="paypal">PayPal</SelectItem>
                       <SelectItem value="venmo">Venmo</SelectItem>
                       <SelectItem value="zelle">Zelle</SelectItem>

@@ -75,7 +75,7 @@ const Footer = () => {
         <div className="flex justify-end mt-2">
           <button
             onClick={handleAdminClick}
-            className="text-[9px] text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+            className="text-[9px] text-muted-foreground/50 hover:text-muted-foreground hover:scale-110 transition-all duration-200"
           >
             {isAdmin ? "Admin Panel" : "Admin"}
           </button>

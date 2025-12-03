@@ -46,6 +46,7 @@ const App = () => (
             <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
             <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
             <Route path="/partners" element={<AgeGate><Partners /></AgeGate>} />
+            <Route path="/partners/verification" element={<AgeGate><Partners /></AgeGate>} />
             <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
             <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
             <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />

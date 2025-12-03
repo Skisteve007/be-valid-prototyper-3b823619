@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin } from "lucide-react";
+import { MapPin, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 interface Venue {
   id: string;
   venue_name: string;
   city: string;
+  country: string;
   category: string;
 }
 
@@ -17,6 +18,7 @@ interface VenueCheckinProps {
 
 export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
   const [venues, setVenues] = useState<Venue[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedVenue, setSelectedVenue] = useState<string>("");
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +26,7 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
     const fetchVenues = async () => {
       const { data, error } = await supabase
         .from("partner_venues")
-        .select("id, venue_name, city, category")
+        .select("id, venue_name, city, country, category")
         .order("city", { ascending: true });
 
       if (error) {
@@ -38,9 +40,35 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
     fetchVenues();
   }, []);
 
+  // Get unique countries, sorted with USA first
+  const countries = [...new Set(venues.map(v => v.country))].sort((a, b) => {
+    // USA always first
+    if (a === "USA" || a === "United States") return -1;
+    if (b === "USA" || b === "United States") return 1;
+    return a.localeCompare(b);
+  });
+
+  // Filter venues by selected country
+  const filteredVenues = selectedCountry 
+    ? venues.filter(v => v.country === selectedCountry)
+    : venues;
+
+  // Group filtered venues by city
+  const venuesByCity = filteredVenues.reduce((acc, venue) => {
+    if (!acc[venue.city]) {
+      acc[venue.city] = [];
+    }
+    acc[venue.city].push(venue);
+    return acc;
+  }, {} as Record<string, Venue[]>);
+
   const handleVenueSelect = async (venueId: string) => {
     setSelectedVenue(venueId);
     
+    const venue = venues.find(v => v.id === venueId);
+    if (!venue) return;
+
+    // Save check-in to database
     const { error } = await supabase
       .from("user_checkins")
       .insert({
@@ -50,21 +78,17 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
 
     if (error) {
       console.error("Error saving check-in:", error);
-      toast.error("Failed to save check-in");
-    } else {
-      const venue = venues.find(v => v.id === venueId);
-      toast.success(`Checked in to ${venue?.venue_name}!`);
     }
-  };
 
-  // Group venues by city
-  const venuesByCity = venues.reduce((acc, venue) => {
-    if (!acc[venue.city]) {
-      acc[venue.city] = [];
-    }
-    acc[venue.city].push(venue);
-    return acc;
-  }, {} as Record<string, Venue[]>);
+    // Construct Google Search URL and redirect
+    const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country}`);
+    const googleSearchUrl = `https://www.google.com/search?q=${searchQuery}`;
+    
+    toast.success(`Opening ${venue.venue_name} in Google...`);
+    
+    // Open in new tab
+    window.open(googleSearchUrl, "_blank", "noopener,noreferrer");
+  };
 
   if (loading) {
     return null;
@@ -75,29 +99,49 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
       <div className="flex items-center gap-2 mb-3">
         <MapPin className="h-5 w-5 text-primary" />
         <span className="font-semibold text-foreground">Where are you heading tonight?</span>
+        <ExternalLink className="h-4 w-4 text-muted-foreground ml-auto" />
       </div>
-      <Select value={selectedVenue} onValueChange={handleVenueSelect}>
-        <SelectTrigger className="w-full bg-background">
-          <SelectValue placeholder="Select a venue..." />
-        </SelectTrigger>
-        <SelectContent className="bg-background z-50">
-          {Object.entries(venuesByCity).map(([city, cityVenues]) => (
-            <div key={city}>
-              <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground bg-muted/50">
-                {city}
+      
+      <div className="space-y-3">
+        {/* Country Filter - USA First */}
+        <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+          <SelectTrigger className="w-full bg-background">
+            <SelectValue placeholder="Filter by country..." />
+          </SelectTrigger>
+          <SelectContent className="bg-background z-50">
+            <SelectItem value="all">All Countries</SelectItem>
+            {countries.map((country) => (
+              <SelectItem key={country} value={country}>
+                {country === "USA" ? "🇺🇸 United States" : country}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Venue Selection */}
+        <Select value={selectedVenue} onValueChange={handleVenueSelect}>
+          <SelectTrigger className="w-full bg-background">
+            <SelectValue placeholder="Select a venue..." />
+          </SelectTrigger>
+          <SelectContent className="bg-background z-50">
+            {Object.entries(venuesByCity).map(([city, cityVenues]) => (
+              <div key={city}>
+                <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground bg-muted/50">
+                  {city}
+                </div>
+                {cityVenues.map((venue) => (
+                  <SelectItem key={venue.id} value={venue.id}>
+                    <span className="flex items-center gap-2">
+                      <span>{venue.venue_name}</span>
+                      <span className="text-xs text-muted-foreground">({venue.category})</span>
+                    </span>
+                  </SelectItem>
+                ))}
               </div>
-              {cityVenues.map((venue) => (
-                <SelectItem key={venue.id} value={venue.id}>
-                  <span className="flex items-center gap-2">
-                    <span>{venue.venue_name}</span>
-                    <span className="text-xs text-muted-foreground">({venue.category})</span>
-                  </span>
-                </SelectItem>
-              ))}
-            </div>
-          ))}
-        </SelectContent>
-      </Select>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 };

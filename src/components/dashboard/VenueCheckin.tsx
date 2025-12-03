@@ -89,15 +89,21 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
       // Use pre-configured map link with specific address
       googleSearchUrl = venueDetails.map_link;
     } else {
-      // Fallback to generic Google Business search
-      const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country} google business`);
-      googleSearchUrl = `https://www.google.com/search?q=${searchQuery}`;
+      // Fallback to Google Maps search (more reliable than Google Search)
+      const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country}`);
+      googleSearchUrl = `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
     }
     
-    toast.success(`Finding ${venue.venue_name} on Google...`);
+    toast.success(`Finding ${venue.venue_name} on Google Maps...`);
     
-    // Open in new tab
-    window.open(googleSearchUrl, "_blank", "noopener,noreferrer");
+    // Use anchor click method to bypass iframe restrictions
+    const link = document.createElement('a');
+    link.href = googleSearchUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (loading) {

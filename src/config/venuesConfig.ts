@@ -63,20 +63,38 @@ export const venuesConfig: CityVenues[] = [
       {
         name: 'Café Havana',
         address: 'Cra. 10 #ESQUINA, Getsemaní',
-        phone_number: '+57 311 5885265',
-        map_link: 'https://www.google.com/search?q=Café Havana + Cra. 10 #ESQUINA, Getsemaní + Cartagena + google business'
+        phone_number: '',
+        map_link: 'https://www.google.com/search?q=Café+Havana+Cra.+10+#ESQUINA,+Getsemaní,+Cartagena+google+business'
       },
       {
         name: 'Bazurto Social Club',
-        address: 'Av. del Centenario, Cra 9 #30-42',
-        phone_number: '+57 314 5556789',
-        map_link: 'https://www.google.com/search?q=Bazurto Social Club + Av. del Centenario, Cra 9 #30-42 + Cartagena + google business'
+        address: 'Getsemaní, Av. del Centenario, Cra 9 #30-42',
+        phone_number: '',
+        map_link: 'https://www.google.com/search?q=Bazurto+Social+Club+Cra+9+#30-42,+Cartagena+google+business'
       },
       {
         name: 'La Jugada Club House',
         address: 'Calle del Colegio, Cra. 6 #34-25',
-        phone_number: '+57 300 1234567',
-        map_link: 'https://www.google.com/search?q=La Jugada Club House + Calle del Colegio, Cra. 6 #34-25 + Cartagena + google business'
+        phone_number: '',
+        map_link: 'https://www.google.com/search?q=La+Jugada+Club+House+Calle+del+Colegio,+Cra.+6+#34-25,+Cartagena+google+business'
+      },
+      {
+        name: 'La Movida',
+        address: 'Cl. 31 #3-37, El Centro',
+        phone_number: '',
+        map_link: 'https://www.google.com/search?q=La+Movida+Cl.+31+#3-37,+El+Centro,+Cartagena+google+business'
+      },
+      {
+        name: 'Alquímico',
+        address: 'Cl. del Colegio # 34-24',
+        phone_number: '',
+        map_link: 'https://www.google.com/search?q=Alquímico+Cl.+del+Colegio+#34-24,+Cartagena+google+business'
+      },
+      {
+        name: 'Seven Times',
+        address: 'Calle Media Luna #9-79',
+        phone_number: '',
+        map_link: 'https://www.google.com/search?q=Seven+Times+Calle+Media+Luna+#9-79,+Cartagena+google+business'
       }
     ]
   }

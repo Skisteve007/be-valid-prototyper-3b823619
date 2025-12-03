@@ -10,6 +10,9 @@ export interface CityVenues {
   venues: VenueDetails[];
 }
 
+// Helper to generate OpenStreetMap search URL
+const osmUrl = (query: string) => `https://www.openstreetmap.org/search?query=${encodeURIComponent(query)}`;
+
 export const venuesConfig: CityVenues[] = [
   {
     city: 'Bogotá',
@@ -18,25 +21,25 @@ export const venuesConfig: CityVenues[] = [
         name: 'Theatron',
         address: 'Cl. 58 #10-32, Chapinero',
         phone_number: '+57 322 3617300',
-        map_link: 'https://www.google.com/search?q=Theatron+Cl.+58+%2310-32+Bogotá+google+business'
+        map_link: osmUrl('Theatron Cl. 58 #10-32 Bogotá Colombia')
       },
       {
         name: 'Armando Records',
         address: 'Cl. 85 #14-46, Chapinero',
         phone_number: '+57 310 8731720',
-        map_link: 'https://www.google.com/search?q=Armando+Records+Cl.+85+%2314-46+Bogotá+google+business'
+        map_link: osmUrl('Armando Records Cl. 85 #14-46 Bogotá Colombia')
       },
       {
         name: 'Baum',
         address: 'Cl. 33 #6-24, Teusaquillo',
         phone_number: '+57 312 2167448',
-        map_link: 'https://www.google.com/search?q=Baum+Cl.+33+%236-24+Bogotá+google+business'
+        map_link: osmUrl('Baum Cl. 33 #6-24 Bogotá Colombia')
       },
       {
         name: 'Casa Quiebra-Canto',
         address: 'Cra. 5 #17-76, Bogotá',
         phone_number: '+57 601 243 16 30',
-        map_link: 'https://www.google.com/search?q=Casa+Quiebra-Canto+Cra.+5+%2317-76+Bogotá+google+business'
+        map_link: osmUrl('Casa Quiebra-Canto Cra. 5 #17-76 Bogotá Colombia')
       }
     ]
   },
@@ -47,55 +50,55 @@ export const venuesConfig: CityVenues[] = [
         name: 'La House Provenza',
         address: 'Cra. 35 #8A - 31',
         phone_number: '+57 310 499 4804',
-        map_link: 'https://www.google.com/search?q=La+House+Provenza+Cra.+35+%238A-31+Medellín+google+business'
+        map_link: osmUrl('La House Provenza Cra. 35 #8A-31 Medellín Colombia')
       },
       {
         name: 'Envy Rooftop',
         address: 'Cl. 9A #37-16',
         phone_number: '+57 4444 968 121',
-        map_link: 'https://www.google.com/search?q=Envy+Rooftop+Cl.+9A+%2337-16+Medellín+google+business'
+        map_link: osmUrl('Envy Rooftop Cl. 9A #37-16 Medellín Colombia')
       },
       {
         name: 'Salón Amador',
         address: 'Cl 10 #40-30',
         phone_number: '+57 310 526 0880',
-        map_link: 'https://www.google.com/search?q=Salón+Amador+Cl+10+%2340-30+Medellín+google+business'
+        map_link: osmUrl('Salón Amador Cl 10 #40-30 Medellín Colombia')
       },
       {
         name: '360 Rooftop bar',
         address: 'Cl 10A #36-29',
         phone_number: '+57 312 627 3647',
-        map_link: 'https://www.google.com/search?q=360+Rooftop+bar+Cl+10A+%2336-29+Medellín+google+business'
+        map_link: osmUrl('360 Rooftop bar Cl 10A #36-29 Medellín Colombia')
       },
       {
         name: 'Gusto Night Club',
         address: 'Calle 9 A #38-26, Parque Lleras',
         phone_number: '+57 324 674 9484',
-        map_link: 'https://www.google.com/search?q=Gusto+Night+Club+Calle+9A+Medellín+google+business'
+        map_link: osmUrl('Gusto Night Club Calle 9A Medellín Colombia')
       },
       {
         name: 'Sonorama Club',
         address: 'Cra. 37 #10-37',
         phone_number: '+57 305 333 3903',
-        map_link: 'https://www.google.com/search?q=Sonorama+Club+Cra.+37+%2310-37+Medellín+google+business'
+        map_link: osmUrl('Sonorama Club Cra. 37 #10-37 Medellín Colombia')
       },
       {
         name: 'Dulce Jesús Mio',
         address: 'Cr. 38 #19-150, El Poblado',
         phone_number: '+57 312 8585934',
-        map_link: 'https://www.google.com/search?q=Dulce+Jesús+Mio+Cr.+38+%2319-150+Medellín+google+business'
+        map_link: osmUrl('Dulce Jesús Mio Cr. 38 #19-150 Medellín Colombia')
       },
       {
         name: 'The Blue',
         address: 'Cl. 10 #40-20, El Poblado',
         phone_number: '+57 310 8943210',
-        map_link: 'https://www.google.com/search?q=The+Blue+Cl.+10+%2340-20+Medellín+google+business'
+        map_link: osmUrl('The Blue Cl. 10 #40-20 Medellín Colombia')
       },
       {
         name: 'Vintrash',
         address: 'Cr. 36 #8a-39, El Poblado',
         phone_number: '+57 301 7894560',
-        map_link: 'https://www.google.com/search?q=Vintrash+Cr.+36+%238a-39+Medellín+google+business'
+        map_link: osmUrl('Vintrash Cr. 36 #8a-39 Medellín Colombia')
       }
     ]
   },
@@ -106,37 +109,37 @@ export const venuesConfig: CityVenues[] = [
         name: 'Café Havana',
         address: 'Calle del Guerrero con Media Luna, Getsemaní',
         phone_number: '+57 310 610 2324',
-        map_link: 'https://www.google.com/search?q=Café+Havana+Getsemaní+Cartagena+google+business'
+        map_link: osmUrl('Café Havana Getsemaní Cartagena Colombia')
       },
       {
         name: 'Bazurto Social Club',
         address: 'Calle Del Centenario, Cra 9 N# 30-42, Getsemaní',
         phone_number: '+57 317 648 1183',
-        map_link: 'https://www.google.com/search?q=Bazurto+Social+Club+Cra+9+%2330-42+Cartagena+google+business'
+        map_link: osmUrl('Bazurto Social Club Cra 9 #30-42 Cartagena Colombia')
       },
       {
         name: 'La Jugada Club House',
         address: 'Calle del Colegio, 34-25, Centro Histórico',
         phone_number: '+57 321 587 5983',
-        map_link: 'https://www.google.com/search?q=La+Jugada+Club+House+Calle+del+Colegio+34-25+Cartagena+google+business'
+        map_link: osmUrl('La Jugada Club House Calle del Colegio 34-25 Cartagena Colombia')
       },
       {
         name: 'La Movida',
         address: 'Cl. 31 #3-37, El Centro',
         phone_number: '+57 316 587 5350',
-        map_link: 'https://www.google.com/search?q=La+Movida+Cl.+31+%233-37+El+Centro+Cartagena+google+business'
+        map_link: osmUrl('La Movida Cl. 31 #3-37 Cartagena Colombia')
       },
       {
         name: 'Alquímico',
         address: 'Calle del Colegio 34-24',
         phone_number: '+57 316 533 1932',
-        map_link: 'https://www.google.com/search?q=Alquímico+Calle+del+Colegio+34-24+Cartagena+google+business'
+        map_link: osmUrl('Alquímico Calle del Colegio 34-24 Cartagena Colombia')
       },
       {
         name: 'Seven Times',
         address: 'Calle Media Luna #9-79, Getsemaní',
         phone_number: '+57 312 256 3705',
-        map_link: 'https://www.google.com/search?q=Seven+Times+Calle+Media+Luna+%239-79+Cartagena+google+business'
+        map_link: osmUrl('Seven Times Calle Media Luna #9-79 Cartagena Colombia')
       }
     ]
   }

@@ -32,29 +32,22 @@ declare global {
   }
 }
 
+// Track if Google Translate is ready
+let googleTranslateReady = false;
+
 // Initialize Google Translate
 function initGoogleTranslate() {
-  if (window.google && window.google.translate) {
-    return;
-  }
-
-  // Add Google Translate script if not already present
-  if (!document.getElementById('google-translate-script')) {
-    const script = document.createElement('script');
-    script.id = 'google-translate-script';
-    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    script.async = true;
-    document.body.appendChild(script);
-  }
-
-  // Create hidden translate element
+  // Create hidden translate element first
   if (!document.getElementById('google_translate_element')) {
     const div = document.createElement('div');
     div.id = 'google_translate_element';
-    div.style.display = 'none';
+    div.style.position = 'absolute';
+    div.style.top = '-9999px';
+    div.style.left = '-9999px';
     document.body.appendChild(div);
   }
 
+  // Define the callback BEFORE loading the script
   window.googleTranslateElementInit = function() {
     new window.google.translate.TranslateElement(
       {
@@ -64,33 +57,60 @@ function initGoogleTranslate() {
       },
       'google_translate_element'
     );
+    googleTranslateReady = true;
+    console.log('Google Translate initialized');
   };
+
+  // Add Google Translate script if not already present
+  if (!document.getElementById('google-translate-script')) {
+    const script = document.createElement('script');
+    script.id = 'google-translate-script';
+    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    document.body.appendChild(script);
+  }
 }
 
 function setLanguage(langCode: string) {
   // Save preference
   localStorage.setItem('userLanguage', langCode);
 
-  // If switching to English, reset translation
+  // If switching to English, reset by clearing cookies and reloading
   if (langCode === 'en') {
-    // Try to find and click the "Show original" link or reset
-    const iframe = document.querySelector<HTMLIFrameElement>('.goog-te-banner-frame');
-    if (iframe?.contentDocument) {
-      const restoreButton = iframe.contentDocument.querySelector<HTMLElement>('[id="restore"]');
-      if (restoreButton) {
-        restoreButton.click();
-        return;
-      }
+    // Clear googtrans cookies
+    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
+    
+    // Try to reset via the combo
+    const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+    if (combo) {
+      combo.value = 'en';
+      combo.dispatchEvent(new Event("change"));
     }
+    return;
   }
 
-  // Programmatically trigger Google Translate via .goog-te-combo dropdown
-  const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-  if (combo) {
-    combo.value = langCode;
-    combo.dispatchEvent(new Event("change"));
-  }
-  // If combo not found, fail gracefully (Google Translate may not have loaded yet)
+  // Set the googtrans cookie (Google Translate reads this)
+  const googleTranslateCookie = `/en/${langCode}`;
+  document.cookie = `googtrans=${googleTranslateCookie}; path=/`;
+  document.cookie = `googtrans=${googleTranslateCookie}; path=/; domain=${window.location.hostname}`;
+
+  // Try to trigger via the combo with retry logic
+  const triggerTranslation = (retries = 0) => {
+    const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+    if (combo) {
+      combo.value = langCode;
+      combo.dispatchEvent(new Event("change"));
+      console.log(`Language set to: ${langCode}`);
+    } else if (retries < 10) {
+      // Retry after a short delay if combo not found yet
+      setTimeout(() => triggerTranslation(retries + 1), 200);
+    } else {
+      console.warn('Google Translate combo not found after retries');
+    }
+  };
+  
+  triggerTranslation();
 }
 
 function getCurrentLanguage(): Language {

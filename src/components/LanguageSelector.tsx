@@ -100,6 +100,42 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
     };
   }, []);
 
+  const triggerGoogleTranslate = useCallback((langCode: string) => {
+    // Set cookie for Google Translate
+    document.cookie = `googtrans=/en/${langCode}; path=/`;
+    document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname}`;
+    
+    // Find and trigger Google Translate's select element
+    const selectElement = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+    if (selectElement) {
+      selectElement.value = langCode;
+      selectElement.dispatchEvent(new Event('change'));
+    }
+  }, []);
+
+  const handleLanguageChange = useCallback((language: Language) => {
+    // Prevent action if already on this language
+    if (currentLanguage.code === language.code) return;
+    
+    setCurrentLanguage(language);
+    localStorage.setItem("preferred-language", language.code);
+    
+    if (language.code === 'en') {
+      // Reset to English - clear translation cookies
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
+      // Remove the Google Translate frame if it exists
+      const translateFrame = document.querySelector('.goog-te-banner-frame');
+      if (translateFrame) {
+        translateFrame.remove();
+      }
+      // Single controlled reload to clear translation
+      window.location.href = window.location.pathname;
+    } else {
+      triggerGoogleTranslate(language.googleCode);
+    }
+  }, [currentLanguage.code, triggerGoogleTranslate]);
+
   // Auto-detect browser language and show prompt
   useEffect(() => {
     const browserLang = navigator.language.split('-')[0];
@@ -120,51 +156,22 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
         }, 1500);
       }
     }
-  }, []);
+  }, [handleLanguageChange]);
 
   // Load saved language preference
   useEffect(() => {
     const savedLang = localStorage.getItem("preferred-language");
-    if (savedLang) {
+    if (savedLang && isGoogleLoaded) {
       const lang = languages.find(l => l.code === savedLang);
-      if (lang) {
+      if (lang && lang.code !== 'en') {
         setCurrentLanguage(lang);
-        // Apply translation on load
-        triggerGoogleTranslate(lang.googleCode);
+        // Apply translation on load only if Google is ready
+        setTimeout(() => triggerGoogleTranslate(lang.googleCode), 500);
+      } else if (lang) {
+        setCurrentLanguage(lang);
       }
     }
-  }, [isGoogleLoaded]);
-
-  const triggerGoogleTranslate = useCallback((langCode: string) => {
-    // Find and trigger Google Translate's select element
-    const selectElement = document.querySelector('.goog-te-combo') as HTMLSelectElement;
-    if (selectElement) {
-      selectElement.value = langCode;
-      selectElement.dispatchEvent(new Event('change'));
-    } else {
-      // Fallback: set cookie directly for Google Translate
-      document.cookie = `googtrans=/en/${langCode}; path=/`;
-      document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname}`;
-      // Reload to apply translation
-      if (langCode !== 'en') {
-        window.location.reload();
-      }
-    }
-  }, []);
-
-  const handleLanguageChange = (language: Language) => {
-    setCurrentLanguage(language);
-    localStorage.setItem("preferred-language", language.code);
-    
-    if (language.code === 'en') {
-      // Reset to English - clear translation cookies
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
-      window.location.reload();
-    } else {
-      triggerGoogleTranslate(language.googleCode);
-    }
-  };
+  }, [isGoogleLoaded, triggerGoogleTranslate]);
 
   return (
     <DropdownMenu>

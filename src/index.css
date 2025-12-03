@@ -97,14 +97,14 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 215 30% 8%;
-    --foreground: 210 15% 95%;
+    --background: 0 0% 18%;
+    --foreground: 0 0% 98%;
 
-    --card: 215 25% 12%;
-    --card-foreground: 210 15% 95%;
+    --card: 0 0% 22%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 215 25% 15%;
-    --popover-foreground: 210 15% 95%;
+    --popover: 0 0% 20%;
+    --popover-foreground: 0 0% 98%;
 
     --primary: 210 95% 55%;
     --primary-foreground: 0 0% 100%;

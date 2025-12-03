@@ -163,11 +163,18 @@ const VenueCompliance = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white font-sans">
+    <div 
+      className="min-h-screen text-white font-sans"
+      style={{
+        background: 'radial-gradient(circle at 50% 30%, rgba(244, 114, 182, 0.25) 0%, rgba(15, 23, 42, 1) 90%)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+      }}
+    >
       {/* Ambient Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px]" />
+        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-slate-950 to-transparent" />
       </div>
 
       {/* Header */}

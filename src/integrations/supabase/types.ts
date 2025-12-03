@@ -908,6 +908,36 @@ export type Database = {
         }
         Relationships: []
       }
+      user_agreements: {
+        Row: {
+          created_at: string
+          id: string
+          ip_address: string | null
+          signed_at: string
+          user_agent: string | null
+          user_id: string
+          waiver_version: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          signed_at?: string
+          user_agent?: string | null
+          user_id: string
+          waiver_version?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          signed_at?: string
+          user_agent?: string | null
+          user_id?: string
+          waiver_version?: string
+        }
+        Relationships: []
+      }
       user_checkins: {
         Row: {
           checkin_date: string

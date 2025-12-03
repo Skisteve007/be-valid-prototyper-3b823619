@@ -10,9 +10,10 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink } from "lucide-react";
+import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock } from "lucide-react";
 import { toast } from "sonner";
 import SponsorUpload from "./SponsorUpload";
+import LiabilityWaiverModal, { useWaiverStatus } from "./LiabilityWaiverModal";
 
 interface QRCodeTabProps {
   userId: string;
@@ -26,9 +27,14 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const [wakeLock, setWakeLock] = useState<any>(null);
   const [accessToken, setAccessToken] = useState<string>("");
   const [profileId, setProfileId] = useState<string>("");
+  const [showWaiverModal, setShowWaiverModal] = useState(false);
+  
+  // Waiver status
+  const { hasSignedWaiver, isLoading: waiverLoading, waiverSignedAt, checkWaiverStatus, setHasSignedWaiver } = useWaiverStatus(userId);
 
   useEffect(() => {
     loadProfileAndDocuments();
+    checkWaiverStatus();
     
     return () => {
       resetBrightness();
@@ -299,92 +305,140 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
   return (
     <div className="space-y-6 py-4">
+      {/* Liability Waiver Modal */}
+      <LiabilityWaiverModal
+        open={showWaiverModal}
+        onClose={() => setShowWaiverModal(false)}
+        onSigned={() => {
+          setHasSignedWaiver(true);
+          setShowWaiverModal(false);
+        }}
+        userId={userId}
+      />
+
       {/* SECTION A: MAIN QR CODE CARD - INTERACTIVE */}
       <Card>
         <CardHeader>
-          <CardTitle>
-            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Your QR Code</span>
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>
+              <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Your QR Code</span>
+            </CardTitle>
+            {hasSignedWaiver && waiverSignedAt && (
+              <Badge variant="outline" className="text-xs bg-green-500/10 border-green-500/30 text-green-600">
+                <Shield className="h-3 w-3 mr-1" />
+                Waiver Signed
+              </Badge>
+            )}
+          </div>
           <CardDescription>
             Share this secure QR code to give temporary access to your verified profile. Access expires after 24 hours.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center space-y-6">
-          <div className="relative">
-            <div className={`p-6 bg-white dark:bg-card border-4 ${getBorderColor()} rounded-2xl ${getGlowColor()} transition-all duration-500`}>
-              {qrCodeUrl ? (
-                <img
-                  src={qrCodeUrl}
-                  alt="QR Code"
-                  className="w-64 h-64"
-                />
-              ) : (
-                <div className="w-64 h-64 flex items-center justify-center bg-muted">
-                  <QrCode className="h-16 w-16 text-muted-foreground" />
+          {/* Gatekeeper: Block QR if waiver not signed */}
+          {!waiverLoading && hasSignedWaiver === false ? (
+            <div className="relative w-full">
+              {/* Blurred/locked QR placeholder */}
+              <div className="p-6 bg-muted/50 border-4 border-gray-400 rounded-2xl relative overflow-hidden">
+                <div className="w-64 h-64 flex items-center justify-center bg-muted blur-sm mx-auto">
+                  <QrCode className="h-32 w-32 text-muted-foreground/50" />
                 </div>
-              )}
-            </div>
-          </div>
-            
-          {lastDocumentDate && (
-            <div className="flex justify-center -mt-2">
-              <div className={`${getTimestampBadgeClass()} flex items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg rounded-full pointer-events-none`}>
-                <Clock className="h-4 w-4" />
-                <span>{documentAge} {documentAge === 1 ? 'day' : 'days'} ago</span>
+                {/* Lock overlay */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/80 backdrop-blur-sm">
+                  <Lock className="h-12 w-12 text-amber-500 mb-4" />
+                  <p className="text-center font-semibold mb-2">Liability Waiver Required</p>
+                  <p className="text-sm text-muted-foreground text-center mb-4 px-4">
+                    Sign the liability release to generate your pass
+                  </p>
+                  <Button
+                    onClick={() => setShowWaiverModal(true)}
+                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white"
+                  >
+                    <Shield className="h-4 w-4 mr-2" />
+                    Review & Sign Waiver
+                  </Button>
+                </div>
               </div>
             </div>
-          )}
-          
-          <div className="flex flex-col gap-2 w-full max-w-xs">
-            {/* Primary share button for mobile - uses native share */}
-            <Button 
-              onClick={handleShare}
-              className="w-full min-h-[48px] bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white touch-manipulation shadow-lg" 
-              type="button"
-            >
-              <Share2 className="h-5 w-5 mr-2" />
-              Share My Profile
-            </Button>
-            
-            {/* Additional sharing options in dropdown - hidden on mobile */}
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
+          ) : (
+            <>
+              <div className="relative">
+                <div className={`p-6 bg-white dark:bg-card border-4 ${getBorderColor()} rounded-2xl ${getGlowColor()} transition-all duration-500`}>
+                  {qrCodeUrl ? (
+                    <img
+                      src={qrCodeUrl}
+                      alt="QR Code"
+                      className="w-64 h-64"
+                    />
+                  ) : (
+                    <div className="w-64 h-64 flex items-center justify-center bg-muted">
+                      <QrCode className="h-16 w-16 text-muted-foreground" />
+                    </div>
+                  )}
+                </div>
+              </div>
+                
+              {lastDocumentDate && (
+                <div className="flex justify-center -mt-2">
+                  <div className={`${getTimestampBadgeClass()} flex items-center gap-2 px-4 py-2 text-sm font-semibold shadow-lg rounded-full pointer-events-none`}>
+                    <Clock className="h-4 w-4" />
+                    <span>{documentAge} {documentAge === 1 ? 'day' : 'days'} ago</span>
+                  </div>
+                </div>
+              )}
+              
+              <div className="flex flex-col gap-2 w-full max-w-xs">
+                {/* Primary share button for mobile - uses native share */}
                 <Button 
-                  className="hidden md:flex w-full min-h-[44px] touch-manipulation" 
-                  variant="outline"
+                  onClick={handleShare}
+                  className="w-full min-h-[48px] bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white touch-manipulation shadow-lg" 
                   type="button"
                 >
-                  More Share Options
+                  <Share2 className="h-5 w-5 mr-2" />
+                  Share My Profile
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="center" className="w-56 z-50">
-                <DropdownMenuItem onClick={handleCopyLink} className="min-h-[44px] touch-manipulation">
-                  <Copy className="h-4 w-4 mr-2" />
-                  Copy Link
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleShareEmail} className="min-h-[44px] touch-manipulation">
-                  <Mail className="h-4 w-4 mr-2" />
-                  Share via Email
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleShareSMS} className="min-h-[44px] touch-manipulation">
-                  <MessageSquare className="h-4 w-4 mr-2" />
-                  Share via SMS
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleShareWhatsApp} className="min-h-[44px] touch-manipulation">
-                  <MessageSquare className="h-4 w-4 mr-2" />
-                  Share via WhatsApp
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+                
+                {/* Additional sharing options in dropdown - hidden on mobile */}
+                <DropdownMenu modal={false}>
+                  <DropdownMenuTrigger asChild>
+                    <Button 
+                      className="hidden md:flex w-full min-h-[44px] touch-manipulation" 
+                      variant="outline"
+                      type="button"
+                    >
+                      More Share Options
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="center" className="w-56 z-50">
+                    <DropdownMenuItem onClick={handleCopyLink} className="min-h-[44px] touch-manipulation">
+                      <Copy className="h-4 w-4 mr-2" />
+                      Copy Link
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleShareEmail} className="min-h-[44px] touch-manipulation">
+                      <Mail className="h-4 w-4 mr-2" />
+                      Share via Email
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleShareSMS} className="min-h-[44px] touch-manipulation">
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      Share via SMS
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleShareWhatsApp} className="min-h-[44px] touch-manipulation">
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      Share via WhatsApp
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
-          <div className="text-sm text-muted-foreground text-center px-4">
-            <p className="mb-2">Secure Profile Link (expires in 24 hours):</p>
-            <code className="text-xs bg-muted px-2 py-1 rounded break-all block">
-              {accessToken ? `${window.location.origin}/view-profile?token=${accessToken}` : "Generating..."}
-            </code>
-          </div>
+              <div className="text-sm text-muted-foreground text-center px-4">
+                <p className="mb-2">Secure Profile Link (expires in 24 hours):</p>
+                <code className="text-xs bg-muted px-2 py-1 rounded break-all block">
+                  {accessToken ? `${window.location.origin}/view-profile?token=${accessToken}` : "Generating..."}
+                </code>
+              </div>
+            </>
+          )}
         </CardContent>
       </Card>
 

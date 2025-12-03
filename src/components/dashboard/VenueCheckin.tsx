@@ -118,7 +118,7 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
           <SelectTrigger className="w-full bg-background h-9 text-sm">
             <SelectValue placeholder="Filter by country..." />
           </SelectTrigger>
-          <SelectContent className="bg-background z-50 max-h-48 overflow-y-auto" side="bottom" align="start" sideOffset={4}>
+          <SelectContent className="bg-background z-50 max-h-48 overflow-y-auto" side="bottom" align="start" sideOffset={4} avoidCollisions={false}>
             <SelectItem value="all" className="text-sm py-1.5">All Countries</SelectItem>
             {countries.map((country) => (
               <SelectItem key={country} value={country} className="text-sm py-1.5">
@@ -133,7 +133,7 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
           <SelectTrigger className="w-full bg-background h-9 text-sm">
             <SelectValue placeholder="Select a venue..." />
           </SelectTrigger>
-          <SelectContent className="bg-background z-50 max-h-52 overflow-y-auto" side="bottom" align="start" sideOffset={4}>
+          <SelectContent className="bg-background z-50 max-h-52 overflow-y-auto" side="bottom" align="start" sideOffset={4} avoidCollisions={false}>
             {Object.entries(venuesByCity).map(([city, cityVenues]) => (
               <div key={city}>
                 <div className="px-2 py-1 text-xs font-semibold text-muted-foreground bg-muted/50">

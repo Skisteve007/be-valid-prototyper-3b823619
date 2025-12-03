@@ -154,9 +154,18 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    background-color: #F0F0F0 !important;
+  }
+
   body {
     background-color: #F0F0F0 !important;
     color: #333333 !important;
+  }
+
+  #root, #app, .app-wrapper, .main-container {
+    background-color: #F0F0F0 !important;
+    min-height: 100vh !important;
   }
 }
 

@@ -359,121 +359,27 @@ const Partners = () => {
         </div>
       </section>
 
-      {/* Lab Partner Operations Console Section */}
-      <section id="lab-admin-dashboard" className="py-20 px-4 bg-gradient-to-b from-slate-50 via-slate-100 to-white">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-4">
-              Lab Partner Operations Console
-            </h2>
-            <p className="text-lg text-slate-700 font-medium italic max-w-3xl mx-auto">
-              Access real-time data, manage compliance standards, and debug integrations through our enterprise-grade administrative suite.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Webhook Inspector Module */}
-            <Card className="border-0 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-                <CardTitle className="text-xl font-bold flex items-center gap-2">
-                  <Code className="h-5 w-5" />
-                  Real-time Webhook Event Inspector
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  Live logging of every API interaction. Monitor data flow and debug issues instantly.
-                </p>
-                <div className="bg-slate-900 rounded-lg p-4 font-mono text-xs text-green-400 h-24 overflow-hidden">
-                  <p>{">"} POST /api/webhook/result - 200 OK</p>
-                  <p>{">"} barcode: CC-84729103 | status: negative</p>
-                  <p>{">"} timestamp: 2024-01-15T14:32:05Z</p>
-                  <p className="animate-pulse">{">"} Awaiting next event...</p>
-                </div>
-                <Button variant="outline" className="mt-4 w-full border-blue-900 text-blue-900 hover:bg-blue-50">
-                  Replay Selected Payload
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Exception Engine Module */}
-            <Card className="border-0 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-                <CardTitle className="text-xl font-bold flex items-center gap-2">
-                  <Zap className="h-5 w-5" />
-                  Automated Sample Exception Engine
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  Intelligent log of all sample exceptions and inconclusive results requiring manual review.
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg border border-amber-200">
-                    <span className="text-sm font-medium text-amber-800">Sample #82910 - Inconclusive</span>
-                    <span className="text-xs text-amber-600">Review Pending</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-                    <span className="text-sm font-medium text-green-800">Sample #82909 - Resolved</span>
-                    <span className="text-xs text-green-600">Auto-Reorder Sent</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Requisition Manager Module */}
-            <Card className="border-0 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-                <CardTitle className="text-xl font-bold flex items-center gap-2">
-                  <Database className="h-5 w-5" />
-                  Requisition & Compliance Standard (FHIR R4)
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  View and manage all active compliance standards and data schemas for required testing profiles.
-                </p>
-                <div className="flex flex-col gap-3">
-                  <Button variant="outline" className="w-full border-blue-900 text-blue-900 hover:bg-blue-50">
-                    <FileText className="h-4 w-4 mr-2" />
-                    View Current FHIR R4 Standard
-                  </Button>
-                  <Button variant="outline" className="w-full border-blue-900 text-blue-900 hover:bg-blue-50">
-                    <FileText className="h-4 w-4 mr-2" />
-                    Download Requisition Template
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Integration Status Module */}
-            <Card className="border-0 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300 overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-                <CardTitle className="text-xl font-bold flex items-center gap-2">
-                  <Shield className="h-5 w-5" />
-                  Integration Health & Status
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  Check the health of your <strong>REST API + Webhooks</strong> connection, <strong>HIPAA-Ready</strong> status, and <strong>2257 Compliance</strong> assurance.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-                    <span className="text-sm font-medium text-gray-800">API Connection Status</span>
-                    <span className="flex items-center gap-2 text-sm font-bold text-green-700">
-                      <span className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
-                      Operational
-                    </span>
-                  </li>
-                  <li className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
-                    <span className="text-sm font-medium text-gray-800">Last Webhook Success</span>
-                    <span className="text-sm text-slate-600">5 seconds ago</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+      {/* Lab Partner Portal CTA Section */}
+      <section className="py-16 px-4 bg-gradient-to-b from-slate-50 to-white">
+        <div className="container mx-auto max-w-4xl">
+          <Card className="border-0 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 shadow-[0_20px_60px_rgba(30,58,138,0.4)] overflow-hidden">
+            <CardContent className="p-10 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Lab Partner Operations Console
+              </h2>
+              <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+                Already a partner? Access real-time data, manage compliance standards, and debug integrations through our enterprise-grade administrative suite.
+              </p>
+              <Button 
+                size="lg"
+                onClick={() => navigate("/lab/dashboard")}
+                className="bg-white text-blue-900 hover:bg-blue-50 px-10 py-6 text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              >
+                Access Partner Dashboard
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
 

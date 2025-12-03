@@ -655,6 +655,7 @@ export type Database = {
           sexual_preferences: string | null
           smoker: boolean | null
           status_color: string | null
+          status_expiry: string | null
           std_acknowledgment: string | null
           std_acknowledgment_locked: boolean | null
           tiktok_handle: string | null
@@ -703,6 +704,7 @@ export type Database = {
           sexual_preferences?: string | null
           smoker?: boolean | null
           status_color?: string | null
+          status_expiry?: string | null
           std_acknowledgment?: string | null
           std_acknowledgment_locked?: boolean | null
           tiktok_handle?: string | null
@@ -751,6 +753,7 @@ export type Database = {
           sexual_preferences?: string | null
           smoker?: boolean | null
           status_color?: string | null
+          status_expiry?: string | null
           std_acknowledgment?: string | null
           std_acknowledgment_locked?: boolean | null
           tiktok_handle?: string | null
@@ -1196,6 +1199,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_status_expiry: { Args: never; Returns: undefined }
       cleanup_expired_qr_tokens: { Args: never; Returns: undefined }
       generate_member_id: { Args: never; Returns: string }
       has_role: {

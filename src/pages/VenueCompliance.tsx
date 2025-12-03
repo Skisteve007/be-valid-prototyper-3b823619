@@ -358,23 +358,36 @@ const VenueCompliance = () => {
 
                       <hr className="border-slate-600 my-3" />
 
-                      {/* Individual Driver */}
-                      <div className="text-xs text-slate-400 uppercase font-bold mb-2 tracking-wider">Individual Drivers</div>
-                      <div className="border border-emerald-500/50 p-3 rounded-lg bg-emerald-500/10">
+                      {/* Individual Driver - 14-Day Spot Check */}
+                      <div className="p-4 rounded-lg border border-slate-500" style={{ background: 'rgba(0,0,0,0.3)' }}>
                         <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold text-sm">Individual Driver Pass</span>
-                          <span className="text-emerald-400 font-bold">$119/yr</span>
+                          <span className="text-white font-bold text-sm uppercase">For Individual Drivers</span>
+                          <span className="bg-yellow-400 text-black px-2 py-0.5 rounded text-xs font-bold">14-DAY PASS</span>
                         </div>
-                        <p className="text-xs text-slate-400 mb-2">Get hired faster with a Verified Green Pass.</p>
+                        
+                        <div className="text-xl font-bold text-white mb-2">
+                          $119.00 <span className="text-xs font-normal text-slate-400">/ One-Time</span>
+                        </div>
+                        
+                        <ul className="text-xs text-slate-300 space-y-1.5 mb-3 pl-1">
+                          <li>📦 Includes 1 Toxicology Kit (Shipped Priority).</li>
+                          <li>🛡️ <strong className="text-white">Green Shield</strong> valid for exactly 14 Days.</li>
+                          <li>💼 Show to Fleets/Employers to get hired.</li>
+                        </ul>
+                        
                         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                           <input type="hidden" name="cmd" value="_xclick" />
                           <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Individual Driver Pass" />
+                          <input type="hidden" name="item_name" value="Clean Check - Driver Verification Pass (14-Day)" />
                           <input type="hidden" name="amount" value="119.00" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=119&type=driver-14day" />
                           <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 px-4 rounded text-xs transition-colors">
-                            GET MY GREEN PASS ($119)
+                          <button 
+                            type="submit" 
+                            className="w-full py-3 font-bold rounded transition-colors"
+                            style={{ background: '#333', color: 'white', border: '1px solid #facc15' }}
+                          >
+                            BUY 14-DAY PASS ($119)
                           </button>
                         </form>
                       </div>

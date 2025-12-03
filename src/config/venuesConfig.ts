@@ -18,19 +18,25 @@ export const venuesConfig: CityVenues[] = [
         name: 'Theatron',
         address: 'Cl. 58 #10-32, Chapinero',
         phone_number: '+57 322 3617300',
-        map_link: 'https://www.google.com/search?q=Theatron + Cl. 58 #10-32 + Bogotá + google business'
+        map_link: 'https://www.google.com/search?q=Theatron+Cl.+58+%2310-32+Bogotá+google+business'
       },
       {
         name: 'Armando Records',
         address: 'Cl. 85 #14-46, Chapinero',
         phone_number: '+57 310 8731720',
-        map_link: 'https://www.google.com/search?q=Armando Records + Cl. 85 #14-46 + Bogotá + google business'
+        map_link: 'https://www.google.com/search?q=Armando+Records+Cl.+85+%2314-46+Bogotá+google+business'
       },
       {
         name: 'Baum',
         address: 'Cl. 33 #6-24, Teusaquillo',
         phone_number: '+57 312 2167448',
-        map_link: 'https://www.google.com/search?q=Baum + Cl. 33 #6-24 + Bogotá + google business'
+        map_link: 'https://www.google.com/search?q=Baum+Cl.+33+%236-24+Bogotá+google+business'
+      },
+      {
+        name: 'Casa Quiebra-Canto',
+        address: 'Cra. 5 #17-76, Bogotá',
+        phone_number: '+57 601 243 16 30',
+        map_link: 'https://www.google.com/search?q=Casa+Quiebra-Canto+Cra.+5+%2317-76+Bogotá+google+business'
       }
     ]
   },
@@ -41,19 +47,19 @@ export const venuesConfig: CityVenues[] = [
         name: 'Dulce Jesús Mio',
         address: 'Cr. 38 #19-150, El Poblado',
         phone_number: '+57 312 8585934',
-        map_link: 'https://www.google.com/search?q=Dulce Jesús Mio + Cr. 38 #19-150 + Medellín + google business'
+        map_link: 'https://www.google.com/search?q=Dulce+Jesús+Mio+Cr.+38+%2319-150+Medellín+google+business'
       },
       {
         name: 'The Blue',
         address: 'Cl. 10 #40-20, El Poblado',
         phone_number: '+57 310 8943210',
-        map_link: 'https://www.google.com/search?q=The Blue + Cl. 10 #40-20 + Medellín + google business'
+        map_link: 'https://www.google.com/search?q=The+Blue+Cl.+10+%2340-20+Medellín+google+business'
       },
       {
         name: 'Vintrash',
         address: 'Cr. 36 #8a-39, El Poblado',
         phone_number: '+57 301 7894560',
-        map_link: 'https://www.google.com/search?q=Vintrash + Cr. 36 #8a-39 + Medellín + google business'
+        map_link: 'https://www.google.com/search?q=Vintrash+Cr.+36+%238a-39+Medellín+google+business'
       }
     ]
   },

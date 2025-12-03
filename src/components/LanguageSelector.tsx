@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Globe, X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,44 +12,72 @@ interface Language {
   code: string;
   flag: string;
   nativeName: string;
-  googleCode: string; // Google Translate uses slightly different codes
 }
 
-// Global market languages - expanded for international reach
+// Supported languages for path-prefix routing
 const languages: Language[] = [
-  { code: "en", googleCode: "en", flag: "🇺🇸", nativeName: "English" },
-  { code: "es", googleCode: "es", flag: "🇪🇸", nativeName: "Español" },
-  { code: "ru", googleCode: "ru", flag: "🇷🇺", nativeName: "Русский" },
-  { code: "he", googleCode: "iw", flag: "🇮🇱", nativeName: "עברית" },
-  { code: "pt", googleCode: "pt", flag: "🇧🇷", nativeName: "Português" },
-  { code: "ro", googleCode: "ro", flag: "🇷🇴", nativeName: "Română" },
-  { code: "ht", googleCode: "ht", flag: "🇭🇹", nativeName: "Kreyòl" },
-  { code: "de", googleCode: "de", flag: "🇩🇪", nativeName: "Deutsch" },
-  { code: "it", googleCode: "it", flag: "🇮🇹", nativeName: "Italiano" },
-  { code: "tl", googleCode: "tl", flag: "🇵🇭", nativeName: "Tagalog" },
-  { code: "th", googleCode: "th", flag: "🇹🇭", nativeName: "ไทย" },
-  { code: "zh-CN", googleCode: "zh-CN", flag: "🇨🇳", nativeName: "中文" },
+  { code: "en", flag: "🇺🇸", nativeName: "English" },
+  { code: "es", flag: "🇪🇸", nativeName: "Español" },
+  { code: "pt", flag: "🇧🇷", nativeName: "Português" },
+  { code: "fr", flag: "🇫🇷", nativeName: "Français" },
+  { code: "de", flag: "🇩🇪", nativeName: "Deutsch" },
+  { code: "ja", flag: "🇯🇵", nativeName: "日本語" },
+  { code: "ko", flag: "🇰🇷", nativeName: "한국어" },
+  { code: "zh", flag: "🇨🇳", nativeName: "中文" },
+  { code: "ar", flag: "🇸🇦", nativeName: "العربية" },
+  { code: "ru", flag: "🇷🇺", nativeName: "Русский" },
+  { code: "hi", flag: "🇮🇳", nativeName: "हिन्दी" },
 ];
 
-// Declare Google Translate types
-declare global {
-  interface Window {
-    googleTranslateElementInit?: () => void;
-    google?: {
-      translate?: {
-        TranslateElement: {
-          new (options: {
-            pageLanguage: string;
-            includedLanguages: string;
-            autoDisplay: boolean;
-          }, element: string): void;
-          InlineLayout: {
-            SIMPLE: number;
-          };
-        };
-      };
-    };
+const supportedLangCodes = languages.map(l => l.code);
+
+function setLanguagePreference(newLangCode: string) {
+  if (!supportedLangCodes.includes(newLangCode)) {
+    console.error("Invalid language code selected:", newLangCode);
+    return;
   }
+
+  // Save the selected language to local storage for persistence
+  localStorage.setItem('userLanguage', newLangCode);
+
+  // Identify the current URL path
+  const currentPath = window.location.pathname;
+  
+  // Extract the existing language prefix if it exists
+  const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
+  let newPath = '';
+
+  if (pathSegments.length > 0 && supportedLangCodes.includes(pathSegments[0])) {
+    // If the current path has a language prefix, replace it
+    pathSegments[0] = newLangCode;
+    newPath = '/' + pathSegments.join('/');
+  } else {
+    // If there is no language prefix, add the new language code to the start
+    newPath = '/' + newLangCode + currentPath;
+  }
+
+  // Force a hard redirect to the new language-specific URL
+  window.location.href = window.location.origin + newPath + window.location.search;
+}
+
+function getCurrentLanguageFromPath(): Language {
+  const currentPath = window.location.pathname;
+  const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
+  
+  if (pathSegments.length > 0 && supportedLangCodes.includes(pathSegments[0])) {
+    const lang = languages.find(l => l.code === pathSegments[0]);
+    if (lang) return lang;
+  }
+  
+  // Check localStorage as fallback
+  const savedLang = localStorage.getItem('userLanguage');
+  if (savedLang) {
+    const lang = languages.find(l => l.code === savedLang);
+    if (lang) return lang;
+  }
+  
+  // Default to English
+  return languages[0];
 }
 
 interface LanguageSelectorProps {
@@ -58,101 +86,15 @@ interface LanguageSelectorProps {
 
 export function LanguageSelector({ className }: LanguageSelectorProps) {
   const [currentLanguage, setCurrentLanguage] = useState<Language>(languages[0]);
-  const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
 
-  // Initialize Google Translate
   useEffect(() => {
-    // Check if script already exists
-    if (document.getElementById('google-translate-script')) {
-      return;
-    }
-
-    // Create hidden container for Google Translate
-    const translateDiv = document.createElement('div');
-    translateDiv.id = 'google_translate_element';
-    translateDiv.style.display = 'none';
-    document.body.appendChild(translateDiv);
-
-    // Define the init function
-    window.googleTranslateElementInit = () => {
-      if (window.google?.translate?.TranslateElement) {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: 'en',
-            includedLanguages: languages.map(l => l.googleCode).join(','),
-            autoDisplay: true,
-          },
-          'google_translate_element'
-        );
-        setIsGoogleLoaded(true);
-      }
-    };
-
-    // Load Google Translate script
-    const script = document.createElement('script');
-    script.id = 'google-translate-script';
-    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      // Cleanup not needed as we want to keep the translator active
-    };
+    setCurrentLanguage(getCurrentLanguageFromPath());
   }, []);
 
-  const handleLanguageChange = useCallback((language: Language) => {
-    // Prevent action if already on this language
+  const handleLanguageChange = (language: Language) => {
     if (currentLanguage.code === language.code) return;
-    
-    // Save preference
-    localStorage.setItem("preferred-language", language.code);
-    
-    if (language.code === 'en') {
-      // Reset to English - clear translation cookies
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
-    } else {
-      // Set translation cookie
-      document.cookie = `googtrans=/en/${language.googleCode}; path=/`;
-      document.cookie = `googtrans=/en/${language.googleCode}; path=/; domain=${window.location.hostname}`;
-    }
-    
-    // Always reload to apply translation
-    window.location.reload();
-  }, [currentLanguage.code]);
-
-  // Auto-detect browser language and show prompt
-  useEffect(() => {
-    const browserLang = navigator.language.split('-')[0];
-    const matchedLang = languages.find(l => l.code === browserLang && l.code !== 'en');
-    
-    if (matchedLang) {
-      const prompted = sessionStorage.getItem('language-prompt-shown');
-      if (!prompted) {
-        sessionStorage.setItem('language-prompt-shown', 'true');
-        // Auto-switch after a brief delay to let user see the prompt
-        setTimeout(() => {
-          const shouldSwitch = window.confirm(
-            `Would you like to view Clean Check in ${matchedLang.nativeName}?`
-          );
-          if (shouldSwitch) {
-            handleLanguageChange(matchedLang);
-          }
-        }, 1500);
-      }
-    }
-  }, [handleLanguageChange]);
-
-  // Load saved language preference (just update UI state, translation cookie is already set)
-  useEffect(() => {
-    const savedLang = localStorage.getItem("preferred-language");
-    if (savedLang) {
-      const lang = languages.find(l => l.code === savedLang);
-      if (lang) {
-        setCurrentLanguage(lang);
-      }
-    }
-  }, []);
+    setLanguagePreference(language.code);
+  };
 
   return (
     <DropdownMenu>

@@ -253,6 +253,71 @@ const Partners = () => {
         </div>
       </section>
 
+      {/* Marketing Highlights Section */}
+      <section className="py-16 px-4 bg-gradient-to-b from-slate-50 to-blue-50/30">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-4">
+              Why Labs Choose Clean Check
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Highlight 1 */}
+            <div className="flex gap-4 p-6 bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300">
+              <div className="h-12 w-12 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Activity className="h-6 w-6 text-blue-900" />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">High-Volume Client Access</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  Instantly tap into exclusive affiliate communities, guaranteeing a <strong>consistent, mandated volume</strong> for Sexual Health and Toxicology testing.
+                </p>
+              </div>
+            </div>
+
+            {/* Highlight 2 */}
+            <div className="flex gap-4 p-6 bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300">
+              <div className="h-12 w-12 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Zap className="h-6 w-6 text-blue-900" />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Real-Time API Integration</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  Utilize our <strong>low-latency, FHIR-compatible API</strong> to securely and instantaneously power the member's <strong>Clean Check Status</strong>.
+                </p>
+              </div>
+            </div>
+
+            {/* Highlight 3 */}
+            <div className="flex gap-4 p-6 bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300">
+              <div className="h-12 w-12 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Shield className="h-6 w-6 text-blue-900" />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Automated Compliance Reporting</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  The system automatically manages secure result sharing with Establishments, <strong>offloading complex HIPAA/GDPR compliance</strong> from your internal team.
+                </p>
+              </div>
+            </div>
+
+            {/* Highlight 4 */}
+            <div className="flex gap-4 p-6 bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300">
+              <div className="h-12 w-12 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Code className="h-6 w-6 text-blue-900" />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Zero-Friction Efficiency</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  Upload results using <strong>batch processing</strong> and barcode scanning, minimizing manual entry and ensuring <strong>zero delays</strong> in updating member status.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Technical Showcase Section */}
       <section className="pt-12 pb-24 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto max-w-6xl">

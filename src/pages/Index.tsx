@@ -321,59 +321,6 @@ const Index = () => {
         {/* Membership Section */}
         <section className="pt-2 pb-4 px-4">
           <div className="container mx-auto max-w-4xl px-4">
-            <ScrollReveal direction="up" delay={100}>
-              <div className="text-center mb-12">
-                {/* Get Started Form */}
-                <div className="mb-8 relative">
-                  <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
-                  <Card id="get-started-form" className="max-w-2xl mx-auto scroll-mt-8 relative shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">
-                    <CardHeader>
-                      <CardTitle className="text-xl md:text-2xl bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Get Started</CardTitle>
-                      <CardDescription className="text-sm">Both fields are required to proceed</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4 px-4 md:px-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="fullName" className="text-sm md:text-base">Full Name *</Label>
-                        <Input 
-                          id="fullName"
-                          placeholder="Enter your full name"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          required
-                          className="min-h-[48px] touch-manipulation"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email" className="text-sm md:text-base">Email Address *</Label>
-                        <Input 
-                          id="email"
-                          type="email"
-                          placeholder="your.email@example.com"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          required
-                          className="min-h-[48px] touch-manipulation"
-                        />
-                      </div>
-                      <Button 
-                        size="lg" 
-                        className="w-full bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(37,99,235,0.5),0_0_30px_rgba(219,39,119,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7),0_0_40px_rgba(219,39,119,0.7)] transition-all min-h-[48px] py-4 touch-manipulation" 
-                        onClick={handleContinue}
-                        disabled={!fullName || !email}
-                      >
-                        Continue to Payment <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                <p className="text-lg mb-2">Automatic Approval! Your account will be activated instantly after payment.</p>
-                <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-primary" />
-                  YOUR unique QR Code will be generated after membership payment, after documents uploaded onto your member profile page
-                </p>
-              </div>
-            </ScrollReveal>
 
             {/* Pricing Cards */}
             <ScrollReveal direction="up" delay={200}>
@@ -592,6 +539,64 @@ const Index = () => {
                 </div>
               </ScrollReveal>
             </div>
+          </div>
+        </section>
+
+        {/* Get Started Section */}
+        <section className="py-8 md:py-12 px-4">
+          <div className="container mx-auto max-w-2xl px-4">
+            <ScrollReveal direction="up" delay={100}>
+              <div className="text-center mb-8">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
+                  <Card id="get-started-form" className="scroll-mt-8 relative shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">
+                    <CardHeader>
+                      <CardTitle className="text-xl md:text-2xl bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent">Get Started</CardTitle>
+                      <CardDescription className="text-sm">Both fields are required to proceed</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4 px-4 md:px-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="fullName" className="text-sm md:text-base">Full Name *</Label>
+                        <Input 
+                          id="fullName"
+                          placeholder="Enter your full name"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          required
+                          className="min-h-[48px] touch-manipulation"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="text-sm md:text-base">Email Address *</Label>
+                        <Input 
+                          id="email"
+                          type="email"
+                          placeholder="your.email@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className="min-h-[48px] touch-manipulation"
+                        />
+                      </div>
+                      <Button 
+                        size="lg" 
+                        className="w-full bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white shadow-[0_0_30px_rgba(37,99,235,0.5),0_0_30px_rgba(219,39,119,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7),0_0_40px_rgba(219,39,119,0.7)] transition-all min-h-[48px] py-4 touch-manipulation" 
+                        onClick={handleContinue}
+                        disabled={!fullName || !email}
+                      >
+                        Continue to Payment <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <p className="text-lg mt-6 mb-2">Automatic Approval! Your account will be activated instantly after payment.</p>
+                <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-primary" />
+                  YOUR unique QR Code will be generated after membership payment
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 

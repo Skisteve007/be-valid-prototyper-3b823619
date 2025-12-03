@@ -64,6 +64,7 @@ const App = () => (
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>
           <Footer />
+          <AdminFooter />
         </div>
       </BrowserRouter>
     </TooltipProvider>

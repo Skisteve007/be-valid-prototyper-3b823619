@@ -44,6 +44,42 @@ export const venuesConfig: CityVenues[] = [
     city: 'Medellín',
     venues: [
       {
+        name: 'La House Provenza',
+        address: 'Cra. 35 #8A - 31',
+        phone_number: '+57 310 499 4804',
+        map_link: 'https://www.google.com/search?q=La+House+Provenza+Cra.+35+%238A-31+Medellín+google+business'
+      },
+      {
+        name: 'Envy Rooftop',
+        address: 'Cl. 9A #37-16',
+        phone_number: '+57 4444 968 121',
+        map_link: 'https://www.google.com/search?q=Envy+Rooftop+Cl.+9A+%2337-16+Medellín+google+business'
+      },
+      {
+        name: 'Salón Amador',
+        address: 'Cl 10 #40-30',
+        phone_number: '+57 310 526 0880',
+        map_link: 'https://www.google.com/search?q=Salón+Amador+Cl+10+%2340-30+Medellín+google+business'
+      },
+      {
+        name: '360 Rooftop bar',
+        address: 'Cl 10A #36-29',
+        phone_number: '+57 312 627 3647',
+        map_link: 'https://www.google.com/search?q=360+Rooftop+bar+Cl+10A+%2336-29+Medellín+google+business'
+      },
+      {
+        name: 'Gusto Night Club',
+        address: 'Calle 9 A #38-26, Parque Lleras',
+        phone_number: '+57 324 674 9484',
+        map_link: 'https://www.google.com/search?q=Gusto+Night+Club+Calle+9A+Medellín+google+business'
+      },
+      {
+        name: 'Sonorama Club',
+        address: 'Cra. 37 #10-37',
+        phone_number: '+57 305 333 3903',
+        map_link: 'https://www.google.com/search?q=Sonorama+Club+Cra.+37+%2310-37+Medellín+google+business'
+      },
+      {
         name: 'Dulce Jesús Mio',
         address: 'Cr. 38 #19-150, El Poblado',
         phone_number: '+57 312 8585934',

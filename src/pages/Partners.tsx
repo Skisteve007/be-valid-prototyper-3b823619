@@ -97,7 +97,7 @@ const Partners = () => {
           <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-6 leading-tight">
             Integrated Health Compliance for<br />Affiliate Social Ecosystems
           </h1>
-          <p className="text-xl text-slate-700 mb-10 max-w-3xl mx-auto font-medium">
+          <p className="text-xl text-slate-700 mb-10 max-w-3xl mx-auto font-medium italic">
             Automate high-volume results delivery and secure access to exclusive member testing networks via our compliant, API-driven diagnostic pipeline.
           </p>
           <Button 

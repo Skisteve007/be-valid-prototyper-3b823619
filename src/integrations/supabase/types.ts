@@ -1161,6 +1161,10 @@ export type Database = {
         Returns: undefined
       }
       restore_stevieg_profile: { Args: never; Returns: undefined }
+      update_affiliate_pending_earnings: {
+        Args: { _affiliate_id: string; _amount: number }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role:

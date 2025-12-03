@@ -587,6 +587,7 @@ export type Database = {
           custom_logo_url: string | null
           gm_email: string | null
           id: string
+          industry_type: string | null
           status: string
           updated_at: string
           venue_name: string
@@ -599,6 +600,7 @@ export type Database = {
           custom_logo_url?: string | null
           gm_email?: string | null
           id?: string
+          industry_type?: string | null
           status?: string
           updated_at?: string
           venue_name: string
@@ -611,6 +613,7 @@ export type Database = {
           custom_logo_url?: string | null
           gm_email?: string | null
           id?: string
+          industry_type?: string | null
           status?: string
           updated_at?: string
           venue_name?: string

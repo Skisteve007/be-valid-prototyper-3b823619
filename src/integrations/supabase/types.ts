@@ -765,6 +765,39 @@ export type Database = {
           },
         ]
       }
+      shadow_leads: {
+        Row: {
+          city: string
+          created_at: string
+          id: string
+          inquiry_subject: string | null
+          name: string
+          phone: string
+          role: string
+          venue_name: string
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          id?: string
+          inquiry_subject?: string | null
+          name: string
+          phone: string
+          role: string
+          venue_name: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          id?: string
+          inquiry_subject?: string | null
+          name?: string
+          phone?: string
+          role?: string
+          venue_name?: string
+        }
+        Relationships: []
+      }
       social_content_rotation: {
         Row: {
           asset_placeholder: string

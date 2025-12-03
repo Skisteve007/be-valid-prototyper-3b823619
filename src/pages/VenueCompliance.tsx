@@ -2,8 +2,8 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, PartyPopper, Footprints, BadgeCheck, ArrowRight, Loader2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Shield, PartyPopper, ShieldCheck, HardHat, ArrowRight, Loader2, BadgeCheck, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -85,60 +85,103 @@ const VenueCompliance = () => {
   const industryCards = [
     {
       id: "events",
-      icon: "🎉",
-      headline: "Event Verification",
-      category: "NIGHTLIFE & EVENTS",
-      subtitle: "For Promoters/Clubs",
-      hook: "Ensure a clean crowd. Lower insurance premiums.",
-      pricing: "Platform Access: $299/mo + $2 per verification.",
-      cta: "Start Event Trial",
+      Icon: PartyPopper,
+      iconColor: "text-blue-300",
+      headline: "Nightlife & Events",
+      hook: "Don't let the line kill the vibe.",
+      benefits: [
+        { label: "Speed", text: "Verify guests in 3 seconds." },
+        { label: "Insurance", text: "Lower premiums with verified safety." },
+        { label: "Profit", text: "Revenue-share on 'Fast Lane' upgrades." },
+      ],
+      price: "$299",
+      period: "/ month",
+      buttonText: "ACTIVATE EVENT LICENSE",
       subject: "Event Sales",
-      gradient: "from-purple-500/20 via-pink-500/20 to-purple-500/20",
-      border: "border-purple-500/40 hover:border-purple-400",
-      glow: "hover:shadow-[0_0_40px_rgba(168,85,247,0.4)]",
+      bgImage: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80",
+      borderColor: "border-blue-500/30",
+      glowColor: "hover:shadow-[0_0_60px_rgba(59,130,246,0.5)]",
+      buttonGradient: "from-blue-600 to-blue-500",
+      paypal: {
+        itemName: "Clean Check - Event License",
+        amount: "299.00",
+      },
     },
     {
       id: "adult",
-      icon: "👠",
+      Icon: ShieldCheck,
+      iconColor: "text-amber-400",
       headline: "Performer Compliance",
-      category: "ADULT ENTERTAINMENT",
-      subtitle: "For Strip Clubs/Cabarets",
-      hook: "The 'Liability Shield'. Automated testing mandates for 1099 talent.",
-      pricing: "Venue License: $499/mo per location. (Talent pays for kits).",
-      cta: "Automate My Compliance",
+      hook: "The Iron Dome for Liability.",
+      benefits: [
+        { label: "Zero Liability", text: "We hold the medical data, not you." },
+        { label: "Fraud Proof", text: "Direct Lab-to-App integration." },
+        { label: "Digital Waiver", text: "Mandatory indemnification for talent." },
+      ],
+      price: "$499",
+      period: "/ month",
+      buttonText: "ACTIVATE COMPLIANCE LICENSE",
       subject: "Club Compliance",
-      gradient: "from-red-500/20 via-orange-500/20 to-red-500/20",
-      border: "border-red-500/40 hover:border-red-400",
-      glow: "hover:shadow-[0_0_40px_rgba(239,68,68,0.4)]",
+      bgImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+      borderColor: "border-amber-500/50",
+      glowColor: "hover:shadow-[0_0_60px_rgba(245,158,11,0.5)]",
+      buttonGradient: "from-amber-600 to-amber-500",
+      isPremium: true,
+      paypal: {
+        itemName: "Clean Check - Performer Compliance License",
+        amount: "499.00",
+      },
     },
     {
       id: "workplace",
-      icon: "🛡️",
-      headline: "Employee Screening",
-      category: "WORKPLACE SAFETY",
-      subtitle: "For Staff/Bouncers",
-      hook: "Zero-tolerance drug & health screening for W2 staff.",
-      pricing: "Bulk Kits: Starting at $89/unit (Min order 10).",
-      cta: "Order Bulk Packs",
+      Icon: HardHat,
+      iconColor: "text-emerald-400",
+      headline: "Workplace Safety",
+      hook: "Zero-tolerance screening made simple.",
+      benefits: [
+        { label: "DOT Compliant", text: "Federal 10-panel drug testing." },
+        { label: "Bulk Pricing", text: "Volume discounts for teams." },
+        { label: "Dashboard", text: "Real-time compliance tracking." },
+      ],
+      price: "$89",
+      period: "/ kit (min 10)",
+      buttonText: "ORDER BULK KITS",
       subject: "Bulk Order",
-      gradient: "from-sky-500/20 via-blue-500/20 to-sky-500/20",
-      border: "border-sky-500/40 hover:border-sky-400",
-      glow: "hover:shadow-[0_0_40px_rgba(14,165,233,0.4)]",
+      bgImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
+      borderColor: "border-emerald-500/30",
+      glowColor: "hover:shadow-[0_0_60px_rgba(16,185,129,0.5)]",
+      buttonGradient: "from-emerald-600 to-emerald-500",
+      paypal: {
+        itemName: "Clean Check - Bulk Kit Order",
+        amount: "890.00",
+      },
     },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white font-sans">
+      {/* Ambient Background Effects */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px]" />
+      </div>
+
       {/* Header */}
-      <header className="border-b border-slate-700 bg-slate-900/95 backdrop-blur-sm sticky top-0 z-50">
+      <header className="relative border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Shield className="h-8 w-8 text-sky-400" />
-            <span className="text-xl font-bold tracking-tight">Clean Check <span className="text-sky-400">Enterprise</span></span>
+            <div className="relative">
+              <Shield className="h-9 w-9 text-sky-400" />
+              <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-amber-400" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold tracking-tight">Clean Check</span>
+              <span className="text-[10px] font-semibold text-sky-400 tracking-[0.2em] uppercase">Enterprise Security</span>
+            </div>
           </div>
           <Button 
             variant="outline" 
-            className="border-sky-400 text-sky-400 hover:bg-sky-400 hover:text-slate-900"
+            className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white hover:border-slate-600"
             asChild
           >
             <Link to="/">← Back to Home</Link>
@@ -147,70 +190,163 @@ const VenueCompliance = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-16 md:py-24 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 bg-sky-400/10 border border-sky-400/30 rounded-full px-4 py-2 mb-8">
-            <BadgeCheck className="h-4 w-4 text-sky-400" />
-            <span className="text-sm text-sky-400 font-medium">B2B Compliance Solutions</span>
+      <section className="relative py-20 md:py-28 px-4">
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-sky-500/20 to-blue-500/20 border border-sky-500/30 rounded-full px-5 py-2.5 mb-8 backdrop-blur-sm">
+            <BadgeCheck className="h-5 w-5 text-sky-400" />
+            <span className="text-sm text-sky-300 font-semibold tracking-wide">Enterprise-Grade Compliance</span>
           </div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 tracking-tight">
-            Select Your <span className="text-sky-400">Industry Solution</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 tracking-tight">
+            Select Your{" "}
+            <span className="bg-gradient-to-r from-sky-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              Industry Solution
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto">
-            Automated compliance and risk management for high-liability sectors.
+          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Automated compliance and risk management for high-liability sectors. 
+            <span className="text-slate-300 font-medium"> Enterprise security, zero friction.</span>
           </p>
         </div>
       </section>
 
-      {/* Industry Cards Grid */}
-      <section className="py-8 md:py-16 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+      {/* Immersive Industry Cards */}
+      <section className="relative py-8 md:py-16 px-4">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
             {industryCards.map((card) => (
-              <Card 
+              <div
                 key={card.id}
-                onClick={() => scrollToForm(card.subject)}
-                className={`bg-gradient-to-br ${card.gradient} ${card.border} border-2 rounded-2xl cursor-pointer transition-all duration-300 transform hover:scale-[1.02] ${card.glow} group`}
+                className={`group relative rounded-2xl overflow-hidden ${card.borderColor} border-2 transition-all duration-500 ${card.glowColor} hover:scale-[1.02] cursor-pointer`}
+                style={{ minHeight: "520px" }}
               >
-                <CardHeader className="pb-2">
-                  <div className="text-5xl mb-4">{card.icon}</div>
-                  <div className="text-xs font-bold text-slate-400 tracking-wider mb-1">{card.category}</div>
-                  <CardTitle className="text-2xl font-bold text-white">{card.headline}</CardTitle>
-                  <p className="text-sm text-slate-500">{card.subtitle}</p>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-slate-300 font-medium leading-relaxed">
+                {/* Background Image with Zoom Effect */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                  style={{ backgroundImage: `url(${card.bgImage})` }}
+                />
+                
+                {/* Dark Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/95" />
+                
+                {/* Premium Badge for Gold Card */}
+                {card.isPremium && (
+                  <div className="absolute top-4 right-4 z-20">
+                    <div className="bg-gradient-to-r from-amber-500 to-amber-400 text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                      Most Popular
+                    </div>
+                  </div>
+                )}
+
+                {/* Card Content */}
+                <div className="relative z-10 h-full flex flex-col p-6 md:p-8">
+                  {/* Header */}
+                  <div className="mb-6">
+                    <card.Icon className={`h-12 w-12 ${card.iconColor} mb-4`} />
+                    <h3 className={`text-2xl md:text-3xl font-bold ${card.isPremium ? 'text-amber-400' : 'text-white'}`}>
+                      {card.headline}
+                    </h3>
+                  </div>
+
+                  {/* Marketing Hook */}
+                  <p className="text-xl md:text-2xl font-light text-slate-200 italic mb-6 leading-relaxed">
                     "{card.hook}"
                   </p>
-                  <div className="bg-slate-800/60 rounded-lg p-3 border border-slate-700">
-                    <p className="text-sm text-sky-400 font-semibold">{card.pricing}</p>
+
+                  {/* Benefits List */}
+                  <div className="space-y-3 mb-8 flex-grow">
+                    {card.benefits.map((benefit, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <span className="text-emerald-400 text-lg mt-0.5">✓</span>
+                        <p className="text-slate-300">
+                          <span className="font-bold text-white">{benefit.label}:</span> {benefit.text}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                  <Button 
-                    className="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold group-hover:bg-sky-500 group-hover:text-slate-900 transition-all"
+
+                  {/* Price Tag */}
+                  <div className={`text-center mb-6 py-4 rounded-xl bg-white/5 border ${card.isPremium ? 'border-amber-500/30' : 'border-white/10'}`}>
+                    <span className={`text-4xl font-black ${card.isPremium ? 'text-amber-400' : 'text-white'}`}>
+                      {card.price}
+                    </span>
+                    <span className="text-slate-400 text-lg ml-1">{card.period}</span>
+                  </div>
+
+                  {/* PayPal Form */}
+                  <form 
+                    action="https://www.paypal.com/cgi-bin/webscr" 
+                    method="post" 
+                    target="_top"
+                    className="w-full"
                   >
-                    {card.cta}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </CardContent>
-              </Card>
+                    <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                    <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                    <input type="hidden" name="item_name" value={card.paypal.itemName} />
+                    <input type="hidden" name="a3" value={card.paypal.amount} />
+                    <input type="hidden" name="p3" value="1" />
+                    <input type="hidden" name="t3" value="M" />
+                    <input type="hidden" name="src" value="1" />
+                    <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                    <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                    
+                    <button
+                      type="submit"
+                      className={`w-full bg-gradient-to-r ${card.buttonGradient} hover:opacity-90 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg hover:shadow-xl`}
+                    >
+                      {card.buttonText}
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </form>
+                </div>
+
+                {/* Hover Glow Border Effect */}
+                <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
+                  style={{
+                    boxShadow: card.isPremium 
+                      ? 'inset 0 0 30px rgba(245, 158, 11, 0.2)' 
+                      : 'inset 0 0 30px rgba(255, 255, 255, 0.05)'
+                  }}
+                />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Trust Badges Section */}
+      <section className="py-12 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60">
+            <div className="flex items-center gap-2 text-slate-400">
+              <Shield className="h-5 w-5" />
+              <span className="text-sm font-medium">HIPAA Compliant</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-400">
+              <ShieldCheck className="h-5 w-5" />
+              <span className="text-sm font-medium">SOC 2 Type II</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-400">
+              <BadgeCheck className="h-5 w-5" />
+              <span className="text-sm font-medium">256-bit Encryption</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Form Section */}
-      <section ref={formRef} className="py-16 md:py-24 px-4 bg-slate-800/50">
-        <div className="container mx-auto max-w-2xl">
+      <section ref={formRef} className="relative py-16 md:py-24 px-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-800/30 to-transparent" />
+        <div className="container mx-auto max-w-2xl relative z-10">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Request Enterprise Access
+              Request <span className="text-sky-400">Enterprise Access</span>
             </h2>
             <p className="text-slate-400">
-              Fill out the form below and our team will contact you within 24 hours.
+              Custom pricing available for multi-location deployments.
             </p>
           </div>
 
-          <Card className="bg-slate-900 border-slate-700">
+          <Card className="bg-slate-900/80 border-slate-700/50 backdrop-blur-sm shadow-2xl">
             <CardContent className="p-6 md:p-8">
               <form onSubmit={handleSubmit} className="space-y-5">
                 {selectedSubject && (
@@ -230,7 +366,7 @@ const VenueCompliance = () => {
                       placeholder="John Smith"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
+                      className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
                       required
                     />
                   </div>
@@ -242,7 +378,7 @@ const VenueCompliance = () => {
                       placeholder="Club XYZ"
                       value={formData.venue_name}
                       onChange={handleInputChange}
-                      className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
+                      className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
                       required
                     />
                   </div>
@@ -257,7 +393,7 @@ const VenueCompliance = () => {
                       placeholder="Miami, FL"
                       value={formData.city}
                       onChange={handleInputChange}
-                      className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
+                      className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
                       required
                     />
                   </div>
@@ -267,7 +403,7 @@ const VenueCompliance = () => {
                       value={formData.role} 
                       onValueChange={(value) => setFormData({ ...formData, role: value })}
                     >
-                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-sky-400">
+                      <SelectTrigger className="bg-slate-800/50 border-slate-600 text-white focus:border-sky-400">
                         <SelectValue placeholder="Select role" />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-600">
@@ -291,7 +427,7 @@ const VenueCompliance = () => {
                     placeholder="(555) 123-4567"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
+                    className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
                     required
                   />
                 </div>
@@ -300,7 +436,7 @@ const VenueCompliance = () => {
                   type="submit" 
                   size="lg"
                   disabled={isSubmitting}
-                  className="w-full bg-sky-500 hover:bg-sky-400 text-slate-900 font-bold py-6 text-lg"
+                  className="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold py-6 text-lg shadow-lg shadow-sky-500/25"
                 >
                   {isSubmitting ? (
                     <>
@@ -313,7 +449,7 @@ const VenueCompliance = () => {
                 </Button>
 
                 <p className="text-xs text-slate-500 text-center">
-                  By submitting, you agree to be contacted by Clean Check sales team.
+                  By submitting, you agree to be contacted by our enterprise sales team.
                 </p>
               </form>
             </CardContent>
@@ -322,7 +458,7 @@ const VenueCompliance = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-700 py-8 px-4">
+      <footer className="border-t border-slate-800/50 py-8 px-4 bg-slate-950/50">
         <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-slate-400 text-sm">
             <Shield className="h-4 w-4" />

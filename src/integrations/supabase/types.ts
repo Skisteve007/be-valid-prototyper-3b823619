@@ -1194,6 +1194,47 @@ export type Database = {
           },
         ]
       }
+      workplace_roster: {
+        Row: {
+          created_at: string
+          date_added: string
+          id: string
+          notes: string | null
+          status: string | null
+          updated_at: string
+          user_id: string
+          venue_id: string
+        }
+        Insert: {
+          created_at?: string
+          date_added?: string
+          id?: string
+          notes?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+          venue_id: string
+        }
+        Update: {
+          created_at?: string
+          date_added?: string
+          id?: string
+          notes?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workplace_roster_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

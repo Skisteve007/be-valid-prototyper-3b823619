@@ -145,21 +145,23 @@ const VenueCompliance = () => {
       id: "workplace",
       Icon: Building2,
       iconColor: "text-slate-400",
-      headline: "Workplace Screening",
-      hook: "Protect your crew. Protect your site.",
+      headline: "Workforce Management",
+      hook: "Connect your team. Monitor the data.",
       benefits: [
-        { label: "Drug-Free", text: "10-Panel toxicology." },
-        { label: "Health", text: "13-Panel STD screens." },
+        { label: "The Digital Handshake", text: "Scan an employee once to link them to your roster." },
+        { label: "Real-Time Alerts", text: "Get notified if an employee's status turns Red." },
+        { label: "Privacy First", text: "You see the \"Pass/Fail\" status, not their medical history." },
       ],
-      price: "Select Kit Type",
-      period: "",
+      price: "$299",
+      period: "/ month",
       buttonText: "",
-      subject: "Bulk Order",
+      subject: "Workplace System",
       bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
       borderColor: "border-slate-500/30",
       glowColor: "hover:shadow-[0_0_60px_rgba(100,116,139,0.5)]",
       buttonGradient: "",
-      type: "workplace" as const,
+      inputPlaceholder: "Enter Company Name",
+      type: "workforce" as const,
     },
     {
       id: "fleet",
@@ -297,8 +299,8 @@ const VenueCompliance = () => {
                     ))}
                   </div>
 
-                  {/* Price Tag - Only for non-fleet cards */}
-                  {card.type !== "fleet" && (
+                  {/* Price Tag - Only for license cards (not fleet or workforce) */}
+                  {card.type !== "fleet" && card.type !== "workforce" && (
                     <div className={`text-center mb-6 py-4 rounded-xl bg-white/5 border ${card.isPremium ? 'border-amber-500/30' : 'border-white/10'}`}>
                       <span className={`text-4xl font-black ${card.isPremium ? 'text-amber-400' : 'text-white'}`}>
                         {card.price}
@@ -446,23 +448,67 @@ const VenueCompliance = () => {
                     </form>
                   )}
 
-                  {/* Workplace Card - Navigation Buttons */}
-                  {card.type === "workplace" && (
-                    <div className="w-full space-y-3">
-                      <button
-                        onClick={() => navigate("/toxicology-kit-order")}
-                        className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 text-sm tracking-wide flex items-center justify-center gap-2 border border-slate-600"
-                      >
-                        <FlaskConical className="h-5 w-5" />
-                        ORDER TOXICOLOGY KITS
-                      </button>
-                      <button
-                        onClick={() => navigate("/health-panel-order")}
-                        className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 text-sm tracking-wide flex items-center justify-center gap-2 border border-slate-600"
-                      >
-                        <Syringe className="h-5 w-5" />
-                        ORDER STD LAB KITS
-                      </button>
+                  {/* Workforce Management Card - System + Kits */}
+                  {card.type === "workforce" && (
+                    <div className="w-full space-y-4">
+                      {/* Step 1: Command Center */}
+                      <div>
+                        <div className="text-xs text-slate-400 uppercase font-bold mb-1 tracking-wider">Step 1: The Command Center</div>
+                        <div className="text-xl font-bold text-white mb-1">$299 <span className="text-sm font-normal text-slate-400">/ month</span></div>
+                        <p className="text-xs text-slate-400 mb-3">Access to the Employee Roster Dashboard.</p>
+                        
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
+                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Workplace System" />
+                          <input type="hidden" name="a3" value="299.00" />
+                          <input type="hidden" name="p3" value="1" />
+                          <input type="hidden" name="t3" value="M" />
+                          <input type="hidden" name="src" value="1" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=299&type=workplace-system" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <input type="hidden" name="on0" value="Company Name" />
+                          <input
+                            type="text"
+                            name="os0"
+                            placeholder="Enter Company Name"
+                            required
+                            className="w-full px-3 py-2 rounded text-white text-sm"
+                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+                          />
+                          <button
+                            type="submit"
+                            className="w-full py-3 font-bold rounded transition-colors"
+                            style={{ background: '#94a3b8', color: 'black' }}
+                          >
+                            ACTIVATE SYSTEM ($299/mo)
+                          </button>
+                        </form>
+                      </div>
+
+                      <hr className="border-slate-600" />
+
+                      {/* Step 2: Order Kits */}
+                      <div>
+                        <div className="text-xs text-slate-400 uppercase font-bold mb-1 tracking-wider">Step 2: Order Test Kits</div>
+                        <p className="text-xs text-slate-400 mb-3">Bulk packs for your crew.</p>
+                        
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                          <input type="hidden" name="cmd" value="_xclick" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Bulk Employee Kits (10pk)" />
+                          <input type="hidden" name="amount" value="890.00" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=890&type=bulk-kits-10" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <button
+                            type="submit"
+                            className="w-full py-3 font-bold rounded transition-colors"
+                            style={{ background: '#333', color: 'white', border: '1px solid white' }}
+                          >
+                            ORDER 10-PACK ($890)
+                          </button>
+                        </form>
+                      </div>
                     </div>
                   )}
                 </div>

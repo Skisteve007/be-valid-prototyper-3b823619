@@ -530,6 +530,7 @@ export type Database = {
           city: string
           country: string
           created_at: string
+          custom_logo_url: string | null
           gm_email: string | null
           id: string
           status: string
@@ -541,6 +542,7 @@ export type Database = {
           city: string
           country?: string
           created_at?: string
+          custom_logo_url?: string | null
           gm_email?: string | null
           id?: string
           status?: string
@@ -552,6 +554,7 @@ export type Database = {
           city?: string
           country?: string
           created_at?: string
+          custom_logo_url?: string | null
           gm_email?: string | null
           id?: string
           status?: string

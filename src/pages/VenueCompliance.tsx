@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, PartyPopper, ShieldCheck, Building2, ArrowRight, Loader2, BadgeCheck, Sparkles, Syringe, FlaskConical } from "lucide-react";
+import { Shield, PartyPopper, ShieldCheck, Building2, ArrowRight, Loader2, BadgeCheck, Sparkles, Syringe, FlaskConical, Car } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -85,6 +85,7 @@ const VenueCompliance = () => {
   const [venueNames, setVenueNames] = useState<Record<string, string>>({
     events: "",
     adult: "",
+    fleet: "",
   });
   const navigate = useNavigate();
 
@@ -160,6 +161,32 @@ const VenueCompliance = () => {
       buttonGradient: "",
       type: "workplace" as const,
     },
+    {
+      id: "fleet",
+      Icon: Car,
+      iconColor: "text-emerald-400",
+      headline: "Transportation & Fleets",
+      hook: "Drive with Verified Confidence.",
+      benefits: [
+        { label: "Passenger Trust", text: "Market your fleet as 'Verified Safe'." },
+        { label: "Liability Shield", text: "Continuous driver toxicology monitoring." },
+        { label: "Zero Tolerance", text: "Instant 'Red Light' for failed tests." },
+      ],
+      price: "$299",
+      period: "/ month",
+      buttonText: "ACTIVATE FLEET DASHBOARD",
+      subject: "Fleet Sales",
+      bgImage: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80",
+      borderColor: "border-emerald-500/30",
+      glowColor: "hover:shadow-[0_0_60px_rgba(74,222,128,0.5)]",
+      buttonGradient: "from-emerald-600 to-emerald-500",
+      inputPlaceholder: "Enter Fleet/Company Name",
+      paypal: {
+        itemName: "Clean Check - Fleet License",
+        amount: "299.00",
+      },
+      type: "license" as const,
+    },
   ];
 
   return (
@@ -223,7 +250,7 @@ const VenueCompliance = () => {
       {/* Immersive Industry Cards */}
       <section className="relative py-8 md:py-16 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {industryCards.map((card) => (
               <div
                 key={card.id}
@@ -318,8 +345,8 @@ const VenueCompliance = () => {
                         style={{ 
                           width: '100%', 
                           padding: '15px', 
-                          background: card.id === 'adult' ? '#D4AF37' : '#4CAF50', 
-                          color: 'white', 
+                          background: card.id === 'adult' ? '#D4AF37' : card.id === 'fleet' ? '#4ade80' : '#4CAF50', 
+                          color: card.id === 'fleet' ? 'black' : 'white', 
                           fontWeight: 'bold', 
                           cursor: 'pointer', 
                           zIndex: 10000, 
@@ -329,7 +356,7 @@ const VenueCompliance = () => {
                           fontSize: '14px'
                         }}
                       >
-                        {card.id === 'events' ? 'ACTIVATE EVENT ($299/mo)' : 'ACTIVATE SHIELD ($499/mo)'}
+                        {card.id === 'events' ? 'ACTIVATE EVENT ($299/mo)' : card.id === 'fleet' ? 'ACTIVATE FLEET ($299/mo)' : 'ACTIVATE SHIELD ($499/mo)'}
                       </button>
                     </form>
                   )}

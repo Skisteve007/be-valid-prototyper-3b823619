@@ -141,7 +141,7 @@ const Index = () => {
             </div>
 
             {/* Buttons - stacked on mobile, row on desktop */}
-            <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto items-stretch md:items-center flex-shrink-0">
+            <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto items-stretch md:items-start flex-shrink-0">
               
               <Button 
                 onClick={() => navigate("/auth?mode=login")}
@@ -150,7 +150,7 @@ const Index = () => {
                 <div className="absolute inset-0 bg-green-600/20 blur-md rounded-md -z-10"></div>
                 Member Log In
               </Button>
-              <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto">
+              <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto md:items-start">
                 <div className="flex flex-col items-center gap-1">
                   <Button 
                     variant="ghost" 

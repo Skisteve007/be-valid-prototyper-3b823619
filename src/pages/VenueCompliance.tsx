@@ -492,7 +492,7 @@ const VenueCompliance = () => {
             </div>
             <p className="italic opacity-90 mb-4">"Secure and streamlined access for clinical partners."</p>
             <p className="text-sm text-slate-300 mb-4">
-              Manage and update sexual health verification records for high-frequency dating community members.
+              Manage and update comprehensive health verification records (Sexual Health and Toxicology) for members across all affiliated community platforms.
             </p>
             <ul className="space-y-2 text-sm">
               <li>✅ <strong>Comprehensive Screening:</strong> Includes <strong>Sexual Health</strong> and <strong>Toxicology</strong> verification services.</li>

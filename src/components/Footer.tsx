@@ -18,18 +18,6 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border mt-auto w-full">
       <div className="container mx-auto px-4 py-4 md:py-6">
-        {/* Admin Button - Bottom Left */}
-        <div className="mb-3">
-          <Button
-            onClick={handleAdminClick}
-            size="sm"
-            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/50 text-white text-xs"
-          >
-            <Settings className="h-3 w-3 mr-1" />
-            {isAdmin ? "Admin Panel" : "Admin Login"}
-          </Button>
-        </div>
-
         {/* Row 1: Copyright & IP */}
         <div className="mb-3 md:mb-4 text-center md:text-left">
           <p className="text-[10px] leading-relaxed text-muted-foreground">
@@ -81,6 +69,16 @@ const Footer = () => {
           <p className="text-[10px] text-muted-foreground text-center">
             🔞 18 U.S.C. § 2257 Compliance: All models/users appearing on this site are 18 years of age or older.
           </p>
+        </div>
+
+        {/* Admin Button - Bottom Right */}
+        <div className="flex justify-end mt-2">
+          <button
+            onClick={handleAdminClick}
+            className="text-[9px] text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+          >
+            {isAdmin ? "Admin Panel" : "Admin"}
+          </button>
         </div>
       </div>
     </footer>

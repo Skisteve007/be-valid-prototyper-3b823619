@@ -477,39 +477,39 @@ const VenueCompliance = () => {
         </div>
 
         {/* Card 6: Lab Access Portal */}
-        <div 
-          className="rounded-2xl p-6 border border-sky-400/50 flex flex-col justify-between min-h-[550px]"
-          style={{
-            background: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&q=80')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <FlaskConical className="h-8 w-8 text-sky-400" />
-              <h3 className="text-xl font-bold text-sky-400">Lab Access Portal</h3>
+        <Link to="/partners" className="block">
+          <div 
+            className="rounded-2xl p-6 border border-sky-400/50 flex flex-col justify-between min-h-[550px] cursor-pointer hover:border-sky-400 hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300"
+            style={{
+              background: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&q=80')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <FlaskConical className="h-8 w-8 text-sky-400" />
+                <h3 className="text-xl font-bold text-sky-400">Lab Access Portal</h3>
+              </div>
+              <p className="italic opacity-90 mb-4">"Secure and streamlined access for clinical partners."</p>
+              <p className="text-sm text-pink-400 font-semibold mb-4">
+                Manage and update comprehensive health verification records (Sexual Health and Toxicology) for members across all affiliated community platforms.
+              </p>
+              <ul className="space-y-2 text-sm">
+                <li>✅ <strong>Comprehensive Screening:</strong> Includes <strong>Sexual Health</strong> and <strong>Toxicology</strong> verification services.</li>
+                <li>✅ <strong>Rapid Status Update:</strong> Instantly link test results (both types) to a member's QR code.</li>
+                <li>✅ <strong>Batch Processing:</strong> Upload multiple results simultaneously via secure API.</li>
+                <li>✅ <strong>Error Reduction:</strong> Automated cross-referencing to eliminate manual entry errors.</li>
+              </ul>
             </div>
-            <p className="italic opacity-90 mb-4">"Secure and streamlined access for clinical partners."</p>
-            <p className="text-sm text-pink-400 font-semibold mb-4">
-              Manage and update comprehensive health verification records (Sexual Health and Toxicology) for members across all affiliated community platforms.
-            </p>
-            <ul className="space-y-2 text-sm">
-              <li>✅ <strong>Comprehensive Screening:</strong> Includes <strong>Sexual Health</strong> and <strong>Toxicology</strong> verification services.</li>
-              <li>✅ <strong>Rapid Status Update:</strong> Instantly link test results (both types) to a member's QR code.</li>
-              <li>✅ <strong>Batch Processing:</strong> Upload multiple results simultaneously via secure API.</li>
-              <li>✅ <strong>Error Reduction:</strong> Automated cross-referencing to eliminate manual entry errors.</li>
-            </ul>
-          </div>
 
-          <div className="mt-4">
-            <Link to="/partners">
+            <div className="mt-4">
               <button className="w-full py-4 bg-sky-400 text-black font-extrabold rounded-lg uppercase">
                 Access Lab Portal
               </button>
-            </Link>
+            </div>
           </div>
-        </div>
+        </Link>
 
       </div>
 

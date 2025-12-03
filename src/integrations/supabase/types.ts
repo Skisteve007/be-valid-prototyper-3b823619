@@ -446,6 +446,39 @@ export type Database = {
         }
         Relationships: []
       }
+      marketing_leads: {
+        Row: {
+          category: string
+          company_name: string
+          contact_email: string
+          created_at: string
+          id: string
+          notes: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          company_name: string
+          contact_email: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          company_name?: string
+          contact_email?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       marketing_templates: {
         Row: {
           body_content: string

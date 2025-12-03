@@ -25,6 +25,7 @@ import SalesTeamTab from "@/components/admin/SalesTeamTab";
 import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
 import { QuickBrandingTool } from "@/components/admin/QuickBrandingTool";
 import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
+import { LeadOutreachTab } from "@/components/admin/LeadOutreachTab";
 import {
   DndContext,
   closestCenter,
@@ -545,6 +546,9 @@ const Admin = () => {
             <TabsTrigger value="sales-team" className="cursor-pointer flex-1">
               💰 Sales Team
             </TabsTrigger>
+            <TabsTrigger value="lead-outreach" className="cursor-pointer flex-1">
+              📧 Lead Outreach
+            </TabsTrigger>
             <TabsTrigger value="quick-branding" className="cursor-pointer flex-1">
               <Zap className="h-4 w-4 mr-2" />
               Fast Setup
@@ -851,6 +855,10 @@ const Admin = () => {
           
           <TabsContent value="sales-team">
             <SalesTeamTab />
+          </TabsContent>
+          
+          <TabsContent value="lead-outreach">
+            <LeadOutreachTab />
           </TabsContent>
           
           <TabsContent value="quick-branding">

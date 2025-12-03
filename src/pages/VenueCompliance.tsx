@@ -491,21 +491,30 @@ const VenueCompliance = () => {
                 <FlaskConical className="h-8 w-8 text-sky-400" />
                 <h3 className="text-xl font-bold text-sky-400">Lab Access Portal</h3>
               </div>
-              <p className="italic opacity-90 mb-4">"Secure and streamlined access for clinical partners."</p>
-              <p className="text-sm text-pink-400 font-semibold mb-4">
-                Manage and update comprehensive health verification records (Sexual Health and Toxicology) for members across all affiliated community platforms.
-              </p>
-              <ul className="space-y-2 text-sm">
-                <li>✅ <strong>Comprehensive Screening:</strong> Includes <strong>Sexual Health</strong> and <strong>Toxicology</strong> verification services.</li>
-                <li>✅ <strong>Rapid Status Update:</strong> Instantly link test results (both types) to a member's QR code.</li>
-                <li>✅ <strong>Batch Processing:</strong> Upload multiple results simultaneously via secure API.</li>
-                <li>✅ <strong>Error Reduction:</strong> Automated cross-referencing to eliminate manual entry errors.</li>
+              <p className="italic opacity-90 mb-4">"Integrated Health Compliance for Affiliate Social Ecosystems."</p>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-400 mt-0.5">✦</span>
+                  <span><strong className="text-sky-300">High-Volume Client Access:</strong> Instantly tap into exclusive affiliate communities, guaranteeing <strong>consistent, mandated volume</strong> for Sexual Health and Toxicology testing.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-400 mt-0.5">✦</span>
+                  <span><strong className="text-sky-300">Real-Time API Integration:</strong> Utilize our <strong>low-latency, FHIR-compatible API</strong> to securely and instantaneously power the member's Clean Check Status.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-400 mt-0.5">✦</span>
+                  <span><strong className="text-sky-300">Automated Compliance Reporting:</strong> The system automatically manages secure result sharing with Establishments, <strong>offloading complex HIPAA/GDPR compliance</strong> from your internal team.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-400 mt-0.5">✦</span>
+                  <span><strong className="text-sky-300">Zero-Friction Efficiency:</strong> Upload results using <strong>batch processing</strong> and barcode scanning, minimizing manual entry and ensuring <strong>zero delays</strong> in updating member status.</span>
+                </li>
               </ul>
             </div>
 
             <div className="mt-4">
               <button className="w-full py-4 bg-sky-400 text-black font-extrabold rounded-lg uppercase">
-                Access Lab Portal
+                Access Lab Portal →
               </button>
             </div>
           </div>

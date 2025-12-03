@@ -194,9 +194,6 @@ const Dashboard = () => {
             {/* Private Inbox - Privacy Firewall for locked lab results */}
             <PrivateInbox userId={user.id} onStatusUpdate={handleProfileUpdate} />
             
-            {/* Venue Check-in */}
-            <VenueCheckin userId={user.id} />
-            
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">
                 <div className="absolute inset-0 bg-primary/10 blur-xl pointer-events-none"></div>
@@ -249,6 +246,8 @@ const Dashboard = () => {
               </div>
               
               <TabsContent value="profile">
+                {/* Venue Check-in - Only on Profile tab */}
+                <VenueCheckin userId={user.id} />
                 <ProfileTab userId={user.id} onUpdate={handleProfileUpdate} />
               </TabsContent>
               

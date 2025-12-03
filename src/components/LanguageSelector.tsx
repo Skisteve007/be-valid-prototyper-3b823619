@@ -180,7 +180,7 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="start" 
-        className="w-52 bg-popover border border-border shadow-lg z-[100]"
+        className="w-52 max-h-64 overflow-y-auto bg-popover border border-border shadow-lg z-[100]"
       >
         <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground border-b border-border mb-1">
           🌐 Select Language

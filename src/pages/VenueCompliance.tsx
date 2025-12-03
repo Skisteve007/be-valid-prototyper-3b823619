@@ -384,16 +384,12 @@ const VenueCompliance = () => {
               <div className="text-xl font-bold mb-1">$119.00 <span className="text-sm font-normal text-slate-400">One-Time</span></div>
               <p className="text-xs text-slate-400 mb-3">Includes: Membership + <strong className="text-amber-400">14-Day QR Code</strong> + 1 Drug Test Kit.</p>
               
-              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_xclick" />
-                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Driver Verification Pass" />
-                <input type="hidden" name="amount" value="119.00" />
-                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                <button type="submit" className="w-full py-2.5 bg-slate-800 text-white font-bold border border-white rounded">
-                  BUY DRIVER PASS ($119)
-                </button>
-              </form>
+              <a 
+                href="/toxicology-kit-order?type=driver"
+                className="block w-full py-2.5 bg-slate-800 text-white font-bold border border-white rounded text-center"
+              >
+                BUY DRIVER PASS ($119)
+              </a>
             </div>
           </div>
         </div>

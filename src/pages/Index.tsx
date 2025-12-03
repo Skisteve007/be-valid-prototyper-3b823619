@@ -248,15 +248,15 @@ const Index = () => {
                 <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-8 font-semibold">Trusted Community Sponsors</p>
                 
                 {/* Oval container with gradient background */}
-                <div className="relative inline-block px-6 md:px-12 py-6 md:py-8 rounded-full bg-gradient-to-br from-muted/60 via-primary/10 to-muted/60 border-2 border-border/40 shadow-[0_0_40px_rgba(59,130,246,0.3)] w-full max-w-full">
+                <div className="relative inline-flex justify-center px-8 md:px-16 py-6 md:py-8 rounded-full bg-gradient-to-br from-muted/60 via-primary/10 to-muted/60 border-2 border-border/40 shadow-[0_0_40px_rgba(59,130,246,0.3)] w-full">
                   {/* Gradient glow backdrop */}
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-pink-500/20 to-blue-500/20 blur-2xl rounded-full -z-10"></div>
                   
-                  <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-16">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 lg:gap-20 w-full max-w-4xl">
                   {[0, 1, 2].map((index) => {
                     const sponsor = sponsors[index];
                     return (
-                      <div key={index} className="flex items-center justify-center">
+                      <div key={index} className="flex items-center justify-center w-full">
                         {sponsor?.logo_url ? (
                           sponsor.website_url ? (
                             <a 
@@ -264,23 +264,23 @@ const Index = () => {
                               target="_blank" 
                               rel="noopener noreferrer"
                               onClick={() => handleSponsorClick(sponsor.id)}
-                              className="transform transition-transform hover:scale-110"
+                              className="transform transition-transform hover:scale-110 flex items-center justify-center"
                             >
                               <img 
                                 src={sponsor.logo_url} 
                                 alt={sponsor.name} 
-                                className="h-16 md:h-20 lg:h-28 w-auto filter drop-shadow-2xl"
+                                className="h-16 md:h-20 lg:h-28 w-auto max-w-full object-contain filter drop-shadow-2xl"
                               />
                             </a>
                           ) : (
                             <img 
                               src={sponsor.logo_url} 
                               alt={sponsor.name} 
-                              className="h-16 md:h-20 lg:h-28 w-auto filter drop-shadow-2xl"
+                              className="h-16 md:h-20 lg:h-28 w-auto max-w-full object-contain filter drop-shadow-2xl"
                             />
                           )
                         ) : (
-                          <div className="w-40 h-16 md:w-48 md:h-20 lg:w-64 lg:h-28 bg-muted/40 border-2 border-dashed border-primary/30 rounded-xl flex flex-col items-center justify-center gap-1 md:gap-2 hover:border-primary/60 transition-colors">
+                          <div className="w-full max-w-[160px] md:max-w-[180px] lg:max-w-[220px] h-16 md:h-20 lg:h-28 bg-muted/40 border-2 border-dashed border-primary/30 rounded-xl flex flex-col items-center justify-center gap-1 md:gap-2 hover:border-primary/60 transition-colors">
                             <div className="w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-primary/10 flex items-center justify-center">
                               <span className="text-xl md:text-2xl lg:text-3xl">🏢</span>
                             </div>

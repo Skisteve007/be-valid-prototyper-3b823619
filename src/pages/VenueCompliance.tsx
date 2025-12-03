@@ -203,9 +203,9 @@ const VenueCompliance = () => {
       {/* Hero Section */}
       <section className="relative py-20 md:py-28 px-4">
         <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-sky-500/20 to-blue-500/20 border border-sky-500/30 rounded-full px-5 py-2.5 mb-8 backdrop-blur-sm">
-            <BadgeCheck className="h-5 w-5 text-sky-400" />
-            <span className="text-sm text-sky-300 font-semibold tracking-wide">Enterprise-Grade Compliance</span>
+          <div className="inline-flex items-center gap-2 bg-sky-900/60 border border-sky-400/50 rounded-full px-5 py-2.5 mb-8 backdrop-blur-sm">
+            <BadgeCheck className="h-5 w-5 text-sky-300" />
+            <span className="text-sm text-sky-200 font-semibold tracking-wide">Enterprise-Grade Compliance</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 tracking-tight">
             Select Your{" "}
@@ -213,9 +213,9 @@ const VenueCompliance = () => {
               Industry Solution
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto leading-relaxed">
             Automated compliance and risk management for high-liability sectors. 
-            <span className="text-slate-300 font-medium"> Enterprise security, zero friction.</span>
+            <span className="text-white font-semibold"> Enterprise security, zero friction.</span>
           </p>
         </div>
       </section>
@@ -379,7 +379,7 @@ const VenueCompliance = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section ref={formRef} className="relative py-16 md:py-24 px-4">
+      <section ref={formRef} className="relative py-8 md:py-12 px-4">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-800/30 to-transparent" />
         <div className="container mx-auto max-w-2xl relative z-10">
           <div className="text-center mb-10">
@@ -504,17 +504,24 @@ const VenueCompliance = () => {
 
       {/* Footer */}
       <footer className="border-t border-slate-800/50 py-8 px-4 bg-slate-950/50">
-        <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-slate-400 text-sm">
-            <Shield className="h-4 w-4" />
-            <span>Clean Check Enterprise™</span>
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-slate-400 text-sm">
+              <Shield className="h-4 w-4" />
+              <span>Clean Check Enterprise™</span>
+            </div>
+            <div className="text-slate-500 text-sm">
+              © {new Date().getFullYear()} Clean Check. All rights reserved.
+            </div>
+            <div className="flex gap-6 text-sm">
+              <Link to="/privacy" className="text-slate-400 hover:text-white transition-colors">Privacy</Link>
+              <Link to="/terms" className="text-slate-400 hover:text-white transition-colors">Terms</Link>
+            </div>
           </div>
-          <div className="text-slate-500 text-sm">
-            © {new Date().getFullYear()} Clean Check. All rights reserved.
-          </div>
-          <div className="flex gap-6 text-sm">
-            <Link to="/privacy" className="text-slate-400 hover:text-white transition-colors">Privacy</Link>
-            <Link to="/terms" className="text-slate-400 hover:text-white transition-colors">Terms</Link>
+          <div className="flex justify-end mt-4">
+            <Link to="/admin/login" className="text-xs text-slate-600 hover:text-slate-400 transition-colors">
+              Admin
+            </Link>
           </div>
         </div>
       </footer>

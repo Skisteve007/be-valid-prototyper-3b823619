@@ -14,6 +14,7 @@ import { useLongPressHome } from "@/hooks/useLongPressHome";
 import { LanguageSelector, LanguageWelcomeBanner } from "@/components/LanguageSelector";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useReferralTracking } from "@/hooks/useReferralTracking";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -179,7 +180,10 @@ const Index = () => {
                     <div className="absolute inset-0 bg-orange-600/20 blur-md rounded-md -z-10 animate-pulse"></div>
                     QR Code
                   </Button>
-                  <LanguageSelector />
+                  <div className="flex items-center gap-2">
+                    <LanguageSelector />
+                    <ThemeToggle />
+                  </div>
                 </div>
                 <Button 
                   onClick={() => {

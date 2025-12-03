@@ -47,7 +47,7 @@ const VenueCompliance = () => {
       <div className="py-10 px-5">
         <div className="text-center">
           <h1 className="text-3xl md:text-4xl font-black mb-4 italic">Partner Solutions: Choose Your Industry</h1>
-          <span className="inline-block px-8 py-3 rounded-full bg-sky-400/30 text-white font-semibold text-base md:text-lg border border-sky-400/40 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
+          <span className="inline-block px-5 py-1.5 rounded-full bg-sky-400/30 text-white font-semibold text-base md:text-lg border border-sky-400/40 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
             Automated compliance and risk management for high-liability sectors.
           </span>
         </div>

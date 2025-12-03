@@ -231,8 +231,14 @@ const Index = () => {
                 <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">One Scan.</span>{" "}
                 <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Zero Doubt.</span>
               </p>
-              <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 text-muted-foreground italic">
+              <p className="text-base md:text-lg lg:text-xl mb-4 text-muted-foreground italic">
                 Instantly verify sexual health and toxicology results with one secure badge.
+              </p>
+              <p className="text-lg md:text-xl lg:text-2xl font-bold mb-2 text-white">
+                The Trusted Peer-to-Peer Share.
+              </p>
+              <p className="text-sm md:text-base lg:text-lg mb-6 md:mb-8 text-muted-foreground">
+                Connect with confidence. Share your status securely, with the option to add Lab-Certified Toxicology & Health results whenever you need the ultimate green light.
               </p>
             </ScrollReveal>
             

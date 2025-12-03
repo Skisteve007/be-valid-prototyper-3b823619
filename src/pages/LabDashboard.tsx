@@ -9,7 +9,8 @@ import {
   Database, 
   FileText,
   LogOut,
-  RefreshCw
+  RefreshCw,
+  AlertTriangle
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -21,6 +22,8 @@ const LabDashboard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [checkingAccess, setCheckingAccess] = useState(true);
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -42,6 +45,43 @@ const LabDashboard = () => {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Check if user is admin or lab partner
+  useEffect(() => {
+    const checkAccess = async () => {
+      if (!session?.user) {
+        setCheckingAccess(false);
+        return;
+      }
+
+      try {
+        // Check if user is an administrator
+        const { data: isAdmin } = await supabase.rpc('has_role', {
+          _user_id: session.user.id,
+          _role: 'administrator'
+        });
+
+        // Check if user is associated with a lab partner (by email match)
+        const { data: labPartner } = await supabase
+          .from('lab_partners')
+          .select('id')
+          .eq('contact_email', session.user.email)
+          .eq('active', true)
+          .maybeSingle();
+
+        setIsAuthorized(!!isAdmin || !!labPartner);
+      } catch (error) {
+        console.error('Error checking access:', error);
+        setIsAuthorized(false);
+      } finally {
+        setCheckingAccess(false);
+      }
+    };
+
+    if (session?.user) {
+      checkAccess();
+    }
+  }, [session]);
+
   // Redirect to auth if not logged in
   useEffect(() => {
     if (!loading && !session) {
@@ -55,7 +95,7 @@ const LabDashboard = () => {
     navigate("/");
   };
 
-  if (loading) {
+  if (loading || checkingAccess) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="animate-spin h-8 w-8 border-4 border-blue-900 border-t-transparent rounded-full"></div>
@@ -65,6 +105,37 @@ const LabDashboard = () => {
 
   if (!session) {
     return null;
+  }
+
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <Card className="max-w-md w-full mx-4">
+          <CardContent className="p-8 text-center">
+            <AlertTriangle className="h-16 w-16 text-amber-500 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Access Restricted</h2>
+            <p className="text-gray-600 mb-6">
+              This dashboard is only available to authorized lab partners and administrators.
+            </p>
+            <div className="space-y-3">
+              <Button 
+                onClick={() => navigate("/partners")}
+                className="w-full bg-blue-900 hover:bg-blue-800"
+              >
+                Become a Lab Partner
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={handleSignOut}
+                className="w-full"
+              >
+                Sign Out
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (

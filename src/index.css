@@ -155,7 +155,8 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: #F0F0F0 !important;
+    color: #333333 !important;
   }
 }
 

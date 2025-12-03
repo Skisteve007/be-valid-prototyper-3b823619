@@ -5,51 +5,43 @@ import { Button } from "@/components/ui/button";
 export function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
 
-  // Function to set theme and update state
-  const setTheme = (dark: boolean) => {
+  // Apply theme to document
+  const applyTheme = (dark: boolean) => {
     const root = document.documentElement;
-    const body = document.body;
     
     if (dark) {
-      // Dark mode - very dark background, white text
       root.classList.add("dark");
-      body.classList.add("dark-theme");
       root.style.colorScheme = "dark";
-      
-      // Force dark mode styles
-      body.style.backgroundColor = "#111111";
-      body.style.color = "#ffffff";
-      
-      localStorage.setItem("theme", "dark");
     } else {
-      // Light mode - pure white background, black text
       root.classList.remove("dark");
-      body.classList.remove("dark-theme");
       root.style.colorScheme = "light";
-      
-      // Force light mode styles - MAXIMUM BRIGHTNESS
-      body.style.backgroundColor = "#ffffff";
-      body.style.color = "#000000";
-      
-      localStorage.setItem("theme", "light");
     }
-    setIsDark(dark);
   };
 
+  // Initialize theme on mount
   useEffect(() => {
-    // Check saved preference, default to LIGHT if no preference
     const savedTheme = localStorage.getItem("theme");
     
+    let prefersDark = false;
+    
     if (savedTheme === "dark") {
-      setTheme(true);
+      prefersDark = true;
+    } else if (savedTheme === "light") {
+      prefersDark = false;
     } else {
-      // Default to light theme for maximum brightness
-      setTheme(false);
+      // No saved preference - check system preference
+      prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     }
+    
+    setIsDark(prefersDark);
+    applyTheme(prefersDark);
   }, []);
 
   const toggleTheme = () => {
-    setTheme(!isDark);
+    const newDark = !isDark;
+    setIsDark(newDark);
+    applyTheme(newDark);
+    localStorage.setItem("theme", newDark ? "dark" : "light");
   };
 
   return (

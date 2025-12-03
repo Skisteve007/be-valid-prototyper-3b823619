@@ -915,6 +915,18 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        {/* Access Profile CTA */}
+        <section className="py-12 px-4 text-center">
+          <Button 
+            onClick={scrollToGetStarted}
+            size="lg"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground"
+          >
+            Access Your Profile QR Code Documents
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </section>
       </main>
     </div>
   );

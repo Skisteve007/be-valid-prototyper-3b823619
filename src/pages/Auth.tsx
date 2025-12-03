@@ -131,9 +131,16 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div 
+      className="min-h-screen text-foreground"
+      style={{
+        background: 'radial-gradient(circle at 50% 30%, rgba(244, 114, 182, 0.35) 0%, rgba(45, 45, 45, 1) 85%)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+      }}
+    >
       {/* Header */}
-      <header className="border-b bg-card sticky top-0 z-50">
+      <header className="border-b border-pink-500/20 bg-slate-600/40 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-3">
             {/* Single centered logo on mobile, left logo on desktop */}

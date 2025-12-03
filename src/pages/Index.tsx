@@ -99,7 +99,7 @@ const Index = () => {
     <div 
       className="min-h-screen text-foreground overflow-x-hidden w-full max-w-full"
       style={{
-        background: 'radial-gradient(circle at 50% 30%, rgba(244, 114, 182, 0.35) 0%, rgba(30, 41, 59, 1) 85%)',
+        background: 'radial-gradient(circle at 50% 30%, rgba(244, 114, 182, 0.35) 0%, rgba(45, 45, 45, 1) 85%)',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
       }}

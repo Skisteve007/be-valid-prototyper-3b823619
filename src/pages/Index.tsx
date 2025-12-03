@@ -151,20 +151,23 @@ const Index = () => {
                 Member Log In
               </Button>
               <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto">
-                <Button 
-                  variant="ghost" 
-                  onClick={() => {
-                    if (session) {
-                      navigate("/dashboard?tab=qrcode");
-                    } else {
-                      navigate("/auth");
-                    }
-                  }}
-                  className="relative shadow-[0_0_20px_rgba(249,115,22,0.6)] hover:shadow-[0_0_30px_rgba(249,115,22,0.8)] border border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
-                >
-                  <div className="absolute inset-0 bg-orange-600/20 blur-md rounded-md -z-10 animate-pulse"></div>
-                  QR Code
-                </Button>
+                <div className="flex flex-col items-center gap-1">
+                  <Button 
+                    variant="ghost" 
+                    onClick={() => {
+                      if (session) {
+                        navigate("/dashboard?tab=qrcode");
+                      } else {
+                        navigate("/auth");
+                      }
+                    }}
+                    className="relative shadow-[0_0_20px_rgba(249,115,22,0.6)] hover:shadow-[0_0_30px_rgba(249,115,22,0.8)] border border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
+                  >
+                    <div className="absolute inset-0 bg-orange-600/20 blur-md rounded-md -z-10 animate-pulse"></div>
+                    QR Code
+                  </Button>
+                  <LanguageSelector />
+                </div>
                 <Button 
                   onClick={() => {
                     console.log("Profile button clicked, session:", session);

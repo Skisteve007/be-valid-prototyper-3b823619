@@ -74,9 +74,8 @@ const Partners = () => {
               Request Integration
             </Button>
             <Button 
-              variant="outline"
               onClick={() => navigate("/")}
-              className="border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white"
+              className="bg-blue-900 hover:bg-blue-800 text-white"
             >
               ← Back to Home
             </Button>

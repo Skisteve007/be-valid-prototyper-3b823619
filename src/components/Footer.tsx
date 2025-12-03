@@ -19,13 +19,13 @@ const Footer = () => {
     <footer className="bg-card border-t border-border mt-auto w-full">
       <div className="container mx-auto px-4 py-3">
         {/* Compact Legal Section */}
-        <div className="text-[9px] leading-tight text-muted-foreground space-y-1 mb-2">
+        <div className="text-[9px] leading-tight text-white space-y-1 mb-2">
           <p>© 2025 Clean Check. All Rights Reserved. Clean Check™, The Safety Shield™, Dual-Verification System™ pending trademarks. Protected under U.S. Copyright Law.</p>
           <p><strong>Disclaimer:</strong> Clean Check is a technology platform, not a healthcare provider. Services are for informational purposes only. All testing by independent CLIA-certified labs. HIPAA-compliant. We do not sell PHI.</p>
         </div>
 
         {/* Links & Compliance Row */}
-        <div className="flex flex-wrap items-center justify-center gap-2 text-[9px] text-muted-foreground border-t border-border pt-2">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-[9px] text-white border-t border-border pt-2">
           <Link to="/terms" className="hover:text-foreground transition-colors underline">Terms</Link>
           <span>|</span>
           <Link to="/privacy" className="hover:text-foreground transition-colors underline">Privacy</Link>

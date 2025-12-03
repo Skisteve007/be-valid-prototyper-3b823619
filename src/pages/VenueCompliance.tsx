@@ -166,26 +166,21 @@ const VenueCompliance = () => {
       Icon: Car,
       iconColor: "text-emerald-400",
       headline: "Transportation & Fleets",
-      hook: "Drive with Verified Confidence.",
+      hook: "Uber checks history. We check biology.",
       benefits: [
-        { label: "Passenger Trust", text: "Market your fleet as 'Verified Safe'." },
-        { label: "Liability Shield", text: "Continuous driver toxicology monitoring." },
-        { label: "Zero Tolerance", text: "Instant 'Red Light' for failed tests." },
+        { label: "Fleets", text: "Real-time driver toxicology monitoring." },
+        { label: "Drivers", text: "Get hired fast with a Verified Green Pass." },
       ],
-      price: "$299",
-      period: "/ month",
-      buttonText: "ACTIVATE FLEET DASHBOARD",
+      price: "Tiered",
+      period: "",
+      buttonText: "",
       subject: "Fleet Sales",
       bgImage: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80",
       borderColor: "border-emerald-500/30",
       glowColor: "hover:shadow-[0_0_60px_rgba(74,222,128,0.5)]",
       buttonGradient: "from-emerald-600 to-emerald-500",
       inputPlaceholder: "Enter Fleet/Company Name",
-      paypal: {
-        itemName: "Clean Check - Fleet License",
-        amount: "299.00",
-      },
-      type: "license" as const,
+      type: "fleet" as const,
     },
   ];
 
@@ -302,16 +297,92 @@ const VenueCompliance = () => {
                     ))}
                   </div>
 
-                  {/* Price Tag */}
-                  <div className={`text-center mb-6 py-4 rounded-xl bg-white/5 border ${card.isPremium ? 'border-amber-500/30' : 'border-white/10'}`}>
-                    <span className={`text-4xl font-black ${card.isPremium ? 'text-amber-400' : 'text-white'}`}>
-                      {card.price}
-                    </span>
-                    <span className="text-slate-400 text-lg ml-1">{card.period}</span>
-                  </div>
+                  {/* Price Tag - Only for non-fleet cards */}
+                  {card.type !== "fleet" && (
+                    <div className={`text-center mb-6 py-4 rounded-xl bg-white/5 border ${card.isPremium ? 'border-amber-500/30' : 'border-white/10'}`}>
+                      <span className={`text-4xl font-black ${card.isPremium ? 'text-amber-400' : 'text-white'}`}>
+                        {card.price}
+                      </span>
+                      <span className="text-slate-400 text-lg ml-1">{card.period}</span>
+                    </div>
+                  )}
+
+                  {/* Fleet Card - Tiered Pricing */}
+                  {card.type === "fleet" && (
+                    <div className="w-full space-y-3">
+                      <div className="text-xs text-slate-400 uppercase font-bold mb-2 tracking-wider">Fleet Licenses (Select Size)</div>
+                      
+                      {/* Small Fleet */}
+                      <div className="border border-slate-600 p-3 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white font-bold text-sm">Small Fleet (1-50 Cars)</span>
+                          <span className="text-emerald-400 font-bold">$299/mo</span>
+                        </div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Small Fleet License (1-50)" />
+                          <input type="hidden" name="a3" value="299.00" />
+                          <input type="hidden" name="p3" value="1" />
+                          <input type="hidden" name="t3" value="M" />
+                          <input type="hidden" name="src" value="1" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 px-4 rounded text-xs transition-colors">
+                            ACTIVATE SMALL FLEET
+                          </button>
+                        </form>
+                      </div>
+
+                      {/* Large Fleet */}
+                      <div className="border border-slate-600 p-3 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white font-bold text-sm">Large Fleet (51-200 Cars)</span>
+                          <span className="text-emerald-400 font-bold">$599/mo</span>
+                        </div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Large Fleet License (51-200)" />
+                          <input type="hidden" name="a3" value="599.00" />
+                          <input type="hidden" name="p3" value="1" />
+                          <input type="hidden" name="t3" value="M" />
+                          <input type="hidden" name="src" value="1" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 px-4 rounded text-xs transition-colors">
+                            ACTIVATE LARGE FLEET
+                          </button>
+                        </form>
+                      </div>
+
+                      <hr className="border-slate-600 my-3" />
+
+                      {/* Individual Driver */}
+                      <div className="text-xs text-slate-400 uppercase font-bold mb-2 tracking-wider">Individual Drivers</div>
+                      <div className="border border-emerald-500/50 p-3 rounded-lg bg-emerald-500/10">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white font-bold text-sm">Individual Driver Pass</span>
+                          <span className="text-emerald-400 font-bold">$119/yr</span>
+                        </div>
+                        <p className="text-xs text-slate-400 mb-2">Get hired faster with a Verified Green Pass.</p>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                          <input type="hidden" name="cmd" value="_xclick" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Individual Driver Pass" />
+                          <input type="hidden" name="amount" value="119.00" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 px-4 rounded text-xs transition-colors">
+                            GET MY GREEN PASS ($119)
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  )}
 
                   {/* License Cards - PayPal Form with Venue Input */}
-                  {card.type === "license" && card.paypal && (
+                  {card.type === "license" && (
                     <form 
                       action="https://www.paypal.com/cgi-bin/webscr" 
                       method="post" 
@@ -320,8 +391,8 @@ const VenueCompliance = () => {
                     >
                       <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value={card.paypal.itemName} />
-                      <input type="hidden" name="a3" value={card.paypal.amount} />
+                      <input type="hidden" name="item_name" value={card.id === 'events' ? 'Clean Check - Event License' : 'Clean Check - Venue Liability Shield'} />
+                      <input type="hidden" name="a3" value={card.id === 'events' ? '299.00' : '499.00'} />
                       <input type="hidden" name="p3" value="1" />
                       <input type="hidden" name="t3" value="M" />
                       <input type="hidden" name="src" value="1" />
@@ -345,8 +416,8 @@ const VenueCompliance = () => {
                         style={{ 
                           width: '100%', 
                           padding: '15px', 
-                          background: card.id === 'adult' ? '#D4AF37' : card.id === 'fleet' ? '#4ade80' : '#4CAF50', 
-                          color: card.id === 'fleet' ? 'black' : 'white', 
+                          background: card.id === 'adult' ? '#D4AF37' : '#4CAF50', 
+                          color: 'white', 
                           fontWeight: 'bold', 
                           cursor: 'pointer', 
                           zIndex: 10000, 
@@ -356,7 +427,7 @@ const VenueCompliance = () => {
                           fontSize: '14px'
                         }}
                       >
-                        {card.id === 'events' ? 'ACTIVATE EVENT ($299/mo)' : card.id === 'fleet' ? 'ACTIVATE FLEET ($299/mo)' : 'ACTIVATE SHIELD ($499/mo)'}
+                        {card.id === 'events' ? 'ACTIVATE EVENT ($299/mo)' : 'ACTIVATE SHIELD ($499/mo)'}
                       </button>
                     </form>
                   )}

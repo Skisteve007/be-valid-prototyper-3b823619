@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 interface MobileDataCardProps {
-  title: string;
+  title: string | ReactNode;
   subtitle?: string;
   badge?: {
     text: string;

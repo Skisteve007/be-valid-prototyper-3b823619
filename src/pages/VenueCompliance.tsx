@@ -382,7 +382,7 @@ const VenueCompliance = () => {
             <div className="border-t border-slate-600 pt-3 mt-3">
               <p className="text-xs text-slate-400 uppercase font-bold mb-1">For Individual Drivers</p>
               <div className="text-xl font-bold mb-1">$119.00 <span className="text-sm font-normal text-slate-400">One-Time</span></div>
-              <p className="text-xs text-slate-400 mb-3">Includes: Membership + QR Code + 1 Drug Test Kit.</p>
+              <p className="text-xs text-slate-400 mb-3">Includes: Membership + <strong className="text-amber-400">14-Day QR Code</strong> + 1 Drug Test Kit.</p>
               
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick" />

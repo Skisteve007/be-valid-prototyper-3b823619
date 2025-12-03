@@ -48,7 +48,7 @@ const VenueCompliance = () => {
         <div className="text-center">
           <h1 className="text-3xl md:text-4xl font-black mb-4 italic">Partner Solutions: Choose Your Industry</h1>
           <span className="inline-block px-5 py-1.5 rounded-full bg-slate-900/80 text-amber-400 font-semibold text-base md:text-lg border border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.2)]" style={{ textShadow: '0 0 10px rgba(251,191,36,0.5)' }}>
-            Automated compliance and risk management for high-liability sectors.
+            Automated Compliance And Risk Management For High-Liability Sectors.
           </span>
         </div>
       </div>

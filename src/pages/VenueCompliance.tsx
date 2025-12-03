@@ -483,15 +483,6 @@ const VenueCompliance = () => {
                         <input type="hidden" name="p3" value="2" />
                         <input type="hidden" name="t3" value="M" />
                         <input type="hidden" name="src" value="1" />
-                        <input type="hidden" name="on0" value="Stage Name" />
-                        <input
-                          type="text"
-                          name="os0"
-                          placeholder="Enter Stage Name"
-                          required
-                          className="w-full px-3 py-3 rounded text-center text-white"
-                          style={{ background: 'rgba(255,255,255,0.1)', border: 'none' }}
-                        />
                         <button 
                           type="submit" 
                           className="w-full py-4 font-extrabold rounded-lg text-black uppercase transition-colors"

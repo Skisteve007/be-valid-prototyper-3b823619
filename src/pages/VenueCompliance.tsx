@@ -289,7 +289,7 @@ const VenueCompliance = () => {
         <div 
           className="rounded-2xl p-6 border border-white/10 flex flex-col justify-between min-h-[550px]"
           style={{
-            background: "linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80')",
+            background: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80')",
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
@@ -306,7 +306,7 @@ const VenueCompliance = () => {
 
           <div className="space-y-2">
             {/* Tier 1: Small Fleet */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/50">
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
                 <span className="font-bold text-sm">Small Fleet (1-50 Cars)</span>
                 <span className="text-emerald-400 font-bold">$299/mo</span>
@@ -329,7 +329,7 @@ const VenueCompliance = () => {
             </div>
 
             {/* Tier 2: Mid Fleet */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/50">
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
                 <span className="font-bold text-sm">Mid Fleet (50-200 Cars)</span>
                 <span className="text-emerald-400 font-bold">$599/mo</span>

@@ -25,13 +25,21 @@ const VenueCompliance = () => {
               <span className="text-[10px] font-semibold text-sky-400 tracking-[0.2em] uppercase">Enterprise Security</span>
             </div>
           </div>
-          <Button 
-            variant="outline" 
-            className="border-slate-300 bg-slate-100 text-slate-900 hover:bg-white hover:text-black hover:border-slate-400 font-medium"
-            asChild
-          >
-            <Link to="/">← Back to Home</Link>
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button 
+              variant="outline" 
+              className="border-slate-300 bg-slate-100 text-slate-900 hover:bg-white hover:text-black hover:border-slate-400 font-medium"
+              asChild
+            >
+              <Link to="/">← Back to Home</Link>
+            </Button>
+            <Button 
+              className="bg-gradient-to-r from-sky-600 to-sky-500 text-white border-0 hover:from-sky-500 hover:to-sky-400 font-medium"
+              asChild
+            >
+              <Link to="/partners">🔬 Lab Access Portal</Link>
+            </Button>
+          </div>
         </div>
       </header>
 

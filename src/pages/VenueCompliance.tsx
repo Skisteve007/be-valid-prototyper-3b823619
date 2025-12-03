@@ -46,18 +46,18 @@ const VenueCompliance = () => {
       </div>
 
       {/* Value Propositions */}
-      <div className="flex flex-col md:flex-row justify-center max-w-5xl mx-auto gap-5 px-5 mb-12">
-        <div className="flex-1 bg-white/5 p-5 rounded-lg">
-          <h3 className="text-red-400 font-bold mb-2">1. LIABILITY SHIELD</h3>
-          <p className="text-sm text-white">Outsource compliance tracking. We provide the mandatory digital waiver and audit trail, moving medical liability away from your venue.</p>
+      <div className="flex flex-col md:flex-row justify-center max-w-5xl mx-auto gap-6 px-5 mb-12">
+        <div className="flex-1 bg-white/5 p-6 rounded-xl">
+          <h3 className="text-red-400 font-bold mb-3 text-lg">1. LIABILITY SHIELD</h3>
+          <p className="text-base text-white">Outsource compliance tracking. We provide the mandatory digital waiver and audit trail, moving medical liability away from your venue.</p>
         </div>
-        <div className="flex-1 bg-white/5 p-5 rounded-lg">
-          <h3 className="text-blue-400 font-bold mb-2">2. MONETIZE ACCESS</h3>
-          <p className="text-sm text-white">Transform the security checkpoint into a profit center. Collect subscription and per-scan revenue by offering 'Verified Entry' speed.</p>
+        <div className="flex-1 bg-white/5 p-6 rounded-xl">
+          <h3 className="text-blue-400 font-bold mb-3 text-lg">2. MONETIZE ACCESS</h3>
+          <p className="text-base text-white">Transform the security checkpoint into a profit center. Collect subscription and per-scan revenue by offering 'Verified Entry' speed.</p>
         </div>
-        <div className="flex-1 bg-white/5 p-5 rounded-lg">
-          <h3 className="text-emerald-400 font-bold mb-2">3. SECURE TALENT</h3>
-          <p className="text-sm text-white">Provide a verified environment for Performer Talent and Content Creators. Reduces the risk of set/venue shutdowns due to health incidents.</p>
+        <div className="flex-1 bg-white/5 p-6 rounded-xl">
+          <h3 className="text-emerald-400 font-bold mb-3 text-lg">3. SECURE TALENT</h3>
+          <p className="text-base text-white">Provide a verified environment for Performer Talent and Content Creators. Reduces the risk of set/venue shutdowns due to health incidents.</p>
         </div>
       </div>
 

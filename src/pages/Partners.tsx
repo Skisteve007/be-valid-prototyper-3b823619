@@ -273,7 +273,7 @@ const Partners = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact-form" className="py-24 px-4 bg-gradient-to-b from-white to-slate-50">
+      <section id="contact-form" className="py-12 px-4 bg-gradient-to-b from-white to-slate-50">
         <div className="container mx-auto max-w-2xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-4">

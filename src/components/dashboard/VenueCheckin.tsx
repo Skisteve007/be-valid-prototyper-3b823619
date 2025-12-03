@@ -170,7 +170,7 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
             className="w-full py-3 h-auto"
           >
             <ExternalLink className="h-4 w-4" />
-            View {selectedVenueUrl ? selectedVenueName : ''} on Google
+            Find {selectedVenueName} on Google
           </Button>
         )}
       </div>

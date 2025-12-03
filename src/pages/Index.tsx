@@ -220,16 +220,28 @@ const Index = () => {
         <section className="py-6 md:py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto text-center max-w-4xl">
             <ScrollReveal direction="fade" delay={100}>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
-                <span className="bg-gradient-to-br from-slate-300 via-primary to-slate-500 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] [text-shadow:_0_1px_20px_rgb(148_163_184_/_50%)]">Clean </span>
-                <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Check</span>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6">
+                <span 
+                  className="bg-gradient-to-br from-white via-primary to-slate-300 bg-clip-text text-transparent"
+                  style={{ filter: 'drop-shadow(0 0 20px rgba(148, 163, 184, 0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
+                >Clean </span>
+                <span 
+                  className="bg-gradient-to-br from-pink-300 via-pink-400 to-pink-500 bg-clip-text text-transparent"
+                  style={{ filter: 'drop-shadow(0 0 25px rgba(236, 72, 153, 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
+                >Check</span>
               </h1>
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>
-              <p className="text-2xl md:text-3xl lg:text-4xl mb-2 md:mb-3 font-bold italic drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
-                <span className="bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">One Scan.</span>{" "}
-                <span className="bg-gradient-to-br from-slate-400 via-pink-400 to-slate-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(236,72,153,0.6)]">Zero Doubt.</span>
+              <p className="text-2xl md:text-3xl lg:text-4xl mb-2 md:mb-3 font-black italic">
+                <span 
+                  className="bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500 bg-clip-text text-transparent"
+                  style={{ filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
+                >One Scan.</span>{" "}
+                <span 
+                  className="bg-gradient-to-br from-pink-300 via-pink-400 to-pink-500 bg-clip-text text-transparent"
+                  style={{ filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
+                >Zero Doubt.</span>
               </p>
               <p className="text-base md:text-lg lg:text-xl mb-4 text-muted-foreground italic">
                 Instantly verify sexual health and toxicology results with one secure badge.

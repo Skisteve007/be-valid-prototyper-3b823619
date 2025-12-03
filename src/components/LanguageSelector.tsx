@@ -188,9 +188,9 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
               currentLanguage.code === language.code ? "bg-accent" : ""
             }`}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+              <span className="text-xl">{language.flag}</span>
               <span className="font-medium">{language.nativeName}</span>
-              <span className="text-sm">{language.flag}</span>
             </div>
             {currentLanguage.code === language.code && (
               <Check className="h-4 w-4 text-primary" />

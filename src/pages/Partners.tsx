@@ -66,12 +66,21 @@ const Partners = () => {
           >
             <img src={logo} alt="Clean Check" className="h-12 w-auto" />
           </div>
-          <Button 
-            onClick={scrollToContact}
-            className="bg-blue-900 hover:bg-blue-800 text-white"
-          >
-            Request Integration
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button 
+              onClick={scrollToContact}
+              className="bg-blue-900 hover:bg-blue-800 text-white"
+            >
+              Request Integration
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => navigate("/")}
+              className="border-gray-300 text-gray-700 hover:bg-gray-100"
+            >
+              ← Back to Home
+            </Button>
+          </div>
         </div>
       </header>
 

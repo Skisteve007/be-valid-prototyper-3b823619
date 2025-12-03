@@ -98,7 +98,7 @@ const Partners = () => {
             Integrated Health Compliance for<br />Affiliate Social Ecosystems
           </h1>
           <p className="text-xl text-slate-700 mb-10 max-w-3xl mx-auto font-medium">
-            The compliant, high-volume bridge between lifestyle communities and diagnostic precision.
+            Automate high-volume results delivery and secure access to exclusive member testing networks via our compliant, API-driven diagnostic pipeline.
           </p>
           <Button 
             size="lg"

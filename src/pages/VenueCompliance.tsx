@@ -192,7 +192,7 @@ const VenueCompliance = () => {
           </div>
           <Button 
             variant="outline" 
-            className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white hover:border-slate-600"
+            className="border-slate-600 text-slate-100 hover:bg-slate-800 hover:text-white hover:border-slate-500 font-medium"
             asChild
           >
             <Link to="/">← Back to Home</Link>

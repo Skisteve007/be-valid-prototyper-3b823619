@@ -256,12 +256,12 @@ const ToxicologyKitOrder = () => {
                       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="w-full">
                         <input type="hidden" name="cmd" value="_xclick" />
                         <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                        <input type="hidden" name="item_name" value="Safety Tox Kit (10-Panel) - One Time" />
+                        <input type="hidden" name="item_name" value="Verification Kit - Toxicology (10-Panel)" />
                         <input type="hidden" name="amount" value="129.00" />
                         <input type="hidden" name="no_shipping" value="2" />
                         <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                        <button type="submit" className="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors h-14 text-lg">
-                          Pay $129.00 (One-Time)
+                        <button type="submit" style={{ width: '100%', padding: '15px', background: '#000', color: 'white', fontWeight: 'bold', cursor: 'pointer', zIndex: 10000, position: 'relative', border: 'none', borderRadius: '6px', fontSize: '16px' }}>
+                          ORDER TOX KIT ($129)
                         </button>
                       </form>
                     </div>
@@ -277,7 +277,7 @@ const ToxicologyKitOrder = () => {
                         <input type="hidden" name="p3" value="3" />
                         <input type="hidden" name="t3" value="M" />
                         <input type="hidden" name="src" value="1" />
-                        <button type="submit" className="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors h-14 text-lg">
+                        <button type="submit" style={{ width: '100%', padding: '15px', background: '#16a34a', color: 'white', fontWeight: 'bold', cursor: 'pointer', zIndex: 10000, position: 'relative', border: 'none', borderRadius: '6px', fontSize: '16px' }}>
                           Subscribe: $116.10 / Quarter
                         </button>
                       </form>

@@ -112,7 +112,7 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
       <div className="flex items-center gap-2 mb-3">
         <MapPin className="h-5 w-5 text-primary" />
         <span className="font-semibold text-foreground">Where are you heading tonight?</span>
-        <ExternalLink className="h-4 w-4 text-muted-foreground ml-auto" />
+        <ExternalLink className="h-4 w-4 text-muted-foreground ml-auto" aria-hidden="true" />
       </div>
       
       <div className="space-y-3">

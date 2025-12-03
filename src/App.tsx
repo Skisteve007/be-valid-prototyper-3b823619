@@ -11,6 +11,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminSetup from "./pages/AdminSetup";
 import Sponsors from "./pages/Sponsors";
 import Partners from "./pages/Partners";
+import LabDashboard from "./pages/LabDashboard";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Refund from "./pages/Refund";
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
             <Route path="/partners" element={<AgeGate><Partners /></AgeGate>} />
             <Route path="/partners/verification" element={<AgeGate><Partners /></AgeGate>} />
+            <Route path="/lab/dashboard" element={<AgeGate><LabDashboard /></AgeGate>} />
             <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
             <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
             <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />

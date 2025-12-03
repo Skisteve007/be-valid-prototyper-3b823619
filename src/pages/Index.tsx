@@ -99,7 +99,7 @@ const Index = () => {
       {isMobile && <LanguageWelcomeBanner />}
       
       <header className="border-b bg-card sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 md:py-6">
+        <div className="container mx-auto px-4 py-4 md:py-6 relative">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Logo + Partner Solutions - stacked */}
             <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
@@ -138,15 +138,8 @@ const Index = () => {
               </p>
             </div>
 
-            {/* Buttons + Language Selector - stacked on mobile, row on desktop */}
+            {/* Buttons - stacked on mobile, row on desktop */}
             <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto items-stretch md:items-center flex-shrink-0">
-              {/* Language Selector - positioned top right on mobile */}
-              <div className="flex justify-end md:hidden mb-2">
-                <LanguageSelector />
-              </div>
-              
-              {/* Language Selector - desktop position (before Member Login) */}
-              <LanguageSelector className="hidden md:flex" />
               
               <Button 
                 onClick={() => navigate("/auth?mode=login")}
@@ -199,6 +192,11 @@ const Index = () => {
             <p className="text-sm font-semibold text-foreground mt-1 italic">
               QR-Coded Share. The Fastest Way to Verify Health & Toxicology Results.
             </p>
+          </div>
+          
+          {/* Language Selector - Bottom Left of Header */}
+          <div className="absolute bottom-2 left-4">
+            <LanguageSelector />
           </div>
         </div>
       </header>

@@ -513,17 +513,17 @@ const VenueCompliance = () => {
         </div>
       </section>
 
-      {/* Affiliate Recruitment Section */}
-      <section className="relative py-8 md:py-12 px-4">
+      {/* Strategic Partner Program Section */}
+      <section className="relative py-12 md:py-16 px-4">
         <div className="container mx-auto max-w-4xl">
           <div 
-            className="relative rounded-xl overflow-hidden border border-amber-500/50 text-center"
+            className="relative rounded-2xl overflow-hidden border border-amber-500/40 text-center"
             style={{
-              padding: '40px',
-              background: 'linear-gradient(90deg, #111, #222)',
+              padding: '50px 40px',
+              background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
             }}
           >
-            {/* Gold Glow Background */}
+            {/* Elegant Gold Glow */}
             <div 
               className="absolute pointer-events-none"
               style={{
@@ -531,29 +531,40 @@ const VenueCompliance = () => {
                 left: '-50%',
                 width: '200%',
                 height: '200%',
-                background: 'radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%)',
+                background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.08) 0%, transparent 60%)',
               }}
             />
+            
+            {/* Top Gold Line Accent */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
 
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-black mb-3" style={{ color: '#D4AF37' }}>
-                💰 Join the Sales Army
+              <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-1.5 mb-6">
+                <span className="text-xs text-amber-400 font-semibold tracking-wider uppercase">Exclusive Opportunity</span>
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                Strategic Partner Program
               </h2>
-              <p className="text-slate-300 text-lg max-w-xl mx-auto mb-6">
-                Know a venue? Know a crowd? Sign up as an official Clean Check Partner and earn{' '}
-                <strong className="text-white">20% recurring commissions</strong> on every deal you close.
+              <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+                Connect venues, refer members, and earn recurring revenue.{' '}
+                <span className="text-amber-400 font-semibold">Join the Clean Check global network.</span>
               </p>
 
               <Button
-                onClick={() => navigate('/sales-portal')}
-                className="text-black font-extrabold text-lg px-10 py-6 rounded-full border-none transition-transform hover:scale-105"
+                onClick={() => navigate('/partner-application')}
+                className="text-black font-bold text-base px-10 py-6 rounded-lg border-none transition-all hover:scale-105 shadow-lg"
                 style={{
-                  background: '#D4AF37',
-                  boxShadow: '0 0 20px rgba(212,175,55,0.4)',
+                  background: 'linear-gradient(135deg, #D4AF37 0%, #F5D87A 50%, #D4AF37 100%)',
+                  boxShadow: '0 0 30px rgba(212,175,55,0.3)',
                 }}
               >
-                GENERATE AGENT ID
+                APPLY FOR PARTNERSHIP
               </Button>
+              
+              <p className="text-xs text-slate-500 mt-6">
+                20% recurring commissions • Dedicated support • Global reach
+              </p>
             </div>
           </div>
         </div>

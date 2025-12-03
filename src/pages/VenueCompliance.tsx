@@ -95,51 +95,45 @@ const VenueCompliance = () => {
       Icon: PartyPopper,
       iconColor: "text-blue-300",
       headline: "Nightlife & Events",
-      hook: "Don't let the line kill the vibe.",
+      hook: "Monetize the Door. Verify the Vibe.",
       benefits: [
-        { label: "Speed", text: "Verify guests in 3 seconds." },
-        { label: "Insurance", text: "Lower premiums with verified safety." },
+        { label: "Scan Counter", text: "We track every entry." },
+        { label: "Overage System", text: "Pay only for the scans you use." },
+        { label: "Liability Logs", text: "Full digital audit trail." },
       ],
-      price: "$299",
-      period: "/ month",
-      buttonText: "ACTIVATE EVENT LICENSE",
+      price: "Tiered",
+      period: "",
+      buttonText: "",
       subject: "Event Sales",
       bgImage: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80",
       borderColor: "border-blue-500/30",
       glowColor: "hover:shadow-[0_0_60px_rgba(59,130,246,0.5)]",
       buttonGradient: "from-blue-600 to-blue-500",
-      inputPlaceholder: "Enter Event/Venue Name",
-      paypal: {
-        itemName: "Clean Check - Event License",
-        amount: "299.00",
-      },
-      type: "license" as const,
+      inputPlaceholder: "Club/Event Name",
+      type: "nightlife" as const,
     },
     {
       id: "adult",
       Icon: ShieldCheck,
       iconColor: "text-amber-400",
       headline: "Performer Compliance",
-      hook: "The Iron Dome for Liability.",
+      hook: "The Industry Standard for Talent.",
       benefits: [
-        { label: "Zero Liability", text: "Labs hold the medical data, not you." },
-        { label: "Digital Waiver", text: "Mandatory indemnification for talent." },
+        { label: "Get Booked", text: "Show clubs you are verified safe." },
+        { label: "Liability Shield", text: "Protects you and the venue." },
+        { label: "Auto-Renewal", text: "Billing aligns with your 60-day testing cycle." },
       ],
-      price: "$499",
-      period: "/ month",
-      buttonText: "ACTIVATE VENUE SHIELD",
-      subject: "Club Compliance",
-      bgImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+      price: "$39.00",
+      period: "Every 60 Days",
+      buttonText: "ACTIVATE PERFORMER PASS",
+      subject: "Performer Compliance",
+      bgImage: "https://images.unsplash.com/photo-1566415702213-94c3d828a2a7?auto=format&fit=crop&w=800&q=80",
       borderColor: "border-amber-500/50",
       glowColor: "hover:shadow-[0_0_60px_rgba(245,158,11,0.5)]",
       buttonGradient: "from-amber-600 to-amber-500",
       isPremium: true,
-      inputPlaceholder: "Enter Club Name",
-      paypal: {
-        itemName: "Clean Check - Venue Liability Shield",
-        amount: "499.00",
-      },
-      type: "license" as const,
+      inputPlaceholder: "Enter Stage Name",
+      type: "performer" as const,
     },
     {
       id: "workplace",
@@ -299,13 +293,13 @@ const VenueCompliance = () => {
                     ))}
                   </div>
 
-                  {/* Price Tag - Only for license cards (not fleet or workforce) */}
-                  {card.type !== "fleet" && card.type !== "workforce" && (
-                    <div className={`text-center mb-6 py-4 rounded-xl bg-white/5 border ${card.isPremium ? 'border-amber-500/30' : 'border-white/10'}`}>
-                      <span className={`text-4xl font-black ${card.isPremium ? 'text-amber-400' : 'text-white'}`}>
+                  {/* Price Tag - Only for performer cards */}
+                  {card.type === "performer" && (
+                    <div className={`text-center mb-6 py-4 rounded-xl bg-white/5 border border-amber-500/30`}>
+                      <span className="text-4xl font-black text-amber-400">
                         {card.price}
                       </span>
-                      <span className="text-slate-400 text-lg ml-1">{card.period}</span>
+                      <span className="text-slate-400 text-lg ml-2">{card.period}</span>
                     </div>
                   )}
 
@@ -397,55 +391,116 @@ const VenueCompliance = () => {
                     </div>
                   )}
 
-                  {/* License Cards - PayPal Form with Venue Input */}
-                  {card.type === "license" && (
-                    <form 
-                      action="https://www.paypal.com/cgi-bin/webscr" 
-                      method="post" 
-                      target="_top"
-                      className="w-full space-y-3"
-                    >
-                      <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                      <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value={card.id === 'events' ? 'Clean Check - Event License' : 'Clean Check - Venue Liability Shield'} />
-                      <input type="hidden" name="a3" value={card.id === 'events' ? '299.00' : '499.00'} />
-                      <input type="hidden" name="p3" value="1" />
-                      <input type="hidden" name="t3" value="M" />
-                      <input type="hidden" name="src" value="1" />
-                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                      <input type="hidden" name="on0" value="Venue Name" />
+                  {/* Nightlife Card - Tiered Pricing with Scan Limits */}
+                  {card.type === "nightlife" && (
+                    <div className="w-full space-y-3">
+                      {/* Promoter Tier */}
+                      <div className="border border-blue-300 p-3 rounded-lg" style={{ background: 'rgba(0,0,0,0.4)' }}>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white font-bold">Promoter Tier</span>
+                          <span className="text-blue-300 font-bold">$299/mo</span>
+                        </div>
+                        <div className="text-xs text-white mb-3 p-2 rounded" style={{ background: 'rgba(0,0,0,0.5)' }}>
+                          <strong>INCLUDES:</strong> 200 Scans / Month<br />
+                          <strong>OVERAGE:</strong> $2.00 per extra scan
+                        </div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
+                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Promoter License (200 Scans)" />
+                          <input type="hidden" name="a3" value="299.00" />
+                          <input type="hidden" name="p3" value="1" />
+                          <input type="hidden" name="t3" value="M" />
+                          <input type="hidden" name="src" value="1" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <input type="hidden" name="on0" value="Club Name" />
+                          <input
+                            type="text"
+                            name="os0"
+                            placeholder="Club/Event Name"
+                            required
+                            className="w-full px-2 py-1.5 rounded text-white text-sm"
+                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+                          />
+                          <button type="submit" className="w-full text-black font-bold py-2 px-4 rounded text-sm transition-colors" style={{ background: '#bfdbfe' }}>
+                            ACTIVATE PROMOTER ($299)
+                          </button>
+                        </form>
+                      </div>
+
+                      {/* Club Tier */}
+                      <div className="border border-blue-300 p-3 rounded-lg" style={{ background: 'rgba(0,0,0,0.4)' }}>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white font-bold">Club Tier</span>
+                          <span className="text-blue-300 font-bold">$999/mo</span>
+                        </div>
+                        <div className="text-xs text-white mb-3 p-2 rounded" style={{ background: 'rgba(0,0,0,0.5)' }}>
+                          <strong>INCLUDES:</strong> 1,000 Scans / Month<br />
+                          <strong>OVERAGE:</strong> $1.00 per extra scan
+                        </div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
+                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                          <input type="hidden" name="item_name" value="Clean Check - Club License (1000 Scans)" />
+                          <input type="hidden" name="a3" value="999.00" />
+                          <input type="hidden" name="p3" value="1" />
+                          <input type="hidden" name="t3" value="M" />
+                          <input type="hidden" name="src" value="1" />
+                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                          <input type="hidden" name="on0" value="Club Name" />
+                          <input
+                            type="text"
+                            name="os0"
+                            placeholder="Club Name"
+                            required
+                            className="w-full px-2 py-1.5 rounded text-white text-sm"
+                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
+                          />
+                          <button type="submit" className="w-full text-black font-bold py-2 px-4 rounded text-sm transition-colors" style={{ background: '#bfdbfe' }}>
+                            ACTIVATE CLUB ($999)
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Performer Card - Individual $39/60 days */}
+                  {card.type === "performer" && (
+                    <div className="w-full text-center">
+                      <div className="text-4xl font-black text-amber-400 mb-1">$39.00</div>
+                      <div className="text-white font-bold mb-6">Every 60 Days</div>
                       
-                      {/* Venue Name Input */}
-                      <input
-                        type="text"
-                        name="os0"
-                        placeholder={card.inputPlaceholder}
-                        required
-                        value={venueNames[card.id] || ""}
-                        onChange={(e) => setVenueNames(prev => ({ ...prev, [card.id]: e.target.value }))}
-                        style={{ width: '100%', padding: '8px', marginBottom: '5px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: 'white' }}
-                      />
-                      
-                      <button
-                        type="submit"
-                        style={{ 
-                          width: '100%', 
-                          padding: '15px', 
-                          background: card.id === 'adult' ? '#D4AF37' : '#4CAF50', 
-                          color: 'white', 
-                          fontWeight: 'bold', 
-                          cursor: 'pointer', 
-                          zIndex: 10000, 
-                          position: 'relative',
-                          border: 'none',
-                          borderRadius: '6px',
-                          fontSize: '14px'
-                        }}
-                      >
-                        {card.id === 'events' ? 'ACTIVATE EVENT ($299/mo)' : 'ACTIVATE SHIELD ($499/mo)'}
-                      </button>
-                    </form>
+                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-3">
+                        <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                        <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                        <input type="hidden" name="item_name" value="Clean Check - Performer Compliance Pass" />
+                        <input type="hidden" name="no_shipping" value="1" />
+                        <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                        <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
+                        <input type="hidden" name="a3" value="39.00" />
+                        <input type="hidden" name="p3" value="2" />
+                        <input type="hidden" name="t3" value="M" />
+                        <input type="hidden" name="src" value="1" />
+                        <input type="hidden" name="on0" value="Stage Name" />
+                        <input
+                          type="text"
+                          name="os0"
+                          placeholder="Enter Stage Name"
+                          required
+                          className="w-full px-3 py-3 rounded text-center text-white"
+                          style={{ background: 'rgba(255,255,255,0.1)', border: 'none' }}
+                        />
+                        <button 
+                          type="submit" 
+                          className="w-full py-4 font-extrabold rounded-lg text-black uppercase transition-colors"
+                          style={{ background: '#D4AF37' }}
+                        >
+                          ACTIVATE PERFORMER PASS
+                        </button>
+                      </form>
+                    </div>
                   )}
 
                   {/* Workforce Management Card - Tiered Seat Licensing */}

@@ -372,6 +372,7 @@ const VenueCompliance = () => {
                         <ul className="text-xs text-slate-300 space-y-1.5 mb-3 pl-1">
                           <li>📦 Includes 1 Toxicology Kit (Shipped Priority).</li>
                           <li>🛡️ <strong className="text-white">Green Shield</strong> valid for exactly 14 Days.</li>
+                          <li>📱 <strong className="text-white">QR Code</strong> for instant Green Shield sharing.</li>
                           <li>💼 Show to Fleets/Employers to get hired.</li>
                         </ul>
                         

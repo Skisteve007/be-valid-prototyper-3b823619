@@ -32,7 +32,7 @@ const Footer = () => {
           <span>|</span>
           <Link to="/refund" className="hover:text-foreground transition-colors underline">Refund</Link>
           <span>|</span>
-          <Link to="/partners" className="hover:text-foreground transition-colors underline">Partners</Link>
+          <Link to="/partners" className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent hover:from-pink-400 hover:to-blue-400 transition-all underline">Partners</Link>
           <span className="mx-2">•</span>
           <span>🔞 18 U.S.C. § 2257: All users 18+</span>
           <span className="ml-auto">

@@ -155,16 +155,16 @@ All colors MUST be HSL.
   }
 
   html {
-    background-color: #F0F0F0 !important;
+    background-color: #FFFFFF !important;
   }
 
   body {
-    background-color: #F0F0F0 !important;
-    color: #333333 !important;
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
   }
 
   #root, #app, .app-wrapper, .main-container {
-    background-color: #F0F0F0 !important;
+    background-color: #FFFFFF !important;
     min-height: 100vh !important;
   }
 }
@@ -231,40 +231,35 @@ All colors MUST be HSL.
   }
 }
 
-/* GLOBAL BACKGROUND OVERRIDE - LIGHT MODE */
-html, body, #root, #root > div, #root > div:first-child, .app-wrapper, .main-container {
-  background-color: #F0F0F0 !important;
-  color: #333333;
-  transition: background-color 0.3s, color 0.3s;
+/* LIGHT THEME (DEFAULT) STYLES - Exuberant Brightness */
+html, body, #root, #root > div, #root > div:first-child, .app-wrapper, .main-container, .main-content-wrapper {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  transition: background-color 0.4s, color 0.4s;
 }
 
-/* Main content wrapper */
-.main-content-wrapper {
-  background-color: #F0F0F0 !important;
-}
-
-/* DARK THEME STYLES - Applied when the user toggles the switch */
+/* DARK THEME STYLES - Ensure strong contrast for switching back */
 body.dark-theme,
 body.dark-theme #root,
 body.dark-theme #root > div,
 body.dark-theme .app-wrapper,
 body.dark-theme .main-container,
 body.dark-theme .main-content-wrapper {
-  background-color: #1a1a1a !important;
-  color: #f0f0f0 !important;
+  background-color: #121212 !important;
+  color: #FFFFFF !important;
 }
 
 body.dark-theme .card,
 body.dark-theme [class*="bg-card"],
 body.dark-theme [class*="bg-background"] {
-  background-color: #252525 !important;
+  background-color: #1e1e1e !important;
 }
 
 body.dark-theme .text-foreground,
 body.dark-theme .text-slate-900,
 body.dark-theme .text-slate-800,
 body.dark-theme .text-slate-700 {
-  color: #f0f0f0 !important;
+  color: #FFFFFF !important;
 }
 
 body.dark-theme .border-border,

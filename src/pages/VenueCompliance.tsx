@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key } from "lucide-react";
+import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key, FlaskConical } from "lucide-react";
 
 const VenueCompliance = () => {
   return (
@@ -481,6 +481,41 @@ const VenueCompliance = () => {
                 REQUEST ENTERPRISE PRICING
               </button>
             </a>
+          </div>
+        </div>
+
+        {/* Card 6: Lab Access Portal */}
+        <div 
+          className="rounded-2xl p-6 border border-sky-400/50 flex flex-col justify-between min-h-[550px]"
+          style={{
+            background: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&q=80')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <FlaskConical className="h-8 w-8 text-sky-400" />
+              <h3 className="text-xl font-bold text-sky-400">Lab Access Portal</h3>
+            </div>
+            <p className="italic opacity-90 mb-4">"Secure and streamlined access for clinical partners."</p>
+            <p className="text-sm text-slate-300 mb-4">
+              Manage and update sexual health verification records for high-frequency dating community members.
+            </p>
+            <ul className="space-y-2 text-sm">
+              <li>✅ <strong>Rapid Status Update:</strong> Instantly link lab results to a member's QR code.</li>
+              <li>✅ <strong>HIPAA Compliant:</strong> Encrypted, secure, and fully compliant data handling.</li>
+              <li>✅ <strong>Batch Processing:</strong> Upload multiple results simultaneously via secure API.</li>
+              <li>✅ <strong>Error Reduction:</strong> Automated cross-referencing to eliminate manual entry errors.</li>
+            </ul>
+          </div>
+
+          <div className="mt-4">
+            <Link to="/partners">
+              <button className="w-full py-4 bg-sky-400 text-black font-extrabold rounded-lg uppercase">
+                Access Lab Portal
+              </button>
+            </Link>
           </div>
         </div>
 

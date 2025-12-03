@@ -36,7 +36,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col overflow-x-hidden">
+        <div className="dark min-h-screen flex flex-col overflow-x-hidden bg-background">
           <Routes>
             <Route path="/" element={<AgeGate><Index /></AgeGate>} />
             <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />

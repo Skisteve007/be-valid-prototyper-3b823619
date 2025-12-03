@@ -14,63 +14,88 @@ interface Language {
   nativeName: string;
 }
 
-// Supported languages for path-prefix routing
+// Supported languages matching memory: English, Spanish, Russian, Hebrew, Portuguese, Romanian, Haitian Creole
 const languages: Language[] = [
   { code: "en", flag: "🇺🇸", nativeName: "English" },
   { code: "es", flag: "🇪🇸", nativeName: "Español" },
-  { code: "pt", flag: "🇧🇷", nativeName: "Português" },
-  { code: "fr", flag: "🇫🇷", nativeName: "Français" },
-  { code: "de", flag: "🇩🇪", nativeName: "Deutsch" },
-  { code: "ja", flag: "🇯🇵", nativeName: "日本語" },
-  { code: "ko", flag: "🇰🇷", nativeName: "한국어" },
-  { code: "zh", flag: "🇨🇳", nativeName: "中文" },
-  { code: "ar", flag: "🇸🇦", nativeName: "العربية" },
   { code: "ru", flag: "🇷🇺", nativeName: "Русский" },
-  { code: "hi", flag: "🇮🇳", nativeName: "हिन्दी" },
+  { code: "he", flag: "🇮🇱", nativeName: "עברית" },
+  { code: "pt", flag: "🇧🇷", nativeName: "Português" },
+  { code: "ro", flag: "🇷🇴", nativeName: "Română" },
+  { code: "ht", flag: "🇭🇹", nativeName: "Kreyòl Ayisyen" },
 ];
 
-const supportedLangCodes = languages.map(l => l.code);
+declare global {
+  interface Window {
+    google: any;
+    googleTranslateElementInit: () => void;
+  }
+}
 
-function setLanguagePreference(newLangCode: string) {
-  if (!supportedLangCodes.includes(newLangCode)) {
-    console.error("Invalid language code selected:", newLangCode);
+// Initialize Google Translate
+function initGoogleTranslate() {
+  if (window.google && window.google.translate) {
     return;
   }
 
-  // Save the selected language to local storage for persistence
-  localStorage.setItem('userLanguage', newLangCode);
-
-  // Identify the current URL path
-  const currentPath = window.location.pathname;
-  
-  // Extract the existing language prefix if it exists
-  const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
-  let newPath = '';
-
-  if (pathSegments.length > 0 && supportedLangCodes.includes(pathSegments[0])) {
-    // If the current path has a language prefix, replace it
-    pathSegments[0] = newLangCode;
-    newPath = '/' + pathSegments.join('/');
-  } else {
-    // If there is no language prefix, add the new language code to the start
-    newPath = '/' + newLangCode + currentPath;
+  // Add Google Translate script if not already present
+  if (!document.getElementById('google-translate-script')) {
+    const script = document.createElement('script');
+    script.id = 'google-translate-script';
+    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    document.body.appendChild(script);
   }
 
-  // Force a hard redirect to the new language-specific URL
-  window.location.href = window.location.origin + newPath + window.location.search;
+  // Create hidden translate element
+  if (!document.getElementById('google_translate_element')) {
+    const div = document.createElement('div');
+    div.id = 'google_translate_element';
+    div.style.display = 'none';
+    document.body.appendChild(div);
+  }
+
+  window.googleTranslateElementInit = function() {
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,ru,he,pt,ro,ht',
+        autoDisplay: false,
+      },
+      'google_translate_element'
+    );
+  };
 }
 
-function getCurrentLanguageFromPath(): Language {
-  const currentPath = window.location.pathname;
-  const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
-  
-  // Only check URL path for language prefix - if no prefix, default to English
-  if (pathSegments.length > 0 && supportedLangCodes.includes(pathSegments[0])) {
-    const lang = languages.find(l => l.code === pathSegments[0]);
+function setLanguage(langCode: string) {
+  // Save preference
+  localStorage.setItem('userLanguage', langCode);
+
+  // Use Google Translate cookie approach
+  const googleTranslateCookie = `/en/${langCode}`;
+  document.cookie = `googtrans=${googleTranslateCookie}; path=/`;
+  document.cookie = `googtrans=${googleTranslateCookie}; path=/; domain=${window.location.hostname}`;
+
+  // Trigger translation by reloading (Google Translate reads the cookie)
+  window.location.reload();
+}
+
+function getCurrentLanguage(): Language {
+  // Check localStorage first
+  const savedLang = localStorage.getItem('userLanguage');
+  if (savedLang) {
+    const lang = languages.find(l => l.code === savedLang);
     if (lang) return lang;
   }
-  
-  // Default to English when no language prefix in URL
+
+  // Check Google Translate cookie
+  const match = document.cookie.match(/googtrans=\/en\/(\w+)/);
+  if (match && match[1]) {
+    const lang = languages.find(l => l.code === match[1]);
+    if (lang) return lang;
+  }
+
+  // Default to English
   return languages[0];
 }
 
@@ -79,12 +104,16 @@ interface LanguageSelectorProps {
 }
 
 export function LanguageSelector({ className }: LanguageSelectorProps) {
-  // Initialize state using the robust function immediately
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(getCurrentLanguageFromPath);
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(getCurrentLanguage);
+
+  useEffect(() => {
+    initGoogleTranslate();
+  }, []);
 
   const handleLanguageChange = (language: Language) => {
     if (currentLanguage.code === language.code) return;
-    setLanguagePreference(language.code);
+    setCurrentLanguage(language);
+    setLanguage(language.code);
   };
 
   return (

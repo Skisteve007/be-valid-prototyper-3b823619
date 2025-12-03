@@ -166,6 +166,93 @@ const Partners = () => {
         </div>
       </section>
 
+      {/* Lab Workflow Section */}
+      <section id="lab-workflow" className="py-16 px-4 bg-gradient-to-b from-white to-slate-50">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-slate-800 bg-clip-text text-transparent mb-4">
+              🔬 The Secure Diagnostic Workflow
+            </h2>
+            <p className="text-lg text-slate-700 font-medium italic max-w-3xl mx-auto">
+              Partnering for Precision
+            </p>
+          </div>
+
+          <p className="text-lg text-slate-700 mb-10 leading-relaxed text-center max-w-4xl mx-auto">
+            Our platform creates a streamlined, compliant channel for integrating your testing services directly with exclusive member platforms. This flow minimizes administrative overhead for your lab while ensuring rapid status verification for users.
+          </p>
+
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Step-by-Step Lab Integration</h3>
+
+          <div className="space-y-6">
+            {/* Step 1 */}
+            <div className="flex gap-4 items-start bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100">
+              <div className="h-10 w-10 bg-gradient-to-br from-blue-900 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+                1
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Member Procurement (Client Initiation)</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  The platform member purchases the required <strong>testing kit</strong> directly through their affiliated community or service provider.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex gap-4 items-start bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100">
+              <div className="h-10 w-10 bg-gradient-to-br from-blue-900 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+                2
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Kit Fulfillment (Lab Action)</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  Your lab receives the order via our secured API endpoint. Your team <strong>sends the testing kit</strong> to the member, including a pre-paid, barcoded <strong>return envelope</strong> for easy sample return.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex gap-4 items-start bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100">
+              <div className="h-10 w-10 bg-gradient-to-br from-blue-900 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+                3
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Sample Processing & Scanning (Lab Action)</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  The lab receives the sample, conducts the <strong>Sexual Health and/or Toxicology tests</strong>, and generates the results. Crucially, your technician <strong>scans the unique testing barcode</strong> upon final result entry. This action securely <strong>links the results data to the member's profile ID</strong> within our ecosystem.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="flex gap-4 items-start bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100">
+              <div className="h-10 w-10 bg-gradient-to-br from-blue-900 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+                4
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Member Notification (System Action)</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  The official results are sent directly from your lab to the member for their confidential review, ensuring the lab maintains the primary client relationship.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 5 */}
+            <div className="flex gap-4 items-start bg-white p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100">
+              <div className="h-10 w-10 bg-gradient-to-br from-blue-900 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+                5
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Status Verification (Member & Platform Action)</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  Upon receiving the results, the member is prompted with the option to <strong>upload and verify</strong> these results to their private <strong>Clean Check</strong> status on the platform. Because the results were already linked via the barcode scan (Step 3), our system instantaneously validates the data, updating the member's compliance status in real-time.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Technical Showcase Section */}
       <section className="pt-12 pb-24 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto max-w-6xl">

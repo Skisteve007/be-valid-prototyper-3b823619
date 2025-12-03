@@ -299,12 +299,13 @@ const VenueCompliance = () => {
               <Car className="h-8 w-8 text-emerald-400" />
               <h3 className="text-xl font-bold">Transportation & Fleets</h3>
             </div>
-            <p className="italic opacity-90 mb-4">"Uber checks history. We check biology."</p>
-            <p className="text-xs text-slate-400 uppercase font-bold mb-3">Fleet Licenses (Select Size)</p>
+            <p className="italic opacity-90 mb-4">"Protect the asset. Continuous driver screening."</p>
+            <hr className="border-white/20 my-4" />
+            <p className="text-xs text-slate-400 uppercase font-bold mb-3">Fleet Licenses (Monthly)</p>
           </div>
 
           <div className="space-y-2">
-            {/* Small Fleet */}
+            {/* Tier 1: Small Fleet */}
             <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
                 <span className="font-bold text-sm">Small Fleet (1-50 Cars)</span>
@@ -313,7 +314,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Small Fleet License" />
+                <input type="hidden" name="item_name" value="Clean Check - Fleet License (1-50)" />
                 <input type="hidden" name="a3" value="299.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -322,12 +323,12 @@ const VenueCompliance = () => {
                 <input type="hidden" name="on0" value="Company Name" />
                 <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
                 <button type="submit" className="w-full py-2 bg-emerald-400 text-black font-bold rounded text-sm">
-                  ACTIVATE SMALL FLEET
+                  ACTIVATE TIER 1
                 </button>
               </form>
             </div>
 
-            {/* Mid Fleet */}
+            {/* Tier 2: Mid Fleet */}
             <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
                 <span className="font-bold text-sm">Mid Fleet (50-200 Cars)</span>
@@ -336,7 +337,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Mid Fleet License" />
+                <input type="hidden" name="item_name" value="Clean Check - Mid Fleet License (50-200)" />
                 <input type="hidden" name="a3" value="599.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -345,7 +346,30 @@ const VenueCompliance = () => {
                 <input type="hidden" name="on0" value="Company Name" />
                 <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
                 <button type="submit" className="w-full py-2 bg-emerald-400 text-black font-bold rounded text-sm">
-                  ACTIVATE MID FLEET
+                  ACTIVATE TIER 2
+                </button>
+              </form>
+            </div>
+
+            {/* Tier 3: Large Fleet (Gold) */}
+            <div className="border-2 border-amber-500 p-3 rounded-lg bg-black/60">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm text-amber-400">Large Fleet (200+ Cars)</span>
+                <span className="text-amber-400 font-bold">$999/mo</span>
+              </div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Large Fleet License (200+)" />
+                <input type="hidden" name="a3" value="999.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Company Name" />
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-2 bg-amber-400 text-black font-bold rounded text-sm">
+                  ACTIVATE TIER 3
                 </button>
               </form>
             </div>

@@ -201,7 +201,7 @@ const VenueCompliance = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 md:py-28 px-4">
+      <section className="relative pt-20 md:pt-28 pb-8 md:pb-10 px-4">
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <div className="inline-flex items-center gap-2 bg-sky-900/60 border border-sky-400/50 rounded-full px-5 py-2.5 mb-8 backdrop-blur-sm">
             <BadgeCheck className="h-5 w-5 text-sky-300" />

@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Shield, Settings } from 'lucide-react';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -35,7 +36,8 @@ const Footer = () => {
           <Link to="/partners" className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent hover:from-pink-400 hover:to-blue-400 transition-all underline">Partners</Link>
           <span className="mx-2">•</span>
           <span>🔞 18 U.S.C. § 2257: All users 18+</span>
-          <span className="ml-auto">
+          <span className="ml-auto flex items-center gap-2">
+            <LanguageSelector />
             <button
               onClick={handleAdminClick}
               className="text-[9px] px-2 py-0.5 rounded text-muted-foreground/60 hover:text-foreground hover:shadow-[0_0_8px_rgba(59,130,246,0.4),0_0_8px_rgba(249,115,22,0.4)] transition-all duration-200"

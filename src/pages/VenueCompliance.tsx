@@ -491,7 +491,7 @@ const VenueCompliance = () => {
               <h3 className="text-xl font-bold text-sky-400">Lab Access Portal</h3>
             </div>
             <p className="italic opacity-90 mb-4">"Secure and streamlined access for clinical partners."</p>
-            <p className="text-sm text-slate-300 mb-4">
+            <p className="text-sm text-pink-400 mb-4">
               Manage and update comprehensive health verification records (Sexual Health and Toxicology) for members across all affiliated community platforms.
             </p>
             <ul className="space-y-2 text-sm">

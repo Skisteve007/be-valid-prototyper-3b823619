@@ -65,7 +65,7 @@ const LiabilityWaiverModal = ({ open, onClose, onSigned, userId }: LiabilityWaiv
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto top-[5%] translate-y-0">
         <DialogHeader className="text-center">
           <div className="mx-auto w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mb-4">
             <Shield className="h-8 w-8 text-amber-500" />

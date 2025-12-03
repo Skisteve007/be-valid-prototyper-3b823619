@@ -99,21 +99,21 @@ const Index = () => {
     <div 
       className="min-h-screen text-foreground overflow-x-hidden w-full max-w-full"
       style={{
-        background: 'radial-gradient(circle at 50% 30%, rgba(244, 114, 182, 0.25) 0%, rgba(15, 23, 42, 1) 90%)',
+        background: 'radial-gradient(circle at 50% 30%, rgba(244, 114, 182, 0.35) 0%, rgba(30, 41, 59, 1) 85%)',
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
       }}
     >
       {/* Ambient Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-slate-950 to-transparent" />
+        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-pink-500/25 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-slate-900 to-transparent" />
       </div>
 
       {/* Mobile Welcome Banner */}
       {isMobile && <LanguageWelcomeBanner />}
       
-      <header className="relative border-b border-pink-500/20 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-50">
+      <header className="relative border-b border-pink-500/20 bg-slate-800/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6 relative">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Logo + Partner Solutions - stacked */}

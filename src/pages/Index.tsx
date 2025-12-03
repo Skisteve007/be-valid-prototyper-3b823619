@@ -101,14 +101,28 @@ const Index = () => {
       <header className="border-b bg-card sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            {/* Logo on top for mobile, left for desktop */}
-            <div 
-              className="relative flex-shrink-0 flex justify-center md:justify-start cursor-pointer"
-              {...longPressHandlers}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto h-20 md:h-24 select-none" draggable={false} />
+            {/* Logo + Partner Solutions - stacked */}
+            <div className="flex flex-col items-center md:items-start gap-2 flex-shrink-0">
+              <div 
+                className="relative flex justify-center md:justify-start cursor-pointer"
+                {...longPressHandlers}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
+                <img src={logo} alt="Clean Check" className="relative w-auto h-20 md:h-24 select-none" draggable={false} />
+              </div>
+              {/* Partner Solutions Button - Under Logo */}
+              <Button
+                onClick={() => navigate("/compliance")}
+                variant="outline"
+                size="sm"
+                className="relative group overflow-hidden border-2 border-pink-500/60 bg-gradient-to-r from-slate-900/90 via-pink-950/50 to-slate-900/90 hover:from-pink-600 hover:via-pink-500 hover:to-pink-600 text-pink-400 hover:text-white font-bold text-xs tracking-wide px-4 py-1.5 rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(236,72,153,0.4)] hover:shadow-[0_0_25px_rgba(236,72,153,0.7)]"
+              >
+                <span className="relative z-10 flex items-center gap-1.5">
+                  <span className="text-[10px]">🏢</span>
+                  Partner Solutions
+                </span>
+              </Button>
             </div>
 
             {/* Tagline in the middle - desktop only */}

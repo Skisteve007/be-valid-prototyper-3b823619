@@ -338,8 +338,9 @@ const Index = () => {
                 <Button 
                   onClick={scrollToGetStarted}
                   size="lg"
-                  className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="mt-4 relative shadow-[0_0_20px_rgba(22,163,74,0.6)] hover:shadow-[0_0_30px_rgba(22,163,74,0.8)] border border-green-600/60 bg-green-600/15 text-white font-semibold"
                 >
+                  <div className="absolute inset-0 bg-green-600/20 blur-md rounded-md -z-10"></div>
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>

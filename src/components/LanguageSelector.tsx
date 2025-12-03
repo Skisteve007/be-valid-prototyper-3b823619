@@ -180,7 +180,7 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="start" 
-        className="w-52 max-h-64 overflow-y-auto bg-popover border border-border shadow-lg z-[100]"
+        className="w-56 max-h-64 overflow-y-auto bg-popover border border-border shadow-lg z-[100] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-muted/30 [&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full"
       >
         <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground border-b border-border mb-1">
           🌐 Select Language
@@ -193,9 +193,9 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
               currentLanguage.code === language.code ? "bg-accent" : ""
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="text-xl">{language.flag}</span>
-              <span className="font-medium">{language.nativeName}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-lg leading-none">{language.flag}</span>
+              <span className="font-medium text-sm">{language.nativeName}</span>
             </div>
             {currentLanguage.code === language.code && (
               <Check className="h-4 w-4 text-primary" />

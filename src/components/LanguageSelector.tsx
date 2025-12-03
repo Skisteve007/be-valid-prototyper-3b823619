@@ -100,7 +100,7 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
     };
   }, []);
 
-  const triggerGoogleTranslate = useCallback((langCode: string) => {
+  const triggerGoogleTranslate = useCallback((langCode: string, shouldReload: boolean = false) => {
     // Set cookie for Google Translate
     document.cookie = `googtrans=/en/${langCode}; path=/`;
     document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname}`;
@@ -110,6 +110,9 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
     if (selectElement) {
       selectElement.value = langCode;
       selectElement.dispatchEvent(new Event('change'));
+    } else if (shouldReload) {
+      // If Google Translate widget not ready, reload to apply translation
+      window.location.href = window.location.pathname;
     }
   }, []);
 
@@ -132,7 +135,8 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
       // Single controlled reload to clear translation
       window.location.href = window.location.pathname;
     } else {
-      triggerGoogleTranslate(language.googleCode);
+      // User-initiated change: reload if widget not ready
+      triggerGoogleTranslate(language.googleCode, true);
     }
   }, [currentLanguage.code, triggerGoogleTranslate]);
 

@@ -12,13 +12,13 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 5%;
+    --foreground: 0 0% 0%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 0%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 0 0% 0%;
 
     --primary: 210 90% 50%;
     --primary-foreground: 0 0% 100%;
@@ -26,8 +26,8 @@ All colors MUST be HSL.
     --secondary: 190 85% 45%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 10% 92%;
-    --muted-foreground: 0 0% 30%;
+    --muted: 210 10% 95%;
+    --muted-foreground: 0 0% 25%;
 
     --accent: 185 90% 95%;
     --accent-foreground: 190 85% 30%;
@@ -36,74 +36,53 @@ All colors MUST be HSL.
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 85%;
-    --input: 0 0% 90%;
+    --input: 0 0% 92%;
     --ring: 210 90% 50%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 100%;
-
-    --sidebar-foreground: 0 0% 5%;
-
+    --sidebar-foreground: 0 0% 0%;
     --sidebar-primary: 210 90% 50%;
-
     --sidebar-primary-foreground: 0 0% 100%;
-
     --sidebar-accent: 190 85% 45%;
-
     --sidebar-accent-foreground: 0 0% 100%;
-
     --sidebar-border: 0 0% 85%;
-
     --sidebar-ring: 210 90% 50%;
 
     --chart-1: 210 85% 55%;
-
     --chart-2: 190 80% 50%;
-
     --chart-3: 200 85% 60%;
-
     --chart-4: 215 75% 45%;
-
     --chart-5: 195 70% 55%;
 
     --sidebar: 0 0% 98%;
 
     --font-sans: 'Roboto', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-
     --font-serif: 'Libre Caslon Text', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
-
     --font-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-
     --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-
     --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-
     --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
-
     --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-
     --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
-
     --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
 
     --tracking-normal: 0em;
-
     --spacing: 0.25rem;
   }
 
   .dark {
-    --background: 0 0% 7%;
+    --background: 0 0% 6%;
     --foreground: 0 0% 98%;
 
     --card: 0 0% 10%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 9%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 210 95% 55%;
@@ -112,8 +91,8 @@ All colors MUST be HSL.
     --secondary: 190 80% 50%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 215 20% 18%;
-    --muted-foreground: 210 15% 70%;
+    --muted: 215 20% 15%;
+    --muted-foreground: 210 15% 75%;
 
     --accent: 190 85% 15%;
     --accent-foreground: 190 85% 70%;
@@ -121,31 +100,26 @@ All colors MUST be HSL.
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 18%;
+    --border: 0 0% 20%;
     --input: 0 0% 15%;
     --ring: 210 95% 55%;
-    --sidebar-background: 0 0% 6%;
+    
+    --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 210 95% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 190 80% 50%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 18%;
+    --sidebar-border: 0 0% 20%;
     --sidebar-ring: 210 95% 55%;
+    
     --chart-1: 210 90% 60%;
     --chart-2: 190 85% 55%;
     --chart-3: 200 88% 65%;
     --chart-4: 215 80% 50%;
     --chart-5: 195 75% 60%;
+    
     --sidebar: 0 0% 8%;
-    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
-    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
-    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
   }
 }
 
@@ -215,105 +189,6 @@ All colors MUST be HSL.
       touch-action: manipulation;
     }
   }
-}
-
-/* ==========================================
-   THEME SYSTEM - MAXIMUM CONTRAST
-   ========================================== */
-
-/* LIGHT THEME - Bright white background, pure black text */
-:root:not(.dark) {
-  --background: 0 0% 100% !important;
-  --foreground: 0 0% 0% !important;
-  --card: 0 0% 98% !important;
-  --card-foreground: 0 0% 0% !important;
-  --popover: 0 0% 100% !important;
-  --popover-foreground: 0 0% 0% !important;
-  --muted: 0 0% 96% !important;
-  --muted-foreground: 0 0% 20% !important;
-}
-
-html:not(.dark),
-html:not(.dark) body,
-:root:not(.dark) body {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  color: #000000 !important;
-}
-
-html:not(.dark) #root {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  min-height: 100vh;
-}
-
-html:not(.dark) *:not([class*="bg-primary"]):not([class*="bg-secondary"]):not([class*="bg-destructive"]):not([class*="gradient"]):not(button) {
-  color: inherit;
-}
-
-html:not(.dark) .bg-background {
-  background: #ffffff !important;
-}
-
-html:not(.dark) .bg-card {
-  background: #f8f8f8 !important;
-}
-
-html:not(.dark) .text-foreground {
-  color: #000000 !important;
-}
-
-html:not(.dark) .text-muted-foreground {
-  color: #333333 !important;
-}
-
-/* DARK THEME - Deep black background, bright white text */
-.dark {
-  --background: 0 0% 4% !important;
-  --foreground: 0 0% 100% !important;
-  --card: 0 0% 8% !important;
-  --card-foreground: 0 0% 100% !important;
-  --popover: 0 0% 6% !important;
-  --popover-foreground: 0 0% 100% !important;
-  --muted: 0 0% 12% !important;
-  --muted-foreground: 0 0% 75% !important;
-}
-
-html.dark,
-html.dark body,
-.dark body {
-  background: #0a0a0a !important;
-  background-color: #0a0a0a !important;
-  color: #ffffff !important;
-}
-
-html.dark #root {
-  background: #0a0a0a !important;
-  background-color: #0a0a0a !important;
-  color: #ffffff !important;
-  min-height: 100vh;
-}
-
-html.dark .bg-background {
-  background: #0a0a0a !important;
-}
-
-html.dark .bg-card {
-  background: #141414 !important;
-}
-
-html.dark .text-foreground {
-  color: #ffffff !important;
-}
-
-html.dark .text-muted-foreground {
-  color: #cccccc !important;
-}
-
-html.dark .border-border,
-html.dark [class*="border-"] {
-  border-color: #2a2a2a !important;
 }
 
 /* Smooth theme transitions */

@@ -24,6 +24,8 @@ interface Affiliate {
   id_front_url?: string;
   id_back_url?: string;
   status?: string;
+  full_name?: string | null;
+  email?: string | null;
   created_at: string;
   profile?: {
     full_name: string | null;
@@ -305,10 +307,10 @@ const SalesTeamTab = () => {
               mobileCards={
                 <div className="space-y-3">
                   {affiliates.map((aff) => (
-                    <MobileDataCard
+                      <MobileDataCard
                       key={aff.id}
-                      title={aff.profile?.full_name || "Unknown"}
-                      subtitle={aff.profile?.member_id}
+                      title={aff.full_name || aff.profile?.full_name || "Unknown"}
+                      subtitle={aff.email || aff.profile?.member_id}
                       badge={{
                         text: aff.status === "approved" ? "✓ Verified" : "Pending",
                         variant: aff.status === "approved" ? "default" : "secondary",
@@ -316,7 +318,7 @@ const SalesTeamTab = () => {
                       }}
                       details={[
                         { label: "Code", value: aff.referral_code },
-                        { label: "Clicks", value: aff.total_clicks.toString() },
+                        { label: "Phone", value: aff.phone_number || "N/A" },
                         { label: "Payout", value: aff.paypal_email || "Not set" },
                         { 
                           label: "Owed", 
@@ -379,8 +381,8 @@ const SalesTeamTab = () => {
                     <TableRow key={aff.id}>
                       <TableCell>
                         <div>
-                          <p className="font-medium">{aff.profile?.full_name || "Unknown"}</p>
-                          <p className="text-xs text-muted-foreground">{aff.profile?.member_id}</p>
+                          <p className="font-medium">{aff.full_name || aff.profile?.full_name || "Unknown"}</p>
+                          <p className="text-xs text-muted-foreground">{aff.email || aff.phone_number || aff.profile?.member_id}</p>
                         </div>
                       </TableCell>
                       <TableCell>{getStatusBadge(aff.status)}</TableCell>

@@ -87,19 +87,20 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
     // Check for pre-configured venue details with specific address
     const venueDetails = findVenueDetails(venue.venue_name, venue.city);
     
-    let googleSearchUrl: string;
+    let mapUrl: string;
     if (venueDetails?.map_link) {
-      googleSearchUrl = venueDetails.map_link;
+      mapUrl = venueDetails.map_link;
     } else {
-      const searchQuery = encodeURIComponent(`${venue.venue_name} ${venue.city} ${venue.country}`);
-      googleSearchUrl = `https://www.google.com/maps/search/?api=1&query=${searchQuery}`;
+      // Use OpenStreetMap which doesn't block iframe navigation
+      const searchQuery = encodeURIComponent(`${venue.venue_name}, ${venue.city}, ${venue.country}`);
+      mapUrl = `https://www.openstreetmap.org/search?query=${searchQuery}`;
     }
     
     // Store the URL and venue name for the clickable link
-    setSelectedVenueUrl(googleSearchUrl);
+    setSelectedVenueUrl(mapUrl);
     setSelectedVenueName(venue.venue_name);
     
-    toast.success(`Tap the link below to view ${venue.venue_name} on Google Maps`);
+    toast.success(`Tap below to find ${venue.venue_name}`);
   };
 
   if (loading) {
@@ -154,37 +155,17 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
           </SelectContent>
         </Select>
 
-        {/* Google Maps Link - Shows after venue selection */}
+        {/* Maps Link - Shows after venue selection */}
         {selectedVenueUrl && (
-          <div className="flex gap-2">
-            <button
-              onClick={() => {
-                // Try multiple methods to open the link
-                try {
-                  if (window.top && window.top !== window) {
-                    window.top.open(selectedVenueUrl, '_blank');
-                  } else {
-                    window.open(selectedVenueUrl, '_blank', 'noopener,noreferrer');
-                  }
-                } catch (e) {
-                  window.open(selectedVenueUrl, '_blank', 'noopener,noreferrer');
-                }
-              }}
-              className="flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
-            >
-              <ExternalLink className="h-4 w-4" />
-              Open in Maps
-            </button>
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(selectedVenueUrl);
-                toast.success("Link copied! Paste in browser to open.");
-              }}
-              className="py-3 px-4 bg-muted text-foreground rounded-lg font-medium text-sm hover:bg-muted/80 transition-colors border border-border"
-            >
-              Copy Link
-            </button>
-          </div>
+          <a
+            href={selectedVenueUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Find {selectedVenueName} on Map
+          </a>
         )}
       </div>
     </div>

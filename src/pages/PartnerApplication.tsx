@@ -164,13 +164,20 @@ const PartnerApplication = () => {
 
   return (
     <div 
-      className="min-h-screen text-white"
+      className="min-h-screen text-white font-sans"
       style={{
-        background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)",
+        background: 'radial-gradient(circle at 50% 30%, rgba(244, 114, 182, 0.25) 0%, rgba(15, 23, 42, 1) 90%)',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
       }}
     >
+      {/* Ambient Background Effects */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-slate-950 to-transparent" />
+      </div>
       {/* Header */}
-      <header className="border-b border-amber-500/20 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
+      <header className="relative border-b border-pink-500/20 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative">
@@ -192,7 +199,7 @@ const PartnerApplication = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-12 max-w-2xl">
+      <main className="relative container mx-auto px-4 py-12 max-w-2xl">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-2 mb-6">
             <CheckCircle2 className="h-4 w-4 text-amber-400" />
@@ -207,7 +214,7 @@ const PartnerApplication = () => {
           </p>
         </div>
 
-        <Card className="bg-slate-900/80 border-amber-500/30 shadow-2xl shadow-amber-500/10">
+        <Card className="bg-slate-900/80 border-pink-500/30 shadow-2xl shadow-pink-500/10">
           <CardHeader>
             <CardTitle className="text-white">Partner Information</CardTitle>
             <CardDescription className="text-slate-400">

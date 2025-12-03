@@ -160,56 +160,52 @@ export const LabVerificationTab = ({ userId }: LabVerificationTabProps) => {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="grid md:grid-cols-3 gap-8 md:gap-4">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4 md:gap-6">
             {/* Step 1 */}
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-3 flex-1 max-w-[200px]">
               <div className="relative">
                 <div className="absolute inset-0 bg-blue-500/30 blur-xl rounded-full"></div>
-                <div className="relative p-4 bg-blue-600 rounded-full">
-                  <Package className="h-8 w-8 text-white" />
+                <div className="relative p-3 bg-blue-600 rounded-full">
+                  <Package className="h-6 w-6 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-2 text-blue-700 dark:text-blue-400">Total Privacy</h3>
-                <p className="text-sm text-muted-foreground">Arrives in unmarked packaging. No insurance record. No awkward conversations.</p>
+                <h3 className="font-bold text-sm mb-1 text-blue-700 dark:text-blue-400">Total Privacy</h3>
+                <p className="text-xs text-muted-foreground">Arrives in unmarked packaging. No insurance record.</p>
               </div>
             </div>
 
-            {/* Arrow for desktop */}
-            <div className="hidden md:flex items-center justify-center">
-              <ArrowRight className="h-8 w-8 text-purple-600/50" />
-            </div>
+            {/* Arrow */}
+            <ArrowRight className="hidden md:block h-6 w-6 text-purple-600/50 flex-shrink-0" />
 
             {/* Step 2 */}
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-3 flex-1 max-w-[200px]">
               <div className="relative">
                 <div className="absolute inset-0 bg-purple-500/30 blur-xl rounded-full"></div>
-                <div className="relative p-4 bg-purple-600 rounded-full">
-                  <Droplet className="h-8 w-8 text-white" />
+                <div className="relative p-3 bg-purple-600 rounded-full">
+                  <Droplet className="h-6 w-6 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-2 text-purple-700 dark:text-purple-400">Simple Collection</h3>
-                <p className="text-sm text-muted-foreground">Easy-to-follow instructions for urine/swab collection at home.</p>
+                <h3 className="font-bold text-sm mb-1 text-purple-700 dark:text-purple-400">Simple Collection</h3>
+                <p className="text-xs text-muted-foreground">Easy-to-follow instructions for urine/swab collection.</p>
               </div>
             </div>
 
-            {/* Arrow for desktop */}
-            <div className="hidden md:flex items-center justify-center">
-              <ArrowRight className="h-8 w-8 text-purple-600/50" />
-            </div>
+            {/* Arrow */}
+            <ArrowRight className="hidden md:block h-6 w-6 text-purple-600/50 flex-shrink-0" />
 
             {/* Step 3 */}
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-3 flex-1 max-w-[200px]">
               <div className="relative">
                 <div className="absolute inset-0 bg-green-500/30 blur-xl rounded-full"></div>
-                <div className="relative p-4 bg-green-600 rounded-full">
-                  <CheckCircle className="h-8 w-8 text-white" />
+                <div className="relative p-3 bg-green-600 rounded-full">
+                  <CheckCircle className="h-6 w-6 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-2 text-green-700 dark:text-green-400">72-Hour Verification</h3>
-                <p className="text-sm text-muted-foreground">Results verified and Status updated to 'Green' within 2-3 days of lab receipt.</p>
+                <h3 className="font-bold text-sm mb-1 text-green-700 dark:text-green-400">72-Hour Verification</h3>
+                <p className="text-xs text-muted-foreground">Results verified within 2-3 days of lab receipt.</p>
               </div>
             </div>
           </div>

@@ -158,56 +158,52 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="grid md:grid-cols-3 gap-8 md:gap-4">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-4 md:gap-6">
             {/* Step 1 */}
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-3 flex-1 max-w-[200px]">
               <div className="relative">
                 <div className="absolute inset-0 bg-green-500/30 blur-xl rounded-full"></div>
-                <div className="relative p-4 bg-green-600 rounded-full">
-                  <Package className="h-8 w-8 text-white" />
+                <div className="relative p-3 bg-green-600 rounded-full">
+                  <Package className="h-6 w-6 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-2 text-green-700 dark:text-green-400">Priority Dispatch</h3>
-                <p className="text-sm text-muted-foreground">Kit ships same-day in discreet packaging.</p>
+                <h3 className="font-bold text-sm mb-1 text-green-700 dark:text-green-400">Priority Dispatch</h3>
+                <p className="text-xs text-muted-foreground">Kit ships same-day in discreet packaging.</p>
               </div>
             </div>
 
-            {/* Arrow for desktop */}
-            <div className="hidden md:flex items-center justify-center">
-              <ArrowRight className="h-8 w-8 text-green-600/50" />
-            </div>
+            {/* Arrow */}
+            <ArrowRight className="hidden md:block h-6 w-6 text-green-600/50 flex-shrink-0" />
 
             {/* Step 2 */}
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-3 flex-1 max-w-[200px]">
               <div className="relative">
                 <div className="absolute inset-0 bg-blue-500/30 blur-xl rounded-full"></div>
-                <div className="relative p-4 bg-blue-600 rounded-full">
-                  <Plane className="h-8 w-8 text-white" />
+                <div className="relative p-3 bg-blue-600 rounded-full">
+                  <Plane className="h-6 w-6 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-2 text-blue-700 dark:text-blue-400">Overnight Return</h3>
-                <p className="text-sm text-muted-foreground">Includes pre-paid priority return label for fastest lab arrival.</p>
+                <h3 className="font-bold text-sm mb-1 text-blue-700 dark:text-blue-400">Overnight Return</h3>
+                <p className="text-xs text-muted-foreground">Includes pre-paid priority return label.</p>
               </div>
             </div>
 
-            {/* Arrow for desktop */}
-            <div className="hidden md:flex items-center justify-center">
-              <ArrowRight className="h-8 w-8 text-green-600/50" />
-            </div>
+            {/* Arrow */}
+            <ArrowRight className="hidden md:block h-6 w-6 text-green-600/50 flex-shrink-0" />
 
             {/* Step 3 */}
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center text-center space-y-3 flex-1 max-w-[200px]">
               <div className="relative">
                 <div className="absolute inset-0 bg-emerald-500/30 blur-xl rounded-full"></div>
-                <div className="relative p-4 bg-emerald-600 rounded-full">
-                  <ShieldCheck className="h-8 w-8 text-white" />
+                <div className="relative p-3 bg-emerald-600 rounded-full">
+                  <ShieldCheck className="h-6 w-6 text-white" />
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-2 text-emerald-700 dark:text-emerald-400">24-Hour Lab Processing</h3>
-                <p className="text-sm text-muted-foreground">Results certified within 24 hours of lab receipt.</p>
+                <h3 className="font-bold text-sm mb-1 text-emerald-700 dark:text-emerald-400">24-Hour Lab Processing</h3>
+                <p className="text-xs text-muted-foreground">Results certified within 24 hours of lab receipt.</p>
               </div>
             </div>
           </div>

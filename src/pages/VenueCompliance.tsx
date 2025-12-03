@@ -1,185 +1,8 @@
-import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent } from "@/components/ui/card";
-import { Shield, PartyPopper, ShieldCheck, Building2, ArrowRight, Loader2, BadgeCheck, Sparkles, Syringe, FlaskConical, Car, Video } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key } from "lucide-react";
 
 const VenueCompliance = () => {
-  const { toast } = useToast();
-  const formRef = useRef<HTMLDivElement>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [formData, setFormData] = useState({
-    name: "",
-    venue_name: "",
-    city: "",
-    role: "",
-    phone: "",
-  });
-
-  const scrollToForm = (subject: string) => {
-    setSelectedSubject(subject);
-    formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.venue_name || !formData.city || !formData.role || !formData.phone) {
-      toast({
-        title: "Missing Fields",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const { error } = await supabase.from("shadow_leads").insert({
-        name: formData.name,
-        venue_name: formData.venue_name,
-        city: formData.city,
-        role: formData.role,
-        phone: formData.phone,
-        inquiry_subject: selectedSubject,
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "Request Submitted",
-        description: "Our team will contact you within 24 hours.",
-      });
-
-      setFormData({ name: "", venue_name: "", city: "", role: "", phone: "" });
-      setSelectedSubject("");
-    } catch (error) {
-      console.error("Error submitting lead:", error);
-      toast({
-        title: "Submission Failed",
-        description: "Please try again or contact us directly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const [venueNames, setVenueNames] = useState<Record<string, string>>({
-    events: "",
-    adult: "",
-    fleet: "",
-  });
-  const navigate = useNavigate();
-
-  const industryCards = [
-    {
-      id: "events",
-      Icon: PartyPopper,
-      iconColor: "text-blue-300",
-      headline: "Nightlife & Events",
-      hook: "Monetize the Door. Verify the Vibe.",
-      benefits: [
-        { label: "Scan Counter", text: "We track every entry." },
-        { label: "Overage System", text: "Pay only for the scans you use." },
-        { label: "Liability Logs", text: "Full digital audit trail." },
-      ],
-      price: "Tiered",
-      period: "",
-      buttonText: "",
-      subject: "Event Sales",
-      bgImage: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80",
-      borderColor: "border-blue-500/30",
-      glowColor: "hover:shadow-[0_0_60px_rgba(59,130,246,0.5)]",
-      buttonGradient: "from-blue-600 to-blue-500",
-      inputPlaceholder: "Club/Event Name",
-      type: "nightlife" as const,
-    },
-    {
-      id: "adult",
-      Icon: Video,
-      iconColor: "text-amber-400",
-      headline: "Talent & Content Creators",
-      hook: "The Professional Standard for Talent.",
-      benefits: [
-        { label: "Bookings", text: "Verified safety for Venues & Sets." },
-        { label: "Collabs", text: "Scan partners before content creation." },
-        { label: "Digital Handshake", text: "Auto-sync status with your Agency." },
-      ],
-      price: "$39.00",
-      period: "Every 60 Days",
-      buttonText: "ACTIVATE PERFORMER PASS",
-      subject: "Performer Compliance",
-      bgImage: "https://images.unsplash.com/photo-1566415702213-94c3d828a2a7?auto=format&fit=crop&w=800&q=80",
-      borderColor: "border-amber-500/50",
-      glowColor: "hover:shadow-[0_0_60px_rgba(245,158,11,0.5)]",
-      buttonGradient: "from-amber-600 to-amber-500",
-      isPremium: true,
-      inputPlaceholder: "Enter Stage Name",
-      type: "performer" as const,
-    },
-    {
-      id: "workplace",
-      Icon: Building2,
-      iconColor: "text-slate-400",
-      headline: "Workforce Management",
-      hook: "Connect your team. Monitor the data.",
-      benefits: [
-        { label: "The Digital Handshake", text: "Scan an employee once to link them to your roster." },
-        { label: "Real-Time Alerts", text: "Get notified if an employee's status turns Red." },
-        { label: "Privacy First", text: "You see the \"Pass/Fail\" status, not their medical history." },
-      ],
-      price: "$299",
-      period: "/ month",
-      buttonText: "",
-      subject: "Workplace System",
-      bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
-      borderColor: "border-slate-500/30",
-      glowColor: "hover:shadow-[0_0_60px_rgba(100,116,139,0.5)]",
-      buttonGradient: "",
-      inputPlaceholder: "Enter Company Name",
-      type: "workforce" as const,
-    },
-    {
-      id: "fleet",
-      Icon: Car,
-      iconColor: "text-emerald-400",
-      headline: "Transportation & Fleets",
-      hook: "Uber checks history. We check biology.",
-      benefits: [
-        { label: "Fleets", text: "Real-time driver toxicology monitoring." },
-        { label: "Drivers", text: "Get hired fast with a Verified Green Pass." },
-      ],
-      price: "Tiered",
-      period: "",
-      buttonText: "",
-      subject: "Fleet Sales",
-      bgImage: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80",
-      borderColor: "border-emerald-500/30",
-      glowColor: "hover:shadow-[0_0_60px_rgba(74,222,128,0.5)]",
-      buttonGradient: "from-emerald-600 to-emerald-500",
-      inputPlaceholder: "Enter Fleet/Company Name",
-      type: "fleet" as const,
-    },
-  ];
-
   return (
     <div 
       className="min-h-screen text-white font-sans"
@@ -189,14 +12,8 @@ const VenueCompliance = () => {
         backgroundSize: 'cover',
       }}
     >
-      {/* Ambient Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-slate-950 to-transparent" />
-      </div>
-
       {/* Header */}
-      <header className="relative border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
+      <header className="border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative">
@@ -219,702 +36,432 @@ const VenueCompliance = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-20 md:pt-28 pb-8 md:pb-10 px-4">
-        <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 bg-sky-900/60 border border-sky-400/50 rounded-full px-5 py-2.5 mb-8 backdrop-blur-sm">
-            <BadgeCheck className="h-5 w-5 text-sky-300" />
-            <span className="text-sm text-sky-200 font-semibold tracking-wide">Enterprise-Grade Compliance</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 tracking-tight italic">
-            Select Your{" "}
-            <span className="bg-gradient-to-r from-sky-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Industry Solution
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto leading-relaxed">
-            Automated compliance and risk management for high-liability sectors. 
-            <span className="text-white font-semibold"> Enterprise security, zero friction.</span>
-          </p>
+      <div className="text-center py-10 px-5">
+        <h1 className="text-3xl md:text-4xl font-black mb-2">Partner Solutions: Choose Your Industry</h1>
+        <p className="text-slate-400">Automated compliance and risk management for high-liability sectors.</p>
+      </div>
+
+      {/* Value Propositions */}
+      <div className="flex flex-col md:flex-row justify-center max-w-5xl mx-auto gap-5 px-5 mb-12">
+        <div className="flex-1 bg-white/5 p-5 rounded-lg">
+          <h3 className="text-emerald-400 font-bold mb-2">1. LIABILITY SHIELD</h3>
+          <p className="text-sm text-slate-300">Outsource compliance tracking. We provide the mandatory digital waiver and audit trail, moving medical liability away from your venue.</p>
         </div>
-      </section>
+        <div className="flex-1 bg-white/5 p-5 rounded-lg">
+          <h3 className="text-yellow-400 font-bold mb-2">2. MONETIZE ACCESS</h3>
+          <p className="text-sm text-slate-300">Transform the security checkpoint into a profit center. Collect subscription and per-scan revenue by offering 'Verified Entry' speed.</p>
+        </div>
+        <div className="flex-1 bg-white/5 p-5 rounded-lg">
+          <h3 className="text-blue-200 font-bold mb-2">3. SECURE TALENT</h3>
+          <p className="text-sm text-slate-300">Provide a verified environment for Performer Talent and Content Creators. Reduces the risk of set/venue shutdowns due to health incidents.</p>
+        </div>
+      </div>
 
-      {/* Immersive Industry Cards */}
-      <section className="relative py-8 md:py-16 px-4">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-            {industryCards.map((card) => (
-              <div
-                key={card.id}
-                className={`group relative rounded-2xl overflow-hidden ${card.borderColor} border-2 transition-all duration-500 ${card.glowColor} hover:scale-[1.02] cursor-pointer`}
-                style={{ minHeight: "520px" }}
-              >
-                {/* Background Image with Zoom Effect */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
-                  style={{ backgroundImage: `url(${card.bgImage})` }}
-                />
-                
-                {/* Dark Gradient Overlay - Lighter for vibrant backgrounds */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/60" />
-                
-                {/* Premium Badge for Gold Card */}
-                {card.isPremium && (
-                  <div className="absolute top-4 right-4 z-20">
-                    <div className="bg-gradient-to-r from-amber-500 to-amber-400 text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
-                      Most Popular
-                    </div>
-                  </div>
-                )}
+      {/* Industry Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5 md:px-10 pb-20 max-w-7xl mx-auto">
+        
+        {/* Card 1: Nightlife & Events */}
+        <div 
+          className="rounded-2xl p-6 border border-white/10 flex flex-col justify-between min-h-[550px]"
+          style={{
+            background: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <PartyPopper className="h-8 w-8 text-blue-200" />
+              <h3 className="text-xl font-bold">Nightlife & Events</h3>
+            </div>
+            <p className="italic opacity-90 mb-4">"Monetize the Door. Verify the Vibe."</p>
+          </div>
 
-                {/* Card Content */}
-                <div className="relative z-10 h-full flex flex-col p-6 md:p-8">
-                  {/* Header */}
-                  <div className="mb-6">
-                    <card.Icon className={`h-12 w-12 ${card.iconColor} mb-4`} />
-                    <h3 className={`text-2xl md:text-3xl font-bold ${card.isPremium ? 'text-amber-400' : 'text-white'}`}>
-                      {card.headline}
-                    </h3>
-                  </div>
-
-                  {/* Marketing Hook */}
-                  <p className="text-xl md:text-2xl font-light text-slate-200 italic mb-6 leading-relaxed">
-                    "{card.hook}"
-                  </p>
-
-                  {/* Benefits List */}
-                  <div className="space-y-3 mb-8 flex-grow">
-                    {card.benefits.map((benefit, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <span className="text-emerald-400 text-lg mt-0.5">✓</span>
-                        <p className="text-slate-300">
-                          <span className="font-bold text-white">{benefit.label}:</span> {benefit.text}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Price Tag - Only for performer cards */}
-                  {card.type === "performer" && (
-                    <div className={`text-center mb-6 py-4 rounded-xl bg-white/5 border border-amber-500/30`}>
-                      <span className="text-4xl font-black text-amber-400">
-                        {card.price}
-                      </span>
-                      <span className="text-slate-400 text-lg ml-2">{card.period}</span>
-                    </div>
-                  )}
-
-                  {/* Fleet Card - Tiered Pricing */}
-                  {card.type === "fleet" && (
-                    <div className="w-full space-y-3">
-                      <div className="text-xs text-slate-400 uppercase font-bold mb-2 tracking-wider">Fleet Licenses (Select Size)</div>
-                      
-                      {/* Small Fleet */}
-                      <div className="border border-slate-600 p-3 rounded-lg">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold text-sm">Small Fleet (1-50 Cars)</span>
-                          <span className="text-emerald-400 font-bold">$299/mo</span>
-                        </div>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Small Fleet License (1-50)" />
-                          <input type="hidden" name="a3" value="299.00" />
-                          <input type="hidden" name="p3" value="1" />
-                          <input type="hidden" name="t3" value="M" />
-                          <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 px-4 rounded text-xs transition-colors">
-                            ACTIVATE SMALL FLEET
-                          </button>
-                        </form>
-                      </div>
-
-                      {/* Large Fleet */}
-                      <div className="border border-slate-600 p-3 rounded-lg">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold text-sm">Large Fleet (51-200 Cars)</span>
-                          <span className="text-emerald-400 font-bold">$599/mo</span>
-                        </div>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Large Fleet License (51-200)" />
-                          <input type="hidden" name="a3" value="599.00" />
-                          <input type="hidden" name="p3" value="1" />
-                          <input type="hidden" name="t3" value="M" />
-                          <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 px-4 rounded text-xs transition-colors">
-                            ACTIVATE LARGE FLEET
-                          </button>
-                        </form>
-                      </div>
-
-                      <hr className="border-slate-600 my-3" />
-
-                      {/* Individual Driver - 14-Day Spot Check */}
-                      <div className="p-4 rounded-lg border border-slate-500" style={{ background: 'rgba(0,0,0,0.3)' }}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold text-sm uppercase">For Individual Drivers</span>
-                          <span className="bg-yellow-400 text-black px-2 py-0.5 rounded text-xs font-bold">14-DAY PASS</span>
-                        </div>
-                        
-                        <div className="text-xl font-bold text-white mb-2">
-                          $119.00 <span className="text-xs font-normal text-slate-400">/ One-Time</span>
-                        </div>
-                        
-                        <ul className="text-xs text-slate-300 space-y-1.5 mb-3 pl-1">
-                          <li>📦 Includes 1 Toxicology Kit (Shipped Priority).</li>
-                          <li>🛡️ <strong className="text-white">Green Shield</strong> valid for exactly 14 Days.</li>
-                          <li>📱 <strong className="text-white">QR Code</strong> for instant Green Shield sharing.</li>
-                          <li>💼 Show to Fleets/Employers to get hired.</li>
-                        </ul>
-                        
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                          <input type="hidden" name="cmd" value="_xclick" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Driver Verification Pass (14-Day)" />
-                          <input type="hidden" name="amount" value="119.00" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?amount=119&type=driver-14day" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <button 
-                            type="submit" 
-                            className="w-full py-3 font-bold rounded transition-colors"
-                            style={{ background: '#333', color: 'white', border: '1px solid #facc15' }}
-                          >
-                            BUY 14-DAY PASS ($119)
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Nightlife Card - Tiered Pricing with Scan Limits */}
-                  {card.type === "nightlife" && (
-                    <div className="w-full space-y-3">
-                      {/* Promoter Tier */}
-                      <div className="border border-blue-300 p-3 rounded-lg" style={{ background: 'rgba(0,0,0,0.4)' }}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold">Promoter Tier</span>
-                          <span className="text-blue-300 font-bold">$299/mo</span>
-                        </div>
-                        <div className="text-xs text-white mb-3 p-2 rounded" style={{ background: 'rgba(0,0,0,0.5)' }}>
-                          <strong>INCLUDES:</strong> 200 Scans / Month<br />
-                          <strong>OVERAGE:</strong> $2.00 per extra scan
-                        </div>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
-                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Promoter License (200 Scans)" />
-                          <input type="hidden" name="a3" value="299.00" />
-                          <input type="hidden" name="p3" value="1" />
-                          <input type="hidden" name="t3" value="M" />
-                          <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <input type="hidden" name="on0" value="Club Name" />
-                          <input
-                            type="text"
-                            name="os0"
-                            placeholder="Club/Event Name"
-                            required
-                            className="w-full px-2 py-1.5 rounded text-white text-sm"
-                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-                          />
-                          <button type="submit" className="w-full text-black font-bold py-2 px-4 rounded text-sm transition-colors" style={{ background: '#bfdbfe' }}>
-                            ACTIVATE PROMOTER ($299)
-                          </button>
-                        </form>
-                      </div>
-
-                      {/* Club Tier */}
-                      <div className="border border-blue-300 p-3 rounded-lg" style={{ background: 'rgba(0,0,0,0.4)' }}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold">Club Tier</span>
-                          <span className="text-blue-300 font-bold">$999/mo</span>
-                        </div>
-                        <div className="text-xs text-white mb-3 p-2 rounded" style={{ background: 'rgba(0,0,0,0.5)' }}>
-                          <strong>INCLUDES:</strong> 1,000 Scans / Month<br />
-                          <strong>OVERAGE:</strong> $1.00 per extra scan
-                        </div>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
-                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Club License (1000 Scans)" />
-                          <input type="hidden" name="a3" value="999.00" />
-                          <input type="hidden" name="p3" value="1" />
-                          <input type="hidden" name="t3" value="M" />
-                          <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <input type="hidden" name="on0" value="Club Name" />
-                          <input
-                            type="text"
-                            name="os0"
-                            placeholder="Club Name"
-                            required
-                            className="w-full px-2 py-1.5 rounded text-white text-sm"
-                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-                          />
-                          <button type="submit" className="w-full text-black font-bold py-2 px-4 rounded text-sm transition-colors" style={{ background: '#bfdbfe' }}>
-                            ACTIVATE CLUB ($999)
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Performer Card - Individual $39/60 days with Digital Handshake */}
-                  {card.type === "performer" && (
-                    <div className="w-full text-center">
-                      <div className="text-4xl font-black text-amber-400 mb-1">$39.00</div>
-                      <div className="text-white font-bold mb-4">Every 60 Days</div>
-                      
-                      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                        <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                        <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                        <input type="hidden" name="item_name" value="Clean Check - Performer Compliance Pass" />
-                        <input type="hidden" name="no_shipping" value="1" />
-                        <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                        <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                        <input type="hidden" name="a3" value="39.00" />
-                        <input type="hidden" name="p3" value="2" />
-                        <input type="hidden" name="t3" value="M" />
-                        <input type="hidden" name="src" value="1" />
-                        
-                        <div className="text-left mb-4 space-y-3">
-                          <div>
-                            <label className="text-amber-400 text-xs font-bold block mb-1">1. YOUR STAGE NAME</label>
-                            <input type="hidden" name="on0" value="Stage Name" />
-                            <input
-                              type="text"
-                              name="os0"
-                              placeholder="e.g. Diamond"
-                              required
-                              className="w-full px-3 py-2 rounded text-black"
-                              style={{ border: 'none' }}
-                            />
-                          </div>
-                          <div>
-                            <label className="text-amber-400 text-xs font-bold block mb-1">2. PLACE OF EMPLOYMENT</label>
-                            <input type="hidden" name="on1" value="Workplace" />
-                            <input
-                              type="text"
-                              name="os1"
-                              placeholder="e.g. Club E11EVEN"
-                              required
-                              className="w-full px-3 py-2 rounded text-black"
-                              style={{ border: 'none' }}
-                            />
-                          </div>
-                        </div>
-
-                        <button 
-                          type="submit" 
-                          className="w-full py-4 font-extrabold rounded-lg text-black uppercase transition-colors"
-                          style={{ background: '#D4AF37' }}
-                        >
-                          ACTIVATE PERFORMER PASS
-                        </button>
-                      </form>
-                    </div>
-                  )}
-
-                  {/* Workforce Management Card - Tiered Seat Licensing */}
-                  {card.type === "workforce" && (
-                    <div className="w-full space-y-3">
-                      <div className="text-xs text-slate-400 uppercase font-bold mb-2 tracking-wider">Monthly Seat License (Select Size)</div>
-                      
-                      {/* Tier 1: Small Business (1-50) */}
-                      <div className="border border-slate-600 p-3 rounded-lg">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold text-sm">Small Biz (1-50 Employees)</span>
-                          <span className="text-slate-300 font-bold">$399/mo</span>
-                        </div>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
-                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Workforce Small Biz (1-50)" />
-                          <input type="hidden" name="a3" value="399.00" />
-                          <input type="hidden" name="p3" value="1" />
-                          <input type="hidden" name="t3" value="M" />
-                          <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=workforce-small" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <input type="hidden" name="on0" value="Company Name" />
-                          <input
-                            type="text"
-                            name="os0"
-                            placeholder="Enter Company Name"
-                            required
-                            className="w-full px-2 py-1.5 rounded text-white text-xs"
-                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-                          />
-                          <button type="submit" className="w-full bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded text-xs transition-colors">
-                            ACTIVATE SMALL BIZ
-                          </button>
-                        </form>
-                      </div>
-
-                      {/* Tier 2: Mid-Size (50-150) */}
-                      <div className="border border-slate-600 p-3 rounded-lg">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold text-sm">Mid-Size (50-150 Employees)</span>
-                          <span className="text-slate-300 font-bold">$699/mo</span>
-                        </div>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
-                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Workforce Mid-Size (50-150)" />
-                          <input type="hidden" name="a3" value="699.00" />
-                          <input type="hidden" name="p3" value="1" />
-                          <input type="hidden" name="t3" value="M" />
-                          <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=workforce-mid" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <input type="hidden" name="on0" value="Company Name" />
-                          <input
-                            type="text"
-                            name="os0"
-                            placeholder="Enter Company Name"
-                            required
-                            className="w-full px-2 py-1.5 rounded text-white text-xs"
-                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-                          />
-                          <button type="submit" className="w-full bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded text-xs transition-colors">
-                            ACTIVATE MID-SIZE
-                          </button>
-                        </form>
-                      </div>
-
-                      {/* Tier 3: Large (150-500) */}
-                      <div className="border border-slate-600 p-3 rounded-lg">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-white font-bold text-sm">Large (150-500 Employees)</span>
-                          <span className="text-slate-300 font-bold">$1,299/mo</span>
-                        </div>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
-                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Workforce Large (150-500)" />
-                          <input type="hidden" name="a3" value="1299.00" />
-                          <input type="hidden" name="p3" value="1" />
-                          <input type="hidden" name="t3" value="M" />
-                          <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=workforce-large" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <input type="hidden" name="on0" value="Company Name" />
-                          <input
-                            type="text"
-                            name="os0"
-                            placeholder="Enter Company Name"
-                            required
-                            className="w-full px-2 py-1.5 rounded text-white text-xs"
-                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
-                          />
-                          <button type="submit" className="w-full bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded text-xs transition-colors">
-                            ACTIVATE LARGE
-                          </button>
-                        </form>
-                      </div>
-
-                      {/* Tier 4: Enterprise (500-2000) */}
-                      <div className="border border-amber-500/50 p-3 rounded-lg" style={{ background: 'rgba(245,158,11,0.1)' }}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-amber-400 font-bold text-sm">Enterprise (500-2000)</span>
-                          <span className="text-amber-400 font-bold">$1,999/mo</span>
-                        </div>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="space-y-2">
-                          <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Workforce Enterprise (500-2000)" />
-                          <input type="hidden" name="a3" value="1999.00" />
-                          <input type="hidden" name="p3" value="1" />
-                          <input type="hidden" name="t3" value="M" />
-                          <input type="hidden" name="src" value="1" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=workforce-enterprise" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <input type="hidden" name="on0" value="Company Name" />
-                          <input
-                            type="text"
-                            name="os0"
-                            placeholder="Enter Company Name"
-                            required
-                            className="w-full px-2 py-1.5 rounded text-white text-xs"
-                            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(245,158,11,0.3)' }}
-                          />
-                          <button type="submit" className="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold py-2 px-4 rounded text-xs transition-colors">
-                            ACTIVATE ENTERPRISE
-                          </button>
-                        </form>
-                      </div>
-
-                      <hr className="border-slate-600 my-2" />
-
-                      {/* Bulk Kits Add-on */}
-                      <div className="p-3 rounded-lg" style={{ background: 'rgba(0,0,0,0.3)' }}>
-                        <div className="text-xs text-slate-400 uppercase font-bold mb-1 tracking-wider">Add-On: Order Test Kits</div>
-                        <p className="text-xs text-slate-500 mb-2">Bulk packs for your crew.</p>
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                          <input type="hidden" name="cmd" value="_xclick" />
-                          <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                          <input type="hidden" name="item_name" value="Clean Check - Bulk Employee Kits (10pk)" />
-                          <input type="hidden" name="amount" value="890.00" />
-                          <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=bulk-kits-10" />
-                          <input type="hidden" name="cancel_return" value="https://cleancheck.fit/compliance" />
-                          <button
-                            type="submit"
-                            className="w-full py-2 font-bold rounded transition-colors text-xs"
-                            style={{ background: '#333', color: 'white', border: '1px solid rgba(255,255,255,0.3)' }}
-                          >
-                            ORDER 10-PACK KITS ($890)
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Hover Glow Border Effect */}
-                <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
-                  style={{
-                    boxShadow: card.isPremium 
-                      ? 'inset 0 0 30px rgba(245, 158, 11, 0.2)' 
-                      : 'inset 0 0 30px rgba(255, 255, 255, 0.05)'
-                  }}
-                />
+          <div className="space-y-3">
+            {/* Tier 1 */}
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm">Promoter Tier (Up to 200 Scans)</span>
+                <span className="text-blue-200 font-bold">$299/mo</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Badges Section */}
-      <section className="py-12 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60">
-            <div className="flex items-center gap-2 text-slate-400">
-              <Shield className="h-5 w-5" />
-              <span className="text-sm font-medium">HIPAA Compliant</span>
-            </div>
-            <div className="flex items-center gap-2 text-slate-400">
-              <ShieldCheck className="h-5 w-5" />
-              <span className="text-sm font-medium">SOC 2 Type II</span>
-            </div>
-            <div className="flex items-center gap-2 text-slate-400">
-              <BadgeCheck className="h-5 w-5" />
-              <span className="text-sm font-medium">256-bit Encryption</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form Section */}
-      <section ref={formRef} className="relative py-8 md:py-12 px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-800/30 to-transparent" />
-        <div className="container mx-auto max-w-2xl relative z-10">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Request <span className="text-sky-400">Enterprise Access</span>
-            </h2>
-            <p className="text-slate-400">
-              Custom pricing available for multi-location deployments.
-            </p>
-          </div>
-
-          <Card className="bg-slate-900/80 border-slate-700/50 backdrop-blur-sm shadow-2xl">
-            <CardContent className="p-6 md:p-8">
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {selectedSubject && (
-                  <div className="bg-sky-500/10 border border-sky-500/30 rounded-lg p-3 text-center">
-                    <p className="text-sm text-sky-400 font-medium">
-                      Inquiry: <span className="font-bold">{selectedSubject}</span>
-                    </p>
-                  </div>
-                )}
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-slate-300">Your Name *</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="John Smith"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="venue_name" className="text-slate-300">Venue Name *</Label>
-                    <Input
-                      id="venue_name"
-                      name="venue_name"
-                      placeholder="Club XYZ"
-                      value={formData.venue_name}
-                      onChange={handleInputChange}
-                      className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="city" className="text-slate-300">City *</Label>
-                    <Input
-                      id="city"
-                      name="city"
-                      placeholder="Miami, FL"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="role" className="text-slate-300">Your Role *</Label>
-                    <Select 
-                      value={formData.role} 
-                      onValueChange={(value) => setFormData({ ...formData, role: value })}
-                    >
-                      <SelectTrigger className="bg-slate-800/50 border-slate-600 text-white focus:border-sky-400">
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        <SelectItem value="Owner">Owner</SelectItem>
-                        <SelectItem value="General Manager">General Manager</SelectItem>
-                        <SelectItem value="Operations Manager">Operations Manager</SelectItem>
-                        <SelectItem value="HR Manager">HR Manager</SelectItem>
-                        <SelectItem value="Event Promoter">Event Promoter</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="phone" className="text-slate-300">Phone Number *</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="(555) 123-4567"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-sky-400"
-                    required
-                  />
-                </div>
-
-                <Button 
-                  type="submit" 
-                  size="lg"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold py-6 text-lg shadow-lg shadow-sky-500/25"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Submitting...
-                    </>
-                  ) : (
-                    "Submit Request"
-                  )}
-                </Button>
-
-                <p className="text-xs text-slate-500 text-center">
-                  By submitting, you agree to be contacted by our enterprise sales team.
-                </p>
+              <p className="text-xs text-slate-400 mb-2">Overage billed at $2.00/scan.</p>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Nightlife Tier 1 (Promoter)" />
+                <input type="hidden" name="a3" value="299.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Club Name" />
+                <input type="text" name="os0" placeholder="Event/Club Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-2.5 bg-blue-200 text-black font-bold rounded uppercase text-sm">
+                  ACTIVATE TIER 1
+                </button>
               </form>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+            </div>
 
-      {/* Strategic Partner Program Section */}
-      <section className="relative py-12 md:py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div 
-            className="relative rounded-2xl overflow-hidden border border-amber-500/40 text-center"
-            style={{
-              padding: '50px 40px',
-              background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
-            }}
-          >
-            {/* Elegant Gold Glow */}
-            <div 
-              className="absolute pointer-events-none"
-              style={{
-                top: '-50%',
-                left: '-50%',
-                width: '200%',
-                height: '200%',
-                background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.08) 0%, transparent 60%)',
-              }}
-            />
-            
-            {/* Top Gold Line Accent */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
-
-            <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-1.5 mb-6">
-                <span className="text-xs text-amber-400 font-semibold tracking-wider uppercase">Exclusive Opportunity</span>
+            {/* Tier 2 */}
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm">Club Tier (Up to 1,000 Scans)</span>
+                <span className="text-blue-200 font-bold">$999/mo</span>
               </div>
-              
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-                Strategic Partner Program
-              </h2>
-              <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-                Connect venues, refer members, and earn recurring revenue.{' '}
-                <span className="text-amber-400 font-semibold">Join the Clean Check global network.</span>
-              </p>
+              <p className="text-xs text-slate-400 mb-2">Overage billed at $1.00/scan.</p>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Nightlife Tier 2 (Club)" />
+                <input type="hidden" name="a3" value="999.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Club Name" />
+                <input type="text" name="os0" placeholder="Club Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-2.5 bg-blue-200 text-black font-bold rounded uppercase text-sm">
+                  ACTIVATE TIER 2
+                </button>
+              </form>
+            </div>
 
-              <Button
-                onClick={() => navigate('/partner-application')}
-                className="text-black font-bold text-base px-10 py-6 rounded-lg border-none transition-all hover:scale-105 shadow-lg"
-                style={{
-                  background: 'linear-gradient(135deg, #D4AF37 0%, #F5D87A 50%, #D4AF37 100%)',
-                  boxShadow: '0 0 30px rgba(212,175,55,0.3)',
-                }}
-              >
-                APPLY FOR PARTNERSHIP
-              </Button>
+            {/* Enterprise */}
+            <a href="mailto:Steve@bigtexasroof.com?subject=Enterprise%20Nightlife%20Partnership" className="block">
+              <button type="button" className="w-full py-3 bg-transparent text-blue-200 font-bold border border-blue-200 rounded uppercase text-sm">
+                REQUEST MEGA-CLUB CONTRACT
+              </button>
+            </a>
+          </div>
+        </div>
+
+        {/* Card 2: Talent & Content Creators */}
+        <div 
+          className="rounded-2xl p-6 border border-amber-500/50 flex flex-col justify-between min-h-[550px]"
+          style={{
+            background: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1566415702213-94c3d828a2a7?auto=format&fit=crop&w=800&q=80')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Video className="h-8 w-8 text-amber-400" />
+              <h3 className="text-xl font-bold text-amber-400">Talent & Content Creators</h3>
+            </div>
+            <p className="italic opacity-90 mb-4">"The Industry Standard for Talent."</p>
+            <ul className="space-y-2 text-sm">
+              <li>✅ <strong>Get Booked:</strong> Verified safety for Club Bookings & Film Sets.</li>
+              <li>✅ <strong>Digital Handshake:</strong> Auto-syncs status with your employer.</li>
+              <li>✅ <strong>Auto-Renewal:</strong> Aligns with 60-day testing cycle.</li>
+            </ul>
+          </div>
+
+          <div className="mt-4">
+            <div className="text-4xl font-black text-amber-400 mb-1">$39.00</div>
+            <div className="font-bold mb-4">Every 60 Days (Performer Pass)</div>
+            
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+              <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+              <input type="hidden" name="item_name" value="Clean Check - Performer Compliance Pass" />
+              <input type="hidden" name="a3" value="39.00" />
+              <input type="hidden" name="p3" value="2" />
+              <input type="hidden" name="t3" value="M" />
+              <input type="hidden" name="src" value="1" />
+              <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+              <input type="hidden" name="on0" value="Stage Name" />
+              <input type="hidden" name="on1" value="Affiliation" />
               
-              <p className="text-xs text-slate-500 mt-6">
-                20% recurring commissions • Dedicated support • Global reach
-              </p>
+              <input type="text" name="os0" placeholder="1. Professional Name" required className="w-full px-3 py-2 mb-3 rounded text-black" />
+              <input type="text" name="os1" placeholder="2. Agency or Venue" required className="w-full px-3 py-2 mb-4 rounded text-black" />
+
+              <button type="submit" className="w-full py-4 bg-amber-400 text-black font-extrabold rounded-lg uppercase">
+                ACTIVATE TALENT PASS
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Card 3: Workforce Management */}
+        <div 
+          className="rounded-2xl p-6 border border-white/10 flex flex-col justify-between min-h-[550px]"
+          style={{
+            background: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Building2 className="h-8 w-8 text-slate-400" />
+              <h3 className="text-xl font-bold">Workforce Management</h3>
+            </div>
+            <p className="italic opacity-90 mb-4">"Connect your team. Monitor the data."</p>
+            <p className="text-xs text-slate-400 uppercase font-bold mb-3">Select System Capacity</p>
+          </div>
+
+          <div className="space-y-2">
+            {/* Tier 1 */}
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm">Small (1-50 Staff)</span>
+                <span className="text-slate-400 font-bold">$399/mo</span>
+              </div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Workforce System (Tier 1: 1-50)" />
+                <input type="hidden" name="a3" value="399.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Company Name" />
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-1.5 bg-slate-400 text-black font-bold rounded text-sm">
+                  ACTIVATE TIER 1
+                </button>
+              </form>
+            </div>
+
+            {/* Tier 2 */}
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm">Mid-Size (50-150 Staff)</span>
+                <span className="text-slate-400 font-bold">$699/mo</span>
+              </div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Workforce System (Tier 2: 50-150)" />
+                <input type="hidden" name="a3" value="699.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Company Name" />
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-1.5 bg-slate-400 text-black font-bold rounded text-sm">
+                  ACTIVATE TIER 2
+                </button>
+              </form>
+            </div>
+
+            {/* Tier 3 Enterprise */}
+            <div className="border-2 border-amber-500 p-3 rounded-lg bg-black/60">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm text-amber-400">Enterprise (150-500 Staff)</span>
+                <span className="text-amber-400 font-bold">$1,299/mo</span>
+              </div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Workforce System (Tier 3: 150-500)" />
+                <input type="hidden" name="a3" value="1299.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Company Name" />
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-1.5 bg-amber-400 text-black font-bold rounded text-sm">
+                  ACTIVATE TIER 3
+                </button>
+              </form>
+            </div>
+
+            {/* Bulk Kits */}
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="mt-2">
+              <input type="hidden" name="cmd" value="_xclick" />
+              <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+              <input type="hidden" name="item_name" value="Clean Check - Bulk Employee Kits (10pk)" />
+              <input type="hidden" name="amount" value="890.00" />
+              <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+              <button type="submit" className="w-full py-2.5 bg-slate-800 text-white font-bold border border-white rounded">
+                ORDER 10-PACK ($890)
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Card 4: Transportation & Fleets */}
+        <div 
+          className="rounded-2xl p-6 border border-white/10 flex flex-col justify-between min-h-[550px]"
+          style={{
+            background: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Car className="h-8 w-8 text-emerald-400" />
+              <h3 className="text-xl font-bold">Transportation & Fleets</h3>
+            </div>
+            <p className="italic opacity-90 mb-4">"Uber checks history. We check biology."</p>
+            <p className="text-xs text-slate-400 uppercase font-bold mb-3">Fleet Licenses (Select Size)</p>
+          </div>
+
+          <div className="space-y-2">
+            {/* Small Fleet */}
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm">Small Fleet (1-50 Cars)</span>
+                <span className="text-emerald-400 font-bold">$299/mo</span>
+              </div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Small Fleet License" />
+                <input type="hidden" name="a3" value="299.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Company Name" />
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-2 bg-emerald-400 text-black font-bold rounded text-sm">
+                  ACTIVATE SMALL FLEET
+                </button>
+              </form>
+            </div>
+
+            {/* Mid Fleet */}
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm">Mid Fleet (50-200 Cars)</span>
+                <span className="text-emerald-400 font-bold">$599/mo</span>
+              </div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Mid Fleet License" />
+                <input type="hidden" name="a3" value="599.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Company Name" />
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-2 bg-emerald-400 text-black font-bold rounded text-sm">
+                  ACTIVATE MID FLEET
+                </button>
+              </form>
+            </div>
+
+            {/* Individual Driver */}
+            <div className="border-t border-slate-600 pt-3 mt-3">
+              <p className="text-xs text-slate-400 uppercase font-bold mb-1">For Individual Drivers</p>
+              <div className="text-xl font-bold mb-1">$119.00 <span className="text-sm font-normal text-slate-400">One-Time</span></div>
+              <p className="text-xs text-slate-400 mb-3">Includes: Membership + QR Code + 1 Drug Test Kit.</p>
+              
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Driver Verification Pass" />
+                <input type="hidden" name="amount" value="119.00" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <button type="submit" className="w-full py-2.5 bg-slate-800 text-white font-bold border border-white rounded">
+                  BUY DRIVER PASS ($119)
+                </button>
+              </form>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800/50 py-8 px-4 bg-slate-950/50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-slate-400 text-sm">
-              <Shield className="h-4 w-4" />
-              <span>Clean Check Enterprise™</span>
+        {/* Card 5: Exotic & Luxury Rentals */}
+        <div 
+          className="rounded-2xl p-6 border border-white/10 flex flex-col justify-between min-h-[550px]"
+          style={{
+            background: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=800&q=80')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Key className="h-8 w-8 text-yellow-400" />
+              <h3 className="text-xl font-bold">Exotic & Luxury Rentals</h3>
             </div>
-            <div className="text-slate-500 text-sm">
-              © {new Date().getFullYear()} Clean Check. All rights reserved.
-            </div>
-            <div className="flex gap-6 text-sm">
-              <Link to="/privacy" className="text-slate-400 hover:text-white transition-colors">Privacy</Link>
-              <Link to="/terms" className="text-slate-400 hover:text-white transition-colors">Terms</Link>
-            </div>
+            <p className="italic opacity-90 mb-4">"Protect the asset. Verify the driver."</p>
+            <ul className="space-y-2 text-sm">
+              <li>✅ <strong>Pre-Rental Screening:</strong> Verify driver sobriety before handoff.</li>
+              <li>✅ <strong>Liability Documentation:</strong> Digital waiver and compliance trail.</li>
+              <li>✅ <strong>Asset Protection:</strong> Reduce risk of DUI-related incidents.</li>
+            </ul>
           </div>
-          <div className="flex justify-end mt-4">
-            <Link to="/admin/login" className="text-xs text-slate-600 hover:text-slate-400 transition-colors">
-              Admin
-            </Link>
+
+          <div className="space-y-3 mt-4">
+            {/* Small Rental Fleet */}
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm">Small Fleet (1-10 Vehicles)</span>
+                <span className="text-yellow-400 font-bold">$199/mo</span>
+              </div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Exotic Rental (Small Fleet)" />
+                <input type="hidden" name="a3" value="199.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Company Name" />
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-2 bg-yellow-400 text-black font-bold rounded text-sm">
+                  ACTIVATE SMALL FLEET
+                </button>
+              </form>
+            </div>
+
+            {/* Mid Rental Fleet */}
+            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-sm">Mid Fleet (10-50 Vehicles)</span>
+                <span className="text-yellow-400 font-bold">$399/mo</span>
+              </div>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+                <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
+                <input type="hidden" name="item_name" value="Clean Check - Exotic Rental (Mid Fleet)" />
+                <input type="hidden" name="a3" value="399.00" />
+                <input type="hidden" name="p3" value="1" />
+                <input type="hidden" name="t3" value="M" />
+                <input type="hidden" name="src" value="1" />
+                <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+                <input type="hidden" name="on0" value="Company Name" />
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
+                <button type="submit" className="w-full py-2 bg-yellow-400 text-black font-bold rounded text-sm">
+                  ACTIVATE MID FLEET
+                </button>
+              </form>
+            </div>
+
+            {/* Enterprise Contact */}
+            <a href="mailto:Steve@bigtexasroof.com?subject=Enterprise%20Exotic%20Rental%20Partnership" className="block">
+              <button type="button" className="w-full py-3 bg-transparent text-yellow-400 font-bold border border-yellow-400 rounded uppercase text-sm">
+                REQUEST ENTERPRISE PRICING
+              </button>
+            </a>
           </div>
         </div>
-      </footer>
+
+      </div>
+
+      {/* Strategic Partner CTA */}
+      <div className="max-w-4xl mx-auto px-5 pb-20">
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-amber-500/30 rounded-2xl p-8 text-center">
+          <h2 className="text-2xl font-bold mb-2">Strategic Partner Program</h2>
+          <p className="text-slate-400 mb-6">Connect venues, refer members, and earn recurring revenue. Join the Clean Check global network.</p>
+          <Link to="/partner-application">
+            <button className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 text-black font-extrabold rounded-lg uppercase">
+              APPLY FOR PARTNERSHIP
+            </button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

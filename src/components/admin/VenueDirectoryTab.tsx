@@ -227,7 +227,7 @@ export const VenueDirectoryTab = () => {
                 <Plus className="h-4 w-4" /> Add Partner
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-md">
+            <DialogContent className="max-w-md top-[10%] translate-y-0">
               <DialogHeader>
                 <DialogTitle>Add New Partner</DialogTitle>
                 <DialogDescription>

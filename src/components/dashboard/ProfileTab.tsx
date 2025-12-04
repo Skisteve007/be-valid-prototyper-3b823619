@@ -650,7 +650,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
 
       <PreferencesHealthSection
         setValue={setValue}
-        partnerPreferences={partnerPreferences}
         covidVaccinated={covidVaccinated}
         circumcised={circumcised}
         smoker={smoker}

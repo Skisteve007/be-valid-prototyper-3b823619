@@ -699,7 +699,7 @@ const Index = () => {
                   <CardContent>
                     <div className="text-2xl font-bold text-accent mb-1">$249.00</div>
                     <div className="text-xs text-muted-foreground mb-3">One-Time Payment</div>
-                    <Link to="/health-panel-order">
+                    <Link to="/dashboard?tab=lab-verification">
                       <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                         Order Health Kit
                       </Button>

@@ -50,9 +50,9 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       aria-label="Toggle Dark/Light Theme"
-      className="h-9 w-9 text-foreground hover:bg-muted"
+      className="h-11 w-11 text-foreground hover:bg-muted"
     >
-      {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+      {isDark ? <Sun className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
     </Button>
   );
 }

@@ -133,8 +133,44 @@ const Terms = () => {
             </div>
           </section>
 
+          <section className="mb-8 border-l-4 border-primary pl-6 bg-primary/5 p-6 rounded-r">
+            <h2 className="text-2xl font-semibold mb-4">11. Confidentiality & Restricted Use</h2>
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold mb-2">1. Confidential Information</h3>
+                <p>
+                  "Confidential Information" includes all proprietary, technical, operational, and business information disclosed through the Platform, including but not limited to system workflows, verification logic, matching algorithms, operational processes, and non-public features or data.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">2. Use & Protection</h3>
+                <p>
+                  You agree to protect Confidential Information using at least the same degree of care you use to protect your own sensitive information, and no less than a reasonable standard of care.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">3. No Unauthorized Disclosure</h3>
+                <p>
+                  You agree not to disclose, publish, transfer, distribute, or allow access to Confidential Information to any third party without CleanCheck's express written authorization.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">4. No Copying or Reverse Engineering</h3>
+                <p>
+                  You agree not to copy, reproduce, modify, scrape, decompile, disassemble, reverse engineer, attempt to derive source code, or create derivative works from any part of CleanCheck's systems, the CleanCheck.fit website, or any proprietary technology or processes.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">5. Term</h3>
+                <p>
+                  These confidentiality obligations shall remain in effect for five (5) years from acceptance or as long as the information remains confidential, whichever is longer.
+                </p>
+              </div>
+            </div>
+          </section>
+
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">11. Contact</h2>
+            <h2 className="text-2xl font-semibold mb-4">12. Contact</h2>
             <p>
               For questions about these Terms of Service, please contact us through our support channels.
             </p>

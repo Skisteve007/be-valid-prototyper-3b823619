@@ -683,6 +683,7 @@ export type Database = {
       }
       partner_venues: {
         Row: {
+          bank_endpoint: string | null
           category: Database["public"]["Enums"]["venue_category"]
           city: string
           country: string
@@ -691,11 +692,15 @@ export type Database = {
           gm_email: string | null
           id: string
           industry_type: string | null
+          paypal_email: string | null
+          pending_earnings: number | null
           status: string
+          total_earnings: number | null
           updated_at: string
           venue_name: string
         }
         Insert: {
+          bank_endpoint?: string | null
           category: Database["public"]["Enums"]["venue_category"]
           city: string
           country?: string
@@ -704,11 +709,15 @@ export type Database = {
           gm_email?: string | null
           id?: string
           industry_type?: string | null
+          paypal_email?: string | null
+          pending_earnings?: number | null
           status?: string
+          total_earnings?: number | null
           updated_at?: string
           venue_name: string
         }
         Update: {
+          bank_endpoint?: string | null
           category?: Database["public"]["Enums"]["venue_category"]
           city?: string
           country?: string
@@ -717,7 +726,10 @@ export type Database = {
           gm_email?: string | null
           id?: string
           industry_type?: string | null
+          paypal_email?: string | null
+          pending_earnings?: number | null
           status?: string
+          total_earnings?: number | null
           updated_at?: string
           venue_name?: string
         }
@@ -1379,6 +1391,57 @@ export type Database = {
           },
         ]
       }
+      venue_payout_ledger: {
+        Row: {
+          amount: number
+          bank_endpoint: string | null
+          created_at: string
+          id: string
+          paid_at: string | null
+          payout_reference: string | null
+          status: string
+          transaction_id: string | null
+          venue_id: string
+        }
+        Insert: {
+          amount: number
+          bank_endpoint?: string | null
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          payout_reference?: string | null
+          status?: string
+          transaction_id?: string | null
+          venue_id: string
+        }
+        Update: {
+          amount?: number
+          bank_endpoint?: string | null
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          payout_reference?: string | null
+          status?: string
+          transaction_id?: string | null
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_payout_ledger_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "incognito_transactions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "venue_payout_ledger_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       venue_qr_scans: {
         Row: {
           id: string
@@ -1554,6 +1617,10 @@ export type Database = {
       restore_stevieg_profile: { Args: never; Returns: undefined }
       update_affiliate_pending_earnings: {
         Args: { _affiliate_id: string; _amount: number }
+        Returns: undefined
+      }
+      update_venue_earnings: {
+        Args: { _amount: number; _venue_id: string }
         Returns: undefined
       }
     }

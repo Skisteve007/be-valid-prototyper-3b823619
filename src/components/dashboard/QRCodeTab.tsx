@@ -468,28 +468,22 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
               )}
               
               <div className="flex flex-col gap-2 w-full max-w-xs">
-                {/* Primary share button for mobile - uses native share */}
-                <Button 
-                  onClick={handleShare}
-                  className="w-full min-h-[48px] bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white touch-manipulation shadow-lg" 
-                  type="button"
-                >
-                  <Share2 className="h-5 w-5 mr-2" />
-                  Share My Profile
-                </Button>
-                
-                {/* Additional sharing options in dropdown - hidden on mobile */}
+                {/* Share button with dropdown for all share options */}
                 <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
                     <Button 
-                      className="hidden md:flex w-full min-h-[44px] touch-manipulation" 
-                      variant="outline"
+                      className="w-full min-h-[48px] bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 text-white touch-manipulation shadow-lg" 
                       type="button"
                     >
-                      More Share Options
+                      <Share2 className="h-5 w-5 mr-2" />
+                      Share My Profile
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="center" className="w-56 z-50">
+                    <DropdownMenuItem onClick={handleShare} className="min-h-[44px] touch-manipulation">
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Share Now
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleCopyLink} className="min-h-[44px] touch-manipulation">
                       <Copy className="h-4 w-4 mr-2" />
                       Copy Link

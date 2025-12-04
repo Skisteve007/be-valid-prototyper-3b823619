@@ -19,7 +19,7 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
 
   return (
     <AlertDialog open={open}>
-      <AlertDialogContent className="w-[90vw] max-w-sm sm:max-w-md mx-auto p-4 sm:p-6">
+      <AlertDialogContent className="w-[90vw] max-w-sm sm:max-w-md mx-auto p-4 sm:p-6 top-[20%] translate-y-0">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-xl sm:text-2xl text-center">
             🔞 Age Verification Required

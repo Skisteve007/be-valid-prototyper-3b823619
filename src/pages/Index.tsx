@@ -670,23 +670,18 @@ const Index = () => {
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2 mb-2">
                       <Plane className="h-5 w-5 text-secondary" />
-                      <CardTitle className="text-lg">Toxicology Kit</CardTitle>
+                      <CardTitle className="text-lg">Lab-Certified 10-Panel Toxicology</CardTitle>
                     </div>
-                    <CardDescription>10-panel drug screening</CardDescription>
+                    <CardDescription>Lab-Certified</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-secondary mb-3">$89</div>
-                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                      <input type="hidden" name="cmd" value="_xclick" />
-                      <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - Toxicology Lab Kit" />
-                      <input type="hidden" name="amount" value="89.00" />
-                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=tox-kit" />
-                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-                      <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                    <div className="text-2xl font-bold text-secondary mb-1">$129.00</div>
+                    <div className="text-xs text-muted-foreground mb-3">One-Time Payment</div>
+                    <Link to="/toxicology-kit-order">
+                      <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
                         Order Tox Kit
                       </Button>
-                    </form>
+                    </Link>
                   </CardContent>
                 </Card>
               </ScrollReveal>

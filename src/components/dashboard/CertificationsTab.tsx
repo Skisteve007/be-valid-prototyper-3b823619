@@ -491,6 +491,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                         size="sm"
                         variant="outline"
                         onClick={() => {
+                          console.log("View clicked, document URL:", cert.document_url);
                           setSelectedDocument(cert.document_url);
                           setViewerOpen(true);
                         }}
@@ -578,9 +579,10 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
               View-only access. Download is restricted for privacy protection.
             </DialogDescription>
           </DialogHeader>
-          <div className="relative min-h-[400px]">
+          <div className="relative min-h-[300px] bg-muted/20 rounded-lg p-2">
             {selectedDocument ? (
               <>
+                {console.log("Rendering document:", selectedDocument)}
                 {/* Check if it's a PDF or image based on URL */}
                 {selectedDocument.toLowerCase().includes('.pdf') ? (
                   <iframe
@@ -592,18 +594,18 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                   <img
                     src={selectedDocument}
                     alt="Document"
-                    className="w-full h-auto rounded-lg max-h-[70vh] object-contain"
+                    className="w-full h-auto rounded-lg max-h-[70vh] object-contain bg-white"
                     onContextMenu={(e) => e.preventDefault()}
-                    style={{ userSelect: 'none' }}
                     draggable={false}
-                    crossOrigin="anonymous"
+                    onLoad={() => console.log("Image loaded successfully")}
                     onError={(e) => {
+                      console.log("Image failed to load, trying iframe");
                       // If image fails, try showing as iframe (might be PDF without extension)
                       const parent = e.currentTarget.parentElement;
                       if (parent) {
                         e.currentTarget.style.display = 'none';
                         const iframe = document.createElement('iframe');
-                        iframe.src = `${selectedDocument}#toolbar=0&navpanes=0`;
+                        iframe.src = selectedDocument;
                         iframe.className = 'w-full h-[70vh] rounded-lg border border-border';
                         iframe.title = 'Document Preview';
                         parent.appendChild(iframe);
@@ -613,7 +615,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                 )}
               </>
             ) : (
-              <div className="flex items-center justify-center h-[400px] text-muted-foreground">
+              <div className="flex items-center justify-center h-[300px] text-muted-foreground">
                 No document selected
               </div>
             )}

@@ -1,11 +1,10 @@
 import { UseFormSetValue } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Heart, Syringe, Sparkles, Cigarette } from "lucide-react";
+import { Syringe, Sparkles, Cigarette } from "lucide-react";
 
 interface PreferencesHealthSectionProps {
   setValue: UseFormSetValue<any>;
-  partnerPreferences: string[];
   covidVaccinated: boolean;
   circumcised?: boolean;
   smoker: boolean;
@@ -13,40 +12,16 @@ interface PreferencesHealthSectionProps {
 
 export const PreferencesHealthSection = ({
   setValue,
-  partnerPreferences,
   covidVaccinated,
   circumcised,
   smoker,
 }: PreferencesHealthSectionProps) => {
-  const togglePartnerPreference = (preference: string) => {
-    const current = partnerPreferences || [];
-    const updated = current.includes(preference)
-      ? current.filter(p => p !== preference)
-      : [...current, preference];
-    setValue("partner_preferences", updated);
-  };
 
   return (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold border-b pb-2">
-        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Partner Preferences & Health</span>
+        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Health</span>
       </h3>
-      
-      <div className="space-y-3">
-        <Label className="flex items-center gap-2">
-          <Heart className="w-4 h-4 text-red-500" />
-          Partner Preferences
-        </Label>
-        {["Men", "Women", "Couples", "Groups"].map((pref) => (
-          <div key={pref} className="flex items-center space-x-2">
-            <Checkbox
-              checked={partnerPreferences?.includes(pref)}
-              onCheckedChange={() => togglePartnerPreference(pref)}
-            />
-            <Label className="cursor-pointer">{pref}</Label>
-          </div>
-        ))}
-      </div>
 
       <div className="flex items-center space-x-2">
         <Checkbox

@@ -391,7 +391,7 @@ const Index = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">Share your clean status with lab certification*</p>
+                      <p className="text-muted-foreground">Share Your Clean Status With Lab Certification*</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -411,7 +411,7 @@ const Index = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">Quick reveal through your unique QR code</p>
+                      <p className="text-muted-foreground">Quick Reveal Through Your Unique QR Code</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -431,7 +431,7 @@ const Index = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">QR codes, Galleries, Member Profile Secrets 😈</p>
+                      <p className="text-muted-foreground">QR Codes, Galleries, Member Profile Secrets 😈</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -450,7 +450,7 @@ const Index = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">Account active immediately after payment</p>
+                      <p className="text-muted-foreground">Account Active Immediately After Payment</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -470,7 +470,7 @@ const Index = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">Works on all other sites that employ Clean Check services</p>
+                      <p className="text-muted-foreground">Works On All Other Sites That Employ Clean Check Services</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -490,7 +490,7 @@ const Index = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">Your data encrypted and protected</p>
+                      <p className="text-muted-foreground">Your Data Encrypted And Protected</p>
                     </CardContent>
                   </Card>
                 </div>

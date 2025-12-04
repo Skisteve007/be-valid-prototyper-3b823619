@@ -14,23 +14,23 @@ const Footer = () => {
   };
   
   return (
-    <footer className="w-full mt-auto border-t border-slate-300 bg-slate-100 dark:bg-slate-100 dark:border-slate-300">
+    <footer className="w-full mt-auto border-t-2 border-gray-400 bg-gray-200">
       <div className="container mx-auto px-4 py-4">
         {/* Compact Legal Section */}
-        <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-slate-900 dark:text-slate-900">
+        <div className="text-[12px] leading-relaxed space-y-1.5 mb-3" style={{ color: '#000000' }}>
           <p>© 2025 Clean Check. All Rights Reserved. Clean Check™, The Safety Shield™, Dual-Verification System™ pending trademarks. Protected under U.S. Copyright Law.</p>
           <p><strong>Disclaimer:</strong> Clean Check is a technology platform, not a healthcare provider. Services are for informational purposes only. All testing by independent CLIA-certified labs. HIPAA-compliant. We do not sell PHI.</p>
         </div>
 
         {/* Links & Compliance Row */}
-        <div className="flex flex-wrap items-center justify-center gap-2 text-[12px] border-t border-slate-300 pt-3 text-slate-900 dark:text-slate-900">
-          <Link to="/terms" className="hover:opacity-80 transition-colors underline text-slate-900 dark:text-slate-900">Terms</Link>
-          <span className="text-slate-900 dark:text-slate-900">|</span>
-          <Link to="/privacy" className="hover:opacity-80 transition-colors underline text-slate-900 dark:text-slate-900">Privacy</Link>
-          <span className="text-slate-900 dark:text-slate-900">|</span>
-          <Link to="/refund" className="hover:opacity-80 transition-colors underline text-slate-900 dark:text-slate-900">Refund</Link>
-          <span className="text-slate-900 dark:text-slate-900">•</span>
-          <span className="text-slate-900 dark:text-slate-900">🔞 18 U.S.C. § 2257: All users 18+</span>
+        <div className="flex flex-wrap items-center justify-center gap-2 text-[12px] border-t-2 border-gray-400 pt-3" style={{ color: '#000000' }}>
+          <Link to="/terms" className="hover:opacity-70 transition-colors underline font-medium" style={{ color: '#000000' }}>Terms</Link>
+          <span style={{ color: '#000000' }}>|</span>
+          <Link to="/privacy" className="hover:opacity-70 transition-colors underline font-medium" style={{ color: '#000000' }}>Privacy</Link>
+          <span style={{ color: '#000000' }}>|</span>
+          <Link to="/refund" className="hover:opacity-70 transition-colors underline font-medium" style={{ color: '#000000' }}>Refund</Link>
+          <span style={{ color: '#000000' }}>•</span>
+          <span style={{ color: '#000000' }}>🔞 18 U.S.C. § 2257: All users 18+</span>
           <span className="ml-auto">
             <button
               onClick={handleAdminClick}

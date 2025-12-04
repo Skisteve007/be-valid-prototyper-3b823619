@@ -24,10 +24,10 @@ const Footer = () => {
           <span className="ml-auto">
             <button
               onClick={() => navigate("/admin")}
-              className="text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-200 hover:brightness-110 focus:outline-none text-white"
+              className="text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-200 hover:brightness-110 focus:outline-none text-white animate-pulse"
               style={{
                 backgroundColor: '#9333ea',
-                boxShadow: '0 0 20px rgba(147, 51, 234, 0.9), 0 0 40px rgba(168, 85, 247, 0.6)'
+                boxShadow: '0 0 20px rgba(147, 51, 234, 0.9), 0 0 40px rgba(168, 85, 247, 0.6), 0 0 60px rgba(147, 51, 234, 0.4)'
               }}
             >
               Admin

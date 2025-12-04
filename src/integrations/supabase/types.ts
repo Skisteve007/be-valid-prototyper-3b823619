@@ -1188,6 +1188,89 @@ export type Database = {
         }
         Relationships: []
       }
+      venue_operators: {
+        Row: {
+          access_level: string
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+          venue_id: string
+        }
+        Insert: {
+          access_level?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+          venue_id: string
+        }
+        Update: {
+          access_level?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_operators_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_qr_scans: {
+        Row: {
+          id: string
+          notes: string | null
+          scan_result: string | null
+          scanned_at: string
+          scanned_by_operator_id: string | null
+          scanned_member_id: string | null
+          scanned_user_id: string | null
+          venue_id: string
+        }
+        Insert: {
+          id?: string
+          notes?: string | null
+          scan_result?: string | null
+          scanned_at?: string
+          scanned_by_operator_id?: string | null
+          scanned_member_id?: string | null
+          scanned_user_id?: string | null
+          venue_id: string
+        }
+        Update: {
+          id?: string
+          notes?: string | null
+          scan_result?: string | null
+          scanned_at?: string
+          scanned_by_operator_id?: string | null
+          scanned_member_id?: string | null
+          scanned_user_id?: string | null
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_qr_scans_scanned_user_id_fkey"
+            columns: ["scanned_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "venue_qr_scans_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       webhook_events: {
         Row: {
           created_at: string
@@ -1308,6 +1391,10 @@ export type Database = {
         Returns: undefined
       }
       increment_discount_usage: { Args: { _code: string }; Returns: undefined }
+      is_venue_operator: {
+        Args: { _user_id: string; _venue_id: string }
+        Returns: boolean
+      }
       restore_stevieg_profile: { Args: never; Returns: undefined }
       update_affiliate_pending_earnings: {
         Args: { _affiliate_id: string; _amount: number }

@@ -26,6 +26,7 @@ import VenueCompliance from "./pages/VenueCompliance";
 import SalesPortal from "./pages/SalesPortal";
 import PartnerApplication from "./pages/PartnerApplication";
 import CompetitiveScorecard from "./pages/CompetitiveScorecard";
+import VenueOperatorPortal from "./pages/VenueOperatorPortal";
 import NotFound from "./pages/NotFound";
 import { AgeGate } from "./components/AgeGate";
 import Footer from "./components/Footer";
@@ -64,6 +65,7 @@ const App = () => (
           <Route path="/sales-portal" element={<AgeGate><SalesPortal /></AgeGate>} />
           <Route path="/partner-application" element={<AgeGate><PartnerApplication /></AgeGate>} />
           <Route path="/competitive-scorecard" element={<AgeGate><CompetitiveScorecard /></AgeGate>} />
+          <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>

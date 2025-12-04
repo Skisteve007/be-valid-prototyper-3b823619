@@ -474,7 +474,19 @@ const Index = () => {
             {/* Pricing Cards */}
             <ScrollReveal direction="up" delay={200}>
               <div className="mb-8 md:mb-12">
-                <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent px-4">💳 Membership Pricing - Click to Select</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-3 md:mb-4 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent px-4">💳 Membership Pricing - Click to Select</h3>
+                <div className="flex justify-center mb-4 md:mb-6">
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-green-500/40 blur-xl rounded-lg animate-pulse"></div>
+                    <div className="absolute inset-0 bg-green-400/20 blur-2xl rounded-lg animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+                    <div className="relative px-4 py-2 bg-black/80 border border-green-500/60 rounded-md shadow-[0_0_20px_rgba(34,197,94,0.5),inset_0_0_20px_rgba(34,197,94,0.1)]">
+                      <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-green-400/5 to-green-500/10 rounded-md"></div>
+                      <span className="relative font-mono text-xs md:text-sm font-bold tracking-wider text-green-400 uppercase" style={{ textShadow: '0 0 10px rgba(34,197,94,0.8), 0 0 20px rgba(34,197,94,0.5)' }}>
+                        ⚡ Beta Pricing • Limited Time ⚡
+                      </span>
+                    </div>
+                  </div>
+                </div>
               <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4">
                 {/* Single Member Subscription */}
                 <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30 overflow-hidden">

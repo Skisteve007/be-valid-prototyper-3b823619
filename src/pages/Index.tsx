@@ -240,16 +240,16 @@ const Index = () => {
         <section className="py-6 md:py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto text-center max-w-4xl">
             <ScrollReveal direction="fade" delay={100}>
-              <h1 className="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-2 tracking-tight leading-tight text-foreground">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 tracking-tight leading-tight text-foreground">
                 CLEAN CHECK: INSTANT ACCESS. ZERO DOUBT.
               </h1>
-              <h2 className="text-lg md:text-xl font-medium text-muted-foreground mb-6">
+              <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-6">
                 Your Key to Seamless Control and QR Verified Status in a Second.
               </h2>
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>
-              <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-12 max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 md:mb-12 max-w-3xl mx-auto">
                 The Integrated Gateway to Verified Trust. Our <strong className="text-foreground">Zero-Trust QR-Scan System</strong> delivers secure, real-time results for <strong className="text-foreground">Comprehensive Wellness (Health & Toxicology)</strong> directly to your device. Connect with confidence, knowing your status is verified for all affiliated <strong className="text-foreground">lifestyle networks, high-value asset management, and compliant corporate environments.</strong>
               </p>
             </ScrollReveal>
@@ -351,49 +351,49 @@ const Index = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               <ScrollReveal direction="up" delay={200}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <EyeOff className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-xl font-bold mb-2">FULL CONTROL INCOGNITO MODE</CardTitle>
-                  <p className="text-muted-foreground text-sm">Manage ID entry, pay cover, set your bar budget, and access the bar—all through one secure, disposable QR code. Complete user control.</p>
+                  <EyeOff className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3">FULL CONTROL INCOGNITO MODE</CardTitle>
+                  <p className="text-muted-foreground text-base">Manage ID entry, pay cover, pay your tabs through QR code, set your bar budget, and access the bar—all through one secure, disposable QR code. Complete user control.</p>
                 </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={250}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <ShieldCheck className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-xl font-bold mb-2">INVISIBLE DATA</CardTitle>
-                  <p className="text-muted-foreground text-sm">Your health details are protected by <strong className="text-foreground">Zero-Trust Encryption</strong>—only the compliance badge status is ever shared. HIPAA/GDPR compliant security.</p>
+                  <ShieldCheck className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3">INVISIBLE DATA</CardTitle>
+                  <p className="text-muted-foreground text-base">Your health details are protected by <strong className="text-foreground">Zero-Trust Encryption</strong>—only the compliance badge status is ever shared. HIPAA/GDPR compliant security.</p>
                 </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={300}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <ScanLine className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-xl font-bold mb-2">INSTANT QR VERIFICATION</CardTitle>
-                  <p className="text-muted-foreground text-sm">Rapid, discreet status check ensures zero awkward conversations and frictionless entry/access at any verified venue.</p>
+                  <ScanLine className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3">INSTANT QR VERIFICATION</CardTitle>
+                  <p className="text-muted-foreground text-base">Rapid, discreet status check ensures zero awkward conversations and frictionless entry/access at any verified venue.</p>
                 </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={350}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <FlaskConical className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-xl font-bold mb-2">PROVEN STATUS</CardTitle>
-                  <p className="text-muted-foreground text-sm">Results backed by real-time integration with our certified clinical lab network, ensuring verifiable health status.</p>
+                  <FlaskConical className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3">PROVEN STATUS</CardTitle>
+                  <p className="text-muted-foreground text-base">Results backed by real-time integration with our certified clinical lab network, ensuring verifiable health status.</p>
                 </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={400}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <Globe className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-xl font-bold mb-2">TRUSTED EVERYWHERE</CardTitle>
-                  <p className="text-muted-foreground text-sm">Accepted by <strong className="text-foreground">Corporate Compliance, High-Value Asset Managers (Exotic Rentals), and Premier Nightlife Venues</strong> globally.</p>
+                  <Globe className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3">TRUSTED EVERYWHERE</CardTitle>
+                  <p className="text-muted-foreground text-base">Accepted by <strong className="text-foreground">Corporate Compliance, High-Value Asset Managers (Exotic Rentals), and Premier Nightlife Venues</strong> globally.</p>
                 </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={450}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <Users className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-xl font-bold mb-2">DYNAMIC PEER SHARING</CardTitle>
-                  <p className="text-muted-foreground text-sm">Securely share your verified status with peers and authorized partners—expanding trust within your immediate circle.</p>
+                  <Users className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3">DYNAMIC PEER SHARING</CardTitle>
+                  <p className="text-muted-foreground text-base">Securely share your verified status with peers and authorized partners—expanding trust within your immediate circle.</p>
                 </Card>
               </ScrollReveal>
             </div>
@@ -404,22 +404,22 @@ const Index = () => {
         <section className="py-8 md:py-10 px-4">
           <div className="container mx-auto max-w-5xl px-4">
             <ScrollReveal direction="up" delay={100}>
-              <div className="p-6 bg-muted/70 border border-chart-5/50 rounded-lg shadow-xl" style={{ boxShadow: '0 25px 50px -12px hsl(var(--chart-5) / 0.2)' }}>
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-6">The Clean Check Enterprise Guarantee: Unlocking Zero-Trust Compliance</h3>
+              <div className="p-8 bg-muted/70 border border-chart-5/50 rounded-lg shadow-xl" style={{ boxShadow: '0 25px 50px -12px hsl(var(--chart-5) / 0.2)' }}>
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">The Clean Check Enterprise Guarantee: Unlocking Zero-Trust Compliance</h3>
                 
                 <div className="grid md:grid-cols-3 gap-6">
                   <div>
-                    <span className="text-chart-5 text-lg font-semibold block mb-1" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>API-FIRST SECURITY & FINTECH</span>
-                    <p className="text-muted-foreground text-sm">We utilize <strong className="text-foreground">Zero-Trust architecture</strong> and <strong className="text-foreground">RESTful API endpoints</strong> engineered for high-availability and real-time data synchronization with your existing HRIS or POS systems.</p>
+                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>API-FIRST SECURITY & FINTECH</span>
+                    <p className="text-muted-foreground text-base">We utilize <strong className="text-foreground">Zero-Trust architecture</strong> and <strong className="text-foreground">RESTful API endpoints</strong> engineered for high-availability and real-time data synchronization with your existing HRIS or POS systems.</p>
                   </div>
                   <div>
-                    <span className="text-chart-5 text-lg font-semibold block mb-1" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>HIPAA, GDPR & ASSET SHIELD</span>
-                    <p className="text-muted-foreground text-sm">Comprehensive end-to-end encryption ensures strict <strong className="text-foreground">HIPAA and GDPR compliance</strong>, legally shielding your organization against health and data liability in all jurisdictions.</p>
+                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>HIPAA, GDPR & ASSET SHIELD</span>
+                    <p className="text-muted-foreground text-base">Comprehensive end-to-end encryption ensures strict <strong className="text-foreground">HIPAA and GDPR compliance</strong>, legally shielding your organization against health and data liability in all jurisdictions.</p>
                   </div>
                   <div>
-                    <span className="text-chart-5 text-lg font-semibold block mb-1" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>MARKET INTELLIGENCE & ACQUISITION</span>
-                    <p className="text-muted-foreground text-sm">Instantly access pre-built marketing assets, competitive data sheets, and pitch decks to support your sales efforts. We help you acquire business.</p>
-                    <Link to="/competitive-scorecard" className="inline-block mt-2 text-chart-4 hover:text-foreground transition-colors text-sm font-medium">
+                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>MARKET INTELLIGENCE & ACQUISITION</span>
+                    <p className="text-muted-foreground text-base">Instantly access pre-built marketing assets, competitive data sheets, and pitch decks to support your sales efforts. We help you acquire business.</p>
+                    <Link to="/competitive-scorecard" className="inline-block mt-2 text-chart-4 hover:text-foreground transition-colors text-base font-medium">
                       Grab Sales Assets (Market Comparisons, Pitch Decks) →
                     </Link>
                   </div>
@@ -436,7 +436,7 @@ const Index = () => {
             {/* Pricing Cards */}
             <ScrollReveal direction="up" delay={200}>
               <div className="mb-8 md:mb-12">
-                <h3 className="text-xl md:text-2xl font-bold text-center mb-3 md:mb-4 bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent px-4">💳 Membership Pricing - Click to Select</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-center mb-3 md:mb-4 bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent px-4">💳 Membership Pricing - Click to Select</h3>
                 <div className="flex justify-center mb-4 md:mb-6">
                   <div className="relative group">
                     <div className="absolute inset-0 bg-accent/40 blur-xl rounded-lg animate-pulse"></div>

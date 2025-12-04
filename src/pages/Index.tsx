@@ -148,11 +148,11 @@ const Index = () => {
               </p>
               {/* Glowing Beta Button */}
               <div className="relative mt-3">
-                <div className="absolute inset-0 bg-green-500/60 blur-xl rounded-full animate-pulse"></div>
-                <div className="absolute inset-0 bg-green-400/40 blur-2xl rounded-full animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+                <div className="absolute inset-0 bg-green-500/30 blur-xl rounded-full animate-[pulse_4s_ease-in-out_infinite]"></div>
+                <div className="absolute inset-0 bg-green-400/20 blur-2xl rounded-full animate-[pulse_5s_ease-in-out_infinite]"></div>
                 <Button
                   onClick={scrollToGetStarted}
-                  className="relative px-6 py-2 h-auto bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 hover:from-green-500 hover:via-emerald-400 hover:to-green-500 text-white font-bold text-sm tracking-wide rounded-full border border-green-400/50 shadow-[0_0_20px_rgba(34,197,94,0.6),0_0_40px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.8),0_0_60px_rgba(34,197,94,0.4)] transition-all duration-300 animate-[pulse_2s_ease-in-out_infinite]"
+                  className="relative px-6 py-2 h-auto bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 hover:from-green-500 hover:via-emerald-400 hover:to-green-500 text-white font-bold text-sm tracking-wide rounded-full border border-green-400/50 shadow-[0_0_15px_rgba(34,197,94,0.4),0_0_30px_rgba(34,197,94,0.2)] hover:shadow-[0_0_25px_rgba(34,197,94,0.6),0_0_50px_rgba(34,197,94,0.3)] transition-all duration-300 animate-[pulse_4s_ease-in-out_infinite]"
                 >
                   <span className="flex items-center gap-2">
                     ⚡ Beta Version ⚡

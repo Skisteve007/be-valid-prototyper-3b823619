@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.submit-partner-application]
 verify_jwt = false
+
+[functions.calculate-nightly-commissions]
+verify_jwt = false

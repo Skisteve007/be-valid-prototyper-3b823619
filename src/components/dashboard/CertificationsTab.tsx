@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Plus, Award, FileText, Eye, X, Trash2, AlertTriangle, Camera } from "lucide-react";
+import { Loader2, Plus, Award, FileText, Eye, X, Trash2, AlertTriangle, Camera, Upload } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 
@@ -329,14 +329,19 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
             <form onSubmit={handleAddCertification} className="space-y-3">
               <div className="space-y-1.5">
                 <Label htmlFor="document-file" className="text-sm">Select Files *</Label>
-                <Input
-                  id="document-file"
-                  type="file"
-                  accept="image/*,.pdf,.doc,.docx"
-                  onChange={handleFileChange}
-                  multiple
-                  className="cursor-pointer text-sm"
-                />
+                <div className="flex flex-col gap-2">
+                  <input
+                    id="document-file"
+                    type="file"
+                    accept="image/*,.pdf,.doc,.docx"
+                    onChange={handleFileChange}
+                    multiple
+                    className="block w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 cursor-pointer"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Accepted: Images, PDF, DOC files
+                  </p>
+                </div>
               </div>
               
               {documentFiles.length > 0 && (
@@ -414,14 +419,24 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                 </div>
               )}
 
-              <Button type="submit" disabled={saving || uploading || documentFiles.length === 0} className="w-full mt-4">
+              <Button 
+                type="submit" 
+                disabled={saving || uploading || documentFiles.length === 0} 
+                className="w-full mt-4 h-12 text-base font-semibold bg-green-600 hover:bg-green-700"
+              >
                 {saving || uploading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                     Uploading {documentFiles.length} file(s)...
                   </>
                 ) : (
-                  `Upload ${documentFiles.length > 0 ? documentFiles.length : ''} Document${documentFiles.length !== 1 ? 's' : ''}`
+                  <>
+                    <Upload className="mr-2 h-5 w-5" />
+                    {documentFiles.length > 0 
+                      ? `Upload ${documentFiles.length} Document${documentFiles.length !== 1 ? 's' : ''}`
+                      : 'Select Files First'
+                    }
+                  </>
                 )}
               </Button>
             </form>

@@ -354,15 +354,29 @@ export const PersonalInfoSection = ({
                 </div>
               </>
             ) : (
-              <div className="flex-1">
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  disabled={uploadingImage}
-                  className="max-w-xs"
-                />
-                {uploadingImage && <p className="text-sm text-muted-foreground mt-1">Uploading...</p>}
+              <div className="flex-1 flex flex-col items-center justify-center gap-4 py-4">
+                <div className="p-6 border-2 border-dashed border-blue-400/50 rounded-xl bg-blue-500/5 hover:bg-blue-500/10 transition-colors">
+                  <div className="flex flex-col items-center gap-3">
+                    <Camera className="h-12 w-12 text-blue-500" />
+                    <p className="text-sm font-medium text-center">Upload a Profile Photo</p>
+                    <p className="text-xs text-muted-foreground text-center">Required to complete your profile</p>
+                    <Button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploadingImage}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      {uploadingImage ? (
+                        <>Uploading...</>
+                      ) : (
+                        <>
+                          <Upload className="w-4 h-4 mr-2" />
+                          Choose Photo
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
               </div>
             )}
             </div>

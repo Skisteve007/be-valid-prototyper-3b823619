@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Globe, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,57 +15,62 @@ declare global {
   }
 }
 
-function initGoogleTranslate() {
-  // Define the callback BEFORE loading the script
-  (window as any).googleTranslateElementInit = function () {
-    if (window.google && window.google.translate) {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: "en",
-          includedLanguages: "en,es,ru,he,pt,ro,ht",
-          autoDisplay: false,
-        },
-        "google_translate_element"
-      );
-      console.log("[LanguageSelector] Google Translate initialized");
-    }
-  };
-
-  // Load the Google Translate script once
-  if (!document.getElementById("google-translate-script")) {
-    const script = document.createElement("script");
-    script.id = "google-translate-script";
-    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    script.async = true;
-    document.body.appendChild(script);
-  }
-}
-
 interface LanguageSelectorProps {
   className?: string;
 }
 
 export function LanguageSelector({ className }: LanguageSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const initialized = useRef(false);
 
   useEffect(() => {
-    initGoogleTranslate();
+    // Create a hidden container in the body for Google Translate
+    let hiddenContainer = document.getElementById("google_translate_hidden");
+    if (!hiddenContainer) {
+      hiddenContainer = document.createElement("div");
+      hiddenContainer.id = "google_translate_hidden";
+      hiddenContainer.innerHTML = '<div id="google_translate_element"></div>';
+      hiddenContainer.style.position = "absolute";
+      hiddenContainer.style.top = "-9999px";
+      hiddenContainer.style.left = "-9999px";
+      document.body.appendChild(hiddenContainer);
+    }
+
+    // Define the callback BEFORE loading the script
+    if (!window.googleTranslateElementInit) {
+      (window as any).googleTranslateElementInit = function () {
+        if (window.google && window.google.translate) {
+          new window.google.translate.TranslateElement(
+            {
+              pageLanguage: "en",
+              includedLanguages: "en,es,ru,he,pt,ro,ht",
+              autoDisplay: false,
+            },
+            "google_translate_element"
+          );
+          console.log("[LanguageSelector] Google Translate initialized");
+        }
+      };
+    }
+
+    // Load the Google Translate script once
+    if (!document.getElementById("google-translate-script")) {
+      const script = document.createElement("script");
+      script.id = "google-translate-script";
+      script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      document.body.appendChild(script);
+    }
   }, []);
 
-  // Re-initialize widget when dropdown opens (in case it wasn't ready before)
+  // When dropdown opens, move the Google Translate content into our dropdown
   useEffect(() => {
-    if (isOpen && window.google?.translate?.TranslateElement) {
-      const container = document.getElementById("google_translate_element");
-      // Only reinitialize if container is empty
-      if (container && !container.hasChildNodes()) {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: "en",
-            includedLanguages: "en,es,ru,he,pt,ro,ht",
-            autoDisplay: false,
-          },
-          "google_translate_element"
-        );
+    if (isOpen && containerRef.current) {
+      const googleElement = document.getElementById("google_translate_element");
+      if (googleElement && googleElement.parentElement?.id === "google_translate_hidden") {
+        containerRef.current.appendChild(googleElement);
+        initialized.current = true;
       }
     }
   }, [isOpen]);
@@ -84,14 +89,14 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
-        className="w-56 max-h-64 bg-popover border border-border shadow-lg z-[100] p-2"
+        className="w-56 bg-popover border border-border shadow-lg z-[100] p-3"
       >
-        <div className="text-xs font-semibold text-muted-foreground mb-1">
+        <div className="text-xs font-semibold text-muted-foreground mb-2">
           🌐 Select Language
         </div>
         <div
-          id="google_translate_element"
-          className="text-[11px] leading-tight [&_.goog-te-combo]:w-full [&_.goog-te-combo]:p-2 [&_.goog-te-combo]:border [&_.goog-te-combo]:border-border [&_.goog-te-combo]:rounded-md [&_.goog-te-combo]:bg-background [&_.goog-te-combo]:text-foreground"
+          ref={containerRef}
+          className="[&_.goog-te-gadget]:!font-sans [&_.goog-te-combo]:w-full [&_.goog-te-combo]:p-2 [&_.goog-te-combo]:border [&_.goog-te-combo]:border-border [&_.goog-te-combo]:rounded-md [&_.goog-te-combo]:bg-background [&_.goog-te-combo]:text-foreground [&_.goog-te-gadget-simple]:!bg-transparent [&_.goog-te-gadget-simple]:!border-0 [&>span]:!hidden"
         />
       </DropdownMenuContent>
     </DropdownMenu>

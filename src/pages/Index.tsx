@@ -243,9 +243,29 @@ const Index = () => {
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 tracking-tight leading-tight text-foreground">
                 CLEAN CHECK: INSTANT ACCESS. ZERO DOUBT.
               </h1>
-              <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-6">
+              <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-4">
                 Your Key to Seamless Control and QR Verified Status in a Second.
               </h2>
+              
+              {/* Trust Badges */}
+              <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
+                  <ShieldCheck className="h-4 w-4 text-emerald-500" />
+                  <span className="text-xs md:text-sm font-semibold text-emerald-500">HIPAA Compliant</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-500/10 border border-violet-500/30 rounded-full">
+                  <Lock className="h-4 w-4 text-violet-500" />
+                  <span className="text-xs md:text-sm font-semibold text-violet-500">Bank-Grade Security</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-sky-500/10 border border-sky-500/30 rounded-full">
+                  <Globe className="h-4 w-4 text-sky-500" />
+                  <span className="text-xs md:text-sm font-semibold text-sky-500">SOC 2 Type II</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-full">
+                  <Zap className="h-4 w-4 text-amber-500" />
+                  <span className="text-xs md:text-sm font-semibold text-amber-500">99.9% Uptime</span>
+                </div>
+              </div>
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>

@@ -29,7 +29,9 @@ import CompetitiveScorecard from "./pages/CompetitiveScorecard";
 import VenueOperatorPortal from "./pages/VenueOperatorPortal";
 import PitchDeck from "./pages/PitchDeck";
 import ApiDocs from "./pages/ApiDocs";
+import SecurityCompliance from "./pages/SecurityCompliance";
 import NotFound from "./pages/NotFound";
+import { CurrencyProvider } from "./providers/CurrencyProvider";
 import { AgeGate } from "./components/AgeGate";
 import Footer from "./components/Footer";
 
@@ -37,10 +39,11 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+    <CurrencyProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
         <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
           <Routes>
             <Route path="/" element={<AgeGate><Index /></AgeGate>} />
@@ -70,13 +73,15 @@ const App = () => (
           <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
           <Route path="/pitch-deck" element={<PitchDeck />} />
           <Route path="/api-docs" element={<ApiDocs />} />
+          <Route path="/security-compliance" element={<SecurityCompliance />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>
           <Footer />
         </div>
-      </BrowserRouter>
-    </TooltipProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </CurrencyProvider>
   </QueryClientProvider>
 );
 

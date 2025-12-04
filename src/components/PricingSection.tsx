@@ -1,4 +1,25 @@
+import { useCurrency, SUPPORTED_CURRENCIES } from '@/hooks/useCurrency';
+import { CurrencySelector } from './CurrencySelector';
+
+// Base prices in USD
+const PRICES = {
+  singleBiMonthly: 19.50,
+  coupleBiMonthly: 34.50,
+  singleAnnual: 64.50,
+  coupleAnnual: 109.50,
+  // Original prices for strikethrough
+  originalSingleBiMonthly: 39.00,
+  originalCoupleBiMonthly: 69.00,
+  originalSingleAnnual: 129.00,
+  originalCoupleAnnual: 219.00,
+};
+
 export const PricingSection = () => {
+  const { currency, formatPrice, convertPrice } = useCurrency();
+
+  // PayPal always processes in USD, but we show converted prices for display
+  const getDisplayPrice = (usdPrice: number) => formatPrice(usdPrice);
+  
   return (
     <>
       <style>{`
@@ -9,15 +30,15 @@ export const PricingSection = () => {
           padding: 20px;
         }
         .pricing-card {
-          border: 1px solid #ddd;
+          border: 1px solid hsl(var(--border));
           border-radius: 12px;
           padding: 20px;
-          background: white;
+          background: hsl(var(--card));
           box-shadow: 0 4px 6px rgba(0,0,0,0.1);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          min-height: 280px;
+          min-height: 320px;
           position: relative;
           overflow: hidden;
         }
@@ -35,7 +56,7 @@ export const PricingSection = () => {
         }
         .original-price {
           font-size: 1.1em;
-          color: #999;
+          color: hsl(var(--muted-foreground));
           text-decoration: line-through;
           margin-bottom: 4px;
         }
@@ -46,7 +67,7 @@ export const PricingSection = () => {
         }
         .sub-text {
           font-size: 0.9em;
-          color: #666;
+          color: hsl(var(--muted-foreground));
         }
         .pricing-card button {
           cursor: pointer;
@@ -55,7 +76,23 @@ export const PricingSection = () => {
         .pricing-card button:active {
           transform: scale(0.98);
         }
+        .currency-note {
+          font-size: 0.75em;
+          color: hsl(var(--muted-foreground));
+          margin-top: 8px;
+        }
+        .pricing-card h3 {
+          color: hsl(var(--foreground));
+        }
       `}</style>
+
+      {/* Currency Selector */}
+      <div className="flex justify-center mb-6">
+        <div className="flex items-center gap-3 px-4 py-2 bg-muted/50 rounded-full">
+          <span className="text-sm text-muted-foreground">Display prices in:</span>
+          <CurrencySelector />
+        </div>
+      </div>
 
       <div className="pricing-grid-container">
 
@@ -64,19 +101,27 @@ export const PricingSection = () => {
           <div className="promo-badge">50% OFF</div>
           <div>
             <h3>Single Member</h3>
-            <div className="original-price">$39.00</div>
-            <div className="price-text">$19.50</div>
+            <div className="original-price">{getDisplayPrice(PRICES.originalSingleBiMonthly)}</div>
+            <div className="price-text">{getDisplayPrice(PRICES.singleBiMonthly)}</div>
             <div className="sub-text">Billed every 60 days</div>
             <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 Limited Time Offer!</p>
+            {currency.code !== 'USD' && (
+              <p className="currency-note">
+                * Charged as ${PRICES.singleBiMonthly.toFixed(2)} USD
+              </p>
+            )}
           </div>
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Cloud Hosting - Single (Bi-Monthly) - 50% OFF" />
+            <input type="hidden" name="item_name" value="Clean Check - Single Member (Bi-Monthly) - 50% OFF" />
             <input type="hidden" name="a3" value="19.50" />
             <input type="hidden" name="p3" value="2" />
             <input type="hidden" name="t3" value="M" />
             <input type="hidden" name="src" value="1" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
             <button 
               type="submit" 
               style={{
@@ -92,7 +137,7 @@ export const PricingSection = () => {
                 position: 'relative'
               }}
             >
-              SELECT PLAN ($19.50)
+              SELECT PLAN ({getDisplayPrice(PRICES.singleBiMonthly)})
             </button>
           </form>
         </div>
@@ -102,19 +147,27 @@ export const PricingSection = () => {
           <div className="promo-badge">50% OFF</div>
           <div>
             <h3>Joint Couple</h3>
-            <div className="original-price">$69.00</div>
-            <div className="price-text">$34.50</div>
+            <div className="original-price">{getDisplayPrice(PRICES.originalCoupleBiMonthly)}</div>
+            <div className="price-text">{getDisplayPrice(PRICES.coupleBiMonthly)}</div>
             <div className="sub-text">Billed every 60 days</div>
             <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 Limited Time Offer!</p>
+            {currency.code !== 'USD' && (
+              <p className="currency-note">
+                * Charged as ${PRICES.coupleBiMonthly.toFixed(2)} USD
+              </p>
+            )}
           </div>
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Cloud Hosting - Joint (Bi-Monthly) - 50% OFF" />
+            <input type="hidden" name="item_name" value="Clean Check - Joint Couple (Bi-Monthly) - 50% OFF" />
             <input type="hidden" name="a3" value="34.50" />
             <input type="hidden" name="p3" value="2" />
             <input type="hidden" name="t3" value="M" />
             <input type="hidden" name="src" value="1" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
+            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
             <button 
               type="submit" 
               style={{
@@ -130,7 +183,7 @@ export const PricingSection = () => {
                 position: 'relative'
               }}
             >
-              SELECT PLAN ($34.50)
+              SELECT PLAN ({getDisplayPrice(PRICES.coupleBiMonthly)})
             </button>
           </form>
         </div>
@@ -140,16 +193,24 @@ export const PricingSection = () => {
           <div className="promo-badge">50% OFF</div>
           <div>
             <h3 style={{ color: '#D4AF37' }}>Single 1-Year Pass</h3>
-            <div className="original-price">$129.00</div>
-            <div className="price-text">$64.50</div>
+            <div className="original-price">{getDisplayPrice(PRICES.originalSingleAnnual)}</div>
+            <div className="price-text">{getDisplayPrice(PRICES.singleAnnual)}</div>
             <div className="sub-text">One-time payment</div>
             <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 Limited Time Offer!</p>
+            {currency.code !== 'USD' && (
+              <p className="currency-note">
+                * Charged as ${PRICES.singleAnnual.toFixed(2)} USD
+              </p>
+            )}
           </div>
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Cloud Hosting - Single (1 Year) - 50% OFF" />
+            <input type="hidden" name="item_name" value="Clean Check - Single 1-Year Pass - 50% OFF" />
             <input type="hidden" name="amount" value="64.50" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=annual" />
+            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
             <button 
               type="submit" 
               style={{
@@ -165,7 +226,7 @@ export const PricingSection = () => {
                 position: 'relative'
               }}
             >
-              BUY 1-YEAR ($64.50)
+              BUY 1-YEAR ({getDisplayPrice(PRICES.singleAnnual)})
             </button>
           </form>
         </div>
@@ -175,16 +236,24 @@ export const PricingSection = () => {
           <div className="promo-badge">50% OFF</div>
           <div>
             <h3 style={{ color: '#D4AF37' }}>Couple 1-Year Pass</h3>
-            <div className="original-price">$219.00</div>
-            <div className="price-text">$109.50</div>
+            <div className="original-price">{getDisplayPrice(PRICES.originalCoupleAnnual)}</div>
+            <div className="price-text">{getDisplayPrice(PRICES.coupleAnnual)}</div>
             <div className="sub-text">One-time payment</div>
             <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 Limited Time Offer!</p>
+            {currency.code !== 'USD' && (
+              <p className="currency-note">
+                * Charged as ${PRICES.coupleAnnual.toFixed(2)} USD
+              </p>
+            )}
           </div>
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Cloud Hosting - Joint (1 Year) - 50% OFF" />
+            <input type="hidden" name="item_name" value="Clean Check - Couple 1-Year Pass - 50% OFF" />
             <input type="hidden" name="amount" value="109.50" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=annual-couple" />
+            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
             <button 
               type="submit" 
               style={{
@@ -200,7 +269,7 @@ export const PricingSection = () => {
                 position: 'relative'
               }}
             >
-              BUY 1-YEAR ($109.50)
+              BUY 1-YEAR ({getDisplayPrice(PRICES.coupleAnnual)})
             </button>
           </form>
         </div>

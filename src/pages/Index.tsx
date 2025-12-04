@@ -240,12 +240,18 @@ const Index = () => {
             <ScrollReveal direction="fade" delay={100}>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-[0.25em] md:tracking-[0.35em]">
                 <span 
-                  className="bg-gradient-to-r from-primary via-primary to-primary bg-clip-text text-transparent"
-                  style={{ filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
+                  className="bg-gradient-to-b from-primary via-primary to-primary/70 bg-clip-text text-transparent"
+                  style={{ 
+                    filter: 'drop-shadow(0 0 30px hsl(var(--primary) / 0.9)) drop-shadow(0 0 60px hsl(var(--primary) / 0.5)) drop-shadow(0 6px 12px rgba(0,0,0,0.6))',
+                    WebkitTextStroke: '0.5px hsl(var(--primary))'
+                  }}
                 >Clean </span>
                 <span 
-                  className="bg-gradient-to-br from-accent via-accent to-accent bg-clip-text text-transparent"
-                  style={{ filter: 'drop-shadow(0 0 25px hsl(var(--accent) / 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
+                  className="bg-gradient-to-b from-accent via-accent to-accent/70 bg-clip-text text-transparent"
+                  style={{ 
+                    filter: 'drop-shadow(0 0 30px hsl(var(--accent) / 0.9)) drop-shadow(0 0 60px hsl(var(--accent) / 0.5)) drop-shadow(0 6px 12px rgba(0,0,0,0.6))',
+                    WebkitTextStroke: '0.5px hsl(var(--accent))'
+                  }}
                 >Check</span>
               </h1>
             </ScrollReveal>

@@ -13,7 +13,8 @@ import {
   Zap,
   QrCode,
   Shield,
-  Target
+  Target,
+  Briefcase
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -30,6 +31,7 @@ const navItems = [
   { id: "venues", label: "Venue Directory", icon: Globe },
   { id: "sales-team", label: "Sales Team", icon: DollarSign },
   { id: "lead-outreach", label: "Lead Outreach", icon: Target },
+  { id: "investor-crm", label: "Investor CRM", icon: Briefcase },
   { id: "quick-branding", label: "Fast Event Setup", icon: Zap },
   { id: "scanner", label: "QR Scanner", icon: QrCode },
 ];

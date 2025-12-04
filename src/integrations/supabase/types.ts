@@ -516,6 +516,7 @@ export type Database = {
           internal_name: string
           is_active: boolean
           updated_at: string
+          uploaded_video_url: string | null
           youtube_id: string
         }
         Insert: {
@@ -524,6 +525,7 @@ export type Database = {
           internal_name: string
           is_active?: boolean
           updated_at?: string
+          uploaded_video_url?: string | null
           youtube_id: string
         }
         Update: {
@@ -532,6 +534,7 @@ export type Database = {
           internal_name?: string
           is_active?: boolean
           updated_at?: string
+          uploaded_video_url?: string | null
           youtube_id?: string
         }
         Relationships: []

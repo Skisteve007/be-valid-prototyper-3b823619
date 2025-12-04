@@ -14,21 +14,21 @@ const Footer = () => {
   };
   
   return (
-    <footer className="w-full mt-auto border-t border-black/5 dark:border-slate-600 dark:bg-slate-800/90" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)' }}>
+    <footer className="w-full mt-auto border-t border-black/5 dark:border-slate-400 dark:bg-slate-300" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)' }}>
       <div className="container mx-auto px-4 py-4">
         {/* Compact Legal Section */}
-        <div className="text-[11px] leading-relaxed space-y-1.5 mb-3 text-black dark:text-slate-200">
+        <div className="text-[11px] leading-relaxed space-y-1.5 mb-3 text-black dark:text-black">
           <p>© 2025 Clean Check. All Rights Reserved. Clean Check™, The Safety Shield™, Dual-Verification System™ pending trademarks. Protected under U.S. Copyright Law.</p>
           <p><strong>Disclaimer:</strong> Clean Check is a technology platform, not a healthcare provider. Services are for informational purposes only. All testing by independent CLIA-certified labs. HIPAA-compliant. We do not sell PHI.</p>
         </div>
 
         {/* Links & Compliance Row */}
-        <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] border-t border-black/20 dark:border-slate-600 pt-3 text-black dark:text-slate-200">
-          <Link to="/terms" className="hover:opacity-80 transition-colors underline text-black dark:text-slate-200">Terms</Link>
+        <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] border-t border-black/20 dark:border-slate-400 pt-3 text-black dark:text-black">
+          <Link to="/terms" className="hover:opacity-80 transition-colors underline text-black dark:text-black">Terms</Link>
           <span>|</span>
-          <Link to="/privacy" className="hover:opacity-80 transition-colors underline text-black dark:text-slate-200">Privacy</Link>
+          <Link to="/privacy" className="hover:opacity-80 transition-colors underline text-black dark:text-black">Privacy</Link>
           <span>|</span>
-          <Link to="/refund" className="hover:opacity-80 transition-colors underline text-black dark:text-slate-200">Refund</Link>
+          <Link to="/refund" className="hover:opacity-80 transition-colors underline text-black dark:text-black">Refund</Link>
           <span>•</span>
           <span>🔞 18 U.S.C. § 2257: All users 18+</span>
           <span className="ml-auto">

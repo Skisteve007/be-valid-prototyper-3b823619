@@ -703,7 +703,7 @@ const Index = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-accent mb-3">$249.00</div>
-                    <Link to="/dashboard">
+                    <Link to="/health-panel-order">
                       <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                         Order Health Kit
                       </Button>

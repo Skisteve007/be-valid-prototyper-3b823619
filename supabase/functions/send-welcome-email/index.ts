@@ -200,7 +200,7 @@ const handler = async (req: Request): Promise<Response> => {
               </div>
               
               <center>
-                <a href="${Deno.env.get('VITE_SUPABASE_URL')}/auth/v1/verify?token=placeholder" class="cta-button">
+                <a href="https://cleancheck.fit/dashboard" class="cta-button">
                   Access Your Dashboard
                 </a>
               </center>

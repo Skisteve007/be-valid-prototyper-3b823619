@@ -240,7 +240,7 @@ const Index = () => {
             <ScrollReveal direction="fade" delay={100}>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-[0.25em] md:tracking-[0.35em]">
                 <span 
-                  className="bg-gradient-to-br from-primary via-primary to-primary-foreground bg-clip-text text-transparent"
+                  className="bg-gradient-to-r from-primary via-primary to-primary bg-clip-text text-transparent"
                   style={{ filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
                 >Clean </span>
                 <span 

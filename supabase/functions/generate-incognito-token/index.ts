@@ -155,6 +155,29 @@ serve(async (req: Request) => {
       });
 
       console.log('Promoter commission credited:', PROMOTER_SHARE);
+
+      // 5b. Start Promoter Session for Gross Revenue Tracking
+      if (venue_id) {
+        const { data: sessionData, error: sessionError } = await supabase
+          .from('promoter_sessions')
+          .insert({
+            transaction_id: transaction.id,
+            promoter_id,
+            venue_id,
+            user_id,
+            session_start: new Date().toISOString(),
+            commission_rate: 0.05, // 5% default gross revenue commission
+            commission_status: 'tracking'
+          })
+          .select()
+          .single();
+
+        if (sessionError) {
+          console.error('Failed to start promoter session:', sessionError);
+        } else {
+          console.log('Promoter session started for gross revenue tracking:', sessionData.id);
+        }
+      }
     }
 
     // 6. Add venue to payout ledger and update earnings

@@ -939,6 +939,76 @@ export type Database = {
           },
         ]
       }
+      promoter_sessions: {
+        Row: {
+          commission_earned: number | null
+          commission_rate: number | null
+          commission_status: string | null
+          created_at: string
+          gross_revenue_tracked: number | null
+          id: string
+          promoter_id: string
+          session_end: string | null
+          session_start: string
+          transaction_id: string | null
+          updated_at: string
+          user_id: string
+          venue_id: string
+        }
+        Insert: {
+          commission_earned?: number | null
+          commission_rate?: number | null
+          commission_status?: string | null
+          created_at?: string
+          gross_revenue_tracked?: number | null
+          id?: string
+          promoter_id: string
+          session_end?: string | null
+          session_start?: string
+          transaction_id?: string | null
+          updated_at?: string
+          user_id: string
+          venue_id: string
+        }
+        Update: {
+          commission_earned?: number | null
+          commission_rate?: number | null
+          commission_status?: string | null
+          created_at?: string
+          gross_revenue_tracked?: number | null
+          id?: string
+          promoter_id?: string
+          session_end?: string | null
+          session_start?: string
+          transaction_id?: string | null
+          updated_at?: string
+          user_id?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promoter_sessions_promoter_id_fkey"
+            columns: ["promoter_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "promoter_sessions_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "incognito_transactions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "promoter_sessions_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       qr_access_tokens: {
         Row: {
           created_at: string
@@ -1355,6 +1425,51 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      venue_gross_revenue_log: {
+        Row: {
+          amount: number
+          id: string
+          pos_reference: string | null
+          recorded_at: string
+          revenue_type: string
+          session_id: string
+          venue_id: string
+        }
+        Insert: {
+          amount: number
+          id?: string
+          pos_reference?: string | null
+          recorded_at?: string
+          revenue_type?: string
+          session_id: string
+          venue_id: string
+        }
+        Update: {
+          amount?: number
+          id?: string
+          pos_reference?: string | null
+          recorded_at?: string
+          revenue_type?: string
+          session_id?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_gross_revenue_log_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "promoter_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "venue_gross_revenue_log_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       venue_operators: {
         Row: {

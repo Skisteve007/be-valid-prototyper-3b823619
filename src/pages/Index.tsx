@@ -238,7 +238,7 @@ const Index = () => {
         <section className="py-6 md:py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto text-center max-w-4xl">
             <ScrollReveal direction="fade" delay={100}>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-[0.15em] md:tracking-[0.2em]">
                 <span 
                   className="bg-gradient-to-br from-primary-foreground via-primary to-muted-foreground bg-clip-text text-transparent"
                   style={{ filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
@@ -251,7 +251,7 @@ const Index = () => {
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>
-              <p className="text-2xl md:text-3xl lg:text-4xl mb-2 md:mb-3 font-black italic">
+              <p className="text-2xl md:text-3xl lg:text-4xl mb-2 md:mb-3 font-black italic tracking-[0.12em] md:tracking-[0.18em]">
                 <span 
                   className="bg-gradient-to-br from-primary via-primary to-primary bg-clip-text text-transparent"
                   style={{ filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}

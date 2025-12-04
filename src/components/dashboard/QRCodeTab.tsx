@@ -518,10 +518,11 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
 
       {/* SECTION B: STATIC INFO CARDS - NON-INTERACTIVE */}
       {/* These are physically separated from the main card to prevent any inherited click behaviors */}
-      <div className="space-y-3 max-w-md mx-auto">
+      <div className="flex flex-col md:flex-row gap-3 max-w-2xl mx-auto">
         {/* BORDER COLOR KEY - HARDCODED STATIC DIV */}
         <div 
           data-static-info="true"
+          className="flex-1"
           style={{ 
             padding: '0.75rem',
             borderRadius: '0.5rem',
@@ -572,6 +573,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         {lastDocumentDate && (
           <div 
             data-static-info="true"
+            className="flex-1"
             style={{ 
               padding: '0.75rem',
               borderRadius: '0.5rem',

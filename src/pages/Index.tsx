@@ -419,25 +419,6 @@ const Index = () => {
 
               <ScrollReveal direction="up" delay={300}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-secondary/30 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-secondary/40 shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-secondary/10 rounded-lg">
-                          <Zap className="h-6 w-6 text-secondary" />
-                        </div>
-                        <CardTitle>Instant Activation</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Account active immediately after payment</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={350}>
-                <div className="relative h-full">
                   <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-lg"></div>
                   <div className="absolute inset-0 bg-accent/20 blur-xl rounded-lg animate-pulse"></div>
                   <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-accent/40 shadow-[0_0_30px_hsl(var(--accent)/0.4)] hover:shadow-[0_0_40px_hsl(var(--accent)/0.6)]">
@@ -450,7 +431,26 @@ const Index = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">QR codes, galleries, Member Profile secrets 😈</p>
+                      <p className="text-muted-foreground">QR codes, Galleries, Member Profile Secrets 😈</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal direction="up" delay={350}>
+                <div className="relative h-full">
+                  <div className="absolute inset-0 bg-secondary/30 blur-2xl rounded-lg"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-secondary/40 shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)]">
+                    <CardHeader>
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-2 bg-secondary/10 rounded-lg">
+                          <Zap className="h-6 w-6 text-secondary" />
+                        </div>
+                        <CardTitle>Instant Activation</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Account active immediately after payment</p>
                     </CardContent>
                   </Card>
                 </div>

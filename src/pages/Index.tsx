@@ -665,7 +665,7 @@ const Index = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-2xl mx-auto">
               <ScrollReveal direction="up" delay={200}>
-                <Card className="relative shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)] border-2 border-secondary/30 transition-all">
+                <Card className="relative shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)] border-2 border-secondary/30 transition-all h-full">
                   <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2 mb-2">
@@ -687,7 +687,7 @@ const Index = () => {
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={250}>
-                <Card className="relative shadow-[0_0_30px_hsl(var(--accent)/0.4)] hover:shadow-[0_0_40px_hsl(var(--accent)/0.6)] border-2 border-accent/30 transition-all">
+                <Card className="relative shadow-[0_0_30px_hsl(var(--accent)/0.4)] hover:shadow-[0_0_40px_hsl(var(--accent)/0.6)] border-2 border-accent/30 transition-all h-full">
                   <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2 mb-2">
@@ -697,7 +697,8 @@ const Index = () => {
                     <CardDescription>Lab-Certified</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-accent mb-3">$249.00</div>
+                    <div className="text-2xl font-bold text-accent mb-1">$249.00</div>
+                    <div className="text-xs text-muted-foreground mb-3">One-Time Payment</div>
                     <Link to="/health-panel-order">
                       <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                         Order Health Kit

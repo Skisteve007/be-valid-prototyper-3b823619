@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle } from "lucide-react";
+import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import SponsorUpload from "./SponsorUpload";
@@ -27,6 +27,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const [lastDocumentDate, setLastDocumentDate] = useState<Date | null>(null);
   const [documentAge, setDocumentAge] = useState<number>(0);
   const [hasDocuments, setHasDocuments] = useState<boolean | null>(null);
+  const [hasProfileImage, setHasProfileImage] = useState<boolean | null>(null);
   const [wakeLock, setWakeLock] = useState<any>(null);
   const [accessToken, setAccessToken] = useState<string>("");
   const [profileId, setProfileId] = useState<string>("");
@@ -57,10 +58,10 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const loadProfileAndDocuments = async () => {
     try {
       console.log("QRCodeTab: Loading profile and documents");
-      // Load profile to get status color and ID
+      // Load profile to get status color, ID, and profile image
       const { data: profileData } = await supabase
         .from("profiles")
-        .select("id, status_color")
+        .select("id, status_color, profile_image_url")
         .eq("user_id", userId)
         .single();
       
@@ -68,9 +69,12 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         console.log("QRCodeTab: Loaded status color:", profileData.status_color);
         setStatusColor((profileData.status_color as "green" | "yellow" | "red" | "gray") || "green");
         setProfileId(profileData.id);
+        setHasProfileImage(!!profileData.profile_image_url);
         
         // Generate access token for this profile
         await generateAccessToken(profileData.id);
+      } else {
+        setHasProfileImage(false);
       }
 
       // Load most recent document
@@ -322,27 +326,61 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         userId={userId}
       />
 
-      {/* Document Upload Prompt - Shows when no documents are uploaded */}
-      {hasDocuments === false && (
+      {/* Profile Photo Required Prompt - Shows when no profile image */}
+      {hasProfileImage === false && (
+        <Card className="border-2 border-red-500/50 bg-red-50 dark:bg-red-950/20">
+          <CardContent className="pt-6">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="p-3 bg-red-500/20 rounded-full">
+                <Camera className="h-8 w-8 text-red-600 dark:text-red-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg text-red-800 dark:text-red-200 flex items-center justify-center gap-2">
+                  <AlertTriangle className="h-5 w-5" />
+                  Step 1: Upload Profile Photo
+                </h3>
+                <p className="text-sm text-red-700 dark:text-red-300 mt-2 max-w-md">
+                  A profile photo is required before you can use your QR code. 
+                  This helps verify your identity when others scan your code.
+                </p>
+              </div>
+              <Button 
+                onClick={() => {
+                  const searchParams = new URLSearchParams(window.location.search);
+                  searchParams.set('tab', 'profile');
+                  window.history.replaceState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
+                  window.location.reload();
+                }}
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
+                <Camera className="h-4 w-4 mr-2" />
+                Go to Profile Tab
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Document Upload Prompt - Shows when profile image exists but no documents */}
+      {hasProfileImage === true && hasDocuments === false && (
         <Card className="border-2 border-amber-500/50 bg-amber-50 dark:bg-amber-950/20">
           <CardContent className="pt-6">
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="p-3 bg-amber-500/20 rounded-full">
-                <FileText className="h-8 w-8 text-amber-600 dark:text-amber-400" />
+                <Upload className="h-8 w-8 text-amber-600 dark:text-amber-400" />
               </div>
               <div>
                 <h3 className="font-semibold text-lg text-amber-800 dark:text-amber-200 flex items-center justify-center gap-2">
                   <AlertTriangle className="h-5 w-5" />
-                  Upload Your Documents First
+                  Step 2: Upload Health Document
                 </h3>
                 <p className="text-sm text-amber-700 dark:text-amber-300 mt-2 max-w-md">
-                  Your QR code works, but uploading a health document makes your profile more trustworthy. 
+                  Upload a health document to complete your profile. 
                   Documents you upload will be visible when others scan your QR code.
                 </p>
               </div>
               <Button 
                 onClick={() => {
-                  // Navigate to documents tab
                   const searchParams = new URLSearchParams(window.location.search);
                   searchParams.set('tab', 'certifications');
                   window.history.replaceState({}, '', `${window.location.pathname}?${searchParams.toString()}`);

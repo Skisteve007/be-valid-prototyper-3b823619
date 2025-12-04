@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Plus, Award, FileText, Eye, X, Trash2 } from "lucide-react";
+import { Loader2, Plus, Award, FileText, Eye, X, Trash2, AlertTriangle, Camera } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 
@@ -38,6 +38,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   const [viewerMemberId, setViewerMemberId] = useState<string>("");
   const [uploadProgress, setUploadProgress] = useState(0);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [hasProfileImage, setHasProfileImage] = useState(false);
   const [newCert, setNewCert] = useState({
     title: "",
     issuer: "",
@@ -49,7 +50,23 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
     loadCertifications();
     loadDisclaimer();
     loadViewerMemberId();
+    loadProfileImage();
   }, [userId]);
+
+  const loadProfileImage = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("profile_image_url")
+        .eq("user_id", userId)
+        .single();
+
+      if (error) throw error;
+      setHasProfileImage(!!data?.profile_image_url);
+    } catch (error: any) {
+      console.error("Failed to load profile image status");
+    }
+  };
 
   const loadDisclaimer = async () => {
     try {
@@ -249,6 +266,41 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
     );
   }
 
+  // Show prompt if no profile image
+  if (!hasProfileImage) {
+    return (
+      <div className="space-y-4 py-4">
+        <Card className="border-amber-500 bg-amber-50 dark:bg-amber-950/30">
+          <CardContent className="py-6">
+            <div className="flex flex-col items-center text-center gap-4">
+              <div className="p-3 bg-amber-100 dark:bg-amber-900/50 rounded-full">
+                <Camera className="h-8 w-8 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-amber-900 dark:text-amber-100 mb-2">
+                  Profile Photo Required
+                </h3>
+                <p className="text-sm text-amber-700 dark:text-amber-300 mb-4">
+                  Please upload a profile photo in the Profile tab before adding documents. This is required for verification.
+                </p>
+                <Button 
+                  onClick={() => {
+                    const params = new URLSearchParams(window.location.search);
+                    params.set("tab", "profile");
+                    window.location.search = params.toString();
+                  }}
+                  className="bg-amber-600 hover:bg-amber-700"
+                >
+                  Go to Profile Tab
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4 py-4">
       <div className="flex justify-between items-center">
@@ -263,7 +315,11 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
               Add Document
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-h-[90vh] overflow-y-auto">
+          <DialogContent 
+            className="max-h-[90vh] overflow-y-auto"
+            onPointerDownOutside={(e) => e.preventDefault()}
+            onInteractOutside={(e) => e.preventDefault()}
+          >
             <DialogHeader>
               <DialogTitle>Add Documents</DialogTitle>
               <DialogDescription className="text-xs">

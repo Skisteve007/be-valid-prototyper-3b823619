@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.notify-partner-application]
 verify_jwt = false
+
+[functions.submit-partner-application]
+verify_jwt = false

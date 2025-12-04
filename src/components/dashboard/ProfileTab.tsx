@@ -869,17 +869,17 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       </div>
 
       {/* Floating Save Button */}
-      <div className="fixed bottom-6 right-24 z-50 flex flex-col items-end gap-2">
+      <div className="fixed bottom-4 right-36 z-50 flex flex-col items-end gap-2">
         {!profileImageUrl ? (
           <div className="text-right">
-            <p className="text-sm text-red-500 font-semibold mb-2 bg-red-50 dark:bg-red-950/30 px-4 py-2 rounded-lg border border-red-500">
-              ⚠️ Profile photo required to save
+            <p className="text-xs text-red-500 font-semibold mb-2 bg-red-50 dark:bg-red-950/30 px-3 py-1.5 rounded-lg border border-red-500">
+              ⚠️ Profile photo required
             </p>
             <Button 
               type="button"
-              size="lg"
+              size="sm"
               disabled
-              className="shadow-2xl opacity-50 cursor-not-allowed"
+              className="shadow-lg opacity-50 cursor-not-allowed"
             >
               Save
             </Button>
@@ -888,7 +888,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           <Button 
             type="submit" 
             disabled={saving}
-            size="lg"
+            size="sm"
             className={`shadow-2xl transition-all duration-300 ${
               saveSuccess
                 ? 'bg-green-600 hover:bg-green-600 text-white ring-4 ring-green-400/50 shadow-green-500/60'

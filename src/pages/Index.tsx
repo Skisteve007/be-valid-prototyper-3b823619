@@ -404,22 +404,22 @@ const Index = () => {
         <section className="py-8 md:py-10 px-4">
           <div className="container mx-auto max-w-5xl px-4">
             <ScrollReveal direction="up" delay={100}>
-              <div className="p-6 bg-card/70 border border-chart-5/50 rounded-lg shadow-xl shadow-chart-5/20">
+              <div className="p-6 bg-muted/70 border border-chart-5/50 rounded-lg shadow-xl" style={{ boxShadow: '0 25px 50px -12px hsl(var(--chart-5) / 0.2)' }}>
                 <h3 className="text-xl md:text-2xl font-bold text-foreground mb-6">The Clean Check Enterprise Guarantee: Unlocking Zero-Trust Compliance</h3>
                 
                 <div className="grid md:grid-cols-3 gap-6">
                   <div>
-                    <span className="text-chart-5 text-lg font-semibold block mb-1">API-FIRST SECURITY & FINTECH</span>
+                    <span className="text-chart-5 text-lg font-semibold block mb-1" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>API-FIRST SECURITY & FINTECH</span>
                     <p className="text-muted-foreground text-sm">We utilize <strong className="text-foreground">Zero-Trust architecture</strong> and <strong className="text-foreground">RESTful API endpoints</strong> engineered for high-availability and real-time data synchronization with your existing HRIS or POS systems.</p>
                   </div>
                   <div>
-                    <span className="text-chart-5 text-lg font-semibold block mb-1">HIPAA, GDPR & ASSET SHIELD</span>
+                    <span className="text-chart-5 text-lg font-semibold block mb-1" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>HIPAA, GDPR & ASSET SHIELD</span>
                     <p className="text-muted-foreground text-sm">Comprehensive end-to-end encryption ensures strict <strong className="text-foreground">HIPAA and GDPR compliance</strong>, legally shielding your organization against health and data liability in all jurisdictions.</p>
                   </div>
                   <div>
-                    <span className="text-chart-5 text-lg font-semibold block mb-1">MARKET INTELLIGENCE & ACQUISITION</span>
+                    <span className="text-chart-5 text-lg font-semibold block mb-1" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>MARKET INTELLIGENCE & ACQUISITION</span>
                     <p className="text-muted-foreground text-sm">Instantly access pre-built marketing assets, competitive data sheets, and pitch decks to support your sales efforts. We help you acquire business.</p>
-                    <Link to="/competitive-scorecard" className="inline-block mt-2 text-accent hover:text-foreground transition-colors text-sm font-medium">
+                    <Link to="/competitive-scorecard" className="inline-block mt-2 text-chart-4 hover:text-foreground transition-colors text-sm font-medium">
                       Grab Sales Assets (Market Comparisons, Pitch Decks) →
                     </Link>
                   </div>

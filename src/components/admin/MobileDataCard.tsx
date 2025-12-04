@@ -9,6 +9,7 @@ interface MobileDataCardProps {
     text: string;
     variant?: "default" | "secondary" | "destructive" | "outline";
     className?: string;
+    onClick?: () => void;
   };
   details?: Array<{ label: string; value: string | ReactNode }>;
   actions?: ReactNode;
@@ -37,7 +38,8 @@ export const MobileDataCard = ({
           {badge && (
             <Badge 
               variant={badge.variant || "default"} 
-              className={`shrink-0 ${badge.className || ""}`}
+              className={`shrink-0 ${badge.onClick ? 'cursor-pointer hover:opacity-80' : ''} ${badge.className || ""}`}
+              onClick={badge.onClick}
             >
               {badge.text}
             </Badge>

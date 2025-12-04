@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useNavigate, Link } from "react-router-dom";
-import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle, Package, Plane, ShieldCheck } from "lucide-react";
+import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle, Package, Plane, ShieldCheck, Eye, EyeOff, ScanLine, FlaskConical, Users } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -240,43 +240,17 @@ const Index = () => {
         <section className="py-6 md:py-8 px-4 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto text-center max-w-4xl">
             <ScrollReveal direction="fade" delay={100}>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 tracking-[0.25em] md:tracking-[0.35em]">
-                <span 
-                  className="bg-gradient-to-b from-primary via-primary to-primary/70 bg-clip-text text-transparent"
-                  style={{ 
-                    filter: 'drop-shadow(0 0 30px hsl(var(--primary) / 0.9)) drop-shadow(0 0 60px hsl(var(--primary) / 0.5)) drop-shadow(0 6px 12px rgba(0,0,0,0.6))',
-                    WebkitTextStroke: '0.5px hsl(var(--primary))'
-                  }}
-                >Clean </span>
-                <span 
-                  className="bg-gradient-to-b from-accent via-accent to-accent/70 bg-clip-text text-transparent"
-                  style={{ 
-                    filter: 'drop-shadow(0 0 30px hsl(var(--accent) / 0.9)) drop-shadow(0 0 60px hsl(var(--accent) / 0.5)) drop-shadow(0 6px 12px rgba(0,0,0,0.6))',
-                    WebkitTextStroke: '0.5px hsl(var(--accent))'
-                  }}
-                >Check</span>
+              <h1 className="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-2 tracking-tight leading-tight text-foreground">
+                CLEAN CHECK: INSTANT ACCESS. ZERO DOUBT.
               </h1>
+              <h2 className="text-lg md:text-xl font-medium text-muted-foreground mb-6">
+                Your Key to Seamless Control and QR Verified Status in a Second.
+              </h2>
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>
-              <p className="text-2xl md:text-3xl lg:text-4xl mb-2 md:mb-3 font-black italic tracking-[0.15em] md:tracking-[0.2em]">
-                <span 
-                  className="bg-gradient-to-br from-primary via-primary to-primary bg-clip-text text-transparent"
-                  style={{ filter: 'drop-shadow(0 0 20px hsl(var(--primary) / 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
-                >One Scan.</span>{" "}
-                <span 
-                  className="bg-gradient-to-br from-accent via-accent to-accent bg-clip-text text-transparent"
-                  style={{ filter: 'drop-shadow(0 0 20px hsl(var(--accent) / 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
-                >Zero Doubt.</span>
-              </p>
-              <p className="text-xl md:text-2xl lg:text-3xl mb-4 italic text-muted-foreground">
-                Instantly verify sexual health and toxicology results with one secure badge.
-              </p>
-              <p className="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-foreground italic">
-                The Trusted Peer-to-Peer Share.
-              </p>
-              <p className="text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 text-muted-foreground">
-                Connect with confidence. Share your status securely, with the option to add Lab-Certified Toxicology & Health results whenever you need the ultimate green light.
+              <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-12 max-w-3xl mx-auto">
+                The Integrated Gateway to Verified Trust. Our <strong className="text-foreground">Zero-Trust QR-Scan System</strong> delivers secure, real-time results for <strong className="text-foreground">Comprehensive Wellness (Health & Toxicology)</strong> directly to your device. Connect with confidence, knowing your status is verified for all affiliated <strong className="text-foreground">lifestyle networks, high-value asset management, and compliant corporate environments.</strong>
               </p>
             </ScrollReveal>
             
@@ -371,127 +345,84 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Benefits Section */}
+        {/* Features Section */}
         <section className="py-6 px-4 bg-gradient-to-b from-muted/30 via-secondary/10 to-muted/30">
-          <div className="container mx-auto max-w-6xl px-4">
-            <ScrollReveal direction="up" delay={100}>
-              <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-br from-muted-foreground via-secondary to-primary bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-[0.25em] px-8">Why Join Clean Check?</h3>
-            </ScrollReveal>
-            <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="container mx-auto max-w-5xl px-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               <ScrollReveal direction="up" delay={200}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-primary/30 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-primary/40 shadow-[0_0_30px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-primary/10 rounded-lg">
-                          <CheckCircle className="h-6 w-6 text-primary" />
-                        </div>
-                        <CardTitle>Verified Health Status</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Share Your Clean Status With A Lab-Certified Certification*</p>
-                    </CardContent>
+                <div className="relative h-full group">
+                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
+                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
+                    <div className="mb-3">
+                      <EyeOff className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
+                    </div>
+                    <CardTitle className="text-xl font-bold mb-2">FULL CONTROL INCOGNITO MODE</CardTitle>
+                    <p className="text-muted-foreground text-sm">Manage ID entry, pay cover, set your bar budget, and access the bar—all through one secure, disposable QR code. Complete user control.</p>
                   </Card>
                 </div>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={250}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-lg"></div>
-                  <div className="absolute inset-0 bg-accent/20 blur-xl rounded-lg animate-pulse"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-accent/40 shadow-[0_0_30px_hsl(var(--accent)/0.4)] hover:shadow-[0_0_40px_hsl(var(--accent)/0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-accent/10 rounded-lg">
-                          <Zap className="h-6 w-6 text-accent" />
-                        </div>
-                        <CardTitle>Instant - No Awkward Conversations</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Quick Reveal Through Your Unique QR Code</p>
-                    </CardContent>
+                <div className="relative h-full group">
+                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
+                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
+                    <div className="mb-3">
+                      <ShieldCheck className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
+                    </div>
+                    <CardTitle className="text-xl font-bold mb-2">INVISIBLE DATA</CardTitle>
+                    <p className="text-muted-foreground text-sm">Your health details are protected by <strong>Zero-Trust Encryption</strong>—only the compliance badge status is ever shared. HIPAA/GDPR compliant security.</p>
                   </Card>
                 </div>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={300}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-lg"></div>
-                  <div className="absolute inset-0 bg-accent/20 blur-xl rounded-lg animate-pulse"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-accent/40 shadow-[0_0_30px_hsl(var(--accent)/0.4)] hover:shadow-[0_0_40px_hsl(var(--accent)/0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-accent/10 rounded-lg">
-                          <Star className="h-6 w-6 text-accent" />
-                        </div>
-                        <CardTitle>Premium Features</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">QR Codes, Galleries, Member Profile Secrets 😈</p>
-                    </CardContent>
+                <div className="relative h-full group">
+                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
+                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
+                    <div className="mb-3">
+                      <ScanLine className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
+                    </div>
+                    <CardTitle className="text-xl font-bold mb-2">INSTANT QR VERIFICATION</CardTitle>
+                    <p className="text-muted-foreground text-sm">Rapid, discreet status check ensures zero awkward conversations and frictionless entry/access at any verified venue.</p>
                   </Card>
                 </div>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={350}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-secondary/30 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-secondary/40 shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-secondary/10 rounded-lg">
-                          <Zap className="h-6 w-6 text-secondary" />
-                        </div>
-                        <CardTitle>Instant Activation</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Account Active Immediately After Payment</p>
-                    </CardContent>
+                <div className="relative h-full group">
+                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
+                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
+                    <div className="mb-3">
+                      <FlaskConical className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
+                    </div>
+                    <CardTitle className="text-xl font-bold mb-2">PROVEN STATUS</CardTitle>
+                    <p className="text-muted-foreground text-sm">Results backed by real-time integration with our certified clinical lab network, ensuring verifiable health status.</p>
                   </Card>
                 </div>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={400}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-secondary/30 blur-2xl rounded-lg"></div>
-                  <div className="absolute inset-0 bg-secondary/20 blur-xl rounded-lg animate-pulse"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-secondary/40 shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-secondary/10 rounded-lg">
-                          <Globe className="h-6 w-6 text-secondary" />
-                        </div>
-                        <CardTitle>Universal Membership</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Works On All Other Sites That Employ Clean Check Services</p>
-                    </CardContent>
+                <div className="relative h-full group">
+                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
+                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
+                    <div className="mb-3">
+                      <Globe className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
+                    </div>
+                    <CardTitle className="text-xl font-bold mb-2">TRUSTED EVERYWHERE</CardTitle>
+                    <p className="text-muted-foreground text-sm">Accepted by <strong>Corporate Compliance, High-Value Asset Managers (Exotic Rentals), and Premier Nightlife Venues</strong> globally.</p>
                   </Card>
                 </div>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={450}>
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-lg"></div>
-                  <div className="absolute inset-0 bg-accent/20 blur-xl rounded-lg animate-pulse"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-accent/40 shadow-[0_0_30px_hsl(var(--accent)/0.4)] hover:shadow-[0_0_40px_hsl(var(--accent)/0.6)]">
-                    <CardHeader>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-accent/10 rounded-lg">
-                          <Lock className="h-6 w-6 text-accent" />
-                        </div>
-                        <CardTitle>Private & Secure</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Your Data Encrypted And Protected</p>
-                    </CardContent>
+                <div className="relative h-full group">
+                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
+                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
+                    <div className="mb-3">
+                      <Users className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
+                    </div>
+                    <CardTitle className="text-xl font-bold mb-2">DYNAMIC PEER SHARING</CardTitle>
+                    <p className="text-muted-foreground text-sm">Securely share your verified status with peers and authorized partners—expanding trust within your immediate circle.</p>
                   </Card>
                 </div>
               </ScrollReveal>

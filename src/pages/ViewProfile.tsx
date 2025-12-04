@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Heart, User, CheckCircle2, XCircle } from "lucide-react";
+import { Loader2, Heart, User, CheckCircle2, XCircle, Clock, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 
 interface Document {
@@ -43,7 +43,10 @@ const ViewProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tokenExpiresAt, setTokenExpiresAt] = useState<string | null>(null);
+  const [viewExpiresAt, setViewExpiresAt] = useState<string | null>(null);
   const [isIncognitoMode, setIsIncognitoMode] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState<number>(0);
+  const [isExpired, setIsExpired] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -71,7 +74,10 @@ const ViewProfile = () => {
         if (data?.profile) {
           setProfile(data.profile);
           setTokenExpiresAt(data.tokenExpiresAt);
+          setViewExpiresAt(data.viewExpiresAt);
           setIsIncognitoMode(data.isIncognitoMode || false);
+        } else if (data?.error) {
+          setError(data.error);
         } else {
           setError("Profile not found");
         }
@@ -86,6 +92,39 @@ const ViewProfile = () => {
 
     fetchProfile();
   }, [token]);
+
+  // Countdown timer effect
+  useEffect(() => {
+    if (!viewExpiresAt) return;
+
+    const calculateTimeRemaining = () => {
+      const now = new Date().getTime();
+      const expiresAt = new Date(viewExpiresAt).getTime();
+      const remaining = Math.max(0, expiresAt - now);
+      return Math.floor(remaining / 1000);
+    };
+
+    // Initial calculation
+    setTimeRemaining(calculateTimeRemaining());
+
+    const interval = setInterval(() => {
+      const remaining = calculateTimeRemaining();
+      setTimeRemaining(remaining);
+      
+      if (remaining <= 0) {
+        setIsExpired(true);
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [viewExpiresAt]);
+
+  const formatTimeRemaining = useCallback((seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }, []);
 
   if (loading) {
     return (
@@ -105,6 +144,33 @@ const ViewProfile = () => {
           <CardContent>
             <p className="text-center text-muted-foreground mb-4">
               {error || "Unable to load profile"}
+            </p>
+            <Link
+              to="/"
+              className="block w-full text-center py-2 px-4 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+            >
+              Go to Home
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // Show expired screen when viewing time is up
+  if (isExpired) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <Card className="w-full max-w-md border-destructive">
+          <CardHeader>
+            <CardTitle className="text-center text-destructive flex items-center justify-center gap-2">
+              <AlertTriangle className="h-6 w-6" />
+              Viewing Time Expired
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="text-muted-foreground mb-4">
+              Your 3-minute viewing window has ended. For privacy and security, this profile is no longer accessible.
             </p>
             <Link
               to="/"
@@ -138,11 +204,38 @@ const ViewProfile = () => {
     return new Date(dateString).toLocaleDateString();
   };
 
+  // Countdown Timer Component
+  const CountdownTimer = () => (
+    <Card className={`sticky top-4 z-50 ${timeRemaining <= 60 ? 'bg-destructive/10 border-destructive animate-pulse' : 'bg-amber-500/10 border-amber-500'}`}>
+      <CardContent className="py-3">
+        <div className="flex items-center justify-center gap-3">
+          <Clock className={`h-5 w-5 ${timeRemaining <= 60 ? 'text-destructive' : 'text-amber-500'}`} />
+          <div className="text-center">
+            <p className={`text-sm font-medium ${timeRemaining <= 60 ? 'text-destructive' : 'text-amber-700 dark:text-amber-400'}`}>
+              Viewing Time Remaining
+            </p>
+            <p className={`text-2xl font-bold font-mono ${timeRemaining <= 60 ? 'text-destructive' : 'text-amber-600 dark:text-amber-500'}`}>
+              {formatTimeRemaining(timeRemaining)}
+            </p>
+          </div>
+        </div>
+        {timeRemaining <= 60 && (
+          <p className="text-xs text-center text-destructive mt-2">
+            Profile access will end soon!
+          </p>
+        )}
+      </CardContent>
+    </Card>
+  );
+
   // If incognito mode, show limited event scanning view
   if (isIncognitoMode) {
     return (
       <div className="min-h-screen bg-background p-4 md:p-8">
         <div className="max-w-2xl mx-auto space-y-4 md:space-y-6">
+          {/* Countdown Timer */}
+          <CountdownTimer />
+
           <Card className="shadow-[0_0_25px_10px_rgba(107,114,128,0.4)]">
             <CardHeader className="pb-4">
               <CardTitle className="text-center text-xl md:text-2xl">Event Check-In</CardTitle>
@@ -176,16 +269,6 @@ const ViewProfile = () => {
             </CardContent>
           </Card>
 
-          {tokenExpiresAt && (
-            <Card className="bg-muted">
-              <CardContent className="pt-6">
-                <p className="text-sm text-center text-muted-foreground">
-                  This access expires on {new Date(tokenExpiresAt).toLocaleString()}
-                </p>
-              </CardContent>
-            </Card>
-          )}
-
           <Card className="bg-primary/5 border-primary/20">
             <CardContent className="pt-6">
               <p className="text-sm text-center text-muted-foreground">
@@ -202,6 +285,9 @@ const ViewProfile = () => {
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-4 md:space-y-6">
+        {/* Countdown Timer */}
+        <CountdownTimer />
+
         {/* Header with status */}
         <Card className={getStatusColorClass(profile.status_color)}>
           <CardContent className="pt-4 md:pt-6">
@@ -358,17 +444,6 @@ const ViewProfile = () => {
             </p>
           </CardContent>
         </Card>
-
-        {/* Token expiration notice */}
-        {tokenExpiresAt && (
-          <Card className="bg-muted">
-            <CardContent className="pt-6">
-              <p className="text-sm text-center text-muted-foreground">
-                This profile access expires on {new Date(tokenExpiresAt).toLocaleString()}
-              </p>
-            </CardContent>
-          </Card>
-        )}
       </div>
     </div>
   );

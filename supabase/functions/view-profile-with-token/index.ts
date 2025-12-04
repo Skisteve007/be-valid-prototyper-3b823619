@@ -42,23 +42,41 @@ serve(async (req) => {
       );
     }
 
-    // Check if token is expired
+    // Check if token is expired (6 hour window for QR code)
     const now = new Date();
     const expiresAt = new Date(tokenData.expires_at);
     if (now > expiresAt) {
       console.log('Token expired:', token);
       return new Response(
-        JSON.stringify({ error: 'Token has expired' }),
+        JSON.stringify({ error: 'This QR code has expired. Please request a new one.' }),
         { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Mark token as used (first time only)
-    if (!tokenData.used_at) {
+    // Check if viewing window has expired (3 minutes after first view)
+    const VIEW_WINDOW_MINUTES = 3;
+    let viewExpiresAt: Date;
+    
+    if (tokenData.used_at) {
+      // Token was already used - check if 3 minute window expired
+      const usedAt = new Date(tokenData.used_at);
+      viewExpiresAt = new Date(usedAt.getTime() + VIEW_WINDOW_MINUTES * 60 * 1000);
+      
+      if (now > viewExpiresAt) {
+        console.log('View window expired for token:', token);
+        return new Response(
+          JSON.stringify({ error: 'Viewing time has expired. This profile can no longer be accessed.' }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    } else {
+      // First time viewing - mark token as used
       await supabase
         .from('qr_access_tokens')
         .update({ used_at: now.toISOString() })
         .eq('id', tokenData.id);
+      
+      viewExpiresAt = new Date(now.getTime() + VIEW_WINDOW_MINUTES * 60 * 1000);
     }
 
     // Fetch complete profile data with lock states
@@ -106,6 +124,7 @@ serve(async (req) => {
         JSON.stringify({ 
           profile: limitedProfile,
           tokenExpiresAt: tokenData.expires_at,
+          viewExpiresAt: viewExpiresAt.toISOString(),
           isIncognitoMode: true
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -195,6 +214,7 @@ serve(async (req) => {
       JSON.stringify({ 
         profile: sharedProfile,
         tokenExpiresAt: tokenData.expires_at,
+        viewExpiresAt: viewExpiresAt.toISOString(),
         privacySettings: {
           emailShared: profile.email_shareable === true,
           referencesShared: profile.references_locked === false,

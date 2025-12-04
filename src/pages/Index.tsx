@@ -396,12 +396,12 @@ const Index = () => {
 
               <ScrollReveal direction="up" delay={300}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-primary/30 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-primary/40 shadow-[0_0_30px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)]">
+                  <div className="absolute inset-0 bg-secondary/30 blur-2xl rounded-lg"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-secondary/40 shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)]">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-primary/10 rounded-lg">
-                          <Zap className="h-6 w-6 text-primary" />
+                        <div className="p-2 bg-secondary/10 rounded-lg">
+                          <Zap className="h-6 w-6 text-secondary" />
                         </div>
                         <CardTitle>Instant Activation</CardTitle>
                       </div>
@@ -435,12 +435,13 @@ const Index = () => {
 
               <ScrollReveal direction="up" delay={400}>
                 <div className="relative h-full">
-                  <div className="absolute inset-0 bg-primary/30 blur-2xl rounded-lg"></div>
-                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-primary/40 shadow-[0_0_30px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)]">
+                  <div className="absolute inset-0 bg-secondary/30 blur-2xl rounded-lg"></div>
+                  <div className="absolute inset-0 bg-secondary/20 blur-xl rounded-lg animate-pulse"></div>
+                  <Card className="relative h-full hover:shadow-lg transition-shadow border-2 border-secondary/40 shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)]">
                     <CardHeader>
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-primary/10 rounded-lg">
-                          <Globe className="h-6 w-6 text-primary" />
+                        <div className="p-2 bg-secondary/10 rounded-lg">
+                          <Globe className="h-6 w-6 text-secondary" />
                         </div>
                         <CardTitle>Universal Membership</CardTitle>
                       </div>
@@ -563,14 +564,14 @@ const Index = () => {
                 </Card>
 
                 {/* Single 1-Year Pass */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--primary)/0.7)] border-2 border-primary/30 overflow-hidden">
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--secondary)/0.7)] border-2 border-secondary/30 overflow-hidden">
                   <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-destructive to-destructive text-destructive-foreground text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
-                  <div className="absolute inset-0 bg-primary/10 blur-xl rounded-lg -z-10"></div>
+                  <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div>
                       <div className="flex items-baseline gap-2 mb-1">
                         <span className="text-lg text-muted-foreground line-through">$129</span>
-                        <CardTitle className="text-3xl text-accent">$64.50</CardTitle>
+                        <CardTitle className="text-3xl text-secondary">$64.50</CardTitle>
                       </div>
                       <CardDescription className="text-base font-bold">Single One Year</CardDescription>
                     </div>
@@ -585,7 +586,7 @@ const Index = () => {
                       <input type="hidden" name="amount" value="64.50" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-                      <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm">
+                      <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-sm">
                         SELECT
                       </Button>
                     </form>
@@ -628,32 +629,32 @@ const Index = () => {
         </section>
 
         {/* Lab Kits Section */}
-        <section className="py-6 px-4 bg-gradient-to-b from-background via-primary/5 to-background">
+        <section className="py-6 px-4 bg-gradient-to-b from-background via-secondary/5 to-background">
           <div className="container mx-auto max-w-4xl px-4">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
+                <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-4 py-2 rounded-full mb-4">
                   <Package className="h-4 w-4" />
                   <span className="text-sm font-semibold">Lab Verification Kits</span>
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent">Upgrade to Lab-Certified Status</h3>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent">Upgrade to Lab-Certified Status</h3>
                 <p className="text-muted-foreground text-sm">Get professionally verified results shipped to your door</p>
               </div>
             </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-2xl mx-auto">
               <ScrollReveal direction="up" delay={200}>
-                <Card className="relative shadow-[0_0_30px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)] border-2 border-primary/30 transition-all">
-                  <div className="absolute inset-0 bg-primary/10 blur-xl rounded-lg -z-10"></div>
+                <Card className="relative shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)] border-2 border-secondary/30 transition-all">
+                  <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <Plane className="h-5 w-5 text-primary" />
+                      <Plane className="h-5 w-5 text-secondary" />
                       <CardTitle className="text-lg">Toxicology Kit</CardTitle>
                     </div>
                     <CardDescription>10-panel drug screening</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-primary mb-3">$89</div>
+                    <div className="text-2xl font-bold text-secondary mb-3">$89</div>
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
@@ -661,7 +662,7 @@ const Index = () => {
                       <input type="hidden" name="amount" value="89.00" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=tox-kit" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-                      <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                      <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
                         Order Tox Kit
                       </Button>
                     </form>
@@ -705,10 +706,10 @@ const Index = () => {
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-8">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-primary/10 blur-xl rounded-lg -z-10"></div>
-                  <Card id="get-started-form" className="scroll-mt-8 relative shadow-[0_0_40px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--primary)/0.7)] border-2 border-primary/30">
+                  <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
+                  <Card id="get-started-form" className="scroll-mt-8 relative shadow-[0_0_40px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--secondary)/0.7)] border-2 border-secondary/30">
                     <CardHeader>
-                      <CardTitle className="text-xl md:text-2xl bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent">Get Started</CardTitle>
+                      <CardTitle className="text-xl md:text-2xl bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent">Get Started</CardTitle>
                       <CardDescription className="text-sm">Both fields are required to proceed</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4 px-4 md:px-6">
@@ -737,7 +738,7 @@ const Index = () => {
                       </div>
                       <Button 
                         size="lg" 
-                        className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-[0_0_30px_hsl(var(--primary)/0.5),0_0_30px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.7),0_0_40px_hsl(var(--accent)/0.7)] transition-all min-h-[48px] py-4 touch-manipulation" 
+                        className="w-full bg-gradient-to-r from-primary via-secondary to-accent hover:from-primary/90 hover:via-secondary/90 hover:to-accent/90 text-primary-foreground shadow-[0_0_30px_hsl(var(--primary)/0.5),0_0_30px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.7),0_0_40px_hsl(var(--secondary)/0.7)] transition-all min-h-[48px] py-4 touch-manipulation" 
                         onClick={handleContinue}
                         disabled={!fullName || !email}
                       >
@@ -749,7 +750,7 @@ const Index = () => {
 
                 <p className="text-lg mt-6 mb-2">Automatic Approval! Your account will be activated instantly after payment.</p>
                 <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-primary" />
+                  <CheckCircle className="h-4 w-4 text-secondary" />
                   YOUR unique QR Code will be generated after membership payment
                 </p>
               </div>
@@ -762,11 +763,11 @@ const Index = () => {
           <div className="container mx-auto max-w-4xl px-4">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-6 md:mb-8">
-                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 md:px-4 py-2 rounded-full mb-2">
+                <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-3 md:px-4 py-2 rounded-full mb-2">
                   <HelpCircle className="h-3 w-3 md:h-4 md:w-4" />
-                  <span className="text-xs md:text-sm font-semibold bg-gradient-to-r from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent">Frequently Asked Questions</span>
+                  <span className="text-xs md:text-sm font-semibold bg-gradient-to-r from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent">Frequently Asked Questions</span>
                 </div>
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold"><span className="bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]">Got</span> <span className="bg-gradient-to-br from-muted-foreground via-accent to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--accent)/0.6)]">Questions</span><span className="bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]">?</span> <span className="bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]">We&apos;ve</span> <span className="bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]">Got</span> <span className="bg-gradient-to-br from-muted-foreground via-accent to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--accent)/0.6)]">Answers</span></h3>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold"><span className="bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]">Got</span> <span className="bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--secondary)/0.6)]">Questions</span><span className="bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]">?</span> <span className="bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--secondary)/0.6)]">We&apos;ve</span> <span className="bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--secondary)/0.6)]">Got</span> <span className="bg-gradient-to-br from-muted-foreground via-accent to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--accent)/0.6)]">Answers</span></h3>
               </div>
             </ScrollReveal>
 
@@ -775,7 +776,7 @@ const Index = () => {
                 <AccordionItem value="item-1" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-primary via-primary to-primary bg-clip-text text-transparent">
+                      <p className="text-base font-bold bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
                         How does Clean Check membership work?
                       </p>
                     </div>
@@ -788,7 +789,7 @@ const Index = () => {
                 <AccordionItem value="item-2" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
+                      <p className="text-base font-bold bg-gradient-to-r from-secondary via-secondary to-accent bg-clip-text text-transparent">
                         What's included in the membership?
                       </p>
                     </div>
@@ -801,7 +802,7 @@ const Index = () => {
                 <AccordionItem value="item-3" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-primary via-accent to-accent bg-clip-text text-transparent">
+                      <p className="text-base font-bold bg-gradient-to-r from-secondary via-accent to-accent bg-clip-text text-transparent">
                         Is my health information secure and private?
                       </p>
                     </div>
@@ -827,7 +828,7 @@ const Index = () => {
                 <AccordionItem value="item-5" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-accent via-accent to-accent bg-clip-text text-transparent">
+                      <p className="text-base font-bold bg-gradient-to-r from-accent via-secondary to-secondary bg-clip-text text-transparent">
                         What's the difference between Single and Joint/Couple memberships?
                       </p>
                     </div>
@@ -840,7 +841,7 @@ const Index = () => {
                 <AccordionItem value="item-6" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-accent via-accent to-accent bg-clip-text text-transparent">
+                      <p className="text-base font-bold bg-gradient-to-r from-secondary via-secondary to-primary bg-clip-text text-transparent">
                         Can I use Clean Check on multiple sites?
                       </p>
                     </div>
@@ -853,7 +854,7 @@ const Index = () => {
                 <AccordionItem value="item-7" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-accent via-accent to-accent bg-clip-text text-transparent">
+                      <p className="text-base font-bold bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
                         What if I need to update my health documents?
                       </p>
                     </div>
@@ -866,7 +867,7 @@ const Index = () => {
                 <AccordionItem value="item-8" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-accent via-accent to-accent bg-clip-text text-transparent">
+                      <p className="text-base font-bold bg-gradient-to-r from-secondary via-accent to-accent bg-clip-text text-transparent">
                         Are there any refunds?
                       </p>
                     </div>
@@ -881,7 +882,7 @@ const Index = () => {
         </section>
 
         {/* Payment Information */}
-        <section className="py-16 px-4 bg-gradient-to-br from-muted/30 via-accent/3 to-muted/30 border-y border-border/20">
+        <section className="py-16 px-4 bg-gradient-to-br from-muted/30 via-secondary/5 to-muted/30 border-y border-border/20">
           <div className="container mx-auto max-w-4xl">
             <h3 className="text-2xl font-bold mb-6 text-destructive">⚠️ Important Payment Information:</h3>
             <ul className="space-y-4 text-foreground">

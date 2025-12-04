@@ -155,7 +155,7 @@ const Index = () => {
                   className="relative px-6 py-2 h-auto bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 hover:from-green-500 hover:via-emerald-400 hover:to-green-500 text-white font-bold text-sm tracking-wide rounded-full border border-green-400/50 shadow-[0_0_20px_rgba(34,197,94,0.6),0_0_40px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.8),0_0_60px_rgba(34,197,94,0.4)] transition-all duration-300 animate-[pulse_2s_ease-in-out_infinite]"
                 >
                   <span className="flex items-center gap-2">
-                    ⚡ BETA - Try It Now ⚡
+                    ⚡ Beta Version ⚡
                   </span>
                 </Button>
               </div>

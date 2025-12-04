@@ -5,11 +5,9 @@ import {
   AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
@@ -56,22 +54,13 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
           </Label>
         </div>
 
-        <AlertDialogFooter className="flex-col sm:flex-col gap-3">
-          <AlertDialogAction
-            onClick={onVerify}
-            disabled={!agreed}
-            className="w-full h-14 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            ✅ I am 18+ (Enter)
-          </AlertDialogAction>
-          <Button
-            variant="outline"
-            onClick={onExit}
-            className="w-full h-14"
-          >
-            ❌ Exit
-          </Button>
-        </AlertDialogFooter>
+        <AlertDialogAction
+          onClick={onVerify}
+          disabled={!agreed}
+          className="w-full h-14 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          I am 18+ (Enter)
+        </AlertDialogAction>
       </AlertDialogContent>
     </AlertDialog>
   );

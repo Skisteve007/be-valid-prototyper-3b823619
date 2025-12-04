@@ -10,8 +10,9 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock } from "lucide-react";
+import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 import SponsorUpload from "./SponsorUpload";
 import LiabilityWaiverModal, { useWaiverStatus } from "./LiabilityWaiverModal";
 
@@ -20,10 +21,12 @@ interface QRCodeTabProps {
 }
 
 const QRCodeTab = ({ userId }: QRCodeTabProps) => {
+  const navigate = useNavigate();
   const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
   const [lastDocumentDate, setLastDocumentDate] = useState<Date | null>(null);
   const [documentAge, setDocumentAge] = useState<number>(0);
+  const [hasDocuments, setHasDocuments] = useState<boolean | null>(null);
   const [wakeLock, setWakeLock] = useState<any>(null);
   const [accessToken, setAccessToken] = useState<string>("");
   const [profileId, setProfileId] = useState<string>("");
@@ -79,6 +82,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         .limit(1);
 
       if (documents && documents.length > 0) {
+        setHasDocuments(true);
         const docDate = new Date(documents[0].created_at);
         setLastDocumentDate(docDate);
         
@@ -87,6 +91,8 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         const diffTime = Math.abs(now.getTime() - docDate.getTime());
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         setDocumentAge(diffDays);
+      } else {
+        setHasDocuments(false);
       }
     } catch (error: any) {
       console.error("Failed to load data:", error);
@@ -315,6 +321,42 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
         }}
         userId={userId}
       />
+
+      {/* Document Upload Prompt - Shows when no documents are uploaded */}
+      {hasDocuments === false && (
+        <Card className="border-2 border-amber-500/50 bg-amber-50 dark:bg-amber-950/20">
+          <CardContent className="pt-6">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="p-3 bg-amber-500/20 rounded-full">
+                <FileText className="h-8 w-8 text-amber-600 dark:text-amber-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg text-amber-800 dark:text-amber-200 flex items-center justify-center gap-2">
+                  <AlertTriangle className="h-5 w-5" />
+                  Upload Your Documents First
+                </h3>
+                <p className="text-sm text-amber-700 dark:text-amber-300 mt-2 max-w-md">
+                  Your QR code works, but uploading a health document makes your profile more trustworthy. 
+                  Documents you upload will be visible when others scan your QR code.
+                </p>
+              </div>
+              <Button 
+                onClick={() => {
+                  // Navigate to documents tab
+                  const searchParams = new URLSearchParams(window.location.search);
+                  searchParams.set('tab', 'certifications');
+                  window.history.replaceState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
+                  window.location.reload();
+                }}
+                className="bg-amber-600 hover:bg-amber-700 text-white"
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                Upload Documents Now
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* SECTION A: MAIN QR CODE CARD - INTERACTIVE */}
       <Card>

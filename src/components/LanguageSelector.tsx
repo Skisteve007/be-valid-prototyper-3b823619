@@ -1,29 +1,12 @@
-import { useState, useEffect } from "react";
-import { Globe, X, Check } from "lucide-react";
+import { useEffect } from "react";
+import { Globe, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-interface Language {
-  code: string;
-  flag: string;
-  nativeName: string;
-}
-
-// Supported languages matching memory: English, Spanish, Russian, Hebrew, Portuguese, Romanian, Haitian Creole
-const languages: Language[] = [
-  { code: "en", flag: "🇺🇸", nativeName: "English" },
-  { code: "es", flag: "🇪🇸", nativeName: "Español" },
-  { code: "ru", flag: "🇷🇺", nativeName: "Русский" },
-  { code: "he", flag: "🇮🇱", nativeName: "עברית" },
-  { code: "pt", flag: "🇧🇷", nativeName: "Português" },
-  { code: "ro", flag: "🇷🇴", nativeName: "Română" },
-  { code: "ht", flag: "🇭🇹", nativeName: "Kreyòl Ayisyen" },
-];
+import { useState } from "react";
 
 declare global {
   interface Window {
@@ -32,22 +15,8 @@ declare global {
   }
 }
 
-// Track if Google Translate is ready
-let googleTranslateReady = false;
-
-// Initialize Google Translate
 function initGoogleTranslate() {
-  // Create hidden translate element once
-  if (!document.getElementById("google_translate_element")) {
-    const div = document.createElement("div");
-    div.id = "google_translate_element";
-    div.style.position = "absolute";
-    div.style.top = "-9999px";
-    div.style.left = "-9999px";
-    document.body.appendChild(div);
-  }
-
-  // Define callback before loading script
+  // Define the callback BEFORE loading the script
   (window as any).googleTranslateElementInit = function () {
     if (window.google && window.google.translate) {
       new window.google.translate.TranslateElement(
@@ -58,12 +27,11 @@ function initGoogleTranslate() {
         },
         "google_translate_element"
       );
-      googleTranslateReady = true;
       console.log("[LanguageSelector] Google Translate initialized");
     }
   };
 
-  // Load script once
+  // Load the Google Translate script once
   if (!document.getElementById("google-translate-script")) {
     const script = document.createElement("script");
     script.id = "google-translate-script";
@@ -73,65 +41,14 @@ function initGoogleTranslate() {
   }
 }
 
-// Helper to apply language via .goog-te-combo
-function applyGoogleTranslateLanguage(langCode: string, attempts = 0) {
-  const maxAttempts = 30;
-
-  const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-
-  if (googleTranslateReady && combo) {
-    combo.value = langCode;
-    combo.dispatchEvent(new Event("change"));
-    console.log("[LanguageSelector] Language applied:", langCode);
-    return;
-  }
-
-  if (attempts < maxAttempts) {
-    setTimeout(() => applyGoogleTranslateLanguage(langCode, attempts + 1), 300);
-  } else {
-    console.warn("[LanguageSelector] Failed to apply language, combo not found");
-  }
-}
-
-// Set language using only localStorage + helper (no cookies, no reload)
-function setLanguage(langCode: string) {
-  // Save preference
-  localStorage.setItem("userLanguage", langCode);
-  // Apply via Google Translate combo with retry logic
-  applyGoogleTranslateLanguage(langCode);
-}
-
-// Get current language from localStorage only
-function getCurrentLanguage(): Language {
-  const saved = localStorage.getItem("userLanguage");
-  if (saved) {
-    const lang = languages.find(l => l.code === saved);
-    if (lang) return lang;
-  }
-  return languages[0]; // default English
-}
-
 interface LanguageSelectorProps {
   className?: string;
 }
 
 export function LanguageSelector({ className }: LanguageSelectorProps) {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(getCurrentLanguage);
-
   useEffect(() => {
     initGoogleTranslate();
-
-    const lang = getCurrentLanguage();
-    setCurrentLanguage(lang);
-    // After initialization, try to apply the stored language
-    applyGoogleTranslateLanguage(lang.code);
   }, []);
-
-  const handleLanguageChange = (language: Language) => {
-    if (currentLanguage.code === language.code) return;
-    setCurrentLanguage(language);
-    setLanguage(language.code);
-  };
 
   return (
     <DropdownMenu>
@@ -145,30 +62,17 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
           <Globe className="h-6 w-6 text-white drop-shadow-[0_0_4px_rgba(180,140,80,0.8)]" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent 
-        align="start" 
-        className="w-56 max-h-64 overflow-y-auto bg-popover border border-border shadow-lg z-[100] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-muted/30 [&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full"
+      <DropdownMenuContent
+        align="start"
+        className="w-56 max-h-64 bg-popover border border-border shadow-lg z-[100] p-2"
       >
-        <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground border-b border-border mb-1">
+        <div className="text-xs font-semibold text-muted-foreground mb-1">
           🌐 Select Language
         </div>
-        {languages.map((language) => (
-          <DropdownMenuItem
-            key={language.code}
-            onClick={() => handleLanguageChange(language)}
-            className={`flex items-center justify-between gap-3 cursor-pointer ${
-              currentLanguage.code === language.code ? "bg-accent" : ""
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <span className="text-lg leading-none">{language.flag}</span>
-              <span className="font-medium text-sm">{language.nativeName}</span>
-            </div>
-            {currentLanguage.code === language.code && (
-              <Check className="h-4 w-4 text-primary" />
-            )}
-          </DropdownMenuItem>
-        ))}
+        <div
+          id="google_translate_element"
+          className="text-[11px] leading-tight"
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );

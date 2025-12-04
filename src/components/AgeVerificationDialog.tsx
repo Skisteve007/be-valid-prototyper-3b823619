@@ -20,17 +20,17 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
 
   return (
     <AlertDialog open={open}>
-      <AlertDialogContent className="!w-[95vw] !max-w-[95vw] sm:!max-w-lg !top-[35%] md:!top-[40%] translate-y-[-35%] md:translate-y-[-40%]">
+      <AlertDialogContent className="w-[90vw] max-w-sm sm:max-w-md mx-auto p-4 sm:p-6">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-3xl md:text-2xl text-center">
+          <AlertDialogTitle className="text-xl sm:text-2xl text-center">
             🔞 Age Verification Required
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-center text-xl md:text-lg py-4">
+          <AlertDialogDescription className="text-center text-base sm:text-lg py-2 sm:py-4">
             You must be 18 years of age or older to enter this site.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 sm:gap-3">
           <Button
             onClick={() => {
               if (!acceptedTerms) return;
@@ -38,21 +38,21 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
             }}
             aria-disabled={!acceptedTerms}
             className={cn(
-              "w-full h-14 text-lg",
+              "w-full h-12 sm:h-14 text-base sm:text-lg",
               !acceptedTerms && "opacity-60 cursor-not-allowed"
             )}
           >
-            <div className="flex items-center justify-center gap-2 px-2">
+            <div className="flex items-center justify-center gap-2 px-1 sm:px-2">
               <input
                 type="checkbox"
-                className="h-4 w-4"
+                className="h-4 w-4 flex-shrink-0"
                 checked={acceptedTerms}
                 onChange={(e) => {
                   e.stopPropagation();
                   setAcceptedTerms(e.target.checked);
                 }}
               />
-              <span className="text-sm">
+              <span className="text-xs sm:text-sm leading-tight">
                 I am 18+ and I agree to the{" "}
                 <a 
                   href="/terms" 
@@ -68,7 +68,7 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
           <Button
             variant="outline"
             onClick={onExit}
-            className="w-full h-14"
+            className="w-full h-10 sm:h-14"
           >
             Exit
           </Button>

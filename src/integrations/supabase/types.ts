@@ -230,6 +230,36 @@ export type Database = {
         }
         Relationships: []
       }
+      discount_codes: {
+        Row: {
+          code: string
+          created_at: string
+          discount_percent: number
+          id: string
+          is_active: boolean
+          updated_at: string
+          usage_count: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          discount_percent?: number
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          usage_count?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          discount_percent?: number
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          usage_count?: number
+        }
+        Relationships: []
+      }
       email_campaign_log: {
         Row: {
           campaign_name: string
@@ -655,10 +685,12 @@ export type Database = {
           profile_image_url: string | null
           qr_code_url: string | null
           references_locked: boolean | null
+          referred_by_code: string | null
           relationship_status: string | null
           selected_interests: string[] | null
           sexual_orientation: string | null
           sexual_preferences: string | null
+          signup_discount_code: string | null
           smoker: boolean | null
           status_color: string | null
           status_expiry: string | null
@@ -704,10 +736,12 @@ export type Database = {
           profile_image_url?: string | null
           qr_code_url?: string | null
           references_locked?: boolean | null
+          referred_by_code?: string | null
           relationship_status?: string | null
           selected_interests?: string[] | null
           sexual_orientation?: string | null
           sexual_preferences?: string | null
+          signup_discount_code?: string | null
           smoker?: boolean | null
           status_color?: string | null
           status_expiry?: string | null
@@ -753,10 +787,12 @@ export type Database = {
           profile_image_url?: string | null
           qr_code_url?: string | null
           references_locked?: boolean | null
+          referred_by_code?: string | null
           relationship_status?: string | null
           selected_interests?: string[] | null
           sexual_orientation?: string | null
           sexual_preferences?: string | null
+          signup_discount_code?: string | null
           smoker?: boolean | null
           status_color?: string | null
           status_expiry?: string | null
@@ -1268,6 +1304,7 @@ export type Database = {
         Args: { _campaign_id: string; _stat_type: string }
         Returns: undefined
       }
+      increment_discount_usage: { Args: { _code: string }; Returns: undefined }
       restore_stevieg_profile: { Args: never; Returns: undefined }
       update_affiliate_pending_earnings: {
         Args: { _affiliate_id: string; _amount: number }

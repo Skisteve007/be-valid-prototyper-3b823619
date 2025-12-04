@@ -21,6 +21,7 @@ const Auth = () => {
   const longPressHandlers = useLongPressHome();
   const searchParams = new URLSearchParams(location.search);
   const mode = searchParams.get("mode") || "signup";
+  const discountCode = searchParams.get("discount") || localStorage.getItem('discountCode') || "";
   const [loading, setLoading] = useState(false);
   const [signupFullName, setSignupFullName] = useState(location.state?.fullName || "");
   const [signupEmail, setSignupEmail] = useState(location.state?.email || "");
@@ -33,6 +34,12 @@ const Auth = () => {
   useEffect(() => {
     // Scroll to top when page loads
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Save discount code to localStorage if present in URL
+    const urlDiscount = searchParams.get("discount");
+    if (urlDiscount) {
+      localStorage.setItem('discountCode', urlDiscount);
+    }
     
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -105,6 +112,24 @@ const Auth = () => {
           .select("member_id")
           .eq("user_id", data.user.id)
           .single();
+
+        // Save discount code if used
+        const usedDiscountCode = discountCode || localStorage.getItem('discountCode');
+        if (usedDiscountCode) {
+          // Update profile with discount code
+          await supabase
+            .from("profiles")
+            .update({ signup_discount_code: usedDiscountCode.toUpperCase() })
+            .eq("user_id", data.user.id);
+
+          // Increment discount code usage
+          await supabase.rpc('increment_discount_usage', { _code: usedDiscountCode });
+
+          // Clear stored discount code
+          localStorage.removeItem('discountCode');
+          
+          console.log('Discount code tracked:', usedDiscountCode);
+        }
 
         if (profile?.member_id) {
           // Send welcome email - now authenticated via JWT

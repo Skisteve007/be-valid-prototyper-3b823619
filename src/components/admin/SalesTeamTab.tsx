@@ -358,7 +358,14 @@ const SalesTeamTab = () => {
                       badge={{
                         text: aff.status === "approved" ? "✓ Verified" : "Pending",
                         variant: aff.status === "approved" ? "default" : "secondary",
-                        className: aff.status === "approved" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"
+                        className: aff.status === "approved" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400",
+                        onClick: async () => {
+                          const newStatus = aff.status === "approved" ? "pending" : "approved";
+                          const { error } = await supabase.from("affiliates").update({ status: newStatus }).eq("id", aff.id);
+                          if (error) { toast.error("Failed to update status"); return; }
+                          toast.success(`Status changed to ${newStatus === "approved" ? "Verified" : "Pending"}`);
+                          fetchAffiliates();
+                        }
                       }}
                       details={[
                         { label: "Code", value: aff.referral_code },

@@ -27,24 +27,14 @@ export const AdminFooter = () => {
     <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
       <button
         onClick={handleAdminSetup}
-        style={{ 
-          backgroundColor: '#e9d5ff', 
-          color: '#581c87',
-          boxShadow: '0 0 15px rgba(233, 213, 255, 0.8)'
-        }}
-        className="flex items-center justify-center rounded-full px-4 h-10 font-medium text-sm hover:brightness-105 transition-all"
+        className="flex items-center justify-center rounded-full px-4 h-10 font-medium text-sm hover:brightness-110 transition-all bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.9)] hover:shadow-[0_0_30px_rgba(37,99,235,1)]"
       >
         <UserPlus className="h-4 w-4 mr-2" />
         Admin Setup
       </button>
       <button
         onClick={handleAdminClick}
-        style={{ 
-          backgroundColor: '#e9d5ff', 
-          color: '#581c87',
-          boxShadow: '0 0 15px rgba(233, 213, 255, 0.8)'
-        }}
-        className="flex items-center justify-center rounded-full px-4 h-10 font-medium text-sm hover:brightness-105 transition-all"
+        className="flex items-center justify-center rounded-full px-4 h-10 font-medium text-sm hover:brightness-110 transition-all bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.9)] hover:shadow-[0_0_30px_rgba(37,99,235,1)]"
       >
         <Settings className="h-4 w-4 mr-2" />
         {isAdmin ? "Admin Panel" : "Admin Login"}

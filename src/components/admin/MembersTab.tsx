@@ -5,8 +5,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Download, Search, Users, UserPlus, Mail, Calendar, Tag } from "lucide-react";
+import { Loader2, Download, Search, Users, UserPlus, Mail, Calendar, Tag, Copy, Send } from "lucide-react";
 import { format } from "date-fns";
 
 interface Member {
@@ -19,18 +20,27 @@ interface Member {
   signup_discount_code: string | null;
   status_color: string | null;
   payment_status: string | null;
+  payment_date: string | null;
+  status_expiry: string | null;
   phone: string | null;
 }
+
+type MembershipFilter = 'all' | 'current' | 'expired' | 'unpaid';
 
 export const MembersTab = () => {
   const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedMembers, setSelectedMembers] = useState<Set<string>>(new Set());
+  const [membershipFilter, setMembershipFilter] = useState<MembershipFilter>('all');
   const [stats, setStats] = useState({
     total: 0,
     thisWeek: 0,
     thisMonth: 0,
     withDiscount: 0,
+    current: 0,
+    expired: 0,
+    unpaid: 0,
   });
 
   useEffect(() => {
@@ -42,7 +52,7 @@ export const MembersTab = () => {
     try {
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, user_id, full_name, email, member_id, created_at, signup_discount_code, status_color, payment_status, phone")
+        .select("id, user_id, full_name, email, member_id, created_at, signup_discount_code, status_color, payment_status, payment_date, status_expiry, phone")
         .order("created_at", { ascending: false });
 
       if (error) throw error;
@@ -57,12 +67,19 @@ export const MembersTab = () => {
       const thisWeek = data?.filter(m => new Date(m.created_at) >= weekAgo).length || 0;
       const thisMonth = data?.filter(m => new Date(m.created_at) >= monthAgo).length || 0;
       const withDiscount = data?.filter(m => m.signup_discount_code).length || 0;
+      
+      const current = data?.filter(m => getMembershipStatus(m) === 'current').length || 0;
+      const expired = data?.filter(m => getMembershipStatus(m) === 'expired').length || 0;
+      const unpaid = data?.filter(m => getMembershipStatus(m) === 'unpaid').length || 0;
 
       setStats({
         total: data?.length || 0,
         thisWeek,
         thisMonth,
         withDiscount,
+        current,
+        expired,
+        unpaid,
       });
     } catch (error: any) {
       toast.error("Failed to load members");
@@ -72,9 +89,36 @@ export const MembersTab = () => {
     }
   };
 
+  const getMembershipStatus = (member: Member): 'current' | 'expired' | 'unpaid' => {
+    if (member.payment_status !== 'paid') {
+      return 'unpaid';
+    }
+    
+    if (member.status_expiry) {
+      const expiry = new Date(member.status_expiry);
+      if (expiry < new Date()) {
+        return 'expired';
+      }
+    }
+    
+    return 'current';
+  };
+
+  const getMembershipBadge = (member: Member) => {
+    const status = getMembershipStatus(member);
+    switch (status) {
+      case 'current':
+        return <Badge className="bg-green-500 text-white">Current</Badge>;
+      case 'expired':
+        return <Badge className="bg-red-500 text-white">Expired</Badge>;
+      case 'unpaid':
+        return <Badge variant="secondary">Unpaid</Badge>;
+    }
+  };
+
   const exportToCSV = () => {
     const csvRows = [];
-    csvRows.push(['Member ID', 'Full Name', 'Email', 'Phone', 'Signup Date', 'Discount Code', 'Status', 'Payment Status'].join(','));
+    csvRows.push(['Member ID', 'Full Name', 'Email', 'Phone', 'Signup Date', 'Discount Code', 'Status', 'Payment Status', 'Membership'].join(','));
     
     const filteredMembers = getFilteredMembers();
     filteredMembers.forEach((member) => {
@@ -86,7 +130,8 @@ export const MembersTab = () => {
         format(new Date(member.created_at), 'yyyy-MM-dd HH:mm'),
         member.signup_discount_code || '',
         member.status_color || 'grey',
-        member.payment_status || 'unpaid'
+        member.payment_status || 'unpaid',
+        getMembershipStatus(member)
       ].join(','));
     });
 
@@ -104,14 +149,25 @@ export const MembersTab = () => {
   };
 
   const getFilteredMembers = () => {
-    if (!searchQuery) return members;
-    const query = searchQuery.toLowerCase();
-    return members.filter(m => 
-      m.full_name?.toLowerCase().includes(query) ||
-      m.email?.toLowerCase().includes(query) ||
-      m.member_id?.toLowerCase().includes(query) ||
-      m.signup_discount_code?.toLowerCase().includes(query)
-    );
+    let filtered = members;
+    
+    // Apply membership filter
+    if (membershipFilter !== 'all') {
+      filtered = filtered.filter(m => getMembershipStatus(m) === membershipFilter);
+    }
+    
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(m => 
+        m.full_name?.toLowerCase().includes(query) ||
+        m.email?.toLowerCase().includes(query) ||
+        m.member_id?.toLowerCase().includes(query) ||
+        m.signup_discount_code?.toLowerCase().includes(query)
+      );
+    }
+    
+    return filtered;
   };
 
   const getStatusBadge = (status: string | null) => {
@@ -127,7 +183,62 @@ export const MembersTab = () => {
     }
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      const allIds = getFilteredMembers().map(m => m.id);
+      setSelectedMembers(new Set(allIds));
+    } else {
+      setSelectedMembers(new Set());
+    }
+  };
+
+  const handleSelectMember = (memberId: string, checked: boolean) => {
+    const newSelected = new Set(selectedMembers);
+    if (checked) {
+      newSelected.add(memberId);
+    } else {
+      newSelected.delete(memberId);
+    }
+    setSelectedMembers(newSelected);
+  };
+
+  const getSelectedEmails = (): string[] => {
+    return members
+      .filter(m => selectedMembers.has(m.id) && m.email)
+      .map(m => m.email as string);
+  };
+
+  const copySelectedEmails = () => {
+    const emails = getSelectedEmails();
+    if (emails.length === 0) {
+      toast.error("No members with emails selected");
+      return;
+    }
+    navigator.clipboard.writeText(emails.join(', '));
+    toast.success(`${emails.length} email(s) copied to clipboard`);
+  };
+
+  const openMailtoWithSelected = () => {
+    const emails = getSelectedEmails();
+    if (emails.length === 0) {
+      toast.error("No members with emails selected");
+      return;
+    }
+    window.location.href = `mailto:?bcc=${emails.join(',')}`;
+    toast.success(`Opening email client with ${emails.length} recipient(s)`);
+  };
+
+  const selectExpiredMembers = () => {
+    const expiredIds = members
+      .filter(m => getMembershipStatus(m) === 'expired')
+      .map(m => m.id);
+    setSelectedMembers(new Set(expiredIds));
+    setMembershipFilter('expired');
+    toast.success(`Selected ${expiredIds.length} expired member(s)`);
+  };
+
   const filteredMembers = getFilteredMembers();
+  const allFilteredSelected = filteredMembers.length > 0 && filteredMembers.every(m => selectedMembers.has(m.id));
 
   if (loading) {
     return (
@@ -155,48 +266,76 @@ export const MembersTab = () => {
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setMembershipFilter('current')}>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-green-500/10 rounded-lg">
                 <UserPlus className="h-5 w-5 text-green-500" />
               </div>
               <div>
-                <p className="text-2xl font-bold">{stats.thisWeek}</p>
-                <p className="text-sm text-muted-foreground">This Week</p>
+                <p className="text-2xl font-bold">{stats.current}</p>
+                <p className="text-sm text-muted-foreground">Current</p>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setMembershipFilter('expired')}>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-500/10 rounded-lg">
-                <Calendar className="h-5 w-5 text-blue-500" />
+              <div className="p-2 bg-red-500/10 rounded-lg">
+                <Calendar className="h-5 w-5 text-red-500" />
               </div>
               <div>
-                <p className="text-2xl font-bold">{stats.thisMonth}</p>
-                <p className="text-sm text-muted-foreground">This Month</p>
+                <p className="text-2xl font-bold">{stats.expired}</p>
+                <p className="text-sm text-muted-foreground">Expired</p>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setMembershipFilter('unpaid')}>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-pink-500/10 rounded-lg">
-                <Tag className="h-5 w-5 text-pink-500" />
+              <div className="p-2 bg-muted rounded-lg">
+                <Tag className="h-5 w-5 text-muted-foreground" />
               </div>
               <div>
-                <p className="text-2xl font-bold">{stats.withDiscount}</p>
-                <p className="text-sm text-muted-foreground">Via Referral</p>
+                <p className="text-2xl font-bold">{stats.unpaid}</p>
+                <p className="text-sm text-muted-foreground">Unpaid</p>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
+
+      {/* Selected Members Actions */}
+      {selectedMembers.size > 0 && (
+        <Card className="border-primary/50 bg-primary/5">
+          <CardContent className="py-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <Mail className="h-5 w-5 text-primary" />
+                <span className="font-medium">{selectedMembers.size} member(s) selected</span>
+                <span className="text-muted-foreground">({getSelectedEmails().length} with emails)</span>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                <Button variant="outline" size="sm" onClick={copySelectedEmails}>
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy Emails
+                </Button>
+                <Button variant="outline" size="sm" onClick={openMailtoWithSelected}>
+                  <Send className="h-4 w-4 mr-2" />
+                  Open in Email Client
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => setSelectedMembers(new Set())}>
+                  Clear Selection
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Members Table */}
       <Card>
@@ -230,32 +369,86 @@ export const MembersTab = () => {
               </Button>
             </div>
           </div>
+          
+          {/* Filter Tabs */}
+          <div className="flex gap-2 mt-4 flex-wrap">
+            <Button 
+              variant={membershipFilter === 'all' ? 'default' : 'outline'} 
+              size="sm"
+              onClick={() => setMembershipFilter('all')}
+            >
+              All ({stats.total})
+            </Button>
+            <Button 
+              variant={membershipFilter === 'current' ? 'default' : 'outline'} 
+              size="sm"
+              onClick={() => setMembershipFilter('current')}
+              className={membershipFilter === 'current' ? 'bg-green-500 hover:bg-green-600' : ''}
+            >
+              Current ({stats.current})
+            </Button>
+            <Button 
+              variant={membershipFilter === 'expired' ? 'default' : 'outline'} 
+              size="sm"
+              onClick={() => setMembershipFilter('expired')}
+              className={membershipFilter === 'expired' ? 'bg-red-500 hover:bg-red-600' : ''}
+            >
+              Expired ({stats.expired})
+            </Button>
+            <Button 
+              variant={membershipFilter === 'unpaid' ? 'default' : 'outline'} 
+              size="sm"
+              onClick={() => setMembershipFilter('unpaid')}
+            >
+              Unpaid ({stats.unpaid})
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={selectExpiredMembers}
+              className="ml-auto"
+            >
+              <Mail className="h-4 w-4 mr-2" />
+              Select All Expired for Campaign
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-12">
+                    <Checkbox 
+                      checked={allFilteredSelected}
+                      onCheckedChange={handleSelectAll}
+                    />
+                  </TableHead>
                   <TableHead>Member ID</TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Phone</TableHead>
                   <TableHead>Signup Date</TableHead>
-                  <TableHead>Discount Code</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Payment</TableHead>
+                  <TableHead>Membership</TableHead>
+                  <TableHead>Health Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredMembers.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                      {searchQuery ? "No members match your search" : "No members yet"}
+                      {searchQuery || membershipFilter !== 'all' ? "No members match your filter" : "No members yet"}
                     </TableCell>
                   </TableRow>
                 ) : (
                   filteredMembers.map((member) => (
-                    <TableRow key={member.id}>
+                    <TableRow key={member.id} className={selectedMembers.has(member.id) ? 'bg-primary/5' : ''}>
+                      <TableCell>
+                        <Checkbox 
+                          checked={selectedMembers.has(member.id)}
+                          onCheckedChange={(checked) => handleSelectMember(member.id, checked as boolean)}
+                        />
+                      </TableCell>
                       <TableCell className="font-mono text-sm">
                         {member.member_id || '-'}
                       </TableCell>
@@ -268,25 +461,16 @@ export const MembersTab = () => {
                             <Mail className="h-3 w-3" />
                             {member.email}
                           </a>
-                        ) : '-'}
+                        ) : (
+                          <span className="text-muted-foreground">No email</span>
+                        )}
                       </TableCell>
                       <TableCell>{member.phone || '-'}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">
-                        {format(new Date(member.created_at), 'MMM d, yyyy h:mm a')}
+                        {format(new Date(member.created_at), 'MMM d, yyyy')}
                       </TableCell>
-                      <TableCell>
-                        {member.signup_discount_code ? (
-                          <Badge variant="outline" className="bg-pink-500/10 text-pink-600 border-pink-500/30">
-                            {member.signup_discount_code}
-                          </Badge>
-                        ) : '-'}
-                      </TableCell>
+                      <TableCell>{getMembershipBadge(member)}</TableCell>
                       <TableCell>{getStatusBadge(member.status_color)}</TableCell>
-                      <TableCell>
-                        <Badge variant={member.payment_status === 'paid' ? 'default' : 'secondary'}>
-                          {member.payment_status || 'unpaid'}
-                        </Badge>
-                      </TableCell>
                     </TableRow>
                   ))
                 )}

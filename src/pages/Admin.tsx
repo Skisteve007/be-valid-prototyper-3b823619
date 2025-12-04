@@ -27,6 +27,7 @@ import { QuickBrandingTool } from "@/components/admin/QuickBrandingTool";
 import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
 import { LeadOutreachTab } from "@/components/admin/LeadOutreachTab";
 import { MembersTab } from "@/components/admin/MembersTab";
+import { InvestorCRMTab } from "@/components/admin/InvestorCRMTab";
 import {
   DndContext,
   closestCenter,
@@ -554,6 +555,9 @@ const Admin = () => {
             <TabsTrigger value="lead-outreach" className="cursor-pointer flex-1">
               📧 Lead Outreach
             </TabsTrigger>
+            <TabsTrigger value="investor-crm" className="cursor-pointer flex-1">
+              💼 Investors
+            </TabsTrigger>
             <TabsTrigger value="quick-branding" className="cursor-pointer flex-1">
               <Zap className="h-4 w-4 mr-2" />
               Fast Setup
@@ -868,6 +872,10 @@ const Admin = () => {
           
           <TabsContent value="lead-outreach">
             <LeadOutreachTab />
+          </TabsContent>
+          
+          <TabsContent value="investor-crm">
+            <InvestorCRMTab />
           </TabsContent>
           
           <TabsContent value="quick-branding">

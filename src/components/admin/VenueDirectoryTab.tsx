@@ -7,7 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
-import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard } from "lucide-react";
+import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard, DollarSign, History, TrendingUp } from "lucide-react";
+import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
@@ -24,6 +25,19 @@ interface Venue {
   industry_type: string | null;
   bank_endpoint: string | null;
   paypal_email: string | null;
+  total_earnings: number | null;
+  pending_earnings: number | null;
+}
+
+interface PayoutRecord {
+  id: string;
+  venue_id: string;
+  amount: number;
+  status: string;
+  created_at: string;
+  paid_at: string | null;
+  payout_reference: string | null;
+  bank_endpoint: string | null;
 }
 
 type IndustryFilter = 'all' | 'Nightlife' | 'Adult' | 'Workforce' | 'Transportation' | 'Rentals';
@@ -49,6 +63,12 @@ export const VenueDirectoryTab = () => {
   const [bankEndpoint, setBankEndpoint] = useState("");
   const [paypalEmail, setPaypalEmail] = useState("");
   const [saving, setSaving] = useState(false);
+  
+  // Payment history state
+  const [showPaymentHistory, setShowPaymentHistory] = useState(false);
+  const [selectedVenueForHistory, setSelectedVenueForHistory] = useState<Venue | null>(null);
+  const [paymentHistory, setPaymentHistory] = useState<PayoutRecord[]>([]);
+  const [loadingHistory, setLoadingHistory] = useState(false);
   
   // Add venue state
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -118,6 +138,41 @@ export const VenueDirectoryTab = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  const loadPaymentHistory = async (venue: Venue) => {
+    setSelectedVenueForHistory(venue);
+    setShowPaymentHistory(true);
+    setLoadingHistory(true);
+    
+    try {
+      const { data, error } = await supabase
+        .from("venue_payout_ledger")
+        .select("*")
+        .eq("venue_id", venue.id)
+        .order("created_at", { ascending: false });
+      
+      if (error) throw error;
+      setPaymentHistory(data || []);
+    } catch (error: any) {
+      toast.error("Failed to load payment history");
+      setPaymentHistory([]);
+    } finally {
+      setLoadingHistory(false);
+    }
+  };
+
+  const formatCurrency = (amount: number | null) => {
+    if (amount === null || amount === undefined) return "$0.00";
+    return `$${amount.toFixed(2)}`;
+  };
+
+  const getTotalEarnings = () => {
+    return venues.reduce((sum, v) => sum + (v.total_earnings || 0), 0);
+  };
+
+  const getTotalPending = () => {
+    return venues.reduce((sum, v) => sum + (v.pending_earnings || 0), 0);
   };
 
   const handleAddVenue = async () => {
@@ -226,6 +281,18 @@ export const VenueDirectoryTab = () => {
             <CardDescription>
               {venues.length} partners across {countries.length} countries
             </CardDescription>
+            
+            {/* Earnings Summary */}
+            <div className="flex flex-wrap gap-4 mt-3">
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-lg">
+                <TrendingUp className="h-4 w-4 text-green-500" />
+                <span className="text-sm font-medium">Total Earned: {formatCurrency(getTotalEarnings())}</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+                <DollarSign className="h-4 w-4 text-amber-500" />
+                <span className="text-sm font-medium">Pending: {formatCurrency(getTotalPending())}</span>
+              </div>
+            </div>
           </div>
           
           {/* Add Venue Button */}
@@ -447,6 +514,19 @@ export const VenueDirectoryTab = () => {
                     { label: "Industry", value: getIndustryBadge(venue.industry_type) },
                     { label: "Status", value: <Badge variant="outline" className={getStatusColor(venue.status)}>{venue.status}</Badge> },
                     { 
+                      label: "Earnings", 
+                      value: (
+                        <div className="space-y-0.5">
+                          <span className="text-green-600 font-medium">{formatCurrency(venue.total_earnings)}</span>
+                          {(venue.pending_earnings || 0) > 0 && (
+                            <span className="text-amber-600 text-xs block">
+                              Pending: {formatCurrency(venue.pending_earnings)}
+                            </span>
+                          )}
+                        </div>
+                      )
+                    },
+                    { 
                       label: "GM Email", 
                       value: venue.gm_email ? (
                         <a href={`mailto:${venue.gm_email}`} className="text-primary text-xs truncate block">
@@ -456,23 +536,24 @@ export const VenueDirectoryTab = () => {
                     },
                   ]}
                   actions={
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button 
-                          size="lg"
-                          variant="outline"
-                          className="flex-1 h-12"
-                          onClick={() => {
-                            setEditingVenue(venue);
-                            setGmEmail(venue.gm_email || "");
-                            setEditIndustry(venue.industry_type || "Nightlife");
-                            setBankEndpoint(venue.bank_endpoint || "");
-                            setPaypalEmail(venue.paypal_email || "");
-                          }}
-                        >
-                          <Edit className="h-5 w-5 mr-2" /> Edit
-                        </Button>
-                      </DialogTrigger>
+                    <div className="flex gap-2 w-full">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button 
+                            size="lg"
+                            variant="outline"
+                            className="flex-1 h-12"
+                            onClick={() => {
+                              setEditingVenue(venue);
+                              setGmEmail(venue.gm_email || "");
+                              setEditIndustry(venue.industry_type || "Nightlife");
+                              setBankEndpoint(venue.bank_endpoint || "");
+                              setPaypalEmail(venue.paypal_email || "");
+                            }}
+                          >
+                            <Edit className="h-5 w-5 mr-2" /> Edit
+                          </Button>
+                        </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
                           <DialogTitle>Edit Partner</DialogTitle>
@@ -560,6 +641,15 @@ export const VenueDirectoryTab = () => {
                         </div>
                       </DialogContent>
                     </Dialog>
+                    <Button
+                      size="lg"
+                      variant="ghost"
+                      className="h-12"
+                      onClick={() => loadPaymentHistory(venue)}
+                    >
+                      <History className="h-5 w-5" />
+                    </Button>
+                    </div>
                   }
                 />
               ))}
@@ -574,8 +664,9 @@ export const VenueDirectoryTab = () => {
                   <TableHead>Location</TableHead>
                   <TableHead>Industry</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead>Earnings</TableHead>
                   <TableHead>GM Email</TableHead>
-                  <TableHead className="w-[100px]">Actions</TableHead>
+                  <TableHead className="w-[140px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -602,6 +693,18 @@ export const VenueDirectoryTab = () => {
                       </Badge>
                     </TableCell>
                     <TableCell>
+                      <div className="space-y-1">
+                        <div className="text-sm font-medium text-green-600">
+                          {formatCurrency(venue.total_earnings)}
+                        </div>
+                        {(venue.pending_earnings || 0) > 0 && (
+                          <div className="text-xs text-amber-600">
+                            Pending: {formatCurrency(venue.pending_earnings)}
+                          </div>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
                       {venue.gm_email ? (
                         <a 
                           href={`mailto:${venue.gm_email}`}
@@ -615,106 +718,116 @@ export const VenueDirectoryTab = () => {
                       )}
                     </TableCell>
                     <TableCell>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => {
-                              setEditingVenue(venue);
-                              setGmEmail(venue.gm_email || "");
-                              setEditIndustry(venue.industry_type || "Nightlife");
-                              setBankEndpoint(venue.bank_endpoint || "");
-                              setPaypalEmail(venue.paypal_email || "");
-                            }}
-                          >
-                            Edit
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Edit Partner</DialogTitle>
-                            <DialogDescription>
-                              Update details for {editingVenue?.venue_name}
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className="space-y-4 py-4">
-                            <div className="space-y-2">
-                              <Label>Industry Type</Label>
-                              <Select value={editIndustry} onValueChange={setEditIndustry}>
-                                <SelectTrigger>
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent className="bg-background border z-50">
-                                  <SelectItem value="Nightlife">🍸 Nightlife & Events</SelectItem>
-                                  <SelectItem value="Adult">👠 Adult / Clubs</SelectItem>
-                                  <SelectItem value="Workforce">🏗️ Workforce</SelectItem>
-                                  <SelectItem value="Transportation">🚕 Transportation</SelectItem>
-                                  <SelectItem value="Rentals">🔑 Rentals</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="gm-email">GM Email Address</Label>
-                              <Input
-                                id="gm-email"
-                                type="email"
-                                placeholder="gm@venue.com"
-                                value={gmEmail}
-                                onChange={(e) => setGmEmail(e.target.value)}
-                              />
-                            </div>
-                            
-                            {/* Payout Configuration Section */}
-                            <div className="border-t pt-4 mt-4">
-                              <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-                                <Banknote className="h-4 w-4 text-green-500" />
-                                Payout Configuration
-                              </h4>
-                              <div className="space-y-3">
-                                <div className="space-y-2">
-                                  <Label htmlFor="paypal-email" className="flex items-center gap-2">
-                                    <CreditCard className="h-3 w-3" />
-                                    PayPal Email
-                                  </Label>
-                                  <Input
-                                    id="paypal-email"
-                                    type="email"
-                                    placeholder="payments@venue.com"
-                                    value={paypalEmail}
-                                    onChange={(e) => setPaypalEmail(e.target.value)}
-                                  />
-                                </div>
-                                <div className="space-y-2">
-                                  <Label htmlFor="bank-endpoint" className="flex items-center gap-2">
-                                    <Banknote className="h-3 w-3" />
-                                    Bank API Endpoint (Optional)
-                                  </Label>
-                                  <Input
-                                    id="bank-endpoint"
-                                    type="url"
-                                    placeholder="https://api.bank.com/payout"
-                                    value={bankEndpoint}
-                                    onChange={(e) => setBankEndpoint(e.target.value)}
-                                  />
-                                  <p className="text-xs text-muted-foreground">
-                                    For direct bank transfers via API integration
-                                  </p>
+                      <div className="flex gap-1">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => {
+                                setEditingVenue(venue);
+                                setGmEmail(venue.gm_email || "");
+                                setEditIndustry(venue.industry_type || "Nightlife");
+                                setBankEndpoint(venue.bank_endpoint || "");
+                                setPaypalEmail(venue.paypal_email || "");
+                              }}
+                            >
+                              Edit
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Edit Partner</DialogTitle>
+                              <DialogDescription>
+                                Update details for {editingVenue?.venue_name}
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="space-y-4 py-4">
+                              <div className="space-y-2">
+                                <Label>Industry Type</Label>
+                                <Select value={editIndustry} onValueChange={setEditIndustry}>
+                                  <SelectTrigger>
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent className="bg-background border z-50">
+                                    <SelectItem value="Nightlife">🍸 Nightlife & Events</SelectItem>
+                                    <SelectItem value="Adult">👠 Adult / Clubs</SelectItem>
+                                    <SelectItem value="Workforce">🏗️ Workforce</SelectItem>
+                                    <SelectItem value="Transportation">🚕 Transportation</SelectItem>
+                                    <SelectItem value="Rentals">🔑 Rentals</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className="space-y-2">
+                                <Label htmlFor="gm-email">GM Email Address</Label>
+                                <Input
+                                  id="gm-email"
+                                  type="email"
+                                  placeholder="gm@venue.com"
+                                  value={gmEmail}
+                                  onChange={(e) => setGmEmail(e.target.value)}
+                                />
+                              </div>
+                              
+                              {/* Payout Configuration Section */}
+                              <div className="border-t pt-4 mt-4">
+                                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                                  <Banknote className="h-4 w-4 text-green-500" />
+                                  Payout Configuration
+                                </h4>
+                                <div className="space-y-3">
+                                  <div className="space-y-2">
+                                    <Label htmlFor="paypal-email" className="flex items-center gap-2">
+                                      <CreditCard className="h-3 w-3" />
+                                      PayPal Email
+                                    </Label>
+                                    <Input
+                                      id="paypal-email"
+                                      type="email"
+                                      placeholder="payments@venue.com"
+                                      value={paypalEmail}
+                                      onChange={(e) => setPaypalEmail(e.target.value)}
+                                    />
+                                  </div>
+                                  <div className="space-y-2">
+                                    <Label htmlFor="bank-endpoint" className="flex items-center gap-2">
+                                      <Banknote className="h-3 w-3" />
+                                      Bank API Endpoint (Optional)
+                                    </Label>
+                                    <Input
+                                      id="bank-endpoint"
+                                      type="url"
+                                      placeholder="https://api.bank.com/payout"
+                                      value={bankEndpoint}
+                                      onChange={(e) => setBankEndpoint(e.target.value)}
+                                    />
+                                    <p className="text-xs text-muted-foreground">
+                                      For direct bank transfers via API integration
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
+                              
+                              <Button 
+                                onClick={handleSaveVenue} 
+                                disabled={saving}
+                                className="w-full"
+                              >
+                                {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                                Save Changes
+                              </Button>
                             </div>
-                            
-                            <Button 
-                              onClick={handleSaveVenue} 
-                              disabled={saving}
-                              className="w-full"
-                            >
-                              {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                              Save Changes
-                            </Button>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
+                          </DialogContent>
+                        </Dialog>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => loadPaymentHistory(venue)}
+                          className="px-2"
+                        >
+                          <History className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -730,6 +843,99 @@ export const VenueDirectoryTab = () => {
         )}
       </CardContent>
     </Card>
+    
+    {/* Payment History Dialog */}
+    <Dialog open={showPaymentHistory} onOpenChange={setShowPaymentHistory}>
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <History className="h-5 w-5" />
+            Payment History - {selectedVenueForHistory?.venue_name}
+          </DialogTitle>
+          <DialogDescription>
+            View all payout records for this venue
+          </DialogDescription>
+        </DialogHeader>
+        
+        {/* Venue Earnings Summary */}
+        {selectedVenueForHistory && (
+          <div className="grid grid-cols-2 gap-4 py-4">
+            <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+              <div className="text-sm text-muted-foreground">Total Earned</div>
+              <div className="text-2xl font-bold text-green-600">
+                {formatCurrency(selectedVenueForHistory.total_earnings)}
+              </div>
+            </div>
+            <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+              <div className="text-sm text-muted-foreground">Pending Payout</div>
+              <div className="text-2xl font-bold text-amber-600">
+                {formatCurrency(selectedVenueForHistory.pending_earnings)}
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Payment History Table */}
+        {loadingHistory ? (
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-6 w-6 animate-spin text-primary" />
+          </div>
+        ) : paymentHistory.length === 0 ? (
+          <div className="text-center py-8 text-muted-foreground">
+            No payment history found for this venue.
+          </div>
+        ) : (
+          <div className="border rounded-lg overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Amount</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Reference</TableHead>
+                  <TableHead>Paid At</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {paymentHistory.map((record) => (
+                  <TableRow key={record.id}>
+                    <TableCell className="text-sm">
+                      {format(new Date(record.created_at), "MMM d, yyyy")}
+                    </TableCell>
+                    <TableCell className="font-medium text-green-600">
+                      {formatCurrency(record.amount)}
+                    </TableCell>
+                    <TableCell>
+                      <Badge 
+                        variant="outline" 
+                        className={
+                          record.status === 'paid' 
+                            ? 'bg-green-500 text-white' 
+                            : record.status === 'pending'
+                            ? 'bg-amber-500 text-white'
+                            : 'bg-muted'
+                        }
+                      >
+                        {record.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {record.payout_reference || "-"}
+                    </TableCell>
+                    <TableCell className="text-sm">
+                      {record.paid_at 
+                        ? format(new Date(record.paid_at), "MMM d, yyyy")
+                        : "-"
+                      }
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
     
     {/* Venue Operators Section */}
     <VenueOperatorsManager />

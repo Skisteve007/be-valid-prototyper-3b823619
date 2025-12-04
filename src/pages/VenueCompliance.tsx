@@ -74,7 +74,7 @@ const VenueCompliance = () => {
 
       {/* Security Architecture Modal */}
       <Dialog open={securityModalOpen} onOpenChange={setSecurityModalOpen}>
-        <DialogContent className="max-w-2xl bg-slate-950 border border-slate-700 text-white max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl bg-slate-950 border border-slate-700 text-white max-h-[85vh] overflow-y-auto top-[5%] translate-y-0">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-amber-400 via-sky-400 to-violet-400 bg-clip-text text-transparent">
               Enterprise Security Architecture

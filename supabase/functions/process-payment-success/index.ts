@@ -51,16 +51,25 @@ const handler = async (req: Request): Promise<Response> => {
     // Initialize Supabase client with service key for profile updates
     const supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Check if this is a 14-day driver pass
+    // Determine membership type and expiry period
     const isDriver14DayPass = paymentType === 'driver-14day';
+    const isAnnualPass = paymentType?.toLowerCase().includes('annual') || 
+                         paymentType?.toLowerCase().includes('year') || 
+                         paymentType?.toLowerCase().includes('1-year') ||
+                         paymentType === 'single-annual' ||
+                         paymentType === 'couple-annual';
     
     // Calculate expiry date based on payment type
     const expiryDate = new Date();
+    let expiryDays = 60; // Default: 60-day subscription
+    
     if (isDriver14DayPass) {
-      expiryDate.setDate(expiryDate.getDate() + 14); // 14 days for driver pass
-    } else {
-      expiryDate.setDate(expiryDate.getDate() + 60); // 60 days for regular memberships
+      expiryDays = 14;
+    } else if (isAnnualPass) {
+      expiryDays = 365;
     }
+    
+    expiryDate.setDate(expiryDate.getDate() + expiryDays);
     
     // Prepare update object - always set expiry for paid memberships
     const profileUpdate: Record<string, any> = { 
@@ -74,7 +83,7 @@ const handler = async (req: Request): Promise<Response> => {
       profileUpdate.status_color = 'green';
     }
     
-    console.log(`Setting membership expiry to: ${expiryDate.toISOString()} (${isDriver14DayPass ? '14-day' : '60-day'} period)`);
+    console.log(`Setting membership expiry to: ${expiryDate.toISOString()} (${expiryDays}-day period, type: ${paymentType})`);
 
     // Update user profile
     const { data: profile, error: updateError } = await supabaseClient
@@ -128,7 +137,7 @@ const handler = async (req: Request): Promise<Response> => {
               <p><strong>Membership Type:</strong> ${membershipTypeDisplay}</p>
               <p><strong>Payment Date:</strong> ${new Date().toLocaleString()}</p>
               <div style="background: #fef3c7; padding: 10px; border-radius: 4px; margin-top: 10px;">
-                <strong>⏰ Membership Expiry:</strong> ${isDriver14DayPass ? '14-day pass' : '60-day membership'} expires on ${expiryDate.toLocaleDateString()}
+                <strong>⏰ Membership Expiry:</strong> ${expiryDays}-day ${isAnnualPass ? 'annual pass' : isDriver14DayPass ? 'driver pass' : 'subscription'} expires on ${expiryDate.toLocaleDateString()}
               </div>
             </div>
             <p>The user's account has been automatically upgraded${isDriver14DayPass ? ' with a 14-day expiry' : ''}.</p>

@@ -54,22 +54,27 @@ const handler = async (req: Request): Promise<Response> => {
     // Check if this is a 14-day driver pass
     const isDriver14DayPass = paymentType === 'driver-14day';
     
-    // Prepare update object
+    // Calculate expiry date based on payment type
+    const expiryDate = new Date();
+    if (isDriver14DayPass) {
+      expiryDate.setDate(expiryDate.getDate() + 14); // 14 days for driver pass
+    } else {
+      expiryDate.setDate(expiryDate.getDate() + 60); // 60 days for regular memberships
+    }
+    
+    // Prepare update object - always set expiry for paid memberships
     const profileUpdate: Record<string, any> = { 
       payment_status: 'paid',
-      payment_date: new Date().toISOString()
+      payment_date: new Date().toISOString(),
+      status_expiry: expiryDate.toISOString()
     };
 
-    // If it's a 14-day driver pass, set status to green and set expiry
+    // If it's a 14-day driver pass, also set status to green
     if (isDriver14DayPass) {
-      const expiryDate = new Date();
-      expiryDate.setDate(expiryDate.getDate() + 14); // Add 14 days
-      
       profileUpdate.status_color = 'green';
-      profileUpdate.status_expiry = expiryDate.toISOString();
-      
-      console.log('Setting 14-day driver pass expiry to:', expiryDate.toISOString());
     }
+    
+    console.log(`Setting membership expiry to: ${expiryDate.toISOString()} (${isDriver14DayPass ? '14-day' : '60-day'} period)`);
 
     // Update user profile
     const { data: profile, error: updateError } = await supabaseClient
@@ -122,11 +127,9 @@ const handler = async (req: Request): Promise<Response> => {
               <p><strong>Amount:</strong> $${paymentAmount}</p>
               <p><strong>Membership Type:</strong> ${membershipTypeDisplay}</p>
               <p><strong>Payment Date:</strong> ${new Date().toLocaleString()}</p>
-              ${isDriver14DayPass ? `
               <div style="background: #fef3c7; padding: 10px; border-radius: 4px; margin-top: 10px;">
-                <strong>⏰ 14-Day Pass:</strong> Status expires on ${new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+                <strong>⏰ Membership Expiry:</strong> ${isDriver14DayPass ? '14-day pass' : '60-day membership'} expires on ${expiryDate.toLocaleDateString()}
               </div>
-              ` : ''}
             </div>
             <p>The user's account has been automatically upgraded${isDriver14DayPass ? ' with a 14-day expiry' : ''}.</p>
             <p style="color: #6b7280; font-size: 14px;">This is an automated notification from Clean Check.</p>

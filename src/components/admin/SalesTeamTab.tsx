@@ -247,7 +247,7 @@ const SalesTeamTab = () => {
       case "approved":
         return (
           <Badge 
-            className={`bg-green-500/20 text-green-400 border-green-500/30 ${baseClasses}`}
+            className={`bg-green-600 text-white border-green-500 font-semibold ${baseClasses}`}
             onClick={clickable ? handleStatusToggle : undefined}
           >
             <ShieldCheck className="h-3 w-3 mr-1" /> Verified
@@ -256,7 +256,7 @@ const SalesTeamTab = () => {
       case "pending":
         return (
           <Badge 
-            className={`bg-yellow-500/20 text-yellow-400 border-yellow-500/30 ${baseClasses}`}
+            className={`bg-yellow-500 text-black border-yellow-400 font-semibold ${baseClasses}`}
             onClick={clickable ? handleStatusToggle : undefined}
           >
             <Clock className="h-3 w-3 mr-1" /> Pending
@@ -358,7 +358,7 @@ const SalesTeamTab = () => {
                       badge={{
                         text: aff.status === "approved" ? "✓ Verified" : "Pending",
                         variant: aff.status === "approved" ? "default" : "secondary",
-                        className: aff.status === "approved" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400",
+                        className: aff.status === "approved" ? "bg-green-600 text-white font-semibold" : "bg-yellow-500 text-black font-semibold",
                         onClick: async () => {
                           const newStatus = aff.status === "approved" ? "pending" : "approved";
                           const { error } = await supabase.from("affiliates").update({ status: newStatus }).eq("id", aff.id);
@@ -384,7 +384,7 @@ const SalesTeamTab = () => {
                             <Button
                               size="lg"
                               variant="outline"
-                              className="h-12 px-4 text-blue-400 border-blue-500/50"
+                              className="h-12 px-4 bg-blue-600 text-white border-blue-500 hover:bg-blue-700 font-semibold"
                               onClick={() => viewIdDocuments(aff)}
                             >
                               <Eye className="h-5 w-5 mr-2" /> View ID
@@ -469,7 +469,7 @@ const SalesTeamTab = () => {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="text-blue-400 border-blue-500/50 hover:bg-blue-500/10"
+                              className="bg-blue-600 text-white border-blue-500 hover:bg-blue-700 font-semibold"
                               onClick={() => viewIdDocuments(aff)}
                             >
                               <Eye className="h-3 w-3 mr-1" /> View ID

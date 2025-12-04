@@ -68,7 +68,6 @@ export const PersonalInfoSection = ({
   isAdmin = false,
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const labLogoInputRef = useRef<HTMLInputElement>(null);
   const [showCropDialog, setShowCropDialog] = useState(false);
   const [tempImageUrl, setTempImageUrl] = useState<string | null>(null);
   
@@ -344,29 +343,6 @@ export const PersonalInfoSection = ({
                       )}
                     </div>
                     <span className="text-[10px] font-medium text-cyan-600">Testing Lab</span>
-                    {isAdmin && (
-                      <>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => labLogoInputRef.current?.click()}
-                          disabled={uploadingLabLogo}
-                          className="h-5 px-2 text-[10px]"
-                        >
-                          <Upload className="w-2.5 h-2.5 mr-1" />
-                          {uploadingLabLogo ? "..." : "Upload"}
-                        </Button>
-                        <input
-                          ref={labLogoInputRef}
-                          type="file"
-                          accept="image/*"
-                          onChange={onLabLogoUpload}
-                          disabled={uploadingLabLogo}
-                          className="hidden"
-                        />
-                      </>
-                    )}
                   </div>
                 </div>
                 
@@ -426,21 +402,6 @@ export const PersonalInfoSection = ({
                         )}
                       </div>
                       <span className="text-xs font-medium text-cyan-600">Testing Lab</span>
-                      {isAdmin && (
-                        <>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => labLogoInputRef.current?.click()}
-                            disabled={uploadingLabLogo}
-                            className="h-6 px-2 text-xs"
-                          >
-                            <Upload className="w-3 h-3 mr-1" />
-                            {uploadingLabLogo ? "..." : "Upload"}
-                          </Button>
-                        </>
-                      )}
                     </div>
                   </div>
                 </div>

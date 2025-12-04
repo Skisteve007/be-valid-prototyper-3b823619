@@ -33,10 +33,16 @@ interface MarketingVideo {
   is_active: boolean;
 }
 
+const ADMIN_EMAILS = [
+  { email: "sgrillocce@gmail.com", label: "Steve G." },
+  { email: "aeidigitalsolutions@gmail.com", label: "AEI Digital" },
+];
+
 export function CampaignsTab() {
   const [templates, setTemplates] = useState<MarketingTemplate[]>([]);
   const [videos, setVideos] = useState<MarketingVideo[]>([]);
   const [selectedVideoId, setSelectedVideoId] = useState<string>("");
+  const [selectedSenderEmail, setSelectedSenderEmail] = useState<string>(ADMIN_EMAILS[0].email);
   const [loading, setLoading] = useState(true);
   const [campaignTrack, setCampaignTrack] = useState<string>("All");
   const [editingTemplate, setEditingTemplate] = useState<MarketingTemplate | null>(null);
@@ -154,6 +160,7 @@ export function CampaignsTab() {
           campaign_name: sendingTemplate.campaign_name,
           target_segment: sendingTemplate.target_segment,
           video_id: selectedVideoId || null,
+          from_email: selectedSenderEmail,
         },
       });
 
@@ -413,6 +420,23 @@ export function CampaignsTab() {
               This campaign will be sent to all users matching the "{sendingTemplate?.target_segment}" segment.
               Users who have already received this campaign will be skipped.
             </p>
+
+            {/* Sender Email Selection */}
+            <div className="space-y-2">
+              <Label htmlFor="sender_email">Send From</Label>
+              <Select value={selectedSenderEmail} onValueChange={setSelectedSenderEmail}>
+                <SelectTrigger id="sender_email">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {ADMIN_EMAILS.map((admin) => (
+                    <SelectItem key={admin.email} value={admin.email}>
+                      {admin.label} ({admin.email})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
             {/* Video Selection */}
             <div className="mt-4 space-y-2">

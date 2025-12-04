@@ -14,6 +14,7 @@ interface CampaignRequest {
   campaign_name: string;
   target_segment: string;
   video_id?: string;
+  from_email?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -51,9 +52,13 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Unauthorized: Admin access required");
     }
 
-    const { template_id, campaign_name, target_segment, video_id }: CampaignRequest = await req.json();
+    const { template_id, campaign_name, target_segment, video_id, from_email }: CampaignRequest = await req.json();
 
-    console.log(`Starting campaign: ${campaign_name} for segment: ${target_segment}`);
+    // Determine sender email - use provided or default
+    const senderEmail = from_email || "onboarding@resend.dev";
+    const senderName = from_email ? from_email.split("@")[0] : "Clean Check";
+
+    console.log(`Starting campaign: ${campaign_name} for segment: ${target_segment} from: ${senderEmail}`);
 
     // Fetch the template
     const { data: template, error: templateError } = await supabase
@@ -203,7 +208,7 @@ const handler = async (req: Request): Promise<Response> => {
 
       try {
         await resend.emails.send({
-          from: "Clean Check <onboarding@resend.dev>",
+          from: `Clean Check <${senderEmail}>`,
           to: [email],
           subject: template.subject_line,
           html: personalizedBody.replace(/\n/g, "<br>"),

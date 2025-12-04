@@ -677,7 +677,7 @@ const Index = () => {
                   <CardContent>
                     <div className="text-2xl font-bold text-secondary mb-1">$129.00</div>
                     <div className="text-xs text-muted-foreground mb-3">One-Time Payment</div>
-                    <Link to="/toxicology-kit-order">
+                    <Link to="/dashboard?tab=safety-screen">
                       <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
                         Order Tox Kit
                       </Button>

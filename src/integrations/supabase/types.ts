@@ -386,6 +386,76 @@ export type Database = {
           },
         ]
       }
+      incognito_transactions: {
+        Row: {
+          cleancheck_share: number
+          created_at: string
+          id: string
+          payment_method_id: string | null
+          payment_reference: string | null
+          payment_status: string
+          processed_at: string | null
+          promoter_id: string | null
+          promoter_share: number
+          total_amount: number
+          user_id: string
+          venue_id: string | null
+          venue_share: number
+        }
+        Insert: {
+          cleancheck_share?: number
+          created_at?: string
+          id?: string
+          payment_method_id?: string | null
+          payment_reference?: string | null
+          payment_status?: string
+          processed_at?: string | null
+          promoter_id?: string | null
+          promoter_share?: number
+          total_amount?: number
+          user_id: string
+          venue_id?: string | null
+          venue_share?: number
+        }
+        Update: {
+          cleancheck_share?: number
+          created_at?: string
+          id?: string
+          payment_method_id?: string | null
+          payment_reference?: string | null
+          payment_status?: string
+          processed_at?: string | null
+          promoter_id?: string | null
+          promoter_share?: number
+          total_amount?: number
+          user_id?: string
+          venue_id?: string | null
+          venue_share?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incognito_transactions_payment_method_id_fkey"
+            columns: ["payment_method_id"]
+            isOneToOne: false
+            referencedRelation: "user_payment_methods"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incognito_transactions_promoter_id_fkey"
+            columns: ["promoter_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incognito_transactions_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       interest_tags: {
         Row: {
           category: string
@@ -812,6 +882,51 @@ export type Database = {
         }
         Relationships: []
       }
+      promoter_payout_ledger: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          paid_at: string | null
+          promoter_id: string
+          status: string
+          transaction_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          promoter_id: string
+          status?: string
+          transaction_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          promoter_id?: string
+          status?: string
+          transaction_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promoter_payout_ledger_promoter_id_fkey"
+            columns: ["promoter_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "promoter_payout_ledger_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "incognito_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       qr_access_tokens: {
         Row: {
           created_at: string
@@ -1164,6 +1279,47 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "partner_venues"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_payment_methods: {
+        Row: {
+          created_at: string
+          id: string
+          is_default: boolean | null
+          payment_identifier: string
+          payment_type: string
+          token_reference: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_default?: boolean | null
+          payment_identifier: string
+          payment_type: string
+          token_reference?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_default?: boolean | null
+          payment_identifier?: string
+          payment_type?: string
+          token_reference?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_payment_methods_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }

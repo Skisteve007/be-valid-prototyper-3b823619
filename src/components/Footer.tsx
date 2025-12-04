@@ -15,15 +15,15 @@ const Footer = () => {
   
   return (
     <footer className="w-full mt-auto border-t bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-200 border-slate-300 dark:border-slate-700">
-      <div className="container mx-auto px-4 py-3">
+      <div className="container mx-auto px-4 py-4">
         {/* Compact Legal Section */}
-        <div className="text-[9px] leading-tight space-y-1 mb-2">
+        <div className="text-[11px] leading-relaxed space-y-1.5 mb-3">
           <p>© 2025 Clean Check. All Rights Reserved. Clean Check™, The Safety Shield™, Dual-Verification System™ pending trademarks. Protected under U.S. Copyright Law.</p>
           <p><strong>Disclaimer:</strong> Clean Check is a technology platform, not a healthcare provider. Services are for informational purposes only. All testing by independent CLIA-certified labs. HIPAA-compliant. We do not sell PHI.</p>
         </div>
 
         {/* Links & Compliance Row */}
-        <div className="flex flex-wrap items-center justify-center gap-2 text-[9px] border-t border-slate-300 dark:border-slate-700 pt-2">
+        <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] border-t border-slate-300 dark:border-slate-700 pt-3">
           <Link to="/terms" className="hover:opacity-80 transition-colors underline">Terms</Link>
           <span>|</span>
           <Link to="/privacy" className="hover:opacity-80 transition-colors underline">Privacy</Link>
@@ -34,7 +34,7 @@ const Footer = () => {
           <span className="ml-auto">
             <button
               onClick={handleAdminClick}
-              className="text-[10px] px-3 py-1 rounded-full font-medium transition-all duration-200 bg-purple-500 text-white hover:bg-purple-400 dark:bg-purple-300 dark:text-purple-900 dark:hover:bg-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.6)] hover:shadow-[0_0_18px_rgba(168,85,247,0.8)] focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 focus:ring-offset-background"
+              className="text-xs px-3 py-1.5 rounded-full font-medium transition-all duration-200 bg-purple-500 text-white hover:bg-purple-400 dark:bg-purple-300 dark:text-purple-900 dark:hover:bg-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.6)] hover:shadow-[0_0_18px_rgba(168,85,247,0.8)] focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 focus:ring-offset-background"
             >
               {isAdmin ? "Admin Panel" : "Admin"}
             </button>

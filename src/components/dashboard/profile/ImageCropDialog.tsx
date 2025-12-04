@@ -1,8 +1,8 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { ZoomIn, ZoomOut, Move } from "lucide-react";
+import { ZoomIn, ZoomOut, Move, Loader2 } from "lucide-react";
 
 interface ImageCropDialogProps {
   open: boolean;
@@ -16,8 +16,20 @@ export const ImageCropDialog = ({ open, onClose, imageUrl, onSave }: ImageCropDi
   const [scale, setScale] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [saving, setSaving] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Reset state when dialog opens
+  useEffect(() => {
+    if (open) {
+      setPosition({ x: 0, y: 0 });
+      setScale(1);
+      setImageLoaded(false);
+    }
+  }, [open, imageUrl]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -57,58 +69,75 @@ export const ImageCropDialog = ({ open, onClose, imageUrl, onSave }: ImageCropDi
   };
 
   const handleSave = async () => {
-    if (!imageRef.current || !containerRef.current) return;
-
-    const canvas = document.createElement('canvas');
-    const size = 256; // Output size
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
+    if (!imageRef.current || !imageLoaded) return;
     
-    if (!ctx) return;
-
-    const img = imageRef.current;
-    const containerSize = 200; // Match the container size in CSS
+    setSaving(true);
     
-    // Calculate the visible area
-    const imgWidth = img.naturalWidth;
-    const imgHeight = img.naturalHeight;
-    const displayWidth = containerSize * scale;
-    const displayHeight = (imgHeight / imgWidth) * displayWidth;
-    
-    // Calculate source coordinates
-    const scaleRatio = imgWidth / displayWidth;
-    const sourceX = (-position.x) * scaleRatio;
-    const sourceY = (-position.y) * scaleRatio;
-    const sourceSize = containerSize * scaleRatio;
-
-    // Draw circular clip
-    ctx.beginPath();
-    ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.clip();
-
-    // Draw the image
-    ctx.drawImage(
-      img,
-      sourceX, sourceY, sourceSize, sourceSize,
-      0, 0, size, size
-    );
-
-    canvas.toBlob((blob) => {
-      if (blob) {
-        onSave(blob);
-        onClose();
-        // Reset state
-        setPosition({ x: 0, y: 0 });
-        setScale(1);
+    try {
+      const canvas = document.createElement('canvas');
+      const outputSize = 256;
+      canvas.width = outputSize;
+      canvas.height = outputSize;
+      const ctx = canvas.getContext('2d');
+      
+      if (!ctx) {
+        throw new Error('Could not get canvas context');
       }
-    }, 'image/jpeg', 0.9);
+
+      const img = imageRef.current;
+      const containerSize = 200;
+      
+      // Calculate dimensions
+      const imgAspect = img.naturalWidth / img.naturalHeight;
+      let drawWidth = containerSize * scale;
+      let drawHeight = drawWidth / imgAspect;
+      
+      if (drawHeight < containerSize * scale) {
+        drawHeight = containerSize * scale;
+        drawWidth = drawHeight * imgAspect;
+      }
+
+      // Scale factor from container to output
+      const outputScale = outputSize / containerSize;
+      
+      // Draw circular clip
+      ctx.beginPath();
+      ctx.arc(outputSize / 2, outputSize / 2, outputSize / 2, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+
+      // Fill background
+      ctx.fillStyle = '#f0f0f0';
+      ctx.fillRect(0, 0, outputSize, outputSize);
+
+      // Draw the image at the correct position and scale
+      const drawX = position.x * outputScale;
+      const drawY = position.y * outputScale;
+      const scaledWidth = drawWidth * outputScale;
+      const scaledHeight = drawHeight * outputScale;
+
+      ctx.drawImage(img, drawX, drawY, scaledWidth, scaledHeight);
+
+      // Convert to blob
+      canvas.toBlob((blob) => {
+        if (blob) {
+          onSave(blob);
+          onClose();
+        } else {
+          throw new Error('Failed to create image blob');
+        }
+        setSaving(false);
+      }, 'image/jpeg', 0.9);
+    } catch (error) {
+      console.error('Error saving cropped image:', error);
+      setSaving(false);
+    }
   };
 
   const handleClose = () => {
     setPosition({ x: 0, y: 0 });
     setScale(1);
+    setImageLoaded(false);
     onClose();
   };
 
@@ -143,6 +172,7 @@ export const ImageCropDialog = ({ open, onClose, imageUrl, onSave }: ImageCropDi
               ref={imageRef}
               src={imageUrl}
               alt="Crop preview"
+              crossOrigin="anonymous"
               className="absolute select-none pointer-events-none"
               style={{
                 transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
@@ -153,6 +183,7 @@ export const ImageCropDialog = ({ open, onClose, imageUrl, onSave }: ImageCropDi
                 objectFit: 'cover'
               }}
               draggable={false}
+              onLoad={() => setImageLoaded(true)}
             />
           </div>
 
@@ -175,8 +206,19 @@ export const ImageCropDialog = ({ open, onClose, imageUrl, onSave }: ImageCropDi
           <Button variant="outline" onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={handleSave} className="bg-green-600 hover:bg-green-700">
-            Save Photo
+          <Button 
+            onClick={handleSave} 
+            className="bg-green-600 hover:bg-green-700"
+            disabled={saving || !imageLoaded}
+          >
+            {saving ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              'Save Photo'
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>

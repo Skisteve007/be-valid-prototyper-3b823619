@@ -51,9 +51,9 @@ serve(async (req) => {
     // Generate a secure random token
     const token = crypto.randomUUID();
     
-    // Token expires in 24 hours
+    // Token expires in 6 hours
     const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 24);
+    expiresAt.setHours(expiresAt.getHours() + 6);
 
     // Create token record
     const { data: tokenData, error: tokenError } = await supabase

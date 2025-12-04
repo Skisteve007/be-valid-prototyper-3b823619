@@ -23,8 +23,8 @@ All colors MUST be HSL.
     --primary: 20 90% 48%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 35 85% 55%;
-    --secondary-foreground: 20 30% 10%;
+    --secondary: 195 70% 45%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 30 20% 92%;
     --muted-foreground: 20 25% 40%;
@@ -51,10 +51,10 @@ All colors MUST be HSL.
     --sidebar-ring: 20 90% 48%;
 
     --chart-1: 20 90% 50%;
-    --chart-2: 35 85% 55%;
+    --chart-2: 195 70% 50%;
     --chart-3: 350 80% 60%;
-    --chart-4: 45 80% 50%;
-    --chart-5: 10 85% 55%;
+    --chart-4: 210 65% 45%;
+    --chart-5: 35 85% 55%;
 
     --sidebar: 195 30% 97%;
 
@@ -88,7 +88,7 @@ All colors MUST be HSL.
     --primary: 25 95% 55%;
     --primary-foreground: 20 25% 8%;
 
-    --secondary: 40 90% 60%;
+    --secondary: 195 75% 55%;
     --secondary-foreground: 20 25% 8%;
 
     --muted: 25 25% 18%;
@@ -114,10 +114,10 @@ All colors MUST be HSL.
     --sidebar-ring: 25 95% 55%;
     
     --chart-1: 25 95% 55%;
-    --chart-2: 40 90% 60%;
+    --chart-2: 195 75% 55%;
     --chart-3: 355 85% 65%;
-    --chart-4: 50 85% 55%;
-    --chart-5: 15 90% 60%;
+    --chart-4: 210 70% 50%;
+    --chart-5: 40 90% 60%;
     
     --sidebar: 20 25% 10%;
   }

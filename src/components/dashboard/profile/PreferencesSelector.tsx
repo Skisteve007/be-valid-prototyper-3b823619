@@ -24,7 +24,13 @@ import {
   Zap,
   LucideIcon,
   Palette,
-  Flame
+  Flame,
+  Bike,
+  Ship,
+  ChefHat,
+  ShoppingBag,
+  Plane,
+  Dumbbell
 } from "lucide-react";
 
 interface PreferenceCategory {
@@ -59,6 +65,15 @@ const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
     title: "Specific Activities",
     items: ["Group Activities", "Threesomes", "Multiple Men Only", "Multiple Women Only", "Experimental"],
   },
+];
+
+const HOBBY_INTERESTS = [
+  { id: "motorcycle", label: "Motorcycle Riding", Icon: Bike, color: "text-red-500" },
+  { id: "boating", label: "Boating", Icon: Ship, color: "text-blue-500" },
+  { id: "cooking", label: "Cooking", Icon: ChefHat, color: "text-orange-500" },
+  { id: "shopping", label: "Shopping", Icon: ShoppingBag, color: "text-pink-500" },
+  { id: "travel", label: "Travel", Icon: Plane, color: "text-teal-500" },
+  { id: "exercise", label: "Exercise", Icon: Dumbbell, color: "text-green-500" },
 ];
 
 const getCategoryIcon = (categoryId: string): { Icon: LucideIcon; color: string } => {
@@ -140,6 +155,34 @@ export const PreferencesSelector = ({
         <p className="text-sm text-muted-foreground mt-2">
           Select your interests and preferences across different categories
         </p>
+      </div>
+
+      {/* Hobby Interests - Icon Only */}
+      <div className="space-y-3">
+        <Label className="text-sm font-medium flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-purple-500" />
+          Hobby Interests
+        </Label>
+        <div className="flex flex-wrap gap-3">
+          {HOBBY_INTERESTS.map((hobby) => {
+            const selected = isSelected("hobby_interests", hobby.id);
+            return (
+              <button
+                key={hobby.id}
+                type="button"
+                onClick={() => togglePreference("hobby_interests", hobby.id)}
+                className={`p-3 rounded-full border-2 transition-all duration-200 ${
+                  selected
+                    ? "border-primary bg-primary/20 shadow-lg shadow-primary/30 scale-110"
+                    : "border-border hover:border-primary/50 hover:bg-muted/50"
+                }`}
+                title={hobby.label}
+              >
+                <hobby.Icon className={`w-6 h-6 ${selected ? "text-primary" : hobby.color}`} />
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <Accordion type="multiple" className="w-full">

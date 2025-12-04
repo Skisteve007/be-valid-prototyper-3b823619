@@ -34,7 +34,7 @@ const Footer = () => {
           <span className="ml-auto">
             <button
               onClick={handleAdminClick}
-              className="text-xs px-3 py-1.5 rounded-full font-medium transition-all duration-200 bg-purple-500 text-white hover:bg-purple-400 dark:bg-purple-300 dark:text-purple-900 dark:hover:bg-purple-200 shadow-[0_0_12px_rgba(168,85,247,0.6)] hover:shadow-[0_0_18px_rgba(168,85,247,0.8)] focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 focus:ring-offset-background"
+              className="text-xs px-3 py-1.5 rounded-full font-medium transition-all duration-200 bg-blue-600 text-white hover:bg-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.8)] hover:shadow-[0_0_25px_rgba(37,99,235,1)] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 focus:ring-offset-background"
             >
               {isAdmin ? "Admin Panel" : "Admin"}
             </button>

@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Plus, Award, FileText, Eye, X, Trash2, AlertTriangle, Camera, Upload } from "lucide-react";
+import { Loader2, Plus, Award, FileText, Eye, X, Trash2, AlertTriangle, Camera, Upload, ExternalLink } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 
@@ -585,56 +585,54 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           </DialogHeader>
           <div className="relative flex-1 overflow-auto bg-muted/30 p-4" style={{ maxHeight: 'calc(90vh - 100px)' }}>
             {selectedDocument ? (
-              <div className="relative">
-                {/* Check if it's a PDF or image based on URL */}
-                {selectedDocument.toLowerCase().includes('.pdf') ? (
-                  <iframe
-                    src={`${selectedDocument}#toolbar=0&navpanes=0`}
-                    className="w-full h-[70vh] rounded-lg border border-border bg-white"
-                    title="Document Preview"
-                  />
-                ) : (
-                  <img
-                    src={selectedDocument}
-                    alt="Document"
-                    className="w-full h-auto rounded-lg max-h-[70vh] object-contain mx-auto shadow-lg"
-                    style={{ display: 'block', backgroundColor: 'white' }}
-                    onContextMenu={(e) => e.preventDefault()}
-                    draggable={false}
-                    onError={(e) => {
-                      console.error('Image failed to load:', selectedDocument);
-                      // Show fallback message
-                      const parent = e.currentTarget.parentElement;
-                      if (parent) {
-                        e.currentTarget.style.display = 'none';
-                        // Try as iframe instead
-                        const iframe = document.createElement('iframe');
-                        iframe.src = selectedDocument;
-                        iframe.className = 'w-full h-[70vh] rounded-lg border border-border bg-white';
-                        iframe.title = 'Document Preview';
-                        parent.appendChild(iframe);
-                      }
-                    }}
-                    onLoad={() => console.log('Image loaded successfully')}
-                  />
-                )}
-                {/* Watermark overlay - transparent so document is visible */}
-                <div 
-                  className="absolute inset-0 pointer-events-none select-none overflow-hidden"
-                  style={{ userSelect: 'none' }}
-                >
-                  {/* Subtle watermarks */}
-                  <div className="absolute top-[20%] left-[10%] transform -rotate-45 opacity-10 text-gray-500 text-xl font-bold">
-                    {viewerMemberId}
+              (() => {
+                const url = selectedDocument.toLowerCase();
+                const isImage = url.includes('.jpg') || url.includes('.jpeg') || url.includes('.png') || url.includes('.gif') || url.includes('.webp') || url.includes('.bmp');
+                const isPdf = url.includes('.pdf');
+                
+                if (isImage) {
+                  return (
+                    <div className="relative">
+                      <img
+                        src={selectedDocument}
+                        alt="Document"
+                        className="w-full h-auto rounded-lg max-h-[70vh] object-contain mx-auto shadow-lg"
+                        style={{ display: 'block', backgroundColor: 'white' }}
+                        onContextMenu={(e) => e.preventDefault()}
+                        draggable={false}
+                      />
+                      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+                        <div className="absolute top-[20%] left-[10%] transform -rotate-45 opacity-10 text-muted-foreground text-xl font-bold">
+                          {viewerMemberId}
+                        </div>
+                        <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 -rotate-45 opacity-10 text-muted-foreground text-xl font-bold">
+                          {viewerMemberId}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+                
+                // For PDFs and other files - show open in new tab button
+                return (
+                  <div className="flex flex-col items-center justify-center h-[300px] text-center">
+                    <FileText className="h-16 w-16 mb-4 text-muted-foreground" />
+                    <p className="text-lg font-medium mb-2">
+                      {isPdf ? 'PDF Document' : 'Document'}
+                    </p>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Click below to view in a new tab
+                    </p>
+                    <Button
+                      onClick={() => window.open(selectedDocument, '_blank')}
+                      className="gap-2"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      Open Document
+                    </Button>
                   </div>
-                  <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 -rotate-45 opacity-10 text-gray-500 text-xl font-bold">
-                    {viewerMemberId}
-                  </div>
-                  <div className="absolute bottom-[20%] right-[10%] transform -rotate-45 opacity-10 text-gray-500 text-xl font-bold">
-                    {viewerMemberId}
-                  </div>
-                </div>
-              </div>
+                );
+              })()
             ) : (
               <div className="flex items-center justify-center h-[300px] text-muted-foreground">
                 <div className="text-center">

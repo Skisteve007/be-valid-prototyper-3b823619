@@ -708,14 +708,39 @@ const VenueCompliance = () => {
 
       {/* Strategic Partner CTA */}
       <div className="max-w-4xl mx-auto px-5 pb-20">
-        <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-amber-500/30 rounded-2xl p-8 text-center">
-          <h2 className="text-3xl font-bold mb-3">Strategic Partner Program</h2>
-          <p className="text-slate-400 mb-6 text-lg">Connect venues, refer members, and earn recurring revenue. Join the Clean Check global network.</p>
-          <Link to="/partner-application">
-            <button className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 text-black font-extrabold rounded-lg uppercase text-lg">
-              APPLY FOR PARTNERSHIP
-            </button>
-          </Link>
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-amber-500/30 rounded-2xl p-8">
+          <h2 className="text-3xl font-bold text-white mb-2 text-center">
+            Strategic Partner Program: Activate Your Revenue Stream
+          </h2>
+          <p className="text-slate-300 mb-6 text-lg text-center">
+            Connect venues, refer members, and earn instant, recurring revenue from every single Incognito scan. Join the Clean Check global network and transform your influence into income.
+          </p>
+
+          {/* Revenue Split Explainer */}
+          <div className="p-5 bg-slate-800/70 rounded-lg border border-green-500/30 mb-6">
+            <h3 className="text-xl font-semibold text-green-400 mb-3">
+              YOUR REVENUE OPPORTUNITY: THE $5.00 INCOGNITO SPLIT
+            </h3>
+            <p className="text-slate-400 text-base mb-3">
+              For every 24-hour Incognito Access Token sold via your affiliated venues/promoters, the $5.00 fee is instantly split and distributed:
+            </p>
+            <ul className="list-disc list-inside text-slate-300 space-y-2 ml-4 text-base">
+              <li><strong className="text-white">Venue/Establishment Payout:</strong> $2.00 per scan (40%)</li>
+              <li><strong className="text-white">Promoter/Affiliate Commission:</strong> $1.00 per scan (20%)</li>
+              <li><strong className="text-white">Clean Check Platform Fee:</strong> $2.00 per scan (40%)</li>
+            </ul>
+            <p className="text-amber-400 text-base mt-4 font-medium">
+              <strong>MARKETING ASSET:</strong> Venue owners receive a dedicated dashboard showing real-time Promoter performance and Payout Ledger tracking. This adds huge, quick money for all partners.
+            </p>
+          </div>
+
+          <div className="text-center">
+            <Link to="/partner-application">
+              <button className="px-8 py-4 bg-gradient-to-r from-green-500 to-green-400 text-slate-900 font-extrabold rounded-lg uppercase text-lg shadow-lg hover:from-white hover:to-slate-100 transition-all">
+                APPLY FOR PARTNERSHIP
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

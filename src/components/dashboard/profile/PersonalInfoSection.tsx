@@ -541,38 +541,42 @@ export const PersonalInfoSection = ({
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label className="flex items-center gap-2">
-          <Users className="w-4 h-4 text-purple-500" />
-          I Identify As *
-        </Label>
-        <div className="flex gap-2">
-          {["Male", "Female", "Transgender"].map((gender) => (
-            <Button
-              key={gender}
-              type="button"
-              variant={genderIdentity === gender ? "default" : "outline"}
-              onClick={() => setValue("gender_identity", gender)}
-            >
-              {gender}
-            </Button>
-          ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-purple-500" />
+            I Identify As *
+          </Label>
+          <div className="flex flex-wrap gap-2">
+            {["Male", "Female", "Transgender"].map((gender) => (
+              <Button
+                key={gender}
+                type="button"
+                variant={genderIdentity === gender ? "default" : "outline"}
+                onClick={() => setValue("gender_identity", gender)}
+                size="sm"
+              >
+                {gender}
+              </Button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="space-y-2">
-        <Label>Sexual Orientation *</Label>
-        <div className="flex flex-wrap gap-2">
-          {["Gay", "Bi", "Straight", "Pansexual", "Asexual"].map((orientation) => (
-            <Button
-              key={orientation}
-              type="button"
-              variant={sexualOrientation === orientation ? "default" : "outline"}
-              onClick={() => setValue("sexual_orientation", orientation)}
-            >
-              {orientation}
-            </Button>
-          ))}
+        <div className="space-y-2">
+          <Label>Sexual Orientation *</Label>
+          <div className="flex flex-wrap gap-2">
+            {["Straight", "Bi", "Asexual", "Pansexual", "Gay"].map((orientation) => (
+              <Button
+                key={orientation}
+                type="button"
+                variant={sexualOrientation === orientation ? "default" : "outline"}
+                onClick={() => setValue("sexual_orientation", orientation)}
+                size="sm"
+              >
+                {orientation}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
 

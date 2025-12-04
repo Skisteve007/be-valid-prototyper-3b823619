@@ -133,6 +133,36 @@ const handler = async (req: Request): Promise<Response> => {
                 color: #2563eb;
                 letter-spacing: 2px;
               }
+              .highlight-box {
+                background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+                border-left: 4px solid #2563eb;
+                padding: 20px;
+                border-radius: 0 8px 8px 0;
+                margin: 20px 0;
+              }
+              .highlight-box h3 {
+                color: #2563eb;
+                margin: 0 0 15px 0;
+                font-size: 18px;
+              }
+              .highlight-box ul {
+                margin: 0;
+                padding-left: 20px;
+              }
+              .highlight-box li {
+                padding: 8px 0;
+                color: #1e3a5f;
+              }
+              .speed-badge {
+                display: inline-block;
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-weight: bold;
+                font-size: 14px;
+                margin: 10px 0;
+              }
               .feature-list {
                 background: white;
                 padding: 20px;
@@ -153,7 +183,37 @@ const handler = async (req: Request): Promise<Response> => {
                 padding: 15px 30px;
                 text-decoration: none;
                 border-radius: 8px;
-                margin: 20px 0;
+                margin: 10px 5px;
+                font-weight: bold;
+              }
+              .share-button {
+                display: inline-block;
+                background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+                color: white;
+                padding: 15px 30px;
+                text-decoration: none;
+                border-radius: 8px;
+                margin: 10px 5px;
+                font-weight: bold;
+              }
+              .discount-box {
+                background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+                border: 2px dashed #f59e0b;
+                padding: 20px;
+                text-align: center;
+                border-radius: 8px;
+                margin: 25px 0;
+              }
+              .discount-code {
+                font-size: 24px;
+                font-weight: bold;
+                color: #d97706;
+                letter-spacing: 3px;
+                background: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                display: inline-block;
+                margin: 10px 0;
               }
               .footer {
                 text-align: center;
@@ -181,27 +241,57 @@ const handler = async (req: Request): Promise<Response> => {
                 <div class="member-id-value">${memberId}</div>
               </div>
               
-              <p><strong>Important:</strong> Save this Member ID - you'll need it to access your profile and verify your status.</p>
+              <div class="highlight-box">
+                <h3>🛡️ What is Clean Check?</h3>
+                <ul>
+                  <li><strong>Instant Health Verification</strong> - Share your verified health & toxicology status with a single QR scan</li>
+                  <li><strong>Privacy-First Design</strong> - You control who sees your information and when</li>
+                  <li><strong>Lab-Certified Results</strong> - Integrated with trusted laboratories for authentic verification</li>
+                  <li><strong>Peer-to-Peer Trust</strong> - Build mutual confidence in lifestyle and professional settings</li>
+                  <li><strong>HIPAA-Compliant Security</strong> - Your sensitive data is encrypted and protected</li>
+                </ul>
+              </div>
+              
+              <center>
+                <div class="speed-badge">⚡ QR SCAN VERIFICATION IN UNDER 3 SECONDS</div>
+              </center>
+              
+              <p style="text-align: center; color: #666; font-size: 14px;">
+                No more awkward conversations. No paperwork. Just scan, verify, and go with confidence.
+              </p>
               
               <div class="feature-list">
-                <h3 style="margin-top: 0;">What's Next?</h3>
+                <h3 style="margin-top: 0;">🚀 Get Started Now:</h3>
                 <div class="feature-item">
-                  ✅ <strong>Complete Your Profile:</strong> Log in and add your information
+                  ✅ <strong>Complete Your Profile:</strong> Add your personal information
+                </div>
+                <div class="feature-item">
+                  📸 <strong>Upload Profile Photo:</strong> Required for verification
                 </div>
                 <div class="feature-item">
                   📄 <strong>Upload Documents:</strong> Add your health verification documents
                 </div>
                 <div class="feature-item">
-                  📱 <strong>Get Your QR Code:</strong> Your unique QR code will be generated after document upload
-                </div>
-                <div class="feature-item">
-                  🔒 <strong>Enable Biometric Login:</strong> Set up fingerprint or Face ID for quick access
+                  📱 <strong>Get Your QR Code:</strong> Your unique QR badge unlocks after setup
                 </div>
               </div>
               
               <center>
                 <a href="https://cleancheck.fit/dashboard" class="cta-button">
-                  Access Your Dashboard
+                  Access Your Dashboard →
+                </a>
+              </center>
+              
+              <div class="discount-box">
+                <h3 style="margin: 0 0 10px 0; color: #92400e;">🎁 Share the Safety! Give 10% Off</h3>
+                <p style="margin: 0 0 10px 0; color: #78350f;">Know someone who values verified trust? Share this exclusive discount code:</p>
+                <div class="discount-code">CLEANFRIEND10</div>
+                <p style="margin: 10px 0 0 0; font-size: 13px; color: #92400e;">Valid for new members only. Share the link below!</p>
+              </div>
+              
+              <center>
+                <a href="https://cleancheck.fit/?discount=CLEANFRIEND10" class="share-button">
+                  🔗 Share Clean Check with Friends
                 </a>
               </center>
               
@@ -214,7 +304,7 @@ const handler = async (req: Request): Promise<Response> => {
             <div class="footer">
               <p>
                 This email was sent to ${email}<br>
-                Clean Check - Elevating Intimacy through Verified Transparency & Mutual Trust
+                Clean Check - One Scan. Zero Doubt.
               </p>
               <p>&copy; 2025 Clean Check. All rights reserved.</p>
             </div>

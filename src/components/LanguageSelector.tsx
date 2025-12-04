@@ -71,22 +71,38 @@ function initGoogleTranslate() {
   }
 }
 
+// Helper to apply language once widget is ready
+function applyGoogleTranslateLanguage(langCode: string, attempts = 0) {
+  const maxAttempts = 30;
+
+  // Wait until Google Translate has initialized AND the combo exists
+  const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
+
+  if (googleTranslateReady && combo) {
+    combo.value = langCode;
+    combo.dispatchEvent(new Event("change"));
+    console.log("[LanguageSelector] Language applied via Google Translate:", langCode);
+    return;
+  }
+
+  if (attempts < maxAttempts) {
+    setTimeout(() => applyGoogleTranslateLanguage(langCode, attempts + 1), 300);
+  } else {
+    console.warn("[LanguageSelector] Failed to find Google Translate combo after retries");
+  }
+}
+
 function setLanguage(langCode: string) {
   // Save preference
-  localStorage.setItem('userLanguage', langCode);
+  localStorage.setItem("userLanguage", langCode);
 
-  // If switching to English, reset by clearing cookies and reloading
-  if (langCode === 'en') {
-    // Clear googtrans cookies
+  if (langCode === "en") {
+    // Clear googtrans cookies to reset to original language
     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
-    
-    // Try to reset via the combo
-    const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-    if (combo) {
-      combo.value = 'en';
-      combo.dispatchEvent(new Event("change"));
-    }
+
+    // Try to reset via the combo (no reload)
+    applyGoogleTranslateLanguage("en");
     return;
   }
 
@@ -95,22 +111,8 @@ function setLanguage(langCode: string) {
   document.cookie = `googtrans=${googleTranslateCookie}; path=/`;
   document.cookie = `googtrans=${googleTranslateCookie}; path=/; domain=${window.location.hostname}`;
 
-  // Try to trigger via the combo with retry logic
-  const triggerTranslation = (retries = 0) => {
-    const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-    if (combo) {
-      combo.value = langCode;
-      combo.dispatchEvent(new Event("change"));
-      console.log(`Language set to: ${langCode}`);
-    } else if (retries < 10) {
-      // Retry after a short delay if combo not found yet
-      setTimeout(() => triggerTranslation(retries + 1), 200);
-    } else {
-      console.warn('Google Translate combo not found after retries');
-    }
-  };
-  
-  triggerTranslation();
+  // Apply via Google Translate combo with retry logic
+  applyGoogleTranslateLanguage(langCode);
 }
 
 function getCurrentLanguage(): Language {
@@ -141,6 +143,10 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
 
   useEffect(() => {
     initGoogleTranslate();
+
+    // Re-apply the saved language after Google Translate initializes
+    const lang = getCurrentLanguage();
+    applyGoogleTranslateLanguage(lang.code);
   }, []);
 
   const handleLanguageChange = (language: Language) => {

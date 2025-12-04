@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
-import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus } from "lucide-react";
+import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
@@ -22,6 +22,8 @@ interface Venue {
   status: string;
   gm_email: string | null;
   industry_type: string | null;
+  bank_endpoint: string | null;
+  paypal_email: string | null;
 }
 
 type IndustryFilter = 'all' | 'Nightlife' | 'Adult' | 'Workforce' | 'Transportation' | 'Rentals';
@@ -44,6 +46,8 @@ export const VenueDirectoryTab = () => {
   const [editingVenue, setEditingVenue] = useState<Venue | null>(null);
   const [gmEmail, setGmEmail] = useState("");
   const [editIndustry, setEditIndustry] = useState<string>("");
+  const [bankEndpoint, setBankEndpoint] = useState("");
+  const [paypalEmail, setPaypalEmail] = useState("");
   const [saving, setSaving] = useState(false);
   
   // Add venue state
@@ -94,7 +98,9 @@ export const VenueDirectoryTab = () => {
         .from("partner_venues")
         .update({ 
           gm_email: gmEmail || null,
-          industry_type: editIndustry || 'Nightlife'
+          industry_type: editIndustry || 'Nightlife',
+          bank_endpoint: bankEndpoint || null,
+          paypal_email: paypalEmail || null
         })
         .eq("id", editingVenue.id);
 
@@ -104,6 +110,8 @@ export const VenueDirectoryTab = () => {
       setEditingVenue(null);
       setGmEmail("");
       setEditIndustry("");
+      setBankEndpoint("");
+      setPaypalEmail("");
       loadVenues();
     } catch (error: any) {
       toast.error("Failed to update venue");
@@ -458,6 +466,8 @@ export const VenueDirectoryTab = () => {
                             setEditingVenue(venue);
                             setGmEmail(venue.gm_email || "");
                             setEditIndustry(venue.industry_type || "Nightlife");
+                            setBankEndpoint(venue.bank_endpoint || "");
+                            setPaypalEmail(venue.paypal_email || "");
                           }}
                         >
                           <Edit className="h-5 w-5 mr-2" /> Edit
@@ -497,6 +507,48 @@ export const VenueDirectoryTab = () => {
                               className="h-12"
                             />
                           </div>
+                          
+                          {/* Payout Configuration Section */}
+                          <div className="border-t pt-4 mt-4">
+                            <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                              <Banknote className="h-4 w-4 text-green-500" />
+                              Payout Configuration
+                            </h4>
+                            <div className="space-y-3">
+                              <div className="space-y-2">
+                                <Label htmlFor="paypal-email-mobile" className="flex items-center gap-2">
+                                  <CreditCard className="h-3 w-3" />
+                                  PayPal Email
+                                </Label>
+                                <Input
+                                  id="paypal-email-mobile"
+                                  type="email"
+                                  placeholder="payments@venue.com"
+                                  value={paypalEmail}
+                                  onChange={(e) => setPaypalEmail(e.target.value)}
+                                  className="h-12"
+                                />
+                              </div>
+                              <div className="space-y-2">
+                                <Label htmlFor="bank-endpoint-mobile" className="flex items-center gap-2">
+                                  <Banknote className="h-3 w-3" />
+                                  Bank API Endpoint (Optional)
+                                </Label>
+                                <Input
+                                  id="bank-endpoint-mobile"
+                                  type="url"
+                                  placeholder="https://api.bank.com/payout"
+                                  value={bankEndpoint}
+                                  onChange={(e) => setBankEndpoint(e.target.value)}
+                                  className="h-12"
+                                />
+                                <p className="text-xs text-muted-foreground">
+                                  For direct bank transfers via API integration
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          
                           <Button 
                             onClick={handleSaveVenue} 
                             disabled={saving}
@@ -572,6 +624,8 @@ export const VenueDirectoryTab = () => {
                               setEditingVenue(venue);
                               setGmEmail(venue.gm_email || "");
                               setEditIndustry(venue.industry_type || "Nightlife");
+                              setBankEndpoint(venue.bank_endpoint || "");
+                              setPaypalEmail(venue.paypal_email || "");
                             }}
                           >
                             Edit
@@ -610,6 +664,46 @@ export const VenueDirectoryTab = () => {
                                 onChange={(e) => setGmEmail(e.target.value)}
                               />
                             </div>
+                            
+                            {/* Payout Configuration Section */}
+                            <div className="border-t pt-4 mt-4">
+                              <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                                <Banknote className="h-4 w-4 text-green-500" />
+                                Payout Configuration
+                              </h4>
+                              <div className="space-y-3">
+                                <div className="space-y-2">
+                                  <Label htmlFor="paypal-email" className="flex items-center gap-2">
+                                    <CreditCard className="h-3 w-3" />
+                                    PayPal Email
+                                  </Label>
+                                  <Input
+                                    id="paypal-email"
+                                    type="email"
+                                    placeholder="payments@venue.com"
+                                    value={paypalEmail}
+                                    onChange={(e) => setPaypalEmail(e.target.value)}
+                                  />
+                                </div>
+                                <div className="space-y-2">
+                                  <Label htmlFor="bank-endpoint" className="flex items-center gap-2">
+                                    <Banknote className="h-3 w-3" />
+                                    Bank API Endpoint (Optional)
+                                  </Label>
+                                  <Input
+                                    id="bank-endpoint"
+                                    type="url"
+                                    placeholder="https://api.bank.com/payout"
+                                    value={bankEndpoint}
+                                    onChange={(e) => setBankEndpoint(e.target.value)}
+                                  />
+                                  <p className="text-xs text-muted-foreground">
+                                    For direct bank transfers via API integration
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            
                             <Button 
                               onClick={handleSaveVenue} 
                               disabled={saving}

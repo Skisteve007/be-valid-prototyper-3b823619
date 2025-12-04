@@ -7,7 +7,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 interface AgeVerificationDialogProps {
   open: boolean;
@@ -30,45 +29,41 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <div className="flex flex-col gap-2 sm:gap-3">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-start gap-2 p-2 bg-muted/50 rounded-md">
+            <input
+              type="checkbox"
+              className="h-3.5 w-3.5 flex-shrink-0 mt-0.5"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
+            />
+            <span className="text-[11px] sm:text-xs leading-tight text-foreground">
+              I am 18+ and I agree to the{" "}
+              <a 
+                href="/terms" 
+                className="underline hover:opacity-80 text-primary"
+                onClick={(e) => e.stopPropagation()}
+              >
+                CleanCheck Terms of Use
+              </a>.
+            </span>
+          </div>
+
           <Button
             onClick={() => {
               if (!acceptedTerms) return;
               onVerify();
             }}
-            aria-disabled={!acceptedTerms}
-            className={cn(
-              "w-full h-12 sm:h-14 text-base sm:text-lg",
-              !acceptedTerms && "opacity-60 cursor-not-allowed"
-            )}
+            disabled={!acceptedTerms}
+            className="w-full h-10 sm:h-12 text-sm sm:text-base"
           >
-            <div className="flex items-center justify-center gap-2 px-1 sm:px-2">
-              <input
-                type="checkbox"
-                className="h-4 w-4 flex-shrink-0"
-                checked={acceptedTerms}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  setAcceptedTerms(e.target.checked);
-                }}
-              />
-              <span className="text-xs sm:text-sm leading-tight">
-                I am 18+ and I agree to the{" "}
-                <a 
-                  href="/terms" 
-                  className="underline hover:opacity-80"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  CleanCheck Terms of Use
-                </a>.
-              </span>
-            </div>
+            Enter Site
           </Button>
 
           <Button
             variant="outline"
             onClick={onExit}
-            className="w-full h-10 sm:h-14"
+            className="w-full h-9 sm:h-10 text-sm"
           >
             Exit
           </Button>

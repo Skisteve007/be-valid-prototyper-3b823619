@@ -124,7 +124,7 @@ export const PersonalInfoSection = ({
             <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">
             <div className="flex flex-col items-center gap-2 w-full md:w-auto">
               <Avatar className="h-24 w-24 md:h-32 md:w-32 ring-4 ring-blue-500/50 shadow-lg shadow-blue-500/30">
-                <AvatarImage src={profileImageUrl} />
+                <AvatarImage src={profileImageUrl} className="object-cover" />
                 <AvatarFallback className="bg-blue-500/10">
                   <User className="h-16 w-16 text-blue-500" />
                 </AvatarFallback>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key, FlaskConical } from "lucide-react";
+import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key, FlaskConical, Lock, CreditCard, QrCode, Plug } from "lucide-react";
 
 const VenueCompliance = () => {
   return (
@@ -485,7 +485,71 @@ const VenueCompliance = () => {
           </div>
         </div>
 
-        {/* Card 6: Lab Access Portal */}
+        {/* Card 6: Fintech & System Integration */}
+        <div 
+          className="rounded-2xl p-6 border border-violet-500/50 flex flex-col justify-between min-h-[550px]"
+          style={{
+            background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800&q=80')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Lock className="h-8 w-8 text-violet-400" />
+              <h3 className="text-xl font-bold text-violet-400">Fintech & Integration</h3>
+            </div>
+            <p className="italic opacity-90 mb-4">"Plug into our ecosystem. Get paid instantly."</p>
+            
+            <div className="space-y-4">
+              {/* Security Features */}
+              <div className="bg-black/40 p-3 rounded-lg border border-violet-500/30">
+                <div className="flex items-center gap-2 mb-2">
+                  <Shield className="h-5 w-5 text-violet-400" />
+                  <span className="font-bold text-sm text-violet-300">Bank-Grade Security</span>
+                </div>
+                <p className="text-xs text-slate-300">256-bit AES encryption, SOC 2 Type II compliant infrastructure, HIPAA/GDPR data handling, and PCI DSS payment processing.</p>
+              </div>
+
+              {/* QR Integration */}
+              <div className="bg-black/40 p-3 rounded-lg border border-violet-500/30">
+                <div className="flex items-center gap-2 mb-2">
+                  <QrCode className="h-5 w-5 text-violet-400" />
+                  <span className="font-bold text-sm text-violet-300">QR Environment Integration</span>
+                </div>
+                <p className="text-xs text-slate-300">Seamlessly integrate your existing POS or venue system into our QR ecosystem. Accept scans, verify members, and track entry—all through your current workflow.</p>
+              </div>
+
+              {/* System Integration */}
+              <div className="bg-black/40 p-3 rounded-lg border border-violet-500/30">
+                <div className="flex items-center gap-2 mb-2">
+                  <Plug className="h-5 w-5 text-violet-400" />
+                  <span className="font-bold text-sm text-violet-300">Zero-Friction API</span>
+                </div>
+                <p className="text-xs text-slate-300">Our REST API connects your system to Clean Check in hours, not weeks. Real-time webhooks, batch processing, and full documentation included.</p>
+              </div>
+
+              {/* Instant Payments */}
+              <div className="bg-black/40 p-3 rounded-lg border border-violet-500/30">
+                <div className="flex items-center gap-2 mb-2">
+                  <CreditCard className="h-5 w-5 text-violet-400" />
+                  <span className="font-bold text-sm text-violet-300">Instant Payment Settlement</span>
+                </div>
+                <p className="text-xs text-slate-300">Get paid immediately through our integrated payment system. No waiting 30+ days—revenue hits your account the same day members transact.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <a href="mailto:Steve@bigtexasroof.com?subject=Fintech%20Integration%20Inquiry" className="block">
+              <button className="w-full py-4 bg-violet-500 text-white font-extrabold rounded-lg uppercase hover:bg-violet-400 transition-colors">
+                REQUEST INTEGRATION SPECS
+              </button>
+            </a>
+          </div>
+        </div>
+
+        {/* Card 7: Lab Access Portal */}
         <Link to="/partners" className="block">
           <div 
             className="rounded-2xl p-6 border border-sky-400/50 flex flex-col justify-between min-h-[550px] cursor-pointer hover:border-sky-400 hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] transition-all duration-300"

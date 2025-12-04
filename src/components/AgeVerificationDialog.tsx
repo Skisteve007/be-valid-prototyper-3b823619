@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface AgeVerificationDialogProps {
   open: boolean;
@@ -18,7 +16,7 @@ interface AgeVerificationDialogProps {
 }
 
 export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificationDialogProps) => {
-  const [agreed, setAgreed] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   return (
     <AlertDialog open={open}>
@@ -31,36 +29,50 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
             You must be 18 years of age or older to enter this site.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        
-        <div className="flex items-start space-x-3 py-4">
-          <Checkbox 
-            id="terms-agreement" 
-            checked={agreed}
-            onCheckedChange={(checked) => setAgreed(checked === true)}
-          />
-          <Label 
-            htmlFor="terms-agreement" 
-            className="text-sm leading-relaxed cursor-pointer"
-          >
-            I am 18+ and I agree to the CleanCheck{" "}
-            <Link 
-              to="/terms" 
-              className="text-primary underline hover:text-primary/80"
-              onClick={(e) => e.stopPropagation()}
-            >
-              Terms of Use
-            </Link>
-            .
-          </Label>
-        </div>
 
-        <AlertDialogAction
-          onClick={onVerify}
-          disabled={!agreed}
-          className="w-full h-14 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          I am 18+ (Enter)
-        </AlertDialogAction>
+        <div className="flex flex-col gap-3">
+          <Button
+            onClick={() => {
+              if (!acceptedTerms) return;
+              onVerify();
+            }}
+            aria-disabled={!acceptedTerms}
+            className={cn(
+              "w-full h-14 text-lg",
+              !acceptedTerms && "opacity-60 cursor-not-allowed"
+            )}
+          >
+            <div className="flex items-center justify-center gap-2 px-2">
+              <input
+                type="checkbox"
+                className="h-4 w-4"
+                checked={acceptedTerms}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  setAcceptedTerms(e.target.checked);
+                }}
+              />
+              <span className="text-sm">
+                I am 18+ and I agree to the{" "}
+                <a 
+                  href="/terms" 
+                  className="underline hover:opacity-80"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  CleanCheck Terms of Use
+                </a>.
+              </span>
+            </div>
+          </Button>
+
+          <Button
+            variant="outline"
+            onClick={onExit}
+            className="w-full h-14"
+          >
+            Exit
+          </Button>
+        </div>
       </AlertDialogContent>
     </AlertDialog>
   );

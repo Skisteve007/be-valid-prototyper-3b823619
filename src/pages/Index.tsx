@@ -146,9 +146,10 @@ const Index = () => {
               <div className="relative mt-3">
                 <div className="absolute inset-0 bg-accent/30 blur-xl rounded-full animate-[pulse_4s_ease-in-out_infinite]"></div>
                 <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-full animate-[pulse_5s_ease-in-out_infinite]"></div>
-                <Button
+              <Button
                   onClick={scrollToGetStarted}
-                  className="relative px-6 py-2 h-auto bg-gradient-to-r from-accent via-accent to-accent hover:from-accent/90 hover:via-accent/80 hover:to-accent/90 text-accent-foreground font-bold text-sm tracking-wide rounded-full border border-accent/50 shadow-[0_0_15px_hsl(var(--accent)/0.4),0_0_30px_hsl(var(--accent)/0.2)] hover:shadow-[0_0_25px_hsl(var(--accent)/0.6),0_0_50px_hsl(var(--accent)/0.3)] transition-all duration-300 animate-[pulse_4s_ease-in-out_infinite]"
+                  variant="outline"
+                  className="relative px-6 py-2 h-auto bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-bold text-sm tracking-wide rounded-full border border-accent/50 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)] transition-all duration-300 animate-[pulse_4s_ease-in-out_infinite]"
                 >
                   <span className="flex items-center gap-2">
                     ⚡ Beta Version ⚡
@@ -221,7 +222,8 @@ const Index = () => {
               <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-full animate-[pulse_5s_ease-in-out_infinite]"></div>
               <Button
                 onClick={scrollToGetStarted}
-                className="relative px-5 py-1.5 h-auto bg-gradient-to-r from-accent via-accent to-accent hover:from-accent/90 hover:via-accent/80 hover:to-accent/90 text-accent-foreground font-bold text-xs tracking-wide rounded-full border border-accent/50 shadow-[0_0_15px_hsl(var(--accent)/0.4),0_0_30px_hsl(var(--accent)/0.2)] hover:shadow-[0_0_25px_hsl(var(--accent)/0.6),0_0_50px_hsl(var(--accent)/0.3)] transition-all duration-300 animate-[pulse_4s_ease-in-out_infinite]"
+                variant="outline"
+                className="relative px-5 py-1.5 h-auto bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-bold text-xs tracking-wide rounded-full border border-accent/50 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)] transition-all duration-300 animate-[pulse_4s_ease-in-out_infinite]"
               >
                 <span className="flex items-center gap-1.5">
                   ⚡ Beta Version ⚡

@@ -477,112 +477,126 @@ const Index = () => {
                 <h3 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 bg-gradient-to-br from-slate-400 via-primary to-slate-600 bg-clip-text text-transparent px-4">💳 Membership Pricing - Click to Select</h3>
               <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4">
                 {/* Single Member Subscription */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30 overflow-hidden">
+                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="space-y-1">
-                      <CardTitle className="text-3xl">$39</CardTitle>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-lg text-muted-foreground line-through">$39</span>
+                        <CardTitle className="text-3xl text-green-500">$19.50</CardTitle>
+                      </div>
                       <CardDescription className="text-base font-semibold">Single Member</CardDescription>
                       <p className="text-sm text-muted-foreground whitespace-nowrap">Per 60 Days</p>
+                      <p className="text-xs font-bold text-red-500">🔥 Limited Time!</p>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - Single Member (60-Day)" />
-                      <input type="hidden" name="a3" value="39.00" />
+                      <input type="hidden" name="item_name" value="Clean Check - Single Member (60-Day) - 50% OFF" />
+                      <input type="hidden" name="a3" value="19.50" />
                       <input type="hidden" name="p3" value="2" />
                       <input type="hidden" name="t3" value="M" />
                       <input type="hidden" name="src" value="1" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
                       <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                        SELECT PLAN ($39)
+                        SELECT PLAN ($19.50)
                       </Button>
                     </form>
                   </CardContent>
                 </Card>
 
                 {/* Couple Subscription */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(236,72,153,0.5)] hover:shadow-[0_0_50px_rgba(236,72,153,0.7)] border-2 border-pink-500/30">
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(236,72,153,0.5)] hover:shadow-[0_0_50px_rgba(236,72,153,0.7)] border-2 border-pink-500/30 overflow-hidden">
+                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-pink-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="space-y-1">
-                      <CardTitle className="text-3xl">$69</CardTitle>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-lg text-muted-foreground line-through">$69</span>
+                        <CardTitle className="text-3xl text-green-500">$34.50</CardTitle>
+                      </div>
                       <CardDescription className="text-base font-semibold">Joint/Couple</CardDescription>
                       <p className="text-sm text-muted-foreground whitespace-nowrap">Per 60 Days</p>
+                      <p className="text-xs font-bold text-red-500">🔥 Limited Time!</p>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - Joint Couple (60-Day)" />
-                      <input type="hidden" name="a3" value="69.00" />
+                      <input type="hidden" name="item_name" value="Clean Check - Joint Couple (60-Day) - 50% OFF" />
+                      <input type="hidden" name="a3" value="34.50" />
                       <input type="hidden" name="p3" value="2" />
                       <input type="hidden" name="t3" value="M" />
                       <input type="hidden" name="src" value="1" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
                       <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700">
-                        SELECT PLAN ($69)
+                        SELECT PLAN ($34.50)
                       </Button>
                     </form>
                   </CardContent>
                 </Card>
 
                 {/* Single 1-Year Pass */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30">
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_50px_rgba(59,130,246,0.7)] border-2 border-blue-500/30 overflow-hidden">
+                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-blue-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div>
-                      <CardTitle className="text-3xl mb-1">$129</CardTitle>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="text-lg text-muted-foreground line-through">$129</span>
+                        <CardTitle className="text-3xl text-green-500">$64.50</CardTitle>
+                      </div>
                       <CardDescription className="text-base font-bold">Single One Year</CardDescription>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <p className="text-muted-foreground text-sm mb-1">One-time payment</p>
-                    <p className="text-base font-bold mb-3">
-                      <span className="text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]">Save 20%</span>
-                    </p>
+                    <p className="text-xs font-bold text-red-500 mb-3">🔥 Limited Time!</p>
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - Single 1-Year Pass" />
-                      <input type="hidden" name="amount" value="129.00" />
+                      <input type="hidden" name="item_name" value="Clean Check - Single 1-Year Pass - 50% OFF" />
+                      <input type="hidden" name="amount" value="64.50" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
                       <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                        BUY 1-YEAR ($129)
+                        BUY 1-YEAR ($64.50)
                       </Button>
                     </form>
                   </CardContent>
                 </Card>
 
                 {/* Couple 1-Year Pass */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(236,72,153,0.5)] hover:shadow-[0_0_50px_rgba(236,72,153,0.7)] border-2 border-pink-500/30">
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_rgba(236,72,153,0.5)] hover:shadow-[0_0_50px_rgba(236,72,153,0.7)] border-2 border-pink-500/30 overflow-hidden">
+                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-pink-500/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div>
-                      <CardTitle className="text-3xl mb-1">$219</CardTitle>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="text-lg text-muted-foreground line-through">$219</span>
+                        <CardTitle className="text-3xl text-green-500">$109.50</CardTitle>
+                      </div>
                       <CardDescription className="text-base font-bold">Couple One Year</CardDescription>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <p className="text-muted-foreground text-sm mb-1">One-time payment</p>
-                    <p className="text-base font-bold mb-3">
-                      <span className="text-pink-400 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">Save 20%</span>
-                    </p>
+                    <p className="text-xs font-bold text-red-500 mb-3">🔥 Limited Time!</p>
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - Couple 1-Year Pass" />
-                      <input type="hidden" name="amount" value="219.00" />
+                      <input type="hidden" name="item_name" value="Clean Check - Couple 1-Year Pass - 50% OFF" />
+                      <input type="hidden" name="amount" value="109.50" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
                       <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700">
-                        BUY 1-YEAR ($219)
+                        BUY 1-YEAR ($109.50)
                       </Button>
                     </form>
                   </CardContent>

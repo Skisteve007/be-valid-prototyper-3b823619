@@ -221,15 +221,59 @@ const SalesTeamTab = () => {
     setShowIdDialog(false);
   };
 
-  const getStatusBadge = (status?: string) => {
+  const getStatusBadge = (status?: string, affiliateId?: string, clickable = false) => {
+    const handleStatusToggle = async (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (!affiliateId || !clickable) return;
+      
+      const newStatus = status === "approved" ? "pending" : "approved";
+      const { error } = await supabase
+        .from("affiliates")
+        .update({ status: newStatus })
+        .eq("id", affiliateId);
+
+      if (error) {
+        toast.error("Failed to update status");
+        return;
+      }
+
+      toast.success(`Status changed to ${newStatus === "approved" ? "Verified" : "Pending"}`);
+      fetchAffiliates();
+    };
+
+    const baseClasses = clickable ? "cursor-pointer hover:opacity-80 transition-opacity" : "";
+    
     switch (status) {
       case "approved":
-        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30"><ShieldCheck className="h-3 w-3 mr-1" /> Verified</Badge>;
+        return (
+          <Badge 
+            className={`bg-green-500/20 text-green-400 border-green-500/30 ${baseClasses}`}
+            onClick={clickable ? handleStatusToggle : undefined}
+          >
+            <ShieldCheck className="h-3 w-3 mr-1" /> Verified
+          </Badge>
+        );
       case "pending":
-        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30"><Clock className="h-3 w-3 mr-1" /> Pending</Badge>;
+        return (
+          <Badge 
+            className={`bg-yellow-500/20 text-yellow-400 border-yellow-500/30 ${baseClasses}`}
+            onClick={clickable ? handleStatusToggle : undefined}
+          >
+            <Clock className="h-3 w-3 mr-1" /> Pending
+          </Badge>
+        );
       default:
         return <Badge variant="secondary">Unknown</Badge>;
     }
+  };
+
+  const getStorageUrl = (path: string | undefined) => {
+    if (!path) return null;
+    // If it's already a full URL, return it
+    if (path.startsWith('http')) return path;
+    // Otherwise, construct the public URL from storage
+    const { data } = supabase.storage.from('affiliate-docs').getPublicUrl(path);
+    return data?.publicUrl;
   };
 
   const totalOwed = affiliates.reduce((sum, a) => sum + (a.pending_earnings || 0), 0);
@@ -385,7 +429,7 @@ const SalesTeamTab = () => {
                           <p className="text-xs text-muted-foreground">{aff.email || aff.phone_number || aff.profile?.member_id}</p>
                         </div>
                       </TableCell>
-                      <TableCell>{getStatusBadge(aff.status)}</TableCell>
+                      <TableCell>{getStatusBadge(aff.status, aff.id, true)}</TableCell>
                       <TableCell>
                         <Badge variant="outline" className="font-mono">
                           {aff.referral_code}
@@ -525,18 +569,31 @@ const SalesTeamTab = () => {
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Government ID (Front)</Label>
                   {selectedAffiliate.id_front_url ? (
-                    <a 
-                      href={selectedAffiliate.id_front_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="block border rounded-lg overflow-hidden hover:border-primary transition-colors"
-                    >
-                      <img 
-                        src={selectedAffiliate.id_front_url} 
-                        alt="ID Front" 
-                        className="w-full h-48 object-cover"
-                      />
-                    </a>
+                    (() => {
+                      const imageUrl = getStorageUrl(selectedAffiliate.id_front_url);
+                      return imageUrl ? (
+                        <a 
+                          href={imageUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="block border rounded-lg overflow-hidden hover:border-primary transition-colors"
+                        >
+                          <img 
+                            src={imageUrl} 
+                            alt="ID Front" 
+                            className="w-full h-48 object-cover"
+                            onError={(e) => {
+                              console.error("Failed to load front ID image:", selectedAffiliate.id_front_url);
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                          />
+                        </a>
+                      ) : (
+                        <div className="h-48 bg-muted rounded-lg flex items-center justify-center text-muted-foreground">
+                          Invalid URL
+                        </div>
+                      );
+                    })()
                   ) : (
                     <div className="h-48 bg-muted rounded-lg flex items-center justify-center text-muted-foreground">
                       Not uploaded
@@ -547,18 +604,31 @@ const SalesTeamTab = () => {
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Government ID (Back)</Label>
                   {selectedAffiliate.id_back_url ? (
-                    <a 
-                      href={selectedAffiliate.id_back_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="block border rounded-lg overflow-hidden hover:border-primary transition-colors"
-                    >
-                      <img 
-                        src={selectedAffiliate.id_back_url} 
-                        alt="ID Back" 
-                        className="w-full h-48 object-cover"
-                      />
-                    </a>
+                    (() => {
+                      const imageUrl = getStorageUrl(selectedAffiliate.id_back_url);
+                      return imageUrl ? (
+                        <a 
+                          href={imageUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="block border rounded-lg overflow-hidden hover:border-primary transition-colors"
+                        >
+                          <img 
+                            src={imageUrl} 
+                            alt="ID Back" 
+                            className="w-full h-48 object-cover"
+                            onError={(e) => {
+                              console.error("Failed to load back ID image:", selectedAffiliate.id_back_url);
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                          />
+                        </a>
+                      ) : (
+                        <div className="h-48 bg-muted rounded-lg flex items-center justify-center text-muted-foreground">
+                          Invalid URL
+                        </div>
+                      );
+                    })()
                   ) : (
                     <div className="h-48 bg-muted rounded-lg flex items-center justify-center text-muted-foreground">
                       Not uploaded

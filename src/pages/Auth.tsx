@@ -113,23 +113,28 @@ const Auth = () => {
           .eq("user_id", data.user.id)
           .single();
 
-        // Save discount code if used
+        // Save email and discount code to profile for marketing
         const usedDiscountCode = discountCode || localStorage.getItem('discountCode');
+        const updateData: Record<string, string> = { email: signupEmail };
+        
         if (usedDiscountCode) {
-          // Update profile with discount code
-          await supabase
-            .from("profiles")
-            .update({ signup_discount_code: usedDiscountCode.toUpperCase() })
-            .eq("user_id", data.user.id);
+          updateData.signup_discount_code = usedDiscountCode.toUpperCase();
+        }
 
+        // Update profile with email and optional discount code
+        await supabase
+          .from("profiles")
+          .update(updateData)
+          .eq("user_id", data.user.id);
+
+        if (usedDiscountCode) {
           // Increment discount code usage
           await supabase.rpc('increment_discount_usage', { _code: usedDiscountCode });
-
-          // Clear stored discount code
           localStorage.removeItem('discountCode');
-          
           console.log('Discount code tracked:', usedDiscountCode);
         }
+        
+        console.log('New member email captured:', signupEmail);
 
         if (profile?.member_id) {
           // Send welcome email - now authenticated via JWT

@@ -89,9 +89,26 @@ function applyGoogleTranslateLanguage(langCode: string, attempts = 0) {
   // Wait until Google Translate has initialized AND the combo exists
   const combo = document.querySelector<HTMLSelectElement>(".goog-te-combo");
 
+  console.log(`[LanguageSelector] Attempt ${attempts + 1}: googleTranslateReady=${googleTranslateReady}, combo=${!!combo}`);
+
   if (googleTranslateReady && combo) {
+    // Set the value
     combo.value = langCode;
-    combo.dispatchEvent(new Event("change"));
+    
+    // Try multiple ways to trigger the change
+    // Method 1: Native change event with bubbles
+    combo.dispatchEvent(new Event("change", { bubbles: true }));
+    
+    // Method 2: Try firing via the element's onchange if it exists
+    if (typeof combo.onchange === 'function') {
+      combo.onchange(new Event("change"));
+    }
+    
+    // Method 3: Trigger via jQuery-style if available
+    if ((window as any).jQuery) {
+      (window as any).jQuery(combo).trigger('change');
+    }
+    
     console.log("[LanguageSelector] Language applied via Google Translate:", langCode);
     return;
   }
@@ -99,7 +116,18 @@ function applyGoogleTranslateLanguage(langCode: string, attempts = 0) {
   if (attempts < maxAttempts) {
     setTimeout(() => applyGoogleTranslateLanguage(langCode, attempts + 1), 300);
   } else {
-    console.warn("[LanguageSelector] Failed to find Google Translate combo after retries");
+    console.warn("[LanguageSelector] Failed to find Google Translate combo after retries. Falling back to cookie method.");
+    // Fallback: set cookie and do a soft navigation refresh
+    const googleTranslateCookie = langCode === 'en' ? '' : `/en/${langCode}`;
+    if (langCode === 'en') {
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
+    } else {
+      document.cookie = `googtrans=${googleTranslateCookie}; path=/`;
+      document.cookie = `googtrans=${googleTranslateCookie}; path=/; domain=${window.location.hostname}`;
+    }
+    // Last resort: reload to apply cookie-based translation
+    window.location.reload();
   }
 }
 
@@ -107,22 +135,17 @@ function setLanguage(langCode: string) {
   // Save preference
   localStorage.setItem("userLanguage", langCode);
 
+  // Set the googtrans cookie first (Google Translate reads this on page load)
   if (langCode === "en") {
-    // Clear googtrans cookies to reset to original language
     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
-
-    // Try to reset via the combo (no reload)
-    applyGoogleTranslateLanguage("en");
-    return;
+  } else {
+    const googleTranslateCookie = `/en/${langCode}`;
+    document.cookie = `googtrans=${googleTranslateCookie}; path=/`;
+    document.cookie = `googtrans=${googleTranslateCookie}; path=/; domain=${window.location.hostname}`;
   }
 
-  // Set the googtrans cookie (Google Translate reads this)
-  const googleTranslateCookie = `/en/${langCode}`;
-  document.cookie = `googtrans=${googleTranslateCookie}; path=/`;
-  document.cookie = `googtrans=${googleTranslateCookie}; path=/; domain=${window.location.hostname}`;
-
-  // Apply via Google Translate combo with retry logic
+  // Try to apply via Google Translate combo
   applyGoogleTranslateLanguage(langCode);
 }
 

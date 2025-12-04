@@ -46,12 +46,32 @@ interface LanguageSelectorProps {
 }
 
 export function LanguageSelector({ className }: LanguageSelectorProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     initGoogleTranslate();
   }, []);
 
+  // Re-initialize widget when dropdown opens (in case it wasn't ready before)
+  useEffect(() => {
+    if (isOpen && window.google?.translate?.TranslateElement) {
+      const container = document.getElementById("google_translate_element");
+      // Only reinitialize if container is empty
+      if (container && !container.hasChildNodes()) {
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,es,ru,he,pt,ro,ht",
+            autoDisplay: false,
+          },
+          "google_translate_element"
+        );
+      }
+    }
+  }, [isOpen]);
+
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
@@ -71,7 +91,7 @@ export function LanguageSelector({ className }: LanguageSelectorProps) {
         </div>
         <div
           id="google_translate_element"
-          className="text-[11px] leading-tight"
+          className="text-[11px] leading-tight [&_.goog-te-combo]:w-full [&_.goog-te-combo]:p-2 [&_.goog-te-combo]:border [&_.goog-te-combo]:border-border [&_.goog-te-combo]:rounded-md [&_.goog-te-combo]:bg-background [&_.goog-te-combo]:text-foreground"
         />
       </DropdownMenuContent>
     </DropdownMenu>

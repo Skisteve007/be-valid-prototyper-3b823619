@@ -571,7 +571,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
 
       {/* Document Viewer Modal */}
       <Dialog open={viewerOpen} onOpenChange={setViewerOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto top-[5%] translate-y-0">
           <DialogHeader>
             <DialogTitle>Document Viewer</DialogTitle>
             <DialogDescription>
@@ -579,7 +579,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
             </DialogDescription>
           </DialogHeader>
           <div className="relative min-h-[400px]">
-            {selectedDocument && (
+            {selectedDocument ? (
               <>
                 {/* Check if it's a PDF or image based on URL */}
                 {selectedDocument.toLowerCase().includes('.pdf') ? (
@@ -592,10 +592,11 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                   <img
                     src={selectedDocument}
                     alt="Document"
-                    className="w-full h-auto rounded-lg"
+                    className="w-full h-auto rounded-lg max-h-[70vh] object-contain"
                     onContextMenu={(e) => e.preventDefault()}
-                    style={{ userSelect: 'none', pointerEvents: 'none' }}
+                    style={{ userSelect: 'none' }}
                     draggable={false}
+                    crossOrigin="anonymous"
                     onError={(e) => {
                       // If image fails, try showing as iframe (might be PDF without extension)
                       const parent = e.currentTarget.parentElement;
@@ -611,6 +612,10 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                   />
                 )}
               </>
+            ) : (
+              <div className="flex items-center justify-center h-[400px] text-muted-foreground">
+                No document selected
+              </div>
             )}
             {/* Watermark overlay with member ID */}
             <div 

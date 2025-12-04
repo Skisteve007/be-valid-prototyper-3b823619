@@ -25,7 +25,20 @@ const VenueCompliance = () => {
               <span className="text-[10px] font-semibold text-sky-400 tracking-[0.2em] uppercase">Enterprise Security</span>
             </div>
           </div>
-          <Button 
+          
+          {/* Beta Pricing Badge */}
+          <div className="flex relative group">
+            <div className="absolute inset-0 bg-green-500/40 blur-xl rounded-lg animate-pulse"></div>
+            <div className="absolute inset-0 bg-green-400/20 blur-2xl rounded-lg animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+            <div className="relative px-3 py-1.5 md:px-4 md:py-2 bg-black/80 border border-green-500/60 rounded-md shadow-[0_0_20px_rgba(34,197,94,0.5),inset_0_0_20px_rgba(34,197,94,0.1)]">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-green-400/5 to-green-500/10 rounded-md"></div>
+              <span className="relative font-mono text-[10px] md:text-xs font-bold tracking-wider text-green-400 uppercase" style={{ textShadow: '0 0 10px rgba(34,197,94,0.8), 0 0 20px rgba(34,197,94,0.5)' }}>
+                ⚡ Beta Pricing ⚡
+              </span>
+            </div>
+          </div>
+          
+          <Button
             variant="outline" 
             className="border-slate-300 bg-slate-100 text-slate-900 hover:bg-white hover:text-black hover:border-slate-400 font-medium"
             asChild

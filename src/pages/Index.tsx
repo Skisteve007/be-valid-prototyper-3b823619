@@ -103,7 +103,7 @@ const Index = () => {
         <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
       </div>
 
-      <header className="relative border-b border-primary/20 bg-secondary/40 backdrop-blur-xl sticky top-0 z-50">
+      <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6 relative">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Logo + Partner Solutions - stacked */}

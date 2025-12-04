@@ -30,7 +30,7 @@ import {
   ShoppingBag,
   Plane,
   Dumbbell,
-  Gauge
+  CarFront
 } from "lucide-react";
 
 interface PreferenceCategory {
@@ -68,12 +68,13 @@ const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
 ];
 
 const HOBBY_INTERESTS = [
-  { id: "motorcycle", label: "Motorcycle Riding", Icon: Gauge, color: "text-red-500" },
+  { id: "motorcycle", label: "Motorcycle Riding", Icon: Flame, color: "text-orange-500" },
   { id: "boating", label: "Boating", Icon: Sailboat, color: "text-blue-500" },
-  { id: "cooking", label: "Cooking", Icon: ChefHat, color: "text-orange-500" },
+  { id: "cooking", label: "Cooking", Icon: ChefHat, color: "text-amber-500" },
   { id: "shopping", label: "Shopping", Icon: ShoppingBag, color: "text-pink-500" },
   { id: "travel", label: "Travel", Icon: Plane, color: "text-teal-500" },
   { id: "exercise", label: "Exercise", Icon: Dumbbell, color: "text-green-500" },
+  { id: "car_enthusiast", label: "Car Enthusiast", Icon: CarFront, color: "text-red-500" },
 ];
 
 const getCategoryIcon = (categoryId: string): { Icon: LucideIcon; color: string } => {

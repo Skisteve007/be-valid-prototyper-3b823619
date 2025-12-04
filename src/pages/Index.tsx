@@ -261,13 +261,13 @@ const Index = () => {
                   style={{ filter: 'drop-shadow(0 0 20px hsl(var(--accent) / 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.5))' }}
                 >Zero Doubt.</span>
               </p>
-              <p className="text-lg md:text-xl lg:text-2xl mb-4 italic text-muted-foreground">
+              <p className="text-xl md:text-2xl lg:text-3xl mb-4 italic text-muted-foreground">
                 Instantly verify sexual health and toxicology results with one secure badge.
               </p>
-              <p className="text-lg md:text-xl lg:text-2xl font-bold mb-2 text-foreground italic">
+              <p className="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-foreground italic">
                 The Trusted Peer-to-Peer Share.
               </p>
-              <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 text-muted-foreground">
+              <p className="text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 text-muted-foreground">
                 Connect with confidence. Share your status securely, with the option to add Lab-Certified Toxicology & Health results whenever you need the ultimate green light.
               </p>
             </ScrollReveal>

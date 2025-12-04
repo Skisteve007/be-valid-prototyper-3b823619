@@ -137,7 +137,7 @@ serve(async (req: Request) => {
       );
     }
 
-    // 5. If there's a promoter, credit their ledger
+    // 5. If there's a promoter, add to their payout ledger
     if (promoter_id) {
       await supabase
         .from('promoter_payout_ledger')
@@ -148,13 +148,57 @@ serve(async (req: Request) => {
           status: 'pending'
         });
 
+      // Update affiliate pending earnings
       await supabase.rpc('update_affiliate_pending_earnings', {
         _affiliate_id: promoter_id,
         _amount: PROMOTER_SHARE
       });
+
+      console.log('Promoter commission credited:', PROMOTER_SHARE);
     }
 
-    console.log('Incognito token generated:', `INCOG_${token}`);
+    // 6. Add venue to payout ledger and update earnings
+    if (venue_id) {
+      // Get venue's bank endpoint
+      const { data: venueData } = await supabase
+        .from('partner_venues')
+        .select('venue_name, bank_endpoint, paypal_email')
+        .eq('id', venue_id)
+        .single();
+
+      // Create venue payout record
+      await supabase
+        .from('venue_payout_ledger')
+        .insert({
+          venue_id,
+          transaction_id: transaction.id,
+          amount: VENUE_SHARE,
+          status: 'pending',
+          bank_endpoint: venueData?.bank_endpoint || venueData?.paypal_email
+        });
+
+      // Update venue earnings
+      await supabase.rpc('update_venue_earnings', {
+        _venue_id: venue_id,
+        _amount: VENUE_SHARE
+      });
+
+      console.log('Venue payout credited:', VENUE_SHARE, 'to', venueData?.venue_name);
+    }
+
+    // 7. Log complete audit trail
+    console.log('=== INCOGNITO TRANSACTION AUDIT LOG ===');
+    console.log('Transaction ID:', transaction.id);
+    console.log('User ID:', user_id);
+    console.log('Venue ID:', venue_id || 'N/A');
+    console.log('Promoter ID:', promoter_id || 'N/A');
+    console.log('Total Amount:', TOTAL_FEE);
+    console.log('Venue Share:', VENUE_SHARE);
+    console.log('Promoter Share:', promoter_id ? PROMOTER_SHARE : 0);
+    console.log('Clean Check Share:', CLEANCHECK_SHARE);
+    console.log('Payment Reference:', paymentReference);
+    console.log('Timestamp:', new Date().toISOString());
+    console.log('========================================');
 
     return new Response(
       JSON.stringify({ 

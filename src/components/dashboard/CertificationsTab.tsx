@@ -491,7 +491,6 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                         size="sm"
                         variant="outline"
                         onClick={() => {
-                          console.log("View clicked, document URL:", cert.document_url);
                           setSelectedDocument(cert.document_url);
                           setViewerOpen(true);
                         }}
@@ -582,7 +581,6 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           <div className="relative min-h-[300px] bg-muted/20 rounded-lg p-2">
             {selectedDocument ? (
               <>
-                {console.log("Rendering document:", selectedDocument)}
                 {/* Check if it's a PDF or image based on URL */}
                 {selectedDocument.toLowerCase().includes('.pdf') ? (
                   <iframe
@@ -597,9 +595,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                     className="w-full h-auto rounded-lg max-h-[70vh] object-contain bg-white"
                     onContextMenu={(e) => e.preventDefault()}
                     draggable={false}
-                    onLoad={() => console.log("Image loaded successfully")}
                     onError={(e) => {
-                      console.log("Image failed to load, trying iframe");
                       // If image fails, try showing as iframe (might be PDF without extension)
                       const parent = e.currentTarget.parentElement;
                       if (parent) {

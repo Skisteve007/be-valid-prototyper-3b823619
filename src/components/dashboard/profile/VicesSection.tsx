@@ -20,11 +20,15 @@ export const VicesSection = ({
     setValue("vices", updated);
   };
 
-  const viceOptions = [
-    { value: "Drinking", icon: Wine, color: "text-purple-500" },
-    { value: "Party enhancers", icon: Sparkles, color: "text-pink-500" },
-    { value: "Don't drink at all", icon: XCircle, color: "text-red-500" },
-    { value: "No enhancers at all", icon: ShieldCheck, color: "text-green-500" },
+  const viceRows = [
+    [
+      { value: "Drinking", icon: Wine, color: "text-purple-500" },
+      { value: "Don't drink at all", icon: XCircle, color: "text-red-500" },
+    ],
+    [
+      { value: "Party enhancers", icon: Sparkles, color: "text-pink-500" },
+      { value: "No enhancers at all", icon: ShieldCheck, color: "text-green-500" },
+    ],
   ];
 
   return (
@@ -37,22 +41,26 @@ export const VicesSection = ({
         <Label className="flex items-center gap-2 text-sm mb-2">
           Select your preferences
         </Label>
-        {viceOptions.map((option) => {
-          const IconComponent = option.icon;
-          return (
-            <div key={option.value} className="flex items-center space-x-2 p-1.5 rounded hover:bg-muted/50 transition-colors">
-              <Checkbox
-                checked={vices?.includes(option.value)}
-                onCheckedChange={() => toggleVice(option.value)}
-                className="min-h-[20px] min-w-[20px]"
-              />
-              <Label className="cursor-pointer flex items-center gap-2 flex-1">
-                <IconComponent className={`w-4 h-4 ${option.color}`} />
-                <span className="text-sm">{option.value}</span>
-              </Label>
-            </div>
-          );
-        })}
+        {viceRows.map((row, rowIndex) => (
+          <div key={rowIndex} className="grid grid-cols-2 gap-2">
+            {row.map((option) => {
+              const IconComponent = option.icon;
+              return (
+                <div key={option.value} className="flex items-center space-x-2 p-1.5 rounded hover:bg-muted/50 transition-colors">
+                  <Checkbox
+                    checked={vices?.includes(option.value)}
+                    onCheckedChange={() => toggleVice(option.value)}
+                    className="min-h-[20px] min-w-[20px]"
+                  />
+                  <Label className="cursor-pointer flex items-center gap-1 flex-1">
+                    <IconComponent className={`w-4 h-4 ${option.color}`} />
+                    <span className="text-xs">{option.value}</span>
+                  </Label>
+                </div>
+              );
+            })}
+          </div>
+        ))}
       </div>
     </div>
   );

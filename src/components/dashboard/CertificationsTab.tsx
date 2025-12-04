@@ -316,129 +316,133 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
             </Button>
           </DialogTrigger>
           <DialogContent 
-            className="max-h-[90vh] overflow-y-auto"
+            className="w-[95vw] max-w-md mx-auto top-[5%] translate-y-0 max-h-[90vh] flex flex-col"
             onPointerDownOutside={(e) => e.preventDefault()}
             onInteractOutside={(e) => e.preventDefault()}
+            onOpenAutoFocus={(e) => e.preventDefault()}
           >
-            <DialogHeader>
+            <DialogHeader className="flex-shrink-0">
               <DialogTitle>Add Documents</DialogTitle>
               <DialogDescription className="text-xs">
-                Upload multiple documents at once. Shared info applies to all.
+                Upload your health or verification documents.
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleAddCertification} className="space-y-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="document-file" className="text-sm">Select Files *</Label>
-                <div className="flex flex-col gap-2">
+            <form onSubmit={handleAddCertification} className="flex flex-col flex-1 overflow-hidden">
+              <div className="flex-1 overflow-y-auto space-y-3 pr-1">
+                <div className="space-y-1.5">
+                  <Label htmlFor="document-file" className="text-sm font-medium">Select Files *</Label>
                   <input
                     id="document-file"
                     type="file"
                     accept="image/*,.pdf,.doc,.docx"
                     onChange={handleFileChange}
                     multiple
-                    className="block w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 cursor-pointer"
+                    className="block w-full text-sm text-foreground file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 cursor-pointer"
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Accepted: Images, PDF, DOC files
-                  </p>
                 </div>
-              </div>
-              
-              {documentFiles.length > 0 && (
-                <div className="space-y-1.5">
-                  <Label className="text-sm">Selected Files ({documentFiles.length})</Label>
-                  <div className="max-h-32 overflow-y-auto space-y-1 rounded-md border border-border p-2">
-                    {documentFiles.map((file, index) => (
-                      <div key={index} className="flex items-center justify-between text-xs bg-muted/50 px-2 py-1 rounded">
-                        <span className="truncate flex-1">{file.name}</span>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeFile(index)}
-                          className="h-5 w-5 p-0 ml-2"
-                        >
-                          <X className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    ))}
+                
+                {documentFiles.length > 0 && (
+                  <div className="space-y-1.5">
+                    <Label className="text-sm">Selected ({documentFiles.length})</Label>
+                    <div className="max-h-24 overflow-y-auto space-y-1 rounded-md border border-border p-2 bg-muted/30">
+                      {documentFiles.map((file, index) => (
+                        <div key={index} className="flex items-center justify-between text-xs bg-background px-2 py-1 rounded">
+                          <span className="truncate flex-1">{file.name}</span>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeFile(index)}
+                            className="h-5 w-5 p-0 ml-2"
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              <div className="space-y-1.5">
-                <Label htmlFor="title" className="text-sm">Title (Optional)</Label>
-                <Input
-                  id="title"
-                  value={newCert.title}
-                  onChange={(e) => setNewCert({ ...newCert, title: e.target.value })}
-                  placeholder="Leave blank to use file names"
-                  className="text-sm"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1.5">
-                  <Label htmlFor="issuer" className="text-sm">Issuing Org</Label>
+                  <Label htmlFor="title" className="text-sm">Title (Optional)</Label>
+                  <Input
+                    id="title"
+                    value={newCert.title}
+                    onChange={(e) => setNewCert({ ...newCert, title: e.target.value })}
+                    placeholder="Leave blank to use file name"
+                    className="text-sm h-9"
+                  />
+                </div>
+                
+                <div className="space-y-1.5">
+                  <Label htmlFor="issuer" className="text-sm">Issuing Organization</Label>
                   <Input
                     id="issuer"
                     value={newCert.issuer}
                     onChange={(e) => setNewCert({ ...newCert, issuer: e.target.value })}
-                    placeholder="IICRC"
-                    className="text-sm"
+                    placeholder="e.g., Lab Name"
+                    className="text-sm h-9"
                   />
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="issue_date" className="text-sm">Issue Date</Label>
-                  <Input
-                    id="issue_date"
-                    type="date"
-                    value={newCert.issue_date}
-                    onChange={(e) => setNewCert({ ...newCert, issue_date: e.target.value })}
-                    className="text-sm"
-                  />
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="expiry_date" className="text-sm">Expiry Date</Label>
-                <Input
-                  id="expiry_date"
-                  type="date"
-                  value={newCert.expiry_date}
-                  onChange={(e) => setNewCert({ ...newCert, expiry_date: e.target.value })}
-                  className="text-sm"
-                />
-              </div>
-
-              {uploading && uploadProgress > 0 && (
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Uploading...</span>
-                    <span>{uploadProgress}%</span>
+                
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="issue_date" className="text-sm">Issue Date</Label>
+                    <Input
+                      id="issue_date"
+                      type="date"
+                      value={newCert.issue_date}
+                      onChange={(e) => setNewCert({ ...newCert, issue_date: e.target.value })}
+                      className="text-sm h-9"
+                      onFocus={(e) => e.target.showPicker?.()}
+                    />
                   </div>
-                  <Progress value={uploadProgress} className="h-2" />
+                  <div className="space-y-1.5">
+                    <Label htmlFor="expiry_date" className="text-sm">Expiry Date</Label>
+                    <Input
+                      id="expiry_date"
+                      type="date"
+                      value={newCert.expiry_date}
+                      onChange={(e) => setNewCert({ ...newCert, expiry_date: e.target.value })}
+                      className="text-sm h-9"
+                      onFocus={(e) => e.target.showPicker?.()}
+                    />
+                  </div>
                 </div>
-              )}
 
-              <Button 
-                type="submit" 
-                disabled={saving || uploading || documentFiles.length === 0} 
-                className="w-full mt-4 h-12 text-base font-semibold bg-green-600 hover:bg-green-700"
-              >
-                {saving || uploading ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Uploading {documentFiles.length} file(s)...
-                  </>
-                ) : (
-                  <>
-                    <Upload className="mr-2 h-5 w-5" />
-                    {documentFiles.length > 0 
-                      ? `Upload ${documentFiles.length} Document${documentFiles.length !== 1 ? 's' : ''}`
-                      : 'Select Files First'
-                    }
-                  </>
+                {uploading && uploadProgress > 0 && (
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      <span>Uploading...</span>
+                      <span>{uploadProgress}%</span>
+                    </div>
+                    <Progress value={uploadProgress} className="h-2" />
+                  </div>
                 )}
-              </Button>
+              </div>
+
+              <div className="flex-shrink-0 pt-3 mt-3 border-t border-border">
+                <Button 
+                  type="submit" 
+                  disabled={saving || uploading || documentFiles.length === 0} 
+                  className="w-full h-12 text-base font-semibold bg-green-600 hover:bg-green-700"
+                >
+                  {saving || uploading ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="mr-2 h-5 w-5" />
+                      {documentFiles.length > 0 
+                        ? `Upload ${documentFiles.length} Document${documentFiles.length !== 1 ? 's' : ''}`
+                        : 'Select Files First'
+                      }
+                    </>
+                  )}
+                </Button>
+              </div>
             </form>
           </DialogContent>
         </Dialog>

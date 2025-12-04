@@ -576,94 +576,73 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
 
       {/* Document Viewer Modal */}
       <Dialog open={viewerOpen} onOpenChange={setViewerOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto top-[5%] translate-y-0">
-          <DialogHeader>
+        <DialogContent className="max-w-4xl w-[95vw] max-h-[90vh] overflow-hidden p-0 top-[5%] translate-y-0">
+          <DialogHeader className="p-4 border-b">
             <DialogTitle>Document Viewer</DialogTitle>
             <DialogDescription>
-              View-only access. Download is restricted for privacy protection.
+              Viewing document for member: {viewerMemberId}
             </DialogDescription>
           </DialogHeader>
-          <div className="relative min-h-[300px] bg-muted/20 rounded-lg p-2">
+          <div className="relative flex-1 overflow-auto bg-muted/30 p-4" style={{ maxHeight: 'calc(90vh - 100px)' }}>
             {selectedDocument ? (
-              <>
+              <div className="relative">
                 {/* Check if it's a PDF or image based on URL */}
                 {selectedDocument.toLowerCase().includes('.pdf') ? (
                   <iframe
                     src={`${selectedDocument}#toolbar=0&navpanes=0`}
-                    className="w-full h-[70vh] rounded-lg border border-border"
+                    className="w-full h-[70vh] rounded-lg border border-border bg-white"
                     title="Document Preview"
                   />
                 ) : (
                   <img
                     src={selectedDocument}
                     alt="Document"
-                    className="w-full h-auto rounded-lg max-h-[70vh] object-contain bg-white"
+                    className="w-full h-auto rounded-lg max-h-[70vh] object-contain mx-auto shadow-lg"
+                    style={{ display: 'block', backgroundColor: 'white' }}
                     onContextMenu={(e) => e.preventDefault()}
                     draggable={false}
                     onError={(e) => {
-                      // If image fails, try showing as iframe (might be PDF without extension)
+                      console.error('Image failed to load:', selectedDocument);
+                      // Show fallback message
                       const parent = e.currentTarget.parentElement;
                       if (parent) {
                         e.currentTarget.style.display = 'none';
+                        // Try as iframe instead
                         const iframe = document.createElement('iframe');
                         iframe.src = selectedDocument;
-                        iframe.className = 'w-full h-[70vh] rounded-lg border border-border';
+                        iframe.className = 'w-full h-[70vh] rounded-lg border border-border bg-white';
                         iframe.title = 'Document Preview';
                         parent.appendChild(iframe);
                       }
                     }}
+                    onLoad={() => console.log('Image loaded successfully')}
                   />
                 )}
-              </>
+                {/* Watermark overlay - transparent so document is visible */}
+                <div 
+                  className="absolute inset-0 pointer-events-none select-none overflow-hidden"
+                  style={{ userSelect: 'none' }}
+                >
+                  {/* Subtle watermarks */}
+                  <div className="absolute top-[20%] left-[10%] transform -rotate-45 opacity-10 text-gray-500 text-xl font-bold">
+                    {viewerMemberId}
+                  </div>
+                  <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 -rotate-45 opacity-10 text-gray-500 text-xl font-bold">
+                    {viewerMemberId}
+                  </div>
+                  <div className="absolute bottom-[20%] right-[10%] transform -rotate-45 opacity-10 text-gray-500 text-xl font-bold">
+                    {viewerMemberId}
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="flex items-center justify-center h-[300px] text-muted-foreground">
-                No document selected
+                <div className="text-center">
+                  <FileText className="h-12 w-12 mx-auto mb-2 opacity-50" />
+                  <p>No document selected</p>
+                </div>
               </div>
             )}
-            {/* Watermark overlay with member ID */}
-            <div 
-              className="absolute inset-0 pointer-events-none select-none"
-              onContextMenu={(e) => e.preventDefault()}
-              style={{
-                background: `repeating-linear-gradient(
-                  45deg,
-                  transparent,
-                  transparent 200px,
-                  rgba(0, 0, 0, 0.03) 200px,
-                  rgba(0, 0, 0, 0.03) 201px
-                )`
-              }}
-            >
-              {/* Multiple watermarks across the document */}
-              <div className="absolute top-[20%] left-[10%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
-                {viewerMemberId}
-              </div>
-              <div className="absolute top-[40%] right-[10%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
-                {viewerMemberId}
-              </div>
-              <div className="absolute bottom-[20%] left-[30%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
-                {viewerMemberId}
-              </div>
-              <div className="absolute top-[60%] left-[50%] transform -translate-x-1/2 -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
-                {viewerMemberId}
-              </div>
-              <div className="absolute top-[10%] right-[40%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
-                {viewerMemberId}
-              </div>
-              <div className="absolute bottom-[40%] right-[30%] transform -rotate-45 opacity-20 text-gray-900 dark:text-gray-100 text-2xl font-bold select-none pointer-events-none">
-                {viewerMemberId}
-              </div>
-              {/* Timestamp watermark */}
-              <div className="absolute bottom-4 right-4 opacity-30 text-gray-900 dark:text-gray-100 text-xs font-mono select-none pointer-events-none bg-white/50 dark:bg-black/50 px-2 py-1 rounded">
-                Viewed: {new Date().toLocaleString()} | {viewerMemberId}
-              </div>
-            </div>
-            {/* Overlay to prevent right-click and interactions */}
-            <div 
-              className="absolute inset-0 bg-transparent"
-              onContextMenu={(e) => e.preventDefault()}
-              style={{ userSelect: 'none' }}
-            />
           </div>
         </DialogContent>
       </Dialog>

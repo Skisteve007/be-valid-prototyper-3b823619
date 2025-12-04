@@ -4,7 +4,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Heart, User, CheckCircle2, XCircle, Clock, AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Loader2, Heart, User, CheckCircle2, XCircle, Clock, AlertTriangle, X, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 interface Document {
@@ -47,6 +54,8 @@ const ViewProfile = () => {
   const [isIncognitoMode, setIsIncognitoMode] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
   const [isExpired, setIsExpired] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [documentViewerOpen, setDocumentViewerOpen] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -419,14 +428,16 @@ const ViewProfile = () => {
                       )}
                     </div>
                     {doc.document_url && (
-                      <a
-                        href={doc.document_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm font-medium"
+                      <Button
+                        onClick={() => {
+                          setSelectedDocument(doc);
+                          setDocumentViewerOpen(true);
+                        }}
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                        size="sm"
                       >
                         View
-                      </a>
+                      </Button>
                     )}
                   </div>
                 ))}
@@ -434,6 +445,63 @@ const ViewProfile = () => {
             </CardContent>
           </Card>
         )}
+
+        {/* Document Viewer Dialog */}
+        <Dialog open={documentViewerOpen} onOpenChange={setDocumentViewerOpen}>
+          <DialogContent className="max-w-4xl w-[95vw] max-h-[90vh] p-0 overflow-hidden">
+            <DialogHeader className="p-4 border-b flex flex-row items-center justify-between">
+              <DialogTitle className="text-lg font-semibold">
+                {selectedDocument?.title || "Document"}
+              </DialogTitle>
+              <div className="flex items-center gap-2">
+                {selectedDocument?.document_url && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open(selectedDocument.document_url!, '_blank')}
+                  >
+                    <ExternalLink className="h-4 w-4 mr-1" />
+                    Open in New Tab
+                  </Button>
+                )}
+              </div>
+            </DialogHeader>
+            <div className="flex-1 overflow-auto p-4 bg-muted/30" style={{ maxHeight: 'calc(90vh - 80px)' }}>
+              {selectedDocument?.document_url && (
+                <>
+                  {selectedDocument.document_url.toLowerCase().match(/\.(jpg|jpeg|png|gif|webp|bmp)/) ? (
+                    <img
+                      src={selectedDocument.document_url}
+                      alt={selectedDocument.title}
+                      className="max-w-full h-auto mx-auto rounded-lg shadow-lg"
+                    />
+                  ) : selectedDocument.document_url.toLowerCase().endsWith('.pdf') ? (
+                    <iframe
+                      src={selectedDocument.document_url}
+                      className="w-full h-[70vh] rounded-lg border"
+                      title={selectedDocument.title}
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center py-12 text-center">
+                      <CheckCircle2 className="h-16 w-16 text-muted-foreground mb-4" />
+                      <p className="text-lg font-medium mb-2">{selectedDocument.title}</p>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        This document type cannot be previewed directly.
+                      </p>
+                      <Button
+                        onClick={() => window.open(selectedDocument.document_url!, '_blank')}
+                        className="bg-green-600 hover:bg-green-700"
+                      >
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Download / Open Document
+                      </Button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Privacy Notice */}
         <Card className="bg-muted border-primary/20">

@@ -245,9 +245,10 @@ const Dashboard = () => {
                 </div>
               </div>
               
+              {/* Venue Check-in - Below tabs, visible on all tabs */}
+              <VenueCheckin userId={user.id} />
+              
               <TabsContent value="profile">
-                {/* Venue Check-in - Only on Profile tab */}
-                <VenueCheckin userId={user.id} />
                 <ProfileTab userId={user.id} onUpdate={handleProfileUpdate} />
               </TabsContent>
               

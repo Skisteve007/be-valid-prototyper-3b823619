@@ -41,6 +41,15 @@ const PartnerApplication = () => {
     return `${cleanName}${random}`;
   };
 
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
+
   const uploadFile = async (file: File, userId: string, type: string) => {
     const fileExt = file.name.split(".").pop();
     const fileName = `${userId}/${type}-${Date.now()}.${fileExt}`;
@@ -87,43 +96,37 @@ const PartnerApplication = () => {
           }
         });
 
-        // Handle user already exists - still process the application
+        // Handle user already exists - use edge function to bypass RLS
         if (signUpError && signUpError.message?.includes("already registered")) {
-          console.log("User already exists, processing application without account creation");
+          console.log("User already exists, using edge function for submission");
           
-          // Use email hash as folder name for documents
-          const tempUserId = `pending-${Date.now()}-${formData.email.replace(/[^a-zA-Z0-9]/g, '')}`;
-          
-          // Upload ID documents
           setUploadProgress({ front: true, back: false });
-          const idFrontUrl = await uploadFile(idFrontFile, tempUserId, "id-front");
+          const idFrontBase64 = await fileToBase64(idFrontFile);
           
           setUploadProgress({ front: true, back: true });
-          const idBackUrl = await uploadFile(idBackFile, tempUserId, "id-back");
+          const idBackBase64 = await fileToBase64(idBackFile);
 
-          const referralCode = generateReferralCode(formData.fullName);
+          // Use edge function to handle upload with service role
+          const { data: result, error: functionError } = await supabase.functions.invoke('submit-partner-application', {
+            body: {
+              fullName: formData.fullName,
+              email: formData.email,
+              phone: formData.phone,
+              payoutMethod: formData.payoutMethod,
+              payoutHandle: formData.payoutHandle,
+              idFrontBase64,
+              idBackBase64,
+              idFrontName: idFrontFile.name,
+              idBackName: idBackFile.name,
+            }
+          });
 
-          // Send admin notification email with all details
-          try {
-            await supabase.functions.invoke('notify-partner-application', {
-              body: {
-                fullName: formData.fullName,
-                email: formData.email,
-                phone: formData.phone,
-                payoutMethod: formData.payoutMethod,
-                payoutHandle: formData.payoutHandle,
-                referralCode: referralCode,
-                idFrontUrl: idFrontUrl,
-                idBackUrl: idBackUrl,
-                submittedAt: new Date().toISOString(),
-                existingUser: true, // Flag that this is an existing user
-              }
-            });
-            console.log("Admin notification sent for existing user application");
-          } catch (notifyError) {
-            console.error("Failed to send admin notification:", notifyError);
+          if (functionError) {
+            console.error("Edge function error:", functionError);
+            throw new Error(functionError.message || "Failed to submit application");
           }
 
+          console.log("Application submitted via edge function:", result);
           toast.success("Application submitted! An admin will review your application and contact you.");
           navigate("/");
           return;

@@ -346,85 +346,55 @@ const Index = () => {
         </section>
 
         {/* Features Section */}
-        <section className="py-6 px-4 bg-gradient-to-b from-muted/30 via-secondary/10 to-muted/30">
+        <section className="py-6 px-4">
           <div className="container mx-auto max-w-5xl px-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               <ScrollReveal direction="up" delay={200}>
-                <div className="relative h-full group">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
-                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
-                    <div className="mb-3">
-                      <EyeOff className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
-                    </div>
-                    <CardTitle className="text-xl font-bold mb-2">FULL CONTROL INCOGNITO MODE</CardTitle>
-                    <p className="text-muted-foreground text-sm">Manage ID entry, pay cover, set your bar budget, and access the bar—all through one secure, disposable QR code. Complete user control.</p>
-                  </Card>
-                </div>
+                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
+                  <EyeOff className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-xl font-bold mb-2">FULL CONTROL INCOGNITO MODE</CardTitle>
+                  <p className="text-muted-foreground text-sm">Manage ID entry, pay cover, set your bar budget, and access the bar—all through one secure, disposable QR code. Complete user control.</p>
+                </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={250}>
-                <div className="relative h-full group">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
-                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
-                    <div className="mb-3">
-                      <ShieldCheck className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
-                    </div>
-                    <CardTitle className="text-xl font-bold mb-2">INVISIBLE DATA</CardTitle>
-                    <p className="text-muted-foreground text-sm">Your health details are protected by <strong>Zero-Trust Encryption</strong>—only the compliance badge status is ever shared. HIPAA/GDPR compliant security.</p>
-                  </Card>
-                </div>
+                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
+                  <ShieldCheck className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-xl font-bold mb-2">INVISIBLE DATA</CardTitle>
+                  <p className="text-muted-foreground text-sm">Your health details are protected by <strong className="text-foreground">Zero-Trust Encryption</strong>—only the compliance badge status is ever shared. HIPAA/GDPR compliant security.</p>
+                </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={300}>
-                <div className="relative h-full group">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
-                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
-                    <div className="mb-3">
-                      <ScanLine className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
-                    </div>
-                    <CardTitle className="text-xl font-bold mb-2">INSTANT QR VERIFICATION</CardTitle>
-                    <p className="text-muted-foreground text-sm">Rapid, discreet status check ensures zero awkward conversations and frictionless entry/access at any verified venue.</p>
-                  </Card>
-                </div>
+                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
+                  <ScanLine className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-xl font-bold mb-2">INSTANT QR VERIFICATION</CardTitle>
+                  <p className="text-muted-foreground text-sm">Rapid, discreet status check ensures zero awkward conversations and frictionless entry/access at any verified venue.</p>
+                </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={350}>
-                <div className="relative h-full group">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
-                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
-                    <div className="mb-3">
-                      <FlaskConical className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
-                    </div>
-                    <CardTitle className="text-xl font-bold mb-2">PROVEN STATUS</CardTitle>
-                    <p className="text-muted-foreground text-sm">Results backed by real-time integration with our certified clinical lab network, ensuring verifiable health status.</p>
-                  </Card>
-                </div>
+                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
+                  <FlaskConical className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-xl font-bold mb-2">PROVEN STATUS</CardTitle>
+                  <p className="text-muted-foreground text-sm">Results backed by real-time integration with our certified clinical lab network, ensuring verifiable health status.</p>
+                </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={400}>
-                <div className="relative h-full group">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
-                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
-                    <div className="mb-3">
-                      <Globe className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
-                    </div>
-                    <CardTitle className="text-xl font-bold mb-2">TRUSTED EVERYWHERE</CardTitle>
-                    <p className="text-muted-foreground text-sm">Accepted by <strong>Corporate Compliance, High-Value Asset Managers (Exotic Rentals), and Premier Nightlife Venues</strong> globally.</p>
-                  </Card>
-                </div>
+                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
+                  <Globe className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-xl font-bold mb-2">TRUSTED EVERYWHERE</CardTitle>
+                  <p className="text-muted-foreground text-sm">Accepted by <strong className="text-foreground">Corporate Compliance, High-Value Asset Managers (Exotic Rentals), and Premier Nightlife Venues</strong> globally.</p>
+                </Card>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={450}>
-                <div className="relative h-full group">
-                  <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-xl"></div>
-                  <Card className="relative h-full p-6 border-2 border-border/50 shadow-lg hover:shadow-2xl hover:border-accent/50 transition-all">
-                    <div className="mb-3">
-                      <Users className="h-10 w-10 text-accent drop-shadow-[0_0_5px_hsl(var(--accent))]" />
-                    </div>
-                    <CardTitle className="text-xl font-bold mb-2">DYNAMIC PEER SHARING</CardTitle>
-                    <p className="text-muted-foreground text-sm">Securely share your verified status with peers and authorized partners—expanding trust within your immediate circle.</p>
-                  </Card>
-                </div>
+                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
+                  <Users className="h-10 w-10 text-chart-4 mb-3" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-xl font-bold mb-2">DYNAMIC PEER SHARING</CardTitle>
+                  <p className="text-muted-foreground text-sm">Securely share your verified status with peers and authorized partners—expanding trust within your immediate circle.</p>
+                </Card>
               </ScrollReveal>
             </div>
           </div>

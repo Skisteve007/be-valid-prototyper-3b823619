@@ -10,11 +10,12 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload } from "lucide-react";
+import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import SponsorUpload from "./SponsorUpload";
 import LiabilityWaiverModal, { useWaiverStatus } from "./LiabilityWaiverModal";
+import { IncognitoQRDialog } from "./IncognitoQRDialog";
 
 interface QRCodeTabProps {
   userId: string;
@@ -32,6 +33,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const [accessToken, setAccessToken] = useState<string>("");
   const [profileId, setProfileId] = useState<string>("");
   const [showWaiverModal, setShowWaiverModal] = useState(false);
+  const [showIncognitoDialog, setShowIncognitoDialog] = useState(false);
   
   // Waiver status
   const { hasSignedWaiver, isLoading: waiverLoading, waiverSignedAt, checkWaiverStatus, setHasSignedWaiver } = useWaiverStatus(userId);
@@ -503,7 +505,25 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
+
+                {/* Incognito Mode Button */}
+                <Button 
+                  onClick={() => setShowIncognitoDialog(true)}
+                  variant="outline"
+                  className="w-full min-h-[48px] border-gray-500/50 bg-gray-500/10 hover:bg-gray-500/20 text-gray-700 dark:text-gray-300 touch-manipulation"
+                  type="button"
+                >
+                  <EyeOff className="h-5 w-5 mr-2" />
+                  Incognito Mode ($5)
+                </Button>
               </div>
+
+              {/* Incognito QR Dialog */}
+              <IncognitoQRDialog
+                open={showIncognitoDialog}
+                onClose={() => setShowIncognitoDialog(false)}
+                userId={userId}
+              />
 
               <div className="text-sm text-muted-foreground text-center px-4">
                 <p className="mb-2">Secure Profile Link (expires in 24 hours):</p>

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   X, 
   QrCode, 
@@ -12,23 +13,34 @@ import {
   Maximize,
   Volume2,
   VolumeX,
-  Flashlight
+  Flashlight,
+  EyeOff,
+  DollarSign
 } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
 
 interface ScannerFullscreenProps {
   onClose: () => void;
   venueLogo?: string | null;
+  venueId?: string;
+  promoterId?: string;
 }
 
 type ScanResult = {
-  status: "valid" | "invalid" | "expired" | null;
+  status: "valid" | "invalid" | "expired" | "incognito" | null;
   name?: string;
   memberId?: string;
   expiresAt?: string;
+  isIncognito?: boolean;
+  revenueSplit?: {
+    total: number;
+    venue: number;
+    cleancheck: number;
+    promoter: number;
+  };
 };
 
-export const ScannerFullscreen = ({ onClose, venueLogo }: ScannerFullscreenProps) => {
+export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: ScannerFullscreenProps) => {
   const [wakeLockActive, setWakeLockActive] = useState(false);
   const [scanResult, setScanResult] = useState<ScanResult>({ status: null });
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -112,18 +124,73 @@ export const ScannerFullscreen = ({ onClose, venueLogo }: ScannerFullscreenProps
     oscillator.stop(audioContext.currentTime + 0.2);
   };
 
+  // Process Incognito scan and trigger revenue split
+  const processIncognitoScan = async (token: string): Promise<ScanResult> => {
+    try {
+      // Verify the incognito token
+      const { data: tokenData, error: tokenError } = await supabase
+        .from('qr_access_tokens')
+        .select('*, profiles!inner(id, status_color, member_id, full_name)')
+        .eq('token', token)
+        .single();
+
+      if (tokenError || !tokenData) {
+        return { status: 'invalid' };
+      }
+
+      // Check if token is expired
+      if (new Date(tokenData.expires_at) < new Date()) {
+        return { 
+          status: 'expired',
+          memberId: tokenData.profiles?.member_id
+        };
+      }
+
+      // Log the venue scan
+      if (venueId) {
+        await supabase.from('venue_qr_scans').insert({
+          venue_id: venueId,
+          scanned_member_id: tokenData.profiles?.member_id,
+          scan_result: 'incognito_valid',
+          notes: 'Incognito scan - privacy protected'
+        });
+      }
+
+      // The payment was already processed when the incognito token was generated
+      // The venue receives their share automatically via the transaction record
+      const revenueSplit = {
+        total: 5.00,
+        venue: 2.00,
+        cleancheck: 2.00,
+        promoter: promoterId ? 1.00 : 0
+      };
+
+      return {
+        status: 'incognito',
+        memberId: tokenData.profiles?.member_id,
+        expiresAt: tokenData.expires_at,
+        isIncognito: true,
+        revenueSplit
+      };
+    } catch (error) {
+      console.error('Error processing incognito scan:', error);
+      return { status: 'invalid' };
+    }
+  };
+
   // Simulated scan handler - in real app, this would connect to camera/scanner
-  const handleManualEntry = () => {
-    // Demo: Simulate a valid scan
+  const handleManualEntry = async () => {
+    // Demo: Simulate different scan results including incognito
     const demoResults: ScanResult[] = [
       { status: "valid", name: "John D.", memberId: "CC-12345678", expiresAt: "2025-03-01" },
       { status: "expired", name: "Jane S.", memberId: "CC-87654321", expiresAt: "2024-12-01" },
+      { status: "incognito", memberId: "CC-PRIVATE", expiresAt: "2025-01-05", isIncognito: true, revenueSplit: { total: 5, venue: 2, cleancheck: 2, promoter: 1 } },
       { status: "invalid" },
     ];
     
     const result = demoResults[Math.floor(Math.random() * demoResults.length)];
     setScanResult(result);
-    playSound(result.status === "valid" ? "success" : "error");
+    playSound(result.status === "valid" || result.status === "incognito" ? "success" : "error");
     
     // Auto-clear after 5 seconds
     setTimeout(() => setScanResult({ status: null }), 5000);
@@ -145,6 +212,14 @@ export const ScannerFullscreen = ({ onClose, venueLogo }: ScannerFullscreenProps
           icon: <CheckCircle2 className="h-24 w-24 text-green-500" />,
           text: "VERIFIED",
           textColor: "text-green-500",
+        };
+      case "incognito":
+        return {
+          bg: "bg-gray-500/20",
+          border: "border-gray-500",
+          icon: <EyeOff className="h-24 w-24 text-gray-500" />,
+          text: "INCOGNITO VERIFIED",
+          textColor: "text-gray-500",
         };
       case "expired":
         return {
@@ -216,6 +291,12 @@ export const ScannerFullscreen = ({ onClose, venueLogo }: ScannerFullscreenProps
               <h2 className={`text-4xl font-black ${statusUI?.textColor}`}>
                 {statusUI?.text}
               </h2>
+              {scanResult.isIncognito && (
+                <Badge className="bg-gray-600 text-white">
+                  <EyeOff className="h-3 w-3 mr-1" />
+                  Privacy Protected
+                </Badge>
+              )}
               {scanResult.name && (
                 <div className="space-y-1">
                   <p className="text-2xl font-semibold">{scanResult.name}</p>
@@ -225,6 +306,20 @@ export const ScannerFullscreen = ({ onClose, venueLogo }: ScannerFullscreenProps
                       Expires: {scanResult.expiresAt}
                     </p>
                   )}
+                </div>
+              )}
+              {scanResult.isIncognito && !scanResult.name && scanResult.memberId && (
+                <div className="space-y-1">
+                  <p className="text-lg text-muted-foreground">Member ID: {scanResult.memberId}</p>
+                  <p className="text-sm text-gray-500 italic">Identity protected</p>
+                </div>
+              )}
+              {scanResult.revenueSplit && (
+                <div className="mt-4 p-3 bg-green-500/10 rounded-lg border border-green-500/30">
+                  <div className="flex items-center justify-center gap-2 text-green-600">
+                    <DollarSign className="h-4 w-4" />
+                    <span className="font-semibold">Venue Earned: ${scanResult.revenueSplit.venue.toFixed(2)}</span>
+                  </div>
                 </div>
               )}
             </div>

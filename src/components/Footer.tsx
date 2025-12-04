@@ -1,17 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useIsAdmin } from '@/hooks/useIsAdmin';
 
 const Footer = () => {
   const navigate = useNavigate();
-  const { isAdmin } = useIsAdmin();
-  
-  const handleAdminClick = () => {
-    if (isAdmin) {
-      navigate("/admin");
-    } else {
-      navigate("/admin/login");
-    }
-  };
   
   return (
     <footer className="w-full mt-auto border-t-2 border-gray-400" style={{ backgroundColor: '#e5e7eb' }}>
@@ -33,8 +23,12 @@ const Footer = () => {
           <span style={{ color: '#000000' }}>🔞 18 U.S.C. § 2257: All users 18+</span>
           <span className="ml-auto">
             <button
-              onClick={handleAdminClick}
-              className="text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-200 hover:brightness-110 focus:outline-none bg-purple-600 text-white shadow-[0_0_20px_rgba(147,51,234,0.9),0_0_40px_rgba(168,85,247,0.6)] hover:shadow-[0_0_30px_rgba(147,51,234,1),0_0_50px_rgba(168,85,247,0.8)]"
+              onClick={() => navigate("/admin")}
+              className="text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-200 hover:brightness-110 focus:outline-none text-white"
+              style={{
+                backgroundColor: '#9333ea',
+                boxShadow: '0 0 20px rgba(147, 51, 234, 0.9), 0 0 40px rgba(168, 85, 247, 0.6)'
+              }}
             >
               Admin
             </button>

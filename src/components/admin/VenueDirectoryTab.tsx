@@ -11,6 +11,7 @@ import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
+import { VenueOperatorsManager } from "./VenueOperatorsManager";
 
 interface Venue {
   id: string;
@@ -205,6 +206,7 @@ export const VenueDirectoryTab = () => {
   }
 
   return (
+    <>
     <Card>
       <CardHeader>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -634,5 +636,9 @@ export const VenueDirectoryTab = () => {
         )}
       </CardContent>
     </Card>
+    
+    {/* Venue Operators Section */}
+    <VenueOperatorsManager />
+    </>
   );
 };

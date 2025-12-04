@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -26,6 +26,7 @@ import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
 import { QuickBrandingTool } from "@/components/admin/QuickBrandingTool";
 import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
 import { LeadOutreachTab } from "@/components/admin/LeadOutreachTab";
+import { MembersTab } from "@/components/admin/MembersTab";
 import {
   DndContext,
   closestCenter,
@@ -198,7 +199,7 @@ const Admin = () => {
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [dateFrom, setDateFrom] = useState<Date>();
   const [dateTo, setDateTo] = useState<Date>();
-  const [activeTab, setActiveTab] = useState("sponsors");
+  const [activeTab, setActiveTab] = useState("members");
   const [showScanner, setShowScanner] = useState(false);
   const [newSponsor, setNewSponsor] = useState({
     name: "",
@@ -525,6 +526,10 @@ const Admin = () => {
           
           {/* Desktop Tab Navigation */}
           <TabsList className="hidden md:flex w-full justify-between relative z-10 flex-wrap gap-1">
+            <TabsTrigger value="members" className="cursor-pointer flex-1">
+              <Users className="h-4 w-4 mr-2" />
+              Members
+            </TabsTrigger>
             <TabsTrigger value="sponsors" className="cursor-pointer flex-1">
               Sponsor Management
             </TabsTrigger>
@@ -558,6 +563,10 @@ const Admin = () => {
               Scanner
             </TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="members" className="space-y-8">
+            <MembersTab />
+          </TabsContent>
           
           <TabsContent value="sponsors" className="space-y-8">
             <StorageSponsorManager />

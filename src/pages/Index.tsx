@@ -215,6 +215,19 @@ const Index = () => {
             <p className="text-sm font-semibold text-foreground mt-1 italic">
               QR-Coded Share. The Fastest Way to Verify Health & Toxicology Results.
             </p>
+            {/* Mobile Beta Button */}
+            <div className="relative mt-3">
+              <div className="absolute inset-0 bg-accent/30 blur-xl rounded-full animate-[pulse_4s_ease-in-out_infinite]"></div>
+              <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-full animate-[pulse_5s_ease-in-out_infinite]"></div>
+              <Button
+                onClick={scrollToGetStarted}
+                className="relative px-5 py-1.5 h-auto bg-gradient-to-r from-accent via-accent to-accent hover:from-accent/90 hover:via-accent/80 hover:to-accent/90 text-accent-foreground font-bold text-xs tracking-wide rounded-full border border-accent/50 shadow-[0_0_15px_hsl(var(--accent)/0.4),0_0_30px_hsl(var(--accent)/0.2)] hover:shadow-[0_0_25px_hsl(var(--accent)/0.6),0_0_50px_hsl(var(--accent)/0.3)] transition-all duration-300 animate-[pulse_4s_ease-in-out_infinite]"
+              >
+                <span className="flex items-center gap-1.5">
+                  ⚡ Beta Version ⚡
+                </span>
+              </Button>
+            </div>
           </div>
           
         </div>

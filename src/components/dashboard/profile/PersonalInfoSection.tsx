@@ -6,8 +6,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, Target, CheckCircle, Upload } from "lucide-react";
+import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, Target, CheckCircle, Upload, Move } from "lucide-react";
 import { useRef, useState } from "react";
+import { ImageCropDialog } from "./ImageCropDialog";
 
 interface PersonalInfoSectionProps {
   register: UseFormRegister<any>;
@@ -17,6 +18,7 @@ interface PersonalInfoSectionProps {
   profileImageUrl: string;
   uploadingImage: boolean;
   handleImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCroppedImageUpload?: (blob: Blob) => void;
   fullName?: string;
   email?: string;
   whereFrom?: string;
@@ -45,6 +47,7 @@ export const PersonalInfoSection = ({
   profileImageUrl,
   uploadingImage,
   handleImageUpload,
+  handleCroppedImageUpload,
   fullName,
   email,
   whereFrom,
@@ -66,10 +69,48 @@ export const PersonalInfoSection = ({
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const labLogoInputRef = useRef<HTMLInputElement>(null);
+  const [showCropDialog, setShowCropDialog] = useState(false);
+  const [tempImageUrl, setTempImageUrl] = useState<string | null>(null);
+  
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
   const months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const years = Array.from({ length: 100 }, (_, i) => (new Date().getFullYear() - 18 - i).toString());
+
+  // Handle file selection for cropping
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setTempImageUrl(url);
+      setShowCropDialog(true);
+    }
+    // Reset the input
+    if (event.target) {
+      event.target.value = '';
+    }
+  };
+
+  // Handle cropped image save
+  const handleCropSave = (blob: Blob) => {
+    if (handleCroppedImageUpload) {
+      handleCroppedImageUpload(blob);
+    } else {
+      // Fallback: create a fake event with the blob
+      const file = new File([blob], 'profile.jpg', { type: 'image/jpeg' });
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      const fakeEvent = {
+        target: { files: dataTransfer.files }
+      } as React.ChangeEvent<HTMLInputElement>;
+      handleImageUpload(fakeEvent);
+    }
+    // Cleanup
+    if (tempImageUrl) {
+      URL.revokeObjectURL(tempImageUrl);
+      setTempImageUrl(null);
+    }
+  };
   
   // Calculate age from birthday
   const calculateAge = () => {
@@ -131,23 +172,39 @@ export const PersonalInfoSection = ({
               </Avatar>
               
               {profileImageUrl && (
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={uploadingImage}
-                  className="h-7 px-2 text-xs"
-                >
-                  <Camera className="w-3 h-3 mr-1" />
-                  {uploadingImage ? "..." : "Change"}
-                </Button>
+                <div className="flex gap-1">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploadingImage}
+                    className="h-7 px-2 text-xs"
+                  >
+                    <Camera className="w-3 h-3 mr-1" />
+                    {uploadingImage ? "..." : "Change"}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setTempImageUrl(profileImageUrl);
+                      setShowCropDialog(true);
+                    }}
+                    disabled={uploadingImage}
+                    className="h-7 px-2 text-xs"
+                  >
+                    <Move className="w-3 h-3 mr-1" />
+                    Adjust
+                  </Button>
+                </div>
               )}
               <input
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
-                onChange={handleImageUpload}
+                onChange={handleFileSelect}
                 disabled={uploadingImage}
                 className="hidden"
               />
@@ -538,6 +595,22 @@ export const PersonalInfoSection = ({
           </SelectContent>
         </Select>
       </div>
+
+      {/* Image Crop Dialog */}
+      {tempImageUrl && (
+        <ImageCropDialog
+          open={showCropDialog}
+          onClose={() => {
+            setShowCropDialog(false);
+            if (tempImageUrl && !tempImageUrl.startsWith('http')) {
+              URL.revokeObjectURL(tempImageUrl);
+            }
+            setTempImageUrl(null);
+          }}
+          imageUrl={tempImageUrl}
+          onSave={handleCropSave}
+        />
+      )}
     </div>
   );
 };

@@ -419,6 +419,7 @@ const SalesTeamTab = () => {
                   <TableRow>
                     <TableHead>Name</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Phone</TableHead>
                     <TableHead>Code</TableHead>
                     <TableHead>Clicks</TableHead>
                     <TableHead>Payout</TableHead>
@@ -437,6 +438,9 @@ const SalesTeamTab = () => {
                         </div>
                       </TableCell>
                       <TableCell>{getStatusBadge(aff.status, aff.id, true)}</TableCell>
+                      <TableCell className="text-sm">
+                        {aff.phone_number || <span className="text-muted-foreground">—</span>}
+                      </TableCell>
                       <TableCell>
                         <Badge variant="outline" className="font-mono">
                           {aff.referral_code}

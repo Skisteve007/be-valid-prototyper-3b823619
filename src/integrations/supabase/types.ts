@@ -662,6 +662,7 @@ export type Database = {
           created_at: string
           current_home_city: string | null
           disclaimer_accepted: boolean | null
+          email: string | null
           email_shareable: boolean | null
           facebook_handle: string | null
           full_name: string | null
@@ -713,6 +714,7 @@ export type Database = {
           created_at?: string
           current_home_city?: string | null
           disclaimer_accepted?: boolean | null
+          email?: string | null
           email_shareable?: boolean | null
           facebook_handle?: string | null
           full_name?: string | null
@@ -764,6 +766,7 @@ export type Database = {
           created_at?: string
           current_home_city?: string | null
           disclaimer_accepted?: boolean | null
+          email?: string | null
           email_shareable?: boolean | null
           facebook_handle?: string | null
           full_name?: string | null

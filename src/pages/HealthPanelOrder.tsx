@@ -198,6 +198,16 @@ const HealthPanelOrder = () => {
               </CardContent>
             </Card>
 
+            {/* Back Button */}
+            <Button
+              onClick={() => navigate("/dashboard")}
+              variant="outline"
+              className="w-full"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              Back to Dashboard
+            </Button>
+
             {/* Payment Section */}
             {!showPayPal ? (
               <Button
@@ -289,16 +299,6 @@ const HealthPanelOrder = () => {
                 </CardContent>
               </Card>
             )}
-
-            {/* Back Button */}
-            <Button
-              onClick={() => navigate("/dashboard")}
-              variant="outline"
-              className="w-full"
-            >
-              <Home className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
           </div>
         </main>
       </div>

@@ -131,9 +131,10 @@ const Index = () => {
 
             {/* Tagline in the middle - desktop only */}
             <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-8">
-              <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50">
+              <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_25px_hsl(var(--secondary)/0.5),0_0_50px_hsl(var(--secondary)/0.3)]">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-xl rounded-full animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>
+                <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-full"></div>
                 <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                   Instant Proof Health Status
                 </p>
@@ -204,8 +205,9 @@ const Index = () => {
           
           {/* Mobile tagline below */}
           <div className="lg:hidden text-center mt-2">
-            <div className="relative inline-block px-12 py-1.5 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50">
+            <div className="relative inline-block px-12 py-1.5 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_20px_hsl(var(--secondary)/0.5),0_0_40px_hsl(var(--secondary)/0.3)]">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-lg rounded-full animate-pulse"></div>
+              <div className="absolute inset-0 bg-secondary/20 blur-xl rounded-full"></div>
               <p className="relative text-sm font-black italic tracking-[0.2em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 Instant Proof Health Status
               </p>

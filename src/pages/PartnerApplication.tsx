@@ -309,7 +309,14 @@ const PartnerApplication = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form 
+              onSubmit={handleSubmit} 
+              className="space-y-6"
+              name="strategic_partner_application"
+              method="POST"
+              data-lovable-form="true"
+              data-email-to="{{ config.SITE_ADMIN_EMAIL }}"
+            >
               {/* Personal Details */}
               <div className="space-y-4">
                 <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-wider">Personal Details</h3>

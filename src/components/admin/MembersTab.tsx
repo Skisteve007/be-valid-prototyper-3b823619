@@ -104,6 +104,14 @@ export const MembersTab = () => {
     return 'current';
   };
 
+  const getDaysUntilExpiry = (expiryDate: string | null): number | null => {
+    if (!expiryDate) return null;
+    const expiry = new Date(expiryDate);
+    const now = new Date();
+    const diffTime = expiry.getTime() - now.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
   const getMembershipBadge = (member: Member) => {
     const status = getMembershipStatus(member);
     switch (status) {
@@ -114,6 +122,42 @@ export const MembersTab = () => {
       case 'unpaid':
         return <Badge variant="secondary">Unpaid</Badge>;
     }
+  };
+
+  const getExpiryDisplay = (member: Member) => {
+    if (member.payment_status !== 'paid') {
+      return <span className="text-muted-foreground text-sm">—</span>;
+    }
+    
+    if (!member.status_expiry) {
+      return <span className="text-muted-foreground text-sm">No expiry set</span>;
+    }
+    
+    const expiryDate = new Date(member.status_expiry);
+    const daysLeft = getDaysUntilExpiry(member.status_expiry);
+    const isExpired = daysLeft !== null && daysLeft < 0;
+    const isExpiringSoon = daysLeft !== null && daysLeft >= 0 && daysLeft <= 7;
+    
+    return (
+      <div className="flex flex-col">
+        <span className={`text-sm font-medium ${isExpired ? 'text-red-500' : isExpiringSoon ? 'text-amber-500' : 'text-foreground'}`}>
+          {format(expiryDate, 'MMM d, yyyy')}
+        </span>
+        {isExpired ? (
+          <span className="text-xs text-red-500 font-medium">
+            Expired {Math.abs(daysLeft!)} days ago
+          </span>
+        ) : isExpiringSoon ? (
+          <span className="text-xs text-amber-500">
+            {daysLeft} days left
+          </span>
+        ) : daysLeft !== null ? (
+          <span className="text-xs text-muted-foreground">
+            {daysLeft} days left
+          </span>
+        ) : null}
+      </div>
+    );
   };
 
   const exportToCSV = () => {
@@ -427,9 +471,9 @@ export const MembersTab = () => {
                   <TableHead>Member ID</TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead>Email</TableHead>
-                  <TableHead>Phone</TableHead>
                   <TableHead>Signup Date</TableHead>
                   <TableHead>Membership</TableHead>
+                  <TableHead>Expiration</TableHead>
                   <TableHead>Health Status</TableHead>
                 </TableRow>
               </TableHeader>
@@ -442,7 +486,10 @@ export const MembersTab = () => {
                   </TableRow>
                 ) : (
                   filteredMembers.map((member) => (
-                    <TableRow key={member.id} className={selectedMembers.has(member.id) ? 'bg-primary/5' : ''}>
+                    <TableRow 
+                      key={member.id} 
+                      className={`${selectedMembers.has(member.id) ? 'bg-primary/5' : ''} ${getMembershipStatus(member) === 'expired' ? 'bg-red-500/5' : ''}`}
+                    >
                       <TableCell>
                         <Checkbox 
                           checked={selectedMembers.has(member.id)}
@@ -465,11 +512,11 @@ export const MembersTab = () => {
                           <span className="text-muted-foreground">No email</span>
                         )}
                       </TableCell>
-                      <TableCell>{member.phone || '-'}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">
                         {format(new Date(member.created_at), 'MMM d, yyyy')}
                       </TableCell>
                       <TableCell>{getMembershipBadge(member)}</TableCell>
+                      <TableCell>{getExpiryDisplay(member)}</TableCell>
                       <TableCell>{getStatusBadge(member.status_color)}</TableCell>
                     </TableRow>
                   ))

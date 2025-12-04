@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key, FlaskConical, Lock, CreditCard, QrCode, Plug, Database, Server, FileCheck, Fingerprint, ShieldCheck, X } from "lucide-react";
+import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key, FlaskConical, Lock, CreditCard, QrCode, Plug, Database, Server, FileCheck, Fingerprint, ShieldCheck, X, Code } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ROICalculator from "@/components/ROICalculator";
 
 const VenueCompliance = () => {
   const [securityModalOpen, setSecurityModalOpen] = useState(false);
@@ -639,12 +640,18 @@ const VenueCompliance = () => {
             </div>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-4 space-y-2">
             <a href="mailto:Steve@bigtexasroof.com?subject=Fintech%20Integration%20Inquiry" className="block">
               <button className="w-full py-4 bg-violet-500 text-white font-extrabold rounded-lg uppercase hover:bg-violet-400 transition-colors">
                 REQUEST INTEGRATION SPECS
               </button>
             </a>
+            <Link to="/api-docs" className="block">
+              <button className="w-full py-3 bg-transparent text-violet-400 font-bold border border-violet-400 rounded-lg uppercase hover:bg-violet-500/10 transition-colors flex items-center justify-center gap-2">
+                <Code className="h-4 w-4" />
+                VIEW API DOCUMENTATION
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -692,6 +699,11 @@ const VenueCompliance = () => {
           </div>
         </Link>
 
+      </div>
+
+      {/* ROI Calculator Section */}
+      <div className="max-w-xl mx-auto px-5 pb-12">
+        <ROICalculator />
       </div>
 
       {/* Strategic Partner CTA */}

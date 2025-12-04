@@ -113,6 +113,59 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Documents uploaded successfully");
 
+    // Create affiliate record in database (for existing users who can't insert via RLS)
+    // First check if affiliate already exists for this email
+    const { data: existingAffiliate } = await supabaseAdmin
+      .from("affiliates")
+      .select("id")
+      .eq("email", data.email)
+      .maybeSingle();
+
+    if (!existingAffiliate) {
+      // Create new affiliate record without user_id (for existing users not logged in)
+      // We'll use a placeholder UUID and let admin link it later if needed
+      const { error: insertError } = await supabaseAdmin
+        .from("affiliates")
+        .insert({
+          user_id: '00000000-0000-0000-0000-000000000000', // Placeholder for unlinked applications
+          referral_code: referralCode,
+          full_name: data.fullName,
+          email: data.email,
+          phone_number: data.phone,
+          payout_method: data.payoutMethod,
+          paypal_email: data.payoutHandle,
+          id_front_url: idFrontUrl,
+          id_back_url: idBackUrl,
+          status: 'pending',
+        });
+
+      if (insertError) {
+        console.error("Error creating affiliate record:", insertError);
+        // Don't throw - still send notification even if DB insert fails
+      } else {
+        console.log("Affiliate record created successfully");
+      }
+    } else {
+      // Update existing affiliate with new info
+      const { error: updateError } = await supabaseAdmin
+        .from("affiliates")
+        .update({
+          full_name: data.fullName,
+          phone_number: data.phone,
+          payout_method: data.payoutMethod,
+          paypal_email: data.payoutHandle,
+          id_front_url: idFrontUrl,
+          id_back_url: idBackUrl,
+        })
+        .eq("email", data.email);
+
+      if (updateError) {
+        console.error("Error updating affiliate record:", updateError);
+      } else {
+        console.log("Existing affiliate record updated");
+      }
+    }
+
     // Send admin notification email
     const emailPromises = ADMIN_EMAILS.map(async (adminEmail) => {
       const emailResponse = await resend.emails.send({

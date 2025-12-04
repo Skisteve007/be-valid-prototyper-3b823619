@@ -33,7 +33,7 @@ const VenueCompliance = () => {
             <div className="relative px-3 py-1.5 md:px-4 md:py-2 bg-black/80 border border-green-500/60 rounded-md shadow-[0_0_20px_rgba(34,197,94,0.5),inset_0_0_20px_rgba(34,197,94,0.1)]">
               <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-green-400/5 to-green-500/10 rounded-md"></div>
               <span className="relative font-mono text-[10px] md:text-xs font-bold tracking-wider text-green-400 uppercase" style={{ textShadow: '0 0 10px rgba(34,197,94,0.8), 0 0 20px rgba(34,197,94,0.5)' }}>
-                ⚡ Beta Pricing ⚡
+                ⚡ Beta Version ⚡
               </span>
             </div>
           </div>

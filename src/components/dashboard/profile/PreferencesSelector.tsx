@@ -30,7 +30,9 @@ import {
   ShoppingBag,
   Plane,
   Dumbbell,
-  CarFront
+  CarFront,
+  Umbrella,
+  Music
 } from "lucide-react";
 
 interface PreferenceCategory {
@@ -75,6 +77,8 @@ const HOBBY_INTERESTS = [
   { id: "travel", label: "Travel", Icon: Plane, color: "text-teal-500" },
   { id: "exercise", label: "Exercise", Icon: Dumbbell, color: "text-green-500" },
   { id: "car_enthusiast", label: "Car Enthusiast", Icon: CarFront, color: "text-red-500" },
+  { id: "beach", label: "Beach Time", Icon: Umbrella, color: "text-yellow-500" },
+  { id: "music", label: "Music Lover", Icon: Music, color: "text-purple-500" },
 ];
 
 const getCategoryIcon = (categoryId: string): { Icon: LucideIcon; color: string } => {

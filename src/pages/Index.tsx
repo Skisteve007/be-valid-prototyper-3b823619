@@ -391,7 +391,7 @@ const Index = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">Share your clean status with confidence</p>
+                      <p className="text-muted-foreground">Share your clean status with lab certification*</p>
                     </CardContent>
                   </Card>
                 </div>

@@ -78,7 +78,7 @@ const PartnerApplication = () => {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
-        // Create account first
+        // Try to create account first
         const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
           email: formData.email,
           password: Math.random().toString(36).slice(-12) + "A1!", // Temporary password
@@ -87,6 +87,48 @@ const PartnerApplication = () => {
           }
         });
 
+        // Handle user already exists - still process the application
+        if (signUpError && signUpError.message?.includes("already registered")) {
+          console.log("User already exists, processing application without account creation");
+          
+          // Use email hash as folder name for documents
+          const tempUserId = `pending-${Date.now()}-${formData.email.replace(/[^a-zA-Z0-9]/g, '')}`;
+          
+          // Upload ID documents
+          setUploadProgress({ front: true, back: false });
+          const idFrontUrl = await uploadFile(idFrontFile, tempUserId, "id-front");
+          
+          setUploadProgress({ front: true, back: true });
+          const idBackUrl = await uploadFile(idBackFile, tempUserId, "id-back");
+
+          const referralCode = generateReferralCode(formData.fullName);
+
+          // Send admin notification email with all details
+          try {
+            await supabase.functions.invoke('notify-partner-application', {
+              body: {
+                fullName: formData.fullName,
+                email: formData.email,
+                phone: formData.phone,
+                payoutMethod: formData.payoutMethod,
+                payoutHandle: formData.payoutHandle,
+                referralCode: referralCode,
+                idFrontUrl: idFrontUrl,
+                idBackUrl: idBackUrl,
+                submittedAt: new Date().toISOString(),
+                existingUser: true, // Flag that this is an existing user
+              }
+            });
+            console.log("Admin notification sent for existing user application");
+          } catch (notifyError) {
+            console.error("Failed to send admin notification:", notifyError);
+          }
+
+          toast.success("Application submitted! An admin will review your application and contact you.");
+          navigate("/");
+          return;
+        }
+        
         if (signUpError) throw signUpError;
         
         if (!signUpData.user) {

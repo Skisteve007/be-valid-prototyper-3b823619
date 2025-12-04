@@ -490,9 +490,14 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => {
-                          setSelectedDocument(cert.document_url);
-                          setViewerOpen(true);
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          const docUrl = cert.document_url;
+                          if (docUrl) {
+                            setSelectedDocument(docUrl);
+                            setTimeout(() => setViewerOpen(true), 50);
+                          }
                         }}
                         className="flex items-center gap-1 border-green-500 text-green-600 hover:bg-green-50 dark:border-green-600 dark:text-green-400 dark:hover:bg-green-950/30"
                       >

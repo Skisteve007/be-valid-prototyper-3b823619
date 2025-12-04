@@ -1,8 +1,17 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key, FlaskConical, Lock, CreditCard, QrCode, Plug } from "lucide-react";
+import { Shield, Sparkles, PartyPopper, Video, Building2, Car, Key, FlaskConical, Lock, CreditCard, QrCode, Plug, Database, Server, FileCheck, Fingerprint, ShieldCheck, X } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const VenueCompliance = () => {
+  const [securityModalOpen, setSecurityModalOpen] = useState(false);
+
   return (
     <div 
       className="min-h-screen text-white font-sans"
@@ -52,11 +61,101 @@ const VenueCompliance = () => {
       <div className="py-10 px-5">
         <div className="text-center">
           <h1 className="text-3xl md:text-4xl font-black mb-4 italic text-amber-400">Partner Solutions: Choose Your Industry</h1>
-          <span className="inline-block px-5 py-1.5 rounded-full bg-slate-900/80 text-amber-400 font-semibold text-base md:text-lg border border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.2)]" style={{ textShadow: '0 0 10px rgba(251,191,36,0.5)' }}>
-            Automated Compliance And Risk Management For High-Liability Sectors.
-          </span>
+          <button 
+            onClick={() => setSecurityModalOpen(true)}
+            className="inline-block px-5 py-1.5 rounded-full bg-slate-900/80 text-amber-400 font-semibold text-base md:text-lg border border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.2)] hover:bg-slate-800/90 hover:border-amber-400/60 hover:shadow-[0_0_30px_rgba(251,191,36,0.4)] transition-all duration-300 cursor-pointer"
+            style={{ textShadow: '0 0 10px rgba(251,191,36,0.5)' }}
+          >
+            Automated Compliance And Risk Management For High-Liability Sectors. →
+          </button>
         </div>
       </div>
+
+      {/* Security Architecture Modal */}
+      <Dialog open={securityModalOpen} onOpenChange={setSecurityModalOpen}>
+        <DialogContent className="max-w-2xl bg-slate-950 border border-slate-700 text-white max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-amber-400 via-sky-400 to-violet-400 bg-clip-text text-transparent">
+              Enterprise Security Architecture
+            </DialogTitle>
+            <p className="text-center text-slate-400 text-sm mt-1">Built for Fintech-Grade Compliance</p>
+          </DialogHeader>
+          
+          <div className="space-y-4 mt-6">
+            {/* Database Security */}
+            <div className="flex gap-4 p-4 bg-slate-900/60 rounded-xl border border-slate-700/50">
+              <div className="h-12 w-12 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Database className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-emerald-400 mb-1">Row-Level Security (RLS)</h4>
+                <p className="text-sm text-slate-300">PostgreSQL-native RLS policies enforce data isolation at the database layer. Users can only access their own records—enforced server-side, not client-side.</p>
+              </div>
+            </div>
+
+            {/* Encryption */}
+            <div className="flex gap-4 p-4 bg-slate-900/60 rounded-xl border border-slate-700/50">
+              <div className="h-12 w-12 bg-gradient-to-br from-violet-500 to-violet-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Lock className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-violet-400 mb-1">AES-256 Encryption at Rest</h4>
+                <p className="text-sm text-slate-300">All sensitive data encrypted using AES-256-GCM. TLS 1.3 enforced for all data in transit. Zero plaintext storage of PII or PHI.</p>
+              </div>
+            </div>
+
+            {/* Authentication */}
+            <div className="flex gap-4 p-4 bg-slate-900/60 rounded-xl border border-slate-700/50">
+              <div className="h-12 w-12 bg-gradient-to-br from-sky-500 to-sky-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Fingerprint className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sky-400 mb-1">JWT Authentication & RBAC</h4>
+                <p className="text-sm text-slate-300">Stateless JWT tokens with role-based access control (guest, registered, paid, active_member, administrator). Token expiration and refresh rotation enforced.</p>
+              </div>
+            </div>
+
+            {/* API Security */}
+            <div className="flex gap-4 p-4 bg-slate-900/60 rounded-xl border border-slate-700/50">
+              <div className="h-12 w-12 bg-gradient-to-br from-amber-500 to-amber-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Server className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-amber-400 mb-1">Serverless Edge Functions</h4>
+                <p className="text-sm text-slate-300">Deno-based edge functions with isolated execution environments. API keys stored in encrypted vault. CORS-protected endpoints with rate limiting.</p>
+              </div>
+            </div>
+
+            {/* Compliance */}
+            <div className="flex gap-4 p-4 bg-slate-900/60 rounded-xl border border-slate-700/50">
+              <div className="h-12 w-12 bg-gradient-to-br from-pink-500 to-pink-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                <FileCheck className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-pink-400 mb-1">HIPAA & GDPR Ready</h4>
+                <p className="text-sm text-slate-300">FHIR R4 compatible data schemas. Privacy firewall requires explicit user consent before status publication. Complete audit trail with IP logging and timestamps.</p>
+              </div>
+            </div>
+
+            {/* Identity Verification */}
+            <div className="flex gap-4 p-4 bg-slate-900/60 rounded-xl border border-slate-700/50">
+              <div className="h-12 w-12 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                <ShieldCheck className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-red-400 mb-1">2257 Identity Verification</h4>
+                <p className="text-sm text-slate-300">Government ID upload and verification for affiliate partners. KYC-compliant document storage in encrypted buckets with admin-only access.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 pt-4 border-t border-slate-700">
+            <p className="text-xs text-slate-500 text-center">
+              Clean Check infrastructure runs on SOC 2 Type II certified cloud providers. For security inquiries: Steve@bigtexasroof.com
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Value Propositions */}
       <div className="flex flex-col md:flex-row justify-center max-w-5xl mx-auto gap-6 px-5 mb-12">

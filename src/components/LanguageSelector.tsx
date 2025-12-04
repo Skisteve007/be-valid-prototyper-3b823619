@@ -37,6 +37,8 @@ let googleTranslateReady = false;
 
 // Initialize Google Translate
 function initGoogleTranslate() {
+  console.log("[LanguageSelector] Initializing Google Translate...");
+  
   // Create hidden translate element first
   if (!document.getElementById('google_translate_element')) {
     const div = document.createElement('div');
@@ -45,10 +47,12 @@ function initGoogleTranslate() {
     div.style.top = '-9999px';
     div.style.left = '-9999px';
     document.body.appendChild(div);
+    console.log("[LanguageSelector] Created google_translate_element div");
   }
 
   // Define the callback BEFORE loading the script
   window.googleTranslateElementInit = function() {
+    console.log("[LanguageSelector] googleTranslateElementInit callback fired");
     new window.google.translate.TranslateElement(
       {
         pageLanguage: 'en',
@@ -58,7 +62,7 @@ function initGoogleTranslate() {
       'google_translate_element'
     );
     googleTranslateReady = true;
-    console.log('Google Translate initialized');
+    console.log("[LanguageSelector] Google Translate initialized successfully");
   };
 
   // Add Google Translate script if not already present
@@ -67,7 +71,14 @@ function initGoogleTranslate() {
     script.id = 'google-translate-script';
     script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     script.async = true;
+    script.onerror = () => {
+      console.error("[LanguageSelector] Failed to load Google Translate script - may be blocked by CSP");
+    };
+    script.onload = () => {
+      console.log("[LanguageSelector] Google Translate script loaded");
+    };
     document.body.appendChild(script);
+    console.log("[LanguageSelector] Added Google Translate script to page");
   }
 }
 

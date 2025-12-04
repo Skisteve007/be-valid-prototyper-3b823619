@@ -349,10 +349,10 @@ const Index = () => {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-6 px-4 bg-muted/30">
+        <section className="py-6 px-4 bg-gradient-to-b from-muted/30 via-secondary/10 to-muted/30">
           <div className="container mx-auto max-w-6xl px-4">
             <ScrollReveal direction="up" delay={100}>
-              <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-wide">Why Join Clean Check?</h3>
+              <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-br from-muted-foreground via-secondary to-primary bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] tracking-wide">Why Join Clean Check?</h3>
             </ScrollReveal>
             <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               <ScrollReveal direction="up" delay={200}>

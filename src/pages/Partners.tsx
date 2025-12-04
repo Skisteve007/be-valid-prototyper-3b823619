@@ -68,7 +68,7 @@ const Partners = () => {
           </div>
           
           {/* Beta Pricing Badge */}
-          <div className="hidden md:flex relative group">
+          <div className="flex relative group">
             <div className="absolute inset-0 bg-green-500/40 blur-xl rounded-lg animate-pulse"></div>
             <div className="absolute inset-0 bg-green-400/20 blur-2xl rounded-lg animate-[pulse_1.5s_ease-in-out_infinite]"></div>
             <div className="relative px-4 py-2 bg-black/80 border border-green-500/60 rounded-md shadow-[0_0_20px_rgba(34,197,94,0.5),inset_0_0_20px_rgba(34,197,94,0.1)]">

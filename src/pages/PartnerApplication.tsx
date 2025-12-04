@@ -121,6 +121,27 @@ const PartnerApplication = () => {
 
         if (affiliateError) throw affiliateError;
 
+        // Send admin notification email
+        try {
+          await supabase.functions.invoke('notify-partner-application', {
+            body: {
+              fullName: formData.fullName,
+              email: formData.email,
+              phone: formData.phone,
+              payoutMethod: formData.payoutMethod,
+              payoutHandle: formData.payoutHandle,
+              referralCode: referralCode,
+              idFrontUrl: idFrontUrl,
+              idBackUrl: idBackUrl,
+              submittedAt: new Date().toISOString(),
+            }
+          });
+          console.log("Admin notification sent successfully");
+        } catch (notifyError) {
+          console.error("Failed to send admin notification:", notifyError);
+          // Don't fail the submission if notification fails
+        }
+
         toast.success("Application submitted! Check your email to set your password.");
         navigate("/sales-portal");
       } else {
@@ -149,6 +170,27 @@ const PartnerApplication = () => {
           });
 
         if (affiliateError) throw affiliateError;
+
+        // Send admin notification email
+        try {
+          await supabase.functions.invoke('notify-partner-application', {
+            body: {
+              fullName: formData.fullName,
+              email: formData.email,
+              phone: formData.phone,
+              payoutMethod: formData.payoutMethod,
+              payoutHandle: formData.payoutHandle,
+              referralCode: referralCode,
+              idFrontUrl: idFrontUrl,
+              idBackUrl: idBackUrl,
+              submittedAt: new Date().toISOString(),
+            }
+          });
+          console.log("Admin notification sent successfully");
+        } catch (notifyError) {
+          console.error("Failed to send admin notification:", notifyError);
+          // Don't fail the submission if notification fails
+        }
 
         toast.success("Application submitted successfully!");
         navigate("/sales-portal");

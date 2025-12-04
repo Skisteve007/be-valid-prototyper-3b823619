@@ -59,12 +59,12 @@ const VenueCompliance = () => {
       </header>
 
       {/* Hero Section */}
-      <div className="py-10 px-5">
+      <div className="py-12 px-5">
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-black mb-4 italic text-amber-400">Partner Solutions: Choose Your Industry</h1>
+          <h1 className="text-4xl md:text-5xl font-black mb-5 italic text-amber-400">Partner Solutions: Choose Your Industry</h1>
           <button 
             onClick={() => setSecurityModalOpen(true)}
-            className="inline-block px-5 py-1.5 rounded-full bg-slate-900/80 text-amber-400 font-semibold text-base md:text-lg border border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.2)] hover:bg-slate-800/90 hover:border-amber-400/60 hover:shadow-[0_0_30px_rgba(251,191,36,0.4)] transition-all duration-300 cursor-pointer"
+            className="inline-block px-6 py-2 rounded-full bg-slate-900/80 text-amber-400 font-semibold text-lg md:text-xl border border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.2)] hover:bg-slate-800/90 hover:border-amber-400/60 hover:shadow-[0_0_30px_rgba(251,191,36,0.4)] transition-all duration-300 cursor-pointer"
             style={{ textShadow: '0 0 10px rgba(251,191,36,0.5)' }}
           >
             Automated Compliance And Risk Management For High-Liability Sectors. →
@@ -161,16 +161,16 @@ const VenueCompliance = () => {
       {/* Value Propositions */}
       <div className="flex flex-col md:flex-row justify-center max-w-5xl mx-auto gap-6 px-5 mb-12">
         <div className="flex-1 bg-white/5 p-6 rounded-xl">
-          <h3 className="text-red-400 font-bold mb-3 text-lg">1. LIABILITY SHIELD</h3>
-          <p className="text-base text-white">Outsource compliance tracking. We provide the mandatory digital waiver and audit trail, moving medical liability away from your venue.</p>
+          <h3 className="text-red-400 font-bold mb-3 text-xl">1. LIABILITY SHIELD</h3>
+          <p className="text-lg text-white">Outsource compliance tracking. We provide the mandatory digital waiver and audit trail, moving medical liability away from your venue.</p>
         </div>
         <div className="flex-1 bg-white/5 p-6 rounded-xl">
-          <h3 className="text-blue-400 font-bold mb-3 text-lg">2. MONETIZE ACCESS</h3>
-          <p className="text-base text-white">Transform the security checkpoint into a profit center. Collect subscription and per-scan revenue by offering 'Verified Entry' speed.</p>
+          <h3 className="text-blue-400 font-bold mb-3 text-xl">2. MONETIZE ACCESS</h3>
+          <p className="text-lg text-white">Transform the security checkpoint into a profit center. Collect subscription and per-scan revenue by offering 'Verified Entry' speed.</p>
         </div>
         <div className="flex-1 bg-white/5 p-6 rounded-xl">
-          <h3 className="text-emerald-400 font-bold mb-3 text-lg">3. SECURE TALENT</h3>
-          <p className="text-base text-white">Provide a verified environment for Performer Talent and Content Creators. Reduces the risk of set/venue shutdowns due to health incidents.</p>
+          <h3 className="text-emerald-400 font-bold mb-3 text-xl">3. SECURE TALENT</h3>
+          <p className="text-lg text-white">Provide a verified environment for Performer Talent and Content Creators. Reduces the risk of set/venue shutdowns due to health incidents.</p>
         </div>
       </div>
 
@@ -188,20 +188,20 @@ const VenueCompliance = () => {
         >
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <PartyPopper className="h-8 w-8 text-blue-200" />
-              <h3 className="text-xl font-bold">Nightlife & Events</h3>
+              <PartyPopper className="h-9 w-9 text-blue-200" />
+              <h3 className="text-2xl font-bold">Nightlife & Events</h3>
             </div>
-            <p className="italic opacity-90 mb-4">"Monetize the Door. Verify the Vibe."</p>
+            <p className="italic opacity-90 mb-4 text-lg">"Monetize the Door. Verify the Vibe."</p>
           </div>
 
           <div className="space-y-3">
             {/* Tier 1 */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+            <div className="border border-slate-600 p-4 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm">Promoter Tier (Up to 200 Scans)</span>
-                <span className="text-blue-200 font-bold">$299/mo</span>
+                <span className="font-bold text-base">Promoter Tier (Up to 200 Scans)</span>
+                <span className="text-blue-200 font-bold text-lg">$299/mo</span>
               </div>
-              <p className="text-xs text-slate-400 mb-2">Overage billed at $2.00/scan.</p>
+              <p className="text-sm text-slate-400 mb-2">Overage billed at $2.00/scan.</p>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
@@ -212,20 +212,20 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Club Name" />
-                <input type="text" name="os0" placeholder="Event/Club Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-2.5 bg-blue-200 text-black font-bold rounded uppercase text-sm">
+                <input type="text" name="os0" placeholder="Event/Club Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-3 bg-blue-200 text-black font-bold rounded uppercase text-base">
                   ACTIVATE TIER 1
                 </button>
               </form>
             </div>
 
             {/* Tier 2 */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+            <div className="border border-slate-600 p-4 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm">Club Tier (Up to 1,000 Scans)</span>
-                <span className="text-blue-200 font-bold">$999/mo</span>
+                <span className="font-bold text-base">Club Tier (Up to 1,000 Scans)</span>
+                <span className="text-blue-200 font-bold text-lg">$999/mo</span>
               </div>
-              <p className="text-xs text-slate-400 mb-2">Overage billed at $1.00/scan.</p>
+              <p className="text-sm text-slate-400 mb-2">Overage billed at $1.00/scan.</p>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
@@ -236,8 +236,8 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Club Name" />
-                <input type="text" name="os0" placeholder="Club Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-2.5 bg-blue-200 text-black font-bold rounded uppercase text-sm">
+                <input type="text" name="os0" placeholder="Club Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-3 bg-blue-200 text-black font-bold rounded uppercase text-base">
                   ACTIVATE TIER 2
                 </button>
               </form>
@@ -245,7 +245,7 @@ const VenueCompliance = () => {
 
             {/* Enterprise */}
             <a href="mailto:Steve@bigtexasroof.com?subject=Enterprise%20Nightlife%20Partnership" className="block">
-              <button type="button" className="w-full py-3 bg-transparent text-blue-200 font-bold border border-blue-200 rounded uppercase text-sm">
+              <button type="button" className="w-full py-3 bg-transparent text-blue-200 font-bold border border-blue-200 rounded uppercase text-base">
                 REQUEST MEGA-CLUB CONTRACT
               </button>
             </a>
@@ -263,11 +263,11 @@ const VenueCompliance = () => {
         >
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <Video className="h-8 w-8 text-amber-400" />
-              <h3 className="text-xl font-bold text-amber-400">Talent & Content Creators</h3>
+              <Video className="h-9 w-9 text-amber-400" />
+              <h3 className="text-2xl font-bold text-amber-400">Talent & Content Creators</h3>
             </div>
-            <p className="italic opacity-90 mb-4">"The Industry Standard for Talent."</p>
-            <ul className="space-y-2 text-sm">
+            <p className="italic opacity-90 mb-4 text-lg">"The Industry Standard for Talent."</p>
+            <ul className="space-y-2 text-base">
               <li>✅ <strong>Get Booked:</strong> Verified safety for Club Bookings & Film Sets.</li>
               <li>✅ <strong>Digital Handshake:</strong> Auto-syncs status with your employer.</li>
               <li>✅ <strong>Auto-Renewal:</strong> Aligns with 60-day testing cycle.</li>
@@ -275,8 +275,8 @@ const VenueCompliance = () => {
           </div>
 
           <div className="mt-4">
-            <div className="text-4xl font-black text-amber-400 mb-1">$39.00</div>
-            <div className="font-bold mb-4">Every 60 Days (Performer Pass)</div>
+            <div className="text-5xl font-black text-amber-400 mb-1">$39.00</div>
+            <div className="font-bold mb-4 text-lg">Every 60 Days (Performer Pass)</div>
             
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -290,10 +290,10 @@ const VenueCompliance = () => {
               <input type="hidden" name="on0" value="Stage Name" />
               <input type="hidden" name="on1" value="Affiliation" />
               
-              <input type="text" name="os0" placeholder="1. Professional Name" required className="w-full px-3 py-2 mb-3 rounded text-black" />
-              <input type="text" name="os1" placeholder="2. Agency or Venue" required className="w-full px-3 py-2 mb-4 rounded text-black" />
+              <input type="text" name="os0" placeholder="1. Professional Name" required className="w-full px-3 py-2.5 mb-3 rounded text-black text-base" />
+              <input type="text" name="os1" placeholder="2. Agency or Venue" required className="w-full px-3 py-2.5 mb-4 rounded text-black text-base" />
 
-              <button type="submit" className="w-full py-4 bg-amber-400 text-black font-extrabold rounded-lg uppercase">
+              <button type="submit" className="w-full py-4 bg-amber-400 text-black font-extrabold rounded-lg uppercase text-lg">
                 ACTIVATE TALENT PASS
               </button>
             </form>
@@ -311,19 +311,19 @@ const VenueCompliance = () => {
         >
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <Building2 className="h-8 w-8 text-slate-400" />
-              <h3 className="text-xl font-bold">Workforce Management</h3>
+              <Building2 className="h-9 w-9 text-slate-400" />
+              <h3 className="text-2xl font-bold">Workforce Management</h3>
             </div>
-            <p className="italic opacity-90 mb-4">"Connect your team. Monitor the data."</p>
-            <p className="text-xs text-slate-400 uppercase font-bold mb-3">Select System Capacity</p>
+            <p className="italic opacity-90 mb-4 text-lg">"Connect your team. Monitor the data."</p>
+            <p className="text-sm text-slate-400 uppercase font-bold mb-3">Select System Capacity</p>
           </div>
 
           <div className="space-y-2">
             {/* Tier 1 */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+            <div className="border border-slate-600 p-4 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm">Small (1-50 Staff)</span>
-                <span className="text-slate-400 font-bold">$399/mo</span>
+                <span className="font-bold text-base">Small (1-50 Staff)</span>
+                <span className="text-slate-400 font-bold text-lg">$399/mo</span>
               </div>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -335,18 +335,18 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Company Name" />
-                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-1.5 bg-slate-400 text-black font-bold rounded text-sm">
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-2.5 bg-slate-400 text-black font-bold rounded text-base">
                   ACTIVATE TIER 1
                 </button>
               </form>
             </div>
 
             {/* Tier 2 */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+            <div className="border border-slate-600 p-4 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm">Mid-Size (50-150 Staff)</span>
-                <span className="text-slate-400 font-bold">$699/mo</span>
+                <span className="font-bold text-base">Mid-Size (50-150 Staff)</span>
+                <span className="text-slate-400 font-bold text-lg">$699/mo</span>
               </div>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -358,18 +358,18 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Company Name" />
-                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-1.5 bg-slate-400 text-black font-bold rounded text-sm">
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-2.5 bg-slate-400 text-black font-bold rounded text-base">
                   ACTIVATE TIER 2
                 </button>
               </form>
             </div>
 
             {/* Tier 3 Enterprise */}
-            <div className="border-2 border-amber-500 p-3 rounded-lg bg-black/60">
+            <div className="border-2 border-amber-500 p-4 rounded-lg bg-black/60">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm text-amber-400">Enterprise (150-500 Staff)</span>
-                <span className="text-amber-400 font-bold">$1,299/mo</span>
+                <span className="font-bold text-base text-amber-400">Enterprise (150-500 Staff)</span>
+                <span className="text-amber-400 font-bold text-lg">$1,299/mo</span>
               </div>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -381,8 +381,8 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Company Name" />
-                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-1.5 bg-amber-400 text-black font-bold rounded text-sm">
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-2.5 bg-amber-400 text-black font-bold rounded text-base">
                   ACTIVATE TIER 3
                 </button>
               </form>
@@ -395,7 +395,7 @@ const VenueCompliance = () => {
               <input type="hidden" name="item_name" value="Clean Check - Bulk Employee Kits (10pk)" />
               <input type="hidden" name="amount" value="890.00" />
               <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-              <button type="submit" className="w-full py-2.5 bg-slate-800 text-white font-bold border border-white rounded">
+              <button type="submit" className="w-full py-3 bg-slate-800 text-white font-bold border border-white rounded text-base">
                 ORDER 10-PACK ($890)
               </button>
             </form>
@@ -413,20 +413,20 @@ const VenueCompliance = () => {
         >
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <Car className="h-8 w-8 text-emerald-400" />
-              <h3 className="text-xl font-bold">Transportation & Fleets</h3>
+              <Car className="h-9 w-9 text-emerald-400" />
+              <h3 className="text-2xl font-bold">Transportation & Fleets</h3>
             </div>
-            <p className="italic opacity-90 mb-4">"Protect the asset. Continuous driver screening."</p>
+            <p className="italic opacity-90 mb-4 text-lg">"Protect the asset. Continuous driver screening."</p>
             <hr className="border-white/20 my-4" />
-            <p className="text-xs text-slate-400 uppercase font-bold mb-3">Fleet Licenses (Monthly)</p>
+            <p className="text-sm text-slate-400 uppercase font-bold mb-3">Fleet Licenses (Monthly)</p>
           </div>
 
           <div className="space-y-2">
             {/* Tier 1: Small Fleet */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+            <div className="border border-slate-600 p-4 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm">Small Fleet (1-50 Cars)</span>
-                <span className="text-emerald-400 font-bold">$299/mo</span>
+                <span className="font-bold text-base">Small Fleet (1-50 Cars)</span>
+                <span className="text-emerald-400 font-bold text-lg">$299/mo</span>
               </div>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -438,18 +438,18 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Company Name" />
-                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-2 bg-emerald-400 text-black font-bold rounded text-sm">
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-2.5 bg-emerald-400 text-black font-bold rounded text-base">
                   ACTIVATE TIER 1
                 </button>
               </form>
             </div>
 
             {/* Tier 2: Mid Fleet */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+            <div className="border border-slate-600 p-4 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm">Mid Fleet (50-200 Cars)</span>
-                <span className="text-emerald-400 font-bold">$599/mo</span>
+                <span className="font-bold text-base">Mid Fleet (50-200 Cars)</span>
+                <span className="text-emerald-400 font-bold text-lg">$599/mo</span>
               </div>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -461,18 +461,18 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Company Name" />
-                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-2 bg-emerald-400 text-black font-bold rounded text-sm">
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-2.5 bg-emerald-400 text-black font-bold rounded text-base">
                   ACTIVATE TIER 2
                 </button>
               </form>
             </div>
 
             {/* Tier 3: Large Fleet (Gold) */}
-            <div className="border-2 border-amber-500 p-3 rounded-lg bg-black/70">
+            <div className="border-2 border-amber-500 p-4 rounded-lg bg-black/70">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm text-amber-400">Large Fleet (200+ Cars)</span>
-                <span className="text-amber-400 font-bold">$999/mo</span>
+                <span className="font-bold text-base text-amber-400">Large Fleet (200+ Cars)</span>
+                <span className="text-amber-400 font-bold text-lg">$999/mo</span>
               </div>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -484,8 +484,8 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Company Name" />
-                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-2 bg-amber-400 text-black font-bold rounded text-sm">
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-2.5 bg-amber-400 text-black font-bold rounded text-base">
                   ACTIVATE TIER 3
                 </button>
               </form>
@@ -493,13 +493,13 @@ const VenueCompliance = () => {
 
             {/* Individual Driver */}
             <div className="border-t border-slate-600 pt-3 mt-3">
-              <p className="text-xs text-slate-400 uppercase font-bold mb-1">For Individual Drivers</p>
-              <div className="text-xl font-bold mb-1">$119.00 <span className="text-sm font-normal text-slate-400">One-Time</span></div>
-              <p className="text-xs text-slate-400 mb-3">Includes: Membership + <strong className="text-amber-400">14-Day QR Code</strong> + 1 Drug Test Kit.</p>
+              <p className="text-sm text-slate-400 uppercase font-bold mb-1">For Individual Drivers</p>
+              <div className="text-2xl font-bold mb-1">$119.00 <span className="text-base font-normal text-slate-400">One-Time</span></div>
+              <p className="text-sm text-slate-400 mb-3">Includes: Membership + <strong className="text-amber-400">14-Day QR Code</strong> + 1 Drug Test Kit.</p>
               
               <a 
                 href="/toxicology-kit-order?type=driver"
-                className="block w-full py-2.5 bg-slate-800 text-white font-bold border border-white rounded text-center"
+                className="block w-full py-3 bg-slate-800 text-white font-bold border border-white rounded text-center text-base"
               >
                 BUY DRIVER PASS ($119)
               </a>
@@ -518,11 +518,11 @@ const VenueCompliance = () => {
         >
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <Key className="h-8 w-8 text-yellow-400" />
-              <h3 className="text-xl font-bold">Exotic & Luxury Rentals</h3>
+              <Key className="h-9 w-9 text-yellow-400" />
+              <h3 className="text-2xl font-bold">Exotic & Luxury Rentals</h3>
             </div>
-            <p className="italic opacity-90 mb-4">"Protect the asset. Verify the driver."</p>
-            <ul className="space-y-2 text-sm">
+            <p className="italic opacity-90 mb-4 text-lg">"Protect the asset. Verify the driver."</p>
+            <ul className="space-y-2 text-base">
               <li>✅ <strong>Pre-Rental Screening:</strong> Verify driver sobriety before handoff.</li>
               <li>✅ <strong>Liability Documentation:</strong> Digital waiver and compliance trail.</li>
               <li>✅ <strong>Asset Protection:</strong> Reduce risk of DUI-related incidents.</li>
@@ -531,10 +531,10 @@ const VenueCompliance = () => {
 
           <div className="space-y-3 mt-4">
             {/* Small Rental Fleet */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+            <div className="border border-slate-600 p-4 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm">Small Fleet (1-10 Vehicles)</span>
-                <span className="text-yellow-400 font-bold">$199/mo</span>
+                <span className="font-bold text-base">Small Fleet (1-10 Vehicles)</span>
+                <span className="text-yellow-400 font-bold text-lg">$199/mo</span>
               </div>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -546,18 +546,18 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Company Name" />
-                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-2 bg-yellow-400 text-black font-bold rounded text-sm">
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-2.5 bg-yellow-400 text-black font-bold rounded text-base">
                   ACTIVATE SMALL FLEET
                 </button>
               </form>
             </div>
 
             {/* Mid Rental Fleet */}
-            <div className="border border-slate-600 p-3 rounded-lg bg-black/40">
+            <div className="border border-slate-600 p-4 rounded-lg bg-black/40">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-sm">Mid Fleet (10-50 Vehicles)</span>
-                <span className="text-yellow-400 font-bold">$399/mo</span>
+                <span className="font-bold text-base">Mid Fleet (10-50 Vehicles)</span>
+                <span className="text-yellow-400 font-bold text-lg">$399/mo</span>
               </div>
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
@@ -569,8 +569,8 @@ const VenueCompliance = () => {
                 <input type="hidden" name="src" value="1" />
                 <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                 <input type="hidden" name="on0" value="Company Name" />
-                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-2 py-1.5 mb-2 rounded text-black text-sm" />
-                <button type="submit" className="w-full py-2 bg-yellow-400 text-black font-bold rounded text-sm">
+                <input type="text" name="os0" placeholder="Company Name" required className="w-full px-3 py-2 mb-2 rounded text-black text-base" />
+                <button type="submit" className="w-full py-2.5 bg-yellow-400 text-black font-bold rounded text-base">
                   ACTIVATE MID FLEET
                 </button>
               </form>
@@ -578,7 +578,7 @@ const VenueCompliance = () => {
 
             {/* Enterprise Contact */}
             <a href="mailto:Steve@bigtexasroof.com?subject=Enterprise%20Exotic%20Rental%20Partnership" className="block">
-              <button type="button" className="w-full py-3 bg-transparent text-yellow-400 font-bold border border-yellow-400 rounded uppercase text-sm">
+              <button type="button" className="w-full py-3 bg-transparent text-yellow-400 font-bold border border-yellow-400 rounded uppercase text-base">
                 REQUEST ENTERPRISE PRICING
               </button>
             </a>
@@ -596,59 +596,59 @@ const VenueCompliance = () => {
         >
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <Lock className="h-8 w-8 text-violet-400" />
-              <h3 className="text-xl font-bold text-violet-400">Fintech & Integration</h3>
+              <Lock className="h-9 w-9 text-violet-400" />
+              <h3 className="text-2xl font-bold text-violet-400">Fintech & Integration</h3>
             </div>
-            <p className="italic opacity-90 mb-4">"Plug into our ecosystem. Get paid instantly."</p>
+            <p className="italic opacity-90 mb-4 text-lg">"Plug into our ecosystem. Get paid instantly."</p>
             
             <div className="space-y-4">
               {/* Security Features */}
-              <div className="bg-black/40 p-3 rounded-lg border border-violet-500/30">
+              <div className="bg-black/40 p-4 rounded-lg border border-violet-500/30">
                 <div className="flex items-center gap-2 mb-2">
                   <Shield className="h-5 w-5 text-violet-400" />
-                  <span className="font-bold text-sm text-violet-300">Bank-Grade Security</span>
+                  <span className="font-bold text-base text-violet-300">Bank-Grade Security</span>
                 </div>
-                <p className="text-xs text-slate-300">256-bit AES encryption, SOC 2 Type II compliant infrastructure, HIPAA/GDPR data handling, and PCI DSS payment processing.</p>
+                <p className="text-sm text-slate-300">256-bit AES encryption, SOC 2 Type II compliant infrastructure, HIPAA/GDPR data handling, and PCI DSS payment processing.</p>
               </div>
 
               {/* QR Integration */}
-              <div className="bg-black/40 p-3 rounded-lg border border-violet-500/30">
+              <div className="bg-black/40 p-4 rounded-lg border border-violet-500/30">
                 <div className="flex items-center gap-2 mb-2">
                   <QrCode className="h-5 w-5 text-violet-400" />
-                  <span className="font-bold text-sm text-violet-300">QR Environment Integration</span>
+                  <span className="font-bold text-base text-violet-300">QR Environment Integration</span>
                 </div>
-                <p className="text-xs text-slate-300">Seamlessly integrate your existing POS or venue system into our QR ecosystem. Accept scans, verify members, and track entry—all through your current workflow.</p>
+                <p className="text-sm text-slate-300">Seamlessly integrate your existing POS or venue system into our QR ecosystem. Accept scans, verify members, and track entry—all through your current workflow.</p>
               </div>
 
               {/* System Integration */}
-              <div className="bg-black/40 p-3 rounded-lg border border-violet-500/30">
+              <div className="bg-black/40 p-4 rounded-lg border border-violet-500/30">
                 <div className="flex items-center gap-2 mb-2">
                   <Plug className="h-5 w-5 text-violet-400" />
-                  <span className="font-bold text-sm text-violet-300">Zero-Friction API</span>
+                  <span className="font-bold text-base text-violet-300">Zero-Friction API</span>
                 </div>
-                <p className="text-xs text-slate-300">Our REST API connects your system to Clean Check in hours, not weeks. Real-time webhooks, batch processing, and full documentation included.</p>
+                <p className="text-sm text-slate-300">Our REST API connects your system to Clean Check in hours, not weeks. Real-time webhooks, batch processing, and full documentation included.</p>
               </div>
 
               {/* Instant Payments */}
-              <div className="bg-black/40 p-3 rounded-lg border border-violet-500/30">
+              <div className="bg-black/40 p-4 rounded-lg border border-violet-500/30">
                 <div className="flex items-center gap-2 mb-2">
                   <CreditCard className="h-5 w-5 text-violet-400" />
-                  <span className="font-bold text-sm text-violet-300">Instant Payment Settlement</span>
+                  <span className="font-bold text-base text-violet-300">Instant Payment Settlement</span>
                 </div>
-                <p className="text-xs text-slate-300">Get paid immediately through our integrated payment system. No waiting 30+ days—revenue hits your account the same day members transact.</p>
+                <p className="text-sm text-slate-300">Get paid immediately through our integrated payment system. No waiting 30+ days—revenue hits your account the same day members transact.</p>
               </div>
             </div>
           </div>
 
           <div className="mt-4 space-y-2">
             <a href="mailto:Steve@bigtexasroof.com?subject=Fintech%20Integration%20Inquiry" className="block">
-              <button className="w-full py-4 bg-violet-500 text-white font-extrabold rounded-lg uppercase hover:bg-violet-400 transition-colors">
+              <button className="w-full py-4 bg-violet-500 text-white font-extrabold rounded-lg uppercase text-lg hover:bg-violet-400 transition-colors">
                 REQUEST INTEGRATION SPECS
               </button>
             </a>
             <Link to="/api-docs" className="block">
-              <button className="w-full py-3 bg-transparent text-violet-400 font-bold border border-violet-400 rounded-lg uppercase hover:bg-violet-500/10 transition-colors flex items-center justify-center gap-2">
-                <Code className="h-4 w-4" />
+              <button className="w-full py-3 bg-transparent text-violet-400 font-bold border border-violet-400 rounded-lg uppercase hover:bg-violet-500/10 transition-colors flex items-center justify-center gap-2 text-base">
+                <Code className="h-5 w-5" />
                 VIEW API DOCUMENTATION
               </button>
             </Link>
@@ -667,11 +667,11 @@ const VenueCompliance = () => {
           >
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <FlaskConical className="h-8 w-8 text-sky-400" />
-                <h3 className="text-xl font-bold text-sky-400">Lab Access Portal</h3>
+                <FlaskConical className="h-9 w-9 text-sky-400" />
+                <h3 className="text-2xl font-bold text-sky-400">Lab Access Portal</h3>
               </div>
-              <p className="italic opacity-90 mb-4">"Integrated Health Compliance for Affiliate Social Ecosystems."</p>
-              <ul className="space-y-3 text-sm">
+              <p className="italic opacity-90 mb-4 text-lg">"Integrated Health Compliance for Affiliate Social Ecosystems."</p>
+              <ul className="space-y-3 text-base">
                 <li className="flex items-start gap-2">
                   <span className="text-sky-400 mt-0.5">✦</span>
                   <span><strong className="text-sky-300">High-Volume Client Access:</strong> Instantly tap into exclusive affiliate communities, guaranteeing <strong>consistent, mandated volume</strong> for Sexual Health and Toxicology testing.</span>
@@ -692,7 +692,7 @@ const VenueCompliance = () => {
             </div>
 
             <div className="mt-4">
-              <button className="w-full py-4 bg-sky-400 text-black font-extrabold rounded-lg uppercase">
+              <button className="w-full py-4 bg-sky-400 text-black font-extrabold rounded-lg uppercase text-lg">
                 Access Lab Portal →
               </button>
             </div>
@@ -709,10 +709,10 @@ const VenueCompliance = () => {
       {/* Strategic Partner CTA */}
       <div className="max-w-4xl mx-auto px-5 pb-20">
         <div className="bg-gradient-to-r from-slate-900 to-slate-800 border border-amber-500/30 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold mb-2">Strategic Partner Program</h2>
-          <p className="text-slate-400 mb-6">Connect venues, refer members, and earn recurring revenue. Join the Clean Check global network.</p>
+          <h2 className="text-3xl font-bold mb-3">Strategic Partner Program</h2>
+          <p className="text-slate-400 mb-6 text-lg">Connect venues, refer members, and earn recurring revenue. Join the Clean Check global network.</p>
           <Link to="/partner-application">
-            <button className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 text-black font-extrabold rounded-lg uppercase">
+            <button className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 text-black font-extrabold rounded-lg uppercase text-lg">
               APPLY FOR PARTNERSHIP
             </button>
           </Link>

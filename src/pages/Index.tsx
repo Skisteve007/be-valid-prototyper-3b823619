@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle, Package, Plane, ShieldCheck } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
 import { useState, useEffect } from "react";
@@ -697,23 +697,17 @@ const Index = () => {
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2 mb-2">
                       <ShieldCheck className="h-5 w-5 text-accent" />
-                      <CardTitle className="text-lg">STD Panel Kit</CardTitle>
+                      <CardTitle className="text-lg">Platinum 13-Panel Sexual Health Screen</CardTitle>
                     </div>
-                    <CardDescription>Comprehensive health panel</CardDescription>
+                    <CardDescription>Lab-Certified</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-accent mb-3">$149</div>
-                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                      <input type="hidden" name="cmd" value="_xclick" />
-                      <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - STD Panel Lab Kit" />
-                      <input type="hidden" name="amount" value="149.00" />
-                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=std-kit" />
-                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-                      <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                    <div className="text-2xl font-bold text-accent mb-3">$249.00</div>
+                    <Link to="/dashboard">
+                      <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                         Order Health Kit
                       </Button>
-                    </form>
+                    </Link>
                   </CardContent>
                 </Card>
               </ScrollReveal>

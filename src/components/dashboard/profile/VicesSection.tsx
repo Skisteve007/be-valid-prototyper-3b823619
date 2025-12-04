@@ -42,19 +42,19 @@ export const VicesSection = ({
           Select your preferences
         </Label>
         {viceRows.map((row, rowIndex) => (
-          <div key={rowIndex} className="grid grid-cols-2 gap-2">
+          <div key={rowIndex} className="flex items-center gap-1">
             {row.map((option) => {
               const IconComponent = option.icon;
               return (
-                <div key={option.value} className="flex items-center space-x-2 p-1.5 rounded hover:bg-muted/50 transition-colors">
+                <div key={option.value} className="flex items-center space-x-1.5 p-1.5 rounded hover:bg-muted/50 transition-colors">
                   <Checkbox
                     checked={vices?.includes(option.value)}
                     onCheckedChange={() => toggleVice(option.value)}
                     className="min-h-[20px] min-w-[20px]"
                   />
-                  <Label className="cursor-pointer flex items-center gap-1 flex-1">
+                  <Label className="cursor-pointer flex items-center gap-1">
                     <IconComponent className={`w-4 h-4 ${option.color}`} />
-                    <span className="text-xs">{option.value}</span>
+                    <span className="text-sm">{option.value}</span>
                   </Label>
                 </div>
               );

@@ -14,7 +14,7 @@ const Footer = () => {
   };
   
   return (
-    <footer className="w-full mt-auto border-t border-black/10 dark:border-slate-700" style={{ backgroundColor: '#f8fafc' }}>
+    <footer className="w-full mt-auto border-t border-black/5 dark:border-slate-700" style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)' }}>
       <div className="container mx-auto px-4 py-4">
         {/* Compact Legal Section */}
         <div className="text-[11px] leading-relaxed space-y-1.5 mb-3" style={{ color: '#000000' }}>

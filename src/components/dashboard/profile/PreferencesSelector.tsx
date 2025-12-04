@@ -168,14 +168,14 @@ export const PreferencesSelector = ({
                 key={hobby.id}
                 type="button"
                 onClick={() => togglePreference("hobby_interests", hobby.id)}
-                className={`p-3 rounded-full border-2 transition-all duration-200 ${
+                className={`p-4 rounded-full border-2 transition-all duration-200 ${
                   selected
                     ? "border-primary bg-primary/20 shadow-lg shadow-primary/30 scale-110"
                     : "border-border hover:border-primary/50 hover:bg-muted/50"
                 }`}
                 title={hobby.label}
               >
-                <span className="text-2xl">{hobby.emoji}</span>
+                <span className="text-3xl">{hobby.emoji}</span>
               </button>
             );
           })}

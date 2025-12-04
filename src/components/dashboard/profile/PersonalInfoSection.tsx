@@ -292,7 +292,13 @@ export const PersonalInfoSection = ({
                 </div>
                 
                 {/* Lab Certified Section - Right side on desktop */}
-                <div className="hidden md:flex flex-col items-center justify-center p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
+                <div className="hidden md:flex flex-col items-center justify-center p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 relative">
+                  {!isAdmin && (
+                    <div className="absolute top-1 right-1 flex items-center gap-1 text-[9px] text-muted-foreground">
+                      <Lock className="w-2.5 h-2.5" />
+                      <span>Admin Only</span>
+                    </div>
+                  )}
                   <div className="flex flex-col items-center gap-2">
                     <div className="flex items-center gap-2">
                       {isAdmin ? (
@@ -365,18 +371,32 @@ export const PersonalInfoSection = ({
                 </div>
                 
                 {/* Mobile Lab Section */}
-                <div className="md:hidden w-full mt-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5">
+                <div className="md:hidden w-full mt-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 relative">
+                  {!isAdmin && (
+                    <div className="absolute top-1 right-1 flex items-center gap-1 text-[9px] text-muted-foreground">
+                      <Lock className="w-2.5 h-2.5" />
+                      <span>Admin Only</span>
+                    </div>
+                  )}
                   <div className="flex items-stretch gap-4">
                     <div className="flex-1 flex flex-col justify-center space-y-2">
                       <div className="flex items-center gap-2">
-                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                          labCertified 
-                            ? 'border-green-500 bg-green-500' 
-                            : 'border-gray-400 bg-gray-200'
-                        }`}>
-                          {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
-                        </div>
-                        <Label className="text-sm font-semibold text-cyan-600 flex items-center gap-1.5">
+                        {isAdmin ? (
+                          <Checkbox
+                            id="lab_certified_mobile"
+                            checked={labCertified}
+                            onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
+                          />
+                        ) : (
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                            labCertified 
+                              ? 'border-green-500 bg-green-500' 
+                              : 'border-gray-400 bg-gray-200'
+                          }`}>
+                            {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
+                          </div>
+                        )}
+                        <Label htmlFor="lab_certified_mobile" className={`text-sm font-semibold text-cyan-600 flex items-center gap-1.5 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
                           <CheckCircle className="w-4 h-4" />
                           Lab Certified
                         </Label>
@@ -406,6 +426,21 @@ export const PersonalInfoSection = ({
                         )}
                       </div>
                       <span className="text-xs font-medium text-cyan-600">Testing Lab</span>
+                      {isAdmin && (
+                        <>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => labLogoInputRef.current?.click()}
+                            disabled={uploadingLabLogo}
+                            className="h-6 px-2 text-xs"
+                          >
+                            <Upload className="w-3 h-3 mr-1" />
+                            {uploadingLabLogo ? "..." : "Upload"}
+                          </Button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -11,15 +11,12 @@ import { supabase } from "@/integrations/supabase/client";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Session } from "@supabase/supabase-js";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
-import { LanguageSelector, LanguageWelcomeBanner } from "@/components/LanguageSelector";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Index = () => {
   const navigate = useNavigate();
   const longPressHandlers = useLongPressHome();
-  const isMobile = useIsMobile();
   useReferralTracking(); // Track affiliate referrals from URL
   const [selectedPlan, setSelectedPlan] = useState<"single" | "couple">("single");
   const [fullName, setFullName] = useState("");
@@ -111,9 +108,6 @@ const Index = () => {
         <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-slate-900 to-transparent" />
       </div>
 
-      {/* Mobile Welcome Banner */}
-      {isMobile && <LanguageWelcomeBanner />}
-      
       <header className="relative border-b border-pink-500/20 bg-slate-600/40 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6 relative">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -180,10 +174,7 @@ const Index = () => {
                     <div className="absolute inset-0 bg-orange-600/20 blur-md rounded-md -z-10 animate-pulse"></div>
                     QR Code
                   </Button>
-                  <div className="flex items-center gap-2">
-                    <LanguageSelector />
-                    <ThemeToggle />
-                  </div>
+                  <ThemeToggle />
                 </div>
                 <Button 
                   onClick={() => {

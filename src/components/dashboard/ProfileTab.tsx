@@ -266,9 +266,24 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         .from('profile-images')
         .getPublicUrl(filePath);
 
-      console.log("Image uploaded successfully:", publicUrl);
-      setProfileImageUrl(publicUrl);
-      toast.success("Profile photo uploaded successfully!");
+      // Add cache buster to force refresh
+      const newUrl = `${publicUrl}?t=${Date.now()}`;
+      console.log("Image uploaded successfully:", newUrl);
+      setProfileImageUrl(newUrl);
+      
+      // Auto-save to database immediately
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ profile_image_url: newUrl })
+        .eq('user_id', userId);
+      
+      if (updateError) {
+        console.error("Failed to save profile image to database:", updateError);
+        toast.error("Image uploaded but failed to save. Please click Save.");
+      } else {
+        setInitialProfileImageUrl(newUrl);
+        toast.success("Profile photo uploaded and saved!");
+      }
     } catch (error: any) {
       console.error("Image upload failed:", error);
       toast.error(error.message || "Failed to upload image. Please try again.");
@@ -301,7 +316,20 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       const newUrl = `${publicUrl}?t=${Date.now()}`;
       console.log("Cropped image uploaded successfully:", newUrl);
       setProfileImageUrl(newUrl);
-      toast.success("Profile photo updated!");
+      
+      // Auto-save to database immediately
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ profile_image_url: newUrl })
+        .eq('user_id', userId);
+      
+      if (updateError) {
+        console.error("Failed to save profile image to database:", updateError);
+        toast.error("Image uploaded but failed to save. Please click Save.");
+      } else {
+        setInitialProfileImageUrl(newUrl);
+        toast.success("Profile photo updated and saved!");
+      }
     } catch (error: any) {
       console.error("Image upload failed:", error);
       toast.error(error.message || "Failed to upload image. Please try again.");

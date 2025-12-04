@@ -502,8 +502,8 @@ const Index = () => {
                       <input type="hidden" name="src" value="1" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-                      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                        SELECT PLAN ($19.50)
+                      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-sm">
+                        SELECT
                       </Button>
                     </form>
                   </CardContent>
@@ -535,8 +535,8 @@ const Index = () => {
                       <input type="hidden" name="src" value="1" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-                      <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700">
-                        SELECT PLAN ($34.50)
+                      <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700 text-sm">
+                        SELECT
                       </Button>
                     </form>
                   </CardContent>
@@ -565,8 +565,8 @@ const Index = () => {
                       <input type="hidden" name="amount" value="64.50" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-                      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                        BUY 1-YEAR ($64.50)
+                      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-sm">
+                        SELECT
                       </Button>
                     </form>
                   </CardContent>
@@ -595,8 +595,8 @@ const Index = () => {
                       <input type="hidden" name="amount" value="109.50" />
                       <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
-                      <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700">
-                        BUY 1-YEAR ($109.50)
+                      <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700 text-sm">
+                        SELECT
                       </Button>
                     </form>
                   </CardContent>

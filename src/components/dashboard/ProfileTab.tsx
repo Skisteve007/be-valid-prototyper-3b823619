@@ -869,7 +869,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       </div>
 
       {/* Floating Save Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+      <div className="fixed bottom-6 right-24 z-50 flex flex-col items-end gap-2">
         {!profileImageUrl ? (
           <div className="text-right">
             <p className="text-sm text-red-500 font-semibold mb-2 bg-red-50 dark:bg-red-950/30 px-4 py-2 rounded-lg border border-red-500">

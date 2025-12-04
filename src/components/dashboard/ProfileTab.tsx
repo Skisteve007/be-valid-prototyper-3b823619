@@ -277,6 +277,39 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     }
   };
 
+  const handleCroppedImageUpload = async (blob: Blob) => {
+    setUploadingImage(true);
+    try {
+      const filePath = `${userId}/profile.jpg`;
+
+      console.log("Uploading cropped image to:", filePath);
+
+      const { error: uploadError } = await supabase.storage
+        .from('profile-images')
+        .upload(filePath, blob, { upsert: true, contentType: 'image/jpeg' });
+
+      if (uploadError) {
+        console.error("Upload error:", uploadError);
+        throw uploadError;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('profile-images')
+        .getPublicUrl(filePath);
+
+      // Add cache buster to force refresh
+      const newUrl = `${publicUrl}?t=${Date.now()}`;
+      console.log("Cropped image uploaded successfully:", newUrl);
+      setProfileImageUrl(newUrl);
+      toast.success("Profile photo updated!");
+    } catch (error: any) {
+      console.error("Image upload failed:", error);
+      toast.error(error.message || "Failed to upload image. Please try again.");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleLabLogoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -560,6 +593,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         profileImageUrl={profileImageUrl}
         uploadingImage={uploadingImage}
         handleImageUpload={handleImageUpload}
+        handleCroppedImageUpload={handleCroppedImageUpload}
         fullName={fullName}
         email={email}
         whereFrom={whereFrom}

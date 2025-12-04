@@ -43,7 +43,6 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
     title: "",
     issuer: "",
     issue_date: "",
-    expiry_date: "",
   });
 
   useEffect(() => {
@@ -168,7 +167,6 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
               title: newCert.title || file.name.split('.')[0],
               issuer: newCert.issuer,
               issue_date: newCert.issue_date || null,
-              expiry_date: newCert.expiry_date || null,
             },
           ]);
 
@@ -180,7 +178,7 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
 
       toast.success(`${totalFiles} document(s) uploaded successfully`);
       setDialogOpen(false);
-      setNewCert({ title: "", issuer: "", issue_date: "", expiry_date: "" });
+      setNewCert({ title: "", issuer: "", issue_date: "" });
       setDocumentFiles([]);
       setUploadProgress(0);
       loadCertifications();
@@ -385,29 +383,16 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                   />
                 </div>
                 
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="space-y-1.5">
-                    <Label htmlFor="issue_date" className="text-sm">Issue Date</Label>
-                    <Input
-                      id="issue_date"
-                      type="date"
-                      value={newCert.issue_date}
-                      onChange={(e) => setNewCert({ ...newCert, issue_date: e.target.value })}
-                      className="text-sm h-9"
-                      onFocus={(e) => e.target.showPicker?.()}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor="expiry_date" className="text-sm">Expiry Date</Label>
-                    <Input
-                      id="expiry_date"
-                      type="date"
-                      value={newCert.expiry_date}
-                      onChange={(e) => setNewCert({ ...newCert, expiry_date: e.target.value })}
-                      className="text-sm h-9"
-                      onFocus={(e) => e.target.showPicker?.()}
-                    />
-                  </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="issue_date" className="text-sm">Issue Date</Label>
+                  <Input
+                    id="issue_date"
+                    type="date"
+                    value={newCert.issue_date}
+                    onChange={(e) => setNewCert({ ...newCert, issue_date: e.target.value })}
+                    className="text-sm h-9"
+                    onFocus={(e) => e.target.showPicker?.()}
+                  />
                 </div>
 
                 {uploading && uploadProgress > 0 && (

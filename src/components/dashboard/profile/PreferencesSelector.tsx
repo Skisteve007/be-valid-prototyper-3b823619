@@ -168,10 +168,10 @@ export const PreferencesSelector = ({
                 key={hobby.id}
                 type="button"
                 onClick={() => togglePreference("hobby_interests", hobby.id)}
-                className={`p-4 rounded-full border-2 transition-all duration-200 ${
+                className={`p-4 rounded-full border-2 transition-all duration-200 touch-manipulation active:scale-95 ${
                   selected
                     ? "border-primary bg-primary/20 shadow-lg shadow-primary/30 scale-110"
-                    : "border-border hover:border-primary/50 hover:bg-muted/50"
+                    : "border-border active:border-primary/50 active:bg-muted/50"
                 }`}
                 title={hobby.label}
               >
@@ -206,7 +206,7 @@ export const PreferencesSelector = ({
                       <Badge
                         key={item}
                         variant={isSelected(category.id, item) ? "default" : "outline"}
-                        className="cursor-pointer px-4 py-2 text-sm transition-colors hover:bg-primary/80 flex items-center gap-2"
+                        className="cursor-pointer px-4 py-2 text-sm transition-colors active:scale-95 active:opacity-80 touch-manipulation flex items-center gap-2"
                         onClick={() => togglePreference(category.id, item)}
                       >
                         <IconComponent className="w-4 h-4" />

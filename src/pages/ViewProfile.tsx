@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Loader2, Heart, User, CheckCircle2, XCircle, Clock, AlertTriangle, X, ExternalLink, IdCard, Wallet, Shield } from "lucide-react";
+import { Loader2, Heart, User, CheckCircle2, XCircle, Clock, AlertTriangle, X, ExternalLink, IdCard, Wallet, Shield, Instagram, Lock } from "lucide-react";
 import { toast } from "sonner";
 
 interface Document {
@@ -53,11 +53,32 @@ interface ProfileData {
   smoker?: boolean;
   health_document_uploaded_at?: string | null;
   selected_interests?: string[];
+  user_interests?: Record<string, string[]>;
   documents?: Document[];
   created_at?: string;
   compliance_verified?: boolean;
   id_verification?: IdVerification;
   payment_authorized?: PaymentAuthorization;
+  vices?: string[];
+  sexual_preferences?: string;
+  id_status?: string;
+  social_media?: {
+    instagram?: string;
+    tiktok?: string;
+    facebook?: string;
+    onlyfans?: string;
+    twitter?: string;
+  } | string;
+}
+
+interface PrivacySettings {
+  emailShared: boolean;
+  referencesShared: boolean;
+  stdAcknowledgmentShared: boolean;
+  interestsShared: boolean;
+  vicesShared: boolean;
+  orientationShared: boolean;
+  socialShared: boolean;
 }
 
 interface BundleFlags {
@@ -75,6 +96,7 @@ const ViewProfile = () => {
   const [viewExpiresAt, setViewExpiresAt] = useState<string | null>(null);
   const [isIncognitoMode, setIsIncognitoMode] = useState(false);
   const [bundleFlags, setBundleFlags] = useState<BundleFlags | null>(null);
+  const [privacySettings, setPrivacySettings] = useState<PrivacySettings | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
   const [isExpired, setIsExpired] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
@@ -109,6 +131,7 @@ const ViewProfile = () => {
           setViewExpiresAt(data.viewExpiresAt);
           setIsIncognitoMode(data.isIncognitoMode || false);
           setBundleFlags(data.bundleFlags || null);
+          setPrivacySettings(data.privacySettings || null);
         } else if (data?.error) {
           setError(data.error);
         } else {
@@ -458,22 +481,35 @@ const ViewProfile = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
+            {/* ID Verification Status */}
+            {profile.id_status && (
+              <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
+                <IdCard className="h-4 w-4 text-blue-500" />
+                <span className="font-medium text-blue-700 dark:text-blue-300">{profile.id_status}</span>
+              </div>
+            )}
+            
             {profile.gender_identity && (
               <div>
                 <span className="font-medium">Gender Identity:</span> {profile.gender_identity}
               </div>
             )}
-            {profile.sexual_orientation && (
+            
+            {/* Sexual Orientation - Only if sharing enabled */}
+            {privacySettings?.orientationShared && profile.sexual_orientation && (
               <div>
                 <span className="font-medium">Sexual Orientation:</span> {profile.sexual_orientation}
               </div>
             )}
+            
             {profile.relationship_status && (
               <div>
                 <span className="font-medium">Relationship Status:</span> {profile.relationship_status}
               </div>
             )}
-            {profile.selected_interests && profile.selected_interests.length > 0 && (
+
+            {/* Interests & Preferences - Only if sharing enabled */}
+            {privacySettings?.interestsShared && profile.selected_interests && profile.selected_interests.length > 0 && (
               <div>
                 <span className="font-medium">Interests:</span>
                 <div className="flex flex-wrap gap-2 mt-2">
@@ -481,6 +517,68 @@ const ViewProfile = () => {
                     <Badge key={index} variant="outline">{interest}</Badge>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* User Interests by Category - Only if sharing enabled */}
+            {privacySettings?.interestsShared && profile.user_interests && Object.keys(profile.user_interests).length > 0 && (
+              <div className="mt-3">
+                {Object.entries(profile.user_interests).map(([category, items]) => (
+                  items && items.length > 0 && (
+                    <div key={category} className="mb-2">
+                      <span className="text-sm font-medium text-muted-foreground">{category}:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {items.map((item: string, idx: number) => (
+                          <Badge key={idx} variant="secondary" className="text-xs">{item}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                ))}
+              </div>
+            )}
+
+            {/* Vices / Lifestyle - Only if sharing enabled */}
+            {privacySettings?.vicesShared && profile.vices && profile.vices.length > 0 && (
+              <div className="mt-3 p-3 bg-purple-50 dark:bg-purple-950/20 rounded-lg">
+                <span className="font-medium text-purple-700 dark:text-purple-300">Lifestyle:</span>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {profile.vices.map((vice, index) => (
+                    <Badge key={index} variant="outline" className="border-purple-500/30 text-purple-700 dark:text-purple-300">{vice}</Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Social Media - Only if sharing enabled */}
+            {privacySettings?.socialShared && profile.social_media && typeof profile.social_media === 'object' && (
+              <div className="mt-3 p-3 bg-pink-50 dark:bg-pink-950/20 rounded-lg">
+                <span className="font-medium text-pink-700 dark:text-pink-300 flex items-center gap-2 mb-2">
+                  <Instagram className="h-4 w-4" />
+                  Social Media
+                </span>
+                <div className="space-y-1 text-sm">
+                  {profile.social_media.instagram && (
+                    <p>Instagram: <a href={`https://instagram.com/${profile.social_media.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">{profile.social_media.instagram}</a></p>
+                  )}
+                  {profile.social_media.tiktok && (
+                    <p>TikTok: <a href={`https://tiktok.com/@${profile.social_media.tiktok.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">{profile.social_media.tiktok}</a></p>
+                  )}
+                  {profile.social_media.facebook && (
+                    <p>Facebook: <span className="text-pink-600">{profile.social_media.facebook}</span></p>
+                  )}
+                  {profile.social_media.twitter && (
+                    <p>Twitter/X: <a href={`https://twitter.com/${profile.social_media.twitter.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">{profile.social_media.twitter}</a></p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Social Media Locked */}
+            {profile.social_media === "Locked by User" && (
+              <div className="mt-3 p-3 bg-muted/50 rounded-lg flex items-center gap-2 text-muted-foreground">
+                <Lock className="h-4 w-4" />
+                <span className="text-sm">Social media handles are private</span>
               </div>
             )}
           </CardContent>

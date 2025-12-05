@@ -53,8 +53,12 @@ serve(async (req) => {
       );
     }
 
-    // Check if viewing window has expired (3 minutes after first view)
-    const VIEW_WINDOW_MINUTES = 3;
+    // Check if this is an incognito token (starts with INCOG_)
+    const isIncognitoToken = token.startsWith('INCOG_');
+    
+    // Check if viewing window has expired
+    // EXCEPTION: Incognito tokens get full 24-hour window with NO anxiety timer
+    const VIEW_WINDOW_MINUTES = isIncognitoToken ? (24 * 60) : 3; // 24 hours for incognito, 3 min for others
     let viewExpiresAt: Date;
     
     if (tokenData.used_at) {
@@ -96,8 +100,7 @@ serve(async (req) => {
 
     console.log('Profile viewed with token for member:', profile.member_id);
 
-    // Check if this is an incognito token (starts with INCOG_) or profile is gray
-    const isIncognitoToken = token.startsWith('INCOG_');
+    // Determine incognito mode from token prefix or profile status
     const isIncognitoMode = isIncognitoToken || profile.status_color === 'gray';
 
     // If incognito mode, only return name and email for event scanning

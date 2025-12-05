@@ -242,8 +242,22 @@ const ViewProfile = () => {
     return (
       <div className="min-h-screen bg-background p-4 md:p-8">
         <div className="max-w-2xl mx-auto space-y-4 md:space-y-6">
-          {/* Countdown Timer */}
-          <CountdownTimer />
+          {/* No countdown timer for incognito mode - 24 hour access utility */}
+          <Card className="bg-gray-500/10 border-gray-500/30">
+            <CardContent className="py-3">
+              <div className="flex items-center justify-center gap-3">
+                <Clock className="h-5 w-5 text-gray-500" />
+                <div className="text-center">
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    24-Hour Access Pass
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Valid until {tokenExpiresAt ? new Date(tokenExpiresAt).toLocaleString() : 'N/A'}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <Card className="shadow-[0_0_25px_10px_rgba(107,114,128,0.4)]">
             <CardHeader className="pb-4">
@@ -270,8 +284,8 @@ const ViewProfile = () => {
                     <p className="text-xs md:text-sm text-muted-foreground">Member ID</p>
                     <p className="text-base md:text-lg font-mono">{profile.member_id}</p>
                   </div>
-                  <Badge variant="secondary" className="mt-4">
-                    Event Scanning Mode
+                  <Badge variant="secondary" className="mt-4 bg-gray-500 text-white">
+                    Incognito Access Active
                   </Badge>
                 </div>
               </div>

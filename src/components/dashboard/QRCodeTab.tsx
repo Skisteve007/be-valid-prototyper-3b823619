@@ -34,6 +34,9 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const [profileId, setProfileId] = useState<string>("");
   const [showWaiverModal, setShowWaiverModal] = useState(false);
   const [showIncognitoDialog, setShowIncognitoDialog] = useState(false);
+  const [incognitoQrCodeUrl, setIncognitoQrCodeUrl] = useState<string>("");
+  const [incognitoToken, setIncognitoToken] = useState<string>("");
+  const [incognitoExpiresAt, setIncognitoExpiresAt] = useState<string>("");
   
   // Waiver status
   const { hasSignedWaiver, isLoading: waiverLoading, waiverSignedAt, checkWaiverStatus, setHasSignedWaiver } = useWaiverStatus(userId);
@@ -522,8 +525,54 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
               <IncognitoQRDialog
                 open={showIncognitoDialog}
                 onClose={() => setShowIncognitoDialog(false)}
+                onSuccess={(qrUrl, token, expiresAt) => {
+                  setIncognitoQrCodeUrl(qrUrl);
+                  setIncognitoToken(token);
+                  setIncognitoExpiresAt(expiresAt);
+                  setShowIncognitoDialog(false);
+                  toast.success("Incognito QR Code ready! Show it below to be scanned.");
+                }}
                 userId={userId}
               />
+
+              {/* Active Incognito QR Code Display */}
+              {incognitoQrCodeUrl && (
+                <div className="w-full max-w-sm p-4 bg-gray-100 dark:bg-gray-800 border-2 border-gray-500 rounded-xl space-y-3">
+                  <div className="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
+                    <EyeOff className="h-5 w-5" />
+                    <span className="font-semibold">Incognito QR Code Active</span>
+                  </div>
+                  
+                  <div className="flex justify-center">
+                    <div className="p-4 bg-white border-4 border-gray-500 rounded-2xl shadow-[0_0_20px_6px_rgba(107,114,128,0.3)]">
+                      <img
+                        src={incognitoQrCodeUrl}
+                        alt="Incognito QR Code"
+                        className="w-48 h-48"
+                      />
+                    </div>
+                  </div>
+                  
+                  {incognitoExpiresAt && (
+                    <p className="text-xs text-center text-gray-600 dark:text-gray-400">
+                      Expires: {new Date(incognitoExpiresAt).toLocaleString()}
+                    </p>
+                  )}
+                  
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => {
+                      setIncognitoQrCodeUrl("");
+                      setIncognitoToken("");
+                      setIncognitoExpiresAt("");
+                    }}
+                    className="w-full text-gray-600 border-gray-400"
+                  >
+                    Clear Incognito QR
+                  </Button>
+                </div>
+              )}
 
               <div className="text-sm text-muted-foreground text-center px-4">
                 <p className="mb-2">Secure Profile Link (expires in 24 hours):</p>

@@ -96,8 +96,12 @@ serve(async (req) => {
 
     console.log('Profile viewed with token for member:', profile.member_id);
 
-    // If gray incognito mode, only return name and email for event scanning
-    if (profile.status_color === 'gray') {
+    // Check if this is an incognito token (starts with INCOG_) or profile is gray
+    const isIncognitoToken = token.startsWith('INCOG_');
+    const isIncognitoMode = isIncognitoToken || profile.status_color === 'gray';
+
+    // If incognito mode, only return name and email for event scanning
+    if (isIncognitoMode) {
       // Fetch user email from auth.users
       const { data: userData } = await supabase.auth.admin.getUserById(profile.user_id);
       
@@ -106,11 +110,11 @@ serve(async (req) => {
         member_id: profile.member_id,
         full_name: profile.full_name,
         email: userData?.user?.email || null,
-        status_color: profile.status_color,
+        status_color: 'gray', // Always show gray for incognito mode
         profile_image_url: profile.profile_image_url,
       };
 
-      console.log('Gray incognito mode - limited profile data returned for event scanning');
+      console.log('Incognito mode - limited profile data returned for event scanning, isIncognitoToken:', isIncognitoToken);
 
       // Record QR code view
       await supabase

@@ -274,8 +274,8 @@ const Index = () => {
                   <h3 className="text-lg md:text-xl font-bold text-foreground">Peer-to-Peer Trusted Share</h3>
                 </div>
                 <p className="text-sm md:text-base text-muted-foreground mb-4">
-                  Share your status directly with anyone via QR code — no awkward conversations, no fumbling through your phone, no digging through pockets or purse. No middleman, no database lookups.
-                  <strong className="text-foreground"> Want verified proof? Get lab certified.</strong>
+                  Share Your Status Directly With Anyone Via QR Code — No Awkward Conversations, No Fumbling Through Your Phone, No Digging Through Pockets Or Purse. No Middleman, No Database Lookups.
+                  <strong className="text-foreground"> Want Verified Proof? Get Lab Certified.</strong>
                 </p>
                 <div className="flex flex-wrap justify-center gap-2 md:gap-3">
                   <div className="flex items-center gap-1.5 px-3 py-1.5 bg-muted/30 border border-muted-foreground/30 rounded-full">

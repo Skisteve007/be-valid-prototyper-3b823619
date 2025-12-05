@@ -295,7 +295,7 @@ const Index = () => {
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 md:mb-12 max-w-3xl mx-auto">
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 md:mb-12 mt-8 md:mt-10 max-w-3xl mx-auto leading-relaxed">
                 The Integrated Gateway to Verified Trust. Our <strong className="text-foreground">Zero-Trust QR-Scan System</strong> delivers secure, real-time results for <strong className="text-foreground">Comprehensive Wellness (Health & Toxicology)</strong> directly to your device. Connect with confidence, knowing your status is verified for all affiliated <strong className="text-foreground">lifestyle networks, high-value asset management, and compliant corporate environments.</strong>
               </p>
             </ScrollReveal>

@@ -10,6 +10,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   EyeOff, 
   CreditCard, 
@@ -19,7 +22,11 @@ import {
   CheckCircle2,
   Loader2,
   QrCode,
-  Shield
+  Shield,
+  IdCard,
+  Wallet,
+  User,
+  FileCheck
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -32,7 +39,12 @@ interface IncognitoQRDialogProps {
   promoterId?: string;
 }
 
-type Step = 'intro' | 'payment-check' | 'confirm' | 'processing' | 'success';
+type Step = 'intro' | 'bundle-select' | 'payment-check' | 'confirm' | 'processing' | 'success';
+
+interface BundlePreferences {
+  includeId: boolean;
+  includePayment: boolean;
+}
 
 export const IncognitoQRDialog = ({ 
   open, 
@@ -48,11 +60,23 @@ export const IncognitoQRDialog = ({
   const [incognitoToken, setIncognitoToken] = useState<string>('');
   const [expiresAt, setExpiresAt] = useState<string>('');
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const [profileData, setProfileData] = useState<any>(null);
+  
+  // Bundle preferences - member chooses what to include
+  const [bundlePrefs, setBundlePrefs] = useState<BundlePreferences>({
+    includeId: false,
+    includePayment: false
+  });
+
+  // Asset status tracking
+  const [hasIdDocument, setHasIdDocument] = useState<boolean>(false);
 
   useEffect(() => {
     if (open) {
       setStep('intro');
+      setBundlePrefs({ includeId: false, includePayment: false });
       checkPaymentMethod();
+      loadUserAssets();
     }
   }, [open, userId]);
 
@@ -77,7 +101,37 @@ export const IncognitoQRDialog = ({
     }
   };
 
-  const handleProceed = () => {
+  const loadUserAssets = async () => {
+    try {
+      // Load profile with image
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('id, full_name, member_id, profile_image_url, status_color')
+        .eq('user_id', userId)
+        .single();
+      
+      if (profile) {
+        setProfileData(profile);
+      }
+
+      // Check for ID documents (certifications with 'ID' or 'License' or 'Passport' in title)
+      const { data: docs } = await supabase
+        .from('certifications')
+        .select('id, title')
+        .eq('user_id', userId)
+        .or('title.ilike.%ID%,title.ilike.%License%,title.ilike.%Passport%,title.ilike.%Driver%');
+      
+      setHasIdDocument(docs && docs.length > 0);
+    } catch (error) {
+      console.error('Error loading user assets:', error);
+    }
+  };
+
+  const handleProceedToBundle = () => {
+    setStep('bundle-select');
+  };
+
+  const handleProceedFromBundle = () => {
     if (hasPaymentMethod) {
       setStep('confirm');
     } else {
@@ -95,7 +149,8 @@ export const IncognitoQRDialog = ({
         body: { 
           user_id: userId,
           venue_id: venueId,
-          promoter_id: promoterId
+          promoter_id: promoterId,
+          bundle_preferences: bundlePrefs
         }
       });
 
@@ -127,7 +182,7 @@ export const IncognitoQRDialog = ({
         onSuccess(qrUrl, data.token, data.expires_at);
       }
       
-      toast.success('Incognito QR Code generated!');
+      toast.success('Incognito Master Token generated!');
     } catch (err) {
       console.error('Error:', err);
       toast.error('Failed to process payment');
@@ -155,22 +210,42 @@ export const IncognitoQRDialog = ({
     }
   };
 
+  const getSelectedBundleText = () => {
+    const items = [];
+    if (bundlePrefs.includeId) items.push('ID Verification');
+    if (bundlePrefs.includePayment) items.push('Bar Payment');
+    if (items.length === 0) return 'Status Only';
+    return items.join(' + ');
+  };
+
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <EyeOff className="h-5 w-5 text-gray-500" />
-            Incognito Mode
+            Incognito Master Token
           </DialogTitle>
           <DialogDescription>
-            Generate a private QR code for anonymous venue entry
+            Generate a unified access token for venue entry
           </DialogDescription>
         </DialogHeader>
 
         {/* Step: Intro */}
         {step === 'intro' && (
           <div className="space-y-4">
+            {/* Member Photo Preview */}
+            {profileData?.profile_image_url && (
+              <div className="flex justify-center">
+                <Avatar className="h-20 w-20 border-4 border-gray-400">
+                  <AvatarImage src={profileData.profile_image_url} alt={profileData.full_name} />
+                  <AvatarFallback>
+                    <User className="h-10 w-10" />
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+            )}
+
             <Card className="border-gray-500/30 bg-gray-500/5">
               <CardContent className="pt-4 space-y-3">
                 <div className="flex items-center gap-3">
@@ -178,9 +253,9 @@ export const IncognitoQRDialog = ({
                     <Shield className="h-5 w-5 text-gray-600" />
                   </div>
                   <div>
-                    <p className="font-medium">Privacy Protected</p>
+                    <p className="font-medium">Master Access Token</p>
                     <p className="text-sm text-muted-foreground">
-                      Your identity stays private at the door
+                      One QR for entry, payment, and tracking
                     </p>
                   </div>
                 </div>
@@ -191,7 +266,7 @@ export const IncognitoQRDialog = ({
                   <div>
                     <p className="font-medium">24-Hour Valid</p>
                     <p className="text-sm text-muted-foreground">
-                      Token expires automatically after 24 hours
+                      No viewing timer - full utility period
                     </p>
                   </div>
                 </div>
@@ -200,9 +275,9 @@ export const IncognitoQRDialog = ({
                     <DollarSign className="h-5 w-5 text-gray-600" />
                   </div>
                   <div>
-                    <p className="font-medium">$5.00 Fee</p>
+                    <p className="font-medium">$5.00 Access Fee</p>
                     <p className="text-sm text-muted-foreground">
-                      Charged to your payment method on file
+                      Split: $2 Venue | $1 Promoter | $2 CleanCheck
                     </p>
                   </div>
                 </div>
@@ -210,12 +285,114 @@ export const IncognitoQRDialog = ({
             </Card>
 
             <Button 
-              onClick={handleProceed} 
+              onClick={handleProceedToBundle} 
               className="w-full bg-gray-600 hover:bg-gray-700"
             >
               <EyeOff className="h-4 w-4 mr-2" />
-              Continue to Incognito
+              Configure Access Bundle
             </Button>
+          </div>
+        )}
+
+        {/* Step: Bundle Selection */}
+        {step === 'bundle-select' && (
+          <div className="space-y-4">
+            <div className="text-center pb-2">
+              <h3 className="font-semibold text-lg">Access Bundle Preferences</h3>
+              <p className="text-sm text-muted-foreground">
+                Choose what data to include in your Master Token
+              </p>
+            </div>
+
+            {/* Always Included */}
+            <Card className="border-green-500/30 bg-green-50 dark:bg-green-950/20">
+              <CardContent className="pt-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-green-500/20 rounded-full">
+                    <FileCheck className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-green-800 dark:text-green-200">Health Compliance Status</p>
+                    <p className="text-sm text-green-700 dark:text-green-300">Always included (Required)</p>
+                  </div>
+                  <CheckCircle2 className="h-5 w-5 text-green-600" />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Optional: ID Verification */}
+            <Card className={`border transition-all ${bundlePrefs.includeId ? 'border-blue-500/50 bg-blue-50 dark:bg-blue-950/20' : 'border-border'}`}>
+              <CardContent className="pt-4">
+                <div className="flex items-center gap-3">
+                  <Checkbox 
+                    id="includeId"
+                    checked={bundlePrefs.includeId}
+                    onCheckedChange={(checked) => setBundlePrefs(prev => ({ ...prev, includeId: checked === true }))}
+                    disabled={!hasIdDocument}
+                  />
+                  <div className="p-2 bg-blue-500/20 rounded-full">
+                    <IdCard className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <Label htmlFor="includeId" className="font-medium cursor-pointer">
+                      ID Verification
+                    </Label>
+                    <p className="text-sm text-muted-foreground">
+                      {hasIdDocument 
+                        ? 'Share DL/Passport for age verification'
+                        : 'No ID document uploaded yet'
+                      }
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Optional: Bar Payment Authorization */}
+            <Card className={`border transition-all ${bundlePrefs.includePayment ? 'border-purple-500/50 bg-purple-50 dark:bg-purple-950/20' : 'border-border'}`}>
+              <CardContent className="pt-4">
+                <div className="flex items-center gap-3">
+                  <Checkbox 
+                    id="includePayment"
+                    checked={bundlePrefs.includePayment}
+                    onCheckedChange={(checked) => setBundlePrefs(prev => ({ ...prev, includePayment: checked === true }))}
+                    disabled={!hasPaymentMethod}
+                  />
+                  <div className="p-2 bg-purple-500/20 rounded-full">
+                    <Wallet className="h-5 w-5 text-purple-600" />
+                  </div>
+                  <div className="flex-1">
+                    <Label htmlFor="includePayment" className="font-medium cursor-pointer">
+                      Bar Payment Authorization
+                    </Label>
+                    <p className="text-sm text-muted-foreground">
+                      {hasPaymentMethod 
+                        ? 'Allow bar tab draw-down from payment method'
+                        : 'Add payment method first'
+                      }
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Summary */}
+            <div className="bg-muted/50 rounded-lg p-3 text-center">
+              <p className="text-xs text-muted-foreground">Your token will include:</p>
+              <p className="font-semibold text-sm mt-1">{getSelectedBundleText()}</p>
+            </div>
+
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setStep('intro')} className="flex-1">
+                Back
+              </Button>
+              <Button 
+                onClick={handleProceedFromBundle} 
+                className="flex-1 bg-gray-600 hover:bg-gray-700"
+              >
+                Continue
+              </Button>
+            </div>
           </div>
         )}
 
@@ -246,8 +423,7 @@ export const IncognitoQRDialog = ({
 
             <Button 
               onClick={() => {
-                // Navigate to payment settings - could be a dedicated page
-                toast.info('Payment method setup coming soon');
+                toast.info('Navigate to Profile → Payment Methods to add one');
                 onClose();
               }}
               className="w-full"
@@ -264,6 +440,21 @@ export const IncognitoQRDialog = ({
         {/* Step: Confirm Payment */}
         {step === 'confirm' && (
           <div className="space-y-4">
+            {/* Photo for visual verification at door */}
+            {profileData?.profile_image_url && (
+              <div className="flex justify-center">
+                <div className="relative">
+                  <Avatar className="h-24 w-24 border-4 border-gray-500">
+                    <AvatarImage src={profileData.profile_image_url} alt={profileData.full_name} />
+                    <AvatarFallback><User className="h-12 w-12" /></AvatarFallback>
+                  </Avatar>
+                  <Badge className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs">
+                    Photo Verified
+                  </Badge>
+                </div>
+              </div>
+            )}
+
             <Card className="border-green-500/30 bg-green-50 dark:bg-green-950/20">
               <CardContent className="pt-4 space-y-3">
                 <div className="flex items-center justify-between">
@@ -281,11 +472,15 @@ export const IncognitoQRDialog = ({
                   <span className="text-sm text-muted-foreground">QR Validity</span>
                   <span className="font-medium">24 Hours</span>
                 </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Bundle</span>
+                  <Badge variant="secondary">{getSelectedBundleText()}</Badge>
+                </div>
               </CardContent>
             </Card>
 
             <p className="text-xs text-center text-muted-foreground">
-              By proceeding, you authorize the $5.00 charge to your payment method.
+              By proceeding, you authorize the $5.00 charge and data sharing per your bundle selection.
             </p>
 
             <Button 
@@ -293,9 +488,9 @@ export const IncognitoQRDialog = ({
               className="w-full bg-gray-600 hover:bg-gray-700"
             >
               <DollarSign className="h-4 w-4 mr-2" />
-              Pay $5.00 & Generate QR
+              Pay $5.00 & Generate Master Token
             </Button>
-            <Button variant="outline" onClick={() => setStep('intro')} className="w-full">
+            <Button variant="outline" onClick={() => setStep('bundle-select')} className="w-full">
               Back
             </Button>
           </div>
@@ -308,7 +503,7 @@ export const IncognitoQRDialog = ({
             <div>
               <p className="font-medium">Processing Payment...</p>
               <p className="text-sm text-muted-foreground">
-                Generating your Incognito QR code
+                Generating your Master Access Token
               </p>
             </div>
           </div>
@@ -320,18 +515,25 @@ export const IncognitoQRDialog = ({
             <div className="text-center">
               <Badge className="bg-gray-600 text-white mb-4">
                 <EyeOff className="h-3 w-3 mr-1" />
-                INCOGNITO MODE ACTIVE
+                MASTER ACCESS TOKEN ACTIVE
               </Badge>
             </div>
 
-            {/* Gray QR Code */}
-            <div className="flex justify-center">
+            {/* Photo + Gray QR Code */}
+            <div className="flex flex-col items-center gap-4">
+              {profileData?.profile_image_url && (
+                <Avatar className="h-16 w-16 border-4 border-gray-500">
+                  <AvatarImage src={profileData.profile_image_url} alt={profileData.full_name} />
+                  <AvatarFallback><User className="h-8 w-8" /></AvatarFallback>
+                </Avatar>
+              )}
+              
               <div className="p-4 bg-white border-4 border-gray-500 rounded-2xl shadow-[0_0_20px_6px_rgba(107,114,128,0.3)]">
                 {qrCodeUrl ? (
                   <img
                     src={qrCodeUrl}
-                    alt="Incognito QR Code"
-                    className="w-48 h-48 grayscale"
+                    alt="Master Access Token QR"
+                    className="w-48 h-48"
                   />
                 ) : (
                   <div className="w-48 h-48 flex items-center justify-center bg-gray-100">
@@ -348,17 +550,24 @@ export const IncognitoQRDialog = ({
                   <span className="font-medium">{formatExpiryTime()}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Status</span>
+                  <span className="text-muted-foreground">Bundle</span>
                   <Badge variant="outline" className="bg-gray-500/20 border-gray-500/30">
-                    Privacy Protected
+                    {getSelectedBundleText()}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Status</span>
+                  <Badge variant="outline" className="bg-green-500/20 border-green-500/30 text-green-700">
+                    <Shield className="h-3 w-3 mr-1" />
+                    Compliance Verified
                   </Badge>
                 </div>
               </CardContent>
             </Card>
 
             <p className="text-xs text-center text-muted-foreground">
-              Present this QR code at the venue for anonymous entry.
-              The venue will verify your compliance status without seeing your identity.
+              Present this single QR code for entry, ID verification, and bar payments.
+              The venue scanner will process all authorized data streams.
             </p>
 
             <Button onClick={onClose} className="w-full">

@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Loader2, Heart, User, CheckCircle2, XCircle, Clock, AlertTriangle, X, ExternalLink } from "lucide-react";
+import { Loader2, Heart, User, CheckCircle2, XCircle, Clock, AlertTriangle, X, ExternalLink, IdCard, Wallet, Shield } from "lucide-react";
 import { toast } from "sonner";
 
 interface Document {
@@ -23,6 +23,20 @@ interface Document {
   issuer: string | null;
   status: string | null;
   created_at: string;
+}
+
+interface IdVerification {
+  type: string;
+  document_url?: string;
+  expiry_date?: string;
+  issuer?: string;
+  verified: boolean;
+}
+
+interface PaymentAuthorization {
+  type: string;
+  identifier: string;
+  bar_tab_enabled: boolean;
 }
 
 interface ProfileData {
@@ -41,6 +55,14 @@ interface ProfileData {
   selected_interests?: string[];
   documents?: Document[];
   created_at?: string;
+  compliance_verified?: boolean;
+  id_verification?: IdVerification;
+  payment_authorized?: PaymentAuthorization;
+}
+
+interface BundleFlags {
+  includeId: boolean;
+  includePayment: boolean;
 }
 
 const ViewProfile = () => {
@@ -52,6 +74,7 @@ const ViewProfile = () => {
   const [tokenExpiresAt, setTokenExpiresAt] = useState<string | null>(null);
   const [viewExpiresAt, setViewExpiresAt] = useState<string | null>(null);
   const [isIncognitoMode, setIsIncognitoMode] = useState(false);
+  const [bundleFlags, setBundleFlags] = useState<BundleFlags | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
   const [isExpired, setIsExpired] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
@@ -85,6 +108,7 @@ const ViewProfile = () => {
           setTokenExpiresAt(data.tokenExpiresAt);
           setViewExpiresAt(data.viewExpiresAt);
           setIsIncognitoMode(data.isIncognitoMode || false);
+          setBundleFlags(data.bundleFlags || null);
         } else if (data?.error) {
           setError(data.error);
         } else {
@@ -237,19 +261,19 @@ const ViewProfile = () => {
     </Card>
   );
 
-  // If incognito mode, show limited event scanning view
+  // If incognito mode, show Master Access Token view
   if (isIncognitoMode) {
     return (
       <div className="min-h-screen bg-background p-4 md:p-8">
         <div className="max-w-2xl mx-auto space-y-4 md:space-y-6">
-          {/* No countdown timer for incognito mode - 24 hour access utility */}
+          {/* 24-Hour Access Pass Header - NO ANXIETY TIMER */}
           <Card className="bg-gray-500/10 border-gray-500/30">
             <CardContent className="py-3">
               <div className="flex items-center justify-center gap-3">
                 <Clock className="h-5 w-5 text-gray-500" />
                 <div className="text-center">
                   <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    24-Hour Access Pass
+                    24-Hour Master Access Token
                   </p>
                   <p className="text-xs text-muted-foreground">
                     Valid until {tokenExpiresAt ? new Date(tokenExpiresAt).toLocaleString() : 'N/A'}
@@ -259,43 +283,134 @@ const ViewProfile = () => {
             </CardContent>
           </Card>
 
+          {/* Main Profile Card */}
           <Card className="shadow-[0_0_25px_10px_rgba(107,114,128,0.4)]">
             <CardHeader className="pb-4">
-              <CardTitle className="text-center text-xl md:text-2xl">Event Check-In</CardTitle>
-              <p className="text-center text-sm text-muted-foreground">Incognito Mode - Limited Information</p>
+              <CardTitle className="text-center text-xl md:text-2xl">Venue Check-In</CardTitle>
+              <p className="text-center text-sm text-muted-foreground">Master Access Token - Unified Entry</p>
             </CardHeader>
             <CardContent className="pt-4 md:pt-6">
               <div className="flex flex-col items-center gap-4 md:gap-6">
+                {/* Member Photo for Visual Verification */}
                 <Avatar className="h-24 w-24 md:h-32 md:w-32 border-4 border-gray-500 shadow-[0_0_20px_8px_rgba(107,114,128,0.6)]">
+                  <AvatarImage src={profile.profile_image_url || undefined} />
                   <AvatarFallback className="text-xl md:text-2xl bg-gray-500 text-white">
                     {profile.full_name?.charAt(0) || "?"}
                   </AvatarFallback>
                 </Avatar>
+                
                 <div className="text-center space-y-3 w-full">
                   <div>
                     <p className="text-xs md:text-sm text-muted-foreground">Member Name</p>
                     <h1 className="text-xl md:text-2xl font-bold break-words">{profile.full_name}</h1>
                   </div>
                   <div>
-                    <p className="text-xs md:text-sm text-muted-foreground">Email Address</p>
-                    <p className="text-base md:text-lg font-medium break-all">{profile.email || "Not available"}</p>
-                  </div>
-                  <div>
                     <p className="text-xs md:text-sm text-muted-foreground">Member ID</p>
                     <p className="text-base md:text-lg font-mono">{profile.member_id}</p>
                   </div>
-                  <Badge variant="secondary" className="mt-4 bg-gray-500 text-white">
-                    Incognito Access Active
-                  </Badge>
+                  
+                  {/* Compliance Status Badge */}
+                  <div className="flex justify-center gap-2 mt-4">
+                    <Badge className="bg-green-600 text-white">
+                      <Shield className="h-3 w-3 mr-1" />
+                      Compliance Verified
+                    </Badge>
+                    <Badge variant="secondary" className="bg-gray-500 text-white">
+                      Incognito Active
+                    </Badge>
+                  </div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
+          {/* Bundle Data Cards - Show based on what's included */}
+          <div className="grid gap-4 md:grid-cols-2">
+            {/* ID Verification Card */}
+            {profile.id_verification ? (
+              <Card className="border-blue-500/30 bg-blue-50 dark:bg-blue-950/20">
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 bg-blue-500/20 rounded-full">
+                      <IdCard className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-blue-800 dark:text-blue-200">ID Verified</p>
+                      <p className="text-xs text-blue-600 dark:text-blue-300">{profile.id_verification.type}</p>
+                    </div>
+                    <CheckCircle2 className="h-5 w-5 text-blue-600 ml-auto" />
+                  </div>
+                  {profile.id_verification.expiry_date && (
+                    <p className="text-xs text-muted-foreground">
+                      Expires: {formatDate(profile.id_verification.expiry_date)}
+                    </p>
+                  )}
+                  {profile.id_verification.document_url && (
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="w-full mt-2 border-blue-500/30"
+                      onClick={() => window.open(profile.id_verification?.document_url, '_blank')}
+                    >
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      View ID Document
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            ) : bundleFlags?.includeId === false ? (
+              <Card className="border-dashed border-gray-300">
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <IdCard className="h-5 w-5" />
+                    <span className="text-sm">ID Not Included</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : null}
+
+            {/* Payment Authorization Card */}
+            {profile.payment_authorized ? (
+              <Card className="border-purple-500/30 bg-purple-50 dark:bg-purple-950/20">
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 bg-purple-500/20 rounded-full">
+                      <Wallet className="h-5 w-5 text-purple-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-purple-800 dark:text-purple-200">Payment Authorized</p>
+                      <p className="text-xs text-purple-600 dark:text-purple-300">
+                        {profile.payment_authorized.type.toUpperCase()} •••• {profile.payment_authorized.identifier}
+                      </p>
+                    </div>
+                    <CheckCircle2 className="h-5 w-5 text-purple-600 ml-auto" />
+                  </div>
+                  {profile.payment_authorized.bar_tab_enabled && (
+                    <Badge variant="outline" className="bg-purple-500/10 border-purple-500/30 text-purple-700 dark:text-purple-300">
+                      Bar Tab Enabled
+                    </Badge>
+                  )}
+                </CardContent>
+              </Card>
+            ) : bundleFlags?.includePayment === false ? (
+              <Card className="border-dashed border-gray-300">
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Wallet className="h-5 w-5" />
+                    <span className="text-sm">Payment Not Included</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : null}
+          </div>
+
+          {/* Scanner Instructions */}
           <Card className="bg-primary/5 border-primary/20">
-            <CardContent className="pt-6">
+            <CardContent className="pt-4 pb-4">
               <p className="text-sm text-center text-muted-foreground">
-                📋 This information can be captured for event marketing and future communications.
+                <strong>📋 Scanner Instructions:</strong> Verify photo match, check compliance status, 
+                {profile.id_verification && " view ID if needed,"}
+                {profile.payment_authorized && " process bar tab payments."}
               </p>
             </CardContent>
           </Card>

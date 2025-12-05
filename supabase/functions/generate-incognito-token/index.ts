@@ -6,10 +6,16 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+interface BundlePreferences {
+  includeId: boolean;
+  includePayment: boolean;
+}
+
 interface IncognitoTokenRequest {
   user_id: string;
   venue_id?: string;
   promoter_id?: string;
+  bundle_preferences?: BundlePreferences;
 }
 
 serve(async (req: Request) => {
@@ -32,9 +38,9 @@ serve(async (req: Request) => {
       );
     }
 
-    const { user_id, venue_id, promoter_id }: IncognitoTokenRequest = await req.json();
+    const { user_id, venue_id, promoter_id, bundle_preferences }: IncognitoTokenRequest = await req.json();
 
-    console.log('Generating Incognito token:', { user_id, venue_id, promoter_id });
+    console.log('Generating Incognito Master Token:', { user_id, venue_id, promoter_id, bundle_preferences });
 
     // 1. Check if user has a valid payment method on file
     const { data: paymentMethod, error: pmError } = await supabase
@@ -56,10 +62,10 @@ serve(async (req: Request) => {
       );
     }
 
-    // 2. Get user's profile for compliance status
+    // 2. Get user's profile for compliance status and photo
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('id, status_color, full_name, member_id')
+      .select('id, status_color, full_name, member_id, profile_image_url')
       .eq('user_id', user_id)
       .single();
 
@@ -70,7 +76,24 @@ serve(async (req: Request) => {
       );
     }
 
-    // 3. Process the $5 payment
+    // 3. Get ID documents if requested in bundle
+    let idDocumentData = null;
+    if (bundle_preferences?.includeId) {
+      const { data: docs } = await supabase
+        .from('certifications')
+        .select('id, title, document_url, expiry_date')
+        .eq('user_id', user_id)
+        .or('title.ilike.%ID%,title.ilike.%License%,title.ilike.%Passport%,title.ilike.%Driver%')
+        .order('created_at', { ascending: false })
+        .limit(1);
+      
+      if (docs && docs.length > 0) {
+        idDocumentData = docs[0];
+        console.log('ID document attached to token:', idDocumentData.title);
+      }
+    }
+
+    // 4. Process the $5 payment
     const TOTAL_FEE = 5.00;
     const VENUE_SHARE = 2.00;
     const CLEANCHECK_SHARE = 2.00;
@@ -116,16 +139,26 @@ serve(async (req: Request) => {
 
     console.log('Payment processed:', paymentReference);
 
-    // 4. Generate 24-hour incognito token
-    const token = crypto.randomUUID() + '-' + Date.now().toString(36);
+    // 5. Generate 24-hour incognito token with embedded bundle data
+    const tokenBase = crypto.randomUUID() + '-' + Date.now().toString(36);
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
-    // Store incognito token (reuse qr_access_tokens table with special prefix)
+    // Encode bundle flags in the token prefix for easy parsing
+    // Format: INCOG_{flags}_{token}
+    // Flags: I = ID included, P = Payment included
+    let flags = '';
+    if (bundle_preferences?.includeId && idDocumentData) flags += 'I';
+    if (bundle_preferences?.includePayment) flags += 'P';
+    if (flags === '') flags = 'S'; // S = Status only
+
+    const fullToken = `INCOG_${flags}_${tokenBase}`;
+
+    // Store incognito token
     const { error: tokenError } = await supabase
       .from('qr_access_tokens')
       .insert({
         profile_id: profile.id,
-        token: `INCOG_${token}`,
+        token: fullToken,
         expires_at: expiresAt.toISOString()
       });
 
@@ -137,7 +170,7 @@ serve(async (req: Request) => {
       );
     }
 
-    // 5. If there's a promoter, add to their payout ledger
+    // 6. If there's a promoter, add to their payout ledger
     if (promoter_id) {
       await supabase
         .from('promoter_payout_ledger')
@@ -156,7 +189,7 @@ serve(async (req: Request) => {
 
       console.log('Promoter commission credited:', PROMOTER_SHARE);
 
-      // 5b. Start Promoter Session for Gross Revenue Tracking
+      // Start Promoter Session for Gross Revenue Tracking
       if (venue_id) {
         const { data: sessionData, error: sessionError } = await supabase
           .from('promoter_sessions')
@@ -166,7 +199,7 @@ serve(async (req: Request) => {
             venue_id,
             user_id,
             session_start: new Date().toISOString(),
-            commission_rate: 0.05, // 5% default gross revenue commission
+            commission_rate: 0.05,
             commission_status: 'tracking'
           })
           .select()
@@ -180,16 +213,14 @@ serve(async (req: Request) => {
       }
     }
 
-    // 6. Add venue to payout ledger and update earnings
+    // 7. Add venue to payout ledger and update earnings
     if (venue_id) {
-      // Get venue's bank endpoint
       const { data: venueData } = await supabase
         .from('partner_venues')
         .select('venue_name, bank_endpoint, paypal_email')
         .eq('id', venue_id)
         .single();
 
-      // Create venue payout record
       await supabase
         .from('venue_payout_ledger')
         .insert({
@@ -200,7 +231,6 @@ serve(async (req: Request) => {
           bank_endpoint: venueData?.bank_endpoint || venueData?.paypal_email
         });
 
-      // Update venue earnings
       await supabase.rpc('update_venue_earnings', {
         _venue_id: venue_id,
         _amount: VENUE_SHARE
@@ -209,24 +239,29 @@ serve(async (req: Request) => {
       console.log('Venue payout credited:', VENUE_SHARE, 'to', venueData?.venue_name);
     }
 
-    // 7. Log complete audit trail
-    console.log('=== INCOGNITO TRANSACTION AUDIT LOG ===');
+    // 8. Log complete audit trail
+    console.log('=== INCOGNITO MASTER TOKEN AUDIT LOG ===');
     console.log('Transaction ID:', transaction.id);
     console.log('User ID:', user_id);
+    console.log('Member ID:', profile.member_id);
     console.log('Venue ID:', venue_id || 'N/A');
     console.log('Promoter ID:', promoter_id || 'N/A');
+    console.log('Bundle Flags:', flags);
+    console.log('ID Included:', bundle_preferences?.includeId ? 'YES' : 'NO');
+    console.log('Payment Auth Included:', bundle_preferences?.includePayment ? 'YES' : 'NO');
     console.log('Total Amount:', TOTAL_FEE);
     console.log('Venue Share:', VENUE_SHARE);
     console.log('Promoter Share:', promoter_id ? PROMOTER_SHARE : 0);
     console.log('Clean Check Share:', CLEANCHECK_SHARE);
     console.log('Payment Reference:', paymentReference);
+    console.log('Token Expires:', expiresAt.toISOString());
     console.log('Timestamp:', new Date().toISOString());
-    console.log('========================================');
+    console.log('==========================================');
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        token: `INCOG_${token}`,
+        token: fullToken,
         expires_at: expiresAt.toISOString(),
         transaction_id: transaction.id,
         payment_reference: paymentReference,
@@ -234,7 +269,11 @@ serve(async (req: Request) => {
         embedded_data: {
           venue_id: venue_id || null,
           promoter_id: promoter_id || null,
-          member_id: profile.member_id
+          member_id: profile.member_id,
+          bundle_flags: flags,
+          id_verified: bundle_preferences?.includeId && idDocumentData ? true : false,
+          payment_authorized: bundle_preferences?.includePayment || false,
+          photo_url: profile.profile_image_url
         }
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

@@ -1,4 +1,4 @@
-project_id = "nqhkjngqunmqynymzlbe"
+project_id = "nqhkuyapfakrmhgjh"
 
 [functions.view-profile-with-token]
 verify_jwt = false
@@ -22,4 +22,7 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.calculate-nightly-commissions]
+verify_jwt = false
+
+[functions.monitor-workforce-validity]
 verify_jwt = false

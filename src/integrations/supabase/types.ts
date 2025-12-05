@@ -681,6 +681,33 @@ export type Database = {
           },
         ]
       }
+      organizations: {
+        Row: {
+          compliance_interval_days: number | null
+          contact_email: string | null
+          created_at: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          compliance_interval_days?: number | null
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          compliance_interval_days?: number | null
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       partner_venues: {
         Row: {
           bank_endpoint: string | null
@@ -746,6 +773,7 @@ export type Database = {
           disclaimer_accepted: boolean | null
           email: string | null
           email_shareable: boolean | null
+          employer_id: string | null
           facebook_handle: string | null
           full_name: string | null
           gender_identity: string | null
@@ -753,6 +781,7 @@ export type Database = {
           health_document_url: string | null
           id: string
           instagram_handle: string | null
+          is_valid: boolean | null
           lab_certified: boolean | null
           lab_disclaimer_accepted: boolean | null
           lab_disclaimer_accepted_at: string | null
@@ -789,6 +818,7 @@ export type Database = {
           user_id: string
           user_interests: Json | null
           user_references: string | null
+          validity_expires_at: string | null
           vices: string[] | null
           where_from: string | null
         }
@@ -802,6 +832,7 @@ export type Database = {
           disclaimer_accepted?: boolean | null
           email?: string | null
           email_shareable?: boolean | null
+          employer_id?: string | null
           facebook_handle?: string | null
           full_name?: string | null
           gender_identity?: string | null
@@ -809,6 +840,7 @@ export type Database = {
           health_document_url?: string | null
           id?: string
           instagram_handle?: string | null
+          is_valid?: boolean | null
           lab_certified?: boolean | null
           lab_disclaimer_accepted?: boolean | null
           lab_disclaimer_accepted_at?: string | null
@@ -845,6 +877,7 @@ export type Database = {
           user_id: string
           user_interests?: Json | null
           user_references?: string | null
+          validity_expires_at?: string | null
           vices?: string[] | null
           where_from?: string | null
         }
@@ -858,6 +891,7 @@ export type Database = {
           disclaimer_accepted?: boolean | null
           email?: string | null
           email_shareable?: boolean | null
+          employer_id?: string | null
           facebook_handle?: string | null
           full_name?: string | null
           gender_identity?: string | null
@@ -865,6 +899,7 @@ export type Database = {
           health_document_url?: string | null
           id?: string
           instagram_handle?: string | null
+          is_valid?: boolean | null
           lab_certified?: boolean | null
           lab_disclaimer_accepted?: boolean | null
           lab_disclaimer_accepted_at?: string | null
@@ -901,10 +936,19 @@ export type Database = {
           user_id?: string
           user_interests?: Json | null
           user_references?: string | null
+          validity_expires_at?: string | null
           vices?: string[] | null
           where_from?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_employer_id_fkey"
+            columns: ["employer_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       promoter_payout_ledger: {
         Row: {

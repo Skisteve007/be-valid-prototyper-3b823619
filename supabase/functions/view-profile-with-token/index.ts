@@ -196,44 +196,87 @@ serve(async (req) => {
       );
     }
 
-    // STANDARD MODE: Full profile response
+    // STANDARD MODE: Dynamic Profile Bundle response
+    // Base profile data always shared
     const sharedProfile: any = {
       id: profile.id,
       member_id: profile.member_id,
       full_name: profile.full_name,
       profile_image_url: profile.profile_image_url,
       status_color: profile.status_color,
-      gender_identity: profile.gender_identity,
-      sexual_orientation: profile.sexual_orientation,
-      relationship_status: profile.relationship_status,
       birthday: profile.birthday,
       where_from: profile.where_from,
       current_home_city: profile.current_home_city,
+      relationship_status: profile.relationship_status,
+      gender_identity: profile.gender_identity,
       partner_preferences: profile.partner_preferences,
       covid_vaccinated: profile.covid_vaccinated,
       circumcised: profile.circumcised,
       smoker: profile.smoker,
-      selected_interests: profile.selected_interests,
-      user_interests: profile.user_interests,
-      sexual_preferences: profile.sexual_preferences,
       health_document_uploaded_at: profile.health_document_uploaded_at,
-      instagram_handle: profile.instagram_handle,
-      tiktok_handle: profile.tiktok_handle,
-      facebook_handle: profile.facebook_handle,
-      onlyfans_handle: profile.onlyfans_handle,
-      twitter_handle: profile.twitter_handle,
       created_at: profile.created_at,
     };
 
+    // --- DYNAMIC CONTENT BUNDLE (Based on Member's Profile Toggles) ---
+    
+    // 1. ID Verification Status (always shared in standard mode)
+    const { data: idDocs } = await supabase
+      .from('certifications')
+      .select('title')
+      .eq('user_id', profile.user_id)
+      .or('title.ilike.%ID%,title.ilike.%License%,title.ilike.%Passport%,title.ilike.%Driver%')
+      .limit(1);
+    
+    sharedProfile.id_status = idDocs && idDocs.length > 0 
+      ? `${idDocs[0].title} Verified` 
+      : "Unverified";
+
+    // 2. Interests & Preferences (if enabled)
+    if (profile.sharing_interests_enabled === true) {
+      sharedProfile.user_interests = profile.user_interests;
+      sharedProfile.selected_interests = profile.selected_interests;
+      sharedProfile.sexual_preferences = profile.sexual_preferences;
+      console.log('Sharing interests enabled - data included');
+    }
+
+    // 3. Vices / Lifestyle (if enabled)
+    if (profile.sharing_vices_enabled === true) {
+      sharedProfile.vices = profile.vices;
+      console.log('Sharing vices enabled - data included');
+    }
+
+    // 4. Sexual Orientation (if enabled)
+    if (profile.sharing_orientation_enabled === true) {
+      sharedProfile.sexual_orientation = profile.sexual_orientation;
+      console.log('Sharing orientation enabled - data included');
+    }
+
+    // 5. Social Media Handles (locked by default - must be explicitly enabled)
+    if (profile.sharing_social_enabled === true) {
+      sharedProfile.social_media = {
+        instagram: profile.instagram_handle,
+        tiktok: profile.tiktok_handle,
+        facebook: profile.facebook_handle,
+        onlyfans: profile.onlyfans_handle,
+        twitter: profile.twitter_handle,
+      };
+      console.log('Sharing social media enabled - data included');
+    } else {
+      sharedProfile.social_media = "Locked by User";
+    }
+
+    // Email sharing (existing logic)
     if (profile.email_shareable === true) {
       const { data: userData } = await supabase.auth.admin.getUserById(profile.user_id);
       sharedProfile.email = userData?.user?.email || null;
     }
 
+    // STD Acknowledgment (existing logic)
     if (profile.std_acknowledgment_locked === false) {
       sharedProfile.std_acknowledgment = profile.std_acknowledgment;
     }
 
+    // References (existing logic)
     if (profile.references_locked === false) {
       const { data: references } = await supabase
         .from('member_references')
@@ -253,6 +296,7 @@ serve(async (req) => {
       sharedProfile.references = references || [];
     }
 
+    // Documents
     const { data: documents } = await supabase
       .from('certifications')
       .select('id, title, issue_date, expiry_date, issuer, status, document_url, created_at')
@@ -261,7 +305,12 @@ serve(async (req) => {
 
     sharedProfile.documents = documents || [];
 
-    console.log('Complete profile data shared (respecting privacy locks)');
+    console.log('Dynamic Profile Bundle shared with toggles:', {
+      interests: profile.sharing_interests_enabled,
+      vices: profile.sharing_vices_enabled,
+      orientation: profile.sharing_orientation_enabled,
+      social: profile.sharing_social_enabled
+    });
 
     return new Response(
       JSON.stringify({ 
@@ -272,6 +321,10 @@ serve(async (req) => {
           emailShared: profile.email_shareable === true,
           referencesShared: profile.references_locked === false,
           stdAcknowledgmentShared: profile.std_acknowledgment_locked === false,
+          interestsShared: profile.sharing_interests_enabled === true,
+          vicesShared: profile.sharing_vices_enabled === true,
+          orientationShared: profile.sharing_orientation_enabled === true,
+          socialShared: profile.sharing_social_enabled === true,
         }
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

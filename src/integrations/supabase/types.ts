@@ -773,6 +773,10 @@ export type Database = {
           selected_interests: string[] | null
           sexual_orientation: string | null
           sexual_preferences: string | null
+          sharing_interests_enabled: boolean | null
+          sharing_orientation_enabled: boolean | null
+          sharing_social_enabled: boolean | null
+          sharing_vices_enabled: boolean | null
           signup_discount_code: string | null
           smoker: boolean | null
           status_color: string | null
@@ -825,6 +829,10 @@ export type Database = {
           selected_interests?: string[] | null
           sexual_orientation?: string | null
           sexual_preferences?: string | null
+          sharing_interests_enabled?: boolean | null
+          sharing_orientation_enabled?: boolean | null
+          sharing_social_enabled?: boolean | null
+          sharing_vices_enabled?: boolean | null
           signup_discount_code?: string | null
           smoker?: boolean | null
           status_color?: string | null
@@ -877,6 +885,10 @@ export type Database = {
           selected_interests?: string[] | null
           sexual_orientation?: string | null
           sexual_preferences?: string | null
+          sharing_interests_enabled?: boolean | null
+          sharing_orientation_enabled?: boolean | null
+          sharing_social_enabled?: boolean | null
+          sharing_vices_enabled?: boolean | null
           signup_discount_code?: string | null
           smoker?: boolean | null
           status_color?: string | null

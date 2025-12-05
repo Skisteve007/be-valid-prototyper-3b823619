@@ -14,6 +14,7 @@ import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
+import { MemberSharingSettings } from "./profile/MemberSharingSettings";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface ProfileTabProps {
@@ -71,6 +72,12 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [labLogoUrl, setLabLogoUrl] = useState<string>("");
   const [uploadingLabLogo, setUploadingLabLogo] = useState(false);
   
+  // Sharing toggle states
+  const [sharingInterestsEnabled, setSharingInterestsEnabled] = useState(false);
+  const [sharingVicesEnabled, setSharingVicesEnabled] = useState(false);
+  const [sharingOrientationEnabled, setSharingOrientationEnabled] = useState(false);
+  const [sharingSocialEnabled, setSharingSocialEnabled] = useState(false);
+  
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
   const [initialStatusColor, setInitialStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
@@ -81,6 +88,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [initialStdAcknowledgmentLocked, setInitialStdAcknowledgmentLocked] = useState(true);
   const [initialLabCertified, setInitialLabCertified] = useState(false);
   const [initialLabLogoUrl, setInitialLabLogoUrl] = useState<string>("");
+  const [initialSharingInterestsEnabled, setInitialSharingInterestsEnabled] = useState(false);
+  const [initialSharingVicesEnabled, setInitialSharingVicesEnabled] = useState(false);
+  const [initialSharingOrientationEnabled, setInitialSharingOrientationEnabled] = useState(false);
+  const [initialSharingSocialEnabled, setInitialSharingSocialEnabled] = useState(false);
 
   const { register, handleSubmit, setValue, watch, getValues, formState, reset } = useForm<ProfileFormData>({
     defaultValues: {
@@ -123,6 +134,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     stdAcknowledgmentLocked !== initialStdAcknowledgmentLocked ||
     labCertified !== initialLabCertified ||
     labLogoUrl !== initialLabLogoUrl ||
+    sharingInterestsEnabled !== initialSharingInterestsEnabled ||
+    sharingVicesEnabled !== initialSharingVicesEnabled ||
+    sharingOrientationEnabled !== initialSharingOrientationEnabled ||
+    sharingSocialEnabled !== initialSharingSocialEnabled ||
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
     JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
 
@@ -207,6 +222,12 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setLabCertified(data.lab_certified || false);
         setLabLogoUrl(data.lab_logo_url || "");
         
+        // Load sharing toggle states
+        setSharingInterestsEnabled((data as any).sharing_interests_enabled || false);
+        setSharingVicesEnabled((data as any).sharing_vices_enabled || false);
+        setSharingOrientationEnabled((data as any).sharing_orientation_enabled || false);
+        setSharingSocialEnabled((data as any).sharing_social_enabled || false);
+        
         // Set initial values for change detection
         setInitialProfileImageUrl(data.profile_image_url || "");
         setInitialStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
@@ -217,6 +238,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setInitialStdAcknowledgmentLocked(data.std_acknowledgment_locked !== false);
         setInitialLabCertified(data.lab_certified || false);
         setInitialLabLogoUrl(data.lab_logo_url || "");
+        setInitialSharingInterestsEnabled((data as any).sharing_interests_enabled || false);
+        setInitialSharingVicesEnabled((data as any).sharing_vices_enabled || false);
+        setInitialSharingOrientationEnabled((data as any).sharing_orientation_enabled || false);
+        setInitialSharingSocialEnabled((data as any).sharing_social_enabled || false);
         
         // Reset form state to mark as not dirty after loading
         setTimeout(() => {
@@ -525,6 +550,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           std_acknowledgment_locked: stdAcknowledgmentLocked,
           lab_certified: labCertified,
           lab_logo_url: labLogoUrl,
+          sharing_interests_enabled: sharingInterestsEnabled,
+          sharing_vices_enabled: sharingVicesEnabled,
+          sharing_orientation_enabled: sharingOrientationEnabled,
+          sharing_social_enabled: sharingSocialEnabled,
         })
         .eq("user_id", userId);
 
@@ -570,6 +599,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       setInitialStdAcknowledgmentLocked(stdAcknowledgmentLocked);
       setInitialLabCertified(labCertified);
       setInitialLabLogoUrl(labLogoUrl);
+      setInitialSharingInterestsEnabled(sharingInterestsEnabled);
+      setInitialSharingVicesEnabled(sharingVicesEnabled);
+      setInitialSharingOrientationEnabled(sharingOrientationEnabled);
+      setInitialSharingSocialEnabled(sharingSocialEnabled);
       
       // Show success state
       setSaveSuccess(true);
@@ -867,6 +900,26 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           </div>
         )}
       </div>
+
+      {/* Peer Sharing Control */}
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-pink-500 via-purple-400 to-pink-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
+
+      <MemberSharingSettings
+        sharingInterestsEnabled={sharingInterestsEnabled}
+        sharingVicesEnabled={sharingVicesEnabled}
+        sharingOrientationEnabled={sharingOrientationEnabled}
+        sharingSocialEnabled={sharingSocialEnabled}
+        onToggle={(field, value) => {
+          if (field === 'sharing_interests_enabled') setSharingInterestsEnabled(value);
+          if (field === 'sharing_vices_enabled') setSharingVicesEnabled(value);
+          if (field === 'sharing_orientation_enabled') setSharingOrientationEnabled(value);
+          if (field === 'sharing_social_enabled') setSharingSocialEnabled(value);
+        }}
+      />
 
       {/* Floating Save Button */}
       <div className="fixed bottom-4 right-36 z-50 flex flex-col items-end gap-2">

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useNavigate, Link } from "react-router-dom";
-import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle, Package, Plane, ShieldCheck, Eye, EyeOff, ScanLine, FlaskConical, Users } from "lucide-react";
+import { CheckCircle, Lock, Zap, Star, Globe, ArrowRight, HelpCircle, Package, Plane, ShieldCheck, Eye, EyeOff, ScanLine, FlaskConical, Users, RefreshCw } from "lucide-react";
 import logo from "@/assets/clean-check-logo.png";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -114,7 +114,7 @@ const Index = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 blur-3xl rounded-full scale-150"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-                <img src={logo} alt="Clean Check" className="relative w-auto h-20 md:h-24 select-none" draggable={false} />
+                <img src={logo} alt="VALID" className="relative w-auto h-20 md:h-24 select-none" draggable={false} />
               </div>
               {/* Partner Solutions Button - Centered Under Logo */}
               <Button
@@ -241,10 +241,10 @@ const Index = () => {
           <div className="container mx-auto text-center max-w-4xl">
             <ScrollReveal direction="fade" delay={100}>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 tracking-tight leading-tight text-foreground">
-                CLEAN CHECK: INSTANT ACCESS. ZERO DOUBT.
+                Your Secure Ecosystem for Total Access.
               </h1>
               <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-4">
-                Your Key to Seamless Control and QR Verified Status in a Second.
+                Frictionless entry and instant transactions. You set the limits. We secure the rest.
               </h2>
               
               {/* Trust Badges */}
@@ -369,10 +369,10 @@ const Index = () => {
                 <Button
                   onClick={() => navigate("/auth?mode=login")}
                   size="lg"
-                  className="w-full max-w-xs relative shadow-[0_0_30px_hsl(var(--accent)/0.7)] hover:shadow-[0_0_40px_hsl(var(--accent)/0.9)] border-2 border-accent/60 bg-accent/15 text-foreground font-bold text-base md:text-lg py-4 md:py-6 min-h-[48px] touch-manipulation"
+                  className="w-full max-w-xs relative shadow-[0_0_30px_hsl(var(--primary)/0.7)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.9)] border-2 border-primary/60 bg-primary/15 text-foreground font-bold text-base md:text-lg py-4 md:py-6 min-h-[48px] touch-manipulation"
                 >
-                  <div className="absolute inset-0 bg-accent/25 blur-lg rounded-md -z-10"></div>
-                  Member Log In
+                  <div className="absolute inset-0 bg-primary/25 blur-lg rounded-md -z-10"></div>
+                  Be Valid
                 </Button>
                 <p className="text-sm text-muted-foreground mt-4">
                   Access your profile, QR code, and documents
@@ -391,7 +391,45 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Features Section */}
+        {/* The VALID Ecosystem Section */}
+        <section className="py-6 px-4">
+          <div className="container mx-auto max-w-5xl px-4">
+            <ScrollReveal direction="up" delay={100}>
+              <div className="text-center mb-8">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2 text-foreground">The VALID Ecosystem</h3>
+                <p className="text-muted-foreground">Three pillars of secure access and compliance</p>
+              </div>
+            </ScrollReveal>
+            
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+              <ScrollReveal direction="up" delay={200}>
+                <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
+                  <RefreshCw className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">Automated Workforce Monitor</CardTitle>
+                  <p className="text-muted-foreground text-base">Set your screening interval (e.g., 60 Days). The system automatically tracks compliance and revokes access if a window is missed.</p>
+                </Card>
+              </ScrollReveal>
+
+              <ScrollReveal direction="up" delay={250}>
+                <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
+                  <ShieldCheck className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">Secure Transactions</CardTitle>
+                  <p className="text-muted-foreground text-base">Users link their own funding source with a safety cap. Zero skimming, zero chargebacks, instant revenue.</p>
+                </Card>
+              </ScrollReveal>
+
+              <ScrollReveal direction="up" delay={300}>
+                <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
+                  <CheckCircle className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">Identity & Health</CardTitle>
+                  <p className="text-muted-foreground text-base">One unforgeable code for Government ID and Fit-for-Duty status.</p>
+                </Card>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
+        {/* Additional Features Section */}
         <section className="py-6 px-4">
           <div className="container mx-auto max-w-5xl px-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -451,7 +489,7 @@ const Index = () => {
           <div className="container mx-auto max-w-5xl px-4">
             <ScrollReveal direction="up" delay={100}>
               <div className="p-8 bg-muted/70 border border-chart-5/50 rounded-lg shadow-xl" style={{ boxShadow: '0 25px 50px -12px hsl(var(--chart-5) / 0.2)' }}>
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">The Clean Check Enterprise Guarantee: Unlocking Zero-Trust Compliance</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">The VALID Enterprise Guarantee: Unlocking Zero-Trust Compliance</h3>
                 
                 <div className="grid md:grid-cols-3 gap-6">
                   <div>
@@ -515,13 +553,13 @@ const Index = () => {
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - Single Member (60-Day) - 50% OFF" />
+                      <input type="hidden" name="item_name" value="VALID - Single Member (60-Day) - 50% OFF" />
                       <input type="hidden" name="a3" value="19.50" />
                       <input type="hidden" name="p3" value="2" />
                       <input type="hidden" name="t3" value="M" />
                       <input type="hidden" name="src" value="1" />
-                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                      <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
+                      <input type="hidden" name="cancel_return" value="https://bevalid.app" />
                       <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm">
                         SELECT
                       </Button>
@@ -548,13 +586,13 @@ const Index = () => {
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - Joint Couple (60-Day) - 50% OFF" />
+                      <input type="hidden" name="item_name" value="VALID - Joint Couple (60-Day) - 50% OFF" />
                       <input type="hidden" name="a3" value="34.50" />
                       <input type="hidden" name="p3" value="2" />
                       <input type="hidden" name="t3" value="M" />
                       <input type="hidden" name="src" value="1" />
-                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                      <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
+                      <input type="hidden" name="cancel_return" value="https://bevalid.app" />
                       <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-sm">
                         SELECT
                       </Button>

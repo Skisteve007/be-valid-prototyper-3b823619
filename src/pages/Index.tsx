@@ -241,10 +241,10 @@ const Index = () => {
           <div className="container mx-auto text-center max-w-4xl">
             <ScrollReveal direction="fade" delay={100}>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 tracking-tight leading-tight text-foreground">
-                CLEAN CHECK: INSTANT ACCESS. ZERO DOUBT.
+                The One-Key Ecosystem
               </h1>
               <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-4">
-                Your Key to Seamless Control and QR Verified Status in a Second.
+                Your Sovereign Digital Asset for Access and Commerce.
               </h2>
               
               {/* Trust Badges */}

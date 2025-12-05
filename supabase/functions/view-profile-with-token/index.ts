@@ -6,6 +6,24 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Parse bundle flags from incognito token
+// Format: INCOG_{flags}_{token}
+// Flags: I = ID included, P = Payment authorized, S = Status only
+function parseBundleFlags(token: string): { includeId: boolean; includePayment: boolean } {
+  const flags = { includeId: false, includePayment: false };
+  
+  if (!token.startsWith('INCOG_')) return flags;
+  
+  const parts = token.split('_');
+  if (parts.length >= 3) {
+    const flagStr = parts[1];
+    flags.includeId = flagStr.includes('I');
+    flags.includePayment = flagStr.includes('P');
+  }
+  
+  return flags;
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -15,7 +33,6 @@ serve(async (req) => {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     
-    // Use service role key to bypass RLS for token validation
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { token } = await req.json();
@@ -42,7 +59,7 @@ serve(async (req) => {
       );
     }
 
-    // Check if token is expired (6 hour window for QR code)
+    // Check if token is expired
     const now = new Date();
     const expiresAt = new Date(tokenData.expires_at);
     if (now > expiresAt) {
@@ -53,16 +70,15 @@ serve(async (req) => {
       );
     }
 
-    // Check if this is an incognito token (starts with INCOG_)
+    // Check if this is an incognito token and parse bundle flags
     const isIncognitoToken = token.startsWith('INCOG_');
+    const bundleFlags = parseBundleFlags(token);
     
-    // Check if viewing window has expired
-    // EXCEPTION: Incognito tokens get full 24-hour window with NO anxiety timer
-    const VIEW_WINDOW_MINUTES = isIncognitoToken ? (24 * 60) : 3; // 24 hours for incognito, 3 min for others
+    // Incognito tokens get full 24-hour window with NO anxiety timer
+    const VIEW_WINDOW_MINUTES = isIncognitoToken ? (24 * 60) : 3;
     let viewExpiresAt: Date;
     
     if (tokenData.used_at) {
-      // Token was already used - check if 3 minute window expired
       const usedAt = new Date(tokenData.used_at);
       viewExpiresAt = new Date(usedAt.getTime() + VIEW_WINDOW_MINUTES * 60 * 1000);
       
@@ -74,7 +90,6 @@ serve(async (req) => {
         );
       }
     } else {
-      // First time viewing - mark token as used
       await supabase
         .from('qr_access_tokens')
         .update({ used_at: now.toISOString() })
@@ -83,7 +98,7 @@ serve(async (req) => {
       viewExpiresAt = new Date(now.getTime() + VIEW_WINDOW_MINUTES * 60 * 1000);
     }
 
-    // Fetch complete profile data with lock states
+    // Fetch profile data
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('*')
@@ -100,45 +115,88 @@ serve(async (req) => {
 
     console.log('Profile viewed with token for member:', profile.member_id);
 
-    // Determine incognito mode from token prefix or profile status
     const isIncognitoMode = isIncognitoToken || profile.status_color === 'gray';
 
-    // If incognito mode, only return name and email for event scanning
+    // Record QR code view
+    await supabase
+      .from('qr_code_views')
+      .insert({
+        profile_id: profile.id,
+        viewed_by_ip: req.headers.get('x-forwarded-for') || 'unknown'
+      });
+
+    // INCOGNITO MODE: Master Access Token response
     if (isIncognitoMode) {
-      // Fetch user email from auth.users
       const { data: userData } = await supabase.auth.admin.getUserById(profile.user_id);
       
-      const limitedProfile = {
+      // Base limited profile for incognito
+      const incognitoProfile: any = {
         id: profile.id,
         member_id: profile.member_id,
         full_name: profile.full_name,
         email: userData?.user?.email || null,
-        status_color: 'gray', // Always show gray for incognito mode
+        status_color: 'gray',
         profile_image_url: profile.profile_image_url,
+        compliance_verified: profile.status_color === 'green' || profile.status_color === 'gray',
       };
 
-      console.log('Incognito mode - limited profile data returned for event scanning, isIncognitoToken:', isIncognitoToken);
+      // If ID bundle flag is set, include ID verification data
+      if (bundleFlags.includeId) {
+        const { data: idDocs } = await supabase
+          .from('certifications')
+          .select('id, title, document_url, expiry_date, issuer')
+          .eq('user_id', profile.user_id)
+          .or('title.ilike.%ID%,title.ilike.%License%,title.ilike.%Passport%,title.ilike.%Driver%')
+          .order('created_at', { ascending: false })
+          .limit(1);
 
-      // Record QR code view
-      await supabase
-        .from('qr_code_views')
-        .insert({
-          profile_id: profile.id,
-          viewed_by_ip: req.headers.get('x-forwarded-for') || 'unknown'
-        });
+        if (idDocs && idDocs.length > 0) {
+          incognitoProfile.id_verification = {
+            type: idDocs[0].title,
+            document_url: idDocs[0].document_url,
+            expiry_date: idDocs[0].expiry_date,
+            issuer: idDocs[0].issuer,
+            verified: true
+          };
+        }
+        console.log('ID verification data included in response');
+      }
+
+      // If Payment bundle flag is set, include payment authorization data
+      if (bundleFlags.includePayment) {
+        const { data: paymentMethod } = await supabase
+          .from('user_payment_methods')
+          .select('payment_type, payment_identifier')
+          .eq('user_id', profile.user_id)
+          .eq('is_default', true)
+          .single();
+
+        if (paymentMethod) {
+          incognitoProfile.payment_authorized = {
+            type: paymentMethod.payment_type,
+            // Only show last 4 chars for security
+            identifier: paymentMethod.payment_identifier.slice(-4),
+            bar_tab_enabled: true
+          };
+        }
+        console.log('Payment authorization data included in response');
+      }
+
+      console.log('Incognito Master Token response - bundle flags:', bundleFlags);
 
       return new Response(
         JSON.stringify({ 
-          profile: limitedProfile,
+          profile: incognitoProfile,
           tokenExpiresAt: tokenData.expires_at,
           viewExpiresAt: viewExpiresAt.toISOString(),
-          isIncognitoMode: true
+          isIncognitoMode: true,
+          bundleFlags: bundleFlags
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Build response with all non-locked data
+    // STANDARD MODE: Full profile response
     const sharedProfile: any = {
       id: profile.id,
       member_id: profile.member_id,
@@ -167,18 +225,15 @@ serve(async (req) => {
       created_at: profile.created_at,
     };
 
-    // Only include email if shareable
     if (profile.email_shareable === true) {
       const { data: userData } = await supabase.auth.admin.getUserById(profile.user_id);
       sharedProfile.email = userData?.user?.email || null;
     }
 
-    // Only include STD acknowledgment if not locked
     if (profile.std_acknowledgment_locked === false) {
       sharedProfile.std_acknowledgment = profile.std_acknowledgment;
     }
 
-    // Fetch and include references if not locked
     if (profile.references_locked === false) {
       const { data: references } = await supabase
         .from('member_references')
@@ -198,7 +253,6 @@ serve(async (req) => {
       sharedProfile.references = references || [];
     }
 
-    // Fetch uploaded documents/certifications with document URLs
     const { data: documents } = await supabase
       .from('certifications')
       .select('id, title, issue_date, expiry_date, issuer, status, document_url, created_at')
@@ -206,14 +260,6 @@ serve(async (req) => {
       .order('created_at', { ascending: false });
 
     sharedProfile.documents = documents || [];
-
-    // Record QR code view
-    await supabase
-      .from('qr_code_views')
-      .insert({
-        profile_id: profile.id,
-        viewed_by_ip: req.headers.get('x-forwarded-for') || 'unknown'
-      });
 
     console.log('Complete profile data shared (respecting privacy locks)');
 

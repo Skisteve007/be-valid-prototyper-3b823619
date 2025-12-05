@@ -266,6 +266,32 @@ const Index = () => {
                   <span className="text-xs md:text-sm font-semibold text-amber-500">99.9% Uptime</span>
                 </div>
               </div>
+
+              {/* Peer-to-Peer Trust Core Value */}
+              <div className="mt-6 p-4 md:p-6 rounded-2xl bg-gradient-to-r from-secondary/40 via-accent/20 to-secondary/40 border border-accent/30 shadow-[0_0_30px_hsl(var(--accent)/0.2)]">
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <Users className="h-6 w-6 text-accent" />
+                  <h3 className="text-lg md:text-xl font-bold text-foreground">Peer-to-Peer Trusted Share</h3>
+                </div>
+                <p className="text-sm md:text-base text-muted-foreground mb-4">
+                  Share your verified status directly with anyone — no middleman, no database lookups. 
+                  <strong className="text-foreground"> Your QR code = Your proof.</strong>
+                </p>
+                <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/15 border border-primary/40 rounded-full">
+                    <FlaskConical className="h-4 w-4 text-primary" />
+                    <span className="text-xs md:text-sm font-semibold text-primary">Health Lab Certified</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-chart-4/15 border border-chart-4/40 rounded-full">
+                    <FlaskConical className="h-4 w-4 text-chart-4" />
+                    <span className="text-xs md:text-sm font-semibold text-chart-4">Toxicology Lab Certified</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-accent/15 border border-accent/40 rounded-full">
+                    <ScanLine className="h-4 w-4 text-accent" />
+                    <span className="text-xs md:text-sm font-semibold text-accent">Instant QR Verification</span>
+                  </div>
+                </div>
+              </div>
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={200}>

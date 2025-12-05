@@ -26,6 +26,7 @@ import { toast } from "sonner";
 interface IncognitoQRDialogProps {
   open: boolean;
   onClose: () => void;
+  onSuccess?: (qrCodeUrl: string, token: string, expiresAt: string) => void;
   userId: string;
   venueId?: string;
   promoterId?: string;
@@ -35,7 +36,8 @@ type Step = 'intro' | 'payment-check' | 'confirm' | 'processing' | 'success';
 
 export const IncognitoQRDialog = ({ 
   open, 
-  onClose, 
+  onClose,
+  onSuccess,
   userId,
   venueId,
   promoterId 
@@ -119,6 +121,11 @@ export const IncognitoQRDialog = ({
       setExpiresAt(data.expires_at);
       setQrCodeUrl(qrUrl);
       setStep('success');
+      
+      // Notify parent component of successful generation
+      if (onSuccess) {
+        onSuccess(qrUrl, data.token, data.expires_at);
+      }
       
       toast.success('Incognito QR Code generated!');
     } catch (err) {

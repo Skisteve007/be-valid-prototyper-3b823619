@@ -15,6 +15,7 @@ import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
 import MemberBetaSurvey from "@/components/MemberBetaSurvey";
+import SocialEmbedGenerator from "./SocialEmbedGenerator";
 
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
@@ -909,6 +910,9 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           </div>
         )}
       </div>
+
+      {/* Social Network Verification Widget */}
+      <SocialEmbedGenerator userId={userId} />
 
       {/* Member Beta Feedback Button */}
       <MemberBetaSurvey userId={userId} />

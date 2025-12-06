@@ -156,7 +156,7 @@ const Index = () => {
                   </span>
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-1 font-medium tracking-[0.15em]">
+              <p className="text-xs text-muted-foreground mt-4 font-medium tracking-[0.15em]">
                 Powered By Synthetic AI*
               </p>
             </div>

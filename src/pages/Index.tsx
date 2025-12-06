@@ -296,6 +296,21 @@ const Index = () => {
         </div>
       </header>
 
+      {/* Mobile Mission Banner */}
+      <div id="mobile-mission-banner" className="w-full text-center py-2 px-3 bg-secondary border-b-4 border-accent/70 shadow-lg md:hidden">
+        <p className="text-xs font-bold text-muted-foreground uppercase mb-1 leading-snug">
+          QR-Coded Access: Zero Trust ID Security, Health Verified Integrated Payment
+        </p>
+        <div className="flex justify-center items-center space-x-3 mt-1">
+          <span className="text-xs font-extrabold text-destructive bg-destructive/20 px-2 py-0.5 rounded animate-pulse">
+            ⚡ BETA VERSION ⚡
+          </span>
+          <span className="text-[10px] font-medium text-primary">
+            Powered by Synthetic AI
+          </span>
+        </div>
+      </div>
+
       <main className="w-full overflow-x-hidden">
         {/* Hero Section */}
         <section className="py-6 md:py-8 px-4 bg-gradient-to-b from-primary/5 to-background">

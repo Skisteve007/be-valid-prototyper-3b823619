@@ -3,9 +3,11 @@
 // PURPOSE: The "Money Engine" - Venue Tie-In, Wallet, & Tiered Access
 // *****************************************************************************
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
+import { Loader2 } from 'lucide-react';
 
 interface UserData {
   userId?: string;
@@ -14,7 +16,8 @@ interface UserData {
 interface Venue {
   id: string;
   name: string;
-  payment_route: string;
+  city: string;
+  category: string;
 }
 
 interface PassOption {
@@ -24,14 +27,6 @@ interface PassOption {
   label: string;
   description: string;
 }
-
-// --- 0. MOCK DATA (In production, this comes from your Database/API) ---
-const AVAILABLE_VENUES: Venue[] = [
-  { id: 'v_101', name: 'Club Space Miami', payment_route: 'DIRECT_DEPOSIT_XYZ' },
-  { id: 'v_102', name: 'Hertz Rentals (MIA)', payment_route: 'CORP_ACC_999' },
-  { id: 'v_103', name: 'Ultra Music Festival', payment_route: 'FEST_WALLET_001' },
-  { id: 'v_104', name: 'E11EVEN Miami', payment_route: 'NIGHTLIFE_LEDGER_77' }
-];
 
 const VENUE_PASS_OPTIONS: PassOption[] = [
   { id: '1_day', duration_hrs: 24, price: 10.00, label: "1-Day Access", description: "24h Entry Pass" },
@@ -46,6 +41,8 @@ interface IncognitoQRCodeGeneratorProps {
 const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ userData }) => {
 
   // --- STATE MANAGEMENT ---
+  const [venues, setVenues] = useState<Venue[]>([]);
+  const [isLoadingVenues, setIsLoadingVenues] = useState(true);
   const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
   const [selectedPass, setSelectedPass] = useState<PassOption>(VENUE_PASS_OPTIONS[0]);
 
@@ -57,6 +54,31 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
   // Activation States
   const [isIncognitoActive, setIsIncognitoActive] = useState<boolean>(false);
   const [expirationDate, setExpirationDate] = useState<Date | null>(null);
+
+  // --- FETCH VENUES FROM DATABASE ---
+  useEffect(() => {
+    const fetchVenues = async () => {
+      setIsLoadingVenues(true);
+      const { data, error } = await supabase
+        .from('partner_venues')
+        .select('id, venue_name, city, category')
+        .order('venue_name', { ascending: true });
+
+      if (error) {
+        console.error('Error fetching venues:', error);
+      } else if (data) {
+        setVenues(data.map(v => ({
+          id: v.id,
+          name: v.venue_name,
+          city: v.city,
+          category: v.category
+        })));
+      }
+      setIsLoadingVenues(false);
+    };
+
+    fetchVenues();
+  }, []);
 
   // --- 1. WALLET LOGIC (Refilling Funds) ---
   const handleRefillWallet = () => {
@@ -106,6 +128,7 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
       uid: userData?.userId || "USER_123",
       venue_id: selectedVenue.id,
       venue_name: selectedVenue.name,
+      venue_city: selectedVenue.city,
       status: "ACTIVE",
       tier: selectedPass.label,
       expires_at: expirationDate.toISOString(),
@@ -131,21 +154,28 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
       {/* --- STEP 1: SELECT VENUE (THE MISSING LINK) --- */}
       <div className="mb-6 md:mb-8 p-4 bg-card border-l-4 border-accent rounded-lg shadow-lg">
         <label className="block text-accent font-bold mb-2 uppercase tracking-wider text-sm">Step 1: Select Venue / Event</label>
-        <select
-          className="w-full p-3 md:p-4 bg-secondary border border-border rounded-lg text-foreground font-bold text-base md:text-lg focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all min-h-[48px]"
-          onChange={(e) => {
-            const venue = AVAILABLE_VENUES.find(v => v.id === e.target.value) || null;
-            setSelectedVenue(venue);
-            setIsIncognitoActive(false);
-            setWalletBalance(0);
-          }}
-          value={selectedVenue?.id || ""}
-        >
-          <option value="">-- Choose Where You Are Going --</option>
-          {AVAILABLE_VENUES.map(v => (
-            <option key={v.id} value={v.id}>{v.name}</option>
-          ))}
-        </select>
+        {isLoadingVenues ? (
+          <div className="flex items-center justify-center p-4 text-muted-foreground">
+            <Loader2 className="h-5 w-5 animate-spin mr-2" />
+            Loading venues...
+          </div>
+        ) : (
+          <select
+            className="w-full p-3 md:p-4 bg-secondary border border-border rounded-lg text-foreground font-bold text-base md:text-lg focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all min-h-[48px]"
+            onChange={(e) => {
+              const venue = venues.find(v => v.id === e.target.value) || null;
+              setSelectedVenue(venue);
+              setIsIncognitoActive(false);
+              setWalletBalance(0);
+            }}
+            value={selectedVenue?.id || ""}
+          >
+            <option value="">-- Choose Where You Are Going --</option>
+            {venues.map(v => (
+              <option key={v.id} value={v.id}>{v.name} ({v.city})</option>
+            ))}
+          </select>
+        )}
         <p className="text-xs text-muted-foreground mt-2">
           *Funds loaded will be securely tied to this venue&apos;s ledger for instant use.
         </p>
@@ -241,6 +271,8 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
               <div className="bg-card p-4 rounded-lg text-left w-full border border-border">
                 <p className="text-xs text-muted-foreground uppercase">Venue</p>
                 <p className="text-base md:text-lg text-foreground font-bold mb-2">{selectedVenue?.name}</p>
+                <p className="text-xs text-muted-foreground uppercase">Location</p>
+                <p className="text-sm text-muted-foreground mb-2">{selectedVenue?.city}</p>
                 <p className="text-xs text-muted-foreground uppercase">Wallet Balance</p>
                 <p className="text-lg md:text-xl text-foreground font-mono">${walletBalance.toFixed(2)}</p>
               </div>

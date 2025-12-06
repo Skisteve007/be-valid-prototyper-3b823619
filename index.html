@@ -96,6 +96,35 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
+    <!-- iOS Install Prompt -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+        
+        if (isIOS && isSafari && !window.matchMedia('(display-mode: standalone)').matches) {
+          const showIosInstallPrompt = () => {
+            const installBanner = document.createElement('div');
+            installBanner.id = 'ios-install-prompt';
+            installBanner.innerHTML = `
+              <div style="position: fixed; bottom: 0; left: 0; right: 0; padding: 15px; background: rgba(0, 0, 0, 0.9); color: white; text-align: center; font-size: 16px; z-index: 9999;">
+                For the full app experience, tap the 
+                <span style="font-size: 20px; vertical-align: middle; margin: 0 5px;">↗️</span> 
+                icon and select <strong>'Add to Home Screen'</strong>.
+                <button onclick="document.getElementById('ios-install-prompt').style.display='none'" 
+                  style="background: none; border: none; color: #39FF14; font-weight: bold; margin-left: 10px; cursor: pointer;">
+                  X
+                </button>
+              </div>
+            `;
+            document.body.appendChild(installBanner);
+          };
+          
+          setTimeout(showIosInstallPrompt, 3000);
+        }
+      });
+    </script>
+    
     <!-- Mobile Scroll Optimization -->
     <style>
       * {

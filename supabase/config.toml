@@ -29,3 +29,6 @@ verify_jwt = false
 
 [functions.submit-survey]
 verify_jwt = false
+
+[functions.log-social-embed]
+verify_jwt = false

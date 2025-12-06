@@ -16,6 +16,7 @@ interface IncognitoTokenRequest {
   venue_id?: string;
   promoter_id?: string;
   bundle_preferences?: BundlePreferences;
+  spending_limit?: number;
 }
 
 serve(async (req: Request) => {
@@ -38,9 +39,10 @@ serve(async (req: Request) => {
       );
     }
 
-    const { user_id, venue_id, promoter_id, bundle_preferences }: IncognitoTokenRequest = await req.json();
+    const { user_id, venue_id, promoter_id, bundle_preferences, spending_limit }: IncognitoTokenRequest = await req.json();
+    const userSpendingLimit = spending_limit || 500;
 
-    console.log('Generating Incognito Master Token:', { user_id, venue_id, promoter_id, bundle_preferences });
+    console.log('Generating Incognito Master Token:', { user_id, venue_id, promoter_id, bundle_preferences, spending_limit: userSpendingLimit });
 
     // 1. Check if user has a valid payment method on file
     const { data: paymentMethod, error: pmError } = await supabase
@@ -99,7 +101,7 @@ serve(async (req: Request) => {
     const CLEANCHECK_SHARE = 2.00;
     const PROMOTER_SHARE = 1.00;
 
-    // Create transaction record
+    // Create transaction record with spending limit
     const { data: transaction, error: txError } = await supabase
       .from('incognito_transactions')
       .insert({
@@ -111,7 +113,9 @@ serve(async (req: Request) => {
         cleancheck_share: CLEANCHECK_SHARE,
         promoter_share: promoter_id ? PROMOTER_SHARE : 0,
         payment_method_id: paymentMethod.id,
-        payment_status: 'processing'
+        payment_status: 'processing',
+        spending_limit: userSpendingLimit,
+        current_spend: 0
       })
       .select()
       .single();
@@ -250,6 +254,7 @@ serve(async (req: Request) => {
     console.log('ID Included:', bundle_preferences?.includeId ? 'YES' : 'NO');
     console.log('Payment Auth Included:', bundle_preferences?.includePayment ? 'YES' : 'NO');
     console.log('Total Amount:', TOTAL_FEE);
+    console.log('Spending Limit:', userSpendingLimit);
     console.log('Venue Share:', VENUE_SHARE);
     console.log('Promoter Share:', promoter_id ? PROMOTER_SHARE : 0);
     console.log('Clean Check Share:', CLEANCHECK_SHARE);
@@ -273,7 +278,8 @@ serve(async (req: Request) => {
           bundle_flags: flags,
           id_verified: bundle_preferences?.includeId && idDocumentData ? true : false,
           payment_authorized: bundle_preferences?.includePayment || false,
-          photo_url: profile.profile_image_url
+          photo_url: profile.profile_image_url,
+          spending_limit: userSpendingLimit
         }
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

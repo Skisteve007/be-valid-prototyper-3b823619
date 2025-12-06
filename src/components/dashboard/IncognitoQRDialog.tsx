@@ -40,7 +40,7 @@ import { toast } from "sonner";
 interface IncognitoQRDialogProps {
   open: boolean;
   onClose: () => void;
-  onSuccess?: (qrCodeUrl: string, token: string, expiresAt: string) => void;
+  onSuccess?: (qrCodeUrl: string, token: string, expiresAt: string, transactionId: string, spendingLimit: number) => void;
   userId: string;
   venueId?: string;
   promoterId?: string;
@@ -172,7 +172,8 @@ export const IncognitoQRDialog = ({
           user_id: userId,
           venue_id: venueId,
           promoter_id: promoterId,
-          bundle_preferences: bundlePrefs
+          bundle_preferences: bundlePrefs,
+          spending_limit: parseInt(spendingLimit)
         }
       });
 
@@ -201,7 +202,7 @@ export const IncognitoQRDialog = ({
       
       // Notify parent component of successful generation
       if (onSuccess) {
-        onSuccess(qrUrl, data.token, data.expires_at);
+        onSuccess(qrUrl, data.token, data.expires_at, data.transaction_id, parseInt(spendingLimit));
       }
       
       toast.success('Incognito Master Token generated!');

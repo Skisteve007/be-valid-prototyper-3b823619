@@ -141,6 +141,51 @@ export type Database = {
           },
         ]
       }
+      bar_tab_charges: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string | null
+          id: string
+          pos_reference: string | null
+          transaction_id: string
+          venue_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          pos_reference?: string | null
+          transaction_id: string
+          venue_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          pos_reference?: string | null
+          transaction_id?: string
+          venue_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bar_tab_charges_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "incognito_transactions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bar_tab_charges_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       campaign_analytics: {
         Row: {
           bounce_count: number
@@ -390,6 +435,7 @@ export type Database = {
         Row: {
           cleancheck_share: number
           created_at: string
+          current_spend: number | null
           id: string
           payment_method_id: string | null
           payment_reference: string | null
@@ -397,6 +443,7 @@ export type Database = {
           processed_at: string | null
           promoter_id: string | null
           promoter_share: number
+          spending_limit: number | null
           total_amount: number
           user_id: string
           venue_id: string | null
@@ -405,6 +452,7 @@ export type Database = {
         Insert: {
           cleancheck_share?: number
           created_at?: string
+          current_spend?: number | null
           id?: string
           payment_method_id?: string | null
           payment_reference?: string | null
@@ -412,6 +460,7 @@ export type Database = {
           processed_at?: string | null
           promoter_id?: string | null
           promoter_share?: number
+          spending_limit?: number | null
           total_amount?: number
           user_id: string
           venue_id?: string | null
@@ -420,6 +469,7 @@ export type Database = {
         Update: {
           cleancheck_share?: number
           created_at?: string
+          current_spend?: number | null
           id?: string
           payment_method_id?: string | null
           payment_reference?: string | null
@@ -427,6 +477,7 @@ export type Database = {
           processed_at?: string | null
           promoter_id?: string | null
           promoter_share?: number
+          spending_limit?: number | null
           total_amount?: number
           user_id?: string
           venue_id?: string | null

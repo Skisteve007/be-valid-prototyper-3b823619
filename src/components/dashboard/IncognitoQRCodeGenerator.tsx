@@ -1,8 +1,11 @@
 // --- Incognito Master Access Generator (FINAL PRE-FUNDED WALLET TOKEN) ---
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 interface PassOption {
   duration_hrs: number;
@@ -28,9 +31,9 @@ interface IncognitoQRCodeGeneratorProps {
   availablePasses?: PassOption[];
 }
 
-// CRITICAL: The array of passes dictates the venue's available options and pricing
+// CRITICAL: Pass pricing - $10 for 1-day (40/40/20 split)
 const DEFAULT_PASS_OPTIONS: PassOption[] = [
-  { duration_hrs: 24, price: 10.00, label: "1-Day Access", description: "First-tier access." },
+  { duration_hrs: 24, price: 10.00, label: "1-Day Access", description: "24-hour venue access." },
   { duration_hrs: 72, price: 20.00, label: "3-Day Festival Pass", description: "Weekend event coverage." },
   { duration_hrs: 168, price: 50.00, label: "One-Week Access", description: "Cruise or resort stay access." },
 ];
@@ -47,27 +50,60 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({
   const [bundleChoice, setBundleChoice] = useState<BundleChoice>({ includeDl: false, includePassport: false, includePayment: true });
   const [isIncognitoActive, setIsIncognitoActive] = useState(false);
 
-  // --- NEW PRE-FUNDED WALLET STATES ---
-  const [fundingAmount, setFundingAmount] = useState(500); // Amount user wants to add
-  const [currentBalance, setCurrentBalance] = useState(0);   // Actual balance in the token
-  const [paymentMethod, setPaymentMethod] = useState('');    // Selected refill method
+  // --- PRE-FUNDED WALLET STATES ---
+  const [fundingAmount, setFundingAmount] = useState(100);
+  const [currentBalance, setCurrentBalance] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // --- FINANCIAL & TOKEN LOGIC ---
+  // Fetch current wallet balance on mount
+  useEffect(() => {
+    const fetchBalance = async () => {
+      const { data, error } = await supabase
+        .from('wallet_transactions')
+        .select('balance_after')
+        .eq('user_id', userData.userId)
+        .order('created_at', { ascending: false })
+        .limit(1);
+      
+      if (data && data.length > 0) {
+        setCurrentBalance(Number(data[0].balance_after));
+      }
+    };
+    fetchBalance();
+  }, [userData.userId]);
 
-  const handleRefillToken = () => {
-    if (!fundingAmount || fundingAmount < 50 || !paymentMethod) {
-      alert("Please select a valid funding amount (min $50) and payment method.");
+  // --- STRIPE WALLET REFILL ---
+  const handleRefillToken = async () => {
+    if (!fundingAmount || fundingAmount < 50) {
+      toast.error("Please enter a valid funding amount (min $50).");
       return;
     }
 
-    // CRITICAL BACKEND ACTION: Simulate payment processing (The backend must process payment and update the balance)
-    console.log(`PROCESSING REFILL: $${fundingAmount} via ${paymentMethod}.`);
+    setIsLoading(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("Please log in to refill your wallet.");
+        return;
+      }
 
-    // --- SIMULATION (Placeholder for actual backend database update) ---
-    // CALL: processPaymentAndRefill(userId, fundingAmount, paymentMethod);
-    setCurrentBalance(prevBalance => prevBalance + fundingAmount);
-    setFundingAmount(500); // Reset funding amount input
-    alert(`Token Refilled! New Balance: $${(currentBalance + fundingAmount).toLocaleString()}`);
+      const { data, error } = await supabase.functions.invoke('refill-wallet', {
+        body: { amount: fundingAmount, payment_method: 'stripe' },
+      });
+
+      if (error) throw error;
+
+      if (data?.url) {
+        // Open Stripe checkout in new tab
+        window.open(data.url, '_blank');
+        toast.success("Redirecting to Stripe checkout...");
+      }
+    } catch (error: any) {
+      console.error('Refill error:', error);
+      toast.error(error.message || "Failed to initiate payment");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleActivateIncognito = () => {
@@ -124,20 +160,16 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({
           className="w-full p-2 bg-background border border-border rounded text-foreground"
         />
 
-        <label className="block text-foreground font-medium mb-1 pt-2">Select Payment Method</label>
-        <select
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
-          className="w-full p-2 bg-background border border-border rounded text-foreground"
-        >
-          <option value="">-- Choose Method --</option>
-          <option value="CreditCard">Credit Card</option>
-          <option value="PayPal">PayPal</option>
-          <option value="Zelle">Zelle/Bank Transfer</option>
-        </select>
 
-        <Button onClick={handleRefillToken} disabled={!paymentMethod} className="w-full mt-3">
-          Add ${fundingAmount.toLocaleString()} To Token
+        <Button onClick={handleRefillToken} disabled={isLoading} className="w-full mt-3">
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Processing...
+            </>
+          ) : (
+            `Add $${fundingAmount.toLocaleString()} via Stripe`
+          )}
         </Button>
       </div>
 

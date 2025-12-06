@@ -531,7 +531,7 @@ const Index = () => {
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
                   <Globe className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
                   <CardTitle className="text-2xl font-bold mb-3">TRUSTED EVERYWHERE</CardTitle>
-                  <p className="text-muted-foreground text-base">Accepted by <strong className="text-foreground">Corporate Compliance, High-Value Asset Manager Businesses ( Transport Fleets and Exotic Rentals )</strong>. Including Workforce Organizations, Restaurant Establishments, Nightlife Venues, Civic & Regulatory Agencies.</p>
+                  <p className="text-muted-foreground text-base">Accepted by <strong className="text-foreground">Corporate Compliance, Workforce Organizations, Restaurant Establishments, Nightlife Venues, Civic & Regulatory Agencies</strong>. Including High-Value Asset Manager Businesses ( Transport Fleets and Exotic Rentals ).</p>
                 </Card>
               </ScrollReveal>
 

@@ -25,8 +25,8 @@ export const PreferencesHealthSection = ({
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between border-b pb-2">
-        <h3 className="text-lg font-semibold">
-          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Health</span>
+        <h3 className="text-2xl font-bold flex items-center gap-2">
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">LIFESTYLE & VIBE</span>
         </h3>
         {onToggleSharing && (
           <Button

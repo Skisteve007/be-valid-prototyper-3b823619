@@ -472,12 +472,12 @@ const Index = () => {
                 </Card>
               </ScrollReveal>
 
-              {/* 2. Identity & Health */}
+              {/* 2. Identity, Health & Payment Solutions */}
               <ScrollReveal direction="up" delay={250}>
                 <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
                   <CheckCircle className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">IDENTITY & HEALTH</CardTitle>
-                  <p className="text-muted-foreground text-base">One unforgeable code for Government ID and Fit-for-Duty status.</p>
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">IDENTITY, HEALTH & PAYMENT SOLUTIONS</CardTitle>
+                  <p className="text-muted-foreground text-base">1 Secure QR code YOU control. Fit For Duty—Lifestyle Specs, Finances, Health Record Share, Identity Certification and ZeroTrust Security.</p>
                 </Card>
               </ScrollReveal>
 

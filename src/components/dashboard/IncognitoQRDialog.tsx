@@ -297,9 +297,9 @@ export const IncognitoQRDialog = ({
                     <DollarSign className="h-5 w-5 text-gray-600" />
                   </div>
                   <div>
-                    <p className="font-medium">$5.00 Access Fee</p>
+                    <p className="font-medium">$10.00 Access Fee</p>
                     <p className="text-sm text-muted-foreground">
-                      Split: $2 Venue | $1 Promoter | $2 CleanCheck
+                      24-Hour Master Access Token
                     </p>
                   </div>
                 </div>
@@ -488,7 +488,7 @@ export const IncognitoQRDialog = ({
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Amount</span>
-                  <span className="font-bold text-lg">$5.00</span>
+                  <span className="font-bold text-lg">$10.00</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">QR Validity</span>
@@ -502,7 +502,7 @@ export const IncognitoQRDialog = ({
             </Card>
 
             <p className="text-xs text-center text-muted-foreground">
-              By proceeding, you authorize the $5.00 charge and data sharing per your bundle selection.
+              By proceeding, you authorize the $10.00 charge and data sharing per your bundle selection.
             </p>
 
             <Button 
@@ -510,7 +510,7 @@ export const IncognitoQRDialog = ({
               className="w-full bg-gray-600 hover:bg-gray-700"
             >
               <DollarSign className="h-4 w-4 mr-2" />
-              Pay $5.00 & Generate Master Token
+              Pay $10.00 & Generate Master Token
             </Button>
             <Button variant="outline" onClick={() => setStep('bundle-select')} className="w-full">
               Back

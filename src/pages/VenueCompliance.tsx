@@ -31,18 +31,23 @@ const InvestorRelationsButton = ({ onClick }: { onClick: () => void }) => {
 // Builder's Vision Button Component
 const BuilderVisionButton = ({ onClick }: { onClick: () => void }) => {
   return (
-    <button
-      onClick={onClick}
-      className="w-full md:w-auto px-4 py-2 text-sm font-bold rounded-lg 
-                 bg-secondary/80 text-amber-500 dark:text-amber-400 border border-amber-600 
-                 shadow-lg shadow-amber-900/40 hover:shadow-amber-600/60 transition-all 
-                 flex items-center justify-center space-x-2"
-      style={{ fontFamily: 'Orbitron, sans-serif' }}
-    >
-      <span role="img" aria-label="Tool">🛠️</span>
-      <span>THE BUILDER'S VISION: WHY IT'S A UNICORN</span>
-      <span role="img" aria-label="Diamond">💎</span>
-    </button>
+    <div className="relative group">
+      {/* Pulsing glow effect */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-lg blur-md opacity-60 group-hover:opacity-100 animate-pulse transition-opacity duration-300"></div>
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-400 to-orange-400 rounded-lg blur-sm opacity-40 animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+      <button
+        onClick={onClick}
+        className="relative w-full md:w-auto px-4 py-2 text-sm font-bold rounded-lg 
+                   bg-secondary/90 text-amber-500 dark:text-amber-400 border border-amber-600 
+                   shadow-lg shadow-amber-900/40 hover:shadow-amber-600/60 transition-all 
+                   flex items-center justify-center space-x-2 hover:scale-105"
+        style={{ fontFamily: 'Orbitron, sans-serif' }}
+      >
+        <span role="img" aria-label="Alien">👽</span>
+        <span>THE BUILDER'S VISION: WHY IT'S A UNICORN</span>
+        <span role="img" aria-label="Diamond">💎</span>
+      </button>
+    </div>
   );
 };
 

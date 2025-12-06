@@ -1,7 +1,7 @@
 {
   "name": "VALID - QR-Coded Access & Verified Health",
   "short_name": "VALID",
-  "description": "QR-Coded Access: Health Verified. Integrated Payment. Zero Trust I.D. Security.",
+  "description": "QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

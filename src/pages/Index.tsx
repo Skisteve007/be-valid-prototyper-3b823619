@@ -140,7 +140,7 @@ const Index = () => {
                 </p>
               </div>
               <p className="text-base xl:text-lg font-semibold text-center text-foreground mt-2 italic">
-                QR-Coded Access: Health Verified. Integrated Payment. Zero Trust I.D. Security.
+                QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment.
               </p>
               {/* Glowing Beta Button */}
               <div className="relative mt-3">

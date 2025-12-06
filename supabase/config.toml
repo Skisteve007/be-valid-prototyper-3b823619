@@ -26,3 +26,6 @@ verify_jwt = false
 
 [functions.monitor-workforce-validity]
 verify_jwt = false
+
+[functions.submit-survey]
+verify_jwt = false

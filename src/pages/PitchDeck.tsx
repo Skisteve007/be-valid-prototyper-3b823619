@@ -126,6 +126,10 @@ const PitchDeck = () => {
           <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
             Seed Round Open
           </Badge>
+          {/* Powered by Synthetic AI */}
+          <p className="text-sm md:text-base font-mono tracking-[0.15em] text-muted-foreground uppercase mb-4">
+            Powered By Synthetic AI*
+          </p>
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'Orbitron, sans-serif', color: '#2ecc71', textShadow: '0 0 5px rgba(46, 204, 113, 0.7)' }}>
             VALID: Integrated Identity & Payment Ecosystem
           </h1>

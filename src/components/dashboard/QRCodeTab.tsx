@@ -563,7 +563,7 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                   type="button"
                 >
                   <EyeOff className="h-5 w-5 mr-2" />
-                  Incognito Mode ($5)
+                  Incognito Mode ($10)
                 </Button>
               </div>
 

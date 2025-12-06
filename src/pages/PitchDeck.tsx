@@ -16,9 +16,12 @@ import {
   Target,
   Zap,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  Check,
+  X
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const PitchDeck = () => {
   const navigate = useNavigate();
@@ -57,14 +60,6 @@ const PitchDeck = () => {
     { name: "Enterprise/Fleet", price: "Custom", type: "Contract" },
   ];
 
-  const competitiveAdvantages = [
-    "Only dual-verification platform (STD + Toxicology)",
-    "Privacy-first architecture with no PHI exposure",
-    "Real-time QR badge vs. point-in-time results",
-    "Pre-built venue network with switching costs",
-    "Subscription economics vs. transactional",
-  ];
-
   const useOfFunds = [
     { category: "Sales & Marketing", percent: 40, color: "bg-blue-500" },
     { category: "Product Development", percent: 30, color: "bg-purple-500" },
@@ -72,26 +67,84 @@ const PitchDeck = () => {
     { category: "Reserve", percent: 10, color: "bg-orange-500" },
   ];
 
+  const scorecardData = [
+    {
+      feature: "Automated Revenue Share (Portion of $10 Transaction)",
+      valid: true,
+      clear: false,
+      idme: false,
+      ticketmaster: false,
+      checkr: false,
+      highlight: true,
+    },
+    {
+      feature: "Zero-Trust Backend Security & Architecture",
+      valid: true,
+      clear: false,
+      idme: false,
+      ticketmaster: false,
+      checkr: false,
+      highlight: true,
+    },
+    {
+      feature: "Frictionless Staff Workflow & QR Access",
+      valid: true,
+      clear: true,
+      idme: false,
+      ticketmaster: true,
+      checkr: false,
+      highlight: true,
+    },
+    {
+      feature: "Integrated Health/Tox Status (HIPAA-Ready)",
+      valid: true,
+      clear: false,
+      idme: false,
+      ticketmaster: false,
+      checkr: false,
+      highlight: false,
+    },
+    {
+      feature: "Rolling (Continuous) Compliance & Screening",
+      valid: true,
+      clear: false,
+      idme: false,
+      ticketmaster: false,
+      checkr: true,
+      highlight: false,
+    },
+  ];
+
+  const renderCheck = (value: boolean, isValid?: boolean) => {
+    if (value) {
+      return <Check className={`h-5 w-5 mx-auto ${isValid ? 'text-[#2ecc71]' : 'text-green-500'}`} />;
+    }
+    return <X className="h-5 w-5 mx-auto text-red-500" />;
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
-      <header className="border-b border-slate-700 bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Button 
             variant="ghost" 
             onClick={() => navigate(-1)}
-            className="text-slate-300 hover:text-white"
+            className="text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>
-          <Button 
-            variant="outline" 
-            className="border-slate-600 text-slate-300 hover:bg-slate-800"
-            onClick={() => window.open("mailto:investors@bevalid.app", "_blank")}
-          >
-            Contact Us
-          </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button 
+              variant="outline" 
+              className="border-border text-muted-foreground hover:bg-muted"
+              onClick={() => window.open("mailto:invest@bevalid.app", "_blank")}
+            >
+              Contact Us
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -102,14 +155,85 @@ const PitchDeck = () => {
           <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
             Seed Round Open
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            VALID
+          <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'Orbitron, sans-serif', color: '#2ecc71', textShadow: '0 0 5px rgba(46, 204, 113, 0.7)' }}>
+            VALID: Integrated Identity & Payment Ecosystem
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-4">
-            Privacy-First Health Verification Platform
+          <p className="text-lg md:text-xl text-muted-foreground" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+            Pitch Deck Summary - Zero-Trust Compliance & Revenue Generation
           </p>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-            One Scan. Zero Doubt. The trust infrastructure for health-conscious communities.
+        </section>
+
+        {/* Investment Thesis Section */}
+        <section className="mb-8">
+          <Card className="bg-card border-l-4 border-amber-500">
+            <CardContent className="p-6">
+              <h2 className="text-xl font-bold text-amber-500 mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+                Investment Thesis: Unmatched Risk Transfer & Profit
+              </h2>
+              <ul className="text-foreground space-y-3 text-sm list-disc list-inside">
+                <li><strong>INDUSTRY-LEADING RISK TRANSFER:</strong> Our Zero-Trust architecture legally shifts liability away from partners (venues/employers) and onto the VALID platform.</li>
+                <li><strong>HIGH-MARGIN DUAL REVENUE:</strong> Monetization via user subscriptions + instant <strong>$10 transactional fees</strong> (Incognito Token).</li>
+                <li><strong>DATA MOAT:</strong> We build the core Identity/Health/Payment layer for high-liability social and asset management economies.</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Competitive Scorecard Section */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold text-amber-500 mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+            Direct Competitive Scorecard: Why VALID Wins
+          </h2>
+          <p className="text-muted-foreground text-sm mb-4">
+            We eliminate silos. VALID is the only platform that integrates the five key functions needed to de-risk and <strong>monetize</strong> high-liability businesses.
+          </p>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs font-mono border border-border">
+              <thead>
+                <tr className="bg-muted text-foreground">
+                  <th className="p-2 text-left font-bold uppercase" style={{ width: '35%' }}>VALID FEATURE</th>
+                  <th className="p-2 text-center font-extrabold" style={{ width: '13%', color: '#2ecc71' }}>VALID</th>
+                  <th className="p-2 text-center" style={{ width: '13%' }}>CLEAR</th>
+                  <th className="p-2 text-center" style={{ width: '13%' }}>ID.me</th>
+                  <th className="p-2 text-center" style={{ width: '13%' }}>TICKETMASTER</th>
+                  <th className="p-2 text-center" style={{ width: '13%' }}>CHECKR</th>
+                </tr>
+              </thead>
+              <tbody className="bg-card">
+                {scorecardData.map((row, idx) => (
+                  <tr key={idx} className="border-b border-border">
+                    <td className={`p-2 text-left text-foreground ${row.highlight ? 'font-semibold' : ''}`}>
+                      {row.highlight && <strong>{row.feature}</strong>}
+                      {!row.highlight && row.feature}
+                    </td>
+                    <td className="p-2 text-center">{renderCheck(row.valid, true)}</td>
+                    <td className="p-2 text-center">{renderCheck(row.clear)}</td>
+                    <td className="p-2 text-center">{renderCheck(row.idme)}</td>
+                    <td className="p-2 text-center">{renderCheck(row.ticketmaster)}</td>
+                    <td className="p-2 text-center">{renderCheck(row.checkr)}</td>
+                  </tr>
+                ))}
+                {/* Total Score Row */}
+                <tr className="bg-amber-900/50 border-t-2 border-amber-600">
+                  <td className="p-2 text-left text-amber-300 font-extrabold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+                    TOTAL INTEGRATION SCORE (5 Max)
+                  </td>
+                  <td className="p-2 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>5/5</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/5</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">0/5</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">2/5</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 className="text-lg font-bold text-amber-500 mt-6" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+            🔑 Key Differentiation: Zero-Trust Security
+          </h3>
+          <p className="text-muted-foreground text-sm mt-2">
+            Competitor security models (FCRA compliance, SSO identity) are <strong>static and siloed</strong>. VALID's <strong>Zero-Trust Architecture</strong> requires continuous verification and integrates dynamic, real-time health/tox data, making it the only truly risk-based access system. This level of comprehensive, dynamic security is unmatched and crucial for high-liability venues.
           </p>
         </section>
 
@@ -118,12 +242,12 @@ const PitchDeck = () => {
           <h2 className="text-2xl font-bold text-center mb-8">Key Metrics</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {metrics.map((metric) => (
-              <Card key={metric.label} className="bg-slate-800/50 border-slate-700">
+              <Card key={metric.label} className="bg-card border-border">
                 <CardContent className="p-6 text-center">
                   <metric.icon className={`h-8 w-8 mx-auto mb-3 ${metric.color}`} />
-                  <div className="text-3xl font-bold text-white">{metric.value}</div>
-                  {metric.subtext && <span className="text-sm text-slate-400">{metric.subtext}</span>}
-                  <div className="text-sm text-slate-400 mt-1">{metric.label}</div>
+                  <div className="text-3xl font-bold text-foreground">{metric.value}</div>
+                  {metric.subtext && <span className="text-sm text-muted-foreground">{metric.subtext}</span>}
+                  <div className="text-sm text-muted-foreground mt-1">{metric.label}</div>
                 </CardContent>
               </Card>
             ))}
@@ -141,7 +265,7 @@ const PitchDeck = () => {
                   <div className="h-6 w-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="text-red-400 text-sm">✕</span>
                   </div>
-                  <span className="text-slate-300">{point}</span>
+                  <span className="text-muted-foreground">{point}</span>
                 </li>
               ))}
             </ul>
@@ -149,10 +273,10 @@ const PitchDeck = () => {
           <Card className="bg-gradient-to-br from-red-900/30 to-orange-900/30 border-red-800/50">
             <CardContent className="p-8 text-center">
               <div className="text-6xl mb-4">👽</div>
-              <p className="text-xl text-slate-300">
+              <p className="text-xl text-foreground">
                 "How do I know they're really safe?"
               </p>
-              <p className="text-sm text-slate-500 mt-2">
+              <p className="text-sm text-muted-foreground mt-2">
                 — Every health-conscious person ever
               </p>
             </CardContent>
@@ -175,9 +299,9 @@ const PitchDeck = () => {
             <h2 className="text-3xl font-bold mb-6">VALID</h2>
             <div className="grid grid-cols-2 gap-4">
               {solutionPoints.map((point) => (
-                <div key={point.title} className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
-                  <h3 className="font-semibold text-white mb-1">{point.title}</h3>
-                  <p className="text-sm text-slate-400">{point.desc}</p>
+                <div key={point.title} className="bg-card p-4 rounded-lg border border-border">
+                  <h3 className="font-semibold text-foreground mb-1">{point.title}</h3>
+                  <p className="text-sm text-muted-foreground">{point.desc}</p>
                 </div>
               ))}
             </div>
@@ -187,14 +311,14 @@ const PitchDeck = () => {
         {/* Market Opportunity */}
         <section>
           <h2 className="text-2xl font-bold text-center mb-2">Market Opportunity</h2>
-          <p className="text-slate-400 text-center mb-8">$5.7B+ Total Addressable Market</p>
+          <p className="text-muted-foreground text-center mb-8">$5.7B+ Total Addressable Market</p>
           <div className="grid md:grid-cols-3 gap-4">
             {marketData.map((market) => (
-              <Card key={market.segment} className="bg-slate-800/50 border-slate-700">
+              <Card key={market.segment} className="bg-card border-border">
                 <CardContent className="p-6">
                   <Target className="h-6 w-6 text-primary mb-3" />
-                  <div className="text-2xl font-bold text-white">{market.size}</div>
-                  <div className="text-slate-300">{market.segment}</div>
+                  <div className="text-2xl font-bold text-foreground">{market.size}</div>
+                  <div className="text-foreground">{market.segment}</div>
                   <Badge variant="secondary" className="mt-2">{market.growth}</Badge>
                 </CardContent>
               </Card>
@@ -207,12 +331,12 @@ const PitchDeck = () => {
           <h2 className="text-2xl font-bold text-center mb-8">Business Model</h2>
           <div className="grid md:grid-cols-4 gap-4">
             {revenueStreams.map((stream) => (
-              <Card key={stream.name} className="bg-slate-800/50 border-slate-700">
+              <Card key={stream.name} className="bg-card border-border">
                 <CardContent className="p-6 text-center">
                   <DollarSign className="h-8 w-8 mx-auto mb-3 text-green-400" />
-                  <div className="font-semibold text-white">{stream.name}</div>
+                  <div className="font-semibold text-foreground">{stream.name}</div>
                   <div className="text-xl font-bold text-green-400 my-2">{stream.price}</div>
-                  <Badge variant="outline" className="text-slate-400 border-slate-600">
+                  <Badge variant="outline" className="text-muted-foreground border-border">
                     {stream.type}
                   </Badge>
                 </CardContent>
@@ -221,49 +345,10 @@ const PitchDeck = () => {
           </div>
         </section>
 
-        {/* Competitive Advantages */}
-        <section className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <Badge className="mb-4 bg-purple-500/20 text-purple-400 border-purple-500/30">Why We Win</Badge>
-            <h2 className="text-3xl font-bold mb-6">Competitive Moat</h2>
-            <ul className="space-y-3">
-              {competitiveAdvantages.map((adv, i) => (
-                <li key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-400 flex-shrink-0" />
-                  <span className="text-slate-300">{adv}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-white mb-4">Feature Comparison</h3>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-slate-400">QR Verification</span>
-                  <span className="text-green-400">✓ Only Us</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Privacy Firewall</span>
-                  <span className="text-green-400">✓ Only Us</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Venue Network</span>
-                  <span className="text-green-400">✓ Only Us</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Dual Verification</span>
-                  <span className="text-green-400">✓ Only Us</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
         {/* Use of Funds */}
         <section>
           <h2 className="text-2xl font-bold text-center mb-8">Use of Funds</h2>
-          <Card className="bg-slate-800/50 border-slate-700 max-w-2xl mx-auto">
+          <Card className="bg-card border-border max-w-2xl mx-auto">
             <CardContent className="p-6">
               <div className="flex h-8 rounded-full overflow-hidden mb-6">
                 {useOfFunds.map((item) => (
@@ -278,11 +363,32 @@ const PitchDeck = () => {
                 {useOfFunds.map((item) => (
                   <div key={item.category} className="flex items-center gap-3">
                     <div className={`h-3 w-3 rounded-full ${item.color}`} />
-                    <span className="text-slate-300">{item.category}</span>
-                    <span className="text-white font-semibold ml-auto">{item.percent}%</span>
+                    <span className="text-muted-foreground">{item.category}</span>
+                    <span className="text-foreground font-semibold ml-auto">{item.percent}%</span>
                   </div>
                 ))}
               </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* The Ask Section */}
+        <section>
+          <Card className="bg-card/70 border-l-4" style={{ borderColor: '#2ecc71' }}>
+            <CardContent className="p-6">
+              <h3 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+                Our Ask: $750,000 Seed Round
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Funding is dedicated to <strong>accelerating DevSecOps implementation</strong> and securing the <strong>Lab Network Acquisition</strong> to capture a dominant market share.
+              </p>
+              <a 
+                href="mailto:invest@bevalid.app" 
+                className="mt-4 inline-block font-bold hover:text-foreground transition-colors"
+                style={{ fontFamily: 'Orbitron, sans-serif', color: '#f39c12' }}
+              >
+                Contact Investor Relations: invest@bevalid.app
+              </a>
             </CardContent>
           </Card>
         </section>
@@ -293,14 +399,14 @@ const PitchDeck = () => {
             <CardContent className="p-8">
               <Zap className="h-12 w-12 mx-auto mb-4 text-primary" />
               <h2 className="text-2xl font-bold mb-2">Join the Round</h2>
-              <p className="text-slate-400 mb-6">
+              <p className="text-muted-foreground mb-6">
                 We are building the trust infrastructure for health-conscious communities worldwide.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg" 
                   className="bg-primary hover:bg-primary/90"
-                  onClick={() => window.open("mailto:investors@bevalid.app?subject=Investment Inquiry", "_blank")}
+                  onClick={() => window.open("mailto:invest@bevalid.app?subject=Investment Inquiry", "_blank")}
                 >
                   Request Deck
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -308,7 +414,7 @@ const PitchDeck = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-slate-600 text-slate-300 hover:bg-slate-800"
+                  className="border-border text-muted-foreground hover:bg-muted"
                   onClick={() => navigate("/competitive-scorecard")}
                 >
                   View Competitive Analysis
@@ -319,7 +425,7 @@ const PitchDeck = () => {
         </section>
 
         {/* Footer */}
-        <section className="text-center text-slate-500 text-sm pb-8">
+        <section className="text-center text-muted-foreground text-sm pb-8">
           <p>VALID™ — The Safety Shield™</p>
           <p className="mt-1">Confidential — For Investor Use Only</p>
         </section>

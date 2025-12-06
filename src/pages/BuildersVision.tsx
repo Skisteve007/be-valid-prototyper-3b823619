@@ -21,42 +21,42 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 const BuildersVision = () => {
   const navigate = useNavigate();
 
-  const unicornFactors = [
+  const coreValueDrivers = [
     {
-      icon: Shield,
-      title: "Zero-Trust Risk Transfer",
-      description: "Industry-first architecture that legally shifts liability from partners to the VALID platform, creating unprecedented value for high-liability businesses.",
-      highlight: true
+      title: "1. ZERO-TRUST LIABILITY SHIELD",
+      description: "Industry-first architecture that legally shifts liability from partners to the VALID platform. We provide Zero-Trust ID, HIPAA compliance, and an audit trail, creating unprecedented value for high-liability businesses.",
+      borderColor: "border-red-500",
+      titleColor: "text-amber-400"
     },
     {
-      icon: DollarSign,
-      title: "Dual Revenue Engine",
-      description: "Subscription model + transactional $10 fees on every Incognito Token scan. Multiple monetization streams from day one.",
-      highlight: true
+      title: "2. HIGH-MARGIN TRANSACTIONAL POWER",
+      description: "Dual Revenue Engine: Subscription model + high-margin $10 Incognito Access fees. The platform operates at near-zero marginal cost, driving maximum profitability as your organization scales.",
+      borderColor: "border-orange-500",
+      titleColor: "text-orange-500"
     },
     {
-      icon: Globe,
-      title: "Network Effect Moat",
-      description: "Every new user, venue, and employer strengthens the network. Peer-to-peer trust creates exponential value growth.",
-      highlight: true
+      title: "3. VIRAL NETWORK MOAT",
+      description: "Social Graph Injection: Every new user instantly pulls in their entire social network (Instagram, TikTok, etc.). This peer-to-peer verification creates exponential, self-sustaining network growth.",
+      borderColor: "border-[#2ecc71]",
+      titleColor: "text-[#2ecc71]"
     },
     {
-      icon: Lock,
-      title: "Data Sovereignty Layer",
-      description: "We own the identity/health/payment layer for social economies. This is infrastructure, not just an app.",
-      highlight: false
+      title: "4. DIGITAL SOVEREIGNTY INFRASTRUCTURE",
+      description: "We own the highly secure identity, health, and payment layer for social and corporate economies. This is critical risk infrastructure, not just a consumer app.",
+      borderColor: "border-blue-400",
+      titleColor: "text-blue-400"
     },
     {
-      icon: Zap,
-      title: "3-Second Verification",
-      description: "Instant QR scan replaces awkward conversations, paperwork, and delays. Frictionless user experience drives adoption.",
-      highlight: false
+      title: "5. 3-SECOND FRICTIONLESS ACCESS",
+      description: "Instant QR scan replaces awkward conversations and delays. The Incognito Mode bundles verification, ID, and payment into a single, seamless entry and purchase flow.",
+      borderColor: "border-purple-400",
+      titleColor: "text-purple-400"
     },
     {
-      icon: Users,
-      title: "Multi-Vertical Expansion",
-      description: "Nightlife → Adult Entertainment → Workforce → Transportation → Rentals. Each vertical multiplies the TAM.",
-      highlight: false
+      title: "6. STRATEGIC VERTICAL EXPANSION",
+      description: "Expansion prioritizes high-value asset/workforce risk: Workforce & Corporate Compliance → Transportation & Fleet Management → High-End Rentals → Adult Entertainment → Nightlife & Events.",
+      borderColor: "border-gray-500",
+      titleColor: "text-gray-400"
     }
   ];
 
@@ -173,35 +173,20 @@ const BuildersVision = () => {
           </div>
         </section>
 
-        {/* Core Unicorn Factors */}
-        <section>
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-            💎 Core Value Drivers
-          </h2>
+        {/* Core Value Drivers */}
+        <section className="p-6 bg-card/80 rounded-lg shadow-xl border border-border">
+          <h3 className="text-2xl font-bold text-foreground mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+            Core Value Drivers: Investor Optimization
+          </h3>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {unicornFactors.map((factor) => (
-              <Card 
-                key={factor.title} 
-                className={`bg-card border-border ${factor.highlight ? 'ring-2 ring-amber-500/50' : ''}`}
-              >
-                <CardContent className="p-6">
-                  <div className={`h-12 w-12 rounded-full flex items-center justify-center mb-4 ${factor.highlight ? 'bg-amber-500/20' : 'bg-muted'}`}>
-                    <factor.icon className={`h-6 w-6 ${factor.highlight ? 'text-amber-400' : 'text-muted-foreground'}`} />
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                    {factor.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">{factor.description}</p>
-                  {factor.highlight && (
-                    <Badge className="mt-3 bg-amber-500/20 text-amber-400 border-amber-500/30">
-                      Key Differentiator
-                    </Badge>
-                  )}
-                </CardContent>
-              </Card>
+          <ul className="space-y-4">
+            {coreValueDrivers.map((driver) => (
+              <li key={driver.title} className={`p-4 border-l-4 ${driver.borderColor} bg-muted rounded-md`}>
+                <h4 className={`font-extrabold ${driver.titleColor}`}>{driver.title}</h4>
+                <p className="text-muted-foreground text-sm mt-1">{driver.description}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         {/* Vision Roadmap */}

@@ -30,14 +30,15 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Update the user's profile with the social embed platform
-    // This creates a simple log by updating a field (you could also insert into a separate analytics table)
+    // Insert new analytics event into the dedicated table
     const { data, error } = await supabase
-      .from('profiles')
-      .update({
-        updated_at: new Date().toISOString()
+      .from('social_embed_analytics')
+      .insert({
+        user_id: userId,
+        platform: platform,
+        event_type: 'embed_copy',
+        click_count: 0
       })
-      .eq('user_id', userId)
       .select();
 
     if (error) {
@@ -56,7 +57,8 @@ serve(async (req) => {
         message: `Embed event logged for platform: ${platform}`,
         userId,
         platform,
-        timestamp 
+        timestamp,
+        analyticsId: data?.[0]?.id
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

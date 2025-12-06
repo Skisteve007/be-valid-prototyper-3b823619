@@ -1398,6 +1398,36 @@ export type Database = {
         }
         Relationships: []
       }
+      social_embed_analytics: {
+        Row: {
+          click_count: number
+          created_at: string
+          event_type: string
+          id: string
+          platform: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          click_count?: number
+          created_at?: string
+          event_type?: string
+          id?: string
+          platform: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          click_count?: number
+          created_at?: string
+          event_type?: string
+          id?: string
+          platform?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       sponsor_analytics: {
         Row: {
           event_type: string

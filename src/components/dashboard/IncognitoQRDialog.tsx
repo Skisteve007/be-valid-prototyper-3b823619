@@ -33,7 +33,8 @@ import {
   IdCard,
   Wallet,
   User,
-  FileCheck
+  FileCheck,
+  Calendar
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -53,6 +54,20 @@ interface BundlePreferences {
   includePayment: boolean;
 }
 
+interface PassOption {
+  duration_hrs: number;
+  price: number;
+  label: string;
+  description: string;
+}
+
+// Default pass options - can be overridden by venue configuration
+const DEFAULT_PASS_OPTIONS: PassOption[] = [
+  { duration_hrs: 24, price: 10.00, label: "1-Day Access", description: "Perfect for single events or long nights." },
+  { duration_hrs: 72, price: 20.00, label: "3-Day Festival Pass", description: "Ideal for weekend festivals or long event runs." },
+  { duration_hrs: 168, price: 50.00, label: "One-Week Access", description: "Best for cruise ships, resorts, or week-long stays." },
+];
+
 export const IncognitoQRDialog = ({ 
   open, 
   onClose,
@@ -69,6 +84,10 @@ export const IncognitoQRDialog = ({
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
   const [profileData, setProfileData] = useState<any>(null);
   const [spendingLimit, setSpendingLimit] = useState<string>('500');
+  
+  // Tiered pass selection
+  const [availablePasses] = useState<PassOption[]>(DEFAULT_PASS_OPTIONS);
+  const [selectedPass, setSelectedPass] = useState<PassOption>(DEFAULT_PASS_OPTIONS[0]);
   
   // Spending limit options
   const spendingLimitOptions = [
@@ -97,6 +116,7 @@ export const IncognitoQRDialog = ({
     if (open) {
       setStep('intro');
       setBundlePrefs({ includeId: false, includePayment: false });
+      setSelectedPass(availablePasses[0]);
       checkPaymentMethod();
       loadUserAssets();
     }
@@ -109,7 +129,7 @@ export const IncognitoQRDialog = ({
         .select('*')
         .eq('user_id', userId)
         .eq('is_default', true)
-        .single();
+        .maybeSingle();
 
       if (error || !data) {
         setHasPaymentMethod(false);
@@ -162,6 +182,11 @@ export const IncognitoQRDialog = ({
   };
 
   const handleConfirmPayment = async () => {
+    if (!selectedPass) {
+      toast.error("Please select an access pass.");
+      return;
+    }
+
     setStep('processing');
 
     try {
@@ -173,7 +198,9 @@ export const IncognitoQRDialog = ({
           venue_id: venueId,
           promoter_id: promoterId,
           bundle_preferences: bundlePrefs,
-          spending_limit: parseInt(spendingLimit)
+          spending_limit: parseInt(spendingLimit),
+          access_duration_hrs: selectedPass.duration_hrs,
+          access_price: selectedPass.price
         }
       });
 
@@ -241,6 +268,13 @@ export const IncognitoQRDialog = ({
     return items.join(' + ');
   };
 
+  const getDurationLabel = (hrs: number) => {
+    if (hrs < 24) return `${hrs} Hours`;
+    if (hrs === 24) return '24 Hours';
+    if (hrs < 168) return `${Math.round(hrs / 24)} Days`;
+    return `${Math.round(hrs / 168)} Week${hrs >= 336 ? 's' : ''}`;
+  };
+
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent className="sm:max-w-md">
@@ -254,7 +288,7 @@ export const IncognitoQRDialog = ({
           </DialogDescription>
         </DialogHeader>
 
-        {/* Step: Intro */}
+        {/* Step: Intro - Pass Selection */}
         {step === 'intro' && (
           <div className="space-y-4">
             {/* Member Photo Preview */}
@@ -269,38 +303,64 @@ export const IncognitoQRDialog = ({
               </div>
             )}
 
-            <Card className="border-gray-500/30 bg-gray-500/5">
+            {/* Pass Selection Options */}
+            <Card className="border-amber-500/30 bg-amber-50 dark:bg-amber-950/20">
               <CardContent className="pt-4 space-y-3">
+                <div className="flex items-center gap-2 mb-3">
+                  <Calendar className="h-5 w-5 text-amber-600" />
+                  <h4 className="font-semibold text-amber-800 dark:text-amber-200">Select Access Pass</h4>
+                </div>
+                
+                {availablePasses.map((pass) => (
+                  <label 
+                    key={pass.duration_hrs} 
+                    className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer border transition-all ${
+                      selectedPass.duration_hrs === pass.duration_hrs 
+                        ? 'border-green-500 bg-green-50 dark:bg-green-950/30' 
+                        : 'border-border hover:border-gray-400'
+                    }`}
+                  >
+                    <input 
+                      type="radio" 
+                      name="incognitoPass" 
+                      checked={selectedPass.duration_hrs === pass.duration_hrs}
+                      onChange={() => setSelectedPass(pass)}
+                      className="mt-1"
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold">{pass.label}</span>
+                        <span className="font-bold text-green-600">${pass.price.toFixed(2)}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">{pass.description}</p>
+                    </div>
+                  </label>
+                ))}
+              </CardContent>
+            </Card>
+
+            {/* Features Overview */}
+            <Card className="border-gray-500/30 bg-gray-500/5">
+              <CardContent className="pt-4 space-y-2">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-gray-500/20 rounded-full">
-                    <Shield className="h-5 w-5 text-gray-600" />
+                    <Shield className="h-4 w-4 text-gray-600" />
                   </div>
                   <div>
-                    <p className="font-medium">Master Access Token</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="font-medium text-sm">Master Access Token</p>
+                    <p className="text-xs text-muted-foreground">
                       One QR for entry, payment, and tracking
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-gray-500/20 rounded-full">
-                    <Clock className="h-5 w-5 text-gray-600" />
+                    <Clock className="h-4 w-4 text-gray-600" />
                   </div>
                   <div>
-                    <p className="font-medium">24-Hour Valid</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="font-medium text-sm">{getDurationLabel(selectedPass.duration_hrs)} Valid</p>
+                    <p className="text-xs text-muted-foreground">
                       No viewing timer - full utility period
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-500/20 rounded-full">
-                    <DollarSign className="h-5 w-5 text-gray-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium">$10.00 Access Fee</p>
-                    <p className="text-sm text-muted-foreground">
-                      24-Hour Master Access Token
                     </p>
                   </div>
                 </div>
@@ -325,6 +385,15 @@ export const IncognitoQRDialog = ({
               <p className="text-sm text-muted-foreground">
                 Choose what data to include in your Master Token
               </p>
+            </div>
+
+            {/* Selected Pass Summary */}
+            <div className="bg-amber-50 dark:bg-amber-950/20 rounded-lg p-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-amber-600" />
+                <span className="font-medium text-sm">{selectedPass.label}</span>
+              </div>
+              <Badge className="bg-green-500 text-white">${selectedPass.price.toFixed(2)}</Badge>
             </div>
 
             {/* Always Included */}
@@ -474,7 +543,7 @@ export const IncognitoQRDialog = ({
                   <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
                   <p className="text-sm text-amber-800 dark:text-amber-200">
                     Incognito mode requires a payment method on file. 
-                    The $5 fee will be automatically charged when you generate the QR code.
+                    The ${selectedPass.price.toFixed(2)} fee will be automatically charged when you generate the QR code.
                   </p>
                 </div>
               </CardContent>
@@ -524,12 +593,16 @@ export const IncognitoQRDialog = ({
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Access Pass</span>
+                  <span className="font-medium">{selectedPass.label}</span>
+                </div>
+                <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Amount</span>
-                  <span className="font-bold text-lg">$10.00</span>
+                  <span className="font-bold text-lg">${selectedPass.price.toFixed(2)}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">QR Validity</span>
-                  <span className="font-medium">24 Hours</span>
+                  <span className="font-medium">{getDurationLabel(selectedPass.duration_hrs)}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Bundle</span>
@@ -539,7 +612,7 @@ export const IncognitoQRDialog = ({
             </Card>
 
             <p className="text-xs text-center text-muted-foreground">
-              By proceeding, you authorize the $10.00 charge and data sharing per your bundle selection.
+              By proceeding, you authorize the ${selectedPass.price.toFixed(2)} charge and data sharing per your bundle selection.
             </p>
 
             <Button 
@@ -547,7 +620,7 @@ export const IncognitoQRDialog = ({
               className="w-full bg-gray-600 hover:bg-gray-700"
             >
               <DollarSign className="h-4 w-4 mr-2" />
-              Pay $10.00 & Generate Master Token
+              Pay ${selectedPass.price.toFixed(2)} & Generate Token
             </Button>
             <Button variant="outline" onClick={() => setStep('bundle-select')} className="w-full">
               Back
@@ -562,7 +635,7 @@ export const IncognitoQRDialog = ({
             <div>
               <p className="font-medium">Processing Payment...</p>
               <p className="text-sm text-muted-foreground">
-                Generating your Master Access Token
+                Generating your {selectedPass.label}
               </p>
             </div>
           </div>
@@ -573,25 +646,33 @@ export const IncognitoQRDialog = ({
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               {/* Spending Limit Dropdown - Top Left */}
-              <Select value={spendingLimit} onValueChange={setSpendingLimit}>
-                <SelectTrigger className="w-[140px] h-8 text-xs bg-purple-500/10 border-purple-500/30 hover:bg-purple-500/20">
-                  <DollarSign className="h-3 w-3 mr-1 text-purple-600" />
-                  <SelectValue placeholder="Spending Limit" />
-                </SelectTrigger>
-                <SelectContent className="bg-popover border z-50">
-                  {spendingLimitOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {bundlePrefs.includePayment && (
+                <Select value={spendingLimit} onValueChange={setSpendingLimit}>
+                  <SelectTrigger className="w-[140px] h-8 text-xs bg-purple-500/10 border-purple-500/30 hover:bg-purple-500/20">
+                    <DollarSign className="h-3 w-3 mr-1 text-purple-600" />
+                    <SelectValue placeholder="Spending Limit" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-popover border z-50">
+                    {spendingLimitOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
 
               {/* Badge - Right side */}
-              <Badge className="bg-gray-600 text-white">
-                <EyeOff className="h-3 w-3 mr-1" />
-                ACTIVE
-              </Badge>
+              <div className="flex gap-2 ml-auto">
+                <Badge className="bg-amber-600 text-white">
+                  <Calendar className="h-3 w-3 mr-1" />
+                  {selectedPass.label}
+                </Badge>
+                <Badge className="bg-gray-600 text-white">
+                  <EyeOff className="h-3 w-3 mr-1" />
+                  ACTIVE
+                </Badge>
+              </div>
             </div>
 
             {/* Photo + Gray QR Code */}
@@ -620,6 +701,10 @@ export const IncognitoQRDialog = ({
 
             <Card className="bg-gray-100 dark:bg-gray-800/50">
               <CardContent className="pt-4 space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Access Type</span>
+                  <span className="font-medium">{selectedPass.label}</span>
+                </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Expires</span>
                   <span className="font-medium">{formatExpiryTime()}</span>

@@ -166,7 +166,7 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
 
   // --- UI RENDER ---
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 md:p-6 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl text-foreground pb-8">
+    <div className="w-full max-w-6xl mx-auto p-4 md:p-8 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl text-foreground pb-8">
 
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6 border-b border-slate-700 pb-4">
@@ -178,7 +178,7 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
             {isSupercharged ? "ACCESS GRANTED" : "STANDARD ID"}
           </h2>
           <p className="text-xs sm:text-sm text-slate-500">
-            {isSupercharged ? "Secure Venue Token Active" : "Select Venue, Pass & Funds to Upgrade"}
+            {isSupercharged ? "Secure Venue Token Active" : "Configure Access in Dashboard"}
           </p>
         </div>
         {isSupercharged && (
@@ -272,7 +272,6 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
                 <option value="PayPal">PayPal</option>
                 <option value="Venmo">Venmo</option>
                 <option value="Zelle">Zelle</option>
-                <option value="CashApp">CashApp</option>
               </select>
 
               {/* Load Funds Button */}
@@ -301,7 +300,7 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
                 : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(139,92,246,0.4)]'
             }`}
           >
-            {isSupercharged ? "✓ TOKEN ACTIVE" : `⚡ ACTIVATE QR (-$${selectedPass.price.toFixed(2)})`}
+            {isSupercharged ? "TOKEN ACTIVE" : `ACTIVATE & UPGRADE QR (-$${selectedPass.price.toFixed(2)})`}
           </button>
         </div>
 
@@ -310,7 +309,7 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
 
           {/* THE ONE DYNAMIC QR */}
           <div className={`p-3 sm:p-4 rounded-xl bg-white transition-all duration-500 ${isSupercharged ? 'shadow-[0_0_40px_rgba(74,222,128,0.8)] ring-4 ring-green-400' : 'opacity-80'}`}>
-            <QRCodeSVG value={generatePayload()} size={200} level="H" />
+            <QRCodeSVG value={generatePayload()} size={250} level="H" />
           </div>
 
           {/* THE STATUS & LEDGER DISPLAY */}
@@ -330,10 +329,6 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
 
                   {/* Cost Line */}
                   <div className="flex justify-between text-sm text-slate-300">
-                    <span>Access Tier:</span>
-                    <span className="font-bold">{selectedPass.label}</span>
-                  </div>
-                  <div className="flex justify-between text-sm text-slate-300">
                     <span>Cost Deducted:</span>
                     <span className="text-red-400 font-mono">-${activatedPassPrice.toFixed(2)}</span>
                   </div>
@@ -349,8 +344,8 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
             ) : (
               <div className="opacity-70 py-4">
                 <h3 className="text-slate-400 font-bold text-xl" style={{ fontFamily: 'Orbitron, sans-serif' }}>STANDARD ID</h3>
-                <p className="text-xs text-slate-500 mt-1">Verify Identity Only</p>
-                <p className="text-xs text-amber-500 mt-4 animate-pulse">↓ Select Venue Below to Upgrade ↓</p>
+                <p className="text-xs text-slate-600 mt-1">Verify Identity Only</p>
+                <p className="text-xs text-amber-500 mt-4 animate-pulse">Use Dashboard Controls to Upgrade</p>
               </div>
             )}
           </div>

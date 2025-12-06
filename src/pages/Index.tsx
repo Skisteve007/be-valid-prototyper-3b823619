@@ -135,7 +135,7 @@ const Index = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-xl rounded-full animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>
                 <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-full"></div>
-                <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                <p className="relative text-2xl xl:text-3xl font-black text-center italic tracking-[0.15em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 VALID
                 </p>
               </div>

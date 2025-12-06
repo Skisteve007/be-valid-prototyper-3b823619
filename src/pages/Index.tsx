@@ -532,6 +532,9 @@ const Index = () => {
                       <span className="relative font-mono text-xs md:text-sm font-bold tracking-wider text-accent uppercase" style={{ textShadow: '0 0 10px hsl(var(--accent) / 0.8), 0 0 20px hsl(var(--accent) / 0.5)' }}>
                         ⚡ Beta Pricing • Limited Time ⚡
                       </span>
+                      <p className="relative text-center text-xs text-muted-foreground mt-1 font-medium">
+                        Powered By Synthetic AI
+                      </p>
                     </div>
                   </div>
                 </div>

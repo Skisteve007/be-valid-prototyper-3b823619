@@ -12,7 +12,10 @@ import {
   ArrowRight,
   Database,
   FileText,
-  Home
+  Home,
+  PlayCircle,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -30,6 +33,7 @@ const Partners = () => {
     message: ""
   });
   const [submitting, setSubmitting] = useState(false);
+  const [explainerOpen, setExplainerOpen] = useState(false);
 
   const scrollToContact = () => {
     document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
@@ -448,6 +452,73 @@ const Partners = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* On-Demand Explainer Series Section */}
+      <section id="explainer-hub" className="py-10 px-4 border-t border-border">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl font-bold text-foreground mb-4">
+            On-Demand Explainer Series
+          </h2>
+          <p className="text-lg text-muted-foreground mb-6">
+            Click below to review the 1-minute video scripts that clearly explain the VALID system to everyone—from the member to the CEO.
+          </p>
+
+          <button 
+            onClick={() => setExplainerOpen(!explainerOpen)}
+            className="px-6 py-3 bg-primary text-primary-foreground font-bold rounded-lg shadow-xl hover:bg-primary/90 transition-colors flex items-center justify-center space-x-3 w-full"
+          >
+            <PlayCircle className="h-5 w-5" />
+            <span>VIEW 1-MINUTE EXPLAINER SCRIPTS (Click to Toggle)</span>
+            {explainerOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+          </button>
+
+          {explainerOpen && (
+            <div className="mt-6 space-y-8">
+              {/* Member Explainer */}
+              <div className="p-5 bg-secondary rounded-lg border-l-4 border-amber-500">
+                <h3 className="text-xl font-extrabold text-amber-500 mb-3">MEMBER EXPLAINER: YOUR VALID GREEN LIGHT</h3>
+                <div className="space-y-2 text-muted-foreground">
+                  <p><strong className="text-foreground">Setup:</strong> Own Your Access. Link your ID and set your Vibe Status. Fund your <strong className="text-foreground">Incognito Wallet Token</strong> with any amount ($50 min) using PayPal, Card, or Zelle.</p>
+                  <p><strong className="text-foreground">Activation:</strong> Get the Green Light. Purchase your 1, 3, or 7-day access pass (starting at $10). Your secure, expiring QR code is generated instantly, loaded with your pre-funded balance.</p>
+                  <p><strong className="text-foreground">Privacy:</strong> Full Control. Nothing is shared until you approve. The venue only sees your photo, Green Status, and available Token Balance. <strong className="text-foreground">You are always in charge of your data.</strong></p>
+                  <p><strong className="text-foreground">End Game:</strong> Enjoy Frictionless Access. Use your single QR scan to get verified, pay cover, and start a tab—all in under three seconds.</p>
+                </div>
+                <div className="mt-4 text-right">
+                  <a href="#" className="text-sm text-primary hover:underline">Upload Member Video Here</a>
+                </div>
+              </div>
+
+              {/* Executive Explainer */}
+              <div className="p-5 bg-secondary rounded-lg border-l-4 border-destructive">
+                <h3 className="text-xl font-extrabold text-destructive mb-3">EXECUTIVE EXPLAINER: PROFIT & PROTECTION</h3>
+                <div className="space-y-2 text-muted-foreground">
+                  <p><strong className="text-foreground">The Problem:</strong> Eliminate Risk. You face liability for compliance and security issues. Traditional ID checks fail to mitigate this risk.</p>
+                  <p><strong className="text-foreground">The Solution:</strong> The Triple Shield. VALID's architecture legally shifts liability away from your organization. We enforce <strong className="text-foreground">Zero-Trust</strong> screening and provide the necessary legal firewall.</p>
+                  <p><strong className="text-foreground">The Profit:</strong> Monetize Access. The Incognito Token creates a new, high-margin revenue stream. Collect passive income from the $10, $20, or $50 access fee, plus subscription fees.</p>
+                  <p><strong className="text-foreground">The Scale:</strong> Effortless Integration. Use our simple API keys to connect your LIS and POS systems. Focus on growth, not compliance headaches.</p>
+                </div>
+                <div className="mt-4 text-right">
+                  <a href="#" className="text-sm text-primary hover:underline">Upload Business Video Here</a>
+                </div>
+              </div>
+
+              {/* Staff Explainer */}
+              <div className="p-5 bg-secondary rounded-lg border-l-4 border-accent">
+                <h3 className="text-xl font-extrabold text-accent mb-3">STAFF EXPLAINER: SCANNING FOR SPEED</h3>
+                <div className="space-y-2 text-muted-foreground">
+                  <p><strong className="text-foreground">Setup:</strong> Grab Your Device. Open the VALID scanner URL on any device. No downloads needed.</p>
+                  <p><strong className="text-foreground">Scanning:</strong> The 3-Second Scan. Scan the member's QR code. The system instantly shows their current status, photo, and available token balance.</p>
+                  <p><strong className="text-foreground">Status Codes:</strong> Go/No-Go Decision. <strong className="text-accent">GREEN:</strong> Verified, valid access, sufficient balance. <strong className="text-destructive">RED/YELLOW:</strong> Deny access, check expiration time, or advise refill.</p>
+                  <p><strong className="text-foreground">Transaction:</strong> Seamless Payment. Process cover charge or bar tab deduction directly against the member's pre-funded Token Balance. One scan handles everything.</p>
+                </div>
+                <div className="mt-4 text-right">
+                  <a href="#" className="text-sm text-primary hover:underline">Upload Staff Video Here</a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

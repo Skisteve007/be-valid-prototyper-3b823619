@@ -81,7 +81,7 @@ export default function CompetitiveScorecard() {
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-accent/20 border-b border-border">
         <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-6">
             <Button
               variant="ghost"
               size="sm"
@@ -175,6 +175,13 @@ export default function CompetitiveScorecard() {
             <div className="overflow-x-auto">
               <table className="w-full text-xs font-mono border border-border">
                 <thead>
+                  <tr className="bg-muted/50">
+                    <th className="p-1" style={{ width: '35%' }}></th>
+                    <th className="p-1" style={{ width: '13%' }}></th>
+                    <th colSpan={4} className="text-center p-2 text-xs uppercase tracking-wider text-muted-foreground border-b border-border">
+                      Competitors
+                    </th>
+                  </tr>
                   <tr className="bg-muted text-foreground">
                     <th className="text-left p-2 font-bold uppercase" style={{ width: '35%' }}>VALID FEATURE</th>
                     <th className="text-center p-2 font-extrabold" style={{ width: '13%', color: '#2ecc71' }}>VALID</th>

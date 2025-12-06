@@ -17,7 +17,7 @@ const scorecardData = [
     highlight: true,
   },
   {
-    feature: "Zero-Trust Backend Security & Architecture",
+    feature: "PEER-TO-PEER NETWORK TRUST",
     valid: true,
     clear: false,
     idme: false,
@@ -37,21 +37,21 @@ const scorecardData = [
     highlight: true,
   },
   {
-    feature: "Frictionless Staff Workflow & QR Access",
+    feature: "Zero-Trust Backend Security & Architecture",
     valid: true,
-    clear: true,
+    clear: false,
     idme: false,
-    ticketmaster: true,
+    ticketmaster: false,
     sterling: false,
     stdcheck: false,
     highlight: true,
   },
   {
-    feature: "PEER-TO-PEER NETWORK TRUST",
+    feature: "Frictionless Staff Workflow & Dedicated B2B Portal",
     valid: true,
-    clear: false,
+    clear: true,
     idme: false,
-    ticketmaster: false,
+    ticketmaster: true,
     sterling: false,
     stdcheck: false,
     highlight: true,
@@ -157,6 +157,10 @@ export default function CompetitiveScorecard() {
                 <thead>
                   <tr className="bg-muted text-foreground">
                     <th className="text-left p-2 font-bold uppercase" style={{ width: '30%' }}>VALID FEATURE</th>
+                    <th colSpan={6} className="text-center p-2 font-bold uppercase border-l border-border">COMPETITORS</th>
+                  </tr>
+                  <tr className="bg-muted text-foreground">
+                    <th className="p-2" style={{ width: '30%' }}></th>
                     <th className="text-center p-2 font-extrabold" style={{ width: '12%', color: '#2ecc71' }}>VALID</th>
                     <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>CLEAR</th>
                     <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>ID.me</th>

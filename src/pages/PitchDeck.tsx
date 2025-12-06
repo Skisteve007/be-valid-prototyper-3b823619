@@ -148,9 +148,9 @@ const PitchDeck = () => {
           </div>
           <Card className="bg-gradient-to-br from-red-900/30 to-orange-900/30 border-red-800/50">
             <CardContent className="p-8 text-center">
-              <div className="text-6xl mb-4">😰</div>
+              <div className="text-6xl mb-4">👽</div>
               <p className="text-xl text-slate-300">
-                "How do I know they're really clean?"
+                "How do I know they're really safe?"
               </p>
               <p className="text-sm text-slate-500 mt-2">
                 — Every health-conscious person ever

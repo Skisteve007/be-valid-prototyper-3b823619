@@ -12,3 +12,11 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://bevalid.app/sitemap.xml
+
+# Disallow admin and sensitive areas
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/*

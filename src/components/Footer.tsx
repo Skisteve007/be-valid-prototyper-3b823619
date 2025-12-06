@@ -62,14 +62,14 @@ const Footer = () => {
           </div>
 
           {/* Links & Compliance Row */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[13px] border-t border-slate-500 pt-3 bg-slate-900 -mx-4 px-4 py-3">
-            <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-semibold text-white">Terms</Link>
+          <div className="flex flex-wrap items-center justify-center gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
+            <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Terms</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-semibold text-white">Privacy</Link>
+            <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Privacy</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-semibold text-white">Refund</Link>
+            <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Refund</Link>
             <span className="text-white font-bold">•</span>
-            <span className="text-white font-semibold">🔞 18 U.S.C. § 2257: All users 18+</span>
+            <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: All users 18+</span>
             <span className="ml-auto">
               <button
                 onClick={handleAdminClick}

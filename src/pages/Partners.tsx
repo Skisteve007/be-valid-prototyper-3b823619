@@ -56,39 +56,50 @@ const Partners = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Header */}
-      <header className="border-b border-border bg-background">
+    <div className="min-h-screen text-foreground overflow-x-hidden w-full max-w-full bg-background">
+      {/* Ambient Background Effects - matching homepage */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary/20 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
+      </div>
+
+      {/* Header - matching homepage style */}
+      <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div 
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <img src={logo} alt="VALID" className="h-12 w-auto" />
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
+              <img src={logo} alt="VALID" className="relative h-12 w-auto" />
+            </div>
           </div>
           
           {/* Beta Pricing Badge */}
-          <div className="flex relative group">
-            <div className="absolute inset-0 bg-green-500/40 blur-xl rounded-lg animate-pulse"></div>
-            <div className="absolute inset-0 bg-green-400/20 blur-2xl rounded-lg animate-[pulse_1.5s_ease-in-out_infinite]"></div>
-            <div className="relative px-4 py-2 bg-black/80 border border-green-500/60 rounded-md shadow-[0_0_20px_rgba(34,197,94,0.5),inset_0_0_20px_rgba(34,197,94,0.1)]">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-green-400/5 to-green-500/10 rounded-md"></div>
-              <span className="relative font-mono text-xs font-bold tracking-wider text-green-400 uppercase" style={{ textShadow: '0 0 10px rgba(34,197,94,0.8), 0 0 20px rgba(34,197,94,0.5)' }}>
+          <div className="hidden md:flex relative group">
+            <div className="absolute inset-0 bg-accent/30 blur-xl rounded-lg animate-pulse"></div>
+            <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-lg animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+            <div className="relative px-4 py-2 bg-secondary/80 border border-accent/50 rounded-full shadow-[0_0_20px_hsl(var(--accent)/0.5),inset_0_0_20px_hsl(var(--accent)/0.1)]">
+              <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 rounded-full"></div>
+              <span className="relative font-mono text-xs font-bold tracking-wider text-accent uppercase" style={{ textShadow: '0 0 10px hsl(var(--accent)/0.8), 0 0 20px hsl(var(--accent)/0.5)' }}>
                 ⚡ Beta Pricing • Limited Time ⚡
               </span>
             </div>
           </div>
           
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Button 
               onClick={scrollToContact}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary/15 text-foreground font-semibold text-xs md:text-sm"
             >
+              <div className="absolute inset-0 bg-primary/20 blur-md rounded-md -z-10"></div>
               Request Integration
             </Button>
             <Button 
               onClick={() => navigate("/compliance")}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              variant="outline"
+              className="relative border border-accent/50 bg-accent/10 text-foreground hover:bg-accent/20 font-semibold text-xs md:text-sm"
             >
               ← Back to Partner Solutions
             </Button>
@@ -96,10 +107,9 @@ const Partners = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative bg-background py-24 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.1),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--muted)/0.3),transparent_50%)]"></div>
+      {/* Hero Section - matching homepage style */}
+      <section className="relative py-16 md:py-24 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background"></div>
         
         {/* Animated Radar Scan Line */}
         <div className="absolute inset-0 overflow-hidden">
@@ -107,17 +117,18 @@ const Partners = () => {
         </div>
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary via-primary/80 to-foreground bg-clip-text text-transparent mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent mb-6 leading-tight tracking-tight">
             Integrated Health Compliance for<br />Affiliate Social Ecosystems
           </h1>
-          <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto font-medium italic">
+          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto font-medium italic">
             Automate high-volume results delivery and secure access to exclusive member testing networks via our compliant, API-driven diagnostic pipeline.
           </p>
           <Button 
             size="lg"
             onClick={scrollToContact}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-7 text-lg shadow-[0_8px_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_12px_40px_hsl(var(--primary)/0.4)] transform hover:scale-105 transition-all duration-300"
+            className="relative shadow-[0_0_25px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_35px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary text-primary-foreground px-10 py-7 text-lg transform hover:scale-105 transition-all duration-300"
           >
+            <div className="absolute inset-0 bg-primary/30 blur-xl rounded-md -z-10"></div>
             Request Integration Specs
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
@@ -125,10 +136,11 @@ const Partners = () => {
       </section>
 
       {/* Lab Workflow Section */}
-      <section id="lab-workflow" className="py-16 px-4 bg-card">
-        <div className="container mx-auto max-w-5xl">
+      <section id="lab-workflow" className="relative py-16 px-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-background"></div>
+        <div className="container mx-auto max-w-5xl relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-primary/80 to-foreground bg-clip-text text-transparent mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent mb-4">
               🔬 The Secure Diagnostic Workflow
             </h2>
             <p className="text-lg text-muted-foreground font-medium italic max-w-3xl mx-auto">
@@ -144,47 +156,47 @@ const Partners = () => {
 
           <div className="space-y-6">
             {/* Step 1 */}
-            <div className="flex gap-4 items-start bg-card p-6 rounded-xl shadow-md border border-border">
-              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
+            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
+              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
                 1
               </div>
               <div>
                 <h4 className="font-bold text-foreground text-lg mb-2">Member Procurement (Client Initiation)</h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  The platform member purchases the required <strong>testing kit</strong> directly through their affiliated community or service provider.
+                  The platform member purchases the required <strong className="text-foreground">testing kit</strong> directly through their affiliated community or service provider.
                 </p>
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="flex gap-4 items-start bg-card p-6 rounded-xl shadow-md border border-border">
-              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
+            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
+              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
                 2
               </div>
               <div>
                 <h4 className="font-bold text-foreground text-lg mb-2">Kit Fulfillment (Lab Action)</h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  Your lab receives the order via our secured API endpoint. Your team <strong>sends the testing kit</strong> to the member, including a pre-paid, barcoded <strong>return envelope</strong> for easy sample return.
+                  Your lab receives the order via our secured API endpoint. Your team <strong className="text-foreground">sends the testing kit</strong> to the member, including a pre-paid, barcoded <strong className="text-foreground">return envelope</strong> for easy sample return.
                 </p>
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="flex gap-4 items-start bg-card p-6 rounded-xl shadow-md border border-border">
-              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
+            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
+              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
                 3
               </div>
               <div>
                 <h4 className="font-bold text-foreground text-lg mb-2">Sample Processing & Scanning (Lab Action)</h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  The lab receives the sample, conducts the <strong>Sexual Health and/or Toxicology tests</strong>, and generates the results. Crucially, your technician <strong>scans the unique testing barcode</strong> upon final result entry. This action securely <strong>links the results data to the member's profile ID</strong> within our ecosystem.
+                  The lab receives the sample, conducts the <strong className="text-foreground">Sexual Health and/or Toxicology tests</strong>, and generates the results. Crucially, your technician <strong className="text-foreground">scans the unique testing barcode</strong> upon final result entry. This action securely <strong className="text-foreground">links the results data to the member's profile ID</strong> within our ecosystem.
                 </p>
               </div>
             </div>
 
             {/* Step 4 */}
-            <div className="flex gap-4 items-start bg-card p-6 rounded-xl shadow-md border border-border">
-              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
+            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
+              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
                 4
               </div>
               <div>
@@ -196,14 +208,14 @@ const Partners = () => {
             </div>
 
             {/* Step 5 */}
-            <div className="flex gap-4 items-start bg-card p-6 rounded-xl shadow-md border border-border">
-              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
+            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
+              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
                 5
               </div>
               <div>
                 <h4 className="font-bold text-foreground text-lg mb-2">Status Verification & Compliance Reporting (Member & Platform Action)</h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  Upon receiving the results, the member grants consent to update their private <strong>VALID</strong> status. Our system instantly validates the data, updating the member's compliance status. The platform then securely and instantly shares the member's <strong>compliance status</strong> (Clear/Not Clear) with the requiring <strong>Affiliate Establishment</strong> (Venue, Employer, etc.), ensuring organizational requirements are met without ever revealing the member's raw diagnostic data.
+                  Upon receiving the results, the member grants consent to update their private <strong className="text-foreground">VALID</strong> status. Our system instantly validates the data, updating the member's compliance status. The platform then securely and instantly shares the member's <strong className="text-foreground">compliance status</strong> (Clear/Not Clear) with the requiring <strong className="text-foreground">Affiliate Establishment</strong> (Venue, Employer, etc.), ensuring organizational requirements are met without ever revealing the member's raw diagnostic data.
                 </p>
               </div>
             </div>
@@ -212,14 +224,14 @@ const Partners = () => {
       </section>
 
       {/* Value Props Section */}
-      <section className="py-24 px-4 pb-12 bg-background">
-        <div className="container mx-auto max-w-6xl">
+      <section className="relative py-16 md:py-24 px-4">
+        <div className="container mx-auto max-w-6xl relative z-10">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Card 1: Recurring Volume */}
-            <Card className="relative bg-card border-border shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <Card className="relative bg-card/50 backdrop-blur-sm border-primary/20 shadow-lg hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-primary rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                <div className="h-14 w-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mb-4 shadow-[0_0_20px_hsl(var(--primary)/0.5)] group-hover:scale-110 transition-transform">
                   <Activity className="h-7 w-7 text-primary-foreground" />
                 </div>
                 <CardTitle className="text-2xl text-foreground font-bold">Recurring Volume</CardTitle>
@@ -232,10 +244,10 @@ const Partners = () => {
             </Card>
 
             {/* Card 2: Zero-Friction Support */}
-            <Card className="relative bg-card border-border shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <Card className="relative bg-card/50 backdrop-blur-sm border-primary/20 shadow-lg hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-primary rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                <div className="h-14 w-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mb-4 shadow-[0_0_20px_hsl(var(--primary)/0.5)] group-hover:scale-110 transition-transform">
                   <Zap className="h-7 w-7 text-primary-foreground" />
                 </div>
                 <CardTitle className="text-2xl text-foreground font-bold">Zero-Friction Support</CardTitle>
@@ -248,10 +260,10 @@ const Partners = () => {
             </Card>
 
             {/* Card 3: Compliance Ready */}
-            <Card className="relative bg-card border-border shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <Card className="relative bg-card/50 backdrop-blur-sm border-primary/20 shadow-lg hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-primary rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                <div className="h-14 w-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mb-4 shadow-[0_0_20px_hsl(var(--primary)/0.5)] group-hover:scale-110 transition-transform">
                   <Shield className="h-7 w-7 text-primary-foreground" />
                 </div>
                 <CardTitle className="text-2xl text-foreground font-bold">Compliance Ready</CardTitle>
@@ -267,63 +279,64 @@ const Partners = () => {
       </section>
 
       {/* Marketing Highlights Section */}
-      <section className="py-16 px-4 bg-card">
-        <div className="container mx-auto max-w-5xl">
+      <section className="relative py-16 px-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-background"></div>
+        <div className="container mx-auto max-w-5xl relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-primary/80 to-foreground bg-clip-text text-transparent mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent mb-4">
               Why Labs Choose VALID
             </h2>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6">
             {/* Highlight 1 */}
-            <div className="flex gap-4 p-6 bg-card rounded-xl shadow-md border border-border hover:shadow-lg transition-all duration-300">
-              <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="flex gap-4 p-6 bg-card/50 backdrop-blur-sm rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] transition-all duration-300">
+              <div className="h-12 w-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/30">
                 <Activity className="h-6 w-6 text-primary" />
               </div>
               <div>
                 <h4 className="font-bold text-foreground text-lg mb-2">High-Volume Client Access</h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  Instantly tap into exclusive affiliate communities, guaranteeing a <strong>consistent, mandated volume</strong> for Sexual Health and Toxicology testing.
+                  Instantly tap into exclusive affiliate communities, guaranteeing a <strong className="text-foreground">consistent, mandated volume</strong> for Sexual Health and Toxicology testing.
                 </p>
               </div>
             </div>
 
             {/* Highlight 2 */}
-            <div className="flex gap-4 p-6 bg-card rounded-xl shadow-md border border-border hover:shadow-lg transition-all duration-300">
-              <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="flex gap-4 p-6 bg-card/50 backdrop-blur-sm rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] transition-all duration-300">
+              <div className="h-12 w-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/30">
                 <Zap className="h-6 w-6 text-primary" />
               </div>
               <div>
                 <h4 className="font-bold text-foreground text-lg mb-2">Real-Time API Integration</h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  Utilize our <strong>low-latency, FHIR-compatible API</strong> to securely and instantaneously power the member's <strong>VALID Status</strong>.
+                  Utilize our <strong className="text-foreground">low-latency, FHIR-compatible API</strong> to securely and instantaneously power the member's <strong className="text-foreground">VALID Status</strong>.
                 </p>
               </div>
             </div>
 
             {/* Highlight 3 */}
-            <div className="flex gap-4 p-6 bg-card rounded-xl shadow-md border border-border hover:shadow-lg transition-all duration-300">
-              <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="flex gap-4 p-6 bg-card/50 backdrop-blur-sm rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] transition-all duration-300">
+              <div className="h-12 w-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/30">
                 <Shield className="h-6 w-6 text-primary" />
               </div>
               <div>
                 <h4 className="font-bold text-foreground text-lg mb-2">Automated Compliance Reporting</h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  The system automatically manages secure result sharing with Establishments, <strong>offloading complex HIPAA/GDPR compliance</strong> from your internal team.
+                  The system automatically manages secure result sharing with Establishments, <strong className="text-foreground">offloading complex HIPAA/GDPR compliance</strong> from your internal team.
                 </p>
               </div>
             </div>
 
             {/* Highlight 4 */}
-            <div className="flex gap-4 p-6 bg-card rounded-xl shadow-md border border-border hover:shadow-lg transition-all duration-300">
-              <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="flex gap-4 p-6 bg-card/50 backdrop-blur-sm rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] transition-all duration-300">
+              <div className="h-12 w-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/30">
                 <Code className="h-6 w-6 text-primary" />
               </div>
               <div>
                 <h4 className="font-bold text-foreground text-lg mb-2">Zero-Friction Efficiency</h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  Upload results using <strong>batch processing</strong> and barcode scanning, minimizing manual entry and ensuring <strong>zero delays</strong> in updating member status.
+                  Upload results using <strong className="text-foreground">batch processing</strong> and barcode scanning, minimizing manual entry and ensuring <strong className="text-foreground">zero delays</strong> in updating member status.
                 </p>
               </div>
             </div>

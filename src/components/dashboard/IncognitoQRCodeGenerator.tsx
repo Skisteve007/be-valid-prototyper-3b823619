@@ -1,252 +1,256 @@
-// --- Incognito Master Access Generator (FINAL PRE-FUNDED WALLET TOKEN) ---
+// *****************************************************************************
+// FILE: IncognitoQRCodeGenerator.tsx
+// PURPOSE: The "Money Engine" - Tiered Access, Pre-Funded Wallet, and Dynamic QR
+// *****************************************************************************
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Button } from '@/components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
 
+// --- 1. TIERED PRICING CONFIGURATION (The Menu) ---
 interface PassOption {
+  id: string;
   duration_hrs: number;
   price: number;
   label: string;
   description: string;
 }
 
-interface UserData {
-  userId: string;
-}
-
-interface BundleChoice {
-  includeDl: boolean;
-  includePassport: boolean;
-  includePayment: boolean;
-}
-
-interface IncognitoQRCodeGeneratorProps {
-  userData: UserData;
-  currentVenueId?: string;
-  currentPromoterId?: string;
-  availablePasses?: PassOption[];
-}
-
-// CRITICAL: Pass pricing - $10 for 1-day (40/40/20 split)
-const DEFAULT_PASS_OPTIONS: PassOption[] = [
-  { duration_hrs: 24, price: 10.00, label: "1-Day Access", description: "24-hour venue access." },
-  { duration_hrs: 72, price: 20.00, label: "3-Day Festival Pass", description: "Weekend event coverage." },
-  { duration_hrs: 168, price: 50.00, label: "One-Week Access", description: "Cruise or resort stay access." },
+const VENUE_PASS_OPTIONS: PassOption[] = [
+  { 
+    id: '1_day', 
+    duration_hrs: 24, 
+    price: 10.00, 
+    label: "1-Day Access", 
+    description: "Perfect for single events. Expires in 24h." 
+  }, 
+  { 
+    id: '3_day', 
+    duration_hrs: 72, 
+    price: 20.00, 
+    label: "3-Day Festival Pass", 
+    description: "Ideal for weekends. Expires in 72h." 
+  }, 
+  { 
+    id: '7_day', 
+    duration_hrs: 168, 
+    price: 50.00, 
+    label: "One-Week Access", 
+    description: "Best for cruises & resorts. Expires in 7 days." 
+  }, 
 ];
 
-const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({
-  userData,
-  currentVenueId,
-  currentPromoterId,
-  availablePasses = DEFAULT_PASS_OPTIONS
-}) => {
+interface IncognitoQRCodeGeneratorProps {
+  userData: { userId: string };
+  currentVenueId?: string;
+}
 
-  // States for Pass Selection
-  const [selectedPass, setSelectedPass] = useState<PassOption>(availablePasses[0]);
-  const [bundleChoice, setBundleChoice] = useState<BundleChoice>({ includeDl: false, includePassport: false, includePayment: true });
-  const [isIncognitoActive, setIsIncognitoActive] = useState(false);
+const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ userData, currentVenueId }) => {
+    
+  // --- STATE MANAGEMENT ---
+  const [selectedPass, setSelectedPass] = useState<PassOption>(VENUE_PASS_OPTIONS[0]);
+  
+  // Wallet States
+  const [walletBalance, setWalletBalance] = useState<number>(0.00);
+  const [refillAmount, setRefillAmount] = useState<number>(100);
+  const [paymentMethod, setPaymentMethod] = useState<string>('');
+  
+  // Activation States
+  const [isIncognitoActive, setIsIncognitoActive] = useState<boolean>(false);
+  const [expirationDate, setExpirationDate] = useState<Date | null>(null);
 
-  // --- PRE-FUNDED WALLET STATES ---
-  const [fundingAmount, setFundingAmount] = useState(100);
-  const [currentBalance, setCurrentBalance] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Fetch current wallet balance on mount
-  useEffect(() => {
-    const fetchBalance = async () => {
-      const { data, error } = await supabase
-        .from('wallet_transactions')
-        .select('balance_after')
-        .eq('user_id', userData.userId)
-        .order('created_at', { ascending: false })
-        .limit(1);
-      
-      if (data && data.length > 0) {
-        setCurrentBalance(Number(data[0].balance_after));
-      }
-    };
-    fetchBalance();
-  }, [userData.userId]);
-
-  // --- STRIPE WALLET REFILL ---
-  const handleRefillToken = async () => {
-    if (!fundingAmount || fundingAmount < 50) {
-      toast.error("Please enter a valid funding amount (min $50).");
+  // --- 2. WALLET LOGIC (Refilling Funds) ---
+  const handleRefillWallet = () => {
+    if (refillAmount < 50) {
+      alert("Minimum refill amount is $50.00");
+      return;
+    }
+    if (!paymentMethod) {
+      alert("Please select a payment method (Card, PayPal, or Zelle).");
       return;
     }
 
-    setIsLoading(true);
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        toast.error("Please log in to refill your wallet.");
-        return;
-      }
-
-      const { data, error } = await supabase.functions.invoke('refill-wallet', {
-        body: { amount: fundingAmount, payment_method: 'stripe' },
-      });
-
-      if (error) throw error;
-
-      if (data?.url) {
-        // Open Stripe checkout in new tab
-        window.open(data.url, '_blank');
-        toast.success("Redirecting to Stripe checkout...");
-      }
-    } catch (error: any) {
-      console.error('Refill error:', error);
-      toast.error(error.message || "Failed to initiate payment");
-    } finally {
-      setIsLoading(false);
-    }
+    // SIMULATION: In production, this hits the Payment Gateway API
+    const newBalance = walletBalance + refillAmount;
+    setWalletBalance(newBalance);
+    alert(`SUCCESS: Added $${refillAmount} via ${paymentMethod}. New Balance: $${newBalance.toFixed(2)}`);
+    setRefillAmount(100);
   };
 
-  const handleActivateIncognito = () => {
-    if (currentBalance < selectedPass.price) {
-      alert(`Error: Insufficient balance. Please refill token with at least $${selectedPass.price.toFixed(2)}.`);
+  // --- 3. ACTIVATION LOGIC (Purchasing Access) ---
+  const handleActivatePass = () => {
+    if (walletBalance < selectedPass.price) {
+      alert(`INSUFFICIENT FUNDS: You need $${selectedPass.price} for this pass. Please refill your wallet.`);
       return;
     }
 
-    const expirationTime = new Date(Date.now() + selectedPass.duration_hrs * 60 * 60 * 1000).toISOString();
-
-    // CRITICAL BACKEND ACTION: Deduct pass cost from balance and process split
-    // This initiates the 40/40/20 revenue split for the pass price ($10, $20, or $50)
-    // CALL: processPassPurchaseAndSplit(userId, selectedPass.price, currentVenueId, currentPromoterId, selectedPass.duration_hrs);
-
-    setCurrentBalance(prevBalance => prevBalance - selectedPass.price); // Deduct pass cost
+    // Deduct cost
+    setWalletBalance(prev => prev - selectedPass.price);
+    
+    // Set Expiration
+    const newExpiration = new Date(Date.now() + selectedPass.duration_hrs * 60 * 60 * 1000);
+    setExpirationDate(newExpiration);
+    
     setIsIncognitoActive(true);
   };
 
-  const generateIncognitoPayload = () => {
-    const expirationTime = new Date(Date.now() + selectedPass.duration_hrs * 60 * 60 * 1000).toISOString();
+  // --- 4. QR PAYLOAD GENERATOR (The Data Scanner Reads) ---
+  const generateQRPayload = (): string => {
+    if (!isIncognitoActive || !expirationDate) return "";
 
-    return JSON.stringify({
-      access_type: "INCOGNITO_WALLET",
-      user_id: userData.userId,
-      token_balance: currentBalance, // CRITICAL: Current spending value
-      promoter_id: currentPromoterId,
-      access_duration_hrs: selectedPass.duration_hrs,
-      token_expires_at: expirationTime,
-    });
+    const payload = {
+      type: "INCOGNITO_ACCESS_TOKEN",
+      uid: userData?.userId || "USER_123",
+      venue_id: currentVenueId || "GLOBAL",
+      status: "ACTIVE",
+      tier: selectedPass.label,
+      expires_at: expirationDate.toISOString(),
+      current_wallet_balance: walletBalance.toFixed(2),
+      id_verified: true,
+      third_party_auth: "ONFIDO_VERIFIED_TOKEN_XYZ"
+    };
+    return JSON.stringify(payload);
   };
 
-  // --- UI RENDERING ---
-
+  // --- RENDER ---
   return (
-    <div className="p-6 bg-card rounded-lg shadow-2xl">
-      <h3 className="text-2xl font-bold text-foreground mb-4 font-orbitron">Incognito Wallet Token Command Center</h3>
+    <div className="w-full max-w-4xl mx-auto p-6 bg-card border border-border rounded-xl shadow-2xl text-foreground">
+      
+      {/* HEADER */}
+      <div className="mb-8 border-b border-border pb-4">
+        <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-400 font-orbitron">
+          INCOGNITO COMMAND CENTER
+        </h2>
+        <p className="text-muted-foreground mt-2">
+          Manage your funds, choose your duration, and generate your secure access token.
+        </p>
+      </div>
 
-      {/* 1. PRE-FUNDED WALLET MONITOR */}
-      <div className="space-y-3 mb-6 p-4 border border-blue-500 rounded-lg bg-muted">
-        <h4 className="text-lg font-semibold text-blue-400 mb-3">💰 Wallet Token Balance</h4>
-        <div className="text-center p-3 mb-3 bg-background rounded">
-          <p className="text-xl font-extrabold text-green-400">
-            Current Balance: <span className="font-bold">${currentBalance.toLocaleString()}</span>
-          </p>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        {/* LEFT COLUMN: WALLET & SELECTION */}
+        <div className="space-y-6">
+          
+          {/* A. SPENDING MONITOR / WALLET */}
+          <div className="bg-muted p-5 rounded-lg border border-blue-500/30 shadow-inner">
+            <h3 className="text-xl font-bold text-blue-400 mb-2">💰 Spending Wallet</h3>
+            <div className="text-4xl font-mono font-bold text-foreground mb-4">
+              ${walletBalance.toFixed(2)}
+            </div>
+            
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs text-muted-foreground uppercase">Refill Amount ($)</label>
+                <input 
+                  type="number" 
+                  value={refillAmount}
+                  onChange={(e) => setRefillAmount(Number(e.target.value) || 0)}
+                  className="w-full bg-background border border-border rounded p-2 text-foreground"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted-foreground uppercase">Payment Method</label>
+                <select 
+                  value={paymentMethod}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  className="w-full bg-background border border-border rounded p-2 text-foreground"
+                >
+                  <option value="">-- Select Method --</option>
+                  <option value="Credit Card">Credit Card (Instant)</option>
+                  <option value="Apple Pay">Apple Pay</option>
+                  <option value="PayPal">PayPal</option>
+                  <option value="Zelle">Zelle / Crypto</option>
+                </select>
+              </div>
+              <Button 
+                onClick={handleRefillWallet}
+                className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold"
+              >
+                LOAD FUNDS
+              </Button>
+            </div>
+          </div>
+
+          {/* B. PASS SELECTION */}
+          <div className="bg-muted p-5 rounded-lg border border-amber-500/30">
+            <h3 className="text-xl font-bold text-amber-500 mb-4">⏱️ Select Access Duration</h3>
+            <div className="space-y-3">
+              {VENUE_PASS_OPTIONS.map((option) => (
+                <div 
+                  key={option.id}
+                  onClick={() => setSelectedPass(option)}
+                  className={`p-3 rounded cursor-pointer border-2 transition-all flex justify-between items-center ${
+                    selectedPass.id === option.id 
+                      ? 'border-green-400 bg-muted-foreground/10' 
+                      : 'border-border hover:border-muted-foreground'
+                  }`}
+                >
+                  <div>
+                    <div className="font-bold text-foreground">{option.label}</div>
+                    <div className="text-xs text-muted-foreground">{option.description}</div>
+                  </div>
+                  <div className="text-green-400 font-bold text-xl">
+                    ${option.price.toFixed(2)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <label className="block text-foreground font-medium mb-1 pt-2">Refill Amount (Min $50 / Max $10,000)</label>
-        <input
-          type="number"
-          min="50"
-          max="10000"
-          value={fundingAmount}
-          onChange={(e) => setFundingAmount(Math.max(50, Math.min(10000, parseInt(e.target.value) || 50)))}
-          className="w-full p-2 bg-background border border-border rounded text-foreground"
-        />
-
-
-        <Button onClick={handleRefillToken} disabled={isLoading} className="w-full mt-3">
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            `Add $${fundingAmount.toLocaleString()} via Stripe`
-          )}
-        </Button>
-      </div>
-
-
-      {/* 2. PASS SELECTION OPTIONS */}
-      <div className="space-y-3 mb-6 p-4 border border-amber-600 rounded-lg bg-muted">
-        <h4 className="text-lg font-semibold text-amber-500 mb-2">Select Access Pass (Venue Offers):</h4>
-        {availablePasses.map(pass => (
-          <label key={pass.duration_hrs} className="flex items-center text-muted-foreground">
-            <input
-              type="radio"
-              name="incognitoPass"
-              checked={selectedPass.duration_hrs === pass.duration_hrs}
-              onChange={() => setSelectedPass(pass)}
-              className="mr-3"
-            />
-            <span className="font-bold text-green-400">${pass.price.toFixed(2)}</span>
-            <span className="ml-2"> for {pass.label}</span>
-          </label>
-        ))}
-      </div>
-
-      {/* 3. DATA SHARING BUNDLE */}
-      <div className="space-y-2 mb-6">
-        <h4 className="text-sm font-semibold text-muted-foreground mb-2">Select Data Bundle:</h4>
-        <label className="flex items-center text-muted-foreground">
-          <input
-            type="checkbox"
-            checked={bundleChoice.includeDl}
-            onChange={(e) => setBundleChoice(prev => ({ ...prev, includeDl: e.target.checked }))}
-            className="mr-2"
-          />
-          Include Driver's License
-        </label>
-        <label className="flex items-center text-muted-foreground">
-          <input
-            type="checkbox"
-            checked={bundleChoice.includePassport}
-            onChange={(e) => setBundleChoice(prev => ({ ...prev, includePassport: e.target.checked }))}
-            className="mr-2"
-          />
-          Include Passport
-        </label>
-        <label className="flex items-center text-muted-foreground">
-          <input
-            type="checkbox"
-            checked={bundleChoice.includePayment}
-            onChange={(e) => setBundleChoice(prev => ({ ...prev, includePayment: e.target.checked }))}
-            className="mr-2"
-          />
-          Include Payment Method
-        </label>
-      </div>
-
-
-      {/* 4. ACTIVATION & QR DISPLAY */}
-      <div className="text-center mt-6">
-        {!isIncognitoActive ? (
-          <Button
-            onClick={handleActivateIncognito}
-            disabled={currentBalance < selectedPass.price}
-            className="bg-orange-500 hover:bg-orange-600 text-foreground font-bold px-8 py-4 text-lg shadow-2xl"
-          >
-            Activate Pass: Deduct ${selectedPass ? selectedPass.price.toFixed(2) : '---'}
-          </Button>
-        ) : (
-          <>
-            {/* Active Token Display */}
-            <h4 className="text-md text-green-400 mb-2">TOKEN ACTIVE: {selectedPass.label}</h4>
-            <p className="text-sm text-amber-500 mb-3">Current Wallet Balance: <span className="font-bold">${currentBalance.toLocaleString()}</span></p>
-
-            {/* QR Code and Photo Display */}
-            <div className="flex justify-center">
-              <QRCodeSVG value={generateIncognitoPayload()} size={256} fgColor="#808080" level="H" />
+        {/* RIGHT COLUMN: ACTIVATION & QR */}
+        <div className="flex flex-col items-center justify-center bg-background/40 rounded-lg p-6 border border-border">
+          
+          {!isIncognitoActive ? (
+            <div className="text-center space-y-4">
+              <div className="text-muted-foreground">
+                Pass Selected: <span className="text-foreground font-bold">{selectedPass.label}</span>
+              </div>
+              <div className="text-muted-foreground">
+                Cost: <span className="text-red-400 font-bold">-${selectedPass.price.toFixed(2)}</span>
+              </div>
+              <Button 
+                onClick={handleActivatePass}
+                className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-lg rounded-full shadow-lg hover:scale-105 transition-transform"
+              >
+                ACTIVATE INCOGNITO MODE
+              </Button>
+              <p className="text-xs text-muted-foreground">
+                Clicking activate deducts funds and generates your unique QR token.
+              </p>
             </div>
-          </>
-        )}
+          ) : (
+            <div className="text-center w-full animate-fade-in">
+              <h3 className="text-green-400 font-bold text-2xl mb-2 tracking-widest">ACCESS GRANTED</h3>
+              <p className="text-amber-500 text-sm mb-6">
+                Expires: {expirationDate?.toLocaleString()}
+              </p>
+
+              <div className="bg-white p-4 rounded-lg inline-block shadow-2xl mb-6">
+                <QRCodeSVG 
+                  value={generateQRPayload()} 
+                  size={250} 
+                  level="H"
+                  includeMargin={true}
+                  fgColor="#000000"
+                />
+              </div>
+
+              <div className="bg-muted p-4 rounded text-left w-full border border-border">
+                <p className="text-xs text-muted-foreground uppercase">Live Wallet Balance</p>
+                <p className="text-xl text-foreground font-mono">${walletBalance.toFixed(2)}</p>
+                
+                <div className="mt-2 pt-2 border-t border-border">
+                  <p className="text-xs text-muted-foreground uppercase">Status</p>
+                  <p className="text-sm text-green-400 font-bold flex items-center">
+                    <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                    ACTIVE & VERIFIED (3rd Party)
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

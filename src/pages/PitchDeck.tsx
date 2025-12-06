@@ -68,67 +68,23 @@ const PitchDeck = () => {
   ];
 
   const scorecardData = [
-    {
-      feature: "Integrated Health/Tox Status (HIPAA)",
-      valid: true,
-      clear: false,
-      idme: false,
-      ticketmaster: false,
-      sterling: false,
-      stdcheck: true,
-      highlight: true,
-    },
-    {
-      feature: "PEER-TO-PEER NETWORK TRUST",
-      valid: true,
-      clear: false,
-      idme: false,
-      ticketmaster: false,
-      sterling: false,
-      stdcheck: false,
-      highlight: true,
-    },
-    {
-      feature: "Automated Revenue Share ($10 Transaction Model)",
-      valid: true,
-      clear: false,
-      idme: false,
-      ticketmaster: false,
-      sterling: false,
-      stdcheck: false,
-      highlight: true,
-    },
-    {
-      feature: "Zero-Trust Backend Security & Architecture",
-      valid: true,
-      clear: false,
-      idme: false,
-      ticketmaster: false,
-      sterling: false,
-      stdcheck: false,
-      highlight: true,
-    },
-    {
-      feature: "Frictionless Staff Workflow & Dedicated B2B Portal",
-      valid: true,
-      clear: true,
-      idme: false,
-      ticketmaster: true,
-      sterling: false,
-      stdcheck: false,
-      highlight: true,
-    },
-    {
-      feature: "Rolling (Continuous) Compliance & Screening",
-      valid: true,
-      clear: false,
-      idme: false,
-      ticketmaster: false,
-      sterling: true,
-      stdcheck: false,
-      highlight: false,
-    },
+    { feature: "Integrated Health/Tox Status (HIPAA)", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, highlight: true },
+    { feature: "Zero-Trust Backend Security & Architecture", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
+    { feature: "Automated Revenue Share ($10 Transaction)", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
+    { feature: "PEER-TO-PEER NETWORK TRUST", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
+    { feature: "Frictionless Staff Workflow & B2B Portal", valid: true, clear: true, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, highlight: true },
+    { feature: "Rolling (Continuous) Compliance & Screening", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, highlight: false },
+    { feature: "Managed Transactional Payments (In-App Wallet)", valid: true, clear: false, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, highlight: false },
+    { feature: "Digital Identity Verification (Standard)", valid: true, clear: true, idme: true, ticketmaster: true, sterling: true, stdcheck: false, eventbrite: true, highlight: false },
   ];
+
+  const validScore = scorecardData.filter(r => r.valid).length;
+  const clearScore = scorecardData.filter(r => r.clear).length;
+  const idmeScore = scorecardData.filter(r => r.idme).length;
+  const ticketmasterScore = scorecardData.filter(r => r.ticketmaster).length;
+  const sterlingScore = scorecardData.filter(r => r.sterling).length;
+  const stdcheckScore = scorecardData.filter(r => r.stdcheck).length;
+  const eventbriteScore = scorecardData.filter(r => r.eventbrite).length;
 
   const renderCheck = (value: boolean, isValid?: boolean) => {
     if (value) {
@@ -200,24 +156,25 @@ const PitchDeck = () => {
             Direct Competitive Scorecard: Why VALID Wins
           </h2>
           <p className="text-muted-foreground text-sm mb-4">
-            VALID is the only platform that integrates the six key functions essential for de-risking and <strong>monetizing</strong> high-liability businesses.
+            VALID is the only platform integrating the <strong>eight key functions</strong> needed to de-risk and monetize high-liability businesses.
           </p>
           
           <div className="overflow-x-auto">
-            <table className="w-full text-xs font-mono border border-border">
+            <table className="w-full text-[10px] font-mono border border-border">
               <thead>
                 <tr className="bg-muted text-foreground">
-                  <th className="p-2 text-left font-bold uppercase" style={{ width: '30%' }}>VALID FEATURE</th>
-                  <th colSpan={6} className="p-2 text-center font-bold uppercase border-l border-border">COMPETITORS</th>
+                  <th className="p-2 text-left font-bold uppercase" style={{ width: '25%' }}>VALID FEATURE</th>
+                  <th colSpan={7} className="p-2 text-center font-bold uppercase border-l border-border">COMPETITORS</th>
                 </tr>
                 <tr className="bg-muted text-foreground">
-                  <th className="p-2" style={{ width: '30%' }}></th>
-                  <th className="p-2 text-center font-extrabold" style={{ width: '12%', color: '#2ecc71' }}>VALID</th>
-                  <th className="p-2 text-center" style={{ width: '12%' }}>CLEAR</th>
-                  <th className="p-2 text-center" style={{ width: '12%' }}>ID.me</th>
-                  <th className="p-2 text-center" style={{ width: '12%' }}>TICKETMASTER</th>
-                  <th className="p-2 text-center" style={{ width: '12%' }}>STERLING</th>
-                  <th className="p-2 text-center" style={{ width: '12%' }}>STDCHECK</th>
+                  <th className="p-1" style={{ width: '25%' }}></th>
+                  <th className="p-1 text-center font-extrabold" style={{ width: '10%', color: '#2ecc71' }}>VALID</th>
+                  <th className="p-1 text-center" style={{ width: '9%' }}>CLEAR</th>
+                  <th className="p-1 text-center" style={{ width: '9%' }}>ID.me</th>
+                  <th className="p-1 text-center" style={{ width: '9%' }}>TICKETMASTER</th>
+                  <th className="p-1 text-center" style={{ width: '9%' }}>STERLING</th>
+                  <th className="p-1 text-center" style={{ width: '9%' }}>STDCHECK</th>
+                  <th className="p-1 text-center" style={{ width: '10%' }}>EVENTBRITE</th>
                 </tr>
               </thead>
               <tbody className="bg-card">
@@ -226,25 +183,27 @@ const PitchDeck = () => {
                     <td className={`p-2 text-left text-foreground ${row.highlight ? 'font-semibold' : ''}`}>
                       {row.feature}
                     </td>
-                    <td className="p-2 text-center">{renderCheck(row.valid, true)}</td>
-                    <td className="p-2 text-center">{renderCheck(row.clear)}</td>
-                    <td className="p-2 text-center">{renderCheck(row.idme)}</td>
-                    <td className="p-2 text-center">{renderCheck(row.ticketmaster)}</td>
-                    <td className="p-2 text-center">{renderCheck(row.sterling)}</td>
-                    <td className="p-2 text-center">{renderCheck(row.stdcheck)}</td>
+                    <td className="p-1 text-center">{renderCheck(row.valid, true)}</td>
+                    <td className="p-1 text-center">{renderCheck(row.clear)}</td>
+                    <td className="p-1 text-center">{renderCheck(row.idme)}</td>
+                    <td className="p-1 text-center">{renderCheck(row.ticketmaster)}</td>
+                    <td className="p-1 text-center">{renderCheck(row.sterling)}</td>
+                    <td className="p-1 text-center">{renderCheck(row.stdcheck)}</td>
+                    <td className="p-1 text-center">{renderCheck(row.eventbrite)}</td>
                   </tr>
                 ))}
                 {/* Total Score Row */}
                 <tr className="bg-amber-900/50 border-t-2 border-amber-600">
                   <td className="p-2 text-left text-amber-300 font-extrabold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                    TOTAL INTEGRATION SCORE (6 Max)
+                    TOTAL INTEGRATION SCORE (8 Max)
                   </td>
-                  <td className="p-2 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>6/6</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/6</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">0/6</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">2/6</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/6</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/6</td>
+                  <td className="p-1 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>{validScore}/8</td>
+                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{clearScore}/8</td>
+                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{idmeScore}/8</td>
+                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{ticketmasterScore}/8</td>
+                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{sterlingScore}/8</td>
+                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{stdcheckScore}/8</td>
+                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{eventbriteScore}/8</td>
                 </tr>
               </tbody>
             </table>

@@ -483,7 +483,7 @@ const Index = () => {
                 <Card className="h-full p-6 bg-card rounded-xl shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 transition-all">
                   <Users className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
                   <CardTitle className="text-2xl font-bold mb-3 text-foreground">DYNAMIC PEER SHARING</CardTitle>
-                  <p className="text-muted-foreground text-base">Securely share your verified status with peers and authorized partners—expanding trust within your immediate circle.</p>
+                  <p className="text-muted-foreground text-base">Instantly grant the green light to confidence. Share your verified status with peers and authorized network affiliates using a single tap. You are always in control of what data is shared, ensuring your profile is secure, discreet, and perfectly presented. This is how the most exclusive communities expand trust—frictionlessly. Expands social access, eliminates ambiguity, integrable with your current social networks across all major platforms.</p>
                 </Card>
               </ScrollReveal>
 

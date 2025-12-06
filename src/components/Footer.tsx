@@ -62,19 +62,19 @@ const Footer = () => {
           </div>
 
           {/* Links & Compliance Row */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[12px] border-t border-slate-600 pt-3 text-slate-200">
-            <Link to="/terms" className="hover:text-white transition-colors underline font-medium text-slate-100">Terms</Link>
-            <span className="text-slate-400">|</span>
-            <Link to="/privacy" className="hover:text-white transition-colors underline font-medium text-slate-100">Privacy</Link>
-            <span className="text-slate-400">|</span>
-            <Link to="/refund" className="hover:text-white transition-colors underline font-medium text-slate-100">Refund</Link>
-            <span className="text-slate-400">•</span>
-            <span className="text-slate-300">🔞 18 U.S.C. § 2257: All users 18+</span>
+          <div className="flex flex-wrap items-center justify-center gap-2 text-[13px] border-t border-slate-500 pt-3 bg-slate-900 -mx-4 px-4 py-3">
+            <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-semibold text-white">Terms</Link>
+            <span className="text-white font-bold">|</span>
+            <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-semibold text-white">Privacy</Link>
+            <span className="text-white font-bold">|</span>
+            <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-semibold text-white">Refund</Link>
+            <span className="text-white font-bold">•</span>
+            <span className="text-white font-semibold">🔞 18 U.S.C. § 2257: All users 18+</span>
             <span className="ml-auto">
               <button
                 onClick={handleAdminClick}
                 disabled={checkingAuth}
-                className="text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-200 hover:brightness-110 focus:outline-none bg-emerald-600 hover:bg-emerald-500 text-white disabled:opacity-50 shadow-[0_0_15px_rgba(16,185,129,0.5)]"
+                className="text-sm px-4 py-2 rounded-full font-bold transition-all duration-200 hover:brightness-110 focus:outline-none bg-emerald-500 hover:bg-emerald-400 text-slate-900 disabled:opacity-50 shadow-[0_0_20px_rgba(16,185,129,0.7)]"
               >
                 {isAdmin ? 'Admin Panel' : 'Admin'}
               </button>

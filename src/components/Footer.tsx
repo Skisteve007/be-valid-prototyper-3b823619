@@ -53,21 +53,21 @@ const Footer = () => {
   
   return (
     <>
-      <footer className="w-full mt-auto border-t border-border bg-card">
+      <footer className="w-full mt-auto border-t border-border bg-slate-100 dark:bg-slate-900">
         <div className="container mx-auto px-4 py-4">
           {/* Compact Legal Section */}
-          <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-muted-foreground">
+          <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-slate-700 dark:text-slate-300">
             <p>© 2025 VALID. All Rights Reserved. VALID™, The Safety Shield™, Dual-Verification System™ pending trademarks. Protected under U.S. Copyright Law.</p>
-            <p><strong>Disclaimer:</strong> VALID is a technology platform, not a healthcare provider. Services are for informational purposes only. All testing by independent CLIA-certified labs. HIPAA-compliant. We do not sell PHI.</p>
+            <p><strong className="text-slate-800 dark:text-slate-200">Disclaimer:</strong> VALID is a technology platform, not a healthcare provider. Services are for informational purposes only. All testing by independent CLIA-certified labs. HIPAA-compliant. We do not sell PHI.</p>
           </div>
 
           {/* Links & Compliance Row */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[12px] border-t border-border pt-3 text-muted-foreground">
-            <Link to="/terms" className="hover:text-foreground transition-colors underline font-medium">Terms</Link>
+          <div className="flex flex-wrap items-center justify-center gap-2 text-[12px] border-t border-slate-300 dark:border-slate-700 pt-3 text-slate-700 dark:text-slate-300">
+            <Link to="/terms" className="hover:text-slate-900 dark:hover:text-white transition-colors underline font-medium">Terms</Link>
             <span>|</span>
-            <Link to="/privacy" className="hover:text-foreground transition-colors underline font-medium">Privacy</Link>
+            <Link to="/privacy" className="hover:text-slate-900 dark:hover:text-white transition-colors underline font-medium">Privacy</Link>
             <span>|</span>
-            <Link to="/refund" className="hover:text-foreground transition-colors underline font-medium">Refund</Link>
+            <Link to="/refund" className="hover:text-slate-900 dark:hover:text-white transition-colors underline font-medium">Refund</Link>
             <span>•</span>
             <span>🔞 18 U.S.C. § 2257: All users 18+</span>
             <span className="ml-auto">

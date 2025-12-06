@@ -401,47 +401,63 @@ const Index = () => {
               </div>
             </ScrollReveal>
             
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {/* 1. Dynamic Peer Sharing */}
               <ScrollReveal direction="up" delay={200}>
                 <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
-                  <RefreshCw className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">Automated Workforce Monitor</CardTitle>
-                  <p className="text-muted-foreground text-base">Set your screening interval (e.g., 60 Days). The system automatically tracks compliance and revokes access if a window is missed.</p>
+                  <Users className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">DYNAMIC PEER SHARING</CardTitle>
+                  <p className="text-muted-foreground text-base">Securely share your verified status with peers and authorized partners—expanding trust within your immediate circle.</p>
                 </Card>
               </ScrollReveal>
 
+              {/* 2. Identity & Health */}
               <ScrollReveal direction="up" delay={250}>
                 <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
-                  <ShieldCheck className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">Secure Transactions</CardTitle>
-                  <p className="text-muted-foreground text-base">Users link their own funding source with a safety cap. Zero skimming, zero chargebacks, instant revenue.</p>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={300}>
-                <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
                   <CheckCircle className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">Identity & Health</CardTitle>
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">IDENTITY & HEALTH</CardTitle>
                   <p className="text-muted-foreground text-base">One unforgeable code for Government ID and Fit-for-Duty status.</p>
                 </Card>
               </ScrollReveal>
-            </div>
-          </div>
-        </section>
 
-        {/* Additional Features Section */}
-        <section className="py-6 px-4">
-          <div className="container mx-auto max-w-5xl px-4">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              <ScrollReveal direction="up" delay={200}>
-                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <EyeOff className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3">FULL CONTROL INCOGNITO MODE</CardTitle>
+              {/* 3. Full Control Incognito Mode */}
+              <ScrollReveal direction="up" delay={300}>
+                <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
+                  <EyeOff className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">FULL CONTROL INCOGNITO MODE</CardTitle>
                   <p className="text-muted-foreground text-base">Manage ID entry, pay cover, pay your tabs through QR code, set your bar budget, and access the bar—all through one secure, disposable QR code. Complete user control.</p>
                 </Card>
               </ScrollReveal>
 
-              <ScrollReveal direction="up" delay={250}>
+              {/* 4. Secure Transactions */}
+              <ScrollReveal direction="up" delay={350}>
+                <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
+                  <ShieldCheck className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">SECURE TRANSACTIONS</CardTitle>
+                  <p className="text-muted-foreground text-base">Users link their own funding source with a safety cap. Zero skimming, zero chargebacks, instant revenue.</p>
+                </Card>
+              </ScrollReveal>
+
+              {/* 5. Instant Verification */}
+              <ScrollReveal direction="up" delay={400}>
+                <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
+                  <ScanLine className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">INSTANT QR VERIFICATION</CardTitle>
+                  <p className="text-muted-foreground text-base">Rapid, discreet status check ensures zero awkward conversations and frictionless entry/access at any verified venue.</p>
+                </Card>
+              </ScrollReveal>
+
+              {/* 6. Proven Status */}
+              <ScrollReveal direction="up" delay={450}>
+                <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
+                  <FlaskConical className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">PROVEN STATUS</CardTitle>
+                  <p className="text-muted-foreground text-base">Results backed by real-time integration with our certified clinical lab network, ensuring verifiable health status.</p>
+                </Card>
+              </ScrollReveal>
+
+              {/* 7. Invisible Data */}
+              <ScrollReveal direction="up" delay={500}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
                   <ShieldCheck className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
                   <CardTitle className="text-2xl font-bold mb-3">INVISIBLE DATA</CardTitle>
@@ -449,23 +465,8 @@ const Index = () => {
                 </Card>
               </ScrollReveal>
 
-              <ScrollReveal direction="up" delay={300}>
-                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <ScanLine className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3">INSTANT QR VERIFICATION</CardTitle>
-                  <p className="text-muted-foreground text-base">Rapid, discreet status check ensures zero awkward conversations and frictionless entry/access at any verified venue.</p>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={350}>
-                <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <FlaskConical className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3">PROVEN STATUS</CardTitle>
-                  <p className="text-muted-foreground text-base">Results backed by real-time integration with our certified clinical lab network, ensuring verifiable health status.</p>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={400}>
+              {/* 8. Trusted Everywhere */}
+              <ScrollReveal direction="up" delay={550}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
                   <Globe className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
                   <CardTitle className="text-2xl font-bold mb-3">TRUSTED EVERYWHERE</CardTitle>
@@ -473,11 +474,12 @@ const Index = () => {
                 </Card>
               </ScrollReveal>
 
-              <ScrollReveal direction="up" delay={450}>
+              {/* 9. Automated Workforce Monitor */}
+              <ScrollReveal direction="up" delay={600}>
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
-                  <Users className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3">DYNAMIC PEER SHARING</CardTitle>
-                  <p className="text-muted-foreground text-base">Securely share your verified status with peers and authorized partners—expanding trust within your immediate circle.</p>
+                  <RefreshCw className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
+                  <CardTitle className="text-2xl font-bold mb-3">AUTOMATED WORKFORCE MONITOR</CardTitle>
+                  <p className="text-muted-foreground text-base">Set your screening interval (e.g., 60 Days). The system automatically tracks compliance and revokes access if a window is missed.</p>
                 </Card>
               </ScrollReveal>
             </div>

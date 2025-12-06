@@ -69,12 +69,13 @@ const PitchDeck = () => {
 
   const scorecardData = [
     {
-      feature: "Automated Revenue Share (Portion of $10 Transaction)",
+      feature: "Integrated Health/Tox Status (HIPAA)",
       valid: true,
       clear: false,
       idme: false,
       ticketmaster: false,
-      checkr: false,
+      sterling: false,
+      stdcheck: true,
       highlight: true,
     },
     {
@@ -83,7 +84,18 @@ const PitchDeck = () => {
       clear: false,
       idme: false,
       ticketmaster: false,
-      checkr: false,
+      sterling: false,
+      stdcheck: false,
+      highlight: true,
+    },
+    {
+      feature: "Automated Revenue Share ($10 Transaction Model)",
+      valid: true,
+      clear: false,
+      idme: false,
+      ticketmaster: false,
+      sterling: false,
+      stdcheck: false,
       highlight: true,
     },
     {
@@ -92,17 +104,19 @@ const PitchDeck = () => {
       clear: true,
       idme: false,
       ticketmaster: true,
-      checkr: false,
+      sterling: false,
+      stdcheck: false,
       highlight: true,
     },
     {
-      feature: "Integrated Health/Tox Status (HIPAA-Ready)",
+      feature: "PEER-TO-PEER NETWORK TRUST",
       valid: true,
       clear: false,
       idme: false,
       ticketmaster: false,
-      checkr: false,
-      highlight: false,
+      sterling: false,
+      stdcheck: false,
+      highlight: true,
     },
     {
       feature: "Rolling (Continuous) Compliance & Screening",
@@ -110,7 +124,8 @@ const PitchDeck = () => {
       clear: false,
       idme: false,
       ticketmaster: false,
-      checkr: true,
+      sterling: true,
+      stdcheck: false,
       highlight: false,
     },
   ];
@@ -185,45 +200,47 @@ const PitchDeck = () => {
             Direct Competitive Scorecard: Why VALID Wins
           </h2>
           <p className="text-muted-foreground text-sm mb-4">
-            We eliminate silos. VALID is the only platform that integrates the five key functions needed to de-risk and <strong>monetize</strong> high-liability businesses.
+            VALID is the only platform that integrates the six key functions essential for de-risking and <strong>monetizing</strong> high-liability businesses.
           </p>
           
           <div className="overflow-x-auto">
             <table className="w-full text-xs font-mono border border-border">
               <thead>
                 <tr className="bg-muted text-foreground">
-                  <th className="p-2 text-left font-bold uppercase" style={{ width: '35%' }}>VALID FEATURE</th>
-                  <th className="p-2 text-center font-extrabold" style={{ width: '13%', color: '#2ecc71' }}>VALID</th>
-                  <th className="p-2 text-center" style={{ width: '13%' }}>CLEAR</th>
-                  <th className="p-2 text-center" style={{ width: '13%' }}>ID.me</th>
-                  <th className="p-2 text-center" style={{ width: '13%' }}>TICKETMASTER</th>
-                  <th className="p-2 text-center" style={{ width: '13%' }}>CHECKR</th>
+                  <th className="p-2 text-left font-bold uppercase" style={{ width: '30%' }}>VALID FEATURE</th>
+                  <th className="p-2 text-center font-extrabold" style={{ width: '12%', color: '#2ecc71' }}>VALID</th>
+                  <th className="p-2 text-center" style={{ width: '12%' }}>CLEAR</th>
+                  <th className="p-2 text-center" style={{ width: '12%' }}>ID.me</th>
+                  <th className="p-2 text-center" style={{ width: '12%' }}>TICKETMASTER</th>
+                  <th className="p-2 text-center" style={{ width: '12%' }}>STERLING</th>
+                  <th className="p-2 text-center" style={{ width: '12%' }}>STDCHECK</th>
                 </tr>
               </thead>
               <tbody className="bg-card">
                 {scorecardData.map((row, idx) => (
                   <tr key={idx} className="border-b border-border">
                     <td className={`p-2 text-left text-foreground ${row.highlight ? 'font-semibold' : ''}`}>
-                      {row.highlight && <strong>{row.feature}</strong>}
-                      {!row.highlight && row.feature}
+                      {row.feature}
                     </td>
                     <td className="p-2 text-center">{renderCheck(row.valid, true)}</td>
                     <td className="p-2 text-center">{renderCheck(row.clear)}</td>
                     <td className="p-2 text-center">{renderCheck(row.idme)}</td>
                     <td className="p-2 text-center">{renderCheck(row.ticketmaster)}</td>
-                    <td className="p-2 text-center">{renderCheck(row.checkr)}</td>
+                    <td className="p-2 text-center">{renderCheck(row.sterling)}</td>
+                    <td className="p-2 text-center">{renderCheck(row.stdcheck)}</td>
                   </tr>
                 ))}
                 {/* Total Score Row */}
                 <tr className="bg-amber-900/50 border-t-2 border-amber-600">
                   <td className="p-2 text-left text-amber-300 font-extrabold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                    TOTAL INTEGRATION SCORE (5 Max)
+                    TOTAL INTEGRATION SCORE (6 Max)
                   </td>
-                  <td className="p-2 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>5/5</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/5</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">0/5</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">2/5</td>
-                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/5</td>
+                  <td className="p-2 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>6/6</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/6</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">0/6</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">2/6</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/6</td>
+                  <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">1/6</td>
                 </tr>
               </tbody>
             </table>

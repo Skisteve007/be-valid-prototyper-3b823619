@@ -169,37 +169,37 @@ const Index = () => {
                 Member Log In
               </Button>
               <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto md:items-start">
-                <Button 
-                  variant="ghost" 
-                  onClick={() => {
-                    if (session) {
-                      navigate("/dashboard?tab=qrcode");
-                    } else {
-                      navigate("/auth");
-                    }
-                  }}
-                  className="relative shadow-[0_0_20px_hsl(var(--chart-4)/0.6)] hover:shadow-[0_0_30px_hsl(var(--chart-4)/0.8)] border border-chart-4/60 bg-chart-4/15 text-chart-4 hover:text-chart-4 animate-pulse font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
-                >
-                  <div className="absolute inset-0 bg-chart-4/20 blur-md rounded-md -z-10 animate-pulse"></div>
-                  QR Code
-                </Button>
                 <div className="flex flex-col items-center gap-1">
                   <Button 
+                    variant="ghost" 
                     onClick={() => {
-                      console.log("Profile button clicked, session:", session);
                       if (session) {
-                        navigate("/dashboard");
+                        navigate("/dashboard?tab=qrcode");
                       } else {
                         navigate("/auth");
                       }
                     }}
-                    className="relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary/15 font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
+                    className="relative shadow-[0_0_20px_hsl(var(--chart-4)/0.6)] hover:shadow-[0_0_30px_hsl(var(--chart-4)/0.8)] border border-chart-4/60 bg-chart-4/15 text-chart-4 hover:text-chart-4 animate-pulse font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
                   >
-                    <div className="absolute inset-0 bg-primary/20 blur-md rounded-md -z-10"></div>
-                    Profile
+                    <div className="absolute inset-0 bg-chart-4/20 blur-md rounded-md -z-10 animate-pulse"></div>
+                    QR Code
                   </Button>
                   <ThemeToggle />
                 </div>
+                <Button 
+                  onClick={() => {
+                    console.log("Profile button clicked, session:", session);
+                    if (session) {
+                      navigate("/dashboard");
+                    } else {
+                      navigate("/auth");
+                    }
+                  }}
+                  className="relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary/15 font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
+                >
+                  <div className="absolute inset-0 bg-primary/20 blur-md rounded-md -z-10"></div>
+                  Profile
+                </Button>
               </div>
             </div>
           </div>

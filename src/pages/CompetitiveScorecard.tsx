@@ -10,61 +10,61 @@ const scorecardData = [
     stdcheck: { value: false, note: "Static PDF Result" },
     sterling: { value: false, note: "Report-Based Cycle" },
     generic: { value: true, note: "But for Age Only" },
-    cleancheck: { value: "double", note: "Core Speed & Access" },
+    valid: { value: "double", note: "Core Speed & Access" },
   },
   {
     feature: "PEER-TO-PEER NETWORK TRUST",
     stdcheck: { value: false },
     sterling: { value: false },
     generic: { value: false },
-    cleancheck: { value: true, note: "Unique Differentiator" },
+    valid: { value: true, note: "Unique Differentiator" },
   },
   {
     feature: "CERTIFIED LAB INTEGRATION",
     stdcheck: { value: true, note: "Only within their network" },
     sterling: { value: true, note: "General lab partnership" },
     generic: { value: false },
-    cleancheck: { value: true, note: "Seamless & Comprehensive" },
+    valid: { value: true, note: "Seamless & Comprehensive" },
   },
   {
     feature: "REAL-TIME STATUS BADGE",
     stdcheck: { value: false, note: "Static File Risk" },
     sterling: { value: false, note: "Delayed Report" },
     generic: { value: false },
-    cleancheck: { value: "double", note: "Live & Actionable" },
+    valid: { value: "double", note: "Live & Actionable" },
   },
   {
     feature: "NIGHTLIFE/SERVICE WORKER PORTAL",
     stdcheck: { value: false },
     sterling: { value: false },
     generic: { value: false },
-    cleancheck: { value: true, note: "Built for Venue Management" },
+    valid: { value: true, note: "Built for Venue Management" },
   },
   {
     feature: "WORKFORCE TOXICOLOGY MGMT",
     stdcheck: { value: false },
     sterling: { value: true },
     generic: { value: false },
-    cleancheck: { value: true, note: "Flexible B2B Compliance" },
+    valid: { value: true, note: "Flexible B2B Compliance" },
   },
   {
     feature: "HIPAA/GDPR COMPLIANCE",
     stdcheck: { value: true },
     sterling: { value: true },
     generic: { value: false },
-    cleancheck: { value: "double", note: "Zero-Trust Architecture" },
+    valid: { value: "double", note: "Zero-Trust Architecture" },
   },
   {
     feature: "MULTI-LANGUAGE SUPPORT",
     stdcheck: { value: false },
     sterling: { value: false },
     generic: { value: false },
-    cleancheck: { value: true, note: "Global Accessibility" },
+    valid: { value: true, note: "Global Accessibility" },
   },
 ];
 
 const corePoints = [
-  "Clean Check is the only platform that is FAST, INTEGRATED, AND COMPREHENSIVE, bridging the gap between direct-to-consumer testing and slow workforce compliance.",
+  "VALID is the only platform that is FAST, INTEGRATED, AND COMPREHENSIVE, bridging the gap between direct-to-consumer testing and slow workforce compliance.",
   "The Peer-to-Peer Network Trust is a unique, proprietary feature unmatched by any competitor, building a stronger social ecosystem.",
   "Our Nightlife/Service Worker Portal and INSTANT QR-SCAN ENTRY directly solve the speed and management issues that plague venue operators.",
 ];
@@ -103,10 +103,10 @@ export default function CompetitiveScorecard() {
           </Button>
           <div className="text-center">
             <Badge variant="outline" className="mb-4 text-xs font-mono">
-              MARKET_INTELLIGENCE: CC_COMPETITIVE_SCORECARD_V1
+              MARKET_INTELLIGENCE: VALID_COMPETITIVE_SCORECARD_V1
             </Badge>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-              Clean Check: The Future-Proof Standard
+              VALID: The Future-Proof Standard
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Competitive Advantage & Sales Assets
@@ -138,7 +138,7 @@ export default function CompetitiveScorecard() {
                 </div>
               </div>
               <div className="p-6 rounded-lg bg-green-500/10 border border-green-500/30">
-                <h3 className="font-semibold text-green-600 dark:text-green-400 mb-3">CLEAN CHECK</h3>
+                <h3 className="font-semibold text-green-600 dark:text-green-400 mb-3">VALID</h3>
                 <p className="text-sm text-muted-foreground">
                   Seamless, integrated network flow with QR, Peer, and Lab integration
                 </p>
@@ -157,10 +157,10 @@ export default function CompetitiveScorecard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5 text-primary" />
-              Direct Competitive Scorecard: Why Clean Check Wins
+              Direct Competitive Scorecard: Why VALID Wins
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              Actionable data showing Clean Check's superiority in Speed, Integration, and Comprehensive Services.
+              Actionable data showing VALID's superiority in Speed, Integration, and Comprehensive Services.
             </p>
           </CardHeader>
           <CardContent>
@@ -172,7 +172,7 @@ export default function CompetitiveScorecard() {
                     <th className="text-center p-3 font-semibold text-muted-foreground">STDCheck.com</th>
                     <th className="text-center p-3 font-semibold text-muted-foreground">Sterling</th>
                     <th className="text-center p-3 font-semibold text-muted-foreground">Generic Venue Tech</th>
-                    <th className="text-center p-3 font-semibold text-green-600 dark:text-green-400 bg-green-500/5">Clean Check</th>
+                    <th className="text-center p-3 font-semibold text-green-600 dark:text-green-400 bg-green-500/5">VALID</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -198,9 +198,9 @@ export default function CompetitiveScorecard() {
                         )}
                       </td>
                       <td className="p-3 text-center bg-green-500/5">
-                        {renderCheckmark(row.cleancheck.value)}
-                        {row.cleancheck.note && (
-                          <p className="text-xs text-green-600 dark:text-green-400 mt-1 font-medium">{row.cleancheck.note}</p>
+                        {renderCheckmark(row.valid.value)}
+                        {row.valid.note && (
+                          <p className="text-xs text-green-600 dark:text-green-400 mt-1 font-medium">{row.valid.note}</p>
                         )}
                       </td>
                     </tr>

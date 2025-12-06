@@ -531,7 +531,7 @@ const Index = () => {
                 <Card className="h-full p-6 bg-muted/50 rounded-xl shadow-lg border border-border/50 hover:shadow-2xl hover:border-chart-5/50 transition-all">
                   <Globe className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
                   <CardTitle className="text-2xl font-bold mb-3">TRUSTED EVERYWHERE</CardTitle>
-                  <p className="text-muted-foreground text-base">Accepted by <strong className="text-foreground">Corporate Compliance, High-Value Asset Managers (Exotic Rentals), and Premier Nightlife Venues</strong> globally.</p>
+                  <p className="text-muted-foreground text-base">Accepted by <strong className="text-foreground">Corporate Compliance, High-Value Asset Manager Businesses ( Transport Fleets and Exotic Rentals )</strong>. Including Workforce Organizations, Restaurant Establishments, Nightlife Venues, Civic & Regulatory Agencies.</p>
                 </Card>
               </ScrollReveal>
 
@@ -547,34 +547,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Enterprise Security & Fintech Guarantee Section */}
-        <section className="py-8 md:py-10 px-4">
-          <div className="container mx-auto max-w-5xl px-4">
-            <ScrollReveal direction="up" delay={100}>
-              <div className="p-8 bg-muted/70 border border-chart-5/50 rounded-lg shadow-xl" style={{ boxShadow: '0 25px 50px -12px hsl(var(--chart-5) / 0.2)' }}>
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">The VALID Enterprise Guarantee: Unlocking Zero-Trust Compliance</h3>
-                
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div>
-                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>API-FIRST SECURITY & FINTECH</span>
-                    <p className="text-muted-foreground text-base">We utilize <strong className="text-foreground">Zero-Trust architecture</strong> and <strong className="text-foreground">RESTful API endpoints</strong> engineered for high-availability and real-time data synchronization with your existing HRIS or POS systems.</p>
-                  </div>
-                  <div>
-                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>HIPAA, GDPR & ASSET SHIELD</span>
-                    <p className="text-muted-foreground text-base">Comprehensive end-to-end encryption ensures strict <strong className="text-foreground">HIPAA and GDPR compliance</strong>, legally shielding your organization against health and data liability in all jurisdictions.</p>
-                  </div>
-                  <div>
-                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>MARKET INTELLIGENCE & ACQUISITION</span>
-                    <p className="text-muted-foreground text-base">Instantly access pre-built marketing assets, competitive data sheets, and pitch decks to support your sales efforts. We help you acquire business.</p>
-                    <Link to="/competitive-scorecard" className="inline-block mt-2 text-chart-4 hover:text-foreground transition-colors text-base font-medium">
-                      Grab Sales Assets (Market Comparisons, Pitch Decks) →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
 
         {/* Membership Section */}
         <section className="pt-2 pb-4 px-4">
@@ -846,6 +818,31 @@ const Index = () => {
                   <CheckCircle className="h-4 w-4 text-secondary" />
                   YOUR unique QR Code will be generated after membership payment
                 </p>
+              </div>
+            </ScrollReveal>
+            
+            {/* Enterprise Security & Fintech Guarantee Section */}
+            <ScrollReveal direction="up" delay={150}>
+              <div className="p-8 mt-8 bg-muted/70 border border-chart-5/50 rounded-lg shadow-xl" style={{ boxShadow: '0 25px 50px -12px hsl(var(--chart-5) / 0.2)' }}>
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">The VALID Enterprise Guarantee: Unlocking Zero-Trust Compliance</h3>
+                
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div>
+                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>API-FIRST SECURITY & FINTECH</span>
+                    <p className="text-muted-foreground text-base">We utilize <strong className="text-foreground">Zero-Trust architecture</strong> and <strong className="text-foreground">RESTful API endpoints</strong> engineered for high-availability and real-time data synchronization with your existing HRIS or POS systems.</p>
+                  </div>
+                  <div>
+                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>HIPAA, GDPR & ASSET SHIELD</span>
+                    <p className="text-muted-foreground text-base">Comprehensive end-to-end encryption ensures strict <strong className="text-foreground">HIPAA and GDPR compliance</strong>, legally shielding your organization against health and data liability in all jurisdictions.</p>
+                  </div>
+                  <div>
+                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>MARKET INTELLIGENCE & ACQUISITION</span>
+                    <p className="text-muted-foreground text-base">Instantly access pre-built marketing assets, competitive data sheets, and pitch decks to support your sales efforts. We help you acquire business.</p>
+                    <Link to="/competitive-scorecard" className="inline-block mt-2 text-chart-4 hover:text-foreground transition-colors text-base font-medium">
+                      Grab Sales Assets (Market Comparisons, Pitch Decks) →
+                    </Link>
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
           </div>

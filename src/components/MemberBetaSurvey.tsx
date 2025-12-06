@@ -37,7 +37,7 @@ const MemberBetaSurvey = ({ userId }: MemberBetaSurveyProps) => {
 
     try {
       const { error } = await supabase
-        .from('member_beta_surveys')
+        .from('member_beta_surveys' as any)
         .insert({
           user_id: userId || null,
           ease_of_use: responses.q1,

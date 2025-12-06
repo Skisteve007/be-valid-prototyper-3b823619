@@ -14,6 +14,7 @@ import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
+import MemberBetaSurvey from "@/components/MemberBetaSurvey";
 
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
@@ -910,18 +911,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       </div>
 
       {/* Member Beta Feedback Button */}
-      <button
-        type="button"
-        onClick={() => window.open('https://forms.gle/memberBetaFeedback', '_blank')}
-        className="w-full md:w-auto px-6 py-3 text-lg font-extrabold rounded-lg 
-                   bg-gray-800/80 text-green-400 border-2 border-green-600 
-                   shadow-xl shadow-green-900/50 hover:shadow-green-600/70 transition-all 
-                   flex items-center justify-center space-x-2 mt-6"
-        style={{ fontFamily: 'Orbitron, sans-serif' }}
-      >
-        <span role="img" aria-label="Clipboard">📋</span>
-        <span>MEMBER BETA FEEDBACK (5 Questions)</span>
-      </button>
+      <MemberBetaSurvey userId={userId} />
 
       {/* Floating Save Button */}
       <div className="fixed bottom-4 right-36 z-50 flex flex-col items-end gap-2">

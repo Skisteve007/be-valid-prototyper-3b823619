@@ -921,7 +921,11 @@ export type Database = {
           sexual_preferences: string | null
           sharing_interests_enabled: boolean | null
           sharing_orientation_enabled: boolean | null
+          sharing_relationship_style_enabled: boolean | null
+          sharing_sensory_prefs_enabled: boolean | null
+          sharing_social_dynamic_enabled: boolean | null
           sharing_social_enabled: boolean | null
+          sharing_specific_activities_enabled: boolean | null
           sharing_vices_enabled: boolean | null
           signup_discount_code: string | null
           smoker: boolean | null
@@ -980,7 +984,11 @@ export type Database = {
           sexual_preferences?: string | null
           sharing_interests_enabled?: boolean | null
           sharing_orientation_enabled?: boolean | null
+          sharing_relationship_style_enabled?: boolean | null
+          sharing_sensory_prefs_enabled?: boolean | null
+          sharing_social_dynamic_enabled?: boolean | null
           sharing_social_enabled?: boolean | null
+          sharing_specific_activities_enabled?: boolean | null
           sharing_vices_enabled?: boolean | null
           signup_discount_code?: string | null
           smoker?: boolean | null
@@ -1039,7 +1047,11 @@ export type Database = {
           sexual_preferences?: string | null
           sharing_interests_enabled?: boolean | null
           sharing_orientation_enabled?: boolean | null
+          sharing_relationship_style_enabled?: boolean | null
+          sharing_sensory_prefs_enabled?: boolean | null
+          sharing_social_dynamic_enabled?: boolean | null
           sharing_social_enabled?: boolean | null
+          sharing_specific_activities_enabled?: boolean | null
           sharing_vices_enabled?: boolean | null
           signup_discount_code?: string | null
           smoker?: boolean | null

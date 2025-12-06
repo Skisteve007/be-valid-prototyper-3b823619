@@ -80,6 +80,12 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [sharingOrientationEnabled, setSharingOrientationEnabled] = useState(false);
   const [sharingSocialEnabled, setSharingSocialEnabled] = useState(false);
   
+  // Per-category preference sharing states
+  const [sharingSocialDynamicEnabled, setSharingSocialDynamicEnabled] = useState(false);
+  const [sharingRelationshipStyleEnabled, setSharingRelationshipStyleEnabled] = useState(false);
+  const [sharingSensoryPrefsEnabled, setSharingSensoryPrefsEnabled] = useState(false);
+  const [sharingSpecificActivitiesEnabled, setSharingSpecificActivitiesEnabled] = useState(false);
+  
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
   const [initialStatusColor, setInitialStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
@@ -94,6 +100,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [initialSharingVicesEnabled, setInitialSharingVicesEnabled] = useState(false);
   const [initialSharingOrientationEnabled, setInitialSharingOrientationEnabled] = useState(false);
   const [initialSharingSocialEnabled, setInitialSharingSocialEnabled] = useState(false);
+  const [initialSharingSocialDynamicEnabled, setInitialSharingSocialDynamicEnabled] = useState(false);
+  const [initialSharingRelationshipStyleEnabled, setInitialSharingRelationshipStyleEnabled] = useState(false);
+  const [initialSharingSensoryPrefsEnabled, setInitialSharingSensoryPrefsEnabled] = useState(false);
+  const [initialSharingSpecificActivitiesEnabled, setInitialSharingSpecificActivitiesEnabled] = useState(false);
 
   const { register, handleSubmit, setValue, watch, getValues, formState, reset } = useForm<ProfileFormData>({
     defaultValues: {
@@ -140,6 +150,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     sharingVicesEnabled !== initialSharingVicesEnabled ||
     sharingOrientationEnabled !== initialSharingOrientationEnabled ||
     sharingSocialEnabled !== initialSharingSocialEnabled ||
+    sharingSocialDynamicEnabled !== initialSharingSocialDynamicEnabled ||
+    sharingRelationshipStyleEnabled !== initialSharingRelationshipStyleEnabled ||
+    sharingSensoryPrefsEnabled !== initialSharingSensoryPrefsEnabled ||
+    sharingSpecificActivitiesEnabled !== initialSharingSpecificActivitiesEnabled ||
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
     JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
 
@@ -230,6 +244,12 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setSharingOrientationEnabled((data as any).sharing_orientation_enabled || false);
         setSharingSocialEnabled((data as any).sharing_social_enabled || false);
         
+        // Load per-category preference sharing states
+        setSharingSocialDynamicEnabled((data as any).sharing_social_dynamic_enabled || false);
+        setSharingRelationshipStyleEnabled((data as any).sharing_relationship_style_enabled || false);
+        setSharingSensoryPrefsEnabled((data as any).sharing_sensory_prefs_enabled || false);
+        setSharingSpecificActivitiesEnabled((data as any).sharing_specific_activities_enabled || false);
+        
         // Set initial values for change detection
         setInitialProfileImageUrl(data.profile_image_url || "");
         setInitialStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
@@ -244,6 +264,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setInitialSharingVicesEnabled((data as any).sharing_vices_enabled || false);
         setInitialSharingOrientationEnabled((data as any).sharing_orientation_enabled || false);
         setInitialSharingSocialEnabled((data as any).sharing_social_enabled || false);
+        setInitialSharingSocialDynamicEnabled((data as any).sharing_social_dynamic_enabled || false);
+        setInitialSharingRelationshipStyleEnabled((data as any).sharing_relationship_style_enabled || false);
+        setInitialSharingSensoryPrefsEnabled((data as any).sharing_sensory_prefs_enabled || false);
+        setInitialSharingSpecificActivitiesEnabled((data as any).sharing_specific_activities_enabled || false);
         
         // Reset form state to mark as not dirty after loading
         setTimeout(() => {
@@ -556,6 +580,10 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           sharing_vices_enabled: sharingVicesEnabled,
           sharing_orientation_enabled: sharingOrientationEnabled,
           sharing_social_enabled: sharingSocialEnabled,
+          sharing_social_dynamic_enabled: sharingSocialDynamicEnabled,
+          sharing_relationship_style_enabled: sharingRelationshipStyleEnabled,
+          sharing_sensory_prefs_enabled: sharingSensoryPrefsEnabled,
+          sharing_specific_activities_enabled: sharingSpecificActivitiesEnabled,
         })
         .eq("user_id", userId);
 
@@ -686,8 +714,28 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       <PreferencesSelector
         selectedPreferences={userInterests}
         onPreferencesChange={setUserInterests}
-        sharingEnabled={sharingInterestsEnabled}
-        onToggleSharing={(enabled) => setSharingInterestsEnabled(enabled)}
+        categorySharingState={{
+          social_dynamic: sharingSocialDynamicEnabled,
+          relationship_styles: sharingRelationshipStyleEnabled,
+          sensory_preferences: sharingSensoryPrefsEnabled,
+          specific_activities: sharingSpecificActivitiesEnabled,
+        }}
+        onToggleCategorySharing={(categoryId, enabled) => {
+          switch (categoryId) {
+            case 'social_dynamic':
+              setSharingSocialDynamicEnabled(enabled);
+              break;
+            case 'relationship_styles':
+              setSharingRelationshipStyleEnabled(enabled);
+              break;
+            case 'sensory_preferences':
+              setSharingSensoryPrefsEnabled(enabled);
+              break;
+            case 'specific_activities':
+              setSharingSpecificActivitiesEnabled(enabled);
+              break;
+          }
+        }}
       />
 
       <div className="relative py-4">

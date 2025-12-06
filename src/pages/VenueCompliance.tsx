@@ -15,24 +15,19 @@ const VenueCompliance = () => {
 
   return (
     <div 
-      className="min-h-screen text-white font-sans"
-      style={{
-        background: 'radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.15) 0%, rgba(244, 114, 182, 0.2) 25%, rgba(15, 23, 42, 0.95) 60%)',
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-      }}
+      className="min-h-screen text-white font-sans bg-background"
     >
       {/* Header */}
-      <header className="border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
+      <header className="border-b border-border bg-background/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <Shield className="h-9 w-9 text-sky-400" />
+              <Shield className="h-9 w-9 text-emerald-400" />
               <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-amber-400" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight">Clean Check</span>
-              <span className="text-[10px] font-semibold text-sky-400 tracking-[0.2em] uppercase">Enterprise Security</span>
+              <span className="text-xl font-bold tracking-tight">VALID</span>
+              <span className="text-[10px] font-semibold text-emerald-400 tracking-[0.2em] uppercase">Enterprise Security</span>
             </div>
           </div>
           
@@ -152,7 +147,7 @@ const VenueCompliance = () => {
 
           <div className="mt-6 pt-4 border-t border-slate-700">
             <p className="text-xs text-slate-500 text-center">
-              Clean Check infrastructure runs on SOC 2 Type II certified cloud providers. For security inquiries: Steve@bigtexasroof.com
+              VALID infrastructure runs on SOC 2 Type II certified cloud providers. For security inquiries: Steve@bigtexasroof.com
             </p>
           </div>
         </DialogContent>
@@ -205,7 +200,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Nightlife Tier 1 (Promoter)" />
+                <input type="hidden" name="item_name" value="VALID - Nightlife Tier 1 (Promoter)" />
                 <input type="hidden" name="a3" value="299.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -229,7 +224,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Nightlife Tier 2 (Club)" />
+                <input type="hidden" name="item_name" value="VALID - Nightlife Tier 2 (Club)" />
                 <input type="hidden" name="a3" value="999.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -281,7 +276,7 @@ const VenueCompliance = () => {
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_xclick-subscriptions" />
               <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-              <input type="hidden" name="item_name" value="Clean Check - Performer Compliance Pass" />
+              <input type="hidden" name="item_name" value="VALID - Performer Compliance Pass" />
               <input type="hidden" name="a3" value="39.00" />
               <input type="hidden" name="p3" value="2" />
               <input type="hidden" name="t3" value="M" />
@@ -328,7 +323,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Workforce System (Tier 1: 1-50)" />
+                <input type="hidden" name="item_name" value="VALID - Workforce System (Tier 1: 1-50)" />
                 <input type="hidden" name="a3" value="399.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -351,7 +346,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Workforce System (Tier 2: 50-150)" />
+                <input type="hidden" name="item_name" value="VALID - Workforce System (Tier 2: 50-150)" />
                 <input type="hidden" name="a3" value="699.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -374,7 +369,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Workforce System (Tier 3: 150-500)" />
+                <input type="hidden" name="item_name" value="VALID - Workforce System (Tier 3: 150-500)" />
                 <input type="hidden" name="a3" value="1299.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -392,7 +387,7 @@ const VenueCompliance = () => {
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" className="mt-2">
               <input type="hidden" name="cmd" value="_xclick" />
               <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-              <input type="hidden" name="item_name" value="Clean Check - Bulk Employee Kits (10pk)" />
+              <input type="hidden" name="item_name" value="VALID - Bulk Employee Kits (10pk)" />
               <input type="hidden" name="amount" value="890.00" />
               <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
               <button type="submit" className="w-full py-3 bg-slate-800 text-white font-bold border border-white rounded text-base">
@@ -431,7 +426,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Small Fleet License (1-50)" />
+                <input type="hidden" name="item_name" value="VALID - Small Fleet License (1-50)" />
                 <input type="hidden" name="a3" value="299.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -454,7 +449,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Mid Fleet License (50-200)" />
+                <input type="hidden" name="item_name" value="VALID - Mid Fleet License (50-200)" />
                 <input type="hidden" name="a3" value="599.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -477,7 +472,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Large Fleet License (200+)" />
+                <input type="hidden" name="item_name" value="VALID - Large Fleet License (200+)" />
                 <input type="hidden" name="a3" value="999.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -539,7 +534,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Exotic Rental (Small Fleet)" />
+                <input type="hidden" name="item_name" value="VALID - Exotic Rental (Small Fleet)" />
                 <input type="hidden" name="a3" value="199.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -562,7 +557,7 @@ const VenueCompliance = () => {
               <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                 <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                <input type="hidden" name="item_name" value="Clean Check - Exotic Rental (Mid Fleet)" />
+                <input type="hidden" name="item_name" value="VALID - Exotic Rental (Mid Fleet)" />
                 <input type="hidden" name="a3" value="399.00" />
                 <input type="hidden" name="p3" value="1" />
                 <input type="hidden" name="t3" value="M" />
@@ -626,7 +621,7 @@ const VenueCompliance = () => {
                   <Plug className="h-5 w-5 text-violet-400" />
                   <span className="font-bold text-base text-violet-300">Zero-Friction API</span>
                 </div>
-                <p className="text-sm text-slate-300">Our REST API connects your system to Clean Check in hours, not weeks. Real-time webhooks, batch processing, and full documentation included.</p>
+                <p className="text-sm text-slate-300">Our REST API connects your system to VALID in hours, not weeks. Real-time webhooks, batch processing, and full documentation included.</p>
               </div>
 
               {/* Instant Payments */}
@@ -678,7 +673,7 @@ const VenueCompliance = () => {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-sky-400 mt-0.5">✦</span>
-                  <span><strong className="text-sky-300">Real-Time API Integration:</strong> Utilize our <strong>low-latency, FHIR-compatible API</strong> to securely and instantaneously power the member's Clean Check Status.</span>
+                  <span><strong className="text-sky-300">Real-Time API Integration:</strong> Utilize our <strong>low-latency, FHIR-compatible API</strong> to securely and instantaneously power the member's VALID Status.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-sky-400 mt-0.5">✦</span>
@@ -730,7 +725,7 @@ const VenueCompliance = () => {
               </li>
             </ul>
             <p className="text-amber-400 text-sm md:text-base mt-4 font-medium">
-              <strong>FAST FUNDS:</strong> Since the venue&apos;s funds are processed immediately via Clean Check, your commission on that gross revenue is processed and available to you as soon as the venue funds your Affiliate Fund.
+              <strong>FAST FUNDS:</strong> Since the venue&apos;s funds are processed immediately via VALID, your commission on that gross revenue is processed and available to you as soon as the venue funds your Affiliate Fund.
             </p>
           </div>
 

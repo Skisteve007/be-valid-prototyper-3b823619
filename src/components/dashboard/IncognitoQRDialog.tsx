@@ -398,10 +398,46 @@ export const IncognitoQRDialog = ({
               </CardContent>
             </Card>
 
+            {/* Spending Limit Selector - Only shows when payment is included */}
+            {bundlePrefs.includePayment && hasPaymentMethod && (
+              <Card className="border-amber-500/30 bg-amber-50 dark:bg-amber-950/20">
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-amber-500/20 rounded-full">
+                      <DollarSign className="h-5 w-5 text-amber-600" />
+                    </div>
+                    <div className="flex-1">
+                      <Label htmlFor="spendingLimit" className="font-medium">
+                        Spending Limit
+                      </Label>
+                      <p className="text-sm text-muted-foreground">
+                        Set your max bar tab for this session
+                      </p>
+                    </div>
+                    <Select value={spendingLimit} onValueChange={setSpendingLimit}>
+                      <SelectTrigger className="w-28 h-9 border-amber-500/30">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {spendingLimitOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
             {/* Summary */}
             <div className="bg-muted/50 rounded-lg p-3 text-center">
               <p className="text-xs text-muted-foreground">Your token will include:</p>
-              <p className="font-semibold text-sm mt-1">{getSelectedBundleText()}</p>
+              <p className="font-semibold text-sm mt-1">
+                {getSelectedBundleText()}
+                {bundlePrefs.includePayment && ` (Limit: $${parseInt(spendingLimit).toLocaleString()})`}
+              </p>
             </div>
 
             <div className="flex gap-2">

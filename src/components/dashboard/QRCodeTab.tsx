@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload, EyeOff } from "lucide-react";
+import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload, EyeOff, DollarSign } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import SponsorUpload from "./SponsorUpload";
@@ -541,6 +541,14 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                   <div className="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
                     <EyeOff className="h-5 w-5" />
                     <span className="font-semibold">Incognito QR Code Active</span>
+                  </div>
+                  
+                  {/* Spending Limit Badge */}
+                  <div className="flex justify-center">
+                    <Badge className="bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30">
+                      <DollarSign className="h-3 w-3 mr-1" />
+                      Spending Limit: $500
+                    </Badge>
                   </div>
                   
                   <div className="flex justify-center">

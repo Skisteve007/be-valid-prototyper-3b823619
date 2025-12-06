@@ -109,7 +109,7 @@ const SocialEmbedGenerator: React.FC<SocialEmbedGeneratorProps> = ({ userId, use
           <CardTitle className="text-xl text-foreground">Social Network Verification Widget</CardTitle>
         </div>
         <CardDescription>
-          Generate a unique link to embed on your Instagram, TikTok, or Linktree profiles. This transforms your profile into a constant marketing and verification channel.
+          Generate a unique verification link to embed anywhere you have an online presence — social media bios, personal websites, or link-in-bio platforms. Turn every profile into a trust signal.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">

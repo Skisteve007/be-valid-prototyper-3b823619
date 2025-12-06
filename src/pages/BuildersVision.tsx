@@ -227,21 +227,14 @@ const BuildersVision = () => {
 
         {/* Builder's Message */}
         <section className="py-12">
-          <Card className="bg-gradient-to-br from-secondary/50 to-muted/50 border-amber-600/30 max-w-3xl mx-auto">
-            <CardContent className="p-8 text-center">
-              <div className="text-5xl mb-4">👽</div>
-              <h2 className="text-2xl font-bold text-amber-400 mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                From the Builder
-              </h2>
-              <blockquote className="text-lg text-foreground italic mb-4">
-                "We're not building another app. We're building the trust infrastructure for a world that's moving too fast for traditional verification. 
-                VALID is the answer to a question every business will ask: How do I know they're safe?"
-              </blockquote>
-              <p className="text-muted-foreground text-sm">
-                — The Vision Behind VALID
-              </p>
-            </CardContent>
-          </Card>
+          <blockquote className="p-6 border-l-4 border-amber-500 bg-card/80 rounded-lg shadow-2xl max-w-3xl mx-auto">
+            <p className="text-xl italic text-foreground mb-4 leading-relaxed">
+              "We are not building another app; we are architecting the foundational <strong className="text-amber-400">Zero-Trust infrastructure</strong> for the next economy. VALID is the definitive answer to the two questions every executive must ask: How do I eliminate operational liability, and how do I monetize access? We are the essential layer that unifies verified identity, continuous compliance, and transactional payment in a single, secure token."
+            </p>
+            <footer className="text-right text-amber-500 font-bold text-lg">
+              — The Vision Behind VALID
+            </footer>
+          </blockquote>
         </section>
 
         {/* CTA Section */}

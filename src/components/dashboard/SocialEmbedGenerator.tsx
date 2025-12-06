@@ -123,6 +123,8 @@ const SocialEmbedGenerator: React.FC<SocialEmbedGeneratorProps> = ({ userId, use
             <SelectContent>
               <SelectItem value="Instagram">Instagram</SelectItem>
               <SelectItem value="TikTok">TikTok</SelectItem>
+              <SelectItem value="Facebook">Facebook</SelectItem>
+              <SelectItem value="LinkedIn">LinkedIn</SelectItem>
               <SelectItem value="OnlyFans">OnlyFans</SelectItem>
               <SelectItem value="Twitter/X">Twitter/X</SelectItem>
               <SelectItem value="Linktree/BioSite">Linktree / Bio Site</SelectItem>

@@ -21,7 +21,13 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 const BuildersVision = () => {
   const navigate = useNavigate();
 
-  const coreValueDrivers = [
+  const coreValueDrivers: Array<{
+    title: string;
+    description?: string;
+    customContent?: React.ReactNode;
+    borderColor: string;
+    titleColor: string;
+  }> = [
     {
       title: "1. ZERO-TRUST LIABILITY SHIELD",
       description: "Industry-first architecture that legally shifts liability from partners to the VALID platform. We provide Zero-Trust ID, HIPAA compliance, and an audit trail, creating unprecedented value for high-liability businesses.",
@@ -29,8 +35,15 @@ const BuildersVision = () => {
       titleColor: "text-amber-400"
     },
     {
-      title: "2. HIGH-MARGIN TRANSACTIONAL POWER",
-      description: "Dual Revenue Engine: Subscription model + high-margin $10 Incognito Access fees. The platform operates at near-zero marginal cost, driving maximum profitability as your organization scales.",
+      title: "2. TRI-LAYER REVENUE STACK",
+      description: "",
+      customContent: (
+        <div className="text-muted-foreground text-sm mt-1 space-y-2">
+          <p><strong>1. Access Monetization:</strong> High-velocity $10-$50 Incognito Tokens at the door.</p>
+          <p><strong>2. Health Reseller Margin:</strong> We capture the <strong>40-60% spread</strong> between wholesale lab costs and retail pricing. We don&apos;t just refer tests; we sell them.</p>
+          <p><strong>3. SaaS Subscriptions:</strong> Recurring monthly revenue from Venue and Corporate Partners for the dashboard.</p>
+        </div>
+      ),
       borderColor: "border-orange-500",
       titleColor: "text-orange-500"
     },
@@ -183,7 +196,9 @@ const BuildersVision = () => {
             {coreValueDrivers.map((driver) => (
               <li key={driver.title} className={`p-4 border-l-4 ${driver.borderColor} bg-muted rounded-md`}>
                 <h4 className={`font-extrabold ${driver.titleColor}`}>{driver.title}</h4>
-                <p className="text-muted-foreground text-sm mt-1">{driver.description}</p>
+                {driver.customContent ? driver.customContent : (
+                  <p className="text-muted-foreground text-sm mt-1">{driver.description}</p>
+                )}
               </li>
             ))}
           </ul>

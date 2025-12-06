@@ -513,7 +513,7 @@ const Index = () => {
                 <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
                   <FlaskConical className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
                   <CardTitle className="text-2xl font-bold mb-3 text-foreground">PROVEN STATUS</CardTitle>
-                  <p className="text-muted-foreground text-base">Results backed by real-time integration with our certified clinical lab network, ensuring verifiable health status.</p>
+                  <p className="text-muted-foreground text-base">Proven status. Ensure verifiable health and toxicology status by selecting our certified option, backed by real-time integration with our clinical lab network. This add-on gives you the power to prove your validity on demand.</p>
                 </Card>
               </ScrollReveal>
 

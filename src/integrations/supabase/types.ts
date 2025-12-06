@@ -708,6 +708,39 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_beta_surveys: {
+        Row: {
+          created_at: string
+          deployment_barrier: string | null
+          id: string
+          missing_feature: string | null
+          partner_id: string | null
+          revenue_share_rating: string
+          staff_efficiency: string
+          zero_trust_liability: string
+        }
+        Insert: {
+          created_at?: string
+          deployment_barrier?: string | null
+          id?: string
+          missing_feature?: string | null
+          partner_id?: string | null
+          revenue_share_rating: string
+          staff_efficiency: string
+          zero_trust_liability: string
+        }
+        Update: {
+          created_at?: string
+          deployment_barrier?: string | null
+          id?: string
+          missing_feature?: string | null
+          partner_id?: string | null
+          revenue_share_rating?: string
+          staff_efficiency?: string
+          zero_trust_liability?: string
+        }
+        Relationships: []
+      }
       partner_venues: {
         Row: {
           bank_endpoint: string | null

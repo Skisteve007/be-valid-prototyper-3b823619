@@ -804,8 +804,8 @@ const Index = () => {
               <Accordion type="single" collapsible className="w-full space-y-1">
                 <AccordionItem value="item-1" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
+                    <div className="bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border border-primary/30 w-full shadow-sm">
+                      <p className="text-base font-bold text-foreground">
                         How does VALID membership work?
                       </p>
                     </div>
@@ -817,8 +817,8 @@ const Index = () => {
 
                 <AccordionItem value="item-2" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-secondary via-secondary to-accent bg-clip-text text-transparent">
+                    <div className="bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border border-secondary/30 w-full shadow-sm">
+                      <p className="text-base font-bold text-foreground">
                         What's included in the membership?
                       </p>
                     </div>
@@ -830,8 +830,8 @@ const Index = () => {
 
                 <AccordionItem value="item-3" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-secondary via-accent to-accent bg-clip-text text-transparent">
+                    <div className="bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border border-accent/30 w-full shadow-sm">
+                      <p className="text-base font-bold text-foreground">
                         Is my health information secure and private?
                       </p>
                     </div>
@@ -843,8 +843,8 @@ const Index = () => {
 
                 <AccordionItem value="item-4" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-accent via-accent to-accent bg-clip-text text-transparent">
+                    <div className="bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border border-primary/30 w-full shadow-sm">
+                      <p className="text-base font-bold text-foreground">
                         How do I cancel my membership?
                       </p>
                     </div>
@@ -856,8 +856,8 @@ const Index = () => {
 
                 <AccordionItem value="item-5" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-accent via-secondary to-secondary bg-clip-text text-transparent">
+                    <div className="bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border border-secondary/30 w-full shadow-sm">
+                      <p className="text-base font-bold text-foreground">
                         What's the difference between Single and Joint/Couple memberships?
                       </p>
                     </div>
@@ -869,8 +869,8 @@ const Index = () => {
 
                 <AccordionItem value="item-6" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-secondary via-secondary to-primary bg-clip-text text-transparent">
+                    <div className="bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border border-accent/30 w-full shadow-sm">
+                      <p className="text-base font-bold text-foreground">
                         Can I use VALID on multiple sites?
                       </p>
                     </div>
@@ -882,8 +882,8 @@ const Index = () => {
 
                 <AccordionItem value="item-7" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
+                    <div className="bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border border-primary/30 w-full shadow-sm">
+                      <p className="text-base font-bold text-foreground">
                         What if I need to update my health documents?
                       </p>
                     </div>
@@ -895,8 +895,8 @@ const Index = () => {
 
                 <AccordionItem value="item-8" className="border-none">
                   <AccordionTrigger className="text-left hover:no-underline">
-                    <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
-                      <p className="text-base font-bold bg-gradient-to-r from-secondary via-accent to-accent bg-clip-text text-transparent">
+                    <div className="bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border border-secondary/30 w-full shadow-sm">
+                      <p className="text-base font-bold text-foreground">
                         Are there any refunds?
                       </p>
                     </div>

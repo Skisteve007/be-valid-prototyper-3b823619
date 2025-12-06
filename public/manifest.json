@@ -1,47 +1,14 @@
 {
-  "name": "VALID - QR-Coded Access & Verified Health",
-  "short_name": "VALID",
-  "description": "QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment.",
+  "name": "Clean Check",
+  "short_name": "CleanCheck",
+  "description": "QR-Coded Access: Health Verified. Integrated Payment. Zero Trust Security.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#3b82f6",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
+  "background_color": "#121212",
+  "theme_color": "#39FF14",
   "icons": [
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-180.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "apple touch icon"
-    }
-  ],
-  "categories": ["health", "lifestyle", "social"],
-  "shortcuts": [
-    {
-      "name": "My QR Code",
-      "short_name": "QR Code",
-      "description": "View your QR code",
-      "url": "/dashboard?tab=qrcode",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "My Profile",
-      "short_name": "Profile",
-      "description": "Edit your profile",
-      "url": "/dashboard",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
-    }
+    { "src": "/images/icons/icon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/images/icons/icon-512x512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }

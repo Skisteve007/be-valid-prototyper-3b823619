@@ -213,7 +213,7 @@ const Dashboard = () => {
                       className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
                     >
                       <Award className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">Document<ArrowUp className="h-4 w-4 inline-block -mt-0.5" /></span>
+                      <span className="text-sm">Documents<ArrowUp className="h-4 w-4 inline-block -mt-0.5" /></span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="qrcode"

@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Loader2, Plus, Award, FileText, Eye, X, Trash2, AlertTriangle, Camera, Upload, ExternalLink } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
+import DocumentVerificationComponent from "./DocumentVerificationComponent";
 
 interface Certification {
   id: string;
@@ -644,6 +645,9 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Identity Verification Hub */}
+      <DocumentVerificationComponent />
     </div>
   );
 };

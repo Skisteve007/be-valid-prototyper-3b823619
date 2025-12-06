@@ -114,9 +114,10 @@ const VenueCompliance = () => {
           </h1>
           <button 
             onClick={() => setSecurityModalOpen(true)}
-            className="inline-block px-5 py-2 rounded-full bg-secondary/80 text-accent font-semibold text-base md:text-lg border border-accent/40 shadow-[0_0_20px_hsl(var(--accent)/0.2)] hover:bg-secondary hover:border-accent/60 hover:shadow-[0_0_30px_hsl(var(--accent)/0.4)] transition-all duration-300 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-secondary/80 text-accent font-semibold text-base md:text-lg border border-accent/40 shadow-[0_0_20px_hsl(var(--accent)/0.2)] hover:bg-secondary hover:border-accent/60 hover:shadow-[0_0_30px_hsl(var(--accent)/0.4)] transition-all duration-300 cursor-pointer"
           >
-            Automated Compliance And Risk Management For High-Liability Sectors. →
+            <span>Automated Compliance And Risk Management For High-Liability Sectors.</span>
+            <span className="animate-pulse text-accent drop-shadow-[0_0_6px_hsl(var(--accent))]">→</span>
           </button>
           
           {/* Investor Relations Button */}

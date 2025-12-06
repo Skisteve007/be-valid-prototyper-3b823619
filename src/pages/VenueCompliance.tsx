@@ -16,14 +16,32 @@ const InvestorRelationsButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <button
       onClick={onClick}
-      className="w-full md:w-auto px-8 py-3 text-lg font-extrabold rounded-lg 
-                 bg-secondary/80 text-amber-500 dark:text-amber-400 border-2 border-amber-600 
-                 shadow-xl shadow-amber-900/50 hover:shadow-amber-600/70 transition-all 
+      className="w-full md:w-auto px-4 py-2 text-sm font-bold rounded-lg 
+                 bg-secondary/80 text-amber-500 dark:text-amber-400 border border-amber-600 
+                 shadow-lg shadow-amber-900/40 hover:shadow-amber-600/60 transition-all 
                  flex items-center justify-center space-x-2"
     >
-      <TrendingUp className="h-5 w-5" />
+      <TrendingUp className="h-4 w-4" />
       <span style={{ fontFamily: 'Orbitron, sans-serif' }}>INVESTOR RELATIONS</span>
-      <span style={{ fontSize: '1.5em', lineHeight: '1' }}>→</span>
+      <span style={{ fontSize: '1.2em', lineHeight: '1' }}>→</span>
+    </button>
+  );
+};
+
+// Builder's Vision Button Component
+const BuilderVisionButton = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full md:w-auto px-4 py-2 text-sm font-bold rounded-lg 
+                 bg-secondary/80 text-amber-500 dark:text-amber-400 border border-amber-600 
+                 shadow-lg shadow-amber-900/40 hover:shadow-amber-600/60 transition-all 
+                 flex items-center justify-center space-x-2"
+      style={{ fontFamily: 'Orbitron, sans-serif' }}
+    >
+      <span role="img" aria-label="Tool">🛠️</span>
+      <span>THE BUILDER'S VISION: WHY IT'S A UNICORN</span>
+      <span role="img" aria-label="Diamond">💎</span>
     </button>
   );
 };
@@ -97,8 +115,9 @@ const VenueCompliance = () => {
           </button>
           
           {/* Investor Relations Button */}
-          <div className="pt-4">
+          <div className="pt-3 flex flex-col items-center gap-3">
             <InvestorRelationsButton onClick={() => navigate("/pitch-deck")} />
+            <BuilderVisionButton onClick={() => navigate("/pitch-deck")} />
           </div>
         </div>
       </div>

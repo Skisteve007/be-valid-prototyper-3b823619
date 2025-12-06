@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Select,
@@ -34,7 +35,9 @@ import {
   Wallet,
   User,
   FileCheck,
-  Calendar
+  Calendar,
+  Plus,
+  RefreshCw
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -47,7 +50,7 @@ interface IncognitoQRDialogProps {
   promoterId?: string;
 }
 
-type Step = 'intro' | 'bundle-select' | 'payment-check' | 'confirm' | 'processing' | 'success';
+type Step = 'wallet' | 'pass-select' | 'bundle-select' | 'confirm' | 'processing' | 'success';
 
 interface BundlePreferences {
   includeId: boolean;
@@ -76,70 +79,59 @@ export const IncognitoQRDialog = ({
   venueId,
   promoterId 
 }: IncognitoQRDialogProps) => {
-  const [step, setStep] = useState<Step>('intro');
-  const [hasPaymentMethod, setHasPaymentMethod] = useState<boolean | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<any>(null);
+  const [step, setStep] = useState<Step>('wallet');
   const [incognitoToken, setIncognitoToken] = useState<string>('');
   const [expiresAt, setExpiresAt] = useState<string>('');
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
   const [profileData, setProfileData] = useState<any>(null);
-  const [spendingLimit, setSpendingLimit] = useState<string>('500');
   
   // Tiered pass selection
   const [availablePasses] = useState<PassOption[]>(DEFAULT_PASS_OPTIONS);
   const [selectedPass, setSelectedPass] = useState<PassOption>(DEFAULT_PASS_OPTIONS[0]);
   
-  // Spending limit options
-  const spendingLimitOptions = [
-    { value: '50', label: '$50' },
-    { value: '100', label: '$100' },
-    { value: '150', label: '$150' },
-    { value: '255', label: '$255' },
-    { value: '500', label: '$500' },
-    { value: '750', label: '$750' },
-    { value: '1000', label: '$1,000' },
-    { value: '1200', label: '$1,200' },
-    { value: '5000', label: '$5,000' },
-    { value: '10000', label: '$10,000' },
-  ];
+  // PRE-FUNDED WALLET STATES
+  const [walletBalance, setWalletBalance] = useState<number>(0);
+  const [fundingAmount, setFundingAmount] = useState<number>(500);
+  const [paymentMethod, setPaymentMethod] = useState<string>('');
+  const [isRefilling, setIsRefilling] = useState<boolean>(false);
   
   // Bundle preferences - member chooses what to include
   const [bundlePrefs, setBundlePrefs] = useState<BundlePreferences>({
     includeId: false,
-    includePayment: false
+    includePayment: true
   });
 
   // Asset status tracking
   const [hasIdDocument, setHasIdDocument] = useState<boolean>(false);
+  const [hasPaymentMethod, setHasPaymentMethod] = useState<boolean>(false);
 
   useEffect(() => {
     if (open) {
-      setStep('intro');
-      setBundlePrefs({ includeId: false, includePayment: false });
+      setStep('wallet');
+      setBundlePrefs({ includeId: false, includePayment: true });
       setSelectedPass(availablePasses[0]);
-      checkPaymentMethod();
       loadUserAssets();
+      loadWalletBalance();
     }
   }, [open, userId]);
 
-  const checkPaymentMethod = async () => {
+  const loadWalletBalance = async () => {
     try {
-      const { data, error } = await supabase
-        .from('user_payment_methods')
-        .select('*')
+      // Check for existing wallet balance from recent active transaction
+      const { data: transactions } = await supabase
+        .from('incognito_transactions')
+        .select('spending_limit, current_spend, payment_status')
         .eq('user_id', userId)
-        .eq('is_default', true)
-        .maybeSingle();
+        .eq('payment_status', 'completed')
+        .order('created_at', { ascending: false })
+        .limit(1);
 
-      if (error || !data) {
-        setHasPaymentMethod(false);
-        setPaymentMethod(null);
-      } else {
-        setHasPaymentMethod(true);
-        setPaymentMethod(data);
+      if (transactions && transactions.length > 0) {
+        const remainingBalance = (transactions[0].spending_limit || 0) - (transactions[0].current_spend || 0);
+        setWalletBalance(Math.max(0, remainingBalance));
       }
-    } catch (err) {
-      setHasPaymentMethod(false);
+    } catch (error) {
+      console.error('Error loading wallet balance:', error);
     }
   };
 
@@ -156,7 +148,7 @@ export const IncognitoQRDialog = ({
         setProfileData(profile);
       }
 
-      // Check for ID documents (certifications with 'ID' or 'License' or 'Passport' in title)
+      // Check for ID documents
       const { data: docs } = await supabase
         .from('certifications')
         .select('id, title')
@@ -164,26 +156,50 @@ export const IncognitoQRDialog = ({
         .or('title.ilike.%ID%,title.ilike.%License%,title.ilike.%Passport%,title.ilike.%Driver%');
       
       setHasIdDocument(docs && docs.length > 0);
+
+      // Check for payment methods
+      const { data: paymentMethods } = await supabase
+        .from('user_payment_methods')
+        .select('id')
+        .eq('user_id', userId)
+        .limit(1);
+      
+      setHasPaymentMethod(paymentMethods && paymentMethods.length > 0);
     } catch (error) {
       console.error('Error loading user assets:', error);
     }
   };
 
-  const handleProceedToBundle = () => {
-    setStep('bundle-select');
-  };
+  const handleRefillWallet = async () => {
+    if (!fundingAmount || fundingAmount < 50 || !paymentMethod) {
+      toast.error("Please select a valid funding amount (min $50) and payment method.");
+      return;
+    }
 
-  const handleProceedFromBundle = () => {
-    if (hasPaymentMethod) {
-      setStep('confirm');
-    } else {
-      setStep('payment-check');
+    setIsRefilling(true);
+
+    try {
+      // BACKEND ACTION: Process payment and add to wallet
+      console.log(`Processing refill: $${fundingAmount} via ${paymentMethod}`);
+      
+      // Simulate payment processing - in production, this would call payment gateway
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      const newBalance = walletBalance + fundingAmount;
+      setWalletBalance(newBalance);
+      toast.success(`Wallet refilled! New balance: $${newBalance.toLocaleString()}`);
+      setFundingAmount(500); // Reset
+    } catch (error) {
+      console.error('Refill error:', error);
+      toast.error('Failed to process payment. Please try again.');
+    } finally {
+      setIsRefilling(false);
     }
   };
 
-  const handleConfirmPayment = async () => {
-    if (!selectedPass) {
-      toast.error("Please select an access pass.");
+  const handleActivatePass = async () => {
+    if (walletBalance < selectedPass.price) {
+      toast.error(`Insufficient balance. Please refill with at least $${selectedPass.price.toFixed(2)}.`);
       return;
     }
 
@@ -198,7 +214,7 @@ export const IncognitoQRDialog = ({
           venue_id: venueId,
           promoter_id: promoterId,
           bundle_preferences: bundlePrefs,
-          spending_limit: parseInt(spendingLimit),
+          spending_limit: walletBalance,
           access_duration_hrs: selectedPass.duration_hrs,
           access_price: selectedPass.price
         }
@@ -206,17 +222,14 @@ export const IncognitoQRDialog = ({
 
       if (error || !data?.success) {
         console.error('Incognito token error:', error || data?.error);
-        
-        if (data?.error === 'NO_PAYMENT_METHOD') {
-          setHasPaymentMethod(false);
-          setStep('payment-check');
-          return;
-        }
-        
         toast.error(data?.message || 'Failed to generate Incognito QR');
-        setStep('intro');
+        setStep('wallet');
         return;
       }
+
+      // Deduct pass cost from wallet balance
+      const newBalance = walletBalance - selectedPass.price;
+      setWalletBalance(newBalance);
 
       // Generate QR code URL
       const profileUrl = `${window.location.origin}/view-profile?token=${data.token}`;
@@ -229,14 +242,14 @@ export const IncognitoQRDialog = ({
       
       // Notify parent component of successful generation
       if (onSuccess) {
-        onSuccess(qrUrl, data.token, data.expires_at, data.transaction_id, parseInt(spendingLimit));
+        onSuccess(qrUrl, data.token, data.expires_at, data.transaction_id, walletBalance);
       }
       
-      toast.success('Incognito Master Token generated!');
+      toast.success('Incognito Wallet Token activated!');
     } catch (err) {
       console.error('Error:', err);
-      toast.error('Failed to process payment');
-      setStep('intro');
+      toast.error('Failed to activate pass');
+      setStep('wallet');
     }
   };
 
@@ -244,20 +257,6 @@ export const IncognitoQRDialog = ({
     if (!expiresAt) return '';
     const expiry = new Date(expiresAt);
     return expiry.toLocaleString();
-  };
-
-  const getPaymentMethodDisplay = () => {
-    if (!paymentMethod) return 'None';
-    switch (paymentMethod.payment_type) {
-      case 'paypal':
-        return `PayPal (${paymentMethod.payment_identifier})`;
-      case 'card':
-        return `Card ending in ${paymentMethod.payment_identifier}`;
-      case 'zelle':
-        return `Zelle (${paymentMethod.payment_identifier})`;
-      default:
-        return paymentMethod.payment_type;
-    }
   };
 
   const getSelectedBundleText = () => {
@@ -277,103 +276,199 @@ export const IncognitoQRDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <EyeOff className="h-5 w-5 text-gray-500" />
-            Incognito Master Token
+          <DialogTitle className="flex items-center gap-2" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+            <EyeOff className="h-5 w-5 text-muted-foreground" />
+            Incognito Wallet Token Command Center
           </DialogTitle>
           <DialogDescription>
-            Generate a unified access token for venue entry
+            Pre-fund your token and activate venue access passes
           </DialogDescription>
         </DialogHeader>
 
-        {/* Step: Intro - Pass Selection */}
-        {step === 'intro' && (
+        {/* Step: Wallet Management */}
+        {step === 'wallet' && (
           <div className="space-y-4">
             {/* Member Photo Preview */}
             {profileData?.profile_image_url && (
               <div className="flex justify-center">
-                <Avatar className="h-20 w-20 border-4 border-gray-400">
+                <Avatar className="h-16 w-16 border-4 border-muted">
                   <AvatarImage src={profileData.profile_image_url} alt={profileData.full_name} />
                   <AvatarFallback>
-                    <User className="h-10 w-10" />
+                    <User className="h-8 w-8" />
                   </AvatarFallback>
                 </Avatar>
               </div>
             )}
+
+            {/* Wallet Balance Monitor */}
+            <Card className="border-blue-500/30 bg-blue-50 dark:bg-blue-950/20">
+              <CardContent className="pt-4 space-y-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Wallet className="h-5 w-5 text-blue-600" />
+                  <h4 className="font-semibold text-blue-800 dark:text-blue-200">Wallet Token Balance</h4>
+                </div>
+                
+                {/* Current Balance Display */}
+                <div className="text-center p-4 bg-background rounded-lg border">
+                  <p className="text-3xl font-extrabold text-green-600">
+                    ${walletBalance.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">Current Balance</p>
+                </div>
+
+                {/* Refill Amount Input */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Refill Amount (Min $50 / Max $10,000)</Label>
+                  <Input 
+                    type="number" 
+                    min={50}
+                    max={10000}
+                    value={fundingAmount}
+                    onChange={(e) => setFundingAmount(Math.max(50, Math.min(10000, parseInt(e.target.value) || 50)))}
+                    className="bg-background"
+                  />
+                </div>
+
+                {/* Payment Method Selector */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Select Payment Method</Label>
+                  <Select value={paymentMethod} onValueChange={setPaymentMethod}>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue placeholder="-- Choose Method --" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="CreditCard">
+                        <div className="flex items-center gap-2">
+                          <CreditCard className="h-4 w-4" />
+                          Credit Card
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="PayPal">
+                        <div className="flex items-center gap-2">
+                          <DollarSign className="h-4 w-4" />
+                          PayPal
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="Zelle">
+                        <div className="flex items-center gap-2">
+                          <RefreshCw className="h-4 w-4" />
+                          Zelle/Bank Transfer
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <Button 
+                  onClick={handleRefillWallet} 
+                  disabled={!paymentMethod || isRefilling}
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                >
+                  {isRefilling ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add ${fundingAmount.toLocaleString()} To Token
+                    </>
+                  )}
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Button 
+              onClick={() => setStep('pass-select')} 
+              className="w-full bg-primary hover:bg-primary/90"
+              disabled={walletBalance < 10}
+            >
+              <Calendar className="h-4 w-4 mr-2" />
+              Select Access Pass
+            </Button>
+
+            {walletBalance < 10 && (
+              <p className="text-xs text-center text-amber-600">
+                Add funds to your wallet to activate access passes
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Step: Pass Selection */}
+        {step === 'pass-select' && (
+          <div className="space-y-4">
+            {/* Wallet Balance Summary */}
+            <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Wallet className="h-4 w-4 text-blue-600" />
+                <span className="font-medium text-sm">Wallet Balance</span>
+              </div>
+              <Badge className="bg-green-500 text-white">${walletBalance.toLocaleString()}</Badge>
+            </div>
 
             {/* Pass Selection Options */}
             <Card className="border-amber-500/30 bg-amber-50 dark:bg-amber-950/20">
               <CardContent className="pt-4 space-y-3">
                 <div className="flex items-center gap-2 mb-3">
                   <Calendar className="h-5 w-5 text-amber-600" />
-                  <h4 className="font-semibold text-amber-800 dark:text-amber-200">Select Access Pass</h4>
+                  <h4 className="font-semibold text-amber-800 dark:text-amber-200">Select Access Pass (Venue Offers)</h4>
                 </div>
                 
-                {availablePasses.map((pass) => (
-                  <label 
-                    key={pass.duration_hrs} 
-                    className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer border transition-all ${
-                      selectedPass.duration_hrs === pass.duration_hrs 
-                        ? 'border-green-500 bg-green-50 dark:bg-green-950/30' 
-                        : 'border-border hover:border-gray-400'
-                    }`}
-                  >
-                    <input 
-                      type="radio" 
-                      name="incognitoPass" 
-                      checked={selectedPass.duration_hrs === pass.duration_hrs}
-                      onChange={() => setSelectedPass(pass)}
-                      className="mt-1"
-                    />
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <span className="font-semibold">{pass.label}</span>
-                        <span className="font-bold text-green-600">${pass.price.toFixed(2)}</span>
+                {availablePasses.map((pass) => {
+                  const canAfford = walletBalance >= pass.price;
+                  return (
+                    <label 
+                      key={pass.duration_hrs} 
+                      className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer border transition-all ${
+                        selectedPass.duration_hrs === pass.duration_hrs 
+                          ? 'border-green-500 bg-green-50 dark:bg-green-950/30' 
+                          : canAfford 
+                            ? 'border-border hover:border-muted-foreground' 
+                            : 'border-border opacity-50 cursor-not-allowed'
+                      }`}
+                    >
+                      <input 
+                        type="radio" 
+                        name="incognitoPass" 
+                        checked={selectedPass.duration_hrs === pass.duration_hrs}
+                        onChange={() => canAfford && setSelectedPass(pass)}
+                        disabled={!canAfford}
+                        className="mt-1"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-semibold">{pass.label}</span>
+                          <span className={`font-bold ${canAfford ? 'text-green-600' : 'text-muted-foreground'}`}>
+                            ${pass.price.toFixed(2)}
+                          </span>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">{pass.description}</p>
+                        {!canAfford && (
+                          <p className="text-xs text-destructive mt-1">Insufficient balance</p>
+                        )}
                       </div>
-                      <p className="text-xs text-muted-foreground mt-1">{pass.description}</p>
-                    </div>
-                  </label>
-                ))}
+                    </label>
+                  );
+                })}
               </CardContent>
             </Card>
 
-            {/* Features Overview */}
-            <Card className="border-gray-500/30 bg-gray-500/5">
-              <CardContent className="pt-4 space-y-2">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-500/20 rounded-full">
-                    <Shield className="h-4 w-4 text-gray-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">Master Access Token</p>
-                    <p className="text-xs text-muted-foreground">
-                      One QR for entry, payment, and tracking
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gray-500/20 rounded-full">
-                    <Clock className="h-4 w-4 text-gray-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">{getDurationLabel(selectedPass.duration_hrs)} Valid</p>
-                    <p className="text-xs text-muted-foreground">
-                      No viewing timer - full utility period
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Button 
-              onClick={handleProceedToBundle} 
-              className="w-full bg-gray-600 hover:bg-gray-700"
-            >
-              <EyeOff className="h-4 w-4 mr-2" />
-              Configure Access Bundle
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setStep('wallet')} className="flex-1">
+                Back
+              </Button>
+              <Button 
+                onClick={() => setStep('bundle-select')} 
+                className="flex-1"
+                disabled={walletBalance < selectedPass.price}
+              >
+                Configure Bundle
+              </Button>
+            </div>
           </div>
         )}
 
@@ -381,7 +476,7 @@ export const IncognitoQRDialog = ({
         {step === 'bundle-select' && (
           <div className="space-y-4">
             <div className="text-center pb-2">
-              <h3 className="font-semibold text-lg">Access Bundle Preferences</h3>
+              <h3 className="font-semibold text-lg">Data Bundle Preferences</h3>
               <p className="text-sm text-muted-foreground">
                 Choose what data to include in your Master Token
               </p>
@@ -448,7 +543,6 @@ export const IncognitoQRDialog = ({
                     id="includePayment"
                     checked={bundlePrefs.includePayment}
                     onCheckedChange={(checked) => setBundlePrefs(prev => ({ ...prev, includePayment: checked === true }))}
-                    disabled={!hasPaymentMethod}
                   />
                   <div className="p-2 bg-purple-500/20 rounded-full">
                     <Wallet className="h-5 w-5 text-purple-600" />
@@ -458,18 +552,15 @@ export const IncognitoQRDialog = ({
                       Bar Payment Authorization
                     </Label>
                     <p className="text-sm text-muted-foreground">
-                      {hasPaymentMethod 
-                        ? 'Allow bar tab draw-down from payment method'
-                        : 'Add payment method first'
-                      }
+                      Allow bar tab draw-down from wallet balance
                     </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Spending Limit Selector - Only shows when payment is included */}
-            {bundlePrefs.includePayment && hasPaymentMethod && (
+            {/* Wallet Balance for Spending */}
+            {bundlePrefs.includePayment && (
               <Card className="border-amber-500/30 bg-amber-50 dark:bg-amber-950/20">
                 <CardContent className="pt-4">
                   <div className="flex items-center gap-3">
@@ -477,25 +568,11 @@ export const IncognitoQRDialog = ({
                       <DollarSign className="h-5 w-5 text-amber-600" />
                     </div>
                     <div className="flex-1">
-                      <Label htmlFor="spendingLimit" className="font-medium">
-                        Spending Limit
-                      </Label>
+                      <p className="font-medium">Available Spending Balance</p>
                       <p className="text-sm text-muted-foreground">
-                        Set your max bar tab for this session
+                        After pass deduction: ${(walletBalance - selectedPass.price).toLocaleString()}
                       </p>
                     </div>
-                    <Select value={spendingLimit} onValueChange={setSpendingLimit}>
-                      <SelectTrigger className="w-28 h-9 border-amber-500/30">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {spendingLimitOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
                   </div>
                 </CardContent>
               </Card>
@@ -506,17 +583,16 @@ export const IncognitoQRDialog = ({
               <p className="text-xs text-muted-foreground">Your token will include:</p>
               <p className="font-semibold text-sm mt-1">
                 {getSelectedBundleText()}
-                {bundlePrefs.includePayment && ` (Limit: $${parseInt(spendingLimit).toLocaleString()})`}
               </p>
             </div>
 
             <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setStep('intro')} className="flex-1">
+              <Button variant="outline" onClick={() => setStep('pass-select')} className="flex-1">
                 Back
               </Button>
               <Button 
-                onClick={handleProceedFromBundle} 
-                className="flex-1 bg-gray-600 hover:bg-gray-700"
+                onClick={() => setStep('confirm')} 
+                className="flex-1"
               >
                 Continue
               </Button>
@@ -524,59 +600,18 @@ export const IncognitoQRDialog = ({
           </div>
         )}
 
-        {/* Step: No Payment Method */}
-        {step === 'payment-check' && (
-          <div className="space-y-4">
-            <div className="text-center py-4">
-              <div className="mx-auto w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mb-4">
-                <CreditCard className="h-8 w-8 text-amber-600" />
-              </div>
-              <h3 className="font-semibold text-lg">Payment Method Required</h3>
-              <p className="text-sm text-muted-foreground mt-2">
-                Add a payment method to use Incognito mode
-              </p>
-            </div>
-
-            <Card className="border-amber-500/30 bg-amber-50 dark:bg-amber-950/20">
-              <CardContent className="pt-4">
-                <div className="flex items-start gap-3">
-                  <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-amber-800 dark:text-amber-200">
-                    Incognito mode requires a payment method on file. 
-                    The ${selectedPass.price.toFixed(2)} fee will be automatically charged when you generate the QR code.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Button 
-              onClick={() => {
-                toast.info('Navigate to Profile → Payment Methods to add one');
-                onClose();
-              }}
-              className="w-full"
-            >
-              <CreditCard className="h-4 w-4 mr-2" />
-              Add Payment Method
-            </Button>
-            <Button variant="outline" onClick={onClose} className="w-full">
-              Cancel
-            </Button>
-          </div>
-        )}
-
-        {/* Step: Confirm Payment */}
+        {/* Step: Confirm & Activate */}
         {step === 'confirm' && (
           <div className="space-y-4">
             {/* Photo for visual verification at door */}
             {profileData?.profile_image_url && (
               <div className="flex justify-center">
                 <div className="relative">
-                  <Avatar className="h-24 w-24 border-4 border-gray-500">
+                  <Avatar className="h-24 w-24 border-4 border-muted">
                     <AvatarImage src={profileData.profile_image_url} alt={profileData.full_name} />
                     <AvatarFallback><User className="h-12 w-12" /></AvatarFallback>
                   </Avatar>
-                  <Badge className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-gray-600 text-white text-xs">
+                  <Badge className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-muted-foreground text-white text-xs">
                     Photo Verified
                   </Badge>
                 </div>
@@ -586,19 +621,21 @@ export const IncognitoQRDialog = ({
             <Card className="border-green-500/30 bg-green-50 dark:bg-green-950/20">
               <CardContent className="pt-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Payment Method</span>
-                  <Badge variant="outline" className="bg-green-500/10 border-green-500/30">
-                    <CheckCircle2 className="h-3 w-3 mr-1" />
-                    {getPaymentMethodDisplay()}
-                  </Badge>
+                  <span className="text-sm text-muted-foreground">Wallet Balance</span>
+                  <span className="font-bold text-green-600">${walletBalance.toLocaleString()}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Access Pass</span>
                   <span className="font-medium">{selectedPass.label}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Amount</span>
-                  <span className="font-bold text-lg">${selectedPass.price.toFixed(2)}</span>
+                  <span className="text-sm text-muted-foreground">Deduction</span>
+                  <span className="font-bold text-lg text-destructive">-${selectedPass.price.toFixed(2)}</span>
+                </div>
+                <hr className="border-border" />
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Remaining Balance</span>
+                  <span className="font-bold text-lg">${(walletBalance - selectedPass.price).toLocaleString()}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">QR Validity</span>
@@ -612,15 +649,15 @@ export const IncognitoQRDialog = ({
             </Card>
 
             <p className="text-xs text-center text-muted-foreground">
-              By proceeding, you authorize the ${selectedPass.price.toFixed(2)} charge and data sharing per your bundle selection.
+              By proceeding, ${selectedPass.price.toFixed(2)} will be deducted from your wallet balance.
             </p>
 
             <Button 
-              onClick={handleConfirmPayment} 
-              className="w-full bg-gray-600 hover:bg-gray-700"
+              onClick={handleActivatePass} 
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
             >
               <DollarSign className="h-4 w-4 mr-2" />
-              Pay ${selectedPass.price.toFixed(2)} & Generate Token
+              Activate Pass: Deduct ${selectedPass.price.toFixed(2)}
             </Button>
             <Button variant="outline" onClick={() => setStep('bundle-select')} className="w-full">
               Back
@@ -631,11 +668,11 @@ export const IncognitoQRDialog = ({
         {/* Step: Processing */}
         {step === 'processing' && (
           <div className="py-8 text-center space-y-4">
-            <Loader2 className="h-12 w-12 animate-spin mx-auto text-gray-500" />
+            <Loader2 className="h-12 w-12 animate-spin mx-auto text-muted-foreground" />
             <div>
-              <p className="font-medium">Processing Payment...</p>
+              <p className="font-medium">Activating {selectedPass.label}...</p>
               <p className="text-sm text-muted-foreground">
-                Generating your {selectedPass.label}
+                Generating your Wallet Token
               </p>
             </div>
           </div>
@@ -645,61 +682,52 @@ export const IncognitoQRDialog = ({
         {step === 'success' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              {/* Spending Limit Dropdown - Top Left */}
-              {bundlePrefs.includePayment && (
-                <Select value={spendingLimit} onValueChange={setSpendingLimit}>
-                  <SelectTrigger className="w-[140px] h-8 text-xs bg-purple-500/10 border-purple-500/30 hover:bg-purple-500/20">
-                    <DollarSign className="h-3 w-3 mr-1 text-purple-600" />
-                    <SelectValue placeholder="Spending Limit" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-popover border z-50">
-                    {spendingLimitOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
+              {/* Active Token Badge */}
+              <Badge className="bg-green-600 text-white">
+                <CheckCircle2 className="h-3 w-3 mr-1" />
+                TOKEN ACTIVE
+              </Badge>
 
-              {/* Badge - Right side */}
-              <div className="flex gap-2 ml-auto">
-                <Badge className="bg-amber-600 text-white">
-                  <Calendar className="h-3 w-3 mr-1" />
-                  {selectedPass.label}
-                </Badge>
-                <Badge className="bg-gray-600 text-white">
-                  <EyeOff className="h-3 w-3 mr-1" />
-                  ACTIVE
-                </Badge>
-              </div>
+              {/* Pass Type Badge */}
+              <Badge className="bg-amber-600 text-white">
+                <Calendar className="h-3 w-3 mr-1" />
+                {selectedPass.label}
+              </Badge>
+            </div>
+
+            {/* Wallet Balance Display */}
+            <div className="text-center p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
+              <p className="text-xs text-muted-foreground">Current Wallet Balance</p>
+              <p className="text-2xl font-extrabold text-green-600">
+                ${walletBalance.toLocaleString()}
+              </p>
             </div>
 
             {/* Photo + Gray QR Code */}
             <div className="flex flex-col items-center gap-4">
               {profileData?.profile_image_url && (
-                <Avatar className="h-16 w-16 border-4 border-gray-500">
+                <Avatar className="h-16 w-16 border-4 border-muted">
                   <AvatarImage src={profileData.profile_image_url} alt={profileData.full_name} />
                   <AvatarFallback><User className="h-8 w-8" /></AvatarFallback>
                 </Avatar>
               )}
               
-              <div className="p-4 bg-white border-4 border-gray-500 rounded-2xl shadow-[0_0_20px_6px_rgba(107,114,128,0.3)]">
+              <div className="p-4 bg-white border-4 border-muted rounded-2xl shadow-lg">
                 {qrCodeUrl ? (
                   <img
                     src={qrCodeUrl}
-                    alt="Master Access Token QR"
+                    alt="Wallet Token QR"
                     className="w-48 h-48"
                   />
                 ) : (
-                  <div className="w-48 h-48 flex items-center justify-center bg-gray-100">
-                    <QrCode className="h-24 w-24 text-gray-400" />
+                  <div className="w-48 h-48 flex items-center justify-center bg-muted">
+                    <QrCode className="h-24 w-24 text-muted-foreground" />
                   </div>
                 )}
               </div>
             </div>
 
-            <Card className="bg-gray-100 dark:bg-gray-800/50">
+            <Card className="bg-muted/50">
               <CardContent className="pt-4 space-y-2">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Access Type</span>
@@ -711,7 +739,7 @@ export const IncognitoQRDialog = ({
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Bundle</span>
-                  <Badge variant="outline" className="bg-gray-500/20 border-gray-500/30">
+                  <Badge variant="outline">
                     {getSelectedBundleText()}
                   </Badge>
                 </div>

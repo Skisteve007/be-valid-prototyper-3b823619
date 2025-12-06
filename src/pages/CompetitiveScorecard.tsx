@@ -7,12 +7,13 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 const scorecardData = [
   {
-    feature: "Automated Revenue Share (Portion of $10 Transaction)",
+    feature: "Integrated Health/Tox Status (HIPAA)",
     valid: true,
     clear: false,
     idme: false,
     ticketmaster: false,
-    checkr: false,
+    sterling: false,
+    stdcheck: true,
     highlight: true,
   },
   {
@@ -21,7 +22,18 @@ const scorecardData = [
     clear: false,
     idme: false,
     ticketmaster: false,
-    checkr: false,
+    sterling: false,
+    stdcheck: false,
+    highlight: true,
+  },
+  {
+    feature: "Automated Revenue Share ($10 Transaction Model)",
+    valid: true,
+    clear: false,
+    idme: false,
+    ticketmaster: false,
+    sterling: false,
+    stdcheck: false,
     highlight: true,
   },
   {
@@ -30,17 +42,19 @@ const scorecardData = [
     clear: true,
     idme: false,
     ticketmaster: true,
-    checkr: false,
+    sterling: false,
+    stdcheck: false,
     highlight: true,
   },
   {
-    feature: "Integrated Health/Tox Status (HIPAA-Ready)",
+    feature: "PEER-TO-PEER NETWORK TRUST",
     valid: true,
     clear: false,
     idme: false,
     ticketmaster: false,
-    checkr: false,
-    highlight: false,
+    sterling: false,
+    stdcheck: false,
+    highlight: true,
   },
   {
     feature: "Rolling (Continuous) Compliance & Screening",
@@ -48,14 +62,15 @@ const scorecardData = [
     clear: false,
     idme: false,
     ticketmaster: false,
-    checkr: true,
+    sterling: true,
+    stdcheck: false,
     highlight: false,
   },
 ];
 
 const corePoints = [
-  "VALID is the only platform that integrates the five key functions needed to de-risk and monetize high-liability businesses.",
-  "Our Zero-Trust Architecture legally shifts liability away from partners (venues/employers) and onto the VALID platform.",
+  "VALID is the only platform that integrates the six key functions needed to de-risk and monetize high-liability businesses.",
+  "Our Zero-Trust architecture legally shifts liability away from partners (venues/employers) and onto the VALID platform.",
   "High-margin dual revenue via user subscriptions + instant $10 transactional fees (Incognito Token).",
 ];
 
@@ -74,7 +89,8 @@ export default function CompetitiveScorecard() {
   const clearScore = scorecardData.filter(r => r.clear).length;
   const idmeScore = scorecardData.filter(r => r.idme).length;
   const ticketmasterScore = scorecardData.filter(r => r.ticketmaster).length;
-  const checkrScore = scorecardData.filter(r => r.checkr).length;
+  const sterlingScore = scorecardData.filter(r => r.sterling).length;
+  const stdcheckScore = scorecardData.filter(r => r.stdcheck).length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -94,13 +110,13 @@ export default function CompetitiveScorecard() {
           </div>
           <div className="text-center">
             <Badge variant="outline" className="mb-4 text-xs font-mono">
-              MARKET_INTELLIGENCE: VALID_COMPETITIVE_SCORECARD_V1
+              MARKET_INTELLIGENCE: VALID_COMPETITIVE_SCORECARD_V2
             </Badge>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-              VALID: The Future-Proof Standard
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2" style={{ fontFamily: 'Orbitron, sans-serif', color: '#2ecc71', textShadow: '0 0 5px rgba(46, 204, 113, 0.7)' }}>
+              VALID: Integrated Identity & Payment Ecosystem
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Zero-Trust Compliance & Revenue Generation
+            <p className="text-muted-foreground max-w-2xl mx-auto" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+              Pitch Deck Summary - Zero-Trust Compliance & Revenue Generation
             </p>
           </div>
         </div>
@@ -124,42 +140,6 @@ export default function CompetitiveScorecard() {
           </CardContent>
         </Card>
 
-        {/* Visual Concept Section */}
-        <Card className="border-primary/30">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="h-5 w-5 text-primary" />
-              Visual Pitch Concept
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-lg bg-destructive/10 border border-destructive/30">
-                <h3 className="font-semibold text-destructive mb-3">FRAGMENTED SOLUTIONS</h3>
-                <p className="text-sm text-muted-foreground">
-                  Static and siloed security models, FCRA compliance only, no revenue sharing
-                </p>
-                <div className="mt-4 flex gap-2 flex-wrap">
-                  <Badge variant="outline" className="text-destructive border-destructive/50">Static Security</Badge>
-                  <Badge variant="outline" className="text-destructive border-destructive/50">Siloed Systems</Badge>
-                  <Badge variant="outline" className="text-destructive border-destructive/50">No Revenue Share</Badge>
-                </div>
-              </div>
-              <div className="p-6 rounded-lg bg-green-500/10 border border-green-500/30">
-                <h3 className="font-semibold mb-3" style={{ color: '#2ecc71' }}>VALID</h3>
-                <p className="text-sm text-muted-foreground">
-                  Zero-Trust Architecture with continuous verification and integrated revenue sharing
-                </p>
-                <div className="mt-4 flex gap-2 flex-wrap">
-                  <Badge className="bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/50">Zero-Trust</Badge>
-                  <Badge className="bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/50">Revenue Share</Badge>
-                  <Badge className="bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/50">HIPAA-Ready</Badge>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Competitive Scorecard Table */}
         <Card>
           <CardHeader>
@@ -168,27 +148,21 @@ export default function CompetitiveScorecard() {
               Direct Competitive Scorecard: Why VALID Wins
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              We eliminate silos. VALID is the only platform that integrates the five key functions needed to de-risk and <strong>monetize</strong> high-liability businesses.
+              VALID is the only platform that integrates the six key functions essential for de-risking and <strong>monetizing</strong> high-liability businesses.
             </p>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full text-xs font-mono border border-border">
                 <thead>
-                  <tr className="bg-muted/50">
-                    <th className="p-1" style={{ width: '35%' }}></th>
-                    <th className="p-1" style={{ width: '13%' }}></th>
-                    <th colSpan={4} className="text-center p-2 text-xs uppercase tracking-wider text-muted-foreground border-b border-border">
-                      Competitors
-                    </th>
-                  </tr>
                   <tr className="bg-muted text-foreground">
-                    <th className="text-left p-2 font-bold uppercase" style={{ width: '35%' }}>VALID FEATURE</th>
-                    <th className="text-center p-2 font-extrabold" style={{ width: '13%', color: '#2ecc71' }}>VALID</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '13%' }}>CLEAR</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '13%' }}>ID.me</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '13%' }}>TICKETMASTER</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '13%' }}>CHECKR</th>
+                    <th className="text-left p-2 font-bold uppercase" style={{ width: '30%' }}>VALID FEATURE</th>
+                    <th className="text-center p-2 font-extrabold" style={{ width: '12%', color: '#2ecc71' }}>VALID</th>
+                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>CLEAR</th>
+                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>ID.me</th>
+                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>TICKETMASTER</th>
+                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>STERLING</th>
+                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>STDCHECK</th>
                   </tr>
                 </thead>
                 <tbody className="bg-card">
@@ -201,19 +175,21 @@ export default function CompetitiveScorecard() {
                       <td className="p-2 text-center">{renderCheckmark(row.clear)}</td>
                       <td className="p-2 text-center">{renderCheckmark(row.idme)}</td>
                       <td className="p-2 text-center">{renderCheckmark(row.ticketmaster)}</td>
-                      <td className="p-2 text-center">{renderCheckmark(row.checkr)}</td>
+                      <td className="p-2 text-center">{renderCheckmark(row.sterling)}</td>
+                      <td className="p-2 text-center">{renderCheckmark(row.stdcheck)}</td>
                     </tr>
                   ))}
                   {/* Total Score Row */}
                   <tr className="bg-amber-900/50 border-t-2 border-amber-600">
                     <td className="p-2 text-left text-amber-300 font-extrabold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                      TOTAL INTEGRATION SCORE (5 Max)
+                      TOTAL INTEGRATION SCORE (6 Max)
                     </td>
-                    <td className="p-2 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>{validScore}/5</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{clearScore}/5</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{idmeScore}/5</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{ticketmasterScore}/5</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{checkrScore}/5</td>
+                    <td className="p-2 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>{validScore}/6</td>
+                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{clearScore}/6</td>
+                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{idmeScore}/6</td>
+                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{ticketmasterScore}/6</td>
+                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{sterlingScore}/6</td>
+                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{stdcheckScore}/6</td>
                   </tr>
                 </tbody>
               </table>
@@ -226,7 +202,7 @@ export default function CompetitiveScorecard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-amber-500" style={{ fontFamily: 'Orbitron, sans-serif' }}>
               <Key className="h-5 w-5" />
-              Key Differentiation: Zero-Trust Security
+              🔑 Key Differentiation: Zero-Trust Security
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -258,6 +234,25 @@ export default function CompetitiveScorecard() {
           </CardContent>
         </Card>
 
+        {/* The Ask Section */}
+        <Card className="bg-card/70 border-l-4" style={{ borderColor: '#2ecc71' }}>
+          <CardContent className="p-6">
+            <h3 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+              Our Ask: $750,000 Seed Round
+            </h3>
+            <p className="text-muted-foreground text-sm">
+              Funding is dedicated to <strong>accelerating DevSecOps implementation</strong> and securing the <strong>Lab Network Acquisition</strong> to capture a dominant market share.
+            </p>
+            <a 
+              href="mailto:invest@bevalid.app" 
+              className="mt-4 inline-block font-bold hover:text-foreground transition-colors"
+              style={{ fontFamily: 'Orbitron, sans-serif', color: '#f39c12' }}
+            >
+              Contact Investor Relations: invest@bevalid.app
+            </a>
+          </CardContent>
+        </Card>
+
         {/* Competitors Targeted */}
         <Card>
           <CardHeader>
@@ -278,7 +273,10 @@ export default function CompetitiveScorecard() {
                 Ticketmaster (Event Access)
               </Badge>
               <Badge variant="secondary" className="text-sm py-1 px-3">
-                Checkr (Background Screening)
+                Sterling (Background Screening)
+              </Badge>
+              <Badge variant="secondary" className="text-sm py-1 px-3">
+                STDCheck (Health Testing)
               </Badge>
             </div>
           </CardContent>

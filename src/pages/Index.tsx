@@ -197,7 +197,7 @@ const Index = () => {
           {/* Desktop Header - Full */}
           <div className="hidden md:flex md:flex-row md:items-center gap-4">
             {/* Logo + Partner Solutions - left side */}
-            <div className="flex flex-col items-start gap-3 flex-shrink-0 md:w-80 ml-2 md:ml-6">
+            <div className="flex flex-col items-start gap-3 flex-shrink-0 md:w-80 ml-0">
               <div 
                 className="relative flex justify-start cursor-pointer"
                 {...longPressHandlers}
@@ -211,7 +211,7 @@ const Index = () => {
                 onClick={() => navigate("/compliance")}
                 variant="outline"
                 size="default"
-                className="relative group overflow-hidden border border-accent/50 bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-semibold text-xs tracking-wide px-4 py-2 h-8 rounded-full transition-all duration-300 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)] mt-1"
+                className="relative group overflow-hidden border border-accent/50 bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-semibold text-xs tracking-wide px-4 py-2 h-8 rounded-full transition-all duration-300 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)] mt-1 ml-0"
               >
                 <span className="relative z-10 flex items-center gap-1.5">
                   🛸 Partner Solutions * Investor Relations
@@ -251,15 +251,8 @@ const Index = () => {
               </p>
             </div>
 
-            {/* Right side - Login buttons */}
+            {/* Right side - Login buttons (order: QR Code, Member Login, Profile) */}
             <div className="flex flex-col gap-2 items-center md:items-end flex-shrink-0 md:w-auto">
-              <Button 
-                onClick={() => navigate("/auth?mode=login")}
-                className="relative shadow-[0_0_20px_hsl(var(--accent)/0.6)] hover:shadow-[0_0_30px_hsl(var(--accent)/0.8)] border border-accent/60 bg-accent/15 text-foreground font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
-              >
-                <div className="absolute inset-0 bg-accent/20 blur-md rounded-md -z-10"></div>
-                Member Log In
-              </Button>
               <div className="flex flex-row gap-1.5 items-center">
                 <Button 
                   variant="ghost" 
@@ -274,6 +267,13 @@ const Index = () => {
                 >
                   <div className="absolute inset-0 bg-chart-4/20 blur-md rounded-md -z-10 animate-pulse"></div>
                   QR Code
+                </Button>
+                <Button 
+                  onClick={() => navigate("/auth?mode=login")}
+                  className="relative shadow-[0_0_20px_hsl(var(--accent)/0.6)] hover:shadow-[0_0_30px_hsl(var(--accent)/0.8)] border border-accent/60 bg-accent/15 text-foreground font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation"
+                >
+                  <div className="absolute inset-0 bg-accent/20 blur-md rounded-md -z-10"></div>
+                  Member Log In
                 </Button>
                 <Button 
                   onClick={() => {

@@ -87,20 +87,20 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <header className="border-b bg-card">
+      <header className="border-b border-border bg-background">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500/60 via-pink-500/60 to-purple-500/60 blur-3xl rounded-full scale-150"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-400/40 via-pink-400/40 to-purple-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto" style={{ height: '84px' }} />
+              <img src={logo} alt="VALID" className="relative w-auto" style={{ height: '84px' }} />
             </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
+      <main className="flex-1 flex items-start justify-center px-4 pt-8 md:pt-16 pb-12">
         <Card className="w-full max-w-md relative overflow-hidden">
           <div className="absolute inset-0 bg-purple-500/10 blur-3xl rounded-lg"></div>
           
@@ -113,7 +113,7 @@ const AdminLogin = () => {
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
               Administrator Access
             </CardTitle>
-            <CardDescription className="text-base text-white/90">
+            <CardDescription className="text-base text-muted-foreground">
               Authorized personnel only
             </CardDescription>
           </CardHeader>
@@ -127,7 +127,7 @@ const AdminLogin = () => {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-white">Admin Email</Label>
+                <Label htmlFor="email" className="text-foreground">Admin Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -137,13 +137,13 @@ const AdminLogin = () => {
                   required
                   className="bg-background/50"
                 />
-                <p className="text-xs text-white/70">
+                <p className="text-xs text-muted-foreground">
                   Only authorized admin emails can access this panel
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white">Password</Label>
+                <Label htmlFor="password" className="text-foreground">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -184,7 +184,7 @@ const AdminLogin = () => {
                   type="button"
                   variant="ghost"
                   onClick={() => navigate("/")}
-                  className="text-sm text-white/70 hover:text-white"
+                  className="text-sm text-muted-foreground hover:text-foreground"
                 >
                   ← Back to Home
                 </Button>

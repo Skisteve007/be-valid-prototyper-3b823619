@@ -14,6 +14,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Plus, Copy, Eye, EyeOff, Trash2, Power, PowerOff, Loader2, Key, CheckCircle2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import {
   Alert,
@@ -38,6 +45,7 @@ export const LabPartnersManager = () => {
   const [newPartner, setNewPartner] = useState({
     name: "",
     contact_email: "",
+    lis_system: "",
   });
   const [saving, setSaving] = useState(false);
   const [revealedKeys, setRevealedKeys] = useState<Set<string>>(new Set());
@@ -96,7 +104,7 @@ export const LabPartnersManager = () => {
 
       toast.success("Lab partner created successfully!");
       setGeneratedPartner(data);
-      setNewPartner({ name: "", contact_email: "" });
+      setNewPartner({ name: "", contact_email: "", lis_system: "" });
       await loadPartners();
     } catch (error: any) {
       console.error("Error creating lab partner:", error);
@@ -392,6 +400,28 @@ export const LabPartnersManager = () => {
                 }
                 placeholder="lab@example.com"
               />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="lis_system">LIS System</Label>
+              <Select
+                value={newPartner.lis_system}
+                onValueChange={(value) =>
+                  setNewPartner({ ...newPartner, lis_system: value })
+                }
+              >
+                <SelectTrigger className="bg-background">
+                  <SelectValue placeholder="Select LIS System" />
+                </SelectTrigger>
+                <SelectContent className="bg-popover z-50">
+                  <SelectItem value="Epic Beaker">Epic Beaker</SelectItem>
+                  <SelectItem value="Cerner PathNet">Cerner PathNet</SelectItem>
+                  <SelectItem value="Sunquest">Sunquest</SelectItem>
+                  <SelectItem value="MEDITECH">MEDITECH</SelectItem>
+                  <SelectItem value="Orchard">Orchard</SelectItem>
+                  <SelectItem value="LabWare">LabWare</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <DialogFooter>
               <Button

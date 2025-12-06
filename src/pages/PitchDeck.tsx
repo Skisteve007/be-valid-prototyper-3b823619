@@ -85,11 +85,10 @@ const PitchDeck = () => {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>
-          <img src={logo} alt="CleanCheck" className="h-10" />
           <Button 
             variant="outline" 
             className="border-slate-600 text-slate-300 hover:bg-slate-800"
-            onClick={() => window.open("mailto:investors@cleancheck.fit", "_blank")}
+            onClick={() => window.open("mailto:investors@bevalid.app", "_blank")}
           >
             Contact Us
           </Button>
@@ -99,11 +98,12 @@ const PitchDeck = () => {
       <main className="container mx-auto px-4 py-8 space-y-16">
         {/* Hero Slide */}
         <section className="text-center py-16">
+          <img src={logo} alt="VALID" className="h-32 md:h-40 mx-auto mb-6 rounded-xl" />
           <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
             Seed Round Open
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            CleanCheck
+            VALID
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 mb-4">
             Privacy-First Health Verification Platform
@@ -172,7 +172,7 @@ const PitchDeck = () => {
           </Card>
           <div className="order-1 md:order-2">
             <Badge className="mb-4 bg-green-500/20 text-green-400 border-green-500/30">The Solution</Badge>
-            <h2 className="text-3xl font-bold mb-6">CleanCheck</h2>
+            <h2 className="text-3xl font-bold mb-6">VALID</h2>
             <div className="grid grid-cols-2 gap-4">
               {solutionPoints.map((point) => (
                 <div key={point.title} className="bg-slate-800/50 p-4 rounded-lg border border-slate-700">
@@ -300,7 +300,7 @@ const PitchDeck = () => {
                 <Button 
                   size="lg" 
                   className="bg-primary hover:bg-primary/90"
-                  onClick={() => window.open("mailto:investors@cleancheck.fit?subject=Investment Inquiry", "_blank")}
+                  onClick={() => window.open("mailto:investors@bevalid.app?subject=Investment Inquiry", "_blank")}
                 >
                   Request Deck
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -320,7 +320,7 @@ const PitchDeck = () => {
 
         {/* Footer */}
         <section className="text-center text-slate-500 text-sm pb-8">
-          <p>CleanCheck™ — The Safety Shield™</p>
+          <p>VALID™ — The Safety Shield™</p>
           <p className="mt-1">Confidential — For Investor Use Only</p>
         </section>
       </main>

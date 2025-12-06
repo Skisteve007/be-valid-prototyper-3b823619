@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const scorecardData = [
   {
@@ -92,15 +93,17 @@ export default function CompetitiveScorecard() {
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-accent/20 border-b border-border">
         <div className="container mx-auto px-4 py-8">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate(-1)}
-            className="mb-4"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Button>
+          <div className="flex items-center justify-between mb-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate(-1)}
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back
+            </Button>
+            <ThemeToggle />
+          </div>
           <div className="text-center">
             <Badge variant="outline" className="mb-4 text-xs font-mono">
               MARKET_INTELLIGENCE: VALID_COMPETITIVE_SCORECARD_V1

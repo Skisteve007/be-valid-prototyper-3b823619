@@ -107,14 +107,14 @@ const Index = () => {
         <div className="container mx-auto px-4 py-2 md:py-3 relative">
           <div className="flex flex-col md:flex-row md:items-center gap-4">
             {/* Logo + Partner Solutions - left side */}
-            <div className="flex flex-col items-start gap-3 flex-shrink-0 md:w-72">
+            <div className="flex flex-col items-start gap-3 flex-shrink-0 md:w-80 ml-2 md:ml-6">
               <div 
                 className="relative flex justify-start cursor-pointer"
                 {...longPressHandlers}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 blur-3xl rounded-full scale-150"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-                <img src={logo} alt="VALID" className="relative w-auto h-24 md:h-32 select-none" draggable={false} />
+                <img src={logo} alt="VALID" className="relative w-auto h-28 md:h-40 select-none" draggable={false} />
               </div>
               {/* Partner Solutions Button - Under Logo */}
               <Button

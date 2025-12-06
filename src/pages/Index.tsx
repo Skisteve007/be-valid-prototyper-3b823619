@@ -106,7 +106,7 @@ const Index = () => {
       <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6 relative">
           <div className="flex flex-col md:flex-row md:items-center gap-4">
-            {/* Logo + Partner Solutions - stacked */}
+            {/* Logo - left side */}
             <div className="flex flex-col items-center gap-1.5 flex-shrink-0 md:w-48">
               <div 
                 className="relative flex justify-center cursor-pointer"
@@ -116,17 +116,6 @@ const Index = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
                 <img src={logo} alt="VALID" className="relative w-auto h-20 md:h-24 select-none" draggable={false} />
               </div>
-              {/* Partner Solutions Button - Centered Under Logo */}
-              <Button
-                onClick={() => navigate("/compliance")}
-                variant="outline"
-                size="default"
-                className="relative group overflow-hidden border border-accent/50 bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-semibold text-xs tracking-wide px-4 py-2 h-8 rounded-full transition-all duration-300 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)]"
-              >
-                <span className="relative z-10 flex items-center gap-1.5">
-                  🛸 Partner Solutions Investor Relations
-                </span>
-              </Button>
             </div>
 
             {/* Tagline in the middle - desktop only */}
@@ -156,10 +145,25 @@ const Index = () => {
                   </span>
                 </Button>
               </div>
+              <p className="text-xs text-muted-foreground mt-1 font-medium">
+                Powered By Synthetic AI
+              </p>
             </div>
 
-            {/* Buttons - stacked on mobile, row on desktop */}
-            <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-48 items-stretch md:items-start flex-shrink-0 md:justify-end">
+            {/* Right side - Partner Solutions + Login buttons */}
+            <div className="flex flex-col gap-2 items-center md:items-end flex-shrink-0 md:w-auto">
+              
+              {/* Partner Solutions Investor Relations Button */}
+              <Button
+                onClick={() => navigate("/compliance")}
+                variant="outline"
+                size="default"
+                className="relative group overflow-hidden border border-accent/50 bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-semibold text-xs tracking-wide px-4 py-2 h-8 rounded-full transition-all duration-300 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)]"
+              >
+                <span className="relative z-10 flex items-center gap-1.5">
+                  🛸 Partner Solutions Investor Relations
+                </span>
+              </Button>
               
               <Button 
                 onClick={() => navigate("/auth?mode=login")}
@@ -168,24 +172,21 @@ const Index = () => {
                 <div className="absolute inset-0 bg-accent/20 blur-md rounded-md -z-10"></div>
                 Member Log In
               </Button>
-              <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto md:items-start">
-                <div className="flex flex-col items-center gap-1">
-                  <Button 
-                    variant="ghost" 
-                    onClick={() => {
-                      if (session) {
-                        navigate("/dashboard?tab=qrcode");
-                      } else {
-                        navigate("/auth");
-                      }
-                    }}
-                    className="relative shadow-[0_0_20px_hsl(var(--chart-4)/0.6)] hover:shadow-[0_0_30px_hsl(var(--chart-4)/0.8)] border border-chart-4/60 bg-chart-4/15 text-chart-4 hover:text-chart-4 animate-pulse font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
-                  >
-                    <div className="absolute inset-0 bg-chart-4/20 blur-md rounded-md -z-10 animate-pulse"></div>
-                    QR Code
-                  </Button>
-                  <ThemeToggle />
-                </div>
+              <div className="flex flex-row gap-1.5 items-center">
+                <Button 
+                  variant="ghost" 
+                  onClick={() => {
+                    if (session) {
+                      navigate("/dashboard?tab=qrcode");
+                    } else {
+                      navigate("/auth");
+                    }
+                  }}
+                  className="relative shadow-[0_0_20px_hsl(var(--chart-4)/0.6)] hover:shadow-[0_0_30px_hsl(var(--chart-4)/0.8)] border border-chart-4/60 bg-chart-4/15 text-chart-4 hover:text-chart-4 animate-pulse font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation"
+                >
+                  <div className="absolute inset-0 bg-chart-4/20 blur-md rounded-md -z-10 animate-pulse"></div>
+                  QR Code
+                </Button>
                 <Button 
                   onClick={() => {
                     console.log("Profile button clicked, session:", session);
@@ -195,11 +196,12 @@ const Index = () => {
                       navigate("/auth");
                     }
                   }}
-                  className="relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary/15 font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"
+                  className="relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary/15 font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation"
                 >
                   <div className="absolute inset-0 bg-primary/20 blur-md rounded-md -z-10"></div>
                   Profile
                 </Button>
+                <ThemeToggle />
               </div>
             </div>
           </div>

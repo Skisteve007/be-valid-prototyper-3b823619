@@ -276,6 +276,13 @@ const VenueCompliance = () => {
                 <span className="text-foreground font-medium">+4% Immediate Margin Boost</span>
               </li>
             </ul>
+            
+            <Button 
+              onClick={() => navigate("/partner-application")}
+              className="mt-6 px-8 py-3 bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg rounded-full shadow-[0_0_20px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_30px_hsl(var(--accent)/0.7)] transition-all duration-300"
+            >
+              Request Wallet Integration Demo →
+            </Button>
           </div>
 
           <div className="md:w-1/3 flex justify-center">

@@ -105,9 +105,9 @@ const Index = () => {
 
       <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6 relative">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex flex-col md:flex-row md:items-center gap-4">
             {/* Logo + Partner Solutions - stacked */}
-            <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
+            <div className="flex flex-col items-center gap-1.5 flex-shrink-0 md:w-48">
               <div 
                 className="relative flex justify-center cursor-pointer"
                 {...longPressHandlers}
@@ -130,7 +130,7 @@ const Index = () => {
             </div>
 
             {/* Tagline in the middle - desktop only */}
-            <div className="hidden lg:flex flex-1 flex-col justify-center items-center px-8">
+            <div className="hidden lg:flex flex-1 flex-col justify-center items-center">
               <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_25px_hsl(var(--secondary)/0.5),0_0_50px_hsl(var(--secondary)/0.3)]">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-xl rounded-full animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>
@@ -159,7 +159,7 @@ const Index = () => {
             </div>
 
             {/* Buttons - stacked on mobile, row on desktop */}
-            <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-auto items-stretch md:items-start flex-shrink-0">
+            <div className="flex flex-col md:flex-row gap-1.5 w-full md:w-48 items-stretch md:items-start flex-shrink-0 md:justify-end">
               
               <Button 
                 onClick={() => navigate("/auth?mode=login")}

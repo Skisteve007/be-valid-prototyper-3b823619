@@ -495,8 +495,9 @@ const Partners = () => {
                 <h3 className="text-xl font-extrabold text-destructive mb-3">EXECUTIVE EXPLAINER: PROFIT & PROTECTION</h3>
                 <div className="space-y-2 text-muted-foreground">
                   <p><strong className="text-foreground">The Problem:</strong> Eliminate Risk. You face liability for compliance and security issues. Traditional ID checks fail to mitigate this risk.</p>
-                  <p><strong className="text-foreground">The Solution:</strong> The Triple Shield. VALID's architecture legally shifts liability away from your organization. We enforce <strong className="text-foreground">Zero-Trust</strong> screening and provide the necessary legal firewall.</p>
-                  <p><strong className="text-foreground">The Profit:</strong> Monetize Access. The Incognito Token creates a new, high-margin revenue stream. Collect passive income from the $10, $20, or $50 access fee, plus subscription fees.</p>
+                  <p><strong className="text-foreground">The Solution:</strong> The Triple Shield. VALID{"'"}s architecture legally shifts liability away from your organization. We enforce <strong className="text-foreground">Zero-Trust</strong> screening and provide the necessary legal firewall.</p>
+                  <p><strong className="text-foreground">The Profit:</strong> Monetize Access. The Incognito Token creates a new, high-margin revenue stream. Collect passive income from the $10, $20, or $50 access fee.</p>
+                  <p><strong className="text-foreground">The Savings:</strong> <span className="text-accent font-bold">Zero-Fee Processing.</span> Because users pre-fund their wallet, you eliminate 3-5% credit card fees and 100% of chargeback risks. <strong className="text-foreground">That is an instant 4% margin boost.</strong></p>
                   <p><strong className="text-foreground">The Scale:</strong> Effortless Integration. Use our simple API keys to connect your LIS and POS systems. Focus on growth, not compliance headaches.</p>
                 </div>
                 <div className="mt-4 text-right">

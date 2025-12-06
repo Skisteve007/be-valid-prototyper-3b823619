@@ -244,7 +244,7 @@ const Index = () => {
                 Your Secure Ecosystem for Total Access.
               </h1>
               <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-4">
-                Frictionless entry and instant transactions. You set the limits. We secure the rest.
+                Frictionless entry via QR code & Instant transactions. You set the limits VALID secures the rest.
               </h2>
               
               {/* Trust Badges */}

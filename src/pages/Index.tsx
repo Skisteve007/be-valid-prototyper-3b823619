@@ -522,7 +522,7 @@ const Index = () => {
             {/* Pricing Cards */}
             <ScrollReveal direction="up" delay={200}>
               <div className="mb-8 md:mb-12">
-                <h3 className="text-2xl md:text-3xl font-bold text-center mb-3 md:mb-4 bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent px-4">💳 Membership Pricing - Click to Select</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-center mb-3 md:mb-4 text-foreground px-4">💳 Membership Pricing - Click to Select</h3>
                 <div className="flex justify-center mb-4 md:mb-6">
                   <div className="relative group">
                     <div className="absolute inset-0 bg-accent/40 blur-xl rounded-lg animate-pulse"></div>
@@ -538,7 +538,7 @@ const Index = () => {
               <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4">
                 {/* Single Member Subscription */}
                 <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--primary)/0.7)] border-2 border-primary/30 overflow-hidden">
-                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-destructive to-destructive text-destructive-foreground text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
+                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-primary/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="space-y-1">
@@ -571,7 +571,7 @@ const Index = () => {
 
                 {/* Couple Subscription */}
                 <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
-                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-destructive to-destructive text-destructive-foreground text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
+                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="space-y-1">
@@ -604,27 +604,27 @@ const Index = () => {
 
                 {/* Single 1-Year Pass */}
                 <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--secondary)/0.7)] border-2 border-secondary/30 overflow-hidden">
-                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-destructive to-destructive text-destructive-foreground text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
+                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
-                    <div>
-                      <div className="flex items-baseline gap-2 mb-1">
+                    <div className="space-y-1">
+                      <div className="flex items-baseline gap-2">
                         <span className="text-lg text-muted-foreground line-through">$129</span>
                         <CardTitle className="text-3xl text-secondary">$64.50</CardTitle>
                       </div>
-                      <CardDescription className="text-base font-bold">Single One Year</CardDescription>
+                      <CardDescription className="text-base font-semibold">Single One Year</CardDescription>
+                      <p className="text-sm text-muted-foreground whitespace-nowrap">One-time payment</p>
+                      <p className="text-xs font-bold text-destructive">🔥 Limited Time!</p>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <p className="text-muted-foreground text-sm mb-1">One-time payment</p>
-                    <p className="text-xs font-bold text-destructive mb-3">🔥 Limited Time!</p>
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-                      <input type="hidden" name="item_name" value="Clean Check - Single 1-Year Pass - 50% OFF" />
+                      <input type="hidden" name="item_name" value="VALID - Single 1-Year Pass - 50% OFF" />
                       <input type="hidden" name="amount" value="64.50" />
-                      <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-                      <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+                      <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
+                      <input type="hidden" name="cancel_return" value="https://bevalid.app" />
                       <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-sm">
                         SELECT
                       </Button>
@@ -634,20 +634,20 @@ const Index = () => {
 
                 {/* Couple 1-Year Pass */}
                 <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
-                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-destructive to-destructive text-destructive-foreground text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
+                  <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
-                    <div>
-                      <div className="flex items-baseline gap-2 mb-1">
+                    <div className="space-y-1">
+                      <div className="flex items-baseline gap-2">
                         <span className="text-lg text-muted-foreground line-through">$219</span>
                         <CardTitle className="text-3xl text-accent">$109.50</CardTitle>
                       </div>
-                      <CardDescription className="text-base font-bold">Couple One Year</CardDescription>
+                      <CardDescription className="text-base font-semibold">Couple One Year</CardDescription>
+                      <p className="text-sm text-muted-foreground whitespace-nowrap">One-time payment</p>
+                      <p className="text-xs font-bold text-destructive">🔥 Limited Time!</p>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
-                    <p className="text-muted-foreground text-sm mb-1">One-time payment</p>
-                    <p className="text-xs font-bold text-destructive mb-3">🔥 Limited Time!</p>
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
@@ -672,11 +672,11 @@ const Index = () => {
           <div className="container mx-auto max-w-4xl px-4">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-4 py-2 rounded-full mb-4">
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4 border border-primary/30">
                   <Package className="h-4 w-4" />
-                  <span className="text-sm font-semibold">Lab Verification Kits</span>
+                  <span className="text-sm font-semibold text-primary">Lab Verification Kits</span>
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2 bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent">Upgrade to Lab-Certified Status</h3>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">Upgrade to Lab-Certified Status</h3>
                 <p className="text-muted-foreground text-sm">Get professionally verified results shipped to your door</p>
               </div>
             </ScrollReveal>
@@ -738,7 +738,7 @@ const Index = () => {
                   <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
                   <Card id="get-started-form" className="scroll-mt-8 relative shadow-[0_0_40px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--secondary)/0.7)] border-2 border-secondary/30">
                     <CardHeader>
-                      <CardTitle className="text-xl md:text-2xl bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent">Get Started</CardTitle>
+                      <CardTitle className="text-xl md:text-2xl text-foreground">Get Started</CardTitle>
                       <CardDescription className="text-sm">Both fields are required to proceed</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4 px-4 md:px-6">
@@ -792,11 +792,11 @@ const Index = () => {
           <div className="container mx-auto max-w-4xl px-4">
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-6 md:mb-8">
-                <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-3 md:px-4 py-2 rounded-full mb-2">
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 md:px-4 py-2 rounded-full mb-2 border border-primary/30">
                   <HelpCircle className="h-3 w-3 md:h-4 md:w-4" />
-                  <span className="text-xs md:text-sm font-semibold bg-gradient-to-r from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent">Frequently Asked Questions</span>
+                  <span className="text-xs md:text-sm font-semibold text-primary">Frequently Asked Questions</span>
                 </div>
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold"><span className="bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]">Got</span> <span className="bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--secondary)/0.6)]">Questions</span><span className="bg-gradient-to-br from-muted-foreground via-primary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]">?</span> <span className="bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--secondary)/0.6)]">We&apos;ve</span> <span className="bg-gradient-to-br from-muted-foreground via-secondary to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--secondary)/0.6)]">Got</span> <span className="bg-gradient-to-br from-muted-foreground via-accent to-muted-foreground bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--accent)/0.6)]">Answers</span></h3>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">Got Questions? We've Got Answers</h3>
               </div>
             </ScrollReveal>
 

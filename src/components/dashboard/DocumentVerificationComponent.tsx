@@ -1,194 +1,205 @@
-// --- Secure Document Verification Component ---
+// *****************************************************************************
+// FILE: DocumentVerificationComponent.tsx
+// PURPOSE: IDV Hub - User Selects Provider (Liability Shield) + Status Feedback
+// *****************************************************************************
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { IdCard, BookUser, ScanFace, Shield, Check, Loader2 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
-
-type VerificationStatus = 'Pending' | 'Verifying...' | 'Camera Active...' | 'Verified (Third Party)' | 'Verified (Liveness Check)';
+import { CheckCircle, AlertTriangle, Ban, Loader2 } from 'lucide-react';
 
 const DocumentVerificationComponent: React.FC = () => {
 
-  // States to track verification status
-  const [dlStatus, setDlStatus] = useState<VerificationStatus>('Pending');
-  const [passportStatus, setPassportStatus] = useState<VerificationStatus>('Pending');
-  const [faceStatus, setFaceStatus] = useState<VerificationStatus>('Pending');
-  const [isProcessing, setIsProcessing] = useState<string | null>(null);
+  // --- STATE MANAGEMENT ---
+  const [selectedDocType, setSelectedDocType] = useState<'dl' | 'passport'>('dl');
+  const [selectedProvider, setSelectedProvider] = useState<'veriff' | 'onfido' | null>(null);
 
-  // Calls backend IDV service
-  const startVerificationFlow = async (documentType: 'DL' | 'Passport') => {
-    // CRITICAL: Text confirms liability shift to the user
-    const confirmLiability = window.confirm(
-      "By proceeding, you agree to share your document data with our certified third-party ID Verification Partner for authentication. This process keeps VALID's liability low."
-    );
+  // The Status Loop: 'IDLE', 'PROCESSING', 'GREEN', 'YELLOW', 'RED'
+  const [verificationStatus, setVerificationStatus] = useState<'IDLE' | 'PROCESSING' | 'GREEN' | 'YELLOW' | 'RED'>('IDLE');
+  const [feedbackMessage, setFeedbackMessage] = useState<string>('');
 
-    if (!confirmLiability) return;
+  // --- MOCK BACKEND / SDK SIMULATION ---
 
-    setIsProcessing(documentType);
-    if (documentType === 'DL') setDlStatus('Verifying...');
-    if (documentType === 'Passport') setPassportStatus('Verifying...');
+  const startProviderSession = () => {
+    if (!selectedProvider) {
+      alert("Please select a Verification Partner first.");
+      return;
+    }
 
-    try {
-      const { data, error } = await supabase.functions.invoke('process-idv', {
-        body: { verification_type: documentType.toLowerCase() },
-      });
+    setVerificationStatus('PROCESSING');
+    setFeedbackMessage(`Connecting to ${selectedProvider === 'veriff' ? 'Veriff' : 'Onfido'} Secure Server...`);
 
-      if (error) throw error;
+    // SIMULATION: This mimics the SDK callback flow
+    // In production, the SDK returns a code, and your backend updates this status.
+    setTimeout(() => {
+      // RANDOMIZER FOR DEMO PURPOSES (To show you the flows)
+      // 80% chance of Green, 10% Yellow, 10% Red
+      const rand = Math.random();
 
-      if (data?.success) {
-        if (documentType === 'DL') setDlStatus('Verified (Third Party)');
-        if (documentType === 'Passport') setPassportStatus('Verified (Third Party)');
-        toast.success(`${documentType} verified successfully!`);
+      if (rand > 0.2) {
+        // SCENARIO: GREEN (Good to Go)
+        setVerificationStatus('GREEN');
+        setFeedbackMessage("Identity & Liveness Confirmed. You are Verified.");
+        // Backend: Update User Profile -> isVerified = true
+      } else if (rand > 0.1) {
+        // SCENARIO: YELLOW (Adjustment Needed)
+        setVerificationStatus('YELLOW');
+        setFeedbackMessage("Image Blurry or Glare Detected. Please clean camera and retry.");
+      } else {
+        // SCENARIO: RED (Rejected)
+        setVerificationStatus('RED');
+        setFeedbackMessage("Verification Failed. ID Invalid or Liveness Check Failed.");
       }
-    } catch (error: any) {
-      console.error('IDV error:', error);
-      toast.error(error.message || `Failed to verify ${documentType}`);
-      if (documentType === 'DL') setDlStatus('Pending');
-      if (documentType === 'Passport') setPassportStatus('Pending');
-    } finally {
-      setIsProcessing(null);
+    }, 4000);
+  };
+
+  // --- HELPER: STATUS BADGES ---
+  const renderStatusBadge = () => {
+    switch (verificationStatus) {
+      case 'GREEN':
+        return (
+          <div className="p-4 bg-green-900/30 border-2 border-green-400 rounded-lg text-center animate-pulse">
+            <CheckCircle className="h-8 w-8 text-green-400 mx-auto mb-2" />
+            <h3 className="text-xl font-bold text-white">VERIFICATION SUCCESSFUL</h3>
+            <p className="text-green-400">✔ {feedbackMessage}</p>
+          </div>
+        );
+      case 'YELLOW':
+        return (
+          <div className="p-4 bg-yellow-900/30 border-2 border-amber-500 rounded-lg text-center">
+            <AlertTriangle className="h-8 w-8 text-amber-500 mx-auto mb-2" />
+            <h3 className="text-xl font-bold text-white">ADJUSTMENT NEEDED</h3>
+            <p className="text-amber-500">⚠ {feedbackMessage}</p>
+            <button onClick={startProviderSession} className="mt-2 text-sm underline text-slate-300 hover:text-white">
+              Try Again
+            </button>
+          </div>
+        );
+      case 'RED':
+        return (
+          <div className="p-4 bg-red-900/30 border-2 border-red-500 rounded-lg text-center">
+            <Ban className="h-8 w-8 text-red-500 mx-auto mb-2" />
+            <h3 className="text-xl font-bold text-white">ACCESS DENIED</h3>
+            <p className="text-red-400">⛔ {feedbackMessage}</p>
+            <p className="text-xs text-slate-400 mt-2">Contact Support if you believe this is an error.</p>
+          </div>
+        );
+      case 'PROCESSING':
+        return (
+          <div className="p-4 bg-blue-900/20 border border-blue-500 rounded-lg text-center">
+            <Loader2 className="h-8 w-8 text-blue-400 mx-auto mb-2 animate-spin" />
+            <h3 className="text-lg font-bold text-white">PROCESSING...</h3>
+            <p className="text-blue-300 text-sm">Performing Biometric Analysis...</p>
+          </div>
+        );
+      default:
+        return null;
     }
   };
-
-  // --- FACIAL RECOGNITION / LIVENESS CHECK ---
-  const startLivenessCheck = async () => {
-    setFaceStatus('Camera Active...');
-    setIsProcessing('face');
-
-    try {
-      const { data, error } = await supabase.functions.invoke('process-idv', {
-        body: { verification_type: 'liveness' },
-      });
-
-      if (error) throw error;
-
-      if (data?.success) {
-        setFaceStatus('Verified (Liveness Check)');
-        toast.success("Liveness check verified!");
-      }
-    } catch (error: any) {
-      console.error('Liveness error:', error);
-      toast.error(error.message || "Failed liveness check");
-      setFaceStatus('Pending');
-    } finally {
-      setIsProcessing(null);
-    }
-  };
-
-  // Helper to determine status color
-  const getStatusClass = (status: VerificationStatus): string => {
-    if (status.includes('Verified')) return 'text-green-400 font-bold';
-    if (status.includes('Pending')) return 'text-amber-500';
-    return 'text-red-500';
-  };
-
-  const isVerified = (status: VerificationStatus): boolean => status.includes('Verified');
 
   return (
-    <div className="p-6 bg-card rounded-lg shadow-xl border border-border mt-8">
-      <div className="flex items-center gap-2 mb-4">
-        <Shield className="h-6 w-6 text-primary" />
-        <h3 className="text-2xl font-bold text-foreground font-orbitron">
-          Identity Verification Hub (IDV)
+    <div className="p-6 bg-slate-900 rounded-lg shadow-xl border border-slate-600 mt-8">
+
+      {/* HEADER */}
+      <div className="mb-6 border-b border-slate-700 pb-4">
+        <h3 className="text-2xl font-bold text-white" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+          🆔 Identity Verification Hub
         </h3>
-      </div>
-      
-      <div className="text-sm text-amber-500 mb-6 border p-3 rounded border-amber-500/50 bg-amber-500/10">
-        <strong>Liability Firewall:</strong> All document authentication and facial recognition is handled by a certified third-party partner, insulating VALID from data authenticity claims.
-      </div>
-
-      <div className="space-y-4">
-
-        {/* Driver's License Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-4 bg-muted rounded-lg">
-          <div className="flex items-center gap-3">
-            <IdCard className="h-5 w-5 text-muted-foreground" />
-            <span className="text-lg text-foreground">Driver's License Scan</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button
-              onClick={() => startVerificationFlow('DL')}
-              disabled={isVerified(dlStatus) || isProcessing === 'DL'}
-              variant={isVerified(dlStatus) ? "outline" : "default"}
-              className={isVerified(dlStatus) ? 'border-green-500/50 text-green-400' : ''}
-            >
-              {isProcessing === 'DL' ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : isVerified(dlStatus) ? (
-                <>
-                  <Check className="h-4 w-4 mr-1" />
-                  Verified
-                </>
-              ) : (
-                'Start DL Scan'
-              )}
-            </Button>
-            <span className={`min-w-[120px] text-right ${getStatusClass(dlStatus)}`}>{dlStatus}</span>
-          </div>
-        </div>
-
-        {/* Passport Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-4 bg-muted rounded-lg">
-          <div className="flex items-center gap-3">
-            <BookUser className="h-5 w-5 text-muted-foreground" />
-            <span className="text-lg text-foreground">Passport Scan</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button
-              onClick={() => startVerificationFlow('Passport')}
-              disabled={isVerified(passportStatus) || isProcessing === 'Passport'}
-              variant={isVerified(passportStatus) ? "outline" : "default"}
-              className={isVerified(passportStatus) ? 'border-green-500/50 text-green-400' : ''}
-            >
-              {isProcessing === 'Passport' ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : isVerified(passportStatus) ? (
-                <>
-                  <Check className="h-4 w-4 mr-1" />
-                  Verified
-                </>
-              ) : (
-                'Start Passport Scan'
-              )}
-            </Button>
-            <span className={`min-w-[120px] text-right ${getStatusClass(passportStatus)}`}>{passportStatus}</span>
-          </div>
-        </div>
-
-        <hr className="border-border my-4" />
-
-        {/* Facial Liveness Check Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-4 bg-muted rounded-lg">
-          <div className="flex items-center gap-3">
-            <ScanFace className="h-5 w-5 text-muted-foreground" />
-            <span className="text-lg text-foreground">Facial Liveness Check</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button
-              onClick={startLivenessCheck}
-              disabled={isVerified(faceStatus) || isProcessing === 'face'}
-              variant={isVerified(faceStatus) ? "outline" : "secondary"}
-              className={isVerified(faceStatus) ? 'border-green-500/50 text-green-400' : 'bg-purple-600 hover:bg-purple-700 text-white'}
-            >
-              {isProcessing === 'face' ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : isVerified(faceStatus) ? (
-                <>
-                  <Check className="h-4 w-4 mr-1" />
-                  Liveness Confirmed
-                </>
-              ) : (
-                'Start Liveness Check'
-              )}
-            </Button>
-            <span className={`min-w-[120px] text-right ${getStatusClass(faceStatus)}`}>{faceStatus}</span>
-          </div>
-        </div>
-
-        <p className="text-xs text-muted-foreground mt-4">
-          <strong>Final Step:</strong> Once all three are verified, the <strong>ID Verified</strong> status is tokenized and added to your Incognito QR Code payload.
+        <p className="text-sm text-slate-400 mt-1">
+          Select a third-party partner to verify your documents and facial liveness.
         </p>
+      </div>
+
+      <div className="space-y-6">
+
+        {/* STEP 1: DOCUMENT TYPE */}
+        <div className="p-4 bg-slate-800 rounded border-l-4 border-slate-500">
+          <h4 className="text-sm font-bold text-slate-400 uppercase mb-3">1. Select Document</h4>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                checked={selectedDocType === 'dl'}
+                onChange={() => setSelectedDocType('dl')}
+                disabled={verificationStatus === 'GREEN'}
+                className="text-blue-500 focus:ring-blue-500 h-4 w-4"
+              />
+              <span className="text-white">Driver&apos;s License</span>
+            </label>
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                checked={selectedDocType === 'passport'}
+                onChange={() => setSelectedDocType('passport')}
+                disabled={verificationStatus === 'GREEN'}
+                className="text-blue-500 focus:ring-blue-500 h-4 w-4"
+              />
+              <span className="text-white">Passport</span>
+            </label>
+          </div>
+        </div>
+
+        {/* STEP 2: PROVIDER SELECTION (LIABILITY SHIELD) */}
+        <div className="p-4 bg-slate-800 rounded border-l-4 border-blue-500">
+          <h4 className="text-sm font-bold text-blue-400 uppercase mb-3">2. Select Verification Partner</h4>
+          <p className="text-xs text-slate-500 mb-3">
+            *By selecting a partner, you agree to their specific Terms of Service and Privacy Policy. VALID does not process your raw biometric data.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* VERIFF OPTION */}
+            <div
+              onClick={() => verificationStatus !== 'GREEN' && setSelectedProvider('veriff')}
+              className={`p-3 rounded border-2 cursor-pointer transition-all text-center min-h-[80px] flex flex-col justify-center touch-manipulation ${
+                selectedProvider === 'veriff'
+                  ? 'border-blue-500 bg-slate-700'
+                  : 'border-slate-600 hover:border-slate-500'
+              } ${verificationStatus === 'GREEN' ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <h5 className="font-bold text-white text-lg">Veriff</h5>
+              <p className="text-xs text-slate-400">Fastest for Passports</p>
+            </div>
+
+            {/* ONFIDO OPTION */}
+            <div
+              onClick={() => verificationStatus !== 'GREEN' && setSelectedProvider('onfido')}
+              className={`p-3 rounded border-2 cursor-pointer transition-all text-center min-h-[80px] flex flex-col justify-center touch-manipulation ${
+                selectedProvider === 'onfido'
+                  ? 'border-blue-500 bg-slate-700'
+                  : 'border-slate-600 hover:border-slate-500'
+              } ${verificationStatus === 'GREEN' ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <h5 className="font-bold text-white text-lg">Onfido</h5>
+              <p className="text-xs text-slate-400">Best for Driver&apos;s Licenses</p>
+            </div>
+          </div>
+        </div>
+
+        {/* STEP 3: ACTION & RESULTS */}
+        <div className="p-4 bg-slate-800 rounded border-l-4 border-green-400">
+          <h4 className="text-sm font-bold text-green-400 uppercase mb-3">3. Status & Results</h4>
+
+          {/* START BUTTON */}
+          {(verificationStatus === 'IDLE' || verificationStatus === 'YELLOW' || verificationStatus === 'RED') && (
+            <button
+              onClick={startProviderSession}
+              disabled={!selectedProvider}
+              className={`w-full py-3 rounded font-bold text-white shadow-lg transition-all min-h-[48px] touch-manipulation ${
+                !selectedProvider
+                  ? 'bg-slate-600 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-[1.02] active:scale-[0.98]'
+              }`}
+            >
+              {selectedProvider
+                ? `Start Scan with ${selectedProvider === 'veriff' ? 'Veriff' : 'Onfido'}`
+                : 'Select a Partner Above'}
+            </button>
+          )}
+
+          {/* STATUS DISPLAY AREA */}
+          <div className="mt-4">
+            {renderStatusBadge()}
+          </div>
+        </div>
+
       </div>
     </div>
   );

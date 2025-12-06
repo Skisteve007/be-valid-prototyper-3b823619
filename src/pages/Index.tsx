@@ -136,7 +136,7 @@ const Index = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>
                 <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-full"></div>
                 <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                  YOUR SECURE CHANGE VALID
+                VALID
                 </p>
               </div>
               <p className="text-base xl:text-lg font-semibold text-center text-foreground mt-2 italic">

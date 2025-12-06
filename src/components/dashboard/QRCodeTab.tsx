@@ -18,7 +18,7 @@ import SponsorUpload from "./SponsorUpload";
 import LiabilityWaiverModal, { useWaiverStatus } from "./LiabilityWaiverModal";
 import { IncognitoQRDialog } from "./IncognitoQRDialog";
 import { SpendingHistory } from "./SpendingHistory";
-
+import IncognitoQRCodeGenerator from "./IncognitoQRCodeGenerator";
 interface QRCodeTabProps {
   userId: string;
 }
@@ -780,6 +780,11 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           </div>
         )}
       </div>
+
+      {/* Incognito Wallet Token Generator - Pre-Funded Model */}
+      <IncognitoQRCodeGenerator 
+        userData={{ userId }}
+      />
 
       <SponsorUpload userId={userId} />
     </div>

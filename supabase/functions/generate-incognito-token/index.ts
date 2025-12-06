@@ -17,6 +17,8 @@ interface IncognitoTokenRequest {
   promoter_id?: string;
   bundle_preferences?: BundlePreferences;
   spending_limit?: number;
+  access_duration_hrs?: number;
+  access_price?: number;
 }
 
 serve(async (req: Request) => {
@@ -39,10 +41,20 @@ serve(async (req: Request) => {
       );
     }
 
-    const { user_id, venue_id, promoter_id, bundle_preferences, spending_limit }: IncognitoTokenRequest = await req.json();
+    const { user_id, venue_id, promoter_id, bundle_preferences, spending_limit, access_duration_hrs, access_price }: IncognitoTokenRequest = await req.json();
     const userSpendingLimit = spending_limit || 500;
+    const durationHrs = access_duration_hrs || 24;
+    const totalFee = access_price || 10.00;
 
-    console.log('Generating Incognito Master Token:', { user_id, venue_id, promoter_id, bundle_preferences, spending_limit: userSpendingLimit });
+    console.log('Generating Incognito Master Token:', { 
+      user_id, 
+      venue_id, 
+      promoter_id, 
+      bundle_preferences, 
+      spending_limit: userSpendingLimit,
+      access_duration_hrs: durationHrs,
+      access_price: totalFee
+    });
 
     // 1. Check if user has a valid payment method on file
     const { data: paymentMethod, error: pmError } = await supabase
@@ -95,11 +107,14 @@ serve(async (req: Request) => {
       }
     }
 
-    // 4. Process the $5 payment
-    const TOTAL_FEE = 5.00;
-    const VENUE_SHARE = 2.00;
-    const CLEANCHECK_SHARE = 2.00;
-    const PROMOTER_SHARE = 1.00;
+    // 4. Process payment based on tiered pricing (40/40/20 split)
+    const VENUE_PERCENT = 0.40;
+    const CLEANCHECK_PERCENT = 0.40;
+    const PROMOTER_PERCENT = 0.20;
+    
+    const VENUE_SHARE = parseFloat((totalFee * VENUE_PERCENT).toFixed(2));
+    const CLEANCHECK_SHARE = parseFloat((totalFee * CLEANCHECK_PERCENT).toFixed(2));
+    const PROMOTER_SHARE = promoter_id ? parseFloat((totalFee * PROMOTER_PERCENT).toFixed(2)) : 0;
 
     // Create transaction record with spending limit
     const { data: transaction, error: txError } = await supabase
@@ -108,10 +123,10 @@ serve(async (req: Request) => {
         user_id,
         venue_id: venue_id || null,
         promoter_id: promoter_id || null,
-        total_amount: TOTAL_FEE,
+        total_amount: totalFee,
         venue_share: VENUE_SHARE,
         cleancheck_share: CLEANCHECK_SHARE,
-        promoter_share: promoter_id ? PROMOTER_SHARE : 0,
+        promoter_share: PROMOTER_SHARE,
         payment_method_id: paymentMethod.id,
         payment_status: 'processing',
         spending_limit: userSpendingLimit,
@@ -143,9 +158,9 @@ serve(async (req: Request) => {
 
     console.log('Payment processed:', paymentReference);
 
-    // 5. Generate 24-hour incognito token with embedded bundle data
+    // 5. Generate incognito token with configurable duration
     const tokenBase = crypto.randomUUID() + '-' + Date.now().toString(36);
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+    const expiresAt = new Date(Date.now() + durationHrs * 60 * 60 * 1000);
 
     // Encode bundle flags in the token prefix for easy parsing
     // Format: INCOG_{flags}_{token}
@@ -253,10 +268,11 @@ serve(async (req: Request) => {
     console.log('Bundle Flags:', flags);
     console.log('ID Included:', bundle_preferences?.includeId ? 'YES' : 'NO');
     console.log('Payment Auth Included:', bundle_preferences?.includePayment ? 'YES' : 'NO');
-    console.log('Total Amount:', TOTAL_FEE);
+    console.log('Access Duration (hrs):', durationHrs);
+    console.log('Total Amount:', totalFee);
     console.log('Spending Limit:', userSpendingLimit);
     console.log('Venue Share:', VENUE_SHARE);
-    console.log('Promoter Share:', promoter_id ? PROMOTER_SHARE : 0);
+    console.log('Promoter Share:', PROMOTER_SHARE);
     console.log('Clean Check Share:', CLEANCHECK_SHARE);
     console.log('Payment Reference:', paymentReference);
     console.log('Token Expires:', expiresAt.toISOString());

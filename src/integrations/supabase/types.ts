@@ -639,6 +639,39 @@ export type Database = {
         }
         Relationships: []
       }
+      member_beta_surveys: {
+        Row: {
+          created_at: string
+          ease_of_use: string
+          id: string
+          missing_feature: string | null
+          qr_sharing_experience: string
+          recommendation_likelihood: string | null
+          trust_in_security: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          ease_of_use: string
+          id?: string
+          missing_feature?: string | null
+          qr_sharing_experience: string
+          recommendation_likelihood?: string | null
+          trust_in_security: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          ease_of_use?: string
+          id?: string
+          missing_feature?: string | null
+          qr_sharing_experience?: string
+          recommendation_likelihood?: string | null
+          trust_in_security?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       member_references: {
         Row: {
           created_at: string

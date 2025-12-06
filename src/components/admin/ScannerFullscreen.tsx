@@ -17,7 +17,7 @@ import {
   EyeOff,
   DollarSign
 } from "lucide-react";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/valid-logo.jpeg";
 
 interface ScannerFullscreenProps {
   onClose: () => void;

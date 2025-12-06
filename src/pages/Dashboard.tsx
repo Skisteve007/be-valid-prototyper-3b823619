@@ -18,7 +18,7 @@ import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
 import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
 import { VenueCheckin } from "@/components/dashboard/VenueCheckin";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/valid-logo.jpeg";
 
 const Dashboard = () => {
   const navigate = useNavigate();

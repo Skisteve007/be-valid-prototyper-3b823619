@@ -14,7 +14,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/valid-logo.jpeg";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import StorageSponsorManager from "@/components/admin/StorageSponsorManager";
 import { LabIntegrationsTab } from "@/components/admin/LabIntegrationsTab";

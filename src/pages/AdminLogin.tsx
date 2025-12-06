@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff, Shield } from "lucide-react";
 import { toast } from "sonner";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/valid-logo.jpeg";
 
 const ADMIN_EMAILS = [
   "sgrillocce@gmail.com",

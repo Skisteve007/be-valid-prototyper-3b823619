@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Loader2, QrCode, Users, Calendar, Building2, LogOut, Scan } from "lucide-react";
 import { format } from "date-fns";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/valid-logo.jpeg";
 import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
 
 interface VenueAssignment {

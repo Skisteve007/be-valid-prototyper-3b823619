@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import logo from "@/assets/clean-check-logo.png";
+import logo from "@/assets/valid-logo.jpeg";
 import { User, Session } from "@supabase/supabase-js";
 import { formatDistanceToNow } from "date-fns";
 

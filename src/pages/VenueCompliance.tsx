@@ -117,7 +117,7 @@ const VenueCompliance = () => {
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-secondary/80 text-accent font-semibold text-base md:text-lg border border-accent/40 shadow-[0_0_20px_hsl(var(--accent)/0.2)] hover:bg-secondary hover:border-accent/60 hover:shadow-[0_0_30px_hsl(var(--accent)/0.4)] transition-all duration-300 cursor-pointer"
           >
             <span>Automated Compliance And Risk Management For High-Liability Sectors.</span>
-            <span className="animate-pulse text-accent drop-shadow-[0_0_6px_hsl(var(--accent))]">→</span>
+            <span className="animate-pulse text-accent text-2xl md:text-3xl drop-shadow-[0_0_8px_hsl(var(--accent))]">→</span>
           </button>
           
           {/* Investor Relations Button */}

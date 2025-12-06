@@ -18,7 +18,7 @@ const ROICalculator = () => {
   const incidentsAvoided = Math.round(annualIncidents * (reduction / 100));
   const liabilitySaved = incidentsAvoided * incidentCost;
   
-  // Clean Check subscription cost (assuming mid-tier at $499/mo)
+  // VALID subscription cost (assuming mid-tier at $499/mo)
   const annualCost = 499 * 12;
   const netSavings = liabilitySaved - annualCost;
   const roi = annualCost > 0 ? Math.round((netSavings / annualCost) * 100) : 0;
@@ -35,7 +35,7 @@ const ROICalculator = () => {
           <Calculator className="h-6 w-6" />
           ROI Calculator
         </CardTitle>
-        <p className="text-sm text-slate-400">See your potential savings with Clean Check</p>
+        <p className="text-sm text-slate-400">See your potential savings with VALID</p>
       </CardHeader>
       <CardContent className="space-y-8">
         {/* Sliders */}
@@ -106,7 +106,7 @@ const ROICalculator = () => {
               <span className="text-xs uppercase tracking-wide">Net Savings</span>
             </div>
             <p className="text-2xl font-bold text-white">${netSavings.toLocaleString()}</p>
-            <p className="text-xs text-slate-500">After Clean Check subscription</p>
+            <p className="text-xs text-slate-500">After VALID subscription</p>
           </div>
 
           <div className="bg-slate-950/50 p-4 rounded-lg">

@@ -388,7 +388,7 @@ export const MembersTab = () => {
             <div>
               <CardTitle className="text-2xl flex items-center gap-2">
                 <Users className="h-6 w-6" />
-                Clean Check Members
+                VALID Members
               </CardTitle>
               <CardDescription>
                 All registered members with their signup information

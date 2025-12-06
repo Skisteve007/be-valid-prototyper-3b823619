@@ -44,7 +44,7 @@ export const AgeVerificationDialog = ({ open, onVerify, onExit }: AgeVerificatio
                 className="underline hover:opacity-80 text-primary"
                 onClick={(e) => e.stopPropagation()}
               >
-                CleanCheck Terms of Use
+                VALID Terms of Use
               </a>.
             </span>
           </div>

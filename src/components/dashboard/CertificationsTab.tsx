@@ -534,10 +534,10 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
           </p>
           <p className="text-sm text-blue-800 dark:text-blue-200">
             By checking this box, I certify that all information provided is accurate and I understand that 
-            Clean Check is a Peer to Peer platform for sharing information. I take full responsibility for the 
+            VALID is a Peer to Peer platform for sharing information. I take full responsibility for the 
             accuracy of my information and understand the importance of maintaining up-to-date record documents. 
             In agreement with the site's membership policy, you're also reinforcing there is no liability to 
-            Clean Check or any of its sponsors or associated members.
+            VALID or any of its sponsors or associated members.
           </p>
           <div className="flex items-start space-x-2">
             <Checkbox

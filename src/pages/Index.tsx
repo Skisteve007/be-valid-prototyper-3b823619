@@ -106,16 +106,27 @@ const Index = () => {
       <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6 relative">
           <div className="flex flex-col md:flex-row md:items-center gap-4">
-            {/* Logo - left side */}
-            <div className="flex flex-col items-center gap-1.5 flex-shrink-0 md:w-48">
+            {/* Logo + Partner Solutions - left side */}
+            <div className="flex flex-col items-center gap-2 flex-shrink-0 md:w-56">
               <div 
                 className="relative flex justify-center cursor-pointer"
                 {...longPressHandlers}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 blur-3xl rounded-full scale-150"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-                <img src={logo} alt="VALID" className="relative w-auto h-20 md:h-24 select-none" draggable={false} />
+                <img src={logo} alt="VALID" className="relative w-auto h-28 md:h-32 select-none" draggable={false} />
               </div>
+              {/* Partner Solutions Button - Under Logo */}
+              <Button
+                onClick={() => navigate("/compliance")}
+                variant="outline"
+                size="default"
+                className="relative group overflow-hidden border border-accent/50 bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-semibold text-xs tracking-wide px-4 py-2 h-8 rounded-full transition-all duration-300 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)]"
+              >
+                <span className="relative z-10 flex items-center gap-1.5">
+                  🛸 Partner Solutions Investor Relations
+                </span>
+              </Button>
             </div>
 
             {/* Tagline in the middle - desktop only */}
@@ -145,26 +156,13 @@ const Index = () => {
                   </span>
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-1 font-medium">
-                Powered By Synthetic AI
+              <p className="text-xs text-muted-foreground mt-1 font-medium tracking-[0.15em]">
+                Powered By Synthetic AI*
               </p>
             </div>
 
-            {/* Right side - Partner Solutions + Login buttons */}
+            {/* Right side - Login buttons */}
             <div className="flex flex-col gap-2 items-center md:items-end flex-shrink-0 md:w-auto">
-              
-              {/* Partner Solutions Investor Relations Button */}
-              <Button
-                onClick={() => navigate("/compliance")}
-                variant="outline"
-                size="default"
-                className="relative group overflow-hidden border border-accent/50 bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-semibold text-xs tracking-wide px-4 py-2 h-8 rounded-full transition-all duration-300 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)]"
-              >
-                <span className="relative z-10 flex items-center gap-1.5">
-                  🛸 Partner Solutions Investor Relations
-                </span>
-              </Button>
-              
               <Button 
                 onClick={() => navigate("/auth?mode=login")}
                 className="relative shadow-[0_0_20px_hsl(var(--accent)/0.6)] hover:shadow-[0_0_30px_hsl(var(--accent)/0.8)] border border-accent/60 bg-accent/15 text-foreground font-semibold text-xs md:text-sm min-h-[36px] py-1.5 px-3 touch-manipulation w-full md:w-auto"

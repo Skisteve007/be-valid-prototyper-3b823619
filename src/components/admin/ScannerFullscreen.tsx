@@ -252,7 +252,7 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
           {venueLogo ? (
             <img src={venueLogo} alt="Venue" className="h-10 w-auto" />
           ) : (
-            <img src={logo} alt="Clean Check" className="h-10 w-auto" />
+            <img src={logo} alt="VALID" className="h-10 w-auto" />
           )}
         </div>
         <div className="flex items-center gap-2">

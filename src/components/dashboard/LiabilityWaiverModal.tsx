@@ -91,7 +91,7 @@ const LiabilityWaiverModal = ({ open, onClose, onSigned, userId }: LiabilityWaiv
           <div className="bg-muted/50 border rounded-lg p-4 space-y-4">
             <p className="text-sm leading-relaxed">
               By generating this pass, I voluntarily assume all risks related to attendance at private events. 
-              I hereby <span className="font-semibold">release, indemnify, and hold harmless</span> Clean Check, 
+              I hereby <span className="font-semibold">release, indemnify, and hold harmless</span> VALID, 
               its partner laboratories, and any participating Venue from any claims, liabilities, or health 
               consequences arising from my participation.
             </p>
@@ -100,7 +100,7 @@ const LiabilityWaiverModal = ({ open, onClose, onSigned, userId }: LiabilityWaiv
               I understand that:
             </p>
             <ul className="text-sm space-y-2 list-disc list-inside text-muted-foreground">
-              <li>Clean Check provides verification services only and is not a medical provider</li>
+              <li>VALID provides verification services only and is not a medical provider</li>
               <li>Test results do not guarantee health status beyond the date of testing</li>
               <li>I am responsible for my own health decisions and disclosures</li>
               <li>Partner venues may have additional requirements or policies</li>

@@ -114,14 +114,14 @@ export const PricingSection = () => {
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Clean Check - Single Member (Bi-Monthly) - 50% OFF" />
+            <input type="hidden" name="item_name" value="VALID - Single Member (Bi-Monthly) - 50% OFF" />
             <input type="hidden" name="a3" value="19.50" />
             <input type="hidden" name="p3" value="2" />
             <input type="hidden" name="t3" value="M" />
             <input type="hidden" name="src" value="1" />
             <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+            <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
+            <input type="hidden" name="cancel_return" value="https://bevalid.app" />
             <button 
               type="submit" 
               style={{
@@ -160,14 +160,14 @@ export const PricingSection = () => {
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Clean Check - Joint Couple (Bi-Monthly) - 50% OFF" />
+            <input type="hidden" name="item_name" value="VALID - Joint Couple (Bi-Monthly) - 50% OFF" />
             <input type="hidden" name="a3" value="34.50" />
             <input type="hidden" name="p3" value="2" />
             <input type="hidden" name="t3" value="M" />
             <input type="hidden" name="src" value="1" />
             <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success" />
-            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+            <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
+            <input type="hidden" name="cancel_return" value="https://bevalid.app" />
             <button 
               type="submit" 
               style={{
@@ -206,11 +206,11 @@ export const PricingSection = () => {
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Clean Check - Single 1-Year Pass - 50% OFF" />
+            <input type="hidden" name="item_name" value="VALID - Single 1-Year Pass - 50% OFF" />
             <input type="hidden" name="amount" value="64.50" />
             <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=annual" />
-            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+            <input type="hidden" name="return" value="https://bevalid.app/payment-success?type=annual" />
+            <input type="hidden" name="cancel_return" value="https://bevalid.app" />
             <button 
               type="submit" 
               style={{
@@ -249,11 +249,11 @@ export const PricingSection = () => {
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_xclick" />
             <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="Clean Check - Couple 1-Year Pass - 50% OFF" />
+            <input type="hidden" name="item_name" value="VALID - Couple 1-Year Pass - 50% OFF" />
             <input type="hidden" name="amount" value="109.50" />
             <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="return" value="https://cleancheck.fit/payment-success?type=annual-couple" />
-            <input type="hidden" name="cancel_return" value="https://cleancheck.fit" />
+            <input type="hidden" name="return" value="https://bevalid.app/payment-success?type=annual-couple" />
+            <input type="hidden" name="cancel_return" value="https://bevalid.app" />
             <button 
               type="submit" 
               style={{

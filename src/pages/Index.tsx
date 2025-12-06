@@ -818,7 +818,7 @@ const Index = () => {
                       </div>
                       <Button 
                         size="lg" 
-                        className="w-full bg-gradient-to-r from-primary via-secondary to-accent hover:from-primary/90 hover:via-secondary/90 hover:to-accent/90 text-primary-foreground shadow-[0_0_30px_hsl(var(--primary)/0.5),0_0_30px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.7),0_0_40px_hsl(var(--secondary)/0.7)] transition-all min-h-[48px] py-4 touch-manipulation" 
+                        className="w-full bg-gradient-to-r from-primary via-secondary to-accent hover:from-primary/90 hover:via-secondary/90 hover:to-accent/90 text-slate-900 font-bold shadow-[0_0_30px_hsl(var(--primary)/0.5),0_0_30px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.7),0_0_40px_hsl(var(--secondary)/0.7)] transition-all min-h-[48px] py-4 touch-manipulation" 
                         onClick={handleContinue}
                         disabled={!fullName || !email}
                       >

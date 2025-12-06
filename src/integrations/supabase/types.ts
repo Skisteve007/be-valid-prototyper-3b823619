@@ -1820,6 +1820,51 @@ export type Database = {
           },
         ]
       }
+      wallet_transactions: {
+        Row: {
+          amount: number
+          balance_after: number
+          created_at: string
+          description: string | null
+          id: string
+          pass_duration_hrs: number | null
+          pass_label: string | null
+          payment_method: string | null
+          payment_reference: string | null
+          status: string
+          transaction_type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          balance_after: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          pass_duration_hrs?: number | null
+          pass_label?: string | null
+          payment_method?: string | null
+          payment_reference?: string | null
+          status?: string
+          transaction_type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          balance_after?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          pass_duration_hrs?: number | null
+          pass_label?: string | null
+          payment_method?: string | null
+          payment_reference?: string | null
+          status?: string
+          transaction_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       webhook_events: {
         Row: {
           created_at: string

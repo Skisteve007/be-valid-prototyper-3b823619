@@ -32,3 +32,9 @@ verify_jwt = false
 
 [functions.log-social-embed]
 verify_jwt = false
+
+[functions.refill-wallet]
+verify_jwt = true
+
+[functions.process-wallet-refill]
+verify_jwt = true

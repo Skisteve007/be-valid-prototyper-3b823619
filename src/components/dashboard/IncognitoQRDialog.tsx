@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   EyeOff, 
   CreditCard, 
@@ -37,9 +38,12 @@ import {
   FileCheck,
   Calendar,
   Plus,
-  RefreshCw
+  RefreshCw,
+  History,
+  ExternalLink
 } from "lucide-react";
 import { toast } from "sonner";
+import { WalletTransactionHistory } from "./WalletTransactionHistory";
 
 interface IncognitoQRDialogProps {
   open: boolean;
@@ -80,6 +84,7 @@ export const IncognitoQRDialog = ({
   promoterId 
 }: IncognitoQRDialogProps) => {
   const [step, setStep] = useState<Step>('wallet');
+  const [activeTab, setActiveTab] = useState<'wallet' | 'history'>('wallet');
   const [incognitoToken, setIncognitoToken] = useState<string>('');
   const [expiresAt, setExpiresAt] = useState<string>('');
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
@@ -105,9 +110,26 @@ export const IncognitoQRDialog = ({
   const [hasIdDocument, setHasIdDocument] = useState<boolean>(false);
   const [hasPaymentMethod, setHasPaymentMethod] = useState<boolean>(false);
 
+  // Check for successful refill on URL params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const refillStatus = params.get('wallet_refill');
+    const refillAmount = params.get('amount');
+    
+    if (refillStatus === 'success' && refillAmount) {
+      // Process the successful refill
+      processSuccessfulRefill(Number(refillAmount));
+      // Clean up URL
+      params.delete('wallet_refill');
+      params.delete('amount');
+      window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+    }
+  }, []);
+
   useEffect(() => {
     if (open) {
       setStep('wallet');
+      setActiveTab('wallet');
       setBundlePrefs({ includeId: false, includePayment: true });
       setSelectedPass(availablePasses[0]);
       loadUserAssets();
@@ -117,21 +139,57 @@ export const IncognitoQRDialog = ({
 
   const loadWalletBalance = async () => {
     try {
-      // Check for existing wallet balance from recent active transaction
+      // Get balance from wallet_transactions table
       const { data: transactions } = await supabase
-        .from('incognito_transactions')
-        .select('spending_limit, current_spend, payment_status')
+        .from('wallet_transactions')
+        .select('balance_after')
         .eq('user_id', userId)
-        .eq('payment_status', 'completed')
         .order('created_at', { ascending: false })
         .limit(1);
 
       if (transactions && transactions.length > 0) {
-        const remainingBalance = (transactions[0].spending_limit || 0) - (transactions[0].current_spend || 0);
-        setWalletBalance(Math.max(0, remainingBalance));
+        setWalletBalance(Number(transactions[0].balance_after));
+      } else {
+        // Fallback to incognito_transactions for legacy data
+        const { data: legacyTx } = await supabase
+          .from('incognito_transactions')
+          .select('spending_limit, current_spend, payment_status')
+          .eq('user_id', userId)
+          .eq('payment_status', 'completed')
+          .order('created_at', { ascending: false })
+          .limit(1);
+
+        if (legacyTx && legacyTx.length > 0) {
+          const remainingBalance = (legacyTx[0].spending_limit || 0) - (legacyTx[0].current_spend || 0);
+          setWalletBalance(Math.max(0, remainingBalance));
+        }
       }
     } catch (error) {
       console.error('Error loading wallet balance:', error);
+    }
+  };
+
+  const processSuccessfulRefill = async (amount: number) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('process-wallet-refill', {
+        body: { 
+          amount,
+          payment_reference: 'stripe_checkout',
+          payment_method: 'stripe'
+        }
+      });
+
+      if (error || !data?.success) {
+        console.error('Refill processing error:', error || data?.error);
+        toast.error('Failed to process wallet refill');
+        return;
+      }
+
+      setWalletBalance(data.new_balance);
+      toast.success(`Wallet refilled! New balance: $${data.new_balance.toLocaleString()}`);
+    } catch (error) {
+      console.error('Error processing refill:', error);
+      toast.error('Failed to process wallet refill');
     }
   };
 
@@ -171,24 +229,33 @@ export const IncognitoQRDialog = ({
   };
 
   const handleRefillWallet = async () => {
-    if (!fundingAmount || fundingAmount < 50 || !paymentMethod) {
-      toast.error("Please select a valid funding amount (min $50) and payment method.");
+    if (!fundingAmount || fundingAmount < 50) {
+      toast.error("Please enter a valid funding amount (min $50).");
       return;
     }
 
     setIsRefilling(true);
 
     try {
-      // BACKEND ACTION: Process payment and add to wallet
-      console.log(`Processing refill: $${fundingAmount} via ${paymentMethod}`);
-      
-      // Simulate payment processing - in production, this would call payment gateway
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      const newBalance = walletBalance + fundingAmount;
-      setWalletBalance(newBalance);
-      toast.success(`Wallet refilled! New balance: $${newBalance.toLocaleString()}`);
-      setFundingAmount(500); // Reset
+      // Call Stripe checkout for wallet refill
+      const { data, error } = await supabase.functions.invoke('refill-wallet', {
+        body: { 
+          amount: fundingAmount,
+          payment_method: paymentMethod || 'stripe'
+        }
+      });
+
+      if (error || !data?.success) {
+        console.error('Refill error:', error || data?.error);
+        toast.error(data?.error || 'Failed to initiate payment. Please try again.');
+        return;
+      }
+
+      // Redirect to Stripe checkout
+      if (data.url) {
+        toast.info('Redirecting to payment...');
+        window.open(data.url, '_blank');
+      }
     } catch (error) {
       console.error('Refill error:', error);
       toast.error('Failed to process payment. Please try again.');
@@ -302,20 +369,26 @@ export const IncognitoQRDialog = ({
               </div>
             )}
 
-            {/* Wallet Balance Monitor */}
-            <Card className="border-blue-500/30 bg-blue-50 dark:bg-blue-950/20">
-              <CardContent className="pt-4 space-y-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Wallet className="h-5 w-5 text-blue-600" />
-                  <h4 className="font-semibold text-blue-800 dark:text-blue-200">Wallet Token Balance</h4>
-                </div>
-                
+            {/* Wallet & History Tabs */}
+            <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'wallet' | 'history')}>
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="wallet" className="flex items-center gap-2">
+                  <Wallet className="h-4 w-4" />
+                  Fund Wallet
+                </TabsTrigger>
+                <TabsTrigger value="history" className="flex items-center gap-2">
+                  <History className="h-4 w-4" />
+                  History
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="wallet" className="mt-4 space-y-4">
                 {/* Current Balance Display */}
-                <div className="text-center p-4 bg-background rounded-lg border">
+                <div className="text-center p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-500/30">
                   <p className="text-3xl font-extrabold text-green-600">
-                    ${walletBalance.toLocaleString()}
+                    ${walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">Current Balance</p>
+                  <p className="text-xs text-muted-foreground mt-1">Current Wallet Balance</p>
                 </div>
 
                 {/* Refill Amount Input */}
@@ -331,55 +404,36 @@ export const IncognitoQRDialog = ({
                   />
                 </div>
 
-                {/* Payment Method Selector */}
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Select Payment Method</Label>
-                  <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                    <SelectTrigger className="bg-background">
-                      <SelectValue placeholder="-- Choose Method --" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="CreditCard">
-                        <div className="flex items-center gap-2">
-                          <CreditCard className="h-4 w-4" />
-                          Credit Card
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="PayPal">
-                        <div className="flex items-center gap-2">
-                          <DollarSign className="h-4 w-4" />
-                          PayPal
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="Zelle">
-                        <div className="flex items-center gap-2">
-                          <RefreshCw className="h-4 w-4" />
-                          Zelle/Bank Transfer
-                        </div>
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
                 <Button 
                   onClick={handleRefillWallet} 
-                  disabled={!paymentMethod || isRefilling}
+                  disabled={isRefilling}
                   className="w-full bg-blue-600 hover:bg-blue-700"
                 >
                   {isRefilling ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Processing...
+                      Opening Payment...
                     </>
                   ) : (
                     <>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add ${fundingAmount.toLocaleString()} To Token
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Pay ${fundingAmount.toLocaleString()} via Stripe
                     </>
                   )}
                 </Button>
-              </CardContent>
-            </Card>
+
+                <p className="text-xs text-center text-muted-foreground">
+                  Secure payment powered by Stripe. Opens in new tab.
+                </p>
+              </TabsContent>
+
+              <TabsContent value="history" className="mt-4">
+                <WalletTransactionHistory 
+                  userId={userId} 
+                  onBalanceUpdate={(balance) => setWalletBalance(balance)}
+                />
+              </TabsContent>
+            </Tabs>
 
             <Button 
               onClick={() => setStep('pass-select')} 

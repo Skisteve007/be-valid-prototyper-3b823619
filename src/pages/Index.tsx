@@ -486,7 +486,7 @@ const Index = () => {
                 <Card className="h-full p-6 bg-card rounded-xl shadow-lg border border-primary/30 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all">
                   <EyeOff className="h-12 w-12 text-primary mb-4" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--primary)))' }} />
                   <CardTitle className="text-2xl font-bold mb-3 text-foreground">FULL CONTROL INCOGNITO MODE</CardTitle>
-                  <p className="text-muted-foreground text-base">Manage ID entry, pay cover, pay your tabs through QR code, set your bar budget, and access the bar—all through one secure, disposable QR code. Complete user control.</p>
+                  <p className="text-muted-foreground text-base">Directly link your funding source to your secure QR code to regulate and spend on your terms. Access any establishment in the network while remaining incognito. You control which lifestyle specs are visible. You set a strict budget for the visit and adhere to that automatically. One secure code, complete user control.</p>
                 </Card>
               </ScrollReveal>
 

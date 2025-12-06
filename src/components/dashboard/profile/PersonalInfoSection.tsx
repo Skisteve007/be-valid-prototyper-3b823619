@@ -155,7 +155,7 @@ export const PersonalInfoSection = ({
           <div className="relative flex flex-col p-4 md:p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b pb-2 mb-4">
               <h3 className="text-lg font-semibold">
-                <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Quick Share Info</span>
+                <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal and Fun Quick Share</span>
               </h3>
               <div className="px-3 py-1 rounded-full bg-gradient-to-r from-white via-orange-100 to-orange-300 border border-orange-300 shadow-sm">
                 <span className="text-xs font-medium text-orange-700">* Important Mandatory. Upload Document & Profile Photo</span>
@@ -292,12 +292,6 @@ export const PersonalInfoSection = ({
                 
                 {/* Lab Certified Section - Right side on desktop */}
                 <div className="hidden md:flex flex-col items-center justify-center p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 relative">
-                  {!isAdmin && (
-                    <div className="absolute top-1 right-1 flex items-center gap-1 text-[9px] text-muted-foreground">
-                      <Lock className="w-2.5 h-2.5" />
-                      <span>Admin Only</span>
-                    </div>
-                  )}
                   <div className="flex flex-col items-center gap-2">
                     <div className="flex items-center gap-2">
                       {isAdmin ? (
@@ -348,12 +342,6 @@ export const PersonalInfoSection = ({
                 
                 {/* Mobile Lab Section */}
                 <div className="md:hidden w-full mt-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 relative">
-                  {!isAdmin && (
-                    <div className="absolute top-1 right-1 flex items-center gap-1 text-[9px] text-muted-foreground">
-                      <Lock className="w-2.5 h-2.5" />
-                      <span>Admin Only</span>
-                    </div>
-                  )}
                   <div className="flex items-stretch gap-4">
                     <div className="flex-1 flex flex-col justify-center space-y-2">
                       <div className="flex items-center gap-2">

@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 
@@ -144,44 +143,44 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
 
   // --- RENDER ---
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 md:p-8 bg-secondary border border-border rounded-xl shadow-2xl text-foreground">
+    <div className="w-full max-w-4xl mx-auto p-4 md:p-8 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl text-white">
 
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6 border-b border-border pb-4">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6 border-b border-slate-700 pb-4">
         <div>
           <h2
-            className={`text-2xl md:text-3xl font-bold ${isSupercharged ? "text-accent" : "text-muted-foreground"}`}
+            className={`text-2xl md:text-3xl font-bold ${isSupercharged ? "text-green-400" : "text-slate-400"}`}
             style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
             {isSupercharged ? "ACCESS GRANTED" : "STANDARD ID"}
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-slate-500">
             {isSupercharged ? "Secure Venue Token Active" : "Select Venue & Fund to Upgrade"}
           </p>
         </div>
         {isSupercharged && (
-          <div className="mt-2 md:mt-0 px-4 py-1 bg-accent text-accent-foreground font-bold rounded-full animate-pulse">
+          <div className="mt-2 md:mt-0 px-4 py-1 bg-green-400 text-black font-bold rounded-full animate-pulse">
             LIVE TOKEN
           </div>
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
         {/* LEFT: THE CONTROLS */}
         <div className="space-y-6 order-2 lg:order-1">
 
           {/* VENUE SELECT */}
-          <div className="bg-card p-4 rounded-lg border-l-4 border-primary shadow-md">
-            <label className="text-primary font-bold text-xs uppercase tracking-wider">1. Destination</label>
+          <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-blue-500">
+            <label className="text-blue-400 font-bold text-xs uppercase">1. Destination</label>
             {isLoadingVenues ? (
-              <div className="flex items-center justify-center p-3 text-muted-foreground">
+              <div className="flex items-center justify-center p-3 text-slate-400">
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
                 Loading venues...
               </div>
             ) : (
               <select
-                className="w-full mt-2 bg-secondary text-foreground p-3 rounded-lg border border-border min-h-[48px] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                className="w-full mt-1 bg-slate-900 text-white p-3 rounded-lg border border-slate-600 min-h-[48px] focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
                 onChange={(e) => {
                   const venue = venues.find(v => v.id === e.target.value) || null;
                   setSelectedVenue(venue);
@@ -198,9 +197,9 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
           </div>
 
           {/* WALLET */}
-          <div className="bg-card p-4 rounded-lg border-l-4 border-accent shadow-md">
-            <label className="text-accent font-bold text-xs uppercase tracking-wider">2. Wallet Fund ($)</label>
-            <div className="flex items-center space-x-2 mt-2">
+          <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-green-400">
+            <label className="text-green-400 font-bold text-xs uppercase">2. Wallet Fund ($)</label>
+            <div className="flex items-center space-x-2 mt-1">
               <input
                 type="text"
                 inputMode="numeric"
@@ -211,99 +210,68 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
                   setRefillAmount(value === '' ? 0 : parseInt(value, 10));
                 }}
                 placeholder="100"
-                className="w-1/2 bg-secondary text-foreground p-3 rounded-lg border border-border min-h-[48px] focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+                className="w-1/2 bg-slate-900 text-white p-3 rounded-lg border border-slate-600 min-h-[48px] focus:border-green-400 focus:ring-2 focus:ring-green-400/20 outline-none transition-all"
               />
-              <Button
+              <button
                 onClick={handleRefill}
-                variant="secondary"
-                className="w-1/2 min-h-[48px] font-bold touch-manipulation"
+                className="w-1/2 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg min-h-[48px] transition-all active:scale-[0.98] touch-manipulation"
               >
                 Add Funds
-              </Button>
+              </button>
             </div>
-            <div className="mt-3 text-right text-2xl font-mono font-bold text-foreground">
-              ${walletBalance.toFixed(2)}
-            </div>
+            <div className="mt-2 text-right text-xl font-mono">${walletBalance.toFixed(2)}</div>
           </div>
 
-          {/* PASS SELECTION */}
-          <div className="bg-card p-4 rounded-lg border-l-4 border-amber-500 shadow-md">
-            <label className="text-amber-500 font-bold text-xs uppercase tracking-wider">3. Access Tier</label>
-            <div className="space-y-2 mt-2">
-              {VENUE_PASS_OPTIONS.map((option) => (
-                <div
-                  key={option.id}
-                  onClick={() => !isSupercharged && setSelectedPass(option)}
-                  className={`p-3 rounded-lg cursor-pointer border-2 flex justify-between items-center transition-all min-h-[48px] active:scale-[0.98] touch-manipulation ${
-                    selectedPass.id === option.id
-                      ? 'border-accent bg-accent/10 shadow-md'
-                      : 'border-border hover:border-muted-foreground'
-                  } ${isSupercharged ? 'opacity-50 pointer-events-none' : ''}`}
-                >
-                  <div className="font-bold text-foreground text-sm">{option.label}</div>
-                  <div className="text-accent font-bold">${option.price.toFixed(2)}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* ACTIVATE BUTTON */}
-          <Button
+          {/* ACTIVATE */}
+          <button
             onClick={handleActivate}
             disabled={!selectedVenue || isSupercharged}
-            className={`w-full py-4 min-h-[56px] font-bold text-lg shadow-lg transition-all touch-manipulation ${
+            className={`w-full py-4 rounded-lg font-bold text-lg shadow-lg transition-all min-h-[56px] touch-manipulation ${
               isSupercharged
-                ? 'bg-muted text-muted-foreground cursor-not-allowed'
-                : 'bg-gradient-to-r from-primary to-purple-600 text-white hover:scale-[1.02]'
+                ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:scale-[1.02] active:scale-[0.98]'
             }`}
           >
             {isSupercharged ? "TOKEN ACTIVE" : "ACTIVATE & UPGRADE QR"}
-          </Button>
+          </button>
         </div>
 
         {/* RIGHT: THE SINGLE MASTER QR CODE */}
-        <div className="flex flex-col items-center justify-center bg-background rounded-xl p-6 border-2 border-border shadow-lg order-1 lg:order-2">
+        <div className="flex flex-col items-center justify-center bg-black rounded-xl p-6 border-2 border-slate-700 shadow-[0_0_20px_rgba(0,0,0,0.5)] order-1 lg:order-2">
 
           {/* THE ONE CODE */}
-          <div
-            className={`p-4 rounded-xl bg-white transition-all duration-500 ${
-              isSupercharged ? 'shadow-[0_0_30px_hsl(var(--accent))]' : ''
-            }`}
-          >
+          <div className={`p-4 rounded-xl bg-white transition-all duration-500 ${isSupercharged ? 'shadow-[0_0_30px_#39FF14]' : ''}`}>
             <QRCodeSVG value={generatePayload()} size={220} level="H" />
           </div>
 
           {/* DYNAMIC STATUS DISPLAY */}
-          <div className="mt-6 w-full text-center space-y-3">
+          <div className="mt-6 w-full text-center space-y-2">
             {isSupercharged ? (
               <>
-                <h3 className="text-accent font-bold text-xl tracking-widest" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+                <h3 className="text-green-400 font-bold text-xl tracking-widest" style={{ fontFamily: 'Orbitron, sans-serif' }}>
                   {selectedVenue?.name}
                 </h3>
-                <p className="text-muted-foreground text-sm">{selectedVenue?.city}</p>
-                <div className="flex justify-center space-x-4 text-sm">
-                  <div className="bg-card px-4 py-2 rounded-lg border border-border">
-                    <span className="text-muted-foreground text-xs block uppercase">Balance</span>
-                    <span className="text-foreground font-mono font-bold text-lg">${walletBalance.toFixed(2)}</span>
+                <p className="text-slate-500 text-sm">{selectedVenue?.city}</p>
+                <div className="flex justify-center space-x-4 text-sm text-slate-300">
+                  <div className="bg-slate-800 px-3 py-2 rounded-lg">
+                    <span className="text-slate-500 text-xs block">BALANCE</span>
+                    <span className="text-white font-mono font-bold">${walletBalance.toFixed(2)}</span>
                   </div>
-                  <div className="bg-card px-4 py-2 rounded-lg border border-border">
-                    <span className="text-muted-foreground text-xs block uppercase">Expires</span>
-                    <span className="text-foreground font-bold text-lg">{getHoursRemaining()}</span>
+                  <div className="bg-slate-800 px-3 py-2 rounded-lg">
+                    <span className="text-slate-500 text-xs block">EXPIRES</span>
+                    <span className="text-white font-bold">{getHoursRemaining()}</span>
                   </div>
                 </div>
               </>
             ) : (
-              <div className="text-center py-4">
-                <p className="text-muted-foreground text-sm">
-                  This is your <span className="text-foreground font-semibold">Standard ID</span>
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Select a venue and fund your wallet to unlock full access
-                </p>
-              </div>
+              <>
+                <h3 className="text-slate-500 font-bold text-xl">ID VERIFIED</h3>
+                <p className="text-xs text-slate-600">Scan to verify identity only.</p>
+              </>
             )}
           </div>
         </div>
+
       </div>
     </div>
   );

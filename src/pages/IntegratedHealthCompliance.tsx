@@ -54,47 +54,43 @@ const IntegratedHealthCompliance = () => {
       {/* Liability Firewall Section */}
       <section id="liability-firewall" className="py-10 px-4 bg-card/70 border-t border-border">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-foreground mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-            Liability-Defending Data Flow: Your HIPAA Firewall
+          <h2 className="text-3xl font-bold text-foreground mb-6" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+            The Triple Liability Shield: Zero-Risk Architecture
           </h2>
-          <p className="text-lg text-muted-foreground mb-6">
-            VALID&apos;s Zero-Trust architecture is specifically designed to reduce your regulatory risk exposure. The flow below ensures your lab retains data custody while VALID&apos;s system handles the liability-intensive step of compliance activation.
+          <p className="text-lg text-muted-foreground mb-8">
+            VALID is built on a <strong className="text-foreground">Zero-Trust</strong> model that legally separates and transfers risk between all parties. This is your definitive answer to auditors and legal teams.
           </p>
 
           <div className="space-y-6">
             {/* Step 1 */}
-            <div className="p-4 bg-muted rounded-lg border-l-4 border-amber-500">
+            <div className="p-5 bg-muted rounded-lg border-l-4 border-amber-500">
               <h3 className="text-xl font-semibold text-amber-500 mb-2">
-                1. Seamless API Transmission (Efficiency)
+                1. Shielding the Client (Venue/Enterprise)
               </h3>
               <p className="text-muted-foreground text-sm">
-                Your LIS automatically transmits the final result data to VALID&apos;s secure, authenticated endpoint via your <strong className="text-foreground">API Partner Key</strong>. This eliminates manual entry and maintains chain-of-custody integrity.
+                <strong className="text-foreground">Risk Transfer:</strong> Your liability is reduced because you are relying on VALID&apos;s specialized, certified <strong className="text-foreground">Compliance Platform</strong> for due diligence. The client staff never handles sensitive data.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="p-4 bg-muted rounded-lg border-l-4 border-accent">
+            <div className="p-5 bg-muted rounded-lg border-l-4 border-accent">
               <h3 className="text-xl font-semibold text-accent mb-2">
-                2. The Legal Firewall (Low-Liability Zone)
+                2. Shielding VALID (The Platform&apos;s Firewall)
               </h3>
               <p className="text-muted-foreground text-sm">
-                Upon data receipt, VALID&apos;s system <strong className="text-foreground">holds the result data in escrow</strong>. We immediately notify the member that their results are ready but <strong className="text-foreground">do not activate the badge</strong> or utilize the data yet.
+                <strong className="text-foreground">Data Custody Firewall:</strong> VALID is defined as a secure transport pipe, not a medical provider. We only possess the user&apos;s <strong className="text-foreground">explicit consent token</strong> and the final status (Green/Red), not the raw lab results. This legally insulates VALID from health-related consequences.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="p-4 bg-muted rounded-lg border-l-4 border-destructive">
+            <div className="p-5 bg-muted rounded-lg border-l-4 border-destructive">
               <h3 className="text-xl font-semibold text-destructive mb-2">
-                3. Explicit Digital Consent (Compliance Shield)
+                3. Accountability on Source Entities (User/Lab)
               </h3>
               <p className="text-muted-foreground text-sm">
-                The member must log into the app and provide <strong className="text-foreground">explicit digital consent</strong> for VALID to process and utilize the results to generate their verified compliance badge. This final step is the <strong className="text-foreground">legal firewall</strong>, ensuring VALID never uses the data without clear member authorization.
+                <strong className="text-foreground">Full Liability Transfer:</strong> The <strong className="text-foreground">Lab</strong> remains liable for result accuracy. The <strong className="text-foreground">User</strong> accepts full liability for the outcome of their social interactions via the mandatory <strong className="text-foreground">Waiver of Liability</strong> in the Terms of Use.
               </p>
             </div>
-
-            <p className="text-sm text-amber-500 mt-6 font-medium">
-              This flow minimizes your lab&apos;s exposure while maximizing reporting speed and integrity.
-            </p>
           </div>
         </div>
       </section>

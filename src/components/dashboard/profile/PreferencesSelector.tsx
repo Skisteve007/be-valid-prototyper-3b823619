@@ -35,11 +35,18 @@ interface PreferenceCategory {
   items: string[];
 }
 
+interface CategorySharingState {
+  social_dynamic: boolean;
+  relationship_styles: boolean;
+  sensory_preferences: boolean;
+  specific_activities: boolean;
+}
+
 interface PreferencesSelectorProps {
   selectedPreferences: Record<string, string[]>;
   onPreferencesChange: (preferences: Record<string, string[]>) => void;
-  sharingEnabled?: boolean;
-  onToggleSharing?: (enabled: boolean) => void;
+  categorySharingState: CategorySharingState;
+  onToggleCategorySharing: (categoryId: keyof CategorySharingState, enabled: boolean) => void;
 }
 
 const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
@@ -90,8 +97,8 @@ const getCategoryIcon = (categoryId: string): { Icon: LucideIcon; color: string 
 export const PreferencesSelector = ({
   selectedPreferences,
   onPreferencesChange,
-  sharingEnabled = false,
-  onToggleSharing,
+  categorySharingState,
+  onToggleCategorySharing,
 }: PreferencesSelectorProps) => {
   const togglePreference = (categoryId: string, item: string) => {
     const currentCategoryPreferences = selectedPreferences[categoryId] || [];
@@ -156,22 +163,6 @@ export const PreferencesSelector = ({
           <h3 className="text-lg font-semibold">
             <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">User Interests & Preferences</span>
           </h3>
-          {onToggleSharing && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => onToggleSharing(!sharingEnabled)}
-              className="h-auto py-1 px-2"
-              title={sharingEnabled ? "Click to hide from peers" : "Click to share with peers"}
-            >
-              {sharingEnabled ? (
-                <Unlock className="w-4 h-4 text-green-500" />
-              ) : (
-                <Lock className="w-4 h-4 text-muted-foreground" />
-              )}
-            </Button>
-          )}
         </div>
         <p className="text-sm text-muted-foreground mt-2">
           Select your interests and preferences across different categories
@@ -209,6 +200,7 @@ export const PreferencesSelector = ({
       <Accordion type="multiple" className="w-full">
         {PREFERENCE_CATEGORIES.map((category) => {
           const { Icon, color } = getCategoryIcon(category.id);
+          const isShared = categorySharingState[category.id as keyof CategorySharingState];
           return (
             <AccordionItem key={category.id} value={category.id}>
               <AccordionTrigger className="text-base font-medium">
@@ -220,6 +212,23 @@ export const PreferencesSelector = ({
                       {selectedPreferences[category.id].length}
                     </Badge>
                   )}
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleCategorySharing(category.id as keyof CategorySharingState, !isShared);
+                    }}
+                    className="h-auto py-1 px-2 mr-2"
+                    title={isShared ? "Click to hide from peers" : "Click to share with peers"}
+                  >
+                    {isShared ? (
+                      <Unlock className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <Lock className="w-4 h-4 text-muted-foreground" />
+                    )}
+                  </Button>
                 </div>
               </AccordionTrigger>
               <AccordionContent>

@@ -231,13 +231,46 @@ serve(async (req) => {
       ? `${idDocs[0].title} Verified` 
       : "Unverified";
 
-    // 2. Interests & Preferences (if enabled)
+    // 2. Interests & Preferences (per-category sharing)
+    // Only share categories that are individually enabled
+    const sharedInterests: Record<string, any> = {};
+    
+    if (profile.sharing_social_dynamic_enabled === true && profile.user_interests?.social_dynamic) {
+      sharedInterests.social_dynamic = profile.user_interests.social_dynamic;
+    }
+    if (profile.sharing_relationship_style_enabled === true && profile.user_interests?.relationship_styles) {
+      sharedInterests.relationship_styles = profile.user_interests.relationship_styles;
+    }
+    if (profile.sharing_sensory_prefs_enabled === true && profile.user_interests?.sensory_preferences) {
+      sharedInterests.sensory_preferences = profile.user_interests.sensory_preferences;
+    }
+    if (profile.sharing_specific_activities_enabled === true && profile.user_interests?.specific_activities) {
+      sharedInterests.specific_activities = profile.user_interests.specific_activities;
+    }
+    
+    // Hobby interests are always shared (no lock on them)
+    if (profile.user_interests?.hobby_interests) {
+      sharedInterests.hobby_interests = profile.user_interests.hobby_interests;
+    }
+    
+    // Only include if there's at least some data to share
+    if (Object.keys(sharedInterests).length > 0) {
+      sharedProfile.user_interests = sharedInterests;
+    }
+    
+    // Legacy: also check old sharing_interests_enabled for backwards compatibility
     if (profile.sharing_interests_enabled === true) {
-      sharedProfile.user_interests = profile.user_interests;
       sharedProfile.selected_interests = profile.selected_interests;
       sharedProfile.sexual_preferences = profile.sexual_preferences;
-      console.log('Sharing interests enabled - data included');
+      console.log('Sharing interests enabled - legacy data included');
     }
+    
+    console.log('Per-category interests shared:', {
+      social_dynamic: profile.sharing_social_dynamic_enabled,
+      relationship_styles: profile.sharing_relationship_style_enabled,
+      sensory_preferences: profile.sharing_sensory_prefs_enabled,
+      specific_activities: profile.sharing_specific_activities_enabled
+    });
 
     // 3. Vices / Lifestyle (if enabled)
     if (profile.sharing_vices_enabled === true) {
@@ -317,15 +350,19 @@ serve(async (req) => {
         profile: sharedProfile,
         tokenExpiresAt: tokenData.expires_at,
         viewExpiresAt: viewExpiresAt.toISOString(),
-        privacySettings: {
-          emailShared: profile.email_shareable === true,
-          referencesShared: profile.references_locked === false,
-          stdAcknowledgmentShared: profile.std_acknowledgment_locked === false,
-          interestsShared: profile.sharing_interests_enabled === true,
-          vicesShared: profile.sharing_vices_enabled === true,
-          orientationShared: profile.sharing_orientation_enabled === true,
-          socialShared: profile.sharing_social_enabled === true,
-        }
+      privacySettings: {
+        emailShared: profile.email_shareable === true,
+        referencesShared: profile.references_locked === false,
+        stdAcknowledgmentShared: profile.std_acknowledgment_locked === false,
+        interestsShared: profile.sharing_interests_enabled === true,
+        vicesShared: profile.sharing_vices_enabled === true,
+        orientationShared: profile.sharing_orientation_enabled === true,
+        socialShared: profile.sharing_social_enabled === true,
+        socialDynamicShared: profile.sharing_social_dynamic_enabled === true,
+        relationshipStyleShared: profile.sharing_relationship_style_enabled === true,
+        sensoryPrefsShared: profile.sharing_sensory_prefs_enabled === true,
+        specificActivitiesShared: profile.sharing_specific_activities_enabled === true,
+      }
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

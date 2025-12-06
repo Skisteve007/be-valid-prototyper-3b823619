@@ -11,12 +11,13 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload, EyeOff, DollarSign, TrendingUp } from "lucide-react";
+import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload, EyeOff, DollarSign, TrendingUp, History } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import SponsorUpload from "./SponsorUpload";
 import LiabilityWaiverModal, { useWaiverStatus } from "./LiabilityWaiverModal";
 import { IncognitoQRDialog } from "./IncognitoQRDialog";
+import { SpendingHistory } from "./SpendingHistory";
 
 interface QRCodeTabProps {
   userId: string;
@@ -615,6 +616,13 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                       </span>
                     </div>
                     
+                    {incognitoCurrentSpend >= incognitoSpendingLimit * 0.9 && incognitoCurrentSpend < incognitoSpendingLimit && (
+                      <Badge className="w-full justify-center bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30">
+                        <AlertTriangle className="h-3 w-3 mr-1" />
+                        Approaching Limit (90%)
+                      </Badge>
+                    )}
+                    
                     {incognitoCurrentSpend >= incognitoSpendingLimit && (
                       <Badge className="w-full justify-center bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30">
                         <AlertTriangle className="h-3 w-3 mr-1" />
@@ -638,6 +646,13 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                       Expires: {new Date(incognitoExpiresAt).toLocaleString()}
                     </p>
                   )}
+                  
+                  {/* Spending History Component */}
+                  <SpendingHistory 
+                    transactionId={incognitoTransactionId}
+                    spendingLimit={incognitoSpendingLimit}
+                    currentSpend={incognitoCurrentSpend}
+                  />
                   
                   <Button 
                     variant="outline" 

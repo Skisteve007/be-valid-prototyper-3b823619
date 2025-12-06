@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
@@ -11,6 +12,7 @@ import {
   Heart,
   Sparkles,
   Lock,
+  Unlock,
   Users,
   UserPlus,
   Hand,
@@ -36,6 +38,8 @@ interface PreferenceCategory {
 interface PreferencesSelectorProps {
   selectedPreferences: Record<string, string[]>;
   onPreferencesChange: (preferences: Record<string, string[]>) => void;
+  sharingEnabled?: boolean;
+  onToggleSharing?: (enabled: boolean) => void;
 }
 
 const PREFERENCE_CATEGORIES: PreferenceCategory[] = [
@@ -86,6 +90,8 @@ const getCategoryIcon = (categoryId: string): { Icon: LucideIcon; color: string 
 export const PreferencesSelector = ({
   selectedPreferences,
   onPreferencesChange,
+  sharingEnabled = false,
+  onToggleSharing,
 }: PreferencesSelectorProps) => {
   const togglePreference = (categoryId: string, item: string) => {
     const currentCategoryPreferences = selectedPreferences[categoryId] || [];
@@ -146,9 +152,27 @@ export const PreferencesSelector = ({
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold border-b pb-2">
-          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">User Interests & Preferences</span>
-        </h3>
+        <div className="flex items-center justify-between border-b pb-2">
+          <h3 className="text-lg font-semibold">
+            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">User Interests & Preferences</span>
+          </h3>
+          {onToggleSharing && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => onToggleSharing(!sharingEnabled)}
+              className="h-auto py-1 px-2"
+              title={sharingEnabled ? "Click to hide from peers" : "Click to share with peers"}
+            >
+              {sharingEnabled ? (
+                <Unlock className="w-4 h-4 text-green-500" />
+              ) : (
+                <Lock className="w-4 h-4 text-muted-foreground" />
+              )}
+            </Button>
+          )}
+        </div>
         <p className="text-sm text-muted-foreground mt-2">
           Select your interests and preferences across different categories
         </p>

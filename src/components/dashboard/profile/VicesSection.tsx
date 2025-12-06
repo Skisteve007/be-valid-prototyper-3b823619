@@ -1,16 +1,21 @@
 import { UseFormSetValue } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Wine, Sparkles, XCircle, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Wine, Sparkles, XCircle, ShieldCheck, Lock, Unlock } from "lucide-react";
 
 interface VicesSectionProps {
   setValue: UseFormSetValue<any>;
   vices: string[];
+  sharingEnabled?: boolean;
+  onToggleSharing?: (enabled: boolean) => void;
 }
 
 export const VicesSection = ({
   setValue,
   vices,
+  sharingEnabled = false,
+  onToggleSharing,
 }: VicesSectionProps) => {
   const toggleVice = (vice: string) => {
     const current = vices || [];
@@ -33,9 +38,27 @@ export const VicesSection = ({
 
   return (
     <div className="space-y-3">
-      <h3 className="text-lg font-semibold border-b pb-2">
-        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Vices</span>
-      </h3>
+      <div className="flex items-center justify-between border-b pb-2">
+        <h3 className="text-lg font-semibold">
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Vices</span>
+        </h3>
+        {onToggleSharing && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => onToggleSharing(!sharingEnabled)}
+            className="h-auto py-1 px-2"
+            title={sharingEnabled ? "Click to hide from peers" : "Click to share with peers"}
+          >
+            {sharingEnabled ? (
+              <Unlock className="w-4 h-4 text-green-500" />
+            ) : (
+              <Lock className="w-4 h-4 text-muted-foreground" />
+            )}
+          </Button>
+        )}
+      </div>
       
       <div className="space-y-1">
         <Label className="flex items-center gap-2 text-sm mb-2">

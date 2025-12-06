@@ -14,7 +14,7 @@ import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
 import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
-import { MemberSharingSettings } from "./profile/MemberSharingSettings";
+
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface ProfileTabProps {
@@ -684,6 +684,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       <PreferencesSelector
         selectedPreferences={userInterests}
         onPreferencesChange={setUserInterests}
+        sharingEnabled={sharingInterestsEnabled}
+        onToggleSharing={(enabled) => setSharingInterestsEnabled(enabled)}
       />
 
       <div className="relative py-4">
@@ -697,6 +699,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         covidVaccinated={covidVaccinated}
         circumcised={circumcised}
         smoker={smoker}
+        sharingEnabled={sharingOrientationEnabled}
+        onToggleSharing={(enabled) => setSharingOrientationEnabled(enabled)}
       />
 
       <div className="relative py-4">
@@ -708,6 +712,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       <VicesSection
         setValue={setValue}
         vices={vices}
+        sharingEnabled={sharingVicesEnabled}
+        onToggleSharing={(enabled) => setSharingVicesEnabled(enabled)}
       />
 
       <div className="relative py-4">
@@ -722,6 +728,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         tiktokHandle={tiktokHandle || ""}
         facebookHandle={facebookHandle || ""}
         onlyfansHandle={onlyfansHandle || ""}
+        sharingEnabled={sharingSocialEnabled}
+        onToggleSharing={(enabled) => setSharingSocialEnabled(enabled)}
       />
 
       <div className="relative py-4">
@@ -901,25 +909,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         )}
       </div>
 
-      {/* Peer Sharing Control */}
-      <div className="relative py-4">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-1 bg-gradient-to-r from-pink-500 via-purple-400 to-pink-500 rounded-full opacity-60"></div>
-        </div>
-      </div>
-
-      <MemberSharingSettings
-        sharingInterestsEnabled={sharingInterestsEnabled}
-        sharingVicesEnabled={sharingVicesEnabled}
-        sharingOrientationEnabled={sharingOrientationEnabled}
-        sharingSocialEnabled={sharingSocialEnabled}
-        onToggle={(field, value) => {
-          if (field === 'sharing_interests_enabled') setSharingInterestsEnabled(value);
-          if (field === 'sharing_vices_enabled') setSharingVicesEnabled(value);
-          if (field === 'sharing_orientation_enabled') setSharingOrientationEnabled(value);
-          if (field === 'sharing_social_enabled') setSharingSocialEnabled(value);
-        }}
-      />
 
       {/* Floating Save Button */}
       <div className="fixed bottom-4 right-36 z-50 flex flex-col items-end gap-2">

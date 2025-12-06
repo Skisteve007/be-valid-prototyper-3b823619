@@ -148,18 +148,29 @@ const BuildersVision = () => {
             <p className="text-muted-foreground mt-2">Why VALID will become a billion-dollar platform</p>
           </div>
           
-          <Card className="bg-gradient-to-br from-amber-900/20 to-orange-900/20 border-amber-600/50 max-w-3xl mx-auto">
-            <CardContent className="p-6 md:p-8">
-              <ul className="space-y-4">
-                {whyUnicorn.map((point, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-foreground text-lg">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+          <div className="p-5 bg-card/70 border-l-4 border-[#2ecc71] rounded-lg max-w-3xl mx-auto">
+            <h3 className="text-xl font-bold text-amber-500 mb-3" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+              Unicorn Thesis: The VALID Value Drivers
+            </h3>
+            <ul className="text-muted-foreground list-disc list-inside space-y-3 text-sm">
+              <li className="font-bold text-foreground">
+                HIGH-MARGIN TRANSACTIONAL POWER:
+                <p className="text-muted-foreground font-normal mt-0.5 ml-5">The core revenue is the $10 Incognito Access Token, which operates at near-zero marginal cost, creating massive profitability as your organization scales up.</p>
+              </li>
+              <li className="font-bold text-foreground">
+                ZERO-TRUST ARCHITECTURAL MOAT:
+                <p className="text-muted-foreground font-normal mt-0.5 ml-5">The complexity of linking health data (HIPAA/GDPR) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model quickly.</p>
+              </li>
+              <li className="font-bold text-foreground">
+                VIRAL NETWORK INTEGRATION:
+                <p className="text-muted-foreground font-normal mt-0.5 ml-5">VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok, etc.), creating a massive, verified <strong>peer-to-peer network</strong> for partner exposure.</p>
+              </li>
+              <li className="font-bold text-foreground">
+                REGULATORY TAILWINDS & LIABILITY SHIFT:
+                <p className="text-muted-foreground font-normal mt-0.5 ml-5">We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider.</p>
+              </li>
+            </ul>
+          </div>
         </section>
 
         {/* Core Unicorn Factors */}

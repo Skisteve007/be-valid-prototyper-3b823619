@@ -13,6 +13,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { 
   EyeOff, 
   CreditCard, 
@@ -61,6 +68,21 @@ export const IncognitoQRDialog = ({
   const [expiresAt, setExpiresAt] = useState<string>('');
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
   const [profileData, setProfileData] = useState<any>(null);
+  const [spendingLimit, setSpendingLimit] = useState<string>('500');
+  
+  // Spending limit options
+  const spendingLimitOptions = [
+    { value: '50', label: '$50' },
+    { value: '100', label: '$100' },
+    { value: '150', label: '$150' },
+    { value: '255', label: '$255' },
+    { value: '500', label: '$500' },
+    { value: '750', label: '$750' },
+    { value: '1000', label: '$1,000' },
+    { value: '1200', label: '$1,200' },
+    { value: '5000', label: '$5,000' },
+    { value: '10000', label: '$10,000' },
+  ];
   
   // Bundle preferences - member chooses what to include
   const [bundlePrefs, setBundlePrefs] = useState<BundlePreferences>({
@@ -512,10 +534,26 @@ export const IncognitoQRDialog = ({
         {/* Step: Success */}
         {step === 'success' && (
           <div className="space-y-4">
-            <div className="text-center">
-              <Badge className="bg-gray-600 text-white mb-4">
+            <div className="flex items-center justify-between">
+              {/* Spending Limit Dropdown - Top Left */}
+              <Select value={spendingLimit} onValueChange={setSpendingLimit}>
+                <SelectTrigger className="w-[140px] h-8 text-xs bg-purple-500/10 border-purple-500/30 hover:bg-purple-500/20">
+                  <DollarSign className="h-3 w-3 mr-1 text-purple-600" />
+                  <SelectValue placeholder="Spending Limit" />
+                </SelectTrigger>
+                <SelectContent className="bg-popover border z-50">
+                  {spendingLimitOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Badge - Right side */}
+              <Badge className="bg-gray-600 text-white">
                 <EyeOff className="h-3 w-3 mr-1" />
-                MASTER ACCESS TOKEN ACTIVE
+                ACTIVE
               </Badge>
             </div>
 

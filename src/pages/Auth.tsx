@@ -161,16 +161,15 @@ const Auth = () => {
   };
 
   return (
-    <div 
-      className="min-h-screen text-foreground"
-      style={{
-        background: 'radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.5) 0%, rgba(244, 114, 182, 0.4) 20%, rgba(15, 23, 42, 0.9) 80%)',
-        backgroundAttachment: 'fixed',
-        backgroundSize: 'cover',
-      }}
-    >
-      {/* Header */}
-      <header className="border-b border-pink-500/20 bg-slate-600/40 backdrop-blur-xl sticky top-0 z-50">
+    <div className="min-h-screen text-foreground overflow-x-hidden w-full max-w-full bg-background font-sans">
+      {/* Ambient Background Effects - matching homepage */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary/20 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
+      </div>
+
+      {/* Header - matching homepage style */}
+      <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-3">
             {/* Single centered logo on mobile, left logo on desktop */}
@@ -178,42 +177,41 @@ const Auth = () => {
               className="relative flex-shrink-0 cursor-pointer"
               {...longPressHandlers}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto h-16 md:h-20 lg:h-24 select-none" draggable={false} />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
+              <img src={logo} alt="VALID" className="relative w-auto h-16 md:h-20 lg:h-24 select-none" draggable={false} />
             </div>
 
             {/* Tagline - visible on tablet and up */}
             <div className="hidden md:flex flex-1 justify-center px-4 lg:px-8">
-              <div className="bg-muted/50 px-4 py-2 lg:px-6 lg:py-3 rounded-full border-2 border-border">
-                <p className="text-xs lg:text-base font-bold text-center whitespace-nowrap bg-gradient-to-r from-blue-600 via-pink-600 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                  Confidently Share Peer-To-Peer Record Status For Mutual Safety And Informed Intimacy
+              <div className="relative px-6 py-2 lg:px-8 lg:py-3 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_25px_hsl(var(--secondary)/0.5)]">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-xl rounded-full animate-pulse"></div>
+                <p className="relative text-xs lg:text-base font-bold text-center whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                  Confidently Share Peer-To-Peer Record Status For Mutual Safety
                 </p>
               </div>
             </div>
 
             {/* Right logo - only visible on desktop */}
             <div className="hidden lg:block relative flex-shrink-0">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative w-auto h-24" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
+              <img src={logo} alt="VALID" className="relative w-auto h-24" />
             </div>
           </div>
         </div>
       </header>
 
-      <main className="min-h-[calc(100vh-200px)] flex items-start md:items-center justify-center py-6 md:py-12 px-4">
+      <main className="relative min-h-[calc(100vh-200px)] flex items-start md:items-center justify-center py-6 md:py-12 px-4 z-10">
         <div className="container mx-auto w-[95vw] max-w-lg mt-4 md:mt-0">
           {/* Login Form */}
           {mode === "login" ? (
             <div className="relative">
-              <div className="absolute inset-0 bg-blue-500/30 blur-2xl rounded-lg"></div>
-              <Card className="relative border-2 border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+              <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-lg"></div>
+              <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.4)]">
                 <CardHeader>
-                  <CardTitle className="text-3xl text-center bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
+                  <CardTitle className="text-3xl text-center bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent font-bold">
                     Member Login
                   </CardTitle>
-                  <CardDescription className="text-center">Welcome back! Access your profile and QR code</CardDescription>
+                  <CardDescription className="text-center text-muted-foreground">Welcome back! Access your profile and QR code</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8">
                   <form onSubmit={handleLogin} className="space-y-4">
@@ -262,10 +260,11 @@ const Auth = () => {
                     
                     <Button 
                       size="lg" 
-                      className="w-full min-h-[48px]" 
+                      className="w-full min-h-[48px] relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary text-primary-foreground font-semibold" 
                       type="submit"
                       disabled={loading}
                     >
+                      <div className="absolute inset-0 bg-primary/30 blur-xl rounded-md -z-10"></div>
                       {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
@@ -274,7 +273,7 @@ const Auth = () => {
                         type="button" 
                         variant="outline"
                         onClick={() => navigate("/")}
-                        className="w-full min-h-[48px] rounded-full border-2 border-primary/50 hover:bg-primary/10"
+                        className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
                       >
                         New member? Sign up here
                       </Button>
@@ -282,7 +281,7 @@ const Auth = () => {
                         type="button" 
                         variant="outline"
                         onClick={() => navigate("/")}
-                        className="w-full min-h-[48px] rounded-full border-2 border-muted-foreground/30 hover:bg-muted/50"
+                        className="w-full min-h-[48px] rounded-full border border-muted-foreground/30 bg-muted/20 hover:bg-muted/40 text-muted-foreground font-semibold"
                       >
                         ← Back to Home
                       </Button>
@@ -294,15 +293,15 @@ const Auth = () => {
           ) : (
             /* Signup Form */
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-pink-500/30 to-blue-500/30 blur-2xl rounded-lg"></div>
-              <Card className="relative border-2 border-primary/40 shadow-[0_0_30px_rgba(59,130,246,0.4)]">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 blur-2xl rounded-lg"></div>
+              <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.3)]">
                 <CardHeader>
-                  <CardTitle className="text-3xl text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  <CardTitle className="text-3xl text-center bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent font-bold">
                     Complete Your Membership
                   </CardTitle>
-                  <CardDescription className="text-center">Create your account to get started</CardDescription>
+                  <CardDescription className="text-center text-muted-foreground">Create your account to get started</CardDescription>
                 </CardHeader>
-          <CardContent className="p-8">
+                <CardContent className="p-8">
                   <form onSubmit={handleSignup} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="signup-name">Full Name *</Label>
@@ -358,34 +357,31 @@ const Auth = () => {
                     
                     <Button 
                       size="lg" 
-                      className="w-full min-h-[48px]" 
+                      className="w-full min-h-[48px] relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary text-primary-foreground font-semibold" 
                       type="submit"
                       disabled={loading}
                     >
+                      <div className="absolute inset-0 bg-primary/30 blur-xl rounded-md -z-10"></div>
                       {loading ? "Creating Account..." : "Create Account"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4 space-y-1">
-                      <div>
-                        <Button 
-                          type="button" 
-                          variant="link" 
-                          onClick={() => navigate("/auth?mode=login")}
-                          className="min-h-[44px]"
-                        >
-                          Already a member? Log in
-                        </Button>
-                      </div>
-                      <div>
-                        <Button 
-                          type="button" 
-                          variant="link" 
-                          onClick={() => navigate("/")}
-                          className="min-h-[44px]"
-                        >
-                          ← Back to Home
-                        </Button>
-                      </div>
+                    <div className="text-center pt-4 space-y-3">
+                      <Button 
+                        type="button" 
+                        variant="outline"
+                        onClick={() => navigate("/auth?mode=login")}
+                        className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
+                      >
+                        Already a member? Log in
+                      </Button>
+                      <Button 
+                        type="button" 
+                        variant="outline"
+                        onClick={() => navigate("/")}
+                        className="w-full min-h-[48px] rounded-full border border-muted-foreground/30 bg-muted/20 hover:bg-muted/40 text-muted-foreground font-semibold"
+                      >
+                        ← Back to Home
+                      </Button>
                     </div>
                   </form>
                 </CardContent>

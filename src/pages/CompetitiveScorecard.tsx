@@ -6,70 +6,18 @@ import { useNavigate } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const scorecardData = [
-  {
-    feature: "Integrated Health/Tox Status (HIPAA)",
-    valid: true,
-    clear: false,
-    idme: false,
-    ticketmaster: false,
-    sterling: false,
-    stdcheck: true,
-    highlight: true,
-  },
-  {
-    feature: "PEER-TO-PEER NETWORK TRUST",
-    valid: true,
-    clear: false,
-    idme: false,
-    ticketmaster: false,
-    sterling: false,
-    stdcheck: false,
-    highlight: true,
-  },
-  {
-    feature: "Automated Revenue Share ($10 Transaction Model)",
-    valid: true,
-    clear: false,
-    idme: false,
-    ticketmaster: false,
-    sterling: false,
-    stdcheck: false,
-    highlight: true,
-  },
-  {
-    feature: "Zero-Trust Backend Security & Architecture",
-    valid: true,
-    clear: false,
-    idme: false,
-    ticketmaster: false,
-    sterling: false,
-    stdcheck: false,
-    highlight: true,
-  },
-  {
-    feature: "Frictionless Staff Workflow & Dedicated B2B Portal",
-    valid: true,
-    clear: true,
-    idme: false,
-    ticketmaster: true,
-    sterling: false,
-    stdcheck: false,
-    highlight: true,
-  },
-  {
-    feature: "Rolling (Continuous) Compliance & Screening",
-    valid: true,
-    clear: false,
-    idme: false,
-    ticketmaster: false,
-    sterling: true,
-    stdcheck: false,
-    highlight: false,
-  },
+  { feature: "Integrated Health/Tox Status (HIPAA)", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, highlight: true },
+  { feature: "Zero-Trust Backend Security & Architecture", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
+  { feature: "Automated Revenue Share ($10 Transaction)", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
+  { feature: "PEER-TO-PEER NETWORK TRUST", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
+  { feature: "Frictionless Staff Workflow & B2B Portal", valid: true, clear: true, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, highlight: true },
+  { feature: "Rolling (Continuous) Compliance & Screening", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, highlight: false },
+  { feature: "Managed Transactional Payments (In-App Wallet)", valid: true, clear: false, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, highlight: false },
+  { feature: "Digital Identity Verification (Standard)", valid: true, clear: true, idme: true, ticketmaster: true, sterling: true, stdcheck: false, eventbrite: true, highlight: false },
 ];
 
 const corePoints = [
-  "VALID is the only platform that integrates the six key functions needed to de-risk and monetize high-liability businesses.",
+  "VALID is the only platform that integrates the eight key functions needed to de-risk and monetize high-liability businesses.",
   "Our Zero-Trust architecture legally shifts liability away from partners (venues/employers) and onto the VALID platform.",
   "High-margin dual revenue via user subscriptions + instant $10 transactional fees (Incognito Token).",
 ];
@@ -91,6 +39,7 @@ export default function CompetitiveScorecard() {
   const ticketmasterScore = scorecardData.filter(r => r.ticketmaster).length;
   const sterlingScore = scorecardData.filter(r => r.sterling).length;
   const stdcheckScore = scorecardData.filter(r => r.stdcheck).length;
+  const eventbriteScore = scorecardData.filter(r => r.eventbrite).length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -148,25 +97,26 @@ export default function CompetitiveScorecard() {
               Direct Competitive Scorecard: Why VALID Wins
             </CardTitle>
             <p className="text-sm text-muted-foreground">
-              VALID is the only platform that integrates the six key functions essential for de-risking and <strong>monetizing</strong> high-liability businesses.
+              VALID is the only platform integrating the <strong>eight key functions</strong> needed to de-risk and monetize high-liability businesses.
             </p>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
-              <table className="w-full text-xs font-mono border border-border">
+              <table className="w-full text-[10px] font-mono border border-border">
                 <thead>
                   <tr className="bg-muted text-foreground">
-                    <th className="text-left p-2 font-bold uppercase" style={{ width: '30%' }}>VALID FEATURE</th>
-                    <th colSpan={6} className="text-center p-2 font-bold uppercase border-l border-border">COMPETITORS</th>
+                    <th className="text-left p-2 font-bold uppercase" style={{ width: '25%' }}>VALID FEATURE</th>
+                    <th colSpan={7} className="text-center p-2 font-bold uppercase border-l border-border">COMPETITORS</th>
                   </tr>
                   <tr className="bg-muted text-foreground">
-                    <th className="p-2" style={{ width: '30%' }}></th>
-                    <th className="text-center p-2 font-extrabold" style={{ width: '12%', color: '#2ecc71' }}>VALID</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>CLEAR</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>ID.me</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>TICKETMASTER</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>STERLING</th>
-                    <th className="text-center p-2 font-semibold text-muted-foreground" style={{ width: '12%' }}>STDCHECK</th>
+                    <th className="p-1" style={{ width: '25%' }}></th>
+                    <th className="text-center p-1 font-extrabold" style={{ width: '10%', color: '#2ecc71' }}>VALID</th>
+                    <th className="text-center p-1 font-semibold text-muted-foreground" style={{ width: '9%' }}>CLEAR</th>
+                    <th className="text-center p-1 font-semibold text-muted-foreground" style={{ width: '9%' }}>ID.me</th>
+                    <th className="text-center p-1 font-semibold text-muted-foreground" style={{ width: '9%' }}>TICKETMASTER</th>
+                    <th className="text-center p-1 font-semibold text-muted-foreground" style={{ width: '9%' }}>STERLING</th>
+                    <th className="text-center p-1 font-semibold text-muted-foreground" style={{ width: '9%' }}>STDCHECK</th>
+                    <th className="text-center p-1 font-semibold text-muted-foreground" style={{ width: '10%' }}>EVENTBRITE</th>
                   </tr>
                 </thead>
                 <tbody className="bg-card">
@@ -175,25 +125,27 @@ export default function CompetitiveScorecard() {
                       <td className={`p-2 text-left text-foreground ${row.highlight ? 'font-semibold' : ''}`}>
                         {row.feature}
                       </td>
-                      <td className="p-2 text-center">{renderCheckmark(row.valid, true)}</td>
-                      <td className="p-2 text-center">{renderCheckmark(row.clear)}</td>
-                      <td className="p-2 text-center">{renderCheckmark(row.idme)}</td>
-                      <td className="p-2 text-center">{renderCheckmark(row.ticketmaster)}</td>
-                      <td className="p-2 text-center">{renderCheckmark(row.sterling)}</td>
-                      <td className="p-2 text-center">{renderCheckmark(row.stdcheck)}</td>
+                      <td className="p-1 text-center">{renderCheckmark(row.valid, true)}</td>
+                      <td className="p-1 text-center">{renderCheckmark(row.clear)}</td>
+                      <td className="p-1 text-center">{renderCheckmark(row.idme)}</td>
+                      <td className="p-1 text-center">{renderCheckmark(row.ticketmaster)}</td>
+                      <td className="p-1 text-center">{renderCheckmark(row.sterling)}</td>
+                      <td className="p-1 text-center">{renderCheckmark(row.stdcheck)}</td>
+                      <td className="p-1 text-center">{renderCheckmark(row.eventbrite)}</td>
                     </tr>
                   ))}
                   {/* Total Score Row */}
                   <tr className="bg-amber-900/50 border-t-2 border-amber-600">
                     <td className="p-2 text-left text-amber-300 font-extrabold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                      TOTAL INTEGRATION SCORE (6 Max)
+                      TOTAL INTEGRATION SCORE (8 Max)
                     </td>
-                    <td className="p-2 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>{validScore}/6</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{clearScore}/6</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{idmeScore}/6</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{ticketmasterScore}/6</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{sterlingScore}/6</td>
-                    <td className="p-2 text-center text-lg text-muted-foreground font-extrabold">{stdcheckScore}/6</td>
+                    <td className="p-1 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>{validScore}/8</td>
+                    <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{clearScore}/8</td>
+                    <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{idmeScore}/8</td>
+                    <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{ticketmasterScore}/8</td>
+                    <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{sterlingScore}/8</td>
+                    <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{stdcheckScore}/8</td>
+                    <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{eventbriteScore}/8</td>
                   </tr>
                 </tbody>
               </table>
@@ -281,6 +233,9 @@ export default function CompetitiveScorecard() {
               </Badge>
               <Badge variant="secondary" className="text-sm py-1 px-3">
                 STDCheck (Health Testing)
+              </Badge>
+              <Badge variant="secondary" className="text-sm py-1 px-3">
+                Eventbrite (Event Ticketing)
               </Badge>
             </div>
           </CardContent>

@@ -1,13 +1,16 @@
 import { UseFormSetValue } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Syringe, Sparkles, Cigarette } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Syringe, Sparkles, Cigarette, Lock, Unlock } from "lucide-react";
 
 interface PreferencesHealthSectionProps {
   setValue: UseFormSetValue<any>;
   covidVaccinated: boolean;
   circumcised?: boolean;
   smoker: boolean;
+  sharingEnabled?: boolean;
+  onToggleSharing?: (enabled: boolean) => void;
 }
 
 export const PreferencesHealthSection = ({
@@ -15,13 +18,33 @@ export const PreferencesHealthSection = ({
   covidVaccinated,
   circumcised,
   smoker,
+  sharingEnabled = false,
+  onToggleSharing,
 }: PreferencesHealthSectionProps) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold border-b pb-2">
-        <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Health</span>
-      </h3>
+      <div className="flex items-center justify-between border-b pb-2">
+        <h3 className="text-lg font-semibold">
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Health</span>
+        </h3>
+        {onToggleSharing && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => onToggleSharing(!sharingEnabled)}
+            className="h-auto py-1 px-2"
+            title={sharingEnabled ? "Click to hide from peers" : "Click to share with peers"}
+          >
+            {sharingEnabled ? (
+              <Unlock className="w-4 h-4 text-green-500" />
+            ) : (
+              <Lock className="w-4 h-4 text-muted-foreground" />
+            )}
+          </Button>
+        )}
+      </div>
 
       <div className="flex items-center space-x-2">
         <Checkbox

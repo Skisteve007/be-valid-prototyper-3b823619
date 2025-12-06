@@ -171,7 +171,7 @@ export const AdminLoginDialog = ({ open, onOpenChange }: AdminLoginDialogProps) 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-card border-amber-500/30 top-[10%] translate-y-0">
+      <DialogContent className="w-[90vw] max-w-sm sm:max-w-md bg-card border-amber-500/30 top-[5%] translate-y-0">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-green-500/5 to-amber-500/10 blur-3xl rounded-lg -z-10"></div>
         
         <DialogHeader className="text-center space-y-2">

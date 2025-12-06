@@ -138,20 +138,31 @@ const PitchDeck = () => {
           </p>
         </section>
 
-        {/* Investment Thesis Section */}
+        {/* Investment Thesis Section - Unicorn Thesis */}
         <section className="mb-8">
-          <Card className="bg-card border-l-4 border-amber-500">
-            <CardContent className="p-6">
-              <h2 className="text-xl font-bold text-amber-500 mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                Investment Thesis: Unmatched Risk Transfer & Profit
-              </h2>
-              <ul className="text-foreground space-y-3 text-sm list-disc list-inside">
-                <li><strong>INDUSTRY-LEADING RISK TRANSFER:</strong> Our Zero-Trust architecture legally shifts liability away from partners (venues/employers) and onto the VALID platform.</li>
-                <li><strong>HIGH-MARGIN DUAL REVENUE:</strong> Monetization via user subscriptions + instant <strong>$10 transactional fees</strong> (Incognito Token).</li>
-                <li><strong>DATA MOAT:</strong> We build the core Identity/Health/Payment layer for high-liability social and asset management economies.</li>
-              </ul>
-            </CardContent>
-          </Card>
+          <div className="p-5 bg-card/70 border-l-4 border-[#2ecc71] rounded-lg">
+            <h3 className="text-xl font-bold text-amber-500 mb-3" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+              Unicorn Thesis: The VALID Value Drivers
+            </h3>
+            <ul className="text-muted-foreground list-disc list-inside space-y-3 text-sm">
+              <li className="font-bold text-foreground">
+                HIGH-MARGIN TRANSACTIONAL POWER:
+                <p className="text-muted-foreground font-normal mt-0.5 ml-5">The core revenue is the $10 Incognito Access Token, which operates at near-zero marginal cost, creating massive profitability as your organization scales up.</p>
+              </li>
+              <li className="font-bold text-foreground">
+                ZERO-TRUST ARCHITECTURAL MOAT:
+                <p className="text-muted-foreground font-normal mt-0.5 ml-5">The complexity of linking health data (HIPAA/GDPR) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model quickly.</p>
+              </li>
+              <li className="font-bold text-foreground">
+                VIRAL NETWORK INTEGRATION:
+                <p className="text-muted-foreground font-normal mt-0.5 ml-5">VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok, etc.), creating a massive, verified <strong>peer-to-peer network</strong> for partner exposure.</p>
+              </li>
+              <li className="font-bold text-foreground">
+                REGULATORY TAILWINDS & LIABILITY SHIFT:
+                <p className="text-muted-foreground font-normal mt-0.5 ml-5">We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider.</p>
+              </li>
+            </ul>
+          </div>
         </section>
 
         {/* Competitive Scorecard Section */}

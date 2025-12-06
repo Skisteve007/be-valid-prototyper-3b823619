@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/valid-logo.jpeg";
 import { useNavigate } from "react-router-dom";
+import PartnerBetaSurvey from "@/components/PartnerBetaSurvey";
 
 const Partners = () => {
   const navigate = useNavigate();
@@ -471,6 +472,13 @@ const Partners = () => {
               </Button>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Partner Beta Survey Section */}
+      <section className="py-16 px-4 bg-secondary/30">
+        <div className="container mx-auto max-w-2xl">
+          <PartnerBetaSurvey />
         </div>
       </section>
 

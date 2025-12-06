@@ -155,7 +155,7 @@ export const PersonalInfoSection = ({
           <div className="relative flex flex-col p-4 md:p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b pb-2 mb-4">
               <h3 className="text-lg font-semibold">
-                <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal and Fun Quick Share</span>
+                <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Fun Quick Share</span>
               </h3>
               <div className="px-3 py-1 rounded-full bg-gradient-to-r from-white via-orange-100 to-orange-300 border border-orange-300 shadow-sm">
                 <span className="text-xs font-medium text-orange-700">* Important Mandatory. Upload Document & Profile Photo</span>

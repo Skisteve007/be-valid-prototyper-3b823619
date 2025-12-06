@@ -757,7 +757,7 @@ const VenueCompliance = () => {
               </li>
             </ul>
             <p className="text-accent text-xs md:text-sm mt-3 font-medium">
-              <strong>FAST FUNDS:</strong> Since the venue&apos;s funds are processed immediately via Clean Check, your commission on that gross revenue is processed and available to you as soon as the venue funds your Affiliate Fund.
+              <strong>FAST FUNDS:</strong> Since the venue&apos;s funds are processed immediately via VALID, your commission on that gross revenue is processed and available to you as soon as the venue funds your Affiliate Fund.
             </p>
           </div>
 

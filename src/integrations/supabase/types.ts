@@ -1965,6 +1965,16 @@ export type Database = {
       check_status_expiry: { Args: never; Returns: undefined }
       cleanup_expired_qr_tokens: { Args: never; Returns: undefined }
       generate_member_id: { Args: never; Returns: string }
+      get_public_venues: {
+        Args: never
+        Returns: {
+          category: Database["public"]["Enums"]["venue_category"]
+          city: string
+          country: string
+          id: string
+          venue_name: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

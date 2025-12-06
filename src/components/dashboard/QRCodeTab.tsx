@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +11,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload, EyeOff, DollarSign } from "lucide-react";
+import { QrCode, Share2, Clock, Mail, MessageSquare, Copy, ExternalLink, Shield, Lock, FileText, AlertTriangle, Camera, Upload, EyeOff, DollarSign, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import SponsorUpload from "./SponsorUpload";
@@ -38,6 +39,11 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
   const [incognitoToken, setIncognitoToken] = useState<string>("");
   const [incognitoExpiresAt, setIncognitoExpiresAt] = useState<string>("");
   
+  // Spending tracking state
+  const [incognitoTransactionId, setIncognitoTransactionId] = useState<string>("");
+  const [incognitoSpendingLimit, setIncognitoSpendingLimit] = useState<number>(500);
+  const [incognitoCurrentSpend, setIncognitoCurrentSpend] = useState<number>(0);
+  
   // Waiver status
   const { hasSignedWaiver, isLoading: waiverLoading, waiverSignedAt, checkWaiverStatus, setHasSignedWaiver } = useWaiverStatus(userId);
 
@@ -59,6 +65,45 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
       resetBrightness();
     }
   }, [statusColor]);
+
+  // Real-time subscription for spending updates
+  useEffect(() => {
+    if (!incognitoTransactionId) return;
+
+    console.log("Setting up realtime subscription for transaction:", incognitoTransactionId);
+    
+    const channel = supabase
+      .channel(`spending-${incognitoTransactionId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'incognito_transactions',
+          filter: `id=eq.${incognitoTransactionId}`
+        },
+        (payload) => {
+          console.log("Spending update received:", payload);
+          const newSpend = payload.new.current_spend || 0;
+          setIncognitoCurrentSpend(newSpend);
+          
+          // Alert if approaching limit
+          const limit = payload.new.spending_limit || incognitoSpendingLimit;
+          if (newSpend >= limit * 0.9) {
+            toast.warning("Approaching spending limit!", { duration: 5000 });
+          }
+          if (newSpend >= limit) {
+            toast.error("Spending limit reached!", { duration: 10000 });
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      console.log("Cleaning up realtime subscription");
+      supabase.removeChannel(channel);
+    };
+  }, [incognitoTransactionId, incognitoSpendingLimit]);
 
   const loadProfileAndDocuments = async () => {
     try {
@@ -525,17 +570,20 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
               <IncognitoQRDialog
                 open={showIncognitoDialog}
                 onClose={() => setShowIncognitoDialog(false)}
-                onSuccess={(qrUrl, token, expiresAt) => {
+                onSuccess={(qrUrl, token, expiresAt, transactionId, spendingLimit) => {
                   setIncognitoQrCodeUrl(qrUrl);
                   setIncognitoToken(token);
                   setIncognitoExpiresAt(expiresAt);
+                  setIncognitoTransactionId(transactionId);
+                  setIncognitoSpendingLimit(spendingLimit);
+                  setIncognitoCurrentSpend(0);
                   setShowIncognitoDialog(false);
-                  toast.success("Incognito QR Code ready! Show it below to be scanned.");
+                  toast.success("Incognito QR Code ready! Real-time spending tracking enabled.");
                 }}
                 userId={userId}
               />
 
-              {/* Active Incognito QR Code Display */}
+              {/* Active Incognito QR Code Display with Real-Time Spending */}
               {incognitoQrCodeUrl && (
                 <div className="w-full max-w-sm p-4 bg-gray-100 dark:bg-gray-800 border-2 border-gray-500 rounded-xl space-y-3">
                   <div className="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
@@ -543,12 +591,36 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                     <span className="font-semibold">Incognito QR Code Active</span>
                   </div>
                   
-                  {/* Spending Limit Badge */}
-                  <div className="flex justify-center">
-                    <Badge className="bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30">
-                      <DollarSign className="h-3 w-3 mr-1" />
-                      Spending Limit: $500
-                    </Badge>
+                  {/* Real-Time Spending Tracker */}
+                  <div className="bg-white dark:bg-gray-900 rounded-lg p-3 border border-gray-300 dark:border-gray-600 space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
+                        <TrendingUp className="h-4 w-4" />
+                        Live Spend
+                      </span>
+                      <span className="font-mono font-bold text-lg">
+                        ${incognitoCurrentSpend.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      </span>
+                    </div>
+                    
+                    <Progress 
+                      value={(incognitoCurrentSpend / incognitoSpendingLimit) * 100} 
+                      className={`h-3 ${incognitoCurrentSpend >= incognitoSpendingLimit * 0.9 ? '[&>div]:bg-red-500' : incognitoCurrentSpend >= incognitoSpendingLimit * 0.7 ? '[&>div]:bg-amber-500' : '[&>div]:bg-green-500'}`}
+                    />
+                    
+                    <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                      <span>$0</span>
+                      <span className="font-semibold">
+                        Limit: ${incognitoSpendingLimit.toLocaleString()}
+                      </span>
+                    </div>
+                    
+                    {incognitoCurrentSpend >= incognitoSpendingLimit && (
+                      <Badge className="w-full justify-center bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30">
+                        <AlertTriangle className="h-3 w-3 mr-1" />
+                        Spending Limit Reached
+                      </Badge>
+                    )}
                   </div>
                   
                   <div className="flex justify-center">
@@ -574,6 +646,8 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                       setIncognitoQrCodeUrl("");
                       setIncognitoToken("");
                       setIncognitoExpiresAt("");
+                      setIncognitoTransactionId("");
+                      setIncognitoCurrentSpend(0);
                     }}
                     className="w-full text-gray-600 border-gray-400"
                   >

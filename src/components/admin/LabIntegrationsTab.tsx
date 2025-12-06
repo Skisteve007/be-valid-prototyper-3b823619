@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { FlaskConical, Loader2, TestTube, Key, Image, Upload, Trash2 } from "lucide-react";
+import { FlaskConical, Loader2, TestTube, Key, Image, Upload, Trash2, Shield } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { LabPartnersManager } from "./LabPartnersManager";
@@ -274,11 +274,20 @@ export const LabIntegrationsTab = () => {
 
         <TabsContent value="orders" className="space-y-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-2xl">
                 <FlaskConical className="h-6 w-6" />
                 Lab Orders
               </CardTitle>
+              <a 
+                href="/partners/integrated-health-compliance#liability-firewall" 
+                target="_blank"
+                title="View Liability Defense Flow" 
+                className="text-foreground hover:text-accent transition-colors flex items-center gap-1 font-bold text-sm"
+              >
+                <span>Data Flow Protection</span>
+                <Shield className="h-4 w-4 text-amber-500" />
+              </a>
             </CardHeader>
             <CardContent>
           <div className="rounded-md border">

@@ -127,49 +127,81 @@
     
     <!-- Android Install Prompt -->
     <script>
+      // Variable to store the native browser installation event
       let deferredPrompt;
-      
+
+      // 1. Intercept the native, small installation prompt and store the event
       window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the default small infobar from showing
         e.preventDefault();
+        // Stash the event so it can be triggered later by our large button
         deferredPrompt = e;
         
         // Don't show if already in standalone mode
         if (window.matchMedia('(display-mode: standalone)').matches) return;
         
-        // Create install banner
-        const installBanner = document.createElement('div');
-        installBanner.id = 'android-install-prompt';
-        installBanner.innerHTML = `
-          <div style="position: fixed; bottom: 0; left: 0; right: 0; padding: 15px; background: rgba(0, 0, 0, 0.9); color: white; text-align: center; font-size: 16px; z-index: 9999; display: flex; align-items: center; justify-content: center; gap: 15px;">
-            <span>Install CleanCheck for the best experience</span>
-            <button id="android-install-btn" 
-              style="background: #39FF14; border: none; color: black; font-weight: bold; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
-              Install
+        // Display the large, custom installation banner
+        showCustomInstallBanner();
+      });
+
+      function showCustomInstallBanner() {
+        if (!deferredPrompt || document.getElementById('custom-pwa-install')) return; // Prevents double-creation
+        
+        const bannerHtml = `
+          <div id="custom-pwa-install" style="
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: linear-gradient(to right, #121212, #39FF14, #121212);
+            padding: 20px; 
+            color: white; 
+            text-align: center; 
+            z-index: 10000;
+            border-top: 4px solid #FF8C00;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.7);
+            font-family: 'Orbitron', Arial, sans-serif;
+          ">
+            <div style="font-size: 28px; font-weight: bold; margin-bottom: 5px; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);">
+              Install the beVALID App!
+            </div>
+            <div style="font-size: 18px; margin-bottom: 15px;">
+              Get the best experience with Instant Entry and Zero Trust Security.
+            </div>
+            <button id="install-button-custom" style="
+              background-color: #39FF14;
+              color: black; 
+              padding: 15px 40px; 
+              border: none; 
+              border-radius: 10px; 
+              font-weight: bold; 
+              font-size: 20px; 
+              cursor: pointer;
+              box-shadow: 0 0 10px #39FF14;
+              font-family: 'Orbitron', Arial, sans-serif;
+            ">
+              INSTALL beVALID NOW
             </button>
-            <button onclick="document.getElementById('android-install-prompt').style.display='none'" 
-              style="background: none; border: none; color: #39FF14; font-weight: bold; cursor: pointer;">
-              X
+            <button onclick="document.getElementById('custom-pwa-install').style.display='none'" 
+              style="background: none; border: none; color: white; font-weight: bold; margin-left: 15px; cursor: pointer; font-size: 18px;">
+              ✕
             </button>
           </div>
         `;
-        document.body.appendChild(installBanner);
         
-        // Handle install button click
-        document.getElementById('android-install-btn').addEventListener('click', async () => {
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-              document.getElementById('android-install-prompt').style.display = 'none';
-            }
-            deferredPrompt = null;
-          }
+        document.body.insertAdjacentHTML('beforeend', bannerHtml);
+
+        // 3. Attach event listener to the custom button
+        document.getElementById('install-button-custom').addEventListener('click', () => {
+          // Hide the custom banner and trigger the native install process
+          document.getElementById('custom-pwa-install').style.display = 'none';
+          deferredPrompt.prompt();
         });
-      });
+      }
       
       // Hide prompt if app gets installed
       window.addEventListener('appinstalled', () => {
-        const banner = document.getElementById('android-install-prompt');
+        const banner = document.getElementById('custom-pwa-install');
         if (banner) banner.style.display = 'none';
         deferredPrompt = null;
       });

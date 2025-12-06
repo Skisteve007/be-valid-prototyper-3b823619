@@ -136,7 +136,7 @@ const Index = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>
                 <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-full"></div>
                 <p className="relative text-lg xl:text-xl font-black text-center italic tracking-[0.25em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                  Instant Proof Health Status
+                  YOUR SECURE CHANGE VALID
                 </p>
               </div>
               <p className="text-base xl:text-lg font-semibold text-center text-foreground mt-2 italic">
@@ -210,7 +210,7 @@ const Index = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-lg rounded-full animate-pulse"></div>
               <div className="absolute inset-0 bg-secondary/20 blur-xl rounded-full"></div>
               <p className="relative text-sm font-black italic tracking-[0.2em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                Instant Proof Health Status
+                YOUR SECURE CHANGE VALID
               </p>
             </div>
             <p className="text-sm font-semibold text-foreground mt-1 italic">
@@ -804,7 +804,7 @@ const Index = () => {
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
                       <p className="text-base font-bold bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
-                        How does Clean Check membership work?
+                        How does VALID membership work?
                       </p>
                     </div>
                   </AccordionTrigger>
@@ -822,7 +822,7 @@ const Index = () => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pt-4 px-2">
-                    Your membership includes: instant account activation, personalized QR code, secure health document storage, member profile with privacy controls, universal access across all partner sites using Clean Check services, and premium features including photo galleries and member secrets.
+                    Your membership includes: instant account activation, personalized QR code, secure health document storage, member profile with privacy controls, universal access across all partner sites using VALID services, and premium features including photo galleries and member secrets.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -848,7 +848,7 @@ const Index = () => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pt-4 px-2">
-                    You can cancel anytime through your PayPal account by going to Settings → Payments → Manage automatic payments → Cancel Clean Check subscription. Your membership will remain active until the end of your current billing period.
+                    You can cancel anytime through your PayPal account by going to Settings → Payments → Manage automatic payments → Cancel VALID subscription. Your membership will remain active until the end of your current billing period.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -869,12 +869,12 @@ const Index = () => {
                   <AccordionTrigger className="text-left hover:no-underline">
                     <div className="bg-muted/50 px-6 py-3 rounded-full border-2 border-border w-full">
                       <p className="text-base font-bold bg-gradient-to-r from-secondary via-secondary to-primary bg-clip-text text-transparent">
-                        Can I use Clean Check on multiple sites?
+                        Can I use VALID on multiple sites?
                       </p>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pt-4 px-2">
-                    Yes! Your Clean Check membership is universal and works across all partner sites that employ Clean Check services. One membership gives you verified access everywhere.
+                    Yes! Your VALID membership is universal and works across all partner sites that employ VALID services. One membership gives you verified access everywhere.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -919,7 +919,7 @@ const Index = () => {
               </li>
               <li className="flex gap-3">
                 <span className="font-bold shrink-0">•</span>
-                <p><strong>How to Cancel:</strong> You must cancel through PayPal by going to your PayPal account → Settings → Payments → Manage automatic payments → Cancel Clean Check subscription.</p>
+                <p><strong>How to Cancel:</strong> You must cancel through PayPal by going to your PayPal account → Settings → Payments → Manage automatic payments → Cancel VALID subscription.</p>
               </li>
               <li className="flex gap-3">
                 <span className="font-bold shrink-0">•</span>
@@ -941,41 +941,41 @@ const Index = () => {
         <section className="py-16 px-4 bg-gradient-to-br from-muted/30 via-accent/3 to-muted/30">
           <div className="container mx-auto max-w-4xl">
             <h3 className="text-2xl font-bold mb-6 text-foreground">⚖️ LEGAL DISCLAIMER</h3>
-            <p className="mb-6 text-foreground">By using Clean Check, you acknowledge and agree that:</p>
+            <p className="mb-6 text-foreground">By using VALID, you acknowledge and agree that:</p>
             
             <div className="space-y-3 text-sm text-foreground">
               <div>
                 <h4 className="font-bold text-foreground mb-1">Service Nature:</h4>
-                <p>Clean Check is a peer-to-peer data sharing tool and not a medical or financial service provider. The donor releases Clean Check from all liability for any health, financial, or informational consequences resulting from the use or alteration of this service. All membership contributions are non-refundable and final.</p>
+                <p>VALID is a peer-to-peer data sharing tool and not a medical or financial service provider. The donor releases VALID from all liability for any health, financial, or informational consequences resulting from the use or alteration of this service. All membership contributions are non-refundable and final.</p>
               </div>
 
               <div>
                 <h4 className="font-bold text-foreground mb-1">Platform Sponsors and Partners:</h4>
-                <p>All sponsors, advertisers, and supporting partners of Clean Check (collectively "Sponsors") are held with NO LIABILITY for any health, financial, informational, or other consequences resulting from your use of this service.</p>
+                <p>All sponsors, advertisers, and supporting partners of VALID (collectively "Sponsors") are held with NO LIABILITY for any health, financial, informational, or other consequences resulting from your use of this service.</p>
               </div>
 
               <div>
                 <h4 className="font-bold text-foreground mb-1">Health Decisions:</h4>
-                <p>Neither Clean Check nor Sponsors are responsible for any health-related outcomes, medical conditions, infections, or diseases that may result from interactions facilitated through this platform.</p>
+                <p>Neither VALID nor Sponsors are responsible for any health-related outcomes, medical conditions, infections, or diseases that may result from interactions facilitated through this platform.</p>
               </div>
 
               <div>
                 <h4 className="font-bold text-foreground mb-1">Financial Matters:</h4>
-                <p>Neither Clean Check nor Sponsors bear responsibility for membership fees, payment processing issues, refund disputes, or any financial losses incurred.</p>
+                <p>Neither VALID nor Sponsors bear responsibility for membership fees, payment processing issues, refund disputes, or any financial losses incurred.</p>
               </div>
 
               <div>
                 <h4 className="font-bold text-foreground mb-1">Information Accuracy:</h4>
-                <p>Neither Clean Check nor Sponsors are liable for the accuracy, completeness, or reliability of information shared by users, including health status, test results, or personal data.</p>
+                <p>Neither VALID nor Sponsors are liable for the accuracy, completeness, or reliability of information shared by users, including health status, test results, or personal data.</p>
               </div>
 
               <div>
                 <h4 className="font-bold text-foreground mb-1">Independent Service:</h4>
-                <p>Sponsors provide advertising or financial support only and are completely separate from the operation, management, and content of Clean Check. Their participation does not constitute endorsement of user behavior or platform practices.</p>
+                <p>Sponsors provide advertising or financial support only and are completely separate from the operation, management, and content of VALID. Their participation does not constitute endorsement of user behavior or platform practices.</p>
               </div>
 
               <p className="pt-2 font-semibold text-foreground">
-                You agree to hold harmless and indemnify Clean Check, its operators, and all Sponsors from any claims, damages, or liabilities arising from your use of this service. Use at your own risk.
+                You agree to hold harmless and indemnify VALID, its operators, and all Sponsors from any claims, damages, or liabilities arising from your use of this service. Use at your own risk.
               </p>
             </div>
           </div>

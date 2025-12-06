@@ -108,7 +108,7 @@ export default {
   		},
   		fontFamily: {
   			sans: [
-  				'Roboto',
+  				'Orbitron',
   				'ui-sans-serif',
   				'system-ui',
   				'-apple-system',
@@ -116,27 +116,22 @@ export default {
   				'Segoe UI',
   				'Helvetica Neue',
   				'Arial',
-  				'Noto Sans',
+  				'sans-serif'
+  			],
+  			orbitron: [
+  				'Orbitron',
   				'sans-serif'
   			],
   			serif: [
-  				'Libre Caslon Text',
+  				'Orbitron',
   				'ui-serif',
   				'Georgia',
-  				'Cambria',
-  				'Times New Roman',
-  				'Times',
   				'serif'
   			],
   			mono: [
-  				'Roboto Mono',
+  				'Orbitron',
   				'ui-monospace',
   				'SFMono-Regular',
-  				'Menlo',
-  				'Monaco',
-  				'Consolas',
-  				'Liberation Mono',
-  				'Courier New',
   				'monospace'
   			]
   		}

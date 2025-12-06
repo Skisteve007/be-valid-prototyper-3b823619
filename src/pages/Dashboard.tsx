@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
 import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Home, FlaskConical, ShieldCheck, ArrowUp } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab from "@/components/dashboard/ProfileTab";
@@ -154,7 +155,7 @@ const Dashboard = () => {
             </div>
             
             {/* Buttons - centered row on mobile, right-aligned on desktop */}
-            <div className="flex justify-center md:justify-end gap-2 flex-wrap md:flex-1">
+            <div className="flex justify-center md:justify-end gap-2 flex-wrap md:flex-1 items-center">
               <Button 
                 onClick={() => setActiveTab("qrcode")}
                 className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold min-h-[48px] px-6 touch-manipulation"
@@ -163,6 +164,7 @@ const Dashboard = () => {
                 <QrCode className="h-4 w-4 mr-2" />
                 QR Code
               </Button>
+              <ThemeToggle />
               <Button 
                 onClick={handleLogout} 
                 className="relative shadow-[0_0_30px_rgba(236,72,153,0.7)] hover:shadow-[0_0_40px_rgba(236,72,153,0.9)] border-2 border-pink-500/60 bg-pink-500/15 text-pink-500 hover:text-pink-400 font-bold min-h-[48px] px-6 touch-manipulation"

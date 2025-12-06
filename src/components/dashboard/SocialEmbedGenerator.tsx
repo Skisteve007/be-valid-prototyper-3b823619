@@ -103,32 +103,32 @@ const SocialEmbedGenerator: React.FC<SocialEmbedGeneratorProps> = ({ userId, use
 
   return (
     <Card className="border-2 border-accent/30 shadow-[0_0_30px_hsl(var(--accent)/0.3)]">
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 px-4 md:px-6">
         <div className="flex items-center gap-2">
-          <Link2 className="h-6 w-6 text-accent" />
-          <CardTitle className="text-xl text-foreground">Social Network Verification Widget</CardTitle>
+          <Link2 className="h-5 w-5 md:h-6 md:w-6 text-accent flex-shrink-0" />
+          <CardTitle className="text-lg md:text-xl text-foreground">Social Network Verification Widget</CardTitle>
         </div>
-        <CardDescription>
+        <CardDescription className="text-sm">
           Generate a unique verification link to embed anywhere you have an online presence — social media bios, personal websites, or link-in-bio platforms. Turn every profile into a trust signal.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 px-4 md:px-6">
         {/* Platform Selection Dropdown */}
         <div className="space-y-2">
           <label className="text-sm font-medium text-foreground">Where will you embed this code? *</label>
           <Select value={destinationPlatform} onValueChange={setDestinationPlatform}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full min-h-[48px] text-base bg-secondary border-border">
               <SelectValue placeholder="-- Select Network --" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Instagram">Instagram</SelectItem>
-              <SelectItem value="TikTok">TikTok</SelectItem>
-              <SelectItem value="Facebook">Facebook</SelectItem>
-              <SelectItem value="LinkedIn">LinkedIn</SelectItem>
-              <SelectItem value="OnlyFans">OnlyFans</SelectItem>
-              <SelectItem value="Twitter/X">Twitter/X</SelectItem>
-              <SelectItem value="Linktree/BioSite">Linktree / Bio Site</SelectItem>
-              <SelectItem value="PersonalWebsite">Personal Website</SelectItem>
+            <SelectContent className="bg-card border border-border shadow-xl z-50">
+              <SelectItem value="Instagram" className="min-h-[44px]">Instagram</SelectItem>
+              <SelectItem value="TikTok" className="min-h-[44px]">TikTok</SelectItem>
+              <SelectItem value="Facebook" className="min-h-[44px]">Facebook</SelectItem>
+              <SelectItem value="LinkedIn" className="min-h-[44px]">LinkedIn</SelectItem>
+              <SelectItem value="OnlyFans" className="min-h-[44px]">OnlyFans</SelectItem>
+              <SelectItem value="Twitter/X" className="min-h-[44px]">Twitter/X</SelectItem>
+              <SelectItem value="Linktree/BioSite" className="min-h-[44px]">Linktree / Bio Site</SelectItem>
+              <SelectItem value="PersonalWebsite" className="min-h-[44px]">Personal Website</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -136,22 +136,22 @@ const SocialEmbedGenerator: React.FC<SocialEmbedGeneratorProps> = ({ userId, use
         {/* Embed Code Display */}
         <div className="space-y-2">
           <label className="text-sm font-medium text-muted-foreground">Embed Code (for websites/Linktree)</label>
-          <div className="bg-muted/50 p-3 rounded-lg text-xs text-muted-foreground font-mono overflow-x-auto border border-border">
+          <div className="bg-muted/50 p-3 rounded-lg text-xs text-muted-foreground font-mono overflow-x-auto border border-border max-h-[100px] overflow-y-auto">
             {embedCode}
           </div>
           <Button
             onClick={handleCopyEmbed}
             disabled={!destinationPlatform || isLogging}
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold disabled:opacity-50"
+            className="w-full min-h-[52px] py-4 bg-accent hover:bg-accent/90 text-accent-foreground font-bold disabled:opacity-50 active:scale-[0.98] transition-transform touch-manipulation text-base"
           >
             {isCopied ? (
               <>
-                <Check className="h-4 w-4 mr-2" />
+                <Check className="h-5 w-5 mr-2" />
                 Code Copied & Event Logged!
               </>
             ) : (
               <>
-                <Copy className="h-4 w-4 mr-2" />
+                <Copy className="h-5 w-5 mr-2" />
                 Copy Embed Code
               </>
             )}
@@ -168,16 +168,16 @@ const SocialEmbedGenerator: React.FC<SocialEmbedGeneratorProps> = ({ userId, use
             onClick={handleCopyLink}
             disabled={!destinationPlatform || isLogging}
             variant="outline"
-            className="w-full border-accent/50 hover:bg-accent/10 disabled:opacity-50"
+            className="w-full min-h-[52px] py-4 border-accent/50 hover:bg-accent/10 disabled:opacity-50 active:scale-[0.98] transition-transform touch-manipulation text-base"
           >
             {isLinkCopied ? (
               <>
-                <Check className="h-4 w-4 mr-2" />
+                <Check className="h-5 w-5 mr-2" />
                 Link Copied & Event Logged!
               </>
             ) : (
               <>
-                <Copy className="h-4 w-4 mr-2" />
+                <Copy className="h-5 w-5 mr-2" />
                 Copy Direct Link
               </>
             )}

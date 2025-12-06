@@ -117,22 +117,22 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
 
   // --- RENDER ---
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 bg-secondary border border-border rounded-xl shadow-2xl text-foreground">
+    <div className="w-full max-w-4xl mx-auto p-4 md:p-6 bg-secondary border border-border rounded-xl shadow-2xl text-foreground">
 
       <div className="mb-6 border-b border-border pb-4">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+        <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent" style={{ fontFamily: 'Orbitron, sans-serif' }}>
           INCOGNITO COMMAND CENTER
         </h2>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-sm md:text-base text-muted-foreground mt-2">
           Select your destination, fund your wallet, and generate your access token.
         </p>
       </div>
 
       {/* --- STEP 1: SELECT VENUE (THE MISSING LINK) --- */}
-      <div className="mb-8 p-4 bg-card border-l-4 border-accent rounded shadow-lg">
-        <label className="block text-accent font-bold mb-2 uppercase tracking-wider">Step 1: Select Venue / Event</label>
+      <div className="mb-6 md:mb-8 p-4 bg-card border-l-4 border-accent rounded-lg shadow-lg">
+        <label className="block text-accent font-bold mb-2 uppercase tracking-wider text-sm">Step 1: Select Venue / Event</label>
         <select
-          className="w-full p-3 bg-secondary border border-border rounded text-foreground font-bold text-lg focus:border-accent outline-none"
+          className="w-full p-3 md:p-4 bg-secondary border border-border rounded-lg text-foreground font-bold text-base md:text-lg focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all min-h-[48px]"
           onChange={(e) => {
             const venue = AVAILABLE_VENUES.find(v => v.id === e.target.value) || null;
             setSelectedVenue(venue);
@@ -151,38 +151,44 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
 
         {/* LEFT COLUMN: WALLET & SELECTION */}
-        <div className={`space-y-6 ${!selectedVenue ? 'opacity-50 pointer-events-none' : ''}`}>
+        <div className={`space-y-6 transition-opacity ${!selectedVenue ? 'opacity-50 pointer-events-none' : ''}`}>
 
           {/* A. SPENDING MONITOR */}
-          <div className="bg-card p-5 rounded-lg border border-primary/30">
-            <h3 className="text-xl font-bold text-primary mb-2">💰 Spending Wallet</h3>
-            <div className="text-4xl font-mono font-bold text-foreground mb-4">
+          <div className="bg-card p-4 md:p-5 rounded-lg border border-primary/30 shadow-md">
+            <h3 className="text-lg md:text-xl font-bold text-primary mb-2">💰 Spending Wallet</h3>
+            <div className="text-3xl md:text-4xl font-mono font-bold text-foreground mb-4">
               ${walletBalance.toFixed(2)}
             </div>
 
             <div className="space-y-3">
-              <input
-                type="number"
-                value={refillAmount}
-                onChange={(e) => setRefillAmount(Number(e.target.value))}
-                className="w-full bg-secondary border border-border rounded p-2 text-foreground"
-              />
-              <select
-                value={paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="w-full bg-secondary border border-border rounded p-2 text-foreground"
-              >
-                <option value="">-- Select Method --</option>
-                <option value="Apple Pay">Apple Pay</option>
-                <option value="Credit Card">Credit Card</option>
-                <option value="PayPal">PayPal</option>
-              </select>
+              <div>
+                <label className="block text-xs text-muted-foreground uppercase mb-1">Refill Amount ($)</label>
+                <input
+                  type="number"
+                  value={refillAmount}
+                  onChange={(e) => setRefillAmount(Number(e.target.value))}
+                  className="w-full bg-secondary border border-border rounded-lg p-3 text-foreground min-h-[48px] text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-muted-foreground uppercase mb-1">Payment Method</label>
+                <select
+                  value={paymentMethod}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  className="w-full bg-secondary border border-border rounded-lg p-3 text-foreground min-h-[48px] text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                >
+                  <option value="">-- Select Method --</option>
+                  <option value="Apple Pay">Apple Pay</option>
+                  <option value="Credit Card">Credit Card</option>
+                  <option value="PayPal">PayPal</option>
+                </select>
+              </div>
               <Button
                 onClick={handleRefillWallet}
-                className="w-full py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
+                className="w-full py-4 md:py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-bold min-h-[52px] text-base active:scale-[0.98] transition-transform touch-manipulation"
               >
                 LOAD FUNDS TO {selectedVenue?.name || "VENUE"}
               </Button>
@@ -190,17 +196,17 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
           </div>
 
           {/* B. DURATION */}
-          <div className="bg-card p-5 rounded-lg border border-amber-500/30">
-            <h3 className="text-xl font-bold text-amber-500 mb-4">⏱️ Select Access Tier</h3>
+          <div className="bg-card p-4 md:p-5 rounded-lg border border-amber-500/30 shadow-md">
+            <h3 className="text-lg md:text-xl font-bold text-amber-500 mb-4">⏱️ Select Access Tier</h3>
             <div className="space-y-3">
               {VENUE_PASS_OPTIONS.map((option) => (
                 <div
                   key={option.id}
                   onClick={() => setSelectedPass(option)}
-                  className={`p-3 rounded cursor-pointer border-2 flex justify-between items-center transition-all ${selectedPass.id === option.id ? 'border-accent bg-accent/10' : 'border-border hover:border-muted-foreground'}`}
+                  className={`p-4 rounded-lg cursor-pointer border-2 flex justify-between items-center transition-all min-h-[56px] active:scale-[0.98] touch-manipulation ${selectedPass.id === option.id ? 'border-accent bg-accent/10 shadow-md' : 'border-border hover:border-muted-foreground'}`}
                 >
-                  <div><div className="font-bold text-foreground">{option.label}</div></div>
-                  <div className="text-accent font-bold">${option.price.toFixed(2)}</div>
+                  <div className="font-bold text-foreground text-base">{option.label}</div>
+                  <div className="text-accent font-bold text-lg">${option.price.toFixed(2)}</div>
                 </div>
               ))}
             </div>
@@ -208,29 +214,29 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
         </div>
 
         {/* RIGHT COLUMN: ACTIVATION */}
-        <div className="flex flex-col items-center justify-center bg-background/40 rounded-lg p-6 border border-border">
+        <div className="flex flex-col items-center justify-center bg-background/40 rounded-lg p-4 md:p-6 border border-border min-h-[300px]">
           {!isIncognitoActive ? (
-            <div className="text-center space-y-4">
-              <p className="text-muted-foreground">Target Venue: <span className="text-foreground font-bold">{selectedVenue?.name || "None Selected"}</span></p>
+            <div className="text-center space-y-4 w-full">
+              <p className="text-muted-foreground text-sm md:text-base">Target Venue: <span className="text-foreground font-bold">{selectedVenue?.name || "None Selected"}</span></p>
               <Button
                 onClick={handleActivatePass}
                 disabled={!selectedVenue}
-                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-destructive text-white font-bold text-lg rounded-full shadow-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full md:w-auto px-8 py-5 md:py-4 bg-gradient-to-r from-amber-500 to-destructive text-white font-bold text-lg rounded-full shadow-lg hover:scale-105 active:scale-[0.98] transition-transform disabled:opacity-50 disabled:cursor-not-allowed min-h-[56px] touch-manipulation"
               >
                 ACTIVATE TOKEN
               </Button>
             </div>
           ) : (
             <div className="text-center w-full animate-fade-in">
-              <h3 className="text-accent font-bold text-2xl mb-2">ACCESS GRANTED</h3>
-              <div className="bg-white p-4 rounded-lg inline-block shadow-2xl mb-6">
-                <QRCodeSVG value={generateQRPayload()} size={250} level="H" />
+              <h3 className="text-accent font-bold text-xl md:text-2xl mb-2">ACCESS GRANTED</h3>
+              <div className="bg-white p-3 md:p-4 rounded-lg inline-block shadow-2xl mb-4 md:mb-6">
+                <QRCodeSVG value={generateQRPayload()} size={200} level="H" className="md:w-[250px] md:h-[250px]" />
               </div>
-              <div className="bg-card p-4 rounded text-left w-full border border-border">
+              <div className="bg-card p-4 rounded-lg text-left w-full border border-border">
                 <p className="text-xs text-muted-foreground uppercase">Venue</p>
-                <p className="text-lg text-foreground font-bold mb-2">{selectedVenue?.name}</p>
+                <p className="text-base md:text-lg text-foreground font-bold mb-2">{selectedVenue?.name}</p>
                 <p className="text-xs text-muted-foreground uppercase">Wallet Balance</p>
-                <p className="text-xl text-foreground font-mono">${walletBalance.toFixed(2)}</p>
+                <p className="text-lg md:text-xl text-foreground font-mono">${walletBalance.toFixed(2)}</p>
               </div>
             </div>
           )}

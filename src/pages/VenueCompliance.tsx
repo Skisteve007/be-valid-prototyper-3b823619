@@ -67,10 +67,11 @@ const VenueCompliance = () => {
       <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
-            <div className="relative">
-              <Shield className="h-9 w-9 text-primary" />
-              <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-accent" />
-            </div>
+            <img 
+              src="/valid-logo-share.jpeg" 
+              alt="VALID Logo" 
+              className="h-10 w-10 rounded-lg object-cover"
+            />
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-foreground">VALID</span>
               <span className="text-[10px] font-semibold text-primary tracking-[0.2em] uppercase">Enterprise Security</span>

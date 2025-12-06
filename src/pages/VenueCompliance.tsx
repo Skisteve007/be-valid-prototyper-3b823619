@@ -122,7 +122,7 @@ const VenueCompliance = () => {
           {/* Investor Relations Button */}
           <div className="pt-3 flex flex-col items-center gap-3">
             <InvestorRelationsButton onClick={() => navigate("/pitch-deck")} />
-            <BuilderVisionButton onClick={() => navigate("/pitch-deck")} />
+            <BuilderVisionButton onClick={() => navigate("/builders-vision")} />
           </div>
         </div>
       </div>

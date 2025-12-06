@@ -125,6 +125,56 @@
       });
     </script>
     
+    <!-- Android Install Prompt -->
+    <script>
+      let deferredPrompt;
+      
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Don't show if already in standalone mode
+        if (window.matchMedia('(display-mode: standalone)').matches) return;
+        
+        // Create install banner
+        const installBanner = document.createElement('div');
+        installBanner.id = 'android-install-prompt';
+        installBanner.innerHTML = `
+          <div style="position: fixed; bottom: 0; left: 0; right: 0; padding: 15px; background: rgba(0, 0, 0, 0.9); color: white; text-align: center; font-size: 16px; z-index: 9999; display: flex; align-items: center; justify-content: center; gap: 15px;">
+            <span>Install CleanCheck for the best experience</span>
+            <button id="android-install-btn" 
+              style="background: #39FF14; border: none; color: black; font-weight: bold; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+              Install
+            </button>
+            <button onclick="document.getElementById('android-install-prompt').style.display='none'" 
+              style="background: none; border: none; color: #39FF14; font-weight: bold; cursor: pointer;">
+              X
+            </button>
+          </div>
+        `;
+        document.body.appendChild(installBanner);
+        
+        // Handle install button click
+        document.getElementById('android-install-btn').addEventListener('click', async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+              document.getElementById('android-install-prompt').style.display = 'none';
+            }
+            deferredPrompt = null;
+          }
+        });
+      });
+      
+      // Hide prompt if app gets installed
+      window.addEventListener('appinstalled', () => {
+        const banner = document.getElementById('android-install-prompt');
+        if (banner) banner.style.display = 'none';
+        deferredPrompt = null;
+      });
+    </script>
+    
     <!-- Mobile Scroll Optimization -->
     <style>
       * {

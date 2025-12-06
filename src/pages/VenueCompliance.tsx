@@ -241,6 +241,54 @@ const VenueCompliance = () => {
 
       </div>
 
+      {/* Profit Maximizer Banner - CFO Alert */}
+      <div className="my-12 mx-5 md:mx-10 max-w-7xl lg:mx-auto p-8 bg-gradient-to-r from-secondary to-card rounded-2xl border-2 border-accent shadow-[0_0_30px_hsl(var(--accent)/0.15)]">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="md:w-2/3">
+            <div className="flex items-center space-x-3 mb-3">
+              <span className="px-3 py-1 bg-accent text-accent-foreground font-bold text-xs uppercase tracking-widest rounded-full">CFO Alert</span>
+              <span className="text-amber-500 font-bold text-sm tracking-wide">ELIMINATE MERCHANT FEES</span>
+            </div>
+            
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+              Stop Losing 4% on Every Swipe.
+            </h2>
+            
+            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              Our <strong className="text-foreground">Pre-Funded Wallet Architecture</strong> changes the game. Users load funds into their Incognito Token <em>before</em> they arrive. When they scan at your door or bar, the transaction is an instant <strong className="text-foreground">Zero-Fee Ledger Transfer</strong>.
+            </p>
+            
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <li className="flex items-center space-x-2">
+                <Shield className="h-4 w-4 text-accent" />
+                <span className="text-foreground font-medium">0% Credit Card Fees for Venue</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <ShieldCheck className="h-4 w-4 text-accent" />
+                <span className="text-foreground font-medium">100% Chargeback Immunity</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <Sparkles className="h-4 w-4 text-accent" />
+                <span className="text-foreground font-medium">Instant Funds Verification</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <TrendingUp className="h-4 w-4 text-accent" />
+                <span className="text-foreground font-medium">+4% Immediate Margin Boost</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="md:w-1/3 flex justify-center">
+            <div className="bg-background/50 p-6 rounded-xl border border-border text-center w-full max-w-xs">
+              <p className="text-muted-foreground text-sm uppercase mb-2">Annual Savings Calculator</p>
+              <div className="text-5xl font-extrabold text-foreground mb-1">$100k</div>
+              <p className="text-accent text-sm font-bold">SAVED PER $2.5M REVENUE</p>
+              <p className="text-xs text-muted-foreground mt-3 italic">*Based on avg. 4% interchange &amp; chargeback loss elimination.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Industry Cards Grid - Reduced card sizes */}
       <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-5 md:px-10 pb-16 max-w-7xl mx-auto">
         

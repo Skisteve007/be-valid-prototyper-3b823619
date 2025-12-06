@@ -214,20 +214,30 @@ const VenueCompliance = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Value Propositions */}
-      <div className="relative flex flex-col md:flex-row justify-center max-w-5xl mx-auto gap-4 px-5 mb-8">
-        <div className="flex-1 bg-card/50 backdrop-blur-sm p-5 rounded-xl border border-border">
-          <h3 className="text-red-500 dark:text-red-400 font-bold mb-2 text-lg">1. LIABILITY SHIELD</h3>
-          <p className="text-base text-muted-foreground">Outsource compliance tracking. We provide the mandatory digital waiver and audit trail, moving medical liability away from your venue.</p>
+      {/* Value Propositions - Partner Cards */}
+      <div className="relative grid md:grid-cols-3 gap-6 max-w-5xl mx-auto px-5 mb-8">
+        
+        <div className="p-6 bg-card/70 rounded-lg border border-destructive/50 shadow-lg hover:shadow-destructive/30 transition-all">
+          <h3 className="text-xl font-extrabold text-destructive mb-2">1. UNMATCHED RISK TRANSFER</h3>
+          <p className="text-muted-foreground text-sm">
+            Outsource your operational liability instantly. Our <strong className="text-foreground">Zero-Trust Architecture</strong> provides the mandatory digital waiver and continuous audit trail, legally shielding your organization from health, security, and compliance liability. This is your definitive <strong className="text-foreground">HIPAA and GDPR firewall.</strong>
+          </p>
         </div>
-        <div className="flex-1 bg-card/50 backdrop-blur-sm p-5 rounded-xl border border-border">
-          <h3 className="text-blue-500 dark:text-blue-400 font-bold mb-2 text-lg">2. MONETIZE ACCESS</h3>
-          <p className="text-base text-muted-foreground">Transform the security checkpoint into a profit center. Collect subscription and per-scan revenue by offering 'Verified Entry' speed.</p>
+
+        <div className="p-6 bg-card/70 rounded-lg border border-amber-500/50 shadow-lg hover:shadow-amber-500/30 transition-all">
+          <h3 className="text-xl font-extrabold text-amber-500 mb-2">2. HIGH-MARGIN REVENUE ENGINE</h3>
+          <p className="text-muted-foreground text-sm">
+            Transform the access checkpoint into an instant profit center. We enable you to collect <strong className="text-foreground">recurring subscription revenue</strong> plus high-margin earnings from the <strong className="text-foreground">$10 Incognito Access Token</strong>. Turn security compliance into a guaranteed, passive source of income.
+          </p>
         </div>
-        <div className="flex-1 bg-card/50 backdrop-blur-sm p-5 rounded-xl border border-border">
-          <h3 className="text-primary font-bold mb-2 text-lg">3. SECURE TALENT</h3>
-          <p className="text-base text-muted-foreground">Provide a verified environment for Performer Talent and Content Creators. Reduces the risk of set/venue shutdowns due to health incidents.</p>
+
+        <div className="p-6 bg-card/70 rounded-lg border border-accent/50 shadow-lg hover:shadow-accent/30 transition-all">
+          <h3 className="text-xl font-extrabold text-accent mb-2">3. CONTINUOUS ASSET VETTING</h3>
+          <p className="text-muted-foreground text-sm">
+            Secure your most valuable assets—from performer talent to exotic vehicles. Our <strong className="text-foreground">Rolling Compliance</strong> system provides continuous, real-time screening (Health &amp; Toxicology), dramatically reducing the risk of shutdowns, accidents, and financial loss due to non-compliance.
+          </p>
         </div>
+
       </div>
 
       {/* Industry Cards Grid - Reduced card sizes */}

@@ -654,14 +654,14 @@ const Index = () => {
                 </Card>
 
                 {/* Single 1-Year Pass */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--secondary)/0.7)] border-2 border-secondary/30 overflow-hidden">
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--primary)/0.7)] border-2 border-primary/30 overflow-hidden">
                   <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
-                  <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
+                  <div className="absolute inset-0 bg-primary/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="space-y-1">
                       <div className="flex items-baseline gap-2">
                         <span className="text-lg text-muted-foreground line-through">$129</span>
-                        <CardTitle className="text-3xl text-secondary">$64.50</CardTitle>
+                        <CardTitle className="text-3xl text-primary">$64.50</CardTitle>
                       </div>
                       <CardDescription className="text-base font-semibold">Single One Year</CardDescription>
                       <p className="text-sm text-muted-foreground whitespace-nowrap">One-time payment</p>
@@ -676,7 +676,7 @@ const Index = () => {
                       <input type="hidden" name="amount" value="64.50" />
                       <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-                      <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground text-sm">
+                      <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm">
                         SELECT
                       </Button>
                     </form>
@@ -734,20 +734,20 @@ const Index = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-2xl mx-auto">
               <ScrollReveal direction="up" delay={200}>
-                <Card className="relative shadow-[0_0_30px_hsl(var(--secondary)/0.4)] hover:shadow-[0_0_40px_hsl(var(--secondary)/0.6)] border-2 border-secondary/30 transition-all h-full">
-                  <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
+                <Card className="relative shadow-[0_0_30px_hsl(var(--accent)/0.4)] hover:shadow-[0_0_40px_hsl(var(--accent)/0.6)] border-2 border-accent/30 transition-all h-full">
+                  <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <Plane className="h-5 w-5 text-secondary" />
+                      <Plane className="h-5 w-5 text-accent" />
                       <CardTitle className="text-lg">Lab-Certified 10-Panel Toxicology</CardTitle>
                     </div>
                     <CardDescription>Lab-Certified</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-secondary mb-1">$129.00</div>
+                    <div className="text-2xl font-bold text-accent mb-1">$129.00</div>
                     <div className="text-xs text-muted-foreground mb-3">One-Time Payment</div>
                     <Link to="/dashboard?tab=safety-screen">
-                      <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                      <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                         Order Tox Kit
                       </Button>
                     </Link>

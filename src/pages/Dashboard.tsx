@@ -136,7 +136,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden w-full max-w-full">
-      <header className="border-b bg-card">
+      <header className="border-b border-border bg-background">
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="flex flex-col md:flex-row md:items-center gap-4">
             {/* Spacer for desktop centering */}

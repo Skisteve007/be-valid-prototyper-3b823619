@@ -588,9 +588,9 @@ const Index = () => {
                 </div>
               <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4">
                 {/* Single Member Subscription */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--primary)/0.7)] border-2 border-primary/30 overflow-hidden">
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
                   <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
-                  <div className="absolute inset-0 bg-primary/10 blur-xl rounded-lg -z-10"></div>
+                  <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="space-y-1">
                       <div className="flex items-baseline gap-2">
@@ -613,7 +613,7 @@ const Index = () => {
                       <input type="hidden" name="src" value="1" />
                       <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-                      <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm">
+                      <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-sm">
                         SELECT
                       </Button>
                     </form>
@@ -654,14 +654,14 @@ const Index = () => {
                 </Card>
 
                 {/* Single 1-Year Pass */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--primary)/0.7)] border-2 border-primary/30 overflow-hidden">
+                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
                   <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
-                  <div className="absolute inset-0 bg-primary/10 blur-xl rounded-lg -z-10"></div>
+                  <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
                     <div className="space-y-1">
                       <div className="flex items-baseline gap-2">
                         <span className="text-lg text-muted-foreground line-through">$129</span>
-                        <CardTitle className="text-3xl text-primary">$64.50</CardTitle>
+                        <CardTitle className="text-3xl text-accent">$64.50</CardTitle>
                       </div>
                       <CardDescription className="text-base font-semibold">Single One Year</CardDescription>
                       <p className="text-sm text-muted-foreground whitespace-nowrap">One-time payment</p>
@@ -676,7 +676,7 @@ const Index = () => {
                       <input type="hidden" name="amount" value="64.50" />
                       <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
                       <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-                      <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm">
+                      <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-sm">
                         SELECT
                       </Button>
                     </form>
@@ -786,8 +786,8 @@ const Index = () => {
             <ScrollReveal direction="up" delay={100}>
               <div className="text-center mb-8">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-secondary/10 blur-xl rounded-lg -z-10"></div>
-                  <Card id="get-started-form" className="scroll-mt-8 relative shadow-[0_0_40px_hsl(var(--secondary)/0.5)] hover:shadow-[0_0_50px_hsl(var(--secondary)/0.7)] border-2 border-secondary/30">
+                  <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
+                  <Card id="get-started-form" className="scroll-mt-8 relative shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30">
                     <CardHeader>
                       <CardTitle className="text-xl md:text-2xl text-foreground">Get Started</CardTitle>
                       <CardDescription className="text-sm">Both fields are required to proceed</CardDescription>

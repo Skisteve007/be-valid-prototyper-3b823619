@@ -588,7 +588,7 @@ const Index = () => {
                 </div>
               <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4">
                 {/* Single Member Subscription */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
+                <Card className="h-full flex flex-col transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
                   <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
@@ -602,7 +602,7 @@ const Index = () => {
                       <p className="text-xs font-bold text-destructive">🔥 Limited Time!</p>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-0">
+                  <CardContent className="pt-0 mt-auto">
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
@@ -621,7 +621,7 @@ const Index = () => {
                 </Card>
 
                 {/* Couple Subscription */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
+                <Card className="h-full flex flex-col transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
                   <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
@@ -635,7 +635,7 @@ const Index = () => {
                       <p className="text-xs font-bold text-destructive">🔥 Limited Time!</p>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-0">
+                  <CardContent className="pt-0 mt-auto">
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick-subscriptions" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
@@ -654,7 +654,7 @@ const Index = () => {
                 </Card>
 
                 {/* Single 1-Year Pass */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
+                <Card className="h-full flex flex-col transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
                   <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
@@ -668,7 +668,7 @@ const Index = () => {
                       <p className="text-xs font-bold text-destructive">🔥 Limited Time!</p>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-0">
+                  <CardContent className="pt-0 mt-auto">
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
@@ -684,7 +684,7 @@ const Index = () => {
                 </Card>
 
                 {/* Couple 1-Year Pass */}
-                <Card className="transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
+                <Card className="h-full flex flex-col transition-all relative hover:shadow-md shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 overflow-hidden">
                   <div className="absolute top-2 right-[-35px] bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-10 py-1 transform rotate-45 z-10">50% OFF</div>
                   <div className="absolute inset-0 bg-accent/10 blur-xl rounded-lg -z-10"></div>
                   <CardHeader className="pb-3">
@@ -698,7 +698,7 @@ const Index = () => {
                       <p className="text-xs font-bold text-destructive">🔥 Limited Time!</p>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-0">
+                  <CardContent className="pt-0 mt-auto">
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                       <input type="hidden" name="cmd" value="_xclick" />
                       <input type="hidden" name="business" value="Steve@bigtexasroof.com" />

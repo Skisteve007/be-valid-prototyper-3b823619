@@ -167,9 +167,15 @@ const IncognitoQRCodeGenerator: React.FC<IncognitoQRCodeGeneratorProps> = ({ use
               <div>
                 <label className="block text-xs text-muted-foreground uppercase mb-1">Refill Amount ($)</label>
                 <input
-                  type="number"
-                  value={refillAmount}
-                  onChange={(e) => setRefillAmount(Number(e.target.value))}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={refillAmount === 0 ? '' : refillAmount.toString()}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/[^0-9]/g, '');
+                    setRefillAmount(value === '' ? 0 : parseInt(value, 10));
+                  }}
+                  placeholder="Enter amount"
                   className="w-full bg-secondary border border-border rounded-lg p-3 text-foreground min-h-[48px] text-base focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                 />
               </div>

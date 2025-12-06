@@ -555,11 +555,11 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                   </DropdownMenuContent>
                 </DropdownMenu>
 
-                {/* Incognito Mode Button */}
+                {/* Incognito Mode Button - Premium Styling */}
                 <Button 
                   onClick={() => setShowIncognitoDialog(true)}
                   variant="outline"
-                  className="w-full min-h-[48px] border-gray-500/50 bg-gray-500/10 hover:bg-gray-500/20 text-gray-700 dark:text-gray-300 touch-manipulation"
+                  className="w-full min-h-[48px] border-amber-500/60 bg-gradient-to-r from-amber-500/10 to-amber-600/10 hover:from-amber-500/20 hover:to-amber-600/20 text-amber-600 dark:text-amber-400 font-semibold shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.35)] transition-all touch-manipulation"
                   type="button"
                 >
                   <EyeOff className="h-5 w-5 mr-2" />

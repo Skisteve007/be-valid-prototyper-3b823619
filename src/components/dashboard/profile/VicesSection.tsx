@@ -2,7 +2,7 @@ import { UseFormSetValue } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Wine, Sparkles, XCircle, ShieldCheck, Lock, Unlock } from "lucide-react";
+import { Wine, Sparkles, XCircle, ShieldCheck, Lock, Unlock, Wind, Ban } from "lucide-react";
 
 interface VicesSectionProps {
   setValue: UseFormSetValue<any>;
@@ -29,6 +29,10 @@ export const VicesSection = ({
     [
       { value: "Drinking", icon: Wine, color: "text-purple-500" },
       { value: "Don't drink at all", icon: XCircle, color: "text-red-500" },
+    ],
+    [
+      { value: "Vape", icon: Wind, color: "text-blue-400" },
+      { value: "No vape at all", icon: Ban, color: "text-red-500" },
     ],
     [
       { value: "Party enhancers", icon: Sparkles, color: "text-pink-500" },

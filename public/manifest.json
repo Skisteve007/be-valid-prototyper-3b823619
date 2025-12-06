@@ -1,7 +1,7 @@
 {
-  "name": "Clean Check - Verified Health Transparency",
-  "short_name": "Clean Check",
-  "description": "Share verified health status information for mutual safety and informed intimacy",
+  "name": "VALID - QR-Coded Access & Verified Health",
+  "short_name": "VALID",
+  "description": "QR-Coded Access: Health Verified. Integrated Payment. Zero Trust I.D. Security.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

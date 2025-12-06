@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Syringe, Sparkles, Cigarette, Lock, Unlock } from "lucide-react";
+import { VibeCheckStatus } from "./VibeCheckStatus";
 
 interface PreferencesHealthSectionProps {
   setValue: UseFormSetValue<any>;
@@ -11,6 +12,9 @@ interface PreferencesHealthSectionProps {
   smoker: boolean;
   sharingEnabled?: boolean;
   onToggleSharing?: (enabled: boolean) => void;
+  bootyEnhanced?: boolean;
+  breastsEnhanced?: boolean;
+  lovesEnhancements?: boolean;
 }
 
 export const PreferencesHealthSection = ({
@@ -20,6 +24,9 @@ export const PreferencesHealthSection = ({
   smoker,
   sharingEnabled = false,
   onToggleSharing,
+  bootyEnhanced = false,
+  breastsEnhanced = false,
+  lovesEnhancements = false,
 }: PreferencesHealthSectionProps) => {
 
   return (
@@ -27,6 +34,7 @@ export const PreferencesHealthSection = ({
       <div className="flex items-center justify-between border-b pb-2">
         <h3 className="text-2xl font-bold flex items-center gap-2">
           <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">LIFESTYLE & VIBE</span>
+          <Lock className="w-5 h-5 text-amber-500" />
         </h3>
         {onToggleSharing && (
           <Button
@@ -45,6 +53,13 @@ export const PreferencesHealthSection = ({
           </Button>
         )}
       </div>
+
+      <VibeCheckStatus
+        setValue={setValue}
+        bootyEnhanced={bootyEnhanced}
+        breastsEnhanced={breastsEnhanced}
+        lovesEnhancements={lovesEnhancements}
+      />
 
       <div className="flex items-center space-x-2">
         <Checkbox

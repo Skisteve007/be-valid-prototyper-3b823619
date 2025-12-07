@@ -301,17 +301,17 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
   }
 
   return (
-    <div className="space-y-4 py-4 overflow-x-hidden w-full max-w-full">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-        <h3 className="text-base sm:text-lg font-semibold flex items-center gap-2">
-          <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
-          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Your Documents</span>
+    <div className="space-y-4 py-4">
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="text-sm sm:text-base font-semibold flex items-center gap-2 min-w-0">
+          <FileText className="w-4 h-4 text-blue-500 flex-shrink-0" />
+          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent truncate">Your Documents</span>
         </h3>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" className="w-full sm:w-auto">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Document
+            <Button size="sm" className="h-8 px-3 text-xs flex-shrink-0">
+              <Plus className="h-3 w-3 mr-1" />
+              Add
             </Button>
           </DialogTrigger>
           <DialogContent 
@@ -435,96 +435,85 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
       </div>
 
       {certifications.length === 0 ? (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <Award className="h-12 w-12 text-muted-foreground mb-4" />
-            <p className="text-muted-foreground text-center">
-              No documents added yet. Add your first document to get started.
-            </p>
-          </CardContent>
-        </Card>
+        <div className="p-4 rounded-lg bg-muted/50 border border-border text-center">
+          <Award className="h-8 w-8 text-muted-foreground mb-2 mx-auto" />
+          <p className="text-sm text-muted-foreground">
+            No documents added yet.
+          </p>
+        </div>
       ) : (
-        <div className="grid gap-4">
+        <div className="space-y-3">
           {certifications.map((cert) => (
-            <Card key={cert.id} className="overflow-hidden">
-              <CardHeader className="p-3 sm:p-4">
-                <div className="flex gap-3">
-                  {/* Thumbnail */}
-                  {cert.document_url && (
-                    <div 
-                      className="flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => {
-                        setSelectedDocument(cert.document_url);
-                        setViewerOpen(true);
+            <div key={cert.id} className="p-3 rounded-lg bg-gradient-to-r from-primary/5 to-secondary/5 border border-border">
+              <div className="flex gap-3">
+                {/* Thumbnail */}
+                {cert.document_url && (
+                  <div 
+                    className="flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                    onClick={() => {
+                      setSelectedDocument(cert.document_url);
+                      setViewerOpen(true);
+                    }}
+                  >
+                    <img
+                      src={cert.document_url}
+                      alt={cert.title}
+                      className="w-12 h-12 object-cover rounded border border-border"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextElementSibling?.classList.remove('hidden');
                       }}
-                    >
-                      <img
-                        src={cert.document_url}
-                        alt={cert.title}
-                        className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg border border-border"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                        }}
-                      />
-                      <div className="hidden w-16 h-16 sm:w-20 sm:h-20 bg-muted rounded-lg border border-border flex items-center justify-center">
-                        <FileText className="h-5 w-5 text-muted-foreground" />
-                      </div>
-                    </div>
-                  )}
-                  
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <CardTitle className="text-sm sm:text-base truncate">{cert.title}</CardTitle>
-                    <CardDescription className="text-xs truncate">{cert.issuer}</CardDescription>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {cert.issue_date && (
-                        <p>Issued: {new Date(cert.issue_date).toLocaleDateString()}</p>
-                      )}
-                    </div>
-                    
-                    {/* Action buttons - inline on mobile */}
-                    <div className="flex gap-2 mt-2">
-                      {cert.document_url && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            const docUrl = cert.document_url;
-                            if (docUrl) {
-                              setSelectedDocument(docUrl);
-                              setTimeout(() => setViewerOpen(true), 50);
-                            }
-                          }}
-                          className="h-7 px-2 text-xs border-green-500 text-green-600 hover:bg-green-50 dark:border-green-600 dark:text-green-400 dark:hover:bg-green-950/30"
-                        >
-                          <Eye className="h-3 w-3 mr-1" />
-                          View
-                        </Button>
-                      )}
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        onClick={() => handleDeleteDocument(cert.id, cert.document_url)}
-                        disabled={deletingId === cert.id}
-                        className="h-7 px-2 text-xs"
-                      >
-                        {deletingId === cert.id ? (
-                          <Loader2 className="h-3 w-3 animate-spin" />
-                        ) : (
-                          <>
-                            <Trash2 className="h-3 w-3 mr-1" />
-                            Delete
-                          </>
-                        )}
-                      </Button>
+                    />
+                    <div className="hidden w-12 h-12 bg-muted rounded border border-border flex items-center justify-center">
+                      <FileText className="h-4 w-4 text-muted-foreground" />
                     </div>
                   </div>
+                )}
+                
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">{cert.title}</p>
+                  <p className="text-xs text-muted-foreground truncate">{cert.issuer}</p>
+                  {cert.issue_date && (
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(cert.issue_date).toLocaleDateString()}
+                    </p>
+                  )}
                 </div>
-              </CardHeader>
-            </Card>
+                
+                {/* Action buttons */}
+                <div className="flex flex-col gap-1 flex-shrink-0">
+                  {cert.document_url && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setSelectedDocument(cert.document_url);
+                        setTimeout(() => setViewerOpen(true), 50);
+                      }}
+                      className="h-6 px-2 text-[10px] border-green-500 text-green-600"
+                    >
+                      <Eye className="h-3 w-3" />
+                    </Button>
+                  )}
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => handleDeleteDocument(cert.id, cert.document_url)}
+                    disabled={deletingId === cert.id}
+                    className="h-6 px-2 text-[10px]"
+                  >
+                    {deletingId === cert.id ? (
+                      <Loader2 className="h-3 w-3 animate-spin" />
+                    ) : (
+                      <Trash2 className="h-3 w-3" />
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       )}

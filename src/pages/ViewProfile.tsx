@@ -730,6 +730,42 @@ const ViewProfile = () => {
           </DialogContent>
         </Dialog>
 
+        {/* Join VALID CTA */}
+        <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30 shadow-[0_0_20px_rgba(var(--primary),0.15)]">
+          <CardContent className="pt-6 pb-6">
+            <div className="text-center space-y-4">
+              <div className="inline-flex items-center justify-center p-3 bg-primary/20 rounded-full mb-2">
+                <Shield className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold">Create Your Own VALID Profile</h3>
+              <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                Join thousands of members who share their verified status securely. 
+                Get your own QR code and start building trust today.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                <Link to="/auth">
+                  <Button 
+                    size="lg" 
+                    className="w-full sm:w-auto bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    Join Now - It's Free
+                  </Button>
+                </Link>
+                <Link to="/">
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                    className="w-full sm:w-auto"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Privacy Notice */}
         <Card className="bg-muted border-primary/20">
           <CardContent className="pt-6">

@@ -446,13 +446,13 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
       ) : (
         <div className="grid gap-4">
           {certifications.map((cert) => (
-            <Card key={cert.id}>
-              <CardHeader className="p-4">
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <Card key={cert.id} className="overflow-hidden">
+              <CardHeader className="p-3 sm:p-4">
+                <div className="flex gap-3">
                   {/* Thumbnail */}
                   {cert.document_url && (
                     <div 
-                      className="flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity self-center sm:self-start"
+                      className="flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
                       onClick={() => {
                         setSelectedDocument(cert.document_url);
                         setViewerOpen(true);
@@ -461,35 +461,30 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                       <img
                         src={cert.document_url}
                         alt={cert.title}
-                        className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg border-2 border-border"
+                        className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg border border-border"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                           e.currentTarget.nextElementSibling?.classList.remove('hidden');
                         }}
                       />
-                      <div className="hidden w-20 h-20 sm:w-24 sm:h-24 bg-muted rounded-lg border-2 border-border flex items-center justify-center">
-                        <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground" />
+                      <div className="hidden w-16 h-16 sm:w-20 sm:h-20 bg-muted rounded-lg border border-border flex items-center justify-center">
+                        <FileText className="h-5 w-5 text-muted-foreground" />
                       </div>
                     </div>
                   )}
                   
-                  {/* Content and Actions */}
-                  <div className="flex-1 min-w-0 flex flex-col sm:flex-row justify-between gap-3">
-                    <div className="min-w-0 text-center sm:text-left">
-                      <CardTitle className="text-base sm:text-xl truncate">{cert.title}</CardTitle>
-                      <CardDescription className="truncate">{cert.issuer}</CardDescription>
-                      <div className="text-xs sm:text-sm text-muted-foreground space-y-0.5 mt-1 sm:mt-2">
-                        {cert.issue_date && (
-                          <p>Issued: {new Date(cert.issue_date).toLocaleDateString()}</p>
-                        )}
-                        {cert.expiry_date && (
-                          <p>Expires: {new Date(cert.expiry_date).toLocaleDateString()}</p>
-                        )}
-                      </div>
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <CardTitle className="text-sm sm:text-base truncate">{cert.title}</CardTitle>
+                    <CardDescription className="text-xs truncate">{cert.issuer}</CardDescription>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {cert.issue_date && (
+                        <p>Issued: {new Date(cert.issue_date).toLocaleDateString()}</p>
+                      )}
                     </div>
                     
-                    {/* Action buttons */}
-                    <div className="flex flex-row sm:flex-col gap-2 justify-center sm:justify-start flex-shrink-0">
+                    {/* Action buttons - inline on mobile */}
+                    <div className="flex gap-2 mt-2">
                       {cert.document_url && (
                         <Button
                           size="sm"
@@ -503,9 +498,9 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                               setTimeout(() => setViewerOpen(true), 50);
                             }
                           }}
-                          className="flex-1 sm:flex-none flex items-center justify-center gap-1 h-9 sm:h-8 text-xs border-green-500 text-green-600 hover:bg-green-50 dark:border-green-600 dark:text-green-400 dark:hover:bg-green-950/30"
+                          className="h-7 px-2 text-xs border-green-500 text-green-600 hover:bg-green-50 dark:border-green-600 dark:text-green-400 dark:hover:bg-green-950/30"
                         >
-                          <Eye className="h-3 w-3" />
+                          <Eye className="h-3 w-3 mr-1" />
                           View
                         </Button>
                       )}
@@ -514,14 +509,16 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                         variant="destructive"
                         onClick={() => handleDeleteDocument(cert.id, cert.document_url)}
                         disabled={deletingId === cert.id}
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-1 h-9 sm:h-7 text-xs"
+                        className="h-7 px-2 text-xs"
                       >
                         {deletingId === cert.id ? (
                           <Loader2 className="h-3 w-3 animate-spin" />
                         ) : (
-                          <Trash2 className="h-3 w-3" />
+                          <>
+                            <Trash2 className="h-3 w-3 mr-1" />
+                            Delete
+                          </>
                         )}
-                        Delete
                       </Button>
                     </div>
                   </div>

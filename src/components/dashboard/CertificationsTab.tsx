@@ -447,36 +447,38 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
         <div className="grid gap-4">
           {certifications.map((cert) => (
             <Card key={cert.id}>
-              <CardHeader>
-                <div className="flex justify-between items-start gap-4">
-                  <div className="flex gap-4 flex-1">
-                    {cert.document_url && (
-                      <div 
-                        className="flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => {
-                          setSelectedDocument(cert.document_url);
-                          setViewerOpen(true);
+              <CardHeader className="p-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  {/* Thumbnail */}
+                  {cert.document_url && (
+                    <div 
+                      className="flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity self-center sm:self-start"
+                      onClick={() => {
+                        setSelectedDocument(cert.document_url);
+                        setViewerOpen(true);
+                      }}
+                    >
+                      <img
+                        src={cert.document_url}
+                        alt={cert.title}
+                        className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg border-2 border-border"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.nextElementSibling?.classList.remove('hidden');
                         }}
-                      >
-                        <img
-                          src={cert.document_url}
-                          alt={cert.title}
-                          className="w-24 h-24 object-cover rounded-lg border-2 border-border"
-                          onError={(e) => {
-                            // If image fails to load, show a placeholder
-                            e.currentTarget.style.display = 'none';
-                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                          }}
-                        />
-                        <div className="hidden w-24 h-24 bg-muted rounded-lg border-2 border-border flex items-center justify-center">
-                          <FileText className="h-8 w-8 text-muted-foreground" />
-                        </div>
+                      />
+                      <div className="hidden w-20 h-20 sm:w-24 sm:h-24 bg-muted rounded-lg border-2 border-border flex items-center justify-center">
+                        <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground" />
                       </div>
-                    )}
-                    <div className="flex-1">
-                      <CardTitle className="text-xl">{cert.title}</CardTitle>
-                      <CardDescription>{cert.issuer}</CardDescription>
-                      <div className="text-sm text-muted-foreground space-y-1 mt-2">
+                    </div>
+                  )}
+                  
+                  {/* Content and Actions */}
+                  <div className="flex-1 min-w-0 flex flex-col sm:flex-row justify-between gap-3">
+                    <div className="min-w-0 text-center sm:text-left">
+                      <CardTitle className="text-base sm:text-xl truncate">{cert.title}</CardTitle>
+                      <CardDescription className="truncate">{cert.issuer}</CardDescription>
+                      <div className="text-xs sm:text-sm text-muted-foreground space-y-0.5 mt-1 sm:mt-2">
                         {cert.issue_date && (
                           <p>Issued: {new Date(cert.issue_date).toLocaleDateString()}</p>
                         )}
@@ -485,41 +487,43 @@ const CertificationsTab = ({ userId }: CertificationsTabProps) => {
                         )}
                       </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    {cert.document_url && (
+                    
+                    {/* Action buttons */}
+                    <div className="flex flex-row sm:flex-col gap-2 justify-center sm:justify-start flex-shrink-0">
+                      {cert.document_url && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const docUrl = cert.document_url;
+                            if (docUrl) {
+                              setSelectedDocument(docUrl);
+                              setTimeout(() => setViewerOpen(true), 50);
+                            }
+                          }}
+                          className="flex-1 sm:flex-none flex items-center justify-center gap-1 h-9 sm:h-8 text-xs border-green-500 text-green-600 hover:bg-green-50 dark:border-green-600 dark:text-green-400 dark:hover:bg-green-950/30"
+                        >
+                          <Eye className="h-3 w-3" />
+                          View
+                        </Button>
+                      )}
                       <Button
                         size="sm"
-                        variant="outline"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          const docUrl = cert.document_url;
-                          if (docUrl) {
-                            setSelectedDocument(docUrl);
-                            setTimeout(() => setViewerOpen(true), 50);
-                          }
-                        }}
-                        className="flex items-center gap-1 border-green-500 text-green-600 hover:bg-green-50 dark:border-green-600 dark:text-green-400 dark:hover:bg-green-950/30"
+                        variant="destructive"
+                        onClick={() => handleDeleteDocument(cert.id, cert.document_url)}
+                        disabled={deletingId === cert.id}
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-1 h-9 sm:h-7 text-xs"
                       >
-                        <Eye className="h-3 w-3" />
-                        View
+                        {deletingId === cert.id ? (
+                          <Loader2 className="h-3 w-3 animate-spin" />
+                        ) : (
+                          <Trash2 className="h-3 w-3" />
+                        )}
+                        Delete
                       </Button>
-                    )}
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => handleDeleteDocument(cert.id, cert.document_url)}
-                      disabled={deletingId === cert.id}
-                      className="flex items-center gap-1 h-7 text-xs"
-                    >
-                      {deletingId === cert.id ? (
-                        <Loader2 className="h-3 w-3 animate-spin" />
-                      ) : (
-                        <Trash2 className="h-3 w-3" />
-                      )}
-                      Delete
-                    </Button>
+                    </div>
                   </div>
                 </div>
               </CardHeader>

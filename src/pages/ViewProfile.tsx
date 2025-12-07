@@ -731,13 +731,13 @@ const ViewProfile = () => {
         </Dialog>
 
         {/* Join VALID CTA */}
-        <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30 shadow-[0_0_20px_rgba(var(--primary),0.15)]">
+        <Card className="bg-gradient-to-br from-green-500/20 to-green-600/10 border-2 border-green-500/60 shadow-[0_0_30px_rgba(34,197,94,0.4)] animate-pulse-slow">
           <CardContent className="pt-6 pb-6">
             <div className="text-center space-y-4">
-              <div className="inline-flex items-center justify-center p-3 bg-primary/20 rounded-full mb-2">
-                <Shield className="h-8 w-8 text-primary" />
+              <div className="inline-flex items-center justify-center p-3 bg-green-500/30 rounded-full mb-2 shadow-[0_0_20px_rgba(34,197,94,0.5)]">
+                <Shield className="h-8 w-8 text-green-500" />
               </div>
-              <h3 className="text-xl font-bold">Create Your Own VALID Profile</h3>
+              <h3 className="text-xl font-bold text-green-400">Create Your Own VALID Profile</h3>
               <p className="text-sm text-muted-foreground max-w-md mx-auto">
                 Join thousands of members who share their verified status securely. 
                 Get your own QR code and start building trust today.
@@ -746,7 +746,7 @@ const ViewProfile = () => {
                 <Link to="/auth">
                   <Button 
                     size="lg" 
-                    className="w-full sm:w-auto bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+                    className="w-full sm:w-auto bg-green-600 hover:bg-green-700 shadow-[0_0_20px_rgba(34,197,94,0.6)] hover:shadow-[0_0_30px_rgba(34,197,94,0.8)] transition-all"
                   >
                     <User className="h-4 w-4 mr-2" />
                     Join Now - It's Free
@@ -756,7 +756,7 @@ const ViewProfile = () => {
                   <Button 
                     size="lg" 
                     variant="outline"
-                    className="w-full sm:w-auto"
+                    className="w-full sm:w-auto border-green-500/50 text-green-400 hover:bg-green-500/20"
                   >
                     Learn More
                   </Button>

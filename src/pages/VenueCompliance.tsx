@@ -65,40 +65,62 @@ const VenueCompliance = () => {
 
       {/* Header - matching homepage */}
       <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
-            <img 
-              src="/valid-logo-share.jpeg" 
-              alt="VALID Logo" 
-              className="h-10 w-10 rounded-lg object-cover"
-            />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight text-foreground">VALID</span>
-              <span className="text-[10px] font-semibold text-primary tracking-[0.2em] uppercase">Enterprise Security</span>
+        <div className="container mx-auto px-4 py-3">
+          {/* Mobile: Stack layout, Desktop: Row layout */}
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            {/* Top row on mobile: Logo + Back button */}
+            <div className="flex items-center justify-between w-full md:w-auto">
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
+                <img 
+                  src="/valid-logo-share.jpeg" 
+                  alt="VALID Logo" 
+                  className="h-8 w-8 md:h-10 md:w-10 rounded-lg object-cover flex-shrink-0"
+                />
+                <div className="flex flex-col">
+                  <span className="text-lg md:text-xl font-bold tracking-tight text-foreground">VALID</span>
+                  <span className="text-[8px] md:text-[10px] font-semibold text-primary tracking-[0.15em] md:tracking-[0.2em] uppercase">Enterprise Security</span>
+                </div>
+              </div>
+              
+              {/* Mobile: Back button + theme toggle */}
+              <div className="flex items-center gap-2 md:hidden">
+                <ThemeToggle />
+                <Button
+                  variant="outline" 
+                  size="sm"
+                  className="border-border bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground font-medium text-xs px-2"
+                  asChild
+                >
+                  <Link to="/">← Home</Link>
+                </Button>
+              </div>
             </div>
-          </div>
-          
-          {/* Beta Pricing Badge */}
-          <div className="flex relative group">
-            <div className="absolute inset-0 bg-accent/30 blur-xl rounded-lg animate-pulse"></div>
-            <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-lg animate-[pulse_1.5s_ease-in-out_infinite]"></div>
-            <div className="relative px-3 py-1.5 md:px-4 md:py-2 bg-secondary/80 border border-accent/50 rounded-full shadow-[0_0_20px_hsl(var(--accent)/0.5),inset_0_0_20px_hsl(var(--accent)/0.1)]">
-              <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 rounded-full"></div>
-              <span className="relative font-mono text-[10px] md:text-xs font-bold tracking-wider text-accent uppercase" style={{ textShadow: '0 0 10px hsl(var(--accent)/0.8), 0 0 20px hsl(var(--accent)/0.5)' }}>
-                ⚡ Beta Version ⚡
-              </span>
+            
+            {/* Center: Beta Badge - visible on all screens */}
+            <div className="flex justify-center md:absolute md:left-1/2 md:-translate-x-1/2">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-accent/30 blur-xl rounded-lg animate-pulse"></div>
+                <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-lg animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+                <div className="relative px-3 py-1.5 bg-secondary/80 border border-accent/50 rounded-full shadow-[0_0_20px_hsl(var(--accent)/0.5),inset_0_0_20px_hsl(var(--accent)/0.1)]">
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 rounded-full"></div>
+                  <span className="relative font-mono text-[10px] md:text-xs font-bold tracking-wider text-accent uppercase whitespace-nowrap" style={{ textShadow: '0 0 10px hsl(var(--accent)/0.8), 0 0 20px hsl(var(--accent)/0.5)' }}>
+                    ⚡ Beta Version ⚡
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <Button
-              variant="outline" 
-              className="border-border bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground font-medium"
-              asChild
-            >
-              <Link to="/">← Back to Home</Link>
-            </Button>
+            
+            {/* Desktop only: Right side buttons */}
+            <div className="hidden md:flex items-center gap-2">
+              <ThemeToggle />
+              <Button
+                variant="outline" 
+                className="border-border bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground font-medium"
+                asChild
+              >
+                <Link to="/">← Back to Home</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </header>

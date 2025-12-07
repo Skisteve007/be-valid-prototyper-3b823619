@@ -75,7 +75,7 @@ serve(async (req) => {
     const bundleFlags = parseBundleFlags(token);
     
     // Incognito tokens get full 24-hour window with NO anxiety timer
-    const VIEW_WINDOW_MINUTES = isIncognitoToken ? (24 * 60) : 3;
+    const VIEW_WINDOW_MINUTES = isIncognitoToken ? (24 * 60) : (24 * 60); // Testing mode: 24-hour viewing window for all tokens
     let viewExpiresAt: Date;
     
     if (tokenData.used_at) {

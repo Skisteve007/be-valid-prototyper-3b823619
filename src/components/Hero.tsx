@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Plane, Ticket, Ghost } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
@@ -9,15 +9,18 @@ interface ModeBtnProps {
   onClick: () => void;
   icon: React.ReactNode;
   label: string;
+  isDark: boolean;
 }
 
-const ModeBtn = ({ active, onClick, icon, label }: ModeBtnProps) => (
+const ModeBtn = ({ active, onClick, icon, label, isDark }: ModeBtnProps) => (
   <button 
     onClick={onClick}
     className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider touch-manipulation
       ${active 
         ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' 
-        : 'border-white/10 text-gray-500 hover:border-white/30 hover:text-white'
+        : isDark 
+          ? 'border-white/10 text-gray-500 hover:border-white/30 hover:text-white'
+          : 'border-slate-300 text-slate-500 hover:border-slate-400 hover:text-slate-700'
       }`}
   >
     {icon} {label}
@@ -27,20 +30,41 @@ const ModeBtn = ({ active, onClick, icon, label }: ModeBtnProps) => (
 const Hero = () => {
   const navigate = useNavigate();
   const [activeMode, setActiveMode] = useState<'travel' | 'access' | 'incognito'>('access');
+  const [isDark, setIsDark] = useState(true);
+
+  // Listen for theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkTheme();
+    
+    // Watch for class changes on document
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
   
   return (
-    <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
+    <div className={`relative min-h-[85vh] overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black transition-colors duration-500
+      ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
       
       {/* 1. NAVBAR */}
       <nav className="w-full max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6 flex justify-between items-center z-50">
-        <div className="text-3xl md:text-4xl font-black font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">
+        <div className={`text-3xl md:text-4xl font-black font-orbitron tracking-[0.2em] drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]
+          ${isDark ? 'text-white' : 'text-slate-900'}`}>
           VALID
         </div>
         
         <div className="flex gap-2 md:gap-4 items-center">
           <Link 
             to="/partners" 
-            className="hidden md:block text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-4 py-2 rounded-full hover:bg-cyan-900/20"
+            className={`hidden md:block text-xs font-bold transition-colors uppercase tracking-widest border px-4 py-2 rounded-full
+              ${isDark 
+                ? 'text-cyan-400/80 hover:text-cyan-300 border-cyan-900/50 hover:bg-cyan-900/20' 
+                : 'text-blue-600 hover:text-blue-700 border-blue-200 hover:bg-blue-50'}`}
           >
             For Partners
           </Link>
@@ -61,7 +85,8 @@ const Hero = () => {
         <div className="flex-1 text-center md:text-left order-2 md:order-1">
           
           {/* UPDATED TAG: SYNTHESIZED AI with typing effect */}
-          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 overflow-hidden">
+          <div className={`inline-flex items-center gap-2 mb-4 px-3 py-1 border rounded text-[10px] font-mono tracking-widest overflow-hidden
+            ${isDark ? 'border-cyan-500/30 bg-cyan-900/10 text-cyan-400' : 'border-blue-300 bg-blue-50 text-blue-600'}`}>
             <span className="inline-block animate-[typing_2s_steps(24)_forwards] whitespace-nowrap overflow-hidden">
               POWERED BY SYNTHESIZED AI
             </span>
@@ -72,7 +97,8 @@ const Hero = () => {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 leading-[0.9] text-white">
+          <h1 className={`text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 leading-[0.9]
+            ${isDark ? 'text-white' : 'text-slate-900'}`}>
             ONE KEY.<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
               ANY REALM.
@@ -80,15 +106,19 @@ const Hero = () => {
           </h1>
           
           {/* UPDATED SUB-HEADLINE: Mentions "Adaptive Profile" */}
-          <p className="text-base md:text-lg text-gray-400 mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
-            Your <span className="text-white font-bold">Adaptive AI Profile</span> for the real world. 
-            Switch instantly between <span className="text-cyan-400">Travel</span>, <span className="text-purple-400">Access</span>, and <span className="text-gray-300">Privacy</span>.
+          <p className={`text-base md:text-lg mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed
+            ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+            Your <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Adaptive AI Profile</span> for the real world. 
+            Switch instantly between <span className="text-cyan-500">Travel</span>, <span className="text-purple-500">Access</span>, and <span className={isDark ? 'text-gray-300' : 'text-slate-700'}>Privacy</span>.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button 
               onClick={() => navigate('/auth')}
-              className="px-6 py-3 bg-white text-black font-bold text-sm rounded hover:bg-cyan-50 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] min-h-[44px] touch-manipulation hover:scale-105"
+              className={`px-6 py-3 font-bold text-sm rounded transition-all flex items-center justify-center gap-2 min-h-[44px] touch-manipulation hover:scale-105
+                ${isDark 
+                  ? 'bg-white text-black hover:bg-cyan-50 shadow-[0_0_20px_rgba(255,255,255,0.3)]' 
+                  : 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg'}`}
             >
               CLAIM YOUR ID <ArrowRight size={16} />
             </button>
@@ -96,9 +126,9 @@ const Hero = () => {
 
           {/* Mode Switcher */}
           <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
-            <ModeBtn active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={16}/>} label="TRAVEL" />
-            <ModeBtn active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={16}/>} label="ACCESS" />
-            <ModeBtn active={activeMode === 'incognito'} onClick={() => setActiveMode('incognito')} icon={<Ghost size={16}/>} label="GHOST" />
+            <ModeBtn isDark={isDark} active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={16}/>} label="TRAVEL" />
+            <ModeBtn isDark={isDark} active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={16}/>} label="ACCESS" />
+            <ModeBtn isDark={isDark} active={activeMode === 'incognito'} onClick={() => setActiveMode('incognito')} icon={<Ghost size={16}/>} label="GHOST" />
           </div>
         </div>
 
@@ -110,7 +140,8 @@ const Hero = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>
             
             {/* The Video Container */}
-            <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black">
+            <div className={`relative w-full h-full rounded-2xl overflow-hidden border shadow-2xl
+              ${isDark ? 'border-white/20 bg-black' : 'border-slate-200 bg-white'}`}>
               <video 
                 src="/valid_portal.mp4" 
                 autoPlay 
@@ -121,7 +152,8 @@ const Hero = () => {
               />
               
               {/* Overlay Gradient */}
-              <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+              <div className={`absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t to-transparent
+                ${isDark ? 'from-black via-black/50' : 'from-white via-white/50'}`}></div>
               
               {/* Dynamic Status */}
               <div className="absolute bottom-6 left-0 w-full text-center">
@@ -139,8 +171,10 @@ const Hero = () => {
 
       {/* 3. ATMOSPHERE */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-20%] right-[-10%] w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-cyan-500/10 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-[-10%] left-[20%] w-[400px] md:w-[500px] h-[400px] md:h-[500px] bg-blue-600/10 rounded-full blur-[100px]"></div>
+        <div className={`absolute top-[-20%] right-[-10%] w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full blur-[120px]
+          ${isDark ? 'bg-cyan-500/10' : 'bg-cyan-200/30'}`}></div>
+        <div className={`absolute bottom-[-10%] left-[20%] w-[400px] md:w-[500px] h-[400px] md:h-[500px] rounded-full blur-[100px]
+          ${isDark ? 'bg-blue-600/10' : 'bg-blue-200/30'}`}></div>
       </div>
 
     </div>

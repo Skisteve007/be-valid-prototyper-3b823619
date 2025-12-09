@@ -107,33 +107,71 @@ const Index = () => {
       <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-2 md:py-3 relative">
           {/* Mobile Header - Compact */}
-          <div className="flex md:hidden items-center justify-between">
-            {/* Logo - smaller on mobile */}
-            <div 
-              className="relative flex cursor-pointer"
-              {...longPressHandlers}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 blur-2xl rounded-full scale-125"></div>
-              <img src={logo} alt="VALID" className="relative w-auto h-16 select-none" draggable={false} />
+          <div className="flex flex-col md:hidden">
+            {/* Top row: Logo + Login/Hamburger */}
+            <div className="flex items-center justify-between">
+              {/* Logo - smaller on mobile */}
+              <div 
+                className="relative flex cursor-pointer"
+                {...longPressHandlers}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-accent/60 to-primary/60 blur-2xl rounded-full scale-125"></div>
+                <img src={logo} alt="VALID" className="relative w-auto h-16 select-none" draggable={false} />
+              </div>
+              
+              {/* Mobile Right Side - Login + Hamburger */}
+              <div className="flex items-center gap-2">
+                <Button 
+                  onClick={() => navigate("/auth?mode=login")}
+                  size="sm"
+                  className="relative shadow-[0_0_15px_hsl(var(--accent)/0.5)] border border-accent/60 bg-accent/15 text-foreground font-semibold text-xs py-1.5 px-3"
+                >
+                  Log In
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="p-2"
+                >
+                  {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                </Button>
+              </div>
             </div>
             
-            {/* Mobile Right Side - Login + Hamburger */}
-            <div className="flex items-center gap-2">
-              <Button 
-                onClick={() => navigate("/auth?mode=login")}
-                size="sm"
-                className="relative shadow-[0_0_15px_hsl(var(--accent)/0.5)] border border-accent/60 bg-accent/15 text-foreground font-semibold text-xs py-1.5 px-3"
-              >
-                Log In
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2"
-              >
-                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
+            {/* Mobile Mission Content - inside header, matches desktop layout */}
+            <div className="flex flex-col items-center py-3 lg:hidden">
+              {/* Gradient pill with VALID text */}
+              <div className="relative px-8 py-1.5 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_25px_hsl(var(--secondary)/0.5),0_0_50px_hsl(var(--secondary)/0.3)]">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-xl rounded-full animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>
+                <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-full"></div>
+                <p className="relative text-lg font-black text-center italic tracking-[0.15em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                  VALID
+                </p>
+              </div>
+              {/* Tagline */}
+              <p className="text-xs sm:text-sm font-semibold text-center text-foreground mt-2 italic">
+                QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment.
+              </p>
+              {/* Glowing Beta Button */}
+              <div className="relative mt-2">
+                <div className="absolute inset-0 bg-accent/30 blur-xl rounded-full animate-[pulse_4s_ease-in-out_infinite]"></div>
+                <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-full animate-[pulse_5s_ease-in-out_infinite]"></div>
+                <Button
+                  onClick={scrollToGetStarted}
+                  variant="outline"
+                  className="relative px-4 py-1.5 h-auto bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-bold text-xs tracking-wide rounded-full border border-accent/50 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)] transition-all duration-300 animate-[pulse_8s_ease-in-out_infinite]"
+                >
+                  <span className="flex items-center gap-2">
+                    ⚡ Beta Version ⚡
+                  </span>
+                </Button>
+              </div>
+              {/* Powered by text */}
+              <p className="text-[10px] text-muted-foreground mt-2 font-medium tracking-[0.15em]">
+                Powered By Synthetic AI*
+              </p>
             </div>
           </div>
 
@@ -295,41 +333,6 @@ const Index = () => {
           </div>
         </div>
       </header>
-
-      {/* Mobile Mission Banner - matches desktop header design */}
-      <div id="mobile-mission-banner" className="w-full flex flex-col items-center py-4 px-3 bg-background lg:hidden">
-        {/* Gradient pill with VALID text */}
-        <div className="relative px-8 py-1.5 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_25px_hsl(var(--secondary)/0.5),0_0_50px_hsl(var(--secondary)/0.3)]">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-xl rounded-full animate-pulse"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>
-          <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-full"></div>
-          <p className="relative text-lg font-black text-center italic tracking-[0.15em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-            VALID
-          </p>
-        </div>
-        {/* Tagline */}
-        <p className="text-xs sm:text-sm font-semibold text-center text-foreground mt-2 italic">
-          QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment.
-        </p>
-        {/* Glowing Beta Button */}
-        <div className="relative mt-3">
-          <div className="absolute inset-0 bg-accent/30 blur-xl rounded-full animate-[pulse_4s_ease-in-out_infinite]"></div>
-          <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-full animate-[pulse_5s_ease-in-out_infinite]"></div>
-          <Button
-            onClick={scrollToGetStarted}
-            variant="outline"
-            className="relative px-4 py-1.5 h-auto bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-bold text-xs tracking-wide rounded-full border border-accent/50 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)] transition-all duration-300 animate-[pulse_8s_ease-in-out_infinite]"
-          >
-            <span className="flex items-center gap-2">
-              ⚡ Beta Version ⚡
-            </span>
-          </Button>
-        </div>
-        {/* Powered by text */}
-        <p className="text-[10px] text-muted-foreground mt-3 font-medium tracking-[0.15em]">
-          Powered By Synthetic AI*
-        </p>
-      </div>
 
       <main className="w-full overflow-x-hidden">
         {/* Hero Section */}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Check } from 'lucide-react';
+import { Check, Sun, Moon } from 'lucide-react';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -9,136 +9,139 @@ const Index = () => {
   const navigate = useNavigate();
   useReferralTracking();
 
-  return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-cyan-500 selection:text-black">
-      
-      {/* 1. HERO SECTION (The Portal Video) */}
-      <Hero />
+  // --- THEME ENGINE ---
+  const [isDark, setIsDark] = useState(true);
 
-      {/* 2. THE ECOSYSTEM (Value Prop) - Updated to Cyan Theme */}
-      <section className="py-16 bg-black text-center px-4 relative overflow-hidden">
-        {/* Background Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-cyan-900/10 blur-[100px] -z-10"></div>
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    if (!isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+  }, []);
+
+  return (
+    <div className={`min-h-screen transition-colors duration-500 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
+      ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
+      
+      {/* BACKGROUND TEXTURE */}
+      <div className={`fixed inset-0 pointer-events-none z-0 opacity-[0.03]
+        ${isDark ? 'bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)]' : 'bg-[linear-gradient(black_1px,transparent_1px),linear-gradient(90deg,black_1px,transparent_1px)]'}
+        bg-[size:50px_50px]`}>
+      </div>
+
+      {/* FLOATING THEME TOGGLE */}
+      <button 
+        onClick={toggleTheme}
+        className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 border
+          ${isDark 
+            ? 'bg-gray-800 text-cyan-400 border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
+            : 'bg-white text-orange-500 border-orange-200 shadow-lg'}`}
+      >
+        {isDark ? <Sun size={24} /> : <Moon size={24} />}
+      </button>
+
+      {/* 1. HERO SECTION */}
+      <div className="relative z-10">
+        <Hero />
+      </div>
+
+      {/* 2. THE ECOSYSTEM */}
+      <section className={`py-20 px-4 relative overflow-hidden transition-colors duration-500
+        ${isDark ? 'bg-black' : 'bg-white'}`}>
         
-        <h2 className="text-3xl font-bold mb-4 font-orbitron tracking-wide text-white">
-          THE VALID ECOSYSTEM
-        </h2>
-        <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
-          Share your verified status with peers and authorized venues using a single tap. 
-          You are always in control of what data is shared.
-        </p>
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] blur-[100px] -z-10
+          ${isDark ? 'bg-cyan-900/20' : 'bg-blue-100'}`}></div>
+        
+        <div className="text-center max-w-4xl mx-auto">
+          <h2 className={`text-3xl font-bold mb-4 font-orbitron tracking-wide
+            ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            THE VALID ECOSYSTEM
+          </h2>
+          <p className={`max-w-2xl mx-auto leading-relaxed
+            ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+            Share your verified status with peers and authorized venues using a single tap. 
+            You are always in control of what data is shared.
+          </p>
+        </div>
       </section>
 
-      {/* 3. STEP 1: MEMBERSHIP (Required) - Updated to Cyan/Blue */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
+      {/* 3. STEP 1: MEMBERSHIP */}
+      <section className="py-24 px-4 max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-block px-3 py-1 mb-4 border border-cyan-500/30 text-cyan-400 rounded-full text-[10px] font-mono tracking-widest uppercase">
+          <div className={`inline-block px-3 py-1 mb-4 border rounded-full text-[10px] font-mono tracking-widest uppercase
+            ${isDark ? 'border-cyan-500/30 text-cyan-400' : 'border-blue-600/30 text-blue-600'}`}>
             Phase 1
           </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-2 font-orbitron text-white">
+          <h2 className={`text-4xl md:text-5xl font-black mb-2 font-orbitron
+            ${isDark ? 'text-white' : 'text-slate-900'}`}>
             ACTIVATE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">MEMBERSHIP</span>
           </h2>
-          <p className="text-gray-400">Required for App Access & Profile Creation.</p>
+          <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>Required for App Access & Profile Creation.</p>
         </div>
 
-        {/* PRICING GRID (Cyan/Holographic Style) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <PricingCard 
-            title="Single Member" 
-            price="$19.50" 
-            period="Per 60 Days" 
-            originalPrice="$39"
-            tag="50% OFF"
-            isBeta={true}
-          />
-          <PricingCard 
-            title="Joint/Couple" 
-            price="$34.50" 
-            period="Per 60 Days" 
-            originalPrice="$69"
-            tag="50% OFF"
-            isBeta={true}
-          />
-          <PricingCard 
-            title="Single One Year" 
-            price="$64.50" 
-            period="One-time payment" 
-            originalPrice="$129"
-            tag="BEST VALUE"
-            isBeta={true}
-            isGold={true}
-          />
-          <PricingCard 
-            title="Couple One Year" 
-            price="$109.50" 
-            period="One-time payment" 
-            originalPrice="$219"
-            tag="BEST VALUE"
-            isBeta={true}
-            isGold={true}
-          />
+          <PricingCard isDark={isDark} title="Single Member" price="$19.50" period="Per 60 Days" originalPrice="$39" tag="50% OFF" isBeta={true} />
+          <PricingCard isDark={isDark} title="Joint/Couple" price="$34.50" period="Per 60 Days" originalPrice="$69" tag="50% OFF" isBeta={true} />
+          <PricingCard isDark={isDark} title="Single One Year" price="$64.50" period="One-time" originalPrice="$129" tag="BEST VALUE" isBeta={true} isGold={true} />
+          <PricingCard isDark={isDark} title="Couple One Year" price="$109.50" period="One-time" originalPrice="$219" tag="BEST VALUE" isBeta={true} isGold={true} />
         </div>
       </section>
 
-      {/* 4. STEP 2: VERIFICATION (Optional) - Updated to Purple/Cyan */}
-      <section className="py-24 px-4 bg-gradient-to-b from-black to-gray-900 border-t border-white/5">
+      {/* 4. STEP 2: VERIFICATION */}
+      <section className={`py-24 px-4 border-t transition-colors duration-500
+        ${isDark ? 'bg-gradient-to-b from-black to-gray-900 border-white/5' : 'bg-slate-50 border-slate-200'}`}>
+        
         <div className="text-center mb-16">
-          <div className="inline-block px-3 py-1 mb-4 border border-purple-500/30 text-purple-400 rounded-full text-[10px] font-mono tracking-widest uppercase">
+          <div className={`inline-block px-3 py-1 mb-4 border rounded-full text-[10px] font-mono tracking-widest uppercase
+            ${isDark ? 'border-purple-500/30 text-purple-400' : 'border-purple-600/30 text-purple-600'}`}>
             Phase 2 (Optional)
           </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-2 font-orbitron text-white">
+          <h2 className={`text-4xl md:text-5xl font-black mb-2 font-orbitron
+            ${isDark ? 'text-white' : 'text-slate-900'}`}>
             GET <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">VERIFIED</span>
           </h2>
-          <p className="text-gray-400">Upgrade to Lab-Certified Status. Shipped to your door.</p>
+          <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>Upgrade to Lab-Certified Status.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <LabCard 
+            isDark={isDark}
+            title="10-Panel Toxicology" 
+            price="$129.00" 
+            badge="LAB-CERTIFIED" 
+            badgeColor="bg-cyan-600"
+            btnColor="cyan"
+            checks={['Verified Drug Screen', 'Digital Badge Update']}
+            onOrder={() => navigate("/toxicology-kit-order")}
+          />
           
-          {/* LAB KIT 1: TOXICOLOGY */}
-          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-cyan-500 transition duration-500 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 bg-cyan-600 text-xs font-bold px-4 py-2 text-black">LAB-CERTIFIED</div>
-            <h3 className="text-2xl font-bold mb-2 font-orbitron text-white">10-Panel Toxicology</h3>
-            <div className="text-5xl font-bold text-white mb-6">$129.00</div>
-            <ul className="text-sm text-gray-400 space-y-3 mb-8 font-mono">
-              <li className="flex gap-3 items-center"><Check size={16} className="text-cyan-400"/> Verified Drug Screen</li>
-              <li className="flex gap-3 items-center"><Check size={16} className="text-cyan-400"/> Digital Badge Update</li>
-            </ul>
-            <button 
-              onClick={() => navigate("/toxicology-kit-order")}
-              className="w-full py-4 bg-transparent border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black rounded font-bold transition uppercase tracking-widest shadow-[0_0_15px_rgba(0,240,255,0.2)]"
-            >
-              ORDER TOX KIT
-            </button>
-          </div>
-
-          {/* LAB KIT 2: HEALTH SCREEN */}
-          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-purple-500 transition duration-500 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 bg-purple-600 text-xs font-bold px-4 py-2 text-white">PLATINUM</div>
-            <h3 className="text-2xl font-bold mb-2 font-orbitron text-white">13-Panel Sexual Health</h3>
-            <div className="text-5xl font-bold text-white mb-6">$249.00</div>
-            <ul className="text-sm text-gray-400 space-y-3 mb-8 font-mono">
-              <li className="flex gap-3 items-center"><Check size={16} className="text-purple-400"/> Full STD Panel</li>
-              <li className="flex gap-3 items-center"><Check size={16} className="text-purple-400"/> Certified Health Badge</li>
-            </ul>
-            <button 
-              onClick={() => navigate("/health-panel-order")}
-              className="w-full py-4 bg-transparent border border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white rounded font-bold transition uppercase tracking-widest shadow-[0_0_15px_rgba(168,85,247,0.2)]"
-            >
-              ORDER HEALTH KIT
-            </button>
-          </div>
-
+          <LabCard 
+            isDark={isDark}
+            title="13-Panel Sexual Health" 
+            price="$249.00" 
+            badge="PLATINUM" 
+            badgeColor="bg-purple-600"
+            btnColor="purple"
+            checks={['Full STD Panel', 'Certified Health Badge']}
+            onOrder={() => navigate("/health-panel-order")}
+          />
         </div>
       </section>
 
-      {/* 5. FOOTER (Single Instance) */}
       <Footer /> 
     </div>
   );
 };
 
-// --- HELPER COMPONENT FOR PRICING CARDS (Cyan Theme) ---
+// --- ADAPTIVE PRICING CARD ---
 interface PricingCardProps {
+  isDark: boolean;
   title: string;
   price: string;
   period: string;
@@ -148,37 +151,78 @@ interface PricingCardProps {
   isGold?: boolean;
 }
 
-const PricingCard = ({ title, price, period, originalPrice, tag, isBeta, isGold }: PricingCardProps) => (
-  <div className={`bg-black/40 backdrop-blur-xl p-8 rounded-2xl border relative transition-all duration-500 hover:-translate-y-2 group
-    ${isGold 
-      ? 'border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.15)] hover:border-cyan-400 hover:shadow-[0_0_50px_rgba(0,240,255,0.3)]' 
-      : 'border-cyan-500/20 hover:border-cyan-400/60 hover:shadow-[0_0_40px_rgba(0,240,255,0.2)]'}`}>
+const PricingCard = ({ isDark, title, price, period, originalPrice, tag, isBeta, isGold }: PricingCardProps) => (
+  <div className={`p-8 rounded-2xl border relative transition-all duration-300 hover:-translate-y-2 group backdrop-blur-xl
+    ${isDark 
+      ? (isGold ? 'bg-black/40 border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.1)] hover:shadow-[0_0_50px_rgba(0,240,255,0.25)]' : 'bg-black/40 border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)]') 
+      : (isGold ? 'bg-white border-cyan-400 shadow-xl shadow-cyan-100' : 'bg-white border-slate-200 shadow-sm hover:shadow-lg')
+    }`}>
     
-    {/* Tag */}
-    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg
-      ${isGold ? 'bg-cyan-500 text-black' : 'bg-cyan-600/80 text-white'}`}>
+    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase
+      ${isGold ? 'bg-cyan-500 text-black' : 'bg-cyan-600 text-white'}`}>
       {tag}
     </div>
 
-    {/* Beta Warning */}
-    {isBeta && <div className="text-cyan-400 text-[10px] font-bold tracking-[0.2em] text-center mt-2 mb-4 animate-pulse">⚡ BETA PRICING ⚡</div>}
+    {isBeta && <div className={`text-[10px] font-bold tracking-[0.2em] text-center mt-2 mb-4 animate-pulse ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>⚡ BETA PRICING ⚡</div>}
 
-    <h3 className="text-lg font-bold text-gray-300 mb-2 font-orbitron group-hover:text-white transition-colors">{title}</h3>
+    <h3 className={`text-lg font-bold mb-2 font-orbitron ${isDark ? 'text-gray-300 group-hover:text-white' : 'text-slate-700'} transition-colors`}>{title}</h3>
     
     <div className="flex items-end justify-center gap-2 mb-1">
-      <span className="text-gray-600 line-through text-lg">{originalPrice}</span>
-      <span className="text-4xl font-bold text-white group-hover:text-cyan-400 transition-colors">{price}</span>
+      <span className="text-gray-400 line-through text-lg">{originalPrice}</span>
+      <span className={`text-4xl font-bold ${isDark ? 'text-white group-hover:text-cyan-400' : 'text-slate-900'} transition-colors`}>{price}</span>
     </div>
-    <div className="text-xs text-gray-500 mb-8 uppercase tracking-wider">{period}</div>
+    <div className={`text-xs mb-8 uppercase tracking-wider ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>{period}</div>
 
     <button className={`w-full py-3 rounded font-bold transition-all duration-300 uppercase tracking-widest text-xs
       ${isGold 
-        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)]' 
-        : 'bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_25px_rgba(0,240,255,0.4)]'}`}>
+        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg hover:shadow-[0_0_25px_rgba(0,240,255,0.4)]' 
+        : (isDark ? 'bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]' : 'bg-slate-100 text-slate-900 hover:bg-cyan-500 hover:text-white')}`}>
       SELECT PLAN
     </button>
 
-    {isBeta && <div className="text-cyan-500 text-[10px] font-bold text-center mt-4">🔥 Limited Time!</div>}
+    {isBeta && <div className={`text-[10px] font-bold text-center mt-4 ${isDark ? 'text-cyan-500' : 'text-cyan-600'}`}>🔥 Limited Time!</div>}
+  </div>
+);
+
+// --- ADAPTIVE LAB CARD ---
+interface LabCardProps {
+  isDark: boolean;
+  title: string;
+  price: string;
+  badge: string;
+  badgeColor: string;
+  btnColor: 'cyan' | 'purple';
+  checks: string[];
+  onOrder: () => void;
+}
+
+const LabCard = ({ isDark, title, price, badge, badgeColor, btnColor, checks, onOrder }: LabCardProps) => (
+  <div className={`p-8 rounded-2xl border transition-all duration-500 relative overflow-hidden group backdrop-blur-sm
+    ${isDark 
+      ? 'bg-white/5 border-white/10 hover:border-cyan-500 hover:shadow-[0_0_40px_rgba(0,240,255,0.15)]' 
+      : 'bg-white border-slate-200 shadow-lg hover:border-cyan-500 hover:shadow-cyan-100'}`}>
+    
+    <div className={`absolute top-0 right-0 text-xs font-bold px-4 py-2 text-white ${badgeColor}`}>{badge}</div>
+    
+    <h3 className={`text-2xl font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
+    <div className={`text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>{price}</div>
+    
+    <ul className={`text-sm space-y-3 mb-8 font-mono ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+      {checks.map((check, i) => (
+        <li key={i} className="flex gap-3 items-center">
+          <Check size={16} className={btnColor === 'cyan' ? 'text-cyan-400' : 'text-purple-400'}/> {check}
+        </li>
+      ))}
+    </ul>
+    
+    <button 
+      onClick={onOrder}
+      className={`w-full py-4 bg-transparent border rounded font-bold transition-all duration-300 uppercase tracking-widest
+      ${btnColor === 'cyan' 
+        ? 'border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
+        : 'border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]'}`}>
+      ORDER KIT
+    </button>
   </div>
 );
 

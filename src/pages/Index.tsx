@@ -564,21 +564,21 @@ const Index = () => {
                 </Card>
               </ScrollReveal>
 
-              {/* 8. Trusted Everywhere */}
+              {/* 8. Trusted Everywhere - B2C focused */}
               <ScrollReveal direction="up" delay={550}>
                 <Card className="h-full p-6 bg-card rounded-xl shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 transition-all">
                   <Globe className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
                   <CardTitle className="text-2xl font-bold mb-3 text-foreground">TRUSTED EVERYWHERE</CardTitle>
-                  <p className="text-muted-foreground text-base">Accepted by <strong className="text-foreground">Corporate Compliance, Workforce Organizations, Restaurant Establishments, Nightlife Venues, Civic & Regulatory Agencies</strong>. Including High-Value Asset Manager Businesses ( Transport Fleets and Exotic Rentals ).</p>
+                  <p className="text-muted-foreground text-base">Accepted at <strong className="text-foreground">Lifestyle Venues, Nightlife Hotspots, Private Clubs, and Exclusive Events</strong>. One scan opens every door.</p>
                 </Card>
               </ScrollReveal>
 
-              {/* 9. Automated Workforce Monitor */}
+              {/* 9. Always In Control */}
               <ScrollReveal direction="up" delay={600}>
                 <Card className="h-full p-6 bg-card rounded-xl shadow-[0_0_40px_hsl(var(--accent)/0.5)] hover:shadow-[0_0_50px_hsl(var(--accent)/0.7)] border-2 border-accent/30 transition-all">
                   <RefreshCw className="h-12 w-12 text-chart-4 mb-4" style={{ filter: 'drop-shadow(0 0 5px hsl(142 71% 45%))' }} />
-                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">AUTOMATED WORKFORCE MONITOR</CardTitle>
-                  <p className="text-muted-foreground text-base">Set your screening interval (e.g., 60 Days). The system automatically tracks compliance and revokes access if a window is missed.</p>
+                  <CardTitle className="text-2xl font-bold mb-3 text-foreground">ALWAYS IN CONTROL</CardTitle>
+                  <p className="text-muted-foreground text-base">Update your status anytime. Set reminders for re-verification. Your profile stays current and your access stays green.</p>
                 </Card>
               </ScrollReveal>
             </div>
@@ -859,28 +859,13 @@ const Index = () => {
               </div>
             </ScrollReveal>
             
-            {/* Enterprise Security & Fintech Guarantee Section */}
+            {/* Simple Trust Section - B2C focused */}
             <ScrollReveal direction="up" delay={150}>
-              <div className="p-8 mt-8 bg-muted/70 border border-chart-5/50 rounded-lg shadow-xl" style={{ boxShadow: '0 25px 50px -12px hsl(var(--chart-5) / 0.2)' }}>
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">The VALID Enterprise Guarantee: Unlocking Zero-Trust Compliance</h3>
-                
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div>
-                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>API-FIRST SECURITY & FINTECH</span>
-                    <p className="text-muted-foreground text-base">We utilize <strong className="text-foreground">Zero-Trust architecture</strong> and <strong className="text-foreground">RESTful API endpoints</strong> engineered for high-availability and real-time data synchronization with your existing HRIS or POS systems.</p>
-                  </div>
-                  <div>
-                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>HIPAA, GDPR & ASSET SHIELD</span>
-                    <p className="text-muted-foreground text-base">Comprehensive end-to-end encryption ensures strict <strong className="text-foreground">HIPAA and GDPR compliance</strong>, legally shielding your organization against health and data liability in all jurisdictions.</p>
-                  </div>
-                  <div>
-                    <span className="text-chart-5 text-xl font-semibold block mb-2" style={{ textShadow: '0 0 10px hsl(var(--chart-5) / 0.5)' }}>MARKET INTELLIGENCE & ACQUISITION</span>
-                    <p className="text-muted-foreground text-base">Instantly access pre-built marketing assets, competitive data sheets, and pitch decks to support your sales efforts. We help you acquire business.</p>
-                    <Link to="/competitive-scorecard" className="inline-block mt-2 text-chart-4 hover:text-foreground transition-colors text-base font-medium">
-                      Grab Sales Assets (Market Comparisons, Pitch Decks) →
-                    </Link>
-                  </div>
-                </div>
+              <div className="p-6 mt-8 bg-muted/70 border border-accent/30 rounded-lg shadow-xl text-center">
+                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">Your Privacy. Your Control. Always.</h3>
+                <p className="text-muted-foreground text-base max-w-2xl mx-auto">
+                  VALID uses <strong className="text-foreground">bank-grade encryption</strong> to protect your data. Only YOU decide what to share and when. No awkward conversations, no compromises.
+                </p>
               </div>
             </ScrollReveal>
           </div>

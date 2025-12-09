@@ -32,6 +32,7 @@ import BuildersVision from "./pages/BuildersVision";
 import ApiDocs from "./pages/ApiDocs";
 import SecurityCompliance from "./pages/SecurityCompliance";
 import IntegratedHealthCompliance from "./pages/IntegratedHealthCompliance";
+import MyAccess from "./pages/MyAccess";
 import NotFound from "./pages/NotFound";
 import { CurrencyProvider } from "./providers/CurrencyProvider";
 import { AgeGate } from "./components/AgeGate";
@@ -78,6 +79,7 @@ const App = () => (
           <Route path="/api-docs" element={<ApiDocs />} />
           <Route path="/security-compliance" element={<SecurityCompliance />} />
           <Route path="/partners/integrated-health-compliance" element={<IntegratedHealthCompliance />} />
+          <Route path="/my-access" element={<AgeGate><MyAccess /></AgeGate>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>

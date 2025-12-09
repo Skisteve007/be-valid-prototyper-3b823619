@@ -235,3 +235,13 @@ html, body, #root {
     box-shadow: 0 0 30px 10px rgba(0, 240, 255, 1);
   }
 }
+
+/* QR Scan Line Animation */
+@keyframes scan {
+  0%, 100% {
+    top: 16px;
+  }
+  50% {
+    top: calc(100% - 20px);
+  }
+}

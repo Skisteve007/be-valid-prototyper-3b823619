@@ -29,7 +29,7 @@ const ModeBtn = ({ active, onClick, icon, label }: ModeBtnProps) => (
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [activeMode, setActiveMode] = useState<'travel' | 'access' | 'incognito'>('access');
+  const [activeMode, setActiveMode] = useState<'travel' | 'access' | 'ghost'>('access');
   const [displayedText, setDisplayedText] = useState('');
   const fullText = 'POWERED BY SYNTHESIZED AI';
   
@@ -119,7 +119,7 @@ const Hero = () => {
           <div className="mt-10 flex justify-center md:justify-start gap-4">
              <ModeBtn active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={18}/>} label="TRAVEL" />
              <ModeBtn active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={18}/>} label="ACCESS" />
-             <ModeBtn active={activeMode === 'incognito'} onClick={() => setActiveMode('incognito')} icon={<Ghost size={18}/>} label="GHOST" />
+             <ModeBtn active={activeMode === 'ghost'} onClick={() => setActiveMode('ghost')} icon={<Ghost size={18}/>} label="GHOST" />
           </div>
         </div>
 
@@ -150,7 +150,7 @@ const Hero = () => {
                  <div className="text-cyan-400 text-xs font-mono tracking-widest mb-1 drop-shadow-md">
                    {activeMode === 'travel' && 'TSA PRECHECK ACTIVE'}
                    {activeMode === 'access' && 'VIP GATEWAY OPEN'}
-                   {activeMode === 'incognito' && 'IDENTITY MASKED'}
+                   {activeMode === 'ghost' && 'IDENTITY MASKED'}
                  </div>
               </div>
             </div>

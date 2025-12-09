@@ -257,8 +257,8 @@ const Index = () => {
               </Button>
             </div>
 
-            {/* Tagline in the middle - desktop only */}
-            <div className="hidden lg:flex flex-1 flex-col justify-center items-center">
+            {/* Tagline in the middle - shows on md+ screens */}
+            <div className="hidden md:flex flex-1 flex-col justify-center items-center">
               <div className="relative px-20 py-2 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_25px_hsl(var(--secondary)/0.5),0_0_50px_hsl(var(--secondary)/0.3)]">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-xl rounded-full animate-pulse"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>

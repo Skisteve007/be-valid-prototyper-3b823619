@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Check, Sun, Moon } from 'lucide-react';
+import { Check, Sun, Moon, ShieldCheck, Globe, EyeOff } from 'lucide-react';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 
@@ -83,23 +83,47 @@ const Index = () => {
         <Hero />
       </div>
 
-      {/* 2. THE ECOSYSTEM */}
-      <section className={`py-20 px-4 relative overflow-hidden transition-colors duration-500
-        ${isDark ? 'bg-black' : 'bg-white'}`}>
-        
-        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] blur-[100px] -z-10
-          ${isDark ? 'bg-cyan-900/20' : 'bg-blue-100'}`}></div>
-        
-        <div className="text-center max-w-4xl mx-auto">
-          <h2 className={`text-3xl font-bold mb-4 font-orbitron tracking-wide
-            ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            THE VALID ECOSYSTEM
-          </h2>
-          <p className={`max-w-2xl mx-auto leading-relaxed
-            ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-            Share your verified status with peers and authorized venues using a single tap. 
-            You are always in control of what data is shared.
-          </p>
+      {/* 2. THE TRUST BRIDGE (Explaining the Value) */}
+      <section className={`py-20 px-4 relative z-10 border-b transition-colors duration-500
+        ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 font-orbitron tracking-wide
+              ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              THE VALID <span className="text-cyan-400">STANDARD</span>
+            </h2>
+            <p className={`max-w-2xl mx-auto leading-relaxed
+              ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+              The ecosystem designed for humans, not data points.
+            </p>
+          </div>
+
+          {/* The 3 Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <FeatureCard 
+              isDark={isDark}
+              icon={<ShieldCheck size={32}/>}
+              title="Military-Grade Security"
+              desc="Your identity is locked behind Zero-Trust encryption. Impossible to fake. Impossible to steal."
+              color="blue"
+            />
+            <FeatureCard 
+              isDark={isDark}
+              icon={<Globe size={32}/>}
+              title="Accepted Everywhere"
+              desc="One key for the world. Skip the manual ID check at airports, nightlife venues, and corporate zones."
+              color="cyan"
+            />
+            <FeatureCard 
+              isDark={isDark}
+              icon={<EyeOff size={32}/>}
+              title="Your Data. Your Rules."
+              desc="Ghost Protocol enabled. Reveal your age to the bouncer, but keep your address and phone number private."
+              color="purple"
+            />
+          </div>
         </div>
       </section>
 
@@ -168,6 +192,38 @@ const Index = () => {
     </div>
   );
 };
+
+// --- FEATURE CARD COMPONENT ---
+interface FeatureCardProps {
+  isDark: boolean;
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  color: 'blue' | 'cyan' | 'purple';
+}
+
+const FeatureCard = ({ isDark, icon, title, desc, color }: FeatureCardProps) => (
+  <div className={`p-8 rounded-2xl border transition-all duration-500 group relative overflow-hidden backdrop-blur-sm
+    ${isDark 
+      ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.1)]' 
+      : 'bg-white border-slate-200 hover:shadow-xl hover:border-cyan-300'}`}>
+    
+    <div className={`mb-6 p-4 rounded-full inline-block transition-colors duration-300
+      ${isDark ? 'bg-black text-white' : 'bg-slate-100 text-slate-800'}
+      ${color === 'cyan' && 'group-hover:text-cyan-400'}
+      ${color === 'purple' && 'group-hover:text-purple-400'}
+      ${color === 'blue' && 'group-hover:text-blue-400'}`}>
+      {icon}
+    </div>
+    
+    <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>
+      {title}
+    </h3>
+    <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+      {desc}
+    </p>
+  </div>
+);
 
 // --- ADAPTIVE PRICING CARD ---
 interface PricingCardProps {

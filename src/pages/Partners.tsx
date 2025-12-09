@@ -1,6 +1,6 @@
 // *****************************************************************************
 // FILE: src/pages/Partners.tsx
-// PURPOSE: RESTORED "Unicorn Thesis" Enterprise Page (Fixed Layout)
+// PURPOSE: RESTORED "Unicorn Thesis" Enterprise Page (Fixed Layout & Content)
 // *****************************************************************************
 
 import React from 'react';
@@ -37,14 +37,19 @@ const ThesisCard = ({ icon, title, desc }: ThesisCardProps) => (
 
 const StackItem = ({ title, desc, color }: StackItemProps) => {
   const colorClasses = {
-    cyan: { border: 'border-cyan-900/50', bg: 'bg-cyan-900/10', text: 'text-cyan-400' },
-    purple: { border: 'border-purple-900/50', bg: 'bg-purple-900/10', text: 'text-purple-400' },
-    green: { border: 'border-green-900/50', bg: 'bg-green-900/10', text: 'text-green-400' },
+    cyan: 'border-cyan-900/50 bg-cyan-900/10 text-cyan-400',
+    purple: 'border-purple-900/50 bg-purple-900/10 text-purple-400',
+    green: 'border-green-900/50 bg-green-900/10 text-green-400',
+  };
+  const textClasses = {
+    cyan: 'text-cyan-400',
+    purple: 'text-purple-400',
+    green: 'text-green-400',
   };
 
   return (
-    <div className={`p-6 rounded-xl border ${colorClasses[color].border} ${colorClasses[color].bg}`}>
-      <h4 className={`text-lg font-bold ${colorClasses[color].text} mb-1`}>{title}</h4>
+    <div className={`p-6 rounded-xl border ${colorClasses[color]}`}>
+      <h4 className={`text-lg font-bold ${textClasses[color]} mb-1`}>{title}</h4>
       <p className="text-sm text-gray-400">{desc}</p>
     </div>
   );
@@ -52,15 +57,15 @@ const StackItem = ({ title, desc, color }: StackItemProps) => {
 
 const RoadmapItem = ({ phase, title, status, desc, color }: RoadmapItemProps) => {
   const colorClasses = {
-    cyan: { border: 'border-cyan-500', text: 'text-cyan-500' },
-    purple: { border: 'border-purple-500', text: 'text-purple-500' },
-    gray: { border: 'border-gray-500', text: 'text-gray-500' },
+    cyan: 'border-cyan-500 text-cyan-500',
+    purple: 'border-purple-500 text-purple-500',
+    gray: 'border-gray-500 text-gray-500',
   };
 
   return (
     <div className="bg-black p-6 rounded-xl border border-white/10 hover:-translate-y-2 transition duration-300">
-      <div className={`w-24 h-24 mx-auto rounded-full bg-black border-4 ${colorClasses[color].border} flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(0,0,0,0.5)]`}>
-         <div className={`font-bold text-xs ${colorClasses[color].text}`}>{status}</div>
+      <div className={`w-24 h-24 mx-auto rounded-full bg-black border-4 ${colorClasses[color]} flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(0,0,0,0.5)]`}>
+         <div className="font-bold text-xs">{status}</div>
       </div>
       <div className="text-xs font-mono text-gray-500 mb-2">{phase}</div>
       <h3 className="text-xl font-bold font-orbitron mb-2 text-white">{title}</h3>
@@ -194,7 +199,7 @@ const Partners = () => {
         </div>
       </section>
 
-      {/* 5. THE CFO ALERT */}
+      {/* 5. THE CFO ALERT (Money Section) */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-cyan-900/5 -skew-y-3 transform origin-left"></div>
         <div className="max-w-6xl mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">

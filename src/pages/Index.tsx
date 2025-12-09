@@ -296,19 +296,39 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Mobile Mission Banner */}
-      <div id="mobile-mission-banner" className="w-full text-center py-2 px-3 bg-secondary border-b-4 border-accent/70 shadow-lg lg:hidden">
-        <p className="text-xs font-bold text-muted-foreground uppercase mb-1 leading-snug">
-          QR-Coded Access: Zero Trust ID Security, Health Verified Integrated Payment
-        </p>
-        <div className="flex justify-center items-center space-x-3 mt-1">
-          <span className="text-xs font-extrabold text-destructive bg-destructive/20 px-2 py-0.5 rounded animate-pulse">
-            ⚡ BETA VERSION ⚡
-          </span>
-          <span className="text-[10px] font-medium text-primary">
-            Powered by Synthetic AI
-          </span>
+      {/* Mobile Mission Banner - matches desktop header design */}
+      <div id="mobile-mission-banner" className="w-full flex flex-col items-center py-4 px-3 bg-background lg:hidden">
+        {/* Gradient pill with VALID text */}
+        <div className="relative px-8 py-1.5 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_25px_hsl(var(--secondary)/0.5),0_0_50px_hsl(var(--secondary)/0.3)]">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/40 to-primary/50 blur-xl rounded-full animate-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-2xl rounded-full"></div>
+          <div className="absolute inset-0 bg-secondary/20 blur-2xl rounded-full"></div>
+          <p className="relative text-lg font-black text-center italic tracking-[0.15em] whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+            VALID
+          </p>
         </div>
+        {/* Tagline */}
+        <p className="text-xs sm:text-sm font-semibold text-center text-foreground mt-2 italic">
+          QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment.
+        </p>
+        {/* Glowing Beta Button */}
+        <div className="relative mt-3">
+          <div className="absolute inset-0 bg-accent/30 blur-xl rounded-full animate-[pulse_4s_ease-in-out_infinite]"></div>
+          <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-full animate-[pulse_5s_ease-in-out_infinite]"></div>
+          <Button
+            onClick={scrollToGetStarted}
+            variant="outline"
+            className="relative px-4 py-1.5 h-auto bg-gradient-to-r from-secondary/80 via-accent/20 to-secondary/80 hover:from-accent hover:via-accent hover:to-accent text-foreground hover:text-accent-foreground font-bold text-xs tracking-wide rounded-full border border-accent/50 shadow-[0_0_10px_hsl(var(--accent)/0.3)] hover:shadow-[0_0_20px_hsl(var(--accent)/0.6)] transition-all duration-300 animate-[pulse_8s_ease-in-out_infinite]"
+          >
+            <span className="flex items-center gap-2">
+              ⚡ Beta Version ⚡
+            </span>
+          </Button>
+        </div>
+        {/* Powered by text */}
+        <p className="text-[10px] text-muted-foreground mt-3 font-medium tracking-[0.15em]">
+          Powered By Synthetic AI*
+        </p>
       </div>
 
       <main className="w-full overflow-x-hidden">

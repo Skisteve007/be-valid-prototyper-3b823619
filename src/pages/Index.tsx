@@ -105,22 +105,22 @@ const Index = () => {
             <FeatureCard 
               isDark={isDark}
               icon={<ShieldCheck size={32}/>}
-              title="Military-Grade Security"
-              desc="Your identity is locked behind Zero-Trust encryption. Impossible to fake. Impossible to steal."
+              title="Military-Grade Fortress"
+              desc="Your identity is locked behind Zero-Trust encryption. Impossible to fake. Impossible to steal. We built a complete digital fortress around your data."
               color="blue"
             />
             <FeatureCard 
               isDark={isDark}
               icon={<Globe size={32}/>}
               title="Accepted Everywhere"
-              desc="One key for the world. Skip the manual ID check at airports, nightlife venues, and corporate zones."
+              desc="One key for the world. Skip the manual ID check at airports, entertainment venues, and corporate zones."
               color="cyan"
             />
             <FeatureCard 
               isDark={isDark}
               icon={<EyeOff size={32}/>}
               title="Your Data. Your Rules."
-              desc="Ghost Protocol enabled. Reveal your age to the bouncer, but keep your address and phone number private."
+              desc="Ghost Protocol enabled. Context-aware sharing means you reveal only what's required—whether it's age, health, or security clearance—while keeping your personal bio and medical records invisible."
               color="purple"
             />
           </div>

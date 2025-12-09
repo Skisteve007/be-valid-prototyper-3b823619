@@ -60,9 +60,11 @@ const Hero = () => {
         {/* LEFT: TEXT */}
         <div className="flex-1 text-center md:text-left order-2 md:order-1">
           
-          {/* UPDATED TAG: SYNTHESIZED AI */}
-          <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 animate-pulse">
-            POWERED BY SYNTHESIZED AI
+          {/* UPDATED TAG: SYNTHESIZED AI with typing effect */}
+          <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 overflow-hidden">
+            <span className="inline-block animate-[typing_2s_steps(24)_forwards,blink_0.7s_step-end_infinite_2s] whitespace-nowrap overflow-hidden border-r-2 border-cyan-400">
+              POWERED BY SYNTHESIZED AI
+            </span>
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 leading-[0.9] text-white">

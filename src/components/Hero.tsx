@@ -1,31 +1,6 @@
-// *****************************************************************************
-// FILE: src/components/Hero.tsx
-// PURPOSE: RESTORED Portal Video Hero (Clean, No Ghost Mode Overlay)
-// *****************************************************************************
-
 import React, { useState } from 'react';
 import { ArrowRight, Plane, Ticket, Ghost } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-
-interface ModeBtnProps {
-  active: boolean;
-  onClick: () => void;
-  icon: React.ReactNode;
-  label: string;
-}
-
-const ModeBtn = ({ active, onClick, icon, label }: ModeBtnProps) => (
-  <button 
-    onClick={onClick}
-    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider
-      ${active 
-        ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' 
-        : 'border-white/10 text-gray-500 hover:border-white/30 hover:text-white'
-      }`}
-  >
-    {icon} {label}
-  </button>
-);
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -82,21 +57,13 @@ const Hero = () => {
               CLAIM YOUR ID <ArrowRight size={18} />
             </button>
           </div>
-
-          {/* MODE BUTTONS (Clean Visual Only) */}
-          <div className="mt-10 flex justify-center md:justify-start gap-4">
-             <ModeBtn active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={18}/>} label="TRAVEL" />
-             <ModeBtn active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={18}/>} label="ACCESS" />
-             <ModeBtn active={activeMode === 'incognito'} onClick={() => setActiveMode('incognito')} icon={<Ghost size={18}/>} label="GHOST" />
-          </div>
         </div>
 
-        {/* RIGHT: PORTAL VIDEO (Fixed) */}
+        {/* RIGHT: PORTAL VIDEO */}
         <div className="flex-1 flex justify-center order-1 md:order-2">
           <div className="relative group w-[300px] md:w-[380px] aspect-[4/5]">
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>
             <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black">
-              {/* VIDEO LOOP */}
               <video 
                 src="/valid_portal.mp4" 
                 autoPlay 
@@ -108,9 +75,7 @@ const Hero = () => {
               <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
               <div className="absolute bottom-6 left-0 w-full text-center">
                  <div className="text-cyan-400 text-xs font-mono tracking-widest mb-1 drop-shadow-md">
-                   {activeMode === 'travel' && 'TSA PRECHECK ACTIVE'}
-                   {activeMode === 'access' && 'VIP GATEWAY OPEN'}
-                   {activeMode === 'incognito' && 'IDENTITY MASKED'}
+                   VALID OS • ONLINE
                  </div>
               </div>
             </div>

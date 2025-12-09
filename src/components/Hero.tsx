@@ -3,18 +3,17 @@ import { ArrowRight, Plane, Ticket, Ghost } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
 
-// Mode Button Component
+// Helper for Mode Buttons
 const ModeBtn = ({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) => (
   <button 
     onClick={onClick}
-    className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold tracking-wider transition-all touch-manipulation ${
-      active 
-        ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]' 
-        : 'text-gray-500 border border-gray-800 hover:border-gray-600 hover:text-gray-400'
-    }`}
+    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider touch-manipulation
+      ${active 
+        ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' 
+        : 'border-white/10 text-gray-500 hover:border-white/30 hover:text-white'
+      }`}
   >
-    {icon}
-    {label}
+    {icon} {label}
   </button>
 );
 
@@ -53,7 +52,7 @@ const Hero = () => {
         
         {/* LEFT: TEXT */}
         <div className="flex-1 text-center md:text-left order-2 md:order-1">
-          <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400">
+          <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 animate-pulse">
             SYNTHESIZED REALITY
           </div>
           
@@ -65,10 +64,9 @@ const Hero = () => {
           </h1>
           
           <p className="text-base md:text-lg text-gray-400 mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
-            Switch instantly between <span className="text-cyan-400">Travel</span>, <span className="text-purple-400">Access</span>, and <span className="text-gray-300">Privacy</span> modes.
+            Switch instantly between <span className="text-cyan-400">Travel</span>, <span className="text-purple-400">Access</span>, and <span className="text-gray-300">Privacy</span>.
           </p>
           
-          {/* Action Button */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button 
               onClick={() => navigate('/auth')}
@@ -79,47 +77,54 @@ const Hero = () => {
           </div>
 
           {/* Mode Switcher */}
-          <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-3">
+          <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
             <ModeBtn active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={16}/>} label="TRAVEL" />
             <ModeBtn active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={16}/>} label="ACCESS" />
             <ModeBtn active={activeMode === 'incognito'} onClick={() => setActiveMode('incognito')} icon={<Ghost size={16}/>} label="GHOST" />
           </div>
         </div>
 
-        {/* RIGHT: THE HERO IMAGE */}
+        {/* RIGHT: THE PORTAL VIDEO */}
         <div className="flex-1 flex justify-center order-1 md:order-2">
-          <div className="relative group">
-            {/* Glowing border effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
+          <div className="relative group w-[280px] md:w-[360px] aspect-[4/5]">
             
-            {/* Image container */}
-            <div className="relative w-[280px] md:w-[360px] aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-              <img 
-                src="/valid_hero.jpg" 
-                alt="Valid Digital Avatar" 
-                className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+            {/* The Glow Behind */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>
+            
+            {/* The Video Container */}
+            <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black">
+              <video 
+                src="/valid_portal.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="w-full h-full object-cover transform scale-105"
               />
-              {/* Bottom gradient overlay */}
-              <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/90 to-transparent"></div>
               
-              {/* Status badge on image */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(0,240,255,0.8)]"></div>
-                  <span className="text-xs font-mono text-cyan-400 tracking-wider">VERIFIED</span>
+              {/* Overlay Gradient */}
+              <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+              
+              {/* Dynamic Status */}
+              <div className="absolute bottom-6 left-0 w-full text-center">
+                <div className="text-cyan-400 text-xs font-mono tracking-widest mb-1 drop-shadow-md">
+                  {activeMode === 'travel' && 'TSA PRECHECK ACTIVE'}
+                  {activeMode === 'access' && 'VIP GATEWAY OPEN'}
+                  {activeMode === 'incognito' && 'IDENTITY MASKED'}
                 </div>
-                <span className="text-xs font-mono text-gray-500">v2.0</span>
               </div>
             </div>
           </div>
         </div>
+
       </div>
 
-      {/* BACKGROUND EFFECTS */}
+      {/* 3. ATMOSPHERE */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-cyan-500/10 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-blue-600/10 rounded-full blur-[120px]"></div>
+        <div className="absolute top-[-20%] right-[-10%] w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-cyan-500/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] left-[20%] w-[400px] md:w-[500px] h-[400px] md:h-[500px] bg-blue-600/10 rounded-full blur-[100px]"></div>
       </div>
+
     </div>
   );
 };

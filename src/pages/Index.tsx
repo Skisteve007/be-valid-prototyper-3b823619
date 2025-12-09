@@ -297,7 +297,7 @@ const Index = () => {
       </header>
 
       {/* Mobile Mission Banner */}
-      <div id="mobile-mission-banner" className="w-full text-center py-2 px-3 bg-secondary border-b-4 border-accent/70 shadow-lg md:hidden">
+      <div id="mobile-mission-banner" className="w-full text-center py-2 px-3 bg-secondary border-b-4 border-accent/70 shadow-lg lg:hidden">
         <p className="text-xs font-bold text-muted-foreground uppercase mb-1 leading-snug">
           QR-Coded Access: Zero Trust ID Security, Health Verified Integrated Payment
         </p>

@@ -61,9 +61,13 @@ const Hero = () => {
         <div className="flex-1 text-center md:text-left order-2 md:order-1">
           
           {/* UPDATED TAG: SYNTHESIZED AI with typing effect */}
-          <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 overflow-hidden">
-            <span className="inline-block animate-[typing_2s_steps(24)_forwards,blink_0.7s_step-end_infinite_2s] whitespace-nowrap overflow-hidden border-r-2 border-cyan-400">
+          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 overflow-hidden">
+            <span className="inline-block animate-[typing_2s_steps(24)_forwards] whitespace-nowrap overflow-hidden">
               POWERED BY SYNTHESIZED AI
+            </span>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-[aiPulse_3s_ease-in-out_infinite] absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 shadow-[0_0_8px_rgba(0,240,255,0.8)]"></span>
             </span>
           </div>
           

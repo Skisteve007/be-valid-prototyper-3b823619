@@ -26,11 +26,16 @@ const Index = () => {
   }, []);
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
+    <div className={`min-h-screen transition-all duration-700 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
       ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
       
+      {/* THEME TRANSITION OVERLAY */}
+      <div className={`fixed inset-0 pointer-events-none z-[99] transition-opacity duration-300
+        ${isDark ? 'bg-cyan-500/0' : 'bg-orange-500/0'}`} />
+      
       {/* BACKGROUND TEXTURE */}
-      <div className={`fixed inset-0 pointer-events-none z-0 opacity-[0.03]
+      <div className={`fixed inset-0 pointer-events-none z-0 transition-opacity duration-700
+        ${isDark ? 'opacity-[0.03]' : 'opacity-[0.02]'}
         ${isDark ? 'bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)]' : 'bg-[linear-gradient(black_1px,transparent_1px),linear-gradient(90deg,black_1px,transparent_1px)]'}
         bg-[size:50px_50px]`}>
       </div>
@@ -38,12 +43,12 @@ const Index = () => {
       {/* FLOATING THEME TOGGLE */}
       <button 
         onClick={toggleTheme}
-        className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 border
+        className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 border hover:rotate-180
           ${isDark 
             ? 'bg-gray-800 text-cyan-400 border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
             : 'bg-white text-orange-500 border-orange-200 shadow-lg'}`}
       >
-        {isDark ? <Sun size={24} /> : <Moon size={24} />}
+        {isDark ? <Sun size={24} className="transition-transform duration-500" /> : <Moon size={24} className="transition-transform duration-500" />}
       </button>
 
       {/* 1. HERO SECTION */}

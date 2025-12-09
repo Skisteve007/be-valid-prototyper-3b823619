@@ -44,7 +44,7 @@ const Index = () => {
       <section className="py-16 md:py-20 px-4 bg-black/30 border-t border-[#39ff14]/20">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-2 font-orbitron text-[#39ff14] drop-shadow-[0_0_15px_rgba(57,255,20,0.5)]">STEP 2: GET VERIFIED (OPTIONAL)</h2>
-          <p className="text-gray-400">Upgrade to Lab-Certified Status. Shipped to your door.</p>
+          <p className="text-gray-400">Upgrade to Lab-Certified Status. Shipped to your door or walk-in appointment scheduled.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">

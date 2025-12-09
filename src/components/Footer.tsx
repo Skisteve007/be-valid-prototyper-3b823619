@@ -71,10 +71,10 @@ const Footer = () => {
             <span className="text-white font-bold">•</span>
             <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: All users 18+</span>
             <span className="ml-auto">
-              <button
+            <button
                 onClick={handleAdminClick}
                 disabled={checkingAuth}
-                className="text-sm px-4 py-2 rounded-full font-bold transition-all duration-200 hover:brightness-110 focus:outline-none bg-emerald-500 hover:bg-emerald-400 text-slate-900 disabled:opacity-50 shadow-[0_0_20px_rgba(16,185,129,0.7)]"
+                className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-gradient-to-r from-cyan-500 to-blue-600 text-black disabled:opacity-50 shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider"
               >
                 {isAdmin ? 'Admin Panel' : 'Admin'}
               </button>

@@ -4,7 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
 
 // Helper for Mode Buttons
-const ModeBtn = ({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) => (
+interface ModeBtnProps {
+  active: boolean;
+  onClick: () => void;
+  icon: React.ReactNode;
+  label: string;
+}
+
+const ModeBtn = ({ active, onClick, icon, label }: ModeBtnProps) => (
   <button 
     onClick={onClick}
     className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider touch-manipulation
@@ -52,8 +59,10 @@ const Hero = () => {
         
         {/* LEFT: TEXT */}
         <div className="flex-1 text-center md:text-left order-2 md:order-1">
+          
+          {/* UPDATED TAG: SYNTHESIZED AI */}
           <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 animate-pulse">
-            SYNTHESIZED REALITY
+            POWERED BY SYNTHESIZED AI
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 leading-[0.9] text-white">
@@ -63,14 +72,16 @@ const Hero = () => {
             </span>
           </h1>
           
+          {/* UPDATED SUB-HEADLINE: Mentions "Adaptive Profile" */}
           <p className="text-base md:text-lg text-gray-400 mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
+            Your <span className="text-white font-bold">Adaptive AI Profile</span> for the real world. 
             Switch instantly between <span className="text-cyan-400">Travel</span>, <span className="text-purple-400">Access</span>, and <span className="text-gray-300">Privacy</span>.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button 
               onClick={() => navigate('/auth')}
-              className="px-8 py-4 bg-white text-black font-bold text-lg rounded hover:bg-cyan-50 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] min-h-[56px] touch-manipulation"
+              className="px-8 py-4 bg-white text-black font-bold text-lg rounded hover:bg-cyan-50 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] min-h-[56px] touch-manipulation hover:scale-105"
             >
               CLAIM YOUR ID <ArrowRight size={18} />
             </button>

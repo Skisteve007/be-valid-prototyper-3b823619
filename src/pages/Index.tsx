@@ -21,12 +21,14 @@ const Index = () => {
     });
     
     setTimeout(() => {
-      setIsDark(!isDark);
-      if (!isDark) {
+      const newIsDark = !isDark;
+      setIsDark(newIsDark);
+      if (newIsDark) {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
       }
+      localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
     }, 150);
     
     setTimeout(() => setRipple({ active: false, x: 0, y: 0 }), 700);

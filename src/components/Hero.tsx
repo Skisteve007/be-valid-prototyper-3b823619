@@ -3,7 +3,7 @@
 // PURPOSE: RESTORED Hero (Visible Video, Partner Button, Synthesized AI)
 // *****************************************************************************
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Plane, Ticket, Ghost } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -30,6 +30,22 @@ const ModeBtn = ({ active, onClick, icon, label }: ModeBtnProps) => (
 const Hero = () => {
   const navigate = useNavigate();
   const [activeMode, setActiveMode] = useState<'travel' | 'access' | 'incognito'>('access');
+  const [displayedText, setDisplayedText] = useState('');
+  const fullText = 'POWERED BY SYNTHESIZED AI';
+  
+  useEffect(() => {
+    let index = 0;
+    const typingInterval = setInterval(() => {
+      if (index <= fullText.length) {
+        setDisplayedText(fullText.slice(0, index));
+        index++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 80);
+    
+    return () => clearInterval(typingInterval);
+  }, []);
   
   return (
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
@@ -62,9 +78,17 @@ const Hero = () => {
         {/* LEFT: THE PITCH */}
         <div className="flex-1 text-center md:text-left order-2 md:order-1">
           
-          {/* TAG: SYNTHESIZED AI */}
-          <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 animate-pulse">
-            POWERED BY SYNTHESIZED AI
+          {/* TAG: SYNTHESIZED AI with typing effect */}
+          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400">
+            <span className="min-w-[200px]">
+              {displayedText}
+              <span className="animate-pulse">|</span>
+            </span>
+            {/* Glowing pulsating blue circle */}
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8),0_0_20px_rgba(59,130,246,0.5)]"></span>
+            </span>
           </div>
           
           {/* Main Headline */}

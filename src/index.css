@@ -221,3 +221,17 @@ html, body, #root {
 @keyframes blink {
   50% { border-color: transparent; }
 }
+
+/* AI Listening Pulse */
+@keyframes aiPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+    box-shadow: 0 0 5px rgba(0, 240, 255, 0.4);
+  }
+  50% {
+    transform: scale(2);
+    opacity: 0;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+  }
+}

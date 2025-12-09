@@ -167,8 +167,7 @@ const Hero = () => {
 
           {/* INTERACTIVE DEMO CONTROLS */}
           <div className="mt-10 md:mt-12 flex flex-col items-center md:items-start gap-3">
-             <div className={`flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest
-               ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>
+             <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-cyan-400">
                <MousePointerClick size={12} className="animate-bounce" /> Try The Modes (Interactive Demo)
              </div>
              

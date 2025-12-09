@@ -300,20 +300,20 @@ const PitchDeck = () => {
         {/* Problem */}
         <section className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <Badge variant="destructive" className="mb-4 bg-red-500/20 text-red-400 border-red-500/30">The Problem</Badge>
+            <Badge variant="destructive" className="mb-4 bg-red-600/30 text-red-500 border-red-600/50">The Problem</Badge>
             <h2 className="text-3xl font-bold mb-6 text-white font-orbitron">Trust Without Proof</h2>
             <ul className="space-y-4">
               {problemPoints.map((point, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="h-6 w-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-red-400 text-sm">✕</span>
+                  <div className="h-6 w-6 rounded-full bg-red-600/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-red-500 text-sm">✕</span>
                   </div>
                   <span className="text-gray-400">{point}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="bg-gradient-to-br from-red-900/30 to-orange-900/30 border border-red-800/50 p-8 rounded-xl text-center">
+          <div className="bg-gradient-to-br from-red-950/60 to-red-900/40 border border-red-600/50 p-8 rounded-xl text-center shadow-[0_0_30px_rgba(220,38,38,0.15)]">
             <div className="text-6xl mb-4">👽</div>
             <p className="text-xl text-white">
               "How do I know they're really safe?"

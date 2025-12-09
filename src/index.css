@@ -197,3 +197,17 @@ All colors MUST be HSL.
 html, body, #root {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Ripple animation for theme toggle */
+@keyframes ripple {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+  }
+  100% {
+    width: 300vmax;
+    height: 300vmax;
+    opacity: 0;
+  }
+}

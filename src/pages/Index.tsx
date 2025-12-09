@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Check, Sun, Moon } from 'lucide-react';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
-import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 
 const Index = () => {
@@ -11,14 +10,26 @@ const Index = () => {
 
   // --- THEME ENGINE ---
   const [isDark, setIsDark] = useState(true);
+  const [ripple, setRipple] = useState({ active: false, x: 0, y: 0 });
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (!isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setRipple({ 
+      active: true, 
+      x: rect.left + rect.width / 2, 
+      y: rect.top + rect.height / 2 
+    });
+    
+    setTimeout(() => {
+      setIsDark(!isDark);
+      if (!isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }, 150);
+    
+    setTimeout(() => setRipple({ active: false, x: 0, y: 0 }), 700);
   };
 
   useEffect(() => {
@@ -29,9 +40,25 @@ const Index = () => {
     <div className={`min-h-screen transition-all duration-700 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
       ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
       
-      {/* THEME TRANSITION OVERLAY */}
-      <div className={`fixed inset-0 pointer-events-none z-[99] transition-opacity duration-300
-        ${isDark ? 'bg-cyan-500/0' : 'bg-orange-500/0'}`} />
+      {/* RIPPLE TRANSITION EFFECT */}
+      {ripple.active && (
+        <div 
+          className="fixed pointer-events-none z-[99]"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          <div 
+            className={`rounded-full animate-[ripple_0.7s_ease-out_forwards] ${isDark ? 'bg-slate-50' : 'bg-[#050505]'}`}
+            style={{
+              width: '10px',
+              height: '10px',
+            }}
+          />
+        </div>
+      )}
       
       {/* BACKGROUND TEXTURE */}
       <div className={`fixed inset-0 pointer-events-none z-0 transition-opacity duration-700
@@ -138,8 +165,6 @@ const Index = () => {
           />
         </div>
       </section>
-
-      <Footer /> 
     </div>
   );
 };

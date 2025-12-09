@@ -33,6 +33,7 @@ import ApiDocs from "./pages/ApiDocs";
 import SecurityCompliance from "./pages/SecurityCompliance";
 import IntegratedHealthCompliance from "./pages/IntegratedHealthCompliance";
 import MyAccess from "./pages/MyAccess";
+import LabPortal from "./pages/LabPortal";
 import NotFound from "./pages/NotFound";
 import { CurrencyProvider } from "./providers/CurrencyProvider";
 import { AgeGate } from "./components/AgeGate";
@@ -80,6 +81,7 @@ const App = () => (
           <Route path="/security-compliance" element={<SecurityCompliance />} />
           <Route path="/partners/integrated-health-compliance" element={<IntegratedHealthCompliance />} />
           <Route path="/my-access" element={<AgeGate><MyAccess /></AgeGate>} />
+          <Route path="/lab-portal" element={<AgeGate><LabPortal /></AgeGate>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
           </Routes>

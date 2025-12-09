@@ -132,7 +132,7 @@ const BuildersVision = () => {
           
           {/* Powered by Synthesized AI */}
           <p className="text-sm md:text-base font-mono tracking-[0.15em] text-muted-foreground uppercase mb-4">
-            Powered By Synthesized AI*
+            Powered By Synthesized AI
           </p>
           
           <div className="flex items-center justify-center gap-2 mb-6">

@@ -128,7 +128,7 @@ const PitchDeck = () => {
           </Badge>
           {/* Powered by Synthesized AI */}
           <p className="text-sm md:text-base font-mono tracking-[0.15em] text-muted-foreground uppercase mb-4">
-            Powered By Synthesized AI*
+            Powered By Synthesized AI
           </p>
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'Orbitron, sans-serif', color: '#2ecc71', textShadow: '0 0 5px rgba(46, 204, 113, 0.7)' }}>
             VALID: Integrated Identity & Payment Ecosystem

@@ -170,7 +170,7 @@ const Index = () => {
               </div>
               {/* Powered by text */}
               <p className="text-[10px] text-muted-foreground mt-2 font-medium tracking-[0.15em]">
-                Powered By Synthesized AI*
+                Powered By Synthesized AI
               </p>
             </div>
           </div>
@@ -285,7 +285,7 @@ const Index = () => {
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground mt-4 font-medium tracking-[0.15em]">
-                Powered By Synthesized AI*
+                Powered By Synthesized AI
               </p>
             </div>
 

@@ -27,10 +27,10 @@ const Hero = () => {
       </nav>
 
       {/* 2. MAIN CONTENT - Text LEFT, Video RIGHT */}
-      <div className="flex-1 flex flex-col md:flex-row items-center justify-center w-full max-w-7xl px-6 z-10 gap-8 md:gap-16 mt-4">
+      <div className="flex-1 flex flex-col-reverse md:flex-row items-center justify-center w-full max-w-7xl px-6 z-10 gap-8 md:gap-16 mt-4">
         
         {/* LEFT: TEXT CONTENT */}
-        <div className="flex-1 text-left">
+        <div className="flex-1 flex flex-col items-start text-left">
           <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 animate-pulse">
             POWERED BY SYNTHESIZED AI
           </div>
@@ -44,14 +44,12 @@ const Hero = () => {
             Your <span className="text-white font-bold">Adaptive AI Profile</span> for the real world. 
             Switch instantly between <span className="text-cyan-400">Travel</span>, <span className="text-purple-400">Access</span>, and <span className="text-gray-400">Privacy</span>.
           </p>
-          <div className="flex gap-4">
-            <button 
-              onClick={() => navigate('/auth')}
-              className="px-8 py-3 bg-white text-black font-bold text-lg rounded hover:bg-cyan-50 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105"
-            >
-              CLAIM YOUR ID <ArrowRight size={18} />
-            </button>
-          </div>
+          <button 
+            onClick={() => navigate('/auth')}
+            className="px-8 py-3 bg-white text-black font-bold text-lg rounded hover:bg-cyan-50 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105"
+          >
+            CLAIM YOUR ID <ArrowRight size={18} />
+          </button>
         </div>
 
         {/* RIGHT: VIDEO */}

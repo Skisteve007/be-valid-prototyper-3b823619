@@ -64,7 +64,7 @@ const Index = () => {
             <h2 className={`text-2xl md:text-3xl font-bold mb-3 font-orbitron tracking-wide ${isDark ? 'text-white' : 'text-slate-900'}`}>THE VALID <span className="text-cyan-400">STANDARD</span></h2>
             <p className={`max-w-2xl mx-auto leading-relaxed text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>The ecosystem designed for humans, not data points.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FeatureCard isDark={isDark} icon={<ShieldCheck size={28}/>} title="Military-Grade Fortress" desc="Your identity is locked behind Zero-Trust encryption. Impossible to fake." color="blue" />
             <FeatureCard isDark={isDark} icon={<Globe size={28}/>} title="Accepted Everywhere" desc="One key for the world. Skip the manual ID check at airports and venues." color="cyan" />
             <FeatureCard isDark={isDark} icon={<EyeOff size={28}/>} title="Your Data. Your Rules." desc="Ghost Protocol enabled. Context-aware sharing means you reveal only what's required." color="purple" />
@@ -79,7 +79,7 @@ const Index = () => {
           <h2 className={`text-2xl md:text-3xl font-black mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>ACTIVATE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">MEMBERSHIP</span></h2>
           <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>Required for App Access & Profile Creation.</p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <PricingCard isDark={isDark} title="Single" price="$19.50" period="Per 60 Days" originalPrice="$39" tag="50% OFF" isBeta={true} />
           <PricingCard isDark={isDark} title="Couple" price="$34.50" period="Per 60 Days" originalPrice="$69" tag="50% OFF" isBeta={true} />
           <PricingCard isDark={isDark} title="Single Year" price="$64.50" period="One-time" originalPrice="$129" tag="BEST VALUE" isBeta={true} isGold={true} />

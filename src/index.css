@@ -222,16 +222,16 @@ html, body, #root {
   50% { border-color: transparent; }
 }
 
-/* AI Listening Pulse */
+/* AI Listening Pulse - Dramatic Glow */
 @keyframes aiPulse {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.4;
-    box-shadow: 0 0 5px rgba(0, 240, 255, 0.4);
+    opacity: 1;
+    box-shadow: 0 0 8px 2px rgba(0, 240, 255, 0.8);
   }
   50% {
-    transform: scale(2);
+    transform: scale(2.5);
     opacity: 0;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+    box-shadow: 0 0 30px 10px rgba(0, 240, 255, 1);
   }
 }

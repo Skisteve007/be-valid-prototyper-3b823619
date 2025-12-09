@@ -65,9 +65,10 @@ const Hero = () => {
             <span className="inline-block animate-[typing_2s_steps(24)_forwards] whitespace-nowrap overflow-hidden">
               POWERED BY SYNTHESIZED AI
             </span>
-            <span className="relative flex h-2 w-2">
-              <span className="animate-[aiPulse_3s_ease-in-out_infinite] absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 shadow-[0_0_8px_rgba(0,240,255,0.8)]"></span>
+            <span className="relative flex h-3 w-3">
+              <span className="animate-[aiPulse_2s_ease-in-out_infinite] absolute inline-flex h-full w-full rounded-full bg-cyan-400"></span>
+              <span className="animate-[aiPulse_2s_ease-in-out_infinite_0.5s] absolute inline-flex h-full w-full rounded-full bg-cyan-400"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 shadow-[0_0_12px_4px_rgba(0,240,255,0.9)]"></span>
             </span>
           </div>
           

@@ -130,9 +130,9 @@ const BuildersVision = () => {
         <section className="text-center py-12">
           <img src={logo} alt="VALID" className="h-24 md:h-32 mx-auto mb-6 rounded-xl" />
           
-          {/* Powered by Synthetic AI */}
+          {/* Powered by Synthesized AI */}
           <p className="text-sm md:text-base font-mono tracking-[0.15em] text-muted-foreground uppercase mb-4">
-            Powered By Synthetic AI*
+            Powered By Synthesized AI*
           </p>
           
           <div className="flex items-center justify-center gap-2 mb-6">

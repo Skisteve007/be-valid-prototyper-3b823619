@@ -128,9 +128,9 @@ const VenueCompliance = () => {
       {/* Hero Section - Reduced size */}
       <div className="relative py-8 px-5">
         <div className="text-center space-y-4">
-          {/* Powered by Synthetic AI */}
+          {/* Powered by Synthesized AI */}
           <p className="text-sm md:text-base font-mono tracking-[0.15em] text-muted-foreground uppercase">
-            Powered By Synthetic AI*
+            Powered By Synthesized AI*
           </p>
           <h1 className="text-3xl md:text-4xl font-black italic bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent">
             Partner Solutions: Choose Your Industry

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +25,22 @@ import logo from "@/assets/valid-logo.jpeg";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const PitchDeck = () => {
+  const [displayedText, setDisplayedText] = useState('');
+  const fullText = 'POWERED BY SYNTHESIZED AI';
+  
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 80);
+    
+    return () => clearInterval(typingInterval);
+  }, []);
   const navigate = useNavigate();
 
   const metrics = [
@@ -126,10 +143,17 @@ const PitchDeck = () => {
           <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
             Seed Round Open
           </Badge>
-          {/* Powered by Synthesized AI */}
-          <p className="text-sm md:text-base font-mono tracking-[0.15em] text-muted-foreground uppercase mb-4">
-            Powered By Synthesized AI
-          </p>
+          {/* Powered by Synthesized AI - Typing Animation */}
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <p className="text-sm md:text-base font-mono tracking-[0.15em] text-muted-foreground uppercase">
+              <span>{displayedText}</span>
+              <span className="animate-pulse">|</span>
+            </p>
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
+            </span>
+          </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'Orbitron, sans-serif', color: '#2ecc71', textShadow: '0 0 5px rgba(46, 204, 113, 0.7)' }}>
             VALID: Integrated Identity & Payment Ecosystem
           </h1>

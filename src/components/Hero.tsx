@@ -88,9 +88,9 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button 
               onClick={() => navigate('/auth')}
-              className="px-8 py-4 bg-white text-black font-bold text-lg rounded hover:bg-cyan-50 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] min-h-[56px] touch-manipulation hover:scale-105"
+              className="px-6 py-3 bg-white text-black font-bold text-sm rounded hover:bg-cyan-50 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] min-h-[44px] touch-manipulation hover:scale-105"
             >
-              CLAIM YOUR ID <ArrowRight size={18} />
+              CLAIM YOUR ID <ArrowRight size={16} />
             </button>
           </div>
 

@@ -99,7 +99,7 @@ const Partners = () => {
               <li>• FHIR-Compatible Integration</li>
               <li>• Auto-Compliance (HIPAA/GDPR)</li>
             </ul>
-            <button className="w-full py-2 bg-teal-600 hover:bg-teal-500 rounded text-white font-bold text-xs mt-auto">ACCESS LAB PORTAL →</button>
+            <Link to="/lab-portal" className="w-full py-2 bg-teal-600 hover:bg-teal-500 rounded text-white font-bold text-xs mt-auto block text-center">ACCESS LAB PORTAL →</Link>
           </div>
 
           {/* CARD 3: NIGHTLIFE & EVENTS */}

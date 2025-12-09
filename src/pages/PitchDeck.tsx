@@ -5,26 +5,25 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   ArrowLeft, 
-  Shield, 
-  Users, 
   Globe, 
   TrendingUp, 
   Clock, 
-  Lock, 
   QrCode,
   Building2,
   DollarSign,
   Target,
   Zap,
-  CheckCircle2,
   ArrowRight,
   Check,
-  X
+  X,
+  ShieldCheck,
+  Lock,
+  Share2
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 const PitchDeck = () => {
+  const navigate = useNavigate();
   const [displayedText, setDisplayedText] = useState('');
   const fullText = 'POWERED BY SYNTHESIZED AI';
   
@@ -41,13 +40,12 @@ const PitchDeck = () => {
     
     return () => clearInterval(typingInterval);
   }, []);
-  const navigate = useNavigate();
 
   const metrics = [
-    { label: "Partner Venues", value: "28+", icon: Building2, color: "text-blue-500" },
-    { label: "Countries", value: "11", icon: Globe, color: "text-green-500" },
-    { label: "Verification Speed", value: "3 sec", icon: Clock, color: "text-purple-500" },
-    { label: "Member Growth", value: "15%", subtext: "MoM", icon: TrendingUp, color: "text-orange-500" },
+    { label: "Partner Venues", value: "28+", icon: Building2, color: "text-cyan-400" },
+    { label: "Countries", value: "11", icon: Globe, color: "text-green-400" },
+    { label: "Verification Speed", value: "3 sec", icon: Clock, color: "text-purple-400" },
+    { label: "Member Growth", value: "15%", subtext: "MoM", icon: TrendingUp, color: "text-orange-400" },
   ];
 
   const problemPoints = [
@@ -78,7 +76,7 @@ const PitchDeck = () => {
   ];
 
   const useOfFunds = [
-    { category: "Sales & Marketing", percent: 40, color: "bg-blue-500" },
+    { category: "Sales & Marketing", percent: 40, color: "bg-cyan-500" },
     { category: "Product Development", percent: 30, color: "bg-purple-500" },
     { category: "Operations", percent: 20, color: "bg-green-500" },
     { category: "Reserve", percent: 10, color: "bg-orange-500" },
@@ -105,29 +103,40 @@ const PitchDeck = () => {
 
   const renderCheck = (value: boolean, isValid?: boolean) => {
     if (value) {
-      return <Check className={`h-5 w-5 mx-auto ${isValid ? 'text-[#2ecc71]' : 'text-green-500'}`} />;
+      return <Check className={`h-5 w-5 mx-auto ${isValid ? 'text-cyan-400' : 'text-green-500'}`} />;
     }
     return <X className="h-5 w-5 mx-auto text-red-500" />;
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#050505] text-white selection:bg-cyan-500 selection:text-black relative overflow-hidden">
+      
+      {/* Background Grid */}
+      <div className="fixed inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
+      
+      {/* Background Atmosphere */}
+      <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-cyan-500/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]"></div>
+      </div>
+
       {/* Header */}
-      <header className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-white/10 bg-black/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Button 
             variant="ghost" 
             onClick={() => navigate(-1)}
-            className="text-muted-foreground hover:text-foreground"
+            className="text-gray-400 hover:text-white hover:bg-white/10"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
+          <div className="flex items-center gap-4">
+            <span className="text-xl font-bold font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">
+              VALID
+            </span>
             <Button 
-              variant="outline" 
-              className="border-border text-muted-foreground hover:bg-muted"
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
               onClick={() => window.open("mailto:invest@bevalid.app", "_blank")}
             >
               Contact Us
@@ -136,90 +145,105 @@ const PitchDeck = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-16">
+      <main className="container mx-auto px-4 py-8 space-y-16 relative z-10">
         {/* Hero Slide */}
         <section className="text-center py-16">
           <img src={logo} alt="VALID" className="h-32 md:h-40 mx-auto mb-6 rounded-xl" />
-          <Badge className="mb-6 bg-primary/20 text-primary border-primary/30">
+          <Badge className="mb-6 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 animate-pulse">
             Seed Round Open
           </Badge>
           {/* Powered by Synthesized AI - Typing Animation */}
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <p className="text-sm md:text-base font-mono tracking-[0.15em] text-muted-foreground uppercase">
-              <span>{displayedText}</span>
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400">
+            <span className="min-w-[200px]">
+              {displayedText}
               <span className="animate-pulse">|</span>
-            </p>
+            </span>
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8),0_0_20px_rgba(59,130,246,0.5)]"></span>
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'Orbitron, sans-serif', color: '#2ecc71', textShadow: '0 0 5px rgba(46, 204, 113, 0.7)' }}>
-            VALID: Integrated Identity & Payment Ecosystem
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 font-orbitron">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
+              VALID: Integrated Identity & Payment Ecosystem
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+          <p className="text-lg md:text-xl text-gray-400 font-orbitron">
             Pitch Deck Summary - Zero-Trust Compliance & Revenue Generation
           </p>
         </section>
 
         {/* Investment Thesis Section - Unicorn Thesis */}
         <section className="mb-8">
-          <div className="p-5 bg-card/70 border-l-4 border-[#2ecc71] rounded-lg">
-            <h3 className="text-xl font-bold text-amber-500 mb-3" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+            <h3 className="text-xl font-bold text-cyan-400 mb-6 font-orbitron flex items-center gap-2">
+              <Zap size={24} className="text-cyan-400" />
               Unicorn Thesis: The VALID Value Drivers
             </h3>
-            <ul className="text-muted-foreground list-disc list-inside space-y-3 text-sm">
-              <li className="font-bold text-foreground">
-                HIGH-MARGIN TRANSACTIONAL POWER:
-                <p className="text-muted-foreground font-normal mt-0.5 ml-5">The core revenue is the $10 Incognito Access Token, which operates at near-zero marginal cost, creating massive profitability as your organization scales up.</p>
-              </li>
-              <li className="font-bold text-foreground">
-                ZERO-TRUST ARCHITECTURAL MOAT:
-                <p className="text-muted-foreground font-normal mt-0.5 ml-5">The complexity of linking health data (HIPAA/GDPR) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model quickly.</p>
-              </li>
-              <li className="font-bold text-foreground">
-                VIRAL NETWORK INTEGRATION:
-                <p className="text-muted-foreground font-normal mt-0.5 ml-5">VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok, etc.), creating a massive, verified <strong>peer-to-peer network</strong> for partner exposure.</p>
-              </li>
-              <li className="font-bold text-foreground">
-                REGULATORY TAILWINDS & LIABILITY SHIFT:
-                <p className="text-muted-foreground font-normal mt-0.5 ml-5">We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider.</p>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-cyan-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap size={20} className="text-cyan-400" />
+                  <h4 className="font-bold text-white">HIGH-MARGIN TRANSACTIONAL POWER</h4>
+                </div>
+                <p className="text-gray-400 text-sm">The core revenue is the $10 Ghost Access Token, which operates at near-zero marginal cost, creating massive profitability as your organization scales up.</p>
+              </div>
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-purple-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <ShieldCheck size={20} className="text-purple-400" />
+                  <h4 className="font-bold text-white">ZERO-TRUST ARCHITECTURAL MOAT</h4>
+                </div>
+                <p className="text-gray-400 text-sm">The complexity of linking health data (HIPAA/GDPR) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model quickly.</p>
+              </div>
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-green-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <Share2 size={20} className="text-green-400" />
+                  <h4 className="font-bold text-white">VIRAL NETWORK INTEGRATION</h4>
+                </div>
+                <p className="text-gray-400 text-sm">VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok, etc.), creating a massive, verified peer-to-peer network for partner exposure.</p>
+              </div>
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-blue-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <Lock size={20} className="text-blue-400" />
+                  <h4 className="font-bold text-white">REGULATORY TAILWINDS & LIABILITY SHIFT</h4>
+                </div>
+                <p className="text-gray-400 text-sm">We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider.</p>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Competitive Scorecard Section */}
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-amber-500 mb-4" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+          <h2 className="text-xl font-bold text-cyan-400 mb-4 font-orbitron">
             Direct Competitive Scorecard: Why VALID Wins
           </h2>
-          <p className="text-muted-foreground text-sm mb-4">
-            VALID is the only platform integrating the <strong>eight key functions</strong> needed to de-risk and monetize high-liability businesses.
+          <p className="text-gray-400 text-sm mb-4">
+            VALID is the only platform integrating the <strong className="text-white">eight key functions</strong> needed to de-risk and monetize high-liability businesses.
           </p>
           
-          <div className="overflow-x-auto">
-            <table className="w-full text-[10px] font-mono border border-border">
+          <div className="overflow-x-auto bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">
+            <table className="w-full text-[10px] font-mono">
               <thead>
-                <tr className="bg-muted text-foreground">
+                <tr className="bg-white/5 text-white">
                   <th className="p-2 text-left font-bold uppercase" style={{ width: '25%' }}>VALID FEATURE</th>
-                  <th colSpan={7} className="p-2 text-center font-bold uppercase border-l border-border">COMPETITORS</th>
+                  <th colSpan={7} className="p-2 text-center font-bold uppercase border-l border-white/10">COMPETITORS</th>
                 </tr>
-                <tr className="bg-muted text-foreground">
+                <tr className="bg-white/5 text-white">
                   <th className="p-1" style={{ width: '25%' }}></th>
-                  <th className="p-1 text-center font-extrabold" style={{ width: '10%', color: '#2ecc71' }}>VALID</th>
-                  <th className="p-1 text-center" style={{ width: '9%' }}>CLEAR</th>
-                  <th className="p-1 text-center" style={{ width: '9%' }}>ID.me</th>
-                  <th className="p-1 text-center" style={{ width: '9%' }}>TICKETMASTER</th>
-                  <th className="p-1 text-center" style={{ width: '9%' }}>STERLING</th>
-                  <th className="p-1 text-center" style={{ width: '9%' }}>STDCHECK</th>
-                  <th className="p-1 text-center" style={{ width: '10%' }}>EVENTBRITE</th>
+                  <th className="p-1 text-center font-extrabold text-cyan-400" style={{ width: '10%' }}>VALID</th>
+                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>CLEAR</th>
+                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>ID.me</th>
+                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>TICKETMASTER</th>
+                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>STERLING</th>
+                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>STDCHECK</th>
+                  <th className="p-1 text-center text-gray-500" style={{ width: '10%' }}>EVENTBRITE</th>
                 </tr>
               </thead>
-              <tbody className="bg-card">
+              <tbody>
                 {scorecardData.map((row, idx) => (
-                  <tr key={idx} className="border-b border-border">
-                    <td className={`p-2 text-left text-foreground ${row.highlight ? 'font-semibold' : ''}`}>
+                  <tr key={idx} className="border-b border-white/5 hover:bg-white/5 transition">
+                    <td className={`p-2 text-left text-gray-300 ${row.highlight ? 'font-semibold' : ''}`}>
                       {row.feature}
                     </td>
                     <td className="p-1 text-center">{renderCheck(row.valid, true)}</td>
@@ -232,43 +256,43 @@ const PitchDeck = () => {
                   </tr>
                 ))}
                 {/* Total Score Row */}
-                <tr className="bg-amber-900/50 border-t-2 border-amber-600">
-                  <td className="p-2 text-left text-amber-300 font-extrabold" style={{ fontFamily: 'Orbitron, sans-serif' }}>
+                <tr className="bg-cyan-900/30 border-t-2 border-cyan-500/50">
+                  <td className="p-2 text-left text-cyan-400 font-extrabold font-orbitron">
                     TOTAL INTEGRATION SCORE (8 Max)
                   </td>
-                  <td className="p-1 text-center text-lg font-extrabold" style={{ color: '#f39c12' }}>{validScore}/8</td>
-                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{clearScore}/8</td>
-                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{idmeScore}/8</td>
-                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{ticketmasterScore}/8</td>
-                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{sterlingScore}/8</td>
-                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{stdcheckScore}/8</td>
-                  <td className="p-1 text-center text-lg text-muted-foreground font-extrabold">{eventbriteScore}/8</td>
+                  <td className="p-1 text-center text-lg font-extrabold text-cyan-400">{validScore}/8</td>
+                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{clearScore}/8</td>
+                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{idmeScore}/8</td>
+                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{ticketmasterScore}/8</td>
+                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{sterlingScore}/8</td>
+                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{stdcheckScore}/8</td>
+                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{eventbriteScore}/8</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <h3 className="text-lg font-bold text-amber-500 mt-6" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-            🔑 Key Differentiation: Zero-Trust Security
-          </h3>
-          <p className="text-muted-foreground text-sm mt-2">
-            Competitor security models (FCRA compliance, SSO identity) are <strong>static and siloed</strong>. VALID's <strong>Zero-Trust Architecture</strong> requires continuous verification and integrates dynamic, real-time health/tox data, making it the only truly risk-based access system. This level of comprehensive, dynamic security is unmatched and crucial for high-liability venues.
-          </p>
+          <div className="mt-6 bg-black/40 p-6 rounded-xl border border-cyan-500/30">
+            <h3 className="text-lg font-bold text-cyan-400 font-orbitron">
+              🔑 Key Differentiation: Zero-Trust Security
+            </h3>
+            <p className="text-gray-400 text-sm mt-2">
+              Competitor security models (FCRA compliance, SSO identity) are <strong className="text-white">static and siloed</strong>. VALID's <strong className="text-cyan-400">Zero-Trust Architecture</strong> requires continuous verification and integrates dynamic, real-time health/tox data, making it the only truly risk-based access system. This level of comprehensive, dynamic security is unmatched and crucial for high-liability venues.
+            </p>
+          </div>
         </section>
 
         {/* Key Metrics */}
         <section>
-          <h2 className="text-2xl font-bold text-center mb-8">Key Metrics</h2>
+          <h2 className="text-2xl font-bold text-center mb-8 font-orbitron text-white">Key Metrics</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {metrics.map((metric) => (
-              <Card key={metric.label} className="bg-card border-border">
-                <CardContent className="p-6 text-center">
-                  <metric.icon className={`h-8 w-8 mx-auto mb-3 ${metric.color}`} />
-                  <div className="text-3xl font-bold text-foreground">{metric.value}</div>
-                  {metric.subtext && <span className="text-sm text-muted-foreground">{metric.subtext}</span>}
-                  <div className="text-sm text-muted-foreground mt-1">{metric.label}</div>
-                </CardContent>
-              </Card>
+              <div key={metric.label} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-center hover:border-cyan-500/50 transition hover:-translate-y-1">
+                <metric.icon className={`h-8 w-8 mx-auto mb-3 ${metric.color}`} />
+                <div className="text-3xl font-bold text-white">{metric.value}</div>
+                {metric.subtext && <span className="text-sm text-gray-500">{metric.subtext}</span>}
+                <div className="text-sm text-gray-400 mt-1">{metric.label}</div>
+              </div>
             ))}
           </div>
         </section>
@@ -276,51 +300,47 @@ const PitchDeck = () => {
         {/* Problem */}
         <section className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <Badge variant="destructive" className="mb-4">The Problem</Badge>
-            <h2 className="text-3xl font-bold mb-6">Trust Without Proof</h2>
+            <Badge variant="destructive" className="mb-4 bg-red-500/20 text-red-400 border-red-500/30">The Problem</Badge>
+            <h2 className="text-3xl font-bold mb-6 text-white font-orbitron">Trust Without Proof</h2>
             <ul className="space-y-4">
               {problemPoints.map((point, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="h-6 w-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="text-red-400 text-sm">✕</span>
                   </div>
-                  <span className="text-muted-foreground">{point}</span>
+                  <span className="text-gray-400">{point}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <Card className="bg-gradient-to-br from-red-900/30 to-orange-900/30 border-red-800/50">
-            <CardContent className="p-8 text-center">
-              <div className="text-6xl mb-4">👽</div>
-              <p className="text-xl text-foreground">
-                "How do I know they're really safe?"
-              </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                — Every health-conscious person ever
-              </p>
-            </CardContent>
-          </Card>
+          <div className="bg-gradient-to-br from-red-900/30 to-orange-900/30 border border-red-800/50 p-8 rounded-xl text-center">
+            <div className="text-6xl mb-4">👽</div>
+            <p className="text-xl text-white">
+              "How do I know they're really safe?"
+            </p>
+            <p className="text-sm text-gray-400 mt-2">
+              — Every health-conscious person ever
+            </p>
+          </div>
         </section>
 
         {/* Solution */}
         <section className="grid md:grid-cols-2 gap-8 items-center">
-          <Card className="bg-gradient-to-br from-green-900/30 to-blue-900/30 border-green-800/50 order-2 md:order-1">
-            <CardContent className="p-8 text-center">
-              <QrCode className="h-24 w-24 mx-auto mb-4 text-green-400" />
-              <div className="inline-flex items-center gap-2 bg-green-500/20 px-4 py-2 rounded-full">
-                <div className="h-3 w-3 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-green-400 font-semibold">Verified</span>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-gradient-to-br from-cyan-900/30 to-blue-900/30 border border-cyan-500/50 p-8 rounded-xl text-center order-2 md:order-1 shadow-[0_0_30px_rgba(6,182,212,0.2)]">
+            <QrCode className="h-24 w-24 mx-auto mb-4 text-cyan-400" />
+            <div className="inline-flex items-center gap-2 bg-cyan-500/20 px-4 py-2 rounded-full">
+              <div className="h-3 w-3 bg-cyan-400 rounded-full animate-pulse" />
+              <span className="text-cyan-400 font-semibold">Verified</span>
+            </div>
+          </div>
           <div className="order-1 md:order-2">
-            <Badge className="mb-4 bg-green-500/20 text-green-400 border-green-500/30">The Solution</Badge>
-            <h2 className="text-3xl font-bold mb-6">VALID</h2>
+            <Badge className="mb-4 bg-cyan-500/20 text-cyan-400 border-cyan-500/30">The Solution</Badge>
+            <h2 className="text-3xl font-bold mb-6 text-white font-orbitron">VALID</h2>
             <div className="grid grid-cols-2 gap-4">
               {solutionPoints.map((point) => (
-                <div key={point.title} className="bg-card p-4 rounded-lg border border-border">
-                  <h3 className="font-semibold text-foreground mb-1">{point.title}</h3>
-                  <p className="text-sm text-muted-foreground">{point.desc}</p>
+                <div key={point.title} className="bg-black/40 p-4 rounded-lg border border-white/10 hover:border-cyan-500/50 transition">
+                  <h3 className="font-semibold text-white mb-1">{point.title}</h3>
+                  <p className="text-sm text-gray-400">{point.desc}</p>
                 </div>
               ))}
             </div>
@@ -329,122 +349,111 @@ const PitchDeck = () => {
 
         {/* Market Opportunity */}
         <section>
-          <h2 className="text-2xl font-bold text-center mb-2">Market Opportunity</h2>
-          <p className="text-muted-foreground text-center mb-8">$5.7B+ Total Addressable Market</p>
+          <h2 className="text-2xl font-bold text-center mb-2 text-white font-orbitron">Market Opportunity</h2>
+          <p className="text-gray-400 text-center mb-8">$5.7B+ Total Addressable Market</p>
           <div className="grid md:grid-cols-3 gap-4">
             {marketData.map((market) => (
-              <Card key={market.segment} className="bg-card border-border">
-                <CardContent className="p-6">
-                  <Target className="h-6 w-6 text-primary mb-3" />
-                  <div className="text-2xl font-bold text-foreground">{market.size}</div>
-                  <div className="text-foreground">{market.segment}</div>
-                  <Badge variant="secondary" className="mt-2">{market.growth}</Badge>
-                </CardContent>
-              </Card>
+              <div key={market.segment} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-cyan-500/50 transition hover:-translate-y-1">
+                <Target className="h-6 w-6 text-cyan-400 mb-3" />
+                <div className="text-2xl font-bold text-white">{market.size}</div>
+                <div className="text-white">{market.segment}</div>
+                <Badge className="mt-2 bg-cyan-500/20 text-cyan-400 border-cyan-500/30">{market.growth}</Badge>
+              </div>
             ))}
           </div>
         </section>
 
         {/* Business Model */}
         <section>
-          <h2 className="text-2xl font-bold text-center mb-8">Business Model</h2>
+          <h2 className="text-2xl font-bold text-center mb-8 text-white font-orbitron">Business Model</h2>
           <div className="grid md:grid-cols-4 gap-4">
             {revenueStreams.map((stream) => (
-              <Card key={stream.name} className="bg-card border-border">
-                <CardContent className="p-6 text-center">
-                  <DollarSign className="h-8 w-8 mx-auto mb-3 text-green-400" />
-                  <div className="font-semibold text-foreground">{stream.name}</div>
-                  <div className="text-xl font-bold text-green-400 my-2">{stream.price}</div>
-                  <Badge variant="outline" className="text-muted-foreground border-border">
-                    {stream.type}
-                  </Badge>
-                </CardContent>
-              </Card>
+              <div key={stream.name} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-center hover:border-green-500/50 transition hover:-translate-y-1">
+                <DollarSign className="h-8 w-8 mx-auto mb-3 text-green-400" />
+                <div className="font-semibold text-white">{stream.name}</div>
+                <div className="text-xl font-bold text-green-400 my-2">{stream.price}</div>
+                <Badge className="bg-white/10 text-gray-400 border-white/10">
+                  {stream.type}
+                </Badge>
+              </div>
             ))}
           </div>
         </section>
 
         {/* Use of Funds */}
         <section>
-          <h2 className="text-2xl font-bold text-center mb-8">Use of Funds</h2>
-          <Card className="bg-card border-border max-w-2xl mx-auto">
-            <CardContent className="p-6">
-              <div className="flex h-8 rounded-full overflow-hidden mb-6">
-                {useOfFunds.map((item) => (
-                  <div 
-                    key={item.category} 
-                    className={`${item.color}`} 
-                    style={{ width: `${item.percent}%` }}
-                  />
-                ))}
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                {useOfFunds.map((item) => (
-                  <div key={item.category} className="flex items-center gap-3">
-                    <div className={`h-3 w-3 rounded-full ${item.color}`} />
-                    <span className="text-muted-foreground">{item.category}</span>
-                    <span className="text-foreground font-semibold ml-auto">{item.percent}%</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <h2 className="text-2xl font-bold text-center mb-8 text-white font-orbitron">Use of Funds</h2>
+          <div className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 max-w-2xl mx-auto">
+            <div className="flex h-8 rounded-full overflow-hidden mb-6">
+              {useOfFunds.map((item) => (
+                <div 
+                  key={item.category} 
+                  className={`${item.color}`} 
+                  style={{ width: `${item.percent}%` }}
+                />
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {useOfFunds.map((item) => (
+                <div key={item.category} className="flex items-center gap-3">
+                  <div className={`h-3 w-3 rounded-full ${item.color}`} />
+                  <span className="text-gray-400">{item.category}</span>
+                  <span className="text-white font-semibold ml-auto">{item.percent}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* The Ask Section */}
         <section>
-          <Card className="bg-card/70 border-l-4" style={{ borderColor: '#2ecc71' }}>
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: 'Orbitron, sans-serif' }}>
-                Our Ask: $750,000 Seed Round
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                Funding is dedicated to <strong>accelerating DevSecOps implementation</strong> and securing the <strong>Lab Network Acquisition</strong> to capture a dominant market share.
-              </p>
-              <a 
-                href="mailto:invest@bevalid.app" 
-                className="mt-4 inline-block font-bold hover:text-foreground transition-colors"
-                style={{ fontFamily: 'Orbitron, sans-serif', color: '#f39c12' }}
-              >
-                Contact Investor Relations: invest@bevalid.app
-              </a>
-            </CardContent>
-          </Card>
+          <div className="bg-black/40 backdrop-blur-sm p-8 rounded-xl border-l-4 border-cyan-500 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+            <h3 className="text-xl font-bold text-white mb-2 font-orbitron">
+              Our Ask: $750,000 Seed Round
+            </h3>
+            <p className="text-gray-400 text-sm">
+              Funding is dedicated to <strong className="text-white">accelerating DevSecOps implementation</strong> and securing the <strong className="text-white">Lab Network Acquisition</strong> to capture a dominant market share.
+            </p>
+            <a 
+              href="mailto:invest@bevalid.app" 
+              className="mt-4 inline-block font-bold text-cyan-400 hover:text-cyan-300 transition-colors font-orbitron"
+            >
+              Contact Investor Relations: invest@bevalid.app
+            </a>
+          </div>
         </section>
 
         {/* CTA */}
         <section className="text-center py-12">
-          <Card className="bg-gradient-to-r from-primary/20 via-purple-500/20 to-pink-500/20 border-primary/30 max-w-2xl mx-auto">
-            <CardContent className="p-8">
-              <Zap className="h-12 w-12 mx-auto mb-4 text-primary" />
-              <h2 className="text-2xl font-bold mb-2">Join the Round</h2>
-              <p className="text-muted-foreground mb-6">
-                We are building the trust infrastructure for health-conscious communities worldwide.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-primary hover:bg-primary/90"
-                  onClick={() => window.open("mailto:invest@bevalid.app?subject=Investment Inquiry", "_blank")}
-                >
-                  Request Deck
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-border text-muted-foreground hover:bg-muted"
-                  onClick={() => navigate("/competitive-scorecard")}
-                >
-                  View Competitive Analysis
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-gradient-to-r from-cyan-900/30 via-purple-900/30 to-blue-900/30 border border-cyan-500/30 p-8 rounded-2xl max-w-2xl mx-auto shadow-[0_0_50px_rgba(6,182,212,0.15)]">
+            <Zap className="h-12 w-12 mx-auto mb-4 text-cyan-400" />
+            <h2 className="text-2xl font-bold mb-2 text-white font-orbitron">Join the Round</h2>
+            <p className="text-gray-400 mb-6">
+              We are building the trust infrastructure for health-conscious communities worldwide.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+                onClick={() => window.open("mailto:invest@bevalid.app?subject=Investment Inquiry", "_blank")}
+              >
+                Request Deck
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white/20 text-white hover:bg-white/10"
+                onClick={() => navigate("/competitive-scorecard")}
+              >
+                View Competitive Analysis
+              </Button>
+            </div>
+          </div>
         </section>
 
         {/* Footer */}
-        <section className="text-center text-muted-foreground text-sm pb-8">
+        <section className="text-center text-gray-500 text-sm pb-8">
           <p>VALID™ — The Safety Shield™</p>
           <p className="mt-1">Confidential — For Investor Use Only</p>
         </section>

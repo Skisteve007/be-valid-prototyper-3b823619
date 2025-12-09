@@ -35,21 +35,21 @@ const Hero = () => {
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
       
       {/* 1. NAVBAR (RESTORED Partner Button) */}
-      <nav className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center z-50">
+      <nav className="w-full px-4 md:px-6 py-4 md:py-6 flex justify-between items-center z-50">
         {/* THE LOGO */}
-        <div className="text-4xl font-black font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer">
+        <div className="text-2xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer shrink-0">
           VALID
         </div>
         
         {/* Navigation Actions */}
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 md:gap-4 items-center shrink-0">
           {/* RESTORED: For Partners Link */}
           <Link to="/partners" className="hidden md:block text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-4 py-2 rounded-full hover:bg-cyan-900/20">
             For Partners
           </Link>
           <button 
             onClick={() => navigate('/auth')}
-            className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-sm"
+            className="px-4 md:px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-xs md:text-sm whitespace-nowrap"
           >
             Launch App
           </button>

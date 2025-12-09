@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import React from 'react';
+import { ArrowRight, Sun, Moon } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Hero = () => {
+interface HeroProps {
+  isDark: boolean;
+  toggleTheme: () => void;
+}
+
+const Hero = ({ isDark, toggleTheme }: HeroProps) => {
   const navigate = useNavigate();
   
   return (
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
       
-      {/* 1. NAVBAR */}
+      {/* NAVBAR */}
       <nav className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center z-50">
         <div className="text-4xl font-black font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer">
           VALID
@@ -23,14 +28,23 @@ const Hero = () => {
           >
             Launch App
           </button>
+          <button 
+            onClick={toggleTheme}
+            className={`p-2 rounded-full transition-all duration-300 hover:scale-110 border
+              ${isDark 
+                ? 'bg-gray-800 text-cyan-400 border-cyan-500/50' 
+                : 'bg-white text-orange-500 border-orange-200'}`}
+          >
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
         </div>
       </nav>
 
-      {/* 2. MAIN CONTENT - Text LEFT, Video RIGHT */}
-      <div className="flex-1 flex flex-col-reverse md:flex-row items-center justify-center w-full max-w-7xl px-6 z-10 gap-8 md:gap-16 mt-4">
+      {/* MAIN CONTENT - Text LEFT, Video RIGHT */}
+      <div className="flex-1 flex flex-col md:flex-row items-center justify-center w-full max-w-7xl px-6 z-10 gap-8 md:gap-16 mt-4">
         
         {/* LEFT: TEXT CONTENT */}
-        <div className="flex-1 flex flex-col items-start text-left">
+        <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1">
           <div className="inline-block mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400 animate-pulse">
             POWERED BY SYNTHESIZED AI
           </div>
@@ -53,7 +67,7 @@ const Hero = () => {
         </div>
 
         {/* RIGHT: VIDEO */}
-        <div className="flex-1 flex justify-center md:justify-end">
+        <div className="flex-1 flex justify-center md:justify-end order-1 md:order-2">
           <div className="relative group w-[280px] md:w-[340px] aspect-[4/5]">
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>
             <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black">

@@ -66,20 +66,9 @@ const Index = () => {
         bg-[size:50px_50px]`}>
       </div>
 
-      {/* THEME TOGGLE */}
-      <button 
-        onClick={toggleTheme}
-        className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 border
-          ${isDark 
-            ? 'bg-gray-800 text-cyan-400 border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
-            : 'bg-white text-orange-500 border-orange-200 shadow-lg'}`}
-      >
-        {isDark ? <Sun size={24} /> : <Moon size={24} />}
-      </button>
-
       {/* 1. HERO SECTION (Video Portal) */}
       <div className="relative z-10">
-        <Hero />
+        <Hero isDark={isDark} toggleTheme={toggleTheme} />
       </div>
 
       {/* 2. THE TRUST BRIDGE (Fortress / Everywhere / Privacy) */}

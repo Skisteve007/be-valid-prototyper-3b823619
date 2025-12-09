@@ -277,7 +277,7 @@ const VenueCompliance = () => {
             </h2>
             
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              Our <strong className="text-foreground">Pre-Funded Wallet Architecture</strong> changes the game. Users load funds into their Incognito Token <em>before</em> they arrive. When they scan at your door or bar, the transaction is an instant <strong className="text-foreground">Zero-Fee Ledger Transfer</strong>.
+              Our <strong className="text-foreground">Pre-Funded Wallet Architecture</strong> changes the game. Users load funds into their Incognito Token <em>before</em> they arrive. When they scan at your business, the transaction is an instant <strong className="text-foreground">Zero-Fee Ledger Transfer</strong>.
             </p>
             
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">

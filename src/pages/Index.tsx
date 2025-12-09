@@ -1,8 +1,3 @@
-// *****************************************************************************
-// FILE: src/pages/Index.tsx
-// PURPOSE: RESTORED Homepage (Fixed Layout, Trust Bridge, Cyan Theme)
-// *****************************************************************************
-
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero'; 
 import Footer from '../components/Footer'; 
@@ -27,215 +22,65 @@ interface PricingCardProps {
   isGold?: boolean;
 }
 
-interface LabCardProps {
-  isDark: boolean;
-  title: string;
-  price: string;
-  badge: string;
-  badgeColor: string;
-  btnColor: 'cyan' | 'purple';
-  checks: string[];
-}
-
 const FeatureCard = ({ isDark, icon, title, desc, color }: FeatureCardProps) => (
-  <div className={`p-8 rounded-2xl border transition-all duration-500 group relative overflow-hidden backdrop-blur-sm
-    ${isDark 
-      ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50' 
-      : 'bg-white border-slate-200 hover:shadow-xl hover:border-cyan-300'}`}>
-    
-    <div className={`mb-6 p-4 rounded-full inline-block transition-colors duration-300
-      ${isDark ? 'bg-black text-white' : 'bg-slate-100 text-slate-800'}
-      ${color === 'cyan' && 'group-hover:text-cyan-400'}
-      ${color === 'purple' && 'group-hover:text-purple-400'}
-      ${color === 'blue' && 'group-hover:text-blue-400'}`}>
-      {icon}
-    </div>
-    
-    <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>
-      {title}
-    </h3>
-    <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-      {desc}
-    </p>
+  <div className={`p-8 rounded-2xl border transition-all duration-500 group relative overflow-hidden backdrop-blur-sm ${isDark ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50' : 'bg-white border-slate-200 hover:shadow-xl hover:border-cyan-300'}`}>
+    <div className={`mb-6 p-4 rounded-full inline-block transition-colors duration-300 ${isDark ? 'bg-black text-white' : 'bg-slate-100 text-slate-800'} ${color === 'cyan' && 'group-hover:text-cyan-400'} ${color === 'purple' && 'group-hover:text-purple-400'} ${color === 'blue' && 'group-hover:text-blue-400'}`}>{icon}</div>
+    <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
+    <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>{desc}</p>
   </div>
 );
 
 const PricingCard = ({ isDark, title, price, period, originalPrice, tag, isBeta, isGold }: PricingCardProps) => (
-  <div className={`p-8 rounded-2xl border relative transition-all duration-300 hover:-translate-y-2 group backdrop-blur-xl
-    ${isDark 
-      ? (isGold ? 'bg-black/40 border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.1)]' : 'bg-black/40 border-white/10') 
-      : (isGold ? 'bg-white border-cyan-400 shadow-xl shadow-cyan-100' : 'bg-white border-slate-200 shadow-sm')
-    }`}>
-    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase
-      ${isBeta ? 'bg-red-600 text-white' : 'bg-cyan-600 text-black'}`}>
-      {tag}
-    </div>
+  <div className={`p-8 rounded-2xl border relative transition-all duration-300 hover:-translate-y-2 group backdrop-blur-xl ${isDark ? (isGold ? 'bg-black/40 border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.1)]' : 'bg-black/40 border-white/10') : (isGold ? 'bg-white border-cyan-400 shadow-xl shadow-cyan-100' : 'bg-white border-slate-200 shadow-sm')}`}>
+    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase ${isBeta ? 'bg-red-600 text-white' : 'bg-cyan-600 text-black'}`}>{tag}</div>
     {isBeta && <div className="text-red-500 text-[10px] font-bold tracking-[0.2em] text-center mt-2 mb-4 animate-pulse">⚡ BETA PRICING ⚡</div>}
     <h3 className={`text-lg font-bold mb-2 font-orbitron ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>{title}</h3>
-    <div className="flex items-end justify-center gap-2 mb-1">
-      <span className="text-gray-400 line-through text-lg decoration-red-500/50">{originalPrice}</span>
-      <span className={`text-4xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{price}</span>
-    </div>
+    <div className="flex items-end justify-center gap-2 mb-1"><span className="text-gray-400 line-through text-lg decoration-red-500/50">{originalPrice}</span><span className={`text-4xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{price}</span></div>
     <div className={`text-xs mb-8 uppercase tracking-wider ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>{period}</div>
-    <button className={`w-full py-3 rounded font-bold transition uppercase tracking-widest text-xs
-      ${isGold 
-        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg' 
-        : (isDark ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-slate-100 text-slate-900 hover:bg-slate-200')}`}>
-      SELECT PLAN
-    </button>
+    <button className={`w-full py-3 rounded font-bold transition uppercase tracking-widest text-xs ${isGold ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg' : (isDark ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-slate-100 text-slate-900 hover:bg-slate-200')}`}>SELECT PLAN</button>
     {isBeta && <div className="text-red-500 text-[10px] font-bold text-center mt-4">🔥 Limited Time!</div>}
-  </div>
-);
-
-const LabCard = ({ isDark, title, price, badge, badgeColor, btnColor, checks }: LabCardProps) => (
-  <div className={`p-8 rounded-2xl border transition duration-500 relative overflow-hidden group backdrop-blur-sm
-    ${isDark 
-      ? 'bg-white/5 border-white/10 hover:border-cyan-500' 
-      : 'bg-white border-slate-200 shadow-lg hover:border-cyan-500 hover:shadow-cyan-100'}`}>
-    <div className={`absolute top-0 right-0 text-xs font-bold px-4 py-2 text-white ${badgeColor}`}>{badge}</div>
-    <h3 className={`text-2xl font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
-    <div className={`text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>{price}</div>
-    <ul className={`text-sm space-y-3 mb-8 font-mono ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-      {checks.map((check, i) => (
-        <li key={i} className="flex gap-3 items-center">
-          <Check size={16} className={btnColor === 'cyan' ? 'text-cyan-400' : 'text-purple-400'}/> {check}
-        </li>
-      ))}
-    </ul>
-    <button className={`w-full py-4 bg-transparent border rounded font-bold transition uppercase tracking-widest
-      ${btnColor === 'cyan' 
-        ? 'border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white' 
-        : 'border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white'}`}>
-      ORDER KIT
-    </button>
   </div>
 );
 
 const Index = () => {
   const [isDark, setIsDark] = useState(true); 
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (!isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
-
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
-  }, []);
+  const toggleTheme = () => { setIsDark(!isDark); if (!isDark) { document.documentElement.classList.add('dark'); } else { document.documentElement.classList.remove('dark'); } };
+  useEffect(() => { document.documentElement.classList.add('dark'); }, []);
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
-      ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
-      
-      {/* BACKGROUND TEXTURE */}
-      <div className={`fixed inset-0 pointer-events-none z-0 opacity-[0.03]
-        ${isDark ? 'bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)]' : 'bg-[linear-gradient(black_1px,transparent_1px),linear-gradient(90deg,black_1px,transparent_1px)]'}
-        bg-[size:50px_50px]`}>
-      </div>
+    <div className={`min-h-screen transition-colors duration-500 ease-in-out font-sans selection:bg-cyan-500 selection:text-white ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
+      <div className={`fixed inset-0 pointer-events-none z-0 opacity-[0.03] ${isDark ? 'bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)]' : 'bg-[linear-gradient(black_1px,transparent_1px),linear-gradient(90deg,black_1px,transparent_1px)]'} bg-[size:50px_50px]`}></div>
+      <button onClick={toggleTheme} className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 border ${isDark ? 'bg-gray-800 text-cyan-400 border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.3)]' : 'bg-white text-orange-500 border-orange-200 shadow-lg'}`}>{isDark ? <Sun size={24} /> : <Moon size={24} />}</button>
 
-      {/* THEME TOGGLE (Bottom Right) */}
-      <button 
-        onClick={toggleTheme}
-        className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 border
-          ${isDark 
-            ? 'bg-gray-800 text-cyan-400 border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
-            : 'bg-white text-orange-500 border-orange-200 shadow-lg'}`}
-      >
-        {isDark ? <Sun size={24} /> : <Moon size={24} />}
-      </button>
+      <div className="relative z-10"><Hero /></div>
 
-      {/* 1. HERO SECTION */}
-      <div className="relative z-10">
-        <Hero />
-      </div>
-
-      {/* 2. THE TRUST BRIDGE (Security / Reach / Privacy) */}
+      {/* TRUST BRIDGE */}
       <section className={`py-20 px-4 relative z-10 border-b border-white/5`}>
         <div className="max-w-7xl mx-auto">
-          
           <div className="text-center mb-16">
-            <h2 className={`text-3xl md:text-4xl font-bold mb-4 font-orbitron tracking-wide
-              ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              THE VALID <span className="text-cyan-400">STANDARD</span>
-            </h2>
-            <p className={`max-w-2xl mx-auto leading-relaxed
-              ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-              The ecosystem designed for humans, not data points.
-            </p>
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 font-orbitron tracking-wide ${isDark ? 'text-white' : 'text-slate-900'}`}>THE VALID <span className="text-cyan-400">STANDARD</span></h2>
+            <p className={`max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>The ecosystem designed for humans, not data points.</p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard 
-              isDark={isDark}
-              icon={<ShieldCheck size={32}/>}
-              title="Military-Grade Fortress"
-              desc="Your identity is locked behind Zero-Trust encryption. Impossible to fake. Impossible to steal. We built a complete digital fortress around your data."
-              color="blue"
-            />
-            <FeatureCard 
-              isDark={isDark}
-              icon={<Globe size={32}/>}
-              title="Accepted Everywhere"
-              desc="One key for the world. Skip the manual ID check at airports, entertainment venues, and corporate zones."
-              color="cyan"
-            />
-             <FeatureCard 
-              isDark={isDark}
-              icon={<EyeOff size={32}/>}
-              title="Your Data. Your Rules."
-              desc="Ghost Protocol enabled. Context-aware sharing means you reveal only what's required—whether it's age, health, or security clearance."
-              color="purple"
-            />
+            <FeatureCard isDark={isDark} icon={<ShieldCheck size={32}/>} title="Military-Grade Fortress" desc="Your identity is locked behind Zero-Trust encryption. Impossible to fake. Impossible to steal." color="blue" />
+            <FeatureCard isDark={isDark} icon={<Globe size={32}/>} title="Accepted Everywhere" desc="One key for the world. Skip the manual ID check at airports, entertainment venues, and corporate zones." color="cyan" />
+            <FeatureCard isDark={isDark} icon={<EyeOff size={32}/>} title="Your Data. Your Rules." desc="Ghost Protocol enabled. Context-aware sharing means you reveal only what's required." color="purple" />
           </div>
         </div>
       </section>
 
-      {/* 3. STEP 1: MEMBERSHIP */}
+      {/* MEMBERSHIP */}
       <section className="py-24 px-4 max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <div className={`inline-block px-3 py-1 mb-4 border rounded-full text-[10px] font-mono tracking-widest uppercase
-            ${isDark ? 'border-cyan-500/30 text-cyan-400' : 'border-blue-600/30 text-blue-600'}`}>
-            Phase 1
-          </div>
-          <h2 className={`text-4xl md:text-5xl font-black mb-2 font-orbitron
-            ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            ACTIVATE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">MEMBERSHIP</span>
-          </h2>
+          <div className={`inline-block px-3 py-1 mb-4 border rounded-full text-[10px] font-mono tracking-widest uppercase ${isDark ? 'border-cyan-500/30 text-cyan-400' : 'border-blue-600/30 text-blue-600'}`}>Phase 1</div>
+          <h2 className={`text-4xl md:text-5xl font-black mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>ACTIVATE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">MEMBERSHIP</span></h2>
           <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>Required for App Access & Profile Creation.</p>
         </div>
-
-        {/* PRICING GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <PricingCard isDark={isDark} title="Single Member" price="$19.50" period="Per 60 Days" originalPrice="$39" tag="50% OFF" isBeta={true} />
           <PricingCard isDark={isDark} title="Joint/Couple" price="$34.50" period="Per 60 Days" originalPrice="$69" tag="50% OFF" isBeta={true} />
           <PricingCard isDark={isDark} title="Single One Year" price="$64.50" period="One-time" originalPrice="$129" tag="BEST VALUE" isBeta={true} isGold={true} />
           <PricingCard isDark={isDark} title="Couple One Year" price="$109.50" period="One-time" originalPrice="$219" tag="BEST VALUE" isBeta={true} isGold={true} />
-        </div>
-      </section>
-
-      {/* 4. STEP 2: VERIFICATION */}
-      <section className={`py-24 px-4 border-t transition-colors duration-500
-        ${isDark ? 'bg-gradient-to-b from-black to-gray-900 border-white/5' : 'bg-slate-50 border-slate-200'}`}>
-        
-        <div className="text-center mb-16">
-          <div className={`inline-block px-3 py-1 mb-4 border rounded-full text-[10px] font-mono tracking-widest uppercase
-            ${isDark ? 'border-purple-500/30 text-purple-400' : 'border-purple-600/30 text-purple-600'}`}>
-            Phase 2 (Optional)
-          </div>
-          <h2 className={`text-4xl md:text-5xl font-black mb-2 font-orbitron
-            ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            GET <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">VERIFIED</span>
-          </h2>
-          <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>Upgrade to Lab-Certified Status.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <LabCard isDark={isDark} title="10-Panel Toxicology" price="$129.00" badge="LAB-CERTIFIED" badgeColor="bg-cyan-600" btnColor="cyan" checks={['Verified Drug Screen', 'Digital Badge Update']} />
-          <LabCard isDark={isDark} title="13-Panel Sexual Health" price="$249.00" badge="PLATINUM" badgeColor="bg-purple-600" btnColor="purple" checks={['Full STD Panel', 'Certified Health Badge']} />
         </div>
       </section>
 

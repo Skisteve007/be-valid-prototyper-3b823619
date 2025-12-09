@@ -149,36 +149,36 @@ interface PricingCardProps {
 }
 
 const PricingCard = ({ title, price, period, originalPrice, tag, isBeta, isGold }: PricingCardProps) => (
-  <div className={`bg-black/40 backdrop-blur-xl p-8 rounded-2xl border relative transition-all duration-300 hover:-translate-y-2 group
+  <div className={`bg-black/40 backdrop-blur-xl p-8 rounded-2xl border relative transition-all duration-500 hover:-translate-y-2 group
     ${isGold 
-      ? 'border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.1)] hover:border-cyan-400' 
-      : 'border-white/10 hover:border-white/30'}`}>
+      ? 'border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.15)] hover:border-cyan-400 hover:shadow-[0_0_50px_rgba(0,240,255,0.3)]' 
+      : 'border-cyan-500/20 hover:border-cyan-400/60 hover:shadow-[0_0_40px_rgba(0,240,255,0.2)]'}`}>
     
     {/* Tag */}
-    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase
-      ${isBeta ? 'bg-red-600 text-white' : 'bg-cyan-600 text-black'}`}>
+    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg
+      ${isGold ? 'bg-cyan-500 text-black' : 'bg-cyan-600/80 text-white'}`}>
       {tag}
     </div>
 
     {/* Beta Warning */}
-    {isBeta && <div className="text-red-500 text-[10px] font-bold tracking-[0.2em] text-center mt-2 mb-4 animate-pulse">⚡ BETA PRICING ⚡</div>}
+    {isBeta && <div className="text-cyan-400 text-[10px] font-bold tracking-[0.2em] text-center mt-2 mb-4 animate-pulse">⚡ BETA PRICING ⚡</div>}
 
-    <h3 className="text-lg font-bold text-gray-300 mb-2 font-orbitron">{title}</h3>
+    <h3 className="text-lg font-bold text-gray-300 mb-2 font-orbitron group-hover:text-white transition-colors">{title}</h3>
     
     <div className="flex items-end justify-center gap-2 mb-1">
-      <span className="text-gray-600 line-through text-lg decoration-red-500/50">{originalPrice}</span>
-      <span className="text-4xl font-bold text-white">{price}</span>
+      <span className="text-gray-600 line-through text-lg">{originalPrice}</span>
+      <span className="text-4xl font-bold text-white group-hover:text-cyan-400 transition-colors">{price}</span>
     </div>
     <div className="text-xs text-gray-500 mb-8 uppercase tracking-wider">{period}</div>
 
-    <button className={`w-full py-3 rounded font-bold transition uppercase tracking-widest text-xs
+    <button className={`w-full py-3 rounded font-bold transition-all duration-300 uppercase tracking-widest text-xs
       ${isGold 
-        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
-        : 'bg-white/10 text-white hover:bg-white/20'}`}>
+        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)]' 
+        : 'bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_25px_rgba(0,240,255,0.4)]'}`}>
       SELECT PLAN
     </button>
 
-    {isBeta && <div className="text-red-500 text-[10px] font-bold text-center mt-4">🔥 Limited Time!</div>}
+    {isBeta && <div className="text-cyan-500 text-[10px] font-bold text-center mt-4">🔥 Limited Time!</div>}
   </div>
 );
 

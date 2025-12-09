@@ -1,192 +1,188 @@
 import React, { useState, useEffect } from 'react';
-import { QrCode, ShieldCheck, Plane, Ghost, Sun, Moon, Copy, Check } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { QrCode, ShieldCheck, Plane, Ghost, Copy, Check, User, MapPin, Calendar, Smartphone, Mail, Lock } from 'lucide-react';
 
 const MyAccess = () => {
-  const navigate = useNavigate();
-  
   // --- STATE ---
-  const [isDark, setIsDark] = useState(true);
   const [activeMode, setActiveMode] = useState<'travel' | 'access' | 'incognito'>('access');
   const [copied, setCopied] = useState(false);
 
-  // --- THEME ENGINE (Persist Logic) ---
+  // --- FORCE DARK MODE ON MOUNT ---
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      setIsDark(false);
-      document.documentElement.classList.remove('dark');
-    } else {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
+    document.documentElement.classList.add('dark');
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    if (!newTheme) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-  };
-
-  // --- MOCK DATA ---
+  // --- MOCK USER DATA ---
   const user = {
     name: "STEVEN GRILLO",
     id: "VALID-8829-X",
     status: "VERIFIED",
-    exp: "12/26"
+    location: "Boca Raton, FL",
+    joined: "Member since 2025",
+    email: "steven@example.com",
+    phone: "+1 (555) 000-0000"
   };
 
-  // --- MODE CONFIG ---
+  // --- MODE STYLING CONFIG ---
   const modes = {
-    travel: { color: 'cyan', icon: <Plane size={16}/>, label: 'TRAVEL MODE', border: 'border-cyan-500', text: 'text-cyan-400', bg: 'bg-cyan-500' },
-    access: { color: 'purple', icon: <ShieldCheck size={16}/>, label: 'ACCESS MODE', border: 'border-purple-500', text: 'text-purple-400', bg: 'bg-purple-500' },
-    incognito: { color: 'gray', icon: <Ghost size={16}/>, label: 'GHOST MODE', border: 'border-white', text: 'text-gray-300', bg: 'bg-gray-500' },
+    travel: { color: 'cyan', icon: <Plane/>, label: 'TRAVEL', border: 'border-cyan-500', text: 'text-cyan-400', bg: 'bg-cyan-500/10', glow: 'shadow-[0_0_30px_rgba(6,182,212,0.3)]' },
+    access: { color: 'purple', icon: <ShieldCheck/>, label: 'ACCESS', border: 'border-purple-500', text: 'text-purple-400', bg: 'bg-purple-500/10', glow: 'shadow-[0_0_30px_rgba(168,85,247,0.3)]' },
+    incognito: { color: 'gray', icon: <Ghost/>, label: 'GHOST', border: 'border-white', text: 'text-gray-300', bg: 'bg-white/10', glow: 'shadow-[0_0_30px_rgba(255,255,255,0.1)]' },
   };
   const current = modes[activeMode];
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(window.location.origin + '/view-profile?id=' + user.id);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
-      ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
+    // MASTER CONTAINER: FORCED BLACK BACKGROUND
+    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-cyan-500 selection:text-black">
       
-      {/* BACKGROUND TEXTURE */}
-      <div className={`fixed inset-0 pointer-events-none z-0 opacity-[0.03]
-        ${isDark ? 'bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)]' : 'bg-[linear-gradient(black_1px,transparent_1px),linear-gradient(90deg,black_1px,transparent_1px)]'}
-        bg-[size:50px_50px]`}>
-      </div>
+      {/* BACKGROUND GRID TEXTURE */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.05] bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
-      {/* NAVBAR */}
-      <nav className="w-full max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6 flex justify-between items-center z-50 relative">
-        <Link to="/" className="text-3xl md:text-4xl font-black font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">
-          VALID
-        </Link>
+      <div className="relative z-10 pt-28 pb-20 px-4 max-w-4xl mx-auto flex flex-col md:flex-row gap-8">
         
-        <div className="flex gap-2 md:gap-4 items-center">
-          <button 
-            onClick={() => navigate('/')}
-            className="text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-4 py-2 rounded-full hover:bg-cyan-900/20"
-          >
-            Home
-          </button>
-        </div>
-      </nav>
-
-      {/* FLOATING THEME TOGGLE */}
-      <button 
-        onClick={toggleTheme}
-        className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 border
-          ${isDark 
-            ? 'bg-gray-800 text-cyan-400 border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
-            : 'bg-white text-orange-500 border-orange-200 shadow-lg'}`}
-      >
-        {isDark ? <Sun size={24} /> : <Moon size={24} />}
-      </button>
-
-      {/* MAIN CONTENT */}
-      <div className="relative z-10 pt-8 pb-20 px-4 flex flex-col items-center">
-        
-        {/* PROFILE HEADER */}
-        <div className="text-center mb-8 animate-fade-in">
-          <div className={`inline-block p-1 rounded-full border-2 mb-4 ${current.border} shadow-[0_0_20px_rgba(0,0,0,0.5)]`}>
-            <div className="w-24 h-24 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden relative">
-               <div className={`absolute inset-0 opacity-20 ${current.bg}`}></div>
-               <span className="text-2xl font-bold font-orbitron">{user.name.charAt(0)}</span>
-            </div>
-          </div>
-          <h1 className={`text-2xl font-black font-orbitron tracking-widest ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            {user.name}
-          </h1>
-          <div className={`text-xs font-mono tracking-[0.2em] mt-1 ${current.text}`}>
-            ID: {user.id} • {user.status}
-          </div>
-        </div>
-
-        {/* MODE TABS */}
-        <div className="flex gap-2 mb-8 bg-black/20 p-1 rounded-full backdrop-blur-md border border-white/5">
-          {(Object.keys(modes) as Array<keyof typeof modes>).map((m) => (
-            <button
-              key={m}
-              onClick={() => setActiveMode(m)}
-              className={`px-4 md:px-6 py-2 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2
-                ${activeMode === m 
-                  ? `${modes[m].bg} text-white shadow-lg` 
-                  : 'text-gray-500 hover:text-white'}`}
-            >
-              {modes[m].icon} <span className="hidden sm:inline">{modes[m].label}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* THE HOLOGRAPHIC ID CARD */}
-        <div className={`relative w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden border transition-all duration-500 group
-           ${isDark ? 'bg-black/40 backdrop-blur-xl border-white/10' : 'bg-white/80 border-slate-200 shadow-2xl'}
-           ${activeMode === 'travel' && isDark && 'shadow-[0_0_50px_rgba(6,182,212,0.15)] border-cyan-500/30'}
-           ${activeMode === 'access' && isDark && 'shadow-[0_0_50px_rgba(168,85,247,0.15)] border-purple-500/30'}
-           ${activeMode === 'incognito' && isDark && 'shadow-[0_0_50px_rgba(255,255,255,0.05)]'}
-        `}>
+        {/* LEFT COLUMN: THE ID CARD (Quick Share) */}
+        <div className="flex-1 flex flex-col items-center">
           
-          {/* Card Glow Effect */}
-          <div className={`absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b opacity-20 pointer-events-none
-            ${activeMode === 'travel' && 'from-cyan-500 to-transparent'}
-            ${activeMode === 'access' && 'from-purple-500 to-transparent'}
-            ${activeMode === 'incognito' && 'from-white to-transparent'}
-          `}></div>
+          {/* USER AVATAR */}
+          <div className="text-center mb-8">
+            <div className={`inline-block p-1 rounded-full border-2 mb-4 ${current.border} ${current.glow} transition-all duration-500`}>
+              <div className="w-24 h-24 rounded-full bg-gray-900 flex items-center justify-center overflow-hidden border border-white/10">
+                 <User size={40} className="text-gray-500" />
+              </div>
+            </div>
+            <h1 className="text-2xl font-black font-orbitron tracking-widest text-white">{user.name}</h1>
+            <div className={`text-xs font-mono tracking-[0.2em] mt-1 ${current.text}`}>
+              {user.status} • {user.id}
+            </div>
+          </div>
 
-          {/* Card Content */}
-          <div className="relative h-full flex flex-col items-center justify-center p-8">
-            
-            {/* Dynamic Status Badge */}
-            <div className={`mb-8 px-4 py-1 rounded-full border text-[10px] font-mono tracking-widest uppercase
-              ${activeMode === 'travel' && 'border-cyan-500 text-cyan-500'}
-              ${activeMode === 'access' && 'border-purple-500 text-purple-500'}
-              ${activeMode === 'incognito' && 'border-gray-500 text-gray-500'}
-            `}>
-              {activeMode === 'travel' && 'TSA PRECHECK • ACTIVE'}
-              {activeMode === 'access' && 'VIP ENTRY • GRANTED'}
-              {activeMode === 'incognito' && 'DATA MASKED • PRIVATE'}
+          {/* MODE SWITCHER */}
+          <div className="flex gap-2 mb-8 bg-white/5 p-1 rounded-full backdrop-blur-md border border-white/10">
+            {(Object.keys(modes) as Array<keyof typeof modes>).map((m) => (
+              <button
+                key={m}
+                onClick={() => setActiveMode(m)}
+                className={`px-4 py-2 rounded-full text-[10px] font-bold transition-all duration-300 flex items-center gap-2 tracking-wider
+                  ${activeMode === m 
+                    ? `${modes[m].bg} ${modes[m].text} border ${modes[m].border} shadow-lg` 
+                    : 'text-gray-500 hover:text-white'}`}
+              >
+                {modes[m].icon} <span className="hidden sm:inline">{modes[m].label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* HOLOGRAPHIC QR CARD */}
+          <div className={`relative w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden border transition-all duration-500 bg-black/40 backdrop-blur-xl group
+             ${current.border} ${current.glow}
+          `}>
+            {/* Inner Glow */}
+            <div className={`absolute top-0 left-0 w-full h-2/3 pointer-events-none
+              ${activeMode === 'travel' && 'bg-gradient-to-b from-cyan-500/20 to-transparent'}
+              ${activeMode === 'access' && 'bg-gradient-to-b from-purple-500/20 to-transparent'}
+              ${activeMode === 'incognito' && 'bg-gradient-to-b from-white/10 to-transparent'}
+            `}></div>
+
+            <div className="relative h-full flex flex-col items-center justify-center p-8">
+              <div className={`mb-8 px-4 py-1 rounded-full border text-[10px] font-mono tracking-widest uppercase bg-black/50 ${current.text} ${current.border}`}>
+                {current.label} ACTIVE
+              </div>
+
+              {/* QR Code Container */}
+              <div className="p-4 bg-white rounded-xl shadow-2xl mb-8 relative">
+                 <QrCode size={160} className="text-black" />
+                 {/* Scan Line */}
+                 {activeMode !== 'incognito' && (
+                   <div className={`absolute top-0 left-0 w-full h-1 z-20 animate-[scan_2s_ease-in-out_infinite]
+                     ${activeMode === 'travel' && 'bg-cyan-500/50'}
+                     ${activeMode === 'access' && 'bg-purple-500/50'}
+                   `}></div>
+                 )}
+              </div>
+
+              <div className="text-center w-full">
+                 <p className="text-xs font-mono mb-2 text-gray-500 uppercase">Scan to Verify</p>
+                 <button onClick={handleCopy} className="flex items-center justify-center gap-2 w-full py-3 rounded border border-white/10 hover:bg-white/5 text-xs font-bold transition-all text-white">
+                   {copied ? <Check size={14} className="text-green-500"/> : <Copy size={14}/>}
+                   {copied ? 'LINK COPIED' : 'COPY LINK'}
+                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: THE DASHBOARD DETAILS (Personal Front) */}
+        <div className="flex-1">
+          <h2 className="text-xl font-bold font-orbitron mb-6 text-white border-l-4 border-cyan-500 pl-4">
+            MEMBER DETAILS
+          </h2>
+
+          <div className="space-y-4">
+            {/* DETAIL CARD 1 */}
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-500/50 transition duration-300">
+              <div className="flex items-center gap-3 mb-2 text-gray-400">
+                <MapPin size={16} /> <span className="text-xs font-mono uppercase">Primary Location</span>
+              </div>
+              <div className="text-lg font-bold text-white">{user.location}</div>
             </div>
 
-            {/* THE QR CODE */}
-            <div className="p-4 bg-white rounded-xl shadow-2xl mb-8 relative group cursor-pointer transition-transform hover:scale-105">
-               <div className="absolute -inset-1 bg-gradient-to-r from-gray-200 to-gray-400 rounded-xl blur opacity-25 group-hover:opacity-50 transition"></div>
-               <QrCode size={180} className="text-black relative z-10" />
-               
-               {/* Scan Line Animation */}
-               <div className={`absolute top-4 left-4 right-4 h-1 rounded z-20 animate-[scan_2s_ease-in-out_infinite] pointer-events-none
-                 ${activeMode === 'travel' && 'bg-cyan-500/70'}
-                 ${activeMode === 'access' && 'bg-purple-500/70'}
-                 ${activeMode === 'incognito' && 'hidden'}
-               `}></div>
+            {/* DETAIL CARD 2 */}
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-500/50 transition duration-300">
+              <div className="flex items-center gap-3 mb-2 text-gray-400">
+                <Calendar size={16} /> <span className="text-xs font-mono uppercase">Membership Tier</span>
+              </div>
+              <div className="text-lg font-bold text-white flex items-center gap-2">
+                Platinum Access <span className="text-[10px] bg-cyan-900 text-cyan-400 px-2 py-0.5 rounded border border-cyan-700">ACTIVE</span>
+              </div>
             </div>
 
-            <div className="text-center w-full">
-               <p className={`text-xs font-mono mb-2 ${isDark ? 'text-gray-500' : 'text-slate-400'}`}>TAP TO SHARE</p>
-               <button onClick={handleCopy} className={`flex items-center justify-center gap-2 w-full py-3 rounded border text-xs font-bold transition-all
-                 ${isDark ? 'border-white/10 hover:bg-white/5' : 'border-slate-200 hover:bg-slate-50 text-slate-700'}
-               `}>
-                 {copied ? <Check size={14} className="text-green-500"/> : <Copy size={14}/>}
-                 {copied ? 'LINK COPIED' : 'COPY PROFILE LINK'}
-               </button>
+            {/* DETAIL CARD 3 (Private Info - Blurry in Ghost Mode) */}
+            <div className={`bg-white/5 border border-white/10 rounded-xl p-6 transition duration-300 relative
+              ${activeMode === 'incognito' ? 'opacity-50 blur-[2px]' : 'hover:border-cyan-500/50'}`}>
+              <div className="flex items-center gap-3 mb-4 text-gray-400 border-b border-white/5 pb-2">
+                <Lock size={16} /> <span className="text-xs font-mono uppercase">Private Contact</span>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-gray-300">
+                    <Mail size={16} /> {user.email}
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-gray-300">
+                    <Smartphone size={16} /> {user.phone}
+                  </div>
+                </div>
+              </div>
+              
+              {activeMode === 'incognito' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="bg-black/80 px-4 py-2 rounded border border-white/20 text-xs font-bold text-white">HIDDEN IN GHOST MODE</span>
+                </div>
+              )}
+            </div>
+
+            {/* LAB RESULTS SECTION */}
+            <div className="mt-8">
+               <h3 className="text-sm font-bold font-orbitron mb-4 text-gray-400">VERIFIED HEALTH STATUS</h3>
+               <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 flex items-center justify-between">
+                 <div className="flex items-center gap-3">
+                   <ShieldCheck size={24} className="text-green-400" />
+                   <div>
+                     <div className="text-white font-bold text-sm">Toxicology Screen</div>
+                     <div className="text-green-400 text-xs">Verified Clean • 12/01/2025</div>
+                   </div>
+                 </div>
+                 <button className="text-xs bg-green-500 text-black px-3 py-1.5 rounded font-bold hover:bg-green-400">VIEW</button>
+               </div>
             </div>
 
           </div>
-
-          {/* Bottom Branding */}
-          <div className="absolute bottom-4 left-0 w-full text-center">
-            <span className="text-[10px] font-black font-orbitron text-gray-600 tracking-[0.3em]">VALID OS</span>
-          </div>
-
         </div>
 
       </div>

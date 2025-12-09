@@ -1,10 +1,10 @@
 // *****************************************************************************
 // FILE: src/pages/Partners.tsx
-// PURPOSE: The "Unicorn Thesis" Enterprise Page (Merged Content)
+// PURPOSE: RESTORED "Unicorn Thesis" Enterprise Page (Fixed Layout)
 // *****************************************************************************
 
 import React from 'react';
-import { ShieldCheck, TrendingUp, Users, Truck, Building, Activity, DollarSign, Lock, Zap, Code, ArrowRight, Layers, Share2, Globe, CheckCircle } from 'lucide-react';
+import { ShieldCheck, DollarSign, Lock, Zap, Share2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface ThesisCardProps {
@@ -37,14 +37,14 @@ const ThesisCard = ({ icon, title, desc }: ThesisCardProps) => (
 
 const StackItem = ({ title, desc, color }: StackItemProps) => {
   const colorClasses = {
-    cyan: 'border-cyan-900/50 bg-cyan-900/10 text-cyan-400',
-    purple: 'border-purple-900/50 bg-purple-900/10 text-purple-400',
-    green: 'border-green-900/50 bg-green-900/10 text-green-400',
+    cyan: { border: 'border-cyan-900/50', bg: 'bg-cyan-900/10', text: 'text-cyan-400' },
+    purple: { border: 'border-purple-900/50', bg: 'bg-purple-900/10', text: 'text-purple-400' },
+    green: { border: 'border-green-900/50', bg: 'bg-green-900/10', text: 'text-green-400' },
   };
 
   return (
-    <div className={`p-6 rounded-xl border ${colorClasses[color].split(' ').slice(0, 2).join(' ')}`}>
-      <h4 className={`text-lg font-bold ${colorClasses[color].split(' ')[2]} mb-1`}>{title}</h4>
+    <div className={`p-6 rounded-xl border ${colorClasses[color].border} ${colorClasses[color].bg}`}>
+      <h4 className={`text-lg font-bold ${colorClasses[color].text} mb-1`}>{title}</h4>
       <p className="text-sm text-gray-400">{desc}</p>
     </div>
   );
@@ -52,15 +52,15 @@ const StackItem = ({ title, desc, color }: StackItemProps) => {
 
 const RoadmapItem = ({ phase, title, status, desc, color }: RoadmapItemProps) => {
   const colorClasses = {
-    cyan: 'border-cyan-500 text-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.3)]',
-    purple: 'border-purple-500 text-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.3)]',
-    gray: 'border-gray-500 text-gray-500 shadow-[0_0_20px_rgba(255,255,255,0.1)]',
+    cyan: { border: 'border-cyan-500', text: 'text-cyan-500' },
+    purple: { border: 'border-purple-500', text: 'text-purple-500' },
+    gray: { border: 'border-gray-500', text: 'text-gray-500' },
   };
 
   return (
     <div className="bg-black p-6 rounded-xl border border-white/10 hover:-translate-y-2 transition duration-300">
-      <div className={`w-24 h-24 mx-auto rounded-full bg-black border-4 ${colorClasses[color]} flex items-center justify-center mb-6`}>
-         <div className="font-bold text-xs">{status}</div>
+      <div className={`w-24 h-24 mx-auto rounded-full bg-black border-4 ${colorClasses[color].border} flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(0,0,0,0.5)]`}>
+         <div className={`font-bold text-xs ${colorClasses[color].text}`}>{status}</div>
       </div>
       <div className="text-xs font-mono text-gray-500 mb-2">{phase}</div>
       <h3 className="text-xl font-bold font-orbitron mb-2 text-white">{title}</h3>
@@ -97,7 +97,7 @@ const Partners = () => {
       {/* 2. THE BUILDER'S VISION (Hero) */}
       <header className="relative py-28 px-6 text-center z-10 max-w-5xl mx-auto">
         <div className="inline-block mb-6 px-4 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-[10px] font-mono tracking-[0.2em] animate-pulse">
-          POWERED BY SYNTHESIZED AI
+          POWERED BY SYNTHETIC AI
         </div>
         
         <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-white font-orbitron drop-shadow-[0_0_20px_rgba(0,240,255,0.2)]">
@@ -124,25 +124,21 @@ const Partners = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Card 1: Transactional Power */}
           <ThesisCard 
             icon={<Zap size={24} className="text-cyan-400"/>}
             title="High-Margin Transactional Power"
             desc="The core revenue is the $10-$50 Incognito Access Token. It operates at near-zero marginal cost, creating massive profitability as your organization scales up."
           />
-          {/* Card 2: Zero-Trust Moat */}
           <ThesisCard 
             icon={<ShieldCheck size={24} className="text-purple-400"/>}
             title="Zero-Trust Architectural Moat"
             desc="The complexity of linking health data (HIPAA) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model."
           />
-          {/* Card 3: Viral Network */}
           <ThesisCard 
             icon={<Share2 size={24} className="text-green-400"/>}
             title="Viral Network Integration"
             desc="VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok), creating a verified peer-to-peer network."
           />
-          {/* Card 4: Liability Shift */}
           <ThesisCard 
             icon={<Lock size={24} className="text-blue-400"/>}
             title="Regulatory Liability Shift"
@@ -198,7 +194,7 @@ const Partners = () => {
         </div>
       </section>
 
-      {/* 5. THE CFO ALERT (Money Section) */}
+      {/* 5. THE CFO ALERT */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-cyan-900/5 -skew-y-3 transform origin-left"></div>
         <div className="max-w-6xl mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -229,7 +225,6 @@ const Partners = () => {
       <section className="max-w-7xl mx-auto px-6 py-24 border-t border-white/10">
         <h2 className="text-3xl font-bold mb-12 text-center font-orbitron tracking-wide">THE VISION ROADMAP</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
-           {/* Connecting Line (Desktop) */}
            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-gray-700 -z-10"></div>
            
            <RoadmapItem 
@@ -253,20 +248,6 @@ const Partners = () => {
              desc="Become the default trust layer for high-liability social and commercial interactions worldwide."
              color="gray"
            />
-        </div>
-      </section>
-
-      {/* 7. INDUSTRY GRID (Brief) */}
-      <section className="max-w-7xl mx-auto px-6 pb-24 text-center">
-        <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-8">Strategic Vertical Expansion</h3>
-        <div className="flex flex-wrap justify-center gap-4 text-xs font-mono text-cyan-400">
-          <span className="border border-cyan-900 bg-cyan-900/20 px-4 py-2 rounded">WORKFORCE</span>
-          <span className="text-gray-600">→</span>
-          <span className="border border-cyan-900 bg-cyan-900/20 px-4 py-2 rounded">TRANSPORTATION</span>
-          <span className="text-gray-600">→</span>
-          <span className="border border-cyan-900 bg-cyan-900/20 px-4 py-2 rounded">HIGH-END RENTALS</span>
-          <span className="text-gray-600">→</span>
-          <span className="border border-cyan-900 bg-cyan-900/20 px-4 py-2 rounded">ENTERTAINMENT</span>
         </div>
       </section>
 

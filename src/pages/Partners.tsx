@@ -1,178 +1,278 @@
+// *****************************************************************************
+// FILE: src/pages/Partners.tsx
+// PURPOSE: The "Unicorn Thesis" Enterprise Page (Merged Content)
+// *****************************************************************************
+
 import React from 'react';
-import { ShieldCheck, Activity, Users, Truck, Lock, Code, Zap, DollarSign } from 'lucide-react';
+import { ShieldCheck, TrendingUp, Users, Truck, Building, Activity, DollarSign, Lock, Zap, Code, ArrowRight, Layers, Share2, Globe, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+interface ThesisCardProps {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}
+
+interface StackItemProps {
+  title: string;
+  desc: string;
+  color: 'cyan' | 'purple' | 'green';
+}
+
+interface RoadmapItemProps {
+  phase: string;
+  title: string;
+  status: string;
+  desc: string;
+  color: 'cyan' | 'purple' | 'gray';
+}
+
+const ThesisCard = ({ icon, title, desc }: ThesisCardProps) => (
+  <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-white/10 transition duration-300">
+    <div className="mb-4">{icon}</div>
+    <h3 className="text-lg font-bold font-orbitron mb-2 text-white">{title}</h3>
+    <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
+  </div>
+);
+
+const StackItem = ({ title, desc, color }: StackItemProps) => {
+  const colorClasses = {
+    cyan: 'border-cyan-900/50 bg-cyan-900/10 text-cyan-400',
+    purple: 'border-purple-900/50 bg-purple-900/10 text-purple-400',
+    green: 'border-green-900/50 bg-green-900/10 text-green-400',
+  };
+
+  return (
+    <div className={`p-6 rounded-xl border ${colorClasses[color].split(' ').slice(0, 2).join(' ')}`}>
+      <h4 className={`text-lg font-bold ${colorClasses[color].split(' ')[2]} mb-1`}>{title}</h4>
+      <p className="text-sm text-gray-400">{desc}</p>
+    </div>
+  );
+};
+
+const RoadmapItem = ({ phase, title, status, desc, color }: RoadmapItemProps) => {
+  const colorClasses = {
+    cyan: 'border-cyan-500 text-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.3)]',
+    purple: 'border-purple-500 text-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.3)]',
+    gray: 'border-gray-500 text-gray-500 shadow-[0_0_20px_rgba(255,255,255,0.1)]',
+  };
+
+  return (
+    <div className="bg-black p-6 rounded-xl border border-white/10 hover:-translate-y-2 transition duration-300">
+      <div className={`w-24 h-24 mx-auto rounded-full bg-black border-4 ${colorClasses[color]} flex items-center justify-center mb-6`}>
+         <div className="font-bold text-xs">{status}</div>
+      </div>
+      <div className="text-xs font-mono text-gray-500 mb-2">{phase}</div>
+      <h3 className="text-xl font-bold font-orbitron mb-2 text-white">{title}</h3>
+      <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
+    </div>
+  );
+};
 
 const Partners = () => {
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-yellow-500 selection:text-black">
+    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-cyan-500 selection:text-black relative overflow-hidden">
       
-      {/* 1. B2B HEADER */}
-      <nav className="border-b border-gray-800 bg-black/90 backdrop-blur-md sticky top-0 z-50">
+      {/* BACKGROUND GRID */}
+      <div className="fixed inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
+
+      {/* 1. NAVIGATION */}
+      <nav className="border-b border-white/10 bg-black/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <span className="text-xl font-bold font-orbitron tracking-widest text-white">VALID</span>
-            <span className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded border border-gray-700">PARTNER SOLUTIONS</span>
+            <span className="text-xl font-bold font-orbitron tracking-[0.2em] text-white">VALID</span>
+            <span className="text-[10px] bg-cyan-900/30 text-cyan-400 px-2 py-1 rounded border border-cyan-500/30 tracking-widest uppercase">
+              Partner Solutions
+            </span>
           </div>
-          <div className="flex gap-4">
-            <button className="text-sm text-gray-400 hover:text-white">Investor Relations</button>
-            <Link to="/" className="px-4 py-2 bg-white text-black text-sm font-bold rounded hover:bg-gray-200 transition">
-              Back to App
+          <div className="flex gap-4 items-center">
+            <button className="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-widest transition">Investor Deck</button>
+            <Link to="/" className="px-5 py-2 border border-white/20 hover:bg-white hover:text-black text-xs font-bold rounded-full transition-all uppercase tracking-widest">
+              Consumer App
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* 2. VISION HERO */}
-      <header className="py-20 px-6 text-center">
-        <div className="inline-block mb-4 px-3 py-1 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-mono tracking-widest">
+      {/* 2. THE BUILDER'S VISION (Hero) */}
+      <header className="relative py-28 px-6 text-center z-10 max-w-5xl mx-auto">
+        <div className="inline-block mb-6 px-4 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-[10px] font-mono tracking-[0.2em] animate-pulse">
           POWERED BY SYNTHESIZED AI
         </div>
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-          The Builder's Vision.
+        
+        <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-white font-orbitron drop-shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+          THE BUILDER'S VISION
         </h1>
-        <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-10">
-          Automated Compliance and Risk Management for High-Liability Sectors.
-          <br />Shield your organization from health, security, and compliance liability.
-        </p>
+        
+        {/* The Quote */}
+        <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm relative">
+          <div className="text-4xl text-cyan-500 absolute top-4 left-4 font-serif">"</div>
+          <p className="text-lg md:text-xl text-gray-300 italic leading-relaxed mb-6 px-4">
+            We are not building another app; we are architecting the foundational <strong className="text-white">Zero-Trust infrastructure</strong> for the next economy. 
+            VALID is the definitive answer to the two questions every executive must ask: 
+            <span className="text-cyan-400"> How do I eliminate operational liability, and how do I monetize access?</span>
+          </p>
+          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— The Vision Behind VALID</div>
+        </div>
       </header>
 
-      {/* 3. THE CFO SECTION (Money & Savings) */}
-      <section className="bg-gray-900/30 border-y border-gray-800 py-16">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      {/* 3. THE UNICORN THESIS (4-Card Grid) */}
+      <section className="max-w-7xl mx-auto px-6 py-12 relative z-10">
+        <div className="text-center mb-12">
+           <h2 className="text-3xl font-bold font-orbitron mb-2">THE UNICORN THESIS</h2>
+           <p className="text-gray-400">Why VALID is a billion-dollar platform.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Card 1: Transactional Power */}
+          <ThesisCard 
+            icon={<Zap size={24} className="text-cyan-400"/>}
+            title="High-Margin Transactional Power"
+            desc="The core revenue is the $10-$50 Incognito Access Token. It operates at near-zero marginal cost, creating massive profitability as your organization scales up."
+          />
+          {/* Card 2: Zero-Trust Moat */}
+          <ThesisCard 
+            icon={<ShieldCheck size={24} className="text-purple-400"/>}
+            title="Zero-Trust Architectural Moat"
+            desc="The complexity of linking health data (HIPAA) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model."
+          />
+          {/* Card 3: Viral Network */}
+          <ThesisCard 
+            icon={<Share2 size={24} className="text-green-400"/>}
+            title="Viral Network Integration"
+            desc="VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok), creating a verified peer-to-peer network."
+          />
+          {/* Card 4: Liability Shift */}
+          <ThesisCard 
+            icon={<Lock size={24} className="text-blue-400"/>}
+            title="Regulatory Liability Shift"
+            desc="We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider."
+          />
+        </div>
+      </section>
+
+      {/* 4. TRI-LAYER REVENUE STACK */}
+      <section className="py-24 bg-white/5 border-y border-white/10 relative z-10">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+           <div>
+              <h2 className="text-3xl font-bold font-orbitron mb-6">THE REVENUE <span className="text-cyan-400">STACK</span></h2>
+              <p className="text-gray-400 mb-8">We capture value at every layer of the interaction.</p>
+              
+              <div className="space-y-4">
+                 <StackItem 
+                   title="1. Access Monetization" 
+                   desc="High-velocity $10-$50 Incognito Tokens at the door."
+                   color="cyan"
+                 />
+                 <StackItem 
+                   title="2. Health Reseller Margin" 
+                   desc="We capture the 40-60% spread between wholesale lab costs and retail pricing. We don't just refer tests; we sell them."
+                   color="purple"
+                 />
+                 <StackItem 
+                   title="3. SaaS Subscriptions" 
+                   desc="Recurring monthly revenue from Venue and Corporate Partners for the compliance dashboard."
+                   color="green"
+                 />
+              </div>
+           </div>
+           
+           {/* Visual Stack Graphic */}
+           <div className="relative">
+              <div className="absolute inset-0 bg-cyan-500/20 blur-[80px] rounded-full"></div>
+              <div className="relative z-10 space-y-4">
+                 <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                    <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 3</div>
+                    <div className="font-bold text-xl">SaaS RECURRING</div>
+                 </div>
+                 <div className="bg-black border border-purple-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(168,85,247,0.2)] translate-x-4">
+                    <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 2</div>
+                    <div className="font-bold text-xl">HEALTH MARGIN (60%)</div>
+                 </div>
+                 <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] translate-x-8">
+                    <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 1</div>
+                    <div className="font-bold text-xl">ACCESS TOKENS</div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
+
+      {/* 5. THE CFO ALERT (Money Section) */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-cyan-900/5 -skew-y-3 transform origin-left"></div>
+        <div className="max-w-6xl mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <DollarSign className="text-green-400" />
-              <span className="text-green-400 font-bold tracking-widest">CFO ALERT</span>
+            <div className="flex items-center gap-2 mb-6">
+              <div className="bg-cyan-500/20 p-2 rounded text-cyan-400"><DollarSign size={20}/></div>
+              <span className="text-cyan-400 font-bold tracking-[0.2em] text-sm">CFO ALERT</span>
             </div>
-            <h2 className="text-3xl font-bold mb-4">Eliminate Merchant Fees.</h2>
-            <p className="text-gray-400 mb-6">
-              Stop losing 4% on every swipe. Our Pre-Funded Wallet Architecture creates a 
-              <strong> Zero-Fee Ledger Transfer</strong> at your door.
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing 4%.</h2>
+            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+              Our <strong>Pre-Funded Wallet</strong> means users load cash <em>before</em> they arrive. When they scan at your bar, it is an instant <strong>Zero-Fee Ledger Transfer</strong>.
             </p>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-green-500"/> 0% Credit Card Fees</div>
-              <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-green-500"/> No Chargebacks</div>
-              <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-green-500"/> Instant Verification</div>
-              <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-green-500"/> +4% Margin Boost</div>
-            </div>
           </div>
-          {/* ROI Calculator Card */}
-          <div className="bg-black border border-green-500/30 p-8 rounded-xl shadow-[0_0_30px_rgba(0,255,0,0.1)] text-center">
-            <h3 className="text-gray-500 text-xs uppercase mb-2">Annual Savings Calculator</h3>
-            <div className="text-4xl font-bold text-white mb-1">$100,000+</div>
-            <div className="text-xs text-green-400 mb-6">SAVED PER $2.5M REVENUE</div>
-            <button className="w-full py-2 bg-green-600 hover:bg-green-500 rounded text-white font-bold text-sm">
-              View ROI Details
-            </button>
+          <div className="relative bg-black/60 backdrop-blur-xl border border-cyan-500/50 p-10 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.15)] text-center">
+             <h3 className="text-gray-500 text-xs uppercase mb-6 tracking-widest">Projected Annual Savings</h3>
+             <div className="text-6xl md:text-7xl font-bold text-cyan-400 mb-2 font-orbitron tracking-tighter">
+               $100k
+             </div>
+             <div className="text-xs text-cyan-500 mb-8 font-mono tracking-widest">PER $2.5M REVENUE</div>
+             <button className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm tracking-widest rounded transition uppercase">
+               Calculate Your ROI
+             </button>
           </div>
         </div>
       </section>
 
-      {/* 4. INDUSTRY CARDS (The Grid) */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <h2 className="text-3xl font-bold mb-12 text-center">Choose Your Industry</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          {/* CARD 1: FINTECH & INTEGRATION (The Tech) */}
-          <div className="bg-gray-900 p-6 rounded-xl border border-blue-500/30 hover:border-blue-500 transition group flex flex-col">
-            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-blue-400"><Code /></div>
-            <h3 className="text-xl font-bold mb-1 text-blue-400">Fintech & Integration</h3>
-            <p className="text-sm text-gray-400 italic mb-4">"Plug into our ecosystem. Get paid instantly."</p>
-            <ul className="text-sm space-y-2 mb-6 text-gray-300 flex-1">
-              <li>• Bank-Grade Security (SOC 2, PCI DSS)</li>
-              <li>• Zero-Friction REST API</li>
-              <li>• Instant Payment Settlement (RTP)</li>
-            </ul>
-            <div className="space-y-2">
-              <button className="w-full py-2 bg-blue-600 hover:bg-blue-500 rounded text-white font-bold text-xs">REQUEST INTEGRATION SPECS</button>
-              <button className="w-full py-2 border border-gray-600 hover:bg-gray-800 rounded text-gray-300 font-bold text-xs">VIEW API DOCUMENTATION</button>
-            </div>
-          </div>
-
-          {/* CARD 2: LAB ACCESS PORTAL (The Health) */}
-          <div className="bg-gray-900 p-6 rounded-xl border border-teal-500/30 hover:border-teal-500 transition group flex flex-col">
-            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-teal-400"><Activity /></div>
-            <h3 className="text-xl font-bold mb-1 text-teal-400">Lab Access Portal</h3>
-            <p className="text-sm text-gray-400 italic mb-4">"Integrated Health Compliance."</p>
-            <ul className="text-sm space-y-2 mb-6 text-gray-300 flex-1">
-              <li>• Access Exclusive Affiliate Communities</li>
-              <li>• FHIR-Compatible Integration</li>
-              <li>• Auto-Compliance (HIPAA/GDPR)</li>
-            </ul>
-            <Link to="/lab-portal" className="w-full py-2 bg-teal-600 hover:bg-teal-500 rounded text-white font-bold text-xs mt-auto block text-center">ACCESS LAB PORTAL →</Link>
-          </div>
-
-          {/* CARD 3: NIGHTLIFE & EVENTS */}
-          <div className="bg-gray-900 p-6 rounded-xl border border-purple-500/30 hover:border-purple-500 transition group flex flex-col">
-            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-purple-400"><Zap /></div>
-            <h3 className="text-xl font-bold mb-1 text-purple-400">Nightlife & Events</h3>
-            <p className="text-sm text-gray-400 italic mb-4">"Monetize the Door. Verify the Vibe."</p>
-            <div className="mb-4 space-y-2 flex-1">
-               <div className="text-xs text-gray-400">Promoter Tier: <span className="text-white">$299/mo</span></div>
-               <div className="text-xs text-gray-400">Club Tier: <span className="text-white">$999/mo</span></div>
-            </div>
-            <div className="space-y-2">
-              <button className="w-full py-2 bg-purple-600 hover:bg-purple-500 rounded text-white font-bold text-xs">ACTIVATE TIER 1</button>
-              <button className="w-full py-2 border border-gray-600 hover:bg-gray-800 rounded text-gray-300 font-bold text-xs">REQUEST MEGA-CLUB CONTRACT</button>
-            </div>
-          </div>
-
-          {/* CARD 4: TRANSPORTATION & FLEETS */}
-          <div className="bg-gray-900 p-6 rounded-xl border border-orange-500/30 hover:border-orange-500 transition group flex flex-col">
-            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-orange-400"><Truck /></div>
-            <h3 className="text-xl font-bold mb-1 text-orange-400">Transportation & Fleets</h3>
-            <p className="text-sm text-gray-400 italic mb-4">"Protect the asset. Continuous screening."</p>
-            <div className="mb-4 space-y-2 flex-1">
-               <div className="text-xs text-gray-400">Fleet License: <span className="text-white">$299/mo</span></div>
-               <div className="text-xs text-gray-400">Driver Pass: <span className="text-white">$119 One-Time</span></div>
-            </div>
-            <div className="space-y-2">
-              <button className="w-full py-2 bg-orange-600 hover:bg-orange-500 rounded text-white font-bold text-xs">ACTIVATE FLEET TIER 1</button>
-              <button className="w-full py-2 border border-gray-600 hover:bg-gray-800 rounded text-gray-300 font-bold text-xs">BUY DRIVER PASS ($119)</button>
-            </div>
-          </div>
-
-          {/* CARD 5: WORKFORCE MANAGEMENT */}
-          <div className="bg-gray-900 p-6 rounded-xl border border-gray-500/30 hover:border-gray-500 transition group flex flex-col">
-            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-gray-400"><Users /></div>
-            <h3 className="text-xl font-bold mb-1 text-gray-300">Workforce Management</h3>
-            <p className="text-sm text-gray-400 italic mb-4">"Connect your team. Monitor the data."</p>
-            <div className="mb-4 space-y-2 flex-1">
-               <div className="text-xs text-gray-400">Small (1-50): <span className="text-white">$399/mo</span></div>
-               <div className="text-xs text-gray-400">Enterprise: <span className="text-white">$1,299/mo</span></div>
-            </div>
-            <div className="space-y-2">
-              <button className="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded text-white font-bold text-xs">ACTIVATE TIER 1</button>
-              <button className="w-full py-2 border border-gray-600 hover:bg-gray-800 rounded text-gray-300 font-bold text-xs">ORDER 10-PACK ($890)</button>
-            </div>
-          </div>
-
-           {/* CARD 6: TALENT & CONTENT */}
-           <div className="bg-gray-900 p-6 rounded-xl border border-pink-500/30 hover:border-pink-500 transition group flex flex-col">
-            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-pink-400"><Lock /></div>
-            <h3 className="text-xl font-bold mb-1 text-pink-400">Talent & Content</h3>
-            <p className="text-sm text-gray-400 italic mb-4">"The Industry Standard for Talent."</p>
-            <ul className="text-sm space-y-2 mb-6 text-gray-300 flex-1">
-              <li>• Verified Safety for Bookings</li>
-              <li>• Digital Handshake</li>
-              <li>• Auto-Renewal (60 Days)</li>
-            </ul>
-            <button className="w-full py-2 bg-pink-600 hover:bg-pink-500 rounded text-white font-bold text-xs mt-auto">ACTIVATE TALENT PASS ($39)</button>
-          </div>
-
+      {/* 6. VISION ROADMAP */}
+      <section className="max-w-7xl mx-auto px-6 py-24 border-t border-white/10">
+        <h2 className="text-3xl font-bold mb-12 text-center font-orbitron tracking-wide">THE VISION ROADMAP</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
+           {/* Connecting Line (Desktop) */}
+           <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-gray-700 -z-10"></div>
+           
+           <RoadmapItem 
+             phase="PHASE 1" 
+             title="Foundation" 
+             status="ACTIVE" 
+             desc="Build core verification & payment infrastructure. Prove unit economics."
+             color="cyan"
+           />
+           <RoadmapItem 
+             phase="PHASE 2" 
+             title="Network Growth" 
+             status="NEXT" 
+             desc="Scale to 1,000+ partner venues. Launch promoter network for viral distribution."
+             color="purple"
+           />
+           <RoadmapItem 
+             phase="PHASE 3" 
+             title="Dominance" 
+             status="FUTURE" 
+             desc="Become the default trust layer for high-liability social and commercial interactions worldwide."
+             color="gray"
+           />
         </div>
       </section>
 
-      {/* 5. STRATEGIC PARTNER (Footer) */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black border-t border-gray-800 text-center">
-        <h2 className="text-3xl font-bold mb-6">Strategic Partner Program</h2>
-        <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-          Connect venues, refer members, and transform your influence into income via our <span className="text-white font-bold">Dual Revenue Model</span>.
-        </p>
-        <button className="px-10 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-gray-200">
-          APPLY FOR PARTNERSHIP
-        </button>
+      {/* 7. INDUSTRY GRID (Brief) */}
+      <section className="max-w-7xl mx-auto px-6 pb-24 text-center">
+        <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-8">Strategic Vertical Expansion</h3>
+        <div className="flex flex-wrap justify-center gap-4 text-xs font-mono text-cyan-400">
+          <span className="border border-cyan-900 bg-cyan-900/20 px-4 py-2 rounded">WORKFORCE</span>
+          <span className="text-gray-600">→</span>
+          <span className="border border-cyan-900 bg-cyan-900/20 px-4 py-2 rounded">TRANSPORTATION</span>
+          <span className="text-gray-600">→</span>
+          <span className="border border-cyan-900 bg-cyan-900/20 px-4 py-2 rounded">HIGH-END RENTALS</span>
+          <span className="text-gray-600">→</span>
+          <span className="border border-cyan-900 bg-cyan-900/20 px-4 py-2 rounded">ENTERTAINMENT</span>
+        </div>
       </section>
+
+      <footer className="py-12 text-center text-xs text-gray-600 border-t border-white/10 bg-black relative z-10">
+        <p>© 2025 VALID. Infrastructure for the Real World.</p>
+      </footer>
 
     </div>
   );

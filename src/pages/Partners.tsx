@@ -1,655 +1,179 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Activity, 
-  Shield, 
-  Code, 
-  Zap, 
-  CheckCircle2,
-  ArrowRight,
-  Database,
-  FileText,
-  Home,
-  PlayCircle,
-  ChevronDown,
-  ChevronUp
-} from "lucide-react";
-import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/valid-logo.jpeg";
-import { useNavigate } from "react-router-dom";
-import PartnerBetaSurvey from "@/components/PartnerBetaSurvey";
+import React from 'react';
+import { ShieldCheck, Activity, Users, Truck, Lock, Code, Zap, DollarSign } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Partners = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    company: "",
-    email: "",
-    apiDocLink: "",
-    message: ""
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [explainerOpen, setExplainerOpen] = useState(false);
-
-  const scrollToContact = () => {
-    document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-
-    try {
-      const { error } = await supabase.functions.invoke("send-partner-inquiry", {
-        body: formData,
-      });
-
-      if (error) throw error;
-      
-      toast.success("Thank you! We'll be in touch within 24 hours.");
-      setFormData({ name: "", company: "", email: "", apiDocLink: "", message: "" });
-    } catch (error: any) {
-      console.error("Error submitting partner inquiry:", error);
-      toast.error("Failed to submit inquiry. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen text-foreground overflow-x-hidden w-full max-w-full bg-background">
-      {/* Ambient Background Effects - matching homepage */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary/20 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
-      </div>
-
-      {/* Header - matching homepage style */}
-      <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div 
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => navigate("/")}
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="VALID" className="relative h-12 w-auto" />
-            </div>
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-yellow-500 selection:text-black">
+      
+      {/* 1. B2B HEADER */}
+      <nav className="border-b border-gray-800 bg-black/90 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <span className="text-xl font-bold font-orbitron tracking-widest text-white">VALID</span>
+            <span className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded border border-gray-700">PARTNER SOLUTIONS</span>
           </div>
-          
-          {/* Beta Pricing Badge */}
-          <div className="hidden md:flex relative group">
-            <div className="absolute inset-0 bg-accent/30 blur-xl rounded-lg animate-pulse"></div>
-            <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-lg animate-[pulse_1.5s_ease-in-out_infinite]"></div>
-            <div className="relative px-4 py-2 bg-secondary/80 border border-accent/50 rounded-full shadow-[0_0_20px_hsl(var(--accent)/0.5),inset_0_0_20px_hsl(var(--accent)/0.1)]">
-              <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 rounded-full"></div>
-              <span className="relative font-mono text-xs font-bold tracking-wider text-accent uppercase" style={{ textShadow: '0 0 10px hsl(var(--accent)/0.8), 0 0 20px hsl(var(--accent)/0.5)' }}>
-                ⚡ Beta Pricing • Limited Time ⚡
-              </span>
-            </div>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-2">
-            <Button 
-              onClick={scrollToContact}
-              className="relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary/15 text-foreground font-semibold text-xs md:text-sm"
-            >
-              <div className="absolute inset-0 bg-primary/20 blur-md rounded-md -z-10"></div>
-              Request Integration
-            </Button>
-            <Button 
-              onClick={() => navigate("/compliance")}
-              variant="outline"
-              className="relative border border-accent/50 bg-accent/10 text-foreground hover:bg-accent/20 font-semibold text-xs md:text-sm"
-            >
-              ← Back to Partner Solutions
-            </Button>
+          <div className="flex gap-4">
+            <button className="text-sm text-gray-400 hover:text-white">Investor Relations</button>
+            <Link to="/" className="px-4 py-2 bg-white text-black text-sm font-bold rounded hover:bg-gray-200 transition">
+              Back to App
+            </Link>
           </div>
         </div>
+      </nav>
+
+      {/* 2. VISION HERO */}
+      <header className="py-20 px-6 text-center">
+        <div className="inline-block mb-4 px-3 py-1 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-mono tracking-widest">
+          POWERED BY SYNTHESIZED AI
+        </div>
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
+          The Builder's Vision.
+        </h1>
+        <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-10">
+          Automated Compliance and Risk Management for High-Liability Sectors.
+          <br />Shield your organization from health, security, and compliance liability.
+        </p>
       </header>
 
-      {/* Hero Section - matching homepage style */}
-      <section className="relative py-16 md:py-24 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background"></div>
-        
-        {/* Animated Radar Scan Line */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent animate-scan opacity-40 shadow-[0_0_15px_hsl(var(--primary)/0.6)]"></div>
-        </div>
-        
-        <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent mb-6 leading-tight tracking-tight">
-            Integrated Health Compliance for<br />Affiliate Social Ecosystems
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto font-medium italic">
-            Automate high-volume results delivery and secure access to exclusive member testing networks via our compliant, API-driven diagnostic pipeline.
-          </p>
-          <Button 
-            size="lg"
-            onClick={scrollToContact}
-            className="relative shadow-[0_0_25px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_35px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary text-primary-foreground px-10 py-7 text-lg transform hover:scale-105 transition-all duration-300"
-          >
-            <div className="absolute inset-0 bg-primary/30 blur-xl rounded-md -z-10"></div>
-            Request Integration Specs
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </div>
-      </section>
-
-      {/* Lab Workflow Section */}
-      <section id="lab-workflow" className="relative py-16 px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-background"></div>
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent mb-4">
-              🔬 The Secure Diagnostic Workflow
-            </h2>
-            <p className="text-lg text-muted-foreground font-medium italic max-w-3xl mx-auto">
-              Partnering for Precision
+      {/* 3. THE CFO SECTION (Money & Savings) */}
+      <section className="bg-gray-900/30 border-y border-gray-800 py-16">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <DollarSign className="text-green-400" />
+              <span className="text-green-400 font-bold tracking-widest">CFO ALERT</span>
+            </div>
+            <h2 className="text-3xl font-bold mb-4">Eliminate Merchant Fees.</h2>
+            <p className="text-gray-400 mb-6">
+              Stop losing 4% on every swipe. Our Pre-Funded Wallet Architecture creates a 
+              <strong> Zero-Fee Ledger Transfer</strong> at your door.
             </p>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-green-500"/> 0% Credit Card Fees</div>
+              <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-green-500"/> No Chargebacks</div>
+              <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-green-500"/> Instant Verification</div>
+              <div className="flex items-center gap-2"><ShieldCheck size={16} className="text-green-500"/> +4% Margin Boost</div>
+            </div>
           </div>
-
-          <p className="text-lg text-muted-foreground mb-10 leading-relaxed text-center max-w-4xl mx-auto">
-            Our platform creates a streamlined, compliant channel for integrating your testing services directly with exclusive member platforms. This flow minimizes administrative overhead for your lab while ensuring rapid status verification for users.
-          </p>
-
-          <h3 className="text-2xl font-bold text-foreground mb-8 text-center">Step-by-Step Lab Integration</h3>
-
-          <div className="space-y-6">
-            {/* Step 1 */}
-            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
-              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
-                1
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">Member Procurement (Client Initiation)</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  The platform member purchases the required <strong className="text-foreground">testing kit</strong> directly through their affiliated community or service provider.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
-              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
-                2
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">Kit Fulfillment (Lab Action)</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  Your lab receives the order via our secured API endpoint. Your team <strong className="text-foreground">sends the testing kit</strong> to the member, including a pre-paid, barcoded <strong className="text-foreground">return envelope</strong> for easy sample return.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
-              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
-                3
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">Sample Processing & Scanning (Lab Action)</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  The lab receives the sample, conducts the <strong className="text-foreground">Sexual Health and/or Toxicology tests</strong>, and generates the results. Crucially, your technician <strong className="text-foreground">scans the unique testing barcode</strong> upon final result entry. This action securely <strong className="text-foreground">links the results data to the member's profile ID</strong> within our ecosystem.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
-              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
-                4
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">Member Notification (System Action)</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  The official results are sent directly from your lab to the member for their confidential review, ensuring the lab maintains the primary client relationship.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 5 */}
-            <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 transition-all duration-300">
-              <div className="h-10 w-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold shadow-[0_0_15px_hsl(var(--primary)/0.5)]">
-                5
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">Status Verification & Compliance Reporting (Member & Platform Action)</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  Upon receiving the results, the member grants consent to update their private <strong className="text-foreground">VALID</strong> status. Our system instantly validates the data, updating the member's compliance status. The platform then securely and instantly shares the member's <strong className="text-foreground">compliance status</strong> (Clear/Not Clear) with the requiring <strong className="text-foreground">Affiliate Establishment</strong> (Venue, Employer, etc.), ensuring organizational requirements are met without ever revealing the member's raw diagnostic data.
-                </p>
-              </div>
-            </div>
+          {/* ROI Calculator Card */}
+          <div className="bg-black border border-green-500/30 p-8 rounded-xl shadow-[0_0_30px_rgba(0,255,0,0.1)] text-center">
+            <h3 className="text-gray-500 text-xs uppercase mb-2">Annual Savings Calculator</h3>
+            <div className="text-4xl font-bold text-white mb-1">$100,000+</div>
+            <div className="text-xs text-green-400 mb-6">SAVED PER $2.5M REVENUE</div>
+            <button className="w-full py-2 bg-green-600 hover:bg-green-500 rounded text-white font-bold text-sm">
+              View ROI Details
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Value Props Section */}
-      <section className="relative py-16 md:py-24 px-4">
-        <div className="container mx-auto max-w-6xl relative z-10">
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Card 1: Recurring Volume */}
-            <Card className="relative bg-card/50 backdrop-blur-sm border-primary/20 shadow-lg hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mb-4 shadow-[0_0_20px_hsl(var(--primary)/0.5)] group-hover:scale-110 transition-transform">
-                  <Activity className="h-7 w-7 text-primary-foreground" />
-                </div>
-                <CardTitle className="text-2xl text-foreground font-bold">Recurring Volume</CardTitle>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <p className="text-muted-foreground leading-relaxed">
-                  Our user base requires testing every 90 days. We drive consistent, high-LTV test volume to your lab infrastructure.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Card 2: Zero-Friction Support */}
-            <Card className="relative bg-card/50 backdrop-blur-sm border-primary/20 shadow-lg hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mb-4 shadow-[0_0_20px_hsl(var(--primary)/0.5)] group-hover:scale-110 transition-transform">
-                  <Zap className="h-7 w-7 text-primary-foreground" />
-                </div>
-                <CardTitle className="text-2xl text-foreground font-bold">Zero-Friction Support</CardTitle>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <p className="text-muted-foreground leading-relaxed">
-                  Our 'Glass Box' API Console handles sample exceptions and re-orders automatically. We reduce your support burden to near zero.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Card 3: Compliance Ready */}
-            <Card className="relative bg-card/50 backdrop-blur-sm border-primary/20 shadow-lg hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all duration-300 hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <CardHeader className="relative z-10">
-                <div className="h-14 w-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mb-4 shadow-[0_0_20px_hsl(var(--primary)/0.5)] group-hover:scale-110 transition-transform">
-                  <Shield className="h-7 w-7 text-primary-foreground" />
-                </div>
-                <CardTitle className="text-2xl text-foreground font-bold">Compliance Ready</CardTitle>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <p className="text-muted-foreground leading-relaxed">
-                  Built with FHIR-compatible schemas, 2257 identity verification, and HIPAA-compliant data handling.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Marketing Highlights Section */}
-      <section className="relative py-16 px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 to-background"></div>
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent mb-4">
-              Why Labs Choose VALID
-            </h2>
-          </div>
+      {/* 4. INDUSTRY CARDS (The Grid) */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold mb-12 text-center">Choose Your Industry</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Highlight 1 */}
-            <div className="flex gap-4 p-6 bg-card/50 backdrop-blur-sm rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] transition-all duration-300">
-              <div className="h-12 w-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/30">
-                <Activity className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">High-Volume Client Access</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  Instantly tap into exclusive affiliate communities, guaranteeing a <strong className="text-foreground">consistent, mandated volume</strong> for Sexual Health and Toxicology testing.
-                </p>
-              </div>
-            </div>
-
-            {/* Highlight 2 */}
-            <div className="flex gap-4 p-6 bg-card/50 backdrop-blur-sm rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] transition-all duration-300">
-              <div className="h-12 w-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/30">
-                <Zap className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">Real-Time API Integration</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  Utilize our <strong className="text-foreground">low-latency, FHIR-compatible API</strong> to securely and instantaneously power the member's <strong className="text-foreground">VALID Status</strong>.
-                </p>
-              </div>
-            </div>
-
-            {/* Highlight 3 */}
-            <div className="flex gap-4 p-6 bg-card/50 backdrop-blur-sm rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] transition-all duration-300">
-              <div className="h-12 w-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/30">
-                <Shield className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">Automated Compliance Reporting</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  The system automatically manages secure result sharing with Establishments, <strong className="text-foreground">offloading complex HIPAA/GDPR compliance</strong> from your internal team.
-                </p>
-              </div>
-            </div>
-
-            {/* Highlight 4 */}
-            <div className="flex gap-4 p-6 bg-card/50 backdrop-blur-sm rounded-xl shadow-lg border border-primary/20 hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.2)] transition-all duration-300">
-              <div className="h-12 w-12 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-primary/30">
-                <Code className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h4 className="font-bold text-foreground text-lg mb-2">Zero-Friction Efficiency</h4>
-                <p className="text-muted-foreground leading-relaxed">
-                  Upload results using <strong className="text-foreground">batch processing</strong> and barcode scanning, minimizing manual entry and ensuring <strong className="text-foreground">zero delays</strong> in updating member status.
-                </p>
-              </div>
+          {/* CARD 1: FINTECH & INTEGRATION (The Tech) */}
+          <div className="bg-gray-900 p-6 rounded-xl border border-blue-500/30 hover:border-blue-500 transition group flex flex-col">
+            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-blue-400"><Code /></div>
+            <h3 className="text-xl font-bold mb-1 text-blue-400">Fintech & Integration</h3>
+            <p className="text-sm text-gray-400 italic mb-4">"Plug into our ecosystem. Get paid instantly."</p>
+            <ul className="text-sm space-y-2 mb-6 text-gray-300 flex-1">
+              <li>• Bank-Grade Security (SOC 2, PCI DSS)</li>
+              <li>• Zero-Friction REST API</li>
+              <li>• Instant Payment Settlement (RTP)</li>
+            </ul>
+            <div className="space-y-2">
+              <button className="w-full py-2 bg-blue-600 hover:bg-blue-500 rounded text-white font-bold text-xs">REQUEST INTEGRATION SPECS</button>
+              <button className="w-full py-2 border border-gray-600 hover:bg-gray-800 rounded text-gray-300 font-bold text-xs">VIEW API DOCUMENTATION</button>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Technical Showcase Section */}
-      <section className="pt-12 pb-24 px-4 bg-background">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-primary/80 to-foreground bg-clip-text text-transparent mb-4">
-              Built for Modern API Integration
-            </h2>
-            <p className="text-xl text-muted-foreground font-medium italic">
-              Enterprise-grade infrastructure designed for seamless lab partner integration
-            </p>
+          {/* CARD 2: LAB ACCESS PORTAL (The Health) */}
+          <div className="bg-gray-900 p-6 rounded-xl border border-teal-500/30 hover:border-teal-500 transition group flex flex-col">
+            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-teal-400"><Activity /></div>
+            <h3 className="text-xl font-bold mb-1 text-teal-400">Lab Access Portal</h3>
+            <p className="text-sm text-gray-400 italic mb-4">"Integrated Health Compliance."</p>
+            <ul className="text-sm space-y-2 mb-6 text-gray-300 flex-1">
+              <li>• Access Exclusive Affiliate Communities</li>
+              <li>• FHIR-Compatible Integration</li>
+              <li>• Auto-Compliance (HIPAA/GDPR)</li>
+            </ul>
+            <button className="w-full py-2 bg-teal-600 hover:bg-teal-500 rounded text-white font-bold text-xs mt-auto">ACCESS LAB PORTAL →</button>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Feature 1 */}
-            <Card className="border-border bg-card shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-                    <Code className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl text-foreground font-bold">Real-time Webhook Event Inspector</CardTitle>
-                    <CardDescription className="mt-2 text-muted-foreground leading-relaxed">
-                      Live logging of every API interaction with detailed payload inspection and replay capabilities for debugging
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-
-            {/* Feature 2 */}
-            <Card className="border-border bg-card shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-                    <Zap className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl text-foreground font-bold">Automated Sample Exception Engine</CardTitle>
-                    <CardDescription className="mt-2 text-muted-foreground leading-relaxed">
-                      Intelligent handling of sample issues and inconclusive results with automatic user notifications
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-
-            {/* Feature 3 */}
-            <Card className="border-border bg-card shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-                    <Database className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl text-foreground font-bold">Universal Lab Requisition Standard</CardTitle>
-                    <CardDescription className="mt-2 text-muted-foreground leading-relaxed">
-                      FHIR-compatible data schemas ensuring seamless integration with existing lab management systems
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-
-            {/* Feature 4 */}
-            <Card className="border-border bg-card shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-                    <FileText className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl text-foreground font-bold">Comprehensive API Documentation</CardTitle>
-                    <CardDescription className="mt-2 text-muted-foreground leading-relaxed">
-                      Complete REST API documentation with authentication standards and webhook payload specifications
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-          </div>
-
-          {/* Compliance Badges */}
-          <div className="mt-16 p-10 bg-gradient-to-br from-white to-slate-50 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-slate-200">
-            <div className="flex flex-wrap items-center justify-center gap-6">
-              <div className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-50 to-blue-100/50 rounded-full shadow-sm border border-blue-200/50">
-                <CheckCircle2 className="h-5 w-5 text-blue-900" />
-                <span className="font-bold text-gray-900">FHIR R4 Compliant</span>
-              </div>
-              <div className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-50 to-blue-100/50 rounded-full shadow-sm border border-blue-200/50">
-                <CheckCircle2 className="h-5 w-5 text-blue-900" />
-                <span className="font-bold text-gray-900">HIPAA-Ready Infrastructure</span>
-              </div>
-              <div className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-50 to-blue-100/50 rounded-full shadow-sm border border-blue-200/50">
-                <CheckCircle2 className="h-5 w-5 text-blue-900" />
-                <span className="font-bold text-gray-900">2257 Compliance</span>
-              </div>
-              <div className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-50 to-blue-100/50 rounded-full shadow-sm border border-blue-200/50">
-                <CheckCircle2 className="h-5 w-5 text-blue-900" />
-                <span className="font-bold text-gray-900">REST API + Webhooks</span>
-              </div>
+          {/* CARD 3: NIGHTLIFE & EVENTS */}
+          <div className="bg-gray-900 p-6 rounded-xl border border-purple-500/30 hover:border-purple-500 transition group flex flex-col">
+            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-purple-400"><Zap /></div>
+            <h3 className="text-xl font-bold mb-1 text-purple-400">Nightlife & Events</h3>
+            <p className="text-sm text-gray-400 italic mb-4">"Monetize the Door. Verify the Vibe."</p>
+            <div className="mb-4 space-y-2 flex-1">
+               <div className="text-xs text-gray-400">Promoter Tier: <span className="text-white">$299/mo</span></div>
+               <div className="text-xs text-gray-400">Club Tier: <span className="text-white">$999/mo</span></div>
+            </div>
+            <div className="space-y-2">
+              <button className="w-full py-2 bg-purple-600 hover:bg-purple-500 rounded text-white font-bold text-xs">ACTIVATE TIER 1</button>
+              <button className="w-full py-2 border border-gray-600 hover:bg-gray-800 rounded text-gray-300 font-bold text-xs">REQUEST MEGA-CLUB CONTRACT</button>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* On-Demand Explainer Series Section */}
-      <section id="explainer-hub" className="py-10 px-4 border-t border-border">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-3xl font-bold text-foreground mb-4">
-            On-Demand Explainer Series
-          </h2>
-          <p className="text-lg text-muted-foreground mb-6">
-            Click below to review the 1-minute video scripts that clearly explain the VALID system to everyone—from the member to the CEO.
-          </p>
-
-          <button 
-            onClick={() => setExplainerOpen(!explainerOpen)}
-            className="px-6 py-3 bg-primary text-primary-foreground font-bold rounded-lg shadow-xl hover:bg-primary/90 transition-colors flex items-center justify-center space-x-3 w-full"
-          >
-            <PlayCircle className="h-5 w-5" />
-            <span>VIEW 1-MINUTE EXPLAINER SCRIPTS (Click to Toggle)</span>
-            {explainerOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
-          </button>
-
-          {explainerOpen && (
-            <div className="mt-6 space-y-8">
-              {/* Member Explainer */}
-              <div className="p-5 bg-secondary rounded-lg border-l-4 border-amber-500">
-                <h3 className="text-xl font-extrabold text-amber-500 mb-3">MEMBER EXPLAINER: YOUR VALID GREEN LIGHT</h3>
-                <div className="space-y-2 text-muted-foreground">
-                  <p><strong className="text-foreground">Setup:</strong> Own Your Access. Link your ID and set your Vibe Status. Fund your <strong className="text-foreground">Incognito Wallet Token</strong> with any amount ($50 min) using PayPal, Card, or Zelle.</p>
-                  <p><strong className="text-foreground">Activation:</strong> Get the Green Light. Purchase your 1, 3, or 7-day access pass (starting at $10). Your secure, expiring QR code is generated instantly, loaded with your pre-funded balance.</p>
-                  <p><strong className="text-foreground">Privacy:</strong> Full Control. Nothing is shared until you approve. The venue only sees your photo, Green Status, and available Token Balance. <strong className="text-foreground">You are always in charge of your data.</strong></p>
-                  <p><strong className="text-foreground">End Game:</strong> Enjoy Frictionless Access. Use your single QR scan to get verified, pay cover, and start a tab—all in under three seconds.</p>
-                </div>
-                <div className="mt-4 text-right">
-                  <a href="#" className="text-sm text-primary hover:underline">Upload Member Video Here</a>
-                </div>
-              </div>
-
-              {/* Executive Explainer */}
-              <div className="p-5 bg-secondary rounded-lg border-l-4 border-destructive">
-                <h3 className="text-xl font-extrabold text-destructive mb-3">EXECUTIVE EXPLAINER: PROFIT & PROTECTION</h3>
-                <div className="space-y-2 text-muted-foreground">
-                  <p><strong className="text-foreground">The Problem:</strong> Eliminate Risk. You face liability for compliance and security issues. Traditional ID checks fail to mitigate this risk.</p>
-                  <p><strong className="text-foreground">The Solution:</strong> The Triple Shield. VALID{"'"}s architecture legally shifts liability away from your organization. We enforce <strong className="text-foreground">Zero-Trust</strong> screening and provide the necessary legal firewall.</p>
-                  <p><strong className="text-foreground">The Profit:</strong> Monetize Access. The Incognito Token creates a new, high-margin revenue stream. Collect passive income from the $10, $20, or $50 access fee.</p>
-                  <p><strong className="text-foreground">The Savings:</strong> <span className="text-accent font-bold">Zero-Fee Processing.</span> Because users pre-fund their wallet, you eliminate 3-5% credit card fees and 100% of chargeback risks. <strong className="text-foreground">That is an instant 4% margin boost.</strong></p>
-                  <p><strong className="text-foreground">The Scale:</strong> Effortless Integration. Use our simple API keys to connect your LIS and POS systems. Focus on growth, not compliance headaches.</p>
-                </div>
-                <div className="mt-4 text-right">
-                  <a href="#" className="text-sm text-primary hover:underline">Upload Business Video Here</a>
-                </div>
-              </div>
-
-              {/* Staff Explainer */}
-              <div className="p-5 bg-secondary rounded-lg border-l-4 border-accent">
-                <h3 className="text-xl font-extrabold text-accent mb-3">STAFF EXPLAINER: SCANNING FOR SPEED</h3>
-                <div className="space-y-2 text-muted-foreground">
-                  <p><strong className="text-foreground">Setup:</strong> Grab Your Device. Open the VALID scanner URL on any device. No downloads needed.</p>
-                  <p><strong className="text-foreground">Scanning:</strong> The 3-Second Scan. Scan the member's QR code. The system instantly shows their current status, photo, and available token balance.</p>
-                  <p><strong className="text-foreground">Status Codes:</strong> Go/No-Go Decision. <strong className="text-accent">GREEN:</strong> Verified, valid access, sufficient balance. <strong className="text-destructive">RED/YELLOW:</strong> Deny access, check expiration time, or advise refill.</p>
-                  <p><strong className="text-foreground">Transaction:</strong> Seamless Payment. Process cover charge or bar tab deduction directly against the member's pre-funded Token Balance. One scan handles everything.</p>
-                </div>
-                <div className="mt-4 text-right">
-                  <a href="#" className="text-sm text-primary hover:underline">Upload Staff Video Here</a>
-                </div>
-              </div>
+          {/* CARD 4: TRANSPORTATION & FLEETS */}
+          <div className="bg-gray-900 p-6 rounded-xl border border-orange-500/30 hover:border-orange-500 transition group flex flex-col">
+            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-orange-400"><Truck /></div>
+            <h3 className="text-xl font-bold mb-1 text-orange-400">Transportation & Fleets</h3>
+            <p className="text-sm text-gray-400 italic mb-4">"Protect the asset. Continuous screening."</p>
+            <div className="mb-4 space-y-2 flex-1">
+               <div className="text-xs text-gray-400">Fleet License: <span className="text-white">$299/mo</span></div>
+               <div className="text-xs text-gray-400">Driver Pass: <span className="text-white">$119 One-Time</span></div>
             </div>
-          )}
-        </div>
-      </section>
-
-      {/* Lab Partner Portal CTA Section */}
-      <section className="py-16 px-4 bg-card">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="border-border bg-primary shadow-lg overflow-hidden">
-            <CardContent className="p-10 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Lab Partner Operations Console
-              </h2>
-              <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-                Already a partner? Access real-time data, manage compliance standards, and debug integrations through our enterprise-grade administrative suite.
-              </p>
-              <Button 
-                size="lg"
-                onClick={() => navigate("/lab/dashboard")}
-                className="bg-background text-foreground hover:bg-background/90 px-10 py-6 text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                Access Partner Dashboard
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Partner Beta Survey Section */}
-      <section className="py-16 px-4 bg-secondary/30">
-        <div className="container mx-auto max-w-2xl">
-          <PartnerBetaSurvey />
-        </div>
-      </section>
-
-      {/* Contact Form Section */}
-      <section id="contact-form" className="py-12 px-4 bg-background">
-        <div className="container mx-auto max-w-2xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-primary/80 to-foreground bg-clip-text text-transparent mb-4">
-              Partner with VALID
-            </h2>
-            <p className="text-xl text-muted-foreground font-medium">
-              Let's discuss how we can integrate your lab services into our platform
-            </p>
+            <div className="space-y-2">
+              <button className="w-full py-2 bg-orange-600 hover:bg-orange-500 rounded text-white font-bold text-xs">ACTIVATE FLEET TIER 1</button>
+              <button className="w-full py-2 border border-gray-600 hover:bg-gray-800 rounded text-gray-300 font-bold text-xs">BUY DRIVER PASS ($119)</button>
+            </div>
           </div>
 
-          <Card className="border-border shadow-lg bg-card">
-            <CardContent className="p-10">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Name *</label>
-                  <Input
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="John Smith"
-                    required
-                    className="border-border"
-                  />
-                </div>
+          {/* CARD 5: WORKFORCE MANAGEMENT */}
+          <div className="bg-gray-900 p-6 rounded-xl border border-gray-500/30 hover:border-gray-500 transition group flex flex-col">
+            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-gray-400"><Users /></div>
+            <h3 className="text-xl font-bold mb-1 text-gray-300">Workforce Management</h3>
+            <p className="text-sm text-gray-400 italic mb-4">"Connect your team. Monitor the data."</p>
+            <div className="mb-4 space-y-2 flex-1">
+               <div className="text-xs text-gray-400">Small (1-50): <span className="text-white">$399/mo</span></div>
+               <div className="text-xs text-gray-400">Enterprise: <span className="text-white">$1,299/mo</span></div>
+            </div>
+            <div className="space-y-2">
+              <button className="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded text-white font-bold text-xs">ACTIVATE TIER 1</button>
+              <button className="w-full py-2 border border-gray-600 hover:bg-gray-800 rounded text-gray-300 font-bold text-xs">ORDER 10-PACK ($890)</button>
+            </div>
+          </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Company *</label>
-                  <Input
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    placeholder="e.g. Vital, Ash Wellness, Labcorp"
-                    required
-                    className="border-border"
-                  />
-                </div>
+           {/* CARD 6: TALENT & CONTENT */}
+           <div className="bg-gray-900 p-6 rounded-xl border border-pink-500/30 hover:border-pink-500 transition group flex flex-col">
+            <div className="mb-4 bg-black w-12 h-12 rounded-lg flex items-center justify-center text-pink-400"><Lock /></div>
+            <h3 className="text-xl font-bold mb-1 text-pink-400">Talent & Content</h3>
+            <p className="text-sm text-gray-400 italic mb-4">"The Industry Standard for Talent."</p>
+            <ul className="text-sm space-y-2 mb-6 text-gray-300 flex-1">
+              <li>• Verified Safety for Bookings</li>
+              <li>• Digital Handshake</li>
+              <li>• Auto-Renewal (60 Days)</li>
+            </ul>
+            <button className="w-full py-2 bg-pink-600 hover:bg-pink-500 rounded text-white font-bold text-xs mt-auto">ACTIVATE TALENT PASS ($39)</button>
+          </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Email *</label>
-                  <Input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="john@company.com"
-                    required
-                    className="border-border"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">API Documentation Link</label>
-                  <Input
-                    type="url"
-                    value={formData.apiDocLink}
-                    onChange={(e) => setFormData({ ...formData, apiDocLink: e.target.value })}
-                    placeholder="https://docs.yourlab.com/api"
-                    className="border-border"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground">Message</label>
-                  <Textarea
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell us about your lab services and integration requirements..."
-                    rows={4}
-                    className="border-border"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-lg"
-                >
-                  {submitting ? "Sending..." : "Send Inquiry"}
-                </Button>
-
-                <p className="text-sm text-muted-foreground text-center">
-                  We typically respond to partner inquiries within 24 hours
-                </p>
-              </form>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
-      {/* Floating Home Button */}
-      <Button
-        onClick={() => navigate("/")}
-        className="fixed bottom-6 left-6 h-14 w-14 rounded-full shadow-[0_0_30px_hsl(var(--primary)/0.7)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.9)] bg-primary hover:bg-primary/90 text-primary-foreground z-50 flex items-center justify-center"
-        size="icon"
-      >
-        <Home className="h-6 w-6" />
-      </Button>
+      {/* 5. STRATEGIC PARTNER (Footer) */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black border-t border-gray-800 text-center">
+        <h2 className="text-3xl font-bold mb-6">Strategic Partner Program</h2>
+        <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+          Connect venues, refer members, and transform your influence into income via our <span className="text-white font-bold">Dual Revenue Model</span>.
+        </p>
+        <button className="px-10 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-gray-200">
+          APPLY FOR PARTNERSHIP
+        </button>
+      </section>
+
     </div>
   );
 };

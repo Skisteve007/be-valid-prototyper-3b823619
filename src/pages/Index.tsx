@@ -1,80 +1,96 @@
-// *****************************************************************************
-// FILE: src/pages/Index.tsx
-// PURPOSE: RESTORED HOMEPAGE (The "Good Version" before the crash)
-// *****************************************************************************
-
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar'; 
-import Hero from '../components/Hero'; 
-import Footer from '../components/Footer'; 
-import { Check, Sun, Moon, ShieldCheck, Globe, Lock, EyeOff } from 'lucide-react';
-
-interface FeatureCardProps {
-  isDark: boolean;
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-  color: 'blue' | 'cyan' | 'purple';
-}
-
-interface PricingCardProps {
-  isDark: boolean;
-  title: string;
-  price: string;
-  period: string;
-  originalPrice: string;
-  tag: string;
-  isBeta?: boolean;
-  isGold?: boolean;
-}
-
-interface LabCardProps {
-  isDark: boolean;
-  title: string;
-  price: string;
-  badge: string;
-  badgeColor: string;
-  btnColor: 'cyan' | 'purple';
-  checks: string[];
-}
+import { useNavigate } from 'react-router-dom';
+import { Check, Sun, Moon, ShieldCheck, Globe, EyeOff } from 'lucide-react';
+import { useReferralTracking } from "@/hooks/useReferralTracking";
+import Hero from "@/components/Hero";
 
 const Index = () => {
-  // --- THEME ENGINE ---
-  const [isDark, setIsDark] = useState(true); 
+  const navigate = useNavigate();
+  useReferralTracking();
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (!isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+  // --- THEME ENGINE ---
+  const [isDark, setIsDark] = useState(true);
+  const [ripple, setRipple] = useState({ active: false, x: 0, y: 0 });
+
+  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setRipple({ 
+      active: true, 
+      x: rect.left + rect.width / 2, 
+      y: rect.top + rect.height / 2 
+    });
+    
+    setTimeout(() => {
+      const newIsDark = !isDark;
+      setIsDark(newIsDark);
+      if (newIsDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+    }, 150);
+    
+    setTimeout(() => setRipple({ active: false, x: 0, y: 0 }), 700);
   };
 
-  // Force Dark Mode on Load
   useEffect(() => {
     document.documentElement.classList.add('dark');
   }, []);
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
+    <div className={`min-h-screen transition-all duration-700 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
       ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
       
+      {/* RIPPLE TRANSITION EFFECT */}
+      {ripple.active && (
+        <div 
+          className="fixed pointer-events-none z-[99]"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          <div 
+            className={`rounded-full animate-[ripple_0.7s_ease-out_forwards] ${isDark ? 'bg-slate-50' : 'bg-[#050505]'}`}
+            style={{
+              width: '10px',
+              height: '10px',
+            }}
+          />
+        </div>
+      )}
+      
       {/* BACKGROUND TEXTURE */}
-      <div className={`fixed inset-0 pointer-events-none z-0 opacity-[0.03]
+      <div className={`fixed inset-0 pointer-events-none z-0 transition-opacity duration-700
+        ${isDark ? 'opacity-[0.03]' : 'opacity-[0.02]'}
         ${isDark ? 'bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)]' : 'bg-[linear-gradient(black_1px,transparent_1px),linear-gradient(90deg,black_1px,transparent_1px)]'}
         bg-[size:50px_50px]`}>
       </div>
 
-      {/* 1. HERO SECTION (Video Portal) */}
+      {/* FLOATING THEME TOGGLE */}
+      <button 
+        onClick={toggleTheme}
+        className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 border hover:rotate-180
+          ${isDark 
+            ? 'bg-gray-800 text-cyan-400 border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
+            : 'bg-white text-orange-500 border-orange-200 shadow-lg'}`}
+      >
+        {isDark ? <Sun size={24} className="transition-transform duration-500" /> : <Moon size={24} className="transition-transform duration-500" />}
+      </button>
+
+      {/* 1. HERO SECTION */}
       <div className="relative z-10">
-        <Hero isDark={isDark} toggleTheme={toggleTheme} />
+        <Hero />
       </div>
 
-      {/* 2. THE TRUST BRIDGE (Fortress / Everywhere / Privacy) */}
-      <section className={`py-20 px-4 relative z-10 border-b border-white/5`}>
+      {/* 2. THE TRUST BRIDGE (Explaining the Value) */}
+      <section className={`py-20 px-4 relative z-10 border-b transition-colors duration-500
+        ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
         <div className="max-w-7xl mx-auto">
           
+          {/* Section Header */}
           <div className="text-center mb-16">
             <h2 className={`text-3xl md:text-4xl font-bold mb-4 font-orbitron tracking-wide
               ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -86,6 +102,7 @@ const Index = () => {
             </p>
           </div>
 
+          {/* The 3 Pillars */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FeatureCard 
               isDark={isDark}
@@ -101,18 +118,18 @@ const Index = () => {
               desc="One key for the world. Skip the manual ID check at airports, entertainment venues, and corporate zones."
               color="cyan"
             />
-             <FeatureCard 
+            <FeatureCard 
               isDark={isDark}
               icon={<EyeOff size={32}/>}
               title="Your Data. Your Rules."
-              desc="Ghost Protocol enabled. Context-aware sharing means you reveal only what's required—whether it's age, health, or security clearance."
+              desc="Ghost Protocol enabled. Context-aware sharing means you reveal only what's required—whether it's age, health, or security clearance—while keeping your personal bio and medical records invisible."
               color="purple"
             />
           </div>
         </div>
       </section>
 
-      {/* 3. MEMBERSHIP (Pricing Grid) */}
+      {/* 3. STEP 1: MEMBERSHIP */}
       <section className="py-24 px-4 max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <div className={`inline-block px-3 py-1 mb-4 border rounded-full text-[10px] font-mono tracking-widest uppercase
@@ -134,7 +151,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 4. VERIFICATION (Lab Kits) */}
+      {/* 4. STEP 2: VERIFICATION */}
       <section className={`py-24 px-4 border-t transition-colors duration-500
         ${isDark ? 'bg-gradient-to-b from-black to-gray-900 border-white/5' : 'bg-slate-50 border-slate-200'}`}>
         
@@ -159,7 +176,9 @@ const Index = () => {
             badgeColor="bg-cyan-600"
             btnColor="cyan"
             checks={['Verified Drug Screen', 'Digital Badge Update']}
+            onOrder={() => navigate("/toxicology-kit-order")}
           />
+          
           <LabCard 
             isDark={isDark}
             title="13-Panel Sexual Health" 
@@ -168,20 +187,27 @@ const Index = () => {
             badgeColor="bg-purple-600"
             btnColor="purple"
             checks={['Full STD Panel', 'Certified Health Badge']}
+            onOrder={() => navigate("/health-panel-order")}
           />
         </div>
       </section>
-
-      <Footer /> 
     </div>
   );
 };
 
-// --- SUBCOMPONENTS ---
+// --- FEATURE CARD COMPONENT ---
+interface FeatureCardProps {
+  isDark: boolean;
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  color: 'blue' | 'cyan' | 'purple';
+}
+
 const FeatureCard = ({ isDark, icon, title, desc, color }: FeatureCardProps) => (
   <div className={`p-8 rounded-2xl border transition-all duration-500 group relative overflow-hidden backdrop-blur-sm
     ${isDark 
-      ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50' 
+      ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.1)]' 
       : 'bg-white border-slate-200 hover:shadow-xl hover:border-cyan-300'}`}>
     
     <div className={`mb-6 p-4 rounded-full inline-block transition-colors duration-300
@@ -201,41 +227,74 @@ const FeatureCard = ({ isDark, icon, title, desc, color }: FeatureCardProps) => 
   </div>
 );
 
+// --- ADAPTIVE PRICING CARD ---
+interface PricingCardProps {
+  isDark: boolean;
+  title: string;
+  price: string;
+  period: string;
+  originalPrice: string;
+  tag: string;
+  isBeta?: boolean;
+  isGold?: boolean;
+}
+
 const PricingCard = ({ isDark, title, price, period, originalPrice, tag, isBeta, isGold }: PricingCardProps) => (
   <div className={`p-8 rounded-2xl border relative transition-all duration-300 hover:-translate-y-2 group backdrop-blur-xl
     ${isDark 
-      ? (isGold ? 'bg-black/40 border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.1)]' : 'bg-black/40 border-white/10') 
-      : (isGold ? 'bg-white border-cyan-400 shadow-xl shadow-cyan-100' : 'bg-white border-slate-200 shadow-sm')
+      ? (isGold ? 'bg-black/40 border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.1)] hover:shadow-[0_0_50px_rgba(0,240,255,0.25)]' : 'bg-black/40 border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)]') 
+      : (isGold ? 'bg-white border-cyan-400 shadow-xl shadow-cyan-100' : 'bg-white border-slate-200 shadow-sm hover:shadow-lg')
     }`}>
+    
     <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase
-      ${isBeta ? 'bg-red-600 text-white' : 'bg-cyan-600 text-black'}`}>
+      ${isGold ? 'bg-cyan-500 text-black' : 'bg-cyan-600 text-white'}`}>
       {tag}
     </div>
-    {isBeta && <div className="text-red-500 text-[10px] font-bold tracking-[0.2em] text-center mt-2 mb-4 animate-pulse">⚡ BETA PRICING ⚡</div>}
-    <h3 className={`text-lg font-bold mb-2 font-orbitron ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>{title}</h3>
+
+    {isBeta && <div className={`text-[10px] font-bold tracking-[0.2em] text-center mt-2 mb-4 animate-pulse ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>⚡ BETA PRICING ⚡</div>}
+
+    <h3 className={`text-lg font-bold mb-2 font-orbitron ${isDark ? 'text-gray-300 group-hover:text-white' : 'text-slate-700'} transition-colors`}>{title}</h3>
+    
     <div className="flex items-end justify-center gap-2 mb-1">
-      <span className="text-gray-400 line-through text-lg decoration-red-500/50">{originalPrice}</span>
-      <span className={`text-4xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{price}</span>
+      <span className="text-gray-400 line-through text-lg">{originalPrice}</span>
+      <span className={`text-4xl font-bold ${isDark ? 'text-white group-hover:text-cyan-400' : 'text-slate-900'} transition-colors`}>{price}</span>
     </div>
     <div className={`text-xs mb-8 uppercase tracking-wider ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>{period}</div>
-    <button className={`w-full py-3 rounded font-bold transition uppercase tracking-widest text-xs
+
+    <button className={`w-full py-3 rounded font-bold transition-all duration-300 uppercase tracking-widest text-xs
       ${isGold 
-        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg' 
-        : (isDark ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-slate-100 text-slate-900 hover:bg-slate-200')}`}>
+        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg hover:shadow-[0_0_25px_rgba(0,240,255,0.4)]' 
+        : (isDark ? 'bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]' : 'bg-slate-100 text-slate-900 hover:bg-cyan-500 hover:text-white')}`}>
       SELECT PLAN
     </button>
-    {isBeta && <div className="text-red-500 text-[10px] font-bold text-center mt-4">🔥 Limited Time!</div>}
+
+    {isBeta && <div className={`text-[10px] font-bold text-center mt-4 ${isDark ? 'text-cyan-500' : 'text-cyan-600'}`}>🔥 Limited Time!</div>}
   </div>
 );
 
-const LabCard = ({ isDark, title, price, badge, badgeColor, btnColor, checks }: LabCardProps) => (
-  <div className={`p-8 rounded-2xl border transition duration-500 relative overflow-hidden group backdrop-blur-sm
+// --- ADAPTIVE LAB CARD ---
+interface LabCardProps {
+  isDark: boolean;
+  title: string;
+  price: string;
+  badge: string;
+  badgeColor: string;
+  btnColor: 'cyan' | 'purple';
+  checks: string[];
+  onOrder: () => void;
+}
+
+const LabCard = ({ isDark, title, price, badge, badgeColor, btnColor, checks, onOrder }: LabCardProps) => (
+  <div className={`p-8 rounded-2xl border transition-all duration-500 relative overflow-hidden group backdrop-blur-sm
     ${isDark 
-      ? 'bg-white/5 border-white/10 hover:border-cyan-500' 
+      ? 'bg-white/5 border-white/10 hover:border-cyan-500 hover:shadow-[0_0_40px_rgba(0,240,255,0.15)]' 
       : 'bg-white border-slate-200 shadow-lg hover:border-cyan-500 hover:shadow-cyan-100'}`}>
+    
     <div className={`absolute top-0 right-0 text-xs font-bold px-4 py-2 text-white ${badgeColor}`}>{badge}</div>
+    
     <h3 className={`text-2xl font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
     <div className={`text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>{price}</div>
+    
     <ul className={`text-sm space-y-3 mb-8 font-mono ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
       {checks.map((check, i) => (
         <li key={i} className="flex gap-3 items-center">
@@ -243,10 +302,13 @@ const LabCard = ({ isDark, title, price, badge, badgeColor, btnColor, checks }: 
         </li>
       ))}
     </ul>
-    <button className={`w-full py-4 bg-transparent border rounded font-bold transition uppercase tracking-widest
+    
+    <button 
+      onClick={onOrder}
+      className={`w-full py-4 bg-transparent border rounded font-bold transition-all duration-300 uppercase tracking-widest
       ${btnColor === 'cyan' 
-        ? 'border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white' 
-        : 'border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white'}`}>
+        ? 'border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
+        : 'border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]'}`}>
       ORDER KIT
     </button>
   </div>

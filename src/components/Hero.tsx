@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, Plane, Ticket, Ghost, ShieldCheck } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { ThemeToggle } from './ThemeToggle';
 const Hero = () => {
   const navigate = useNavigate();
   const [activeMode, setActiveMode] = useState<'travel' | 'access' | 'incognito'>('access');
@@ -45,7 +45,10 @@ const Hero = () => {
         </div>
         
         <div className="flex gap-2 md:gap-4 items-center">
-          <Link to="/partners" className="hidden md:block text-sm text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+          <Link 
+            to="/partners" 
+            className="hidden md:block px-4 md:px-6 py-2 border border-[#39ff14] text-[#39ff14] font-bold rounded hover:bg-[#39ff14] hover:text-black transition-all shadow-[0_0_15px_rgba(57,255,20,0.3)] uppercase tracking-wider text-sm"
+          >
             For Partners
           </Link>
           <button 
@@ -54,6 +57,7 @@ const Hero = () => {
           >
             Launch App
           </button>
+          <ThemeToggle />
         </div>
       </nav>
 

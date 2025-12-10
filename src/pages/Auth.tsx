@@ -46,7 +46,7 @@ const Auth = () => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        navigate("/dashboard");
+        navigate("/investor-dashboard");
       }
     };
     checkUser();
@@ -71,7 +71,7 @@ const Auth = () => {
       if (error) throw error;
 
       toast.success("Welcome back!");
-      navigate("/dashboard");
+      navigate("/investor-dashboard");
     } catch (error: any) {
       toast.error(error.message || "Login failed");
     } finally {
@@ -93,7 +93,7 @@ const Auth = () => {
           data: {
             full_name: fullName,
           },
-          emailRedirectTo: `${window.location.origin}/dashboard`,
+          emailRedirectTo: `${window.location.origin}/investor-dashboard`,
         },
       });
 

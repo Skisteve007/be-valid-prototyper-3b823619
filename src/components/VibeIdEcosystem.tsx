@@ -47,7 +47,7 @@ const vibeModes: Record<VibeMode, VibeModeConfig> = {
     glowColor: 'shadow-[0_0_40px_rgba(168,85,247,0.4)]',
     tagline: 'Stealth Mode',
     statusText: 'GHOST PROTOCOL',
-    features: ['Stealth active. Tokenized identity. Mask your data.'],
+    features: ['Stealth active. Tokenized identity & Money loading. Mask your Data.'],
   },
 };
 

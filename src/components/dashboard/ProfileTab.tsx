@@ -718,6 +718,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         onLabLogoUpload={handleLabLogoUpload}
         uploadingLabLogo={uploadingLabLogo}
         isAdmin={isAdmin}
+        vibeMetadata={vibeMetadata}
       />
 
       <div className="relative py-4">

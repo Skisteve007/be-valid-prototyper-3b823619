@@ -144,7 +144,7 @@ const Partners = () => {
           <ThesisCard 
             icon={<Zap size={24} className="text-cyan-400"/>}
             title="High-Margin Transactional Power"
-            desc="The Ghost Token is pure software economics applied to physical access. Each $10-$50 token injects directly into the member's dynamic QR code—no inventory, no fulfillment, no COGS. Pre-funded wallets mean instant FBO settlement: operations get paid the moment they scan, zero payment delays. At scale, every Ghost Token generates $4+ pure margin. The token self-destructs after use, eliminating replay attacks. This isn't a product sale—it's a toll booth on trust, and we own the bridge."
+            desc="The Ghost Token is pure software economics applied to physical access. Each $10-$50 token injects directly into the member's dynamic QR code—unlimited inventory, no fulfillment, no COGS. Pre-funded wallets mean instant FBO settlement: operations get paid the moment they scan, zero payment delays. At scale, every Ghost Token generates $4+ pure margin. The token self-destructs after use, eliminating replay attacks. This isn't a product sale—it's a toll booth on trust, and we own the bridge."
           />
           <ThesisCard 
             icon={<ShieldCheck size={24} className="text-purple-400"/>}

@@ -147,9 +147,9 @@ const PitchDeck = () => {
 
       <main className="container mx-auto px-4 py-8 space-y-16 relative z-10">
         {/* Hero Slide */}
-        <section className="text-center py-16">
-          <img src={logo} alt="VALID" className="h-32 md:h-40 mx-auto mb-6 rounded-xl" />
-          <Badge className="mb-6 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 animate-pulse">
+        <section className="text-center py-8">
+          <img src={logo} alt="VALID" className="h-40 md:h-48 mx-auto mb-4 rounded-xl" />
+          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 animate-pulse">
             Seed Round Open
           </Badge>
           {/* Powered by Synthesized AI - Typing Animation */}

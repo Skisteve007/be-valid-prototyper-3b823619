@@ -448,96 +448,39 @@ const Partners = () => {
         </div>
       </section>
 
-      {/* THE COST OF ZERO RISK: TIER 1 COMPLIANCE */}
+      {/* THE COST OF ZERO RISK: YOUR INVESTMENT IS $0 */}
       <section className="py-24 relative z-10 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/5">
-              <ShieldCheck size={16} className="text-emerald-400" />
-              <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">Global Compliance Integration</span>
-            </div>
             <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4 text-white">
-              THE COST OF ZERO RISK: <span className="text-emerald-400">Tier 1 Compliance</span>
+              THE COST OF ZERO RISK: <span className="text-emerald-400">Your Investment is $0</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-              We eliminate your liability exposure by verifying users to the highest global standards (Jumio/Onfido equivalent). This is your investment in iron-clad compliance.
+              VALID users arrive fully verified, screened, and ready to spend. We eliminate your #1 cost: customer identity verification.
             </p>
           </div>
 
-          {/* Compliance Pricing Table */}
-          <div className="overflow-x-auto mb-8">
-            <table className="w-full text-left text-sm text-gray-400 border border-white/10 rounded-lg overflow-hidden">
-              <thead className="text-xs text-white uppercase bg-white/5">
-                <tr>
-                  <th scope="col" className="py-4 px-6 font-bold">Service Tier</th>
-                  <th scope="col" className="py-4 px-6 font-bold">Assurance Level</th>
-                  <th scope="col" className="py-4 px-6 font-bold">Compliance Check</th>
-                  <th scope="col" className="py-4 px-6 font-bold">Turnaround Time</th>
-                  <th scope="col" className="py-4 px-6 font-bold">Partner Cost (Per User)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-black/20 border-b border-white/10 hover:bg-white/5 transition-colors">
-                  <th scope="row" className="py-5 px-6 font-bold text-white whitespace-nowrap">
-                    <div className="flex items-center gap-2">
-                      <div className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(0,240,255,0.6)]"></div>
-                      STANDARD HIGH-ASSURANCE
-                    </div>
-                  </th>
-                  <td className="py-5 px-6">Passport/ID + Biometric Liveness Check</td>
-                  <td className="py-5 px-6">Fraud Databases + Basic Watchlist Screening</td>
-                  <td className="py-5 px-6 text-emerald-400 font-bold">&lt; 3 MINUTES (AI)</td>
-                  <td className="py-5 px-6 text-2xl font-extrabold text-white">$30.00</td>
-                </tr>
-                <tr className="bg-black/20 border-b border-white/10 hover:bg-white/5 transition-colors">
-                  <th scope="row" className="py-5 px-6 font-bold text-white whitespace-nowrap">
-                    <div className="flex items-center gap-2">
-                      <div className="h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.6)]"></div>
-                      VIP GLOBAL COMPLIANCE
-                    </div>
-                  </th>
-                  <td className="py-5 px-6">All Standard + Digital Passport (DTC) Readiness</td>
-                  <td className="py-5 px-6">Full Global AML/PEP Screening + Enhanced Sanctions Check</td>
-                  <td className="py-5 px-6 text-emerald-400 font-bold">&lt; 5 MINUTES (AI)</td>
-                  <td className="py-5 px-6 text-2xl font-extrabold text-white">$70.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* Disclaimer Note */}
-          <div className="p-4 bg-white/5 border-l-4 border-emerald-400 rounded-r-lg">
-            <p className="text-sm text-gray-400">
-              <strong className="text-emerald-400">Note:</strong> This is a one-time fee per user, creating an immutable Verified Hash. This cost is offset by the Ghost Token revenue model and the elimination of internal compliance staff hours.
-            </p>
-          </div>
-
-          {/* The Root of Trust - Investor Context */}
-          <div className="mt-12 bg-gradient-to-r from-emerald-900/20 via-cyan-900/20 to-emerald-900/20 border border-emerald-500/30 p-8 rounded-2xl">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                <Fingerprint size={20} className="text-emerald-400" />
-              </div>
-              <h3 className="text-xl font-bold font-orbitron text-white">THE ROOT OF TRUST: Global Compliance Integration</h3>
+          {/* Zero Cost Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {/* $0 Identity Cost */}
+            <div className="p-8 bg-white/5 rounded-xl border border-emerald-400/50 hover:border-emerald-400 transition-colors">
+              <h3 className="text-5xl font-extrabold text-emerald-400 mb-4">$0.00</h3>
+              <p className="text-lg font-bold text-white mb-3">Identity Verification Cost</p>
+              <p className="text-sm text-gray-400">The user pays VALID directly for their High-Assurance Status. Your liability is instantly eliminated for free.</p>
             </div>
-            <div className="space-y-4 text-gray-300">
-              <p>
-                To support our <strong className="text-cyan-400">Phase 3 Global Readiness</strong> (Airports, DTC), VALID is integrating with a <strong className="text-white">Tier 1 Identity Verification Provider</strong> (e.g., Jumio/Onfido).
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                <div className="bg-black/40 border border-white/10 p-4 rounded-lg">
-                  <div className="text-emerald-400 font-bold text-sm mb-2 tracking-wide">OUR POLICY</div>
-                  <p className="text-sm text-gray-400">Every user's identity is anchored in a high-assurance Passport + Biometric Liveness Check.</p>
-                </div>
-                <div className="bg-black/40 border border-white/10 p-4 rounded-lg">
-                  <div className="text-emerald-400 font-bold text-sm mb-2 tracking-wide">THE STANDARD</div>
-                  <p className="text-sm text-gray-400">We meet or exceed KYC/AML requirements equivalent to international financial and travel bodies.</p>
-                </div>
-                <div className="bg-black/40 border border-white/10 p-4 rounded-lg">
-                  <div className="text-emerald-400 font-bold text-sm mb-2 tracking-wide">THE RESULT</div>
-                  <p className="text-sm text-gray-400">The initial scan creates an immutable Verified Identity Hash—the foundation of the user's Vibe-ID and the ultimate safeguard for partners.</p>
-                </div>
-              </div>
+
+            {/* 100% Compliance Transfer */}
+            <div className="p-8 bg-white/5 rounded-xl border border-white/20 hover:border-white/40 transition-colors">
+              <h3 className="text-5xl font-extrabold text-white mb-4">100%</h3>
+              <p className="text-lg font-bold text-white mb-3">Compliance & Liability Transfer</p>
+              <p className="text-sm text-gray-400">We manage the full Passport/AML screening via Tier 1 vendors. You focus on serving the customer.</p>
+            </div>
+
+            {/* Ghost Token Revenue */}
+            <div className="p-8 bg-white/5 rounded-xl border border-white/20 hover:border-cyan-400/50 transition-colors">
+              <h3 className="text-2xl font-extrabold text-cyan-400 mb-4">Ghost Token Revenue</h3>
+              <p className="text-lg font-bold text-white mb-3">The True Profit Engine</p>
+              <p className="text-sm text-gray-400">You earn a commission on every $10-$50 Ghost Token purchased by this verified user inside your operation.</p>
             </div>
           </div>
         </div>

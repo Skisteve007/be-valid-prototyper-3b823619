@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Check, Sun, Moon, ShieldCheck, Globe, EyeOff } from 'lucide-react';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
+import VibeIdEcosystem from "@/components/VibeIdEcosystem";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -85,7 +86,10 @@ const Index = () => {
         <Hero />
       </div>
 
-      {/* 2. THE TRUST BRIDGE (Explaining the Value) */}
+      {/* 2. THE VIBE-ID ECOSYSTEM */}
+      <VibeIdEcosystem isDark={isDark} variant="b2c" />
+
+      {/* 3. THE TRUST BRIDGE (Explaining the Value) */}
       <section className={`py-20 px-4 relative z-10 border-b transition-colors duration-500
         ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
         <div className="max-w-7xl mx-auto">

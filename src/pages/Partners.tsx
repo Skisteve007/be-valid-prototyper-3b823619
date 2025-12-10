@@ -6,6 +6,7 @@
 import React from 'react';
 import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, ArrowRight, User, FlaskConical, Fingerprint, ArrowDown, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import VibeIdEcosystem from "@/components/VibeIdEcosystem";
 
 interface ThesisCardProps {
   icon: React.ReactNode;
@@ -162,6 +163,9 @@ const Partners = () => {
           />
         </div>
       </section>
+
+      {/* THE VIBE-ID ECOSYSTEM */}
+      <VibeIdEcosystem isDark={true} variant="b2b" />
 
       {/* LIABILITY FLOW ARCHITECTURE */}
       <section className="py-24 relative z-10 border-t border-white/10">

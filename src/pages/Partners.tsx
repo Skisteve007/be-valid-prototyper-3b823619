@@ -431,7 +431,7 @@ const Partners = () => {
                  <div className="h-8 w-8 rounded-full bg-amber-500/20 flex items-center justify-center">
                    <DollarSign className="h-4 w-4 text-amber-400" />
                  </div>
-                 <span className="text-amber-400 font-bold">40% Revenue Share Per Ghost Token Scan</span>
+                 <span className="text-amber-400 font-bold">40% Revenue Share Per Ghost QR Code Pass Purchase</span>
                </div>
                <div className="flex items-center gap-3">
                  <div className="h-8 w-8 rounded-full bg-cyan-500/20 flex items-center justify-center">

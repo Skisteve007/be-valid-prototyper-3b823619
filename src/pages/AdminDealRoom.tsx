@@ -72,146 +72,186 @@ const AdminDealRoom = () => {
       const margin = 20;
       const contentWidth = pageWidth - (margin * 2);
       let y = 20;
-
-      // Title
-      doc.setFontSize(18);
-      doc.setFont("helvetica", "bold");
-      doc.text("SIMPLE AGREEMENT FOR FUTURE EQUITY (SAFE)", pageWidth / 2, y, { align: "center" });
-      y += 10;
       
-      doc.setFontSize(12);
-      doc.setFont("helvetica", "normal");
-      doc.text("Giant Ventures, LLC d/b/a Valid™", pageWidth / 2, y, { align: "center" });
-      y += 15;
+      const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-      // Date
-      doc.setFontSize(10);
-      doc.text(`Effective Date: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, margin, y);
-      y += 15;
+      // Helper function to add text and handle page breaks
+      const addText = (text: string, fontSize: number = 10, isBold: boolean = false, lineHeight: number = 5) => {
+        doc.setFontSize(fontSize);
+        doc.setFont("helvetica", isBold ? "bold" : "normal");
+        const lines = doc.splitTextToSize(text, contentWidth);
+        
+        // Check if we need a new page
+        if (y + (lines.length * lineHeight) > 275) {
+          doc.addPage();
+          y = 20;
+        }
+        
+        doc.text(lines, margin, y);
+        y += lines.length * lineHeight;
+        return lines.length * lineHeight;
+      };
 
-      // Parties
+      // Title - SAFE Header
+      doc.setFontSize(14);
       doc.setFont("helvetica", "bold");
-      doc.text("PARTIES:", margin, y);
-      y += 7;
-      doc.setFont("helvetica", "normal");
-      const partiesText = `This Simple Agreement for Future Equity ("SAFE") is entered into by and between Giant Ventures, LLC, a Delaware limited liability company doing business as "Valid™" (the "Company"), and ${investorName} (the "Investor").`;
-      const partiesLines = doc.splitTextToSize(partiesText, contentWidth);
-      doc.text(partiesLines, margin, y);
-      y += partiesLines.length * 5 + 10;
-
-      // Investment Terms
-      doc.setFont("helvetica", "bold");
-      doc.text("INVESTMENT TERMS:", margin, y);
-      y += 7;
-      doc.setFont("helvetica", "normal");
-      doc.text(`Investment Amount: ${formatCurrency(investmentAmount)}`, margin, y);
+      doc.text("SAFE", pageWidth / 2, y, { align: "center" });
       y += 6;
-      doc.text(`Valuation Cap: ${formatCurrency(valuationCap)}`, margin, y);
-      y += 6;
-      doc.text(`Discount Rate: ${discountRate}%`, margin, y);
-      y += 15;
+      doc.setFontSize(11);
+      doc.text("(Simple Agreement for Future Equity)", pageWidth / 2, y, { align: "center" });
+      y += 12;
 
-      // Section 1
-      doc.setFont("helvetica", "bold");
-      doc.text("1. EVENTS", margin, y);
-      y += 7;
-      doc.setFont("helvetica", "normal");
-      
-      const section1Text = `(a) Equity Financing. If there is an Equity Financing before the termination of this SAFE, on the initial closing of such Equity Financing, this SAFE will automatically convert into the number of shares of Safe Preferred Stock equal to the Purchase Amount divided by the Conversion Price.
-
-(b) Liquidity Event. If there is a Liquidity Event before the termination of this SAFE, this SAFE will automatically be entitled to receive a portion of Proceeds, due and payable to the Investor immediately prior to, or concurrent with, the consummation of such Liquidity Event.
-
-(c) Dissolution Event. If there is a Dissolution Event before the termination of this SAFE, the Investor will automatically be entitled to receive a portion of Proceeds equal to the Purchase Amount, due and payable to the Investor immediately prior to the consummation of the Dissolution Event.`;
-      
-      const section1Lines = doc.splitTextToSize(section1Text, contentWidth);
-      doc.text(section1Lines, margin, y);
-      y += section1Lines.length * 4 + 10;
-
-      // Check if we need a new page
-      if (y > 250) {
-        doc.addPage();
-        y = 20;
-      }
-
-      // Section 2
-      doc.setFont("helvetica", "bold");
-      doc.text("2. DEFINITIONS", margin, y);
-      y += 7;
-      doc.setFont("helvetica", "normal");
-      
-      const section2Text = `"Conversion Price" means the either: (1) the Safe Price or (2) the Discount Price, whichever calculation results in a greater number of shares of Safe Preferred Stock.
-
-"Discount Price" means the price per share of the Standard Preferred Stock sold in the Equity Financing multiplied by the Discount Rate (${discountRate}%).
-
-"Safe Price" means the price per share equal to the Valuation Cap (${formatCurrency(valuationCap)}) divided by the Company Capitalization.`;
-      
-      const section2Lines = doc.splitTextToSize(section2Text, contentWidth);
-      doc.text(section2Lines, margin, y);
-      y += section2Lines.length * 4 + 10;
-
-      // Check if we need a new page
-      if (y > 250) {
-        doc.addPage();
-        y = 20;
-      }
-
-      // Section 3 - Risk Disclosure
-      doc.setFont("helvetica", "bold");
-      doc.text("3. RISK DISCLOSURE & LIMITATION OF LIABILITY", margin, y);
-      y += 7;
-      doc.setFont("helvetica", "normal");
-      
-      const riskText = `SPECULATIVE INVESTMENT: Investment in Valid™ (via Giant Ventures, LLC) is highly speculative and involves a high degree of risk. This opportunity is suitable only for persons who can afford to lose their entire investment. There is no guarantee that the company will achieve its business objectives or that the valuation targets will be met.
-
-NOT A LOAN: The funds contributed via this SAFE are not a loan. There is no maturity date, no interest rate, and no requirement for repayment. If the company dissolves or ceases operations, investors may receive $0.
-
-NO PERSONAL GUARANTEE: The investment is made solely into the corporate entity. The Founder/CEO provides no personal guarantee or collateral. By proceeding, the investor acknowledges that recourse is limited strictly to the assets of the Company, not the personal assets of its officers or directors.
-
-INDEFINITE HOLDING PERIOD: This is an illiquid investment. Investors may not be able to sell or transfer their equity for an indefinite period.`;
-      
-      const riskLines = doc.splitTextToSize(riskText, contentWidth);
-      doc.text(riskLines, margin, y);
-      y += riskLines.length * 4 + 15;
-
-      // Check if we need a new page
-      if (y > 230) {
-        doc.addPage();
-        y = 20;
-      }
-
-      // Signature Section
-      doc.setFont("helvetica", "bold");
-      doc.text("SIGNATURES", margin, y);
-      y += 10;
-
-      doc.setFont("helvetica", "normal");
-      doc.text("COMPANY:", margin, y);
-      y += 20;
-      doc.line(margin, y, margin + 80, y);
-      y += 5;
-      doc.text("Giant Ventures, LLC d/b/a Valid™", margin, y);
-      y += 5;
-      doc.text("By: ________________________________", margin, y);
-      y += 5;
-      doc.text("Title: CEO", margin, y);
-      y += 5;
-      doc.text(`Date: ${new Date().toLocaleDateString()}`, margin, y);
-      y += 20;
-
-      doc.text("INVESTOR:", margin, y);
-      y += 20;
-      doc.line(margin, y, margin + 80, y);
-      y += 5;
-      doc.text(investorName, margin, y);
-      y += 5;
-      doc.text(`Investment Amount: ${formatCurrency(investmentAmount)}`, margin, y);
-      y += 5;
-      doc.text(`Date: ${new Date().toLocaleDateString()}`, margin, y);
-
-      // Footer
+      // Securities Disclaimer
       doc.setFontSize(8);
-      doc.setTextColor(128);
-      doc.text("CONFIDENTIAL - Giant Ventures, LLC / Valid™", pageWidth / 2, 285, { align: "center" });
+      doc.setFont("helvetica", "bolditalic");
+      const disclaimerText = "THIS INSTRUMENT AND THE SECURITIES ISSUABLE PURSUANT HERETO HAVE NOT BEEN REGISTERED UNDER THE SECURITIES ACT OF 1933.";
+      const disclaimerLines = doc.splitTextToSize(disclaimerText, contentWidth);
+      doc.text(disclaimerLines, pageWidth / 2, y, { align: "center" });
+      y += disclaimerLines.length * 4 + 10;
+
+      // Key Terms Box
+      doc.setDrawColor(0);
+      doc.setLineWidth(0.5);
+      doc.rect(margin, y, contentWidth, 45);
+      y += 8;
+      
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "bold");
+      doc.text("Company:", margin + 5, y);
+      doc.setFont("helvetica", "normal");
+      doc.text("Giant Ventures, LLC (Texas Limited Liability Company) d/b/a \"Valid\"", margin + 35, y);
+      y += 7;
+      
+      doc.setFont("helvetica", "bold");
+      doc.text("Purchaser:", margin + 5, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(investorName, margin + 35, y);
+      y += 7;
+      
+      doc.setFont("helvetica", "bold");
+      doc.text("Purchase Amount:", margin + 5, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(formatCurrency(investmentAmount), margin + 45, y);
+      y += 7;
+      
+      doc.setFont("helvetica", "bold");
+      doc.text("Valuation Cap:", margin + 5, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(formatCurrency(valuationCap), margin + 40, y);
+      y += 7;
+      
+      doc.setFont("helvetica", "bold");
+      doc.text("Discount Rate:", margin + 5, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(`${discountRate}%`, margin + 40, y);
+      y += 7;
+      
+      doc.setFont("helvetica", "bold");
+      doc.text("Date:", margin + 5, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(currentDate, margin + 20, y);
+      y += 15;
+
+      // Certification paragraph
+      const certText = `THIS CERTIFIES THAT in exchange for the payment by the Investor (the "Purchase Amount") on or about the date of this instrument, Giant Ventures, LLC, a Texas Limited Liability Company (the "Company"), hereby issues to the Investor the right to certain units of the Company's Capital Stock, subject to the terms set forth below.`;
+      addText(certText, 10, false, 5);
+      y += 10;
+
+      // Section 1 - Events
+      addText("1. Events", 11, true, 6);
+      y += 3;
+
+      const event1a = `(a) Equity Financing. If there is an Equity Financing before the expiration or termination of this instrument, the Company will automatically issue to the Investor a number of Safe Units equal to the Purchase Amount divided by the Conversion Price. (The Conversion Price is the lower of: (i) the Valuation Cap Price or (ii) the Discount Price).`;
+      addText(event1a, 10, false, 5);
+      y += 5;
+
+      const event1b = `(b) Liquidity Event. If there is a Liquidity Event (Sale of Company, Merger, IPO) before the expiration or termination of this instrument, the Investor will, at its option, receive (i) a cash payment equal to the Purchase Amount or (ii) the amount payable as if the Investor had converted to Common Stock at the Valuation Cap.`;
+      addText(event1b, 10, false, 5);
+      y += 5;
+
+      const event1c = `(c) Dissolution. If there is a Dissolution Event (Company fails/closes) before this instrument expires, the Company will pay an amount equal to the Purchase Amount, due and payable to the Investor immediately prior to, or concurrent with, the consummation of the Dissolution Event. The Investor acknowledges that if assets are insufficient, they may receive $0.`;
+      addText(event1c, 10, false, 5);
+      y += 10;
+
+      // Section 2 - Company Representations
+      addText("2. Company Representations", 11, true, 6);
+      y += 3;
+
+      const rep2a = `(a) The Company is a Limited Liability Company duly organized, validly existing, and in good standing under the laws of the state of Texas.`;
+      addText(rep2a, 10, false, 5);
+      y += 5;
+
+      const rep2b = `(b) The execution, delivery, and performance of this instrument by the Company has been duly authorized by all necessary limited liability company action.`;
+      addText(rep2b, 10, false, 5);
+      y += 10;
+
+      // Section 3 - Investor Representations
+      addText("3. Investor Representations", 11, true, 6);
+      y += 3;
+
+      const rep3a = `(a) The Investor has full legal capacity, power, and authority to execute and deliver this instrument.`;
+      addText(rep3a, 10, false, 5);
+      y += 5;
+
+      const rep3b = `(b) The Investor is an accredited investor as such term is defined in Rule 501 of Regulation D under the Securities Act.`;
+      addText(rep3b, 10, false, 5);
+      y += 5;
+
+      const rep3c = `(c) The Investor acknowledges that this SAFE is speculative and involves a high degree of risk, including the risk of losing the entire investment.`;
+      addText(rep3c, 10, false, 5);
+      y += 15;
+
+      // Witness statement
+      doc.setFont("helvetica", "bolditalic");
+      doc.setFontSize(10);
+      const witnessText = "IN WITNESS WHEREOF, the undersigned have caused this instrument to be duly executed and delivered.";
+      const witnessLines = doc.splitTextToSize(witnessText, contentWidth);
+      if (y + 60 > 275) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(witnessLines, margin, y);
+      y += witnessLines.length * 5 + 15;
+
+      // Company Signature Block
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text("COMPANY: Giant Ventures, LLC", margin, y);
+      y += 15;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      doc.text("Signature: _________________________________", margin, y);
+      y += 8;
+      doc.text("By: Steven Grillo", margin, y);
+      y += 6;
+      doc.text("Title: Chief Executive Officer", margin, y);
+      y += 6;
+      doc.text("Address: Boca Raton, FL 33487", margin, y);
+      y += 20;
+
+      // Investor Signature Block
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text(`INVESTOR: ${investorName}`, margin, y);
+      y += 15;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      doc.text("Signature: _________________________________", margin, y);
+      y += 8;
+      doc.text(`Date: ${currentDate}`, margin, y);
+
+      // Footer on each page
+      const totalPages = doc.getNumberOfPages();
+      for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(128);
+        doc.text("CONFIDENTIAL - Giant Ventures, LLC d/b/a Valid", pageWidth / 2, 290, { align: "center" });
+        doc.text(`Page ${i} of ${totalPages}`, pageWidth - margin, 290, { align: "right" });
+        doc.setTextColor(0);
+      }
 
       // Save the PDF
       doc.save(`SAFE_Agreement_${investorName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);

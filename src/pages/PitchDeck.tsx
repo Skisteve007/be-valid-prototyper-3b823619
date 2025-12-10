@@ -66,7 +66,7 @@ const PitchDeck = () => {
       color: "amber",
       title: "GHOST TOKEN ECONOMICS",
       subtitle: "Pure Software Margin",
-      description: "The Ghost Token is pure software economics applied to physical access. Each $10-$50 token injects directly into the member's dynamic QR code—no inventory, no fulfillment, no COGS. At scale, every Ghost Token generates $4+ pure margin. The token self-destructs after use, eliminating replay attacks. This isn't a product sale—it's a toll booth on trust.",
+      description: "The Ghost Token is pure software economics applied to physical access. Each $10-$50 token injects directly into the member's dynamic QR code—unlimited inventory, no fulfillment, no COGS. At scale, every Ghost Token generates $4+ pure margin. The token self-destructs after use, eliminating replay attacks. This isn't a product sale—it's a toll booth on trust.",
       metric: "$4.00+",
       metricLabel: "Pure Margin Per Token",
       layer: "LAYER 1"

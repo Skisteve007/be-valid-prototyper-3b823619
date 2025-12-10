@@ -431,6 +431,60 @@ export type Database = {
           },
         ]
       }
+      idv_verifications: {
+        Row: {
+          created_at: string
+          document_type: string | null
+          expires_at: string | null
+          id: string
+          payment_status: string | null
+          status: string
+          stripe_payment_intent: string | null
+          stripe_session_id: string | null
+          tier: string
+          updated_at: string
+          user_id: string
+          verification_provider: string | null
+          verification_reference: string | null
+          verified_at: string | null
+          verified_hash: string | null
+        }
+        Insert: {
+          created_at?: string
+          document_type?: string | null
+          expires_at?: string | null
+          id?: string
+          payment_status?: string | null
+          status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          tier: string
+          updated_at?: string
+          user_id: string
+          verification_provider?: string | null
+          verification_reference?: string | null
+          verified_at?: string | null
+          verified_hash?: string | null
+        }
+        Update: {
+          created_at?: string
+          document_type?: string | null
+          expires_at?: string | null
+          id?: string
+          payment_status?: string | null
+          status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          tier?: string
+          updated_at?: string
+          user_id?: string
+          verification_provider?: string | null
+          verification_reference?: string | null
+          verified_at?: string | null
+          verified_hash?: string | null
+        }
+        Relationships: []
+      }
       incognito_transactions: {
         Row: {
           cleancheck_share: number
@@ -897,6 +951,10 @@ export type Database = {
           health_document_uploaded_at: string | null
           health_document_url: string | null
           id: string
+          idv_status: string | null
+          idv_tier: string | null
+          idv_verified_at: string | null
+          idv_verified_hash: string | null
           instagram_handle: string | null
           is_valid: boolean | null
           lab_certified: boolean | null
@@ -960,6 +1018,10 @@ export type Database = {
           health_document_uploaded_at?: string | null
           health_document_url?: string | null
           id?: string
+          idv_status?: string | null
+          idv_tier?: string | null
+          idv_verified_at?: string | null
+          idv_verified_hash?: string | null
           instagram_handle?: string | null
           is_valid?: boolean | null
           lab_certified?: boolean | null
@@ -1023,6 +1085,10 @@ export type Database = {
           health_document_uploaded_at?: string | null
           health_document_url?: string | null
           id?: string
+          idv_status?: string | null
+          idv_tier?: string | null
+          idv_verified_at?: string | null
+          idv_verified_hash?: string | null
           instagram_handle?: string | null
           is_valid?: boolean | null
           lab_certified?: boolean | null

@@ -30,6 +30,7 @@ import CompetitiveScorecard from "./pages/CompetitiveScorecard";
 import VenueOperatorPortal from "./pages/VenueOperatorPortal";
 import PitchDeck from "./pages/PitchDeck";
 import VenueLanding from "./pages/VenueLanding";
+import IDVVerification from "./pages/IDVVerification";
 
 import ApiDocs from "./pages/ApiDocs";
 import SecurityCompliance from "./pages/SecurityCompliance";
@@ -80,6 +81,7 @@ const App = () => (
               <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
               <Route path="/pitch-deck" element={<PitchDeck />} />
               <Route path="/venues/:slug" element={<VenueLanding />} />
+              <Route path="/idv-verification" element={<AgeGate><IDVVerification /></AgeGate>} />
               
               <Route path="/api-docs" element={<ApiDocs />} />
               <Route path="/security-compliance" element={<SecurityCompliance />} />

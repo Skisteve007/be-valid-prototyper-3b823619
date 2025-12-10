@@ -76,7 +76,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
     : 'ONE PLATFORM. EVERY CONTEXT.';
   
   const description = variant === 'b2c'
-    ? 'Your social graph adapts to every situation. Switch between personas instantly—from networking events to nightlife to dating apps. One verified identity, contextually aware.'
+    ? 'Static profiles are dead. Professional at the entry. Invisibility is an option. Open for connection. Adapt your vibe instantly to match your mood.'
     : 'Members toggle between modes based on context—each mode reveals only what\'s relevant. Operations see the right verification signal without accessing private data.';
 
   return (

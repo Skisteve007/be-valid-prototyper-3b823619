@@ -68,6 +68,14 @@ const BuildersVision = () => {
       description: "Pre-funded wallets mean funds are already in the system. When a venue confirms a Ghost Token scan, they get paid instantly via FBO—no 3-day holds, no batch processing, no chasing payments. Cash flow, solved.",
       metric: "0 sec",
       metricLabel: "Settlement Time"
+    },
+    {
+      icon: Lock,
+      title: "ZERO-TRUST FORTRESS",
+      subtitle: "The Immunity Architecture",
+      description: "We never store raw PII—only encrypted tokens. Venues receive VERIFIED or NOT VERIFIED signals, never data. No data to breach means no liability to inherit. This isn't security theater; it's cryptographic immunity baked into the protocol layer.",
+      metric: "0",
+      metricLabel: "Raw PII Stored"
     }
   ];
 

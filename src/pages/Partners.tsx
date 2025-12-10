@@ -32,7 +32,7 @@ const ThesisCard = ({ icon, title, desc }: ThesisCardProps) => (
   <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-white/10 transition duration-300">
     <div className="mb-4">{icon}</div>
     <h3 className="text-lg font-bold font-orbitron mb-2 text-white">{title}</h3>
-    <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
+    <p className="text-sm text-cyan-400 leading-relaxed tracking-wide">{desc}</p>
   </div>
 );
 

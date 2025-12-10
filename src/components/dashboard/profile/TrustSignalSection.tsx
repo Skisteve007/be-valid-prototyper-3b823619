@@ -316,40 +316,36 @@ const TrustSignalSection = ({
             </div>
           )}
 
-          {/* Reference IDs */}
-          {referencesLocked ? (
-            <div className="text-center py-4 text-muted-foreground">
-              <Lock className="w-5 h-5 mx-auto mb-1 opacity-60" />
-              <p className="text-xs">Private - unlock to share your vouches</p>
+          {/* Vouch Entries - Members you vouch for */}
+          <div className="space-y-2">
+            <p className="text-[10px] text-muted-foreground pl-1">
+              Enter Member IDs of friends you vouch for:
+            </p>
+            <div className="flex flex-col gap-2">
+              {[0, 1, 2].map((index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Input
+                    value={referenceIds[index] || ""}
+                    onChange={(e) => handleReferenceChange(index, e.target.value)}
+                    placeholder={`Friend/Buddy Member ID #${index + 1}`}
+                    className="font-mono text-xs h-9 bg-muted/50 border-border text-foreground flex-1"
+                  />
+                  {referenceProfiles[index] && (
+                    <Badge 
+                      variant={referenceProfiles[index]?.verified ? "default" : "secondary"} 
+                      className="text-[9px] px-1.5 whitespace-nowrap"
+                    >
+                      {referenceProfiles[index]?.verified ? "✓ " : "⏳ "}
+                      {referenceProfiles[index]?.full_name?.split(' ')[0] || "Pending"}
+                    </Badge>
+                  )}
+                </div>
+              ))}
             </div>
-          ) : (
-            <div className="space-y-2">
-              <p className="text-[10px] text-muted-foreground pl-1">
-                Members who have endorsed you:
-              </p>
-              <div className="flex flex-col md:flex-row gap-2">
-                {[0, 1, 2].map((index) => (
-                  <div key={index} className="flex-1 flex items-center gap-1">
-                    <Input
-                      value={referenceIds[index] || ""}
-                      onChange={(e) => handleReferenceChange(index, e.target.value)}
-                      placeholder={`Member ID #${index + 1}`}
-                      className="font-mono text-xs h-8 bg-muted/50 border-border text-foreground"
-                    />
-                    {referenceProfiles[index] && (
-                      <Badge 
-                        variant={referenceProfiles[index]?.verified ? "default" : "secondary"} 
-                        className="text-[9px] px-1.5 whitespace-nowrap"
-                      >
-                        {referenceProfiles[index]?.verified ? "✓ " : ""}
-                        {referenceProfiles[index]?.full_name?.split(' ')[0]}
-                      </Badge>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+            <p className="text-[10px] text-muted-foreground/70 pl-1 italic">
+              Your vouch must be accepted by the other member to appear on their profile.
+            </p>
+          </div>
         </div>
 
         {/* Divider */}

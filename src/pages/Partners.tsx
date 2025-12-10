@@ -88,7 +88,7 @@ const Partners = () => {
       <nav className="border-b border-white/10 bg-black/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <span className="text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID</span>
+            <span className="text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID<sup className="text-xs text-cyan-400">™</sup></span>
             <Link 
               to="/pitch-deck" 
               className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold rounded-full transition-all uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
@@ -137,13 +137,13 @@ const Partners = () => {
         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm relative">
           <div className="text-4xl text-cyan-500 absolute top-4 left-4 font-serif">"</div>
           <p className="text-lg md:text-xl text-gray-300 italic leading-relaxed mb-6 px-4">
-            Your operation faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID eliminates both—instantly.
+            Your operation faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID™ eliminates both—instantly.
             <br /><br />
-            Every user arrives verified and ready to spend. You earn a <span className="text-cyan-400">40% revenue share</span> on every Ghost Token purchase made by that patron, ensuring immediate, high-margin income. This revenue, paired with verified access in under 3 seconds, shields you from every compliance risk.
+            Every user arrives verified and ready to spend. You earn a <span className="text-cyan-400">40% revenue share</span> on every Ghost™ Token purchase made by that patron, ensuring immediate, high-margin income. This revenue, paired with verified access in under 3 seconds, shields you from every compliance risk.
             <br /><br />
             <span className="text-cyan-400">Zero credit card fees. Zero chargebacks. Zero funding headaches.</span>
           </p>
-          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— What VALID Means for Your Operation</div>
+          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— What VALID™ Means for Your Operation</div>
         </div>
       </header>
 

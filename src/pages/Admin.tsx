@@ -28,6 +28,7 @@ import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
 import { LeadOutreachTab } from "@/components/admin/LeadOutreachTab";
 import { MembersTab } from "@/components/admin/MembersTab";
 import { InvestorCRMTab } from "@/components/admin/InvestorCRMTab";
+import { IDVManagementTab } from "@/components/admin/IDVManagementTab";
 import {
   DndContext,
   closestCenter,
@@ -566,6 +567,9 @@ const Admin = () => {
               <QrCode className="h-4 w-4 mr-2" />
               Scanner
             </TabsTrigger>
+            <TabsTrigger value="idv-management" className="cursor-pointer flex-1">
+              🪪 IDV
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="members" className="space-y-8">
@@ -900,6 +904,10 @@ const Admin = () => {
                 </Button>
               </div>
             </div>
+          </TabsContent>
+          
+          <TabsContent value="idv-management">
+            <IDVManagementTab />
           </TabsContent>
         </Tabs>
       </main>

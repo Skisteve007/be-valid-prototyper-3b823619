@@ -189,11 +189,14 @@ const SortableItem = ({ sponsor, onDelete, onToggleActive, analytics }: {
   );
 };
 
+const DEAL_ROOM_AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com"];
+
 const Admin = () => {
   const navigate = useNavigate();
   const longPressHandlers = useLongPressHome();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [analytics, setAnalytics] = useState<Record<string, SponsorAnalytics>>({});
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -211,6 +214,8 @@ const Admin = () => {
     tier: "silver" as 'platinum' | 'gold' | 'silver',
     section: 1,
   });
+
+  const canAccessDealRoom = userEmail && DEAL_ROOM_AUTHORIZED_EMAILS.includes(userEmail.toLowerCase());
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -245,6 +250,7 @@ const Admin = () => {
         return;
       }
 
+      setUserEmail(user.email || null);
       setIsAdmin(true);
       await Promise.all([loadSponsors(), loadAnalytics()]);
     } catch (error) {
@@ -505,6 +511,17 @@ const Admin = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {/* Deal Room Link - Only for authorized emails */}
+            {canAccessDealRoom && (
+              <Button 
+                variant="outline" 
+                onClick={() => navigate("/admin/deal-room")}
+                className="hidden md:flex border-amber-500/50 text-amber-400 hover:bg-amber-500/10"
+              >
+                <Shield className="h-4 w-4 mr-2" />
+                Deal Room
+              </Button>
+            )}
             {/* Quick Scanner Button - Mobile */}
             <Button 
               variant="outline" 

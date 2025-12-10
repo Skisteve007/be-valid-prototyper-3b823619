@@ -10,10 +10,7 @@ import { toast } from "sonner";
 import { Loader2, FileText, UserCheck, QrCode, ExternalLink, CheckCircle, Lock, Unlock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
-import { PreferencesHealthSection } from "./profile/PreferencesHealthSection";
-import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
-import { PreferencesSelector } from "./profile/PreferencesSelector";
 import MemberBetaSurvey from "@/components/MemberBetaSurvey";
 import MySignalSection from "./profile/MySignalSection";
 import TrustSignalSection from "./profile/TrustSignalSection";
@@ -726,70 +723,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       <div className="relative py-4">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full h-1 bg-gradient-to-r from-pink-500 via-purple-400 to-pink-500 rounded-full opacity-60"></div>
-        </div>
-      </div>
-
-      <PreferencesSelector
-        selectedPreferences={userInterests}
-        onPreferencesChange={setUserInterests}
-        categorySharingState={{
-          social_dynamic: sharingSocialDynamicEnabled,
-          relationship_styles: sharingRelationshipStyleEnabled,
-          sensory_preferences: sharingSensoryPrefsEnabled,
-          specific_activities: sharingSpecificActivitiesEnabled,
-        }}
-        onToggleCategorySharing={(categoryId, enabled) => {
-          switch (categoryId) {
-            case 'social_dynamic':
-              setSharingSocialDynamicEnabled(enabled);
-              break;
-            case 'relationship_styles':
-              setSharingRelationshipStyleEnabled(enabled);
-              break;
-            case 'sensory_preferences':
-              setSharingSensoryPrefsEnabled(enabled);
-              break;
-            case 'specific_activities':
-              setSharingSpecificActivitiesEnabled(enabled);
-              break;
-          }
-        }}
-      />
-
-      <div className="relative py-4">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-1 bg-gradient-to-r from-green-500 via-emerald-400 to-green-500 rounded-full opacity-60"></div>
-        </div>
-      </div>
-
-      <PreferencesHealthSection
-        setValue={setValue}
-        covidVaccinated={covidVaccinated}
-        circumcised={circumcised}
-        smoker={smoker}
-        sharingEnabled={sharingOrientationEnabled}
-        onToggleSharing={(enabled) => setSharingOrientationEnabled(enabled)}
-        bootyEnhanced={bootyEnhanced}
-        breastsEnhanced={breastsEnhanced}
-        lovesEnhancements={lovesEnhancements}
-      />
-
-      <div className="relative py-4">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-1 bg-gradient-to-r from-purple-500 via-indigo-400 to-purple-500 rounded-full opacity-60"></div>
-        </div>
-      </div>
-
-      <VicesSection
-        setValue={setValue}
-        vices={vices}
-        sharingEnabled={sharingVicesEnabled}
-        onToggleSharing={(enabled) => setSharingVicesEnabled(enabled)}
-      />
-
-      <div className="relative py-4">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-1 bg-gradient-to-r from-indigo-500 via-blue-400 to-indigo-500 rounded-full opacity-60"></div>
         </div>
       </div>
 

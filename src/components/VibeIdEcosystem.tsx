@@ -196,7 +196,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                       VALID
                     </h3>
                     <div className={`text-[10px] font-mono tracking-[0.3em] ${isDark ? 'text-gray-500' : 'text-slate-400'}`}>
-                      VIBE-ID
+                      VALID-ID
                     </div>
                   </div>
 

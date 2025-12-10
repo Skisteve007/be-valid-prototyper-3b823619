@@ -93,16 +93,16 @@ const Hero = () => {
           
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-[0.9] text-white">
-            ONE KEY.<br />
+            ONE KEY<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
-              VERIFY. PAY. VIBE.
+              VERIFY PAY VIBE
             </span>
           </h1>
           
           {/* SUB-HEADLINE: Adaptive Profile */}
           <p className="text-lg text-gray-400 mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
-            Your <span className="text-white font-bold">Adaptive AI Profile</span> for the real world. 
-            Switch instantly between <span className="text-cyan-400">Travel</span>, <span className="text-purple-400">Access</span>, and <span className="text-gray-400">Privacy</span>.
+            Your <span className="text-white font-bold">adaptive AI profile</span> for the real world. 
+            Switch instantly between <span className="text-cyan-400">access</span>, <span className="text-purple-400">travel</span>, and <span className="text-gray-400">ghost</span>.
           </p>
           
           {/* Call to Action */}

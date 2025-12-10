@@ -1005,6 +1005,7 @@ export type Database = {
           user_interests: Json | null
           user_references: string | null
           validity_expires_at: string | null
+          vibe_metadata: Json | null
           vices: string[] | null
           where_from: string | null
         }
@@ -1073,6 +1074,7 @@ export type Database = {
           user_interests?: Json | null
           user_references?: string | null
           validity_expires_at?: string | null
+          vibe_metadata?: Json | null
           vices?: string[] | null
           where_from?: string | null
         }
@@ -1141,6 +1143,7 @@ export type Database = {
           user_interests?: Json | null
           user_references?: string | null
           validity_expires_at?: string | null
+          vibe_metadata?: Json | null
           vices?: string[] | null
           where_from?: string | null
         }

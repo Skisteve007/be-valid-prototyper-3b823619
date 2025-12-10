@@ -94,9 +94,9 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
       <div className="max-w-7xl mx-auto relative">
         
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className={`inline-block px-4 py-1.5 mb-4 border rounded-full text-[10px] font-mono tracking-[0.2em] uppercase
-            ${isDark ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/5' : 'border-blue-600/30 text-blue-600 bg-blue-50'}`}>
+        <div className="text-center mb-16 pt-8">
+          <div className={`inline-block px-6 py-2 mb-6 border rounded-full text-sm font-mono tracking-[0.2em] uppercase
+            ${isDark ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10' : 'border-blue-600/30 text-blue-600 bg-blue-50'}`}>
             The Vibe-ID Ecosystem
           </div>
           <h2 className={`text-3xl md:text-5xl font-black mb-4 font-orbitron
@@ -110,8 +110,8 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
           
           {/* LEFT: Text & Mode Buttons */}
           <div className="order-2 lg:order-1">
-            <p className={`text-lg md:text-xl leading-relaxed mb-10 max-w-xl
-              ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+            <p className={`text-lg md:text-xl leading-relaxed mb-10 max-w-xl tracking-wide
+              ${isDark ? 'text-cyan-400' : 'text-slate-600'}`}>
               {description}
             </p>
 
@@ -145,7 +145,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               </div>
               <ul className="space-y-3">
                 {currentMode.features.map((feature, i) => (
-                  <li key={i} className={`flex items-center gap-3 text-sm ${isDark ? 'text-gray-300' : 'text-slate-700'}`}>
+                  <li key={i} className={`flex items-center gap-3 text-sm tracking-wide ${isDark ? 'text-cyan-400' : 'text-slate-700'}`}>
                     <div className={`w-2 h-2 rounded-full ${currentMode.color.replace('text-', 'bg-')}`} />
                     {feature}
                   </li>

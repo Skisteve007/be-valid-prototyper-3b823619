@@ -16,7 +16,7 @@ interface ThesisCardProps {
 interface StackItemProps {
   title: string;
   desc: string;
-  color: 'cyan' | 'purple' | 'green';
+  color: 'cyan' | 'purple' | 'green' | 'amber';
 }
 
 interface RoadmapItemProps {
@@ -40,11 +40,13 @@ const StackItem = ({ title, desc, color }: StackItemProps) => {
     cyan: 'border-cyan-900/50 bg-cyan-900/10 text-cyan-400',
     purple: 'border-purple-900/50 bg-purple-900/10 text-purple-400',
     green: 'border-green-900/50 bg-green-900/10 text-green-400',
+    amber: 'border-amber-900/50 bg-amber-900/10 text-amber-400',
   };
   const textClasses = {
     cyan: 'text-cyan-400',
     purple: 'text-purple-400',
     green: 'text-green-400',
+    amber: 'text-amber-400',
   };
 
   return (
@@ -284,7 +286,7 @@ const Partners = () => {
         </div>
       </section>
 
-      {/* 4. TRI-LAYER REVENUE STACK */}
+      {/* 4. QUAD-LAYER REVENUE STACK */}
       <section className="py-24 bg-white/5 border-y border-white/10 relative z-10">
         <div className="max-w-6xl mx-auto px-6">
            <div className="text-center mb-12">
@@ -296,41 +298,54 @@ const Partners = () => {
               {/* Background glow */}
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full bg-cyan-500/20 blur-[80px] rounded-full pointer-events-none"></div>
               
-              {/* Row 1 */}
+              {/* Row 1 - Member Subscriptions */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
                  <StackItem 
-                   title="1. Access Monetization" 
+                   title="1. Member Subscriptions" 
+                   desc="Recurring revenue from peer network memberships—billed every 60 days or annually for platform access."
+                   color="amber"
+                 />
+                 <div className="bg-black border border-amber-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(245,158,11,0.2)] flex flex-col justify-center">
+                    <div className="text-xs text-amber-500 tracking-widest mb-1">LAYER 1</div>
+                    <div className="font-bold text-xl">MEMBER DUES</div>
+                 </div>
+              </div>
+              
+              {/* Row 2 - Access Monetization */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
+                 <StackItem 
+                   title="2. Access Monetization" 
                    desc="High-velocity $10-$50 Ghost Tokens at the entry point."
                    color="cyan"
                  />
                  <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
-                    <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 1</div>
+                    <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 2</div>
                     <div className="font-bold text-xl">ACCESS TOKENS</div>
                  </div>
               </div>
               
-              {/* Row 2 */}
+              {/* Row 3 - Health Margin */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
                  <StackItem 
-                   title="2. Health Reseller Margin" 
+                   title="3. Health Reseller Margin" 
                    desc="We capture the 40-60% spread between wholesale lab costs and retail pricing. We don't just refer tests; we sell them."
                    color="purple"
                  />
                  <div className="bg-black border border-purple-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(168,85,247,0.2)] flex flex-col justify-center">
-                    <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 2</div>
+                    <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 3</div>
                     <div className="font-bold text-xl">HEALTH MARGIN (60%)</div>
                  </div>
               </div>
               
-              {/* Row 3 */}
+              {/* Row 4 - SaaS Subscriptions */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
                  <StackItem 
-                   title="3. SaaS Subscriptions" 
+                   title="4. SaaS Subscriptions" 
                    desc="Recurring monthly revenue from Venue and Corporate Partners for the compliance dashboard."
                    color="green"
                  />
                  <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)] flex flex-col justify-center">
-                    <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 3</div>
+                    <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 4</div>
                     <div className="font-bold text-xl">SaaS RECURRING</div>
                  </div>
               </div>

@@ -38,3 +38,9 @@ verify_jwt = true
 
 [functions.process-wallet-refill]
 verify_jwt = true
+
+[functions.process-smart-split]
+verify_jwt = true
+
+[functions.distribute-venue-pool]
+verify_jwt = false

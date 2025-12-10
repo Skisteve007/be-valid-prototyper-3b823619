@@ -408,6 +408,85 @@ const PitchDeck = () => {
           </div>
         </section>
 
+        {/* ===== THE VIRAL SALES FORCE (ZERO CAC) ===== */}
+        <section>
+          <div className="text-center mb-12">
+            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/50 mb-4 text-lg px-6 py-2 tracking-widest">ZERO CAC</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">
+              THE VIRAL SALES FORCE
+            </h2>
+            <p className="text-gray-400 max-w-3xl mx-auto text-lg">
+              Decentralized Growth Engine
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-amber-950/40 to-orange-950/40 border border-amber-500/30 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(251,191,36,0.1)]">
+            <p className="text-xl text-gray-300 leading-relaxed mb-8">
+              We do not pay for marketing. We empower a <strong className="text-amber-400">decentralized army of Account Managers & Promoters</strong> to sell for us.
+            </p>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+              {/* The Incentive */}
+              <div className="bg-black/40 border border-amber-500/30 rounded-xl p-6">
+                <h4 className="text-lg font-bold text-amber-400 mb-3 font-orbitron">The Incentive</h4>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  Promoters earn <strong className="text-white">10% of the Access Pass (Off Top)</strong> + Optional Spend Commissions (Paid by Venue).
+                </p>
+              </div>
+
+              {/* The Tech */}
+              <div className="bg-black/40 border border-cyan-500/30 rounded-xl p-6">
+                <h4 className="text-lg font-bold text-cyan-400 mb-3 font-orbitron">The Tech</h4>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  Our <strong className="text-white">"Smart-Split" Architecture</strong> splits the funds at the point of transaction. Zero manual reconciliation.
+                </p>
+              </div>
+
+              {/* The Result */}
+              <div className="bg-black/40 border border-green-500/30 rounded-xl p-6">
+                <h4 className="text-lg font-bold text-green-400 mb-3 font-orbitron">The Result</h4>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  A global network of <strong className="text-white">incentivized sellers</strong> driving high-value users into the VALID ecosystem at <strong className="text-green-400">Zero Customer Acquisition Cost</strong>.
+                </p>
+              </div>
+
+              {/* The Margin */}
+              <div className="bg-black/40 border border-purple-500/30 rounded-xl p-6">
+                <h4 className="text-lg font-bold text-purple-400 mb-3 font-orbitron">The Margin</h4>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  VALID retains a guaranteed <strong className="text-purple-400">60% Gross Margin</strong> on Net Revenue after the promoter is paid.
+                </p>
+              </div>
+            </div>
+
+            {/* Waterfall Visual */}
+            <div className="bg-black/60 border border-white/10 rounded-xl p-6">
+              <h4 className="text-lg font-bold text-white mb-4 font-orbitron text-center">Smart-Split Waterfall</h4>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+                <div className="bg-white/5 border border-white/20 rounded-lg p-4 min-w-[140px]">
+                  <div className="text-2xl font-bold text-white mb-1">$100</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Gross Sale</div>
+                </div>
+                <ArrowRight className="h-6 w-6 text-gray-600 rotate-90 md:rotate-0" />
+                <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 min-w-[140px]">
+                  <div className="text-2xl font-bold text-amber-400 mb-1">$10</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Promoter (10%)</div>
+                </div>
+                <ArrowRight className="h-6 w-6 text-gray-600 rotate-90 md:rotate-0" />
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-4 min-w-[140px]">
+                  <div className="text-2xl font-bold text-cyan-400 mb-1">$54</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">VALID (60%)</div>
+                </div>
+                <ArrowRight className="h-6 w-6 text-gray-600 rotate-90 md:rotate-0" />
+                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 min-w-[140px]">
+                  <div className="text-2xl font-bold text-green-400 mb-1">$36</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Venue Pool (40%)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ===== IDaaS: MARGIN DENSITY ===== */}
         <section>
           <div className="text-center mb-12">

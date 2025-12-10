@@ -587,22 +587,22 @@ export const VenueDirectoryTab = () => {
                             <Edit className="h-5 w-5 mr-2" /> Edit
                           </Button>
                         </DialogTrigger>
-                      <DialogContent className="top-[10%] translate-y-0 max-h-[85vh] flex flex-col bg-card border-border shadow-xl">
+                      <DialogContent className="top-[10%] translate-y-0 max-h-[85vh] flex flex-col bg-slate-800 dark:bg-slate-800 border border-slate-600 shadow-2xl text-slate-100">
                         <DialogHeader className="pb-2">
-                          <DialogTitle className="text-foreground">Edit Partner</DialogTitle>
-                          <DialogDescription className="text-muted-foreground">
+                          <DialogTitle className="text-white text-lg font-semibold">Edit Partner</DialogTitle>
+                          <DialogDescription className="text-slate-300">
                             Update details for {editingVenue?.venue_name}
                           </DialogDescription>
                         </DialogHeader>
                         <ScrollArea className="flex-1 max-h-[60vh] overflow-y-auto">
-                          <div className="space-y-4 py-4 pr-4">
+                          <div className="space-y-4 py-4 pr-4 [&_label]:text-slate-200 [&_input]:bg-slate-700 [&_input]:border-slate-500 [&_input]:text-white [&_input]:placeholder:text-slate-400">
                           <div className="space-y-2">
-                            <Label>Industry Type</Label>
+                            <Label className="text-slate-200">Industry Type</Label>
                             <Select value={editIndustry} onValueChange={setEditIndustry}>
-                              <SelectTrigger>
+                              <SelectTrigger className="bg-slate-700 border-slate-500 text-white">
                                 <SelectValue />
                               </SelectTrigger>
-                              <SelectContent className="bg-background border z-50">
+                              <SelectContent className="bg-slate-700 border-slate-500 text-white z-50">
                                 <SelectItem value="Nightlife">🍸 Nightlife & Events</SelectItem>
                                 <SelectItem value="Adult">👠 Adult / Clubs</SelectItem>
                                 <SelectItem value="Workforce">🏗️ Workforce</SelectItem>
@@ -613,26 +613,26 @@ export const VenueDirectoryTab = () => {
                             </Select>
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="gm-email-mobile">GM Email Address</Label>
+                            <Label htmlFor="gm-email-mobile" className="text-slate-200">GM Email Address</Label>
                             <Input
                               id="gm-email-mobile"
                               type="email"
                               placeholder="gm@venue.com"
                               value={gmEmail}
                               onChange={(e) => setGmEmail(e.target.value)}
-                              className="h-12"
+                              className="h-12 bg-slate-700 border-slate-500 text-white"
                             />
                           </div>
                           
                           {/* Payout Configuration Section */}
-                          <div className="border-t pt-4 mt-4">
-                            <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                          <div className="border-t border-slate-600 pt-4 mt-4">
+                            <h4 className="font-semibold text-sm mb-3 flex items-center gap-2 text-white">
                               <Banknote className="h-4 w-4 text-green-500" />
                               Payout Configuration
                             </h4>
                             <div className="space-y-3">
                               <div className="space-y-2">
-                                <Label htmlFor="paypal-email-mobile" className="flex items-center gap-2">
+                                <Label htmlFor="paypal-email-mobile" className="flex items-center gap-2 text-slate-200">
                                   <CreditCard className="h-3 w-3" />
                                   PayPal Email
                                 </Label>
@@ -642,11 +642,11 @@ export const VenueDirectoryTab = () => {
                                   placeholder="payments@venue.com"
                                   value={paypalEmail}
                                   onChange={(e) => setPaypalEmail(e.target.value)}
-                                  className="h-12"
+                                  className="h-12 bg-slate-700 border-slate-500 text-white"
                                 />
                               </div>
                               <div className="space-y-2">
-                                <Label htmlFor="bank-endpoint-mobile" className="flex items-center gap-2">
+                                <Label htmlFor="bank-endpoint-mobile" className="flex items-center gap-2 text-slate-200">
                                   <Banknote className="h-3 w-3" />
                                   Bank API Endpoint (Optional)
                                 </Label>
@@ -656,9 +656,9 @@ export const VenueDirectoryTab = () => {
                                   placeholder="https://api.bank.com/payout"
                                   value={bankEndpoint}
                                   onChange={(e) => setBankEndpoint(e.target.value)}
-                                  className="h-12"
+                                  className="h-12 bg-slate-700 border-slate-500 text-white"
                                 />
-                                <p className="text-xs text-muted-foreground">
+                                <p className="text-xs text-slate-400">
                                   For direct bank transfers via API integration
                                 </p>
                               </div>
@@ -666,13 +666,13 @@ export const VenueDirectoryTab = () => {
                           </div>
                           
                           {/* Promoter Commission Section */}
-                          <div className="border-t pt-4 mt-4">
-                            <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                          <div className="border-t border-slate-600 pt-4 mt-4">
+                            <h4 className="font-semibold text-sm mb-3 flex items-center gap-2 text-white">
                               <Percent className="h-4 w-4 text-purple-500" />
                               Commission Settings
                             </h4>
                             <div className="space-y-2">
-                              <Label htmlFor="promoter-commission-mobile" className="flex items-center gap-2">
+                              <Label htmlFor="promoter-commission-mobile" className="flex items-center gap-2 text-slate-200">
                                 Promoter Bar Commission %
                               </Label>
                               <Input
@@ -684,9 +684,9 @@ export const VenueDirectoryTab = () => {
                                 placeholder="5"
                                 value={promoterCommission}
                                 onChange={(e) => setPromoterCommission(parseFloat(e.target.value) || 0)}
-                                className="h-12"
+                                className="h-12 bg-slate-700 border-slate-500 text-white"
                               />
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-xs text-slate-400">
                                 Commission rate paid to promoters on bar spend (0-100%)
                               </p>
                             </div>
@@ -799,22 +799,22 @@ export const VenueDirectoryTab = () => {
                               Edit
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="top-[10%] translate-y-0 max-h-[85vh] flex flex-col bg-card border-border shadow-xl">
+                          <DialogContent className="top-[10%] translate-y-0 max-h-[85vh] flex flex-col bg-slate-800 dark:bg-slate-800 border border-slate-600 shadow-2xl text-slate-100">
                             <DialogHeader className="pb-2">
-                              <DialogTitle className="text-foreground">Edit Partner</DialogTitle>
-                              <DialogDescription className="text-muted-foreground">
+                              <DialogTitle className="text-white text-lg font-semibold">Edit Partner</DialogTitle>
+                              <DialogDescription className="text-slate-300">
                                 Update details for {editingVenue?.venue_name}
                               </DialogDescription>
                             </DialogHeader>
                             <ScrollArea className="flex-1 max-h-[60vh] overflow-y-auto">
-                              <div className="space-y-4 py-4 pr-4">
+                              <div className="space-y-4 py-4 pr-4 [&_label]:text-slate-200 [&_input]:bg-slate-700 [&_input]:border-slate-500 [&_input]:text-white [&_input]:placeholder:text-slate-400">
                               <div className="space-y-2">
-                                <Label>Industry Type</Label>
+                                <Label className="text-slate-200">Industry Type</Label>
                                 <Select value={editIndustry} onValueChange={setEditIndustry}>
-                                  <SelectTrigger>
+                                  <SelectTrigger className="bg-slate-700 border-slate-500 text-white">
                                     <SelectValue />
                                   </SelectTrigger>
-                                  <SelectContent className="bg-background border z-50">
+                                  <SelectContent className="bg-slate-700 border-slate-500 text-white z-50">
                                     <SelectItem value="Nightlife">🍸 Nightlife & Events</SelectItem>
                                     <SelectItem value="Adult">👠 Adult / Clubs</SelectItem>
                                     <SelectItem value="Workforce">🏗️ Workforce</SelectItem>
@@ -825,25 +825,26 @@ export const VenueDirectoryTab = () => {
                                 </Select>
                               </div>
                               <div className="space-y-2">
-                                <Label htmlFor="gm-email">GM Email Address</Label>
+                                <Label htmlFor="gm-email" className="text-slate-200">GM Email Address</Label>
                                 <Input
                                   id="gm-email"
                                   type="email"
                                   placeholder="gm@venue.com"
                                   value={gmEmail}
                                   onChange={(e) => setGmEmail(e.target.value)}
+                                  className="bg-slate-700 border-slate-500 text-white"
                                 />
                               </div>
                               
                               {/* Payout Configuration Section */}
-                              <div className="border-t pt-4 mt-4">
-                                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                              <div className="border-t border-slate-600 pt-4 mt-4">
+                                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2 text-white">
                                   <Banknote className="h-4 w-4 text-green-500" />
                                   Payout Configuration
                                 </h4>
                                 <div className="space-y-3">
                                   <div className="space-y-2">
-                                    <Label htmlFor="paypal-email" className="flex items-center gap-2">
+                                    <Label htmlFor="paypal-email" className="flex items-center gap-2 text-slate-200">
                                       <CreditCard className="h-3 w-3" />
                                       PayPal Email
                                     </Label>
@@ -853,10 +854,11 @@ export const VenueDirectoryTab = () => {
                                       placeholder="payments@venue.com"
                                       value={paypalEmail}
                                       onChange={(e) => setPaypalEmail(e.target.value)}
+                                      className="bg-slate-700 border-slate-500 text-white"
                                     />
                                   </div>
                                   <div className="space-y-2">
-                                    <Label htmlFor="bank-endpoint" className="flex items-center gap-2">
+                                    <Label htmlFor="bank-endpoint" className="flex items-center gap-2 text-slate-200">
                                       <Banknote className="h-3 w-3" />
                                       Bank API Endpoint (Optional)
                                     </Label>
@@ -866,8 +868,9 @@ export const VenueDirectoryTab = () => {
                                       placeholder="https://api.bank.com/payout"
                                       value={bankEndpoint}
                                       onChange={(e) => setBankEndpoint(e.target.value)}
+                                      className="bg-slate-700 border-slate-500 text-white"
                                     />
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="text-xs text-slate-400">
                                       For direct bank transfers via API integration
                                     </p>
                                   </div>
@@ -875,13 +878,13 @@ export const VenueDirectoryTab = () => {
                               </div>
                               
                               {/* Promoter Commission Section */}
-                              <div className="border-t pt-4 mt-4">
-                                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                              <div className="border-t border-slate-600 pt-4 mt-4">
+                                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2 text-white">
                                   <Percent className="h-4 w-4 text-purple-500" />
                                   Commission Settings
                                 </h4>
                                 <div className="space-y-2">
-                                  <Label htmlFor="promoter-commission" className="flex items-center gap-2">
+                                  <Label htmlFor="promoter-commission" className="flex items-center gap-2 text-slate-200">
                                     Promoter Bar Commission %
                                   </Label>
                                   <Input
@@ -893,8 +896,9 @@ export const VenueDirectoryTab = () => {
                                     placeholder="5"
                                     value={promoterCommission}
                                     onChange={(e) => setPromoterCommission(parseFloat(e.target.value) || 0)}
+                                    className="bg-slate-700 border-slate-500 text-white"
                                   />
-                                  <p className="text-xs text-muted-foreground">
+                                  <p className="text-xs text-slate-400">
                                     Commission rate paid to promoters on bar spend (0-100%)
                                   </p>
                                 </div>

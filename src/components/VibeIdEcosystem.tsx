@@ -25,7 +25,7 @@ const vibeModes: Record<VibeMode, VibeModeConfig> = {
     glowColor: 'shadow-[0_0_40px_rgba(59,130,246,0.4)]',
     tagline: 'Instant Entry',
     statusText: 'ACCESS ACTIVE',
-    features: ['Instant entry. Verify identity, share socials, pay with one tap.'],
+    features: ['Instant Entry. Verify Identity, Share Socials, Pay With One Tap.'],
   },
   travel: {
     name: 'TRAVEL',
@@ -36,7 +36,7 @@ const vibeModes: Record<VibeMode, VibeModeConfig> = {
     glowColor: 'shadow-[0_0_40px_rgba(249,115,22,0.4)]',
     tagline: 'Global Movement',
     statusText: 'TRAVEL ACTIVE',
-    features: ['Global movement. Seamless check-ins for transit, hotels, and flights.'],
+    features: ['Global Movement. Seamless Check-Ins For Transit, Hotels, And Flights.'],
   },
   ghost: {
     name: 'GHOST',
@@ -47,7 +47,7 @@ const vibeModes: Record<VibeMode, VibeModeConfig> = {
     glowColor: 'shadow-[0_0_40px_rgba(168,85,247,0.4)]',
     tagline: 'Stealth Mode',
     statusText: 'GHOST PROTOCOL',
-    features: ['Stealth active. Tokenized identity & Money loading. Mask your Data.'],
+    features: ['Stealth Active. Tokenized Identity & Money Loading. Mask Your Data.'],
   },
 };
 

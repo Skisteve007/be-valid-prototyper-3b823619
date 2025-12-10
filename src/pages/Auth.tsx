@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
@@ -28,6 +29,7 @@ const Auth = () => {
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showNdaModal, setShowNdaModal] = useState(false);
 
   useEffect(() => {
     // Scroll to top when page loads
@@ -374,9 +376,51 @@ const Auth = () => {
                         <a href="/terms" target="_blank" className="text-primary hover:underline">
                           Terms of Service
                         </a>{" "}
-                        and acknowledge the Confidentiality/NDA requirements for this Beta Release.
+                        and acknowledge the{" "}
+                        <button 
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setShowNdaModal(true);
+                          }}
+                          className="text-primary hover:underline"
+                        >
+                          Confidentiality/NDA
+                        </button>{" "}
+                        requirements for this Beta Release.
                       </label>
                     </div>
+
+                    {/* NDA Modal */}
+                    <Dialog open={showNdaModal} onOpenChange={setShowNdaModal}>
+                      <DialogContent className="max-w-lg bg-card border-primary/30">
+                        <DialogHeader>
+                          <DialogTitle className="text-xl font-bold text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                            VALID™ BETA USER AGREEMENT
+                          </DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4 text-sm text-muted-foreground">
+                          <p>
+                            Welcome to the Valid™ ecosystem. As a Beta user, you are granted early access to our proprietary technologies, including the Ghost™ privacy architecture.
+                          </p>
+                          <p className="font-medium text-foreground">By creating an account, you agree:</p>
+                          <ol className="list-decimal list-inside space-y-2 pl-2">
+                            <li>To keep all upcoming features and interface designs confidential.</li>
+                            <li>That Valid™ and Ghost™ are trademarks of the Company.</li>
+                            <li>That this access is for personal use and testing purposes only.</li>
+                          </ol>
+                          <p className="pt-2 text-center italic text-primary/80">
+                            Thank you for helping us build the future.
+                          </p>
+                        </div>
+                        <Button 
+                          onClick={() => setShowNdaModal(false)}
+                          className="w-full mt-4"
+                        >
+                          I Understand
+                        </Button>
+                      </DialogContent>
+                    </Dialog>
                     
                     <Button 
                       size="lg" 

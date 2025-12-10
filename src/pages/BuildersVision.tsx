@@ -142,14 +142,18 @@ const BuildersVision = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-12">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/partners')}
-            className="text-gray-400 hover:text-white"
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            Back
-          </Button>
+          <div className="flex items-center gap-4">
+            <img src={logo} alt="VALID" className="h-10 w-10 rounded-lg" />
+            <span className="text-white font-bold font-orbitron tracking-wide">VALID</span>
+            <span className="text-gray-500">|</span>
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate('/partners')}
+              className="text-cyan-400 hover:text-white px-0"
+            >
+              Partner Solutions
+            </Button>
+          </div>
           <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 px-4 py-1">
             CONFIDENTIAL — INVESTOR ONLY
           </Badge>

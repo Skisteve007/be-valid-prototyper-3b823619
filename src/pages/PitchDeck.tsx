@@ -906,68 +906,88 @@ const PitchDeck = () => {
           </div>
         </section>
 
-        {/* ===== THE ASK: SEED ROUND ===== */}
+        {/* ===== THE ASK: $1.5M SEED ROUND (SAFE) ===== */}
         <section className="text-center py-12">
           <div className="bg-gradient-to-r from-cyan-950/50 to-blue-950/50 border border-cyan-500/30 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,240,255,0.15)]">
             <Rocket className="h-12 w-12 text-cyan-400 mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-white mb-4">THE ASK: SEED ROUND</h2>
-            <div className="text-5xl md:text-6xl font-bold text-cyan-400 mb-2">$1,500,000</div>
-            <p className="text-xl text-gray-400 mb-2">SAFE (Simple Agreement for Future Equity)</p>
-            <p className="text-lg text-cyan-400/80 mb-8">Valuation Cap: $15M</p>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-white mb-4">THE ASK: $1.5M SEED ROUND (SAFE)</h2>
             
             <p className="text-gray-300 max-w-2xl mx-auto mb-10 text-lg">
-              We are capitalizing the <span className="text-cyan-400 font-semibold">Identity-as-a-Service (IDaaS)</span> infrastructure 
-              and the <span className="text-amber-400 font-semibold">Ghost Token Liquidity Pool</span>.
+              We are opening the round in <span className="text-cyan-400 font-semibold">two tranches</span> to accelerate IP protection and legal formation.
             </p>
 
-            {/* Use of Funds */}
-            <div className="mb-10">
-              <h3 className="text-xl font-bold text-white mb-6 font-orbitron">USE OF FUNDS</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
-                <div className="bg-black/40 p-5 rounded-xl border border-cyan-500/30">
-                  <div className="text-3xl font-bold text-cyan-400 mb-2">40%</div>
-                  <div className="text-white font-bold mb-2">Engineering</div>
-                  <p className="text-sm text-gray-400">Backend Architecture for "Smart-Split" Revenue & Security.</p>
+            {/* Two Tranches */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-10">
+              
+              {/* TRANCHE 1 */}
+              <div className="bg-gradient-to-br from-amber-950/40 to-amber-900/20 p-6 rounded-2xl border-2 border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] relative">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <Badge className="bg-amber-500 text-black font-bold px-4 py-1">OPEN NOW</Badge>
                 </div>
-                <div className="bg-black/40 p-5 rounded-xl border border-purple-500/30">
-                  <div className="text-3xl font-bold text-purple-400 mb-2">30%</div>
-                  <div className="text-white font-bold mb-2">Legal & Compliance</div>
-                  <p className="text-sm text-gray-400">Banking Rails, Promoter Contracts, and IP Protection (Trademarks).</p>
+                <h3 className="text-2xl font-bold text-amber-400 mb-2 mt-2 font-orbitron">TRANCHE 1: THE ALPHA CLOSE</h3>
+                <div className="text-4xl font-bold text-white mb-1">$100,000</div>
+                <p className="text-amber-400/80 mb-1">Accepting checks from $25k</p>
+                <p className="text-lg text-white mb-4">Valuation Cap: <span className="text-amber-400 font-bold">$10M</span></p>
+                <p className="text-xs text-amber-300/70 mb-4 italic">Early Adopter Discount</p>
+                
+                <div className="text-left space-y-3">
+                  <h4 className="text-sm font-bold text-amber-400 uppercase tracking-wider">Use of Funds:</h4>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Immediate IP Protection:</span> Filing Global Trademarks for VALID™ & Ghost Token™.</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Legal & Compliance:</span> Establishing the Banking Rails & Promoter Contracts.</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Founder Ops:</span> Core operational runway to reach "Alpha Launch."</p>
+                  </div>
                 </div>
-                <div className="bg-black/40 p-5 rounded-xl border border-green-500/30">
-                  <div className="text-3xl font-bold text-green-400 mb-2">30%</div>
-                  <div className="text-white font-bold mb-2">Growth</div>
-                  <p className="text-sm text-gray-400">"Trojan Horse" Marketing (Promoter Network Activation).</p>
+              </div>
+
+              {/* TRANCHE 2 */}
+              <div className="bg-gradient-to-br from-cyan-950/40 to-blue-950/40 p-6 rounded-2xl border border-cyan-500/30 relative">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <Badge className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 font-bold px-4 py-1">NEXT 60 DAYS</Badge>
+                </div>
+                <h3 className="text-2xl font-bold text-cyan-400 mb-2 mt-2 font-orbitron">TRANCHE 2: THE INSTITUTIONAL CLOSE</h3>
+                <div className="text-4xl font-bold text-white mb-1">$1,400,000</div>
+                <p className="text-cyan-400/80 mb-1">&nbsp;</p>
+                <p className="text-lg text-white mb-4">Valuation Cap: <span className="text-cyan-400 font-bold">$15M</span></p>
+                <p className="text-xs text-cyan-300/70 mb-4 italic">Standard Market Rate</p>
+                
+                <div className="text-left space-y-3">
+                  <h4 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Use of Funds:</h4>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Engineering Scale-Up:</span> Backend Architecture for "Smart-Split" Revenue & Security.</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">"Trojan Horse" Marketing:</span> Promoter Network Activation & Venue Acquisition.</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Venue Liquidity Pools:</span> Ghost Token Float & Settlement Infrastructure.</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Milestones */}
-            <div>
-              <h3 className="text-xl font-bold text-white mb-6 font-orbitron">MILESTONES</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
-                <div className="bg-black/40 p-5 rounded-xl border border-white/10 flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-cyan-400 flex-shrink-0 mt-1" />
-                  <div>
-                    <div className="text-white font-bold mb-1">MVP Launch</div>
-                    <p className="text-sm text-gray-400">Launch MVP with Tier 1 IDV Integration.</p>
-                  </div>
-                </div>
-                <div className="bg-black/40 p-5 rounded-xl border border-white/10 flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-amber-400 flex-shrink-0 mt-1" />
-                  <div>
-                    <div className="text-white font-bold mb-1">50 Alpha Venues</div>
-                    <p className="text-sm text-gray-400">Onboard first 50 "Alpha" Venues (Miami/Florida).</p>
-                  </div>
-                </div>
-                <div className="bg-black/40 p-5 rounded-xl border border-white/10 flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-green-400 flex-shrink-0 mt-1" />
-                  <div>
-                    <div className="text-white font-bold mb-1">Promoter Army</div>
-                    <p className="text-sm text-gray-400">Activate 100-Person Promoter Network.</p>
-                  </div>
-                </div>
-              </div>
+            {/* The Opportunity */}
+            <div className="bg-gradient-to-r from-amber-500/10 to-cyan-500/10 border border-amber-500/30 rounded-xl p-6 max-w-3xl mx-auto">
+              <h3 className="text-xl font-bold text-white mb-3 font-orbitron flex items-center justify-center gap-2">
+                <Sparkles className="h-5 w-5 text-amber-400" />
+                THE OPPORTUNITY
+                <Sparkles className="h-5 w-5 text-amber-400" />
+              </h3>
+              <p className="text-gray-300 text-lg">
+                Investors in <span className="text-amber-400 font-bold">Tranche 1</span> secure{' '}
+                <span className="text-white font-bold text-xl">50% more equity upside</span>{' '}
+                by funding the foundational legal & IP layer today.
+              </p>
             </div>
           </div>
         </section>

@@ -291,7 +291,7 @@ const Partners = () => {
         <div className="max-w-6xl mx-auto px-6">
            <div className="text-center mb-12">
               <h2 className="text-3xl font-bold font-orbitron mb-4">THE REVENUE <span className="text-cyan-400">STACK</span></h2>
-              <p className="text-gray-400">We capture value at every layer of the interaction.</p>
+              <p className="text-gray-400">Revolutionized By Monetizing Every Friction Point VALID Has Removed.</p>
            </div>
            
            <div className="relative">

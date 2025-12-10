@@ -149,7 +149,7 @@ const Partners = () => {
           <ThesisCard 
             icon={<ShieldCheck size={24} className="text-purple-400"/>}
             title="Zero-Trust Architectural Moat"
-            desc="The complexity of linking health data (HIPAA) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model."
+            desc="Our zero-trust fortress evolves—synthesised AI at the helm, now weaving in next-gen QR codes far beyond 2020 basics. Think dynamic, AI-updated holograms: health records, payments, and physical access keys pulsing in real-time, self-erasing after use to eliminate replay attacks. Competitors are still fumbling with static barcodes while we embed these living codes into encrypted neural flows—raising the barrier to entry into the stratosphere. Risk-free boarding—liability sits with the users, the Labs and signatories who always held it. All they get is the key, none of the fallout. Unbreachable now, infinite later."
           />
           <ThesisCard 
             icon={<Share2 size={24} className="text-green-400"/>}

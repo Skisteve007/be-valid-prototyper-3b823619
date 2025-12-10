@@ -565,26 +565,26 @@ const PitchDeck = () => {
           </div>
 
           {/* Timeline */}
-          <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl p-5">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-center">
-              <div className="flex items-center gap-3">
-                <div className="h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.8)]"></div>
+          <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl p-8">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-center">
+              <div className="flex items-center gap-4">
+                <div className="h-4 w-4 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(0,240,255,0.8)]"></div>
                 <div>
-                  <p className="text-xs text-gray-500">TODAY</p>
-                  <p className="text-sm font-bold text-white">You scan to enter</p>
+                  <p className="text-sm text-gray-400 font-semibold tracking-wider">TODAY</p>
+                  <p className="text-xl md:text-2xl font-bold text-white">You scan to enter</p>
                 </div>
               </div>
-              <ArrowRight className="h-5 w-5 text-gray-600 hidden md:block" />
-              <div className="h-px w-8 bg-gradient-to-r from-cyan-500 to-purple-500 md:hidden"></div>
-              <div className="flex items-center gap-3">
-                <div className="h-3 w-3 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
+              <ArrowRight className="h-8 w-8 text-gray-500 hidden md:block" />
+              <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-purple-500 md:hidden"></div>
+              <div className="flex items-center gap-4">
+                <div className="h-4 w-4 rounded-full bg-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.8)]"></div>
                 <div>
-                  <p className="text-xs text-gray-500">TOMORROW</p>
-                  <p className="text-sm font-bold text-white">You simply walk through</p>
+                  <p className="text-sm text-gray-400 font-semibold tracking-wider">TOMORROW</p>
+                  <p className="text-xl md:text-2xl font-bold text-white">You simply walk through</p>
                 </div>
               </div>
             </div>
-            <p className="text-center text-xs text-gray-500 mt-4 max-w-xl mx-auto">
+            <p className="text-center text-base md:text-lg text-gray-400 mt-6 max-w-2xl mx-auto">
               VALID is not just a QR app—we are the <span className="text-cyan-400 font-semibold">universal operating system for spatial identity</span>.
             </p>
           </div>

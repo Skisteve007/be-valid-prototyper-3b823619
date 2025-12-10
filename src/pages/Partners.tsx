@@ -488,7 +488,7 @@ const Partners = () => {
           
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-6">
             {/* UWB */}
-            <div className="flex items-center gap-3 bg-black/40 border border-cyan-500/20 rounded-lg px-4 py-3">
+            <div className="flex items-center gap-3 bg-black/40 border border-cyan-500/20 rounded-lg px-4 py-3 transition-all duration-300 hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:-translate-y-1 cursor-pointer">
               <Zap className="h-5 w-5 text-cyan-400" />
               <div>
                 <p className="text-xs font-bold text-white">UWB</p>
@@ -497,7 +497,7 @@ const Partners = () => {
             </div>
             
             {/* NFC */}
-            <div className="flex items-center gap-3 bg-black/40 border border-purple-500/20 rounded-lg px-4 py-3">
+            <div className="flex items-center gap-3 bg-black/40 border border-purple-500/20 rounded-lg px-4 py-3 transition-all duration-300 hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:-translate-y-1 cursor-pointer">
               <QrCode className="h-5 w-5 text-purple-400" />
               <div>
                 <p className="text-xs font-bold text-white">NFC TYPE-F</p>
@@ -506,7 +506,7 @@ const Partners = () => {
             </div>
             
             {/* Bio-Hash */}
-            <div className="flex items-center gap-3 bg-black/40 border border-green-500/20 rounded-lg px-4 py-3">
+            <div className="flex items-center gap-3 bg-black/40 border border-green-500/20 rounded-lg px-4 py-3 transition-all duration-300 hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:-translate-y-1 cursor-pointer">
               <Fingerprint className="h-5 w-5 text-green-400" />
               <div>
                 <p className="text-xs font-bold text-white">BIO-HASH</p>
@@ -515,11 +515,21 @@ const Partners = () => {
             </div>
           </div>
           
-          <p className="text-center text-xs text-gray-500 max-w-lg mx-auto">
+          <p className="text-center text-xs text-gray-500 max-w-lg mx-auto mb-4">
             <span className="text-gray-400">Today:</span> You scan to enter. <span className="text-gray-400">Tomorrow:</span> You simply walk through.
             <br />
             <span className="text-cyan-400 font-semibold">VALID is the universal operating system for spatial identity.</span>
           </p>
+          
+          <div className="text-center">
+            <Link 
+              to="/pitch-deck" 
+              className="inline-flex items-center gap-2 text-xs text-cyan-400 hover:text-cyan-300 transition-colors group"
+            >
+              <span>View Full Technical Roadmap</span>
+              <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
       </section>
 

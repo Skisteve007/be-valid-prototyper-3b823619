@@ -331,10 +331,16 @@ const PitchDeck = () => {
 
         {/* ===== SIX UNICORN PILLARS ===== */}
         <section>
-          <div className="text-center mb-12">
-            <Badge className="bg-white/10 text-white border-white/20 mb-4 text-lg px-6 py-2">VALUE DRIVERS</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold font-orbitron">The Six Unicorn Pillars</h2>
-            <p className="text-gray-400 mt-4 max-w-2xl mx-auto">Why VALID will become the trust infrastructure layer for every high-stakes human interaction</p>
+          <div className="text-center mb-16">
+            <Badge className="bg-white/10 text-white border-white/20 mb-6 text-lg px-6 py-2 tracking-wider">VALUE DRIVERS</Badge>
+            <div className="relative inline-block">
+              {/* Blue glow effect behind title */}
+              <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-blue-600/40 via-cyan-500/50 to-blue-600/40 scale-150"></div>
+              <h2 className="relative text-4xl md:text-5xl lg:text-6xl font-bold font-orbitron tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-blue-400 drop-shadow-[0_0_30px_rgba(59,130,246,0.8)]">
+                The Six Unicorn Pillars
+              </h2>
+            </div>
+            <p className="text-gray-400 mt-6 max-w-3xl mx-auto text-lg tracking-wide leading-relaxed">Why VALID will become the trust infrastructure layer for every high-stakes human interaction</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -343,10 +349,10 @@ const PitchDeck = () => {
               return (
                 <div 
                   key={index}
-                  className={`bg-black/40 backdrop-blur-xl border rounded-xl p-6 hover:scale-[1.02] transition-all duration-300 ${getColorClasses(pillar.color)} ${isGhostToken ? 'shadow-[0_0_30px_rgba(251,191,36,0.3)] hover:shadow-[0_0_50px_rgba(251,191,36,0.5)]' : ''}`}
+                  className={`bg-black/40 backdrop-blur-xl border rounded-xl p-8 hover:scale-[1.02] transition-all duration-300 ${getColorClasses(pillar.color)} ${isGhostToken ? 'shadow-[0_0_30px_rgba(251,191,36,0.3)] hover:shadow-[0_0_50px_rgba(251,191,36,0.5)]' : ''}`}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`relative h-12 w-12 rounded-xl ${getColorClasses(pillar.color)} flex items-center justify-center ${isGhostToken ? 'overflow-visible' : ''}`}>
+                  <div className="flex items-start justify-between mb-6">
+                    <div className={`relative h-14 w-14 rounded-xl ${getColorClasses(pillar.color)} flex items-center justify-center ${isGhostToken ? 'overflow-visible' : ''}`}>
                       {isGhostToken && (
                         <>
                           {/* Pulsing ring animation */}
@@ -356,17 +362,17 @@ const PitchDeck = () => {
                           <div className="absolute -inset-3 rounded-xl bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/20 blur-md animate-pulse" style={{ animationDuration: '3s' }}></div>
                         </>
                       )}
-                      <pillar.icon className={`h-6 w-6 relative z-10 ${isGhostToken ? 'animate-pulse' : ''}`} />
+                      <pillar.icon className={`h-7 w-7 relative z-10 ${isGhostToken ? 'animate-pulse' : ''}`} />
                     </div>
                     <div className="text-right">
-                      <div className={`text-2xl font-bold ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.metric}</div>
-                      <div className="text-xs text-gray-500">{pillar.metricLabel}</div>
+                      <div className={`text-2xl font-bold tracking-wide ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.metric}</div>
+                      <div className="text-xs text-gray-500 tracking-wider">{pillar.metricLabel}</div>
                     </div>
                   </div>
-                  <div className="text-xs font-bold text-gray-500 mb-2">{pillar.layer}</div>
-                  <h3 className={`text-lg font-bold text-white mb-1 font-orbitron ${isGhostToken ? 'drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]' : ''}`}>{pillar.title}</h3>
-                  <p className={`text-sm mb-3 ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.subtitle}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed">{pillar.description}</p>
+                  <div className="text-xs font-bold text-gray-500 mb-3 tracking-[0.2em]">{pillar.layer}</div>
+                  <h3 className={`text-xl font-bold text-white mb-2 font-orbitron tracking-wide ${isGhostToken ? 'drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]' : ''}`}>{pillar.title}</h3>
+                  <p className={`text-sm mb-4 tracking-wide ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.subtitle}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed tracking-wide">{pillar.description}</p>
                 </div>
               );
             })}

@@ -213,7 +213,7 @@ const Partners = () => {
               <div className="bg-cyan-500/20 p-2 rounded text-cyan-400"><DollarSign size={20}/></div>
               <span className="text-cyan-400 font-bold tracking-[0.2em] text-sm">CFO ALERT</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing 4%.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing 1.9% to 4.5%.</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
               Our <strong>Pre-Funded Wallet</strong> means users load cash <em>before</em> they arrive. When they scan at your bar, it is an instant <strong>Zero-Fee Ledger Transfer</strong>.
             </p>

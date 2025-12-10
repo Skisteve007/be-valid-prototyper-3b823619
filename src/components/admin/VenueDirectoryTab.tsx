@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
-import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard, DollarSign, History, TrendingUp } from "lucide-react";
+import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard, DollarSign, History, TrendingUp, Trophy } from "lucide-react";
 import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -40,7 +40,7 @@ interface PayoutRecord {
   bank_endpoint: string | null;
 }
 
-type IndustryFilter = 'all' | 'Nightlife' | 'Adult' | 'Workforce' | 'Transportation' | 'Rentals';
+type IndustryFilter = 'all' | 'Nightlife' | 'Adult' | 'Workforce' | 'Transportation' | 'Rentals' | 'Sports';
 
 const INDUSTRY_CONFIG: Record<string, { icon: typeof Wine; color: string; label: string; emoji: string }> = {
   'Nightlife': { icon: Wine, color: 'bg-blue-500 text-white', label: 'Nightlife & Events', emoji: '🍸' },
@@ -48,6 +48,7 @@ const INDUSTRY_CONFIG: Record<string, { icon: typeof Wine; color: string; label:
   'Workforce': { icon: HardHat, color: 'bg-slate-500 text-white', label: 'Workforce', emoji: '🏗️' },
   'Transportation': { icon: Car, color: 'bg-emerald-500 text-white', label: 'Transportation', emoji: '🚕' },
   'Rentals': { icon: Key, color: 'bg-yellow-500 text-black', label: 'Rentals', emoji: '🔑' },
+  'Sports': { icon: Trophy, color: 'bg-purple-500 text-white', label: 'Sports & Arenas', emoji: '🏟️' },
 };
 
 export const VenueDirectoryTab = () => {
@@ -258,6 +259,7 @@ export const VenueDirectoryTab = () => {
     Workforce: venues.filter(v => v.industry_type === 'Workforce').length,
     Transportation: venues.filter(v => v.industry_type === 'Transportation').length,
     Rentals: venues.filter(v => v.industry_type === 'Rentals').length,
+    Sports: venues.filter(v => v.industry_type === 'Sports').length,
   };
 
   if (loading) {
@@ -351,6 +353,7 @@ export const VenueDirectoryTab = () => {
                       <SelectItem value="Workforce">🏗️ Workforce</SelectItem>
                       <SelectItem value="Transportation">🚕 Transportation</SelectItem>
                       <SelectItem value="Rentals">🔑 Rentals</SelectItem>
+                      <SelectItem value="Sports">🏟️ Sports & Arenas</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -460,6 +463,14 @@ export const VenueDirectoryTab = () => {
             className={industryFilter === 'Rentals' ? 'bg-yellow-500 hover:bg-yellow-600 text-black' : ''}
           >
             🔑 Rentals ({industryCounts.Rentals})
+          </Button>
+          <Button
+            variant={industryFilter === 'Sports' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setIndustryFilter('Sports')}
+            className={industryFilter === 'Sports' ? 'bg-purple-500 hover:bg-purple-600' : ''}
+          >
+            🏟️ Sports ({industryCounts.Sports})
           </Button>
         </div>
 
@@ -574,6 +585,7 @@ export const VenueDirectoryTab = () => {
                                 <SelectItem value="Workforce">🏗️ Workforce</SelectItem>
                                 <SelectItem value="Transportation">🚕 Transportation</SelectItem>
                                 <SelectItem value="Rentals">🔑 Rentals</SelectItem>
+                                <SelectItem value="Sports">🏟️ Sports & Arenas</SelectItem>
                               </SelectContent>
                             </Select>
                           </div>
@@ -755,6 +767,7 @@ export const VenueDirectoryTab = () => {
                                     <SelectItem value="Workforce">🏗️ Workforce</SelectItem>
                                     <SelectItem value="Transportation">🚕 Transportation</SelectItem>
                                     <SelectItem value="Rentals">🔑 Rentals</SelectItem>
+                                    <SelectItem value="Sports">🏟️ Sports & Arenas</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </div>

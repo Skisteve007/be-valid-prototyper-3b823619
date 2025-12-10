@@ -132,6 +132,7 @@ const PitchDeck = () => {
             Back
           </Button>
           <div className="flex items-center gap-4">
+            <img src={logo} alt="VALID" className="h-10 w-10 rounded-lg" />
             <span className="text-xl font-bold font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">
               VALID
             </span>

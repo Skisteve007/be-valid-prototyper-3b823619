@@ -112,7 +112,7 @@ const Hero = () => {
           {/* SUB-HEADLINE: Adaptive Profile */}
           <p className="text-lg text-gray-400 mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
             Your <span className="text-white font-bold">adaptive AI profile</span> for the real world. 
-            Switch instantly between <span className="text-cyan-400">access</span>, <span className="text-purple-400">travel</span>, and <span className="text-gray-400">ghost</span>.
+            Switch instantly between <span className="text-cyan-400">Access</span>, <span className="text-purple-400">Travel</span>, and <span className="text-yellow-400">Ghost</span>.
           </p>
           
           {/* Call to Action */}

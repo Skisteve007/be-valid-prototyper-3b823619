@@ -4,7 +4,7 @@
 // *****************************************************************************
 
 import React from 'react';
-import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, ArrowRight, User, FlaskConical, Fingerprint, ArrowDown, Shield } from 'lucide-react';
+import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, ArrowRight, User, FlaskConical, Fingerprint, ArrowDown, Shield, Eye, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
 
@@ -95,20 +95,25 @@ const Partners = () => {
           </div>
           
           {/* Catchy tagline */}
-          <div className="hidden lg:flex items-center gap-2 text-xs font-mono tracking-wider">
-            <span className="text-gray-500">⚡</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 animate-pulse">THE FUTURE OF VERIFIED ACCESS</span>
-            <span className="text-gray-500">⚡</span>
+          <div className="hidden lg:flex items-center gap-3 text-xs font-mono tracking-wider">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 font-bold tracking-[0.15em]">IDENTITY • ACCESS • PAYMENTS • TRUST</span>
+            <div className="h-px w-8 bg-gradient-to-l from-transparent to-purple-500/50"></div>
           </div>
           
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-3 items-center">
             <Link 
               to="/pitch-deck" 
-              className="px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-bold rounded-full transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
+              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-bold rounded-full transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
             >
-              🚀 Investor Deck
+              <Eye className="h-4 w-4 animate-pulse drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              Investor Deck
             </Link>
-            <Link to="/" className="px-5 py-2.5 border border-white/20 hover:bg-white hover:text-black text-sm font-bold rounded-full transition-all uppercase tracking-widest">
+            <Link 
+              to="/" 
+              className="flex items-center gap-2 px-5 py-2.5 bg-white/10 border border-cyan-500/30 hover:bg-cyan-500/20 hover:border-cyan-400 text-white text-sm font-bold rounded-full transition-all uppercase tracking-widest"
+            >
+              <Home className="h-4 w-4" />
               Consumer App
             </Link>
           </div>

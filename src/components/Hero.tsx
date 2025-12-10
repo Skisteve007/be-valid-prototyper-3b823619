@@ -145,14 +145,6 @@ const Hero = () => {
               {/* Overlay Gradient (Bottom only) */}
               <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
               
-              {/* Dynamic Status Text */}
-              <div className="absolute bottom-6 left-0 w-full text-center">
-                 <div className="text-cyan-400 text-xs font-mono tracking-widest mb-1 drop-shadow-md">
-                   {activeMode === 'travel' && 'TSA PRECHECK ACTIVE'}
-                   {activeMode === 'access' && 'VIP GATEWAY OPEN'}
-                   {activeMode === 'ghost' && 'IDENTITY MASKED'}
-                 </div>
-              </div>
             </div>
           </div>
         </div>

@@ -138,9 +138,9 @@ const Hero = () => {
               key={activeMode}
               className="text-sm text-gray-400 animate-fade-in"
             >
-              {activeMode === 'access' && "Unlock doors, verify age, and pay instantly."}
-              {activeMode === 'travel' && "Breeze through entry points globally."}
-              {activeMode === 'ghost' && "Mask your data and transact in stealth mode."}
+              {activeMode === 'access' && "Instant entry. Verify identity and pay with one tap."}
+              {activeMode === 'travel' && "Global movement. Seamless check-ins for transit, hotels, and flights."}
+              {activeMode === 'ghost' && "Stealth active. Tokenized identity & payments. Mask your data."}
             </p>
           </div>
         </div>

@@ -144,10 +144,10 @@ const BuildersVision = () => {
         <div className="flex items-center justify-between mb-12">
           <Button 
             variant="ghost" 
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/partners')}
             className="text-gray-400 hover:text-white"
           >
-            <ArrowLeft className="h-4 w-4 mr-2" />
+            <ArrowLeft className="h-5 w-5 mr-2" />
             Back
           </Button>
           <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 px-4 py-1">

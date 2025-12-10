@@ -125,10 +125,10 @@ const PitchDeck = () => {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Button 
             variant="ghost" 
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/partners')}
             className="text-gray-400 hover:text-white hover:bg-white/10"
           >
-            <ArrowLeft className="h-4 w-4 mr-2" />
+            <ArrowLeft className="h-5 w-5 mr-2" />
             Back
           </Button>
           <div className="flex items-center gap-4">
@@ -149,12 +149,12 @@ const PitchDeck = () => {
         {/* Hero Slide */}
         <section className="text-center py-8">
           <img src={logo} alt="VALID" className="h-40 md:h-48 mx-auto mb-4 rounded-xl" />
-          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 animate-pulse">
+          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 animate-pulse text-sm">
             Seed Round Open
           </Badge>
           {/* Powered by Synthesized AI - Typing Animation */}
-          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400">
-            <span className="min-w-[200px]">
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded text-sm font-mono tracking-widest text-cyan-400">
+            <span className="min-w-[220px]">
               {displayedText}
               <span className="animate-pulse">|</span>
             </span>
@@ -168,7 +168,7 @@ const PitchDeck = () => {
               VALID: Integrated Identity & Payment Ecosystem
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-400 font-orbitron">
+          <p className="text-xl md:text-2xl text-gray-400 font-orbitron">
             Pitch Deck Summary - Zero-Trust Compliance & Revenue Generation
           </p>
         </section>
@@ -176,38 +176,38 @@ const PitchDeck = () => {
         {/* Investment Thesis Section - Unicorn Thesis */}
         <section className="mb-8">
           <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-            <h3 className="text-xl font-bold text-cyan-400 mb-6 font-orbitron flex items-center gap-2">
-              <Zap size={24} className="text-cyan-400" />
+            <h3 className="text-2xl font-bold text-cyan-400 mb-6 font-orbitron flex items-center gap-2">
+              <Zap size={28} className="text-cyan-400" />
               Unicorn Thesis: The VALID Value Drivers
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-cyan-500/50 transition">
                 <div className="flex items-center gap-2 mb-2">
-                  <Zap size={20} className="text-cyan-400" />
-                  <h4 className="font-bold text-white">HIGH-MARGIN TRANSACTIONAL POWER</h4>
+                  <Zap size={24} className="text-cyan-400" />
+                  <h4 className="font-bold text-white text-lg">HIGH-MARGIN TRANSACTIONAL POWER</h4>
                 </div>
-                <p className="text-gray-400 text-sm">The core revenue is the $10 Ghost Access Token, which operates at near-zero marginal cost, creating massive profitability as your organization scales up.</p>
+                <p className="text-gray-400 text-base">The core revenue is the $10 Ghost Access Token, which operates at near-zero marginal cost, creating massive profitability as your organization scales up.</p>
               </div>
               <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-purple-500/50 transition">
                 <div className="flex items-center gap-2 mb-2">
-                  <ShieldCheck size={20} className="text-purple-400" />
-                  <h4 className="font-bold text-white">ZERO-TRUST ARCHITECTURAL MOAT</h4>
+                  <ShieldCheck size={24} className="text-purple-400" />
+                  <h4 className="font-bold text-white text-lg">ZERO-TRUST ARCHITECTURAL MOAT</h4>
                 </div>
-                <p className="text-gray-400 text-sm">The complexity of linking health data (HIPAA/GDPR) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model quickly.</p>
+                <p className="text-gray-400 text-base">The complexity of linking health data (HIPAA/GDPR) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model quickly.</p>
               </div>
               <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-green-500/50 transition">
                 <div className="flex items-center gap-2 mb-2">
-                  <Share2 size={20} className="text-green-400" />
-                  <h4 className="font-bold text-white">VIRAL NETWORK INTEGRATION</h4>
+                  <Share2 size={24} className="text-green-400" />
+                  <h4 className="font-bold text-white text-lg">VIRAL NETWORK INTEGRATION</h4>
                 </div>
-                <p className="text-gray-400 text-sm">VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok, etc.), creating a massive, verified peer-to-peer network for partner exposure.</p>
+                <p className="text-gray-400 text-base">VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok, etc.), creating a massive, verified peer-to-peer network for partner exposure.</p>
               </div>
               <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-blue-500/50 transition">
                 <div className="flex items-center gap-2 mb-2">
-                  <Lock size={20} className="text-blue-400" />
-                  <h4 className="font-bold text-white">REGULATORY TAILWINDS & LIABILITY SHIFT</h4>
+                  <Lock size={24} className="text-blue-400" />
+                  <h4 className="font-bold text-white text-lg">REGULATORY TAILWINDS & LIABILITY SHIFT</h4>
                 </div>
-                <p className="text-gray-400 text-sm">We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider.</p>
+                <p className="text-gray-400 text-base">We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider.</p>
               </div>
             </div>
           </div>
@@ -215,15 +215,15 @@ const PitchDeck = () => {
 
         {/* Competitive Scorecard Section */}
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-cyan-400 mb-4 font-orbitron">
+          <h2 className="text-2xl font-bold text-cyan-400 mb-4 font-orbitron">
             Direct Competitive Scorecard: Why VALID Wins
           </h2>
-          <p className="text-gray-400 text-sm mb-4">
+          <p className="text-gray-400 text-base mb-6">
             VALID is the only platform integrating the <strong className="text-white">eight key functions</strong> needed to de-risk and monetize high-liability businesses.
           </p>
           
           <div className="overflow-x-auto bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">
-            <table className="w-full text-[10px] font-mono">
+            <table className="w-full text-xs font-mono">
               <thead>
                 <tr className="bg-white/5 text-white">
                   <th className="p-2 text-left font-bold uppercase" style={{ width: '25%' }}>VALID FEATURE</th>
@@ -273,10 +273,10 @@ const PitchDeck = () => {
           </div>
 
           <div className="mt-6 bg-black/40 p-6 rounded-xl border border-cyan-500/30">
-            <h3 className="text-lg font-bold text-cyan-400 font-orbitron">
+            <h3 className="text-xl font-bold text-cyan-400 font-orbitron">
               🔑 Key Differentiation: Zero-Trust Security
             </h3>
-            <p className="text-gray-400 text-sm mt-2">
+            <p className="text-gray-400 text-base mt-2">
               Competitor security models (FCRA compliance, SSO identity) are <strong className="text-white">static and siloed</strong>. VALID's <strong className="text-cyan-400">Zero-Trust Architecture</strong> requires continuous verification and integrates dynamic, real-time health/tox data, making it the only truly risk-based access system. This level of comprehensive, dynamic security is unmatched and crucial for high-liability venues.
             </p>
           </div>

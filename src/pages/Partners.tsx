@@ -87,37 +87,37 @@ const Partners = () => {
       {/* 1. NAVIGATION */}
       <nav className="border-b border-white/10 bg-black/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <span className="text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID</span>
-            <span className="text-xs md:text-sm bg-gradient-to-r from-cyan-900/40 to-blue-900/40 text-cyan-400 px-4 py-2 rounded-full border border-cyan-500/40 tracking-widest uppercase font-bold shadow-[0_0_15px_rgba(0,240,255,0.2)]">
-              Partner Solutions
+            <span className="text-xs bg-cyan-900/40 text-cyan-400 px-2.5 py-1 rounded-full border border-cyan-500/40 tracking-wider uppercase font-bold">
+              Partners
             </span>
           </div>
           
-          {/* Catchy tagline */}
-          <div className="hidden lg:flex items-center gap-3 text-xs font-mono tracking-wider">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
+          {/* Catchy tagline - centered */}
+          <div className="hidden lg:flex items-center gap-3 text-xs font-mono tracking-wider absolute left-1/2 -translate-x-1/2">
+            <div className="h-px w-6 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
             <div className="flex flex-col items-center gap-0.5">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 font-bold tracking-[0.15em]">IDENTITY • ACCESS</span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 font-bold tracking-[0.15em]">PAYMENTS • TRUST</span>
             </div>
-            <div className="h-px w-8 bg-gradient-to-l from-transparent to-purple-500/50"></div>
+            <div className="h-px w-6 bg-gradient-to-l from-transparent to-purple-500/50"></div>
           </div>
           
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-2 items-center">
             <Link 
               to="/pitch-deck" 
-              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-bold rounded-full transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold rounded-full transition-all uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
             >
-              <Eye className="h-4 w-4 animate-pulse drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-              Investor Deck
+              <Eye className="h-3.5 w-3.5 animate-pulse drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              Investors
             </Link>
             <Link 
               to="/" 
-              className="flex items-center gap-2 px-5 py-2.5 bg-white/10 border border-cyan-500/30 hover:bg-cyan-500/20 hover:border-cyan-400 text-white text-sm font-bold rounded-full transition-all uppercase tracking-widest"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 border border-cyan-500/30 hover:bg-cyan-500/20 hover:border-cyan-400 text-white text-xs font-bold rounded-full transition-all uppercase tracking-wider"
             >
-              <Home className="h-4 w-4" />
-              Consumer App
+              <Home className="h-3.5 w-3.5" />
+              App
             </Link>
           </div>
         </div>

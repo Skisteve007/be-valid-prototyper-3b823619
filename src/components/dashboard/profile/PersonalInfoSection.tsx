@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, Target, CheckCircle, Upload, Move } from "lucide-react";
+import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, CheckCircle, Upload, Move, Activity, Zap, Ghost } from "lucide-react";
 import { useRef, useState } from "react";
 import { ImageCropDialog } from "./ImageCropDialog";
 
@@ -37,6 +37,7 @@ interface PersonalInfoSectionProps {
   onLabLogoUpload?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   uploadingLabLogo?: boolean;
   isAdmin?: boolean;
+  vibeMetadata?: Record<string, any>;
 }
 
 export const PersonalInfoSection = ({
@@ -66,6 +67,7 @@ export const PersonalInfoSection = ({
   onLabLogoUpload,
   uploadingLabLogo = false,
   isAdmin = false,
+  vibeMetadata,
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showCropDialog, setShowCropDialog] = useState(false);
@@ -124,28 +126,41 @@ export const PersonalInfoSection = ({
     return age;
   };
   
-  // Get a seeking preference from user interests
-  const getSeekingPreference = () => {
-    if (!userInterests) return null;
-    
-    // Try to get from "Specific Activities" first
-    const specificActivities = userInterests["Specific Activities"];
-    if (specificActivities && specificActivities.length > 0) {
-      return specificActivities[0];
-    }
-    
-    // Fall back to any other category
-    for (const category in userInterests) {
-      if (userInterests[category] && userInterests[category].length > 0) {
-        return userInterests[category][0];
-      }
-    }
-    
-    return null;
-  };
   
   const age = calculateAge();
-  const seekingPreference = getSeekingPreference();
+  
+  // Get signal mode icon and color
+  const getSignalIcon = () => {
+    const mode = vibeMetadata?.mode;
+    if (!mode) return null;
+    
+    const iconConfig: Record<string, { icon: React.ReactNode; color: string; glow: string }> = {
+      social: { 
+        icon: <Users className="w-5 h-5" />, 
+        color: "#2563EB",
+        glow: "rgba(37,99,235,0.6)"
+      },
+      pulse: { 
+        icon: <Activity className="w-5 h-5" />, 
+        color: "#22C55E",
+        glow: "rgba(34,197,94,0.6)"
+      },
+      thrill: { 
+        icon: <Zap className="w-5 h-5" />, 
+        color: "#F97316",
+        glow: "rgba(249,115,22,0.6)"
+      },
+      afterdark: { 
+        icon: <Ghost className="w-5 h-5" />, 
+        color: "#9333EA",
+        glow: "rgba(147,51,234,0.6)"
+      },
+    };
+    
+    return iconConfig[mode] || null;
+  };
+  
+  const signalIcon = getSignalIcon();
 
   return (
     <div className="space-y-6">
@@ -154,11 +169,22 @@ export const PersonalInfoSection = ({
           <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
           <div className="relative flex flex-col p-4 md:p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b pb-2 mb-4">
-              <h3 className="text-lg font-semibold">
-                <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Fun Quick Share</span>
-              </h3>
-              <div className="px-3 py-1 rounded-full bg-gradient-to-r from-white via-orange-100 to-orange-300 border border-orange-300 shadow-sm">
-                <span className="text-xs font-medium text-orange-700">* Important Mandatory. Upload Document & Profile Photo</span>
+              <div className="flex items-center gap-3">
+                <h3 className="text-lg font-semibold">
+                  <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Fun Quick Share</span>
+                </h3>
+                {signalIcon && (
+                  <div 
+                    className="w-8 h-8 rounded-full flex items-center justify-center animate-pulse"
+                    style={{ 
+                      backgroundColor: signalIcon.color,
+                      boxShadow: `0 0 20px 8px ${signalIcon.glow}`,
+                      color: 'white'
+                    }}
+                  >
+                    {signalIcon.icon}
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">
@@ -278,16 +304,8 @@ export const PersonalInfoSection = ({
                         <span className="text-muted-foreground">{currentHomeCity}</span>
                       </div>
                     )}
-                  </div>
-                  
-                  {seekingPreference && (
-                    <div className="flex items-center gap-2">
-                      <Target className="w-4 h-4 text-orange-500" />
-                      <span className="text-sm font-medium">
-                        Seeking: <span className="text-muted-foreground">{seekingPreference}</span>
-                      </span>
-                    </div>
-                  )}
+                </div>
+
                 </div>
                 
                 {/* Lab Certified Section - Right side on desktop */}

@@ -722,6 +722,18 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
 
       <div className="relative py-4">
         <div className="absolute inset-0 flex items-center">
+          <div className="w-full h-1 bg-gradient-to-r from-green-500 via-lime-400 to-green-500 rounded-full opacity-60"></div>
+        </div>
+      </div>
+
+      <MySignalSection
+        vibeMetadata={vibeMetadata}
+        onVibeMetadataChange={setVibeMetadata}
+        onStatusColorChange={setStatusColor}
+      />
+
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center">
           <div className="w-full h-1 bg-gradient-to-r from-pink-500 via-purple-400 to-pink-500 rounded-full opacity-60"></div>
         </div>
       </div>
@@ -734,18 +746,6 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         onlyfansHandle={onlyfansHandle || ""}
         sharingEnabled={sharingSocialEnabled}
         onToggleSharing={(enabled) => setSharingSocialEnabled(enabled)}
-      />
-
-      <div className="relative py-4">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-1 bg-gradient-to-r from-green-500 via-lime-400 to-green-500 rounded-full opacity-60"></div>
-        </div>
-      </div>
-
-      <MySignalSection
-        vibeMetadata={vibeMetadata}
-        onVibeMetadataChange={setVibeMetadata}
-        onStatusColorChange={setStatusColor}
       />
 
       <div className="relative py-4">

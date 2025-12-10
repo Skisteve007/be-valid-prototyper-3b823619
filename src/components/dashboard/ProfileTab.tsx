@@ -15,8 +15,8 @@ import { VicesSection } from "./profile/VicesSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
 import MemberBetaSurvey from "@/components/MemberBetaSurvey";
-import SocialEmbedGenerator from "./SocialEmbedGenerator";
 import MySignalSection from "./profile/MySignalSection";
+import TrustSignalSection from "./profile/TrustSignalSection";
 
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
@@ -817,96 +817,23 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
 
       <div className="relative py-4">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-1 bg-gradient-to-r from-green-500 via-emerald-400 to-green-500 rounded-full opacity-60"></div>
+          <div className="w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-400 to-cyan-500 rounded-full opacity-60"></div>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 p-3 rounded-full border bg-muted/30">
-        <FileText className="w-4 h-4 text-green-500 flex-shrink-0" />
-        <span className="text-sm font-semibold whitespace-nowrap bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">STD Status:</span>
-        <Input
-          id="std_acknowledgment"
-          {...register("std_acknowledgment")}
-          placeholder="Enter status..."
-          className="h-7 text-xs flex-1 rounded-full border-0 bg-background/50"
-        />
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          onClick={() => setStdAcknowledgmentLocked(!stdAcknowledgmentLocked)}
-          className="h-6 px-2 rounded-full"
-        >
-          {stdAcknowledgmentLocked ? (
-            <Lock className="w-3 h-3 text-red-500" />
-          ) : (
-            <Unlock className="w-3 h-3 text-green-500" />
-          )}
-        </Button>
-      </div>
-
-      <div className="relative py-4">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full h-1 bg-gradient-to-r from-blue-500 via-sky-400 to-blue-500 rounded-full opacity-60"></div>
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        <div className="flex items-center justify-between border-b pb-2">
-          <h3 className="text-lg font-semibold flex items-center gap-2">
-            <UserCheck className="w-5 h-5 text-blue-500" />
-            <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Member References</span>
-          </h3>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => setReferencesLocked(!referencesLocked)}
-            className="h-auto py-1 px-3"
-          >
-            {referencesLocked ? (
-              <>
-                <Lock className="w-4 h-4 text-red-500 mr-1" />
-                <span className="text-xs text-red-500">Private</span>
-              </>
-            ) : (
-              <>
-                <Unlock className="w-4 h-4 text-green-500 mr-1" />
-                <span className="text-xs text-green-500">Shareable</span>
-              </>
-            )}
-          </Button>
-        </div>
-        
-        {referencesLocked ? (
-          <div className="text-center py-3 text-muted-foreground">
-            <Lock className="w-6 h-6 mx-auto mb-1 opacity-50" />
-            <p className="text-xs">Private - unlock to share</p>
-          </div>
-        ) : (
-          <div className="flex flex-col md:flex-row gap-2">
-            {[0, 1, 2].map((index) => (
-              <div key={index} className="flex-1 flex items-center gap-1">
-                <Input
-                  id={`reference-${index}`}
-                  value={referenceIds[index]}
-                  onChange={(e) => handleReferenceIdChange(index, e.target.value)}
-                  placeholder={`#${index + 1}`}
-                  className="font-mono text-xs h-7"
-                />
-                {referenceProfiles[index] && (
-                  <Badge variant={referenceProfiles[index]?.verified ? "default" : "secondary"} className="text-[9px] px-1 whitespace-nowrap">
-                    {referenceProfiles[index]?.verified ? "✓" : ""}{referenceProfiles[index]?.full_name?.split(' ')[0]}
-                  </Badge>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Social Network Verification Widget */}
-      <SocialEmbedGenerator userId={userId} />
+      {/* Trust & Signal Section */}
+      <TrustSignalSection
+        userId={userId}
+        stdAcknowledgment={watch("std_acknowledgment") || ""}
+        onStdAcknowledgmentChange={(value) => setValue("std_acknowledgment", value)}
+        stdAcknowledgmentLocked={stdAcknowledgmentLocked}
+        onStdAcknowledgmentLockedChange={setStdAcknowledgmentLocked}
+        referenceIds={referenceIds}
+        onReferenceIdsChange={setReferenceIds}
+        referenceProfiles={referenceProfiles}
+        referencesLocked={referencesLocked}
+        onReferencesLockedChange={setReferencesLocked}
+      />
 
       {/* Member Beta Feedback Button */}
       <MemberBetaSurvey userId={userId} />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Users, Heart, Plane, Moon, Smartphone, Shield, Wifi, Battery } from 'lucide-react';
+import { Users, Plane, Moon, Smartphone, Shield, Wifi, Battery } from 'lucide-react';
 
-type VibeMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
+type VibeMode = 'access' | 'travel' | 'ghost';
 
 interface VibeModeConfig {
   name: string;
@@ -16,49 +16,38 @@ interface VibeModeConfig {
 }
 
 const vibeModes: Record<VibeMode, VibeModeConfig> = {
-  social: {
-    name: 'SOCIAL',
+  access: {
+    name: 'ACCESS',
     icon: <Users size={24} />,
     color: 'text-blue-400',
     bgGradient: 'from-blue-600/20 to-cyan-600/20',
     borderColor: 'border-blue-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(59,130,246,0.4)]',
-    tagline: 'Connect & Network',
-    statusText: 'NETWORKING ACTIVE',
-    features: ['Open to connect. Share contacts and socials with one scan.'],
+    tagline: 'Instant Entry',
+    statusText: 'ACCESS ACTIVE',
+    features: ['Instant entry. Verify identity, share socials, pay with one tap.'],
   },
-  pulse: {
-    name: 'PULSE',
-    icon: <Heart size={24} />,
-    color: 'text-green-400',
-    bgGradient: 'from-green-600/20 to-emerald-600/20',
-    borderColor: 'border-green-500/50',
-    glowColor: 'shadow-[0_0_40px_rgba(34,197,94,0.4)]',
-    tagline: 'High Energy',
-    statusText: 'PULSE ACTIVE',
-    features: ['High energy. Broadcast your preferences, relationship status, and health verified badge.'],
-  },
-  thrill: {
-    name: 'THRILL',
+  travel: {
+    name: 'TRAVEL',
     icon: <Plane size={24} />,
     color: 'text-orange-400',
     bgGradient: 'from-orange-600/20 to-amber-600/20',
     borderColor: 'border-orange-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(249,115,22,0.4)]',
-    tagline: 'Adventure Ready',
-    statusText: 'ACCESS GRANTED',
-    features: ['Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification.'],
+    tagline: 'Global Movement',
+    statusText: 'TRAVEL ACTIVE',
+    features: ['Global movement. Seamless check-ins for transit, hotels, and flights.'],
   },
-  afterdark: {
-    name: 'AFTER DARK',
+  ghost: {
+    name: 'GHOST',
     icon: <Moon size={24} />,
     color: 'text-purple-400',
     bgGradient: 'from-purple-600/20 to-violet-600/20',
     borderColor: 'border-purple-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(168,85,247,0.4)]',
-    tagline: 'Privacy Maximum',
+    tagline: 'Stealth Mode',
     statusText: 'GHOST PROTOCOL',
-    features: ['Entertainment access. Zero data exposed. Flow through entry.'],
+    features: ['Stealth active. Tokenized identity. Mask your data.'],
   },
 };
 
@@ -68,7 +57,7 @@ interface VibeIdEcosystemProps {
 }
 
 const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProps) => {
-  const [activeMode, setActiveMode] = useState<VibeMode>('social');
+  const [activeMode, setActiveMode] = useState<VibeMode>('access');
   const currentMode = vibeModes[activeMode];
 
   const headline = variant === 'b2c' 
@@ -87,7 +76,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
       <div 
         className={`absolute inset-0 opacity-30 transition-all duration-700 ${currentMode.bgGradient}`}
         style={{
-          background: `radial-gradient(ellipse at 70% 50%, ${activeMode === 'social' ? 'rgba(59,130,246,0.15)' : activeMode === 'pulse' ? 'rgba(236,72,153,0.15)' : activeMode === 'thrill' ? 'rgba(245,158,11,0.15)' : 'rgba(168,85,247,0.15)'} 0%, transparent 70%)`
+          background: `radial-gradient(ellipse at 70% 50%, ${activeMode === 'access' ? 'rgba(59,130,246,0.15)' : activeMode === 'travel' ? 'rgba(245,158,11,0.15)' : 'rgba(168,85,247,0.15)'} 0%, transparent 70%)`
         }}
       />
       
@@ -247,7 +236,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               {/* Reflection/Shadow */}
               <div 
                 className={`absolute -bottom-4 left-1/2 -translate-x-1/2 w-[200px] h-[20px] rounded-full blur-xl opacity-50 transition-all duration-500
-                  ${activeMode === 'social' ? 'bg-blue-500' : activeMode === 'pulse' ? 'bg-pink-500' : activeMode === 'thrill' ? 'bg-amber-500' : 'bg-purple-500'}`}
+                  ${activeMode === 'access' ? 'bg-blue-500' : activeMode === 'travel' ? 'bg-amber-500' : 'bg-purple-500'}`}
               />
             </div>
           </div>

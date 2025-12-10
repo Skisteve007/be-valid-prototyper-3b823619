@@ -60,6 +60,14 @@ const BuildersVision = () => {
       description: "Venues and employers face existential legal risk without verification. VALID absorbs that liability. We're not a nice-to-have—we're the insurance policy they can't operate without.",
       metric: "$0",
       metricLabel: "Venue Liability Exposure"
+    },
+    {
+      icon: Zap,
+      title: "INSTANT FBO SETTLEMENT",
+      subtitle: "Zero Payment Delay",
+      description: "Pre-funded wallets mean funds are already in the system. When a venue confirms a Ghost Token scan, they get paid instantly via FBO—no 3-day holds, no batch processing, no chasing payments. Cash flow, solved.",
+      metric: "0 sec",
+      metricLabel: "Settlement Time"
     }
   ];
 

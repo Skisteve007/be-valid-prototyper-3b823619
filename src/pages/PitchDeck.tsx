@@ -332,7 +332,7 @@ const PitchDeck = () => {
         {/* ===== SIX UNICORN PILLARS ===== */}
         <section>
           <div className="text-center mb-12">
-            <Badge className="bg-white/10 text-white border-white/20 mb-4">VALUE DRIVERS</Badge>
+            <Badge className="bg-white/10 text-white border-white/20 mb-4 text-lg px-6 py-2">VALUE DRIVERS</Badge>
             <h2 className="text-3xl md:text-4xl font-bold font-orbitron">The Six Unicorn Pillars</h2>
             <p className="text-gray-400 mt-4 max-w-2xl mx-auto">Why VALID will become the trust infrastructure layer for every high-stakes human interaction</p>
           </div>
@@ -364,7 +364,7 @@ const PitchDeck = () => {
         {/* ===== THE THESIS ===== */}
         <section>
           <div className="text-center mb-12">
-            <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 mb-4">THE THESIS</Badge>
+            <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 mb-4 text-lg px-6 py-2">THE THESIS</Badge>
             <h2 className="text-4xl md:text-6xl font-bold font-orbitron">Four Truths That Make VALID Inevitable</h2>
           </div>
 
@@ -391,7 +391,7 @@ const PitchDeck = () => {
         {/* ===== COMPETITIVE MOAT ===== */}
         <section>
           <div className="text-center mb-12">
-            <Badge className="bg-red-600/30 text-red-500 border-red-600/50 mb-4">COMPETITIVE MOAT</Badge>
+            <Badge className="bg-red-600/30 text-red-500 border-red-600/50 mb-4 text-lg px-6 py-2">COMPETITIVE MOAT</Badge>
             <h2 className="text-3xl md:text-4xl font-bold font-orbitron">Why Competitors Can't Win</h2>
             <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
               Billion-dollar companies have pieces of the puzzle. None have assembled it.
@@ -486,7 +486,7 @@ const PitchDeck = () => {
         {/* ===== MARKET EXPANSION ===== */}
         <section>
           <div className="text-center mb-12">
-            <Badge className="bg-green-600/30 text-green-400 border-green-600/50 mb-4">EXPANSION PATH</Badge>
+            <Badge className="bg-green-600/30 text-green-400 border-green-600/50 mb-4 text-lg px-6 py-2">EXPANSION PATH</Badge>
             <h2 className="text-3xl md:text-4xl font-bold font-orbitron">Six Verticals, One Protocol</h2>
           </div>
 

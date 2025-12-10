@@ -120,8 +120,8 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               SELECT YOUR SIGNAL
             </div>
 
-            {/* 2x2 Mode Grid */}
-            <div className="grid grid-cols-2 gap-3 mb-6">
+            {/* Mode Pill Buttons */}
+            <div className="flex flex-wrap gap-3 mb-6">
               {(Object.keys(vibeModes) as VibeMode[]).map((mode) => {
                 const config = vibeModes[mode];
                 const isActive = activeMode === mode;
@@ -130,26 +130,30 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                   <button
                     key={mode}
                     onClick={() => setActiveMode(mode)}
-                    className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl font-semibold text-sm transition-all duration-300 border aspect-square
+                    className={`flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition-all duration-300 border
                       ${isActive 
                         ? `${config.color} ${config.borderColor} bg-white/5 ${config.glowColor}` 
-                        : `${isDark ? 'text-gray-400 border-white/10 hover:border-white/30 bg-white/[0.02]' : 'text-slate-500 border-slate-200 hover:border-slate-400 bg-white'}`
+                        : `${isDark ? 'text-gray-400 border-white/10 hover:border-white/30' : 'text-slate-500 border-slate-200 hover:border-slate-400'}`
                       }`}
                   >
-                    <div className={`transition-all duration-300 ${isActive ? config.color : ''}`}>
-                      {config.icon}
-                    </div>
-                    <span className="text-xs tracking-wider font-bold">{config.name}</span>
+                    {config.icon}
+                    <span className="tracking-wider">{config.name}</span>
                   </button>
                 );
               })}
             </div>
 
-            {/* Mode Description */}
-            <div className={`p-5 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'}`}>
-              <p className={`text-sm leading-relaxed transition-opacity duration-300 ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
-                {currentMode.features[0]}
-              </p>
+            {/* Mode Features */}
+            <div className={`p-6 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'}`}>
+              <div className={`text-xs font-mono tracking-widest uppercase mb-4 ${currentMode.color}`}>
+                {currentMode.tagline}
+              </div>
+              <ul className="space-y-3">
+                <li className={`flex items-center gap-3 text-sm tracking-wide ${isDark ? 'text-cyan-400' : 'text-slate-700'}`}>
+                  <div className={`w-2 h-2 rounded-full ${currentMode.color.replace('text-', 'bg-')}`} />
+                  {currentMode.features[0]}
+                </li>
+              </ul>
             </div>
           </div>
 

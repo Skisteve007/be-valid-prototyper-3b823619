@@ -102,7 +102,7 @@ const Index = () => {
             </h2>
             <p className={`max-w-2xl mx-auto leading-relaxed
               ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-              The ecosystem designed for humans, not data points.
+              Designed for humans, not data points.
             </p>
           </div>
 
@@ -112,21 +112,21 @@ const Index = () => {
               isDark={isDark}
               icon={<ShieldCheck size={32}/>}
               title="Military-Grade Fortress"
-              desc="Your identity is locked behind Zero-Trust encryption. Impossible to fake. Impossible to steal. We built a complete digital fortress around your data."
+              desc="Digital Fortress enabled. Unbreachable zero-trust encryption. Impossible to fake, impossible to steal. Your identity is locked."
               color="blue"
             />
             <FeatureCard 
               isDark={isDark}
               icon={<Globe size={32}/>}
-              title="Accepted Everywhere"
-              desc="One key for the world. Skip the manual ID check at airports, entertainment venues, and corporate zones."
+              title="Accepted Anywhere"
+              desc="One Key. Universal Acceptance. Skip the manual check. Valid at airports, entertainment venues, and corporate zones worldwide."
               color="cyan"
             />
             <FeatureCard 
               isDark={isDark}
               icon={<EyeOff size={32}/>}
               title="Your Data. Your Rules."
-              desc="Ghost Protocol enabled. Context-aware sharing means you reveal only what's required—whether it's age, health, or security clearance—while keeping your personal bio and medical records invisible."
+              desc="Ghost Protocol Enabled. Context-aware sharing: Reveal only what's required (age, health, or clearance) while keeping your choice records invisible."
               color="purple"
             />
           </div>

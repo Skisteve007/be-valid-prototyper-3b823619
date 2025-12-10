@@ -129,8 +129,8 @@ export const IDVManagementTab = () => {
             <Icon className="h-5 w-5 text-white" />
           </div>
           <div>
-            <div className="text-2xl font-bold">{value}</div>
-            <div className="text-xs text-gray-400">{label}</div>
+            <div className="text-2xl font-bold text-white">{value}</div>
+            <div className="text-xs text-gray-300">{label}</div>
           </div>
         </div>
       </CardContent>
@@ -158,12 +158,12 @@ export const IDVManagementTab = () => {
             </CardTitle>
             <div className="flex items-center gap-2">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-300" />
                 <Input
                   placeholder="Search by name, email, or hash..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-9 w-64 bg-black/40 border-white/20"
+                  className="pl-9 w-64 bg-black/40 border-white/20 text-white placeholder:text-gray-400"
                 />
               </div>
               <Button
@@ -183,18 +183,18 @@ export const IDVManagementTab = () => {
             <Table>
               <TableHeader>
                 <TableRow className="border-white/10">
-                  <TableHead>Member</TableHead>
-                  <TableHead>Tier</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Verified Hash</TableHead>
-                  <TableHead>Verified At</TableHead>
-                  <TableHead>Created</TableHead>
+                  <TableHead className="text-gray-200">Member</TableHead>
+                  <TableHead className="text-gray-200">Tier</TableHead>
+                  <TableHead className="text-gray-200">Status</TableHead>
+                  <TableHead className="text-gray-200">Verified Hash</TableHead>
+                  <TableHead className="text-gray-200">Verified At</TableHead>
+                  <TableHead className="text-gray-200">Created</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredRecords.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center text-gray-400 py-8">
+                    <TableCell colSpan={6} className="text-center text-gray-300 py-8">
                       {loading ? "Loading..." : "No IDV records found"}
                     </TableCell>
                   </TableRow>
@@ -203,16 +203,16 @@ export const IDVManagementTab = () => {
                     <TableRow key={record.id} className="border-white/10 hover:bg-white/5">
                       <TableCell>
                         <div>
-                          <div className="font-medium">{record.profiles?.full_name || "N/A"}</div>
-                          <div className="text-xs text-gray-400">{record.profiles?.email}</div>
+                          <div className="font-medium text-white">{record.profiles?.full_name || "N/A"}</div>
+                          <div className="text-xs text-gray-300">{record.profiles?.email}</div>
                           <div className="text-xs text-cyan-400">{record.profiles?.member_id}</div>
                         </div>
                       </TableCell>
                       <TableCell>
                         <Badge className={
                           record.tier === "vip" 
-                            ? "bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/50" 
-                            : "bg-emerald-500/20 text-emerald-400 border-emerald-500/50"
+                            ? "bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/50" 
+                            : "bg-emerald-500/20 text-emerald-300 border-emerald-500/50"
                         }>
                           {record.tier === "vip" ? "VIP Global" : "Standard"}
                         </Badge>
@@ -227,26 +227,26 @@ export const IDVManagementTab = () => {
                       <TableCell>
                         {record.verified_hash ? (
                           <div className="flex items-center gap-1">
-                            <Hash className="h-3 w-3 text-gray-400" />
-                            <code className="text-xs bg-black/40 px-2 py-0.5 rounded">
+                            <Hash className="h-3 w-3 text-gray-300" />
+                            <code className="text-xs bg-black/60 px-2 py-0.5 rounded text-gray-200">
                               {record.verified_hash.substring(0, 12)}...
                             </code>
                           </div>
                         ) : (
-                          <span className="text-gray-500">—</span>
+                          <span className="text-gray-400">—</span>
                         )}
                       </TableCell>
                       <TableCell>
                         {record.verified_at ? (
-                          <div className="flex items-center gap-1 text-sm">
-                            <Calendar className="h-3 w-3 text-gray-400" />
+                          <div className="flex items-center gap-1 text-sm text-gray-200">
+                            <Calendar className="h-3 w-3 text-gray-300" />
                             {format(new Date(record.verified_at), "MMM d, yyyy")}
                           </div>
                         ) : (
-                          <span className="text-gray-500">—</span>
+                          <span className="text-gray-400">—</span>
                         )}
                       </TableCell>
-                      <TableCell className="text-sm text-gray-400">
+                      <TableCell className="text-sm text-gray-300">
                         {format(new Date(record.created_at), "MMM d, yyyy HH:mm")}
                       </TableCell>
                     </TableRow>

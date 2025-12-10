@@ -137,9 +137,11 @@ const Partners = () => {
         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm relative">
           <div className="text-4xl text-cyan-500 absolute top-4 left-4 font-serif">"</div>
           <p className="text-lg md:text-xl text-gray-300 italic leading-relaxed mb-6 px-4">
-            Your operation faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID eliminates both—instantly. 
-            Every Ghost Token scan delivers verified access in under 3 seconds, earns you <span className="text-cyan-400">40% revenue share</span>, and shields you from every compliance risk. 
-            <span className="text-cyan-400">Zero credit card fees. Zero chargebacks. Zero liability.</span>
+            Your operation faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID eliminates both—instantly.
+            <br /><br />
+            Every user arrives verified and ready to spend. You earn a <span className="text-cyan-400">40% revenue share</span> on every Ghost Token purchase made by that patron, ensuring immediate, high-margin income. This revenue, paired with verified access in under 3 seconds, shields you from every compliance risk.
+            <br /><br />
+            <span className="text-cyan-400">Zero credit card fees. Zero chargebacks. Zero funding headaches.</span>
           </p>
           <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— What VALID Means for Your Operation</div>
         </div>

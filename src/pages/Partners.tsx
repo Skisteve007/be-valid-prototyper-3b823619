@@ -98,7 +98,7 @@ const Partners = () => {
               to="/pitch-deck" 
               className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold rounded-full transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
             >
-              🚀 Pitch Deck
+              🚀 Investor Deck
             </Link>
             <Link to="/" className="px-5 py-2 border border-white/20 hover:bg-white hover:text-black text-xs font-bold rounded-full transition-all uppercase tracking-widest">
               Consumer App

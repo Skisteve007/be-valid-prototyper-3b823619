@@ -189,7 +189,7 @@ const Index = () => {
                 : 'border-slate-200 hover:border-emerald-500 bg-slate-50'}`}>
               <h4 className={`text-xl font-bold font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>STANDARD VIBE-ID</h4>
               <p className={`text-sm my-2 ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-                Verified for instant club entry, P2P connection, and all domestic use cases.
+                Verified for instant club entry, P2P connection, and a Basic Criminal Background Check for domestic use cases.
               </p>
               <div className="flex justify-between items-center mt-3">
                 <p className="text-3xl font-extrabold text-emerald-400">$48.00</p>
@@ -200,6 +200,7 @@ const Index = () => {
               <ul className={`text-xs mt-3 space-y-1 list-disc list-inside ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>
                 <li><span className="font-bold">Turnaround:</span> Under 3 Minutes</li>
                 <li>Passport/ID & Live Biometrics Check</li>
+                <li>Basic Criminal Background Check</li>
               </ul>
             </div>
 
@@ -210,7 +211,7 @@ const Index = () => {
                 : 'border-fuchsia-400 shadow-lg bg-fuchsia-50'}`}>
               <h4 className="text-xl font-bold font-orbitron text-fuchsia-400">VIP GLOBAL ACCESS 🚀</h4>
               <p className={`text-sm my-2 ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
-                Required for international transactions, crypto-KYC, and premium travel utility (DTC ready).
+                Required for international transactions, crypto-KYC, and includes a Full Global AML/PEP & Comprehensive Background Check.
               </p>
               <div className="flex justify-between items-center mt-3">
                 <p className="text-3xl font-extrabold text-fuchsia-400">$112.00</p>
@@ -220,7 +221,8 @@ const Index = () => {
               </div>
               <ul className={`text-xs mt-3 space-y-1 list-disc list-inside ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>
                 <li><span className="font-bold">Turnaround:</span> Under 5 Minutes</li>
-                <li>Includes Full Global AML/PEP Screening</li>
+                <li>Full Global AML/PEP Screening</li>
+                <li>Comprehensive Background Check</li>
               </ul>
             </div>
           </div>

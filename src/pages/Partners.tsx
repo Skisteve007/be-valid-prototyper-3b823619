@@ -86,21 +86,29 @@ const Partners = () => {
 
       {/* 1. NAVIGATION */}
       <nav className="border-b border-white/10 bg-black/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <span className="text-xl font-bold font-orbitron tracking-[0.2em] text-white">VALID</span>
-            <span className="text-[10px] bg-cyan-900/30 text-cyan-400 px-2 py-1 rounded border border-cyan-500/30 tracking-widest uppercase">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <span className="text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID</span>
+            <span className="text-xs md:text-sm bg-gradient-to-r from-cyan-900/40 to-blue-900/40 text-cyan-400 px-4 py-2 rounded-full border border-cyan-500/40 tracking-widest uppercase font-bold shadow-[0_0_15px_rgba(0,240,255,0.2)]">
               Partner Solutions
             </span>
           </div>
+          
+          {/* Catchy tagline */}
+          <div className="hidden lg:flex items-center gap-2 text-xs font-mono tracking-wider">
+            <span className="text-gray-500">⚡</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 animate-pulse">THE FUTURE OF VERIFIED ACCESS</span>
+            <span className="text-gray-500">⚡</span>
+          </div>
+          
           <div className="flex gap-4 items-center">
             <Link 
               to="/pitch-deck" 
-              className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold rounded-full transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
+              className="px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-bold rounded-full transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
             >
               🚀 Investor Deck
             </Link>
-            <Link to="/" className="px-5 py-2 border border-white/20 hover:bg-white hover:text-black text-xs font-bold rounded-full transition-all uppercase tracking-widest">
+            <Link to="/" className="px-5 py-2.5 border border-white/20 hover:bg-white hover:text-black text-sm font-bold rounded-full transition-all uppercase tracking-widest">
               Consumer App
             </Link>
           </div>

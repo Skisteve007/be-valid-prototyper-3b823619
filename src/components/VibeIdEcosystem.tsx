@@ -72,8 +72,8 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
   const currentMode = vibeModes[activeMode];
 
   const headline = variant === 'b2c' 
-    ? 'One Identity. Infinite Modes.'
-    : 'One Platform. Every Context.';
+    ? 'ONE IDENTITY. ZERO LIMITS.'
+    : 'ONE PLATFORM. EVERY CONTEXT.';
   
   const description = variant === 'b2c'
     ? 'Your social graph adapts to every situation. Switch between personas instantly—from networking events to nightlife to dating apps. One verified identity, contextually aware.'
@@ -97,7 +97,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
         <div className="text-center mb-16 pt-8">
           <div className={`inline-block px-6 py-2 mb-6 border rounded-full text-sm font-mono tracking-[0.2em] uppercase
             ${isDark ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10' : 'border-blue-600/30 text-blue-600 bg-blue-50'}`}>
-            The Vibe-ID Ecosystem
+            THE VALID NETWORK
           </div>
           <h2 className={`text-3xl md:text-5xl font-black mb-4 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>

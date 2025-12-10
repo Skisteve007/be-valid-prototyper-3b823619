@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Users, Plane, Moon, Smartphone, Shield, Wifi, Battery } from 'lucide-react';
+import { Users, Activity, Zap, Moon, Smartphone, Shield, Wifi, Battery } from 'lucide-react';
 
-type VibeMode = 'access' | 'travel' | 'ghost';
+type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
-interface VibeModeConfig {
+interface SignalModeConfig {
   name: string;
   icon: React.ReactNode;
   color: string;
@@ -12,42 +12,53 @@ interface VibeModeConfig {
   glowColor: string;
   tagline: string;
   statusText: string;
-  features: string[];
+  description: string;
 }
 
-const vibeModes: Record<VibeMode, VibeModeConfig> = {
-  access: {
-    name: 'ACCESS',
-    icon: <Users size={24} />,
+const signalModes: Record<SignalMode, SignalModeConfig> = {
+  social: {
+    name: 'SOCIAL',
+    icon: <Users size={20} />,
     color: 'text-blue-400',
     bgGradient: 'from-blue-600/20 to-cyan-600/20',
     borderColor: 'border-blue-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(59,130,246,0.4)]',
-    tagline: 'Instant Entry',
-    statusText: 'ACCESS ACTIVE',
-    features: ['Instant Entry. Verify Identity, Share Socials, Pay With One Tap.'],
+    tagline: 'Open Connection',
+    statusText: 'SOCIAL ACTIVE',
+    description: 'Open to connect. Share contacts and socials with one scan.',
   },
-  travel: {
-    name: 'TRAVEL',
-    icon: <Plane size={24} />,
+  pulse: {
+    name: 'PULSE',
+    icon: <Activity size={20} />,
+    color: 'text-green-400',
+    bgGradient: 'from-green-600/20 to-emerald-600/20',
+    borderColor: 'border-green-500/50',
+    glowColor: 'shadow-[0_0_40px_rgba(34,197,94,0.4)]',
+    tagline: 'High Energy',
+    statusText: 'PULSE ACTIVE',
+    description: 'High energy. Broadcast your preferences, relationship status, and health verified badge.',
+  },
+  thrill: {
+    name: 'THRILL',
+    icon: <Zap size={20} />,
     color: 'text-orange-400',
     bgGradient: 'from-orange-600/20 to-amber-600/20',
     borderColor: 'border-orange-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(249,115,22,0.4)]',
-    tagline: 'Global Movement',
-    statusText: 'TRAVEL ACTIVE',
-    features: ['Global Movement. Seamless Check-Ins For Transit, Hotels, And Flights.'],
+    tagline: 'Adventure Ready',
+    statusText: 'THRILL ACTIVE',
+    description: 'Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification.',
   },
-  ghost: {
-    name: 'GHOST',
-    icon: <Moon size={24} />,
+  afterdark: {
+    name: 'AFTER DARK',
+    icon: <Moon size={20} />,
     color: 'text-purple-400',
     bgGradient: 'from-purple-600/20 to-violet-600/20',
     borderColor: 'border-purple-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(168,85,247,0.4)]',
     tagline: 'Stealth Mode',
     statusText: 'GHOST PROTOCOL',
-    features: ['Stealth Active. Tokenized Identity & Money Loading. Mask Your Data.'],
+    description: 'Entertainment access. Zero data exposed. Flow through entry.',
   },
 };
 
@@ -57,8 +68,8 @@ interface VibeIdEcosystemProps {
 }
 
 const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProps) => {
-  const [activeMode, setActiveMode] = useState<VibeMode>('access');
-  const currentMode = vibeModes[activeMode];
+  const [activeMode, setActiveMode] = useState<SignalMode>('social');
+  const currentMode = signalModes[activeMode];
 
   const headline = variant === 'b2c' 
     ? 'ONE IDENTITY. ZERO LIMITS.'
@@ -76,7 +87,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
       <div 
         className={`absolute inset-0 opacity-30 transition-all duration-700 ${currentMode.bgGradient}`}
         style={{
-          background: `radial-gradient(ellipse at 70% 50%, ${activeMode === 'access' ? 'rgba(59,130,246,0.15)' : activeMode === 'travel' ? 'rgba(245,158,11,0.15)' : 'rgba(168,85,247,0.15)'} 0%, transparent 70%)`
+          background: `radial-gradient(ellipse at 70% 50%, ${activeMode === 'social' ? 'rgba(59,130,246,0.15)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.15)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.15)' : 'rgba(168,85,247,0.15)'} 0%, transparent 70%)`
         }}
       />
       
@@ -109,40 +120,37 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               SELECT YOUR SIGNAL
             </div>
 
-            {/* Mode Pill Buttons */}
-            <div className="flex flex-wrap gap-3 mb-6">
-              {(Object.keys(vibeModes) as VibeMode[]).map((mode) => {
-                const config = vibeModes[mode];
+            {/* 2x2 Pill Grid */}
+            <div className="grid grid-cols-2 gap-3 mb-6 max-w-sm">
+              {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
+                const config = signalModes[mode];
                 const isActive = activeMode === mode;
                 
                 return (
                   <button
                     key={mode}
                     onClick={() => setActiveMode(mode)}
-                    className={`flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition-all duration-300 border
+                    className={`flex items-center justify-center gap-2 px-4 py-3 rounded-full font-semibold text-sm transition-all duration-300 border
                       ${isActive 
                         ? `${config.color} ${config.borderColor} bg-white/5 ${config.glowColor}` 
                         : `${isDark ? 'text-gray-400 border-white/10 hover:border-white/30' : 'text-slate-500 border-slate-200 hover:border-slate-400'}`
                       }`}
                   >
                     {config.icon}
-                    <span className="tracking-wider">{config.name}</span>
+                    <span className="tracking-wider text-xs">{config.name}</span>
                   </button>
                 );
               })}
             </div>
 
-            {/* Mode Features */}
+            {/* Description Display */}
             <div className={`p-6 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'}`}>
-              <div className={`text-xs font-mono tracking-widest uppercase mb-4 ${currentMode.color}`}>
+              <div className={`text-xs font-mono tracking-widest uppercase mb-3 ${currentMode.color}`}>
                 {currentMode.tagline}
               </div>
-              <ul className="space-y-3">
-                <li className={`flex items-start gap-3 text-sm tracking-wide ${isDark ? 'text-cyan-400' : 'text-slate-700'}`}>
-                  <span className={`w-2.5 h-2.5 min-w-[10px] min-h-[10px] rounded-full flex-shrink-0 mt-1 ${currentMode.color.replace('text-', 'bg-')}`} />
-                  <span>{currentMode.features[0]}</span>
-                </li>
-              </ul>
+              <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+                {currentMode.description}
+              </p>
             </div>
           </div>
 
@@ -236,7 +244,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               {/* Reflection/Shadow */}
               <div 
                 className={`absolute -bottom-4 left-1/2 -translate-x-1/2 w-[200px] h-[20px] rounded-full blur-xl opacity-50 transition-all duration-500
-                  ${activeMode === 'access' ? 'bg-blue-500' : activeMode === 'travel' ? 'bg-amber-500' : 'bg-purple-500'}`}
+                  ${activeMode === 'social' ? 'bg-blue-500' : activeMode === 'pulse' ? 'bg-green-500' : activeMode === 'thrill' ? 'bg-orange-500' : 'bg-purple-500'}`}
               />
             </div>
           </div>

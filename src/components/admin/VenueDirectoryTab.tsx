@@ -565,7 +565,7 @@ export const VenueDirectoryTab = () => {
                             <Edit className="h-5 w-5 mr-2" /> Edit
                           </Button>
                         </DialogTrigger>
-                      <DialogContent>
+                      <DialogContent className="top-[15%] translate-y-0">
                         <DialogHeader>
                           <DialogTitle>Edit Partner</DialogTitle>
                           <DialogDescription>
@@ -747,7 +747,7 @@ export const VenueDirectoryTab = () => {
                               Edit
                             </Button>
                           </DialogTrigger>
-                          <DialogContent>
+                          <DialogContent className="top-[15%] translate-y-0">
                             <DialogHeader>
                               <DialogTitle>Edit Partner</DialogTitle>
                               <DialogDescription>

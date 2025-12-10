@@ -286,11 +286,14 @@ const Partners = () => {
 
       {/* 4. TRI-LAYER REVENUE STACK */}
       <section className="py-24 bg-white/5 border-y border-white/10 relative z-10">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-           <div className="flex flex-col justify-center h-full">
-              <h2 className="text-3xl font-bold font-orbitron mb-6">THE REVENUE <span className="text-cyan-400">STACK</span></h2>
-              <p className="text-gray-400 mb-8">We capture value at every layer of the interaction.</p>
-              
+        <div className="max-w-6xl mx-auto px-6">
+           <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold font-orbitron mb-4">THE REVENUE <span className="text-cyan-400">STACK</span></h2>
+              <p className="text-gray-400">We capture value at every layer of the interaction.</p>
+           </div>
+           
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Left: Stack Items */}
               <div className="space-y-4">
                  <StackItem 
                    title="1. Access Monetization" 
@@ -308,25 +311,25 @@ const Partners = () => {
                    color="green"
                  />
               </div>
-           </div>
            
-           {/* Visual Stack Graphic */}
-           <div className="relative">
-              <div className="absolute inset-0 bg-cyan-500/20 blur-[80px] rounded-full"></div>
-               <div className="relative z-10 space-y-4">
-                   <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)]">
-                      <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 1</div>
-                      <div className="font-bold text-xl">ACCESS TOKENS</div>
-                   </div>
-                   <div className="bg-black border border-purple-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
-                      <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 2</div>
-                      <div className="font-bold text-xl">HEALTH MARGIN (60%)</div>
-                   </div>
-                   <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                      <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 3</div>
-                      <div className="font-bold text-xl">SaaS RECURRING</div>
-                   </div>
-                </div>
+              {/* Right: Visual Stack Graphic */}
+              <div className="relative">
+                 <div className="absolute inset-0 bg-cyan-500/20 blur-[80px] rounded-full"></div>
+                 <div className="relative z-10 space-y-4">
+                    <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)]">
+                       <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 1</div>
+                       <div className="font-bold text-xl">ACCESS TOKENS</div>
+                    </div>
+                    <div className="bg-black border border-purple-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+                       <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 2</div>
+                       <div className="font-bold text-xl">HEALTH MARGIN (60%)</div>
+                    </div>
+                    <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                       <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 3</div>
+                       <div className="font-bold text-xl">SaaS RECURRING</div>
+                    </div>
+                 </div>
+              </div>
            </div>
         </div>
       </section>

@@ -46,7 +46,6 @@ const PULSE_OPTIONS = {
   shades: ["On Indoors", "Hanging on Shirt", "Lost Them", "Prescription", "Night Vision"],
   energy: ["Pregaming", "Peaking", "Cruise Control", "Second Wind", "Last Call Energy", "After Party Ready"],
   redFlag: ["None", "Ex is Here", "Tab is Open", "Phone at 5%", "Lost my Friends", "Uber Surge"],
-  uberRating: ["5.0 ⭐", "4.9", "4.8", "Below 4.8 (Yikes)", "Driver Mode", "I Have a Driver"],
   buying: ["First Round", "My Round Never", "Bottle Service", "Water Only", "Whatever You're Having"],
   closingTime: ["When They Kick Us Out", "2 AM Sharp", "Sunrise", "Already Planning Tomorrow", "Open Ended"],
   recovery: ["Brunch", "Hair of the Dog", "Sleep All Day", "IV Drip", "Pretend It Didn't Happen"],
@@ -212,7 +211,6 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       {renderDropdown("Shades", "pulse_shades", PULSE_OPTIONS.shades)}
       {renderDropdown("Energy", "pulse_energy", PULSE_OPTIONS.energy)}
       {renderDropdown("Red Flag", "pulse_redFlag", PULSE_OPTIONS.redFlag)}
-      {renderDropdown("Uber Rating", "pulse_uberRating", PULSE_OPTIONS.uberRating)}
       {renderDropdown("Buying?", "pulse_buying", PULSE_OPTIONS.buying)}
       {renderDropdown("Closing Time", "pulse_closingTime", PULSE_OPTIONS.closingTime)}
       {renderDropdown("Recovery", "pulse_recovery", PULSE_OPTIONS.recovery)}

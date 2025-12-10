@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Check, Sun, Moon, ShieldCheck, Globe, EyeOff } from 'lucide-react';
+import { Sun, Moon, ShieldCheck, Globe, EyeOff } from 'lucide-react';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
@@ -133,124 +133,25 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 3. STEP 1: MEMBERSHIP */}
-      <section className="py-24 px-4 max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <div className={`inline-block px-3 py-1 mb-4 border rounded-full text-[10px] font-mono tracking-widest uppercase
-            ${isDark ? 'border-cyan-500/30 text-cyan-400' : 'border-blue-600/30 text-blue-600'}`}>
-            Phase 1
-          </div>
-          <h2 className={`text-4xl md:text-5xl font-black mb-2 font-orbitron
+      {/* CTA SECTION */}
+      <section className="py-24 px-4 relative z-10">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className={`text-3xl md:text-4xl font-bold mb-6 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            ACTIVATE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">MEMBERSHIP</span>
+            Ready to Experience <span className="text-cyan-400">VALID™</span>?
           </h2>
-          <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>Required for App Access & Profile Creation.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <PricingCard isDark={isDark} title="Single Member" price="$19.50" period="Per 60 Days" originalPrice="$39" tag="50% OFF" isBeta={true} />
-          <PricingCard isDark={isDark} title="Joint/Couple" price="$34.50" period="Per 60 Days" originalPrice="$69" tag="50% OFF" isBeta={true} />
-          <PricingCard isDark={isDark} title="Single One Year" price="$64.50" period="One-time" originalPrice="$129" tag="BEST VALUE" isBeta={true} isGold={true} />
-          <PricingCard isDark={isDark} title="Couple One Year" price="$109.50" period="One-time" originalPrice="$219" tag="BEST VALUE" isBeta={true} isGold={true} />
-        </div>
-      </section>
-
-      {/* 4. STEP 2: VERIFICATION */}
-      <section className={`py-24 px-4 border-t transition-colors duration-500
-        ${isDark ? 'bg-gradient-to-b from-black to-gray-900 border-white/5' : 'bg-slate-50 border-slate-200'}`}>
-        
-        <div className="text-center mb-16">
-          <div className={`inline-block px-3 py-1 mb-4 border rounded-full text-[10px] font-mono tracking-widest uppercase
-            ${isDark ? 'border-purple-500/30 text-purple-400' : 'border-purple-600/30 text-purple-600'}`}>
-            Phase 2 (Optional)
-          </div>
-          <h2 className={`text-4xl md:text-5xl font-black mb-2 font-orbitron
-            ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            GET <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">VERIFIED</span>
-          </h2>
-          <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>Upgrade to Lab-Certified Status.</p>
-        </div>
-
-        {/* ANCHOR YOUR IDENTITY - Verification Upgrade Section */}
-        <div className={`max-w-md mx-auto p-6 rounded-xl border mb-12
-          ${isDark 
-            ? 'bg-gray-900/80 border-white/10 shadow-2xl' 
-            : 'bg-white border-slate-200 shadow-xl'}`}>
-          <h3 className={`text-2xl font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>Anchor Your Identity</h3>
-          <p className={`mb-8 ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-            Upgrade to a Government-Verified Vibe-ID for maximum access and trust within the Valid ecosystem.
+          <p className={`mb-10 text-lg ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+            Access the full platform, create your profile, and get verified.
           </p>
-
-          <div className="space-y-6">
-            {/* Standard Check */}
-            <div className={`p-5 border rounded-lg transition duration-300
+          <button
+            onClick={() => navigate('/auth')}
+            className={`px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 uppercase tracking-widest
               ${isDark 
-                ? 'border-white/20 hover:border-emerald-400 bg-black/30' 
-                : 'border-slate-200 hover:border-emerald-500 bg-slate-50'}`}>
-              <h4 className={`text-xl font-bold font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>STANDARD VIBE-ID</h4>
-              <p className={`text-sm my-2 ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-                Verified for instant club entry, P2P connection, and a Basic Criminal Background Check for domestic use cases.
-              </p>
-              <div className="flex justify-between items-center mt-3">
-                <p className="text-3xl font-extrabold text-emerald-400">$48.00</p>
-                <button className="bg-emerald-600 text-black font-bold py-2 px-6 rounded-full hover:bg-emerald-500 transition hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-                  Get Verified
-                </button>
-              </div>
-              <ul className={`text-xs mt-3 space-y-1 list-disc list-inside ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>
-                <li><span className="font-bold">Turnaround:</span> Under 3 Minutes</li>
-                <li>Passport/ID & Live Biometrics Check</li>
-                <li>Basic Criminal Background Check</li>
-              </ul>
-            </div>
-
-            {/* VIP Check */}
-            <div className={`p-5 border-2 rounded-lg transition duration-300
-              ${isDark 
-                ? 'border-fuchsia-500 shadow-fuchsia-500/30 shadow-lg bg-black/50' 
-                : 'border-fuchsia-400 shadow-lg bg-fuchsia-50'}`}>
-              <h4 className="text-xl font-bold font-orbitron text-fuchsia-400">VIP GLOBAL ACCESS 🚀</h4>
-              <p className={`text-sm my-2 ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
-                Required for international transactions, crypto-KYC, and includes a Full Global AML/PEP & Comprehensive Background Check.
-              </p>
-              <div className="flex justify-between items-center mt-3">
-                <p className="text-3xl font-extrabold text-fuchsia-400">$112.00</p>
-                <button className="bg-fuchsia-600 text-white font-bold py-2 px-6 rounded-full hover:bg-fuchsia-500 transition hover:shadow-[0_0_20px_rgba(217,70,239,0.4)]">
-                  Go Global
-                </button>
-              </div>
-              <ul className={`text-xs mt-3 space-y-1 list-disc list-inside ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>
-                <li><span className="font-bold">Turnaround:</span> Under 5 Minutes</li>
-                <li>Full Global AML/PEP Screening</li>
-                <li>Comprehensive Background Check</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Lab Verification Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <LabCard 
-            isDark={isDark}
-            title="10-Panel Toxicology" 
-            price="$129.00" 
-            badge="LAB-CERTIFIED" 
-            badgeColor="bg-cyan-600"
-            btnColor="cyan"
-            checks={['Verified Drug Screen', 'Digital Badge Update']}
-            onOrder={() => navigate("/toxicology-kit-order")}
-          />
-          
-          <LabCard 
-            isDark={isDark}
-            title="13-Panel Sexual Health" 
-            price="$249.00" 
-            badge="PLATINUM" 
-            badgeColor="bg-purple-600"
-            btnColor="purple"
-            checks={['Full STD Panel', 'Certified Health Badge']}
-            onOrder={() => navigate("/health-panel-order")}
-          />
+                ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_30px_rgba(0,240,255,0.4)] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)]' 
+                : 'bg-cyan-500 text-white hover:bg-cyan-600 shadow-lg'}`}
+          >
+            Login to View Platform
+          </button>
         </div>
       </section>
     </div>
@@ -286,93 +187,6 @@ const FeatureCard = ({ isDark, icon, title, desc, color }: FeatureCardProps) => 
     <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
       {desc}
     </p>
-  </div>
-);
-
-// --- ADAPTIVE PRICING CARD ---
-interface PricingCardProps {
-  isDark: boolean;
-  title: string;
-  price: string;
-  period: string;
-  originalPrice: string;
-  tag: string;
-  isBeta?: boolean;
-  isGold?: boolean;
-}
-
-const PricingCard = ({ isDark, title, price, period, originalPrice, tag, isBeta, isGold }: PricingCardProps) => (
-  <div className={`p-8 rounded-2xl border relative transition-all duration-300 hover:-translate-y-2 group backdrop-blur-xl
-    ${isDark 
-      ? (isGold ? 'bg-black/40 border-cyan-500/50 shadow-[0_0_30px_rgba(0,240,255,0.1)] hover:shadow-[0_0_50px_rgba(0,240,255,0.25)]' : 'bg-black/40 border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)]') 
-      : (isGold ? 'bg-white border-cyan-400 shadow-xl shadow-cyan-100' : 'bg-white border-slate-200 shadow-sm hover:shadow-lg')
-    }`}>
-    
-    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase
-      ${isGold ? 'bg-cyan-500 text-black' : 'bg-cyan-600 text-white'}`}>
-      {tag}
-    </div>
-
-    {isBeta && <div className={`text-[10px] font-bold tracking-[0.2em] text-center mt-2 mb-4 animate-pulse ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>⚡ BETA PRICING ⚡</div>}
-
-    <h3 className={`text-lg font-bold mb-2 font-orbitron ${isDark ? 'text-gray-300 group-hover:text-white' : 'text-slate-700'} transition-colors`}>{title}</h3>
-    
-    <div className="flex items-end justify-center gap-2 mb-1">
-      <span className="text-gray-400 line-through text-lg">{originalPrice}</span>
-      <span className={`text-4xl font-bold ${isDark ? 'text-white group-hover:text-cyan-400' : 'text-slate-900'} transition-colors`}>{price}</span>
-    </div>
-    <div className={`text-xs mb-8 uppercase tracking-wider ${isDark ? 'text-gray-500' : 'text-slate-500'}`}>{period}</div>
-
-    <button className={`w-full py-3 rounded font-bold transition-all duration-300 uppercase tracking-widest text-xs
-      ${isGold 
-        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg hover:shadow-[0_0_25px_rgba(0,240,255,0.4)]' 
-        : (isDark ? 'bg-transparent border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]' : 'bg-slate-100 text-slate-900 hover:bg-cyan-500 hover:text-white')}`}>
-      SELECT PLAN
-    </button>
-
-    {isBeta && <div className={`text-[10px] font-bold text-center mt-4 ${isDark ? 'text-cyan-500' : 'text-cyan-600'}`}>🔥 Limited Time!</div>}
-  </div>
-);
-
-// --- ADAPTIVE LAB CARD ---
-interface LabCardProps {
-  isDark: boolean;
-  title: string;
-  price: string;
-  badge: string;
-  badgeColor: string;
-  btnColor: 'cyan' | 'purple';
-  checks: string[];
-  onOrder: () => void;
-}
-
-const LabCard = ({ isDark, title, price, badge, badgeColor, btnColor, checks, onOrder }: LabCardProps) => (
-  <div className={`p-8 rounded-2xl border transition-all duration-500 relative overflow-hidden group backdrop-blur-sm
-    ${isDark 
-      ? 'bg-white/5 border-white/10 hover:border-cyan-500 hover:shadow-[0_0_40px_rgba(0,240,255,0.15)]' 
-      : 'bg-white border-slate-200 shadow-lg hover:border-cyan-500 hover:shadow-cyan-100'}`}>
-    
-    <div className={`absolute top-0 right-0 text-xs font-bold px-4 py-2 text-white ${badgeColor}`}>{badge}</div>
-    
-    <h3 className={`text-2xl font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
-    <div className={`text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>{price}</div>
-    
-    <ul className={`text-sm space-y-3 mb-8 font-mono ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-      {checks.map((check, i) => (
-        <li key={i} className="flex gap-3 items-center">
-          <Check size={16} className={btnColor === 'cyan' ? 'text-cyan-400' : 'text-purple-400'}/> {check}
-        </li>
-      ))}
-    </ul>
-    
-    <button 
-      onClick={onOrder}
-      className={`w-full py-4 bg-transparent border rounded font-bold transition-all duration-300 uppercase tracking-widest
-      ${btnColor === 'cyan' 
-        ? 'border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
-        : 'border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]'}`}>
-      ORDER KIT
-    </button>
   </div>
 );
 

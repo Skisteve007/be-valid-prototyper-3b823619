@@ -354,12 +354,13 @@ const Partners = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
                  <StackItem 
                    title="5. Venue Profit Share" 
-                   desc="Venues earn 40% of every Ghost Token scanned at their entry point—turning verification into a direct revenue stream."
+                   desc="Entry used to cost venues money—staff, bottlenecks, lost time. Now every Ghost Token scan earns 40% instantly. Faster flow, zero friction, pure profit on every patron through the door."
                    color="cyan"
                  />
                  <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
                     <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 5</div>
                     <div className="font-bold text-xl">VENUE 40% SHARE</div>
+                    <div className="text-xs text-gray-400 mt-1">Cost Center → Profit Center</div>
                  </div>
               </div>
            </div>

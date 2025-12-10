@@ -12,20 +12,30 @@ interface ModeBtnProps {
   onClick: () => void;
   icon: React.ReactNode;
   label: string;
+  mode: 'travel' | 'access' | 'ghost';
 }
 
-const ModeBtn = ({ active, onClick, icon, label }: ModeBtnProps) => (
-  <button 
-    onClick={onClick}
-    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider
-      ${active 
-        ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' 
-        : 'border-white/10 text-gray-500 hover:border-white/30 hover:text-white'
-      }`}
-  >
-    {icon} {label}
-  </button>
-);
+const ModeBtn = ({ active, onClick, icon, label, mode }: ModeBtnProps) => {
+  const getColors = () => {
+    if (mode === 'ghost') {
+      return active 
+        ? 'bg-yellow-500/10 border-yellow-400 text-yellow-400 shadow-[0_0_10px_rgba(234,179,8,0.3)]'
+        : 'border-white/10 text-gray-500 hover:border-yellow-400/30 hover:text-yellow-400';
+    }
+    return active 
+      ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' 
+      : 'border-white/10 text-gray-500 hover:border-white/30 hover:text-white';
+  };
+
+  return (
+    <button 
+      onClick={onClick}
+      className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider ${getColors()}`}
+    >
+      {icon} {label}
+    </button>
+  );
+};
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -117,9 +127,9 @@ const Hero = () => {
 
           {/* Mode Switcher Buttons */}
           <div className="mt-10 flex justify-center md:justify-start gap-4">
-             <ModeBtn active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={18}/>} label="TRAVEL" />
-             <ModeBtn active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={18}/>} label="ACCESS" />
-             <ModeBtn active={activeMode === 'ghost'} onClick={() => setActiveMode('ghost')} icon={<Ghost size={18}/>} label="GHOST" />
+             <ModeBtn mode="travel" active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={18}/>} label="TRAVEL" />
+             <ModeBtn mode="access" active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={18}/>} label="ACCESS" />
+             <ModeBtn mode="ghost" active={activeMode === 'ghost'} onClick={() => setActiveMode('ghost')} icon={<Ghost size={18}/>} label="GHOST" />
           </div>
         </div>
 

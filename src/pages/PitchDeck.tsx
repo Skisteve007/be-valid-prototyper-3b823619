@@ -18,7 +18,18 @@ import {
   X,
   ShieldCheck,
   Lock,
-  Share2
+  Share2,
+  Network,
+  Crown,
+  Sparkles,
+  XCircle,
+  CheckCircle2,
+  Users,
+  Plane,
+  Car,
+  Briefcase,
+  Heart,
+  Rocket
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -48,24 +59,106 @@ const PitchDeck = () => {
     { label: "Member Growth", value: "15%", subtext: "MoM", icon: TrendingUp, color: "text-orange-400" },
   ];
 
-  const problemPoints = [
-    "No way to verify health status without sharing medical records",
-    "Awkward conversations that kill trust and momentum",
-    "Venues face liability with no standardized verification",
-    "Existing solutions are slow, manual, or non-existent",
+  const unicornPillars = [
+    {
+      icon: DollarSign,
+      color: "amber",
+      title: "NEAR-ZERO MARGINAL COST",
+      subtitle: "The $10 Token Economics",
+      description: "Every Incognito Access Token generates $4 pure margin at scale. No inventory, no COGS, no fulfillment. This is software economics applied to physical access.",
+      metric: "$4.00",
+      metricLabel: "Pure Margin Per Transaction",
+      layer: "LAYER 1"
+    },
+    {
+      icon: Lock,
+      color: "purple",
+      title: "REGULATORY MOAT",
+      subtitle: "Complexity as Competitive Advantage",
+      description: "Integrating HIPAA-compliant health data with payment rails and physical access requires 18+ months of compliance engineering. No competitor can replicate overnight.",
+      metric: "18+",
+      metricLabel: "Months to Replicate",
+      layer: "LAYER 2"
+    },
+    {
+      icon: Network,
+      color: "green",
+      title: "VIRAL NETWORK EFFECTS",
+      subtitle: "Members Recruit Members",
+      description: "Every verified member becomes a distribution channel. When they share their QR, they're marketing VALID. We're embedded in the social graph.",
+      metric: "3.2x",
+      metricLabel: "Organic Referral Rate",
+      layer: "LAYER 3"
+    },
+    {
+      icon: ShieldCheck,
+      color: "blue",
+      title: "LIABILITY TRANSFER",
+      subtitle: "Essential Infrastructure",
+      description: "Venues and employers face existential legal risk without verification. VALID absorbs that liability. We're not a nice-to-have—we're the insurance policy they can't operate without.",
+      metric: "$0",
+      metricLabel: "Venue Liability Exposure",
+      layer: "LAYER 4"
+    },
+    {
+      icon: Zap,
+      color: "cyan",
+      title: "INSTANT FBO SETTLEMENT",
+      subtitle: "Zero Payment Delay",
+      description: "Pre-funded wallets mean funds are already in the system. Venues get paid instantly via FBO—no 3-day holds, no batch processing. Cash flow, solved.",
+      metric: "0 sec",
+      metricLabel: "Settlement Time",
+      layer: "LAYER 5"
+    },
+    {
+      icon: Lock,
+      color: "red",
+      title: "ZERO-TRUST FORTRESS",
+      subtitle: "Cryptographic Immunity",
+      description: "We never store raw PII—only encrypted tokens. Venues receive VERIFIED or NOT VERIFIED signals, never data. No data to breach = no liability to inherit.",
+      metric: "0",
+      metricLabel: "Raw PII Stored",
+      layer: "LAYER 6"
+    }
   ];
 
-  const solutionPoints = [
-    { title: "QR Verification", desc: "Instant status check in 3 seconds" },
-    { title: "Privacy Firewall", desc: "Share status, never medical records" },
-    { title: "Lab Certified", desc: "Trusted results from certified partners" },
-    { title: "Venue Network", desc: "Growing acceptance worldwide" },
+  const thesisStatements = [
+    {
+      number: "01",
+      title: "We Own the Trust Layer",
+      content: "Every high-stakes interaction—entering a venue, starting a rideshare shift, meeting someone new—requires trust verification. VALID is the protocol that makes trust portable, instant, and monetizable."
+    },
+    {
+      number: "02", 
+      title: "Platform, Not Product",
+      content: "We're not selling test kits. We're not selling identity checks. We're selling access to a verified network. The kits and checks are on-ramps. The network is the moat."
+    },
+    {
+      number: "03",
+      title: "Revenue Compounds, Not Adds",
+      content: "Every new venue creates demand for members. Every new member creates demand for venues. Every transaction creates demand for wallet refills. This is a flywheel, not a funnel."
+    },
+    {
+      number: "04",
+      title: "Regulation is Our Friend",
+      content: "As liability laws tighten and insurance premiums rise, verification becomes mandatory. We're positioned as the compliant solution when compliance becomes law."
+    }
   ];
 
-  const marketData = [
-    { segment: "Health Verification", size: "$2.1B", growth: "12% CAGR" },
-    { segment: "Lifestyle Safety", size: "$450M", growth: "18% CAGR" },
-    { segment: "Workplace Testing", size: "$3.2B", growth: "6% CAGR" },
+  const competitorFailures = [
+    { name: "CLEAR", valuation: "$4.3B", limitation: "Identity only. No health. No payments. No network effects.", verdict: "SINGLE-PURPOSE" },
+    { name: "ID.me", valuation: "$1.5B", limitation: "Government identity. Zero commercial integration. No revenue share.", verdict: "WRONG MARKET" },
+    { name: "Sterling", valuation: "$5.3B", limitation: "Background checks only. 72-hour turnaround. No real-time.", verdict: "LEGACY SLOW" },
+    { name: "STDCheck", valuation: "Private", limitation: "Results only. No verification layer. No B2B. No ecosystem.", verdict: "POINT SOLUTION" }
+  ];
+
+  const marketVerticals = [
+    { icon: Building2, name: "Nightlife & Events", tam: "$890M", growth: "14% CAGR", status: "LIVE" },
+    { icon: Heart, name: "Lifestyle & Dating", tam: "$450M", growth: "22% CAGR", status: "LIVE" },
+    { icon: Car, name: "Transportation & Fleet", tam: "$1.2B", growth: "8% CAGR", status: "LAUNCHING" },
+    { icon: Briefcase, name: "Workforce Compliance", tam: "$3.2B", growth: "6% CAGR", status: "LAUNCHING" },
+    { icon: Plane, name: "Travel & Hospitality", tam: "$780M", growth: "12% CAGR", status: "ROADMAP" },
+    { icon: Users, name: "Creator & Talent", tam: "$340M", growth: "28% CAGR", status: "LIVE" }
   ];
 
   const revenueStreams = [
@@ -84,28 +177,34 @@ const PitchDeck = () => {
 
   const scorecardData = [
     { feature: "Integrated Health/Tox Status (HIPAA)", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, highlight: true },
-    { feature: "Zero-Trust Backend Security & Architecture", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
+    { feature: "Zero-Trust Backend Security", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
     { feature: "Automated Revenue Share ($10 Transaction)", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
-    { feature: "PEER-TO-PEER NETWORK TRUST", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
-    { feature: "Frictionless Staff Workflow & B2B Portal", valid: true, clear: true, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, highlight: true },
-    { feature: "Rolling (Continuous) Compliance & Screening", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, highlight: false },
-    { feature: "Managed Transactional Payments (In-App Wallet)", valid: true, clear: false, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, highlight: false },
-    { feature: "Digital Identity Verification (Standard)", valid: true, clear: true, idme: true, ticketmaster: true, sterling: true, stdcheck: false, eventbrite: true, highlight: false },
+    { feature: "Peer-to-Peer Network Trust", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, highlight: true },
+    { feature: "Frictionless Staff Workflow & B2B Portal", valid: true, clear: true, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, highlight: false },
+    { feature: "Rolling Compliance & Screening", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, highlight: false },
+    { feature: "In-App Wallet Payments", valid: true, clear: false, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, highlight: false },
+    { feature: "Digital Identity Verification", valid: true, clear: true, idme: true, ticketmaster: true, sterling: true, stdcheck: false, eventbrite: true, highlight: false },
   ];
 
   const validScore = scorecardData.filter(r => r.valid).length;
-  const clearScore = scorecardData.filter(r => r.clear).length;
-  const idmeScore = scorecardData.filter(r => r.idme).length;
-  const ticketmasterScore = scorecardData.filter(r => r.ticketmaster).length;
-  const sterlingScore = scorecardData.filter(r => r.sterling).length;
-  const stdcheckScore = scorecardData.filter(r => r.stdcheck).length;
-  const eventbriteScore = scorecardData.filter(r => r.eventbrite).length;
 
   const renderCheck = (value: boolean, isValid?: boolean) => {
     if (value) {
       return <Check className={`h-5 w-5 mx-auto ${isValid ? 'text-cyan-400' : 'text-green-500'}`} />;
     }
     return <X className="h-5 w-5 mx-auto text-red-500" />;
+  };
+
+  const getColorClasses = (color: string) => {
+    const colors: Record<string, string> = {
+      amber: "text-amber-400 border-amber-500/50 bg-amber-500/10",
+      purple: "text-purple-400 border-purple-500/50 bg-purple-500/10",
+      green: "text-green-400 border-green-500/50 bg-green-500/10",
+      blue: "text-blue-400 border-blue-500/50 bg-blue-500/10",
+      cyan: "text-cyan-400 border-cyan-500/50 bg-cyan-500/10",
+      red: "text-red-400 border-red-500/50 bg-red-500/10",
+    };
+    return colors[color] || colors.cyan;
   };
 
   return (
@@ -129,7 +228,7 @@ const PitchDeck = () => {
             className="text-gray-400 hover:text-white hover:bg-white/10"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
-            Back
+            Partner Solutions
           </Button>
           <div className="flex items-center gap-4">
             <img src={logo} alt="VALID" className="h-10 w-10 rounded-lg" />
@@ -146,159 +245,212 @@ const PitchDeck = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-16 relative z-10">
-        {/* Hero Slide */}
-        <section className="text-center py-8">
-          <img src={logo} alt="VALID" className="h-40 md:h-48 mx-auto mb-4 rounded-xl" />
-          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 animate-pulse text-sm">
-            Seed Round Open
+      <main className="container mx-auto px-4 py-8 space-y-20 relative z-10">
+        
+        {/* ===== HERO SECTION ===== */}
+        <section className="text-center py-12">
+          <img src={logo} alt="VALID" className="h-32 md:h-40 mx-auto mb-6 rounded-xl" />
+          
+          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 px-4 py-1">
+            CONFIDENTIAL — INVESTOR ONLY
           </Badge>
-          {/* Powered by Synthesized AI - Typing Animation */}
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded text-sm font-mono tracking-widest text-cyan-400">
+          
+          {/* Powered by Synthesized AI */}
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded text-sm font-mono tracking-[0.15em] text-cyan-400 uppercase">
             <span className="min-w-[220px]">
               {displayedText}
               <span className="animate-pulse">|</span>
             </span>
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8),0_0_20px_rgba(59,130,246,0.5)]"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
             </span>
           </div>
+          
           <h1 className="text-4xl md:text-6xl font-bold mb-6 font-orbitron">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
-              VALID: Integrated Identity & Payment Ecosystem
+              INVESTOR DECK
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 font-orbitron">
-            Pitch Deck Summary - Zero-Trust Compliance & Revenue Generation
+          
+          <p className="text-xl md:text-2xl text-gray-400 font-orbitron mb-8">
+            Zero-Trust Identity & Payment Infrastructure
           </p>
-        </section>
 
-        {/* Investment Thesis Section - Unicorn Thesis */}
-        <section className="mb-8">
-          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-            <h3 className="text-2xl font-bold text-cyan-400 mb-6 font-orbitron flex items-center gap-2">
-              <Zap size={28} className="text-cyan-400" />
-              Unicorn Thesis: The VALID Value Drivers
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-amber-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <DollarSign size={24} className="text-amber-400" />
-                  <h4 className="font-bold text-white text-lg">MEMBER SUBSCRIPTIONS</h4>
-                </div>
-                <p className="text-gray-400 text-sm">Recurring revenue from peer network memberships—billed every 60 days or annually for platform access.</p>
-                <div className="mt-3 text-amber-400 font-bold text-xl">LAYER 1</div>
-              </div>
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-cyan-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <Zap size={24} className="text-cyan-400" />
-                  <h4 className="font-bold text-white text-lg">HIGH-MARGIN ACCESS TOKENS</h4>
-                </div>
-                <p className="text-gray-400 text-sm">$10-$50 Ghost Tokens at near-zero marginal cost, creating massive profitability at scale.</p>
-                <div className="mt-3 text-cyan-400 font-bold text-xl">LAYER 2</div>
-              </div>
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-purple-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <Target size={24} className="text-purple-400" />
-                  <h4 className="font-bold text-white text-lg">HEALTH RESELLER MARGIN</h4>
-                </div>
-                <p className="text-gray-400 text-sm">We capture 40-60% spread between wholesale lab costs and retail pricing. We don't refer tests; we sell them.</p>
-                <div className="mt-3 text-purple-400 font-bold text-xl">LAYER 3</div>
-              </div>
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-green-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp size={24} className="text-green-400" />
-                  <h4 className="font-bold text-white text-lg">SaaS SUBSCRIPTIONS</h4>
-                </div>
-                <p className="text-gray-400 text-sm">Recurring monthly revenue from Venue and Corporate Partners for the compliance dashboard.</p>
-                <div className="mt-3 text-green-400 font-bold text-xl">LAYER 4</div>
-              </div>
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-blue-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <Building2 size={24} className="text-blue-400" />
-                  <h4 className="font-bold text-white text-lg">VENUE PROFIT SHARE</h4>
-                </div>
-                <p className="text-gray-400 text-sm">Entry used to cost money. Now every Ghost Token scan earns venues 40% instantly. Verification = profit center.</p>
-                <div className="mt-3 text-blue-400 font-bold text-xl">LAYER 5</div>
-              </div>
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-red-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <Lock size={24} className="text-red-400" />
-                  <h4 className="font-bold text-white text-lg">ZERO-TRUST FORTRESS</h4>
-                </div>
-                <p className="text-gray-400 text-sm">We never store raw PII—only encrypted tokens. Venues get VERIFIED or NOT VERIFIED. No data to breach = cryptographic immunity.</p>
-                <div className="mt-3 text-red-400 font-bold text-xl">LAYER 6</div>
-              </div>
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
+              <span className="text-gray-400">TAM:</span>
+              <span className="text-white font-bold ml-2">$5.7B+</span>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
+              <span className="text-gray-400">Seed Ask:</span>
+              <span className="text-cyan-400 font-bold ml-2">$750K</span>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
+              <span className="text-gray-400">Stage:</span>
+              <span className="text-green-400 font-bold ml-2">Revenue Generating</span>
             </div>
           </div>
         </section>
 
-        {/* Additional Pillars */}
-        <section className="mb-8">
-          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)]">
-            <h3 className="text-2xl font-bold text-purple-400 mb-6 font-orbitron flex items-center gap-2">
-              <ShieldCheck size={28} className="text-purple-400" />
-              Competitive Moat & Network Effects
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-purple-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <ShieldCheck size={24} className="text-purple-400" />
-                  <h4 className="font-bold text-white text-lg">REGULATORY MOAT</h4>
-                </div>
-                <p className="text-gray-400 text-sm">Integrating HIPAA-compliant health data with payment rails and physical access requires 18+ months of compliance engineering. No competitor can replicate overnight.</p>
-              </div>
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-green-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <Share2 size={24} className="text-green-400" />
-                  <h4 className="font-bold text-white text-lg">VIRAL NETWORK EFFECTS</h4>
-                </div>
-                <p className="text-gray-400 text-sm">Every verified member becomes a distribution channel. When they share their QR, they're marketing VALID. We're embedded in the social graph.</p>
-              </div>
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-blue-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <ShieldCheck size={24} className="text-blue-400" />
-                  <h4 className="font-bold text-white text-lg">LIABILITY TRANSFER</h4>
-                </div>
-                <p className="text-gray-400 text-sm">Venues and employers face existential legal risk without verification. VALID absorbs that liability. We're not a nice-to-have—we're essential infrastructure.</p>
-              </div>
-              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-cyan-500/50 transition">
-                <div className="flex items-center gap-2 mb-2">
-                  <Zap size={24} className="text-cyan-400" />
-                  <h4 className="font-bold text-white text-lg">INSTANT FBO SETTLEMENT</h4>
-                </div>
-                <p className="text-gray-400 text-sm">Pre-funded wallets mean funds are already in the system. Venues get paid instantly via FBO—no 3-day holds, no batch processing. Cash flow, solved.</p>
-              </div>
+        {/* ===== CORE INSIGHT ===== */}
+        <section>
+          <div className="bg-gradient-to-br from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,240,255,0.1)]">
+            <div className="flex items-center gap-3 mb-6">
+              <Crown className="h-8 w-8 text-cyan-400" />
+              <h2 className="text-2xl md:text-3xl font-bold font-orbitron text-white">The Core Insight</h2>
             </div>
+            
+            <blockquote className="text-xl md:text-2xl text-gray-300 italic border-l-4 border-cyan-500 pl-6 mb-8">
+              "In a world where identity fraud is up 3,000% and trust is the scarcest resource, the company that owns the verification layer owns the transaction."
+            </blockquote>
+            
+            <p className="text-gray-400 text-lg leading-relaxed">
+              VALID isn't a health app. It's not an identity company. It's not a payment processor. 
+              <span className="text-white font-semibold"> It's the protocol that makes high-stakes interactions possible.</span> When you get into an Uber, you trust the driver is verified. When you enter a venue, they trust you're safe. When you meet someone new, you both need proof. VALID is that proof—instant, portable, and monetizable at every touchpoint.
+            </p>
           </div>
         </section>
 
-        {/* Competitive Scorecard Section */}
-        <section className="mb-8">
+        {/* ===== KEY METRICS ===== */}
+        <section>
+          <h2 className="text-2xl font-bold text-center text-white mb-8 font-orbitron">Current Traction</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {metrics.map((metric, idx) => (
+              <Card key={idx} className="bg-black/40 backdrop-blur-sm border-white/10 hover:border-cyan-500/50 transition-all">
+                <CardContent className="p-6 text-center">
+                  <metric.icon className={`h-8 w-8 mx-auto mb-3 ${metric.color}`} />
+                  <div className="text-3xl font-bold text-white">{metric.value}</div>
+                  {metric.subtext && <div className="text-xs text-gray-500">{metric.subtext}</div>}
+                  <div className="text-sm text-gray-400 mt-1">{metric.label}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== SIX UNICORN PILLARS ===== */}
+        <section>
+          <div className="text-center mb-12">
+            <Badge className="bg-white/10 text-white border-white/20 mb-4">VALUE DRIVERS</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron">The Six Unicorn Pillars</h2>
+            <p className="text-gray-400 mt-4 max-w-2xl mx-auto">Why VALID will become the trust infrastructure layer for every high-stakes human interaction</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {unicornPillars.map((pillar, index) => (
+              <div 
+                key={index}
+                className={`bg-black/40 backdrop-blur-xl border rounded-xl p-6 hover:scale-[1.02] transition-all duration-300 ${getColorClasses(pillar.color)}`}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`h-12 w-12 rounded-xl ${getColorClasses(pillar.color)} flex items-center justify-center`}>
+                    <pillar.icon className="h-6 w-6" />
+                  </div>
+                  <div className="text-right">
+                    <div className={`text-2xl font-bold ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.metric}</div>
+                    <div className="text-xs text-gray-500">{pillar.metricLabel}</div>
+                  </div>
+                </div>
+                <div className="text-xs font-bold text-gray-500 mb-2">{pillar.layer}</div>
+                <h3 className="text-lg font-bold text-white mb-1 font-orbitron">{pillar.title}</h3>
+                <p className={`text-sm mb-3 ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.subtitle}</p>
+                <p className="text-gray-400 text-sm leading-relaxed">{pillar.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== THE THESIS ===== */}
+        <section>
+          <div className="text-center mb-12">
+            <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 mb-4">THE THESIS</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron">Four Truths That Make VALID Inevitable</h2>
+          </div>
+
+          <div className="space-y-6">
+            {thesisStatements.map((statement, index) => (
+              <div 
+                key={index}
+                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl p-6 md:p-8 hover:border-cyan-500/30 transition-all group"
+              >
+                <div className="flex items-start gap-6">
+                  <div className="text-4xl font-bold text-cyan-500/30 font-orbitron group-hover:text-cyan-500/50 transition-colors">
+                    {statement.number}
+                  </div>
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3 font-orbitron">{statement.title}</h3>
+                    <p className="text-gray-400 leading-relaxed">{statement.content}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== COMPETITIVE MOAT ===== */}
+        <section>
+          <div className="text-center mb-12">
+            <Badge className="bg-red-600/30 text-red-500 border-red-600/50 mb-4">COMPETITIVE MOAT</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron">Why Competitors Can't Win</h2>
+            <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
+              Billion-dollar companies have pieces of the puzzle. None have assembled it.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4 mb-8">
+            {competitorFailures.map((comp, index) => (
+              <div 
+                key={index}
+                className="bg-black/40 backdrop-blur-xl border border-red-900/30 rounded-xl p-6 hover:border-red-600/50 transition-all"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-white">{comp.name}</h3>
+                    <span className="text-gray-500 text-sm">{comp.valuation} valuation</span>
+                  </div>
+                  <Badge className="bg-red-950/50 text-red-400 border-red-800/50 text-xs">
+                    {comp.verdict}
+                  </Badge>
+                </div>
+                <div className="flex items-start gap-3">
+                  <XCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                  <p className="text-gray-400">{comp.limitation}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-gradient-to-r from-cyan-950/40 to-green-950/40 border border-cyan-500/30 rounded-xl p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <CheckCircle2 className="h-6 w-6 text-green-400" />
+              <h3 className="text-xl font-bold text-white">VALID: The Complete Stack</h3>
+            </div>
+            <p className="text-gray-300">
+              <span className="text-cyan-400 font-semibold">8/8 integration score.</span> Identity + Health + Payments + Access + Network + Compliance + Revenue Share + Real-time Sync. 
+              No competitor scores above 3/8.
+            </p>
+          </div>
+        </section>
+
+        {/* ===== COMPETITIVE SCORECARD ===== */}
+        <section>
           <h2 className="text-2xl font-bold text-cyan-400 mb-4 font-orbitron">
-            Direct Competitive Scorecard: Why VALID Wins
+            Feature Comparison Scorecard
           </h2>
-          <p className="text-gray-400 text-base mb-6">
-            VALID is the only platform integrating the <strong className="text-white">eight key functions</strong> needed to de-risk and monetize high-liability businesses.
-          </p>
           
           <div className="overflow-x-auto bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">
             <table className="w-full text-xs font-mono">
               <thead>
                 <tr className="bg-white/5 text-white">
-                  <th className="p-2 text-left font-bold uppercase" style={{ width: '25%' }}>VALID FEATURE</th>
-                  <th colSpan={7} className="p-2 text-center font-bold uppercase border-l border-white/10">COMPETITORS</th>
-                </tr>
-                <tr className="bg-white/5 text-white">
-                  <th className="p-1" style={{ width: '25%' }}></th>
-                  <th className="p-1 text-center font-extrabold text-cyan-400" style={{ width: '10%' }}>VALID</th>
-                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>CLEAR</th>
-                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>ID.me</th>
-                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>TICKETMASTER</th>
-                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>STERLING</th>
-                  <th className="p-1 text-center text-gray-500" style={{ width: '9%' }}>STDCHECK</th>
-                  <th className="p-1 text-center text-gray-500" style={{ width: '10%' }}>EVENTBRITE</th>
+                  <th className="p-2 text-left font-bold uppercase" style={{ width: '30%' }}>Feature</th>
+                  <th className="p-2 text-center font-extrabold text-cyan-400" style={{ width: '10%' }}>VALID</th>
+                  <th className="p-2 text-center text-gray-500" style={{ width: '10%' }}>CLEAR</th>
+                  <th className="p-2 text-center text-gray-500" style={{ width: '10%' }}>ID.me</th>
+                  <th className="p-2 text-center text-gray-500" style={{ width: '10%' }}>TICKETMASTER</th>
+                  <th className="p-2 text-center text-gray-500" style={{ width: '10%' }}>STERLING</th>
+                  <th className="p-2 text-center text-gray-500" style={{ width: '10%' }}>STDCHECK</th>
+                  <th className="p-2 text-center text-gray-500" style={{ width: '10%' }}>EVENTBRITE</th>
                 </tr>
               </thead>
               <tbody>
@@ -316,208 +468,111 @@ const PitchDeck = () => {
                     <td className="p-1 text-center">{renderCheck(row.eventbrite)}</td>
                   </tr>
                 ))}
-                {/* Total Score Row */}
-                <tr className="bg-cyan-900/30 border-t-2 border-cyan-500/50">
-                  <td className="p-2 text-left text-cyan-400 font-extrabold font-orbitron">
-                    TOTAL INTEGRATION SCORE (8 Max)
-                  </td>
-                  <td className="p-1 text-center text-lg font-extrabold text-cyan-400">{validScore}/8</td>
-                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{clearScore}/8</td>
-                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{idmeScore}/8</td>
-                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{ticketmasterScore}/8</td>
-                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{sterlingScore}/8</td>
-                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{stdcheckScore}/8</td>
-                  <td className="p-1 text-center text-lg text-gray-500 font-extrabold">{eventbriteScore}/8</td>
+                <tr className="bg-white/5 font-bold">
+                  <td className="p-2 text-left text-white">TOTAL SCORE</td>
+                  <td className="p-2 text-center text-cyan-400">{validScore}/8</td>
+                  <td className="p-2 text-center text-gray-500">2/8</td>
+                  <td className="p-2 text-center text-gray-500">1/8</td>
+                  <td className="p-2 text-center text-gray-500">3/8</td>
+                  <td className="p-2 text-center text-gray-500">1/8</td>
+                  <td className="p-2 text-center text-gray-500">2/8</td>
+                  <td className="p-2 text-center text-gray-500">3/8</td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-          <div className="mt-6 bg-black/40 p-6 rounded-xl border border-cyan-500/30">
-            <h3 className="text-xl font-bold text-cyan-400 font-orbitron">
-              🔑 Key Differentiation: Zero-Trust Security
-            </h3>
-            <p className="text-gray-400 text-base mt-2">
-              Competitor security models (FCRA compliance, SSO identity) are <strong className="text-white">static and siloed</strong>. VALID's <strong className="text-cyan-400">Zero-Trust Architecture</strong> requires continuous verification and integrates dynamic, real-time health/tox data, making it the only truly risk-based access system. This level of comprehensive, dynamic security is unmatched and crucial for high-liability venues.
-            </p>
-          </div>
         </section>
 
-        {/* Key Metrics */}
+        {/* ===== MARKET EXPANSION ===== */}
         <section>
-          <h2 className="text-2xl font-bold text-center mb-8 font-orbitron text-white">Key Metrics</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {metrics.map((metric) => (
-              <div key={metric.label} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-center hover:border-cyan-500/50 transition hover:-translate-y-1">
-                <metric.icon className={`h-8 w-8 mx-auto mb-3 ${metric.color}`} />
-                <div className="text-3xl font-bold text-white">{metric.value}</div>
-                {metric.subtext && <span className="text-sm text-gray-500">{metric.subtext}</span>}
-                <div className="text-sm text-gray-400 mt-1">{metric.label}</div>
-              </div>
-            ))}
+          <div className="text-center mb-12">
+            <Badge className="bg-green-600/30 text-green-400 border-green-600/50 mb-4">EXPANSION PATH</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron">Six Verticals, One Protocol</h2>
           </div>
-        </section>
 
-        {/* Problem */}
-        <section className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <Badge variant="destructive" className="mb-4 bg-red-600/30 text-red-500 border-red-600/50">The Problem</Badge>
-            <h2 className="text-3xl font-bold mb-6 text-white font-orbitron">Trust Without Proof</h2>
-            <ul className="space-y-4">
-              {problemPoints.map((point, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="h-6 w-6 rounded-full bg-red-600/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-red-500 text-sm">✕</span>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {marketVerticals.map((vertical, index) => (
+              <div 
+                key={index}
+                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl p-5 hover:border-cyan-500/30 transition-all"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="h-10 w-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                    <vertical.icon className="h-5 w-5 text-cyan-400" />
                   </div>
-                  <span className="text-gray-400">{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="bg-gradient-to-br from-red-950/60 to-red-900/40 border border-red-600/50 p-8 rounded-xl text-center shadow-[0_0_30px_rgba(220,38,38,0.15)]">
-            <div className="text-6xl mb-4">👽</div>
-            <p className="text-xl text-white">
-              "How do I know they're really safe?"
-            </p>
-            <p className="text-sm text-gray-400 mt-2">
-              — Every health-conscious person ever
-            </p>
-          </div>
-        </section>
-
-        {/* Solution */}
-        <section className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="bg-gradient-to-br from-cyan-900/30 to-blue-900/30 border border-cyan-500/50 p-8 rounded-xl text-center order-2 md:order-1 shadow-[0_0_30px_rgba(6,182,212,0.2)]">
-            <QrCode className="h-24 w-24 mx-auto mb-4 text-cyan-400" />
-            <div className="inline-flex items-center gap-2 bg-cyan-500/20 px-4 py-2 rounded-full">
-              <div className="h-3 w-3 bg-cyan-400 rounded-full animate-pulse" />
-              <span className="text-cyan-400 font-semibold">Verified</span>
-            </div>
-          </div>
-          <div className="order-1 md:order-2">
-            <Badge className="mb-4 bg-cyan-500/20 text-cyan-400 border-cyan-500/30">The Solution</Badge>
-            <h2 className="text-3xl font-bold mb-6 text-white font-orbitron">VALID</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {solutionPoints.map((point) => (
-                <div key={point.title} className="bg-black/40 p-4 rounded-lg border border-white/10 hover:border-cyan-500/50 transition">
-                  <h3 className="font-semibold text-white mb-1">{point.title}</h3>
-                  <p className="text-sm text-gray-400">{point.desc}</p>
+                  <Badge className={`text-xs ${
+                    vertical.status === 'LIVE' ? 'bg-green-600/30 text-green-400 border-green-600/50' :
+                    vertical.status === 'LAUNCHING' ? 'bg-yellow-600/30 text-yellow-400 border-yellow-600/50' :
+                    'bg-gray-600/30 text-gray-400 border-gray-600/50'
+                  }`}>
+                    {vertical.status}
+                  </Badge>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Market Opportunity */}
-        <section>
-          <h2 className="text-2xl font-bold text-center mb-2 text-white font-orbitron">Market Opportunity</h2>
-          <p className="text-gray-400 text-center mb-8">$5.7B+ Total Addressable Market</p>
-          <div className="grid md:grid-cols-3 gap-4">
-            {marketData.map((market) => (
-              <div key={market.segment} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-cyan-500/50 transition hover:-translate-y-1">
-                <Target className="h-6 w-6 text-cyan-400 mb-3" />
-                <div className="text-2xl font-bold text-white">{market.size}</div>
-                <div className="text-white">{market.segment}</div>
-                <Badge className="mt-2 bg-cyan-500/20 text-cyan-400 border-cyan-500/30">{market.growth}</Badge>
+                <h3 className="font-bold text-white mb-2">{vertical.name}</h3>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-500">TAM: <span className="text-white">{vertical.tam}</span></span>
+                  <span className="text-cyan-400">{vertical.growth}</span>
+                </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Business Model */}
+        {/* ===== USE OF FUNDS ===== */}
         <section>
-          <h2 className="text-2xl font-bold text-center mb-8 text-white font-orbitron">Business Model</h2>
-          <div className="grid md:grid-cols-4 gap-4">
-            {revenueStreams.map((stream) => (
-              <div key={stream.name} className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 text-center hover:border-green-500/50 transition hover:-translate-y-1">
-                <DollarSign className="h-8 w-8 mx-auto mb-3 text-green-400" />
-                <div className="font-semibold text-white">{stream.name}</div>
-                <div className="text-xl font-bold text-green-400 my-2">{stream.price}</div>
-                <Badge className="bg-white/10 text-gray-400 border-white/10">
-                  {stream.type}
-                </Badge>
-              </div>
+          <h2 className="text-2xl font-bold text-center text-white mb-8 font-orbitron">
+            Use of Funds
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {useOfFunds.map((item, idx) => (
+              <Card key={idx} className="bg-black/40 border-white/10">
+                <CardContent className="p-6 text-center">
+                  <div className={`h-4 w-4 ${item.color} rounded-full mx-auto mb-3`}></div>
+                  <div className="text-3xl font-bold text-white">{item.percent}%</div>
+                  <div className="text-sm text-gray-400">{item.category}</div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </section>
 
-        {/* Use of Funds */}
-        <section>
-          <h2 className="text-2xl font-bold text-center mb-8 text-white font-orbitron">Use of Funds</h2>
-          <div className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-white/10 max-w-2xl mx-auto">
-            <div className="flex h-8 rounded-full overflow-hidden mb-6">
-              {useOfFunds.map((item) => (
-                <div 
-                  key={item.category} 
-                  className={`${item.color}`} 
-                  style={{ width: `${item.percent}%` }}
-                />
-              ))}
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {useOfFunds.map((item) => (
-                <div key={item.category} className="flex items-center gap-3">
-                  <div className={`h-3 w-3 rounded-full ${item.color}`} />
-                  <span className="text-gray-400">{item.category}</span>
-                  <span className="text-white font-semibold ml-auto">{item.percent}%</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* The Ask Section */}
-        <section>
-          <div className="bg-black/40 backdrop-blur-sm p-8 rounded-xl border-l-4 border-cyan-500 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-            <h3 className="text-xl font-bold text-white mb-2 font-orbitron">
-              Our Ask: $750,000 Seed Round
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Funding is dedicated to <strong className="text-white">accelerating DevSecOps implementation</strong> and securing the <strong className="text-white">Lab Network Acquisition</strong> to capture a dominant market share.
-            </p>
-            <a 
-              href="mailto:invest@bevalid.app" 
-              className="mt-4 inline-block font-bold text-cyan-400 hover:text-cyan-300 transition-colors font-orbitron"
-            >
-              Contact Investor Relations: invest@bevalid.app
-            </a>
-          </div>
-        </section>
-
-        {/* CTA */}
+        {/* ===== THE ASK ===== */}
         <section className="text-center py-12">
-          <div className="bg-gradient-to-r from-cyan-900/30 via-purple-900/30 to-blue-900/30 border border-cyan-500/30 p-8 rounded-2xl max-w-2xl mx-auto shadow-[0_0_50px_rgba(6,182,212,0.15)]">
-            <Zap className="h-12 w-12 mx-auto mb-4 text-cyan-400" />
-            <h2 className="text-2xl font-bold mb-2 text-white font-orbitron">Join the Round</h2>
-            <p className="text-gray-400 mb-6">
-              We are building the trust infrastructure for health-conscious communities worldwide.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
-                onClick={() => window.open("mailto:invest@bevalid.app?subject=Investment Inquiry", "_blank")}
-              >
-                Request Deck
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/20 text-white hover:bg-white/10"
-                onClick={() => navigate("/competitive-scorecard")}
-              >
-                View Competitive Analysis
-              </Button>
+          <div className="bg-gradient-to-r from-cyan-950/50 to-blue-950/50 border border-cyan-500/30 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,240,255,0.15)]">
+            <Rocket className="h-12 w-12 text-cyan-400 mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-white mb-6">The Ask</h2>
+            <div className="text-5xl md:text-6xl font-bold text-cyan-400 mb-4">$750,000</div>
+            <p className="text-xl text-gray-400 mb-8">Seed Round</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-3xl mx-auto">
+              <div className="bg-black/40 p-4 rounded-xl border border-white/10">
+                <div className="text-cyan-400 font-bold mb-2">12-Month Runway</div>
+                <p className="text-sm text-gray-400">Full team execution on product, sales, and market expansion</p>
+              </div>
+              <div className="bg-black/40 p-4 rounded-xl border border-white/10">
+                <div className="text-cyan-400 font-bold mb-2">100+ Venues</div>
+                <p className="text-sm text-gray-400">Target venue network by end of funding period</p>
+              </div>
+              <div className="bg-black/40 p-4 rounded-xl border border-white/10">
+                <div className="text-cyan-400 font-bold mb-2">Series A Ready</div>
+                <p className="text-sm text-gray-400">Position for $3-5M Series A within 18 months</p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Footer */}
-        <section className="text-center text-gray-500 text-sm pb-8">
-          <p>VALID™ — The Safety Shield™</p>
-          <p className="mt-1">Confidential — For Investor Use Only</p>
+        {/* ===== CTA ===== */}
+        <section className="text-center py-8">
+          <Button 
+            size="lg"
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-lg px-8 py-6 hover:scale-105 transition-all shadow-[0_0_30px_rgba(0,240,255,0.5)]"
+            onClick={() => window.open("mailto:invest@bevalid.app", "_blank")}
+          >
+            Schedule Investor Call
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </section>
+
       </main>
     </div>
   );

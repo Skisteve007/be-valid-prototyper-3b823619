@@ -117,7 +117,7 @@ const Partners = () => {
         </div>
         
         <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-white font-orbitron drop-shadow-[0_0_20px_rgba(0,240,255,0.2)]">
-          THE BUILDER'S VISION
+          PARTNER SOLUTIONS
         </h1>
         
         {/* The Quote */}

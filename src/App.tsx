@@ -28,7 +28,7 @@ import PartnerApplication from "./pages/PartnerApplication";
 import CompetitiveScorecard from "./pages/CompetitiveScorecard";
 import VenueOperatorPortal from "./pages/VenueOperatorPortal";
 import PitchDeck from "./pages/PitchDeck";
-import BuildersVision from "./pages/BuildersVision";
+
 import ApiDocs from "./pages/ApiDocs";
 import SecurityCompliance from "./pages/SecurityCompliance";
 import IntegratedHealthCompliance from "./pages/IntegratedHealthCompliance";
@@ -76,7 +76,7 @@ const App = () => (
           <Route path="/competitive-scorecard" element={<AgeGate><CompetitiveScorecard /></AgeGate>} />
           <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
           <Route path="/pitch-deck" element={<PitchDeck />} />
-          <Route path="/builders-vision" element={<BuildersVision />} />
+          
           <Route path="/api-docs" element={<ApiDocs />} />
           <Route path="/security-compliance" element={<SecurityCompliance />} />
           <Route path="/partners/integrated-health-compliance" element={<IntegratedHealthCompliance />} />

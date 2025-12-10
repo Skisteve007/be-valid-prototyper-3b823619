@@ -64,7 +64,7 @@ const Hero = () => {
       <nav className="w-full px-4 md:px-6 py-4 md:py-6 flex justify-between items-center z-50">
         {/* THE LOGO */}
         <div className="text-2xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer shrink-0">
-          VALID
+          VALID<sup className="text-xs md:text-sm text-cyan-400">™</sup>
         </div>
         
         {/* Navigation Actions */}
@@ -112,7 +112,7 @@ const Hero = () => {
           {/* SUB-HEADLINE: Adaptive Profile */}
           <p className="text-lg text-gray-400 mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
             Your <span className="text-white font-bold">adaptive AI profile</span> for the real world. 
-            Switch instantly between <span className="text-cyan-400">Access</span>, <span className="text-purple-400">Travel</span>, and <span className="text-yellow-400">Ghost</span>.
+            Switch instantly between <span className="text-cyan-400">Access</span>, <span className="text-purple-400">Travel</span>, and <span className="text-yellow-400">Ghost<sup className="text-[10px]">™</sup></span>.
           </p>
           
           {/* Call to Action */}
@@ -129,7 +129,7 @@ const Hero = () => {
           <div className="mt-10 flex justify-center md:justify-start gap-3 flex-wrap">
              <ModeBtn mode="access" active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={18}/>} label="ACCESS" />
              <ModeBtn mode="travel" active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={18}/>} label="TRAVEL" />
-             <ModeBtn mode="ghost" active={activeMode === 'ghost'} onClick={() => setActiveMode('ghost')} icon={<Ghost size={18}/>} label="GHOST" />
+             <ModeBtn mode="ghost" active={activeMode === 'ghost'} onClick={() => setActiveMode('ghost')} icon={<Ghost size={18}/>} label="GHOST™" />
           </div>
           
           {/* Dynamic Description Text */}
@@ -140,7 +140,7 @@ const Hero = () => {
             >
               {activeMode === 'access' && "Instant entry. Verify identity and pay with one tap."}
               {activeMode === 'travel' && "Global movement. Seamless check-ins for transit, hotels, and flights."}
-              {activeMode === 'ghost' && "Stealth active. Tokenized identity & payments. Mask your data."}
+              {activeMode === 'ghost' && "Ghost™ Protocol active. Tokenized identity & payments. Mask your data."}
             </p>
           </div>
         </div>

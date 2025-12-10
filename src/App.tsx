@@ -41,6 +41,7 @@ import NotFound from "./pages/NotFound";
 import { CurrencyProvider } from "./providers/CurrencyProvider";
 import { AgeGate } from "./components/AgeGate";
 import Footer from "./components/Footer";
+import SiteGate from "./components/SiteGate";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+          <SiteGate>
           <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
             <Routes>
               <Route path="/" element={<AgeGate><Index /></AgeGate>} />
@@ -93,6 +95,7 @@ const App = () => (
             </Routes>
             <Footer />
           </div>
+          </SiteGate>
           </BrowserRouter>
         </TooltipProvider>
       </CurrencyProvider>

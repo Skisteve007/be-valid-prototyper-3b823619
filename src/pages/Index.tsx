@@ -98,7 +98,7 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className={`text-3xl md:text-4xl font-bold mb-4 font-orbitron tracking-wide
               ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              THE VALID <span className="text-cyan-400">STANDARD</span>
+              THE VALID<sup className="text-sm text-cyan-400">™</sup> <span className="text-cyan-400">STANDARD</span>
             </h2>
             <p className={`max-w-2xl mx-auto leading-relaxed
               ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
@@ -126,7 +126,7 @@ const Index = () => {
               isDark={isDark}
               icon={<EyeOff size={32}/>}
               title="Your Data. Your Rules."
-              desc="Ghost Protocol Enabled. Context-aware sharing: Reveal only what's required (age, health, or clearance) while keeping your choice records invisible."
+              desc="Ghost™ Protocol Enabled. Context-aware sharing: Reveal only what's required (age, health, or clearance) while keeping your choice records invisible."
               color="purple"
             />
           </div>

@@ -70,7 +70,7 @@ const PitchDeck = () => {
     {
       icon: Ghost,
       color: "amber",
-      title: "GHOST TOKEN ECONOMICS",
+      title: "GHOST™ TOKEN ECONOMICS",
       subtitle: "Pure Software Margin",
       description: "The Ghost Token is pure software economics applied to physical access. Each $10-$50 token injects directly into the member's dynamic QR code—unlimited inventory, no fulfillment, no COGS. At scale, every Ghost Token generates $4+ pure margin. The token self-destructs after use, eliminating replay attacks. This isn't a product sale—it's a toll booth on trust.",
       metric: "$4.00+",
@@ -239,7 +239,7 @@ const PitchDeck = () => {
           </Button>
           <div className="flex items-center gap-4">
             <span className="text-xl font-bold font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">
-              VALID
+              VALID<sup className="text-xs text-cyan-400">™</sup>
             </span>
             <Button 
               className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"

@@ -135,9 +135,14 @@ const Partners = () => {
 
       {/* 3. THE UNICORN THESIS (4-Card Grid) */}
       <section className="max-w-7xl mx-auto px-6 py-12 relative z-10">
-        <div className="text-center mb-12">
-           <h2 className="text-3xl font-bold font-orbitron mb-2">THE UNICORN THESIS</h2>
-           <p className="text-gray-400">Why VALID is a billion-dollar platform.</p>
+        <div className="text-center mb-12 relative">
++          {/* Slow pulsing glow effect */}
++          <div className="absolute inset-0 -top-8 -bottom-8 blur-3xl bg-gradient-to-r from-purple-600/30 via-cyan-500/40 to-blue-600/30 animate-pulse" style={{ animationDuration: '4s' }}></div>
++          <div className="absolute inset-0 -top-12 -bottom-12 blur-[80px] bg-gradient-to-r from-blue-500/20 via-purple-500/30 to-cyan-500/20 animate-pulse" style={{ animationDuration: '6s' }}></div>
++          <div className="relative z-10">
++            <h2 className="text-4xl md:text-5xl font-bold font-orbitron mb-3 tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-400 drop-shadow-[0_0_30px_rgba(139,92,246,0.6)]">THE UNICORN THESIS</h2>
++            <p className="text-gray-300 text-lg tracking-wide">Why VALID is a billion-dollar platform.</p>
++          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

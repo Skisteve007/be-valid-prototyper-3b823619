@@ -97,7 +97,10 @@ const Partners = () => {
           {/* Catchy tagline */}
           <div className="hidden lg:flex items-center gap-3 text-xs font-mono tracking-wider">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 font-bold tracking-[0.15em]">IDENTITY • ACCESS • PAYMENTS • TRUST</span>
+            <div className="flex flex-col items-center gap-0.5">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 font-bold tracking-[0.15em]">IDENTITY • ACCESS</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 font-bold tracking-[0.15em]">PAYMENTS • TRUST</span>
+            </div>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-purple-500/50"></div>
           </div>
           

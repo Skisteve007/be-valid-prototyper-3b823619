@@ -287,14 +287,14 @@ const Partners = () => {
       {/* 4. TRI-LAYER REVENUE STACK */}
       <section className="py-24 bg-white/5 border-y border-white/10 relative z-10">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-           <div>
+           <div className="flex flex-col justify-center h-full">
               <h2 className="text-3xl font-bold font-orbitron mb-6">THE REVENUE <span className="text-cyan-400">STACK</span></h2>
               <p className="text-gray-400 mb-8">We capture value at every layer of the interaction.</p>
               
               <div className="space-y-4">
                  <StackItem 
                    title="1. Access Monetization" 
-                   desc="High-velocity $10-$50 Incognito Tokens at the door."
+                   desc="High-velocity $10-$50 Ghost Tokens at the entry point."
                    color="cyan"
                  />
                  <StackItem 

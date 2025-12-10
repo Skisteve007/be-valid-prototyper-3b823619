@@ -23,6 +23,7 @@ import {
   Crown,
   Sparkles
 } from "lucide-react";
+import logo from "@/assets/valid-logo.jpeg";
 
 const BuildersVision = () => {
   const navigate = useNavigate();
@@ -156,6 +157,12 @@ const BuildersVision = () => {
 
         {/* Hero */}
         <div className="text-center mb-20">
+          <img src={logo} alt="VALID" className="h-20 md:h-24 mx-auto mb-6 rounded-xl" />
+          
+          <p className="text-sm font-mono tracking-[0.15em] text-gray-400 uppercase mb-6">
+            Powered By Synthesized AI
+          </p>
+          
           <div className="inline-flex items-center gap-2 mb-6">
             <div className="h-3 w-3 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_20px_rgba(0,240,255,0.8)]" />
             <span className="text-cyan-400 text-sm tracking-[0.3em] font-medium">BUILDER'S THESIS</span>

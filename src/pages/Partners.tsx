@@ -4,7 +4,7 @@
 // *****************************************************************************
 
 import React from 'react';
-import { ShieldCheck, DollarSign, Lock, Zap, Share2 } from 'lucide-react';
+import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface ThesisCardProps {
@@ -209,23 +209,46 @@ const Partners = () => {
         <div className="absolute inset-0 bg-cyan-900/5 -skew-y-3 transform origin-left"></div>
         <div className="max-w-6xl mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="flex items-center gap-2 mb-6">
+            <div className="flex items-center gap-2 mb-4">
               <div className="bg-cyan-500/20 p-2 rounded text-cyan-400"><DollarSign size={20}/></div>
               <span className="text-cyan-400 font-bold tracking-[0.2em] text-sm">CFO ALERT</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing 1.9% to 4.5%.</h2>
+            <p className="text-amber-400 font-bold text-sm tracking-wide mb-4 uppercase">Eliminate Merchant Fees</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing 1.9-4.5% on Every Swipe.</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              Our <strong>Pre-Funded Wallet</strong> means users load cash <em>before</em> they arrive. When they scan at your bar, it is an instant <strong>Zero-Fee Ledger Transfer</strong>.
+              Our <strong className="text-white">Pre-Funded Wallet Architecture</strong> changes the game. Users load funds into their Ghost Token <em>before</em> they arrive to your business. When they scan at the point of entry, the transaction is an instant <strong className="text-cyan-400">Zero-Fee Ledger Transfer</strong>. Same at the Point of Sale.
             </p>
           </div>
-          <div className="relative bg-black/60 backdrop-blur-xl border border-cyan-500/50 p-10 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.15)] text-center">
-             <h3 className="text-gray-500 text-xs uppercase mb-6 tracking-widest">Projected Annual Savings</h3>
-             <div className="text-6xl md:text-7xl font-bold text-cyan-400 mb-2 font-orbitron tracking-tighter">
-               $100k
+          <div className="relative bg-black/60 backdrop-blur-xl border border-cyan-500/50 p-8 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.15)]">
+             <div className="space-y-4 mb-8">
+               <div className="flex items-center gap-3">
+                 <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                   <CheckCircle2 className="h-4 w-4 text-green-400" />
+                 </div>
+                 <span className="text-white font-medium">0% Credit Card Fees for Venue</span>
+               </div>
+               <div className="flex items-center gap-3">
+                 <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                   <CheckCircle2 className="h-4 w-4 text-green-400" />
+                 </div>
+                 <span className="text-white font-medium">100% Chargeback Immunity</span>
+               </div>
+               <div className="flex items-center gap-3">
+                 <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                   <CheckCircle2 className="h-4 w-4 text-green-400" />
+                 </div>
+                 <span className="text-white font-medium">Instant Funds Verification</span>
+               </div>
+               <div className="flex items-center gap-3">
+                 <div className="h-8 w-8 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                   <TrendingUp className="h-4 w-4 text-cyan-400" />
+                 </div>
+                 <span className="text-cyan-400 font-bold">+4% Immediate Margin Boost</span>
+               </div>
              </div>
-             <div className="text-xs text-cyan-500 mb-8 font-mono tracking-widest">PER $2.5M REVENUE</div>
-             <button className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm tracking-widest rounded transition uppercase">
-               Calculate Your ROI
+             <button className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm tracking-widest rounded transition uppercase flex items-center justify-center gap-2">
+               Request Wallet Integration Demo
+               <ArrowRight className="h-4 w-4" />
              </button>
           </div>
         </div>

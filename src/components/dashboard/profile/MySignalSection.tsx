@@ -35,6 +35,8 @@ const SOCIAL_OPTIONS = {
   cryptoStance: ["HODL", "Day Trader", "NFT Collector", "DeFi Degen", "No Crypto", "Whale"],
   vibeCheck: ["All Business", "Work Hard Play Hard", "Old Money Energy", "New Money Energy", "Quiet Luxury"],
   lookingFor: ["Investors", "Co-Founders", "Mentors", "Deals", "Friends in High Places", "Exit"],
+  theApproach: ["Eye Contact First", "Direct & Bold", "Flirty Banter", "Meet on the Dance Floor", "Buy Me a Drink First", "Friend of a Friend Intro"],
+  theChemistry: ["Instant Spark", "Slow Burn", "Friends First", "One Night Only", "Ongoing Fun", "Let's See Where It Goes"],
 };
 
 const PULSE_OPTIONS = {
@@ -48,6 +50,8 @@ const PULSE_OPTIONS = {
   buying: ["First Round", "My Round Never", "Bottle Service", "Water Only", "Whatever You're Having"],
   closingTime: ["When They Kick Us Out", "2 AM Sharp", "Sunrise", "Already Planning Tomorrow", "Open Ended"],
   recovery: ["Brunch", "Hair of the Dog", "Sleep All Day", "IV Drip", "Pretend It Didn't Happen"],
+  visibility: ["Anonymous Only", "Very Private", "Selective Sharing", "Face Pics (After Trust)", "Open Book", "Full Transparency"],
+  paperwork: ["Trust Based (No Paper)", "Preferred", "Required (Non-Negotiable)", "Notarized Only", "Screenshot = Blocked", "What's an NDA?"],
 };
 
 const THRILL_OPTIONS = {
@@ -61,6 +65,7 @@ const THRILL_OPTIONS = {
   tailgateStyle: ["BYOB", "Full Setup", "Grill Master", "Cooler Only", "Skip to Stadium", "RV Life"],
   superstition: ["Lucky Jersey", "Same Seat", "Pre-Game Ritual", "Rally Cap", "No Superstitions", "Full Voodoo"],
   travelMode: ["Road Trip", "Fly In", "Tour Bus", "Private", "Virtual Fan", "Local Only"],
+  partyFavors: ["High on Life (Sober)", "420 Friendly", "Chem Curious", "PnP (Party & Play)", "Dealer's Choice", "BYO"],
 };
 
 const AFTERDARK_OPTIONS = {
@@ -74,6 +79,11 @@ const AFTERDARK_OPTIONS = {
   privacyLevel: ["Very Private", "Selective", "Open Book", "Anonymous Only", "Face Pics After Trust", "Full Transparency"],
   sleepoverRules: ["Never", "Sometimes", "Prefer It", "Required", "My Place Only", "Hotels Only"],
   rules: ["No Kissing", "No Marks", "Safe Words", "Anything Goes", "Discuss First", "Standard Protocol"],
+  archetype: ["Dynamic Observer", "Dom / Top", "Sub / Bottom", "Switch / Vers", "Facilitator", "Explorer", "Just Watching"],
+  theDynamic: ["Poly Life", "Monogam-ish", "Open Relationship", "Soft Swap", "Full Swap", "Voyeur", "Exhibitionist"],
+  theToolkit: ["Select Hardware (None)", "BYO Supplies", "Use Mine", "Well Stocked", "Spontaneous", "Safety First", "Ask First"],
+  theRulebook: ["Anything Goes", "Standard Protocol", "Discuss First", "Safe Words Mandatory", "No Marks", "No Kissing"],
+  breakfastPlans: ["Prefer It", "My Place Only", "Hotels Only", "Sometimes", "Never", "Required"],
 };
 
 const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChange }: MySignalSectionProps) => {
@@ -188,6 +198,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       {renderDropdown("Crypto Stance", "social_cryptoStance", SOCIAL_OPTIONS.cryptoStance)}
       {renderDropdown("Vibe Check", "social_vibeCheck", SOCIAL_OPTIONS.vibeCheck)}
       {renderDropdown("Looking For", "social_lookingFor", SOCIAL_OPTIONS.lookingFor)}
+      {renderDropdown("The Approach", "social_theApproach", SOCIAL_OPTIONS.theApproach)}
+      {renderDropdown("The Chemistry", "social_theChemistry", SOCIAL_OPTIONS.theChemistry)}
       {renderTextInput("My Elevator Pitch", "social_elevatorPitch", "30 seconds or less...")}
     </div>
   );
@@ -204,6 +216,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       {renderDropdown("Buying?", "pulse_buying", PULSE_OPTIONS.buying)}
       {renderDropdown("Closing Time", "pulse_closingTime", PULSE_OPTIONS.closingTime)}
       {renderDropdown("Recovery", "pulse_recovery", PULSE_OPTIONS.recovery)}
+      {renderDropdown("Visibility", "pulse_visibility", PULSE_OPTIONS.visibility)}
+      {renderDropdown("The Paperwork (NDA)", "pulse_paperwork", PULSE_OPTIONS.paperwork)}
       {renderTextInput("My Toxic Trait", "pulse_toxicTrait", "Be honest...")}
     </div>
   );
@@ -220,6 +234,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       {renderDropdown("Tailgate Style", "thrill_tailgateStyle", THRILL_OPTIONS.tailgateStyle)}
       {renderDropdown("Superstition", "thrill_superstition", THRILL_OPTIONS.superstition)}
       {renderDropdown("Travel Mode", "thrill_travelMode", THRILL_OPTIONS.travelMode)}
+      {renderDropdown("Party Favors", "thrill_partyFavors", THRILL_OPTIONS.partyFavors)}
       {renderTextInput("Hill I Will Die On", "thrill_hill", "This is non-negotiable...")}
     </div>
   );
@@ -236,6 +251,11 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       {renderDropdown("Privacy Level", "afterdark_privacyLevel", AFTERDARK_OPTIONS.privacyLevel)}
       {renderDropdown("Sleepover Rules", "afterdark_sleepoverRules", AFTERDARK_OPTIONS.sleepoverRules)}
       {renderDropdown("Rules", "afterdark_rules", AFTERDARK_OPTIONS.rules)}
+      {renderDropdown("Archetype", "afterdark_archetype", AFTERDARK_OPTIONS.archetype)}
+      {renderDropdown("The Dynamic", "afterdark_theDynamic", AFTERDARK_OPTIONS.theDynamic)}
+      {renderDropdown("The Toolkit", "afterdark_theToolkit", AFTERDARK_OPTIONS.theToolkit)}
+      {renderDropdown("The Rulebook", "afterdark_theRulebook", AFTERDARK_OPTIONS.theRulebook)}
+      {renderDropdown("Breakfast Plans", "afterdark_breakfastPlans", AFTERDARK_OPTIONS.breakfastPlans)}
       {renderTextInput("The Signal", "afterdark_signal", "What's your signal?")}
     </div>
   );

@@ -105,7 +105,7 @@ const Hero = () => {
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-[0.9] text-white">
             ONE KEY.<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
-              VERIFY-PAY-VIBE.
+              Verify. Pay. Vibe.
             </span>
           </h1>
           
@@ -119,17 +119,29 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button 
               onClick={() => navigate('/auth')}
-              className="px-8 py-3 bg-white text-black font-bold text-lg rounded hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105"
+              className="px-8 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 min-h-[52px]"
             >
               CLAIM YOUR ID <ArrowRight size={18} />
             </button>
           </div>
 
           {/* Mode Switcher Buttons */}
-          <div className="mt-10 flex justify-center md:justify-start gap-4">
-             <ModeBtn mode="travel" active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={18}/>} label="TRAVEL" />
+          <div className="mt-10 flex justify-center md:justify-start gap-3 flex-wrap">
              <ModeBtn mode="access" active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={18}/>} label="ACCESS" />
+             <ModeBtn mode="travel" active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={18}/>} label="TRAVEL" />
              <ModeBtn mode="ghost" active={activeMode === 'ghost'} onClick={() => setActiveMode('ghost')} icon={<Ghost size={18}/>} label="GHOST" />
+          </div>
+          
+          {/* Dynamic Description Text */}
+          <div className="mt-4 h-8 flex items-center justify-center md:justify-start">
+            <p 
+              key={activeMode}
+              className="text-sm text-gray-400 animate-fade-in"
+            >
+              {activeMode === 'access' && "Unlock doors, verify age, and pay instantly."}
+              {activeMode === 'travel' && "Breeze through entry points globally."}
+              {activeMode === 'ghost' && "Mask your data and transact in stealth mode."}
+            </p>
           </div>
         </div>
 

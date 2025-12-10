@@ -6,11 +6,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Loader2, FileText, Download, Shield, ArrowLeft } from "lucide-react";
+import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2 } from "lucide-react";
 import { jsPDF } from "jspdf";
+import { Progress } from "@/components/ui/progress";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/valid-logo.jpeg";
 
 const AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com"];
+const TRANCHE_1_CAP = 100000;
+
+type InvestorStatus = "Contract Sent" | "Signed" | "Funds Wired" | "Cleared in Bank";
+
+interface TrackedInvestor {
+  id: string;
+  name: string;
+  amount: number;
+  date: string;
+  status: InvestorStatus;
+}
 
 const AdminDealRoom = () => {
   const navigate = useNavigate();
@@ -23,6 +38,60 @@ const AdminDealRoom = () => {
   const [investmentAmount, setInvestmentAmount] = useState("25000");
   const [valuationCap, setValuationCap] = useState("12500000");
   const [discountRate, setDiscountRate] = useState("20");
+
+  // Investment Tracker state
+  const [trackedInvestors, setTrackedInvestors] = useState<TrackedInvestor[]>(() => {
+    const saved = localStorage.getItem("dealroom_investors");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [newInvestorName, setNewInvestorName] = useState("");
+  const [newInvestorAmount, setNewInvestorAmount] = useState("");
+  const [newInvestorDate, setNewInvestorDate] = useState(new Date().toISOString().split('T')[0]);
+  const [newInvestorStatus, setNewInvestorStatus] = useState<InvestorStatus>("Contract Sent");
+
+  // Save to localStorage whenever investors change
+  useEffect(() => {
+    localStorage.setItem("dealroom_investors", JSON.stringify(trackedInvestors));
+  }, [trackedInvestors]);
+
+  // Calculate total raised (only "Funds Wired" or "Cleared in Bank")
+  const totalRaised = trackedInvestors
+    .filter(inv => inv.status === "Funds Wired" || inv.status === "Cleared in Bank")
+    .reduce((sum, inv) => sum + inv.amount, 0);
+
+  const progressPercentage = Math.min((totalRaised / TRANCHE_1_CAP) * 100, 100);
+  const isTranche1Filled = totalRaised >= TRANCHE_1_CAP;
+
+  const addInvestor = () => {
+    if (!newInvestorName.trim() || !newInvestorAmount) {
+      toast.error("Please enter investor name and amount");
+      return;
+    }
+    const newInvestor: TrackedInvestor = {
+      id: crypto.randomUUID(),
+      name: newInvestorName.trim(),
+      amount: parseFloat(newInvestorAmount),
+      date: newInvestorDate,
+      status: newInvestorStatus,
+    };
+    setTrackedInvestors([...trackedInvestors, newInvestor]);
+    setNewInvestorName("");
+    setNewInvestorAmount("");
+    setNewInvestorDate(new Date().toISOString().split('T')[0]);
+    setNewInvestorStatus("Contract Sent");
+    toast.success("Investor added to tracker");
+  };
+
+  const updateInvestorStatus = (id: string, status: InvestorStatus) => {
+    setTrackedInvestors(prev => 
+      prev.map(inv => inv.id === id ? { ...inv, status } : inv)
+    );
+  };
+
+  const removeInvestor = (id: string) => {
+    setTrackedInvestors(prev => prev.filter(inv => inv.id !== id));
+    toast.success("Investor removed");
+  };
 
   useEffect(() => {
     checkAccess();
@@ -429,6 +498,180 @@ const AdminDealRoom = () => {
               <p className="text-xs text-gray-500 text-center">
                 This tool generates a draft SAFE agreement. Always have legal counsel review before execution.
               </p>
+            </CardContent>
+          </Card>
+
+          {/* Investment Tracker */}
+          <Card className="bg-black/40 border-cyan-500/30 backdrop-blur-sm mt-8">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-cyan-400" />
+                Investment Tracker
+                {isTranche1Filled && (
+                  <Badge className="ml-2 bg-green-500/20 text-green-400 border-green-500/50">
+                    <CheckCircle2 className="h-3 w-3 mr-1" />
+                    Tranche 1 Filled - Switch to Tranche 2
+                  </Badge>
+                )}
+              </CardTitle>
+              <CardDescription className="text-gray-400">
+                Track progress toward the $100,000 Alpha Tranche cap
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Progress Bar */}
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">Total Raised (Wired/Cleared)</span>
+                  <span className={isTranche1Filled ? "text-green-400 font-bold" : "text-white"}>
+                    {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(totalRaised)} / $100,000
+                  </span>
+                </div>
+                <Progress 
+                  value={progressPercentage} 
+                  className={`h-4 ${isTranche1Filled ? "[&>div]:bg-green-500" : "[&>div]:bg-gradient-to-r [&>div]:from-cyan-500 [&>div]:to-blue-500"}`}
+                />
+                <p className="text-xs text-gray-500">
+                  {progressPercentage.toFixed(1)}% of Tranche 1 goal
+                </p>
+              </div>
+
+              {/* Add New Investor Form */}
+              <div className="p-4 rounded-lg bg-white/5 border border-white/10 space-y-4">
+                <h4 className="text-white font-semibold text-sm">Add Investor</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                  <Input
+                    placeholder="Investor Name"
+                    value={newInvestorName}
+                    onChange={(e) => setNewInvestorName(e.target.value)}
+                    className="bg-white/5 border-white/20 text-white placeholder:text-gray-500"
+                  />
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">$</span>
+                    <Input
+                      type="number"
+                      placeholder="Amount"
+                      value={newInvestorAmount}
+                      onChange={(e) => setNewInvestorAmount(e.target.value)}
+                      className="bg-white/5 border-white/20 text-white pl-8 placeholder:text-gray-500"
+                    />
+                  </div>
+                  <Input
+                    type="date"
+                    value={newInvestorDate}
+                    onChange={(e) => setNewInvestorDate(e.target.value)}
+                    className="bg-white/5 border-white/20 text-white"
+                  />
+                  <Select value={newInvestorStatus} onValueChange={(v) => setNewInvestorStatus(v as InvestorStatus)}>
+                    <SelectTrigger className="bg-white/5 border-white/20 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Contract Sent">Contract Sent</SelectItem>
+                      <SelectItem value="Signed">Signed</SelectItem>
+                      <SelectItem value="Funds Wired">Funds Wired</SelectItem>
+                      <SelectItem value="Cleared in Bank">Cleared in Bank</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <Button onClick={addInvestor} size="sm" className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 hover:bg-cyan-500/30">
+                  <Plus className="h-4 w-4 mr-1" />
+                  Add Investor
+                </Button>
+              </div>
+
+              {/* Investors Table */}
+              {trackedInvestors.length > 0 ? (
+                <div className="rounded-lg border border-white/10 overflow-hidden">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="border-white/10 hover:bg-transparent">
+                        <TableHead className="text-gray-400">Investor Name</TableHead>
+                        <TableHead className="text-gray-400">Amount Pledged</TableHead>
+                        <TableHead className="text-gray-400">Date</TableHead>
+                        <TableHead className="text-gray-400">Status</TableHead>
+                        <TableHead className="text-gray-400 w-12"></TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {trackedInvestors.map((investor) => (
+                        <TableRow key={investor.id} className="border-white/10 hover:bg-white/5">
+                          <TableCell className="text-white font-medium">{investor.name}</TableCell>
+                          <TableCell className="text-white">
+                            {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(investor.amount)}
+                          </TableCell>
+                          <TableCell className="text-gray-400">
+                            {new Date(investor.date).toLocaleDateString()}
+                          </TableCell>
+                          <TableCell>
+                            <Select 
+                              value={investor.status} 
+                              onValueChange={(v) => updateInvestorStatus(investor.id, v as InvestorStatus)}
+                            >
+                              <SelectTrigger className={`w-40 text-xs h-8 ${
+                                investor.status === "Cleared in Bank" ? "bg-green-500/20 border-green-500/50 text-green-400" :
+                                investor.status === "Funds Wired" ? "bg-blue-500/20 border-blue-500/50 text-blue-400" :
+                                investor.status === "Signed" ? "bg-amber-500/20 border-amber-500/50 text-amber-400" :
+                                "bg-white/5 border-white/20 text-gray-400"
+                              }`}>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="Contract Sent">Contract Sent</SelectItem>
+                                <SelectItem value="Signed">Signed</SelectItem>
+                                <SelectItem value="Funds Wired">Funds Wired</SelectItem>
+                                <SelectItem value="Cleared in Bank">Cleared in Bank</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                          <TableCell>
+                            <Button 
+                              variant="ghost" 
+                              size="icon"
+                              onClick={() => removeInvestor(investor.id)}
+                              className="h-8 w-8 text-red-400 hover:text-red-300 hover:bg-red-500/20"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  No investors tracked yet. Add your first investor above.
+                </div>
+              )}
+
+              {/* Summary Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-white/10">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-white">{trackedInvestors.length}</p>
+                  <p className="text-xs text-gray-400">Total Investors</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-amber-400">
+                    {trackedInvestors.filter(i => i.status === "Contract Sent" || i.status === "Signed").length}
+                  </p>
+                  <p className="text-xs text-gray-400">Pending</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-green-400">
+                    {trackedInvestors.filter(i => i.status === "Funds Wired" || i.status === "Cleared in Bank").length}
+                  </p>
+                  <p className="text-xs text-gray-400">Confirmed</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-cyan-400">
+                    {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(
+                      trackedInvestors.reduce((sum, inv) => sum + inv.amount, 0)
+                    )}
+                  </p>
+                  <p className="text-xs text-gray-400">Total Pledged</p>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>

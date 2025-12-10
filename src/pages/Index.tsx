@@ -4,6 +4,7 @@ import { Check, Sun, Moon, ShieldCheck, Globe, EyeOff } from 'lucide-react';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
+import { Fingerprint } from 'lucide-react';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -171,7 +172,41 @@ const Index = () => {
           <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>Upgrade to Lab-Certified Status.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Identity Verification Card */}
+          <div className={`p-8 rounded-2xl border transition-all duration-500 relative overflow-hidden group backdrop-blur-sm
+            ${isDark 
+              ? 'bg-white/5 border-white/10 hover:border-emerald-500 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)]' 
+              : 'bg-white border-slate-200 shadow-lg hover:border-emerald-500 hover:shadow-emerald-100'}`}>
+            
+            <div className="absolute top-0 right-0 text-xs font-bold px-4 py-2 text-white bg-emerald-600">TIER 1 IDV</div>
+            
+            <div className={`mb-4 p-3 rounded-full inline-block ${isDark ? 'bg-emerald-500/20' : 'bg-emerald-100'}`}>
+              <Fingerprint size={28} className="text-emerald-400" />
+            </div>
+            
+            <h3 className={`text-2xl font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>Identity Verification</h3>
+            <div className={`text-5xl font-bold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>$80.00</div>
+            <div className={`text-xs mb-6 font-bold tracking-wider ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>24-HOUR TURNAROUND</div>
+            
+            <ul className={`text-sm space-y-3 mb-8 font-mono ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+              <li className="flex gap-3 items-center">
+                <Check size={16} className="text-emerald-400"/> State ID (Driver's License)
+              </li>
+              <li className="flex gap-3 items-center">
+                <Check size={16} className="text-emerald-400"/> International (Passport)
+              </li>
+              <li className="flex gap-3 items-center">
+                <Check size={16} className="text-emerald-400"/> Biometric Liveness Check
+              </li>
+            </ul>
+            
+            <button 
+              className="w-full py-4 bg-transparent border rounded font-bold transition-all duration-300 uppercase tracking-widest border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+              VERIFY IDENTITY
+            </button>
+          </div>
+
           <LabCard 
             isDark={isDark}
             title="10-Panel Toxicology" 

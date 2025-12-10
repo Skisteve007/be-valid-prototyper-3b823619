@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, Heart, Zap, Moon, Smartphone, Shield, Wifi, Battery } from 'lucide-react';
+import { Users, Heart, Plane, Moon, Smartphone, Shield, Wifi, Battery } from 'lucide-react';
 
 type VibeMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
@@ -40,7 +40,7 @@ const vibeModes: Record<VibeMode, VibeModeConfig> = {
   },
   thrill: {
     name: 'THRILL',
-    icon: <Zap size={24} />,
+    icon: <Plane size={24} />,
     color: 'text-orange-400',
     bgGradient: 'from-orange-600/20 to-amber-600/20',
     borderColor: 'border-orange-500/50',

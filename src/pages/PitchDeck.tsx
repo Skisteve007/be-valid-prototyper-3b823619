@@ -248,8 +248,8 @@ const PitchDeck = () => {
       <main className="container mx-auto px-4 py-8 space-y-20 relative z-10">
         
         {/* ===== HERO SECTION ===== */}
-        <section className="text-center py-12">
-          <img src={logo} alt="VALID" className="h-32 md:h-40 mx-auto mb-6 rounded-xl" />
+        <section className="text-center py-6">
+          <img src={logo} alt="VALID" className="h-40 md:h-52 mx-auto mb-8 rounded-xl shadow-[0_0_40px_rgba(0,240,255,0.2)]" />
           
           <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 px-4 py-1">
             CONFIDENTIAL — INVESTOR ONLY
@@ -365,7 +365,7 @@ const PitchDeck = () => {
         <section>
           <div className="text-center mb-12">
             <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 mb-4">THE THESIS</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold font-orbitron">Four Truths That Make VALID Inevitable</h2>
+            <h2 className="text-4xl md:text-6xl font-bold font-orbitron">Four Truths That Make VALID Inevitable</h2>
           </div>
 
           <div className="space-y-6">

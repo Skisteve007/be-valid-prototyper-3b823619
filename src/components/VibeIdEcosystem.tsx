@@ -83,6 +83,22 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
     <section className={`py-24 px-4 relative z-10 transition-colors duration-500 overflow-hidden
       ${isDark ? 'bg-[#0a0a0a]' : 'bg-slate-100'}`}>
       
+      {/* Animation Keyframes */}
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: rotateY(-5deg) rotateX(2deg) translateY(0px); }
+          50% { transform: rotateY(-5deg) rotateX(2deg) translateY(-15px); }
+        }
+        @keyframes shimmer {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+      
       {/* Background glow effect */}
       <div 
         className={`absolute inset-0 opacity-30 transition-all duration-700 ${currentMode.bgGradient}`}
@@ -157,9 +173,50 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
           {/* RIGHT: 3D Phone Card */}
           <div className="order-1 lg:order-2 flex justify-center">
             <div 
-              className={`relative transition-all duration-700 transform hover:scale-105`}
+              className={`relative transition-all duration-700 transform hover:scale-105 group`}
               style={{ perspective: '1000px' }}
             >
+              {/* Animated Orbital Rings */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div 
+                  className={`absolute w-[320px] h-[320px] rounded-full border opacity-20 transition-all duration-500
+                    ${currentMode.borderColor}`}
+                  style={{ animation: 'spin 20s linear infinite' }}
+                />
+                <div 
+                  className={`absolute w-[380px] h-[380px] rounded-full border opacity-10 transition-all duration-500
+                    ${currentMode.borderColor}`}
+                  style={{ animation: 'spin 30s linear infinite reverse' }}
+                />
+                <div 
+                  className={`absolute w-[440px] h-[440px] rounded-full border opacity-5 transition-all duration-500
+                    ${currentMode.borderColor}`}
+                  style={{ animation: 'spin 40s linear infinite' }}
+                />
+              </div>
+
+              {/* Floating Particles */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    className={`absolute w-1.5 h-1.5 rounded-full ${currentMode.color.replace('text-', 'bg-')} opacity-60`}
+                    style={{
+                      left: `${20 + (i * 12)}%`,
+                      animation: `float ${3 + i * 0.5}s ease-in-out infinite`,
+                      animationDelay: `${i * 0.3}s`,
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Pulsing Glow Background */}
+              <div 
+                className={`absolute inset-0 rounded-[50px] blur-3xl opacity-30 transition-all duration-500 -z-10
+                  ${activeMode === 'social' ? 'bg-blue-500' : activeMode === 'pulse' ? 'bg-green-500' : activeMode === 'thrill' ? 'bg-orange-500' : 'bg-purple-500'}`}
+                style={{ animation: 'pulse 3s ease-in-out infinite' }}
+              />
+
               {/* Phone Frame */}
               <div 
                 className={`relative w-[280px] h-[560px] rounded-[40px] border-[8px] transition-all duration-500 overflow-hidden
@@ -168,11 +225,32 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                 style={{
                   transform: 'rotateY(-5deg) rotateX(2deg)',
                   transformStyle: 'preserve-3d',
+                  animation: 'float 6s ease-in-out infinite',
                 }}
               >
+                {/* Scanning Beam Effect */}
+                <div 
+                  className={`absolute inset-x-0 h-[2px] opacity-60 z-20 transition-all duration-500
+                    ${activeMode === 'social' ? 'bg-blue-400' : activeMode === 'pulse' ? 'bg-green-400' : activeMode === 'thrill' ? 'bg-orange-400' : 'bg-purple-400'}`}
+                  style={{
+                    animation: 'scan 2.5s ease-in-out infinite',
+                    boxShadow: `0 0 20px 5px ${activeMode === 'social' ? 'rgba(59,130,246,0.5)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.5)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.5)' : 'rgba(168,85,247,0.5)'}`
+                  }}
+                />
+
                 {/* Dynamic Background Gradient */}
                 <div 
                   className={`absolute inset-0 bg-gradient-to-b transition-all duration-700 ${currentMode.bgGradient}`}
+                />
+
+                {/* Holographic Shimmer */}
+                <div 
+                  className="absolute inset-0 opacity-10 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.1) 50%, transparent 55%)',
+                    backgroundSize: '200% 100%',
+                    animation: 'shimmer 3s infinite',
+                  }}
                 />
                 
                 {/* Phone Screen Content */}
@@ -189,8 +267,9 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
 
                   {/* VALID Logo */}
                   <div className="text-center mb-6">
-                    <h3 className={`text-2xl font-black font-orbitron tracking-wider ${currentMode.color}`}>
-                      VALID
+                    <h3 className={`text-2xl font-black font-orbitron tracking-wider ${currentMode.color}`}
+                      style={{ textShadow: `0 0 20px ${activeMode === 'social' ? 'rgba(59,130,246,0.5)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.5)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.5)' : 'rgba(168,85,247,0.5)'}` }}>
+                      VALID™
                     </h3>
                     <div className={`text-[10px] font-mono tracking-[0.3em] ${isDark ? 'text-gray-500' : 'text-slate-400'}`}>
                       VALID-ID
@@ -201,9 +280,11 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                   <div className={`flex-1 rounded-3xl border p-5 transition-all duration-500 backdrop-blur-sm
                     ${isDark ? 'bg-black/40' : 'bg-white/60'} ${currentMode.borderColor}`}>
                     
-                    {/* Avatar */}
-                    <div className="flex justify-center mb-4">
-                      <div className={`w-20 h-20 rounded-full border-4 flex items-center justify-center transition-all duration-500
+                    {/* Avatar with Pulse Ring */}
+                    <div className="flex justify-center mb-4 relative">
+                      <div className={`absolute w-24 h-24 rounded-full border-2 opacity-50 ${currentMode.borderColor}`}
+                        style={{ animation: 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite' }} />
+                      <div className={`w-20 h-20 rounded-full border-4 flex items-center justify-center transition-all duration-500 relative z-10
                         ${currentMode.borderColor} ${currentMode.bgGradient}`}>
                         <Smartphone size={32} className={currentMode.color} />
                       </div>
@@ -212,7 +293,8 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                     {/* Status Badge */}
                     <div className={`text-center mb-4`}>
                       <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-bold tracking-widest
-                        ${currentMode.borderColor} border ${currentMode.color}`}>
+                        ${currentMode.borderColor} border ${currentMode.color}`}
+                        style={{ boxShadow: `0 0 15px ${activeMode === 'social' ? 'rgba(59,130,246,0.3)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.3)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.3)' : 'rgba(168,85,247,0.3)'}` }}>
                         <div className={`w-2 h-2 rounded-full animate-pulse ${currentMode.color.replace('text-', 'bg-')}`} />
                         {currentMode.statusText}
                       </div>
@@ -220,7 +302,8 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
 
                     {/* Mode Icon */}
                     <div className="flex justify-center mb-4">
-                      <div className={`p-4 rounded-2xl transition-all duration-500 ${currentMode.borderColor} border`}>
+                      <div className={`p-4 rounded-2xl transition-all duration-500 ${currentMode.borderColor} border`}
+                        style={{ boxShadow: `inset 0 0 20px ${activeMode === 'social' ? 'rgba(59,130,246,0.2)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.2)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.2)' : 'rgba(168,85,247,0.2)'}` }}>
                         <div className={`${currentMode.color}`}>
                           {React.cloneElement(currentMode.icon as React.ReactElement, { size: 40 })}
                         </div>
@@ -230,7 +313,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                     {/* Verified Shield */}
                     <div className="flex justify-center">
                       <div className={`flex items-center gap-2 text-xs font-mono ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                        <Shield size={14} className="text-green-400" />
+                        <Shield size={14} className="text-green-400" style={{ filter: 'drop-shadow(0 0 6px rgba(34,197,94,0.6))' }} />
                         VERIFIED
                       </div>
                     </div>
@@ -243,8 +326,9 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
 
               {/* Reflection/Shadow */}
               <div 
-                className={`absolute -bottom-4 left-1/2 -translate-x-1/2 w-[200px] h-[20px] rounded-full blur-xl opacity-50 transition-all duration-500
+                className={`absolute -bottom-6 left-1/2 -translate-x-1/2 w-[240px] h-[40px] rounded-full blur-2xl opacity-40 transition-all duration-500
                   ${activeMode === 'social' ? 'bg-blue-500' : activeMode === 'pulse' ? 'bg-green-500' : activeMode === 'thrill' ? 'bg-orange-500' : 'bg-purple-500'}`}
+                style={{ animation: 'pulse 3s ease-in-out infinite' }}
               />
             </div>
           </div>

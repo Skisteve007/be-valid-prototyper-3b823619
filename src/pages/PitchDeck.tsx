@@ -381,24 +381,24 @@ const PitchDeck = () => {
 
         {/* ===== THE THESIS ===== */}
         <section>
-          <div className="text-center mb-12">
-            <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 mb-4 text-lg px-6 py-2">THE THESIS</Badge>
-            <h2 className="text-4xl md:text-6xl font-bold font-orbitron">Four Truths That Make VALID Inevitable</h2>
+          <div className="text-center mb-8">
+            <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 mb-3 text-sm px-4 py-1">THE THESIS</Badge>
+            <h2 className="text-2xl md:text-3xl font-bold font-orbitron">Four Truths That Make VALID Inevitable</h2>
           </div>
 
-          <div className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-4">
             {thesisStatements.map((statement, index) => (
               <div 
                 key={index}
-                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl p-6 md:p-8 hover:border-cyan-500/30 transition-all group"
+                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl p-4 md:p-5 hover:border-cyan-500/30 transition-all group"
               >
-                <div className="flex items-start gap-6">
-                  <div className="text-4xl font-bold text-cyan-500/30 font-orbitron group-hover:text-cyan-500/50 transition-colors">
+                <div className="flex items-start gap-4">
+                  <div className="text-2xl font-bold text-cyan-500/30 font-orbitron group-hover:text-cyan-500/50 transition-colors">
                     {statement.number}
                   </div>
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3 font-orbitron">{statement.title}</h3>
-                    <p className="text-gray-400 leading-relaxed">{statement.content}</p>
+                    <h3 className="text-base md:text-lg font-bold text-white mb-2 font-orbitron">{statement.title}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">{statement.content}</p>
                   </div>
                 </div>
               </div>

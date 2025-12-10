@@ -587,15 +587,15 @@ export const VenueDirectoryTab = () => {
                             <Edit className="h-5 w-5 mr-2" /> Edit
                           </Button>
                         </DialogTrigger>
-                      <DialogContent className="top-[5%] translate-y-0 max-h-[90vh] flex flex-col">
-                        <DialogHeader>
-                          <DialogTitle>Edit Partner</DialogTitle>
-                          <DialogDescription>
+                      <DialogContent className="top-[10%] translate-y-0 max-h-[85vh] flex flex-col bg-card border-border shadow-xl">
+                        <DialogHeader className="pb-2">
+                          <DialogTitle className="text-foreground">Edit Partner</DialogTitle>
+                          <DialogDescription className="text-muted-foreground">
                             Update details for {editingVenue?.venue_name}
                           </DialogDescription>
                         </DialogHeader>
-                        <ScrollArea className="flex-1 max-h-[65vh] pr-4">
-                        <div className="space-y-4 py-4">
+                        <ScrollArea className="flex-1 max-h-[60vh] overflow-y-auto">
+                          <div className="space-y-4 py-4 pr-4">
                           <div className="space-y-2">
                             <Label>Industry Type</Label>
                             <Select value={editIndustry} onValueChange={setEditIndustry}>
@@ -700,7 +700,7 @@ export const VenueDirectoryTab = () => {
                             {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
                             Save Changes
                           </Button>
-                        </div>
+                          </div>
                         </ScrollArea>
                       </DialogContent>
                     </Dialog>
@@ -799,15 +799,15 @@ export const VenueDirectoryTab = () => {
                               Edit
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="top-[5%] translate-y-0 max-h-[90vh] flex flex-col">
-                            <DialogHeader>
-                              <DialogTitle>Edit Partner</DialogTitle>
-                              <DialogDescription>
+                          <DialogContent className="top-[10%] translate-y-0 max-h-[85vh] flex flex-col bg-card border-border shadow-xl">
+                            <DialogHeader className="pb-2">
+                              <DialogTitle className="text-foreground">Edit Partner</DialogTitle>
+                              <DialogDescription className="text-muted-foreground">
                                 Update details for {editingVenue?.venue_name}
                               </DialogDescription>
                             </DialogHeader>
-                            <ScrollArea className="flex-1 max-h-[65vh] pr-4">
-                            <div className="space-y-4 py-4">
+                            <ScrollArea className="flex-1 max-h-[60vh] overflow-y-auto">
+                              <div className="space-y-4 py-4 pr-4">
                               <div className="space-y-2">
                                 <Label>Industry Type</Label>
                                 <Select value={editIndustry} onValueChange={setEditIndustry}>
@@ -908,7 +908,7 @@ export const VenueDirectoryTab = () => {
                                 {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
                                 Save Changes
                               </Button>
-                            </div>
+                              </div>
                             </ScrollArea>
                           </DialogContent>
                         </Dialog>

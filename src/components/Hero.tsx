@@ -4,7 +4,7 @@
 // *****************************************************************************
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Plane, Ticket, Ghost, Users, Activity, Zap, Moon } from 'lucide-react';
+import { ArrowRight, Plane, Ticket, Ghost } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface ModeBtnProps {
@@ -34,103 +34,6 @@ const ModeBtn = ({ active, onClick, icon, label, mode }: ModeBtnProps) => {
     >
       {icon} {label}
     </button>
-  );
-};
-
-// --- SIGNAL MODE GRID COMPONENT ---
-type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark' | null;
-
-const signalModes = {
-  social: {
-    label: 'SOCIAL MODE',
-    icon: Users,
-    description: 'Open to connect. Share contacts and socials with one scan.',
-    glowColor: 'rgba(59, 130, 246, 0.4)', // blue
-    borderColor: 'border-blue-500',
-    textColor: 'text-blue-400',
-    bgColor: 'bg-blue-500/10',
-  },
-  pulse: {
-    label: 'PULSE MODE',
-    icon: Activity,
-    description: 'High energy. Broadcast your preferences, relationship status, and health verified badge.',
-    glowColor: 'rgba(34, 197, 94, 0.4)', // green/neon
-    borderColor: 'border-green-500',
-    textColor: 'text-green-400',
-    bgColor: 'bg-green-500/10',
-  },
-  thrill: {
-    label: 'THRILL MODE',
-    icon: Zap,
-    description: 'Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification.',
-    glowColor: 'rgba(249, 115, 22, 0.4)', // orange
-    borderColor: 'border-orange-500',
-    textColor: 'text-orange-400',
-    bgColor: 'bg-orange-500/10',
-  },
-  afterdark: {
-    label: 'AFTER DARK',
-    icon: Moon,
-    description: 'Entertainment access. Zero data exposed. Flow through entry.',
-    glowColor: 'rgba(168, 85, 247, 0.4)', // purple
-    borderColor: 'border-purple-500',
-    textColor: 'text-purple-400',
-    bgColor: 'bg-purple-500/10',
-  },
-};
-
-const SignalModeGrid = () => {
-  const [selectedSignal, setSelectedSignal] = useState<SignalMode>(null);
-
-  return (
-    <div className="relative">
-      {/* Background glow effect */}
-      {selectedSignal && (
-        <div 
-          className="absolute -inset-4 rounded-2xl blur-2xl transition-all duration-500 -z-10"
-          style={{ backgroundColor: signalModes[selectedSignal].glowColor }}
-        />
-      )}
-      
-      {/* 2x2 Grid */}
-      <div className="grid grid-cols-2 gap-3">
-        {(Object.keys(signalModes) as SignalMode[]).filter(Boolean).map((mode) => {
-          if (!mode) return null;
-          const config = signalModes[mode];
-          const Icon = config.icon;
-          const isActive = selectedSignal === mode;
-          
-          return (
-            <button
-              key={mode}
-              onClick={() => setSelectedSignal(isActive ? null : mode)}
-              className={`p-4 md:p-5 rounded-xl border-2 transition-all duration-300 flex flex-col items-center justify-center gap-2 aspect-square
-                ${isActive 
-                  ? `${config.borderColor} ${config.bgColor} shadow-lg` 
-                  : 'border-white/10 bg-white/5 hover:border-white/30'
-                }`}
-            >
-              <Icon size={28} className={isActive ? config.textColor : 'text-gray-400'} />
-              <span className={`text-[10px] md:text-xs font-bold tracking-wider ${isActive ? config.textColor : 'text-gray-400'}`}>
-                {config.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-      
-      {/* Description Display */}
-      <div className="mt-4 min-h-[48px] flex items-center justify-center md:justify-start">
-        {selectedSignal && (
-          <p 
-            key={selectedSignal}
-            className={`text-sm ${signalModes[selectedSignal].textColor} animate-fade-in text-center md:text-left`}
-          >
-            {signalModes[selectedSignal].description}
-          </p>
-        )}
-      </div>
-    </div>
   );
 };
 
@@ -239,12 +142,6 @@ const Hero = () => {
               {activeMode === 'travel' && "Breeze through entry points globally."}
               {activeMode === 'ghost' && "Mask your data and transact in stealth mode."}
             </p>
-          </div>
-
-          {/* SELECT YOUR SIGNAL - 2x2 Grid */}
-          <div className="mt-10">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4 text-center md:text-left">Select Your Signal</p>
-            <SignalModeGrid />
           </div>
         </div>
 

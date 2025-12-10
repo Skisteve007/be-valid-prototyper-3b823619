@@ -408,7 +408,96 @@ const PitchDeck = () => {
           </div>
         </section>
 
-        {/* ===== COMPETITIVE MOAT ===== */}
+        {/* ===== IDaaS: MARGIN DENSITY ===== */}
+        <section>
+          <div className="text-center mb-12">
+            <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/50 mb-4 text-lg px-6 py-2 tracking-widest">MARGIN DENSITY</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">
+              IDaaS: <span className="text-emerald-400">Identity as a Service</span>
+            </h2>
+            <p className="text-gray-400 max-w-3xl mx-auto text-lg">
+              We eliminated Customer Acquisition Cost (CAC) by making identity verification a high-margin, user-paid revenue stream.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-emerald-950/40 to-cyan-950/40 border border-emerald-500/30 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(16,185,129,0.1)]">
+            {/* The Model Explanation */}
+            <div className="mb-10">
+              <h3 className="text-xl font-bold text-white mb-4 font-orbitron flex items-center gap-3">
+                <Fingerprint className="h-6 w-6 text-emerald-400" />
+                The Model
+              </h3>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                The user pays for their <span className="text-white font-semibold">Verified Identity Key</span> once. VALID pays the Tier 1 vendor, and keeps the rest. 
+                The revenue is <span className="text-emerald-400 font-semibold">instant</span>, <span className="text-emerald-400 font-semibold">high-value</span>, and <span className="text-emerald-400 font-semibold">recurring</span> with every new user.
+              </p>
+            </div>
+
+            {/* Margin Cards */}
+            <div className="grid md:grid-cols-2 gap-6 mb-10">
+              {/* Standard Check */}
+              <div className="bg-black/40 border border-emerald-500/30 rounded-xl p-6 hover:border-emerald-400/50 transition-all">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-lg font-bold text-white font-orbitron">Standard Check</h4>
+                  <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/50">60% MARGIN</Badge>
+                </div>
+                <p className="text-sm text-gray-400 mb-4">ID + Basic Criminal Background</p>
+                <div className="flex items-center gap-4">
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Sale Price</div>
+                    <div className="text-3xl font-extrabold text-emerald-400">$48.00</div>
+                  </div>
+                  <div className="text-2xl text-gray-600">→</div>
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Vendor Cost</div>
+                    <div className="text-2xl font-bold text-gray-400">$30.00</div>
+                  </div>
+                  <div className="text-2xl text-gray-600">→</div>
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Profit</div>
+                    <div className="text-2xl font-bold text-white">$18.00</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* VIP Check */}
+              <div className="bg-black/40 border border-fuchsia-500/30 rounded-xl p-6 hover:border-fuchsia-400/50 transition-all shadow-[0_0_20px_rgba(217,70,239,0.1)]">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-lg font-bold text-white font-orbitron">VIP Global Check</h4>
+                  <Badge className="bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/50">60% MARGIN</Badge>
+                </div>
+                <p className="text-sm text-gray-400 mb-4">Global AML/PEP + Comprehensive Background</p>
+                <div className="flex items-center gap-4">
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Sale Price</div>
+                    <div className="text-3xl font-extrabold text-fuchsia-400">$112.00</div>
+                  </div>
+                  <div className="text-2xl text-gray-600">→</div>
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Vendor Cost</div>
+                    <div className="text-2xl font-bold text-gray-400">$70.00</div>
+                  </div>
+                  <div className="text-2xl text-gray-600">→</div>
+                  <div>
+                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Profit</div>
+                    <div className="text-2xl font-bold text-white">$42.00</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Line */}
+            <div className="bg-gradient-to-r from-emerald-900/30 to-cyan-900/30 border border-emerald-400/30 rounded-xl p-6 text-center">
+              <p className="text-lg text-gray-300 leading-relaxed">
+                This makes VALID a <span className="text-emerald-400 font-bold text-2xl">60% gross margin</span> business 
+                <span className="text-white font-semibold"> before even considering Ghost Token commissions</span>. 
+                The cost structure is clean, and the profit is immediate.
+              </p>
+            </div>
+          </div>
+        </section>
+
+
         <section>
           <div className="text-center mb-12">
             <Badge className="bg-red-600/30 text-red-500 border-red-600/50 mb-4 text-lg px-6 py-2">COMPETITIVE MOAT</Badge>

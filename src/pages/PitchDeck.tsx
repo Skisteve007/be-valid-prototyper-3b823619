@@ -307,7 +307,7 @@ const PitchDeck = () => {
             
             <p className="text-gray-400 text-lg leading-relaxed">
               VALID isn't a health app. It's not an identity company. It's not a payment processor. 
-              <span className="text-white font-semibold"> It's the protocol that makes high-stakes interactions possible.</span> When you get into an Uber, you trust the driver is verified. When you enter a venue, they trust you're safe. When you meet someone new, you both need proof. VALID is that proof—instant, portable, and monetizable at every touchpoint.
+              <span className="text-white font-semibold"> It's the Ghost Token protocol—a self-destructing, encrypted trust packet injected into every QR code.</span> When you enter a venue, the Ghost Token proves you're verified, processes payment, and vaporizes—zero data left behind. We don't store trust. We transmit it.
             </p>
           </div>
         </section>
@@ -338,26 +338,38 @@ const PitchDeck = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {unicornPillars.map((pillar, index) => (
-              <div 
-                key={index}
-                className={`bg-black/40 backdrop-blur-xl border rounded-xl p-6 hover:scale-[1.02] transition-all duration-300 ${getColorClasses(pillar.color)}`}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`h-12 w-12 rounded-xl ${getColorClasses(pillar.color)} flex items-center justify-center`}>
-                    <pillar.icon className="h-6 w-6" />
+            {unicornPillars.map((pillar, index) => {
+              const isGhostToken = index === 0;
+              return (
+                <div 
+                  key={index}
+                  className={`bg-black/40 backdrop-blur-xl border rounded-xl p-6 hover:scale-[1.02] transition-all duration-300 ${getColorClasses(pillar.color)} ${isGhostToken ? 'shadow-[0_0_30px_rgba(251,191,36,0.3)] hover:shadow-[0_0_50px_rgba(251,191,36,0.5)]' : ''}`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`relative h-12 w-12 rounded-xl ${getColorClasses(pillar.color)} flex items-center justify-center ${isGhostToken ? 'overflow-visible' : ''}`}>
+                      {isGhostToken && (
+                        <>
+                          {/* Pulsing ring animation */}
+                          <div className="absolute inset-0 rounded-xl bg-amber-500/30 animate-ping" style={{ animationDuration: '2s' }}></div>
+                          <div className="absolute -inset-2 rounded-xl border-2 border-amber-400/50 animate-pulse"></div>
+                          {/* Outer glow ring */}
+                          <div className="absolute -inset-3 rounded-xl bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/20 blur-md animate-pulse" style={{ animationDuration: '3s' }}></div>
+                        </>
+                      )}
+                      <pillar.icon className={`h-6 w-6 relative z-10 ${isGhostToken ? 'animate-pulse' : ''}`} />
+                    </div>
+                    <div className="text-right">
+                      <div className={`text-2xl font-bold ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.metric}</div>
+                      <div className="text-xs text-gray-500">{pillar.metricLabel}</div>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <div className={`text-2xl font-bold ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.metric}</div>
-                    <div className="text-xs text-gray-500">{pillar.metricLabel}</div>
-                  </div>
+                  <div className="text-xs font-bold text-gray-500 mb-2">{pillar.layer}</div>
+                  <h3 className={`text-lg font-bold text-white mb-1 font-orbitron ${isGhostToken ? 'drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]' : ''}`}>{pillar.title}</h3>
+                  <p className={`text-sm mb-3 ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.subtitle}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{pillar.description}</p>
                 </div>
-                <div className="text-xs font-bold text-gray-500 mb-2">{pillar.layer}</div>
-                <h3 className="text-lg font-bold text-white mb-1 font-orbitron">{pillar.title}</h3>
-                <p className={`text-sm mb-3 ${pillar.color === 'amber' ? 'text-amber-400' : pillar.color === 'purple' ? 'text-purple-400' : pillar.color === 'green' ? 'text-green-400' : pillar.color === 'blue' ? 'text-blue-400' : pillar.color === 'red' ? 'text-red-400' : 'text-cyan-400'}`}>{pillar.subtitle}</p>
-                <p className="text-gray-400 text-sm leading-relaxed">{pillar.description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

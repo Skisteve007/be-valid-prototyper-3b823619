@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard, DollarSign, History, TrendingUp, Trophy, ChevronLeft, ChevronRight, Percent } from "lucide-react";
 import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
 import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
 import { VenueOperatorsManager } from "./VenueOperatorsManager";
@@ -586,13 +587,14 @@ export const VenueDirectoryTab = () => {
                             <Edit className="h-5 w-5 mr-2" /> Edit
                           </Button>
                         </DialogTrigger>
-                      <DialogContent className="top-[15%] translate-y-0">
+                      <DialogContent className="top-[5%] translate-y-0 max-h-[90vh] flex flex-col">
                         <DialogHeader>
                           <DialogTitle>Edit Partner</DialogTitle>
                           <DialogDescription>
                             Update details for {editingVenue?.venue_name}
                           </DialogDescription>
                         </DialogHeader>
+                        <ScrollArea className="flex-1 max-h-[65vh] pr-4">
                         <div className="space-y-4 py-4">
                           <div className="space-y-2">
                             <Label>Industry Type</Label>
@@ -699,6 +701,7 @@ export const VenueDirectoryTab = () => {
                             Save Changes
                           </Button>
                         </div>
+                        </ScrollArea>
                       </DialogContent>
                     </Dialog>
                     <Button
@@ -796,13 +799,14 @@ export const VenueDirectoryTab = () => {
                               Edit
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="top-[15%] translate-y-0">
+                          <DialogContent className="top-[5%] translate-y-0 max-h-[90vh] flex flex-col">
                             <DialogHeader>
                               <DialogTitle>Edit Partner</DialogTitle>
                               <DialogDescription>
                                 Update details for {editingVenue?.venue_name}
                               </DialogDescription>
                             </DialogHeader>
+                            <ScrollArea className="flex-1 max-h-[65vh] pr-4">
                             <div className="space-y-4 py-4">
                               <div className="space-y-2">
                                 <Label>Industry Type</Label>
@@ -905,6 +909,7 @@ export const VenueDirectoryTab = () => {
                                 Save Changes
                               </Button>
                             </div>
+                            </ScrollArea>
                           </DialogContent>
                         </Dialog>
                         <Button

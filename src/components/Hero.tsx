@@ -59,13 +59,13 @@ const Hero = () => {
         
         {/* Navigation Actions */}
         <div className="flex gap-2 md:gap-4 items-center shrink-0">
-          {/* RESTORED: For Partners Link */}
-          <Link to="/partners" className="hidden md:block text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-4 py-2 rounded-full hover:bg-cyan-900/20">
-            For Partners
+          {/* For Partners Link - visible on all screens */}
+          <Link to="/partners" className="text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
+            Partners
           </Link>
           <button 
             onClick={() => navigate('/auth')}
-            className="px-4 md:px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-xs md:text-sm whitespace-nowrap"
+            className="px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[10px] md:text-xs whitespace-nowrap"
           >
             Launch App
           </button>

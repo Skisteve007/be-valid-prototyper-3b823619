@@ -98,8 +98,8 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* Gate Overlay */}
-      <div className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[200] flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
+      <div className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[9999] flex items-center justify-center p-4 pointer-events-auto">
+        <div className="w-full max-w-md pointer-events-auto">
           {/* Logo & Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 mb-4">
@@ -112,13 +112,13 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
           </div>
 
           {/* Form Card */}
-          <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-white/10 rounded-2xl p-8 shadow-[0_0_50px_rgba(0,240,255,0.1)]">
+          <div className="bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-white/10 rounded-2xl p-8 shadow-[0_0_50px_rgba(0,240,255,0.1)] pointer-events-auto">
             <div className="flex items-center gap-2 mb-6 text-amber-400">
               <Lock className="h-4 w-4" />
               <span className="text-xs font-bold uppercase tracking-wider">Confidential Access</span>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 pointer-events-auto">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
                 <Input
@@ -126,7 +126,8 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
                   placeholder="Enter your full name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="bg-black/50 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500/50"
+                  className="bg-black/50 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500/50 pointer-events-auto"
+                  style={{ pointerEvents: 'auto' }}
                 />
               </div>
 
@@ -137,21 +138,23 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-black/50 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500/50"
+                  className="bg-black/50 border-white/10 text-white placeholder:text-gray-500 focus:border-cyan-500/50 pointer-events-auto"
+                  style={{ pointerEvents: 'auto' }}
                 />
               </div>
 
               {/* NDA Checkbox */}
-              <div className="flex items-start gap-3 pt-4 border-t border-white/10">
+              <div className="flex items-start gap-3 pt-4 border-t border-white/10 pointer-events-auto">
                 <Checkbox
                   id="nda-terms"
                   checked={agreedToTerms}
                   onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
-                  className="mt-1 border-cyan-500/50 data-[state=checked]:bg-cyan-500 data-[state=checked]:border-cyan-500"
+                  className="mt-1 border-cyan-500/50 data-[state=checked]:bg-cyan-500 data-[state=checked]:border-cyan-500 pointer-events-auto"
+                  style={{ pointerEvents: 'auto' }}
                 />
-                <label htmlFor="nda-terms" className="text-xs text-gray-400 leading-relaxed cursor-pointer">
+                <label htmlFor="nda-terms" className="text-xs text-gray-400 leading-relaxed cursor-pointer pointer-events-auto">
                   I acknowledge that <span className="text-cyan-400 font-semibold">Valid™</span> and <span className="text-cyan-400 font-semibold">Ghost™</span> are proprietary technologies. I agree to the{' '}
-                  <a href="/terms" target="_blank" className="text-cyan-400 underline hover:text-cyan-300">
+                  <a href="/terms" target="_blank" className="text-cyan-400 underline hover:text-cyan-300 pointer-events-auto">
                     Non-Disclosure and Confidentiality terms
                   </a>.
                 </label>
@@ -160,7 +163,8 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
               <Button
                 onClick={handleRequestAccess}
                 disabled={isSubmitting || !agreedToTerms || !fullName.trim() || !email.trim()}
-                className="w-full mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-black font-bold py-6 rounded-xl shadow-[0_0_30px_rgba(0,240,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-black font-bold py-6 rounded-xl shadow-[0_0_30px_rgba(0,240,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed transition-all pointer-events-auto"
+                style={{ pointerEvents: 'auto' }}
               >
                 {isSubmitting ? 'Verifying...' : 'Request Access'}
               </Button>

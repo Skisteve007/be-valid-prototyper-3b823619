@@ -82,10 +82,46 @@ const AdminDealRoom = () => {
     toast.success("Investor added to tracker");
   };
 
-  const updateInvestorStatus = (id: string, status: InvestorStatus) => {
+  const updateInvestorStatus = async (id: string, status: InvestorStatus) => {
+    const investor = trackedInvestors.find(inv => inv.id === id);
+    if (!investor) return;
+
+    const previousStatus = investor.status;
+    
+    // Update state first
     setTrackedInvestors(prev => 
       prev.map(inv => inv.id === id ? { ...inv, status } : inv)
     );
+
+    // Send notification if status changed to "Funds Wired" or "Cleared in Bank"
+    if ((status === "Funds Wired" || status === "Cleared in Bank") && previousStatus !== status) {
+      try {
+        // Calculate new total with updated status
+        const newTotal = trackedInvestors
+          .map(inv => inv.id === id ? { ...inv, status } : inv)
+          .filter(inv => inv.status === "Funds Wired" || inv.status === "Cleared in Bank")
+          .reduce((sum, inv) => sum + inv.amount, 0);
+
+        const response = await supabase.functions.invoke('notify-investment-status', {
+          body: {
+            investorName: investor.name,
+            amount: investor.amount,
+            status: status,
+            date: investor.date,
+            totalRaised: newTotal,
+            trancheCap: TRANCHE_1_CAP,
+          },
+        });
+
+        if (response.error) {
+          console.error("Failed to send notification:", response.error);
+        } else {
+          toast.success(`Notification sent for ${investor.name}`);
+        }
+      } catch (error) {
+        console.error("Error sending notification:", error);
+      }
+    }
   };
 
   const removeInvestor = (id: string) => {

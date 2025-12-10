@@ -44,3 +44,6 @@ verify_jwt = true
 
 [functions.distribute-venue-pool]
 verify_jwt = false
+
+[functions.notify-investment-status]
+verify_jwt = false

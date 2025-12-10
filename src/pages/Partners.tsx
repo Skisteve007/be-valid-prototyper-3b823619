@@ -154,7 +154,7 @@ const Partners = () => {
           <ThesisCard 
             icon={<Share2 size={24} className="text-green-400"/>}
             title="Viral Network Integration"
-            desc="VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok), creating a verified peer-to-peer network."
+            desc="The Vibe-ID Ecosystem transforms every member into a distribution channel. Four contextual modes—Social, Pulse, Thrill, and After Dark—adapt identity to every situation. When members share their QR at networking events, dating apps, or nightlife venues, they're marketing VALID. Each verified connection expands the social graph exponentially. Instagram, TikTok, and peer referrals become organic growth engines. We're not building users—we're embedding into the fabric of human connection itself."
           />
           <ThesisCard 
             icon={<Lock size={24} className="text-blue-400"/>}

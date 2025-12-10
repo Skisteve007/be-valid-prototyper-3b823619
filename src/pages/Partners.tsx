@@ -4,7 +4,7 @@
 // *****************************************************************************
 
 import React from 'react';
-import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, ArrowRight, User, FlaskConical, Fingerprint, ArrowDown, Shield, Eye, Home } from 'lucide-react';
+import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, ArrowRight, User, FlaskConical, Fingerprint, ArrowDown, Shield, Eye, Home, QrCode } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
 
@@ -478,7 +478,52 @@ const Partners = () => {
         </div>
       </section>
 
-      <footer className="py-12 text-center text-xs text-gray-600 border-t border-white/10 bg-black relative z-10">
+      {/* ===== SENSING ROADMAP FOOTER ===== */}
+      <section className="py-12 border-t border-white/10 bg-gradient-to-b from-transparent to-black/40 relative z-10">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-6">
+            <span className="text-xs font-mono text-purple-400 tracking-wider">POST-OPTICAL ERA</span>
+            <h3 className="text-xl font-bold font-orbitron text-white mt-1">Beyond The QR</h3>
+          </div>
+          
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-6">
+            {/* UWB */}
+            <div className="flex items-center gap-3 bg-black/40 border border-cyan-500/20 rounded-lg px-4 py-3">
+              <Zap className="h-5 w-5 text-cyan-400" />
+              <div>
+                <p className="text-xs font-bold text-white">UWB</p>
+                <p className="text-[10px] text-cyan-400">Zero-Click Access</p>
+              </div>
+            </div>
+            
+            {/* NFC */}
+            <div className="flex items-center gap-3 bg-black/40 border border-purple-500/20 rounded-lg px-4 py-3">
+              <QrCode className="h-5 w-5 text-purple-400" />
+              <div>
+                <p className="text-xs font-bold text-white">NFC TYPE-F</p>
+                <p className="text-[10px] text-purple-400">Hard-Link Verification</p>
+              </div>
+            </div>
+            
+            {/* Bio-Hash */}
+            <div className="flex items-center gap-3 bg-black/40 border border-green-500/20 rounded-lg px-4 py-3">
+              <Fingerprint className="h-5 w-5 text-green-400" />
+              <div>
+                <p className="text-xs font-bold text-white">BIO-HASH</p>
+                <p className="text-[10px] text-green-400">You Are The Wallet</p>
+              </div>
+            </div>
+          </div>
+          
+          <p className="text-center text-xs text-gray-500 max-w-lg mx-auto">
+            <span className="text-gray-400">Today:</span> You scan to enter. <span className="text-gray-400">Tomorrow:</span> You simply walk through.
+            <br />
+            <span className="text-cyan-400 font-semibold">VALID is the universal operating system for spatial identity.</span>
+          </p>
+        </div>
+      </section>
+
+      <footer className="py-8 text-center text-xs text-gray-600 border-t border-white/10 bg-black relative z-10">
         <p>© 2025 VALID. Infrastructure for the Real World.</p>
       </footer>
 

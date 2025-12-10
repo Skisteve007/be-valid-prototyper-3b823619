@@ -105,7 +105,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
             </p>
 
             {/* Signal Select Header */}
-            <div className={`text-xs font-mono tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+            <div className={`text-xs font-mono tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-cyan-400' : 'text-blue-600'}`}>
               SELECT YOUR SIGNAL
             </div>
 

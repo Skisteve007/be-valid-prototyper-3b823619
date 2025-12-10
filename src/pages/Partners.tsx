@@ -124,11 +124,11 @@ const Partners = () => {
         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm relative">
           <div className="text-4xl text-cyan-500 absolute top-4 left-4 font-serif">"</div>
           <p className="text-lg md:text-xl text-gray-300 italic leading-relaxed mb-6 px-4">
-            Your venue faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID eliminates both—instantly. 
+            Your operation faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID eliminates both—instantly. 
             Every Ghost Token scan delivers verified access in under 3 seconds, earns you <span className="text-cyan-400">40% revenue share</span>, and shields you from every compliance risk. 
             <span className="text-cyan-400">Zero credit card fees. Zero chargebacks. Zero liability.</span>
           </p>
-          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— What VALID Means for Your Business</div>
+          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— What VALID Means for Your Operation</div>
         </div>
       </header>
 
@@ -158,7 +158,7 @@ const Partners = () => {
           <ThesisCard 
             icon={<Lock size={24} className="text-blue-400"/>}
             title="Zero-Liability Architecture"
-            desc="VALID is a delivery mechanism, not a data warehouse. We hold encrypted tokens—never raw PII. Liability flows to its source: self-reported data stays with the member; lab results stay with HIPAA-certified laboratories; identity verification stays with licensed IDV providers. Your venue? Completely shielded. This isn't risk mitigation—it's risk elimination."
+            desc="VALID is a delivery mechanism, not a data warehouse. We hold encrypted tokens—never raw PII. Liability flows to its source: self-reported data stays with the member; lab results stay with HIPAA-certified laboratories; identity verification stays with licensed IDV providers. Your operation? Completely shielded. This isn't risk mitigation—it's risk elimination."
           />
         </div>
       </section>
@@ -228,12 +228,12 @@ const Partners = () => {
               <p className="mt-3 text-[10px] text-gray-500 text-center max-w-[120px]">Encrypted pass-through. No raw data stored.</p>
             </div>
 
-            {/* Destination: Shielded Venue */}
+            {/* Destination: Shielded Operation */}
             <div className="bg-gradient-to-b from-cyan-900/30 to-transparent border-2 border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_40px_rgba(6,182,212,0.15)]">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-cyan-500/20 border-2 border-cyan-500 flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.4)]">
                 <ShieldCheck size={28} className="text-cyan-400" />
               </div>
-              <h4 className="font-bold text-cyan-400 mb-2">YOUR VENUE</h4>
+              <h4 className="font-bold text-cyan-400 mb-2">YOUR OPERATION</h4>
               <p className="text-xs text-gray-400">Receives verified token only</p>
               <div className="mt-3 py-1 px-2 bg-cyan-500/20 rounded text-[10px] text-cyan-400 font-mono font-bold">
                 LIABILITY: ZERO
@@ -341,32 +341,32 @@ const Partners = () => {
                  </div>
               </div>
               
-              {/* Row 4 - SaaS Subscriptions */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
-                 <StackItem 
-                   title="4. SaaS Subscriptions" 
-                   desc="Recurring monthly revenue from Venue and Corporate Partners for the compliance dashboard."
-                   color="green"
-                 />
-                 <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)] flex flex-col justify-center">
-                    <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 4</div>
-                    <div className="font-bold text-xl">SaaS RECURRING</div>
+               {/* Row 4 - SaaS Subscriptions */}
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
+                  <StackItem 
+                    title="4. SaaS Subscriptions" 
+                    desc="Recurring monthly revenue from Operation and Corporate Partners for the compliance dashboard."
+                    color="green"
+                  />
+                  <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)] flex flex-col justify-center">
+                     <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 4</div>
+                     <div className="font-bold text-xl">SaaS RECURRING</div>
                  </div>
               </div>
               
-              {/* Row 5 - Venue Profit Share */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
-                 <StackItem 
-                   title="5. Venue Profit Share" 
-                   desc="Entry used to cost venues money—staff, bottlenecks, lost time. Now every Ghost Token scan earns 40% instantly. Faster flow, zero friction, pure profit on every patron through the door."
-                   color="cyan"
-                 />
-                 <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
-                    <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 5</div>
-                    <div className="font-bold text-xl">VENUE 40% SHARE</div>
-                    <div className="text-xs text-gray-400 mt-1">Cost Center → Profit Center</div>
-                 </div>
-              </div>
+               {/* Row 5 - Operation Profit Share */}
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+                  <StackItem 
+                    title="5. Operation Profit Share" 
+                    desc="Entry used to cost operations money—staff, bottlenecks, lost time. Now every Ghost Token scan earns 40% instantly. Faster flow, zero friction, pure profit on every person through the door."
+                    color="cyan"
+                  />
+                  <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
+                     <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 5</div>
+                     <div className="font-bold text-xl">OPERATION 40% SHARE</div>
+                     <div className="text-xs text-gray-400 mt-1">Cost Center → Profit Center</div>
+                  </div>
+               </div>
            </div>
         </div>
       </section>
@@ -383,16 +383,16 @@ const Partners = () => {
             <p className="text-amber-400 font-bold text-sm tracking-wide mb-4 uppercase">From Cost Center to Profit Center</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing Money. Start Making It.</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              Our <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">every time a patron scans their Ghost Token at your entry point, your venue earns 40% of the charge</strong>. Verification isn't a cost—it's a <strong className="text-cyan-400">new revenue stream</strong>.
+              Our <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">every time a patron scans their Ghost Token at your entry point, your operation earns 40% of the charge</strong>. Verification isn't a cost—it's a <strong className="text-cyan-400">new revenue stream</strong>.
             </p>
           </div>
           <div className="relative bg-black/60 backdrop-blur-xl border border-cyan-500/50 p-8 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.15)]">
              <div className="space-y-4 mb-8">
-               <div className="flex items-center gap-3">
-                 <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                   <CheckCircle2 className="h-4 w-4 text-green-400" />
-                 </div>
-                 <span className="text-white font-medium">0% Credit Card Fees for Venue</span>
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-400" />
+                  </div>
+                  <span className="text-white font-medium">0% Credit Card Fees for Operation</span>
                </div>
                <div className="flex items-center gap-3">
                  <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
@@ -441,11 +441,11 @@ const Partners = () => {
              color="cyan"
            />
            <RoadmapItem 
-             phase="PHASE 2" 
-             title="Network Growth" 
-             status="NEXT" 
-             desc="Scale to 1,000+ partner venues. Launch promoter network for viral distribution."
-             color="purple"
+              phase="PHASE 2" 
+              title="Network Growth" 
+              status="NEXT" 
+              desc="Scale to 1,000+ partner operations. Launch promoter network for viral distribution."
+              color="purple"
            />
            <RoadmapItem 
              phase="PHASE 3" 

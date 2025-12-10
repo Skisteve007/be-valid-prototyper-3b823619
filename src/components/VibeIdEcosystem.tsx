@@ -150,8 +150,8 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               </div>
               <ul className="space-y-3">
                 <li className={`flex items-start gap-3 text-sm tracking-wide ${isDark ? 'text-cyan-400' : 'text-slate-700'}`}>
-                  <div className={`w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${currentMode.color.replace('text-', 'bg-')}`} />
-                  {currentMode.features[0]}
+                  <span className={`w-2.5 h-2.5 min-w-[10px] min-h-[10px] rounded-full flex-shrink-0 mt-1 ${currentMode.color.replace('text-', 'bg-')}`} />
+                  <span>{currentMode.features[0]}</span>
                 </li>
               </ul>
             </div>

@@ -29,7 +29,8 @@ import {
   Car,
   Briefcase,
   Heart,
-  Rocket
+  Rocket,
+  Ghost
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -61,13 +62,13 @@ const PitchDeck = () => {
 
   const unicornPillars = [
     {
-      icon: DollarSign,
+      icon: Ghost,
       color: "amber",
-      title: "NEAR-ZERO MARGINAL COST",
-      subtitle: "The $10 Token Economics",
-      description: "Every Incognito Access Token generates $4 pure margin at scale. No inventory, no COGS, no fulfillment. This is software economics applied to physical access.",
-      metric: "$4.00",
-      metricLabel: "Pure Margin Per Transaction",
+      title: "GHOST TOKEN ECONOMICS",
+      subtitle: "Pure Software Margin",
+      description: "The Ghost Token is pure software economics applied to physical access. Each $10-$50 token injects directly into the member's dynamic QR code—no inventory, no fulfillment, no COGS. At scale, every Ghost Token generates $4+ pure margin. The token self-destructs after use, eliminating replay attacks. This isn't a product sale—it's a toll booth on trust.",
+      metric: "$4.00+",
+      metricLabel: "Pure Margin Per Token",
       layer: "LAYER 1"
     },
     {
@@ -84,8 +85,8 @@ const PitchDeck = () => {
       icon: Network,
       color: "green",
       title: "VIRAL NETWORK EFFECTS",
-      subtitle: "Members Recruit Members",
-      description: "Every verified member becomes a distribution channel. When they share their QR, they're marketing VALID. We're embedded in the social graph.",
+      subtitle: "The Vibe-ID Ecosystem",
+      description: "The Vibe-ID Ecosystem lets members broadcast verified compatibility signals across four distinct modes—Social, Pulse, Thrill, and After Dark—while instantly connecting their social graphs (Instagram, TikTok). Every QR share is organic marketing. Every mode switch deepens engagement. We don't just verify identity—we verify vibe.",
       metric: "3.2x",
       metricLabel: "Organic Referral Rate",
       layer: "LAYER 3"

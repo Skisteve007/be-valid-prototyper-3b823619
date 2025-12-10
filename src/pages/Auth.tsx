@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Mail } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 
@@ -30,6 +30,8 @@ const Auth = () => {
   const [showSignupPassword, setShowSignupPassword] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [showNdaModal, setShowNdaModal] = useState(false);
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
+  const [verificationEmail, setVerificationEmail] = useState("");
 
   useEffect(() => {
     // Scroll to top when page loads
@@ -97,54 +99,23 @@ const Auth = () => {
 
       if (error) throw error;
 
-      // Get the member ID from the profile
-      if (data.user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("member_id")
-          .eq("user_id", data.user.id)
-          .single();
-
-        // Save email and discount code to profile for marketing
-        const usedDiscountCode = discountCode || localStorage.getItem('discountCode');
-        const updateData: Record<string, string> = { email: signupEmail };
-        
-        if (usedDiscountCode) {
-          updateData.signup_discount_code = usedDiscountCode.toUpperCase();
-        }
-
-        // Update profile with email and optional discount code
-        await supabase
-          .from("profiles")
-          .update(updateData)
-          .eq("user_id", data.user.id);
-
-        if (usedDiscountCode) {
-          // Increment discount code usage
-          await supabase.rpc('increment_discount_usage', { _code: usedDiscountCode });
-          localStorage.removeItem('discountCode');
-          console.log('Discount code tracked:', usedDiscountCode);
-        }
-        
-        console.log('New member email captured:', signupEmail);
-
-        if (profile?.member_id) {
-          // Send welcome email - now authenticated via JWT
-          try {
-            await supabase.functions.invoke("send-welcome-email", {
-              body: {},
-            });
-          } catch (emailError) {
-            console.error("Failed to send welcome email:", emailError);
-          }
-
-          toast.success(`Account created! Your Member ID: ${profile.member_id}`, {
-            duration: 6000,
-          });
-        }
+      // Check if user needs to confirm email (identities array is empty until confirmed)
+      if (data.user && data.user.identities && data.user.identities.length === 0) {
+        // User already exists
+        toast.error("An account with this email already exists. Please log in.");
+        return;
       }
 
-      navigate("/dashboard");
+      // Save discount code to localStorage for later use after email confirmation
+      const usedDiscountCode = discountCode || localStorage.getItem('discountCode');
+      if (usedDiscountCode) {
+        localStorage.setItem('pendingDiscountCode', usedDiscountCode.toUpperCase());
+      }
+
+      // Show email verification message
+      setVerificationEmail(signupEmail);
+      setShowEmailVerification(true);
+      
     } catch (error: any) {
       toast.error(error.message || "Signup failed");
     } finally {
@@ -194,8 +165,60 @@ const Auth = () => {
 
       <main className="relative min-h-[calc(100vh-200px)] flex items-start md:items-center justify-center py-6 md:py-12 px-4 z-10">
         <div className="container mx-auto w-[95vw] max-w-lg mt-4 md:mt-0">
-          {/* Login Form */}
-          {mode === "login" ? (
+          {/* Email Verification Message */}
+          {showEmailVerification ? (
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-lg"></div>
+              <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.4)]">
+                <CardHeader className="text-center pb-2">
+                  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                    <Mail className="w-8 h-8 text-primary" />
+                  </div>
+                  <CardTitle className="text-2xl md:text-3xl bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent font-bold">
+                    Verify Your Identity
+                  </CardTitle>
+                  <CardDescription className="text-muted-foreground mt-2">
+                    Check your email to activate your Beta Access
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6 md:p-8 text-center space-y-6">
+                  <div className="p-4 rounded-lg bg-primary/10 border border-primary/30">
+                    <p className="text-sm text-muted-foreground mb-2">We sent a verification link to:</p>
+                    <p className="font-semibold text-foreground break-all">{verificationEmail}</p>
+                  </div>
+                  
+                  <div className="space-y-3 text-sm text-muted-foreground">
+                    <p>Click the link in your email to verify your identity and activate your Beta Access.</p>
+                    <p className="text-xs">This ensures every user is a real person.</p>
+                  </div>
+
+                  <div className="pt-4 space-y-3">
+                    <Button 
+                      variant="outline"
+                      onClick={() => {
+                        setShowEmailVerification(false);
+                        setSignupEmail("");
+                        setSignupPassword("");
+                        setSignupFirstName("");
+                        setSignupLastName("");
+                        setTermsAccepted(false);
+                      }}
+                      className="w-full min-h-[48px] rounded-full border border-muted-foreground/30 bg-muted/20 hover:bg-muted/40 text-muted-foreground font-semibold"
+                    >
+                      ← Back to Sign Up
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => navigate("/auth?mode=login")}
+                      className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
+                    >
+                      Already verified? Log In
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ) : mode === "login" ? (
             <div className="relative">
               <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-lg"></div>
               <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.4)]">

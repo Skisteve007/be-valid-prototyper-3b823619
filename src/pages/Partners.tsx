@@ -124,11 +124,11 @@ const Partners = () => {
         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm relative">
           <div className="text-4xl text-cyan-500 absolute top-4 left-4 font-serif">"</div>
           <p className="text-lg md:text-xl text-gray-300 italic leading-relaxed mb-6 px-4">
-            We are not building another app; we are architecting the foundational <strong className="text-white">Zero-Trust infrastructure</strong> for the next economy. 
-            VALID is the definitive answer to the two questions every executive must ask: 
-            <span className="text-cyan-400"> How do I eliminate operational liability, and how do I monetize access?</span>
+            Your venue faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID eliminates both—instantly. 
+            Every Ghost Token scan delivers verified access in under 3 seconds, earns you <span className="text-cyan-400">40% revenue share</span>, and shields you from every compliance risk. 
+            <span className="text-cyan-400">Zero credit card fees. Zero chargebacks. Zero liability.</span>
           </p>
-          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— The Vision Behind VALID</div>
+          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— What VALID Means for Your Business</div>
         </div>
       </header>
 

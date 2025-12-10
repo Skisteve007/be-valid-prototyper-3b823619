@@ -41,6 +41,9 @@ interface ProfileFormData {
   covid_vaccinated: boolean;
   circumcised?: boolean;
   smoker: boolean;
+  booty_enhanced?: boolean;
+  breasts_enhanced?: boolean;
+  loves_enhancements?: boolean;
   instagram_handle: string;
   tiktok_handle: string;
   facebook_handle: string;
@@ -123,6 +126,9 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const covidVaccinated = watch("covid_vaccinated");
   const circumcised = watch("circumcised");
   const smoker = watch("smoker");
+  const bootyEnhanced = watch("booty_enhanced");
+  const breastsEnhanced = watch("breasts_enhanced");
+  const lovesEnhancements = watch("loves_enhancements");
   const fullName = watch("full_name");
   const email = watch("email");
   const whereFrom = watch("where_from");
@@ -200,6 +206,9 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setValue("covid_vaccinated", data.covid_vaccinated || false);
         setValue("circumcised", data.circumcised);
         setValue("smoker", data.smoker || false);
+        setValue("booty_enhanced", (data as any).booty_enhanced || false);
+        setValue("breasts_enhanced", (data as any).breasts_enhanced || false);
+        setValue("loves_enhancements", (data as any).loves_enhancements || false);
         setValue("instagram_handle", data.instagram_handle || "");
         setValue("tiktok_handle", data.tiktok_handle || "");
         setValue("facebook_handle", data.facebook_handle || "");
@@ -751,6 +760,9 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         smoker={smoker}
         sharingEnabled={sharingOrientationEnabled}
         onToggleSharing={(enabled) => setSharingOrientationEnabled(enabled)}
+        bootyEnhanced={bootyEnhanced}
+        breastsEnhanced={breastsEnhanced}
+        lovesEnhancements={lovesEnhancements}
       />
 
       <div className="relative py-4">

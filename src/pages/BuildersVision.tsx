@@ -159,9 +159,13 @@ const BuildersVision = () => {
         <div className="text-center mb-20">
           <img src={logo} alt="VALID" className="h-20 md:h-24 mx-auto mb-6 rounded-xl" />
           
-          <p className="text-sm font-mono tracking-[0.15em] text-gray-400 uppercase mb-6">
-            Powered By Synthesized AI
-          </p>
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded text-sm font-mono tracking-[0.15em] text-cyan-400 uppercase">
+            <span>Powered By Synthesized AI</span>
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8),0_0_20px_rgba(59,130,246,0.5)]"></span>
+            </span>
+          </div>
           
           <div className="inline-flex items-center gap-2 mb-6">
             <div className="h-3 w-3 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_20px_rgba(0,240,255,0.8)]" />

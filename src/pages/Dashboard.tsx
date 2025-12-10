@@ -135,9 +135,18 @@ const Dashboard = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden w-full max-w-full">
-      <header className="border-b border-border bg-background">
-        <div className="container mx-auto px-4 py-4 md:py-6">
+    <div className="min-h-screen overflow-x-hidden w-full max-w-full relative" style={{ background: 'linear-gradient(135deg, #0A0E1A 0%, #120a21 50%, #0A0E1A 100%)' }}>
+      {/* Plasma/Nebula Background Effect */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-500/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-blue-500/10 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '10s', animationDelay: '4s' }} />
+        <div className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-emerald-500/8 rounded-full blur-[90px] animate-pulse" style={{ animationDuration: '7s', animationDelay: '1s' }} />
+      </div>
+
+      {/* Floating Glass Capsule Header */}
+      <header className="relative z-10 mx-4 md:mx-8 mt-4">
+        <div className="backdrop-blur-xl bg-white/5 border border-[#00FFC2]/30 rounded-full px-6 py-4 shadow-[0_0_30px_rgba(0,255,194,0.15)]">
           <div className="flex flex-col md:flex-row md:items-center gap-4">
             {/* Spacer for desktop centering */}
             <div className="hidden md:block md:flex-1"></div>
@@ -148,9 +157,9 @@ const Dashboard = () => {
                 className="relative cursor-pointer"
                 {...longPressHandlers}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/60 via-teal-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/40 via-teal-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-                <img src={logo} alt="Clean Check" className="relative h-20 md:h-28 w-auto select-none" draggable={false} />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#00FFC2]/40 via-teal-500/40 to-cyan-500/40 blur-3xl rounded-full scale-150"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#00FFC2]/30 via-teal-400/30 to-cyan-400/30 blur-2xl rounded-full scale-125 animate-pulse"></div>
+                <img src={logo} alt="Clean Check" className="relative h-16 md:h-20 w-auto select-none drop-shadow-[0_0_15px_rgba(0,255,194,0.5)]" draggable={false} />
               </div>
             </div>
             
@@ -158,18 +167,16 @@ const Dashboard = () => {
             <div className="flex justify-center md:justify-end gap-2 flex-wrap md:flex-1 items-center">
               <Button 
                 onClick={() => setActiveTab("qrcode")}
-                className="relative shadow-[0_0_30px_rgba(249,115,22,0.7)] hover:shadow-[0_0_40px_rgba(249,115,22,0.9)] border-2 border-orange-600/60 bg-orange-600/15 text-orange-500 hover:text-orange-400 animate-pulse font-bold min-h-[48px] px-6 touch-manipulation"
+                className="relative shadow-[0_0_20px_rgba(0,255,194,0.5)] hover:shadow-[0_0_30px_rgba(0,255,194,0.7)] border border-[#00FFC2]/60 bg-[#00FFC2]/10 text-[#00FFC2] hover:text-[#00FFC2] hover:bg-[#00FFC2]/20 font-bold min-h-[44px] px-5 touch-manipulation rounded-full backdrop-blur-sm"
               >
-                <div className="absolute inset-0 bg-orange-600/25 blur-lg rounded-md -z-10 animate-pulse"></div>
                 <QrCode className="h-4 w-4 mr-2" />
                 QR Code
               </Button>
               <ThemeToggle />
               <Button 
                 onClick={handleLogout} 
-                className="relative shadow-[0_0_30px_rgba(236,72,153,0.7)] hover:shadow-[0_0_40px_rgba(236,72,153,0.9)] border-2 border-pink-500/60 bg-pink-500/15 text-pink-500 hover:text-pink-400 font-bold min-h-[48px] px-6 touch-manipulation"
+                className="relative shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:shadow-[0_0_30px_rgba(236,72,153,0.7)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:text-pink-300 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 touch-manipulation rounded-full backdrop-blur-sm"
               >
-                <div className="absolute inset-0 bg-pink-500/25 blur-lg rounded-md -z-10"></div>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>
@@ -178,17 +185,19 @@ const Dashboard = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-4 md:py-8">
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-2xl md:text-3xl">
-              <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Dashboard</span>
-            </CardTitle>
-            <CardDescription className="text-sm md:text-base italic">
+      <main className="relative z-10 container mx-auto px-4 py-4 md:py-8">
+        {/* Main Dashboard Card - Dark Glass Panel */}
+        <div className="backdrop-blur-xl bg-black/30 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
+          <div className="p-6 md:p-8 border-b border-white/10">
+            <h1 className="text-2xl md:text-3xl font-bold">
+              <span className="bg-gradient-to-r from-[#00FFC2] to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(0,255,194,0.5)]">Dashboard</span>
+            </h1>
+            <p className="text-[#E0E0FF]/70 text-sm md:text-base italic mt-1">
               Manage your profile, documents, and QR code
-            </CardDescription>
-          </CardHeader>
-          <CardContent 
+            </p>
+          </div>
+          <div 
+            className="p-4 md:p-6"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -198,47 +207,46 @@ const Dashboard = () => {
             
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">
-                <div className="absolute inset-0 bg-primary/10 blur-xl pointer-events-none"></div>
-                <div className="overflow-x-auto overflow-y-hidden -mx-2 px-2 pb-3 [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-muted/30 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-primary/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-primary/60">
-                  <TabsList className="relative inline-flex bg-muted/50 backdrop-blur-sm border border-border rounded-lg p-1.5 gap-1.5 w-auto min-w-full">
+                <div className="overflow-x-auto overflow-y-hidden -mx-2 px-2 pb-3 [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-white/5 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#00FFC2]/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-[#00FFC2]/60">
+                  <TabsList className="relative inline-flex bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-1.5 gap-1.5 w-auto min-w-full">
                     <TabsTrigger 
                       value="profile" 
-                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                      className="py-2.5 px-4 rounded-lg transition-all text-[#E0E0FF]/70 data-[state=active]:bg-[#00FFC2]/20 data-[state=active]:text-[#00FFC2] data-[state=active]:shadow-[0_0_15px_rgba(0,255,194,0.3)] data-[state=active]:border data-[state=active]:border-[#00FFC2]/40 touch-manipulation whitespace-nowrap"
                     >
                       <UserIcon className="h-4 w-4 mr-1.5" />
                       <span className="text-sm">Profile</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="certifications"
-                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                      className="py-2.5 px-4 rounded-lg transition-all text-[#E0E0FF]/70 data-[state=active]:bg-[#00FFC2]/20 data-[state=active]:text-[#00FFC2] data-[state=active]:shadow-[0_0_15px_rgba(0,255,194,0.3)] data-[state=active]:border data-[state=active]:border-[#00FFC2]/40 touch-manipulation whitespace-nowrap"
                     >
                       <Award className="h-4 w-4 mr-1.5" />
                       <span className="text-sm">Documents<ArrowUp className="h-4 w-4 inline-block -mt-0.5" /></span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="qrcode"
-                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                      className="py-2.5 px-4 rounded-lg transition-all text-[#E0E0FF]/70 data-[state=active]:bg-[#00FFC2]/20 data-[state=active]:text-[#00FFC2] data-[state=active]:shadow-[0_0_15px_rgba(0,255,194,0.3)] data-[state=active]:border data-[state=active]:border-[#00FFC2]/40 touch-manipulation whitespace-nowrap"
                     >
                       <QrCode className="h-4 w-4 mr-1.5" />
                       <span className="text-sm">QR Code</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="references"
-                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                      className="py-2.5 px-4 rounded-lg transition-all text-[#E0E0FF]/70 data-[state=active]:bg-[#00FFC2]/20 data-[state=active]:text-[#00FFC2] data-[state=active]:shadow-[0_0_15px_rgba(0,255,194,0.3)] data-[state=active]:border data-[state=active]:border-[#00FFC2]/40 touch-manipulation whitespace-nowrap"
                     >
                       <UserCheck className="h-4 w-4 mr-1.5" />
                       <span className="text-sm">References</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="lab-verification"
-                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                      className="py-2.5 px-4 rounded-lg transition-all text-[#E0E0FF]/70 data-[state=active]:bg-[#00FFC2]/20 data-[state=active]:text-[#00FFC2] data-[state=active]:shadow-[0_0_15px_rgba(0,255,194,0.3)] data-[state=active]:border data-[state=active]:border-[#00FFC2]/40 touch-manipulation whitespace-nowrap"
                     >
                       <FlaskConical className="h-4 w-4 mr-1.5" />
                       <span className="text-sm">Get Health Lab Certified</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="safety-screen"
-                      className="py-2.5 px-4 rounded-md transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md touch-manipulation whitespace-nowrap"
+                      className="py-2.5 px-4 rounded-lg transition-all text-[#E0E0FF]/70 data-[state=active]:bg-[#00FFC2]/20 data-[state=active]:text-[#00FFC2] data-[state=active]:shadow-[0_0_15px_rgba(0,255,194,0.3)] data-[state=active]:border data-[state=active]:border-[#00FFC2]/40 touch-manipulation whitespace-nowrap"
                     >
                       <ShieldCheck className="h-4 w-4 mr-1.5" />
                       <span className="text-sm">Get Toxicology Lab Certified</span>
@@ -250,41 +258,44 @@ const Dashboard = () => {
               {/* Venue Check-in - Below tabs, visible on all tabs */}
               <VenueCheckin userId={user.id} />
               
-              <TabsContent value="profile">
-                <ProfileTab userId={user.id} onUpdate={handleProfileUpdate} />
-              </TabsContent>
-              
-              <TabsContent value="certifications">
-                <CertificationsTab userId={user.id} />
-              </TabsContent>
-              
-              <TabsContent value="qrcode">
-                <QRCodeTab key={qrRefreshKey} userId={user.id} />
-              </TabsContent>
-              
-              <TabsContent value="references">
-                <PendingReferencesTab userId={user.id} />
-              </TabsContent>
-              
-              <TabsContent value="lab-verification">
-                <LabVerificationTab userId={user.id} />
-              </TabsContent>
-              
-              <TabsContent value="safety-screen">
-                <SafetyScreenTab userId={user.id} />
-              </TabsContent>
+              {/* Tab Content with Dark Glass Styling */}
+              <div className="[&_.card]:backdrop-blur-xl [&_.card]:bg-black/40 [&_.card]:border-white/10 [&_.card]:shadow-[0_0_30px_rgba(0,0,0,0.3)] [&_h3]:text-[#E0E0FF] [&_label]:text-[#E0E0FF]/80 [&_p]:text-[#E0E0FF]/70 [&_.text-muted-foreground]:text-[#E0E0FF]/50">
+                <TabsContent value="profile">
+                  <ProfileTab userId={user.id} onUpdate={handleProfileUpdate} />
+                </TabsContent>
+                
+                <TabsContent value="certifications">
+                  <CertificationsTab userId={user.id} />
+                </TabsContent>
+                
+                <TabsContent value="qrcode">
+                  <QRCodeTab key={qrRefreshKey} userId={user.id} />
+                </TabsContent>
+                
+                <TabsContent value="references">
+                  <PendingReferencesTab userId={user.id} />
+                </TabsContent>
+                
+                <TabsContent value="lab-verification">
+                  <LabVerificationTab userId={user.id} />
+                </TabsContent>
+                
+                <TabsContent value="safety-screen">
+                  <SafetyScreenTab userId={user.id} />
+                </TabsContent>
+              </div>
             </Tabs>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </main>
 
       {/* Floating Back to Home Button */}
       <Button
         onClick={() => navigate("/")}
-        className="fixed bottom-4 left-4 md:bottom-8 md:left-8 h-10 w-10 md:h-11 md:w-11 rounded-full bg-gradient-to-br from-blue-400/60 to-cyan-400/60 hover:from-blue-500/70 hover:to-cyan-500/70 shadow-lg shadow-blue-400/20 hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 z-50 opacity-70 hover:opacity-90"
+        className="fixed bottom-4 left-4 md:bottom-8 md:left-8 h-10 w-10 md:h-11 md:w-11 rounded-full bg-[#00FFC2]/20 hover:bg-[#00FFC2]/30 border border-[#00FFC2]/40 shadow-[0_0_20px_rgba(0,255,194,0.3)] hover:shadow-[0_0_30px_rgba(0,255,194,0.5)] backdrop-blur-sm transition-all duration-300 hover:scale-105 z-50"
         title="Back to Home"
       >
-        <Home className="h-4 w-4 md:h-5 md:w-5 text-white" />
+        <Home className="h-4 w-4 md:h-5 md:w-5 text-[#00FFC2]" />
       </Button>
     </div>
   );

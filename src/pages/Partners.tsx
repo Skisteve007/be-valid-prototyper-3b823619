@@ -151,8 +151,8 @@ const Partners = () => {
           />
           <ThesisCard 
             icon={<Lock size={24} className="text-blue-400"/>}
-            title="Regulatory Liability Shift"
-            desc="We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider."
+            title="Zero-Liability Architecture"
+            desc="VALID is a delivery mechanism, not a data warehouse. We hold encrypted tokens—never raw PII. Liability flows to its source: self-reported data stays with the member; lab results stay with HIPAA-certified laboratories; identity verification stays with licensed IDV providers. Your venue? Completely shielded. This isn't risk mitigation—it's risk elimination."
           />
         </div>
       </section>

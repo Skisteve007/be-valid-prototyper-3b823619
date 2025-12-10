@@ -404,7 +404,7 @@ const Partners = () => {
             <p className="text-amber-400 font-bold text-sm tracking-wide mb-4 uppercase">From Cost Center to Profit Center</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing Money. Start Making It.</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              Our <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">every time a patron scans their Ghost Token at your entry point, your operation earns 40% of the charge</strong>. Verification isn't a cost—it's a <strong className="text-cyan-400">new revenue stream</strong>.
+              The <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">Every time a patron purchases the Ghost QR Code Pass, the revenue is huge. Your operation earns 40% of the Ghost Token user purchase</strong>—not 40% of a tiny transaction fee, but <strong className="text-cyan-400">40% of the entire token value</strong>. Verification isn't a cost—it's a <strong className="text-amber-400">new, massive revenue stream</strong>.
             </p>
           </div>
           <div className="relative bg-black/60 backdrop-blur-xl border border-cyan-500/50 p-8 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.15)]">

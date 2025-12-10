@@ -330,7 +330,9 @@ const PitchDeck = () => {
         {/* ===== SIX UNICORN PILLARS ===== */}
         <section>
           <div className="text-center mb-16">
-            <Badge className="bg-white/10 text-white border-white/20 mb-6 text-lg px-6 py-2 tracking-wider">VALUE DRIVERS</Badge>
+            <div className="flex justify-center mb-6">
+              <Badge className="bg-white/10 text-white border-white/20 text-lg px-6 py-2 tracking-wider">VALUE DRIVERS</Badge>
+            </div>
             <div className="relative inline-block">
               {/* Blue glow effect behind title */}
               <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-blue-600/40 via-cyan-500/50 to-blue-600/40 scale-150"></div>

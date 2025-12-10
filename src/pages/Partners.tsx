@@ -194,7 +194,7 @@ const Partners = () => {
               <span className="text-blue-400 text-xs font-bold tracking-widest uppercase">Zero-Liability Architecture</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">THE LIABILITY <span className="text-blue-400">FIREWALL</span></h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">VALID is a Portal, not a Vault. We transmit encrypted tokens—we never store raw PII. Liability stays where it belongs.</p>
+            <p className="text-white max-w-2xl mx-auto">VALID is a Portal, not a Vault. We transmit encrypted tokens—we never store raw PII. Liability stays where it belongs.</p>
           </div>
 
           {/* Visual Flow Diagram */}

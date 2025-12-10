@@ -283,8 +283,8 @@ const PitchDeck = () => {
               <span className="text-white font-bold ml-2">$5.7B+</span>
             </div>
             <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
-              <span className="text-gray-400">Seed Ask:</span>
-              <span className="text-cyan-400 font-bold ml-2">$750K</span>
+              <span className="text-gray-400">SAFE Round:</span>
+              <span className="text-cyan-400 font-bold ml-2">$1.5M</span>
             </div>
             <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
               <span className="text-gray-400">Stage:</span>
@@ -906,26 +906,67 @@ const PitchDeck = () => {
           </div>
         </section>
 
-        {/* ===== THE ASK ===== */}
+        {/* ===== THE ASK: SEED ROUND ===== */}
         <section className="text-center py-12">
           <div className="bg-gradient-to-r from-cyan-950/50 to-blue-950/50 border border-cyan-500/30 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,240,255,0.15)]">
             <Rocket className="h-12 w-12 text-cyan-400 mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-white mb-6">The Ask</h2>
-            <div className="text-5xl md:text-6xl font-bold text-cyan-400 mb-4">$750,000</div>
-            <p className="text-xl text-gray-400 mb-8">Seed Round</p>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-white mb-4">THE ASK: SEED ROUND</h2>
+            <div className="text-5xl md:text-6xl font-bold text-cyan-400 mb-2">$1,500,000</div>
+            <p className="text-xl text-gray-400 mb-2">SAFE (Simple Agreement for Future Equity)</p>
+            <p className="text-lg text-cyan-400/80 mb-8">Valuation Cap: $15M</p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-3xl mx-auto">
-              <div className="bg-black/40 p-4 rounded-xl border border-white/10">
-                <div className="text-cyan-400 font-bold mb-2">12-Month Runway</div>
-                <p className="text-sm text-gray-400">Full team execution on product, sales, and market expansion</p>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-10 text-lg">
+              We are capitalizing the <span className="text-cyan-400 font-semibold">Identity-as-a-Service (IDaaS)</span> infrastructure 
+              and the <span className="text-amber-400 font-semibold">Ghost Token Liquidity Pool</span>.
+            </p>
+
+            {/* Use of Funds */}
+            <div className="mb-10">
+              <h3 className="text-xl font-bold text-white mb-6 font-orbitron">USE OF FUNDS</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+                <div className="bg-black/40 p-5 rounded-xl border border-cyan-500/30">
+                  <div className="text-3xl font-bold text-cyan-400 mb-2">40%</div>
+                  <div className="text-white font-bold mb-2">Engineering</div>
+                  <p className="text-sm text-gray-400">Backend Architecture for "Smart-Split" Revenue & Security.</p>
+                </div>
+                <div className="bg-black/40 p-5 rounded-xl border border-purple-500/30">
+                  <div className="text-3xl font-bold text-purple-400 mb-2">30%</div>
+                  <div className="text-white font-bold mb-2">Legal & Compliance</div>
+                  <p className="text-sm text-gray-400">Banking Rails, Promoter Contracts, and IP Protection (Trademarks).</p>
+                </div>
+                <div className="bg-black/40 p-5 rounded-xl border border-green-500/30">
+                  <div className="text-3xl font-bold text-green-400 mb-2">30%</div>
+                  <div className="text-white font-bold mb-2">Growth</div>
+                  <p className="text-sm text-gray-400">"Trojan Horse" Marketing (Promoter Network Activation).</p>
+                </div>
               </div>
-              <div className="bg-black/40 p-4 rounded-xl border border-white/10">
-                <div className="text-cyan-400 font-bold mb-2">100+ Venues</div>
-                <p className="text-sm text-gray-400">Target venue network by end of funding period</p>
-              </div>
-              <div className="bg-black/40 p-4 rounded-xl border border-white/10">
-                <div className="text-cyan-400 font-bold mb-2">Series A Ready</div>
-                <p className="text-sm text-gray-400">Position for $3-5M Series A within 18 months</p>
+            </div>
+
+            {/* Milestones */}
+            <div>
+              <h3 className="text-xl font-bold text-white mb-6 font-orbitron">MILESTONES</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+                <div className="bg-black/40 p-5 rounded-xl border border-white/10 flex items-start gap-3">
+                  <CheckCircle2 className="h-6 w-6 text-cyan-400 flex-shrink-0 mt-1" />
+                  <div>
+                    <div className="text-white font-bold mb-1">MVP Launch</div>
+                    <p className="text-sm text-gray-400">Launch MVP with Tier 1 IDV Integration.</p>
+                  </div>
+                </div>
+                <div className="bg-black/40 p-5 rounded-xl border border-white/10 flex items-start gap-3">
+                  <CheckCircle2 className="h-6 w-6 text-amber-400 flex-shrink-0 mt-1" />
+                  <div>
+                    <div className="text-white font-bold mb-1">50 Alpha Venues</div>
+                    <p className="text-sm text-gray-400">Onboard first 50 "Alpha" Venues (Miami/Florida).</p>
+                  </div>
+                </div>
+                <div className="bg-black/40 p-5 rounded-xl border border-white/10 flex items-start gap-3">
+                  <CheckCircle2 className="h-6 w-6 text-green-400 flex-shrink-0 mt-1" />
+                  <div>
+                    <div className="text-white font-bold mb-1">Promoter Army</div>
+                    <p className="text-sm text-gray-400">Activate 100-Person Promoter Network.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

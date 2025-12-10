@@ -48,7 +48,7 @@ const StackItem = ({ title, desc, color }: StackItemProps) => {
   };
 
   return (
-    <div className={`p-6 rounded-xl border ${colorClasses[color]}`}>
+    <div className={`p-6 rounded-xl border ${colorClasses[color]} h-full flex flex-col justify-center`}>
       <h4 className={`text-lg font-bold ${textClasses[color]} mb-1`}>{title}</h4>
       <p className="text-sm text-gray-400">{desc}</p>
     </div>
@@ -292,42 +292,46 @@ const Partners = () => {
               <p className="text-gray-400">We capture value at every layer of the interaction.</p>
            </div>
            
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Left: Stack Items */}
-              <div className="space-y-4">
+           <div className="relative">
+              {/* Background glow */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full bg-cyan-500/20 blur-[80px] rounded-full pointer-events-none"></div>
+              
+              {/* Row 1 */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
                  <StackItem 
                    title="1. Access Monetization" 
                    desc="High-velocity $10-$50 Ghost Tokens at the entry point."
                    color="cyan"
                  />
+                 <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
+                    <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 1</div>
+                    <div className="font-bold text-xl">ACCESS TOKENS</div>
+                 </div>
+              </div>
+              
+              {/* Row 2 */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
                  <StackItem 
                    title="2. Health Reseller Margin" 
                    desc="We capture the 40-60% spread between wholesale lab costs and retail pricing. We don't just refer tests; we sell them."
                    color="purple"
                  />
+                 <div className="bg-black border border-purple-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(168,85,247,0.2)] flex flex-col justify-center">
+                    <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 2</div>
+                    <div className="font-bold text-xl">HEALTH MARGIN (60%)</div>
+                 </div>
+              </div>
+              
+              {/* Row 3 */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
                  <StackItem 
                    title="3. SaaS Subscriptions" 
                    desc="Recurring monthly revenue from Venue and Corporate Partners for the compliance dashboard."
                    color="green"
                  />
-              </div>
-           
-              {/* Right: Visual Stack Graphic */}
-              <div className="relative">
-                 <div className="absolute inset-0 bg-cyan-500/20 blur-[80px] rounded-full"></div>
-                 <div className="relative z-10 space-y-4">
-                    <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)]">
-                       <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 1</div>
-                       <div className="font-bold text-xl">ACCESS TOKENS</div>
-                    </div>
-                    <div className="bg-black border border-purple-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
-                       <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 2</div>
-                       <div className="font-bold text-xl">HEALTH MARGIN (60%)</div>
-                    </div>
-                    <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                       <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 3</div>
-                       <div className="font-bold text-xl">SaaS RECURRING</div>
-                    </div>
+                 <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)] flex flex-col justify-center">
+                    <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 3</div>
+                    <div className="font-bold text-xl">SaaS RECURRING</div>
                  </div>
               </div>
            </div>

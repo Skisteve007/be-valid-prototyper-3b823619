@@ -14,6 +14,7 @@ import {
   Target,
   Zap,
   ArrowRight,
+  ArrowLeftRight,
   Check,
   X,
   ShieldCheck,
@@ -33,7 +34,9 @@ import {
   Ghost,
   Fingerprint,
   Radio,
-  Lightbulb
+  Lightbulb,
+  Star,
+  Phone
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -906,102 +909,170 @@ const PitchDeck = () => {
           </div>
         </section>
 
-        {/* ===== THE ASK: $1.5M SEED ROUND (SAFE) ===== */}
+        {/* ===== CURRENT ROUND STRUCTURE ===== */}
         <section className="text-center py-12">
-          <div className="bg-gradient-to-r from-cyan-950/50 to-blue-950/50 border border-cyan-500/30 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,240,255,0.15)]">
+          <div className="bg-gradient-to-r from-slate-950/80 to-slate-900/80 border border-white/10 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,240,255,0.1)]">
             <Rocket className="h-12 w-12 text-cyan-400 mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-white mb-4">THE ASK: $1.5M SEED ROUND (SAFE)</h2>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-white mb-4">CURRENT ROUND STRUCTURE</h2>
             
             <p className="text-gray-300 max-w-2xl mx-auto mb-10 text-lg">
-              We are opening the round in <span className="text-cyan-400 font-semibold">two tranches</span> to accelerate IP protection and legal formation.
+              Strategic allocation across <span className="text-cyan-400 font-semibold">two tranches</span> for optimal investor positioning.
             </p>
 
-            {/* Two Tranches */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-10">
+            {/* Two Tranches - Pricing Table Style */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
               
-              {/* TRANCHE 1 */}
-              <div className="bg-gradient-to-br from-amber-950/40 to-amber-900/20 p-6 rounded-2xl border-2 border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-amber-500 text-black font-bold px-4 py-1">OPEN NOW</Badge>
+              {/* TRANCHE 1 - ALPHA ROUND */}
+              <div className="bg-gradient-to-br from-amber-950/50 to-amber-900/30 p-8 rounded-2xl border-2 border-amber-500/60 shadow-[0_0_40px_rgba(245,158,11,0.25)] relative overflow-hidden">
+                {/* Best Value Ribbon */}
+                <div className="absolute top-6 -right-8 bg-amber-500 text-black font-bold text-xs px-10 py-1.5 rotate-45 shadow-lg">
+                  BEST VALUE
                 </div>
-                <h3 className="text-2xl font-bold text-amber-400 mb-2 mt-2 font-orbitron">TRANCHE 1: THE ALPHA CLOSE</h3>
-                <div className="text-4xl font-bold text-white mb-1">$100,000</div>
-                <p className="text-amber-400/80 mb-1">Accepting checks from $25k</p>
-                <p className="text-lg text-white mb-4">Valuation Cap: <span className="text-amber-400 font-bold">$10M</span></p>
-                <p className="text-xs text-amber-300/70 mb-4 italic">Early Adopter Discount</p>
                 
-                <div className="text-left space-y-3">
-                  <h4 className="text-sm font-bold text-amber-400 uppercase tracking-wider">Use of Funds:</h4>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Immediate IP Protection:</span> Filing Global Trademarks for VALID™ & Ghost Token™.</p>
+                <div className="mb-6">
+                  <Badge className="bg-green-500/20 text-green-400 border border-green-500/50 font-bold px-4 py-1.5 mb-4">
+                    <span className="animate-pulse mr-2">●</span> ACTIVE — LIMITED AVAILABILITY
+                  </Badge>
+                </div>
+                
+                <h3 className="text-2xl font-bold text-amber-400 mb-1 font-orbitron">TRANCHE 1</h3>
+                <p className="text-lg text-amber-300/80 mb-6">Alpha Round (Closing Imminently)</p>
+                
+                <div className="space-y-4 mb-8">
+                  <div className="flex justify-between items-center py-3 border-b border-amber-500/20">
+                    <span className="text-gray-400">Allocation</span>
+                    <span className="text-2xl font-bold text-white">$100,000</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Legal & Compliance:</span> Establishing the Banking Rails & Promoter Contracts.</p>
+                  <div className="flex justify-between items-center py-3 border-b border-amber-500/20">
+                    <span className="text-gray-400">Minimum Check</span>
+                    <span className="text-xl font-semibold text-white">$25,000</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Founder Ops:</span> Core operational runway to reach "Alpha Launch."</p>
+                  <div className="flex justify-between items-center py-3 border-b border-amber-500/20">
+                    <span className="text-gray-400">Valuation Cap</span>
+                    <span className="text-xl font-bold text-amber-400">$12,500,000</span>
                   </div>
+                  <div className="flex justify-between items-center py-3 border-b border-amber-500/20">
+                    <span className="text-gray-400">Instrument</span>
+                    <span className="text-lg font-semibold text-white">SAFE (20% Discount)</span>
+                  </div>
+                </div>
+
+                <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Star className="h-5 w-5 text-amber-400" />
+                    <span className="text-amber-400 font-bold text-sm uppercase tracking-wider">Alpha Investor Advantage</span>
+                  </div>
+                  <p className="text-sm text-gray-300">Lock in pricing <span className="text-amber-400 font-bold">37.5% lower</span> than the upcoming institutional round.</p>
                 </div>
               </div>
 
-              {/* TRANCHE 2 */}
-              <div className="bg-gradient-to-br from-cyan-950/40 to-blue-950/40 p-6 rounded-2xl border border-cyan-500/30 relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 font-bold px-4 py-1">NEXT 60 DAYS</Badge>
+              {/* TRANCHE 2 - INSTITUTIONAL ROUND */}
+              <div className="bg-gradient-to-br from-slate-900/60 to-slate-800/40 p-8 rounded-2xl border border-white/10 relative">
+                <div className="mb-6">
+                  <Badge className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 font-bold px-4 py-1.5">
+                    OPENS UPON TRANCHE 1 CLOSE
+                  </Badge>
                 </div>
-                <h3 className="text-2xl font-bold text-cyan-400 mb-2 mt-2 font-orbitron">TRANCHE 2: THE INSTITUTIONAL CLOSE</h3>
-                <div className="text-4xl font-bold text-white mb-1">$1,400,000</div>
-                <p className="text-cyan-400/80 mb-1">&nbsp;</p>
-                <p className="text-lg text-white mb-4">Valuation Cap: <span className="text-cyan-400 font-bold">$15M</span></p>
-                <p className="text-xs text-cyan-300/70 mb-4 italic">Standard Market Rate</p>
                 
-                <div className="text-left space-y-3">
-                  <h4 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Use of Funds:</h4>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-cyan-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Engineering Scale-Up:</span> Backend Architecture for "Smart-Split" Revenue & Security.</p>
+                <h3 className="text-2xl font-bold text-cyan-400 mb-1 font-orbitron">TRANCHE 2</h3>
+                <p className="text-lg text-cyan-300/80 mb-6">Institutional Round (Follow-On)</p>
+                
+                <div className="space-y-4 mb-8">
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-gray-400">Target Raise</span>
+                    <span className="text-2xl font-bold text-white">$1,400,000</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-cyan-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">"Trojan Horse" Marketing:</span> Promoter Network Activation & Venue Acquisition.</p>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-gray-400">Valuation Cap</span>
+                    <span className="text-xl font-bold text-cyan-400">$20,000,000</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-cyan-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-300"><span className="text-white font-semibold">Venue Liquidity Pools:</span> Ghost Token Float & Settlement Infrastructure.</p>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-gray-400">Instrument</span>
+                    <span className="text-lg font-semibold text-white">SAFE</span>
                   </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-gray-400">Status</span>
+                    <span className="text-lg text-gray-400">Pending T1 Close</span>
+                  </div>
+                </div>
+
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <TrendingUp className="h-5 w-5 text-cyan-400" />
+                    <span className="text-cyan-400 font-bold text-sm uppercase tracking-wider">The Comparison</span>
+                  </div>
+                  <p className="text-sm text-gray-300">Tranche 1 investors secure equity at a <span className="text-cyan-400 font-bold">$7.5M lower cap</span> than this round.</p>
                 </div>
               </div>
             </div>
 
-            {/* The Opportunity */}
-            <div className="bg-gradient-to-r from-amber-500/10 to-cyan-500/10 border border-amber-500/30 rounded-xl p-6 max-w-3xl mx-auto">
-              <h3 className="text-xl font-bold text-white mb-3 font-orbitron flex items-center justify-center gap-2">
-                <Sparkles className="h-5 w-5 text-amber-400" />
-                THE OPPORTUNITY
-                <Sparkles className="h-5 w-5 text-amber-400" />
-              </h3>
-              <p className="text-gray-300 text-lg">
-                Investors in <span className="text-amber-400 font-bold">Tranche 1</span> secure{' '}
-                <span className="text-white font-bold text-xl">50% more equity upside</span>{' '}
-                by funding the foundational legal & IP layer today.
-              </p>
+            {/* LIQUIDITY & ROI STRATEGY */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold text-white mb-8 font-orbitron">LIQUIDITY & ROI STRATEGY</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {/* Exit Strategy */}
+                <div className="bg-gradient-to-br from-green-950/40 to-emerald-950/30 border border-green-500/30 rounded-xl p-6 text-left hover:border-green-500/50 transition-all">
+                  <div className="h-12 w-12 rounded-xl bg-green-500/20 flex items-center justify-center mb-4">
+                    <Target className="h-6 w-6 text-green-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-green-400 mb-3 font-orbitron">THE EXIT STRATEGY</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    Acquisition target for <span className="text-white font-semibold">Fintech (Block, Stripe)</span>, Insurance, or Hospitality groups. Projected <span className="text-green-400 font-bold">10x-20x multiple</span> within 3-5 years.
+                  </p>
+                </div>
+
+                {/* Dividend Distributions */}
+                <div className="bg-gradient-to-br from-purple-950/40 to-pink-950/30 border border-purple-500/30 rounded-xl p-6 text-left hover:border-purple-500/50 transition-all">
+                  <div className="h-12 w-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-4">
+                    <DollarSign className="h-6 w-6 text-purple-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-purple-400 mb-3 font-orbitron">DIVIDEND DISTRIBUTIONS</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    Unlike standard tech burns, VALID acts as a <span className="text-white font-semibold">transaction conduit</span>. We intend to distribute a <span className="text-purple-400 font-bold">% of Net Transaction Fees</span> back to equity holders once stabilized.
+                  </p>
+                </div>
+
+                {/* Secondary Market */}
+                <div className="bg-gradient-to-br from-cyan-950/40 to-blue-950/30 border border-cyan-500/30 rounded-xl p-6 text-left hover:border-cyan-500/50 transition-all">
+                  <div className="h-12 w-12 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-4">
+                    <ArrowLeftRight className="h-6 w-6 text-cyan-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-cyan-400 mb-3 font-orbitron">SECONDARY MARKET</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    Early Tranche 1 investors will have the option to <span className="text-white font-semibold">sell equity</span> to late-stage <span className="text-cyan-400 font-bold">Series A/B investors</span> for early liquidity.
+                  </p>
+                </div>
+              </div>
             </div>
+
+            {/* CTA Button */}
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-black font-bold text-lg px-10 py-6 rounded-full shadow-[0_0_30px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] transition-all duration-300"
+              onClick={() => navigate('/partner-application')}
+            >
+              <Rocket className="mr-2 h-5 w-5" />
+              Secure Tranche 1 Allocation
+            </Button>
           </div>
         </section>
 
-        {/* ===== CTA ===== */}
+        {/* ===== SCHEDULE A CALL ===== */}
         <section className="text-center py-8">
-          <Button 
-            size="lg"
-            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-lg px-8 py-6 hover:scale-105 transition-all shadow-[0_0_30px_rgba(0,240,255,0.5)]"
-            onClick={() => window.open("mailto:invest@bevalid.app", "_blank")}
-          >
-            Schedule Investor Call
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-xl border border-cyan-500/30 rounded-xl p-8">
+            <h3 className="text-2xl font-bold text-white mb-4 font-orbitron">Ready to Discuss?</h3>
+            <p className="text-gray-300 mb-6">Schedule a direct call with our founding team.</p>
+            <Button 
+              variant="outline"
+              size="lg"
+              className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 px-8"
+              onClick={() => window.open('https://calendly.com/valid-team', '_blank')}
+            >
+              <Phone className="mr-2 h-5 w-5" />
+              Schedule Investor Call
+            </Button>
+          </div>
         </section>
 
       </main>

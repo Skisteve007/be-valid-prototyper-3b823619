@@ -16,6 +16,7 @@ import { SocialMediaSection } from "./profile/SocialMediaSection";
 import { PreferencesSelector } from "./profile/PreferencesSelector";
 import MemberBetaSurvey from "@/components/MemberBetaSurvey";
 import SocialEmbedGenerator from "./SocialEmbedGenerator";
+import MySignalSection from "./profile/MySignalSection";
 
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
@@ -65,7 +66,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
   const [userInterests, setUserInterests] = useState<Record<string, string[]>>({});
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
+  const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red" | "gray" | "blue" | "orange" | "purple">("green");
   const [referenceIds, setReferenceIds] = useState<string[]>(["", "", ""]);
   const [referenceProfiles, setReferenceProfiles] = useState<Array<{id: string, user_id: string, full_name: string, member_id: string, verified?: boolean} | null>>([null, null, null]);
   const [existingReferences, setExistingReferences] = useState<string[]>([]);
@@ -76,6 +77,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [labCertified, setLabCertified] = useState(false);
   const [labLogoUrl, setLabLogoUrl] = useState<string>("");
   const [uploadingLabLogo, setUploadingLabLogo] = useState(false);
+  const [vibeMetadata, setVibeMetadata] = useState<Record<string, any>>({});
   
   // Sharing toggle states
   const [sharingInterestsEnabled, setSharingInterestsEnabled] = useState(false);
@@ -91,7 +93,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
-  const [initialStatusColor, setInitialStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
+  const [initialStatusColor, setInitialStatusColor] = useState<"green" | "yellow" | "red" | "gray" | "blue" | "orange" | "purple">("green");
   const [initialSelectedInterests, setInitialSelectedInterests] = useState<string[]>([]);
   const [initialReferenceIds, setInitialReferenceIds] = useState<string[]>(["", "", ""]);
   const [initialEmailShareable, setInitialEmailShareable] = useState(false);
@@ -107,6 +109,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const [initialSharingRelationshipStyleEnabled, setInitialSharingRelationshipStyleEnabled] = useState(false);
   const [initialSharingSensoryPrefsEnabled, setInitialSharingSensoryPrefsEnabled] = useState(false);
   const [initialSharingSpecificActivitiesEnabled, setInitialSharingSpecificActivitiesEnabled] = useState(false);
+  const [initialVibeMetadata, setInitialVibeMetadata] = useState<Record<string, any>>({});
 
   const { register, handleSubmit, setValue, watch, getValues, formState, reset } = useForm<ProfileFormData>({
     defaultValues: {
@@ -161,7 +164,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     sharingSensoryPrefsEnabled !== initialSharingSensoryPrefsEnabled ||
     sharingSpecificActivitiesEnabled !== initialSharingSpecificActivitiesEnabled ||
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
-    JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds);
+    JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds) ||
+    JSON.stringify(vibeMetadata) !== JSON.stringify(initialVibeMetadata);
 
   // Debug logging
   useEffect(() => {
@@ -239,13 +243,16 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setProfileImageUrl(data.profile_image_url || "");
         setUserInterests((data.user_interests as Record<string, string[]>) || {});
         setSelectedInterests((data.selected_interests as string[]) || []);
-        setStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
+        setStatusColor((data.status_color as "green" | "yellow" | "red" | "gray" | "blue" | "orange" | "purple") || "green");
         setEmailShareable(data.email_shareable || false);
         setReferencesLocked(data.references_locked !== false); // Default to true
         setStdAcknowledgmentLocked(data.std_acknowledgment_locked !== false); // Default to true
         setMemberId(data.member_id || "");
         setLabCertified(data.lab_certified || false);
         setLabLogoUrl(data.lab_logo_url || "");
+        
+        // Load vibe metadata
+        setVibeMetadata((data as any).vibe_metadata || {});
         
         // Load sharing toggle states
         setSharingInterestsEnabled((data as any).sharing_interests_enabled || false);
@@ -261,7 +268,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         
         // Set initial values for change detection
         setInitialProfileImageUrl(data.profile_image_url || "");
-        setInitialStatusColor((data.status_color as "green" | "yellow" | "red" | "gray") || "green");
+        setInitialStatusColor((data.status_color as "green" | "yellow" | "red" | "gray" | "blue" | "orange" | "purple") || "green");
         setInitialSelectedInterests((data.selected_interests as string[]) || []);
         setInitialReferenceIds(refs);
         setInitialEmailShareable(data.email_shareable || false);
@@ -269,6 +276,7 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         setInitialStdAcknowledgmentLocked(data.std_acknowledgment_locked !== false);
         setInitialLabCertified(data.lab_certified || false);
         setInitialLabLogoUrl(data.lab_logo_url || "");
+        setInitialVibeMetadata((data as any).vibe_metadata || {});
         setInitialSharingInterestsEnabled((data as any).sharing_interests_enabled || false);
         setInitialSharingVicesEnabled((data as any).sharing_vices_enabled || false);
         setInitialSharingOrientationEnabled((data as any).sharing_orientation_enabled || false);
@@ -593,7 +601,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
           sharing_relationship_style_enabled: sharingRelationshipStyleEnabled,
           sharing_sensory_prefs_enabled: sharingSensoryPrefsEnabled,
           sharing_specific_activities_enabled: sharingSpecificActivitiesEnabled,
-        })
+          vibe_metadata: vibeMetadata,
+        } as any)
         .eq("user_id", userId);
 
       if (error) throw error;
@@ -800,86 +809,11 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         </div>
       </div>
 
-      <div className="space-y-6">
-        <h3 className="text-lg font-semibold border-b pb-2 flex items-center gap-2">
-          <QrCode className="w-5 h-5 text-primary" />
-          <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">QR Code Status Color</span>
-        </h3>
-        <div className="space-y-4">
-          <Label>Choose your status color (appears as a glow around your QR code)</Label>
-          <p className="text-sm text-foreground/70 italic font-medium bg-primary/10 rounded-full px-6 py-3 border border-primary/20">
-            💡 Tip: Choose Gray Incognito Mode for event entries. Only Gray mode activates automatic screen brightening on mobile devices for easy scanning in dark environments. Incognito mode only shares name and email for event scanning purposes.
-          </p>
-          <div className="grid grid-cols-4 gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                console.log("Status color changed to green");
-                setStatusColor("green");
-              }}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                statusColor === "green"
-                  ? "border-green-500 bg-green-500/10 shadow-lg shadow-green-500/50"
-                  : "border-border hover:border-green-500/50"
-              }`}
-            >
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-12 h-12 rounded-full bg-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.6)]"></div>
-                <span className="font-semibold">Clean</span>
-                <span className="text-sm text-muted-foreground text-center">I'm All Clean. Let's Keep It That Way.</span>
-              </div>
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => setStatusColor("yellow")}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                statusColor === "yellow"
-                  ? "border-yellow-500 bg-yellow-500/10 shadow-lg shadow-yellow-500/50"
-                  : "border-border hover:border-yellow-500/50"
-              }`}
-            >
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-12 h-12 rounded-full bg-yellow-500 shadow-[0_0_20px_8px_rgba(234,179,8,0.6)]"></div>
-                <span className="font-semibold">Proceed with Caution</span>
-                <span className="text-sm text-muted-foreground text-center">Take A Close Look Please.</span>
-              </div>
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => setStatusColor("red")}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                statusColor === "red"
-                  ? "border-red-500 bg-red-500/10 shadow-lg shadow-red-500/50"
-                  : "border-border hover:border-red-500/50"
-              }`}
-            >
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-12 h-12 rounded-full bg-red-500 shadow-[0_0_20px_8px_rgba(239,68,68,0.6)]"></div>
-                <span className="font-semibold">Be Aware</span>
-                <span className="text-sm text-muted-foreground text-center">Examine Docs Please</span>
-              </div>
-            </button>
-            
-            <button
-              type="button"
-              onClick={() => setStatusColor("gray")}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                statusColor === "gray"
-                  ? "border-gray-500 bg-gray-500/10 shadow-lg shadow-gray-500/50"
-                  : "border-border hover:border-gray-500/50"
-              }`}
-            >
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-12 h-12 rounded-full bg-gray-500 shadow-[0_0_20px_8px_rgba(107,114,128,0.6)]"></div>
-                <span className="font-semibold">Gray</span>
-                <span className="text-sm text-muted-foreground text-center">Incognito Mode<br />Event Scanning</span>
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
+      <MySignalSection
+        vibeMetadata={vibeMetadata}
+        onVibeMetadataChange={setVibeMetadata}
+        onStatusColorChange={setStatusColor}
+      />
 
       <div className="relative py-4">
         <div className="absolute inset-0 flex items-center">

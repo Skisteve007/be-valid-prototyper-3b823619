@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { 
   ArrowLeft, 
   Globe, 
@@ -36,7 +37,8 @@ import {
   Radio,
   Lightbulb,
   Star,
-  Phone
+  Phone,
+  AlertTriangle
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -1055,6 +1057,91 @@ const PitchDeck = () => {
               <Rocket className="mr-2 h-5 w-5" />
               Secure Tranche 1 Allocation
             </Button>
+          </div>
+
+          {/* ===== RISK & LEGAL DISCLOSURE ===== */}
+          <div className="mt-16 max-w-4xl mx-auto">
+            <div className="bg-gray-900/80 border border-gray-700/50 rounded-xl p-6">
+              <Accordion type="single" collapsible defaultValue="risk-disclosure">
+                <AccordionItem value="risk-disclosure" className="border-none">
+                  <AccordionTrigger className="hover:no-underline py-4">
+                    <div className="flex items-center gap-3">
+                      <AlertTriangle className="h-5 w-5 text-amber-500" />
+                      <span className="text-lg font-bold text-amber-500 font-orbitron">Important Risk Disclosures</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pt-4">
+                    <div className="space-y-6 text-sm text-gray-300 leading-relaxed">
+                      <h4 className="text-base font-bold text-white uppercase tracking-wider border-b border-gray-700 pb-2">
+                        RISK FACTOR DISCLOSURE & LIMITATION OF LIABILITY
+                      </h4>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="font-bold text-amber-400 mb-1">1. Speculative Investment</h5>
+                          <p>Investment in Valid™ (via Giant Ventures, LLC) is highly speculative and involves a high degree of risk. This opportunity is suitable only for persons who can afford to lose their entire investment. There is no guarantee that the company will achieve its business objectives or that the valuation targets will be met.</p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-bold text-amber-400 mb-1">2. Not a Loan</h5>
+                          <p>The funds contributed via SAFE (Simple Agreement for Future Equity) are not a loan. There is no maturity date, no interest rate, and no requirement for repayment. If the company dissolves or ceases operations, investors may receive $0.</p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-bold text-amber-400 mb-1">3. No Personal Guarantee</h5>
+                          <p>The investment is made solely into the corporate entity. The Founder/CEO provides no personal guarantee or collateral. By proceeding, the investor acknowledges that recourse is limited strictly to the assets of the Company, not the personal assets of its officers or directors.</p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-bold text-amber-400 mb-1">4. Indefinite Holding Period</h5>
+                          <p>This is an illiquid investment. Investors may not be able to sell or transfer their equity for an indefinite period.</p>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-gray-700 pt-6 mt-6">
+                        <h4 className="text-base font-bold text-white uppercase tracking-wider mb-4">
+                          How to Protect Yourself "Offline" (The Paperwork)
+                        </h4>
+                        <p className="mb-4 text-gray-400">Putting it on the website is Step 1. Step 2 is how you actually sign the documents.</p>
+                        
+                        <div className="space-y-4">
+                          <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50">
+                            <h5 className="font-bold text-cyan-400 mb-2">1. The "Corporate Veil" Signature</h5>
+                            <p className="mb-3">When you sign the check or the SAFE agreement, NEVER just sign your name.</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                              <div className="bg-red-950/30 border border-red-500/30 rounded-lg p-3">
+                                <span className="text-red-400 font-bold flex items-center gap-2 mb-1">
+                                  <X className="h-4 w-4" /> Wrong:
+                                </span>
+                                <span className="text-gray-400">User Name</span>
+                              </div>
+                              <div className="bg-green-950/30 border border-green-500/30 rounded-lg p-3">
+                                <span className="text-green-400 font-bold flex items-center gap-2 mb-1">
+                                  <Check className="h-4 w-4" /> Right:
+                                </span>
+                                <span className="text-gray-400">User Name, CEO, Giant Ventures LLC</span>
+                              </div>
+                            </div>
+                            <p className="mt-3 text-gray-400 text-xs">By adding "CEO" and the Company Name, you are signing as an employee of the corporation, not as a private citizen. This creates the "Corporate Veil." If they sue, they sue the title, not the man.</p>
+                          </div>
+                          
+                          <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50">
+                            <h5 className="font-bold text-red-400 mb-2">2. The "Bad Boy" Clause (Do Not Do This)</h5>
+                            <p className="mb-3">You lose your protection if you:</p>
+                            <ul className="list-disc list-inside space-y-1 text-gray-400 ml-2">
+                              <li>Use the money for personal vacations.</li>
+                              <li>Lie about what the tech can do (Fraud).</li>
+                              <li>Commingle funds (Mix personal and business cash).</li>
+                            </ul>
+                            <p className="mt-3 text-green-400 text-xs font-medium">As long as you stay clean on those three things, you are protected from debt if the company fails.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
           </div>
         </section>
 

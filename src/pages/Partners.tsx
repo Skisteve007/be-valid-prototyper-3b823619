@@ -338,7 +338,7 @@ const Partners = () => {
               </div>
               
               {/* Row 4 - SaaS Subscriptions */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
                  <StackItem 
                    title="4. SaaS Subscriptions" 
                    desc="Recurring monthly revenue from Venue and Corporate Partners for the compliance dashboard."
@@ -347,6 +347,19 @@ const Partners = () => {
                  <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)] flex flex-col justify-center">
                     <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 4</div>
                     <div className="font-bold text-xl">SaaS RECURRING</div>
+                 </div>
+              </div>
+              
+              {/* Row 5 - Venue Profit Share */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+                 <StackItem 
+                   title="5. Venue Profit Share" 
+                   desc="Venues earn 40% of every Ghost Token scanned at their entry point—turning verification into a direct revenue stream."
+                   color="cyan"
+                 />
+                 <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
+                    <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 5</div>
+                    <div className="font-bold text-xl">VENUE 40% SHARE</div>
                  </div>
               </div>
            </div>
@@ -362,10 +375,10 @@ const Partners = () => {
               <div className="bg-cyan-500/20 p-2 rounded text-cyan-400"><DollarSign size={20}/></div>
               <span className="text-cyan-400 font-bold tracking-[0.2em] text-sm">CFO ALERT</span>
             </div>
-            <p className="text-amber-400 font-bold text-sm tracking-wide mb-4 uppercase">Eliminate Merchant Fees</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing 1.9-4.5% on Every Swipe.</h2>
+            <p className="text-amber-400 font-bold text-sm tracking-wide mb-4 uppercase">From Cost Center to Profit Center</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing Money. Start Making It.</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              Our <strong className="text-white">Pre-Funded Wallet Architecture</strong> changes the game. Users load funds into their Ghost Token <em>before</em> they arrive to your business. When they scan at the point of entry, the transaction is an instant <strong className="text-cyan-400">Zero-Fee Ledger Transfer</strong>. Same at the Point of Sale.
+              Our <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">every time a patron scans their Ghost Token at your entry point, your venue earns 40% of the charge</strong>. Verification isn't a cost—it's a <strong className="text-cyan-400">new revenue stream</strong>.
             </p>
           </div>
           <div className="relative bg-black/60 backdrop-blur-xl border border-cyan-500/50 p-8 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.15)]">
@@ -389,10 +402,16 @@ const Partners = () => {
                  <span className="text-white font-medium">Instant Funds Verification</span>
                </div>
                <div className="flex items-center gap-3">
+                 <div className="h-8 w-8 rounded-full bg-amber-500/20 flex items-center justify-center">
+                   <DollarSign className="h-4 w-4 text-amber-400" />
+                 </div>
+                 <span className="text-amber-400 font-bold">40% Revenue Share Per Ghost Token Scan</span>
+               </div>
+               <div className="flex items-center gap-3">
                  <div className="h-8 w-8 rounded-full bg-cyan-500/20 flex items-center justify-center">
                    <TrendingUp className="h-4 w-4 text-cyan-400" />
                  </div>
-                 <span className="text-cyan-400 font-bold">+4% Immediate Margin Boost</span>
+                 <span className="text-cyan-400 font-bold">Verification = New Profit Center</span>
                </div>
              </div>
              <button className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm tracking-widest rounded transition uppercase flex items-center justify-center gap-2">

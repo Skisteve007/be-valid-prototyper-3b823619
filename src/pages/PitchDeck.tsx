@@ -503,88 +503,88 @@ const PitchDeck = () => {
 
         {/* ===== BEYOND THE QR: SENSING ROADMAP ===== */}
         <section>
-          <div className="text-center mb-10">
-            <Badge className="bg-purple-600/30 text-purple-400 border-purple-600/50 mb-4 text-sm px-4 py-1">POST-OPTICAL ERA</Badge>
-            <h2 className="text-2xl md:text-3xl font-bold font-orbitron mb-3">Beyond The QR: The Sensing Roadmap</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-sm">
-              QR codes are <span className="text-white">optical</span> (camera, light, aiming). The future is <span className="text-cyan-400 font-semibold">spatial</span> and <span className="text-purple-400 font-semibold">ambient</span>—technology that senses you.
+          <div className="text-center mb-12">
+            <Badge className="bg-purple-600/30 text-purple-400 border-purple-600/50 mb-4 text-base px-5 py-1.5">POST-OPTICAL ERA</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">Beyond The QR: The Sensing Roadmap</h2>
+            <p className="text-gray-400 max-w-3xl mx-auto text-base md:text-lg">
+              QR codes are <span className="text-white font-semibold">optical</span> (camera, light, aiming). The future is <span className="text-cyan-400 font-semibold">spatial</span> and <span className="text-purple-400 font-semibold">ambient</span>—technology that senses you.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4 mb-8">
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
             {/* UWB */}
-            <div className="bg-gradient-to-br from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 rounded-xl p-5 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)] transition-all">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="h-10 w-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
-                  <Zap className="h-5 w-5 text-cyan-400" />
+            <div className="bg-gradient-to-br from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 rounded-xl p-6 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)] transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-12 w-12 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                  <Zap className="h-6 w-6 text-cyan-400" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white font-orbitron">UWB</h3>
-                  <p className="text-xs text-gray-500">Ultra-Wideband</p>
+                  <h3 className="text-base font-bold text-white font-orbitron">UWB</h3>
+                  <p className="text-sm text-gray-500">Ultra-Wideband</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-400 mb-3">Phone stays in pocket. Walk through the Portal. Venue sensor handshakes instantly. Knows you're 3 inches from the door.</p>
-              <div className="bg-black/40 rounded-full px-3 py-1.5 inline-block">
-                <span className="text-xs font-bold text-cyan-400 tracking-wider">ZERO-CLICK ACCESS</span>
+              <p className="text-sm text-gray-400 mb-4">Phone stays in pocket. Walk through the Portal. Venue sensor handshakes instantly. Knows you're 3 inches from the door.</p>
+              <div className="bg-black/40 rounded-full px-4 py-2 inline-block">
+                <span className="text-sm font-bold text-cyan-400 tracking-wider">ZERO-CLICK ACCESS</span>
               </div>
             </div>
 
             {/* NFC Type-F */}
-            <div className="bg-gradient-to-br from-purple-950/40 to-pink-950/40 border border-purple-500/30 rounded-xl p-5 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] transition-all">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                  <QrCode className="h-5 w-5 text-purple-400" />
+            <div className="bg-gradient-to-br from-purple-950/40 to-pink-950/40 border border-purple-500/30 rounded-xl p-6 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-12 w-12 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                  <QrCode className="h-6 w-6 text-purple-400" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white font-orbitron">NFC TYPE-F</h3>
-                  <p className="text-xs text-gray-500">FeliCa Protocol</p>
+                  <h3 className="text-base font-bold text-white font-orbitron">NFC TYPE-F</h3>
+                  <p className="text-sm text-gray-500">FeliCa Protocol</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-400 mb-3">0.1 second tap. Works offline. Tokyo subway speed for festivals and stadiums. Synapse firing on contact.</p>
-              <div className="bg-black/40 rounded-full px-3 py-1.5 inline-block">
-                <span className="text-xs font-bold text-purple-400 tracking-wider">HARD-LINK VERIFICATION</span>
+              <p className="text-sm text-gray-400 mb-4">0.1 second tap. Works offline. Tokyo subway speed for festivals and stadiums. Synapse firing on contact.</p>
+              <div className="bg-black/40 rounded-full px-4 py-2 inline-block">
+                <span className="text-sm font-bold text-purple-400 tracking-wider">HARD-LINK VERIFICATION</span>
               </div>
             </div>
 
             {/* Biometric Hashing */}
-            <div className="bg-gradient-to-br from-green-950/40 to-emerald-950/40 border border-green-500/30 rounded-xl p-5 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] transition-all">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="h-10 w-10 rounded-lg bg-green-500/20 flex items-center justify-center">
-                  <Fingerprint className="h-5 w-5 text-green-400" />
+            <div className="bg-gradient-to-br from-green-950/40 to-emerald-950/40 border border-green-500/30 rounded-xl p-6 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-12 w-12 rounded-lg bg-green-500/20 flex items-center justify-center">
+                  <Fingerprint className="h-6 w-6 text-green-400" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white font-orbitron">BIO-HASH</h3>
-                  <p className="text-xs text-gray-500">Tokenized Biology</p>
+                  <h3 className="text-base font-bold text-white font-orbitron">BIO-HASH</h3>
+                  <p className="text-sm text-gray-500">Tokenized Biology</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-400 mb-3">Face/palm scanned locally, converted to encrypted hash. Look at kiosk, door opens. No phone required.</p>
-              <div className="bg-black/40 rounded-full px-3 py-1.5 inline-block">
-                <span className="text-xs font-bold text-green-400 tracking-wider">YOU ARE THE WALLET</span>
+              <p className="text-sm text-gray-400 mb-4">Face/palm scanned locally, converted to encrypted hash. Look at kiosk, door opens. No phone required.</p>
+              <div className="bg-black/40 rounded-full px-4 py-2 inline-block">
+                <span className="text-sm font-bold text-green-400 tracking-wider">YOU ARE THE WALLET</span>
               </div>
             </div>
           </div>
 
           {/* Timeline */}
-          <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl p-8">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-center">
-              <div className="flex items-center gap-4">
-                <div className="h-4 w-4 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(0,240,255,0.8)]"></div>
+          <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl p-10">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 text-center">
+              <div className="flex items-center gap-5">
+                <div className="h-5 w-5 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(0,240,255,0.8)]"></div>
                 <div>
-                  <p className="text-sm text-gray-400 font-semibold tracking-wider">TODAY</p>
-                  <p className="text-xl md:text-2xl font-bold text-white">You scan to enter</p>
+                  <p className="text-base text-gray-400 font-semibold tracking-wider">TODAY</p>
+                  <p className="text-2xl md:text-3xl font-bold text-white">You scan to enter</p>
                 </div>
               </div>
-              <ArrowRight className="h-8 w-8 text-gray-500 hidden md:block" />
-              <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-purple-500 md:hidden"></div>
-              <div className="flex items-center gap-4">
-                <div className="h-4 w-4 rounded-full bg-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.8)]"></div>
+              <ArrowRight className="h-10 w-10 text-gray-500 hidden md:block" />
+              <div className="h-px w-16 bg-gradient-to-r from-cyan-500 to-purple-500 md:hidden"></div>
+              <div className="flex items-center gap-5">
+                <div className="h-5 w-5 rounded-full bg-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.8)]"></div>
                 <div>
-                  <p className="text-sm text-gray-400 font-semibold tracking-wider">TOMORROW</p>
-                  <p className="text-xl md:text-2xl font-bold text-white">You simply walk through</p>
+                  <p className="text-base text-gray-400 font-semibold tracking-wider">TOMORROW</p>
+                  <p className="text-2xl md:text-3xl font-bold text-white">You simply walk through</p>
                 </div>
               </div>
             </div>
-            <p className="text-center text-base md:text-lg text-gray-400 mt-6 max-w-2xl mx-auto">
+            <p className="text-center text-lg md:text-xl text-gray-400 mt-8 max-w-3xl mx-auto">
               VALID is not just a QR app—we are the <span className="text-cyan-400 font-semibold">universal operating system for spatial identity</span>.
             </p>
           </div>

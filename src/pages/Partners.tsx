@@ -186,20 +186,20 @@ const Partners = () => {
            {/* Visual Stack Graphic */}
            <div className="relative">
               <div className="absolute inset-0 bg-cyan-500/20 blur-[80px] rounded-full"></div>
-              <div className="relative z-10 space-y-4">
-                 <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                    <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 3</div>
-                    <div className="font-bold text-xl">SaaS RECURRING</div>
-                 </div>
-                 <div className="bg-black border border-purple-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(168,85,247,0.2)] translate-x-4">
-                    <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 2</div>
-                    <div className="font-bold text-xl">HEALTH MARGIN (60%)</div>
-                 </div>
-                 <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] translate-x-8">
-                    <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 1</div>
-                    <div className="font-bold text-xl">ACCESS TOKENS</div>
-                 </div>
-              </div>
+               <div className="relative z-10 space-y-4">
+                  <div className="bg-black border border-green-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                     <div className="text-xs text-green-500 tracking-widest mb-1">LAYER 3</div>
+                     <div className="font-bold text-xl">SaaS RECURRING</div>
+                  </div>
+                  <div className="bg-black border border-purple-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+                     <div className="text-xs text-purple-500 tracking-widest mb-1">LAYER 2</div>
+                     <div className="font-bold text-xl">HEALTH MARGIN (60%)</div>
+                  </div>
+                  <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)]">
+                     <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 1</div>
+                     <div className="font-bold text-xl">ACCESS TOKENS</div>
+                  </div>
+               </div>
            </div>
         </div>
       </section>

@@ -181,34 +181,94 @@ const PitchDeck = () => {
               <Zap size={28} className="text-cyan-400" />
               Unicorn Thesis: The VALID Value Drivers
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-amber-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <DollarSign size={24} className="text-amber-400" />
+                  <h4 className="font-bold text-white text-lg">MEMBER SUBSCRIPTIONS</h4>
+                </div>
+                <p className="text-gray-400 text-sm">Recurring revenue from peer network memberships—billed every 60 days or annually for platform access.</p>
+                <div className="mt-3 text-amber-400 font-bold text-xl">LAYER 1</div>
+              </div>
               <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-cyan-500/50 transition">
                 <div className="flex items-center gap-2 mb-2">
                   <Zap size={24} className="text-cyan-400" />
-                  <h4 className="font-bold text-white text-lg">HIGH-MARGIN TRANSACTIONAL POWER</h4>
+                  <h4 className="font-bold text-white text-lg">HIGH-MARGIN ACCESS TOKENS</h4>
                 </div>
-                <p className="text-gray-400 text-base">The core revenue is the $10 Ghost Access Token, which operates at near-zero marginal cost, creating massive profitability as your organization scales up.</p>
+                <p className="text-gray-400 text-sm">$10-$50 Ghost Tokens at near-zero marginal cost, creating massive profitability at scale.</p>
+                <div className="mt-3 text-cyan-400 font-bold text-xl">LAYER 2</div>
               </div>
               <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-purple-500/50 transition">
                 <div className="flex items-center gap-2 mb-2">
-                  <ShieldCheck size={24} className="text-purple-400" />
-                  <h4 className="font-bold text-white text-lg">ZERO-TRUST ARCHITECTURAL MOAT</h4>
+                  <Target size={24} className="text-purple-400" />
+                  <h4 className="font-bold text-white text-lg">HEALTH RESELLER MARGIN</h4>
                 </div>
-                <p className="text-gray-400 text-base">The complexity of linking health data (HIPAA/GDPR) with payment systems and physical access is a massive barrier to entry. No competitor can copy this integrated model quickly.</p>
+                <p className="text-gray-400 text-sm">We capture 40-60% spread between wholesale lab costs and retail pricing. We don't refer tests; we sell them.</p>
+                <div className="mt-3 text-purple-400 font-bold text-xl">LAYER 3</div>
+              </div>
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-green-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp size={24} className="text-green-400" />
+                  <h4 className="font-bold text-white text-lg">SaaS SUBSCRIPTIONS</h4>
+                </div>
+                <p className="text-gray-400 text-sm">Recurring monthly revenue from Venue and Corporate Partners for the compliance dashboard.</p>
+                <div className="mt-3 text-green-400 font-bold text-xl">LAYER 4</div>
+              </div>
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-blue-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <Building2 size={24} className="text-blue-400" />
+                  <h4 className="font-bold text-white text-lg">VENUE PROFIT SHARE</h4>
+                </div>
+                <p className="text-gray-400 text-sm">Entry used to cost money. Now every Ghost Token scan earns venues 40% instantly. Verification = profit center.</p>
+                <div className="mt-3 text-blue-400 font-bold text-xl">LAYER 5</div>
+              </div>
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-red-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <Lock size={24} className="text-red-400" />
+                  <h4 className="font-bold text-white text-lg">ZERO-TRUST FORTRESS</h4>
+                </div>
+                <p className="text-gray-400 text-sm">We never store raw PII—only encrypted tokens. Venues get VERIFIED or NOT VERIFIED. No data to breach = cryptographic immunity.</p>
+                <div className="mt-3 text-red-400 font-bold text-xl">LAYER 6</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Additional Pillars */}
+        <section className="mb-8">
+          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)]">
+            <h3 className="text-2xl font-bold text-purple-400 mb-6 font-orbitron flex items-center gap-2">
+              <ShieldCheck size={28} className="text-purple-400" />
+              Competitive Moat & Network Effects
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-purple-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <ShieldCheck size={24} className="text-purple-400" />
+                  <h4 className="font-bold text-white text-lg">REGULATORY MOAT</h4>
+                </div>
+                <p className="text-gray-400 text-sm">Integrating HIPAA-compliant health data with payment rails and physical access requires 18+ months of compliance engineering. No competitor can replicate overnight.</p>
               </div>
               <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-green-500/50 transition">
                 <div className="flex items-center gap-2 mb-2">
                   <Share2 size={24} className="text-green-400" />
-                  <h4 className="font-bold text-white text-lg">VIRAL NETWORK INTEGRATION</h4>
+                  <h4 className="font-bold text-white text-lg">VIRAL NETWORK EFFECTS</h4>
                 </div>
-                <p className="text-gray-400 text-base">VALID drives exponential growth by enabling members to instantly connect their entire social graphs (Instagram, TikTok, etc.), creating a massive, verified peer-to-peer network for partner exposure.</p>
+                <p className="text-gray-400 text-sm">Every verified member becomes a distribution channel. When they share their QR, they're marketing VALID. We're embedded in the social graph.</p>
               </div>
               <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-blue-500/50 transition">
                 <div className="flex items-center gap-2 mb-2">
-                  <Lock size={24} className="text-blue-400" />
-                  <h4 className="font-bold text-white text-lg">REGULATORY TAILWINDS & LIABILITY SHIFT</h4>
+                  <ShieldCheck size={24} className="text-blue-400" />
+                  <h4 className="font-bold text-white text-lg">LIABILITY TRANSFER</h4>
                 </div>
-                <p className="text-gray-400 text-base">We legally shield venues and employers from compliance risk, making us an essential, non-optional service provider.</p>
+                <p className="text-gray-400 text-sm">Venues and employers face existential legal risk without verification. VALID absorbs that liability. We're not a nice-to-have—we're essential infrastructure.</p>
+              </div>
+              <div className="bg-black/40 p-6 rounded-xl border border-white/10 hover:border-cyan-500/50 transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap size={24} className="text-cyan-400" />
+                  <h4 className="font-bold text-white text-lg">INSTANT FBO SETTLEMENT</h4>
+                </div>
+                <p className="text-gray-400 text-sm">Pre-funded wallets mean funds are already in the system. Venues get paid instantly via FBO—no 3-day holds, no batch processing. Cash flow, solved.</p>
               </div>
             </div>
           </div>

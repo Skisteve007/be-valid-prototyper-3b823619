@@ -5,15 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { ArrowRight, Fingerprint, Eye, EyeOff } from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
-import { 
-  isBiometricAvailable, 
-  authenticateWithBiometric, 
-  getStoredCredentials
-} from "@/lib/biometric";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -23,13 +19,15 @@ const Auth = () => {
   const mode = searchParams.get("mode") || "signup";
   const discountCode = searchParams.get("discount") || localStorage.getItem('discountCode') || "";
   const [loading, setLoading] = useState(false);
-  const [signupFullName, setSignupFullName] = useState(location.state?.fullName || "");
+  const [signupFirstName, setSignupFirstName] = useState("");
+  const [signupLastName, setSignupLastName] = useState("");
   const [signupEmail, setSignupEmail] = useState(location.state?.email || "");
   const [signupPassword, setSignupPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   useEffect(() => {
     // Scroll to top when page loads
@@ -77,27 +75,19 @@ const Auth = () => {
     }
   };
 
-  const handleBiometricLogin = async () => {
-    try {
-      // SECURITY: Biometric login no longer stores passwords
-      // Users should use WebAuthn/Passkeys instead
-      toast.error("Please use WebAuthn/Passkeys for biometric login. This legacy method has been disabled for security.");
-    } catch (error: any) {
-      toast.error(error.message || "Biometric login failed");
-    }
-  };
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      const fullName = `${signupFirstName} ${signupLastName}`.trim();
       const { data, error} = await supabase.auth.signUp({
         email: signupEmail,
         password: signupPassword,
         options: {
           data: {
-            full_name: signupFullName,
+            full_name: fullName,
           },
           emailRedirectTo: `${window.location.origin}/dashboard`,
         },
@@ -303,16 +293,29 @@ const Auth = () => {
                 </CardHeader>
                 <CardContent className="p-8">
                   <form onSubmit={handleSignup} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-name">Full Name *</Label>
-                      <Input 
-                        id="signup-name"
-                        placeholder="Enter your full name"
-                        value={signupFullName}
-                        onChange={(e) => setSignupFullName(e.target.value)}
-                        required
-                        className="h-14"
-                      />
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="signup-first-name">First Name *</Label>
+                        <Input 
+                          id="signup-first-name"
+                          placeholder="First name"
+                          value={signupFirstName}
+                          onChange={(e) => setSignupFirstName(e.target.value)}
+                          required
+                          className="h-14"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="signup-last-name">Last Name *</Label>
+                        <Input 
+                          id="signup-last-name"
+                          placeholder="Last name"
+                          value={signupLastName}
+                          onChange={(e) => setSignupLastName(e.target.value)}
+                          required
+                          className="h-14"
+                        />
+                      </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="signup-email">Email Address *</Label>
@@ -354,12 +357,32 @@ const Auth = () => {
                         </Button>
                       </div>
                     </div>
+
+                    {/* Mandatory Terms/NDA Checkbox */}
+                    <div className="flex items-start space-x-3 p-4 rounded-lg bg-muted/30 border border-primary/20">
+                      <Checkbox 
+                        id="terms-checkbox"
+                        checked={termsAccepted}
+                        onCheckedChange={(checked) => setTermsAccepted(checked === true)}
+                        className="mt-1"
+                      />
+                      <label 
+                        htmlFor="terms-checkbox" 
+                        className="text-sm text-muted-foreground cursor-pointer leading-relaxed"
+                      >
+                        I agree to the{" "}
+                        <a href="/terms" target="_blank" className="text-primary hover:underline">
+                          Terms of Service
+                        </a>{" "}
+                        and acknowledge the Confidentiality/NDA requirements for this Beta Release.
+                      </label>
+                    </div>
                     
                     <Button 
                       size="lg" 
-                      className="w-full min-h-[48px] relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary text-primary-foreground font-semibold" 
+                      className="w-full min-h-[48px] relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary text-primary-foreground font-semibold disabled:opacity-50 disabled:cursor-not-allowed" 
                       type="submit"
-                      disabled={loading}
+                      disabled={loading || !termsAccepted}
                     >
                       <div className="absolute inset-0 bg-primary/30 blur-xl rounded-md -z-10"></div>
                       {loading ? "Creating Account..." : "Create Account"} <ArrowRight className="ml-2 h-4 w-4" />

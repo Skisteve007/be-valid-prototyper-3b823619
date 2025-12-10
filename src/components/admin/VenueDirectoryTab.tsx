@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
-import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard, DollarSign, History, TrendingUp, Trophy } from "lucide-react";
+import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard, DollarSign, History, TrendingUp, Trophy, ChevronLeft, ChevronRight, Percent } from "lucide-react";
 import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -27,6 +27,7 @@ interface Venue {
   paypal_email: string | null;
   total_earnings: number | null;
   pending_earnings: number | null;
+  promoter_spend_commission_rate: number | null;
 }
 
 interface PayoutRecord {
@@ -63,6 +64,11 @@ export const VenueDirectoryTab = () => {
   const [editIndustry, setEditIndustry] = useState<string>("");
   const [bankEndpoint, setBankEndpoint] = useState("");
   const [paypalEmail, setPaypalEmail] = useState("");
+  const [promoterCommission, setPromoterCommission] = useState<number>(0);
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
   const [saving, setSaving] = useState(false);
   
   // Payment history state
@@ -121,7 +127,8 @@ export const VenueDirectoryTab = () => {
           gm_email: gmEmail || null,
           industry_type: editIndustry || 'Nightlife',
           bank_endpoint: bankEndpoint || null,
-          paypal_email: paypalEmail || null
+          paypal_email: paypalEmail || null,
+          promoter_spend_commission_rate: promoterCommission
         })
         .eq("id", editingVenue.id);
 
@@ -133,6 +140,7 @@ export const VenueDirectoryTab = () => {
       setEditIndustry("");
       setBankEndpoint("");
       setPaypalEmail("");
+      setPromoterCommission(0);
       loadVenues();
     } catch (error: any) {
       toast.error("Failed to update venue");
@@ -224,6 +232,18 @@ export const VenueDirectoryTab = () => {
     const matchesIndustry = industryFilter === "all" || venue.industry_type === industryFilter;
     return matchesSearch && matchesCountry && matchesIndustry;
   });
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredVenues.length / itemsPerPage);
+  const paginatedVenues = filteredVenues.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, countryFilter, industryFilter]);
 
   const getIndustryIcon = (industryType: string | null) => {
     const config = INDUSTRY_CONFIG[industryType || 'Nightlife'];
@@ -507,7 +527,7 @@ export const VenueDirectoryTab = () => {
         <ResponsiveDataList
           mobileCards={
             <div className="space-y-3">
-              {filteredVenues.map((venue) => (
+              {paginatedVenues.map((venue) => (
                 <MobileDataCard
                   key={venue.id}
                   title={
@@ -560,6 +580,7 @@ export const VenueDirectoryTab = () => {
                               setEditIndustry(venue.industry_type || "Nightlife");
                               setBankEndpoint(venue.bank_endpoint || "");
                               setPaypalEmail(venue.paypal_email || "");
+                              setPromoterCommission(venue.promoter_spend_commission_rate || 0);
                             }}
                           >
                             <Edit className="h-5 w-5 mr-2" /> Edit
@@ -642,7 +663,34 @@ export const VenueDirectoryTab = () => {
                             </div>
                           </div>
                           
-                          <Button 
+                          {/* Promoter Commission Section */}
+                          <div className="border-t pt-4 mt-4">
+                            <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                              <Percent className="h-4 w-4 text-purple-500" />
+                              Commission Settings
+                            </h4>
+                            <div className="space-y-2">
+                              <Label htmlFor="promoter-commission-mobile" className="flex items-center gap-2">
+                                Promoter Bar Commission %
+                              </Label>
+                              <Input
+                                id="promoter-commission-mobile"
+                                type="number"
+                                min="0"
+                                max="100"
+                                step="0.1"
+                                placeholder="5"
+                                value={promoterCommission}
+                                onChange={(e) => setPromoterCommission(parseFloat(e.target.value) || 0)}
+                                className="h-12"
+                              />
+                              <p className="text-xs text-muted-foreground">
+                                Commission rate paid to promoters on bar spend (0-100%)
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <Button
                             onClick={handleSaveVenue} 
                             disabled={saving}
                             className="w-full h-12"
@@ -682,7 +730,7 @@ export const VenueDirectoryTab = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredVenues.map((venue) => (
+                {paginatedVenues.map((venue) => (
                   <TableRow key={venue.id}>
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
@@ -736,12 +784,13 @@ export const VenueDirectoryTab = () => {
                             <Button 
                               variant="outline" 
                               size="sm"
-                              onClick={() => {
+                            onClick={() => {
                                 setEditingVenue(venue);
                                 setGmEmail(venue.gm_email || "");
                                 setEditIndustry(venue.industry_type || "Nightlife");
                                 setBankEndpoint(venue.bank_endpoint || "");
                                 setPaypalEmail(venue.paypal_email || "");
+                                setPromoterCommission(venue.promoter_spend_commission_rate || 0);
                               }}
                             >
                               Edit
@@ -821,7 +870,33 @@ export const VenueDirectoryTab = () => {
                                 </div>
                               </div>
                               
-                              <Button 
+                              {/* Promoter Commission Section */}
+                              <div className="border-t pt-4 mt-4">
+                                <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                                  <Percent className="h-4 w-4 text-purple-500" />
+                                  Commission Settings
+                                </h4>
+                                <div className="space-y-2">
+                                  <Label htmlFor="promoter-commission" className="flex items-center gap-2">
+                                    Promoter Bar Commission %
+                                  </Label>
+                                  <Input
+                                    id="promoter-commission"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    step="0.1"
+                                    placeholder="5"
+                                    value={promoterCommission}
+                                    onChange={(e) => setPromoterCommission(parseFloat(e.target.value) || 0)}
+                                  />
+                                  <p className="text-xs text-muted-foreground">
+                                    Commission rate paid to promoters on bar spend (0-100%)
+                                  </p>
+                                </div>
+                              </div>
+                              
+                              <Button
                                 onClick={handleSaveVenue} 
                                 disabled={saving}
                                 className="w-full"
@@ -848,6 +923,60 @@ export const VenueDirectoryTab = () => {
             </Table>
           </div>
         </ResponsiveDataList>
+
+        {/* Pagination Controls */}
+        {filteredVenues.length > 0 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t">
+            <p className="text-sm text-muted-foreground">
+              Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, filteredVenues.length)} of {filteredVenues.length} partners
+            </p>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+              >
+                <ChevronLeft className="h-4 w-4" />
+                Previous
+              </Button>
+              <div className="flex items-center gap-1">
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNum;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+                  return (
+                    <Button
+                      key={pageNum}
+                      variant={currentPage === pageNum ? "default" : "outline"}
+                      size="sm"
+                      className="w-8 h-8 p-0"
+                      onClick={() => setCurrentPage(pageNum)}
+                    >
+                      {pageNum}
+                    </Button>
+                  );
+                })}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+              >
+                Next
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        )}
 
         {filteredVenues.length === 0 && (
           <div className="text-center py-8 text-muted-foreground">

@@ -10,6 +10,7 @@ import { Loader2, QrCode, Users, Calendar, Building2, LogOut, Scan } from "lucid
 import { format } from "date-fns";
 import logo from "@/assets/valid-logo.jpeg";
 import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
+import { VenueBossDashboard } from "@/components/admin/VenueBossDashboard";
 
 interface VenueAssignment {
   id: string;
@@ -280,6 +281,9 @@ const VenueOperatorPortal = () => {
                 </Button>
               )}
             </div>
+
+            {/* Venue Boss Dashboard - Financial Overview */}
+            <VenueBossDashboard venueId={selectedVenue.venue_id} />
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4">

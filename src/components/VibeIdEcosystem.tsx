@@ -17,48 +17,48 @@ interface VibeModeConfig {
 
 const vibeModes: Record<VibeMode, VibeModeConfig> = {
   social: {
-    name: 'Social Mode',
-    icon: <Users size={20} />,
+    name: 'SOCIAL',
+    icon: <Users size={24} />,
     color: 'text-blue-400',
     bgGradient: 'from-blue-600/20 to-cyan-600/20',
     borderColor: 'border-blue-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(59,130,246,0.4)]',
     tagline: 'Connect & Network',
     statusText: 'NETWORKING ACTIVE',
-    features: ['Shared Interests Visible', 'Social Handles Linked', 'Open for Connections'],
+    features: ['Open to connect. Share contacts and socials with one scan.'],
   },
   pulse: {
-    name: 'Pulse Mode',
-    icon: <Heart size={20} />,
-    color: 'text-pink-400',
-    bgGradient: 'from-pink-600/20 to-rose-600/20',
-    borderColor: 'border-pink-500/50',
-    glowColor: 'shadow-[0_0_40px_rgba(236,72,153,0.4)]',
-    tagline: 'Dating & Romance',
+    name: 'PULSE',
+    icon: <Heart size={24} />,
+    color: 'text-green-400',
+    bgGradient: 'from-green-600/20 to-emerald-600/20',
+    borderColor: 'border-green-500/50',
+    glowColor: 'shadow-[0_0_40px_rgba(34,197,94,0.4)]',
+    tagline: 'High Energy',
     statusText: 'PULSE ACTIVE',
-    features: ['Relationship Status', 'Preferences Shared', 'Health Verified Badge'],
+    features: ['High energy. Broadcast your preferences, relationship status, and health verified badge.'],
   },
   thrill: {
-    name: 'Thrill Mode',
-    icon: <Zap size={20} />,
-    color: 'text-amber-400',
-    bgGradient: 'from-amber-600/20 to-orange-600/20',
-    borderColor: 'border-amber-500/50',
-    glowColor: 'shadow-[0_0_40px_rgba(245,158,11,0.4)]',
-    tagline: 'Events & Access',
+    name: 'THRILL',
+    icon: <Zap size={24} />,
+    color: 'text-orange-400',
+    bgGradient: 'from-orange-600/20 to-amber-600/20',
+    borderColor: 'border-orange-500/50',
+    glowColor: 'shadow-[0_0_40px_rgba(249,115,22,0.4)]',
+    tagline: 'Adventure Ready',
     statusText: 'ACCESS GRANTED',
-    features: ['VIP Entry Verified', 'Age Confirmed', 'Payment Pre-Loaded'],
+    features: ['Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification.'],
   },
   afterdark: {
-    name: 'After Dark',
-    icon: <Moon size={20} />,
+    name: 'AFTER DARK',
+    icon: <Moon size={24} />,
     color: 'text-purple-400',
     bgGradient: 'from-purple-600/20 to-violet-600/20',
     borderColor: 'border-purple-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(168,85,247,0.4)]',
     tagline: 'Privacy Maximum',
     statusText: 'GHOST PROTOCOL',
-    features: ['Identity Hidden', 'Verified Only Signal', 'Zero Data Exposed'],
+    features: ['Entertainment access. Zero data exposed. Flow through entry.'],
   },
 };
 
@@ -115,8 +115,13 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               {description}
             </p>
 
-            {/* Mode Buttons */}
-            <div className="flex flex-wrap gap-3">
+            {/* Signal Select Header */}
+            <div className={`text-xs font-mono tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+              SELECT YOUR SIGNAL
+            </div>
+
+            {/* 2x2 Mode Grid */}
+            <div className="grid grid-cols-2 gap-3 mb-6">
               {(Object.keys(vibeModes) as VibeMode[]).map((mode) => {
                 const config = vibeModes[mode];
                 const isActive = activeMode === mode;
@@ -125,32 +130,26 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                   <button
                     key={mode}
                     onClick={() => setActiveMode(mode)}
-                    className={`flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition-all duration-300 border
+                    className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl font-semibold text-sm transition-all duration-300 border aspect-square
                       ${isActive 
                         ? `${config.color} ${config.borderColor} bg-white/5 ${config.glowColor}` 
-                        : `${isDark ? 'text-gray-400 border-white/10 hover:border-white/30' : 'text-slate-500 border-slate-200 hover:border-slate-400'}`
+                        : `${isDark ? 'text-gray-400 border-white/10 hover:border-white/30 bg-white/[0.02]' : 'text-slate-500 border-slate-200 hover:border-slate-400 bg-white'}`
                       }`}
                   >
-                    {config.icon}
-                    {config.name}
+                    <div className={`transition-all duration-300 ${isActive ? config.color : ''}`}>
+                      {config.icon}
+                    </div>
+                    <span className="text-xs tracking-wider font-bold">{config.name}</span>
                   </button>
                 );
               })}
             </div>
 
-            {/* Mode Features */}
-            <div className={`mt-8 p-6 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'}`}>
-              <div className={`text-xs font-mono tracking-widest uppercase mb-4 ${currentMode.color}`}>
-                {currentMode.tagline}
-              </div>
-              <ul className="space-y-3">
-                {currentMode.features.map((feature, i) => (
-                  <li key={i} className={`flex items-center gap-3 text-sm tracking-wide ${isDark ? 'text-cyan-400' : 'text-slate-700'}`}>
-                    <div className={`w-2 h-2 rounded-full ${currentMode.color.replace('text-', 'bg-')}`} />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+            {/* Mode Description */}
+            <div className={`p-5 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'}`}>
+              <p className={`text-sm leading-relaxed transition-opacity duration-300 ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+                {currentMode.features[0]}
+              </p>
             </div>
           </div>
 

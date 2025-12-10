@@ -499,6 +499,7 @@ export type Database = {
           promoter_share: number
           spending_limit: number | null
           total_amount: number
+          transaction_type: string | null
           user_id: string
           venue_id: string | null
           venue_share: number
@@ -516,6 +517,7 @@ export type Database = {
           promoter_share?: number
           spending_limit?: number | null
           total_amount?: number
+          transaction_type?: string | null
           user_id: string
           venue_id?: string | null
           venue_share?: number
@@ -533,6 +535,7 @@ export type Database = {
           promoter_share?: number
           spending_limit?: number | null
           total_amount?: number
+          transaction_type?: string | null
           user_id?: string
           venue_id?: string | null
           venue_share?: number
@@ -892,6 +895,7 @@ export type Database = {
           industry_type: string | null
           paypal_email: string | null
           pending_earnings: number | null
+          promoter_spend_commission_rate: number | null
           status: string
           total_earnings: number | null
           updated_at: string
@@ -909,6 +913,7 @@ export type Database = {
           industry_type?: string | null
           paypal_email?: string | null
           pending_earnings?: number | null
+          promoter_spend_commission_rate?: number | null
           status?: string
           total_earnings?: number | null
           updated_at?: string
@@ -926,6 +931,7 @@ export type Database = {
           industry_type?: string | null
           paypal_email?: string | null
           pending_earnings?: number | null
+          promoter_spend_commission_rate?: number | null
           status?: string
           total_earnings?: number | null
           updated_at?: string
@@ -965,6 +971,7 @@ export type Database = {
           last_marketing_email_sent_at: string | null
           member_id: string | null
           onlyfans_handle: string | null
+          originator_id: string | null
           partner_preferences: Json | null
           payment_date: string | null
           payment_status: string | null
@@ -1032,6 +1039,7 @@ export type Database = {
           last_marketing_email_sent_at?: string | null
           member_id?: string | null
           onlyfans_handle?: string | null
+          originator_id?: string | null
           partner_preferences?: Json | null
           payment_date?: string | null
           payment_status?: string | null
@@ -1099,6 +1107,7 @@ export type Database = {
           last_marketing_email_sent_at?: string | null
           member_id?: string | null
           onlyfans_handle?: string | null
+          originator_id?: string | null
           partner_preferences?: Json | null
           payment_date?: string | null
           payment_status?: string | null
@@ -1141,6 +1150,13 @@ export type Database = {
             columns: ["employer_id"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_originator_id_fkey"
+            columns: ["originator_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
             referencedColumns: ["id"]
           },
         ]
@@ -1838,6 +1854,47 @@ export type Database = {
           },
         ]
       }
+      venue_pool_distributions: {
+        Row: {
+          created_at: string | null
+          distributed: boolean | null
+          id: string
+          pass_end_date: string
+          pass_start_date: string
+          total_pool_amount: number
+          transaction_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          distributed?: boolean | null
+          id?: string
+          pass_end_date: string
+          pass_start_date: string
+          total_pool_amount?: number
+          transaction_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          distributed?: boolean | null
+          id?: string
+          pass_end_date?: string
+          pass_start_date?: string
+          total_pool_amount?: number
+          transaction_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_pool_distributions_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "incognito_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       venue_qr_scans: {
         Row: {
           id: string
@@ -1879,6 +1936,48 @@ export type Database = {
           },
           {
             foreignKeyName: "venue_qr_scans_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_visit_tracking: {
+        Row: {
+          id: string
+          pool_distribution_id: string | null
+          share_amount: number | null
+          user_id: string
+          venue_id: string | null
+          visited_at: string | null
+        }
+        Insert: {
+          id?: string
+          pool_distribution_id?: string | null
+          share_amount?: number | null
+          user_id: string
+          venue_id?: string | null
+          visited_at?: string | null
+        }
+        Update: {
+          id?: string
+          pool_distribution_id?: string | null
+          share_amount?: number | null
+          user_id?: string
+          venue_id?: string | null
+          visited_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_visit_tracking_pool_distribution_id_fkey"
+            columns: ["pool_distribution_id"]
+            isOneToOne: false
+            referencedRelation: "venue_pool_distributions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "venue_visit_tracking_venue_id_fkey"
             columns: ["venue_id"]
             isOneToOne: false
             referencedRelation: "partner_venues"

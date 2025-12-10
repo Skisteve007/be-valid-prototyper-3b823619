@@ -450,6 +450,77 @@ const Partners = () => {
         </div>
       </section>
 
+      {/* SMART-SPLIT REVENUE ENGINE */}
+      <section className="py-24 relative z-10 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/5">
+              <DollarSign size={16} className="text-amber-400" />
+              <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">Automated Revenue</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">TURN PROMOTERS INTO <span className="text-amber-400">REVENUE PARTNERS</span></h2>
+            <p className="text-gray-300 max-w-2xl mx-auto text-lg">Automated Attribution. Instant Payouts. Zero Leakage.</p>
+          </div>
+
+          <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm mb-12">
+            <p className="text-lg text-gray-300 leading-relaxed mb-6">
+              Stop calculating promoter commissions on spreadsheets at 4 AM. VALID's <strong className="text-amber-400">"Smart-Split" Engine</strong> handles the entire flow automatically.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Door Revenue */}
+              <div className="bg-gradient-to-b from-cyan-900/20 to-transparent border border-cyan-500/30 p-6 rounded-xl">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-cyan-500/20 border-2 border-cyan-500/50 flex items-center justify-center">
+                    <QrCode size={24} className="text-cyan-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-cyan-400 text-lg">Door Revenue (Access)</h4>
+                    <span className="text-xs text-gray-400">Ghost Pass Sales</span>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  Promoters earn a fixed <strong className="text-cyan-400">10% on every Ghost Pass they sell</strong>. You get verified foot traffic without paying a cent out of pocket.
+                </p>
+                <div className="mt-4 py-2 px-3 bg-cyan-500/10 rounded text-sm text-cyan-400 font-mono">
+                  10% OFF TOP → PROMOTER WALLET
+                </div>
+              </div>
+
+              {/* Bar Revenue */}
+              <div className="bg-gradient-to-b from-purple-900/20 to-transparent border border-purple-500/30 p-6 rounded-xl">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-purple-500/20 border-2 border-purple-500/50 flex items-center justify-center">
+                    <TrendingUp size={24} className="text-purple-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-purple-400 text-lg">Bar Revenue (Spend)</h4>
+                    <span className="text-xs text-gray-400">POS Commissions</span>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  Want to attract top-tier hosts? Toggle on <strong className="text-purple-400">"Spend Commission"</strong> in your dashboard. If their VIP spends $5,000, the system automatically routes their cut instantly.
+                </p>
+                <div className="mt-4 py-2 px-3 bg-purple-500/10 rounded text-sm text-purple-400 font-mono">
+                  0-20% CONFIGURABLE → INSTANT PAYOUT
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Zero Fraud Callout */}
+          <div className="bg-black border-2 border-amber-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(251,191,36,0.15)]">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <ShieldCheck size={24} className="text-amber-400" />
+              <h4 className="font-bold text-white text-xl">Zero Fraud</h4>
+            </div>
+            <p className="text-gray-300 max-w-xl mx-auto">
+              Attribution is <strong className="text-amber-400">hard-coded to the user's Vibe-ID</strong>. No fake lists, no arguments. The blockchain of nightlife commissions.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* THE COST OF ZERO RISK: YOUR INVESTMENT IS $0 */}
       <section className="py-24 relative z-10 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-6">

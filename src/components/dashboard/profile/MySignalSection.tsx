@@ -262,12 +262,15 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
     <>
       <Card className="bg-card border-border shadow-sm">
         <CardContent className="p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <Radio className="w-5 h-5 text-foreground" />
-            <h3 className="text-lg font-semibold text-foreground">MY SIGNAL</h3>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-4">
+            <div className="flex items-center gap-2">
+              <Radio className="w-5 h-5 text-foreground" />
+              <h3 className="text-lg font-semibold text-foreground">MY SIGNAL</h3>
+            </div>
+            <span className="text-xs text-muted-foreground">• Select a signal mode to customize your vibe</span>
           </div>
 
-          {/* 4-Button Grid */}
+          {/* 4-Button Grid with Descriptions */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {/* SOCIAL Button */}
             <button
@@ -287,6 +290,9 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 <Users className={`w-6 h-6 ${selectedMode === "social" ? "text-white" : "text-[#2563EB]"}`} />
               </div>
               <span className="font-semibold text-foreground">SOCIAL</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight mt-1">
+                Open to connect. Share contacts and socials with one scan.
+              </p>
             </button>
 
             {/* PULSE Button */}
@@ -308,6 +314,9 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               </div>
               <span className="font-semibold text-foreground">PULSE</span>
               <span className="text-[10px] text-muted-foreground">18+</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight">
+                High energy. Broadcast your preferences and health verified badge.
+              </p>
             </button>
 
             {/* THRILL Button */}
@@ -328,6 +337,9 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 <Zap className={`w-6 h-6 ${selectedMode === "thrill" ? "text-white" : "text-[#F97316]"}`} />
               </div>
               <span className="font-semibold text-foreground">THRILL</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight mt-1">
+                Adventure ready. Payments pre-loaded and identity verification.
+              </p>
             </button>
 
             {/* AFTER DARK Button */}
@@ -349,6 +361,9 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               </div>
               <span className="font-semibold text-foreground">AFTER DARK</span>
               <span className="text-[10px] text-muted-foreground">18+</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight">
+                Entertainment access. Zero data exposed. Flow through entry.
+              </p>
             </button>
           </div>
 

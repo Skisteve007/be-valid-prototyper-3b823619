@@ -176,24 +176,6 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Mode Switcher Buttons */}
-          <div className="mt-10 flex justify-center md:justify-start gap-3 flex-wrap">
-             <ModeBtn mode="access" active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={18}/>} label="ACCESS" />
-             <ModeBtn mode="travel" active={activeMode === 'travel'} onClick={() => setActiveMode('travel')} icon={<Plane size={18}/>} label="TRAVEL" />
-             <ModeBtn mode="ghost" active={activeMode === 'ghost'} onClick={() => setActiveMode('ghost')} icon={<Ghost size={18}/>} label="GHOST™" />
-          </div>
-          
-          {/* Dynamic Description Text */}
-          <div className="mt-4 h-8 flex items-center justify-center md:justify-start">
-            <p 
-              key={activeMode}
-              className="text-sm text-gray-400 animate-fade-in"
-            >
-              {activeMode === 'access' && "Instant entry. Verify identity and pay with one tap."}
-              {activeMode === 'travel' && "Global movement. Seamless check-ins for transit, hotels, and flights."}
-              {activeMode === 'ghost' && "Ghost™ Protocol active. Tokenized identity & payments. Mask your data."}
-            </p>
-          </div>
         </div>
 
         {/* RIGHT: THE PORTAL VIDEO (Fixed Visibility) */}

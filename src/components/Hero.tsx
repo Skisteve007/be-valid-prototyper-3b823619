@@ -117,12 +117,12 @@ const Hero = () => {
           
           {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button 
-              onClick={() => navigate('/access-portal')}
+            <Link 
+              to="/access-portal"
               className="px-8 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 min-h-[52px]"
             >
               CLAIM YOUR ID <ArrowRight size={18} />
-            </button>
+            </Link>
           </div>
 
           {/* Mode Switcher Buttons */}

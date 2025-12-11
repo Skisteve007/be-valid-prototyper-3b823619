@@ -216,73 +216,73 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                 />
                 
                 {/* Phone Screen Content */}
-                <div className="relative h-full p-6 flex flex-col">
+                <div className="relative h-full p-3 flex flex-col">
                   
                   {/* Status Bar */}
-                  <div className={`flex justify-between items-center mb-6 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                    <span className="text-xs font-mono">9:41</span>
-                    <div className="flex items-center gap-2">
-                      <Wifi size={14} />
-                      <Battery size={14} />
+                  <div className={`flex justify-between items-center mb-3 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+                    <span className="text-[10px] font-mono">9:41</span>
+                    <div className="flex items-center gap-1">
+                      <Wifi size={10} />
+                      <Battery size={10} />
                     </div>
                   </div>
 
                   {/* VALID Logo */}
-                  <div className="text-center mb-6">
-                    <h3 className={`text-2xl font-black font-orbitron tracking-wider ${currentMode.color}`}
+                  <div className="text-center mb-3">
+                    <h3 className={`text-lg font-black font-orbitron tracking-wider ${currentMode.color}`}
                       style={{ textShadow: `0 0 20px ${activeMode === 'social' ? 'rgba(59,130,246,0.5)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.5)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.5)' : 'rgba(168,85,247,0.5)'}` }}>
                       VALID™
                     </h3>
-                    <div className={`text-[10px] font-mono tracking-[0.3em] ${isDark ? 'text-gray-500' : 'text-slate-400'}`}>
+                    <div className={`text-[8px] font-mono tracking-[0.2em] ${isDark ? 'text-gray-500' : 'text-slate-400'}`}>
                       VALID-ID
                     </div>
                   </div>
 
                   {/* Profile Card */}
-                  <div className={`flex-1 rounded-3xl border p-5 transition-all duration-500 backdrop-blur-sm
+                  <div className={`flex-1 rounded-2xl border p-3 transition-all duration-500 backdrop-blur-sm
                     ${isDark ? 'bg-black/40' : 'bg-white/60'} ${currentMode.borderColor}`}>
                     
                     {/* Avatar with Pulse Ring */}
-                    <div className="flex justify-center mb-4 relative">
-                      <div className={`absolute w-24 h-24 rounded-full border-2 opacity-50 ${currentMode.borderColor}`}
+                    <div className="flex justify-center mb-2 relative">
+                      <div className={`absolute w-14 h-14 rounded-full border-2 opacity-50 ${currentMode.borderColor}`}
                         style={{ animation: 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite' }} />
-                      <div className={`w-20 h-20 rounded-full border-4 flex items-center justify-center transition-all duration-500 relative z-10
+                      <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-500 relative z-10
                         ${currentMode.borderColor} ${currentMode.bgGradient}`}>
-                        <Smartphone size={32} className={currentMode.color} />
+                        <Smartphone size={20} className={currentMode.color} />
                       </div>
                     </div>
 
                     {/* Status Badge */}
-                    <div className={`text-center mb-4`}>
-                      <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-bold tracking-widest
+                    <div className={`text-center mb-2`}>
+                      <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-[8px] font-bold tracking-wider
                         ${currentMode.borderColor} border ${currentMode.color}`}
-                        style={{ boxShadow: `0 0 15px ${activeMode === 'social' ? 'rgba(59,130,246,0.3)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.3)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.3)' : 'rgba(168,85,247,0.3)'}` }}>
-                        <div className={`w-2 h-2 rounded-full animate-pulse ${currentMode.color.replace('text-', 'bg-')}`} />
+                        style={{ boxShadow: `0 0 10px ${activeMode === 'social' ? 'rgba(59,130,246,0.3)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.3)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.3)' : 'rgba(168,85,247,0.3)'}` }}>
+                        <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${currentMode.color.replace('text-', 'bg-')}`} />
                         {currentMode.statusText}
                       </div>
                     </div>
 
                     {/* Mode Icon */}
-                    <div className="flex justify-center mb-4">
-                      <div className={`p-4 rounded-2xl transition-all duration-500 ${currentMode.borderColor} border`}
-                        style={{ boxShadow: `inset 0 0 20px ${activeMode === 'social' ? 'rgba(59,130,246,0.2)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.2)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.2)' : 'rgba(168,85,247,0.2)'}` }}>
+                    <div className="flex justify-center mb-2">
+                      <div className={`p-2 rounded-xl transition-all duration-500 ${currentMode.borderColor} border`}
+                        style={{ boxShadow: `inset 0 0 15px ${activeMode === 'social' ? 'rgba(59,130,246,0.2)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.2)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.2)' : 'rgba(168,85,247,0.2)'}` }}>
                         <div className={`${currentMode.color}`}>
-                          {React.cloneElement(currentMode.icon as React.ReactElement, { size: 40 })}
+                          {React.cloneElement(currentMode.icon as React.ReactElement, { size: 24 })}
                         </div>
                       </div>
                     </div>
 
                     {/* Verified Shield */}
                     <div className="flex justify-center">
-                      <div className={`flex items-center gap-2 text-xs font-mono ${isDark ? 'text-white/80' : 'text-slate-600'}`}>
-                        <Shield size={14} className="text-green-400" style={{ filter: 'drop-shadow(0 0 6px rgba(34,197,94,0.6))' }} />
+                      <div className={`flex items-center gap-1 text-[10px] font-mono ${isDark ? 'text-white/80' : 'text-slate-600'}`}>
+                        <Shield size={10} className="text-green-400" style={{ filter: 'drop-shadow(0 0 4px rgba(34,197,94,0.6))' }} />
                         VERIFIED
                       </div>
                     </div>
                   </div>
 
                   {/* Bottom Bar */}
-                  <div className={`mt-4 h-1 w-1/3 mx-auto rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-300'}`} />
+                  <div className={`mt-2 h-0.5 w-1/3 mx-auto rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-300'}`} />
                 </div>
               </div>
 

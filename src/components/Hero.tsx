@@ -91,25 +91,28 @@ const Hero = () => {
   return (
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
       
-      {/* 1. NAVBAR (RESTORED Partner Button) */}
-      <nav className="w-full px-4 md:px-6 py-4 md:py-6 z-50 relative">
-        {/* Mobile: Logo centered, actions below */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-0">
-          {/* THE LOGO - Centered on mobile */}
-          <div className="text-2xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer text-center md:text-left">
-            VALID<sup className="text-xs md:text-sm text-cyan-400">™</sup>
+      {/* 1. NAVBAR - Fixed mobile visibility */}
+      <nav className="w-full px-[15px] md:px-6 py-[10px] md:py-6 z-50 relative">
+        {/* Mobile: Single row with logo centered, actions on right */}
+        <div className="flex items-center justify-between md:justify-between gap-2">
+          {/* Spacer for mobile to center logo */}
+          <div className="w-[80px] md:hidden" />
+          
+          {/* THE LOGO - Centered on mobile via flex */}
+          <div className="text-xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer flex-shrink-0">
+            VALID<sup className="text-[8px] md:text-sm text-cyan-400">™</sup>
           </div>
           
-          {/* Navigation Actions - Centered on mobile */}
-          <div className="flex gap-2 md:gap-4 items-center justify-center md:justify-end">
+          {/* Navigation Actions - Always visible on right */}
+          <div className="flex gap-1.5 md:gap-4 items-center justify-end flex-shrink-0">
             <LanguageSelector />
-            {/* For Partners Link - visible on all screens */}
-            <Link to="/partners" className="text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
+            {/* For Partners Link - hidden on very small screens */}
+            <Link to="/partners" className="hidden sm:block text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
               {t('nav.partners')}
             </Link>
             <button 
               onClick={handleAccessClick}
-              className="px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[10px] md:text-xs whitespace-nowrap relative z-50"
+              className="px-2.5 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[9px] md:text-xs whitespace-nowrap relative z-50"
             >
               {t('nav.memberLogin')}
             </button>
@@ -118,7 +121,7 @@ const Hero = () => {
       </nav>
 
       {/* 2. MAIN CONTENT */}
-      <div className="flex-1 flex flex-col md:flex-row items-start md:items-center justify-center w-full max-w-7xl px-6 z-10 gap-8 md:gap-16 mt-4">
+      <div className="flex-1 flex flex-col md:flex-row items-start md:items-center justify-center w-full max-w-7xl px-[15px] md:px-6 z-10 gap-8 md:gap-16 mt-4">
         
         {/* LEFT: THE PITCH */}
         <div className="flex-1 text-center md:text-left order-2 md:order-1">
@@ -216,9 +219,9 @@ const Hero = () => {
 
         </div>
 
-        {/* RIGHT: THE PORTAL VIDEO (Fixed Visibility) */}
-        <div className="flex-1 flex justify-center order-1 md:order-2 md:-mt-96">
-          <div className="relative group w-[300px] md:w-[380px] aspect-[4/5]">
+        {/* RIGHT: THE PORTAL VIDEO (Fixed Visibility & Centering) */}
+        <div className="flex-1 flex justify-center order-1 md:order-2 md:-mt-96 w-full">
+          <div className="relative group w-[280px] md:w-[380px] aspect-[4/5] mx-auto">
             
             {/* The Glow Behind */}
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>

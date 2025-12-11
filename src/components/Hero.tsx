@@ -155,7 +155,7 @@ const Hero = () => {
 
           {/* Signal Selection Buttons */}
           <div className="mt-8">
-            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-center md:text-left">SELECT YOUR SIGNAL</p>
+            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-center md:text-left animate-pulse drop-shadow-[0_0_8px_rgba(0,240,255,0.6)]">SELECT YOUR SIGNAL</p>
             <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto md:mx-0">
               {(Object.keys(signalModes) as SignalMode[]).map((key) => {
                 const mode = signalModes[key];

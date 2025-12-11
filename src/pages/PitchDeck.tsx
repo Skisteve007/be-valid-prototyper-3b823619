@@ -1098,45 +1098,6 @@ const PitchDeck = () => {
                         </div>
                       </div>
 
-                      <div className="border-t border-gray-700 pt-6 mt-6">
-                        <h4 className="text-base font-bold text-white uppercase tracking-wider mb-4">
-                          How to Protect Yourself "Offline" (The Paperwork)
-                        </h4>
-                        <p className="mb-4 text-gray-400">Putting it on the website is Step 1. Step 2 is how you actually sign the documents.</p>
-                        
-                        <div className="space-y-4">
-                          <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50">
-                            <h5 className="font-bold text-cyan-400 mb-2">1. The "Corporate Veil" Signature</h5>
-                            <p className="mb-3">When you sign the check or the SAFE agreement, NEVER just sign your name.</p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                              <div className="bg-red-950/30 border border-red-500/30 rounded-lg p-3">
-                                <span className="text-red-400 font-bold flex items-center gap-2 mb-1">
-                                  <X className="h-4 w-4" /> Wrong:
-                                </span>
-                                <span className="text-gray-400">User Name</span>
-                              </div>
-                              <div className="bg-green-950/30 border border-green-500/30 rounded-lg p-3">
-                                <span className="text-green-400 font-bold flex items-center gap-2 mb-1">
-                                  <Check className="h-4 w-4" /> Right:
-                                </span>
-                                <span className="text-gray-400">User Name, CEO, Giant Ventures LLC</span>
-                              </div>
-                            </div>
-                            <p className="mt-3 text-gray-400 text-xs">By adding "CEO" and the Company Name, you are signing as an employee of the corporation, not as a private citizen. This creates the "Corporate Veil." If they sue, they sue the title, not the man.</p>
-                          </div>
-                          
-                          <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50">
-                            <h5 className="font-bold text-red-400 mb-2">2. The "Bad Boy" Clause (Do Not Do This)</h5>
-                            <p className="mb-3">You lose your protection if you:</p>
-                            <ul className="list-disc list-inside space-y-1 text-gray-400 ml-2">
-                              <li>Use the money for personal vacations.</li>
-                              <li>Lie about what the tech can do (Fraud).</li>
-                              <li>Commingle funds (Mix personal and business cash).</li>
-                            </ul>
-                            <p className="mt-3 text-green-400 text-xs font-medium">As long as you stay clean on those three things, you are protected from debt if the company fails.</p>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </AccordionContent>
                 </AccordionItem>

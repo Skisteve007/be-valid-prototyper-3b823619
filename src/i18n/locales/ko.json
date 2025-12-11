@@ -111,12 +111,21 @@
   },
   "footer": {
     "copyright": "© {{year}} VALID™. 모든 권리 보유.",
+    "copyrightFull": "© 2025 VALID™. 모든 권리 보유. Valid™, Ghost™, The Safety Shield™, Dual-Verification System™ 등록 대기 상표. 미국 저작권법에 의해 보호.",
     "terms": "서비스 약관",
     "privacy": "개인정보 보호정책",
     "refund": "환불 정책",
     "partners": "파트너 솔루션",
     "trademarks": "Valid™, Ghost Token™, The Safety Shield™는 등록 대기 중인 상표입니다.",
-    "disclaimer": "VALID는 기술 플랫폼이며 의료 서비스 제공자가 아닙니다."
+    "disclaimer": "VALID는 기술 플랫폼이며 의료 서비스 제공자가 아닙니다.",
+    "disclaimerLabel": "면책 조항:",
+    "disclaimerText": "Valid™는 기술 플랫폼이며 의료 서비스 제공자가 아닙니다. 서비스는 정보 제공 목적으로만 제공됩니다. 모든 테스트는 독립적인 CLIA 인증 실험실에서 수행됩니다. HIPAA 준수. PHI를 판매하지 않습니다.",
+    "legalNoticeLabel": "법적 고지 및 소유권:",
+    "legalNoticeText": "Valid™ 플랫폼, Ghost™ 프라이버시 아키텍처 및 모든 관련 방법론, 알고리즘, 인터페이스 디자인은 Valid™의 독점적 지적 재산입니다. 이러한 개념은 보통법 상표권과 계류 중인 특허 출원에 의해 보호됩니다. 이 플랫폼에 접근함으로써 기밀 및 독점 정보를 보고 있음을 인정합니다. Valid™ 또는 Ghost™ 개념의 무단 복사, 리버스 엔지니어링 또는 복제는 기소됩니다. 이 사이트는 승인된 데모 목적으로만 사용됩니다.",
+    "selectLanguage": "언어 선택",
+    "ageRequirement": "모든 사용자 18세 이상",
+    "admin": "관리자",
+    "adminPanel": "관리자 패널"
   },
   "auth": {
     "welcomeBack": "다시 오신 것을 환영합니다",

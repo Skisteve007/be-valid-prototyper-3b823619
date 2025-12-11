@@ -73,13 +73,15 @@ const Hero = () => {
           <Link to="/partners" className="text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
             Partners
           </Link>
-          <Link 
-            to="/access-portal"
-            onClick={() => console.log('Member Login clicked - navigating to /access-portal')}
+          <button 
+            onClick={() => {
+              console.log('Member Login clicked');
+              navigate('/access-portal');
+            }}
             className="px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[10px] md:text-xs whitespace-nowrap relative z-50"
           >
             Member Login
-          </Link>
+          </button>
         </div>
       </nav>
 
@@ -118,13 +120,15 @@ const Hero = () => {
           
           {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start relative z-50">
-            <Link 
-              to="/access-portal"
-              onClick={() => console.log('CLAIM YOUR ID clicked - navigating to /access-portal')}
+            <button 
+              onClick={() => {
+                console.log('CLAIM YOUR ID clicked');
+                navigate('/access-portal');
+              }}
               className="px-8 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 min-h-[52px] relative z-50"
             >
               CLAIM YOUR ID <ArrowRight size={18} />
-            </Link>
+            </button>
           </div>
 
           {/* Mode Switcher Buttons */}

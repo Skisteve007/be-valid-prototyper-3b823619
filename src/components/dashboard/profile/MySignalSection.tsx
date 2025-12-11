@@ -3,7 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Users, Activity, Zap, Ghost, Radio } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,7 +16,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-type SignalMode = "social" | "pulse" | "thrill" | "afterdark" | null;
+type SignalMode = "social" | "pulse" | "thrill" | "afterdark" | "location" | null;
 
 interface MySignalSectionProps {
   vibeMetadata: Record<string, any>;
@@ -85,11 +86,21 @@ const AFTERDARK_OPTIONS = {
   breakfastPlans: ["Prefer It", "My Place Only", "Hotels Only", "Sometimes", "Never", "Required"],
 };
 
+const LOCATION_DURATIONS = [
+  { value: "15", label: "15 Minutes" },
+  { value: "60", label: "1 Hour" },
+  { value: "360", label: "6 Hours" },
+  { value: "720", label: "12 Hours" },
+];
+
 const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChange }: MySignalSectionProps) => {
   const [selectedMode, setSelectedMode] = useState<SignalMode>(vibeMetadata?.mode || null);
   const [showAgeWarning, setShowAgeWarning] = useState(false);
   const [pendingMode, setPendingMode] = useState<SignalMode>(null);
   const [localMetadata, setLocalMetadata] = useState<Record<string, any>>(vibeMetadata || {});
+  const [locationDuration, setLocationDuration] = useState<string | null>(null);
+  const [locationActive, setLocationActive] = useState(false);
+  const [locationExpiry, setLocationExpiry] = useState<Date | null>(null);
 
   useEffect(() => {
     if (vibeMetadata?.mode) {
@@ -128,9 +139,48 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       case "afterdark":
         onStatusColorChange("purple");
         break;
+      case "location":
+        onStatusColorChange("red");
+        break;
       default:
         onStatusColorChange("gray");
     }
+  };
+
+  const activateLocationShare = () => {
+    if (!locationDuration) return;
+    
+    const durationMinutes = parseInt(locationDuration);
+    const expiry = new Date(Date.now() + durationMinutes * 60 * 1000);
+    setLocationExpiry(expiry);
+    setLocationActive(true);
+    
+    const newMetadata = { 
+      ...localMetadata, 
+      mode: "location",
+      location_duration: durationMinutes,
+      location_expiry: expiry.toISOString()
+    };
+    setLocalMetadata(newMetadata);
+    onVibeMetadataChange(newMetadata);
+    onStatusColorChange("red");
+  };
+
+  const deactivateLocationShare = () => {
+    setLocationActive(false);
+    setLocationExpiry(null);
+    setLocationDuration(null);
+    
+    const newMetadata = { 
+      ...localMetadata, 
+      mode: null,
+      location_duration: null,
+      location_expiry: null
+    };
+    setLocalMetadata(newMetadata);
+    onVibeMetadataChange(newMetadata);
+    onStatusColorChange("gray");
+    setSelectedMode(null);
   };
 
   const handleConfirmAge = () => {
@@ -270,8 +320,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             </div>
           </div>
 
-          {/* 4-Button Grid with Descriptions */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {/* 5-Button Grid with Descriptions */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {/* SOCIAL Button */}
             <button
               type="button"
@@ -313,6 +363,10 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               @keyframes breathe-purple {
                 0%, 100% { box-shadow: 0 0 10px 4px rgba(168, 85, 247, 0.3); }
                 50% { box-shadow: 0 0 25px 12px rgba(168, 85, 247, 0.6); }
+              }
+              @keyframes breathe-red {
+                0%, 100% { box-shadow: 0 0 10px 4px rgba(239, 68, 68, 0.3); }
+                50% { box-shadow: 0 0 25px 12px rgba(239, 68, 68, 0.6); }
               }
             `}</style>
 
@@ -399,7 +453,96 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 Entertainment access. Zero data exposed. Flow through entry.
               </p>
             </button>
+
+            {/* LIVE LOCATION PULSE Button */}
+            <button
+              type="button"
+              onClick={() => handleModeSelect("location")}
+              className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                selectedMode === "location"
+                  ? "border-red-400 bg-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+                  : "border-red-400/50 bg-card hover:border-red-400 hover:bg-red-500/10"
+              }`}
+            >
+              <div className="relative flex items-center gap-2">
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                    selectedMode === "location" ? "bg-red-500" : "bg-red-500/20"
+                  }`}
+                  style={selectedMode === "location" ? {
+                    animation: "breathe-red 2s ease-in-out infinite",
+                  } : undefined}
+                >
+                  <MapPin className={`w-6 h-6 ${selectedMode === "location" ? "text-white" : "text-red-400"}`} />
+                </div>
+                {locationActive && (
+                  <span className="text-[9px] font-bold text-red-400 bg-red-500/20 px-1.5 py-0.5 rounded-full border border-red-400/50 animate-pulse">LIVE</span>
+                )}
+              </div>
+              <span className="font-semibold text-foreground text-xs">LOCATION PULSE</span>
+              <p className="text-xs text-muted-foreground text-center leading-snug">
+                Share live location. Time-limited encrypted token.
+              </p>
+            </button>
           </div>
+
+          {/* Location Duration Controls */}
+          {selectedMode === "location" && (
+            <div className="mt-4 p-4 rounded-xl border-2 border-red-400/50 bg-red-500/10">
+              <div className="flex items-center gap-2 mb-3">
+                <Clock className="w-5 h-5 text-red-400" />
+                <h4 className="font-semibold text-red-400">Select Share Duration</h4>
+              </div>
+              
+              {!locationActive ? (
+                <>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+                    {LOCATION_DURATIONS.map((duration) => (
+                      <button
+                        key={duration.value}
+                        type="button"
+                        onClick={() => setLocationDuration(duration.value)}
+                        className={`p-3 rounded-lg border transition-all text-sm font-medium ${
+                          locationDuration === duration.value
+                            ? "border-red-400 bg-red-500/30 text-red-400"
+                            : "border-border bg-card text-foreground hover:border-red-400/50"
+                        }`}
+                      >
+                        {duration.label}
+                      </button>
+                    ))}
+                  </div>
+                  <Button
+                    onClick={activateLocationShare}
+                    disabled={!locationDuration}
+                    className="w-full bg-red-500 hover:bg-red-600 text-white disabled:opacity-50"
+                  >
+                    <MapPin className="w-4 h-4 mr-2" />
+                    Activate Live Location Share
+                  </Button>
+                </>
+              ) : (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-red-500/20 border border-red-400">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+                      <span className="text-red-400 font-semibold">Location Sharing Active</span>
+                    </div>
+                    <span className="text-xs text-red-400">
+                      Expires: {locationExpiry?.toLocaleTimeString()}
+                    </span>
+                  </div>
+                  <Button
+                    onClick={deactivateLocationShare}
+                    variant="outline"
+                    className="w-full border-red-400 text-red-400 hover:bg-red-500/20"
+                  >
+                    Stop Sharing Location
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Dynamic Dropdowns */}
           {selectedMode === "social" && renderSocialDropdowns()}

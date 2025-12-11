@@ -144,7 +144,7 @@ const Index = () => {
             Access the full platform, create your profile, and get verified.
           </p>
           <button
-            onClick={() => navigate('/auth')}
+            onClick={() => navigate('/access-portal')}
             className={`px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 uppercase tracking-widest
               ${isDark 
                 ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_30px_rgba(0,240,255,0.4)] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)]' 

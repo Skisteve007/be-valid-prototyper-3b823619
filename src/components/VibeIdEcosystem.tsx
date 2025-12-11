@@ -142,29 +142,29 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                 const config = signalModes[mode];
                 const isActive = activeMode === mode;
                 
-                return (
-                  <button
-                    key={mode}
-                    onClick={() => setActiveMode(mode)}
-                    className={`flex items-center justify-center gap-2 px-4 py-3 rounded-full font-semibold text-sm transition-all duration-300 border
-                      ${isActive 
-                        ? `${config.color} ${config.borderColor} bg-white/5 ${config.glowColor}` 
-                        : `${isDark ? 'text-gray-400 border-white/10 hover:border-white/30' : 'text-slate-500 border-slate-200 hover:border-slate-400'}`
-                      }`}
-                  >
-                    {config.icon}
-                    <span className="tracking-wider text-xs">{config.name}</span>
-                  </button>
-                );
-              })}
+                  return (
+                    <button
+                      key={mode}
+                      onClick={() => setActiveMode(mode)}
+                      className={`flex items-center justify-center gap-2 px-4 py-3 rounded-full font-semibold text-sm transition-all duration-300 border
+                        ${isActive 
+                          ? `${config.color} ${config.borderColor} bg-white/10 ${config.glowColor}` 
+                          : `${isDark ? 'text-white/80 border-white/20 hover:border-white/40 hover:text-white' : 'text-slate-700 border-slate-300 hover:border-slate-500'}`
+                        }`}
+                    >
+                      {config.icon}
+                      <span className="tracking-wider text-xs">{config.name}</span>
+                    </button>
+                  );
+                })}
             </div>
 
             {/* Description Display */}
-            <div className={`p-6 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'}`}>
+            <div className={`p-6 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-black/40 border-white/20' : 'bg-white border-slate-200'}`}>
               <div className={`text-xs font-mono tracking-widest uppercase mb-3 ${currentMode.color}`}>
                 {currentMode.tagline}
               </div>
-              <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+              <p className={`text-sm leading-relaxed ${isDark ? 'text-white/90' : 'text-slate-700'}`}>
                 {currentMode.description}
               </p>
             </div>
@@ -312,7 +312,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
 
                     {/* Verified Shield */}
                     <div className="flex justify-center">
-                      <div className={`flex items-center gap-2 text-xs font-mono ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+                      <div className={`flex items-center gap-2 text-xs font-mono ${isDark ? 'text-white/80' : 'text-slate-600'}`}>
                         <Shield size={14} className="text-green-400" style={{ filter: 'drop-shadow(0 0 6px rgba(34,197,94,0.6))' }} />
                         VERIFIED
                       </div>

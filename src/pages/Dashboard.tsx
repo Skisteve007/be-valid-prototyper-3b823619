@@ -6,14 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Home, FlaskConical, ShieldCheck, ArrowUp, Share2 } from "lucide-react";
+import { LogOut, User as UserIcon, Award, QrCode, Home, FlaskConical, ShieldCheck, ArrowUp, Share2 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
 import QRCodeTab from "@/components/dashboard/QRCodeTab";
-import PendingReferencesTab from "@/components/dashboard/PendingReferencesTab";
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
 import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
@@ -39,7 +38,7 @@ const Dashboard = () => {
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
 
-  const tabs = ["profile", "certifications", "qrcode", "references", "lab-verification", "safety-screen"];
+  const tabs = ["profile", "certifications", "qrcode", "lab-verification", "safety-screen"];
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -246,13 +245,6 @@ const Dashboard = () => {
                       <span className="text-sm">QR Code</span>
                     </TabsTrigger>
                     <TabsTrigger 
-                      value="references"
-                      className="py-2.5 px-4 rounded-lg transition-all text-[#E0E0FF]/70 data-[state=active]:bg-[#00FFC2]/20 data-[state=active]:text-[#00FFC2] data-[state=active]:shadow-[0_0_15px_rgba(0,255,194,0.3)] data-[state=active]:border data-[state=active]:border-[#00FFC2]/40 touch-manipulation whitespace-nowrap"
-                    >
-                      <UserCheck className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">References</span>
-                    </TabsTrigger>
-                    <TabsTrigger 
                       value="lab-verification"
                       className="py-2.5 px-4 rounded-lg transition-all text-[#E0E0FF]/70 data-[state=active]:bg-[#00FFC2]/20 data-[state=active]:text-[#00FFC2] data-[state=active]:shadow-[0_0_15px_rgba(0,255,194,0.3)] data-[state=active]:border data-[state=active]:border-[#00FFC2]/40 touch-manipulation whitespace-nowrap"
                     >
@@ -287,9 +279,6 @@ const Dashboard = () => {
                   <QRCodeTab key={qrRefreshKey} userId={user.id} />
                 </TabsContent>
                 
-                <TabsContent value="references">
-                  <PendingReferencesTab userId={user.id} />
-                </TabsContent>
                 
                 <TabsContent value="lab-verification">
                   <LabVerificationTab userId={user.id} />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Users, Activity, Zap, Moon, Shield, CreditCard, Eye, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import validNetworkHologram from '@/assets/valid-network-hologram.png';
+
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
 interface SignalModeConfig {

@@ -80,7 +80,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
     : t('network.descriptionB2b');
 
   return (
-    <section className={`py-24 px-4 relative z-10 transition-colors duration-500 overflow-hidden
+    <section className={`py-12 md:py-16 px-4 relative z-10 transition-colors duration-500 overflow-hidden
       ${isDark ? 'bg-[#0a0a0a]' : 'bg-slate-100'}`}>
       
       {/* Animation Keyframes */}
@@ -110,19 +110,19 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
       <div className="max-w-7xl mx-auto relative">
         
         {/* Section Header */}
-        <div className="text-center mb-6">
-          <div className={`inline-block px-6 py-2 mb-4 border rounded-full text-sm font-mono tracking-[0.2em] uppercase
+        <div className="text-center mb-4">
+          <div className={`inline-block px-6 py-2 mb-2 border rounded-full text-sm font-mono tracking-[0.2em] uppercase
             ${isDark ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10' : 'border-blue-600/30 text-blue-600 bg-blue-50'}`}>
             {t('network.title')}
           </div>
-          <h2 className={`text-3xl md:text-5xl font-black mb-2 font-orbitron
+          <h2 className={`text-3xl md:text-5xl font-black mb-0 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
             {headline}
           </h2>
         </div>
 
         {/* Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
           
           {/* LEFT: Text & Mode Buttons */}
           <div className="order-2 lg:order-1">

@@ -300,7 +300,7 @@ const Dashboard = () => {
       </Button>
 
       {/* Ghost Pass Floating Action Button & Modal */}
-      <GhostPassModal userId={user.id} balance={150.00} spentAtVenue={0} />
+      <GhostPassModal userId={user.id} />
     </div>
   );
 };

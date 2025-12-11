@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Globe, EyeOff, Ghost } from 'lucide-react';
+import { Sun, Moon, Globe, Ghost } from 'lucide-react';
 import militaryFortressCard from '@/assets/military-fortress-card.jpg';
+import yourDataYourRulesCard from '@/assets/your-data-your-rules-card.jpg';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
@@ -123,13 +124,13 @@ const Index = () => {
               desc="One Key. Universal Acceptance at Any VALID Portal. Skip the manual check Points of Entry, Airports, Entertainment Venues, Public Agencies, and Corporate Zones Worldwide."
               color="cyan"
             />
-            <FeatureCard 
-              isDark={isDark}
-              icon={<EyeOff size={32}/>}
-              title="Your Data. Your Rules."
-              desc="Ghost™ Protocol Enabled. Context-aware sharing: Reveal only what's required (age, health, or clearance) while keeping your choice records invisible."
-              color="purple"
-            />
+            <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105">
+              <img 
+                src={yourDataYourRulesCard} 
+                alt="Your Data. Your Rules. Ghost Protocol Enabled. Context-aware sharing."
+                className="w-full h-full object-cover"
+              />
+            </div>
             <FeatureCard 
               isDark={isDark}
               icon={<Ghost size={32}/>}

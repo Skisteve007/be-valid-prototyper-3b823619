@@ -278,14 +278,17 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("social")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "social"
-                  ? "border-cyan-400 bg-cyan-500/20 shadow-[0_0_15px_rgba(0,240,255,0.4)] animate-pulse"
+                  ? "border-cyan-400 bg-cyan-500/20 shadow-[0_0_15px_rgba(0,240,255,0.4)]"
                   : "border-cyan-400/50 bg-card hover:border-cyan-400 hover:bg-cyan-500/10"
               }`}
             >
               <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                  selectedMode === "social" ? "bg-cyan-500 shadow-[0_0_20px_8px_rgba(0,240,255,0.4)]" : "bg-cyan-500/20"
+                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                  selectedMode === "social" ? "bg-cyan-500 animate-[breathe-cyan_2s_ease-in-out_infinite]" : "bg-cyan-500/20"
                 }`}
+                style={selectedMode === "social" ? {
+                  animation: "breathe-cyan 2s ease-in-out infinite",
+                } : undefined}
               >
                 <Users className={`w-6 h-6 ${selectedMode === "social" ? "text-white" : "text-cyan-400"}`} />
               </div>
@@ -294,6 +297,24 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 Open to connect. Share contacts and socials with one scan.
               </p>
             </button>
+            <style>{`
+              @keyframes breathe-cyan {
+                0%, 100% { box-shadow: 0 0 10px 4px rgba(0, 240, 255, 0.3); }
+                50% { box-shadow: 0 0 25px 12px rgba(0, 240, 255, 0.6); }
+              }
+              @keyframes breathe-green {
+                0%, 100% { box-shadow: 0 0 10px 4px rgba(34, 197, 94, 0.3); }
+                50% { box-shadow: 0 0 25px 12px rgba(34, 197, 94, 0.6); }
+              }
+              @keyframes breathe-orange {
+                0%, 100% { box-shadow: 0 0 10px 4px rgba(249, 115, 22, 0.3); }
+                50% { box-shadow: 0 0 25px 12px rgba(249, 115, 22, 0.6); }
+              }
+              @keyframes breathe-purple {
+                0%, 100% { box-shadow: 0 0 10px 4px rgba(168, 85, 247, 0.3); }
+                50% { box-shadow: 0 0 25px 12px rgba(168, 85, 247, 0.6); }
+              }
+            `}</style>
 
             {/* PULSE Button */}
             <button
@@ -301,15 +322,18 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("pulse")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "pulse"
-                  ? "border-green-400 bg-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.4)] animate-pulse"
+                  ? "border-green-400 bg-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.4)]"
                   : "border-green-400/50 bg-card hover:border-green-400 hover:bg-green-500/10"
               }`}
             >
               <div className="relative flex items-center gap-2">
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                    selectedMode === "pulse" ? "bg-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.4)]" : "bg-green-500/20"
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                    selectedMode === "pulse" ? "bg-green-500" : "bg-green-500/20"
                   }`}
+                  style={selectedMode === "pulse" ? {
+                    animation: "breathe-green 2s ease-in-out infinite",
+                  } : undefined}
                 >
                   <Activity className={`w-6 h-6 ${selectedMode === "pulse" ? "text-white" : "text-green-400"}`} />
                 </div>
@@ -327,14 +351,17 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("thrill")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "thrill"
-                  ? "border-orange-400 bg-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.4)] animate-pulse"
+                  ? "border-orange-400 bg-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.4)]"
                   : "border-orange-400/50 bg-card hover:border-orange-400 hover:bg-orange-500/10"
               }`}
             >
               <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                  selectedMode === "thrill" ? "bg-orange-500 shadow-[0_0_20px_8px_rgba(249,115,22,0.4)]" : "bg-orange-500/20"
+                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                  selectedMode === "thrill" ? "bg-orange-500" : "bg-orange-500/20"
                 }`}
+                style={selectedMode === "thrill" ? {
+                  animation: "breathe-orange 2s ease-in-out infinite",
+                } : undefined}
               >
                 <Zap className={`w-6 h-6 ${selectedMode === "thrill" ? "text-white" : "text-orange-400"}`} />
               </div>
@@ -350,15 +377,18 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("afterdark")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "afterdark"
-                  ? "border-purple-400 bg-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.4)] animate-pulse"
+                  ? "border-purple-400 bg-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.4)]"
                   : "border-purple-400/50 bg-card hover:border-purple-400 hover:bg-purple-500/10"
               }`}
             >
               <div className="relative flex items-center gap-2">
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                    selectedMode === "afterdark" ? "bg-purple-500 shadow-[0_0_20px_8px_rgba(168,85,247,0.4)]" : "bg-purple-500/20"
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                    selectedMode === "afterdark" ? "bg-purple-500" : "bg-purple-500/20"
                   }`}
+                  style={selectedMode === "afterdark" ? {
+                    animation: "breathe-purple 2s ease-in-out infinite",
+                  } : undefined}
                 >
                   <Ghost className={`w-6 h-6 ${selectedMode === "afterdark" ? "text-white" : "text-purple-400"}`} />
                 </div>

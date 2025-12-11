@@ -182,5 +182,21 @@
     "chargedAs": "Cobrado como",
     "selectPlan": "SELECCIONAR PLAN",
     "buyAnnual": "COMPRAR 1 AÑO"
+  },
+  "standard": {
+    "title": "EL ESTÁNDAR VALID™",
+    "titleHighlight": "ESTÁNDAR",
+    "subtitle": "Diseñado para humanos, no para datos.",
+    "militaryFortressAlt": "Fortaleza de Grado Militar - Fortaleza digital habilitada. Encriptación de confianza cero impenetrable. Tu identidad está bloqueada.",
+    "acceptedAnywhere": "Aceptado en Todas Partes",
+    "acceptedAnywhereDesc": "Una Llave. Aceptación Universal en Cualquier Portal VALID. Salta los puntos de control manuales en Aeropuertos, Lugares de Entretenimiento, Agencias Públicas y Zonas Corporativas en Todo el Mundo.",
+    "yourDataAlt": "Tus Datos. Tus Reglas. Protocolo Ghost Habilitado. Compartición contextual.",
+    "instantFinancial": "Acceso Financiero Instantáneo",
+    "instantFinancialDesc": "Flujo de Fondos Sin Fricción. Carga una vez, gasta en cualquier lugar. Paga al instante en cualquier POS usando tu Ghost™ Token. Fondos seguros en una bóveda FBO segregada. Cero comisiones, cero contracargos. Tu liquidez se mueve a la velocidad de la luz."
+  },
+  "cta": {
+    "ready": "¿Listo para Experimentar",
+    "accessPlatform": "Accede a la plataforma completa, crea tu perfil y verifícate.",
+    "loginButton": "Iniciar Sesión para Ver Plataforma"
   }
 }

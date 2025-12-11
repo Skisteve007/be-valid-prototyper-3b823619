@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sun, Moon, Globe, Ghost } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import militaryFortressCard from '@/assets/military-fortress-card.jpg';
 import yourDataYourRulesCard from '@/assets/your-data-your-rules-card.jpg';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
@@ -9,6 +10,7 @@ import VibeIdEcosystem from "@/components/VibeIdEcosystem";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   useReferralTracking();
 
   // --- THEME ENGINE ---
@@ -100,11 +102,11 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className={`text-3xl md:text-4xl font-bold mb-4 font-orbitron tracking-wide
               ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              THE VALID<sup className="text-sm text-cyan-400">™</sup> <span className="text-cyan-400">STANDARD</span>
+              {t('standard.title')} <span className="text-cyan-400">{t('standard.titleHighlight')}</span>
             </h2>
             <p className={`max-w-2xl mx-auto leading-relaxed
               ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-              Designed for humans, not data points.
+              {t('standard.subtitle')}
             </p>
           </div>
 
@@ -113,29 +115,29 @@ const Index = () => {
             <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105 bg-black/50 aspect-[3/4] flex items-center">
               <img 
                 src={militaryFortressCard} 
-                alt="Military-Grade Fortress - Digital Fortress enabled. Unbreachable zero-trust encryption. Your identity is locked."
+                alt={t('standard.militaryFortressAlt')}
                 className="w-full h-auto object-contain"
               />
             </div>
             <FeatureCard 
               isDark={isDark}
               icon={<Globe size={32}/>}
-              title="Accepted Anywhere"
-              desc="One Key. Universal Acceptance at Any VALID Portal. Skip the manual check Points of Entry, Airports, Entertainment Venues, Public Agencies, and Corporate Zones Worldwide."
+              title={t('standard.acceptedAnywhere')}
+              desc={t('standard.acceptedAnywhereDesc')}
               color="cyan"
             />
             <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105 bg-black/50 aspect-[3/4] flex items-center">
               <img 
                 src={yourDataYourRulesCard} 
-                alt="Your Data. Your Rules. Ghost Protocol Enabled. Context-aware sharing."
+                alt={t('standard.yourDataAlt')}
                 className="w-full h-auto object-contain"
               />
             </div>
             <FeatureCard 
               isDark={isDark}
               icon={<Ghost size={32}/>}
-              title="Instant Financial Access"
-              desc="Frictionless Fund Flow. Load once, spend anywhere. Tap-to-Pay instantly at any POS using your Ghost™ Token. Secure funds held in a segregated FBO vault. Zero transaction fees, zero chargebacks. Your liquidity moves at the speed of light."
+              title={t('standard.instantFinancial')}
+              desc={t('standard.instantFinancialDesc')}
               color="cyan"
             />
           </div>
@@ -147,10 +149,10 @@ const Index = () => {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className={`text-3xl md:text-4xl font-bold mb-6 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            Ready to Experience <span className="text-cyan-400">VALID™</span>?
+            {t('cta.ready')} <span className="text-cyan-400">VALID™</span>?
           </h2>
           <p className={`mb-10 text-lg ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-            Access the full platform, create your profile, and get verified.
+            {t('cta.accessPlatform')}
           </p>
           <button
             onClick={() => navigate('/access-portal')}
@@ -159,7 +161,7 @@ const Index = () => {
                 ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_30px_rgba(0,240,255,0.4)] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)]' 
                 : 'bg-cyan-500 text-white hover:bg-cyan-600 shadow-lg'}`}
           >
-            Login to View Platform
+            {t('cta.loginButton')}
           </button>
         </div>
       </section>

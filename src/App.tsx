@@ -61,6 +61,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<AgeGate><Index /></AgeGate>} />
               <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
+              <Route path="/access-portal" element={<AgeGate><Auth /></AgeGate>} />
               <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
               <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />
               <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />

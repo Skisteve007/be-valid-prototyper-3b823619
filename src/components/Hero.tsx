@@ -77,7 +77,7 @@ const Hero = () => {
             to="/access-portal"
             className="px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[10px] md:text-xs whitespace-nowrap"
           >
-            Launch App
+            Member Login
           </Link>
         </div>
       </nav>

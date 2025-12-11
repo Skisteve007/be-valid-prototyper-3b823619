@@ -11,51 +11,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* VALID Light Mode - Bright & Clean */
+    /* VALID Light Mode - High Contrast */
     --background: 210 40% 98%;
-    --foreground: 0 0% 20%; /* #333333 - comfortable dark, not pure black */
+    --foreground: 0 0% 10%; /* #1a1a1a - darker for better contrast */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 20%; /* #333333 */
+    --card-foreground: 0 0% 10%; /* #1a1a1a */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%; /* #333333 */
+    --popover-foreground: 0 0% 10%; /* #1a1a1a */
 
-    --primary: 160 84% 35%;
+    --primary: 160 84% 30%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 0 0% 25%; /* Slightly lighter than foreground */
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 0 0% 15%; /* Darker for better contrast */
 
-    --muted: 210 40% 94%;
-    --muted-foreground: 0 0% 35%; /* High contrast gray for secondary text */
+    --muted: 210 40% 92%;
+    --muted-foreground: 0 0% 25%; /* Darker muted text for readability */
 
-    --accent: 160 84% 35%;
+    --accent: 160 84% 30%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 50%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 85%;
-    --input: 214 32% 91%;
-    --ring: 160 84% 35%;
+    --border: 214 32% 75%;
+    --input: 214 32% 85%;
+    --ring: 160 84% 30%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 210 40% 96%;
-    --sidebar-foreground: 0 0% 20%;
-    --sidebar-primary: 160 84% 35%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 160 84% 30%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 160 84% 40%;
+    --sidebar-accent: 160 84% 35%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 214 32% 85%;
-    --sidebar-ring: 160 84% 35%;
+    --sidebar-border: 214 32% 75%;
+    --sidebar-ring: 160 84% 30%;
 
-    --chart-1: 160 84% 35%;
-    --chart-2: 199 89% 45%;
-    --chart-3: 280 65% 55%;
-    --chart-4: 45 93% 45%;
-    --chart-5: 340 75% 50%;
+    --chart-1: 160 84% 30%;
+    --chart-2: 199 89% 40%;
+    --chart-3: 280 65% 50%;
+    --chart-4: 45 93% 40%;
+    --chart-5: 340 75% 45%;
 
     --sidebar: 210 40% 96%;
 

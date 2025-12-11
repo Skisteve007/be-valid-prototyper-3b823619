@@ -38,6 +38,19 @@ const AdminDealRoom = () => {
   const [investmentAmount, setInvestmentAmount] = useState("25000");
   const [valuationCap, setValuationCap] = useState("12500000");
   const [discountRate, setDiscountRate] = useState("20");
+  const [selectedTranche, setSelectedTranche] = useState<1 | 2>(1);
+
+  // Handle tranche selection
+  const handleTrancheSelect = (tranche: 1 | 2) => {
+    setSelectedTranche(tranche);
+    if (tranche === 1) {
+      setValuationCap("12500000");
+      setDiscountRate("20");
+    } else {
+      setValuationCap("20000000");
+      setDiscountRate("0");
+    }
+  };
 
   // Investment Tracker state
   const [trackedInvestors, setTrackedInvestors] = useState<TrackedInvestor[]>(() => {
@@ -418,11 +431,59 @@ const AdminDealRoom = () => {
         </div>
 
         <div className="max-w-2xl mx-auto">
+          {/* Tranche Selector */}
+          <div className="mb-6">
+            <Label className="text-white text-sm mb-3 block">Select Investment Round</Label>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={() => handleTrancheSelect(1)}
+                className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                  selectedTranche === 1
+                    ? 'bg-amber-500/20 border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.3)]'
+                    : 'bg-white/5 border-white/20 hover:border-white/40'
+                }`}
+              >
+                <div className={`font-bold text-lg mb-1 ${selectedTranche === 1 ? 'text-amber-400' : 'text-white'}`}>
+                  Tranche 1 (Alpha)
+                </div>
+                <div className="text-xs text-gray-400">$12.5M Cap • 20% Discount</div>
+              </button>
+              <button
+                onClick={() => handleTrancheSelect(2)}
+                className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                  selectedTranche === 2
+                    ? 'bg-cyan-500/20 border-cyan-500 shadow-[0_0_20px_rgba(0,240,255,0.3)]'
+                    : 'bg-white/5 border-white/20 hover:border-white/40'
+                }`}
+              >
+                <div className={`font-bold text-lg mb-1 ${selectedTranche === 2 ? 'text-cyan-400' : 'text-white'}`}>
+                  Tranche 2 (Institutional)
+                </div>
+                <div className="text-xs text-gray-400">$20M Cap • 0% Discount</div>
+              </button>
+            </div>
+            
+            {/* Tranche 1 Status Tracker */}
+            <div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-400">Tranche 1 Status:</span>
+                <span className={`font-mono font-bold ${progressPercentage >= 100 ? 'text-green-400' : 'text-amber-400'}`}>
+                  {formatCurrency(totalRaised.toString())} / $100,000
+                  {progressPercentage >= 100 && ' ✓ Complete'}
+                </span>
+              </div>
+              <Progress value={progressPercentage} className="h-2 mt-2" />
+            </div>
+          </div>
+
           <Card className="bg-black/40 border-cyan-500/30 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <FileText className="h-5 w-5 text-cyan-400" />
                 Generate SAFE Agreement
+                <Badge className={`ml-2 ${selectedTranche === 1 ? 'bg-amber-500/20 text-amber-400 border-amber-500/50' : 'bg-cyan-500/20 text-cyan-400 border-cyan-500/50'}`}>
+                  {selectedTranche === 1 ? 'Tranche 1' : 'Tranche 2'}
+                </Badge>
               </CardTitle>
               <CardDescription className="text-gray-400">
                 Fill in the investor details to generate a customized SAFE contract PDF.

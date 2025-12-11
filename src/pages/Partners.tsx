@@ -4,7 +4,7 @@
 // *****************************************************************************
 
 import React from 'react';
-import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, ArrowRight, User, FlaskConical, Fingerprint, ArrowDown, Shield, Eye, Home, QrCode } from 'lucide-react';
+import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, ArrowRight, User, FlaskConical, Fingerprint, ArrowDown, Shield, Eye, Home, QrCode, Building2, Banknote, CreditCard } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
 
@@ -790,6 +790,94 @@ const Partners = () => {
               <span>View Full Technical Roadmap</span>
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FINANCIAL ARCHITECTURE - Where Is The Money Sitting? */}
+      <section className="py-24 relative z-10 border-t border-white/10">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/5">
+              <Banknote size={16} className="text-green-400" />
+              <span className="text-green-400 text-xs font-bold tracking-widest uppercase">Financial Trust & Payouts</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">WHERE IS THE <span className="text-green-400">MONEY</span> SITTING?</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">Your revenue is secure. All Ghost™ Token funds are held in a regulated FBO (For Benefit Of) Custodial Account at a Tier-1 US Bank.</p>
+          </div>
+
+          {/* Flow Diagram: User → Bank → Venue */}
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-4 mb-12">
+            
+            {/* Step 1: User Purchase */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-cyan-500/20 blur-xl rounded-2xl group-hover:bg-cyan-500/30 transition-all"></div>
+              <div className="relative bg-gradient-to-br from-cyan-900/40 to-cyan-900/20 border-2 border-cyan-500/50 p-6 rounded-2xl w-56 text-center hover:scale-105 transition-all">
+                <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center">
+                  <User size={28} className="text-cyan-400" />
+                </div>
+                <div className="text-xs font-mono text-cyan-400 tracking-widest mb-1">STEP 1</div>
+                <h4 className="font-bold text-white mb-1">Ghost™ Token Purchase</h4>
+                <p className="text-xs text-gray-400">Member buys access pass</p>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <div className="hidden lg:flex items-center px-2">
+              <ArrowRight size={28} className="text-green-400 animate-pulse" />
+            </div>
+            <div className="lg:hidden py-2">
+              <ArrowDown size={28} className="text-green-400 animate-bounce" />
+            </div>
+
+            {/* Step 2: The Bank Vault */}
+            <div className="relative group z-10">
+              <div className="absolute inset-0 bg-green-500/30 blur-2xl rounded-3xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+              <div className="relative bg-gradient-to-br from-green-900/60 to-green-900/30 border-2 border-green-500 p-8 rounded-3xl w-64 text-center shadow-[0_0_40px_rgba(34,197,94,0.3)] hover:scale-105 transition-all">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-green-500/20 border-2 border-green-500/80 flex items-center justify-center">
+                  <Building2 size={36} className="text-green-400" />
+                </div>
+                <div className="text-xs font-mono text-green-400 tracking-widest mb-2">STEP 2</div>
+                <h4 className="font-bold text-white text-lg mb-2">Segregated FBO Vault</h4>
+                <p className="text-xs text-gray-300 leading-relaxed">Funds legally segregated from VALID™ operational capital</p>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <div className="hidden lg:flex items-center px-2">
+              <ArrowRight size={28} className="text-green-400 animate-pulse" />
+            </div>
+            <div className="lg:hidden py-2">
+              <ArrowDown size={28} className="text-green-400 animate-bounce" />
+            </div>
+
+            {/* Step 3: Venue Payout */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-2xl group-hover:bg-amber-500/30 transition-all"></div>
+              <div className="relative bg-gradient-to-br from-amber-900/40 to-amber-900/20 border-2 border-amber-500/50 p-6 rounded-2xl w-56 text-center hover:scale-105 transition-all">
+                <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-amber-500/20 border border-amber-500/50 flex items-center justify-center">
+                  <Banknote size={28} className="text-amber-400" />
+                </div>
+                <div className="text-xs font-mono text-amber-400 tracking-widest mb-1">STEP 3</div>
+                <h4 className="font-bold text-white mb-1">Instant Payout via RTP</h4>
+                <p className="text-xs text-gray-400">Real-Time Payment to your account</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Explanation Card */}
+          <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm mb-6">
+            <p className="text-gray-300 leading-relaxed">
+              <span className="text-green-400 font-bold">Your revenue is secure.</span> All Ghost™ Token funds are held in a regulated <span className="text-white font-semibold">FBO (For Benefit Of) Custodial Account</span> at a Tier-1 US Bank. These funds are legally segregated from VALID™ operational capital. When you see your balance, the money is already in the vault, ready for instant <span className="text-cyan-400 font-semibold">Real-Time Payment (RTP)</span> transfer to your corporate account.
+            </p>
+          </div>
+
+          {/* POS Note */}
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 flex items-start gap-3">
+            <CreditCard size={20} className="text-amber-400 shrink-0 mt-0.5" />
+            <p className="text-sm text-amber-200/90">
+              <span className="font-bold text-amber-400">Bar & Concessions:</span> Point-of-Sale transactions (Drinks/VIP) settle instantly to your dedicated wallet, bypassing the weekly entry pool.
+            </p>
           </div>
         </div>
       </section>

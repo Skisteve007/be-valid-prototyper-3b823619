@@ -187,12 +187,12 @@ const Auth = () => {
                 </CardHeader>
                 <CardContent className="p-6 md:p-8 text-center space-y-6">
                   <div className="p-4 rounded-lg bg-primary/10 border border-primary/30">
-                    <p className="text-sm text-muted-foreground mb-2">We sent a verification link to:</p>
+                    <p className="text-sm text-muted-foreground mb-2">Security Check: A verification link has been sent to:</p>
                     <p className="font-semibold text-foreground break-all">{verificationEmail}</p>
                   </div>
                   
                   <div className="space-y-3 text-sm text-muted-foreground">
-                    <p>Click the link in your email to verify your identity and activate your Beta Access.</p>
+                    <p>Please click the link in your email to unlock the Investor Dashboard.</p>
                     <p className="text-xs">This ensures every user is a real person.</p>
                   </div>
 
@@ -387,7 +387,7 @@ const Auth = () => {
                       </div>
                     </div>
 
-                    {/* Mandatory Terms/NDA Checkbox */}
+                    {/* Mandatory Age + Terms/NDA Checkbox */}
                     <div className="flex items-start space-x-3 p-4 rounded-lg bg-muted/30 border border-primary/20">
                       <Checkbox 
                         id="terms-checkbox"
@@ -399,11 +399,7 @@ const Auth = () => {
                         htmlFor="terms-checkbox" 
                         className="text-sm text-muted-foreground cursor-pointer leading-relaxed"
                       >
-                        I agree to the{" "}
-                        <a href="/terms" target="_blank" className="text-primary hover:underline">
-                          Terms of Service
-                        </a>{" "}
-                        and acknowledge the{" "}
+                        I confirm I am 18+ years of age, and I agree to the{" "}
                         <button 
                           type="button"
                           onClick={(e) => {
@@ -412,9 +408,12 @@ const Auth = () => {
                           }}
                           className="text-primary hover:underline"
                         >
-                          Confidentiality/NDA
+                          NDA
                         </button>{" "}
-                        requirements for this Beta Release.
+                        and{" "}
+                        <a href="/terms" target="_blank" className="text-primary hover:underline">
+                          Terms of Service
+                        </a>.
                       </label>
                     </div>
 

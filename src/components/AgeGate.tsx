@@ -1,29 +1,9 @@
-import { useAgeVerification } from '@/hooks/useAgeVerification';
-import { AgeVerificationDialog } from './AgeVerificationDialog';
-
 interface AgeGateProps {
   children: React.ReactNode;
 }
 
+// Age verification is now handled in the signup form checkbox
+// This component is a pass-through wrapper
 export const AgeGate = ({ children }: AgeGateProps) => {
-  const { isVerified, setVerified } = useAgeVerification();
-
-  const handleVerify = () => {
-    setVerified(true);
-  };
-
-  const handleExit = () => {
-    window.location.href = 'https://www.google.com';
-  };
-
-  return (
-    <>
-      <AgeVerificationDialog 
-        open={!isVerified} 
-        onVerify={handleVerify}
-        onExit={handleExit}
-      />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };

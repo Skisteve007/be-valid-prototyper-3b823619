@@ -26,11 +26,14 @@
   },
   "nav": {
     "home": "首页",
-    "partners": "合作伙伴解决方案",
+    "partners": "合作伙伴",
     "investors": "投资者",
     "access": "访问门户",
     "admin": "管理面板",
-    "adminLogin": "管理员登录"
+    "adminLogin": "管理员登录",
+    "partnerSolutions": "合作伙伴解决方案",
+    "logIn": "登录",
+    "memberLogin": "会员登录"
   },
   "hero": {
     "title": "一把钥匙",
@@ -38,7 +41,23 @@
     "description": "您的新现实世界自适应AI档案。发出您的信号。即时切换您的身份以控制您的社交存在、支付和完全隐身。",
     "cta": "获取您的ID",
     "partnerCta": "合作伙伴解决方案",
-    "selectSignal": "选择您的信号"
+    "selectSignal": "选择您的信号",
+    "poweredBy": "由合成AI驱动",
+    "headline": "一把钥匙。",
+    "subheadline": "验证。支付。互动。",
+    "adaptiveProfile": "您的",
+    "adaptiveAI": "自适应AI档案",
+    "forNewWorld": "面向新现实世界。",
+    "signalFlow": "发出您的信号。",
+    "switchIdentity": "即时切换您的身份以控制您的社交存在、支付和完全隐身。",
+    "claimId": "获取您的ID",
+    "powerBehind": "信号背后的力量",
+    "instantEntry": "即时入场。",
+    "instantEntryDesc": "一键触摸，无摩擦。使用您的验证ID即时无缝访问全球任何VALID门户、场所或活动。",
+    "secureFunds": "您的资金。安全快速。",
+    "secureFundsDesc": "一次充值，用Ghost™代币即时支付。资金隔离并完全投保，让您支付完全安心。",
+    "dataLock": "数据完全锁定。",
+    "dataLockDesc": "您的健康、支付详情和个人ID被代币化且不可见。仅在需要时分享单一匿名授权。"
   },
   "signals": {
     "social": {
@@ -80,6 +99,7 @@
     "title": "VALID网络",
     "headline": "一个身份。无限可能。",
     "description": "静态档案已过时。现在您选择分享什么。入口点是流动的。您锁定重要数据以实现隐身，或打开档案以建立连接。您的身份现在是自适应的、安全的、完全在您的控制之下。",
+    "descriptionB2b": "会员根据上下文在模式之间切换——每种模式仅显示相关内容。运营商看到正确的验证信号而无需访问私人数据。",
     "security": "安全",
     "payments": "支付",
     "privacy": "隐私"

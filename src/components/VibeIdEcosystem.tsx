@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Users, Activity, Zap, Moon, Shield, CreditCard, Eye, Lock } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
@@ -15,52 +16,52 @@ interface SignalModeConfig {
   description: string;
 }
 
-const signalModes: Record<SignalMode, SignalModeConfig> = {
+const getSignalModes = (t: (key: string) => string): Record<SignalMode, SignalModeConfig> => ({
   social: {
-    name: 'SOCIAL',
+    name: t('signals.social.name'),
     icon: <Users size={20} />,
     color: 'text-blue-400',
     bgGradient: 'from-blue-600/20 to-cyan-600/20',
     borderColor: 'border-blue-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(59,130,246,0.4)]',
-    tagline: 'Open Connection',
-    statusText: 'SOCIAL ACTIVE',
-    description: 'Open to connect. Share contacts and socials with one scan.',
+    tagline: t('signals.social.tagline'),
+    statusText: t('signals.social.name') + ' ACTIVE',
+    description: t('signals.social.description'),
   },
   pulse: {
-    name: 'PULSE',
+    name: t('signals.pulse.name'),
     icon: <Activity size={20} />,
     color: 'text-green-400',
     bgGradient: 'from-green-600/20 to-emerald-600/20',
     borderColor: 'border-green-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(34,197,94,0.4)]',
-    tagline: 'High Energy',
-    statusText: 'PULSE ACTIVE',
-    description: 'High energy. Broadcast your preferences, relationship status, and health verified badge.',
+    tagline: t('signals.pulse.tagline'),
+    statusText: t('signals.pulse.name') + ' ACTIVE',
+    description: t('signals.pulse.description'),
   },
   thrill: {
-    name: 'THRILL',
+    name: t('signals.thrill.name'),
     icon: <Zap size={20} />,
     color: 'text-orange-400',
     bgGradient: 'from-orange-600/20 to-amber-600/20',
     borderColor: 'border-orange-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(249,115,22,0.4)]',
-    tagline: 'Adventure Ready',
-    statusText: 'THRILL ACTIVE',
-    description: 'Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification.',
+    tagline: t('signals.thrill.tagline'),
+    statusText: t('signals.thrill.name') + ' ACTIVE',
+    description: t('signals.thrill.description'),
   },
   afterdark: {
-    name: 'AFTER DARK',
+    name: t('signals.afterdark.name'),
     icon: <Moon size={20} />,
     color: 'text-purple-400',
     bgGradient: 'from-purple-600/20 to-violet-600/20',
     borderColor: 'border-purple-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(168,85,247,0.4)]',
-    tagline: 'Stealth Mode',
+    tagline: t('signals.afterdark.tagline'),
     statusText: 'GHOST™ PROTOCOL',
-    description: 'Entertainment access. Zero data exposed. Flow through entry.',
+    description: t('signals.afterdark.description'),
   },
-};
+});
 
 interface VibeIdEcosystemProps {
   isDark?: boolean;
@@ -68,16 +69,15 @@ interface VibeIdEcosystemProps {
 }
 
 const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProps) => {
+  const { t } = useTranslation();
   const [activeMode, setActiveMode] = useState<SignalMode>('social');
+  const signalModes = getSignalModes(t);
   const currentMode = signalModes[activeMode];
 
-  const headline = variant === 'b2c' 
-    ? 'ONE IDENTITY. ZERO LIMITS.'
-    : 'ONE PLATFORM. EVERY CONTEXT.';
-  
+  const headline = t('network.headline');
   const description = variant === 'b2c'
-    ? 'Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.'
-    : 'Members toggle between modes based on context—each mode reveals only what\'s relevant. Operations see the right verification signal without accessing private data.';
+    ? t('network.description')
+    : t('network.descriptionB2b');
 
   return (
     <section className={`py-24 px-4 relative z-10 transition-colors duration-500 overflow-hidden
@@ -113,7 +113,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
         <div className="text-center mb-6">
           <div className={`inline-block px-6 py-2 mb-4 border rounded-full text-sm font-mono tracking-[0.2em] uppercase
             ${isDark ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10' : 'border-blue-600/30 text-blue-600 bg-blue-50'}`}>
-            THE VALID NETWORK
+            {t('network.title')}
           </div>
           <h2 className={`text-3xl md:text-5xl font-black mb-2 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -199,7 +199,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                   style={{ boxShadow: '0 0 20px rgba(0,240,255,0.3)' }}
                 >
                   <Lock size={16} className="text-cyan-400" />
-                  <span className="text-[10px] md:text-xs font-mono text-cyan-400 font-semibold">SECURITY</span>
+                  <span className="text-[10px] md:text-xs font-mono text-cyan-400 font-semibold">{t('network.security')}</span>
                 </div>
               </div>
 
@@ -214,7 +214,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                   style={{ boxShadow: '0 0 20px rgba(34,197,94,0.3)' }}
                 >
                   <CreditCard size={16} className="text-green-400" />
-                  <span className="text-[10px] md:text-xs font-mono text-green-400 font-semibold">PAYMENTS</span>
+                  <span className="text-[10px] md:text-xs font-mono text-green-400 font-semibold">{t('network.payments')}</span>
                 </div>
               </div>
 
@@ -229,7 +229,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
                   style={{ boxShadow: '0 0 20px rgba(168,85,247,0.3)' }}
                 >
                   <Eye size={16} className="text-purple-400" />
-                  <span className="text-[10px] md:text-xs font-mono text-purple-400 font-semibold">PRIVACY</span>
+                  <span className="text-[10px] md:text-xs font-mono text-purple-400 font-semibold">{t('network.privacy')}</span>
                 </div>
               </div>
 

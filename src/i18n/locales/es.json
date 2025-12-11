@@ -26,11 +26,14 @@
   },
   "nav": {
     "home": "Inicio",
-    "partners": "Soluciones para Socios",
+    "partners": "Socios",
     "investors": "Inversores",
     "access": "Portal de Acceso",
     "admin": "Panel de Administración",
-    "adminLogin": "Acceso Administrador"
+    "adminLogin": "Acceso Administrador",
+    "partnerSolutions": "Soluciones para Socios",
+    "logIn": "Iniciar Sesión",
+    "memberLogin": "Acceso Miembro"
   },
   "hero": {
     "title": "UNA LLAVE",
@@ -38,7 +41,23 @@
     "description": "Tu Perfil de IA Adaptativo Para El Nuevo Mundo Real. Señala Tu Flujo. Cambia Instantáneamente Tu Identidad Para Controlar Tu Presencia Social, Pagos Y Total Invisibilidad.",
     "cta": "Reclama Tu ID",
     "partnerCta": "Soluciones para Socios",
-    "selectSignal": "Selecciona Tu Señal"
+    "selectSignal": "Selecciona Tu Señal",
+    "poweredBy": "IMPULSADO POR IA SINTETIZADA",
+    "headline": "UNA LLAVE.",
+    "subheadline": "Verifica. Paga. Vibra.",
+    "adaptiveProfile": "Tu",
+    "adaptiveAI": "Perfil de IA Adaptativo",
+    "forNewWorld": "Para El Nuevo Mundo Real.",
+    "signalFlow": "Señala Tu Flujo.",
+    "switchIdentity": "Cambia Instantáneamente Tu Identidad Para Controlar Tu Presencia Social, Pagos Y Total Invisibilidad.",
+    "claimId": "RECLAMA TU ID",
+    "powerBehind": "El Poder Detrás De La Señal",
+    "instantEntry": "Entrada Instantánea.",
+    "instantEntryDesc": "Un toque, sin fricción. Usa tu ID verificada para acceso inmediato y sin problemas a cualquier portal, venue o evento VALID en todo el mundo.",
+    "secureFunds": "Tus Fondos. Seguros y Rápidos.",
+    "secureFundsDesc": "Carga una vez y paga instantáneamente con tu Ghost™ Token. Los fondos están segregados y totalmente asegurados para tranquilidad total en pagos.",
+    "dataLock": "Bloqueo Total de Datos.",
+    "dataLockDesc": "Tu salud, detalles de pago e ID personal están tokenizados e invisibles. Comparte solo una autorización anónima única cuando sea necesario."
   },
   "signals": {
     "social": {
@@ -100,12 +119,16 @@
   },
   "footer": {
     "copyright": "© {{year}} VALID™. Todos los derechos reservados.",
-    "terms": "Términos de Servicio",
-    "privacy": "Política de Privacidad",
-    "refund": "Política de Reembolso",
+    "terms": "Términos",
+    "privacy": "Privacidad",
+    "refund": "Reembolso",
     "partners": "Soluciones para Socios",
     "trademarks": "Valid™, Ghost Token™ y The Safety Shield™ son marcas registradas pendientes.",
-    "disclaimer": "VALID es una plataforma tecnológica, no un proveedor de servicios de salud."
+    "disclaimer": "VALID es una plataforma tecnológica, no un proveedor de servicios de salud.",
+    "selectLanguage": "Seleccionar Idioma",
+    "ageRequirement": "Todos los usuarios 18+",
+    "admin": "Admin",
+    "adminPanel": "Panel Admin"
   },
   "auth": {
     "welcomeBack": "Bienvenido de Nuevo",

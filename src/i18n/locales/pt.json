@@ -26,11 +26,14 @@
   },
   "nav": {
     "home": "Início",
-    "partners": "Soluções para Parceiros",
+    "partners": "Parceiros",
     "investors": "Investidores",
     "access": "Portal de Acesso",
     "admin": "Painel Admin",
-    "adminLogin": "Login Admin"
+    "adminLogin": "Login Admin",
+    "partnerSolutions": "Soluções para Parceiros",
+    "logIn": "Entrar",
+    "memberLogin": "Acesso Membro"
   },
   "hero": {
     "title": "UMA CHAVE",
@@ -38,7 +41,23 @@
     "description": "Seu Perfil de IA Adaptativo Para O Novo Mundo Real. Sinalize Seu Fluxo. Mude Instantaneamente Sua Identidade Para Controlar Sua Presença Social, Pagamentos E Invisibilidade Total.",
     "cta": "Reivindique Seu ID",
     "partnerCta": "Soluções para Parceiros",
-    "selectSignal": "Selecione Seu Sinal"
+    "selectSignal": "Selecione Seu Sinal",
+    "poweredBy": "IMPULSIONADO POR IA SINTETIZADA",
+    "headline": "UMA CHAVE.",
+    "subheadline": "Verifica. Paga. Vibra.",
+    "adaptiveProfile": "Seu",
+    "adaptiveAI": "Perfil de IA Adaptativo",
+    "forNewWorld": "Para O Novo Mundo Real.",
+    "signalFlow": "Sinalize Seu Fluxo.",
+    "switchIdentity": "Mude Instantaneamente Sua Identidade Para Controlar Sua Presença Social, Pagamentos E Invisibilidade Total.",
+    "claimId": "REIVINDIQUE SEU ID",
+    "powerBehind": "O Poder Por Trás Do Sinal",
+    "instantEntry": "Entrada Instantânea.",
+    "instantEntryDesc": "Um toque, sem fricção. Use seu ID verificado para acesso imediato e sem problemas a qualquer portal, venue ou evento VALID em todo o mundo.",
+    "secureFunds": "Seus Fundos. Seguros e Rápidos.",
+    "secureFundsDesc": "Carregue uma vez e pague instantaneamente com seu Ghost™ Token. Os fundos são segregados e totalmente segurados para total tranquilidade nos pagamentos.",
+    "dataLock": "Bloqueio Total de Dados.",
+    "dataLockDesc": "Sua saúde, detalhes de pagamento e ID pessoal são tokenizados e invisíveis. Compartilhe apenas uma autorização anônima única quando necessário."
   },
   "signals": {
     "social": {
@@ -80,6 +99,7 @@
     "title": "A REDE VALID",
     "headline": "UMA IDENTIDADE. SEM LIMITES.",
     "description": "Perfis estáticos são coisa do passado. Agora você escolhe o que compartilhar. Os pontos de entrada são fluidos. Você bloqueia seus dados vitais para invisibilidade, ou abre seu perfil para aquela conexão. Sua identidade agora é adaptável, segura e totalmente sob seu controle.",
+    "descriptionB2b": "Membros alternam entre modos baseados no contexto—cada modo revela apenas o que é relevante. Operações veem o sinal de verificação correto sem acessar dados privados.",
     "security": "SEGURANÇA",
     "payments": "PAGAMENTOS",
     "privacy": "PRIVACIDADE"
@@ -100,12 +120,16 @@
   },
   "footer": {
     "copyright": "© {{year}} VALID™. Todos os direitos reservados.",
-    "terms": "Termos de Serviço",
-    "privacy": "Política de Privacidade",
-    "refund": "Política de Reembolso",
+    "terms": "Termos",
+    "privacy": "Privacidade",
+    "refund": "Reembolso",
     "partners": "Soluções para Parceiros",
     "trademarks": "Valid™, Ghost Token™ e The Safety Shield™ são marcas registradas pendentes.",
-    "disclaimer": "VALID é uma plataforma de tecnologia, não um provedor de serviços de saúde."
+    "disclaimer": "VALID é uma plataforma de tecnologia, não um provedor de serviços de saúde.",
+    "selectLanguage": "Selecionar Idioma",
+    "ageRequirement": "Todos os usuários 18+",
+    "admin": "Admin",
+    "adminPanel": "Painel Admin"
   },
   "auth": {
     "welcomeBack": "Bem-vindo de Volta",

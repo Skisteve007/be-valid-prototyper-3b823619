@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Plane, Ticket, Ghost } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ModeBtnProps {
   active: boolean;
@@ -43,6 +44,23 @@ const Hero = () => {
   const [displayedText, setDisplayedText] = useState('');
   const fullText = 'POWERED BY SYNTHESIZED AI';
   
+  // Smart navigation - checks auth and routes appropriately
+  const handleAccessClick = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && session.user.email_confirmed_at) {
+        // Already logged in with confirmed email - go to dashboard
+        navigate('/dashboard');
+      } else {
+        // Not logged in or email not confirmed - go to auth
+        navigate('/access-portal');
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+      navigate('/access-portal');
+    }
+  };
+  
   useEffect(() => {
     let index = 0;
     const typingInterval = setInterval(() => {
@@ -74,10 +92,7 @@ const Hero = () => {
             Partners
           </Link>
           <button 
-            onClick={() => {
-              console.log('Member Login clicked');
-              navigate('/access-portal');
-            }}
+            onClick={handleAccessClick}
             className="px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[10px] md:text-xs whitespace-nowrap relative z-50"
           >
             Member Login
@@ -121,10 +136,7 @@ const Hero = () => {
           {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start relative z-50">
             <button 
-              onClick={() => {
-                console.log('CLAIM YOUR ID clicked');
-                navigate('/access-portal');
-              }}
+              onClick={handleAccessClick}
               className="px-8 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 min-h-[52px] relative z-50"
             >
               CLAIM YOUR ID <ArrowRight size={18} />

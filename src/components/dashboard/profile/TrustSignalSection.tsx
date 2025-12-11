@@ -192,10 +192,10 @@ const TrustSignalSection = ({
           </div>
           <div>
             <CardTitle className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent tracking-wider">
-              TRUST & SIGNAL
+              BIO CLEARANCE
             </CardTitle>
             <CardDescription className="text-muted-foreground text-xs">
-              Your verification credentials and peer trust network
+              Exp. Vaccinations, Examinations
             </CardDescription>
           </div>
         </div>

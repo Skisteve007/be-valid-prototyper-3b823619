@@ -30,15 +30,25 @@
     "investors": "投資家",
     "access": "アクセスポータル",
     "admin": "管理パネル",
-    "adminLogin": "管理者ログイン"
+    "adminLogin": "管理者ログイン",
+    "poweredBy": "Powered By Synthetic AI*"
   },
   "hero": {
     "title": "一つの鍵",
     "subtitle": "認証-支払い-接続",
+    "headline": "一つの鍵。",
+    "subheadline": "認証—支払い—接続",
+    "adaptiveProfile": "新しい現実世界のためのアダプティブAIプロファイル。",
+    "adaptiveAI": "アダプティブAIプロファイル",
+    "forNewWorld": "新しい現実世界のために。",
+    "signalFlow": "フローを発信。",
+    "switchIdentity": "アイデンティティを瞬時に切り替えて、ソーシャルプレゼンス、支払い、完全な不可視性を制御。",
     "description": "新しい現実世界のためのアダプティブAIプロファイル。フローを発信。アイデンティティを瞬時に切り替えて、ソーシャルプレゼンス、支払い、完全な不可視性を制御。",
     "cta": "IDを取得",
     "partnerCta": "パートナーソリューション",
-    "selectSignal": "シグナルを選択"
+    "selectSignal": "シグナルを選択",
+    "powerBehind": "シグナルの背後にある力",
+    "memberLogin": "メンバーログイン"
   },
   "signals": {
     "social": {
@@ -80,6 +90,7 @@
     "title": "VALIDネットワーク",
     "headline": "一つのアイデンティティ。限界なし。",
     "description": "静的プロファイルは時代遅れ。今、あなたが何を共有するか選択。エントリーポイントは流動的。不可視性のために重要データをロック、または接続のためにプロファイルを開放。あなたのアイデンティティは今、適応可能で、安全で、完全にあなたの制御下。",
+    "descriptionB2b": "静的プロファイルは時代遅れ。入口ではプロフェッショナル。不可視性はオプション。接続にオープン。瞬時にあなたのバイブを調整して気分に合わせる。",
     "security": "セキュリティ",
     "payments": "支払い",
     "privacy": "プライバシー"

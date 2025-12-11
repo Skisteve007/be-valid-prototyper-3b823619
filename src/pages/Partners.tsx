@@ -389,8 +389,11 @@ const Partners = () => {
           {/* Bottom Summary */}
           <div className="mt-12 bg-gradient-to-r from-cyan-900/20 via-blue-900/20 to-cyan-900/20 border border-cyan-500/30 p-8 rounded-2xl text-center">
             <h3 className="text-xl font-bold font-orbitron text-white mb-3">The Bottom Line</h3>
-            <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4">
               VALID™ operates as a <strong className="text-cyan-400">cryptographic relay</strong>. We deliver encrypted verification tokens—never raw data. When a patron scans at your door, you receive a simple <span className="text-green-400 font-bold">VERIFIED</span> or <span className="text-red-400 font-bold">NOT VERIFIED</span> signal. No PII touches your systems. No data to breach. No compliance burden. <strong className="text-white">This is not risk mitigation—it is risk elimination.</strong>
+            </p>
+            <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              <strong className="text-amber-400">VALUE ADDITION:</strong> While PII and health data are tokenized and remain off your systems, Valid™ ensures complete loyalty program utility. Every scan still securely transfers the patron's <span className="text-white font-semibold">Name</span>, <span className="text-white font-semibold">Email Address</span>, and <span className="text-white font-semibold">Unique Valid Member ID</span> to your CRM, guaranteeing <strong className="text-green-400">100% accurate customer capture</strong> for your marketing and rewards campaigns.
             </p>
           </div>
         </div>

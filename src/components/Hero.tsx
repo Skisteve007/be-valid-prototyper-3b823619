@@ -153,38 +153,6 @@ const Hero = () => {
             </button>
           </div>
 
-          {/* Signal Selection Buttons */}
-          <div className="mt-8">
-            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-center md:text-left animate-pulse drop-shadow-[0_0_8px_rgba(0,240,255,0.6)]">SELECT YOUR SIGNAL</p>
-            <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto md:mx-0">
-              {(Object.keys(signalModes) as SignalMode[]).map((key) => {
-                const mode = signalModes[key];
-                const Icon = mode.icon;
-                const isActive = activeSignal === key;
-                const colorClasses = {
-                  cyan: isActive ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' : 'border-border text-muted-foreground hover:border-cyan-400/50 hover:text-cyan-400',
-                  green: isActive ? 'bg-green-500/10 border-green-400 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'border-border text-muted-foreground hover:border-green-400/50 hover:text-green-400',
-                  orange: isActive ? 'bg-orange-500/10 border-orange-400 text-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.3)]' : 'border-border text-muted-foreground hover:border-orange-400/50 hover:text-orange-400',
-                  purple: isActive ? 'bg-purple-500/10 border-purple-400 text-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.3)]' : 'border-border text-muted-foreground hover:border-purple-400/50 hover:text-purple-400',
-                };
-                return (
-                  <button
-                    key={key}
-                    onClick={() => setActiveSignal(key)}
-                    className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-all duration-300 text-xs font-bold tracking-wider ${colorClasses[mode.color as keyof typeof colorClasses]}`}
-                  >
-                    <Icon size={16} /> {mode.label}
-                  </button>
-                );
-              })}
-            </div>
-            {/* Signal Description */}
-            <div className="mt-3 h-10 flex items-center justify-center md:justify-start">
-              <p key={activeSignal} className="text-xs text-muted-foreground animate-fade-in max-w-sm text-center md:text-left">
-                {signalModes[activeSignal].description}
-              </p>
-            </div>
-          </div>
 
           {/* The Power Behind The Signal - Feature Cards */}
           <div className="mt-12">

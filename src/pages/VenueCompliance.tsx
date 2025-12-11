@@ -77,7 +77,7 @@ const VenueCompliance = () => {
                   className="h-8 w-8 md:h-10 md:w-10 rounded-lg object-cover flex-shrink-0"
                 />
                 <div className="flex flex-col">
-                  <span className="text-lg md:text-xl font-bold tracking-tight text-foreground">VALID</span>
+                  <span className="text-lg md:text-xl font-bold tracking-tight text-foreground">VALID<sup className="text-xs text-primary">™</sup></span>
                   <span className="text-[8px] md:text-[10px] font-semibold text-primary tracking-[0.15em] md:tracking-[0.2em] uppercase">Enterprise Security</span>
                 </div>
               </div>
@@ -231,7 +231,7 @@ const VenueCompliance = () => {
 
           <div className="mt-6 pt-4 border-t border-border">
             <p className="text-xs text-muted-foreground text-center">
-              VALID infrastructure runs on SOC 2 Type II certified cloud providers. For security inquiries: Steve@bigtexasroof.com
+              VALID™ infrastructure runs on SOC 2 Type II certified cloud providers. For security inquiries: Steve@bigtexasroof.com
             </p>
           </div>
         </DialogContent>

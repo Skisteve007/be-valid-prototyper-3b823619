@@ -57,7 +57,7 @@ const signalModes: Record<SignalMode, SignalModeConfig> = {
     borderColor: 'border-purple-500/50',
     glowColor: 'shadow-[0_0_40px_rgba(168,85,247,0.4)]',
     tagline: 'Stealth Mode',
-    statusText: 'GHOST PROTOCOL',
+    statusText: 'GHOST™ PROTOCOL',
     description: 'Entertainment access. Zero data exposed. Flow through entry.',
   },
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, ShieldCheck, Globe, EyeOff } from 'lucide-react';
+import { Sun, Moon, ShieldCheck, Globe, EyeOff, Ghost } from 'lucide-react';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
@@ -106,8 +106,8 @@ const Index = () => {
             </p>
           </div>
 
-          {/* The 3 Pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* The 4 Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard 
               isDark={isDark}
               icon={<ShieldCheck size={32}/>}
@@ -128,6 +128,13 @@ const Index = () => {
               title="Your Data. Your Rules."
               desc="Ghost™ Protocol Enabled. Context-aware sharing: Reveal only what's required (age, health, or clearance) while keeping your choice records invisible."
               color="purple"
+            />
+            <FeatureCard 
+              isDark={isDark}
+              icon={<Ghost size={32}/>}
+              title="Instant Financial Access"
+              desc="Frictionless Fund Flow. Load once, spend anywhere. Tap-to-Pay instantly at any POS using your Ghost™ Token. Secure funds held in a segregated FBO vault. Zero transaction fees, zero chargebacks. Your liquidity moves at the speed of light."
+              color="cyan"
             />
           </div>
         </div>

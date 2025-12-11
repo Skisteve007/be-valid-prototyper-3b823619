@@ -147,9 +147,9 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start relative z-50">
             <button 
               onClick={handleAccessClick}
-              className="px-8 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 min-h-[52px] relative z-50"
+              className="px-6 py-2.5 bg-white text-black font-bold text-sm rounded-full hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 min-h-[40px] relative z-50"
             >
-              CLAIM YOUR ID <ArrowRight size={18} />
+              CLAIM YOUR ID <ArrowRight size={16} />
             </button>
           </div>
 

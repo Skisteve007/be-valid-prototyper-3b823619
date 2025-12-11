@@ -158,7 +158,7 @@ const Hero = () => {
             <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-center md:text-left uppercase animate-pulse">
               Select Your Signal
             </p>
-            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-xl mx-auto md:mx-0">
               {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
                 const { icon: Icon, label, color } = signalModes[mode];
                 const isActive = activeSignal === mode;
@@ -172,13 +172,17 @@ const Hero = () => {
                   <button
                     key={mode}
                     onClick={() => setActiveSignal(mode)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider ${colorClasses[color as keyof typeof colorClasses]}`}
+                    className={`flex items-center justify-center gap-2 px-3 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider ${colorClasses[color as keyof typeof colorClasses]}`}
                   >
                     <Icon size={14} /> {label}
                   </button>
                 );
               })}
             </div>
+            {/* Dynamic Description */}
+            <p className="text-sm text-gray-400 mt-3 text-center md:text-left max-w-md transition-all duration-300">
+              {signalModes[activeSignal].description}
+            </p>
           </div>
 
 

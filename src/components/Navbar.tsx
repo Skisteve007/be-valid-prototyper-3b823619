@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 
 const Navbar = () => {
+  const { t } = useTranslation();
+  
   return (
     <nav className="border-b border-gray-800 bg-black/90 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -12,17 +16,18 @@ const Navbar = () => {
         </Link>
         
         <div className="flex items-center gap-4">
+          <LanguageSelector />
           <Link 
             to="/partners" 
             className="text-sm text-gray-400 hover:text-white transition hidden sm:block"
           >
-            Partner Solutions
+            {t('nav.partnerSolutions')}
           </Link>
           <Link 
             to="/access-portal" 
             className="px-4 py-2 bg-green-600 hover:bg-green-500 text-white text-sm font-bold rounded-full transition"
           >
-            Log In
+            {t('nav.logIn')}
           </Link>
         </div>
       </div>

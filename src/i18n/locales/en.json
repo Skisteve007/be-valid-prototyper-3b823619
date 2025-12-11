@@ -26,11 +26,14 @@
   },
   "nav": {
     "home": "Home",
-    "partners": "Partner Solutions",
+    "partners": "Partners",
     "investors": "Investors",
     "access": "Access Portal",
     "admin": "Admin Panel",
-    "adminLogin": "Admin Login"
+    "adminLogin": "Admin Login",
+    "partnerSolutions": "Partner Solutions",
+    "logIn": "Log In",
+    "memberLogin": "Member Login"
   },
   "hero": {
     "title": "ONE KEY",
@@ -38,7 +41,23 @@
     "description": "Your Adaptive AI Profile For The New Real World. Signal Your Flow. Instantly Switch Your Identity To Control Your Social Presence, Payments, And Total Invisibility.",
     "cta": "Claim Your ID",
     "partnerCta": "Partner Solutions",
-    "selectSignal": "Select Your Signal"
+    "selectSignal": "Select Your Signal",
+    "poweredBy": "POWERED BY SYNTHESIZED AI",
+    "headline": "ONE KEY.",
+    "subheadline": "Verify. Pay. Vibe.",
+    "adaptiveProfile": "Your",
+    "adaptiveAI": "Adaptive AI Profile",
+    "forNewWorld": "For The New Real World.",
+    "signalFlow": "Signal Your Flow.",
+    "switchIdentity": "Instantly Switch Your Identity To Control Your Social Presence, Payments, And Total Invisibility.",
+    "claimId": "CLAIM YOUR ID",
+    "powerBehind": "The Power Behind The Signal",
+    "instantEntry": "Instant Entry.",
+    "instantEntryDesc": "One touch, no friction. Use your verified ID for immediate, seamless access to any VALID portal, venue, or event worldwide.",
+    "secureFunds": "Your Funds. Secure & Fast.",
+    "secureFundsDesc": "Load once and pay instantly with your Ghost™ Token. Funds are segregated and fully insured for total payment peace of mind.",
+    "dataLock": "Total Data Lock.",
+    "dataLockDesc": "Your health, payment details, and personal ID are tokenized and invisible. Share only a single, anonymous clearance (e.g., 21+ Verified) when required."
   },
   "signals": {
     "social": {
@@ -100,12 +119,16 @@
   },
   "footer": {
     "copyright": "© {{year}} VALID™. All rights reserved.",
-    "terms": "Terms of Service",
-    "privacy": "Privacy Policy",
-    "refund": "Refund Policy",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "refund": "Refund",
     "partners": "Partner Solutions",
     "trademarks": "Valid™, Ghost Token™, and The Safety Shield™ are pending trademarks.",
-    "disclaimer": "VALID is a technology platform, not a healthcare provider."
+    "disclaimer": "VALID is a technology platform, not a healthcare provider.",
+    "selectLanguage": "Select Language",
+    "ageRequirement": "All users 18+",
+    "admin": "Admin",
+    "adminPanel": "Admin Panel"
   },
   "auth": {
     "welcomeBack": "Welcome Back",

@@ -13,22 +13,22 @@ All colors MUST be HSL.
   :root {
     /* VALID Light Mode - Bright & Clean */
     --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --foreground: 0 0% 20%; /* #333333 - comfortable dark, not pure black */
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 0 0% 20%; /* #333333 */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 0 0% 20%; /* #333333 */
 
     --primary: 160 84% 35%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary-foreground: 0 0% 25%; /* Slightly lighter than foreground */
 
     --muted: 210 40% 94%;
-    --muted-foreground: 215 20% 45%;
+    --muted-foreground: 0 0% 35%; /* High contrast gray for secondary text */
 
     --accent: 160 84% 35%;
     --accent-foreground: 0 0% 100%;
@@ -43,7 +43,7 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     --sidebar-background: 210 40% 96%;
-    --sidebar-foreground: 222 47% 11%;
+    --sidebar-foreground: 0 0% 20%;
     --sidebar-primary: 160 84% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 160 84% 40%;
@@ -79,24 +79,24 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* VALID Dark Mode - Brightened for better visibility */
+    /* VALID Dark Mode - High contrast for readability */
     --background: 222 47% 14%;
-    --foreground: 210 40% 98%;
+    --foreground: 0 0% 96%; /* Near white for primary text */
 
     --card: 222 47% 18%;
-    --card-foreground: 210 40% 98%;
+    --card-foreground: 0 0% 96%;
 
     --popover: 222 47% 16%;
-    --popover-foreground: 210 40% 98%;
+    --popover-foreground: 0 0% 96%;
 
     --primary: 160 84% 45%;
     --primary-foreground: 222 47% 8%;
 
     --secondary: 217 33% 22%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary-foreground: 0 0% 92%;
 
     --muted: 217 33% 24%;
-    --muted-foreground: 215 20% 70%;
+    --muted-foreground: 0 0% 88%; /* #E0E0E0 - high contrast secondary text */
 
     --accent: 160 84% 45%;
     --accent-foreground: 222 47% 8%;
@@ -109,7 +109,7 @@ All colors MUST be HSL.
     --ring: 160 84% 45%;
     
     --sidebar-background: 222 47% 12%;
-    --sidebar-foreground: 210 40% 98%;
+    --sidebar-foreground: 0 0% 96%;
     --sidebar-primary: 160 84% 45%;
     --sidebar-primary-foreground: 222 47% 8%;
     --sidebar-accent: 160 84% 50%;
@@ -124,6 +124,24 @@ All colors MUST be HSL.
     --chart-5: 340 75% 62%;
     
     --sidebar: 222 47% 12%;
+  }
+
+  /* Universal Readability: Letter spacing and font sizing */
+  body {
+    letter-spacing: 0.02em;
+  }
+
+  /* Increase secondary text sizes for better readability */
+  p, span, li, td, th, label, .text-sm, .text-xs {
+    letter-spacing: 0.02em;
+  }
+
+  .text-sm {
+    font-size: 0.9375rem; /* 15px instead of 14px */
+  }
+
+  .text-xs {
+    font-size: 0.8125rem; /* 13px instead of 12px */
   }
 }
 

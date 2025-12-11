@@ -42,12 +42,12 @@ const ModeBtn = ({ active, onClick, icon, label, mode }: ModeBtnProps) => {
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
-const signalModes = {
-  social: { icon: Users, label: 'SOCIAL', color: 'cyan', description: 'Open to connect. Share contacts and socials with one scan.' },
-  pulse: { icon: Activity, label: 'PULSE', color: 'green', description: 'High energy. Broadcast your preferences, relationship status, and health verified badge.' },
-  thrill: { icon: Zap, label: 'THRILL', color: 'orange', description: 'Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification.' },
-  afterdark: { icon: Moon, label: 'AFTER DARK', color: 'purple', description: 'Entertainment access. Zero data exposed. Flow through entry.' },
-};
+const getSignalModes = (t: (key: string) => string) => ({
+  social: { icon: Users, label: t('signals.social.name'), color: 'cyan', description: t('signals.social.description') },
+  pulse: { icon: Activity, label: t('signals.pulse.name'), color: 'green', description: t('signals.pulse.description') },
+  thrill: { icon: Zap, label: t('signals.thrill.name'), color: 'orange', description: t('signals.thrill.description') },
+  afterdark: { icon: Moon, label: t('signals.afterdark.name'), color: 'purple', description: t('signals.afterdark.description') },
+});
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -74,6 +74,8 @@ const Hero = () => {
     }
   };
   
+  const signalModes = getSignalModes(t);
+  
   useEffect(() => {
     let index = 0;
     const typingInterval = setInterval(() => {
@@ -86,7 +88,7 @@ const Hero = () => {
     }, 80);
     
     return () => clearInterval(typingInterval);
-  }, []);
+  }, [fullText]);
   
   return (
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">

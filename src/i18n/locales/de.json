@@ -26,11 +26,14 @@
   },
   "nav": {
     "home": "Startseite",
-    "partners": "Partnerlösungen",
+    "partners": "Partner",
     "investors": "Investoren",
     "access": "Zugangsportal",
     "admin": "Admin-Panel",
-    "adminLogin": "Admin-Anmeldung"
+    "adminLogin": "Admin-Anmeldung",
+    "partnerSolutions": "Partnerlösungen",
+    "logIn": "Anmelden",
+    "memberLogin": "Mitglieder Login"
   },
   "hero": {
     "title": "EIN SCHLÜSSEL",
@@ -38,7 +41,23 @@
     "description": "Ihr Adaptives KI-Profil Für Die Neue Reale Welt. Signalisieren Sie Ihren Flow. Wechseln Sie Sofort Ihre Identität Um Ihre Soziale Präsenz, Zahlungen Und Totale Unsichtbarkeit Zu Kontrollieren.",
     "cta": "Fordern Sie Ihre ID An",
     "partnerCta": "Partnerlösungen",
-    "selectSignal": "Wählen Sie Ihr Signal"
+    "selectSignal": "Wählen Sie Ihr Signal",
+    "poweredBy": "ANGETRIEBEN VON SYNTHESIZED AI",
+    "headline": "EIN SCHLÜSSEL.",
+    "subheadline": "Verifizieren. Bezahlen. Vibrieren.",
+    "adaptiveProfile": "Ihr",
+    "adaptiveAI": "Adaptives KI-Profil",
+    "forNewWorld": "Für Die Neue Reale Welt.",
+    "signalFlow": "Signalisieren Sie Ihren Flow.",
+    "switchIdentity": "Wechseln Sie Sofort Ihre Identität Um Ihre Soziale Präsenz, Zahlungen Und Totale Unsichtbarkeit Zu Kontrollieren.",
+    "claimId": "FORDERN SIE IHRE ID AN",
+    "powerBehind": "Die Kraft Hinter Dem Signal",
+    "instantEntry": "Sofortiger Eintritt.",
+    "instantEntryDesc": "Eine Berührung, keine Reibung. Nutzen Sie Ihre verifizierte ID für sofortigen, nahtlosen Zugang zu jedem VALID-Portal, Veranstaltungsort oder Event weltweit.",
+    "secureFunds": "Ihre Mittel. Sicher & Schnell.",
+    "secureFundsDesc": "Einmal laden und sofort bezahlen mit Ihrem Ghost™ Token. Mittel sind segregiert und vollständig versichert für totale Zahlungssicherheit.",
+    "dataLock": "Totale Datensperre.",
+    "dataLockDesc": "Ihre Gesundheit, Zahlungsdetails und persönliche ID sind tokenisiert und unsichtbar. Teilen Sie nur eine einzelne, anonyme Freigabe wenn erforderlich."
   },
   "signals": {
     "social": {
@@ -80,6 +99,7 @@
     "title": "DAS VALID NETZWERK",
     "headline": "EINE IDENTITÄT. KEINE GRENZEN.",
     "description": "Statische Profile sind veraltet. Jetzt wählen Sie was Sie teilen. Zugangspunkte sind fließend. Sie sperren Ihre vitalen Daten für Unsichtbarkeit, oder öffnen Ihr Profil für diese Verbindung. Ihre Identität ist jetzt anpassbar, sicher und vollständig unter Ihrer Kontrolle.",
+    "descriptionB2b": "Mitglieder wechseln zwischen Modi basierend auf dem Kontext—jeder Modus zeigt nur das Relevante. Betriebe sehen das richtige Verifizierungssignal ohne Zugriff auf private Daten.",
     "security": "SICHERHEIT",
     "payments": "ZAHLUNGEN",
     "privacy": "PRIVATSPHÄRE"
@@ -100,12 +120,16 @@
   },
   "footer": {
     "copyright": "© {{year}} VALID™. Alle Rechte vorbehalten.",
-    "terms": "Nutzungsbedingungen",
-    "privacy": "Datenschutzrichtlinie",
-    "refund": "Rückerstattungsrichtlinie",
+    "terms": "AGB",
+    "privacy": "Datenschutz",
+    "refund": "Rückerstattung",
     "partners": "Partnerlösungen",
     "trademarks": "Valid™, Ghost Token™ und The Safety Shield™ sind eingetragene Marken in Anmeldung.",
-    "disclaimer": "VALID ist eine Technologieplattform, kein Gesundheitsdienstleister."
+    "disclaimer": "VALID ist eine Technologieplattform, kein Gesundheitsdienstleister.",
+    "selectLanguage": "Sprache Auswählen",
+    "ageRequirement": "Alle Benutzer 18+",
+    "admin": "Admin",
+    "adminPanel": "Admin-Panel"
   },
   "auth": {
     "welcomeBack": "Willkommen Zurück",

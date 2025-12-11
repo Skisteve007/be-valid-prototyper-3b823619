@@ -1,0 +1,149 @@
+{
+  "common": {
+    "login": "登录",
+    "signup": "注册",
+    "logout": "退出",
+    "dashboard": "控制台",
+    "settings": "设置",
+    "save": "保存",
+    "cancel": "取消",
+    "submit": "提交",
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "confirm": "确认",
+    "back": "返回",
+    "next": "下一步",
+    "close": "关闭",
+    "search": "搜索",
+    "filter": "筛选",
+    "all": "全部",
+    "none": "无",
+    "yes": "是",
+    "no": "否",
+    "or": "或",
+    "and": "和"
+  },
+  "nav": {
+    "home": "首页",
+    "partners": "合作伙伴解决方案",
+    "investors": "投资者",
+    "access": "访问门户",
+    "admin": "管理面板",
+    "adminLogin": "管理员登录"
+  },
+  "hero": {
+    "title": "一把钥匙",
+    "subtitle": "验证-支付-互动",
+    "description": "您的新现实世界自适应AI档案。发出您的信号。即时切换您的身份以控制您的社交存在、支付和完全隐身。",
+    "cta": "获取您的ID",
+    "partnerCta": "合作伙伴解决方案",
+    "selectSignal": "选择您的信号"
+  },
+  "signals": {
+    "social": {
+      "name": "社交",
+      "tagline": "开放连接",
+      "description": "开放连接。一次扫描分享联系方式和社交媒体。"
+    },
+    "pulse": {
+      "name": "脉冲",
+      "tagline": "高能量",
+      "description": "高能量。传播您的偏好、关系状态和健康验证徽章。"
+    },
+    "thrill": {
+      "name": "刺激",
+      "tagline": "冒险就绪",
+      "description": "冒险就绪。预装支付、快速旅行证件和身份验证。"
+    },
+    "afterdark": {
+      "name": "暗夜模式",
+      "tagline": "隐身模式",
+      "description": "娱乐访问。零数据暴露。顺畅通过入口。"
+    }
+  },
+  "features": {
+    "instantEntry": {
+      "title": "即时入场",
+      "description": "一键触摸，无摩擦。使用您的验证ID即时无缝访问全球任何VALID门户、场所或活动。"
+    },
+    "secureFunds": {
+      "title": "您的资金。安全快速。",
+      "description": "一次充值，用Ghost™代币即时支付。资金隔离并完全投保，让您支付完全安心。"
+    },
+    "dataLock": {
+      "title": "数据完全锁定",
+      "description": "您的健康、支付详情和个人ID被代币化且不可见。仅在需要时分享单一匿名授权。"
+    }
+  },
+  "network": {
+    "title": "VALID网络",
+    "headline": "一个身份。无限可能。",
+    "description": "静态档案已过时。现在您选择分享什么。入口点是流动的。您锁定重要数据以实现隐身，或打开档案以建立连接。您的身份现在是自适应的、安全的、完全在您的控制之下。",
+    "security": "安全",
+    "payments": "支付",
+    "privacy": "隐私"
+  },
+  "idv": {
+    "standard": {
+      "title": "标准VIBE-ID",
+      "price": "$48.00",
+      "time": "3分钟内",
+      "description": "即时俱乐部入场、P2P连接和所有国内用例。"
+    },
+    "vip": {
+      "title": "VIP全球通行",
+      "price": "$112.00",
+      "time": "5分钟内",
+      "description": "国际交易、加密KYC和高级旅行功能。"
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} VALID™。保留所有权利。",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "refund": "退款政策",
+    "partners": "合作伙伴解决方案",
+    "trademarks": "Valid™、Ghost Token™和The Safety Shield™是待定注册商标。",
+    "disclaimer": "VALID是技术平台，不是医疗服务提供商。"
+  },
+  "auth": {
+    "welcomeBack": "欢迎回来",
+    "createAccount": "创建账户",
+    "email": "邮箱",
+    "password": "密码",
+    "firstName": "名",
+    "lastName": "姓",
+    "forgotPassword": "忘记密码？",
+    "noAccount": "没有账户？",
+    "hasAccount": "已有账户？",
+    "agreeTerms": "我同意服务条款并确认此Beta版本的保密/NDA要求。",
+    "verifyEmail": "请验证您的邮箱以继续。",
+    "checkInbox": "请查收邮箱中的验证链接。"
+  },
+  "dashboard": {
+    "welcome": "欢迎",
+    "profile": "档案",
+    "wallet": "Ghost钱包",
+    "qrCode": "二维码",
+    "certifications": "认证",
+    "safetyScreen": "安全屏幕",
+    "labVerification": "实验室验证",
+    "pendingReferences": "待处理引用"
+  },
+  "admin": {
+    "title": "管理面板",
+    "members": "成员",
+    "venues": "场所",
+    "campaigns": "活动",
+    "analytics": "分析",
+    "settings": "设置",
+    "salesTeam": "销售团队",
+    "labIntegrations": "实验室集成",
+    "developers": "开发者"
+  },
+  "language": {
+    "select": "选择语言",
+    "current": "当前：{{language}}"
+  }
+}

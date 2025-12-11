@@ -1,0 +1,149 @@
+{
+  "common": {
+    "login": "Anmelden",
+    "signup": "Registrieren",
+    "logout": "Abmelden",
+    "dashboard": "Dashboard",
+    "settings": "Einstellungen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "submit": "Absenden",
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "confirm": "Bestätigen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "close": "Schließen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "all": "Alle",
+    "none": "Keine",
+    "yes": "Ja",
+    "no": "Nein",
+    "or": "oder",
+    "and": "und"
+  },
+  "nav": {
+    "home": "Startseite",
+    "partners": "Partnerlösungen",
+    "investors": "Investoren",
+    "access": "Zugangsportal",
+    "admin": "Admin-Panel",
+    "adminLogin": "Admin-Anmeldung"
+  },
+  "hero": {
+    "title": "EIN SCHLÜSSEL",
+    "subtitle": "VERIFIZIEREN-BEZAHLEN-VIBRIEREN",
+    "description": "Ihr Adaptives KI-Profil Für Die Neue Reale Welt. Signalisieren Sie Ihren Flow. Wechseln Sie Sofort Ihre Identität Um Ihre Soziale Präsenz, Zahlungen Und Totale Unsichtbarkeit Zu Kontrollieren.",
+    "cta": "Fordern Sie Ihre ID An",
+    "partnerCta": "Partnerlösungen",
+    "selectSignal": "Wählen Sie Ihr Signal"
+  },
+  "signals": {
+    "social": {
+      "name": "SOZIAL",
+      "tagline": "Offene Verbindung",
+      "description": "Offen für Verbindungen. Teilen Sie Kontakte und soziale Medien mit einem Scan."
+    },
+    "pulse": {
+      "name": "PULS",
+      "tagline": "Hohe Energie",
+      "description": "Hohe Energie. Übertragen Sie Ihre Präferenzen, Beziehungsstatus und verifiziertes Gesundheitsabzeichen."
+    },
+    "thrill": {
+      "name": "NERVENKITZEL",
+      "tagline": "Abenteuerbereit",
+      "description": "Abenteuerbereit. Vorgeladene Zahlungen, schnelle Reisedokumente und Identitätsverifizierung."
+    },
+    "afterdark": {
+      "name": "AFTER DARK",
+      "tagline": "Tarnmodus",
+      "description": "Unterhaltungszugang. Null Daten exponiert. Fließen Sie durch den Eingang."
+    }
+  },
+  "features": {
+    "instantEntry": {
+      "title": "Sofortiger Eintritt",
+      "description": "Eine Berührung, keine Reibung. Nutzen Sie Ihre verifizierte ID für sofortigen, nahtlosen Zugang zu jedem VALID-Portal, Veranstaltungsort oder Event weltweit."
+    },
+    "secureFunds": {
+      "title": "Ihre Mittel. Sicher & Schnell.",
+      "description": "Einmal laden und sofort bezahlen mit Ihrem Ghost™ Token. Mittel sind segregiert und vollständig versichert für totale Zahlungssicherheit."
+    },
+    "dataLock": {
+      "title": "Totale Datensperre",
+      "description": "Ihre Gesundheit, Zahlungsdetails und persönliche ID sind tokenisiert und unsichtbar. Teilen Sie nur eine einzelne, anonyme Freigabe wenn erforderlich."
+    }
+  },
+  "network": {
+    "title": "DAS VALID NETZWERK",
+    "headline": "EINE IDENTITÄT. KEINE GRENZEN.",
+    "description": "Statische Profile sind veraltet. Jetzt wählen Sie was Sie teilen. Zugangspunkte sind fließend. Sie sperren Ihre vitalen Daten für Unsichtbarkeit, oder öffnen Ihr Profil für diese Verbindung. Ihre Identität ist jetzt anpassbar, sicher und vollständig unter Ihrer Kontrolle.",
+    "security": "SICHERHEIT",
+    "payments": "ZAHLUNGEN",
+    "privacy": "PRIVATSPHÄRE"
+  },
+  "idv": {
+    "standard": {
+      "title": "STANDARD VIBE-ID",
+      "price": "48,00 $",
+      "time": "Unter 3 Minuten",
+      "description": "Sofortiger Clubeintritt, P2P-Verbindung und alle inländischen Anwendungsfälle."
+    },
+    "vip": {
+      "title": "VIP GLOBALER ZUGANG",
+      "price": "112,00 $",
+      "time": "Unter 5 Minuten",
+      "description": "Internationale Transaktionen, Krypto-KYC und Premium-Reisenutzen."
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} VALID™. Alle Rechte vorbehalten.",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutzrichtlinie",
+    "refund": "Rückerstattungsrichtlinie",
+    "partners": "Partnerlösungen",
+    "trademarks": "Valid™, Ghost Token™ und The Safety Shield™ sind eingetragene Marken in Anmeldung.",
+    "disclaimer": "VALID ist eine Technologieplattform, kein Gesundheitsdienstleister."
+  },
+  "auth": {
+    "welcomeBack": "Willkommen Zurück",
+    "createAccount": "Konto Erstellen",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "forgotPassword": "Passwort Vergessen?",
+    "noAccount": "Kein Konto?",
+    "hasAccount": "Bereits ein Konto?",
+    "agreeTerms": "Ich stimme den Nutzungsbedingungen zu und erkenne die Vertraulichkeits-/NDA-Anforderungen für diese Beta-Version an.",
+    "verifyEmail": "Bitte verifizieren Sie Ihre E-Mail um fortzufahren.",
+    "checkInbox": "Überprüfen Sie Ihren Posteingang auf den Verifizierungslink."
+  },
+  "dashboard": {
+    "welcome": "Willkommen",
+    "profile": "Profil",
+    "wallet": "Ghost Wallet",
+    "qrCode": "QR-Code",
+    "certifications": "Zertifizierungen",
+    "safetyScreen": "Sicherheitsbildschirm",
+    "labVerification": "Laborverifizierung",
+    "pendingReferences": "Ausstehende Referenzen"
+  },
+  "admin": {
+    "title": "Admin-Panel",
+    "members": "Mitglieder",
+    "venues": "Veranstaltungsorte",
+    "campaigns": "Kampagnen",
+    "analytics": "Analysen",
+    "settings": "Einstellungen",
+    "salesTeam": "Vertriebsteam",
+    "labIntegrations": "Labor-Integrationen",
+    "developers": "Entwickler"
+  },
+  "language": {
+    "select": "Sprache Auswählen",
+    "current": "Aktuell: {{language}}"
+  }
+}

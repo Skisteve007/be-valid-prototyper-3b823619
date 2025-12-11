@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Users, Activity, Zap, Moon, Shield, CreditCard, Eye, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-
+import validNetworkHologram from '@/assets/valid-network-hologram.png';
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
 interface SignalModeConfig {
@@ -135,136 +135,20 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
           {/* RIGHT: Holographic Display */}
           <div className="order-1 lg:order-2 flex justify-center">
             <div 
-              className="relative w-[320px] h-[320px] md:w-[400px] md:h-[400px]"
+              className="relative w-[320px] h-[320px] md:w-[450px] md:h-[450px]"
               style={{ perspective: '1000px' }}
             >
-              {/* Hexagonal Grid Background */}
-              <div className="absolute inset-0 opacity-20">
-                <svg className="w-full h-full" viewBox="0 0 400 400">
-                  <defs>
-                    <pattern id="hexGrid" width="30" height="52" patternUnits="userSpaceOnUse">
-                      <polygon points="15,0 30,13 30,39 15,52 0,39 0,13" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-cyan-500/30" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#hexGrid)" />
-                </svg>
-              </div>
-
-              {/* Outer Orbital Ring */}
-              <div 
-                className="absolute inset-0 rounded-full border border-cyan-500/20"
-                style={{ animation: 'spin 30s linear infinite' }}
-              />
-              
-              {/* Middle Orbital Ring */}
-              <div 
-                className="absolute inset-6 rounded-full border border-cyan-500/30"
-                style={{ animation: 'spin 20s linear infinite reverse' }}
-              />
-
-              {/* Inner Glow Circle */}
-              <div 
-                className={`absolute inset-12 rounded-full transition-all duration-500
-                  ${activeMode === 'social' ? 'bg-blue-500/10' : activeMode === 'pulse' ? 'bg-green-500/10' : activeMode === 'thrill' ? 'bg-orange-500/10' : 'bg-purple-500/10'}`}
+              {/* Generated Holographic Image */}
+              <img 
+                src={validNetworkHologram}
+                alt="VALID Network Holographic Diagram"
+                className="w-full h-full object-contain transition-all duration-500"
                 style={{ 
-                  boxShadow: `inset 0 0 60px ${activeMode === 'social' ? 'rgba(59,130,246,0.3)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.3)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.3)' : 'rgba(168,85,247,0.3)'}` 
+                  animation: 'float 4s ease-in-out infinite',
+                  filter: `drop-shadow(0 0 30px ${activeMode === 'social' ? 'rgba(59,130,246,0.5)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.5)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.5)' : 'rgba(168,85,247,0.5)'})`
                 }}
               />
-
-              {/* Central Valid ID Token */}
-              <div 
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32"
-                style={{ animation: 'float 4s ease-in-out infinite' }}
-              >
-                <div 
-                  className={`w-full h-full rounded-2xl border-2 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500
-                    ${isDark ? 'bg-black/60' : 'bg-white/60'}
-                    ${currentMode.borderColor}
-                    ${currentMode.glowColor}`}
-                >
-                  <Shield size={28} className={`${currentMode.color} mb-1`} style={{ filter: `drop-shadow(0 0 10px ${activeMode === 'social' ? 'rgba(59,130,246,0.8)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.8)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.8)' : 'rgba(168,85,247,0.8)'})` }} />
-                  <span className={`text-xs md:text-sm font-black font-orbitron tracking-wider ${currentMode.color}`}>VALID™</span>
-                  <span className={`text-[8px] md:text-[10px] font-mono ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>GHOST TOKEN</span>
-                </div>
-              </div>
-
-              {/* Security/Access Zone - Top */}
-              <div 
-                className="absolute top-4 left-1/2 -translate-x-1/2"
-                style={{ animation: 'float 5s ease-in-out infinite', animationDelay: '0.5s' }}
-              >
-                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-sm transition-all duration-500
-                  ${isDark ? 'bg-cyan-950/50' : 'bg-cyan-100/50'}
-                  border-cyan-500/50`}
-                  style={{ boxShadow: '0 0 20px rgba(0,240,255,0.3)' }}
-                >
-                  <Lock size={16} className="text-cyan-400" />
-                  <span className="text-[10px] md:text-xs font-mono text-cyan-400 font-semibold">{t('network.security')}</span>
-                </div>
-              </div>
-
-              {/* Payments Zone - Bottom Left */}
-              <div 
-                className="absolute bottom-8 left-4 md:left-8"
-                style={{ animation: 'float 5s ease-in-out infinite', animationDelay: '1s' }}
-              >
-                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-sm transition-all duration-500
-                  ${isDark ? 'bg-green-950/50' : 'bg-green-100/50'}
-                  border-green-500/50`}
-                  style={{ boxShadow: '0 0 20px rgba(34,197,94,0.3)' }}
-                >
-                  <CreditCard size={16} className="text-green-400" />
-                  <span className="text-[10px] md:text-xs font-mono text-green-400 font-semibold">{t('network.payments')}</span>
-                </div>
-              </div>
-
-              {/* Privacy/Invisibility Zone - Bottom Right */}
-              <div 
-                className="absolute bottom-8 right-4 md:right-8"
-                style={{ animation: 'float 5s ease-in-out infinite', animationDelay: '1.5s' }}
-              >
-                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-sm transition-all duration-500
-                  ${isDark ? 'bg-purple-950/50' : 'bg-purple-100/50'}
-                  border-purple-500/50`}
-                  style={{ boxShadow: '0 0 20px rgba(168,85,247,0.3)' }}
-                >
-                  <Eye size={16} className="text-purple-400" />
-                  <span className="text-[10px] md:text-xs font-mono text-purple-400 font-semibold">{t('network.privacy')}</span>
-                </div>
-              </div>
-
-              {/* Connection Lines */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400">
-                {/* Line to Security */}
-                <line x1="200" y1="140" x2="200" y2="60" stroke="rgba(0,240,255,0.4)" strokeWidth="1" strokeDasharray="4 4">
-                  <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite" />
-                </line>
-                {/* Line to Payments */}
-                <line x1="160" y1="220" x2="80" y2="300" stroke="rgba(34,197,94,0.4)" strokeWidth="1" strokeDasharray="4 4">
-                  <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite" />
-                </line>
-                {/* Line to Privacy */}
-                <line x1="240" y1="220" x2="320" y2="300" stroke="rgba(168,85,247,0.4)" strokeWidth="1" strokeDasharray="4 4">
-                  <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite" />
-                </line>
-              </svg>
-
-              {/* Floating Particles */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {[...Array(8)].map((_, i) => (
-                  <div
-                    key={i}
-                    className={`absolute w-1 h-1 rounded-full ${currentMode.color.replace('text-', 'bg-')} opacity-60`}
-                    style={{
-                      left: `${15 + (i * 10)}%`,
-                      top: `${20 + (i * 8)}%`,
-                      animation: `float ${3 + i * 0.4}s ease-in-out infinite`,
-                      animationDelay: `${i * 0.2}s`,
-                    }}
-                  />
-                ))}
-              </div>
-
+              
               {/* Bottom Reflection */}
               <div 
                 className={`absolute -bottom-6 left-1/2 -translate-x-1/2 w-[200px] h-[40px] rounded-full blur-2xl opacity-30 transition-all duration-500

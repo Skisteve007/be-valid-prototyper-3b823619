@@ -20,6 +20,7 @@ import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
 import { VenueCheckin } from "@/components/dashboard/VenueCheckin";
 import GhostPassModal from "@/components/dashboard/GhostPassModal";
 import ShareProfileModal from "@/components/dashboard/ShareProfileModal";
+import MySignalSection from "@/components/dashboard/profile/MySignalSection";
 import logo from "@/assets/valid-logo.jpeg";
 
 const Dashboard = () => {
@@ -31,6 +32,8 @@ const Dashboard = () => {
   const [qrRefreshKey, setQrRefreshKey] = useState(0);
   const [activeTab, setActiveTab] = useState("profile");
   const [showShareModal, setShowShareModal] = useState(false);
+  const [vibeMetadata, setVibeMetadata] = useState<Record<string, any>>({});
+  const [statusColor, setStatusColor] = useState<string>("green");
   const { isAdmin } = useIsAdmin();
   const longPressHandlers = useLongPressHome();
   const touchStartX = useRef<number>(0);
@@ -198,6 +201,15 @@ const Dashboard = () => {
             <p className="text-[#E0E0FF]/70 text-sm md:text-base italic mt-1">
               Manage your profile, documents, and QR code
             </p>
+          </div>
+          
+          {/* My Signal Section - Moved to top of dashboard */}
+          <div className="p-4 md:p-6 border-b border-white/10">
+            <MySignalSection
+              vibeMetadata={vibeMetadata}
+              onVibeMetadataChange={setVibeMetadata}
+              onStatusColorChange={setStatusColor}
+            />
           </div>
           <div 
             className="p-4 md:p-6"

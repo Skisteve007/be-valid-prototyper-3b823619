@@ -45,8 +45,12 @@ const Auth = () => {
     
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
+      if (session && session.user.email_confirmed_at) {
         navigate("/investor-dashboard");
+      } else if (session && !session.user.email_confirmed_at) {
+        // User is logged in but email not confirmed - show verify message
+        setVerificationEmail(session.user.email || "");
+        setShowEmailVerification(true);
       }
     };
     checkUser();
@@ -175,10 +179,10 @@ const Auth = () => {
                     <Mail className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-2xl md:text-3xl bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent font-bold">
-                    Verify Your Identity
+                    Verification Link Sent
                   </CardTitle>
                   <CardDescription className="text-muted-foreground mt-2">
-                    Check your email to activate your Beta Access
+                    Please check your email to unlock access.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 md:p-8 text-center space-y-6">

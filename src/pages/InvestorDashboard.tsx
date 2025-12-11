@@ -13,7 +13,7 @@ const InvestorDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // --- AUTH CHECK ---
+  // --- AUTH CHECK (requires email confirmation) ---
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -21,6 +21,13 @@ const InvestorDashboard = () => {
         navigate('/auth');
         return;
       }
+      
+      // Check if email is confirmed
+      if (!session.user.email_confirmed_at) {
+        navigate('/auth?mode=verify');
+        return;
+      }
+      
       setIsAuthenticated(true);
       setLoading(false);
     };
@@ -30,6 +37,8 @@ const InvestorDashboard = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (!session) {
         navigate('/auth');
+      } else if (!session.user.email_confirmed_at) {
+        navigate('/auth?mode=verify');
       } else {
         setIsAuthenticated(true);
         setLoading(false);

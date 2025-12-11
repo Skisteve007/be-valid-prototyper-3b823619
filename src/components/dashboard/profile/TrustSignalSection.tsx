@@ -192,10 +192,10 @@ const TrustSignalSection = ({
           </div>
           <div>
             <CardTitle className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent tracking-wider">
-              BIO CLEARANCE
+              TRUST CENTER
             </CardTitle>
             <CardDescription className="text-muted-foreground text-xs">
-              Exp. Vaccinations, Examinations
+              Your verification credentials
             </CardDescription>
           </div>
         </div>
@@ -208,6 +208,7 @@ const TrustSignalSection = ({
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-emerald-500" />
               <span className="text-sm font-semibold text-foreground">Bio-Clearance</span>
+              <span className="text-xs text-muted-foreground">• Exp. Vaccinations, Examinations</span>
             </div>
             <Button
               type="button"

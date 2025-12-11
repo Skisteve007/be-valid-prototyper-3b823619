@@ -19,7 +19,7 @@ const Navbar = () => {
             Partner Solutions
           </Link>
           <Link 
-            to="/auth" 
+            to="/access-portal" 
             className="px-4 py-2 bg-green-600 hover:bg-green-500 text-white text-sm font-bold rounded-full transition"
           >
             Log In

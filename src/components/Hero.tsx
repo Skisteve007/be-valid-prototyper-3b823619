@@ -8,6 +8,7 @@ import { ArrowRight, Plane, Ticket, Ghost, Users, Activity, Zap, Moon } from 'lu
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 
 interface ModeBtnProps {
   active: boolean;
@@ -99,6 +100,7 @@ const Hero = () => {
         
         {/* Navigation Actions */}
         <div className="flex gap-2 md:gap-4 items-center shrink-0">
+          <LanguageSelector />
           {/* For Partners Link - visible on all screens */}
           <Link to="/partners" className="text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
             {t('nav.partners')}

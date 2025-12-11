@@ -92,25 +92,28 @@ const Hero = () => {
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
       
       {/* 1. NAVBAR (RESTORED Partner Button) */}
-      <nav className="w-full px-4 md:px-6 py-4 md:py-6 flex justify-between items-center z-50">
-        {/* THE LOGO */}
-        <div className="text-2xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer shrink-0">
-          VALID<sup className="text-xs md:text-sm text-cyan-400">™</sup>
-        </div>
-        
-        {/* Navigation Actions */}
-        <div className="flex gap-2 md:gap-4 items-center shrink-0">
-          <LanguageSelector />
-          {/* For Partners Link - visible on all screens */}
-          <Link to="/partners" className="text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
-            {t('nav.partners')}
-          </Link>
-          <button 
-            onClick={handleAccessClick}
-            className="px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[10px] md:text-xs whitespace-nowrap relative z-50"
-          >
-            {t('nav.memberLogin')}
-          </button>
+      <nav className="w-full px-4 md:px-6 py-4 md:py-6 z-50 relative">
+        {/* Mobile: Logo centered, actions below */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-0">
+          {/* THE LOGO - Centered on mobile */}
+          <div className="text-2xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer text-center md:text-left">
+            VALID<sup className="text-xs md:text-sm text-cyan-400">™</sup>
+          </div>
+          
+          {/* Navigation Actions - Centered on mobile */}
+          <div className="flex gap-2 md:gap-4 items-center justify-center md:justify-end">
+            <LanguageSelector />
+            {/* For Partners Link - visible on all screens */}
+            <Link to="/partners" className="text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
+              {t('nav.partners')}
+            </Link>
+            <button 
+              onClick={handleAccessClick}
+              className="px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[10px] md:text-xs whitespace-nowrap relative z-50"
+            >
+              {t('nav.memberLogin')}
+            </button>
+          </div>
         </div>
       </nav>
 

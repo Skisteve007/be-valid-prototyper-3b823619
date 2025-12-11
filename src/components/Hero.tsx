@@ -211,7 +211,7 @@ const Hero = () => {
         </div>
 
         {/* RIGHT: THE PORTAL VIDEO (Fixed Visibility) */}
-        <div className="flex-1 flex justify-center md:items-start order-1 md:order-2">
+        <div className="flex-1 flex justify-center order-1 md:order-2 md:-mt-16">
           <div className="relative group w-[300px] md:w-[380px] aspect-[4/5]">
             
             {/* The Glow Behind */}

@@ -156,5 +156,19 @@
   "language": {
     "select": "언어 선택",
     "current": "현재: {{language}}"
+  },
+  "pricing": {
+    "displayIn": "가격 표시 통화:",
+    "discount": "50% 할인",
+    "singleMember": "개인 회원",
+    "jointCouple": "커플 회원",
+    "singleAnnual": "개인 1년 이용권",
+    "coupleAnnual": "커플 1년 이용권",
+    "billedBiMonthly": "60일마다 청구",
+    "oneTime": "일회성 결제",
+    "limitedTime": "한정 기간 혜택!",
+    "chargedAs": "다음으로 청구됨",
+    "selectPlan": "플랜 선택",
+    "buyAnnual": "1년 구매"
   }
 }

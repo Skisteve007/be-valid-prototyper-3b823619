@@ -165,5 +165,19 @@
   "language": {
     "select": "选择语言",
     "current": "当前：{{language}}"
+  },
+  "pricing": {
+    "displayIn": "显示价格币种：",
+    "discount": "5折优惠",
+    "singleMember": "单人会员",
+    "jointCouple": "情侣会员",
+    "singleAnnual": "单人年度通行证",
+    "coupleAnnual": "情侣年度通行证",
+    "billedBiMonthly": "每60天计费",
+    "oneTime": "一次性付款",
+    "limitedTime": "限时优惠！",
+    "chargedAs": "以以下货币收取",
+    "selectPlan": "选择计划",
+    "buyAnnual": "购买年度会员"
   }
 }

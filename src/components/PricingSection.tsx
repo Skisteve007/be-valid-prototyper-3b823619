@@ -1,5 +1,6 @@
 import { useCurrency, SUPPORTED_CURRENCIES } from '@/hooks/useCurrency';
 import { CurrencySelector } from './CurrencySelector';
+import { useTranslation } from 'react-i18next';
 
 // Base prices in USD
 const PRICES = {
@@ -16,6 +17,7 @@ const PRICES = {
 
 export const PricingSection = () => {
   const { currency, formatPrice, convertPrice } = useCurrency();
+  const { t } = useTranslation();
 
   // PayPal always processes in USD, but we show converted prices for display
   const getDisplayPrice = (usdPrice: number) => formatPrice(usdPrice);
@@ -89,7 +91,7 @@ export const PricingSection = () => {
       {/* Currency Selector */}
       <div className="flex justify-center mb-6">
         <div className="flex items-center gap-3 px-4 py-2 bg-muted/50 rounded-full">
-          <span className="text-sm text-muted-foreground">Display prices in:</span>
+          <span className="text-sm text-muted-foreground">{t('pricing.displayIn')}</span>
           <CurrencySelector />
         </div>
       </div>
@@ -98,16 +100,16 @@ export const PricingSection = () => {
 
         {/* Single Member - Bi-Monthly */}
         <div className="pricing-card">
-          <div className="promo-badge">50% OFF</div>
+          <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
-            <h3>Single Member</h3>
+            <h3>{t('pricing.singleMember')}</h3>
             <div className="original-price">{getDisplayPrice(PRICES.originalSingleBiMonthly)}</div>
             <div className="price-text">{getDisplayPrice(PRICES.singleBiMonthly)}</div>
-            <div className="sub-text">Billed every 60 days</div>
-            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 Limited Time Offer!</p>
+            <div className="sub-text">{t('pricing.billedBiMonthly')}</div>
+            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 {t('pricing.limitedTime')}</p>
             {currency.code !== 'USD' && (
               <p className="currency-note">
-                * Charged as ${PRICES.singleBiMonthly.toFixed(2)} USD
+                * {t('pricing.chargedAs')} ${PRICES.singleBiMonthly.toFixed(2)} USD
               </p>
             )}
           </div>
@@ -137,23 +139,23 @@ export const PricingSection = () => {
                 position: 'relative'
               }}
             >
-              SELECT PLAN ({getDisplayPrice(PRICES.singleBiMonthly)})
+              {t('pricing.selectPlan')} ({getDisplayPrice(PRICES.singleBiMonthly)})
             </button>
           </form>
         </div>
 
         {/* Joint Couple - Bi-Monthly */}
         <div className="pricing-card">
-          <div className="promo-badge">50% OFF</div>
+          <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
-            <h3>Joint Couple</h3>
+            <h3>{t('pricing.jointCouple')}</h3>
             <div className="original-price">{getDisplayPrice(PRICES.originalCoupleBiMonthly)}</div>
             <div className="price-text">{getDisplayPrice(PRICES.coupleBiMonthly)}</div>
-            <div className="sub-text">Billed every 60 days</div>
-            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 Limited Time Offer!</p>
+            <div className="sub-text">{t('pricing.billedBiMonthly')}</div>
+            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 {t('pricing.limitedTime')}</p>
             {currency.code !== 'USD' && (
               <p className="currency-note">
-                * Charged as ${PRICES.coupleBiMonthly.toFixed(2)} USD
+                * {t('pricing.chargedAs')} ${PRICES.coupleBiMonthly.toFixed(2)} USD
               </p>
             )}
           </div>
@@ -183,23 +185,23 @@ export const PricingSection = () => {
                 position: 'relative'
               }}
             >
-              SELECT PLAN ({getDisplayPrice(PRICES.coupleBiMonthly)})
+              {t('pricing.selectPlan')} ({getDisplayPrice(PRICES.coupleBiMonthly)})
             </button>
           </form>
         </div>
 
         {/* Single 1-Year Pass */}
         <div className="pricing-card" style={{ border: '2px solid #D4AF37' }}>
-          <div className="promo-badge">50% OFF</div>
+          <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
-            <h3 style={{ color: '#D4AF37' }}>Single 1-Year Pass</h3>
+            <h3 style={{ color: '#D4AF37' }}>{t('pricing.singleAnnual')}</h3>
             <div className="original-price">{getDisplayPrice(PRICES.originalSingleAnnual)}</div>
             <div className="price-text">{getDisplayPrice(PRICES.singleAnnual)}</div>
-            <div className="sub-text">One-time payment</div>
-            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 Limited Time Offer!</p>
+            <div className="sub-text">{t('pricing.oneTime')}</div>
+            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 {t('pricing.limitedTime')}</p>
             {currency.code !== 'USD' && (
               <p className="currency-note">
-                * Charged as ${PRICES.singleAnnual.toFixed(2)} USD
+                * {t('pricing.chargedAs')} ${PRICES.singleAnnual.toFixed(2)} USD
               </p>
             )}
           </div>
@@ -226,23 +228,23 @@ export const PricingSection = () => {
                 position: 'relative'
               }}
             >
-              BUY 1-YEAR ({getDisplayPrice(PRICES.singleAnnual)})
+              {t('pricing.buyAnnual')} ({getDisplayPrice(PRICES.singleAnnual)})
             </button>
           </form>
         </div>
 
         {/* Couple 1-Year Pass */}
         <div className="pricing-card" style={{ border: '2px solid #D4AF37' }}>
-          <div className="promo-badge">50% OFF</div>
+          <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
-            <h3 style={{ color: '#D4AF37' }}>Couple 1-Year Pass</h3>
+            <h3 style={{ color: '#D4AF37' }}>{t('pricing.coupleAnnual')}</h3>
             <div className="original-price">{getDisplayPrice(PRICES.originalCoupleAnnual)}</div>
             <div className="price-text">{getDisplayPrice(PRICES.coupleAnnual)}</div>
-            <div className="sub-text">One-time payment</div>
-            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 Limited Time Offer!</p>
+            <div className="sub-text">{t('pricing.oneTime')}</div>
+            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 {t('pricing.limitedTime')}</p>
             {currency.code !== 'USD' && (
               <p className="currency-note">
-                * Charged as ${PRICES.coupleAnnual.toFixed(2)} USD
+                * {t('pricing.chargedAs')} ${PRICES.coupleAnnual.toFixed(2)} USD
               </p>
             )}
           </div>
@@ -269,7 +271,7 @@ export const PricingSection = () => {
                 position: 'relative'
               }}
             >
-              BUY 1-YEAR ({getDisplayPrice(PRICES.coupleAnnual)})
+              {t('pricing.buyAnnual')} ({getDisplayPrice(PRICES.coupleAnnual)})
             </button>
           </form>
         </div>

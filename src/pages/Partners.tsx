@@ -139,7 +139,9 @@ const Partners = () => {
           <p className="text-lg md:text-xl text-gray-300 italic leading-relaxed mb-6 px-4">
             Your operation faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID™ eliminates both—instantly.
             <br /><br />
-            Every user arrives verified and ready to spend. You earn a <span className="text-cyan-400">40% revenue share</span> on every Ghost™ Token purchase made by that patron, ensuring immediate, high-margin income. This revenue, paired with verified access in under 3 seconds, shields you from every compliance risk.
+            <strong className="text-white">Monetize Every Scan (The Streaming Model):</strong> Instead of relying solely on your own ticket sales, you earn a <span className="text-cyan-400">Royalty Payout</span> every time a VALID user scans into your venue. Just like a streaming service pays an artist for every play, VALID pays you for every entry—drawing from the global pool of active Ghost™ Pass holders.
+            <br /><br />
+            <strong className="text-white">The Result:</strong> You generate passive revenue from users who bought their pass elsewhere but chose your venue tonight. This revenue, paired with verified access in under 3 seconds, shields you from compliance risk while boosting your bottom line.
             <br /><br />
             <span className="text-cyan-400">Zero credit card fees. Zero chargebacks. Zero funding headaches.</span>
           </p>

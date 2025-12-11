@@ -179,5 +179,21 @@
     "chargedAs": "以以下货币收取",
     "selectPlan": "选择计划",
     "buyAnnual": "购买年度会员"
+  },
+  "standard": {
+    "title": "VALID™",
+    "titleHighlight": "标准",
+    "subtitle": "为人类设计，而非数据点。",
+    "militaryFortressAlt": "军事级堡垒 - 数字堡垒已启用。坚不可摧的零信任加密。您的身份已锁定。",
+    "acceptedAnywhere": "全球通用",
+    "acceptedAnywhereDesc": "一把钥匙。在任何VALID门户都能通用。跳过机场、娱乐场所、公共机构和全球企业区域的手动检查点。",
+    "yourDataAlt": "您的数据。您做主。Ghost协议已启用。上下文感知分享。",
+    "instantFinancial": "即时金融通道",
+    "instantFinancialDesc": "无摩擦资金流。充值一次，随处消费。使用您的Ghost™代币在任何POS即时支付。安全资金存放在隔离的FBO金库中。零手续费，零退单。您的流动性以光速移动。"
+  },
+  "cta": {
+    "ready": "准备体验",
+    "accessPlatform": "访问完整平台，创建您的个人资料并获得验证。",
+    "loginButton": "登录查看平台"
   }
 }

@@ -102,7 +102,7 @@ const Hero = () => {
           </div>
           
           {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-[1] md:leading-[0.9] text-white">
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-[1.15] md:leading-[0.9] text-white">
             ONE KEY.<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
               Verify. Pay. Vibe.

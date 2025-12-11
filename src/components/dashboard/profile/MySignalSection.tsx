@@ -278,19 +278,19 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("social")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "social"
-                  ? "border-[#2563EB] bg-[#2563EB]/10 shadow-lg shadow-[#2563EB]/30"
-                  : "border-border bg-card hover:border-[#2563EB]/50 hover:bg-muted"
+                  ? "border-cyan-400 bg-cyan-500/20 shadow-[0_0_15px_rgba(0,240,255,0.4)]"
+                  : "border-cyan-400/50 bg-card hover:border-cyan-400 hover:bg-cyan-500/10"
               }`}
             >
               <div
                 className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                  selectedMode === "social" ? "bg-[#2563EB] shadow-[0_0_20px_8px_rgba(37,99,235,0.4)]" : "bg-[#2563EB]/20"
+                  selectedMode === "social" ? "bg-cyan-500 shadow-[0_0_20px_8px_rgba(0,240,255,0.4)]" : "bg-cyan-500/20"
                 }`}
               >
-                <Users className={`w-6 h-6 ${selectedMode === "social" ? "text-white" : "text-[#2563EB]"}`} />
+                <Users className={`w-6 h-6 ${selectedMode === "social" ? "text-white" : "text-cyan-400"}`} />
               </div>
               <span className="font-semibold text-foreground">SOCIAL</span>
-              <p className="text-[10px] text-muted-foreground text-center leading-tight mt-1">
+              <p className="text-xs text-muted-foreground text-center leading-snug mt-1">
                 Open to connect. Share contacts and socials with one scan.
               </p>
             </button>
@@ -301,20 +301,22 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("pulse")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "pulse"
-                  ? "border-[#22C55E] bg-[#22C55E]/10 shadow-lg shadow-[#22C55E]/30"
-                  : "border-border bg-card hover:border-[#22C55E]/50 hover:bg-muted"
+                  ? "border-green-400 bg-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.4)]"
+                  : "border-green-400/50 bg-card hover:border-green-400 hover:bg-green-500/10"
               }`}
             >
-              <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                  selectedMode === "pulse" ? "bg-[#22C55E] shadow-[0_0_20px_8px_rgba(34,197,94,0.4)]" : "bg-[#22C55E]/20"
-                }`}
-              >
-                <Activity className={`w-6 h-6 ${selectedMode === "pulse" ? "text-white" : "text-[#22C55E]"}`} />
+              <div className="relative">
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                    selectedMode === "pulse" ? "bg-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.4)]" : "bg-green-500/20"
+                  }`}
+                >
+                  <Activity className={`w-6 h-6 ${selectedMode === "pulse" ? "text-white" : "text-green-400"}`} />
+                </div>
+                <span className="absolute -top-1 -right-3 text-[9px] font-bold text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded-full border border-green-400/50">18+</span>
               </div>
               <span className="font-semibold text-foreground">PULSE</span>
-              <span className="text-[10px] text-muted-foreground">18+</span>
-              <p className="text-[10px] text-muted-foreground text-center leading-tight">
+              <p className="text-xs text-muted-foreground text-center leading-snug">
                 High energy. Broadcast your preferences and health verified badge.
               </p>
             </button>
@@ -325,19 +327,19 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("thrill")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "thrill"
-                  ? "border-[#F97316] bg-[#F97316]/10 shadow-lg shadow-[#F97316]/30"
-                  : "border-border bg-card hover:border-[#F97316]/50 hover:bg-muted"
+                  ? "border-orange-400 bg-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.4)]"
+                  : "border-orange-400/50 bg-card hover:border-orange-400 hover:bg-orange-500/10"
               }`}
             >
               <div
                 className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                  selectedMode === "thrill" ? "bg-[#F97316] shadow-[0_0_20px_8px_rgba(249,115,22,0.4)]" : "bg-[#F97316]/20"
+                  selectedMode === "thrill" ? "bg-orange-500 shadow-[0_0_20px_8px_rgba(249,115,22,0.4)]" : "bg-orange-500/20"
                 }`}
               >
-                <Zap className={`w-6 h-6 ${selectedMode === "thrill" ? "text-white" : "text-[#F97316]"}`} />
+                <Zap className={`w-6 h-6 ${selectedMode === "thrill" ? "text-white" : "text-orange-400"}`} />
               </div>
               <span className="font-semibold text-foreground">THRILL</span>
-              <p className="text-[10px] text-muted-foreground text-center leading-tight mt-1">
+              <p className="text-xs text-muted-foreground text-center leading-snug mt-1">
                 Adventure ready. Payments pre-loaded and identity verification.
               </p>
             </button>
@@ -348,20 +350,22 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("afterdark")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "afterdark"
-                  ? "border-[#581C87] bg-[#581C87]/10 shadow-lg shadow-[#581C87]/30"
-                  : "border-border bg-card hover:border-[#581C87]/50 hover:bg-muted"
+                  ? "border-purple-400 bg-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+                  : "border-purple-400/50 bg-card hover:border-purple-400 hover:bg-purple-500/10"
               }`}
             >
-              <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                  selectedMode === "afterdark" ? "bg-[#581C87] shadow-[0_0_20px_8px_rgba(88,28,135,0.4)]" : "bg-[#581C87]/20"
-                }`}
-              >
-                <Ghost className={`w-6 h-6 ${selectedMode === "afterdark" ? "text-white" : "text-[#581C87]"}`} />
+              <div className="relative">
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                    selectedMode === "afterdark" ? "bg-purple-500 shadow-[0_0_20px_8px_rgba(168,85,247,0.4)]" : "bg-purple-500/20"
+                  }`}
+                >
+                  <Ghost className={`w-6 h-6 ${selectedMode === "afterdark" ? "text-white" : "text-purple-400"}`} />
+                </div>
+                <span className="absolute -top-1 -right-3 text-[9px] font-bold text-purple-400 bg-purple-500/20 px-1.5 py-0.5 rounded-full border border-purple-400/50">18+</span>
               </div>
               <span className="font-semibold text-foreground">AFTER DARK</span>
-              <span className="text-[10px] text-muted-foreground">18+</span>
-              <p className="text-[10px] text-muted-foreground text-center leading-tight">
+              <p className="text-xs text-muted-foreground text-center leading-snug">
                 Entertainment access. Zero data exposed. Flow through entry.
               </p>
             </button>

@@ -153,6 +153,34 @@ const Hero = () => {
             </button>
           </div>
 
+          {/* Select Your Signal - Mode Buttons */}
+          <div className="mt-8">
+            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-center md:text-left uppercase animate-pulse">
+              Select Your Signal
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+              {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
+                const { icon: Icon, label, color } = signalModes[mode];
+                const isActive = activeSignal === mode;
+                const colorClasses = {
+                  cyan: isActive ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' : 'border-white/10 text-gray-500 hover:border-cyan-400/30 hover:text-cyan-400',
+                  green: isActive ? 'bg-green-500/10 border-green-400 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'border-white/10 text-gray-500 hover:border-green-400/30 hover:text-green-400',
+                  orange: isActive ? 'bg-orange-500/10 border-orange-400 text-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.3)]' : 'border-white/10 text-gray-500 hover:border-orange-400/30 hover:text-orange-400',
+                  purple: isActive ? 'bg-purple-500/10 border-purple-400 text-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.3)]' : 'border-white/10 text-gray-500 hover:border-purple-400/30 hover:text-purple-400',
+                };
+                return (
+                  <button
+                    key={mode}
+                    onClick={() => setActiveSignal(mode)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-xs font-bold tracking-wider ${colorClasses[color as keyof typeof colorClasses]}`}
+                  >
+                    <Icon size={14} /> {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
 
           {/* The Power Behind The Signal - Feature Cards */}
           <div className="mt-12">

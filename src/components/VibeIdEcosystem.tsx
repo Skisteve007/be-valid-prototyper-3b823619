@@ -130,17 +130,6 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               ${isDark ? 'text-cyan-400' : 'text-slate-600'}`}>
               {description}
             </p>
-
-
-            {/* Description Display */}
-            <div className={`p-6 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-black/40 border-white/20' : 'bg-white border-slate-200'}`}>
-              <div className={`text-xs font-mono tracking-widest uppercase mb-3 ${currentMode.color}`}>
-                {currentMode.tagline}
-              </div>
-              <p className={`text-sm leading-relaxed ${isDark ? 'text-white/90' : 'text-slate-700'}`}>
-                {currentMode.description}
-              </p>
-            </div>
           </div>
 
           {/* RIGHT: 3D Phone Card */}

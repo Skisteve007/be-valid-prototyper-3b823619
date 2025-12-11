@@ -170,7 +170,7 @@ const InvestorDashboard = () => {
               isDark={isDark}
               icon={<Globe size={32}/>}
               title="Accepted Anywhere"
-              desc="One Key. Universal Acceptance. Skip the manual check. Valid at airports, entertainment venues, and corporate zones worldwide."
+              desc="One Key. Universal Acceptance at Any VALID Portal. Skip the manual check Points of Entry, Airports, Entertainment Venues, Public Agencies, and Corporate Zones Worldwide."
               color="cyan"
             />
             <FeatureCard 

@@ -110,23 +110,23 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
       <div className="max-w-7xl mx-auto relative">
         
         {/* Section Header */}
-        <div className="text-center mb-16 pt-8">
-          <div className={`inline-block px-6 py-2 mb-6 border rounded-full text-sm font-mono tracking-[0.2em] uppercase
+        <div className="text-center mb-6">
+          <div className={`inline-block px-6 py-2 mb-4 border rounded-full text-sm font-mono tracking-[0.2em] uppercase
             ${isDark ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10' : 'border-blue-600/30 text-blue-600 bg-blue-50'}`}>
             THE VALID NETWORK
           </div>
-          <h2 className={`text-3xl md:text-5xl font-black mb-4 font-orbitron
+          <h2 className={`text-3xl md:text-5xl font-black mb-2 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
             {headline}
           </h2>
         </div>
 
         {/* Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           
           {/* LEFT: Text & Mode Buttons */}
           <div className="order-2 lg:order-1">
-            <p className={`text-lg md:text-xl leading-relaxed mb-10 max-w-xl tracking-wide
+            <p className={`text-base md:text-lg leading-relaxed mb-4 max-w-xl tracking-wide
               ${isDark ? 'text-cyan-400' : 'text-slate-600'}`}>
               {description}
             </p>
@@ -141,17 +141,17 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               {/* Animated Orbital Rings */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div 
-                  className={`absolute w-[320px] h-[320px] rounded-full border opacity-20 transition-all duration-500
+                  className={`absolute w-[240px] h-[240px] rounded-full border opacity-20 transition-all duration-500
                     ${currentMode.borderColor}`}
                   style={{ animation: 'spin 20s linear infinite' }}
                 />
                 <div 
-                  className={`absolute w-[380px] h-[380px] rounded-full border opacity-10 transition-all duration-500
+                  className={`absolute w-[280px] h-[280px] rounded-full border opacity-10 transition-all duration-500
                     ${currentMode.borderColor}`}
                   style={{ animation: 'spin 30s linear infinite reverse' }}
                 />
                 <div 
-                  className={`absolute w-[440px] h-[440px] rounded-full border opacity-5 transition-all duration-500
+                  className={`absolute w-[320px] h-[320px] rounded-full border opacity-5 transition-all duration-500
                     ${currentMode.borderColor}`}
                   style={{ animation: 'spin 40s linear infinite' }}
                 />
@@ -181,7 +181,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
 
               {/* Phone Frame */}
               <div 
-                className={`relative w-[280px] h-[560px] rounded-[40px] border-[8px] transition-all duration-500 overflow-hidden
+                className={`relative w-[200px] h-[400px] rounded-[32px] border-[6px] transition-all duration-500 overflow-hidden
                   ${isDark ? 'bg-[#111] border-gray-800' : 'bg-gray-100 border-gray-300'}
                   ${currentMode.glowColor}`}
                 style={{
@@ -288,7 +288,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
 
               {/* Reflection/Shadow */}
               <div 
-                className={`absolute -bottom-6 left-1/2 -translate-x-1/2 w-[240px] h-[40px] rounded-full blur-2xl opacity-40 transition-all duration-500
+                className={`absolute -bottom-4 left-1/2 -translate-x-1/2 w-[180px] h-[30px] rounded-full blur-2xl opacity-40 transition-all duration-500
                   ${activeMode === 'social' ? 'bg-blue-500' : activeMode === 'pulse' ? 'bg-green-500' : activeMode === 'thrill' ? 'bg-orange-500' : 'bg-purple-500'}`}
                 style={{ animation: 'pulse 3s ease-in-out infinite' }}
               />

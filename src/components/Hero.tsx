@@ -41,10 +41,10 @@ const ModeBtn = ({ active, onClick, icon, label, mode }: ModeBtnProps) => {
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
 const signalModes = {
-  social: { icon: Users, label: 'SOCIAL', color: 'cyan', description: 'Connect openly. Share your verified identity with trusted networks.' },
-  pulse: { icon: Activity, label: 'PULSE', color: 'green', description: 'Stay active. Real-time status updates and availability signals.' },
-  thrill: { icon: Zap, label: 'THRILL', color: 'orange', description: 'Adventure mode. Discovery-focused identity for new experiences.' },
-  afterdark: { icon: Moon, label: 'AFTER DARK', color: 'purple', description: 'Nightlife mode. Verified access for premium venues and events.' },
+  social: { icon: Users, label: 'SOCIAL', color: 'cyan', description: 'Open to connect. Share contacts and socials with one scan.' },
+  pulse: { icon: Activity, label: 'PULSE', color: 'green', description: 'High energy. Broadcast your preferences, relationship status, and health verified badge.' },
+  thrill: { icon: Zap, label: 'THRILL', color: 'orange', description: 'Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification.' },
+  afterdark: { icon: Moon, label: 'AFTER DARK', color: 'purple', description: 'Entertainment access. Zero data exposed. Flow through entry.' },
 };
 
 const Hero = () => {

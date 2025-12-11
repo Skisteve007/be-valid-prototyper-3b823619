@@ -18,6 +18,7 @@ import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
 import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
 import { VenueCheckin } from "@/components/dashboard/VenueCheckin";
+import GhostPassModal from "@/components/dashboard/GhostPassModal";
 import logo from "@/assets/valid-logo.jpeg";
 
 const Dashboard = () => {
@@ -297,6 +298,9 @@ const Dashboard = () => {
       >
         <Home className="h-4 w-4 md:h-5 md:w-5 text-[#00FFC2]" />
       </Button>
+
+      {/* Ghost Pass Floating Action Button & Modal */}
+      <GhostPassModal userId={user.id} balance={150.00} spentAtVenue={0} />
     </div>
   );
 };

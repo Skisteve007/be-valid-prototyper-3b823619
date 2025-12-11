@@ -1,0 +1,149 @@
+{
+  "common": {
+    "login": "ログイン",
+    "signup": "登録",
+    "logout": "ログアウト",
+    "dashboard": "ダッシュボード",
+    "settings": "設定",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "submit": "送信",
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "confirm": "確認",
+    "back": "戻る",
+    "next": "次へ",
+    "close": "閉じる",
+    "search": "検索",
+    "filter": "フィルター",
+    "all": "すべて",
+    "none": "なし",
+    "yes": "はい",
+    "no": "いいえ",
+    "or": "または",
+    "and": "と"
+  },
+  "nav": {
+    "home": "ホーム",
+    "partners": "パートナーソリューション",
+    "investors": "投資家",
+    "access": "アクセスポータル",
+    "admin": "管理パネル",
+    "adminLogin": "管理者ログイン"
+  },
+  "hero": {
+    "title": "一つの鍵",
+    "subtitle": "認証-支払い-接続",
+    "description": "新しい現実世界のためのアダプティブAIプロファイル。フローを発信。アイデンティティを瞬時に切り替えて、ソーシャルプレゼンス、支払い、完全な不可視性を制御。",
+    "cta": "IDを取得",
+    "partnerCta": "パートナーソリューション",
+    "selectSignal": "シグナルを選択"
+  },
+  "signals": {
+    "social": {
+      "name": "ソーシャル",
+      "tagline": "オープン接続",
+      "description": "つながりにオープン。1回のスキャンで連絡先とソーシャルを共有。"
+    },
+    "pulse": {
+      "name": "パルス",
+      "tagline": "ハイエナジー",
+      "description": "ハイエナジー。好み、関係ステータス、健康認証バッジを発信。"
+    },
+    "thrill": {
+      "name": "スリル",
+      "tagline": "アドベンチャーレディ",
+      "description": "アドベンチャーレディ。支払いプリロード、高速旅行書類、本人確認。"
+    },
+    "afterdark": {
+      "name": "アフターダーク",
+      "tagline": "ステルスモード",
+      "description": "エンターテインメントアクセス。データ露出ゼロ。スムーズに入場。"
+    }
+  },
+  "features": {
+    "instantEntry": {
+      "title": "即時入場",
+      "description": "ワンタッチ、摩擦なし。認証済みIDを使用して、世界中のどのVALIDポータル、会場、イベントにも即座にシームレスにアクセス。"
+    },
+    "secureFunds": {
+      "title": "あなたの資金。安全＆高速。",
+      "description": "一度チャージしてGhost™トークンで即時支払い。資金は分離され完全に保険付きで、支払いの安心を完全に。"
+    },
+    "dataLock": {
+      "title": "完全データロック",
+      "description": "あなたの健康、支払い詳細、個人IDはトークン化され不可視。必要な時のみ単一の匿名許可を共有。"
+    }
+  },
+  "network": {
+    "title": "VALIDネットワーク",
+    "headline": "一つのアイデンティティ。限界なし。",
+    "description": "静的プロファイルは時代遅れ。今、あなたが何を共有するか選択。エントリーポイントは流動的。不可視性のために重要データをロック、または接続のためにプロファイルを開放。あなたのアイデンティティは今、適応可能で、安全で、完全にあなたの制御下。",
+    "security": "セキュリティ",
+    "payments": "支払い",
+    "privacy": "プライバシー"
+  },
+  "idv": {
+    "standard": {
+      "title": "スタンダードVIBE-ID",
+      "price": "$48.00",
+      "time": "3分以内",
+      "description": "即時クラブ入場、P2P接続、すべての国内ユースケース。"
+    },
+    "vip": {
+      "title": "VIPグローバルアクセス",
+      "price": "$112.00",
+      "time": "5分以内",
+      "description": "国際取引、暗号KYC、プレミアム旅行ユーティリティ。"
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} VALID™。全著作権所有。",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー",
+    "refund": "返金ポリシー",
+    "partners": "パートナーソリューション",
+    "trademarks": "Valid™、Ghost Token™、The Safety Shield™は登録申請中の商標です。",
+    "disclaimer": "VALIDは技術プラットフォームであり、医療サービス提供者ではありません。"
+  },
+  "auth": {
+    "welcomeBack": "おかえりなさい",
+    "createAccount": "アカウント作成",
+    "email": "メール",
+    "password": "パスワード",
+    "firstName": "名",
+    "lastName": "姓",
+    "forgotPassword": "パスワードをお忘れですか？",
+    "noAccount": "アカウントをお持ちでないですか？",
+    "hasAccount": "すでにアカウントをお持ちですか？",
+    "agreeTerms": "利用規約に同意し、このベータ版の機密保持/NDA要件を確認します。",
+    "verifyEmail": "続行するにはメールを確認してください。",
+    "checkInbox": "確認リンクについて受信トレイを確認してください。"
+  },
+  "dashboard": {
+    "welcome": "ようこそ",
+    "profile": "プロフィール",
+    "wallet": "Ghostウォレット",
+    "qrCode": "QRコード",
+    "certifications": "認証",
+    "safetyScreen": "安全画面",
+    "labVerification": "ラボ認証",
+    "pendingReferences": "保留中の参照"
+  },
+  "admin": {
+    "title": "管理パネル",
+    "members": "メンバー",
+    "venues": "会場",
+    "campaigns": "キャンペーン",
+    "analytics": "分析",
+    "settings": "設定",
+    "salesTeam": "営業チーム",
+    "labIntegrations": "ラボ統合",
+    "developers": "開発者"
+  },
+  "language": {
+    "select": "言語を選択",
+    "current": "現在：{{language}}"
+  }
+}

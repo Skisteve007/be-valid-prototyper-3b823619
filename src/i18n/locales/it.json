@@ -1,0 +1,149 @@
+{
+  "common": {
+    "login": "Accedi",
+    "signup": "Registrati",
+    "logout": "Esci",
+    "dashboard": "Dashboard",
+    "settings": "Impostazioni",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "submit": "Invia",
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "success": "Successo",
+    "confirm": "Conferma",
+    "back": "Indietro",
+    "next": "Avanti",
+    "close": "Chiudi",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "all": "Tutti",
+    "none": "Nessuno",
+    "yes": "Sì",
+    "no": "No",
+    "or": "o",
+    "and": "e"
+  },
+  "nav": {
+    "home": "Home",
+    "partners": "Soluzioni Partner",
+    "investors": "Investitori",
+    "access": "Portale di Accesso",
+    "admin": "Pannello Admin",
+    "adminLogin": "Accesso Admin"
+  },
+  "hero": {
+    "title": "UNA CHIAVE",
+    "subtitle": "VERIFICA-PAGA-VIBRA",
+    "description": "Il Tuo Profilo IA Adattivo Per Il Nuovo Mondo Reale. Segnala Il Tuo Flusso. Cambia Istantaneamente La Tua Identità Per Controllare La Tua Presenza Sociale, Pagamenti E Invisibilità Totale.",
+    "cta": "Richiedi Il Tuo ID",
+    "partnerCta": "Soluzioni Partner",
+    "selectSignal": "Seleziona Il Tuo Segnale"
+  },
+  "signals": {
+    "social": {
+      "name": "SOCIALE",
+      "tagline": "Connessione Aperta",
+      "description": "Aperto a connettersi. Condividi contatti e social con una scansione."
+    },
+    "pulse": {
+      "name": "PULSE",
+      "tagline": "Alta Energia",
+      "description": "Alta energia. Trasmetti le tue preferenze, stato relazionale e badge salute verificato."
+    },
+    "thrill": {
+      "name": "BRIVIDO",
+      "tagline": "Pronto per l'Avventura",
+      "description": "Pronto per l'avventura. Pagamenti precaricati, documenti di viaggio veloci e verifica identità."
+    },
+    "afterdark": {
+      "name": "AFTER DARK",
+      "tagline": "Modalità Stealth",
+      "description": "Accesso intrattenimento. Zero dati esposti. Passa attraverso l'ingresso."
+    }
+  },
+  "features": {
+    "instantEntry": {
+      "title": "Ingresso Istantaneo",
+      "description": "Un tocco, nessun attrito. Usa il tuo ID verificato per accesso immediato e senza problemi a qualsiasi portale, venue o evento VALID nel mondo."
+    },
+    "secureFunds": {
+      "title": "I Tuoi Fondi. Sicuri e Veloci.",
+      "description": "Carica una volta e paga istantaneamente con il tuo Ghost™ Token. I fondi sono segregati e completamente assicurati per una tranquillità totale nei pagamenti."
+    },
+    "dataLock": {
+      "title": "Blocco Totale dei Dati",
+      "description": "La tua salute, dettagli di pagamento e ID personale sono tokenizzati e invisibili. Condividi solo un'autorizzazione anonima quando richiesto."
+    }
+  },
+  "network": {
+    "title": "LA RETE VALID",
+    "headline": "UN'IDENTITÀ. ZERO LIMITI.",
+    "description": "I profili statici sono obsoleti. Ora tu scegli cosa condividere. I punti di ingresso sono fluidi. Blocchi i tuoi dati vitali per l'invisibilità, o apri il tuo profilo per quella connessione. La tua identità ora è adattabile, sicura e interamente sotto il tuo controllo.",
+    "security": "SICUREZZA",
+    "payments": "PAGAMENTI",
+    "privacy": "PRIVACY"
+  },
+  "idv": {
+    "standard": {
+      "title": "VIBE-ID STANDARD",
+      "price": "48,00 $",
+      "time": "Meno di 3 minuti",
+      "description": "Ingresso istantaneo al club, connessione P2P e tutti i casi d'uso domestici."
+    },
+    "vip": {
+      "title": "ACCESSO VIP GLOBALE",
+      "price": "112,00 $",
+      "time": "Meno di 5 minuti",
+      "description": "Transazioni internazionali, crypto-KYC e utilità viaggio premium."
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} VALID™. Tutti i diritti riservati.",
+    "terms": "Termini di Servizio",
+    "privacy": "Privacy Policy",
+    "refund": "Politica di Rimborso",
+    "partners": "Soluzioni Partner",
+    "trademarks": "Valid™, Ghost Token™ e The Safety Shield™ sono marchi registrati in sospeso.",
+    "disclaimer": "VALID è una piattaforma tecnologica, non un fornitore di servizi sanitari."
+  },
+  "auth": {
+    "welcomeBack": "Bentornato",
+    "createAccount": "Crea Account",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "forgotPassword": "Password Dimenticata?",
+    "noAccount": "Non hai un account?",
+    "hasAccount": "Hai già un account?",
+    "agreeTerms": "Accetto i Termini di Servizio e riconosco i requisiti di Riservatezza/NDA per questa versione Beta.",
+    "verifyEmail": "Verifica la tua email per continuare.",
+    "checkInbox": "Controlla la tua casella di posta per il link di verifica."
+  },
+  "dashboard": {
+    "welcome": "Benvenuto",
+    "profile": "Profilo",
+    "wallet": "Portafoglio Ghost",
+    "qrCode": "Codice QR",
+    "certifications": "Certificazioni",
+    "safetyScreen": "Schermo di Sicurezza",
+    "labVerification": "Verifica Laboratorio",
+    "pendingReferences": "Referenze in Sospeso"
+  },
+  "admin": {
+    "title": "Pannello Admin",
+    "members": "Membri",
+    "venues": "Venue",
+    "campaigns": "Campagne",
+    "analytics": "Analytics",
+    "settings": "Impostazioni",
+    "salesTeam": "Team Vendite",
+    "labIntegrations": "Integrazioni Lab",
+    "developers": "Sviluppatori"
+  },
+  "language": {
+    "select": "Seleziona Lingua",
+    "current": "Attuale: {{language}}"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "common": {
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "logout": "Déconnexion",
+    "dashboard": "Tableau de bord",
+    "settings": "Paramètres",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "submit": "Soumettre",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "close": "Fermer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "all": "Tout",
+    "none": "Aucun",
+    "yes": "Oui",
+    "no": "Non",
+    "or": "ou",
+    "and": "et"
+  },
+  "nav": {
+    "home": "Accueil",
+    "partners": "Solutions Partenaires",
+    "investors": "Investisseurs",
+    "access": "Portail d'Accès",
+    "admin": "Panneau Admin",
+    "adminLogin": "Connexion Admin"
+  },
+  "hero": {
+    "title": "UNE CLÉ",
+    "subtitle": "VÉRIFIER-PAYER-VIBRER",
+    "description": "Votre Profil IA Adaptatif Pour Le Nouveau Monde Réel. Signalez Votre Flow. Changez Instantanément Votre Identité Pour Contrôler Votre Présence Sociale, Paiements Et Invisibilité Totale.",
+    "cta": "Réclamez Votre ID",
+    "partnerCta": "Solutions Partenaires",
+    "selectSignal": "Sélectionnez Votre Signal"
+  },
+  "signals": {
+    "social": {
+      "name": "SOCIAL",
+      "tagline": "Connexion Ouverte",
+      "description": "Ouvert à la connexion. Partagez contacts et réseaux sociaux en un scan."
+    },
+    "pulse": {
+      "name": "PULSE",
+      "tagline": "Haute Énergie",
+      "description": "Haute énergie. Diffusez vos préférences, statut relationnel et badge santé vérifié."
+    },
+    "thrill": {
+      "name": "FRISSON",
+      "tagline": "Prêt pour l'Aventure",
+      "description": "Prêt pour l'aventure. Paiements préchargés, documents de voyage rapides et vérification d'identité."
+    },
+    "afterdark": {
+      "name": "AFTER DARK",
+      "tagline": "Mode Furtif",
+      "description": "Accès divertissement. Zéro données exposées. Passez l'entrée en douceur."
+    }
+  },
+  "features": {
+    "instantEntry": {
+      "title": "Entrée Instantanée",
+      "description": "Un toucher, sans friction. Utilisez votre ID vérifié pour un accès immédiat et fluide à tout portail, lieu ou événement VALID dans le monde."
+    },
+    "secureFunds": {
+      "title": "Vos Fonds. Sécurisés et Rapides.",
+      "description": "Chargez une fois et payez instantanément avec votre Ghost™ Token. Les fonds sont ségrégués et entièrement assurés pour une tranquillité totale."
+    },
+    "dataLock": {
+      "title": "Verrouillage Total des Données",
+      "description": "Votre santé, détails de paiement et ID personnel sont tokenisés et invisibles. Partagez seulement une autorisation anonyme quand nécessaire."
+    }
+  },
+  "network": {
+    "title": "LE RÉSEAU VALID",
+    "headline": "UNE IDENTITÉ. ZÉRO LIMITES.",
+    "description": "Les profils statiques sont obsolètes. Maintenant vous choisissez ce que vous partagez. Les points d'entrée sont fluides. Vous verrouillez vos données vitales pour l'invisibilité, ou ouvrez votre profil pour cette connexion. Votre identité est maintenant adaptable, sécurisée et entièrement sous votre contrôle.",
+    "security": "SÉCURITÉ",
+    "payments": "PAIEMENTS",
+    "privacy": "CONFIDENTIALITÉ"
+  },
+  "idv": {
+    "standard": {
+      "title": "VIBE-ID STANDARD",
+      "price": "48,00 $",
+      "time": "Moins de 3 minutes",
+      "description": "Entrée instantanée en club, connexion P2P et tous les cas d'usage domestiques."
+    },
+    "vip": {
+      "title": "ACCÈS VIP GLOBAL",
+      "price": "112,00 $",
+      "time": "Moins de 5 minutes",
+      "description": "Transactions internationales, crypto-KYC et utilité voyage premium."
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} VALID™. Tous droits réservés.",
+    "terms": "Conditions d'Utilisation",
+    "privacy": "Politique de Confidentialité",
+    "refund": "Politique de Remboursement",
+    "partners": "Solutions Partenaires",
+    "trademarks": "Valid™, Ghost Token™ et The Safety Shield™ sont des marques déposées en attente.",
+    "disclaimer": "VALID est une plateforme technologique, pas un fournisseur de soins de santé."
+  },
+  "auth": {
+    "welcomeBack": "Bon Retour",
+    "createAccount": "Créer un Compte",
+    "email": "Email",
+    "password": "Mot de passe",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Pas de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "agreeTerms": "J'accepte les Conditions d'Utilisation et reconnais les exigences de Confidentialité/NDA pour cette version Bêta.",
+    "verifyEmail": "Veuillez vérifier votre email pour continuer.",
+    "checkInbox": "Vérifiez votre boîte de réception pour le lien de vérification."
+  },
+  "dashboard": {
+    "welcome": "Bienvenue",
+    "profile": "Profil",
+    "wallet": "Portefeuille Ghost",
+    "qrCode": "Code QR",
+    "certifications": "Certifications",
+    "safetyScreen": "Écran de Sécurité",
+    "labVerification": "Vérification Labo",
+    "pendingReferences": "Références en Attente"
+  },
+  "admin": {
+    "title": "Panneau Admin",
+    "members": "Membres",
+    "venues": "Lieux",
+    "campaigns": "Campagnes",
+    "analytics": "Analytiques",
+    "settings": "Paramètres",
+    "salesTeam": "Équipe Commerciale",
+    "labIntegrations": "Intégrations Labo",
+    "developers": "Développeurs"
+  },
+  "language": {
+    "select": "Sélectionner la Langue",
+    "current": "Actuel : {{language}}"
+  }
+}

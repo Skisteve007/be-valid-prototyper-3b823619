@@ -1,0 +1,149 @@
+{
+  "common": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and"
+  },
+  "nav": {
+    "home": "Home",
+    "partners": "Partner Solutions",
+    "investors": "Investors",
+    "access": "Access Portal",
+    "admin": "Admin Panel",
+    "adminLogin": "Admin Login"
+  },
+  "hero": {
+    "title": "ONE KEY",
+    "subtitle": "VERIFY-PAY-VIBE",
+    "description": "Your Adaptive AI Profile For The New Real World. Signal Your Flow. Instantly Switch Your Identity To Control Your Social Presence, Payments, And Total Invisibility.",
+    "cta": "Claim Your ID",
+    "partnerCta": "Partner Solutions",
+    "selectSignal": "Select Your Signal"
+  },
+  "signals": {
+    "social": {
+      "name": "SOCIAL",
+      "tagline": "Open Connection",
+      "description": "Open to connect. Share contacts and socials with one scan."
+    },
+    "pulse": {
+      "name": "PULSE",
+      "tagline": "High Energy",
+      "description": "High energy. Broadcast your preferences, relationship status, and health verified badge."
+    },
+    "thrill": {
+      "name": "THRILL",
+      "tagline": "Adventure Ready",
+      "description": "Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification."
+    },
+    "afterdark": {
+      "name": "AFTER DARK",
+      "tagline": "Stealth Mode",
+      "description": "Entertainment access. Zero data exposed. Flow through entry."
+    }
+  },
+  "features": {
+    "instantEntry": {
+      "title": "Instant Entry",
+      "description": "One touch, no friction. Use your verified ID for immediate, seamless access to any VALID portal, venue, or event worldwide."
+    },
+    "secureFunds": {
+      "title": "Your Funds. Secure & Fast.",
+      "description": "Load once and pay instantly with your Ghost™ Token. Funds are segregated and fully insured for total payment peace of mind."
+    },
+    "dataLock": {
+      "title": "Total Data Lock",
+      "description": "Your health, payment details, and personal ID are tokenized and invisible. Share only a single, anonymous clearance when required."
+    }
+  },
+  "network": {
+    "title": "THE VALID NETWORK",
+    "headline": "ONE IDENTITY. ZERO LIMITS.",
+    "description": "Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.",
+    "security": "SECURITY",
+    "payments": "PAYMENTS",
+    "privacy": "PRIVACY"
+  },
+  "idv": {
+    "standard": {
+      "title": "STANDARD VIBE-ID",
+      "price": "$48.00",
+      "time": "Under 3 minutes",
+      "description": "Instant club entry, P2P connection, and all domestic use cases."
+    },
+    "vip": {
+      "title": "VIP GLOBAL ACCESS",
+      "price": "$112.00",
+      "time": "Under 5 minutes",
+      "description": "International transactions, crypto-KYC, and premium travel utility."
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} VALID™. All rights reserved.",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "refund": "Refund Policy",
+    "partners": "Partner Solutions",
+    "trademarks": "Valid™, Ghost Token™, and The Safety Shield™ are pending trademarks.",
+    "disclaimer": "VALID is a technology platform, not a healthcare provider."
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "agreeTerms": "I agree to the Terms of Service and acknowledge the Confidentiality/NDA requirements for this Beta Release.",
+    "verifyEmail": "Please verify your email to continue.",
+    "checkInbox": "Check your inbox for a verification link."
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "profile": "Profile",
+    "wallet": "Ghost Wallet",
+    "qrCode": "QR Code",
+    "certifications": "Certifications",
+    "safetyScreen": "Safety Screen",
+    "labVerification": "Lab Verification",
+    "pendingReferences": "Pending References"
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "members": "Members",
+    "venues": "Venues",
+    "campaigns": "Campaigns",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "salesTeam": "Sales Team",
+    "labIntegrations": "Lab Integrations",
+    "developers": "Developers"
+  },
+  "language": {
+    "select": "Select Language",
+    "current": "Current: {{language}}"
+  }
+}

@@ -149,6 +149,87 @@ const Partners = () => {
         </div>
       </header>
 
+      {/* GHOST TOKEN VISUAL - 3-Layer Stack */}
+      <section className="max-w-5xl mx-auto px-6 py-16 relative z-10">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/5">
+            <QrCode size={16} className="text-amber-400" />
+            <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">How The Ghost™ Token Works</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">NOT A TICKET. <span className="text-amber-400">A DYNAMIC INJECTION.</span></h2>
+        </div>
+
+        {/* 3-Layer Visual Stack */}
+        <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-4">
+          
+          {/* Layer 1: Payment */}
+          <div className="relative group">
+            <div className="absolute inset-0 bg-green-500/20 blur-xl rounded-2xl group-hover:bg-green-500/30 transition-all"></div>
+            <div className="relative bg-gradient-to-br from-green-900/40 to-green-900/20 border-2 border-green-500/50 p-6 rounded-2xl w-56 text-center transform lg:-rotate-6 lg:translate-x-8 hover:scale-105 transition-all">
+              <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-green-500/20 border border-green-500/50 flex items-center justify-center">
+                <DollarSign size={28} className="text-green-400" />
+              </div>
+              <div className="text-xs font-mono text-green-400 tracking-widest mb-1">LAYER 1</div>
+              <h4 className="font-bold text-white mb-1">Financial Authorization</h4>
+              <p className="text-xs text-gray-400">The Payment</p>
+            </div>
+          </div>
+
+          {/* Layer 2: Identity */}
+          <div className="relative group z-10">
+            <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-2xl group-hover:bg-blue-500/30 transition-all"></div>
+            <div className="relative bg-gradient-to-br from-blue-900/40 to-blue-900/20 border-2 border-blue-500/50 p-6 rounded-2xl w-56 text-center transform lg:-translate-y-4 hover:scale-105 transition-all">
+              <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-blue-500/20 border border-blue-500/50 flex items-center justify-center">
+                <Fingerprint size={28} className="text-blue-400" />
+              </div>
+              <div className="text-xs font-mono text-blue-400 tracking-widest mb-1">LAYER 2</div>
+              <h4 className="font-bold text-white mb-1">Identity Verification</h4>
+              <p className="text-xs text-gray-400">The Driver's License / Passport</p>
+            </div>
+          </div>
+
+          {/* Layer 3: Health/Clearance */}
+          <div className="relative group">
+            <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-2xl group-hover:bg-purple-500/30 transition-all"></div>
+            <div className="relative bg-gradient-to-br from-purple-900/40 to-purple-900/20 border-2 border-purple-500/50 p-6 rounded-2xl w-56 text-center transform lg:rotate-6 lg:-translate-x-8 hover:scale-105 transition-all">
+              <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-purple-500/20 border border-purple-500/50 flex items-center justify-center">
+                <ShieldCheck size={28} className="text-purple-400" />
+              </div>
+              <div className="text-xs font-mono text-purple-400 tracking-widest mb-1">LAYER 3</div>
+              <h4 className="font-bold text-white mb-1">Health/Status Validation</h4>
+              <p className="text-xs text-gray-400">The Toxicology / Clearance</p>
+            </div>
+          </div>
+
+          {/* Arrow pointing to merged QR */}
+          <div className="hidden lg:flex items-center px-4">
+            <ArrowRight size={32} className="text-amber-400 animate-pulse" />
+          </div>
+          <div className="lg:hidden py-2">
+            <ArrowDown size={32} className="text-amber-400 animate-bounce" />
+          </div>
+
+          {/* Merged QR Output */}
+          <div className="relative group">
+            <div className="absolute inset-0 bg-amber-500/30 blur-2xl rounded-3xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+            <div className="relative bg-gradient-to-br from-amber-900/60 to-amber-900/30 border-2 border-amber-500 p-8 rounded-3xl w-64 text-center shadow-[0_0_40px_rgba(245,158,11,0.3)] hover:scale-105 transition-all">
+              <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-black border-2 border-amber-500/80 flex items-center justify-center relative overflow-hidden">
+                {/* Layered QR visual */}
+                <div className="absolute inset-0 flex flex-col">
+                  <div className="h-1/3 bg-green-500/20 border-b border-green-500/30"></div>
+                  <div className="h-1/3 bg-blue-500/20 border-b border-blue-500/30"></div>
+                  <div className="h-1/3 bg-purple-500/20"></div>
+                </div>
+                <QrCode size={40} className="text-amber-400 relative z-10" />
+              </div>
+              <div className="text-xs font-mono text-amber-400 tracking-widest mb-2">GHOST™ TOKEN</div>
+              <h4 className="font-bold text-white text-lg mb-2">3-in-1 Injection</h4>
+              <p className="text-xs text-gray-300 leading-relaxed">One scan. All three signals delivered. You are <span className="text-amber-400 font-bold">Ghosted in.</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. THE UNICORN THESIS (4-Card Grid) */}
       <section className="max-w-7xl mx-auto px-6 py-12 relative z-10">
         <div className="text-center mb-12 relative">
@@ -164,10 +245,10 @@ const Partners = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <ThesisCard 
             icon={<Zap size={24} className="text-cyan-400"/>}
-            title="High-Margin Transactional Power"
-            desc="The Ghost Token is pure software economics applied to physical access. Each $10-$50 token injects directly into the member's dynamic QR code—unlimited inventory, no fulfillment, no COGS. Pre-funded wallets mean instant FBO settlement: operations get paid the moment they scan, zero payment delays. At scale, every Ghost Token generates $4+ pure margin. The token self-destructs after use, eliminating replay attacks. This isn't a product sale—it's a toll booth on trust, and we own the bridge."
+            title="Not a Ticket. A Dynamic Injection."
+            desc="The Ghost™ Token is not a static file. It is a secure, encrypted container that simultaneously represents three data points: Financial Authorization (The Payment), Identity Verification (The Driver's License/Passport), and Health/Status Validation (The Toxicology/Clearance). When scanned, the Token injects these three validated signals into the venue's system instantly. The venue gets the green light, the funds, and the liability shield—without ever storing your personal raw data. You are Ghosted in."
           />
-          <ThesisCard 
+          <ThesisCard
             icon={<ShieldCheck size={24} className="text-purple-400"/>}
             title="Zero-Trust Architectural Moat"
             desc="Our zero-trust fortress evolves—synthesised AI at the helm, now weaving in next-gen QR codes far beyond 2020 basics. Think dynamic, AI-updated holograms: health records, payments, and physical access keys pulsing in real-time, self-erasing after use to eliminate replay attacks. Competitors are still fumbling with static barcodes while we embed these living codes into encrypted neural flows—raising the barrier to entry into the stratosphere. Risk-free boarding—liability sits with the users, the Labs and identity authorities who always held it. All they get is the key, none of the fallout. Unbreachable now, infinite later."

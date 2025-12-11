@@ -110,11 +110,11 @@ const Index = () => {
 
           {/* The 4 Pillars */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105">
+            <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105 bg-black/50 aspect-[3/4] flex items-center">
               <img 
                 src={militaryFortressCard} 
                 alt="Military-Grade Fortress - Digital Fortress enabled. Unbreachable zero-trust encryption. Your identity is locked."
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-contain"
               />
             </div>
             <FeatureCard 
@@ -124,11 +124,11 @@ const Index = () => {
               desc="One Key. Universal Acceptance at Any VALID Portal. Skip the manual check Points of Entry, Airports, Entertainment Venues, Public Agencies, and Corporate Zones Worldwide."
               color="cyan"
             />
-            <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105">
+            <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105 bg-black/50 aspect-[3/4] flex items-center">
               <img 
                 src={yourDataYourRulesCard} 
                 alt="Your Data. Your Rules. Ghost Protocol Enabled. Context-aware sharing."
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-contain"
               />
             </div>
             <FeatureCard 

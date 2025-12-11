@@ -131,33 +131,6 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               {description}
             </p>
 
-            {/* Signal Select Header */}
-            <div className={`text-xs font-mono tracking-[0.3em] uppercase mb-4 ${isDark ? 'text-cyan-400' : 'text-blue-600'}`}>
-              SELECT YOUR SIGNAL
-            </div>
-
-            {/* 2x2 Pill Grid */}
-            <div className="grid grid-cols-2 gap-3 mb-6 max-w-sm">
-              {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
-                const config = signalModes[mode];
-                const isActive = activeMode === mode;
-                
-                  return (
-                    <button
-                      key={mode}
-                      onClick={() => setActiveMode(mode)}
-                      className={`flex items-center justify-center gap-2 px-4 py-3 rounded-full font-semibold text-sm transition-all duration-300 border
-                        ${isActive 
-                          ? `${config.color} ${config.borderColor} bg-white/10 ${config.glowColor}` 
-                          : `${isDark ? 'text-white/80 border-white/20 hover:border-white/40 hover:text-white' : 'text-slate-700 border-slate-300 hover:border-slate-500'}`
-                        }`}
-                    >
-                      {config.icon}
-                      <span className="tracking-wider text-xs">{config.name}</span>
-                    </button>
-                  );
-                })}
-            </div>
 
             {/* Description Display */}
             <div className={`p-6 rounded-2xl border transition-all duration-500 ${isDark ? 'bg-black/40 border-white/20' : 'bg-white border-slate-200'}`}>

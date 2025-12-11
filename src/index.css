@@ -128,12 +128,12 @@ All colors MUST be HSL.
 
   /* Universal Readability: Letter spacing and font sizing */
   body {
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
   }
 
   /* Increase secondary text sizes for better readability */
   p, span, li, td, th, label, .text-sm, .text-xs {
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
   }
 
   .text-sm {

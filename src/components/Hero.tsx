@@ -186,6 +186,28 @@ const Hero = () => {
             </div>
           </div>
 
+          {/* The Power Behind The Signal - Feature Cards */}
+          <div className="mt-12">
+            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-4 text-center md:text-left uppercase">The Power Behind The Signal</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto md:mx-0">
+              {/* Card 1: Verified Access */}
+              <div className="p-4 rounded-lg border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
+                <h3 className="text-sm font-bold text-cyan-400 mb-1">Verified Access.</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">Share Your Social Vibe And Basic, Verified ID For Venues And Events.</p>
+              </div>
+              {/* Card 2: Instant Funds Flow */}
+              <div className="p-4 rounded-lg border border-green-500/30 bg-green-500/5 backdrop-blur-sm hover:border-green-400/50 transition-all">
+                <h3 className="text-sm font-bold text-green-400 mb-1">Instant Funds Flow.</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">Enable Your Wallet For Instant, Zero-Chargeback Payments And Frictionless Fund Transfers.</p>
+              </div>
+              {/* Card 3: Absolute Privacy */}
+              <div className="p-4 rounded-lg border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
+                <h3 className="text-sm font-bold text-purple-400 mb-1">Absolute Privacy.</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">Reveal Only Anonymous Confirmation (e.g., Age 21+ Verified) While Keeping All Personal Data Totally Invisible.</p>
+              </div>
+            </div>
+          </div>
+
           {/* Mode Switcher Buttons */}
           <div className="mt-10 flex justify-center md:justify-start gap-3 flex-wrap">
              <ModeBtn mode="access" active={activeMode === 'access'} onClick={() => setActiveMode('access')} icon={<Ticket size={18}/>} label="ACCESS" />

@@ -169,5 +169,19 @@
   "language": {
     "select": "Select Language",
     "current": "Current: {{language}}"
+  },
+  "pricing": {
+    "displayIn": "Display prices in:",
+    "discount": "50% OFF",
+    "singleMember": "Single Member",
+    "jointCouple": "Joint Couple",
+    "singleAnnual": "Single 1-Year Pass",
+    "coupleAnnual": "Couple 1-Year Pass",
+    "billedBiMonthly": "Billed every 60 days",
+    "oneTime": "One-time payment",
+    "limitedTime": "Limited Time Offer!",
+    "chargedAs": "Charged as",
+    "selectPlan": "SELECT PLAN",
+    "buyAnnual": "BUY 1-YEAR"
   }
 }

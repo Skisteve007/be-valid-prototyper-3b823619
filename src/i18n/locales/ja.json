@@ -156,5 +156,19 @@
   "language": {
     "select": "言語を選択",
     "current": "現在：{{language}}"
+  },
+  "pricing": {
+    "displayIn": "価格表示通貨：",
+    "discount": "50%オフ",
+    "singleMember": "シングルメンバー",
+    "jointCouple": "カップル会員",
+    "singleAnnual": "シングル1年パス",
+    "coupleAnnual": "カップル1年パス",
+    "billedBiMonthly": "60日ごとに請求",
+    "oneTime": "一括払い",
+    "limitedTime": "期間限定オファー！",
+    "chargedAs": "以下で請求",
+    "selectPlan": "プランを選択",
+    "buyAnnual": "1年購入"
   }
 }

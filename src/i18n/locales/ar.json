@@ -169,5 +169,19 @@
   "language": {
     "select": "اختر اللغة",
     "current": "الحالية: {{language}}"
+  },
+  "pricing": {
+    "displayIn": "عرض الأسعار بـ:",
+    "discount": "خصم 50%",
+    "singleMember": "عضوية فردية",
+    "jointCouple": "عضوية زوجين",
+    "singleAnnual": "تذكرة سنوية فردية",
+    "coupleAnnual": "تذكرة سنوية للزوجين",
+    "billedBiMonthly": "يُفوتر كل 60 يوماً",
+    "oneTime": "دفعة واحدة",
+    "limitedTime": "عرض لفترة محدودة!",
+    "chargedAs": "يُحصّل كـ",
+    "selectPlan": "اختر الخطة",
+    "buyAnnual": "اشتري سنة"
   }
 }

@@ -169,5 +169,19 @@
   "language": {
     "select": "Selecionar Idioma",
     "current": "Atual: {{language}}"
+  },
+  "pricing": {
+    "displayIn": "Exibir preços em:",
+    "discount": "50% DESCONTO",
+    "singleMember": "Membro Individual",
+    "jointCouple": "Casal Conjunto",
+    "singleAnnual": "Passe Anual Individual",
+    "coupleAnnual": "Passe Anual Casal",
+    "billedBiMonthly": "Cobrado a cada 60 dias",
+    "oneTime": "Pagamento único",
+    "limitedTime": "Oferta por Tempo Limitado!",
+    "chargedAs": "Cobrado como",
+    "selectPlan": "SELECIONAR PLANO",
+    "buyAnnual": "COMPRAR 1 ANO"
   }
 }

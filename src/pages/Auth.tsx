@@ -135,33 +135,17 @@ const Auth = () => {
         <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
       </div>
 
-      {/* Header - matching homepage style */}
+      {/* Header - Clean minimal design */}
       <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6">
-          <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-3">
-            {/* Single centered logo on mobile, left logo on desktop */}
+          <div className="flex items-center justify-center">
+            {/* Centered logo */}
             <div 
               className="relative flex-shrink-0 cursor-pointer"
               {...longPressHandlers}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
               <img src={logo} alt="VALID" className="relative w-auto h-16 md:h-20 lg:h-24 select-none" draggable={false} />
-            </div>
-
-            {/* Tagline - visible on tablet and up */}
-            <div className="hidden md:flex flex-1 justify-center px-4 lg:px-8">
-              <div className="relative px-6 py-2 lg:px-8 lg:py-3 rounded-full bg-gradient-to-r from-primary/30 via-accent/25 to-primary/30 border border-primary/50 shadow-[0_0_25px_hsl(var(--secondary)/0.5)]">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 blur-xl rounded-full animate-pulse"></div>
-                <p className="relative text-xs lg:text-base font-bold text-center whitespace-nowrap text-primary-foreground drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                  Confidently Share Peer-To-Peer Record Status For Mutual Safety
-                </p>
-              </div>
-            </div>
-
-            {/* Right logo - only visible on desktop */}
-            <div className="hidden lg:block relative flex-shrink-0">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="VALID" className="relative w-auto h-24" />
             </div>
           </div>
         </div>
@@ -287,38 +271,44 @@ const Auth = () => {
                       {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4 space-y-3">
+                    <div className="text-center pt-4">
                       <Button 
                         type="button" 
                         variant="outline"
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/access-portal")}
                         className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
                       >
                         New member? Sign up here
-                      </Button>
-                      <Button 
-                        type="button" 
-                        variant="outline"
-                        onClick={() => navigate("/")}
-                        className="w-full min-h-[48px] rounded-full border border-muted-foreground/30 bg-muted/20 hover:bg-muted/40 text-muted-foreground font-semibold"
-                      >
-                        ← Back to Home
                       </Button>
                     </div>
                   </form>
                 </CardContent>
               </Card>
+              
+              {/* Back Home button - centered below card */}
+              <div className="flex justify-center mt-6">
+                <Button 
+                  type="button" 
+                  variant="ghost"
+                  onClick={() => navigate("/")}
+                  className="px-8 py-2 text-muted-foreground hover:text-foreground font-medium"
+                >
+                  ← Back to Home
+                </Button>
+              </div>
             </div>
           ) : (
             /* Signup Form */
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 blur-2xl rounded-lg"></div>
               <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.3)]">
-                <CardHeader>
-                  <CardTitle className="text-3xl text-center bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent font-bold">
-                    Complete Your Membership
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-2xl md:text-3xl text-center font-orbitron font-bold tracking-wide text-foreground">
+                    One Key. Verify. Pay. Vibe.
                   </CardTitle>
-                  <CardDescription className="text-center text-muted-foreground">Create your account to get started</CardDescription>
+                  <CardDescription className="text-center text-lg font-semibold text-primary tracking-wider mt-2">
+                    Your identity, controlled.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8">
                   <form onSubmit={handleSignup} className="space-y-4">
@@ -458,7 +448,7 @@ const Auth = () => {
                       {loading ? "Creating Account..." : "Create Account"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4 space-y-3">
+                    <div className="text-center pt-4">
                       <Button 
                         type="button" 
                         variant="outline"
@@ -467,18 +457,22 @@ const Auth = () => {
                       >
                         Already a member? Log in
                       </Button>
-                      <Button 
-                        type="button" 
-                        variant="outline"
-                        onClick={() => navigate("/")}
-                        className="w-full min-h-[48px] rounded-full border border-muted-foreground/30 bg-muted/20 hover:bg-muted/40 text-muted-foreground font-semibold"
-                      >
-                        ← Back to Home
-                      </Button>
                     </div>
                   </form>
                 </CardContent>
               </Card>
+              
+              {/* Back Home button - centered below card */}
+              <div className="flex justify-center mt-6">
+                <Button 
+                  type="button" 
+                  variant="ghost"
+                  onClick={() => navigate("/")}
+                  className="px-8 py-2 text-muted-foreground hover:text-foreground font-medium"
+                >
+                  ← Back to Home
+                </Button>
+              </div>
             </div>
           )}
         </div>

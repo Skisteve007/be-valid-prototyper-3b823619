@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, ShieldCheck, Globe, EyeOff, Ghost } from 'lucide-react';
+import { Sun, Moon, Globe, EyeOff, Ghost } from 'lucide-react';
+import militaryFortressCard from '@/assets/military-fortress-card.jpg';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
@@ -108,13 +109,13 @@ const Index = () => {
 
           {/* The 4 Pillars */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <FeatureCard 
-              isDark={isDark}
-              icon={<ShieldCheck size={32}/>}
-              title="Military-Grade Fortress"
-              desc="Digital Fortress enabled. Unbreachable zero-trust encryption. Impossible to fake, impossible to steal. Your identity is locked."
-              color="blue"
-            />
+            <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105">
+              <img 
+                src={militaryFortressCard} 
+                alt="Military-Grade Fortress - Digital Fortress enabled. Unbreachable zero-trust encryption. Your identity is locked."
+                className="w-full h-full object-cover"
+              />
+            </div>
             <FeatureCard 
               isDark={isDark}
               icon={<Globe size={32}/>}

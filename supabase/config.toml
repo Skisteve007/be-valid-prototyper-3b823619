@@ -47,3 +47,6 @@ verify_jwt = false
 
 [functions.notify-investment-status]
 verify_jwt = false
+
+[functions.refill-ghost-wallet]
+verify_jwt = true

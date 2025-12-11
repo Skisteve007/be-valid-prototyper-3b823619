@@ -30,15 +30,25 @@
     "investors": "Investitori",
     "access": "Portale di Accesso",
     "admin": "Pannello Admin",
-    "adminLogin": "Accesso Admin"
+    "adminLogin": "Accesso Admin",
+    "poweredBy": "Powered By Synthetic AI*"
   },
   "hero": {
     "title": "UNA CHIAVE",
     "subtitle": "VERIFICA-PAGA-VIBRA",
+    "headline": "Una Chiave.",
+    "subheadline": "Verifica—Paga—Vibra",
+    "adaptiveProfile": "Il Tuo Profilo IA Adattivo Per Il Nuovo Mondo Reale.",
+    "adaptiveAI": "Il Tuo Profilo IA Adattivo",
+    "forNewWorld": "Per Il Nuovo Mondo Reale.",
+    "signalFlow": "Segnala Il Tuo Flusso.",
+    "switchIdentity": "Cambia Istantaneamente La Tua Identità Per Controllare La Tua Presenza Sociale, Pagamenti E Invisibilità Totale.",
     "description": "Il Tuo Profilo IA Adattivo Per Il Nuovo Mondo Reale. Segnala Il Tuo Flusso. Cambia Istantaneamente La Tua Identità Per Controllare La Tua Presenza Sociale, Pagamenti E Invisibilità Totale.",
     "cta": "Richiedi Il Tuo ID",
     "partnerCta": "Soluzioni Partner",
-    "selectSignal": "Seleziona Il Tuo Segnale"
+    "selectSignal": "Seleziona Il Tuo Segnale",
+    "powerBehind": "Il Potere Dietro Il Segnale",
+    "memberLogin": "Login Membri"
   },
   "signals": {
     "social": {
@@ -80,6 +90,7 @@
     "title": "LA RETE VALID",
     "headline": "UN'IDENTITÀ. ZERO LIMITI.",
     "description": "I profili statici sono obsoleti. Ora tu scegli cosa condividere. I punti di ingresso sono fluidi. Blocchi i tuoi dati vitali per l'invisibilità, o apri il tuo profilo per quella connessione. La tua identità ora è adattabile, sicura e interamente sotto il tuo controllo.",
+    "descriptionB2b": "I profili statici sono obsoleti. Professionale all'ingresso. L'invisibilità è un'opzione. Aperto alla connessione. Adatta il tuo vibe istantaneamente per abbinare il tuo mood.",
     "security": "SICUREZZA",
     "payments": "PAGAMENTI",
     "privacy": "PRIVACY"

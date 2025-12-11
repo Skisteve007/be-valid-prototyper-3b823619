@@ -117,10 +117,9 @@ const Hero = () => {
         <div className="flex-1 text-center md:text-left order-2 md:order-1">
           
           {/* TAG: SYNTHESIZED AI with typing effect */}
-          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 border border-cyan-500/30 bg-cyan-900/10 rounded text-[10px] font-mono tracking-widest text-cyan-400">
-            <span className="min-w-[200px]">
+          <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded-lg text-xs font-mono tracking-widest text-cyan-400">
+            <span>
               {displayedText}
-              <span className="animate-pulse">|</span>
             </span>
             {/* Glowing pulsating blue circle */}
             <span className="relative flex h-3 w-3">

@@ -76,7 +76,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
     : 'ONE PLATFORM. EVERY CONTEXT.';
   
   const description = variant === 'b2c'
-    ? 'Static profiles are dead. Professional at the entry. Invisibility is an option. Open for connection. Adapt your vibe instantly to match your mood.'
+    ? 'Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.'
     : 'Members toggle between modes based on context—each mode reveals only what\'s relevant. Operations see the right verification signal without accessing private data.';
 
   return (

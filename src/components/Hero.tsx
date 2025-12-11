@@ -163,10 +163,10 @@ const Hero = () => {
                 const { icon: Icon, label, color } = signalModes[mode];
                 const isActive = activeSignal === mode;
                 const colorClasses = {
-                  cyan: isActive ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' : 'border-white/10 text-gray-500 hover:border-cyan-400/30 hover:text-cyan-400',
-                  green: isActive ? 'bg-green-500/10 border-green-400 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'border-white/10 text-gray-500 hover:border-green-400/30 hover:text-green-400',
-                  orange: isActive ? 'bg-orange-500/10 border-orange-400 text-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.3)]' : 'border-white/10 text-gray-500 hover:border-orange-400/30 hover:text-orange-400',
-                  purple: isActive ? 'bg-purple-500/10 border-purple-400 text-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.3)]' : 'border-white/10 text-gray-500 hover:border-purple-400/30 hover:text-purple-400',
+                  cyan: isActive ? 'bg-cyan-500/20 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' : 'border-cyan-400/50 text-cyan-400 hover:bg-cyan-500/10',
+                  green: isActive ? 'bg-green-500/20 border-green-400 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'border-green-400/50 text-green-400 hover:bg-green-500/10',
+                  orange: isActive ? 'bg-orange-500/20 border-orange-400 text-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.3)]' : 'border-orange-400/50 text-orange-400 hover:bg-orange-500/10',
+                  purple: isActive ? 'bg-purple-500/20 border-purple-400 text-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.3)]' : 'border-purple-400/50 text-purple-400 hover:bg-purple-500/10',
                 };
                 return (
                   <button

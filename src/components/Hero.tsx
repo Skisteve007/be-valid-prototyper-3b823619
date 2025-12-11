@@ -4,7 +4,7 @@
 // *****************************************************************************
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Plane, Ticket, Ghost } from 'lucide-react';
+import { ArrowRight, Plane, Ticket, Ghost, Users, Activity, Zap, Moon } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -38,9 +38,19 @@ const ModeBtn = ({ active, onClick, icon, label, mode }: ModeBtnProps) => {
   );
 };
 
+type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
+
+const signalModes = {
+  social: { icon: Users, label: 'SOCIAL', color: 'cyan', description: 'Connect openly. Share your verified identity with trusted networks.' },
+  pulse: { icon: Activity, label: 'PULSE', color: 'green', description: 'Stay active. Real-time status updates and availability signals.' },
+  thrill: { icon: Zap, label: 'THRILL', color: 'orange', description: 'Adventure mode. Discovery-focused identity for new experiences.' },
+  afterdark: { icon: Moon, label: 'AFTER DARK', color: 'purple', description: 'Nightlife mode. Verified access for premium venues and events.' },
+};
+
 const Hero = () => {
   const navigate = useNavigate();
   const [activeMode, setActiveMode] = useState<'travel' | 'access' | 'ghost'>('access');
+  const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
   const [displayedText, setDisplayedText] = useState('');
   const fullText = 'POWERED BY SYNTHESIZED AI';
   
@@ -141,6 +151,39 @@ const Hero = () => {
             >
               CLAIM YOUR ID <ArrowRight size={18} />
             </button>
+          </div>
+
+          {/* Signal Selection Buttons */}
+          <div className="mt-8">
+            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-center md:text-left">SELECT YOUR SIGNAL</p>
+            <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto md:mx-0">
+              {(Object.keys(signalModes) as SignalMode[]).map((key) => {
+                const mode = signalModes[key];
+                const Icon = mode.icon;
+                const isActive = activeSignal === key;
+                const colorClasses = {
+                  cyan: isActive ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.3)]' : 'border-border text-muted-foreground hover:border-cyan-400/50 hover:text-cyan-400',
+                  green: isActive ? 'bg-green-500/10 border-green-400 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'border-border text-muted-foreground hover:border-green-400/50 hover:text-green-400',
+                  orange: isActive ? 'bg-orange-500/10 border-orange-400 text-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.3)]' : 'border-border text-muted-foreground hover:border-orange-400/50 hover:text-orange-400',
+                  purple: isActive ? 'bg-purple-500/10 border-purple-400 text-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.3)]' : 'border-border text-muted-foreground hover:border-purple-400/50 hover:text-purple-400',
+                };
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setActiveSignal(key)}
+                    className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg border transition-all duration-300 text-xs font-bold tracking-wider ${colorClasses[mode.color as keyof typeof colorClasses]}`}
+                  >
+                    <Icon size={16} /> {mode.label}
+                  </button>
+                );
+              })}
+            </div>
+            {/* Signal Description */}
+            <div className="mt-3 h-10 flex items-center justify-center md:justify-start">
+              <p key={activeSignal} className="text-xs text-muted-foreground animate-fade-in max-w-sm text-center md:text-left">
+                {signalModes[activeSignal].description}
+              </p>
+            </div>
           </div>
 
           {/* Mode Switcher Buttons */}

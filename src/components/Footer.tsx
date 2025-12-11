@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { AdminLoginDialog } from './AdminLoginDialog';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 
 const Footer = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLoginDialog, setShowLoginDialog] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -66,22 +69,28 @@ const Footer = () => {
             <p><strong className="text-slate-300">LEGAL NOTICE & PROPRIETARY RIGHTS:</strong> The Valid™ platform, the Ghost™ privacy architecture, and all associated methodologies, algorithms, and interface designs are the exclusive Intellectual Property of Valid™. These concepts are protected by Common Law Trademark rights and pending patent filings. By accessing this platform, you acknowledge that you are viewing confidential, proprietary information. Any unauthorized copying, reverse engineering, or reproduction of the Valid™ or Ghost™ concepts will be prosecuted. This site is for authorized demonstration purposes only.</p>
           </div>
 
+          {/* Language Selector */}
+          <div className="border-t border-slate-600 pt-3 mb-3">
+            <p className="text-xs text-slate-400 mb-2 text-center">{t('footer.selectLanguage')}</p>
+            <LanguageSelector variant="footer" />
+          </div>
+
           {/* Links & Compliance Row */}
           <div className="flex flex-wrap items-center justify-center gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
-            <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Terms</Link>
+            <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.terms')}</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Privacy</Link>
+            <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.privacy')}</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Refund</Link>
+            <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.refund')}</Link>
             <span className="text-white font-bold">•</span>
-            <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: All users 18+</span>
+            <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: {t('footer.ageRequirement')}</span>
             <span className="ml-auto">
             <button
                 onClick={handleAdminClick}
                 disabled={checkingAuth}
                 className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-gradient-to-r from-cyan-500 to-blue-600 text-black disabled:opacity-50 shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider"
               >
-                {isAdmin ? 'Admin Panel' : 'Admin'}
+                {isAdmin ? t('footer.adminPanel') : t('footer.admin')}
               </button>
             </span>
           </div>

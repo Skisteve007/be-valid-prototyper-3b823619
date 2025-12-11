@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight, Plane, Ticket, Ghost, Users, Activity, Zap, Moon } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { useTranslation } from 'react-i18next';
 
 interface ModeBtnProps {
   active: boolean;
@@ -49,10 +50,11 @@ const signalModes = {
 
 const Hero = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [activeMode, setActiveMode] = useState<'travel' | 'access' | 'ghost'>('access');
   const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
   const [displayedText, setDisplayedText] = useState('');
-  const fullText = 'POWERED BY SYNTHESIZED AI';
+  const fullText = t('hero.poweredBy');
   
   // Smart navigation - checks auth and routes appropriately
   const handleAccessClick = async () => {
@@ -99,13 +101,13 @@ const Hero = () => {
         <div className="flex gap-2 md:gap-4 items-center shrink-0">
           {/* For Partners Link - visible on all screens */}
           <Link to="/partners" className="text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
-            Partners
+            {t('nav.partners')}
           </Link>
           <button 
             onClick={handleAccessClick}
             className="px-3 md:px-5 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider text-[10px] md:text-xs whitespace-nowrap relative z-50"
           >
-            Member Login
+            {t('nav.memberLogin')}
           </button>
         </div>
       </nav>
@@ -130,16 +132,16 @@ const Hero = () => {
           
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-[1.15] md:leading-[0.9] text-white">
-            ONE KEY.<br />
+            {t('hero.headline')}<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]" style={{ letterSpacing: '-0.08em' }}>
-              Verify. Pay. Vibe.
+              {t('hero.subheadline')}
             </span>
           </h1>
           
           {/* SUB-HEADLINE: Adaptive Profile */}
           <p className="text-lg text-gray-400 mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
-            Your <span className="text-white font-bold">Adaptive AI Profile</span> For The New Real World. 
-            <span className="text-cyan-400">Signal Your Flow.</span> Instantly Switch Your Identity To Control Your Social Presence, Payments, And Total Invisibility.
+            {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
+            <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
           </p>
           
           {/* Call to Action */}
@@ -148,14 +150,14 @@ const Hero = () => {
               onClick={handleAccessClick}
               className="px-6 py-2.5 bg-white text-black font-bold text-sm rounded-full hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 min-h-[40px] relative z-50"
             >
-              CLAIM YOUR ID <ArrowRight size={16} />
+              {t('hero.claimId')} <ArrowRight size={16} />
             </button>
           </div>
 
           {/* Select Your Signal - Mode Buttons */}
           <div className="mt-8">
             <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-center md:text-left uppercase animate-pulse">
-              Select Your Signal
+              {t('hero.selectSignal')}
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-xl mx-auto md:mx-0">
               {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
@@ -187,22 +189,22 @@ const Hero = () => {
 
           {/* The Power Behind The Signal - Feature Cards */}
           <div className="mt-12">
-            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-4 text-center md:text-left uppercase">The Power Behind The Signal</p>
+            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-4 text-center md:text-left uppercase">{t('hero.powerBehind')}</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto md:mx-0">
               {/* Card 1: Verified Access */}
               <div className="p-4 rounded-lg border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
-                <h3 className="text-sm font-bold text-cyan-400 mb-1">Instant Entry.</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">One touch, no friction. Use your verified ID for immediate, seamless access to any VALID portal, venue, or event worldwide.</p>
+                <h3 className="text-sm font-bold text-cyan-400 mb-1">{t('hero.instantEntry')}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{t('hero.instantEntryDesc')}</p>
               </div>
               {/* Card 2: Instant Funds Flow */}
               <div className="p-4 rounded-lg border border-green-500/30 bg-green-500/5 backdrop-blur-sm hover:border-green-400/50 transition-all">
-                <h3 className="text-sm font-bold text-green-400 mb-1">Your Funds. Secure & Fast.</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">Load once and pay instantly with your Ghost™ Token. Funds are segregated and fully insured for total payment peace of mind.</p>
+                <h3 className="text-sm font-bold text-green-400 mb-1">{t('hero.secureFunds')}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{t('hero.secureFundsDesc')}</p>
               </div>
               {/* Card 3: Absolute Privacy */}
               <div className="p-4 rounded-lg border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
-                <h3 className="text-sm font-bold text-purple-400 mb-1">Total Data Lock.</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">Your health, payment details, and personal ID are tokenized and invisible. Share only a single, anonymous clearance (e.g., 21+ Verified) when required.</p>
+                <h3 className="text-sm font-bold text-purple-400 mb-1">{t('hero.dataLock')}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{t('hero.dataLockDesc')}</p>
               </div>
             </div>
           </div>

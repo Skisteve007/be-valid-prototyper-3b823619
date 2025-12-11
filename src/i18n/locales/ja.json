@@ -111,12 +111,21 @@
   },
   "footer": {
     "copyright": "© {{year}} VALID™。全著作権所有。",
+    "copyrightFull": "© 2025 VALID™。全著作権所有。Valid™、Ghost™、The Safety Shield™、Dual-Verification System™ 登録待ち商標。米国著作権法により保護。",
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
     "refund": "返金ポリシー",
     "partners": "パートナーソリューション",
     "trademarks": "Valid™、Ghost Token™、The Safety Shield™は登録申請中の商標です。",
-    "disclaimer": "VALIDは技術プラットフォームであり、医療サービス提供者ではありません。"
+    "disclaimer": "VALIDは技術プラットフォームであり、医療サービス提供者ではありません。",
+    "disclaimerLabel": "免責事項：",
+    "disclaimerText": "Valid™は技術プラットフォームであり、医療提供者ではありません。サービスは情報提供のみを目的としています。すべての検査は独立したCLIA認定ラボによって行われます。HIPAA準拠。PHIを販売しません。",
+    "legalNoticeLabel": "法的通知および所有権：",
+    "legalNoticeText": "Valid™プラットフォーム、Ghost™プライバシーアーキテクチャ、およびすべての関連方法論、アルゴリズム、インターフェースデザインはValid™の独占的知的財産です。これらの概念はコモンロー商標権と特許出願中により保護されています。このプラットフォームにアクセスすることにより、機密かつ専有情報を閲覧していることを認めます。Valid™またはGhost™の概念の無許可のコピー、リバースエンジニアリング、または複製は訴追されます。このサイトは許可されたデモンストレーション目的のみです。",
+    "selectLanguage": "言語を選択",
+    "ageRequirement": "すべてのユーザー18歳以上",
+    "admin": "管理者",
+    "adminPanel": "管理パネル"
   },
   "auth": {
     "welcomeBack": "おかえりなさい",

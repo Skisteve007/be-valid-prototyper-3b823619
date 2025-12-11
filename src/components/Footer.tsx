@@ -58,15 +58,15 @@ const Footer = () => {
     <>
       <footer className="w-full mt-auto border-t border-slate-400 dark:border-slate-700 bg-slate-800 dark:bg-slate-950">
         <div className="container mx-auto px-4 py-4">
-          {/* Compact Legal Section */}
+        {/* Compact Legal Section */}
           <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-slate-200">
-            <p>© 2025 VALID™. All Rights Reserved. Valid™, Ghost™, The Safety Shield™, Dual-Verification System™ pending trademarks. Protected under U.S. Copyright Law.</p>
-            <p><strong className="text-white">Disclaimer:</strong> Valid™ is a technology platform, not a healthcare provider. Services are for informational purposes only. All testing by independent CLIA-certified labs. HIPAA-compliant. We do not sell PHI.</p>
+            <p>{t('footer.copyrightFull')}</p>
+            <p><strong className="text-white">{t('footer.disclaimerLabel')}</strong> {t('footer.disclaimerText')}</p>
           </div>
 
           {/* Proprietary Rights Notice */}
           <div className="text-[10px] leading-relaxed mb-3 text-slate-400 border-t border-slate-600 pt-3">
-            <p><strong className="text-slate-300">LEGAL NOTICE & PROPRIETARY RIGHTS:</strong> The Valid™ platform, the Ghost™ privacy architecture, and all associated methodologies, algorithms, and interface designs are the exclusive Intellectual Property of Valid™. These concepts are protected by Common Law Trademark rights and pending patent filings. By accessing this platform, you acknowledge that you are viewing confidential, proprietary information. Any unauthorized copying, reverse engineering, or reproduction of the Valid™ or Ghost™ concepts will be prosecuted. This site is for authorized demonstration purposes only.</p>
+            <p><strong className="text-slate-300">{t('footer.legalNoticeLabel')}</strong> {t('footer.legalNoticeText')}</p>
           </div>
 
           {/* Language Selector */}

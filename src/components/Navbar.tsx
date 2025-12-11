@@ -8,24 +8,32 @@ const Navbar = () => {
   const { t } = useTranslation();
   
   return (
-    <nav className="border-b border-gray-800 bg-black/90 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-2">
-          <Shield className="w-8 h-8 text-green-400" />
-          <span className="text-xl font-bold font-orbitron tracking-widest text-white">VALID<sup className="text-xs text-cyan-400">™</sup></span>
+    <nav className="border-b border-border bg-background/90 backdrop-blur-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative">
+        {/* Logo - Centered on mobile via absolute positioning */}
+        <Link 
+          to="/" 
+          className="flex items-center gap-2 md:relative absolute left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto"
+        >
+          <Shield className="w-7 h-7 md:w-8 md:h-8 text-primary" />
+          <span className="text-lg md:text-xl font-bold tracking-widest text-foreground">VALID<sup className="text-xs text-primary">™</sup></span>
         </Link>
         
-        <div className="flex items-center gap-4">
+        {/* Spacer for mobile centering */}
+        <div className="w-10 md:hidden" />
+        
+        {/* Right side controls - visible and contained within 15px gutter */}
+        <div className="flex items-center gap-2 md:gap-4">
           <LanguageSelector />
           <Link 
             to="/partners" 
-            className="text-sm text-gray-400 hover:text-white transition hidden sm:block"
+            className="text-sm text-muted-foreground hover:text-foreground transition hidden sm:block"
           >
             {t('nav.partnerSolutions')}
           </Link>
           <Link 
             to="/access-portal" 
-            className="px-4 py-2 bg-green-600 hover:bg-green-500 text-white text-sm font-bold rounded-full transition"
+            className="px-3 md:px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold rounded-full transition whitespace-nowrap"
           >
             {t('nav.logIn')}
           </Link>

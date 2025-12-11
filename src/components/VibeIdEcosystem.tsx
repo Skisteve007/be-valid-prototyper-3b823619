@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, Activity, Zap, Moon, Smartphone, Shield, Wifi, Battery } from 'lucide-react';
+import { Users, Activity, Zap, Moon, Shield, CreditCard, Eye, Lock } from 'lucide-react';
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
@@ -132,165 +132,143 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
             </p>
           </div>
 
-          {/* RIGHT: 3D Phone Card */}
+          {/* RIGHT: Holographic Display */}
           <div className="order-1 lg:order-2 flex justify-center">
             <div 
-              className={`relative transition-all duration-700 transform hover:scale-105 group`}
+              className="relative w-[320px] h-[320px] md:w-[400px] md:h-[400px]"
               style={{ perspective: '1000px' }}
             >
-              {/* Animated Orbital Rings */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div 
-                  className={`absolute w-[240px] h-[240px] rounded-full border opacity-20 transition-all duration-500
-                    ${currentMode.borderColor}`}
-                  style={{ animation: 'spin 20s linear infinite' }}
-                />
-                <div 
-                  className={`absolute w-[280px] h-[280px] rounded-full border opacity-10 transition-all duration-500
-                    ${currentMode.borderColor}`}
-                  style={{ animation: 'spin 30s linear infinite reverse' }}
-                />
-                <div 
-                  className={`absolute w-[320px] h-[320px] rounded-full border opacity-5 transition-all duration-500
-                    ${currentMode.borderColor}`}
-                  style={{ animation: 'spin 40s linear infinite' }}
-                />
+              {/* Hexagonal Grid Background */}
+              <div className="absolute inset-0 opacity-20">
+                <svg className="w-full h-full" viewBox="0 0 400 400">
+                  <defs>
+                    <pattern id="hexGrid" width="30" height="52" patternUnits="userSpaceOnUse">
+                      <polygon points="15,0 30,13 30,39 15,52 0,39 0,13" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-cyan-500/30" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#hexGrid)" />
+                </svg>
               </div>
+
+              {/* Outer Orbital Ring */}
+              <div 
+                className="absolute inset-0 rounded-full border border-cyan-500/20"
+                style={{ animation: 'spin 30s linear infinite' }}
+              />
+              
+              {/* Middle Orbital Ring */}
+              <div 
+                className="absolute inset-6 rounded-full border border-cyan-500/30"
+                style={{ animation: 'spin 20s linear infinite reverse' }}
+              />
+
+              {/* Inner Glow Circle */}
+              <div 
+                className={`absolute inset-12 rounded-full transition-all duration-500
+                  ${activeMode === 'social' ? 'bg-blue-500/10' : activeMode === 'pulse' ? 'bg-green-500/10' : activeMode === 'thrill' ? 'bg-orange-500/10' : 'bg-purple-500/10'}`}
+                style={{ 
+                  boxShadow: `inset 0 0 60px ${activeMode === 'social' ? 'rgba(59,130,246,0.3)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.3)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.3)' : 'rgba(168,85,247,0.3)'}` 
+                }}
+              />
+
+              {/* Central Valid ID Token */}
+              <div 
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32"
+                style={{ animation: 'float 4s ease-in-out infinite' }}
+              >
+                <div 
+                  className={`w-full h-full rounded-2xl border-2 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500
+                    ${isDark ? 'bg-black/60' : 'bg-white/60'}
+                    ${currentMode.borderColor}
+                    ${currentMode.glowColor}`}
+                >
+                  <Shield size={28} className={`${currentMode.color} mb-1`} style={{ filter: `drop-shadow(0 0 10px ${activeMode === 'social' ? 'rgba(59,130,246,0.8)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.8)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.8)' : 'rgba(168,85,247,0.8)'})` }} />
+                  <span className={`text-xs md:text-sm font-black font-orbitron tracking-wider ${currentMode.color}`}>VALID™</span>
+                  <span className={`text-[8px] md:text-[10px] font-mono ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>GHOST TOKEN</span>
+                </div>
+              </div>
+
+              {/* Security/Access Zone - Top */}
+              <div 
+                className="absolute top-4 left-1/2 -translate-x-1/2"
+                style={{ animation: 'float 5s ease-in-out infinite', animationDelay: '0.5s' }}
+              >
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-sm transition-all duration-500
+                  ${isDark ? 'bg-cyan-950/50' : 'bg-cyan-100/50'}
+                  border-cyan-500/50`}
+                  style={{ boxShadow: '0 0 20px rgba(0,240,255,0.3)' }}
+                >
+                  <Lock size={16} className="text-cyan-400" />
+                  <span className="text-[10px] md:text-xs font-mono text-cyan-400 font-semibold">SECURITY</span>
+                </div>
+              </div>
+
+              {/* Payments Zone - Bottom Left */}
+              <div 
+                className="absolute bottom-8 left-4 md:left-8"
+                style={{ animation: 'float 5s ease-in-out infinite', animationDelay: '1s' }}
+              >
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-sm transition-all duration-500
+                  ${isDark ? 'bg-green-950/50' : 'bg-green-100/50'}
+                  border-green-500/50`}
+                  style={{ boxShadow: '0 0 20px rgba(34,197,94,0.3)' }}
+                >
+                  <CreditCard size={16} className="text-green-400" />
+                  <span className="text-[10px] md:text-xs font-mono text-green-400 font-semibold">PAYMENTS</span>
+                </div>
+              </div>
+
+              {/* Privacy/Invisibility Zone - Bottom Right */}
+              <div 
+                className="absolute bottom-8 right-4 md:right-8"
+                style={{ animation: 'float 5s ease-in-out infinite', animationDelay: '1.5s' }}
+              >
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border backdrop-blur-sm transition-all duration-500
+                  ${isDark ? 'bg-purple-950/50' : 'bg-purple-100/50'}
+                  border-purple-500/50`}
+                  style={{ boxShadow: '0 0 20px rgba(168,85,247,0.3)' }}
+                >
+                  <Eye size={16} className="text-purple-400" />
+                  <span className="text-[10px] md:text-xs font-mono text-purple-400 font-semibold">PRIVACY</span>
+                </div>
+              </div>
+
+              {/* Connection Lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400">
+                {/* Line to Security */}
+                <line x1="200" y1="140" x2="200" y2="60" stroke="rgba(0,240,255,0.4)" strokeWidth="1" strokeDasharray="4 4">
+                  <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite" />
+                </line>
+                {/* Line to Payments */}
+                <line x1="160" y1="220" x2="80" y2="300" stroke="rgba(34,197,94,0.4)" strokeWidth="1" strokeDasharray="4 4">
+                  <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite" />
+                </line>
+                {/* Line to Privacy */}
+                <line x1="240" y1="220" x2="320" y2="300" stroke="rgba(168,85,247,0.4)" strokeWidth="1" strokeDasharray="4 4">
+                  <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite" />
+                </line>
+              </svg>
 
               {/* Floating Particles */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {[...Array(6)].map((_, i) => (
+                {[...Array(8)].map((_, i) => (
                   <div
                     key={i}
-                    className={`absolute w-1.5 h-1.5 rounded-full ${currentMode.color.replace('text-', 'bg-')} opacity-60`}
+                    className={`absolute w-1 h-1 rounded-full ${currentMode.color.replace('text-', 'bg-')} opacity-60`}
                     style={{
-                      left: `${20 + (i * 12)}%`,
-                      animation: `float ${3 + i * 0.5}s ease-in-out infinite`,
-                      animationDelay: `${i * 0.3}s`,
+                      left: `${15 + (i * 10)}%`,
+                      top: `${20 + (i * 8)}%`,
+                      animation: `float ${3 + i * 0.4}s ease-in-out infinite`,
+                      animationDelay: `${i * 0.2}s`,
                     }}
                   />
                 ))}
               </div>
 
-              {/* Pulsing Glow Background */}
+              {/* Bottom Reflection */}
               <div 
-                className={`absolute inset-0 rounded-[50px] blur-3xl opacity-30 transition-all duration-500 -z-10
+                className={`absolute -bottom-6 left-1/2 -translate-x-1/2 w-[200px] h-[40px] rounded-full blur-2xl opacity-30 transition-all duration-500
                   ${activeMode === 'social' ? 'bg-blue-500' : activeMode === 'pulse' ? 'bg-green-500' : activeMode === 'thrill' ? 'bg-orange-500' : 'bg-purple-500'}`}
-                style={{ animation: 'pulse 3s ease-in-out infinite' }}
-              />
-
-              {/* Phone Frame */}
-              <div 
-                className={`relative w-[200px] h-[400px] rounded-[32px] border-[6px] transition-all duration-500 overflow-hidden
-                  ${isDark ? 'bg-[#111] border-gray-800' : 'bg-gray-100 border-gray-300'}
-                  ${currentMode.glowColor}`}
-                style={{
-                  transform: 'rotateY(-5deg) rotateX(2deg)',
-                  transformStyle: 'preserve-3d',
-                  animation: 'float 6s ease-in-out infinite',
-                }}
-              >
-                {/* Scanning Beam Effect */}
-                <div 
-                  className={`absolute inset-x-0 h-[2px] opacity-60 z-20 transition-all duration-500
-                    ${activeMode === 'social' ? 'bg-blue-400' : activeMode === 'pulse' ? 'bg-green-400' : activeMode === 'thrill' ? 'bg-orange-400' : 'bg-purple-400'}`}
-                  style={{
-                    animation: 'scan 2.5s ease-in-out infinite',
-                    boxShadow: `0 0 20px 5px ${activeMode === 'social' ? 'rgba(59,130,246,0.5)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.5)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.5)' : 'rgba(168,85,247,0.5)'}`
-                  }}
-                />
-
-                {/* Dynamic Background Gradient */}
-                <div 
-                  className={`absolute inset-0 bg-gradient-to-b transition-all duration-700 ${currentMode.bgGradient}`}
-                />
-
-                {/* Holographic Shimmer */}
-                <div 
-                  className="absolute inset-0 opacity-10 pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.1) 50%, transparent 55%)',
-                    backgroundSize: '200% 100%',
-                    animation: 'shimmer 3s infinite',
-                  }}
-                />
-                
-                {/* Phone Screen Content */}
-                <div className="relative h-full p-3 flex flex-col">
-                  
-                  {/* Status Bar */}
-                  <div className={`flex justify-between items-center mb-3 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-                    <span className="text-[10px] font-mono">9:41</span>
-                    <div className="flex items-center gap-1">
-                      <Wifi size={10} />
-                      <Battery size={10} />
-                    </div>
-                  </div>
-
-                  {/* VALID Logo */}
-                  <div className="text-center mb-3">
-                    <h3 className={`text-lg font-black font-orbitron tracking-wider ${currentMode.color}`}
-                      style={{ textShadow: `0 0 20px ${activeMode === 'social' ? 'rgba(59,130,246,0.5)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.5)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.5)' : 'rgba(168,85,247,0.5)'}` }}>
-                      VALID™
-                    </h3>
-                    <div className={`text-[8px] font-mono tracking-[0.2em] ${isDark ? 'text-gray-500' : 'text-slate-400'}`}>
-                      VALID-ID
-                    </div>
-                  </div>
-
-                  {/* Profile Card */}
-                  <div className={`flex-1 rounded-2xl border p-3 transition-all duration-500 backdrop-blur-sm
-                    ${isDark ? 'bg-black/40' : 'bg-white/60'} ${currentMode.borderColor}`}>
-                    
-                    {/* Avatar with Pulse Ring */}
-                    <div className="flex justify-center mb-2 relative">
-                      <div className={`absolute w-14 h-14 rounded-full border-2 opacity-50 ${currentMode.borderColor}`}
-                        style={{ animation: 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite' }} />
-                      <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-500 relative z-10
-                        ${currentMode.borderColor} ${currentMode.bgGradient}`}>
-                        <Smartphone size={20} className={currentMode.color} />
-                      </div>
-                    </div>
-
-                    {/* Status Badge */}
-                    <div className={`text-center mb-2`}>
-                      <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-[8px] font-bold tracking-wider
-                        ${currentMode.borderColor} border ${currentMode.color}`}
-                        style={{ boxShadow: `0 0 10px ${activeMode === 'social' ? 'rgba(59,130,246,0.3)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.3)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.3)' : 'rgba(168,85,247,0.3)'}` }}>
-                        <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${currentMode.color.replace('text-', 'bg-')}`} />
-                        {currentMode.statusText}
-                      </div>
-                    </div>
-
-                    {/* Mode Icon */}
-                    <div className="flex justify-center mb-2">
-                      <div className={`p-2 rounded-xl transition-all duration-500 ${currentMode.borderColor} border`}
-                        style={{ boxShadow: `inset 0 0 15px ${activeMode === 'social' ? 'rgba(59,130,246,0.2)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.2)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.2)' : 'rgba(168,85,247,0.2)'}` }}>
-                        <div className={`${currentMode.color}`}>
-                          {React.cloneElement(currentMode.icon as React.ReactElement, { size: 24 })}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Verified Shield */}
-                    <div className="flex justify-center">
-                      <div className={`flex items-center gap-1 text-[10px] font-mono ${isDark ? 'text-white/80' : 'text-slate-600'}`}>
-                        <Shield size={10} className="text-green-400" style={{ filter: 'drop-shadow(0 0 4px rgba(34,197,94,0.6))' }} />
-                        VERIFIED
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom Bar */}
-                  <div className={`mt-2 h-0.5 w-1/3 mx-auto rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-300'}`} />
-                </div>
-              </div>
-
-              {/* Reflection/Shadow */}
-              <div 
-                className={`absolute -bottom-4 left-1/2 -translate-x-1/2 w-[180px] h-[30px] rounded-full blur-2xl opacity-40 transition-all duration-500
-                  ${activeMode === 'social' ? 'bg-blue-500' : activeMode === 'pulse' ? 'bg-green-500' : activeMode === 'thrill' ? 'bg-orange-500' : 'bg-purple-500'}`}
-                style={{ animation: 'pulse 3s ease-in-out infinite' }}
               />
             </div>
           </div>

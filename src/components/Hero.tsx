@@ -160,18 +160,18 @@ const Hero = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto md:mx-0">
               {/* Card 1: Verified Access */}
               <div className="p-4 rounded-lg border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
-                <h3 className="text-sm font-bold text-cyan-400 mb-1">Verified Access.</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">Share Your Social Vibe And Basic, Verified ID For Venues And Events.</p>
+                <h3 className="text-sm font-bold text-cyan-400 mb-1">Instant Entry.</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">One touch, no friction. Use your verified ID for immediate, seamless access to any VALID portal, venue, or event worldwide.</p>
               </div>
               {/* Card 2: Instant Funds Flow */}
               <div className="p-4 rounded-lg border border-green-500/30 bg-green-500/5 backdrop-blur-sm hover:border-green-400/50 transition-all">
-                <h3 className="text-sm font-bold text-green-400 mb-1">Instant Funds Flow.</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">Enable Your Wallet For Instant, Zero-Chargeback Payments And Frictionless Fund Transfers.</p>
+                <h3 className="text-sm font-bold text-green-400 mb-1">Your Funds. Secure & Fast.</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">Load once and pay instantly with your Ghost™ Token. Funds are segregated and fully insured for total payment peace of mind.</p>
               </div>
               {/* Card 3: Absolute Privacy */}
               <div className="p-4 rounded-lg border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
-                <h3 className="text-sm font-bold text-purple-400 mb-1">Absolute Privacy.</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">Reveal Only Anonymous Confirmation (e.g., Age 21+ Verified) While Keeping All Personal Data Totally Invisible.</p>
+                <h3 className="text-sm font-bold text-purple-400 mb-1">Total Data Lock.</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">Your health, payment details, and personal ID are tokenized and invisible. Share only a single, anonymous clearance (e.g., 21+ Verified) when required.</p>
               </div>
             </div>
           </div>

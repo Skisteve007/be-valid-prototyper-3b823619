@@ -72,11 +72,11 @@ const PitchDeck = () => {
     {
       icon: Ghost,
       color: "amber",
-      title: "GHOST™ TOKEN ECONOMICS",
-      subtitle: "Pure Software Margin",
-      description: "The Ghost Token is pure software economics applied to physical access. Each $10-$50 token injects directly into the member's dynamic QR code—unlimited inventory, no fulfillment, no COGS. At scale, every Ghost Token generates $4+ pure margin. The token self-destructs after use, eliminating replay attacks. This isn't a product sale—it's a toll booth on trust.",
-      metric: "$4.00+",
-      metricLabel: "Pure Margin Per Token",
+      title: "GHOST™ TOKEN",
+      subtitle: "Not a Ticket. A Dynamic Injection.",
+      description: "The Ghost™ Token is not a static file. It is a secure, encrypted container that simultaneously represents three data points: Financial Authorization (Payment), Identity Verification (ID/Passport), and Health/Status Validation (Clearance). When scanned, the Token injects these three validated signals into the venue's system instantly. The venue gets the green light, the funds, and the liability shield—without ever storing raw data. You are Ghosted in.",
+      metric: "3-in-1",
+      metricLabel: "Layered Injection",
       layer: "LAYER 1"
     },
     {

@@ -264,10 +264,10 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-4">
             <div className="flex items-center gap-2">
-              <Radio className="w-5 h-5 text-foreground" />
-              <h3 className="text-lg font-semibold text-foreground">MY SIGNAL</h3>
+              <Radio className="w-5 h-5 text-cyan-400" />
+              <h3 className="text-lg font-semibold text-cyan-400">MY SIGNAL</h3>
+              <span className="text-xs text-cyan-400/80">• Select a signal mode to customize your vibe</span>
             </div>
-            <span className="text-xs text-muted-foreground">• Select a signal mode to customize your vibe</span>
           </div>
 
           {/* 4-Button Grid with Descriptions */}
@@ -278,7 +278,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("social")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "social"
-                  ? "border-cyan-400 bg-cyan-500/20 shadow-[0_0_15px_rgba(0,240,255,0.4)]"
+                  ? "border-cyan-400 bg-cyan-500/20 shadow-[0_0_15px_rgba(0,240,255,0.4)] animate-pulse"
                   : "border-cyan-400/50 bg-card hover:border-cyan-400 hover:bg-cyan-500/10"
               }`}
             >
@@ -301,11 +301,11 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("pulse")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "pulse"
-                  ? "border-green-400 bg-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.4)]"
+                  ? "border-green-400 bg-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.4)] animate-pulse"
                   : "border-green-400/50 bg-card hover:border-green-400 hover:bg-green-500/10"
               }`}
             >
-              <div className="relative">
+              <div className="relative flex items-center gap-2">
                 <div
                   className={`w-12 h-12 rounded-full flex items-center justify-center ${
                     selectedMode === "pulse" ? "bg-green-500 shadow-[0_0_20px_8px_rgba(34,197,94,0.4)]" : "bg-green-500/20"
@@ -313,7 +313,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 >
                   <Activity className={`w-6 h-6 ${selectedMode === "pulse" ? "text-white" : "text-green-400"}`} />
                 </div>
-                <span className="absolute -top-1 -right-3 text-[9px] font-bold text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded-full border border-green-400/50">18+</span>
+                <span className="text-[9px] font-bold text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded-full border border-green-400/50">18+</span>
               </div>
               <span className="font-semibold text-foreground">PULSE</span>
               <p className="text-xs text-muted-foreground text-center leading-snug">
@@ -327,7 +327,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("thrill")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "thrill"
-                  ? "border-orange-400 bg-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.4)]"
+                  ? "border-orange-400 bg-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.4)] animate-pulse"
                   : "border-orange-400/50 bg-card hover:border-orange-400 hover:bg-orange-500/10"
               }`}
             >
@@ -350,11 +350,11 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               onClick={() => handleModeSelect("afterdark")}
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "afterdark"
-                  ? "border-purple-400 bg-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+                  ? "border-purple-400 bg-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.4)] animate-pulse"
                   : "border-purple-400/50 bg-card hover:border-purple-400 hover:bg-purple-500/10"
               }`}
             >
-              <div className="relative">
+              <div className="relative flex items-center gap-2">
                 <div
                   className={`w-12 h-12 rounded-full flex items-center justify-center ${
                     selectedMode === "afterdark" ? "bg-purple-500 shadow-[0_0_20px_8px_rgba(168,85,247,0.4)]" : "bg-purple-500/20"
@@ -362,7 +362,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 >
                   <Ghost className={`w-6 h-6 ${selectedMode === "afterdark" ? "text-white" : "text-purple-400"}`} />
                 </div>
-                <span className="absolute -top-1 -right-3 text-[9px] font-bold text-purple-400 bg-purple-500/20 px-1.5 py-0.5 rounded-full border border-purple-400/50">18+</span>
+                <span className="text-[9px] font-bold text-purple-400 bg-purple-500/20 px-1.5 py-0.5 rounded-full border border-purple-400/50">18+</span>
               </div>
               <span className="font-semibold text-foreground">AFTER DARK</span>
               <p className="text-xs text-muted-foreground text-center leading-snug">
@@ -377,11 +377,6 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           {selectedMode === "thrill" && renderThrillDropdowns()}
           {selectedMode === "afterdark" && renderAfterDarkDropdowns()}
 
-          {!selectedMode && (
-            <p className="text-center text-muted-foreground mt-4 text-sm">
-              Select a signal mode to customize your vibe
-            </p>
-          )}
         </CardContent>
       </Card>
 

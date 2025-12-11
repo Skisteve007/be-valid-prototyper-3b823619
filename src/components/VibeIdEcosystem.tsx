@@ -81,7 +81,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
     : t('network.descriptionB2b');
 
   return (
-    <section className={`py-12 md:py-16 px-4 relative z-10 transition-colors duration-500 overflow-hidden
+    <section className={`py-8 px-4 relative z-10 transition-colors duration-500 overflow-hidden
       ${isDark ? 'bg-[#0a0a0a]' : 'bg-slate-100'}`}>
       
       {/* Animation Keyframes */}

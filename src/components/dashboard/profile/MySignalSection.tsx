@@ -154,17 +154,17 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
 
   const renderDropdown = (label: string, field: string, options: string[]) => (
     <div className="space-y-1">
-      <Label className="text-xs font-medium text-slate-700">{label}</Label>
+      <Label className="text-xs font-medium text-foreground">{label}</Label>
       <Select
         value={localMetadata[field] || ""}
         onValueChange={(value) => updateMetadataField(field, value)}
       >
-        <SelectTrigger className="bg-white border-slate-300 text-slate-900 h-9">
+        <SelectTrigger className="bg-background border-border text-foreground h-9">
           <SelectValue placeholder={`Select ${label}`} />
         </SelectTrigger>
-        <SelectContent className="bg-white border-slate-300 text-slate-900 z-50">
+        <SelectContent className="bg-popover border-border text-popover-foreground z-50">
           {options.map((option) => (
-            <SelectItem key={option} value={option} className="hover:bg-slate-100">
+            <SelectItem key={option} value={option} className="hover:bg-accent">
               {option}
             </SelectItem>
           ))}
@@ -175,12 +175,12 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
 
   const renderTextInput = (label: string, field: string, placeholder: string) => (
     <div className="space-y-1 col-span-2">
-      <Label className="text-xs font-medium text-slate-700">{label}</Label>
+      <Label className="text-xs font-medium text-foreground">{label}</Label>
       <Input
         value={localMetadata[field] || ""}
         onChange={(e) => updateMetadataField(field, e.target.value)}
         placeholder={placeholder}
-        className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400"
+        className="bg-background border-border text-foreground placeholder:text-muted-foreground"
       />
     </div>
   );
@@ -260,11 +260,11 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
 
   return (
     <>
-      <Card className="bg-white border-slate-200 shadow-sm">
+      <Card className="bg-card border-border shadow-sm">
         <CardContent className="p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Radio className="w-5 h-5 text-slate-700" />
-            <h3 className="text-lg font-semibold text-slate-900">MY SIGNAL</h3>
+            <Radio className="w-5 h-5 text-foreground" />
+            <h3 className="text-lg font-semibold text-foreground">MY SIGNAL</h3>
           </div>
 
           {/* 4-Button Grid */}
@@ -276,7 +276,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "social"
                   ? "border-[#2563EB] bg-[#2563EB]/10 shadow-lg shadow-[#2563EB]/30"
-                  : "border-slate-200 bg-white hover:border-[#2563EB]/50 hover:bg-slate-50"
+                  : "border-border bg-card hover:border-[#2563EB]/50 hover:bg-muted"
               }`}
             >
               <div
@@ -286,7 +286,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               >
                 <Users className={`w-6 h-6 ${selectedMode === "social" ? "text-white" : "text-[#2563EB]"}`} />
               </div>
-              <span className="font-semibold text-slate-900">SOCIAL</span>
+              <span className="font-semibold text-foreground">SOCIAL</span>
             </button>
 
             {/* PULSE Button */}
@@ -296,7 +296,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "pulse"
                   ? "border-[#22C55E] bg-[#22C55E]/10 shadow-lg shadow-[#22C55E]/30"
-                  : "border-slate-200 bg-white hover:border-[#22C55E]/50 hover:bg-slate-50"
+                  : "border-border bg-card hover:border-[#22C55E]/50 hover:bg-muted"
               }`}
             >
               <div
@@ -306,8 +306,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               >
                 <Activity className={`w-6 h-6 ${selectedMode === "pulse" ? "text-white" : "text-[#22C55E]"}`} />
               </div>
-              <span className="font-semibold text-slate-900">PULSE</span>
-              <span className="text-[10px] text-slate-500">18+</span>
+              <span className="font-semibold text-foreground">PULSE</span>
+              <span className="text-[10px] text-muted-foreground">18+</span>
             </button>
 
             {/* THRILL Button */}
@@ -317,7 +317,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "thrill"
                   ? "border-[#F97316] bg-[#F97316]/10 shadow-lg shadow-[#F97316]/30"
-                  : "border-slate-200 bg-white hover:border-[#F97316]/50 hover:bg-slate-50"
+                  : "border-border bg-card hover:border-[#F97316]/50 hover:bg-muted"
               }`}
             >
               <div
@@ -327,7 +327,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               >
                 <Zap className={`w-6 h-6 ${selectedMode === "thrill" ? "text-white" : "text-[#F97316]"}`} />
               </div>
-              <span className="font-semibold text-slate-900">THRILL</span>
+              <span className="font-semibold text-foreground">THRILL</span>
             </button>
 
             {/* AFTER DARK Button */}
@@ -337,7 +337,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                 selectedMode === "afterdark"
                   ? "border-[#581C87] bg-[#581C87]/10 shadow-lg shadow-[#581C87]/30"
-                  : "border-slate-200 bg-white hover:border-[#581C87]/50 hover:bg-slate-50"
+                  : "border-border bg-card hover:border-[#581C87]/50 hover:bg-muted"
               }`}
             >
               <div
@@ -347,8 +347,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               >
                 <Ghost className={`w-6 h-6 ${selectedMode === "afterdark" ? "text-white" : "text-[#581C87]"}`} />
               </div>
-              <span className="font-semibold text-slate-900">AFTER DARK</span>
-              <span className="text-[10px] text-slate-500">18+</span>
+              <span className="font-semibold text-foreground">AFTER DARK</span>
+              <span className="text-[10px] text-muted-foreground">18+</span>
             </button>
           </div>
 
@@ -359,7 +359,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           {selectedMode === "afterdark" && renderAfterDarkDropdowns()}
 
           {!selectedMode && (
-            <p className="text-center text-slate-500 mt-4 text-sm">
+            <p className="text-center text-muted-foreground mt-4 text-sm">
               Select a signal mode to customize your vibe
             </p>
           )}
@@ -368,19 +368,19 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
 
       {/* 18+ Age Warning Modal */}
       <AlertDialog open={showAgeWarning} onOpenChange={setShowAgeWarning}>
-        <AlertDialogContent className="bg-white border-slate-200">
+        <AlertDialogContent className="bg-card border-border">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-slate-900 flex items-center gap-2">
+            <AlertDialogTitle className="text-foreground flex items-center gap-2">
               <span className="text-2xl">🔞</span> Age Verification Required
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-600">
+            <AlertDialogDescription className="text-muted-foreground">
               This mode contains adult content intended for users 18 years or older. By continuing, you confirm that you are at least 18 years of age and consent to viewing mature content.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel 
               onClick={handleCancelAge}
-              className="bg-slate-100 text-slate-900 border-slate-300 hover:bg-slate-200"
+              className="bg-muted text-foreground border-border hover:bg-accent"
             >
               Cancel
             </AlertDialogCancel>

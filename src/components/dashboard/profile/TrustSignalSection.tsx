@@ -252,7 +252,7 @@ const TrustSignalSection = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <UserCheck className="w-4 h-4 text-blue-500" />
-              <span className="text-sm font-semibold text-foreground">The Vouch</span>
+              <span className="text-sm font-semibold text-foreground">Member Endorsements</span>
               <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-blue-500/50 text-blue-500">
                 P2P
               </Badge>
@@ -355,7 +355,7 @@ const TrustSignalSection = ({
         <div className="space-y-3">
           <div className="flex items-center gap-2">
             <Link2 className="w-4 h-4 text-purple-500" />
-            <span className="text-sm font-semibold text-foreground">Signal Injection</span>
+            <span className="text-sm font-semibold text-foreground">Signal Social Media Injection</span>
           </div>
           
           <div className="p-4 rounded-xl bg-gradient-to-br from-purple-500/15 to-blue-500/15 border border-purple-500/30">

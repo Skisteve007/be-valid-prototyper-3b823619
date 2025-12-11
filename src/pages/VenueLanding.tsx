@@ -229,7 +229,7 @@ const VenueLanding = () => {
                 <Clock className="h-10 w-10 text-cyan-400 mb-4" />
                 <h3 className="text-lg font-semibold text-foreground mb-2">24-Hour Access</h3>
                 <p className="text-muted-foreground text-sm">
-                  Ghost Mode passes give you seamless access for 24 hours across all VALID partner venues.
+                  Ghost™ Mode passes give you seamless access for 24 hours across all VALID™ partner venues.
                 </p>
               </div>
             </div>
@@ -256,7 +256,7 @@ const VenueLanding = () => {
         {/* Footer */}
         <footer className="border-t border-border/40 py-8">
           <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} VALID. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} VALID™. All rights reserved.</p>
             <p className="mt-2">
               <Link to="/terms" className="hover:text-foreground">Terms</Link>
               {" · "}

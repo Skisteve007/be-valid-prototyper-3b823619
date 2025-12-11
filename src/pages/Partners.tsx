@@ -390,7 +390,7 @@ const Partners = () => {
           <div className="mt-12 bg-gradient-to-r from-cyan-900/20 via-blue-900/20 to-cyan-900/20 border border-cyan-500/30 p-8 rounded-2xl text-center">
             <h3 className="text-xl font-bold font-orbitron text-white mb-3">The Bottom Line</h3>
             <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              VALID operates as a <strong className="text-cyan-400">cryptographic relay</strong>. We deliver encrypted verification tokens—never raw data. When a patron scans at your door, you receive a simple <span className="text-green-400 font-bold">VERIFIED</span> or <span className="text-red-400 font-bold">NOT VERIFIED</span> signal. No PII touches your systems. No data to breach. No compliance burden. <strong className="text-white">This is not risk mitigation—it is risk elimination.</strong>
+              VALID™ operates as a <strong className="text-cyan-400">cryptographic relay</strong>. We deliver encrypted verification tokens—never raw data. When a patron scans at your door, you receive a simple <span className="text-green-400 font-bold">VERIFIED</span> or <span className="text-red-400 font-bold">NOT VERIFIED</span> signal. No PII touches your systems. No data to breach. No compliance burden. <strong className="text-white">This is not risk mitigation—it is risk elimination.</strong>
             </p>
           </div>
         </div>
@@ -401,7 +401,7 @@ const Partners = () => {
         <div className="max-w-6xl mx-auto px-6">
            <div className="text-center mb-12">
               <h2 className="text-3xl font-bold font-orbitron mb-4">THE REVENUE <span className="text-cyan-400">STACK</span></h2>
-              <p className="text-gray-400">Revolutionized By Monetizing Every Friction Point VALID Has Removed.</p>
+              <p className="text-gray-400">Revolutionized By Monetizing Every Friction Point VALID™ Has Removed.</p>
            </div>
            
            <div className="relative">
@@ -421,11 +421,10 @@ const Partners = () => {
                  </div>
               </div>
               
-              {/* Row 2 - Access Monetization */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4 relative z-10">
                  <StackItem 
                    title="2. Access Monetization" 
-                   desc="High-velocity $10-$50 Ghost Tokens at the entry point."
+                   desc="High-velocity $10-$50 Ghost™ Tokens at the entry point."
                    color="cyan"
                  />
                  <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
@@ -464,7 +463,7 @@ const Partners = () => {
                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
                   <StackItem 
                     title="5. Operation Profit Share" 
-                    desc="Entry used to cost operations money—staff, bottlenecks, lost time. Now every Ghost Token scan earns 40% instantly. Faster flow, zero friction, pure profit on every person through the door."
+                    desc="Entry used to cost operations money—staff, bottlenecks, lost time. Now every Ghost™ Token scan earns 40% instantly. Faster flow, zero friction, pure profit on every person through the door."
                     color="cyan"
                   />
                   <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
@@ -489,7 +488,7 @@ const Partners = () => {
             <p className="text-amber-400 font-bold text-sm tracking-wide mb-4 uppercase">From Cost Center to Profit Center</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing Money. Start Making It.</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              The <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">Every time a patron purchases the Ghost QR Code Pass, the revenue is huge. Your operation earns 40% of the Ghost Token user purchase</strong>—not 40% of a tiny transaction fee, but <strong className="text-cyan-400">40% of the entire token value</strong>. Verification isn't a cost—it's a <strong className="text-amber-400">new, massive revenue stream</strong>.
+              The <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">Every time a patron purchases the Ghost™ QR Code Pass, the revenue is huge. Your operation earns 40% of the Ghost™ Token user purchase</strong>—not 40% of a tiny transaction fee, but <strong className="text-cyan-400">40% of the entire token value</strong>. Verification isn't a cost—it's a <strong className="text-amber-400">new, massive revenue stream</strong>.
             </p>
           </div>
           <div className="relative bg-black/60 backdrop-blur-xl border border-cyan-500/50 p-8 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.15)]">
@@ -516,7 +515,7 @@ const Partners = () => {
                  <div className="h-8 w-8 rounded-full bg-amber-500/20 flex items-center justify-center">
                    <DollarSign className="h-4 w-4 text-amber-400" />
                  </div>
-                 <span className="text-amber-400 font-bold">40% Revenue Share Per Ghost QR Code Pass Purchase</span>
+                 <span className="text-amber-400 font-bold">40% Revenue Share Per Ghost™ QR Code Pass Purchase</span>
                </div>
                <div className="flex items-center gap-3">
                  <div className="h-8 w-8 rounded-full bg-cyan-500/20 flex items-center justify-center">
@@ -612,7 +611,7 @@ const Partners = () => {
               THE COST OF ZERO RISK: <span className="text-emerald-400">Your Investment is $0</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-              VALID users arrive fully verified, screened, and ready to spend. We eliminate your #1 cost: customer identity verification.
+              VALID™ users arrive fully verified, screened, and ready to spend. We eliminate your #1 cost: customer identity verification.
             </p>
           </div>
 
@@ -622,7 +621,7 @@ const Partners = () => {
             <div className="p-8 bg-white/5 rounded-xl border border-emerald-400/50 hover:border-emerald-400 transition-colors">
               <h3 className="text-5xl font-extrabold text-emerald-400 mb-4">$0.00</h3>
               <p className="text-lg font-bold text-white mb-3">Identity Verification Cost</p>
-              <p className="text-sm text-gray-400">The user pays VALID directly for their High-Assurance Status. Your liability is instantly eliminated for free.</p>
+              <p className="text-sm text-gray-400">The user pays VALID™ directly for their High-Assurance Status. Your liability is instantly eliminated for free.</p>
             </div>
 
             {/* 100% Compliance Transfer */}
@@ -634,9 +633,9 @@ const Partners = () => {
 
             {/* Ghost Token Revenue */}
             <div className="p-8 bg-white/5 rounded-xl border border-white/20 hover:border-cyan-400/50 transition-colors">
-              <h3 className="text-2xl font-extrabold text-cyan-400 mb-4">Ghost Token Revenue</h3>
+              <h3 className="text-2xl font-extrabold text-cyan-400 mb-4">Ghost™ Token Revenue</h3>
               <p className="text-lg font-bold text-white mb-3">The True Profit Engine</p>
-              <p className="text-sm text-gray-400">You earn a commission on every $10-$50 Ghost Token purchased by this verified user inside your operation.</p>
+              <p className="text-sm text-gray-400">You earn a commission on every $10-$50 Ghost™ Token purchased by this verified user inside your operation.</p>
             </div>
           </div>
         </div>
@@ -777,7 +776,7 @@ const Partners = () => {
             
             <div className="mt-8 text-center">
               <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
-                VALID is not just a QR app—we are the <span className="text-cyan-400 font-bold">universal operating system for spatial identity</span>.
+                VALID™ is not just a QR app—we are the <span className="text-cyan-400 font-bold">universal operating system for spatial identity</span>.
               </p>
             </div>
           </div>
@@ -796,7 +795,7 @@ const Partners = () => {
       </section>
 
       <footer className="py-8 text-center text-xs text-gray-600 border-t border-white/10 bg-black relative z-10">
-        <p>© 2025 VALID. Infrastructure for the Real World.</p>
+        <p>© 2025 VALID™. Infrastructure for the Real World.</p>
       </footer>
 
     </div>

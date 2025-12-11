@@ -311,8 +311,8 @@ const PitchDeck = () => {
             </blockquote>
             
             <p className="text-gray-400 text-lg leading-relaxed">
-              VALID isn't a health app. It's not an identity company. It's not a payment processor. 
-              <span className="text-white font-semibold"> It's the Ghost Token protocol—a self-destructing, encrypted trust packet injected into every QR code.</span> When you enter a venue, the Ghost Token proves you're verified, processes payment, and vaporizes—zero data left behind. We don't store trust. We transmit it.
+              VALID™ isn't a health app. It's not an identity company. It's not a payment processor. 
+              <span className="text-white font-semibold"> It's the Ghost™ Token protocol—a self-destructing, encrypted trust packet injected into every QR code.</span> When you enter a venue, the Ghost™ Token proves you're verified, processes payment, and vaporizes—zero data left behind. We don't store trust. We transmit it.
             </p>
           </div>
         </section>
@@ -347,7 +347,7 @@ const PitchDeck = () => {
                 The Six Unicorn Pillars
               </h2>
             </div>
-            <p className="text-gray-400 mt-6 max-w-3xl mx-auto text-lg tracking-wide leading-relaxed">Why VALID will become the trust infrastructure layer for every high-stakes human interaction</p>
+            <p className="text-gray-400 mt-6 max-w-3xl mx-auto text-lg tracking-wide leading-relaxed">Why VALID™ will become the trust infrastructure layer for every high-stakes human interaction</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -512,7 +512,7 @@ const PitchDeck = () => {
                 The Model
               </h3>
               <p className="text-gray-300 text-lg leading-relaxed">
-                The user pays for their <span className="text-white font-semibold">Verified Identity Key</span> once. VALID pays the Tier 1 vendor, and keeps the rest. 
+                The user pays for their <span className="text-white font-semibold">Verified Identity Key</span> once. VALID™ pays the Tier 1 vendor, and keeps the rest. 
                 The revenue is <span className="text-emerald-400 font-semibold">instant</span>, <span className="text-emerald-400 font-semibold">high-value</span>, and <span className="text-emerald-400 font-semibold">recurring</span> with every new user.
               </p>
             </div>
@@ -573,8 +573,8 @@ const PitchDeck = () => {
             {/* Bottom Line */}
             <div className="bg-gradient-to-r from-emerald-900/30 to-cyan-900/30 border border-emerald-400/30 rounded-xl p-6 text-center">
               <p className="text-lg text-gray-300 leading-relaxed">
-                This makes VALID a <span className="text-emerald-400 font-bold text-2xl">60% gross margin</span> business 
-                <span className="text-white font-semibold"> before even considering Ghost Token commissions</span>. 
+                This makes VALID™ a <span className="text-emerald-400 font-bold text-2xl">60% gross margin</span> business 
+                <span className="text-white font-semibold"> before even considering Ghost™ Token commissions</span>. 
                 The cost structure is clean, and the profit is immediate.
               </p>
             </div>
@@ -805,7 +805,7 @@ const PitchDeck = () => {
                   <p className="text-sm text-gray-300">Phone scans face/palm locally, converts to encrypted hash. Only the <span className="text-green-400 font-semibold">numbers</span> are sent.</p>
                 </div>
                 <div className="bg-black/30 rounded-lg p-3">
-                  <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">The VALID Upgrade</p>
+                  <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">The VALID™ Upgrade</p>
                   <p className="text-sm text-gray-300">Walk up to a kiosk, look at it, door opens. <span className="text-green-400 font-semibold">No phone required.</span></p>
                 </div>
               </div>
@@ -841,7 +841,7 @@ const PitchDeck = () => {
             
             <div className="mt-12 text-center">
               <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                VALID is not just a QR app—we are the <span className="text-cyan-400 font-bold">universal operating system for spatial identity</span>.
+                VALID™ is not just a QR app—we are the <span className="text-cyan-400 font-bold">universal operating system for spatial identity</span>.
               </p>
             </div>
           </div>
@@ -1031,7 +1031,7 @@ const PitchDeck = () => {
                   </div>
                   <h4 className="text-lg font-bold text-purple-400 mb-3 font-orbitron">DIVIDEND DISTRIBUTIONS</h4>
                   <p className="text-sm text-gray-300 leading-relaxed">
-                    Unlike standard tech burns, VALID acts as a <span className="text-white font-semibold">transaction conduit</span>. We intend to distribute a <span className="text-purple-400 font-bold">% of Net Transaction Fees</span> back to equity holders once stabilized.
+                    Unlike standard tech burns, VALID™ acts as a <span className="text-white font-semibold">transaction conduit</span>. We intend to distribute a <span className="text-purple-400 font-bold">% of Net Transaction Fees</span> back to equity holders once stabilized.
                   </p>
                 </div>
 

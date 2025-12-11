@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <Shield className="w-8 h-8 text-green-400" />
-          <span className="text-xl font-bold font-orbitron tracking-widest text-white">VALID</span>
+          <span className="text-xl font-bold font-orbitron tracking-widest text-white">VALID<sup className="text-xs text-cyan-400">™</sup></span>
         </Link>
         
         <div className="flex items-center gap-4">

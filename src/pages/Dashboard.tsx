@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Home, FlaskConical, ShieldCheck, ArrowUp } from "lucide-react";
+import { LogOut, User as UserIcon, Award, QrCode, UserCheck, Home, FlaskConical, ShieldCheck, ArrowUp, Share2 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
@@ -19,6 +19,7 @@ import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
 import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
 import { VenueCheckin } from "@/components/dashboard/VenueCheckin";
 import GhostPassModal from "@/components/dashboard/GhostPassModal";
+import ShareProfileModal from "@/components/dashboard/ShareProfileModal";
 import logo from "@/assets/valid-logo.jpeg";
 
 const Dashboard = () => {
@@ -29,6 +30,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [qrRefreshKey, setQrRefreshKey] = useState(0);
   const [activeTab, setActiveTab] = useState("profile");
+  const [showShareModal, setShowShareModal] = useState(false);
   const { isAdmin } = useIsAdmin();
   const longPressHandlers = useLongPressHome();
   const touchStartX = useRef<number>(0);
@@ -167,11 +169,11 @@ const Dashboard = () => {
             {/* Buttons - centered row on mobile, right-aligned on desktop */}
             <div className="flex justify-center md:justify-end gap-2 flex-wrap md:flex-1 items-center">
               <Button 
-                onClick={() => setActiveTab("qrcode")}
+                onClick={() => setShowShareModal(true)}
                 className="relative shadow-[0_0_20px_rgba(0,255,194,0.5)] hover:shadow-[0_0_30px_rgba(0,255,194,0.7)] border border-[#00FFC2]/60 bg-[#00FFC2]/10 text-[#00FFC2] hover:text-[#00FFC2] hover:bg-[#00FFC2]/20 font-bold min-h-[44px] px-5 touch-manipulation rounded-full backdrop-blur-sm"
               >
-                <QrCode className="h-4 w-4 mr-2" />
-                QR Code
+                <Share2 className="h-4 w-4 mr-2" />
+                Share Profile
               </Button>
               <ThemeToggle />
               <Button 
@@ -301,6 +303,13 @@ const Dashboard = () => {
 
       {/* Ghost Pass Floating Action Button & Modal */}
       <GhostPassModal userId={user.id} />
+
+      {/* Share Profile Modal */}
+      <ShareProfileModal 
+        open={showShareModal} 
+        onClose={() => setShowShareModal(false)} 
+        userId={user.id} 
+      />
     </div>
   );
 };

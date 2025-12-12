@@ -81,6 +81,15 @@ const Auth = () => {
         return;
       }
 
+      // Check if email is confirmed
+      if (data.user && !data.user.email_confirmed_at) {
+        setLoading(false);
+        setVerificationEmail(data.user.email || loginEmail);
+        setShowEmailVerification(true);
+        toast.error("Please verify your email before logging in. Check your inbox.");
+        return;
+      }
+
       toast.success("Welcome back!");
       navigate("/dashboard");
     } catch (error: any) {

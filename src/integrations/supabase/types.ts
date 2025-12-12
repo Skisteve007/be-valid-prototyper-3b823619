@@ -378,6 +378,36 @@ export type Database = {
           },
         ]
       }
+      email_verification_tokens: {
+        Row: {
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          token: string
+          user_id: string
+          verified_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          expires_at?: string
+          id?: string
+          token: string
+          user_id: string
+          verified_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          token?: string
+          user_id?: string
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
       exception_queue: {
         Row: {
           created_at: string
@@ -1086,6 +1116,7 @@ export type Database = {
           disclaimer_accepted: boolean | null
           email: string | null
           email_shareable: boolean | null
+          email_verified: boolean | null
           employer_id: string | null
           facebook_handle: string | null
           full_name: string | null
@@ -1156,6 +1187,7 @@ export type Database = {
           disclaimer_accepted?: boolean | null
           email?: string | null
           email_shareable?: boolean | null
+          email_verified?: boolean | null
           employer_id?: string | null
           facebook_handle?: string | null
           full_name?: string | null
@@ -1226,6 +1258,7 @@ export type Database = {
           disclaimer_accepted?: boolean | null
           email?: string | null
           email_shareable?: boolean | null
+          email_verified?: boolean | null
           employer_id?: string | null
           facebook_handle?: string | null
           full_name?: string | null

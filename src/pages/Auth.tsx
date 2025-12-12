@@ -98,7 +98,7 @@ const Auth = () => {
       if (data.user) {
         const { data: profile } = await supabase
           .from("profiles")
-          .select("email_verified")
+          .select("email_verified, full_name")
           .eq("user_id", data.user.id)
           .single();
         
@@ -109,7 +109,22 @@ const Auth = () => {
           setLoading(false);
           setVerificationEmail(data.user.email || loginEmail);
           setShowEmailVerification(true);
-          toast.error("Please verify your email before logging in. Check your inbox.");
+          
+          // Auto-send a fresh verification email
+          const firstName = profile?.full_name?.split(' ')[0] || "User";
+          try {
+            await supabase.functions.invoke("send-auth-email", {
+              body: {
+                email: data.user.email || loginEmail,
+                userId: data.user.id,
+                firstName: firstName,
+              },
+            });
+            toast.info("Verification email sent! Please check your inbox and spam folder.");
+          } catch (emailError) {
+            console.error("Failed to send verification email:", emailError);
+            toast.error("Please verify your email. Click 'Resend' if you didn't receive it.");
+          }
           return;
         }
       }

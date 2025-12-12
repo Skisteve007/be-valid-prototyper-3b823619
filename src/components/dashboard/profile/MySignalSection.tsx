@@ -410,7 +410,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 <Users className={`w-4 h-4 md:w-5 md:h-5 ${selectedMode === "social" ? "text-white" : "text-cyan-400"}`} />
               </div>
               <span className="font-semibold text-foreground text-xs md:text-sm">SOCIAL</span>
-              <p className="text-[9px] md:text-[10px] text-muted-foreground text-center leading-tight line-clamp-2 md:line-clamp-3 px-0.5 md:px-1">
+              <p className="text-[8px] md:text-xs text-muted-foreground text-center leading-tight px-0.5 md:px-1 break-words hyphens-auto max-w-full">
                 Open to connect. Share contacts.
               </p>
             </button>
@@ -461,7 +461,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 <span className="text-[7px] md:text-[8px] font-bold text-green-400 bg-green-500/20 px-1 py-0.5 rounded-full border border-green-400/50">18+</span>
               </div>
               <span className="font-semibold text-foreground text-xs md:text-sm">PULSE</span>
-              <p className="text-[9px] md:text-[10px] text-muted-foreground text-center leading-tight line-clamp-2 md:line-clamp-3 px-0.5 md:px-1">
+              <p className="text-[8px] md:text-xs text-muted-foreground text-center leading-tight px-0.5 md:px-1 break-words hyphens-auto max-w-full">
                 High energy mode.
               </p>
             </button>
@@ -487,7 +487,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 <Zap className={`w-4 h-4 md:w-5 md:h-5 ${selectedMode === "thrill" ? "text-white" : "text-orange-400"}`} />
               </div>
               <span className="font-semibold text-foreground text-xs md:text-sm">THRILL</span>
-              <p className="text-[9px] md:text-[10px] text-muted-foreground text-center leading-tight line-clamp-2 md:line-clamp-3 px-0.5 md:px-1">
+              <p className="text-[8px] md:text-xs text-muted-foreground text-center leading-tight px-0.5 md:px-1 break-words hyphens-auto max-w-full">
                 Adventure ready.
               </p>
             </button>
@@ -515,8 +515,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 </div>
                 <span className="text-[7px] md:text-[8px] font-bold text-purple-400 bg-purple-500/20 px-1 py-0.5 rounded-full border border-purple-400/50">18+</span>
               </div>
-              <span className="font-semibold text-foreground text-[10px] md:text-xs">AFTER DARK</span>
-              <p className="text-[9px] md:text-[10px] text-muted-foreground text-center leading-tight line-clamp-2 md:line-clamp-3 px-0.5 md:px-1">
+              <span className="font-semibold text-foreground text-[10px] md:text-sm">AFTER DARK</span>
+              <p className="text-[8px] md:text-xs text-muted-foreground text-center leading-tight px-0.5 md:px-1 break-words hyphens-auto max-w-full">
                 Zero data exposed.
               </p>
             </button>

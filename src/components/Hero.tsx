@@ -123,10 +123,10 @@ const Hero = () => {
       </nav>
 
       {/* 2. MAIN CONTENT */}
-      <div className="flex-1 flex flex-col md:flex-row items-center md:items-start justify-start w-full px-[15px] md:px-6 z-10 gap-8 md:gap-16 mt-4">
+      <div className="flex-1 flex flex-col md:flex-row items-start justify-start w-full px-[15px] md:px-6 z-10 gap-8 md:gap-12 mt-4">
         
         {/* LEFT: THE PITCH */}
-        <div className="flex-1 text-center md:text-left order-2 md:order-1">
+        <div className="flex-1 text-left order-2 md:order-1">
           
           {/* TAG: SYNTHESIZED AI with typing effect */}
           <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded-lg text-xs font-mono tracking-widest text-cyan-400">
@@ -149,13 +149,13 @@ const Hero = () => {
           </h1>
           
           {/* SUB-HEADLINE: Adaptive Profile - ABOVE Claim Your ID */}
-          <p className="text-base text-gray-400 mb-6 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
+          <p className="text-base text-gray-400 mb-6 font-light max-w-md leading-relaxed">
             {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
             <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
           </p>
 
           {/* Call to Action */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start relative z-50">
+          <div className="flex flex-col sm:flex-row gap-4 justify-start relative z-50">
             <button 
               onClick={handleAccessClick}
               className="px-6 py-2.5 bg-white text-black font-bold text-sm rounded-full hover:bg-cyan-50 text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 min-h-[40px] relative z-50"
@@ -166,10 +166,10 @@ const Hero = () => {
 
           {/* Select Your Signal - Mode Buttons */}
           <div className="mt-8">
-            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-center md:text-left uppercase animate-pulse">
+            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-3 text-left uppercase animate-pulse">
               {t('hero.selectSignal')}
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-xl mx-auto md:mx-0">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-xl">
               {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
                 const { icon: Icon, label, color } = signalModes[mode];
                 const isActive = activeSignal === mode;
@@ -191,17 +191,17 @@ const Hero = () => {
               })}
             </div>
             {/* Dynamic Description */}
-            <p className="text-sm text-gray-400 mt-3 text-center md:text-left max-w-md transition-all duration-300">
+            <p className="text-sm text-gray-400 mt-3 text-left max-w-md transition-all duration-300">
               {signalModes[activeSignal].description}
             </p>
             {/* Static profiles paragraph - UNDER the dropdown */}
-            <p className="text-sm text-gray-400 mt-4 text-center md:text-left max-w-lg leading-relaxed">
+            <p className="text-sm text-gray-400 mt-4 text-left max-w-lg leading-relaxed">
               Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.
             </p>
           </div>
 
           {/* THE VALID NETWORK - Positioned above Power Behind The Signal */}
-          <div className="mt-10 text-center md:text-left">
+          <div className="mt-10 text-left">
             <div className="inline-block px-6 py-2 mb-2 border rounded-full text-sm font-mono tracking-[0.2em] uppercase border-cyan-500/30 text-cyan-400 bg-cyan-500/10">
               {t('network.title')}
             </div>
@@ -212,13 +212,13 @@ const Hero = () => {
 
           {/* The Power Behind The Signal - Feature Cards */}
           <div className="mt-8 w-full">
-            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-4 text-center md:text-left uppercase">{t('hero.powerBehind')}</p>
+            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-4 text-left uppercase">{t('hero.powerBehind')}</p>
           </div>
         </div>
 
         {/* RIGHT: THE PORTAL VIDEO (Fixed Visibility & Centering) */}
-        <div className="flex-1 flex justify-center order-1 md:order-2 mt-4 md:-mt-16 w-full">
-          <div className="relative group w-[280px] md:w-[380px] aspect-[4/5] mx-auto">
+        <div className="flex-1 flex justify-start md:justify-center order-1 md:order-2 mt-4 md:-mt-16 w-full">
+          <div className="relative group w-[280px] md:w-[380px] aspect-[4/5]">
             
             {/* The Glow Behind */}
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>
@@ -232,7 +232,7 @@ const Hero = () => {
                 loop 
                 muted 
                 playsInline
-                className="w-full h-full object-cover transform scale-105"
+                className="w-full h-full object-contain object-center"
               />
               
               {/* Overlay Gradient (Bottom only) */}

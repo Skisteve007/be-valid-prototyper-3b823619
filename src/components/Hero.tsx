@@ -91,66 +91,83 @@ const Hero = () => {
   }, [fullText]);
   
   return (
-    <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
+    <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col selection:bg-cyan-500 selection:text-black">
       
-      {/* STRUCTURAL CSS OVERRIDES FOR ALIGNMENT AND SIZING */}
+      {/* FINAL MANUAL OVERRIDE - ALL CENTERING REMOVED */}
       <style>{`
-        /* Hero Text - Force hard left alignment, remove any centering */
-        .hero-text-container {
+        /* HERO TEXT: HARD LEFT - DELETE ALL CENTER PROPERTIES */
+        .hero-text-force-left {
           display: flex !important;
           flex-direction: column !important;
           align-items: flex-start !important;
           justify-content: flex-start !important;
           text-align: left !important;
           margin-left: 0 !important;
+          margin-right: auto !important;
           padding-left: 0 !important;
         }
-        .hero-text-container * {
+        .hero-text-force-left * {
           text-align: left !important;
+          margin-left: 0 !important;
+        }
+        .hero-text-force-left h1,
+        .hero-text-force-left p,
+        .hero-text-force-left div {
+          text-align: left !important;
+          justify-content: flex-start !important;
+          align-items: flex-start !important;
         }
         
-        /* Motion Graphic - SCALED UP 25%+ and CENTERED */
-        .video-container-scaled {
+        /* MOTION LOGO: SIZE INCREASED 30%+ AND PROPERLY POSITIONED */
+        .motion-logo-container {
           display: flex !important;
           justify-content: center !important;
           align-items: flex-start !important;
           width: 100% !important;
+          max-width: 600px !important;
+          margin: 0 auto !important;
         }
-        .video-graphic-scaled {
-          display: block !important;
+        .motion-logo-scaled {
           width: 100% !important;
-          max-width: 480px !important; /* Increased from 380px = +26% */
-          margin-left: auto !important;
-          margin-right: auto !important;
+          max-width: 560px !important; /* +35% from original 380px */
+          margin: 0 auto !important;
         }
         @media (max-width: 768px) {
-          .video-graphic-scaled {
-            max-width: 340px !important; /* Increased from 280px = +21% */
+          .motion-logo-scaled {
+            max-width: 380px !important; /* +35% from 280px */
           }
         }
         @media (min-width: 1024px) {
-          .video-graphic-scaled {
-            max-width: 520px !important; /* Even larger on desktop */
+          .motion-logo-scaled {
+            max-width: 620px !important; /* Dominant on desktop */
+          }
+        }
+        
+        /* MAIN CONTAINER: REMOVE ALL CENTER JUSTIFY */
+        .hero-main-container {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          justify-content: flex-start !important;
+        }
+        @media (min-width: 768px) {
+          .hero-main-container {
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            justify-content: space-between !important;
           }
         }
       `}</style>
 
-      {/* 1. NAVBAR - Fixed mobile visibility with proper vertical centering */}
+      {/* 1. NAVBAR */}
       <nav className="w-full px-[15px] md:px-6 pt-14 pb-5 md:pt-16 md:pb-6 z-50 relative">
-        {/* Mobile: Single row with logo centered, actions on right */}
         <div className="flex items-center justify-between md:justify-between gap-2 min-h-[48px]">
-          {/* Spacer for mobile to center logo */}
           <div className="w-[80px] md:hidden" />
-          
-          {/* THE LOGO - Centered on mobile via flex, vertically centered */}
           <div className="text-xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer flex-shrink-0 flex items-center">
             VALID<sup className="text-[8px] md:text-sm text-cyan-400">™</sup>
           </div>
-          
-          {/* Navigation Actions - Always visible on right */}
           <div className="flex gap-1.5 md:gap-4 items-center justify-end flex-shrink-0">
             <LanguageSelector />
-            {/* For Partners Link - hidden on very small screens */}
             <Link to="/partners" className="hidden sm:block text-[10px] md:text-xs font-bold text-cyan-400/80 hover:text-cyan-300 transition-colors uppercase tracking-widest border border-cyan-900/50 px-2 md:px-4 py-1.5 md:py-2 rounded-full hover:bg-cyan-900/20">
               {t('nav.partners')}
             </Link>
@@ -164,11 +181,11 @@ const Hero = () => {
         </div>
       </nav>
 
-      {/* 2. MAIN CONTENT - Structural layout with explicit alignment */}
-      <div className="flex-1 flex flex-col md:flex-row w-full px-[15px] md:px-8 lg:px-12 z-10 gap-8 md:gap-12 mt-4" style={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+      {/* 2. MAIN CONTENT - NO CENTERING, EXPLICIT LEFT ALIGNMENT */}
+      <div className="flex-1 w-full px-[15px] md:px-8 lg:px-12 z-10 gap-8 md:gap-12 mt-4 hero-main-container">
         
-        {/* LEFT: THE PITCH - Explicit left alignment container */}
-        <div className="flex-1 order-2 md:order-1 hero-text-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', textAlign: 'left' }}>
+        {/* LEFT: THE PITCH - FORCE LEFT */}
+        <div className="flex-1 order-2 md:order-1 hero-text-force-left">
           
           {/* TAG: SYNTHESIZED AI with typing effect */}
           <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded-lg text-xs font-mono tracking-widest text-cyan-400">
@@ -258,16 +275,15 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* RIGHT: THE PORTAL VIDEO - SCALED UP AND CENTERED */}
-        <div className="flex-1 order-1 md:order-2 video-container-scaled" style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', marginTop: '2rem' }}>
-          <div className="relative group aspect-[4/5] video-graphic-scaled">
+        {/* RIGHT: MOTION LOGO - SIZE +35%, PROPERLY POSITIONED */}
+        <div className="flex-1 order-1 md:order-2 motion-logo-container">
+          <div className="relative group aspect-[4/5] motion-logo-scaled">
             
-            {/* The Glow Behind */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>
+            {/* The Glow Behind - Enhanced */}
+            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur-lg opacity-50 group-hover:opacity-80 transition duration-1000"></div>
             
-            {/* The Video Container */}
-            <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black">
-              {/* VIDEO LOOP - No Blurs, No overlays */}
+            {/* The Video Container - Larger */}
+            <div className="relative w-full h-full rounded-2xl overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_40px_rgba(0,240,255,0.3)] bg-black">
               <video 
                 src="/valid_portal.mp4" 
                 autoPlay 
@@ -276,10 +292,7 @@ const Hero = () => {
                 playsInline
                 className="w-full h-full object-contain object-center"
               />
-              
-              {/* Overlay Gradient (Bottom only) */}
               <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-              
             </div>
           </div>
         </div>

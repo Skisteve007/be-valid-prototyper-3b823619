@@ -139,62 +139,9 @@ const Dashboard = () => {
       {/* Header */}
       <header className="relative z-10 mx-4 md:mx-8 mt-4">
         <div className="backdrop-blur-xl bg-white/5 border border-[#00FFFF]/30 rounded-full px-6 py-4 shadow-[0_0_30px_rgba(0,255,255,0.15)]">
-          <div className="flex flex-col md:flex-row md:items-center gap-4">
-            <div className="hidden md:block md:flex-1"></div>
-            
-            <div className="flex justify-center">
-              <div className="relative cursor-pointer" {...longPressHandlers}>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/40 via-teal-500/40 to-cyan-500/40 blur-3xl rounded-full scale-150"></div>
-                <div className="relative h-32 md:h-40 aspect-[4/5] rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
-                  <video 
-                    src="/valid_portal.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex justify-center md:justify-end gap-2 flex-wrap md:flex-1 items-center">
-              <Button 
-                onClick={() => setShowShareModal(true)}
-                className="shadow-[0_0_20px_rgba(0,255,255,0.5)] border border-[#00FFFF]/60 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold min-h-[44px] px-5 rounded-full"
-              >
-                <Share2 className="h-4 w-4 mr-2" />
-                Share
-              </Button>
-              <ThemeToggle />
-              <Button 
-                onClick={handleLogout} 
-                className="shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full"
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="relative z-10 container mx-auto px-4 py-4 md:py-8">
-        <div className="backdrop-blur-xl bg-black/30 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
-          
-          {/* Dashboard Title */}
-          <div className="p-6 md:p-8 border-b border-white/10">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold">
-                  <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
-                </h1>
-                <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
-                  Manage your profile, documents, and QR code
-                </p>
-              </div>
-              
-              {/* Save Button - Far right */}
+          <div className="flex items-center gap-4">
+            {/* Left side - Save button */}
+            <div className="flex-1 flex justify-start">
               {activeTab === "profile" && (
                 <Button
                   type="button"
@@ -227,6 +174,59 @@ const Dashboard = () => {
                   )}
                 </Button>
               )}
+            </div>
+            
+            {/* Center - Video logo */}
+            <div className="flex justify-center">
+              <div className="relative cursor-pointer" {...longPressHandlers}>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/40 via-teal-500/40 to-cyan-500/40 blur-3xl rounded-full scale-150"></div>
+                <div className="relative h-32 md:h-40 aspect-[4/5] rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
+                  <video 
+                    src="/valid_portal.mp4" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* Right side - Share, Theme, Logout */}
+            <div className="flex-1 flex justify-end gap-2 items-center">
+              <Button 
+                onClick={() => setShowShareModal(true)}
+                className="shadow-[0_0_20px_rgba(0,255,255,0.5)] border border-[#00FFFF]/60 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold min-h-[44px] px-5 rounded-full"
+              >
+                <Share2 className="h-4 w-4 mr-2" />
+                Share
+              </Button>
+              <ThemeToggle />
+              <Button 
+                onClick={handleLogout} 
+                className="shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="relative z-10 container mx-auto px-4 py-4 md:py-8">
+        <div className="backdrop-blur-xl bg-black/30 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
+          
+          {/* Dashboard Title */}
+          <div className="p-6 md:p-8 border-b border-white/10">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold">
+                <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
+              </h1>
+              <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
+                Manage your profile, documents, and QR code
+              </p>
             </div>
           </div>
           

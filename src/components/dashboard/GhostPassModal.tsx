@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Zap, MapPin, ChevronDown, Clock, ArrowUp, FlaskConical } from 'lucide-react';
+import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Unlock, Zap, MapPin, ChevronDown, Clock, ArrowUp, FlaskConical } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
@@ -390,6 +390,7 @@ const GhostPassModal = ({
           identity: toggles.identity,
           payment: toggles.payment,
           health: toggles.health,
+          tox: toggles.tox,
         },
       });
     }
@@ -402,6 +403,7 @@ const GhostPassModal = ({
         identity: toggles.identity,
         payment: toggles.payment,
         health: toggles.health,
+        tox: toggles.tox,
       },
       balance: toggles.payment ? balance : null,
       expires: Date.now() + 30000,
@@ -946,58 +948,86 @@ const GhostPassModal = ({
                 </div>
               )}
 
-              {/* Permission Toggles */}
-              <div className="flex justify-center gap-4 mb-4">
-                {/* Identity Toggle */}
+              {/* Permission Toggles - User-controlled sharing */}
+              <div className="flex justify-center gap-3 mb-4">
+                {/* ID Toggle - Kill Blue */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, identity: !prev.identity }))}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
+                  className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.identity
-                      ? 'bg-blue-500/20 border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.3)]'
-                      : 'bg-white/5 border-white/10 opacity-50'
+                      ? 'bg-cyan-500/20 border-cyan-400 shadow-[0_0_15px_rgba(0,240,255,0.4)]'
+                      : 'bg-white/5 border-white/20 opacity-60'
                   }`}
                 >
-                  <Fingerprint size={28} className={toggles.identity ? 'text-blue-400' : 'text-gray-500'} />
-                  <span className={`text-[10px] font-bold ${toggles.identity ? 'text-blue-400' : 'text-gray-500'}`}>ID</span>
+                  <div className="absolute -top-1 -right-1">
+                    {toggles.identity ? (
+                      <Unlock size={12} className="text-cyan-400" />
+                    ) : (
+                      <Lock size={12} className="text-gray-500" />
+                    )}
+                  </div>
+                  <Fingerprint size={24} className={toggles.identity ? 'text-cyan-400' : 'text-gray-500'} />
+                  <span className={`text-[9px] font-bold ${toggles.identity ? 'text-cyan-400' : 'text-gray-500'}`}>ID</span>
                 </button>
 
-                {/* Payment Toggle */}
+                {/* FUNDS Toggle - Green */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, payment: !prev.payment }))}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
+                  className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.payment
-                      ? 'bg-amber-500/20 border-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]'
-                      : 'bg-white/5 border-white/10 opacity-50'
+                      ? 'bg-green-500/20 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.4)]'
+                      : 'bg-white/5 border-white/20 opacity-60'
                   }`}
                 >
-                  <Wallet size={28} className={toggles.payment ? 'text-amber-400' : 'text-gray-500'} />
-                  <span className={`text-[10px] font-bold ${toggles.payment ? 'text-amber-400' : 'text-gray-500'}`}>FUNDS</span>
+                  <div className="absolute -top-1 -right-1">
+                    {toggles.payment ? (
+                      <Unlock size={12} className="text-green-400" />
+                    ) : (
+                      <Lock size={12} className="text-gray-500" />
+                    )}
+                  </div>
+                  <Wallet size={24} className={toggles.payment ? 'text-green-400' : 'text-gray-500'} />
+                  <span className={`text-[9px] font-bold ${toggles.payment ? 'text-green-400' : 'text-gray-500'}`}>FUNDS</span>
                 </button>
 
-                {/* Health Toggle */}
+                {/* BIO Toggle - Yellow */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, health: !prev.health }))}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
+                  className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.health
-                      ? 'bg-green-500/20 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.3)]'
-                      : 'bg-white/5 border-white/10 opacity-50'
+                      ? 'bg-yellow-500/20 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.4)]'
+                      : 'bg-white/5 border-white/20 opacity-60'
                   }`}
                 >
-                  <HeartPulse size={28} className={toggles.health ? 'text-green-400' : 'text-gray-500'} />
-                  <span className={`text-[10px] font-bold ${toggles.health ? 'text-green-400' : 'text-gray-500'}`}>BIO</span>
+                  <div className="absolute -top-1 -right-1">
+                    {toggles.health ? (
+                      <Unlock size={12} className="text-yellow-400" />
+                    ) : (
+                      <Lock size={12} className="text-gray-500" />
+                    )}
+                  </div>
+                  <HeartPulse size={24} className={toggles.health ? 'text-yellow-400' : 'text-gray-500'} />
+                  <span className={`text-[9px] font-bold ${toggles.health ? 'text-yellow-400' : 'text-gray-500'}`}>BIO</span>
                 </button>
 
-                {/* Tox Toggle */}
+                {/* TOX Toggle - Light Pinkish-Red */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, tox: !prev.tox }))}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
+                  className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.tox
-                      ? 'bg-purple-500/20 border-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.3)]'
-                      : 'bg-white/5 border-white/10 opacity-50'
+                      ? 'bg-rose-500/20 border-rose-400 shadow-[0_0_15px_rgba(251,113,133,0.4)]'
+                      : 'bg-white/5 border-white/20 opacity-60'
                   }`}
                 >
-                  <FlaskConical size={28} className={toggles.tox ? 'text-purple-400' : 'text-gray-500'} />
-                  <span className={`text-[10px] font-bold ${toggles.tox ? 'text-purple-400' : 'text-gray-500'}`}>TOX</span>
+                  <div className="absolute -top-1 -right-1">
+                    {toggles.tox ? (
+                      <Unlock size={12} className="text-rose-400" />
+                    ) : (
+                      <Lock size={12} className="text-gray-500" />
+                    )}
+                  </div>
+                  <FlaskConical size={24} className={toggles.tox ? 'text-rose-400' : 'text-gray-500'} />
+                  <span className={`text-[9px] font-bold ${toggles.tox ? 'text-rose-400' : 'text-gray-500'}`}>TOX</span>
                 </button>
               </div>
 

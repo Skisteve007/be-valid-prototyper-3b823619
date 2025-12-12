@@ -202,13 +202,14 @@ const TrustSignalSection = ({
       </CardHeader>
       
       <CardContent className="space-y-6">
-        {/* 1. Bio-Clearance Field */}
-        <div className="space-y-3">
+        {/* 1. Bio-Clearance Section - 4 Fields */}
+        <div className="space-y-4">
+          {/* Master Header with Master Lock */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-emerald-500" />
               <span className="text-sm font-semibold text-foreground">Bio-Clearance</span>
-              <span className="text-xs text-muted-foreground">• Exp. Vaccinations, Examinations</span>
+              <span className="text-xs text-muted-foreground">• Your Verified Credentials</span>
             </div>
             <Button
               type="button"
@@ -216,11 +217,12 @@ const TrustSignalSection = ({
               size="sm"
               onClick={() => onStdAcknowledgmentLockedChange(!stdAcknowledgmentLocked)}
               className="h-7 px-2 rounded-full hover:bg-muted"
+              title="Master lock for all Bio-Clearance fields"
             >
               {stdAcknowledgmentLocked ? (
                 <div className="flex items-center gap-1">
                   <Lock className="w-3 h-3 text-red-500" />
-                  <span className="text-[10px] text-red-500 font-medium">Private</span>
+                  <span className="text-[10px] text-red-500 font-medium">All Private</span>
                 </div>
               ) : (
                 <div className="flex items-center gap-1">
@@ -230,18 +232,83 @@ const TrustSignalSection = ({
               )}
             </Button>
           </div>
-          
-          <div className="flex items-center gap-2 p-3 rounded-xl bg-muted/50 border border-border">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <Input
-              value={stdAcknowledgment}
-              onChange={(e) => onStdAcknowledgmentChange(e.target.value)}
-              placeholder="Enter your bio-clearance status..."
-              className="h-8 text-sm bg-transparent border-0 focus-visible:ring-0 text-foreground placeholder:text-muted-foreground"
-            />
+
+          {/* Field 1: Bio Status */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-medium text-foreground">Bio Status</label>
+              <Lock className="w-3 h-3 text-muted-foreground" />
+            </div>
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-muted/50 border border-border">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <Input
+                value={stdAcknowledgment}
+                onChange={(e) => onStdAcknowledgmentChange(e.target.value)}
+                placeholder="Enter your bio status..."
+                className="h-8 text-sm bg-transparent border-0 focus-visible:ring-0 text-foreground placeholder:text-muted-foreground"
+              />
+            </div>
           </div>
+
+          {/* Field 2: Identification */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-medium text-foreground">Identification</label>
+              <Lock className="w-3 h-3 text-muted-foreground" />
+            </div>
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-muted/50 border border-border">
+              <div className="w-2 h-2 rounded-full bg-blue-500" />
+              <Input
+                placeholder="Passport, Driver's License..."
+                disabled
+                className="h-8 text-sm bg-transparent border-0 focus-visible:ring-0 text-foreground placeholder:text-muted-foreground disabled:opacity-60"
+              />
+              <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-amber-500/50 text-amber-500 whitespace-nowrap">
+                IDV Required
+              </Badge>
+            </div>
+          </div>
+
+          {/* Field 3: Health Lab */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-medium text-foreground">Health Lab</label>
+              <Lock className="w-3 h-3 text-muted-foreground" />
+            </div>
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-muted/50 border border-border">
+              <div className="w-2 h-2 rounded-full bg-purple-500" />
+              <Input
+                placeholder="Upload lab results after payment..."
+                disabled
+                className="h-8 text-sm bg-transparent border-0 focus-visible:ring-0 text-foreground placeholder:text-muted-foreground disabled:opacity-60"
+              />
+              <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-amber-500/50 text-amber-500 whitespace-nowrap">
+                Lab Kit
+              </Badge>
+            </div>
+          </div>
+
+          {/* Field 4: Toxicology */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-medium text-foreground">Toxicology</label>
+              <Lock className="w-3 h-3 text-muted-foreground" />
+            </div>
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-muted/50 border border-border">
+              <div className="w-2 h-2 rounded-full bg-cyan-500" />
+              <Input
+                placeholder="Upload toxicology results after payment..."
+                disabled
+                className="h-8 text-sm bg-transparent border-0 focus-visible:ring-0 text-foreground placeholder:text-muted-foreground disabled:opacity-60"
+              />
+              <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-amber-500/50 text-amber-500 whitespace-nowrap">
+                Tox Kit
+              </Badge>
+            </div>
+          </div>
+
           <p className="text-[10px] text-muted-foreground pl-1">
-            This private field is only visible when you choose to share via QR scan.
+            Lab results are uploaded by you after receiving them from the lab. Identification requires IDV verification.
           </p>
         </div>
 

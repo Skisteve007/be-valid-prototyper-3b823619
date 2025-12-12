@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, CheckCircle, Upload, Move, Activity, Zap, Ghost } from "lucide-react";
+import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, CheckCircle, Upload, Move, Activity, Zap, Ghost, Fingerprint, CreditCard, HeartPulse, FlaskConical } from "lucide-react";
 import { useRef, useState } from "react";
 import { ImageCropDialog } from "./ImageCropDialog";
 
@@ -308,107 +308,111 @@ export const PersonalInfoSection = ({
 
                 </div>
                 
-                {/* Lab Certified Section - Right side on desktop */}
-                <div className="hidden md:flex flex-col items-center justify-center p-2 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 relative">
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="flex items-center gap-2">
-                      {isAdmin ? (
-                        <Checkbox
-                          id="lab_certified"
-                          checked={labCertified}
-                          onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
-                        />
-                      ) : (
-                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                          labCertified 
-                            ? 'border-green-500 bg-green-500' 
-                            : 'border-gray-400 bg-gray-200'
-                        }`}>
-                          {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
-                        </div>
-                      )}
-                      <Label htmlFor="lab_certified" className={`text-xs font-semibold text-cyan-600 flex items-center gap-1 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
-                        <CheckCircle className="w-3 h-3" />
-                        Lab Certified
-                      </Label>
-                    </div>
+                {/* Share Icons Section - Right side on desktop */}
+                <div className="hidden md:flex flex-col items-center justify-center p-3 rounded-lg border border-white/10 bg-white/5">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2">CHOOSE YOUR SHARE</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {/* ID Toggle */}
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-cyan-500/10 border border-cyan-400/30"
+                    >
+                      <Fingerprint className="w-5 h-5 text-cyan-400" />
+                      <span className="text-[9px] font-bold text-cyan-400 tracking-wider">ID</span>
+                      <div className="bg-black rounded p-0.5">
+                        <Lock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                      </div>
+                    </button>
                     
-                    {labCertified ? (
-                      <Badge className="bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50 w-fit text-xs">
-                        ✓ Certified
-                      </Badge>
-                    ) : (
-                      <Badge variant="secondary" className="bg-gray-200 text-gray-600 border border-gray-300 w-fit text-xs">
-                        Not Certified
-                      </Badge>
-                    )}
+                    {/* FUNDS Toggle */}
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-green-500/10 border border-green-400/30"
+                    >
+                      <CreditCard className="w-5 h-5 text-green-400" />
+                      <span className="text-[9px] font-bold text-green-400 tracking-wider">FUNDS</span>
+                      <div className="bg-black rounded p-0.5">
+                        <Lock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                      </div>
+                    </button>
                     
-                    <div className="w-14 h-14 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden shadow-md mt-1">
-                      {labLogoUrl ? (
-                        <img 
-                          src={labLogoUrl} 
-                          alt="Testing Lab" 
-                          className="w-full h-full object-contain p-1"
-                        />
-                      ) : (
-                        <span className="text-[10px] text-gray-400 text-center px-1">Lab Logo</span>
-                      )}
-                    </div>
-                    <span className="text-[10px] font-medium text-cyan-600">Testing Lab</span>
+                    {/* BIO Toggle */}
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-rose-500/10 border border-rose-400/30"
+                    >
+                      <HeartPulse className="w-5 h-5 text-rose-400" />
+                      <span className="text-[9px] font-bold text-rose-400 tracking-wider">BIO</span>
+                      <div className="bg-black rounded p-0.5">
+                        <Lock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                      </div>
+                    </button>
+                    
+                    {/* TOX Toggle */}
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-yellow-500/10 border border-yellow-400/30"
+                    >
+                      <FlaskConical className="w-5 h-5 text-yellow-400" />
+                      <span className="text-[9px] font-bold text-yellow-400 tracking-wider">TOX</span>
+                      <div className="bg-black rounded p-0.5">
+                        <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                      </div>
+                    </button>
                   </div>
                 </div>
                 
-                {/* Mobile Lab Section */}
-                <div className="md:hidden w-full mt-3 p-3 rounded-lg border-2 border-cyan-500/30 bg-cyan-500/5 relative">
-                  <div className="flex items-stretch gap-4">
-                    <div className="flex-1 flex flex-col justify-center space-y-2">
-                      <div className="flex items-center gap-2">
-                        {isAdmin ? (
-                          <Checkbox
-                            id="lab_certified_mobile"
-                            checked={labCertified}
-                            onCheckedChange={(checked) => onLabCertifiedChange?.(checked as boolean)}
-                          />
-                        ) : (
-                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                            labCertified 
-                              ? 'border-green-500 bg-green-500' 
-                              : 'border-gray-400 bg-gray-200'
-                          }`}>
-                            {labCertified && <CheckCircle className="w-4 h-4 text-white" />}
-                          </div>
-                        )}
-                        <Label htmlFor="lab_certified_mobile" className={`text-sm font-semibold text-cyan-600 flex items-center gap-1.5 ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}>
-                          <CheckCircle className="w-4 h-4" />
-                          Lab Certified
-                        </Label>
+                {/* Mobile Share Icons Section */}
+                <div className="md:hidden w-full mt-3 p-3 rounded-lg border border-white/10 bg-white/5">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2 text-center">CHOOSE YOUR SHARE</p>
+                  <div className="grid grid-cols-4 gap-2">
+                    {/* ID Toggle */}
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-cyan-500/10 border border-cyan-400/30"
+                    >
+                      <Fingerprint className="w-5 h-5 text-cyan-400" />
+                      <span className="text-[9px] font-bold text-cyan-400 tracking-wider">ID</span>
+                      <div className="bg-black rounded p-0.5">
+                        <Lock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
                       </div>
-                      
-                      {labCertified ? (
-                        <Badge className="bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/50 w-fit">
-                          ✓ Certified
-                        </Badge>
-                      ) : (
-                        <Badge variant="secondary" className="bg-gray-200 text-gray-600 border border-gray-300 w-fit">
-                          Not Certified
-                        </Badge>
-                      )}
-                    </div>
+                    </button>
                     
-                    <div className="flex flex-col items-center justify-center gap-1 min-w-[80px]">
-                      <div className="w-16 h-16 rounded border-2 border-cyan-500/50 bg-white flex items-center justify-center overflow-hidden shadow-md">
-                        {labLogoUrl ? (
-                          <img 
-                            src={labLogoUrl} 
-                            alt="Testing Lab" 
-                            className="w-full h-full object-contain p-1"
-                          />
-                        ) : (
-                          <span className="text-xs text-gray-400 text-center px-1">Lab Logo</span>
-                        )}
+                    {/* FUNDS Toggle */}
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-green-500/10 border border-green-400/30"
+                    >
+                      <CreditCard className="w-5 h-5 text-green-400" />
+                      <span className="text-[9px] font-bold text-green-400 tracking-wider">FUNDS</span>
+                      <div className="bg-black rounded p-0.5">
+                        <Lock className="w-4 h-4 text-green-400" strokeWidth={3} />
                       </div>
-                      <span className="text-xs font-medium text-cyan-600">Testing Lab</span>
-                    </div>
+                    </button>
+                    
+                    {/* BIO Toggle */}
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-rose-500/10 border border-rose-400/30"
+                    >
+                      <HeartPulse className="w-5 h-5 text-rose-400" />
+                      <span className="text-[9px] font-bold text-rose-400 tracking-wider">BIO</span>
+                      <div className="bg-black rounded p-0.5">
+                        <Lock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                      </div>
+                    </button>
+                    
+                    {/* TOX Toggle */}
+                    <button
+                      type="button"
+                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-yellow-500/10 border border-yellow-400/30"
+                    >
+                      <FlaskConical className="w-5 h-5 text-yellow-400" />
+                      <span className="text-[9px] font-bold text-yellow-400 tracking-wider">TOX</span>
+                      <div className="bg-black rounded p-0.5">
+                        <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                      </div>
+                    </button>
                   </div>
                 </div>
               </>

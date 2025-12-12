@@ -131,21 +131,6 @@ const Auth = () => {
         localStorage.setItem('pendingDiscountCode', usedDiscountCode.toUpperCase());
       }
 
-      // Send custom branded confirmation email via edge function
-      try {
-        const confirmationUrl = `${window.location.origin}/auth?mode=login`;
-        await supabase.functions.invoke('send-auth-email', {
-          body: {
-            email: signupEmail,
-            type: 'signup_confirmation',
-            confirmationUrl,
-            userName: signupFirstName
-          }
-        });
-        console.log('Custom confirmation email sent');
-      } catch (emailError) {
-        console.log('Custom email failed, Supabase default will be used:', emailError);
-      }
 
       // Show email verification message
       setVerificationEmail(signupEmail);

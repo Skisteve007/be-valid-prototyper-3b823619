@@ -602,9 +602,11 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                             onClick={() => setLocationDuration(d.value)}
                             className={`py-1.5 px-2.5 rounded text-xs transition-all flex items-center gap-1 ${
                               locationDuration === d.value
-                                ? "bg-red-500 text-white"
+                                ? d.value === "0.033" 
+                                  ? "bg-purple-500/80 text-white shadow-[0_0_12px_rgba(168,85,247,0.6)] animate-pulse" 
+                                  : "bg-red-500 text-white"
                                 : "bg-card border border-border text-foreground hover:border-red-400/50"
-                            } ${d.value === "0.033" ? "text-purple-400 font-semibold" : ""}`}
+                            } ${d.value === "0.033" && locationDuration !== d.value ? "text-purple-400 font-semibold border-purple-400/30" : ""}`}
                           >
                             {d.value === "0.033" && <Ghost className="w-3 h-3" />}
                             {d.sublabel || d.label}

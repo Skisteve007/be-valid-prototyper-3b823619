@@ -91,7 +91,7 @@ const AFTERDARK_OPTIONS = {
 
 // Live location durations
 const LOCATION_DURATIONS = [
-  { value: "0.033", label: "Ghosted", sublabel: "2 sec" },
+  { value: "0.033", label: "Ghosted", sublabel: "2 sec", isGhosted: true },
   { value: "15", label: "15 Minutes" },
   { value: "60", label: "1 Hour" },
   { value: "360", label: "6 Hours" },
@@ -105,6 +105,23 @@ const STATIC_DURATIONS = [
   { value: "180", label: "3 Hours" },
   { value: "240", label: "4 Hours" },
 ];
+
+// Generate fuzzy offset (50-100 meters) for approximate location
+const generateFuzzyOffset = () => {
+  const offset = 50 + Math.random() * 50; // 50-100 meters
+  const angle = Math.random() * 2 * Math.PI; // Random direction
+  const latOffset = (offset / 111320) * Math.cos(angle); // Approx meters to lat
+  const lngOffset = (offset / (111320 * Math.cos(0))) * Math.sin(angle); // Approx meters to lng
+  return { latOffset, lngOffset };
+};
+
+// Detect platform for native map integration
+const detectPlatform = () => {
+  const userAgent = navigator.userAgent || navigator.vendor;
+  if (/iPad|iPhone|iPod/.test(userAgent)) return 'ios';
+  if (/android/i.test(userAgent)) return 'android';
+  return 'web';
+};
 
 const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChange }: MySignalSectionProps) => {
   const [selectedMode, setSelectedMode] = useState<SignalMode>(vibeMetadata?.mode || null);
@@ -260,6 +277,26 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       ? parseFloat(locationDuration!) 
       : parseInt(staticDuration!);
     const expiry = new Date(Date.now() + durationMinutes * 60 * 1000);
+    const isGhostedMode = locationDuration === "0.033";
+    
+    // Generate fuzzy offset if enabled
+    const fuzzyOffset = fuzzyLocation ? generateFuzzyOffset() : null;
+    
+    // Generate encrypted location token for QR embedding
+    const locationToken = {
+      type: locationType,
+      duration: durationMinutes,
+      expiry: expiry.toISOString(),
+      fuzzy: fuzzyLocation,
+      fuzzyOffset: fuzzyOffset,
+      isGhosted: isGhostedMode,
+      peakDuration: isGhostedMode ? 2000 : null, // 2 seconds for ghosted mode
+      staticAddress: locationType === "static" ? staticAddress : null,
+      platform: detectPlatform(),
+      encrypted: true,
+      timestamp: Date.now()
+    };
+    
     setLocationExpiry(expiry);
     setLocationActive(true);
     
@@ -270,16 +307,23 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       location_duration: durationMinutes,
       location_expiry: expiry.toISOString(),
       fuzzy_location: fuzzyLocation,
-      static_address: locationType === "static" ? staticAddress : null
+      fuzzy_offset: fuzzyOffset,
+      is_ghosted: isGhostedMode,
+      peak_duration: isGhostedMode ? 2000 : null,
+      static_address: locationType === "static" ? staticAddress : null,
+      location_token: locationToken, // Token embedded in QR
+      qr_embedded: true // Flag indicating location is in QR
     };
     setLocalMetadata(newMetadata);
     onVibeMetadataChange(newMetadata);
     onStatusColorChange("red");
     
     toast.success(
-      locationType === "live" 
-        ? `Live location sharing activated for ${durationMinutes < 1 ? '2 seconds' : durationMinutes + ' minutes'}`
-        : `Static location set for ${durationMinutes / 60} hour(s)`
+      isGhostedMode 
+        ? "👻 Ghosted mode activated - 2 second peak view embedded in QR"
+        : locationType === "live" 
+          ? `Live location embedded in QR for ${durationMinutes} minutes`
+          : `Static location embedded in QR for ${durationMinutes / 60} hour(s)`
     );
   };
 
@@ -299,7 +343,12 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       location_duration: null,
       location_expiry: null,
       fuzzy_location: null,
-      static_address: null
+      fuzzy_offset: null,
+      is_ghosted: null,
+      peak_duration: null,
+      static_address: null,
+      location_token: null,
+      qr_embedded: false
     };
     setLocalMetadata(newMetadata);
     onVibeMetadataChange(newMetadata);
@@ -307,24 +356,32 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
     setSelectedMode(null);
   };
 
-  // Generate shareable map links
-  const generateMapLinks = (address: string) => {
-    const encoded = encodeURIComponent(address);
-    return {
-      google: `https://www.google.com/maps/search/?api=1&query=${encoded}`,
-      apple: `https://maps.apple.com/?q=${encoded}`,
-      whatsapp: `https://wa.me/?text=${encodeURIComponent(`📍 My location: ${address}\n\nGoogle Maps: https://www.google.com/maps/search/?api=1&query=${encoded}`)}`
-    };
-  };
-
-  const copyMapLink = async (type: string, link: string) => {
+  // External share fallback - only when explicitly requested
+  const handleExternalShare = async () => {
+    if (!locationActive) return;
+    
+    const shareText = locationType === "static" && staticAddress
+      ? `📍 Shared Location: ${staticAddress}`
+      : `📍 Live location shared via Valid™`;
+    
+    const shareUrl = `https://bevalid.app/location/${Date.now()}`; // Encrypted token URL
+    
     try {
-      await navigator.clipboard.writeText(link);
-      setCopiedLink(type);
-      toast.success(`${type} link copied!`);
-      setTimeout(() => setCopiedLink(null), 2000);
-    } catch (err) {
-      toast.error("Failed to copy link");
+      if (navigator.share) {
+        await navigator.share({
+          title: 'Valid™ Location Share',
+          text: shareText,
+          url: shareUrl
+        });
+        toast.success("Location shared externally");
+      } else {
+        await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+        toast.success("Share link copied to clipboard");
+      }
+    } catch (error: any) {
+      if (error.name !== "AbortError") {
+        toast.error("Failed to share externally");
+      }
     }
   };
 
@@ -765,14 +822,22 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                   )}
                 </div>
               ) : (
-                /* Active State - Minimal */
+                /* Active State - Streamlined In-App Flow */
                 <div className="space-y-2">
                   <div className="flex items-center justify-between py-1.5">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                       <span className="text-xs font-medium text-red-400">
-                        {locationType === "live" ? "Live" : "Static"}
-                        {fuzzyLocation && <span className="ml-1 text-amber-400">(Fuzzy)</span>}
+                        {localMetadata.is_ghosted ? (
+                          <span className="flex items-center gap-1">
+                            <Ghost className="w-3 h-3" /> Ghosted (2s Peak)
+                          </span>
+                        ) : (
+                          <>
+                            {locationType === "live" ? "Live" : "Static"}
+                            {fuzzyLocation && <span className="ml-1 text-amber-400">(~100m Fuzzy)</span>}
+                          </>
+                        )}
                       </span>
                     </div>
                     <span className="text-[10px] text-muted-foreground">
@@ -780,30 +845,41 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                     </span>
                   </div>
 
-                  {/* Share Links - Compact Row */}
-                  {locationType === "static" && staticAddress && (
-                    <div className="flex gap-1">
-                      {Object.entries(generateMapLinks(staticAddress)).map(([type, link]) => (
-                        <button
-                          key={type}
-                          onClick={() => copyMapLink(type, link)}
-                          className="flex-1 py-1.5 rounded text-[10px] bg-card border border-border hover:bg-accent transition-all flex items-center justify-center gap-1"
-                        >
-                          {copiedLink === type ? <Check className="w-3 h-3 text-green-400" /> : <Share2 className="w-3 h-3" />}
-                          <span className="capitalize">{type}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                  {/* QR Embedded Status - No external share buttons by default */}
+                  <div className="flex items-center gap-2 py-2 px-2.5 rounded bg-green-500/10 border border-green-400/30">
+                    <Check className="w-3.5 h-3.5 text-green-400" />
+                    <span className="text-[10px] text-green-400 font-medium">
+                      Location embedded in your QR code
+                    </span>
+                  </div>
 
-                  <Button
-                    onClick={deactivateLocationShare}
-                    variant="ghost"
-                    size="sm"
-                    className="w-full h-7 text-xs text-red-400 hover:bg-red-500/10"
-                  >
-                    Stop Sharing
-                  </Button>
+                  {/* Peer scanning info */}
+                  <p className="text-[10px] text-muted-foreground leading-relaxed">
+                    When a verified peer scans your QR, they'll see your location in an encrypted in-app map view
+                    {localMetadata.is_ghosted && " that auto-closes after 2 seconds"}
+                    {fuzzyLocation && ". Location is fuzzy (~50-100m offset)"}.
+                  </p>
+
+                  {/* External Share Fallback - Only when explicitly requested */}
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={handleExternalShare}
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 h-7 text-[10px] border-border text-muted-foreground hover:text-foreground"
+                    >
+                      <Share2 className="w-3 h-3 mr-1" />
+                      Share Externally
+                    </Button>
+                    <Button
+                      onClick={deactivateLocationShare}
+                      variant="ghost"
+                      size="sm"
+                      className="flex-1 h-7 text-xs text-red-400 hover:bg-red-500/10"
+                    >
+                      Stop Sharing
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>

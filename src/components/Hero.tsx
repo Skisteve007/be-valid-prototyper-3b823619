@@ -107,10 +107,10 @@ const Hero = () => {
 
       {/* ===== MAIN HERO: TWO-COLUMN FLEXBOX ===== */}
       <div className="w-full px-4 md:px-8 lg:px-12">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-start">
           
           {/* ----- LEFT COLUMN: TEXT (HARD LEFT ALIGNED) ----- */}
-          <div className="flex-1 w-full lg:w-1/2 text-left order-2 lg:order-1">
+          <div className="flex-1 w-full lg:w-1/2 text-left order-2 lg:order-1 pl-0">
             
             {/* Synthesized AI Tag */}
             <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded-lg text-xs font-mono tracking-widest text-cyan-400">

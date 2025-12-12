@@ -37,7 +37,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "VALID Access Control <onboarding@resend.dev>",
-        to: ["pitbossent@gmail.com"],
+        to: ["Steve@BeValid.app"],
         subject: `🔐 New ${accessTypeLabel} Access Request - ${userName}`,
         html: `
           <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #ffffff; padding: 40px; border-radius: 12px; border: 1px solid #00f0ff33;">

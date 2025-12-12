@@ -7,11 +7,11 @@ import { toast } from "sonner";
 
 // Live location durations
 const LOCATION_DURATIONS = [
-  { value: "0.033", label: "Ghosted", sublabel: "2 sec", isGhosted: true },
   { value: "15", label: "15 Minutes" },
   { value: "60", label: "1 Hour" },
   { value: "360", label: "6 Hours" },
   { value: "720", label: "12 Hours" },
+  { value: "0.033", label: "Two second ghosted. Ha ha ha.", sublabel: "2 sec ghosted", isGhosted: true },
 ];
 
 // Static location durations (1-hour intervals only)
@@ -246,7 +246,7 @@ const LocationPulseSection = ({ onLocationChange }: LocationPulseSectionProps) =
                         } ${d.value === "0.033" && locationDuration !== d.value ? "text-purple-400 font-semibold border-purple-400/30" : ""}`}
                       >
                         {d.value === "0.033" && <Ghost className="w-3 h-3" />}
-                        {d.sublabel || d.label}
+                        {d.value === "0.033" ? d.label : (d.sublabel || d.label)}
                       </button>
                     ))}
                   </div>

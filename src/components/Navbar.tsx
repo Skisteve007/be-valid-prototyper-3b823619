@@ -8,8 +8,8 @@ const Navbar = () => {
   const { t } = useTranslation();
   
   return (
-    <nav className="border-b border-border bg-background/90 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between relative">
+    <nav className="border-b border-border bg-background sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-5 flex items-center justify-between relative">
         {/* Logo - Centered on mobile via absolute positioning */}
         <Link 
           to="/" 
@@ -27,7 +27,7 @@ const Navbar = () => {
           <LanguageSelector />
           <Link 
             to="/partners" 
-            className="text-sm text-muted-foreground hover:text-foreground transition hidden sm:block"
+            className="text-sm text-foreground font-medium hover:text-primary transition hidden sm:block"
           >
             {t('nav.partnerSolutions')}
           </Link>

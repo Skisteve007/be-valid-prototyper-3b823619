@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock, MapPinOff, Navigation, Share2, Copy, Check, Podcast, X } from "lucide-react";
+import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock, MapPinOff, Navigation, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -120,7 +120,20 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const [staticDuration, setStaticDuration] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
   const [broadcastActive, setBroadcastActive] = useState(false);
+  const [simulateVenue, setSimulateVenue] = useState(false);
+  const [showDevSettings, setShowDevSettings] = useState(false);
   const qrRef = useRef<HTMLDivElement>(null);
+
+  // Simulated venue data (would come from check-in or location detection in production)
+  const simulatedVenue = {
+    name: "Club Nightfall",
+    logo_url: null, // Would be actual URL in production
+    id: "simulated-venue-123"
+  };
+
+  // Check if user is at a venue (either checked in or location pulse detected)
+  const isAtVenue = simulateVenue || (selectedMode === "location" && locationActive);
+  const currentVenue = isAtVenue ? simulatedVenue : null;
 
   // Broadcast colors based on mode
   const getBroadcastColor = () => {
@@ -139,7 +152,34 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
     }
   };
 
-  // Share signal QR
+  // Render dynamic watermark based on venue status
+  const renderBroadcastWatermark = () => {
+    if (currentVenue) {
+      // Venue branding mode
+      return (
+        <div className="flex flex-col items-center gap-4">
+          {/* Venue Logo - use Crown as placeholder */}
+          <div className="w-40 h-40 rounded-full border-4 border-white/20 flex items-center justify-center">
+            <Crown className="w-24 h-24 text-white opacity-25" />
+          </div>
+          <span className="text-white/25 text-2xl font-bold tracking-widest text-center">
+            {currentVenue.name.toUpperCase()}
+          </span>
+          <span className="text-white/15 text-sm tracking-wider">VALID™ VERIFIED</span>
+        </div>
+      );
+    }
+
+    // Default Ghost/Valid branding
+    return (
+      <div className="flex flex-col items-center gap-4">
+        <Ghost className="w-40 h-40 text-white opacity-20" />
+        <span className="text-white/20 text-2xl font-bold tracking-widest">VALID™</span>
+      </div>
+    );
+  };
+
+  // Share signal with venue branding
   const handleShareSignal = async () => {
     if (!navigator.share) {
       toast.error("Sharing not supported on this device");
@@ -147,10 +187,14 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
     }
 
     try {
-      // Create a canvas from the QR display area for sharing
+      // Build share message with venue context
+      const venueContext = currentVenue 
+        ? ` at ${currentVenue.name}` 
+        : "";
+      
       const shareData: ShareData = {
-        title: "My VALID Signal",
-        text: `Check out my VALID ${selectedMode?.toUpperCase() || "Signal"} mode! Verified and ready to connect.`,
+        title: currentVenue ? `VALID at ${currentVenue.name}` : "My VALID Signal",
+        text: `Check out my VALID ${selectedMode?.toUpperCase() || "Signal"} mode${venueContext}! Verified and ready to connect.`,
         url: window.location.origin + "/dashboard",
       };
       
@@ -797,8 +841,42 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                 className="w-full border-cyan-400/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400"
               >
                 <Share2 className="w-4 h-4 mr-2" />
-                Share Signal
+                Share Signal {currentVenue && `@ ${currentVenue.name}`}
               </Button>
+
+              {/* Dev Settings Toggle */}
+              <button
+                onClick={() => setShowDevSettings(!showDevSettings)}
+                className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Settings className="w-3 h-3" />
+                Dev Settings
+              </button>
+
+              {/* Dev Settings Panel */}
+              {showDevSettings && (
+                <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-400/30 space-y-2 animate-fade-in">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Building2 className="w-4 h-4 text-amber-400" />
+                      <div>
+                        <span className="text-xs font-medium text-foreground">Simulate Venue</span>
+                        <p className="text-[10px] text-muted-foreground">Preview venue branding</p>
+                      </div>
+                    </div>
+                    <Switch
+                      checked={simulateVenue}
+                      onCheckedChange={setSimulateVenue}
+                      className="scale-90 data-[state=checked]:bg-amber-500"
+                    />
+                  </div>
+                  {simulateVenue && (
+                    <div className="text-[10px] text-amber-400 bg-amber-500/10 rounded px-2 py-1">
+                      📍 Simulating: {simulatedVenue.name}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
@@ -820,11 +898,16 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             minWidth: '100vw',
           }}
         >
-          {/* Ghost/Valid Watermark */}
-          <div className="flex flex-col items-center gap-4">
-            <Ghost className="w-40 h-40 text-white opacity-20" />
-            <span className="text-white/20 text-2xl font-bold tracking-widest">VALID™</span>
-          </div>
+          {/* Dynamic Watermark - Venue or Ghost Logo */}
+          {renderBroadcastWatermark()}
+          
+          {/* Venue indicator badge */}
+          {currentVenue && (
+            <div className="absolute top-10 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm">
+              <Building2 className="w-4 h-4 text-white/60" />
+              <span className="text-white/60 text-sm font-medium">{currentVenue.name}</span>
+            </div>
+          )}
           
           {/* Close hint */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">

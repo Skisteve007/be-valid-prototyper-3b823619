@@ -148,12 +148,6 @@ const Hero = () => {
             </span>
           </h1>
           
-          {/* SUB-HEADLINE: Adaptive Profile */}
-          <p className="text-lg text-gray-400 mb-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
-            {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
-            <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
-          </p>
-          
           {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start relative z-50">
             <button 
@@ -195,6 +189,12 @@ const Hero = () => {
               {signalModes[activeSignal].description}
             </p>
           </div>
+
+          {/* SUB-HEADLINE: Adaptive Profile - Moved below signal buttons */}
+          <p className="text-lg text-gray-400 my-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
+            {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
+            <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
+          </p>
 
 
           {/* The Power Behind The Signal - Feature Cards */}

@@ -154,7 +154,7 @@ const Hero = () => {
                 {t('hero.claimId')} <ArrowRight size={14} />
               </button>
               <span className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
-                Beta
+                Beta Version
               </span>
             </div>
 

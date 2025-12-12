@@ -208,33 +208,17 @@ export const PersonalInfoSection = ({
               </Avatar>
               
               {profileImageUrl && (
-                <div className="flex gap-1">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploadingImage}
-                    className="h-7 px-2 text-xs"
-                  >
-                    <Camera className="w-3 h-3 mr-1" />
-                    {uploadingImage ? "..." : "Change"}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setTempImageUrl(profileImageUrl);
-                      setShowCropDialog(true);
-                    }}
-                    disabled={uploadingImage}
-                    className="h-7 px-2 text-xs"
-                  >
-                    <Move className="w-3 h-3 mr-1" />
-                    Adjust
-                  </Button>
-                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploadingImage}
+                  className="h-6 px-1.5 text-[10px]"
+                >
+                  <Camera className="w-2.5 h-2.5 mr-0.5" />
+                  {uploadingImage ? "..." : "Change"}
+                </Button>
               )}
               <input
                 ref={fileInputRef}
@@ -288,19 +272,6 @@ export const PersonalInfoSection = ({
                     )}
                   </div>
                   
-                  {emailShareable === true && email && (
-                    <div className="flex items-center gap-2">
-                      <Mail className="w-4 h-4 text-purple-500" />
-                      <span className="text-sm text-muted-foreground">{email}</span>
-                    </div>
-                  )}
-                  
-                  {emailShareable === false && (
-                    <div className="flex items-center gap-2">
-                      <Lock className="w-4 h-4 text-red-500" />
-                      <span className="text-sm text-muted-foreground italic">Email Private</span>
-                    </div>
-                  )}
                   
                   <div className="flex items-center gap-4 flex-wrap text-sm">
                     {whereFrom && (

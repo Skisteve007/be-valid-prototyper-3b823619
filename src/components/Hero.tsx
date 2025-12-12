@@ -4,7 +4,7 @@
 // ============================================================================
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Users, Activity, Zap, Moon } from 'lucide-react';
+import { ArrowRight, ArrowDownRight, Users, Activity, Zap, Moon } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
@@ -156,12 +156,19 @@ const Hero = () => {
 
             {/* CTA Button + Beta Pill */}
             <div className="flex items-center gap-3 mb-8">
-              <button 
-                onClick={handleAccessClick}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite]"
-              >
-                {t('hero.claimId')} <ArrowRight size={14} />
-              </button>
+              <div className="relative">
+                <ArrowDownRight 
+                  size={20} 
+                  className="absolute -top-4 -right-2 text-white animate-bounce"
+                  strokeWidth={3}
+                />
+                <button 
+                  onClick={handleAccessClick}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite]"
+                >
+                  {t('hero.claimId')} <ArrowRight size={14} />
+                </button>
+              </div>
               <span className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400">
                 Beta Version
               </span>

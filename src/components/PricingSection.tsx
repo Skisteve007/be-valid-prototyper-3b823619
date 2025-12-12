@@ -44,25 +44,23 @@ export const PricingSection = () => {
         .pricing-grid-container {
           display: flex;
           flex-direction: row;
-          flex-wrap: wrap;
-          gap: 20px;
+          gap: 16px;
           padding: 20px 16px;
           justify-content: center;
-          max-width: 1200px;
+          max-width: 1100px;
           margin: 0 auto;
         }
         .pricing-card {
           border: 1px solid rgba(0, 240, 255, 0.3);
           border-radius: 16px;
-          padding: 24px;
+          padding: 20px;
           background: linear-gradient(145deg, rgba(10, 15, 30, 0.95), rgba(20, 30, 50, 0.9));
           backdrop-filter: blur(10px);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          min-height: 340px;
-          width: calc(25% - 20px);
-          min-width: 200px;
+          min-height: 320px;
+          flex: 1;
           position: relative;
           overflow: hidden;
           animation: border-glow 3s ease-in-out infinite;

@@ -27,10 +27,10 @@ export const PricingSection = () => {
       <style>{`
         @keyframes neon-pulse {
           0%, 100% {
-            box-shadow: 0 0 4px currentColor, 0 0 8px currentColor;
+            box-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
           }
           50% {
-            box-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
+            box-shadow: 0 0 12px currentColor, 0 0 24px currentColor;
           }
         }
         @keyframes border-glow {
@@ -53,14 +53,20 @@ export const PricingSection = () => {
         .pricing-card {
           border: 1px solid rgba(0, 240, 255, 0.3);
           border-radius: 16px;
-          padding: 20px;
+          padding: 24px;
           background: linear-gradient(145deg, rgba(10, 15, 30, 0.95), rgba(20, 30, 50, 0.9));
           backdrop-filter: blur(10px);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          min-height: 320px;
-          width: 240px;
+          min-height: 340px;
+          flex: 1;
+          min-width: 220px;
+          max-width: 280px;
+          position: relative;
+          overflow: hidden;
+          animation: border-glow 3s ease-in-out infinite;
+        }
           position: relative;
           overflow: hidden;
           animation: border-glow 3s ease-in-out infinite;

@@ -905,11 +905,18 @@ const PitchDeck = () => {
                 
                 {/* Line 2 - Static */}
                 <div className="pt-4 border-t border-cyan-500/20">
-                  <p className="text-xl md:text-2xl font-semibold text-white tracking-wide">
-                    <span className="text-3xl md:text-4xl font-bold text-cyan-400">VALID</span><sup className="text-cyan-400 text-sm ml-1">™</sup>
-                    <span className="ml-3">:</span>
-                    <span className="ml-2">Your Spatial Verification Partner</span>
-                  </p>
+                  <div className="flex flex-col items-center gap-2">
+                    <span className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-300 via-cyan-200 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(148,163,184,0.5)]">
+                      VALID<sup className="text-cyan-400 text-lg ml-2">™</sup>
+                    </span>
+                    <div className="flex items-center gap-3 mt-2">
+                      <div className="h-[2px] w-8 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
+                      <span className="text-lg md:text-xl font-light tracking-[0.2em] uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-white to-gray-400">
+                        Your Spatial Verification Partner
+                      </span>
+                      <div className="h-[2px] w-8 bg-gradient-to-l from-transparent to-cyan-500/50"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
               

@@ -35,6 +35,7 @@ import AdminDealRoom from "./pages/AdminDealRoom";
 import InvestorDashboard from "./pages/InvestorDashboard";
 import SharedProfile from "./pages/SharedProfile";
 import VerifyEmail from "./pages/VerifyEmail";
+import AccessPending from "./pages/AccessPending";
 
 import ApiDocs from "./pages/ApiDocs";
 import SecurityCompliance from "./pages/SecurityCompliance";
@@ -44,6 +45,7 @@ import LabPortal from "./pages/LabPortal";
 import NotFound from "./pages/NotFound";
 import { CurrencyProvider } from "./providers/CurrencyProvider";
 import { AgeGate } from "./components/AgeGate";
+import { AccessGate } from "./components/AccessGate";
 import Footer from "./components/Footer";
 import SiteGate from "./components/SiteGate";
 
@@ -70,8 +72,8 @@ const App = () => (
               <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />
               <Route path="/investor-dashboard" element={<AgeGate><InvestorDashboard /></AgeGate>} />
               <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
-              <Route path="/partners" element={<AgeGate><Partners /></AgeGate>} />
-              <Route path="/partners/verification" element={<AgeGate><Partners /></AgeGate>} />
+              <Route path="/partners" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
+              <Route path="/partners/verification" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
               <Route path="/lab/dashboard" element={<AgeGate><LabDashboard /></AgeGate>} />
               <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
               <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
@@ -88,7 +90,8 @@ const App = () => (
               <Route path="/partner-application" element={<AgeGate><PartnerApplication /></AgeGate>} />
               <Route path="/competitive-scorecard" element={<AgeGate><CompetitiveScorecard /></AgeGate>} />
               <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
-              <Route path="/pitch-deck" element={<PitchDeck />} />
+              <Route path="/pitch-deck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
+              <Route path="/access-pending" element={<AccessPending />} />
               <Route path="/venues/:slug" element={<VenueLanding />} />
               <Route path="/idv-verification" element={<AgeGate><IDVVerification /></AgeGate>} />
               <Route path="/p/:shortId" element={<SharedProfile />} />

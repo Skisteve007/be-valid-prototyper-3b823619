@@ -158,7 +158,7 @@ const Hero = () => {
             <div className="flex items-center gap-3 mb-8">
               <button 
                 onClick={handleAccessClick}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_30px_rgba(255,255,255,0.7),0_0_60px_rgba(255,255,255,0.4)] transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite]"
               >
                 {t('hero.claimId')} <ArrowRight size={14} />
               </button>

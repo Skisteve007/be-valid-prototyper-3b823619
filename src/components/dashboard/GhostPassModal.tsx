@@ -948,9 +948,12 @@ const GhostPassModal = ({
                 </div>
               )}
 
+              {/* Share Control Header */}
+              <p className="text-center text-white font-bold text-sm uppercase tracking-widest mb-3">CHOOSE YOUR SHARE</p>
+
               {/* Permission Toggles - User-controlled sharing */}
               <div className="flex justify-center gap-3 mb-4">
-                {/* ID Toggle - Kill Blue */}
+                {/* ID Toggle - Kill Blue/Cyan */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, identity: !prev.identity }))}
                   className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
@@ -959,11 +962,11 @@ const GhostPassModal = ({
                       : 'bg-white/5 border-white/20 opacity-60'
                   }`}
                 >
-                  <div className="absolute -top-1 -right-1">
+                  <div className="absolute -top-2 -right-2 bg-black rounded-full p-0.5">
                     {toggles.identity ? (
-                      <Unlock size={12} className="text-cyan-400" />
+                      <Unlock size={16} className="text-cyan-400" strokeWidth={3} />
                     ) : (
-                      <Lock size={12} className="text-gray-500" />
+                      <Lock size={16} className="text-gray-400" strokeWidth={3} />
                     )}
                   </div>
                   <Fingerprint size={24} className={toggles.identity ? 'text-cyan-400' : 'text-gray-500'} />
@@ -979,55 +982,55 @@ const GhostPassModal = ({
                       : 'bg-white/5 border-white/20 opacity-60'
                   }`}
                 >
-                  <div className="absolute -top-1 -right-1">
+                  <div className="absolute -top-2 -right-2 bg-black rounded-full p-0.5">
                     {toggles.payment ? (
-                      <Unlock size={12} className="text-green-400" />
+                      <Unlock size={16} className="text-green-400" strokeWidth={3} />
                     ) : (
-                      <Lock size={12} className="text-gray-500" />
+                      <Lock size={16} className="text-gray-400" strokeWidth={3} />
                     )}
                   </div>
                   <Wallet size={24} className={toggles.payment ? 'text-green-400' : 'text-gray-500'} />
                   <span className={`text-[9px] font-bold ${toggles.payment ? 'text-green-400' : 'text-gray-500'}`}>FUNDS</span>
                 </button>
 
-                {/* BIO Toggle - Yellow */}
+                {/* BIO Toggle - Light Red (like header buttons) */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, health: !prev.health }))}
                   className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.health
-                      ? 'bg-yellow-500/20 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.4)]'
-                      : 'bg-white/5 border-white/20 opacity-60'
-                  }`}
-                >
-                  <div className="absolute -top-1 -right-1">
-                    {toggles.health ? (
-                      <Unlock size={12} className="text-yellow-400" />
-                    ) : (
-                      <Lock size={12} className="text-gray-500" />
-                    )}
-                  </div>
-                  <HeartPulse size={24} className={toggles.health ? 'text-yellow-400' : 'text-gray-500'} />
-                  <span className={`text-[9px] font-bold ${toggles.health ? 'text-yellow-400' : 'text-gray-500'}`}>BIO</span>
-                </button>
-
-                {/* TOX Toggle - Light Pinkish-Red */}
-                <button
-                  onClick={() => setToggles(prev => ({ ...prev, tox: !prev.tox }))}
-                  className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
-                    toggles.tox
                       ? 'bg-rose-500/20 border-rose-400 shadow-[0_0_15px_rgba(251,113,133,0.4)]'
                       : 'bg-white/5 border-white/20 opacity-60'
                   }`}
                 >
-                  <div className="absolute -top-1 -right-1">
-                    {toggles.tox ? (
-                      <Unlock size={12} className="text-rose-400" />
+                  <div className="absolute -top-2 -right-2 bg-black rounded-full p-0.5">
+                    {toggles.health ? (
+                      <Unlock size={16} className="text-rose-400" strokeWidth={3} />
                     ) : (
-                      <Lock size={12} className="text-gray-500" />
+                      <Lock size={16} className="text-gray-400" strokeWidth={3} />
                     )}
                   </div>
-                  <FlaskConical size={24} className={toggles.tox ? 'text-rose-400' : 'text-gray-500'} />
-                  <span className={`text-[9px] font-bold ${toggles.tox ? 'text-rose-400' : 'text-gray-500'}`}>TOX</span>
+                  <HeartPulse size={24} className={toggles.health ? 'text-rose-400' : 'text-gray-500'} />
+                  <span className={`text-[9px] font-bold ${toggles.health ? 'text-rose-400' : 'text-gray-500'}`}>BIO</span>
+                </button>
+
+                {/* TOX Toggle - Yellow */}
+                <button
+                  onClick={() => setToggles(prev => ({ ...prev, tox: !prev.tox }))}
+                  className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
+                    toggles.tox
+                      ? 'bg-yellow-500/20 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.4)]'
+                      : 'bg-white/5 border-white/20 opacity-60'
+                  }`}
+                >
+                  <div className="absolute -top-2 -right-2 bg-black rounded-full p-0.5">
+                    {toggles.tox ? (
+                      <Unlock size={16} className="text-yellow-400" strokeWidth={3} />
+                    ) : (
+                      <Lock size={16} className="text-gray-400" strokeWidth={3} />
+                    )}
+                  </div>
+                  <FlaskConical size={24} className={toggles.tox ? 'text-yellow-400' : 'text-gray-500'} />
+                  <span className={`text-[9px] font-bold ${toggles.tox ? 'text-yellow-400' : 'text-gray-500'}`}>TOX</span>
                 </button>
               </div>
 

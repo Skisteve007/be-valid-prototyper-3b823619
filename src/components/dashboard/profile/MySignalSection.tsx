@@ -4,7 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock, MapPinOff, Navigation, Share2, Copy, Check } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,8 +16,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 type SignalMode = "social" | "pulse" | "thrill" | "afterdark" | "location" | null;
+type LocationType = "live" | "static" | null;
 
 interface MySignalSectionProps {
   vibeMetadata: Record<string, any>;
@@ -86,11 +89,21 @@ const AFTERDARK_OPTIONS = {
   breakfastPlans: ["Prefer It", "My Place Only", "Hotels Only", "Sometimes", "Never", "Required"],
 };
 
+// Live location durations
 const LOCATION_DURATIONS = [
+  { value: "0.033", label: "Ghosted", sublabel: "2 sec" },
   { value: "15", label: "15 Minutes" },
   { value: "60", label: "1 Hour" },
   { value: "360", label: "6 Hours" },
   { value: "720", label: "12 Hours" },
+];
+
+// Static location durations (1-hour intervals only)
+const STATIC_DURATIONS = [
+  { value: "60", label: "1 Hour" },
+  { value: "120", label: "2 Hours" },
+  { value: "180", label: "3 Hours" },
+  { value: "240", label: "4 Hours" },
 ];
 
 const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChange }: MySignalSectionProps) => {
@@ -101,6 +114,11 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const [locationDuration, setLocationDuration] = useState<string | null>(null);
   const [locationActive, setLocationActive] = useState(false);
   const [locationExpiry, setLocationExpiry] = useState<Date | null>(null);
+  const [locationType, setLocationType] = useState<LocationType>(null);
+  const [fuzzyLocation, setFuzzyLocation] = useState(false);
+  const [staticAddress, setStaticAddress] = useState("");
+  const [staticDuration, setStaticDuration] = useState<string | null>(null);
+  const [copiedLink, setCopiedLink] = useState<string | null>(null);
 
   useEffect(() => {
     if (vibeMetadata?.mode) {
@@ -148,9 +166,12 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   };
 
   const activateLocationShare = () => {
-    if (!locationDuration) return;
+    if (locationType === "live" && !locationDuration) return;
+    if (locationType === "static" && (!staticAddress || !staticDuration)) return;
     
-    const durationMinutes = parseInt(locationDuration);
+    const durationMinutes = locationType === "live" 
+      ? parseFloat(locationDuration!) 
+      : parseInt(staticDuration!);
     const expiry = new Date(Date.now() + durationMinutes * 60 * 1000);
     setLocationExpiry(expiry);
     setLocationActive(true);
@@ -158,29 +179,66 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
     const newMetadata = { 
       ...localMetadata, 
       mode: "location",
+      location_type: locationType,
       location_duration: durationMinutes,
-      location_expiry: expiry.toISOString()
+      location_expiry: expiry.toISOString(),
+      fuzzy_location: fuzzyLocation,
+      static_address: locationType === "static" ? staticAddress : null
     };
     setLocalMetadata(newMetadata);
     onVibeMetadataChange(newMetadata);
     onStatusColorChange("red");
+    
+    toast.success(
+      locationType === "live" 
+        ? `Live location sharing activated for ${durationMinutes < 1 ? '2 seconds' : durationMinutes + ' minutes'}`
+        : `Static location set for ${durationMinutes / 60} hour(s)`
+    );
   };
 
   const deactivateLocationShare = () => {
     setLocationActive(false);
     setLocationExpiry(null);
     setLocationDuration(null);
+    setLocationType(null);
+    setStaticAddress("");
+    setStaticDuration(null);
+    setFuzzyLocation(false);
     
     const newMetadata = { 
       ...localMetadata, 
       mode: null,
+      location_type: null,
       location_duration: null,
-      location_expiry: null
+      location_expiry: null,
+      fuzzy_location: null,
+      static_address: null
     };
     setLocalMetadata(newMetadata);
     onVibeMetadataChange(newMetadata);
     onStatusColorChange("gray");
     setSelectedMode(null);
+  };
+
+  // Generate shareable map links
+  const generateMapLinks = (address: string) => {
+    const encoded = encodeURIComponent(address);
+    return {
+      google: `https://www.google.com/maps/search/?api=1&query=${encoded}`,
+      apple: `https://maps.apple.com/?q=${encoded}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(`📍 My location: ${address}\n\nGoogle Maps: https://www.google.com/maps/search/?api=1&query=${encoded}`)}`
+    };
+  };
+
+  const copyMapLink = async (type: string, link: string) => {
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopiedLink(type);
+      toast.success(`${type} link copied!`);
+      setTimeout(() => setCopiedLink(null), 2000);
+    } catch (err) {
+      toast.error("Failed to copy link");
+    }
   };
 
   const handleConfirmAge = () => {
@@ -489,49 +547,215 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           {/* Location Duration Controls */}
           {selectedMode === "location" && (
             <div className="mt-4 p-4 rounded-xl border-2 border-red-400/50 bg-red-500/10">
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-2 mb-4">
                 <Clock className="w-5 h-5 text-red-400" />
-                <h4 className="font-semibold text-red-400">Select Share Duration</h4>
+                <h4 className="font-semibold text-red-400">Location Pulse Settings</h4>
               </div>
               
               {!locationActive ? (
-                <>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
-                    {LOCATION_DURATIONS.map((duration) => (
-                      <button
-                        key={duration.value}
-                        type="button"
-                        onClick={() => setLocationDuration(duration.value)}
-                        className={`p-3 rounded-lg border transition-all text-sm font-medium ${
-                          locationDuration === duration.value
-                            ? "border-red-400 bg-red-500/30 text-red-400"
-                            : "border-border bg-card text-foreground hover:border-red-400/50"
-                        }`}
-                      >
-                        {duration.label}
-                      </button>
-                    ))}
+                <div className="space-y-5">
+                  {/* Location Type Selection */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setLocationType("live");
+                        setStaticAddress("");
+                        setStaticDuration(null);
+                      }}
+                      className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                        locationType === "live"
+                          ? "border-red-400 bg-red-500/30"
+                          : "border-border bg-card hover:border-red-400/50"
+                      }`}
+                    >
+                      <Navigation className={`w-6 h-6 ${locationType === "live" ? "text-red-400" : "text-muted-foreground"}`} />
+                      <span className="font-semibold text-foreground text-sm">Live Location</span>
+                      <p className="text-xs text-muted-foreground text-center">Real-time GPS sharing</p>
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setLocationType("static");
+                        setLocationDuration(null);
+                      }}
+                      className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                        locationType === "static"
+                          ? "border-red-400 bg-red-500/30"
+                          : "border-border bg-card hover:border-red-400/50"
+                      }`}
+                    >
+                      <MapPinOff className={`w-6 h-6 ${locationType === "static" ? "text-red-400" : "text-muted-foreground"}`} />
+                      <span className="font-semibold text-foreground text-sm">Static Location</span>
+                      <p className="text-xs text-muted-foreground text-center">Set a fixed address</p>
+                    </button>
                   </div>
-                  <Button
-                    onClick={activateLocationShare}
-                    disabled={!locationDuration}
-                    className="w-full bg-red-500 hover:bg-red-600 text-white disabled:opacity-50"
-                  >
-                    <MapPin className="w-4 h-4 mr-2" />
-                    Activate Live Location Share
-                  </Button>
-                </>
+
+                  {/* Live Location Options */}
+                  {locationType === "live" && (
+                    <div className="space-y-4">
+                      {/* Fuzzy Location Toggle */}
+                      <div className="flex items-center justify-between p-3 rounded-lg bg-card border border-border">
+                        <div className="flex items-center gap-3">
+                          <MapPinOff className="w-5 h-5 text-amber-400" />
+                          <div>
+                            <span className="font-medium text-foreground text-sm">Fuzzy Location</span>
+                            <p className="text-xs text-muted-foreground">Approximate area only (~1 mile radius)</p>
+                          </div>
+                        </div>
+                        <Switch
+                          checked={fuzzyLocation}
+                          onCheckedChange={setFuzzyLocation}
+                          className="data-[state=checked]:bg-amber-500"
+                        />
+                      </div>
+
+                      {/* Duration Selection */}
+                      <div>
+                        <Label className="text-sm font-medium text-foreground mb-2 block">Select Share Duration</Label>
+                        <div className="grid grid-cols-3 md:grid-cols-5 gap-2">
+                          {LOCATION_DURATIONS.map((duration) => (
+                            <button
+                              key={duration.value}
+                              type="button"
+                              onClick={() => setLocationDuration(duration.value)}
+                              className={`p-3 rounded-lg border transition-all text-center ${
+                                locationDuration === duration.value
+                                  ? "border-red-400 bg-red-500/30 text-red-400"
+                                  : "border-border bg-card text-foreground hover:border-red-400/50"
+                              }`}
+                            >
+                              <span className={`text-sm font-medium ${duration.value === "0.033" ? "text-purple-400" : ""}`}>
+                                {duration.label}
+                              </span>
+                              {duration.sublabel && (
+                                <span className="block text-xs text-muted-foreground">{duration.sublabel}</span>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <Button
+                        onClick={activateLocationShare}
+                        disabled={!locationDuration}
+                        className="w-full bg-red-500 hover:bg-red-600 text-white disabled:opacity-50"
+                      >
+                        <MapPin className="w-4 h-4 mr-2" />
+                        {locationDuration === "0.033" ? "Go Ghosted" : "Activate Live Location"}
+                      </Button>
+                    </div>
+                  )}
+
+                  {/* Static Location Options */}
+                  {locationType === "static" && (
+                    <div className="space-y-4">
+                      {/* Address Input */}
+                      <div>
+                        <Label className="text-sm font-medium text-foreground mb-2 block">Enter Address</Label>
+                        <Input
+                          value={staticAddress}
+                          onChange={(e) => setStaticAddress(e.target.value)}
+                          placeholder="123 Main St, City, State..."
+                          className="bg-background border-border text-foreground"
+                        />
+                      </div>
+
+                      {/* Fuzzy Location Toggle for Static */}
+                      <div className="flex items-center justify-between p-3 rounded-lg bg-card border border-border">
+                        <div className="flex items-center gap-3">
+                          <MapPinOff className="w-5 h-5 text-amber-400" />
+                          <div>
+                            <span className="font-medium text-foreground text-sm">Fuzzy Location</span>
+                            <p className="text-xs text-muted-foreground">Show approximate area only</p>
+                          </div>
+                        </div>
+                        <Switch
+                          checked={fuzzyLocation}
+                          onCheckedChange={setFuzzyLocation}
+                          className="data-[state=checked]:bg-amber-500"
+                        />
+                      </div>
+
+                      {/* Static Duration Selection (1-hour intervals) */}
+                      <div>
+                        <Label className="text-sm font-medium text-foreground mb-2 block">Duration (1-hour intervals)</Label>
+                        <div className="grid grid-cols-4 gap-2">
+                          {STATIC_DURATIONS.map((duration) => (
+                            <button
+                              key={duration.value}
+                              type="button"
+                              onClick={() => setStaticDuration(duration.value)}
+                              className={`p-3 rounded-lg border transition-all text-sm font-medium ${
+                                staticDuration === duration.value
+                                  ? "border-red-400 bg-red-500/30 text-red-400"
+                                  : "border-border bg-card text-foreground hover:border-red-400/50"
+                              }`}
+                            >
+                              {duration.label}
+                            </button>
+                          ))}
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          ⚠️ Static location expires automatically. Update manually after expiration.
+                        </p>
+                      </div>
+
+                      <Button
+                        onClick={activateLocationShare}
+                        disabled={!staticAddress || !staticDuration}
+                        className="w-full bg-red-500 hover:bg-red-600 text-white disabled:opacity-50"
+                      >
+                        <MapPin className="w-4 h-4 mr-2" />
+                        Set Static Location
+                      </Button>
+                    </div>
+                  )}
+                </div>
               ) : (
-                <div className="space-y-3">
+                <div className="space-y-4">
+                  {/* Active Status */}
                   <div className="flex items-center justify-between p-3 rounded-lg bg-red-500/20 border border-red-400">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                      <span className="text-red-400 font-semibold">Location Sharing Active</span>
+                      <div>
+                        <span className="text-red-400 font-semibold">
+                          {locationType === "live" ? "Live Location" : "Static Location"} Active
+                        </span>
+                        {fuzzyLocation && (
+                          <span className="ml-2 text-xs text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded-full">Fuzzy</span>
+                        )}
+                      </div>
                     </div>
                     <span className="text-xs text-red-400">
                       Expires: {locationExpiry?.toLocaleTimeString()}
                     </span>
                   </div>
+
+                  {/* Map Share Links (for static location) */}
+                  {locationType === "static" && staticAddress && (
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium text-foreground">Share via Maps</Label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {Object.entries(generateMapLinks(staticAddress)).map(([type, link]) => (
+                          <button
+                            key={type}
+                            onClick={() => copyMapLink(type, link)}
+                            className="p-3 rounded-lg border border-border bg-card hover:bg-accent transition-all flex flex-col items-center gap-2"
+                          >
+                            {copiedLink === type ? (
+                              <Check className="w-5 h-5 text-green-400" />
+                            ) : (
+                              <Share2 className="w-5 h-5 text-foreground" />
+                            )}
+                            <span className="text-xs font-medium text-foreground capitalize">{type}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <Button
                     onClick={deactivateLocationShare}
                     variant="outline"

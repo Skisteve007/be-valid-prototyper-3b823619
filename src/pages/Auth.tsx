@@ -45,12 +45,21 @@ const Auth = () => {
     
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (session && session.user.email_confirmed_at) {
-        navigate("/investor-dashboard");
-      } else if (session && !session.user.email_confirmed_at) {
-        // User is logged in but email not confirmed - show verify message
-        setVerificationEmail(session.user.email || "");
-        setShowEmailVerification(true);
+      if (session) {
+        // Check if user's email is verified via our custom system
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("email_verified")
+          .eq("user_id", session.user.id)
+          .single();
+        
+        if (profile?.email_verified) {
+          navigate("/investor-dashboard");
+        } else {
+          // User is logged in but email not verified
+          setVerificationEmail(session.user.email || "");
+          setShowEmailVerification(true);
+        }
       }
     };
     checkUser();
@@ -81,13 +90,21 @@ const Auth = () => {
         return;
       }
 
-      // Check if email is confirmed
-      if (data.user && !data.user.email_confirmed_at) {
-        setLoading(false);
-        setVerificationEmail(data.user.email || loginEmail);
-        setShowEmailVerification(true);
-        toast.error("Please verify your email before logging in. Check your inbox.");
-        return;
+      // Check if email is verified via our custom system
+      if (data.user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("email_verified")
+          .eq("user_id", data.user.id)
+          .single();
+        
+        if (!profile?.email_verified) {
+          setLoading(false);
+          setVerificationEmail(data.user.email || loginEmail);
+          setShowEmailVerification(true);
+          toast.error("Please verify your email before logging in. Check your inbox.");
+          return;
+        }
       }
 
       toast.success("Welcome back!");
@@ -112,7 +129,6 @@ const Auth = () => {
           data: {
             full_name: fullName,
           },
-          emailRedirectTo: `${window.location.origin}/investor-dashboard`,
         },
       });
 
@@ -131,6 +147,20 @@ const Auth = () => {
         localStorage.setItem('pendingDiscountCode', usedDiscountCode.toUpperCase());
       }
 
+      // Send branded verification email
+      if (data.user) {
+        const { error: emailError } = await supabase.functions.invoke("send-auth-email", {
+          body: {
+            email: signupEmail,
+            userId: data.user.id,
+            firstName: signupFirstName,
+          },
+        });
+
+        if (emailError) {
+          console.error("Error sending verification email:", emailError);
+        }
+      }
 
       // Show email verification message
       setVerificationEmail(signupEmail);

@@ -1,14 +1,19 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "https://esm.sh/resend@2.0.0";
-import { Webhook } from "https://esm.sh/standardwebhooks@1.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
-const hookSecret = Deno.env.get("SEND_EMAIL_HOOK_SECRET");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+interface EmailRequest {
+  email: string;
+  userId: string;
+  firstName?: string;
+}
 
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
@@ -16,183 +21,114 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const payload = await req.text();
-    const headers = Object.fromEntries(req.headers);
+    const { email, userId, firstName }: EmailRequest = await req.json();
     
-    let emailData: any;
-    let userEmail: string;
-    let userName: string = "";
+    console.log("Sending verification email to:", email, "for user:", userId);
 
-    // Check if this is a webhook from Supabase Auth Hook
-    if (hookSecret) {
-      try {
-        const wh = new Webhook(hookSecret);
-        const verified = wh.verify(payload, headers) as {
-          user: { email: string; user_metadata?: { full_name?: string } };
-          email_data: {
-            token: string;
-            token_hash: string;
-            redirect_to: string;
-            email_action_type: string;
-          };
-        };
-        
-        userEmail = verified.user.email;
-        userName = verified.user.user_metadata?.full_name?.split(' ')[0] || "";
-        emailData = verified.email_data;
-        
-        console.log("Auth Hook triggered for:", userEmail, "Type:", emailData.email_action_type);
-      } catch (webhookError) {
-        console.log("Not a webhook request, trying direct call:", webhookError);
-        // Fall back to direct API call format
-        const body = JSON.parse(payload);
-        userEmail = body.email;
-        userName = body.userName || "";
-        emailData = {
-          email_action_type: body.type,
-          token_hash: body.token_hash,
-          redirect_to: body.redirect_to || "https://bevalid.app/dashboard",
-        };
-      }
-    } else {
-      // Direct API call (no hook secret configured)
-      const body = JSON.parse(payload);
-      userEmail = body.email;
-      userName = body.userName || "";
-      emailData = {
-        email_action_type: body.type,
-        token_hash: body.token_hash,
-        redirect_to: body.redirect_to || "https://bevalid.app/dashboard",
-      };
-    }
+    // Create Supabase admin client
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
 
-    const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
-    
-    let subject = "";
-    let html = "";
+    // Generate a secure random token
+    const token = crypto.randomUUID();
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
-    const actionType = emailData.email_action_type || emailData.type;
-
-    if (actionType === "signup" || actionType === "signup_confirmation") {
-      const confirmLink = emailData.token_hash 
-        ? `${supabaseUrl}/auth/v1/verify?token=${emailData.token_hash}&type=signup&redirect_to=${encodeURIComponent(emailData.redirect_to || "https://bevalid.app/dashboard")}`
-        : "https://bevalid.app/auth?mode=login";
-      
-      subject = "Confirm your VALID™ account";
-      html = `
-        <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0e1a; color: #e0e0ff; padding: 40px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">VALID™</h1>
-            <p style="color: #888; font-size: 14px;">One Identity. Zero Limits.</p>
-          </div>
-          
-          <h2 style="color: #fff; font-size: 22px;">Welcome${userName ? `, ${userName}` : ''}!</h2>
-          
-          <p style="font-size: 16px; line-height: 1.6;">
-            Thank you for joining VALID™. Please confirm your email address to activate your account and unlock your secure digital identity.
-          </p>
-          
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="${confirmLink}" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #000; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">
-              Confirm Email
-            </a>
-          </div>
-          
-          <p style="font-size: 14px; color: #888;">
-            If you didn't create an account with VALID™, you can safely ignore this email.
-          </p>
-          
-          <hr style="border: none; border-top: 1px solid #333; margin: 30px 0;">
-          
-          <p style="font-size: 12px; color: #666; text-align: center;">
-            © ${new Date().getFullYear()} VALID™. All rights reserved.<br>
-            This is an automated message. Please do not reply.
-          </p>
-        </div>
-      `;
-    } else if (actionType === "recovery" || actionType === "password_reset") {
-      const resetLink = emailData.token_hash 
-        ? `${supabaseUrl}/auth/v1/verify?token=${emailData.token_hash}&type=recovery&redirect_to=${encodeURIComponent(emailData.redirect_to || "https://bevalid.app/auth?mode=login")}`
-        : "https://bevalid.app/auth?mode=login";
-      
-      subject = "Reset your VALID™ password";
-      html = `
-        <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0e1a; color: #e0e0ff; padding: 40px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">VALID™</h1>
-            <p style="color: #888; font-size: 14px;">One Identity. Zero Limits.</p>
-          </div>
-          
-          <h2 style="color: #fff; font-size: 22px;">Password Reset Request</h2>
-          
-          <p style="font-size: 16px; line-height: 1.6;">
-            We received a request to reset your password. Click the button below to create a new password.
-          </p>
-          
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="${resetLink}" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #000; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">
-              Reset Password
-            </a>
-          </div>
-          
-          <p style="font-size: 14px; color: #888;">
-            This link expires in 1 hour. If you didn't request a password reset, please ignore this email.
-          </p>
-          
-          <hr style="border: none; border-top: 1px solid #333; margin: 30px 0;">
-          
-          <p style="font-size: 12px; color: #666; text-align: center;">
-            © ${new Date().getFullYear()} VALID™. All rights reserved.
-          </p>
-        </div>
-      `;
-    } else if (actionType === "magiclink") {
-      const magicLink = `${supabaseUrl}/auth/v1/verify?token=${emailData.token_hash}&type=magiclink&redirect_to=${encodeURIComponent(emailData.redirect_to || "https://bevalid.app/dashboard")}`;
-      
-      subject = "Your VALID™ Login Link";
-      html = `
-        <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0e1a; color: #e0e0ff; padding: 40px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">VALID™</h1>
-            <p style="color: #888; font-size: 14px;">One Identity. Zero Limits.</p>
-          </div>
-          
-          <h2 style="color: #fff; font-size: 22px;">Login Link</h2>
-          
-          <p style="font-size: 16px; line-height: 1.6;">
-            Click the button below to log in to your VALID™ account.
-          </p>
-          
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="${magicLink}" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #000; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">
-              Log In to VALID™
-            </a>
-          </div>
-          
-          <p style="font-size: 14px; color: #888;">
-            This link expires in 1 hour. If you didn't request this, please ignore this email.
-          </p>
-          
-          <hr style="border: none; border-top: 1px solid #333; margin: 30px 0;">
-          
-          <p style="font-size: 12px; color: #666; text-align: center;">
-            © ${new Date().getFullYear()} VALID™. All rights reserved.
-          </p>
-        </div>
-      `;
-    } else {
-      console.log("Unknown email type:", actionType);
-      return new Response(JSON.stringify({ error: "Unknown email type" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+    // Store token in database
+    const { error: tokenError } = await supabaseAdmin
+      .from("email_verification_tokens")
+      .insert({
+        user_id: userId,
+        token: token,
+        email: email,
+        expires_at: expiresAt.toISOString(),
       });
+
+    if (tokenError) {
+      console.error("Error storing token:", tokenError);
+      throw new Error("Failed to generate verification token");
     }
 
+    // Build verification URL
+    const baseUrl = "https://bevalid.app";
+    const verificationUrl = `${baseUrl}/verify-email?token=${token}`;
+
+    // Send branded email
     const emailResponse = await resend.emails.send({
-      from: "VALID™ <admin@bevalid.app>",
-      to: [userEmail],
-      subject,
-      html,
+      from: "Valid™ <admin@bevalid.app>",
+      to: [email],
+      subject: "Verify Your Valid™ Account",
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #0A0E1A; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+          <table role="presentation" style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td align="center" style="padding: 40px 20px;">
+                <table role="presentation" style="max-width: 600px; width: 100%; border-collapse: collapse;">
+                  <!-- Header -->
+                  <tr>
+                    <td align="center" style="padding-bottom: 30px;">
+                      <h1 style="margin: 0; font-size: 36px; font-weight: bold; color: #00FFC2; letter-spacing: 2px;">
+                        VALID™
+                      </h1>
+                      <p style="margin: 10px 0 0; color: #888; font-size: 14px; letter-spacing: 1px;">
+                        ONE IDENTITY. ZERO LIMITS.
+                      </p>
+                    </td>
+                  </tr>
+                  
+                  <!-- Main Content -->
+                  <tr>
+                    <td style="background: linear-gradient(135deg, rgba(0, 255, 194, 0.1), rgba(0, 240, 255, 0.05)); border: 1px solid rgba(0, 255, 194, 0.3); border-radius: 16px; padding: 40px;">
+                      <h2 style="margin: 0 0 20px; color: #ffffff; font-size: 24px; text-align: center;">
+                        Welcome${firstName ? `, ${firstName}` : ''}! 🎉
+                      </h2>
+                      <p style="margin: 0 0 30px; color: #E0E0E0; font-size: 16px; line-height: 1.6; text-align: center;">
+                        You're one step away from accessing the Valid™ network. Click the button below to verify your email and activate your account.
+                      </p>
+                      
+                      <!-- CTA Button -->
+                      <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                          <td align="center">
+                            <a href="${verificationUrl}" 
+                               style="display: inline-block; padding: 16px 48px; background: linear-gradient(135deg, #00FFC2, #00f0ff); color: #0A0E1A; font-size: 16px; font-weight: bold; text-decoration: none; border-radius: 8px; letter-spacing: 1px;">
+                              VERIFY EMAIL
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                      
+                      <p style="margin: 30px 0 0; color: #888; font-size: 14px; text-align: center;">
+                        This link expires in 24 hours.
+                      </p>
+                    </td>
+                  </tr>
+                  
+                  <!-- Footer -->
+                  <tr>
+                    <td style="padding-top: 30px;">
+                      <p style="margin: 0; color: #666; font-size: 12px; text-align: center; line-height: 1.6;">
+                        If you didn't create an account with Valid™, you can safely ignore this email.
+                      </p>
+                      <p style="margin: 15px 0 0; color: #444; font-size: 11px; text-align: center;">
+                        © ${new Date().getFullYear()} Valid™ — All rights reserved.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `,
     });
 
     console.log("Email sent successfully:", emailResponse);
@@ -202,10 +138,13 @@ const handler = async (req: Request): Promise<Response> => {
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   } catch (error: any) {
-    console.error("Error sending auth email:", error);
+    console.error("Error in send-auth-email function:", error);
     return new Response(
-      JSON.stringify({ error: { http_code: 500, message: error.message } }),
-      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      JSON.stringify({ error: error.message }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      }
     );
   }
 };

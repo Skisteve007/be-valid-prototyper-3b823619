@@ -919,6 +919,14 @@ const GhostPassModal = ({
                 </div>
               </div>
 
+              {/* Balance Display - Real-time Ledger */}
+              <div className="mb-3 p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">WALLET BALANCE</p>
+                <p className={`text-2xl font-bold tracking-wide ${displayedBalance >= selectedPass.price ? 'text-green-400' : 'text-amber-400'}`}>
+                  ${displayedBalance.toFixed(2)}
+                </p>
+              </div>
+
               {/* Activate / Upgrade Button */}
               {!isActivated ? (
               <button 
@@ -931,7 +939,7 @@ const GhostPassModal = ({
                   }`}
                 >
                   {balance < selectedPass.price 
-                    ? `Need $${(selectedPass.price - balance).toFixed(2)} More`
+                    ? `FUND WALLET (+$${(selectedPass.price - balance).toFixed(2)} needed)`
                     : `ACTIVATE ${selectedPass.label.toUpperCase()} (-$${selectedPass.price})`
                   }
                 </button>

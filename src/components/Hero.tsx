@@ -206,7 +206,7 @@ const Hero = () => {
               {t('network.title')}
             </div>
             <h2 className="text-2xl md:text-5xl font-black mb-0 font-orbitron text-white whitespace-nowrap">
-              {t('network.headline')} {t('network.headlineSuffix')}
+              {t('network.headline')} <span className="text-cyan-400">{t('network.headlineSuffix')}</span>
             </h2>
           </div>
 

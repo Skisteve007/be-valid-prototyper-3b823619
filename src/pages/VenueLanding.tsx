@@ -140,7 +140,7 @@ const VenueLanding = () => {
         <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-xl font-bold text-foreground tracking-wider">VALID</span>
+              <span className="text-xl font-bold text-foreground tracking-wider">VALID<sup className="text-xs text-cyan-400">™</sup></span>
             </Link>
             <Link to="/auth">
               <Button size="sm" className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold">
@@ -156,13 +156,13 @@ const VenueLanding = () => {
           <div className="container mx-auto px-4 relative">
             <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to VALID
+              Back to VALID™
             </Link>
             
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-sm mb-4">
                 <Shield className="h-4 w-4" />
-                VALID Partner Venue
+                VALID™ Partner Venue
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
@@ -180,7 +180,7 @@ const VenueLanding = () => {
               </div>
               
               <p className="text-lg text-muted-foreground mb-8">
-                Experience seamless entry at {venue.venue_name} with VALID's zero-trust identity verification. 
+                Experience seamless entry at {venue.venue_name} with VALID™'s zero-trust identity verification. 
                 Get your QR code, skip the line, and enjoy verified access.
               </p>
               
@@ -188,7 +188,7 @@ const VenueLanding = () => {
                 <Link to="/auth">
                   <Button size="lg" className="w-full sm:w-auto bg-cyan-500 hover:bg-cyan-600 text-black font-semibold shadow-[0_0_20px_rgba(0,240,255,0.3)]">
                     <QrCode className="mr-2 h-5 w-5" />
-                    Get Your VALID Pass
+                    Get Your VALID™ Pass
                   </Button>
                 </Link>
                 <Link to="/partners">
@@ -205,7 +205,7 @@ const VenueLanding = () => {
         <section className="py-16 border-t border-border/40">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-              Why VALID at {venue.venue_name}?
+              Why VALID™ at {venue.venue_name}?
             </h2>
             
             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -213,7 +213,7 @@ const VenueLanding = () => {
                 <QrCode className="h-10 w-10 text-cyan-400 mb-4" />
                 <h3 className="text-lg font-semibold text-foreground mb-2">Instant QR Entry</h3>
                 <p className="text-muted-foreground text-sm">
-                  Skip the line with a 3-second scan. Your VALID pass gets you through the door faster.
+                  Skip the line with a 3-second scan. Your VALID™ pass gets you through the door faster.
                 </p>
               </div>
               

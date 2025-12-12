@@ -139,7 +139,7 @@ const Partners = () => {
           <p className="text-lg md:text-xl text-gray-300 italic leading-relaxed mb-6 px-4">
             Your operation faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID™ eliminates both—instantly.
             <br /><br />
-            <strong className="text-white">Monetize Every Scan (The Streaming Model):</strong> Instead of relying solely on your own ticket sales, you earn a <span className="text-cyan-400">Royalty Payout</span> every time a VALID user scans into your venue. Just like a streaming service pays an artist for every play, VALID pays you for every entry—drawing from the global pool of active Ghost™ Pass holders.
+            <strong className="text-white">Monetize Every Scan (The Streaming Model):</strong> Instead of relying solely on your own ticket sales, you earn a <span className="text-cyan-400">Royalty Payout</span> every time a VALID™ user scans into your venue. Just like a streaming service pays an artist for every play, VALID™ pays you for every entry—drawing from the global pool of active Ghost™ Pass™ holders.
             <br /><br />
             <strong className="text-white">The Result:</strong> You generate passive revenue from users who bought their pass elsewhere but chose your venue tonight. This revenue, paired with verified access in under 3 seconds, shields you from compliance risk while boosting your bottom line.
             <br /><br />
@@ -598,11 +598,11 @@ const Partners = () => {
                   </div>
                   <div>
                     <h4 className="font-bold text-cyan-400 text-lg">Door Revenue (Access)</h4>
-                    <span className="text-xs text-gray-400">Ghost Pass Sales</span>
+                    <span className="text-xs text-gray-400">Ghost Pass™ Sales</span>
                   </div>
                 </div>
                 <p className="text-sm text-gray-300 leading-relaxed">
-                  Promoters earn a fixed <strong className="text-cyan-400">10% on every Ghost Pass they sell</strong>. You get verified foot traffic without paying a cent out of pocket.
+                  Promoters earn a fixed <strong className="text-cyan-400">10% on every Ghost Pass™ they sell</strong>. You get verified foot traffic without paying a cent out of pocket.
                 </p>
                 <div className="mt-4 py-2 px-3 bg-cyan-500/10 rounded text-sm text-cyan-400 font-mono">
                   10% OFF TOP → PROMOTER WALLET
@@ -673,9 +673,9 @@ const Partners = () => {
 
             {/* Ghost Token Revenue */}
             <div className="p-8 bg-white/5 rounded-xl border border-white/20 hover:border-cyan-400/50 transition-colors">
-              <h3 className="text-2xl font-extrabold text-cyan-400 mb-4">Ghost™ Token Revenue</h3>
+              <h3 className="text-2xl font-extrabold text-cyan-400 mb-4">Ghost™ Token™ Revenue</h3>
               <p className="text-lg font-bold text-white mb-3">The True Profit Engine</p>
-              <p className="text-sm text-gray-400">You earn a commission on every $10-$50 Ghost™ Token purchased by this verified user inside your operation.</p>
+              <p className="text-sm text-gray-400">You earn a commission on every $10-$50 Ghost™ Token™ purchased by this verified user inside your operation.</p>
             </div>
           </div>
         </div>

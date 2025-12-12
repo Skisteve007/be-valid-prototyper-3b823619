@@ -184,7 +184,7 @@ const InvestorDashboard = () => {
               isDark={isDark}
               icon={<Globe size={32}/>}
               title="Accepted Anywhere"
-              desc="One Key. Universal Acceptance at Any VALID Portal. Skip the manual check Points of Entry, Airports, Entertainment Venues, Public Agencies, and Corporate Zones Worldwide."
+              desc="One Key. Universal Acceptance at Any VALID™ Portal. Skip the manual check Points of Entry, Airports, Entertainment Venues, Public Agencies, and Corporate Zones Worldwide."
               color="cyan"
             />
             <FeatureCard 
@@ -243,7 +243,7 @@ const InvestorDashboard = () => {
             : 'bg-white border-slate-200 shadow-xl'}`}>
           <h3 className={`text-2xl font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>Anchor Your Identity</h3>
           <p className={`mb-8 ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-            Upgrade to a Government-Verified Vibe-ID for maximum access and trust within the Valid ecosystem.
+            Upgrade to a Government-Verified Vibe-ID for maximum access and trust within the Valid™ ecosystem.
           </p>
 
           <div className="space-y-6">

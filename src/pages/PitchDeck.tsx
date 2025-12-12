@@ -132,7 +132,7 @@ const PitchDeck = () => {
       color: "blue",
       title: "LIABILITY TRANSFER",
       subtitle: "Essential Infrastructure",
-      description: "Venues and employers face existential legal risk without verification. VALID absorbs that liability. We're not a nice-to-have—we're the insurance policy they can't operate without.",
+      description: "Venues and employers face existential legal risk without verification. VALID™ absorbs that liability. We're not a nice-to-have—we're the insurance policy they can't operate without.",
       metric: "$0",
       metricLabel: "Venue Liability Exposure",
       layer: "LAYER 4"
@@ -163,7 +163,7 @@ const PitchDeck = () => {
     {
       number: "01",
       title: "We Own the Trust Layer",
-      content: "Every high-stakes interaction—entering a venue, starting a rideshare shift, meeting someone new—requires trust verification. VALID is the protocol that makes trust portable, instant, and monetizable."
+      content: "Every high-stakes interaction—entering a venue, starting a rideshare shift, meeting someone new—requires trust verification. VALID™ is the protocol that makes trust portable, instant, and monetizable."
     },
     {
       number: "02", 

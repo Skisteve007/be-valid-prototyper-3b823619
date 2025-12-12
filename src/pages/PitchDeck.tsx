@@ -614,7 +614,7 @@ const PitchDeck = () => {
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-cyan-950/40 to-green-950/40 border border-cyan-500/30 rounded-xl p-6">
+          <div className="bg-gradient-to-r from-cyan-950/40 to-green-950/40 border border-cyan-500/30 rounded-xl p-6 mb-8">
             <div className="flex items-center gap-3 mb-4">
               <CheckCircle2 className="h-6 w-6 text-green-400" />
               <h3 className="text-xl font-bold text-white">VALID: The Complete Stack</h3>
@@ -623,6 +623,26 @@ const PitchDeck = () => {
               <span className="text-cyan-400 font-semibold">8/8 integration score.</span> Identity + Health + Payments + Access + Network + Compliance + Revenue Share + Real-time Sync. 
               No competitor scores above 3/8.
             </p>
+          </div>
+
+          {/* Enterprise CRM Category - Salesforce Spotlight */}
+          <div className="bg-gradient-to-r from-purple-950/40 to-pink-950/40 border border-purple-500/30 rounded-xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="h-12 w-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                <Building2 className="h-6 w-6 text-purple-400" />
+              </div>
+              <div className="flex-1">
+                <Badge className="bg-purple-600/30 text-purple-400 border-purple-600/50 text-xs mb-3">
+                  ENTERPRISE SOLUTION / CRM
+                </Badge>
+                <h3 className="text-xl font-bold text-white mb-2 font-orbitron">
+                  Salesforce <span className="text-sm font-normal text-gray-400">(Enterprise CRM)</span>
+                </h3>
+                <p className="text-gray-300">
+                  <span className="text-purple-400 font-semibold">Key Differentiator:</span> Valid™ transcends general CRM by providing <span className="text-white font-semibold">V-CRM (Verified CRM)</span>, tying secure identity and physical access directly to auditable revenue tracking and FBO settlement, which is not possible within a generalized CRM platform.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 

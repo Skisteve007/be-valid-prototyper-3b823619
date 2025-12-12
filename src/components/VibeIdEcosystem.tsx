@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Users, Activity, Zap, Moon, Shield, CreditCard, Eye, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import validNetworkHologram from '@/assets/valid-network-hologram.png';
+import validPhoneCard from '@/assets/valid-phone-card-visual.png';
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
@@ -139,14 +139,14 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               className="relative w-[320px] h-[320px] md:w-[450px] md:h-[450px]"
               style={{ perspective: '1000px' }}
             >
-              {/* Generated Holographic Image */}
+              {/* Stylized Phone/Card Visual */}
               <img 
-                src={validNetworkHologram}
-                alt="VALID Network Holographic Diagram"
+                src={validPhoneCard}
+                alt="VALID Phone Interface"
                 className="w-full h-full object-contain transition-all duration-500"
                 style={{ 
                   animation: 'float 4s ease-in-out infinite',
-                  filter: `drop-shadow(0 0 30px ${activeMode === 'social' ? 'rgba(59,130,246,0.5)' : activeMode === 'pulse' ? 'rgba(34,197,94,0.5)' : activeMode === 'thrill' ? 'rgba(249,115,22,0.5)' : 'rgba(168,85,247,0.5)'})`
+                  filter: `drop-shadow(0 0 40px rgba(0,240,255,0.6))`
                 }}
               />
               

@@ -97,7 +97,8 @@
   },
   "network": {
     "title": "THE VALID NETWORK",
-    "headline": "ONE IDENTITY. ZERO LIMITS.",
+    "headline": "ONE IDENTITY.",
+    "headlineSuffix": "ZERO LIMITS.",
     "description": "Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.",
     "descriptionB2b": "Members toggle between modes based on context—each mode reveals only what's relevant. Operations see the right verification signal without accessing private data.",
     "security": "SECURITY",

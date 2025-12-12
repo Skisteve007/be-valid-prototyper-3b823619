@@ -60,8 +60,12 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
     setSelectedState("");
   }, [venueCategory]);
 
+  // Filter clubs/nightlife venues (exclude sports categories)
+  const sportsCategories = ['NFL Stadium', 'NBA Arena', 'MLB Stadium', 'NHL Arena', 'NCAA Stadium', 'MLS Stadium'];
+  const clubVenues = venues.filter(v => !sportsCategories.includes(v.category));
+
   // Get unique countries for clubs, sorted with USA first
-  const countries = [...new Set(venues.map(v => v.country))].sort((a, b) => {
+  const countries = [...new Set(clubVenues.map(v => v.country))].sort((a, b) => {
     if (a === "USA" || a === "United States") return -1;
     if (b === "USA" || b === "United States") return 1;
     return a.localeCompare(b);
@@ -69,8 +73,8 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
 
   // Filter clubs by selected country
   const filteredVenues = selectedCountry && selectedCountry !== "all"
-    ? venues.filter(v => v.country === selectedCountry)
-    : venues;
+    ? clubVenues.filter(v => v.country === selectedCountry)
+    : clubVenues;
 
   // Group filtered venues by city
   const venuesByCity = filteredVenues.reduce((acc, venue) => {

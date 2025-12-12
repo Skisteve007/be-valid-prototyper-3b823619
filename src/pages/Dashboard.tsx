@@ -145,7 +145,16 @@ const Dashboard = () => {
             <div className="flex justify-center">
               <div className="relative cursor-pointer" {...longPressHandlers}>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/40 via-teal-500/40 to-cyan-500/40 blur-3xl rounded-full scale-150"></div>
-                <img src={logo} alt="Valid" className="relative h-16 md:h-20 w-auto select-none drop-shadow-[0_0_15px_rgba(0,255,255,0.5)]" draggable={false} />
+                <div className="relative h-32 md:h-40 aspect-[4/5] rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
+                  <video 
+                    src="/valid_portal.mp4" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
             

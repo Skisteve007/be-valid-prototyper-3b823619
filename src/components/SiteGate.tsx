@@ -5,14 +5,22 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Shield, Lock } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { useLocation } from 'react-router-dom';
+
+// Routes that bypass the SiteGate (accessible without NDA)
+const BYPASS_ROUTES = ['/verify-email'];
 
 const SiteGate = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
   const [hasAccess, setHasAccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Check if current route should bypass the gate
+  const shouldBypass = BYPASS_ROUTES.some(route => location.pathname.startsWith(route));
 
   useEffect(() => {
     // Check if user already has gate access
@@ -86,7 +94,8 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (hasAccess) {
+  // Bypass gate for specific routes (like email verification)
+  if (hasAccess || shouldBypass) {
     return <>{children}</>;
   }
 

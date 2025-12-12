@@ -99,13 +99,13 @@ const Partners = () => {
           </div>
           
           {/* Catchy tagline - centered */}
-          <div className="hidden lg:flex items-center gap-3 text-xs font-mono tracking-wider absolute left-1/2 -translate-x-1/2">
-            <div className="h-px w-6 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
-            <div className="flex flex-col items-center gap-0.5">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 font-bold tracking-[0.15em]">IDENTITY • ACCESS</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 font-bold tracking-[0.15em]">PAYMENTS • TRUST</span>
+          <div className="hidden lg:flex items-center gap-3 text-sm font-mono tracking-wider absolute left-1/2 -translate-x-1/2">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 font-bold tracking-[0.15em] text-base">IDENTITY • ACCESS</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 font-bold tracking-[0.15em] text-base">PAYMENTS • TRUST</span>
             </div>
-            <div className="h-px w-6 bg-gradient-to-l from-transparent to-purple-500/50"></div>
+            <div className="h-px w-8 bg-gradient-to-l from-transparent to-purple-500/50"></div>
           </div>
           
           <Link 

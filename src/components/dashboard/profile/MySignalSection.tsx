@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock, MapPinOff, Navigation, Share2, Copy, Check } from "lucide-react";
+import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock, MapPinOff, Navigation, Share2, Copy, Check, Podcast, X } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -119,6 +119,49 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const [staticAddress, setStaticAddress] = useState("");
   const [staticDuration, setStaticDuration] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
+  const [broadcastActive, setBroadcastActive] = useState(false);
+  const qrRef = useRef<HTMLDivElement>(null);
+
+  // Broadcast colors based on mode
+  const getBroadcastColor = () => {
+    switch (selectedMode) {
+      case "afterdark":
+        return "bg-purple-600"; // Deep Neon Purple
+      case "thrill":
+        return "bg-orange-500"; // Vibrant Neon Orange
+      case "social":
+      case "pulse":
+        return "bg-cyan-500"; // Electric Teal/Cyan
+      case "location":
+        return "bg-green-500"; // Radar Green
+      default:
+        return "bg-cyan-500";
+    }
+  };
+
+  // Share signal QR
+  const handleShareSignal = async () => {
+    if (!navigator.share) {
+      toast.error("Sharing not supported on this device");
+      return;
+    }
+
+    try {
+      // Create a canvas from the QR display area for sharing
+      const shareData: ShareData = {
+        title: "My VALID Signal",
+        text: `Check out my VALID ${selectedMode?.toUpperCase() || "Signal"} mode! Verified and ready to connect.`,
+        url: window.location.origin + "/dashboard",
+      };
+      
+      await navigator.share(shareData);
+      toast.success("Signal shared!");
+    } catch (error: any) {
+      if (error.name !== "AbortError") {
+        toast.error("Failed to share");
+      }
+    }
+  };
 
   useEffect(() => {
     if (vibeMetadata?.mode) {
@@ -728,8 +771,68 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           {selectedMode === "thrill" && renderThrillDropdowns()}
           {selectedMode === "afterdark" && renderAfterDarkDropdowns()}
 
+          {/* Broadcast & Share Controls */}
+          {selectedMode && (
+            <div className="mt-6 pt-4 border-t border-border space-y-4">
+              {/* Broadcast Signal Toggle */}
+              <div className="flex items-center justify-between p-3 rounded-lg bg-card/50 border border-border">
+                <div className="flex items-center gap-3">
+                  <Podcast className="w-5 h-5 text-cyan-400" />
+                  <div>
+                    <span className="text-sm font-medium text-foreground">Broadcast Signal</span>
+                    <p className="text-xs text-muted-foreground">Turn screen into colored beacon</p>
+                  </div>
+                </div>
+                <Switch
+                  checked={broadcastActive}
+                  onCheckedChange={setBroadcastActive}
+                  className="data-[state=checked]:bg-cyan-500"
+                />
+              </div>
+
+              {/* Share Button */}
+              <Button
+                onClick={handleShareSignal}
+                variant="outline"
+                className="w-full border-cyan-400/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400"
+              >
+                <Share2 className="w-4 h-4 mr-2" />
+                Share Signal
+              </Button>
+            </div>
+          )}
+
         </CardContent>
       </Card>
+
+      {/* Broadcast Overlay - Full Screen Glow Mode */}
+      {broadcastActive && (
+        <div
+          onClick={() => setBroadcastActive(false)}
+          className={`fixed inset-0 z-[9999] ${getBroadcastColor()} flex items-center justify-center cursor-pointer animate-fade-in`}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            minHeight: '100vh',
+            minWidth: '100vw',
+          }}
+        >
+          {/* Ghost/Valid Watermark */}
+          <div className="flex flex-col items-center gap-4">
+            <Ghost className="w-40 h-40 text-white opacity-20" />
+            <span className="text-white/20 text-2xl font-bold tracking-widest">VALID™</span>
+          </div>
+          
+          {/* Close hint */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <X className="w-6 h-6 text-white/30" />
+            <span className="text-white/30 text-xs">Tap anywhere to exit</span>
+          </div>
+        </div>
+      )}
 
       {/* 18+ Age Warning Modal */}
       <AlertDialog open={showAgeWarning} onOpenChange={setShowAgeWarning}>

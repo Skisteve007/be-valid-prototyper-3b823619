@@ -29,10 +29,10 @@ interface RoadmapItemProps {
 }
 
 const ThesisCard = ({ icon, title, desc }: ThesisCardProps) => (
-  <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-white/10 transition duration-300">
-    <div className="mb-4">{icon}</div>
-    <h3 className="text-lg font-bold font-orbitron mb-2 text-white">{title}</h3>
-    <p className="text-sm text-cyan-400 leading-relaxed tracking-wide">{desc}</p>
+  <div className="bg-white/5 backdrop-blur-sm p-10 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-white/10 transition duration-300">
+    <div className="mb-6">{icon}</div>
+    <h3 className="text-2xl font-bold font-orbitron mb-4 text-white tracking-wide">{title}</h3>
+    <p className="text-lg text-cyan-400 leading-relaxed tracking-[0.05em]">{desc}</p>
   </div>
 );
 
@@ -231,35 +231,35 @@ const Partners = () => {
       </section>
 
       {/* 3. THE UNICORN THESIS (4-Card Grid) */}
-      <section className="max-w-7xl mx-auto px-6 py-12 relative z-10">
-        <div className="text-center mb-12 relative">
-+          {/* Slow pulsing glow effect */}
-+          <div className="absolute inset-0 -top-8 -bottom-8 blur-3xl bg-gradient-to-r from-purple-600/30 via-cyan-500/40 to-blue-600/30 animate-pulse" style={{ animationDuration: '4s' }}></div>
-+          <div className="absolute inset-0 -top-12 -bottom-12 blur-[80px] bg-gradient-to-r from-blue-500/20 via-purple-500/30 to-cyan-500/20 animate-pulse" style={{ animationDuration: '6s' }}></div>
-+          <div className="relative z-10">
-+            <h2 className="text-4xl md:text-5xl font-bold font-orbitron mb-3 tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-400 drop-shadow-[0_0_30px_rgba(139,92,246,0.6)]">THE UNICORN THESIS</h2>
-+            <p className="text-gray-300 text-lg tracking-wide">Why VALID is a billion-dollar platform.</p>
-+          </div>
+      <section className="max-w-[1600px] mx-auto px-6 py-16 relative z-10">
+        <div className="text-center mb-16 relative">
+          {/* Slow pulsing glow effect */}
+          <div className="absolute inset-0 -top-12 -bottom-12 blur-3xl bg-gradient-to-r from-purple-600/30 via-cyan-500/40 to-blue-600/30 animate-pulse" style={{ animationDuration: '4s' }}></div>
+          <div className="absolute inset-0 -top-16 -bottom-16 blur-[100px] bg-gradient-to-r from-blue-500/20 via-purple-500/30 to-cyan-500/20 animate-pulse" style={{ animationDuration: '6s' }}></div>
+          <div className="relative z-10">
+            <h2 className="text-5xl md:text-7xl font-bold font-orbitron mb-6 tracking-[0.08em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-400 drop-shadow-[0_0_40px_rgba(139,92,246,0.7)]">THE UNICORN THESIS</h2>
+            <p className="text-2xl md:text-3xl text-gray-200 tracking-[0.1em] font-semibold uppercase">Why VALID is a <span className="text-cyan-400">Billion-Dollar</span> Platform</p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <ThesisCard 
-            icon={<Zap size={24} className="text-cyan-400"/>}
+            icon={<Zap size={32} className="text-cyan-400"/>}
             title="Not a Ticket. A Dynamic Injection."
             desc="The Ghost™ Token is not a static file. It is a secure, encrypted container that simultaneously represents three data points: Financial Authorization (The Payment), Identity Verification (The Driver's License/Passport), and Health/Status Validation (The Toxicology/Clearance). When scanned, the Token injects these three validated signals into the venue's system instantly. The venue gets the green light, the funds, and the liability shield—without ever storing your personal raw data. You are Ghosted in."
           />
           <ThesisCard
-            icon={<ShieldCheck size={24} className="text-purple-400"/>}
+            icon={<ShieldCheck size={32} className="text-purple-400"/>}
             title="Zero-Trust Architectural Moat"
             desc="Our zero-trust fortress evolves—synthesised AI at the helm, now weaving in next-gen QR codes far beyond 2020 basics. Think dynamic, AI-updated holograms: health records, payments, and physical access keys pulsing in real-time, self-erasing after use to eliminate replay attacks. Competitors are still fumbling with static barcodes while we embed these living codes into encrypted neural flows—raising the barrier to entry into the stratosphere. Risk-free boarding—liability sits with the users, the Labs and identity authorities who always held it. All they get is the key, none of the fallout. Unbreachable now, infinite later."
           />
           <ThesisCard 
-            icon={<Share2 size={24} className="text-green-400"/>}
+            icon={<Share2 size={32} className="text-green-400"/>}
             title="Viral Network Integration"
             desc={<>The Vibe-ID Ecosystem transforms every member into a distribution channel. Four contextual modes—<span className="text-blue-400 font-semibold">Social</span>, <span className="text-green-400 font-semibold">Pulse</span>, <span className="text-orange-400 font-semibold">Thrill</span>, and <span className="text-purple-400 font-semibold">After Dark</span>—adapt identity to every situation. When members share their QR at networking events, dating apps, or nightlife venues, they're marketing VALID. Each verified connection expands the social graph exponentially. Instagram, TikTok, and peer referrals become organic growth engines. We're not building users—we're embedding into the fabric of human connection itself.</>}
           />
           <ThesisCard 
-            icon={<Lock size={24} className="text-blue-400"/>}
+            icon={<Lock size={32} className="text-blue-400"/>}
             title="Zero-Liability Architecture"
             desc="VALID is a delivery mechanism, not a data warehouse. We hold encrypted tokens—never raw PII. Liability flows to its source: self-reported data stays with the member; lab results stay with HIPAA-certified laboratories; identity verification stays with licensed IDV providers. Your operation? Completely shielded. This isn't risk mitigation—it's risk elimination."
           />
@@ -348,56 +348,84 @@ const Partners = () => {
           </div>
 
           {/* Expanded Explanation */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white/5 border border-white/10 p-6 rounded-xl">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
-                  <User size={20} className="text-amber-400" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white/5 border border-white/10 p-8 rounded-xl">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 rounded-full bg-amber-500/20 flex items-center justify-center">
+                  <User size={28} className="text-amber-400" />
                 </div>
-                <h4 className="font-bold text-white">Member Attestation</h4>
+                <h4 className="font-bold text-xl text-white tracking-wide">Member Attestation</h4>
               </div>
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="text-lg text-gray-300 leading-relaxed tracking-[0.04em]">
                 Self-reported health status, preferences, and profile data remain the <strong className="text-amber-400">legal responsibility of the member</strong>. They attest to accuracy. You simply verify the token.
               </p>
             </div>
 
-            <div className="bg-white/5 border border-white/10 p-6 rounded-xl">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <FlaskConical size={20} className="text-purple-400" />
+            <div className="bg-white/5 border border-white/10 p-8 rounded-xl">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 rounded-full bg-purple-500/20 flex items-center justify-center">
+                  <FlaskConical size={28} className="text-purple-400" />
                 </div>
-                <h4 className="font-bold text-white">Lab Certification</h4>
+                <h4 className="font-bold text-xl text-white tracking-wide">Lab Certification</h4>
               </div>
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="text-lg text-gray-300 leading-relaxed tracking-[0.04em]">
                 Lab results are issued by <strong className="text-purple-400">HIPAA-certified laboratories</strong>. They carry malpractice insurance. They hold the liability for result accuracy—not you.
               </p>
             </div>
 
-            <div className="bg-white/5 border border-white/10 p-6 rounded-xl">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <Fingerprint size={20} className="text-green-400" />
+            <div className="bg-white/5 border border-white/10 p-8 rounded-xl">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <Fingerprint size={28} className="text-green-400" />
                 </div>
-                <h4 className="font-bold text-white">Identity Verification</h4>
+                <h4 className="font-bold text-xl text-white tracking-wide">Identity Verification</h4>
               </div>
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="text-lg text-gray-300 leading-relaxed tracking-[0.04em]">
                 Document authentication is performed by <strong className="text-green-400">licensed IDV providers</strong> (Veriff, Onfido). They bear liability for identity fraud—not you.
               </p>
             </div>
           </div>
 
-          {/* Bottom Summary */}
-          <div className="mt-12 bg-gradient-to-r from-cyan-900/20 via-blue-900/20 to-cyan-900/20 border border-cyan-500/30 p-8 rounded-2xl text-center">
-            <h3 className="text-xl font-bold font-orbitron text-white mb-3">The Bottom Line</h3>
-            <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4">
-              VALID™ operates as a <strong className="text-cyan-400">cryptographic relay</strong>. We deliver encrypted verification tokens—never raw data. When a patron scans at your door, you receive a simple <span className="text-green-400 font-bold">VERIFIED</span> or <span className="text-red-400 font-bold">NOT VERIFIED</span> signal. No PII touches your systems. No data to breach. No compliance burden.
-            </p>
-            <p className="text-xl md:text-2xl font-bold text-white mt-4 mb-4">
-              This is not risk mitigation—it is risk elimination.
-            </p>
-            <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              <strong className="text-amber-400">VALUE ADDITION:</strong> While PII and health data are tokenized and remain off your systems, Valid™ ensures complete loyalty program utility. Every scan still securely transfers the patron's <span className="text-white font-semibold">Name</span>, <span className="text-white font-semibold">Email Address</span>, and <span className="text-white font-semibold">Unique Valid Member ID</span> to your CRM, guaranteeing <strong className="text-green-400">100% accurate customer capture</strong> for your marketing and rewards campaigns.
-            </p>
+          {/* Bottom Summary - INVESTOR HARD-HITTING */}
+          <div className="mt-16 relative overflow-hidden">
+            {/* Dramatic glow background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-cyan-500/20 blur-3xl"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500 opacity-20 blur-xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+            
+            <div className="relative bg-black/80 backdrop-blur-xl border-2 border-cyan-500/50 p-12 rounded-3xl shadow-[0_0_60px_rgba(6,182,212,0.3)]">
+              {/* Corner accents */}
+              <div className="absolute top-0 left-0 w-20 h-20 border-t-4 border-l-4 border-cyan-400 rounded-tl-3xl"></div>
+              <div className="absolute top-0 right-0 w-20 h-20 border-t-4 border-r-4 border-purple-400 rounded-tr-3xl"></div>
+              <div className="absolute bottom-0 left-0 w-20 h-20 border-b-4 border-l-4 border-purple-400 rounded-bl-3xl"></div>
+              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-4 border-r-4 border-cyan-400 rounded-br-3xl"></div>
+              
+              <div className="text-center">
+                <div className="inline-flex items-center gap-3 mb-6 px-6 py-2 rounded-full border border-amber-500/50 bg-amber-500/10">
+                  <ShieldCheck size={24} className="text-amber-400" />
+                  <span className="text-amber-400 text-lg font-bold tracking-[0.2em] uppercase">The Bottom Line</span>
+                </div>
+                
+                <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed mb-8 tracking-[0.04em]">
+                  VALID™ operates as a <strong className="text-cyan-400">cryptographic relay</strong>. We deliver encrypted verification tokens—never raw data. When a patron scans at your door, you receive a simple <span className="text-green-400 font-bold text-3xl">VERIFIED</span> or <span className="text-red-400 font-bold text-3xl">NOT VERIFIED</span> signal.
+                </p>
+                
+                <p className="text-xl text-gray-300 mb-8 tracking-wide">
+                  No PII touches your systems. No data to breach. No compliance burden.
+                </p>
+                
+                <div className="py-6 px-8 bg-gradient-to-r from-cyan-900/40 via-purple-900/40 to-cyan-900/40 rounded-2xl border border-white/20 mb-8 inline-block">
+                  <p className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-purple-400 tracking-[0.06em] uppercase">
+                    This is not risk mitigation—it is risk elimination.
+                  </p>
+                </div>
+                
+                <div className="pt-8 border-t border-white/10">
+                  <p className="text-lg md:text-xl text-gray-200 max-w-4xl mx-auto leading-relaxed tracking-[0.04em]">
+                    <strong className="text-amber-400 text-2xl">VALUE ADDITION:</strong> While PII and health data are tokenized and remain off your systems, Valid™ ensures complete loyalty program utility. Every scan still securely transfers the patron's <span className="text-white font-bold">Name</span>, <span className="text-white font-bold">Email Address</span>, and <span className="text-white font-bold">Unique Valid Member ID</span> to your CRM, guaranteeing <strong className="text-green-400 text-2xl">100% accurate customer capture</strong> for your marketing and rewards campaigns.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

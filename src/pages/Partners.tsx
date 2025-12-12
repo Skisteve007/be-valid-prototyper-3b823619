@@ -495,16 +495,16 @@ const Partners = () => {
               
                {/* Row 5 - Operation Profit Share */}
                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
-                  <StackItem 
-                    title="5. Operation Profit Share" 
-                    desc="Entry used to cost operations money—staff, bottlenecks, lost time. Now every Ghost™ Token scan earns 40% instantly. Faster flow, zero friction, pure profit on every person through the door."
-                    color="cyan"
-                  />
-                  <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
-                     <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 5</div>
-                     <div className="font-bold text-xl">OPERATION 40% SHARE</div>
-                     <div className="text-xs text-gray-400 mt-1">Cost Center → Profit Center</div>
-                  </div>
+                   <StackItem 
+                     title="5. Operation Profit Share" 
+                     desc="Entry used to cost operations money—staff, bottlenecks, lost time. Now every Ghost™ Token scan earns 30% instantly. Faster flow, zero friction, pure profit on every person through the door."
+                     color="cyan"
+                   />
+                   <div className="bg-black border border-cyan-500/50 p-6 rounded-xl text-center shadow-[0_0_30px_rgba(6,182,212,0.2)] flex flex-col justify-center">
+                      <div className="text-xs text-cyan-500 tracking-widest mb-1">LAYER 5</div>
+                      <div className="font-bold text-xl">OPERATION 30% SHARE</div>
+                      <div className="text-xs text-gray-400 mt-1">Cost Center → Profit Center</div>
+                   </div>
                </div>
            </div>
         </div>
@@ -522,42 +522,48 @@ const Partners = () => {
             <p className="text-amber-400 font-bold text-sm tracking-wide mb-4 uppercase">From Cost Center to Profit Center</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 font-orbitron">Stop Losing Money. Start Making It.</h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              The <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">Every time a patron purchases the Ghost™ QR Code Pass, the revenue is huge. Your operation earns 40% of the Ghost™ Token user purchase</strong>—not 40% of a tiny transaction fee, but <strong className="text-cyan-400">40% of the entire token value</strong>. Verification isn't a cost—it's a <strong className="text-amber-400">new, massive revenue stream</strong>.
+               The <strong className="text-white">Pre-Funded Wallet Architecture</strong> eliminates merchant fees entirely. But here's the real game-changer: <strong className="text-green-400">Every time a patron purchases a Ghost™ QR Code Pass, your operation earns 30% of the entire pass pool</strong>—not a fraction of a transaction fee, but <strong className="text-cyan-400">30% of the full token value deposited into the pool</strong>. Verification isn't a cost—it's a <strong className="text-amber-400">new, massive revenue stream</strong>.
             </p>
           </div>
           <div className="relative bg-black/60 backdrop-blur-xl border border-cyan-500/50 p-8 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.15)]">
              <div className="space-y-4 mb-8">
                 <div className="flex items-center gap-3">
+                   <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                     <CheckCircle2 className="h-4 w-4 text-green-400" />
+                   </div>
+                   <div className="flex flex-col">
+                     <span className="text-white font-medium">0% Credit Card Fees for Operation</span>
+                     <span className="text-xs text-gray-400">Currently paying 1.9–4% on every swipe? That ends here.</span>
+                   </div>
+               </div>
+               <div className="flex items-center gap-3">
                   <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
                     <CheckCircle2 className="h-4 w-4 text-green-400" />
                   </div>
-                  <span className="text-white font-medium">0% Credit Card Fees for Operation</span>
+                  <span className="text-white font-medium">100% Chargeback Immunity</span>
                </div>
                <div className="flex items-center gap-3">
-                 <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                   <CheckCircle2 className="h-4 w-4 text-green-400" />
-                 </div>
-                 <span className="text-white font-medium">100% Chargeback Immunity</span>
+                  <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-400" />
+                  </div>
+                  <span className="text-white font-medium">Instant Funds Verification</span>
                </div>
                <div className="flex items-center gap-3">
-                 <div className="h-8 w-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                   <CheckCircle2 className="h-4 w-4 text-green-400" />
-                 </div>
-                 <span className="text-white font-medium">Instant Funds Verification</span>
+                  <div className="h-8 w-8 rounded-full bg-amber-500/20 flex items-center justify-center">
+                    <DollarSign className="h-4 w-4 text-amber-400" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-amber-400 font-bold">30% Revenue Share Per Ghost™ Pass Purchase</span>
+                    <span className="text-xs text-gray-400">Your cut from the global pass pool—every patron who scans in generates revenue.</span>
+                  </div>
                </div>
                <div className="flex items-center gap-3">
-                 <div className="h-8 w-8 rounded-full bg-amber-500/20 flex items-center justify-center">
-                   <DollarSign className="h-4 w-4 text-amber-400" />
-                 </div>
-                 <span className="text-amber-400 font-bold">40% Revenue Share Per Ghost™ QR Code Pass Purchase</span>
+                  <div className="h-8 w-8 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                    <TrendingUp className="h-4 w-4 text-cyan-400" />
+                  </div>
+                  <span className="text-cyan-400 font-bold">Verification = New Profit Center</span>
                </div>
-               <div className="flex items-center gap-3">
-                 <div className="h-8 w-8 rounded-full bg-cyan-500/20 flex items-center justify-center">
-                   <TrendingUp className="h-4 w-4 text-cyan-400" />
-                 </div>
-                 <span className="text-cyan-400 font-bold">Verification = New Profit Center</span>
-               </div>
-             </div>
+              </div>
              <button className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm tracking-widest rounded transition uppercase flex items-center justify-center gap-2">
                Request Wallet Integration Demo
                <ArrowRight className="h-4 w-4" />

@@ -45,10 +45,12 @@ export const PricingSection = () => {
           display: flex;
           flex-direction: row;
           flex-wrap: nowrap;
-          gap: 12px;
-          padding: 16px;
+          gap: 24px;
+          padding: 20px 32px;
           justify-content: center;
           overflow-x: auto;
+          margin: 0 auto;
+          max-width: 100%;
         }
         .pricing-card {
           border: 1px solid rgba(0, 240, 255, 0.3);

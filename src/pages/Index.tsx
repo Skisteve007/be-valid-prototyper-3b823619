@@ -6,6 +6,11 @@ import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 import { PricingSection } from "@/components/PricingSection";
 
+// Background images for feature cards
+import militaryFortressImg from "@/assets/military-fortress-card.jpg";
+import acceptedAnywhereImg from "@/assets/accepted-anywhere-card.jpg";
+import yourDataRulesImg from "@/assets/your-data-your-rules-card.jpg";
+import instantFinancialImg from "@/assets/instant-financial-card.jpg";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -115,6 +120,7 @@ const Index = () => {
               title={t('standard.militaryFortress')}
               desc={t('standard.militaryFortressDesc')}
               color="cyan"
+              backgroundImage={militaryFortressImg}
             />
             <FeatureCard 
               isDark={isDark}
@@ -122,6 +128,7 @@ const Index = () => {
               title={t('standard.acceptedAnywhere')}
               desc={t('standard.acceptedAnywhereDesc')}
               color="cyan"
+              backgroundImage={acceptedAnywhereImg}
             />
             <FeatureCard 
               isDark={isDark}
@@ -129,6 +136,7 @@ const Index = () => {
               title={t('standard.yourData')}
               desc={t('standard.yourDataDesc')}
               color="cyan"
+              backgroundImage={yourDataRulesImg}
             />
             <FeatureCard 
               isDark={isDark}
@@ -136,6 +144,7 @@ const Index = () => {
               title={t('standard.instantFinancial')}
               desc={t('standard.instantFinancialDesc')}
               color="cyan"
+              backgroundImage={instantFinancialImg}
             />
           </div>
         </div>
@@ -178,28 +187,44 @@ interface FeatureCardProps {
   title: string;
   desc: string;
   color: 'blue' | 'cyan' | 'purple';
+  backgroundImage?: string;
 }
 
-const FeatureCard = ({ isDark, icon, title, desc, color }: FeatureCardProps) => (
+const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage }: FeatureCardProps) => (
   <div className={`p-8 rounded-2xl border transition-all duration-500 group relative overflow-hidden backdrop-blur-sm
     ${isDark 
       ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.1)]' 
       : 'bg-white border-slate-200 hover:shadow-xl hover:border-cyan-300'}`}>
     
-    <div className={`mb-6 p-4 rounded-full inline-block transition-colors duration-300
-      ${isDark ? 'bg-black text-white' : 'bg-slate-100 text-slate-800'}
-      ${color === 'cyan' && 'group-hover:text-cyan-400'}
-      ${color === 'purple' && 'group-hover:text-purple-400'}
-      ${color === 'blue' && 'group-hover:text-blue-400'}`}>
-      {icon}
-    </div>
+    {/* Background Image */}
+    {backgroundImage && (
+      <div 
+        className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+    )}
     
-    <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>
-      {title}
-    </h3>
-    <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-200' : 'text-slate-600'}`}>
-      {desc}
-    </p>
+    {/* Content overlay */}
+    <div className="relative z-10">
+      <div className={`mb-6 p-4 rounded-full inline-block transition-colors duration-300
+        ${isDark ? 'bg-black/80 text-white' : 'bg-slate-100 text-slate-800'}
+        ${color === 'cyan' && 'group-hover:text-cyan-400'}
+        ${color === 'purple' && 'group-hover:text-purple-400'}
+        ${color === 'blue' && 'group-hover:text-blue-400'}`}>
+        {icon}
+      </div>
+      
+      <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>
+        {title}
+      </h3>
+      <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-200' : 'text-slate-600'}`}>
+        {desc}
+      </p>
+    </div>
   </div>
 );
 

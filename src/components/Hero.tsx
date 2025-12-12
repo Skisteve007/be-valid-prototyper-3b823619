@@ -17,6 +17,7 @@ const Hero = () => {
   const { t } = useTranslation();
   const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
   const [displayedText, setDisplayedText] = useState('');
+  const [visitCount, setVisitCount] = useState(528);
   const fullText = t('hero.poweredBy');
 
   const signalModes = {
@@ -63,6 +64,14 @@ const Hero = () => {
     }, 80);
     return () => clearInterval(typingInterval);
   }, [fullText]);
+
+  // Live visit counter - increment randomly
+  useEffect(() => {
+    const counterInterval = setInterval(() => {
+      setVisitCount(prev => prev + Math.floor(Math.random() * 3));
+    }, 8000 + Math.random() * 7000);
+    return () => clearInterval(counterInterval);
+  }, []);
 
   const colorClasses: Record<string, { active: string; inactive: string }> = {
     cyan: {
@@ -195,9 +204,14 @@ const Hero = () => {
               <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-4">
                 {t('network.title')}
               </div>
-              <h2 className="text-2xl md:text-4xl font-black font-orbitron text-white text-left whitespace-nowrap">
-                {t('network.headline')} <span className="text-cyan-400 inline">{t('network.zero')}</span> <span className="text-cyan-400 inline">{t('network.limits')}</span>
-              </h2>
+              <div className="flex items-center gap-3 flex-wrap">
+                <h2 className="text-2xl md:text-4xl font-black font-orbitron text-white text-left whitespace-nowrap">
+                  {t('network.headline')} <span className="text-cyan-400 inline">{t('network.zero')}</span> <span className="text-cyan-400 inline">{t('network.limits')}</span>
+                </h2>
+                <span className="px-3 py-1.5 text-sm font-bold tracking-wider rounded-full border border-purple-400/60 bg-purple-500/10 text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.4)] animate-pulse flex items-center gap-2">
+                  👁️ {visitCount.toLocaleString()}
+                </span>
+              </div>
             </div>
           </div>
 

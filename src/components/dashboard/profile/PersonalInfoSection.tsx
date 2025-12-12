@@ -38,6 +38,12 @@ interface PersonalInfoSectionProps {
   uploadingLabLogo?: boolean;
   isAdmin?: boolean;
   vibeMetadata?: Record<string, any>;
+  // Share toggle states
+  shareIdEnabled?: boolean;
+  shareFundsEnabled?: boolean;
+  shareBioEnabled?: boolean;
+  shareToxEnabled?: boolean;
+  onShareToggle?: (field: string, value: boolean) => void;
 }
 
 export const PersonalInfoSection = ({
@@ -68,6 +74,11 @@ export const PersonalInfoSection = ({
   uploadingLabLogo = false,
   isAdmin = false,
   vibeMetadata,
+  shareIdEnabled = false,
+  shareFundsEnabled = false,
+  shareBioEnabled = false,
+  shareToxEnabled = false,
+  onShareToggle,
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showCropDialog, setShowCropDialog] = useState(false);
@@ -315,48 +326,84 @@ export const PersonalInfoSection = ({
                     {/* ID Toggle */}
                     <button
                       type="button"
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-cyan-500/10 border border-cyan-400/30"
+                      onClick={() => onShareToggle?.('share_id_enabled', !shareIdEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareIdEnabled 
+                          ? 'bg-cyan-500/30 border-2 border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)]' 
+                          : 'bg-cyan-500/10 border border-cyan-400/30'
+                      }`}
                     >
                       <Fingerprint className="w-5 h-5 text-cyan-400" />
                       <span className="text-[9px] font-bold text-cyan-400 tracking-wider">ID</span>
                       <div className="bg-black rounded p-0.5">
-                        <Lock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                        {shareIdEnabled ? (
+                          <Unlock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                        )}
                       </div>
                     </button>
                     
                     {/* FUNDS Toggle */}
                     <button
                       type="button"
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-green-500/10 border border-green-400/30"
+                      onClick={() => onShareToggle?.('share_funds_enabled', !shareFundsEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareFundsEnabled 
+                          ? 'bg-green-500/30 border-2 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.4)]' 
+                          : 'bg-green-500/10 border border-green-400/30'
+                      }`}
                     >
                       <CreditCard className="w-5 h-5 text-green-400" />
                       <span className="text-[9px] font-bold text-green-400 tracking-wider">FUNDS</span>
                       <div className="bg-black rounded p-0.5">
-                        <Lock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                        {shareFundsEnabled ? (
+                          <Unlock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                        )}
                       </div>
                     </button>
                     
                     {/* BIO Toggle */}
                     <button
                       type="button"
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-rose-500/10 border border-rose-400/30"
+                      onClick={() => onShareToggle?.('share_bio_enabled', !shareBioEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareBioEnabled 
+                          ? 'bg-rose-500/30 border-2 border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.4)]' 
+                          : 'bg-rose-500/10 border border-rose-400/30'
+                      }`}
                     >
                       <HeartPulse className="w-5 h-5 text-rose-400" />
                       <span className="text-[9px] font-bold text-rose-400 tracking-wider">BIO</span>
                       <div className="bg-black rounded p-0.5">
-                        <Lock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                        {shareBioEnabled ? (
+                          <Unlock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                        )}
                       </div>
                     </button>
                     
                     {/* TOX Toggle */}
                     <button
                       type="button"
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-yellow-500/10 border border-yellow-400/30"
+                      onClick={() => onShareToggle?.('share_tox_enabled', !shareToxEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareToxEnabled 
+                          ? 'bg-yellow-500/30 border-2 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.4)]' 
+                          : 'bg-yellow-500/10 border border-yellow-400/30'
+                      }`}
                     >
                       <FlaskConical className="w-5 h-5 text-yellow-400" />
                       <span className="text-[9px] font-bold text-yellow-400 tracking-wider">TOX</span>
                       <div className="bg-black rounded p-0.5">
-                        <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                        {shareToxEnabled ? (
+                          <Unlock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                        )}
                       </div>
                     </button>
                   </div>
@@ -369,48 +416,84 @@ export const PersonalInfoSection = ({
                     {/* ID Toggle */}
                     <button
                       type="button"
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-cyan-500/10 border border-cyan-400/30"
+                      onClick={() => onShareToggle?.('share_id_enabled', !shareIdEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareIdEnabled 
+                          ? 'bg-cyan-500/30 border-2 border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)]' 
+                          : 'bg-cyan-500/10 border border-cyan-400/30'
+                      }`}
                     >
                       <Fingerprint className="w-5 h-5 text-cyan-400" />
                       <span className="text-[9px] font-bold text-cyan-400 tracking-wider">ID</span>
                       <div className="bg-black rounded p-0.5">
-                        <Lock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                        {shareIdEnabled ? (
+                          <Unlock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                        )}
                       </div>
                     </button>
                     
                     {/* FUNDS Toggle */}
                     <button
                       type="button"
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-green-500/10 border border-green-400/30"
+                      onClick={() => onShareToggle?.('share_funds_enabled', !shareFundsEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareFundsEnabled 
+                          ? 'bg-green-500/30 border-2 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.4)]' 
+                          : 'bg-green-500/10 border border-green-400/30'
+                      }`}
                     >
                       <CreditCard className="w-5 h-5 text-green-400" />
                       <span className="text-[9px] font-bold text-green-400 tracking-wider">FUNDS</span>
                       <div className="bg-black rounded p-0.5">
-                        <Lock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                        {shareFundsEnabled ? (
+                          <Unlock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                        )}
                       </div>
                     </button>
                     
                     {/* BIO Toggle */}
                     <button
                       type="button"
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-rose-500/10 border border-rose-400/30"
+                      onClick={() => onShareToggle?.('share_bio_enabled', !shareBioEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareBioEnabled 
+                          ? 'bg-rose-500/30 border-2 border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.4)]' 
+                          : 'bg-rose-500/10 border border-rose-400/30'
+                      }`}
                     >
                       <HeartPulse className="w-5 h-5 text-rose-400" />
                       <span className="text-[9px] font-bold text-rose-400 tracking-wider">BIO</span>
                       <div className="bg-black rounded p-0.5">
-                        <Lock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                        {shareBioEnabled ? (
+                          <Unlock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                        )}
                       </div>
                     </button>
                     
                     {/* TOX Toggle */}
                     <button
                       type="button"
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg transition-all bg-yellow-500/10 border border-yellow-400/30"
+                      onClick={() => onShareToggle?.('share_tox_enabled', !shareToxEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareToxEnabled 
+                          ? 'bg-yellow-500/30 border-2 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.4)]' 
+                          : 'bg-yellow-500/10 border border-yellow-400/30'
+                      }`}
                     >
                       <FlaskConical className="w-5 h-5 text-yellow-400" />
                       <span className="text-[9px] font-bold text-yellow-400 tracking-wider">TOX</span>
                       <div className="bg-black rounded p-0.5">
-                        <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                        {shareToxEnabled ? (
+                          <Unlock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                        )}
                       </div>
                     </button>
                   </div>

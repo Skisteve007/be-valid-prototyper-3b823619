@@ -95,6 +95,12 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
   const [sharingSensoryPrefsEnabled, setSharingSensoryPrefsEnabled] = useState(false);
   const [sharingSpecificActivitiesEnabled, setSharingSpecificActivitiesEnabled] = useState(false);
   
+  // Quick share toggle states (ID, FUNDS, BIO, TOX)
+  const [shareIdEnabled, setShareIdEnabled] = useState(false);
+  const [shareFundsEnabled, setShareFundsEnabled] = useState(false);
+  const [shareBioEnabled, setShareBioEnabled] = useState(false);
+  const [shareToxEnabled, setShareToxEnabled] = useState(false);
+  
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
   const [initialStatusColor, setInitialStatusColor] = useState<"green" | "yellow" | "red" | "gray" | "blue" | "orange" | "purple">("green");
@@ -740,6 +746,16 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
         uploadingLabLogo={uploadingLabLogo}
         isAdmin={isAdmin}
         vibeMetadata={vibeMetadata}
+        shareIdEnabled={shareIdEnabled}
+        shareFundsEnabled={shareFundsEnabled}
+        shareBioEnabled={shareBioEnabled}
+        shareToxEnabled={shareToxEnabled}
+        onShareToggle={(field, value) => {
+          if (field === 'share_id_enabled') setShareIdEnabled(value);
+          if (field === 'share_funds_enabled') setShareFundsEnabled(value);
+          if (field === 'share_bio_enabled') setShareBioEnabled(value);
+          if (field === 'share_tox_enabled') setShareToxEnabled(value);
+        }}
       />
 
       <div className="relative py-4">

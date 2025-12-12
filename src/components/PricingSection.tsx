@@ -25,73 +25,162 @@ export const PricingSection = () => {
   return (
     <>
       <style>{`
+        @keyframes neon-pulse {
+          0%, 100% {
+            box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
+          }
+          50% {
+            box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
+          }
+        }
+        @keyframes border-glow {
+          0%, 100% {
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3), inset 0 0 20px rgba(0, 240, 255, 0.05);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5), inset 0 0 30px rgba(0, 240, 255, 0.1);
+          }
+        }
         .pricing-grid-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 20px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 16px;
           padding: 20px;
+          justify-content: center;
         }
         .pricing-card {
-          border: 1px solid hsl(var(--border));
-          border-radius: 12px;
+          border: 1px solid rgba(0, 240, 255, 0.3);
+          border-radius: 16px;
           padding: 20px;
-          background: hsl(var(--card));
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          background: linear-gradient(145deg, rgba(10, 15, 30, 0.95), rgba(20, 30, 50, 0.9));
+          backdrop-filter: blur(10px);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           min-height: 320px;
+          width: 240px;
           position: relative;
           overflow: hidden;
+          animation: border-glow 3s ease-in-out infinite;
+        }
+        .pricing-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #00f0ff, #39ff14, #00f0ff, transparent);
         }
         .promo-badge {
           position: absolute;
           top: 12px;
           right: -35px;
-          background: linear-gradient(135deg, #ef4444, #dc2626);
+          background: linear-gradient(135deg, #ff00ff, #00f0ff);
           color: white;
           padding: 4px 40px;
-          font-size: 0.75em;
+          font-size: 0.7em;
           font-weight: bold;
           transform: rotate(45deg);
-          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+          box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
         }
         .original-price {
-          font-size: 1.1em;
-          color: hsl(var(--muted-foreground));
+          font-size: 1em;
+          color: #888;
           text-decoration: line-through;
           margin-bottom: 4px;
         }
         .price-text {
-          font-size: 1.8em;
+          font-size: 1.6em;
           font-weight: 800;
-          color: #16a34a;
+          background: linear-gradient(135deg, #39ff14, #00f0ff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
         }
         .sub-text {
-          font-size: 0.9em;
-          color: hsl(var(--muted-foreground));
+          font-size: 0.85em;
+          color: #a0a0a0;
         }
-        .pricing-card button {
+        .neon-btn {
+          width: 100%;
+          padding: 12px 16px;
+          border: none;
+          border-radius: 8px;
+          font-weight: bold;
           cursor: pointer;
-          transition: transform 0.1s;
+          position: relative;
+          font-size: 0.85em;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
-        .pricing-card button:active {
-          transform: scale(0.98);
+        .neon-btn-green {
+          background: linear-gradient(135deg, #39ff14, #00ff88);
+          color: #000;
+          animation: neon-pulse 2s ease-in-out infinite;
+          color: #39ff14;
+        }
+        .neon-btn-green:hover {
+          transform: scale(1.02);
+          background: linear-gradient(135deg, #50ff30, #20ffa0);
+        }
+        .neon-btn-cyan {
+          background: linear-gradient(135deg, #00f0ff, #0088ff);
+          color: #000;
+          animation: neon-pulse 2s ease-in-out infinite 0.5s;
+          color: #00f0ff;
+        }
+        .neon-btn-cyan:hover {
+          transform: scale(1.02);
+          background: linear-gradient(135deg, #20ffff, #2090ff);
         }
         .currency-note {
-          font-size: 0.75em;
-          color: hsl(var(--muted-foreground));
-          margin-top: 8px;
+          font-size: 0.7em;
+          color: #666;
+          margin-top: 6px;
         }
         .pricing-card h3 {
-          color: hsl(var(--foreground));
+          color: #e0e0e0;
+          font-size: 1em;
+          margin-bottom: 8px;
+        }
+        .pricing-card.premium {
+          border-color: rgba(0, 240, 255, 0.6);
+          background: linear-gradient(145deg, rgba(0, 30, 50, 0.95), rgba(10, 40, 60, 0.9));
+        }
+        .pricing-card.premium::before {
+          background: linear-gradient(90deg, transparent, #00f0ff, #ff00ff, #00f0ff, transparent);
+        }
+        .tier-label {
+          font-size: 0.7em;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 4px;
+          background: linear-gradient(90deg, #c0c0c0, #e0e0e0);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        @media (max-width: 768px) {
+          .pricing-grid-container {
+            flex-direction: column;
+            align-items: center;
+          }
+          .pricing-card {
+            width: 100%;
+            max-width: 300px;
+          }
         }
       `}</style>
 
       {/* Currency Selector */}
       <div className="flex justify-center mb-6">
-        <div className="flex items-center gap-3 px-4 py-2 bg-muted/50 rounded-full">
-          <span className="text-sm text-muted-foreground">{t('pricing.displayIn')}</span>
+        <div className="flex items-center gap-3 px-4 py-2 bg-black/40 border border-cyan-500/30 rounded-full backdrop-blur-sm">
+          <span className="text-sm text-cyan-300/80">{t('pricing.displayIn')}</span>
           <CurrencySelector />
         </div>
       </div>
@@ -102,11 +191,12 @@ export const PricingSection = () => {
         <div className="pricing-card">
           <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
+            <div className="tier-label">Starter</div>
             <h3>{t('pricing.singleMember')}</h3>
             <div className="original-price">{getDisplayPrice(PRICES.originalSingleBiMonthly)}</div>
             <div className="price-text">{getDisplayPrice(PRICES.singleBiMonthly)}</div>
             <div className="sub-text">{t('pricing.billedBiMonthly')}</div>
-            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 {t('pricing.limitedTime')}</p>
+            <p style={{ marginTop: '8px', color: '#ff00ff', fontWeight: 'bold', fontSize: '0.75em', textShadow: '0 0 10px rgba(255,0,255,0.5)' }}>🔥 {t('pricing.limitedTime')}</p>
             {currency.code !== 'USD' && (
               <p className="currency-note">
                 * {t('pricing.chargedAs')} ${PRICES.singleBiMonthly.toFixed(2)} USD
@@ -124,22 +214,8 @@ export const PricingSection = () => {
             <input type="hidden" name="currency_code" value="USD" />
             <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
             <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-            <button 
-              type="submit" 
-              style={{
-                width: '100%',
-                padding: '15px',
-                background: '#4CAF50',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                zIndex: 10000,
-                position: 'relative'
-              }}
-            >
-              {t('pricing.selectPlan')} ({getDisplayPrice(PRICES.singleBiMonthly)})
+            <button type="submit" className="neon-btn neon-btn-green">
+              {t('pricing.selectPlan')}
             </button>
           </form>
         </div>
@@ -148,11 +224,12 @@ export const PricingSection = () => {
         <div className="pricing-card">
           <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
+            <div className="tier-label">Duo</div>
             <h3>{t('pricing.jointCouple')}</h3>
             <div className="original-price">{getDisplayPrice(PRICES.originalCoupleBiMonthly)}</div>
             <div className="price-text">{getDisplayPrice(PRICES.coupleBiMonthly)}</div>
             <div className="sub-text">{t('pricing.billedBiMonthly')}</div>
-            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 {t('pricing.limitedTime')}</p>
+            <p style={{ marginTop: '8px', color: '#ff00ff', fontWeight: 'bold', fontSize: '0.75em', textShadow: '0 0 10px rgba(255,0,255,0.5)' }}>🔥 {t('pricing.limitedTime')}</p>
             {currency.code !== 'USD' && (
               <p className="currency-note">
                 * {t('pricing.chargedAs')} ${PRICES.coupleBiMonthly.toFixed(2)} USD
@@ -170,35 +247,22 @@ export const PricingSection = () => {
             <input type="hidden" name="currency_code" value="USD" />
             <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
             <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-            <button 
-              type="submit" 
-              style={{
-                width: '100%',
-                padding: '15px',
-                background: '#4CAF50',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                zIndex: 10000,
-                position: 'relative'
-              }}
-            >
-              {t('pricing.selectPlan')} ({getDisplayPrice(PRICES.coupleBiMonthly)})
+            <button type="submit" className="neon-btn neon-btn-green">
+              {t('pricing.selectPlan')}
             </button>
           </form>
         </div>
 
         {/* Single 1-Year Pass */}
-        <div className="pricing-card" style={{ border: '2px solid #D4AF37' }}>
+        <div className="pricing-card premium">
           <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
-            <h3 style={{ color: '#D4AF37' }}>{t('pricing.singleAnnual')}</h3>
+            <div className="tier-label" style={{ background: 'linear-gradient(90deg, #00f0ff, #ff00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Premium</div>
+            <h3 style={{ color: '#00f0ff' }}>{t('pricing.singleAnnual')}</h3>
             <div className="original-price">{getDisplayPrice(PRICES.originalSingleAnnual)}</div>
             <div className="price-text">{getDisplayPrice(PRICES.singleAnnual)}</div>
             <div className="sub-text">{t('pricing.oneTime')}</div>
-            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 {t('pricing.limitedTime')}</p>
+            <p style={{ marginTop: '8px', color: '#ff00ff', fontWeight: 'bold', fontSize: '0.75em', textShadow: '0 0 10px rgba(255,0,255,0.5)' }}>🔥 {t('pricing.limitedTime')}</p>
             {currency.code !== 'USD' && (
               <p className="currency-note">
                 * {t('pricing.chargedAs')} ${PRICES.singleAnnual.toFixed(2)} USD
@@ -213,35 +277,22 @@ export const PricingSection = () => {
             <input type="hidden" name="currency_code" value="USD" />
             <input type="hidden" name="return" value="https://bevalid.app/payment-success?type=annual" />
             <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-            <button 
-              type="submit" 
-              style={{
-                width: '100%',
-                padding: '15px',
-                background: '#D4AF37',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                zIndex: 10000,
-                position: 'relative'
-              }}
-            >
-              {t('pricing.buyAnnual')} ({getDisplayPrice(PRICES.singleAnnual)})
+            <button type="submit" className="neon-btn neon-btn-cyan">
+              {t('pricing.buyAnnual')}
             </button>
           </form>
         </div>
 
         {/* Couple 1-Year Pass */}
-        <div className="pricing-card" style={{ border: '2px solid #D4AF37' }}>
+        <div className="pricing-card premium">
           <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
-            <h3 style={{ color: '#D4AF37' }}>{t('pricing.coupleAnnual')}</h3>
+            <div className="tier-label" style={{ background: 'linear-gradient(90deg, #00f0ff, #ff00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Premium Duo</div>
+            <h3 style={{ color: '#00f0ff' }}>{t('pricing.coupleAnnual')}</h3>
             <div className="original-price">{getDisplayPrice(PRICES.originalCoupleAnnual)}</div>
             <div className="price-text">{getDisplayPrice(PRICES.coupleAnnual)}</div>
             <div className="sub-text">{t('pricing.oneTime')}</div>
-            <p style={{ marginTop: '10px', color: '#ef4444', fontWeight: 'bold', fontSize: '0.85em' }}>🔥 {t('pricing.limitedTime')}</p>
+            <p style={{ marginTop: '8px', color: '#ff00ff', fontWeight: 'bold', fontSize: '0.75em', textShadow: '0 0 10px rgba(255,0,255,0.5)' }}>🔥 {t('pricing.limitedTime')}</p>
             {currency.code !== 'USD' && (
               <p className="currency-note">
                 * {t('pricing.chargedAs')} ${PRICES.coupleAnnual.toFixed(2)} USD
@@ -256,22 +307,8 @@ export const PricingSection = () => {
             <input type="hidden" name="currency_code" value="USD" />
             <input type="hidden" name="return" value="https://bevalid.app/payment-success?type=annual-couple" />
             <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-            <button 
-              type="submit" 
-              style={{
-                width: '100%',
-                padding: '15px',
-                background: '#D4AF37',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                zIndex: 10000,
-                position: 'relative'
-              }}
-            >
-              {t('pricing.buyAnnual')} ({getDisplayPrice(PRICES.coupleAnnual)})
+            <button type="submit" className="neon-btn neon-btn-cyan">
+              {t('pricing.buyAnnual')}
             </button>
           </form>
         </div>

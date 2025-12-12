@@ -906,7 +906,9 @@ const PitchDeck = () => {
                 {/* Line 2 - Static */}
                 <div className="pt-4 border-t border-cyan-500/20">
                   <p className="text-xl md:text-2xl font-semibold text-white tracking-wide">
-                    VALID<sup className="text-cyan-400 text-sm">™</sup>: Your Spatial Verification Partner
+                    <span className="text-3xl md:text-4xl font-bold text-cyan-400">VALID</span><sup className="text-cyan-400 text-sm ml-1">™</sup>
+                    <span className="ml-3">:</span>
+                    <span className="ml-2">Your Spatial Verification Partner</span>
                   </p>
                 </div>
               </div>

@@ -1113,6 +1113,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          access_approved_by: string | null
           birthday: string | null
           circumcised: boolean | null
           company_name: string | null
@@ -1135,6 +1136,9 @@ export type Database = {
           idv_verified_at: string | null
           idv_verified_hash: string | null
           instagram_handle: string | null
+          investor_access_approved: boolean | null
+          investor_access_approved_at: string | null
+          investor_access_requested_at: string | null
           is_valid: boolean | null
           lab_certified: boolean | null
           lab_disclaimer_accepted: boolean | null
@@ -1146,6 +1150,9 @@ export type Database = {
           member_id: string | null
           onlyfans_handle: string | null
           originator_id: string | null
+          partner_access_approved: boolean | null
+          partner_access_approved_at: string | null
+          partner_access_requested_at: string | null
           partner_preferences: Json | null
           payment_date: string | null
           payment_status: string | null
@@ -1184,6 +1191,7 @@ export type Database = {
           where_from: string | null
         }
         Insert: {
+          access_approved_by?: string | null
           birthday?: string | null
           circumcised?: boolean | null
           company_name?: string | null
@@ -1206,6 +1214,9 @@ export type Database = {
           idv_verified_at?: string | null
           idv_verified_hash?: string | null
           instagram_handle?: string | null
+          investor_access_approved?: boolean | null
+          investor_access_approved_at?: string | null
+          investor_access_requested_at?: string | null
           is_valid?: boolean | null
           lab_certified?: boolean | null
           lab_disclaimer_accepted?: boolean | null
@@ -1217,6 +1228,9 @@ export type Database = {
           member_id?: string | null
           onlyfans_handle?: string | null
           originator_id?: string | null
+          partner_access_approved?: boolean | null
+          partner_access_approved_at?: string | null
+          partner_access_requested_at?: string | null
           partner_preferences?: Json | null
           payment_date?: string | null
           payment_status?: string | null
@@ -1255,6 +1269,7 @@ export type Database = {
           where_from?: string | null
         }
         Update: {
+          access_approved_by?: string | null
           birthday?: string | null
           circumcised?: boolean | null
           company_name?: string | null
@@ -1277,6 +1292,9 @@ export type Database = {
           idv_verified_at?: string | null
           idv_verified_hash?: string | null
           instagram_handle?: string | null
+          investor_access_approved?: boolean | null
+          investor_access_approved_at?: string | null
+          investor_access_requested_at?: string | null
           is_valid?: boolean | null
           lab_certified?: boolean | null
           lab_disclaimer_accepted?: boolean | null
@@ -1288,6 +1306,9 @@ export type Database = {
           member_id?: string | null
           onlyfans_handle?: string | null
           originator_id?: string | null
+          partner_access_approved?: boolean | null
+          partner_access_approved_at?: string | null
+          partner_access_requested_at?: string | null
           partner_preferences?: Json | null
           payment_date?: string | null
           payment_status?: string | null

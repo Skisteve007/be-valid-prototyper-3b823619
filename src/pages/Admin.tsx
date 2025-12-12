@@ -29,6 +29,7 @@ import { LeadOutreachTab } from "@/components/admin/LeadOutreachTab";
 import { MembersTab } from "@/components/admin/MembersTab";
 import { InvestorCRMTab } from "@/components/admin/InvestorCRMTab";
 import { IDVManagementTab } from "@/components/admin/IDVManagementTab";
+import { AccessApprovalManager } from "@/components/admin/AccessApprovalManager";
 import StaffShiftManager from "@/components/admin/StaffShiftManager";
 import AffiliateCommissionManager from "@/components/admin/AffiliateCommissionManager";
 import {
@@ -589,6 +590,9 @@ const Admin = () => {
             <TabsTrigger value="idv-management" className="cursor-pointer flex-1">
               🪪 IDV
             </TabsTrigger>
+            <TabsTrigger value="access-control" className="cursor-pointer flex-1">
+              🔐 Access Control
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="members" className="space-y-8">
@@ -927,6 +931,10 @@ const Admin = () => {
           
           <TabsContent value="idv-management">
             <IDVManagementTab />
+          </TabsContent>
+          
+          <TabsContent value="access-control">
+            <AccessApprovalManager />
           </TabsContent>
         </Tabs>
       </main>

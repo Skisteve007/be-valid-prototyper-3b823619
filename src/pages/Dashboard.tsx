@@ -174,12 +174,50 @@ const Dashboard = () => {
           
           {/* Dashboard Title */}
           <div className="p-6 md:p-8 border-b border-white/10">
-            <h1 className="text-2xl md:text-3xl font-bold">
-              <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
-            </h1>
-            <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
-              Manage your profile, documents, and QR code
-            </p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold">
+                  <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
+                </h1>
+                <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
+                  Manage your profile, documents, and QR code
+                </p>
+              </div>
+              
+              {/* Save Button - Far right */}
+              {activeTab === "profile" && (
+                <Button
+                  type="button"
+                  onClick={() => profileTabRef.current?.triggerSave()}
+                  disabled={profileSaveState.saving}
+                  className={`shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full transition-all duration-300 ${
+                    profileSaveState.saveSuccess
+                      ? 'shadow-[0_0_20px_rgba(34,197,94,0.5)] border-green-500/60 bg-green-500/10 text-green-400 hover:bg-green-500/20'
+                      : profileSaveState.hasChanges && !profileSaveState.saving
+                        ? 'shadow-[0_0_25px_rgba(236,72,153,0.7)] animate-pulse'
+                        : ''
+                  }`}
+                  style={{ animationDuration: '2s' }}
+                >
+                  {profileSaveState.saving ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Saving...
+                    </>
+                  ) : profileSaveState.saveSuccess ? (
+                    <>
+                      <CheckCircle className="h-4 w-4 mr-2" />
+                      Saved!
+                    </>
+                  ) : (
+                    <>
+                      <Save className="h-4 w-4 mr-2" />
+                      Save{profileSaveState.hasChanges ? " •" : ""}
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
           </div>
           
           {/* My Signal Section - Top Priority */}
@@ -263,41 +301,6 @@ const Dashboard = () => {
                         <Fingerprint className="h-4 w-4 mr-1.5" />
                         <span className="text-sm">Verify ID</span>
                       </TabsTrigger>
-                      
-                      {/* Save Now Button - Inside the pill on the right */}
-                      {activeTab === "profile" && (
-                        <Button
-                          type="button"
-                          size="sm"
-                          onClick={() => profileTabRef.current?.triggerSave()}
-                          disabled={profileSaveState.saving}
-                          className={`ml-auto py-2.5 px-4 rounded-lg transition-all duration-300 whitespace-nowrap ${
-                            profileSaveState.saveSuccess
-                              ? 'bg-green-600 hover:bg-green-600 text-white shadow-[0_0_15px_rgba(34,197,94,0.5)]'
-                              : profileSaveState.hasChanges && !profileSaveState.saving
-                                ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-pulse'
-                                : 'bg-white/10 text-[#E0E0E0]/70 hover:bg-white/20'
-                          }`}
-                          style={{ animationDuration: '2s' }}
-                        >
-                          {profileSaveState.saving ? (
-                            <>
-                              <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
-                              <span className="text-sm">Saving...</span>
-                            </>
-                          ) : profileSaveState.saveSuccess ? (
-                            <>
-                              <CheckCircle className="h-4 w-4 mr-1.5" />
-                              <span className="text-sm">Saved!</span>
-                            </>
-                          ) : (
-                            <>
-                              <Save className="h-4 w-4 mr-1.5" />
-                              <span className="text-sm">Save Now{profileSaveState.hasChanges ? " •" : ""}</span>
-                            </>
-                          )}
-                        </Button>
-                      )}
                     </TabsList>
                   </div>
                 </div>

@@ -182,11 +182,25 @@ const Dashboard = () => {
           
           {/* My Signal Section - Top Priority */}
           <div className="p-4 md:p-6 border-b border-white/10">
-            <MySignalSection
-              vibeMetadata={vibeMetadata}
-              onVibeMetadataChange={setVibeMetadata}
-              onStatusColorChange={setStatusColor}
-            />
+            <div className="rounded-xl border-2 border-cyan-400/60 p-4 animate-pulse shadow-[0_0_20px_rgba(0,255,255,0.3)] bg-gradient-to-r from-cyan-500/5 via-transparent to-cyan-500/5" style={{ animation: 'signalPulse 2s ease-in-out infinite' }}>
+              <style>{`
+                @keyframes signalPulse {
+                  0%, 100% { 
+                    border-color: rgba(0, 255, 255, 0.3);
+                    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+                  }
+                  50% { 
+                    border-color: rgba(0, 255, 255, 0.8);
+                    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+                  }
+                }
+              `}</style>
+              <MySignalSection
+                vibeMetadata={vibeMetadata}
+                onVibeMetadataChange={setVibeMetadata}
+                onStatusColorChange={setStatusColor}
+              />
+            </div>
           </div>
 
           {/* Main Content */}

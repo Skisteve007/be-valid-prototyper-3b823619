@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { Resend } from "https://esm.sh/resend@2.0.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -75,6 +76,60 @@ serve(async (req) => {
     }
 
     logStep("Transaction recorded", { transactionId: txData.id, newBalance });
+
+    // Send wallet funding confirmation email
+    try {
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (resendApiKey && user.email) {
+        const resend = new Resend(resendApiKey);
+        
+        await resend.emails.send({
+          from: "VALID™ <noreply@bevalid.app>",
+          to: [user.email],
+          subject: "Wallet Funded Successfully - VALID™",
+          html: `
+            <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0e1a; color: #e0e0ff; padding: 40px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">VALID™</h1>
+                <p style="color: #888; font-size: 14px;">Ghost Wallet</p>
+              </div>
+              
+              <h2 style="color: #00ff88; font-size: 22px;">✓ Funds Added Successfully</h2>
+              
+              <div style="background: #1a1f2e; border-radius: 12px; padding: 24px; margin: 20px 0; text-align: center;">
+                <p style="color: #888; font-size: 14px; margin: 0 0 8px 0;">Amount Added</p>
+                <p style="color: #00ff88; font-size: 36px; font-weight: bold; margin: 0;">$${Number(amount).toFixed(2)}</p>
+              </div>
+              
+              <div style="background: #1a1f2e; border-radius: 12px; padding: 24px; margin: 20px 0; text-align: center;">
+                <p style="color: #888; font-size: 14px; margin: 0 0 8px 0;">New Balance</p>
+                <p style="color: #00f0ff; font-size: 28px; font-weight: bold; margin: 0;">$${newBalance.toFixed(2)}</p>
+              </div>
+              
+              <p style="font-size: 16px; line-height: 1.6;">
+                Your Ghost Wallet has been funded. You're ready to activate Ghost Passes and enjoy seamless access at VALID™ partner venues.
+              </p>
+              
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="https://bevalid.app/dashboard" style="background: linear-gradient(135deg, #00ff88, #00cc66); color: #000; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">
+                  View Wallet
+                </a>
+              </div>
+              
+              <hr style="border: none; border-top: 1px solid #333; margin: 30px 0;">
+              
+              <p style="font-size: 12px; color: #666; text-align: center;">
+                © ${new Date().getFullYear()} VALID™. All rights reserved.<br>
+                Funds are held in FDIC-insured FBO accounts.
+              </p>
+            </div>
+          `,
+        });
+        logStep("Wallet funding email sent", { email: user.email });
+      }
+    } catch (emailError) {
+      logStep("Email send failed (non-critical)", { error: String(emailError) });
+    }
 
     return new Response(JSON.stringify({ 
       success: true,

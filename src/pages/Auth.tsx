@@ -101,6 +101,9 @@ const Auth = () => {
           .single();
         
         if (!profile?.email_verified) {
+          // Sign out the user - they can't access the app until verified
+          await supabase.auth.signOut();
+          setVerificationUserId(data.user.id);
           setLoading(false);
           setVerificationEmail(data.user.email || loginEmail);
           setShowEmailVerification(true);

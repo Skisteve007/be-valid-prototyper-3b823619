@@ -969,6 +969,7 @@ export type Database = {
           lab_logo_url: string | null
           last_campaign_received: string | null
           last_marketing_email_sent_at: string | null
+          linkedin_handle: string | null
           member_id: string | null
           onlyfans_handle: string | null
           originator_id: string | null
@@ -1038,6 +1039,7 @@ export type Database = {
           lab_logo_url?: string | null
           last_campaign_received?: string | null
           last_marketing_email_sent_at?: string | null
+          linkedin_handle?: string | null
           member_id?: string | null
           onlyfans_handle?: string | null
           originator_id?: string | null
@@ -1107,6 +1109,7 @@ export type Database = {
           lab_logo_url?: string | null
           last_campaign_received?: string | null
           last_marketing_email_sent_at?: string | null
+          linkedin_handle?: string | null
           member_id?: string | null
           onlyfans_handle?: string | null
           originator_id?: string | null

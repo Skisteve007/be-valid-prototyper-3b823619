@@ -180,8 +180,8 @@ const Hero = () => {
               <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-4">
                 {t('network.title')}
               </div>
-              <h2 className="text-2xl md:text-4xl font-black font-orbitron text-white text-left">
-                {t('network.headline')} <span className="text-cyan-400">{t('network.zero')} {t('network.limits')}</span>
+              <h2 className="text-2xl md:text-4xl font-black font-orbitron text-white text-left whitespace-nowrap">
+                {t('network.headline')} <span className="text-cyan-400 inline">{t('network.zero')}</span> <span className="text-cyan-400 inline">{t('network.limits')}</span>
               </h2>
             </div>
           </div>

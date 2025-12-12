@@ -258,11 +258,10 @@ const Dashboard = () => {
                       </TabsTrigger>
                       <TabsTrigger 
                         value="verify-id"
-                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 data-[state=active]:shadow-[0_0_15px_rgba(245,158,11,0.3)] whitespace-nowrap border border-amber-500/30 bg-amber-500/5 animate-pulse"
-                        style={{ animationDuration: '3s' }}
+                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
                       >
                         <Fingerprint className="h-4 w-4 mr-1.5" />
-                        <span className="text-sm font-bold">VERIFY ID</span>
+                        <span className="text-sm">Verify ID</span>
                       </TabsTrigger>
                       
                       {/* Save Now Button - Inside the pill on the right */}

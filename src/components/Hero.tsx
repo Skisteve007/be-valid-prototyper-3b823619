@@ -204,11 +204,11 @@ const Hero = () => {
               <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-4">
                 {t('network.title')}
               </div>
-              <div className="flex items-center gap-3 flex-wrap">
-                <h2 className="text-2xl md:text-4xl font-black font-orbitron text-white text-left whitespace-nowrap">
-                  {t('network.headline')} <span className="text-cyan-400 inline">{t('network.zero')}</span> <span className="text-cyan-400 inline">{t('network.limits')}</span>
+              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
+                <h2 className="text-xl md:text-4xl font-black font-orbitron text-white text-left">
+                  {t('network.headline')} <span className="text-cyan-400">{t('network.zero')}</span> <span className="text-cyan-400">{t('network.limits')}</span>
                 </h2>
-                <span className="px-3 py-1.5 text-sm font-bold tracking-wider rounded-full border border-rose-400/60 bg-rose-500/10 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.4)] animate-pulse flex items-center gap-2">
+                <span className="px-3 py-1.5 text-sm font-bold tracking-wider rounded-full border border-rose-400/60 bg-rose-500/10 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.4)] animate-pulse flex items-center gap-2 w-fit">
                   <span className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.8),0_0_24px_rgba(244,63,94,0.5)] animate-pulse"></span>
                   {visitCount.toLocaleString()}
                 </span>

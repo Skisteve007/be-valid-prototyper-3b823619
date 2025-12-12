@@ -208,8 +208,9 @@ const Hero = () => {
                 <h2 className="text-2xl md:text-4xl font-black font-orbitron text-white text-left whitespace-nowrap">
                   {t('network.headline')} <span className="text-cyan-400 inline">{t('network.zero')}</span> <span className="text-cyan-400 inline">{t('network.limits')}</span>
                 </h2>
-                <span className="px-3 py-1.5 text-sm font-bold tracking-wider rounded-full border border-purple-400/60 bg-purple-500/10 text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.4)] animate-pulse flex items-center gap-2">
-                  👁️ {visitCount.toLocaleString()}
+                <span className="px-3 py-1.5 text-sm font-bold tracking-wider rounded-full border border-rose-400/60 bg-rose-500/10 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.4)] animate-pulse flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.8),0_0_24px_rgba(244,63,94,0.5)] animate-pulse"></span>
+                  {visitCount.toLocaleString()}
                 </span>
               </div>
             </div>

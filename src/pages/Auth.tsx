@@ -424,6 +424,16 @@ const Auth = () => {
                   <CardDescription className="text-center text-lg font-semibold text-primary tracking-wider mt-2">
                     Your identity, controlled.
                   </CardDescription>
+                  <div className="text-center pt-3">
+                    <Button 
+                      type="button" 
+                      variant="outline"
+                      onClick={() => navigate("/auth?mode=login")}
+                      className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
+                    >
+                      Already a member? Log in
+                    </Button>
+                  </div>
                 </CardHeader>
                 <CardContent className="p-8">
                   <form onSubmit={handleSignup} className="space-y-4">
@@ -563,16 +573,6 @@ const Auth = () => {
                       {loading ? "Creating Account..." : "Create Account"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
 
-                    <div className="text-center pt-4">
-                      <Button 
-                        type="button" 
-                        variant="outline"
-                        onClick={() => navigate("/auth?mode=login")}
-                        className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
-                      >
-                        Already a member? Log in
-                      </Button>
-                    </div>
                   </form>
                 </CardContent>
               </Card>

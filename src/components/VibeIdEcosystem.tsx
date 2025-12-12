@@ -133,10 +133,10 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
             </p>
             
             {/* Adaptive Profile Sub-headline */}
-            <p className={`text-base leading-relaxed max-w-xl
-              ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-              {t('hero.adaptiveProfile')} <span className={isDark ? 'text-white font-bold' : 'text-slate-900 font-bold'}>{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
-              <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
+            {/* Identity Control Messaging */}
+            <p className={`text-base leading-relaxed max-w-xl mt-4
+              ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+              Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.
             </p>
           </div>
 

@@ -716,6 +716,47 @@ const PitchDeck = () => {
           </div>
         </section>
 
+        {/* ===== 2027 FUTURE READY - ANIMATED BLOCK ===== */}
+        <section className="relative py-16">
+          <div className="text-center">
+            {/* Animated Typing Block */}
+            <div className="bg-black/60 backdrop-blur-xl border border-cyan-500/40 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-[0_0_60px_rgba(0,240,255,0.15)]">
+              <div className="font-mono text-left space-y-4">
+                {/* Line 1 - Primary */}
+                <div className="overflow-hidden">
+                  <p className="text-3xl md:text-5xl font-bold text-cyan-400 animate-[typing_2s_steps(20)_forwards] whitespace-nowrap overflow-hidden border-r-4 border-cyan-400" style={{ width: '0', animation: 'typing 2s steps(20) forwards, blink 0.75s step-end infinite' }}>
+                    {'> 2027 FUTURE READY_'}
+                  </p>
+                </div>
+                {/* Line 2 - Secondary */}
+                <div className="overflow-hidden">
+                  <p className="text-xl md:text-3xl font-semibold text-white animate-[typing_3s_steps(40)_1s_forwards] whitespace-nowrap overflow-hidden border-r-4 border-white" style={{ width: '0', animation: 'typing 3s steps(40) 2s forwards, blink 0.75s step-end infinite 2s' }}>
+                    {'> SPATIAL VALID: Your Spatial Verification Partner_'}
+                  </p>
+                </div>
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="mt-8 flex items-center justify-center gap-4">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+                <Rocket className="h-6 w-6 text-cyan-400 animate-pulse" />
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+              </div>
+            </div>
+          </div>
+          
+          {/* CSS for typing animation */}
+          <style>{`
+            @keyframes typing {
+              from { width: 0; }
+              to { width: 100%; }
+            }
+            @keyframes blink {
+              50% { border-color: transparent; }
+            }
+          `}</style>
+        </section>
+
         {/* ===== BEYOND THE QR: SENSING ROADMAP ===== */}
         <section className="relative">
           {/* Background glow effect */}

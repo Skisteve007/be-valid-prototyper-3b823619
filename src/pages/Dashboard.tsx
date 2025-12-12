@@ -279,9 +279,14 @@ const Dashboard = () => {
           {/* Dashboard Title */}
           <div className="p-6 md:p-8 border-b border-white/10">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold">
-                <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
-              </h1>
+              <div className="flex items-center gap-3 flex-wrap">
+                <h1 className="text-2xl md:text-3xl font-bold">
+                  <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
+                </h1>
+                <span className="px-3 py-1 text-[10px] md:text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
+                  Beta Version
+                </span>
+              </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
                 Manage your profile
               </p>

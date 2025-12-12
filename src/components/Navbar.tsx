@@ -19,6 +19,13 @@ const Navbar = () => {
           <span className="text-lg md:text-xl font-bold tracking-widest text-foreground">VALID<sup className="text-xs text-primary">™</sup></span>
         </Link>
         
+        {/* Beta Version Pill - Center */}
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2">
+          <span className="px-3 py-1 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
+            Beta Version
+          </span>
+        </div>
+        
         {/* Spacer for mobile centering */}
         <div className="w-10 md:hidden" />
         

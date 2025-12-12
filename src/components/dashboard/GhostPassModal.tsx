@@ -917,7 +917,7 @@ const GhostPassModal = ({
 
               {/* Activate / Upgrade Button */}
               {!isActivated ? (
-                <button 
+              <button 
                   onClick={handleActivate}
                   disabled={!canActivate}
                   className={`w-full py-3 rounded-xl font-bold text-sm transition-all mb-4 ${
@@ -926,11 +926,9 @@ const GhostPassModal = ({
                       : 'bg-gray-800 text-gray-500 border border-gray-700 cursor-not-allowed'
                   }`}
                 >
-                  {!selectedVenue 
-                    ? 'Select Destination First' 
-                    : balance < selectedPass.price 
-                      ? `Need $${(selectedPass.price - balance).toFixed(2)} More`
-                      : `ACTIVATE ${selectedPass.label.toUpperCase()} (-$${selectedPass.price})`
+                  {balance < selectedPass.price 
+                    ? `Need $${(selectedPass.price - balance).toFixed(2)} More`
+                    : `ACTIVATE ${selectedPass.label.toUpperCase()} (-$${selectedPass.price})`
                   }
                 </button>
               ) : (
@@ -947,51 +945,51 @@ const GhostPassModal = ({
               )}
 
               {/* Permission Toggles */}
-              <div className="flex justify-center gap-3 mb-4">
+              <div className="flex justify-center gap-4 mb-4">
                 {/* Identity Toggle */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, identity: !prev.identity }))}
-                  className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
                     toggles.identity
                       ? 'bg-blue-500/20 border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.3)]'
                       : 'bg-white/5 border-white/10 opacity-50'
                   }`}
                 >
-                  <Fingerprint size={18} className={toggles.identity ? 'text-blue-400' : 'text-gray-500'} />
-                  <span className={`text-[8px] font-bold ${toggles.identity ? 'text-blue-400' : 'text-gray-500'}`}>ID</span>
+                  <Fingerprint size={28} className={toggles.identity ? 'text-blue-400' : 'text-gray-500'} />
+                  <span className={`text-[10px] font-bold ${toggles.identity ? 'text-blue-400' : 'text-gray-500'}`}>ID</span>
                 </button>
 
                 {/* Payment Toggle */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, payment: !prev.payment }))}
-                  className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
                     toggles.payment
                       ? 'bg-amber-500/20 border-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]'
                       : 'bg-white/5 border-white/10 opacity-50'
                   }`}
                 >
-                  <Wallet size={18} className={toggles.payment ? 'text-amber-400' : 'text-gray-500'} />
-                  <span className={`text-[8px] font-bold ${toggles.payment ? 'text-amber-400' : 'text-gray-500'}`}>FUNDS</span>
+                  <Wallet size={28} className={toggles.payment ? 'text-amber-400' : 'text-gray-500'} />
+                  <span className={`text-[10px] font-bold ${toggles.payment ? 'text-amber-400' : 'text-gray-500'}`}>FUNDS</span>
                 </button>
 
                 {/* Health Toggle */}
                 <button
                   onClick={() => setToggles(prev => ({ ...prev, health: !prev.health }))}
-                  className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
                     toggles.health
                       ? 'bg-green-500/20 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.3)]'
                       : 'bg-white/5 border-white/10 opacity-50'
                   }`}
                 >
-                  <HeartPulse size={18} className={toggles.health ? 'text-green-400' : 'text-gray-500'} />
-                  <span className={`text-[8px] font-bold ${toggles.health ? 'text-green-400' : 'text-gray-500'}`}>BIO</span>
+                  <HeartPulse size={28} className={toggles.health ? 'text-green-400' : 'text-gray-500'} />
+                  <span className={`text-[10px] font-bold ${toggles.health ? 'text-green-400' : 'text-gray-500'}`}>BIO</span>
                 </button>
               </div>
 
 
               {/* Privacy Note */}
-              <p className="text-[9px] text-gray-500 text-center leading-relaxed">
-                This code encrypts your selected data for 30 seconds. No raw data is shared with the venue.
+              <p className="text-xs text-white text-center leading-relaxed font-bold uppercase tracking-wide">
+                THIS CODE ENCRYPTS YOUR SELECTED DATA FOR 30 SECONDS. NO RAW DATA IS SHARED WITH THE VENUE.
               </p>
             </div>
           </div>

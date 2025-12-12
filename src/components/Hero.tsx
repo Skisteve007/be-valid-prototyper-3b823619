@@ -200,8 +200,16 @@ const Hero = () => {
             </p>
           </div>
 
+          {/* THE VALID NETWORK - Positioned above Power Behind The Signal */}
+          <div className="mt-10 text-center md:text-left">
+            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-2 uppercase">{t('validNetwork.pill')}</p>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white">
+              {t('validNetwork.headline')}
+            </h2>
+          </div>
+
           {/* The Power Behind The Signal - Feature Cards */}
-          <div className="mt-12 w-full">
+          <div className="mt-8 w-full">
             <p className="text-xs font-mono tracking-widest text-cyan-400 mb-4 text-center md:text-left uppercase">{t('hero.powerBehind')}</p>
           </div>
         </div>

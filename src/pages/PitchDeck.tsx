@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from "recharts";
 import { 
   ArrowLeft, 
   Globe, 
@@ -491,29 +492,173 @@ const PitchDeck = () => {
               </div>
             </div>
 
-            {/* Waterfall Visual */}
+            {/* Two-Stage Financial Visualization */}
             <div className="bg-black/60 border border-white/10 rounded-xl p-6">
-              <h4 className="text-lg font-bold text-white mb-4 font-orbitron text-center">Smart-Split Waterfall</h4>
-              <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
-                <div className="bg-white/5 border border-white/20 rounded-lg p-4 min-w-[140px]">
-                  <div className="text-2xl font-bold text-white mb-1">$100</div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider">Gross Sale</div>
+              <h4 className="text-xl font-bold text-white mb-6 font-orbitron text-center">
+                Smart-Split Waterfall & Venue Pool Distribution
+              </h4>
+              
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* Stage 1: Revenue Waterfall */}
+                <div className="bg-black/40 border border-cyan-500/20 rounded-xl p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50">STAGE 1</Badge>
+                    <h5 className="text-lg font-bold text-white font-orbitron">Revenue Waterfall</h5>
+                  </div>
+                  <p className="text-sm text-gray-400 mb-4">Initial split from $100 gross sale</p>
+                  
+                  <div className="h-[280px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart
+                        data={[
+                          { name: 'Gross Sale', value: 100, start: 0 },
+                          { name: 'Promoter', value: 10, start: 90 },
+                          { name: 'VALID™ Fee', value: 60, start: 30 },
+                          { name: 'Venue Pool', value: 30, start: 0 },
+                        ]}
+                        margin={{ top: 20, right: 20, left: 20, bottom: 60 }}
+                      >
+                        <XAxis 
+                          dataKey="name" 
+                          tick={{ fill: '#9ca3af', fontSize: 11 }}
+                          axisLine={{ stroke: '#374151' }}
+                          tickLine={{ stroke: '#374151' }}
+                          angle={-15}
+                          textAnchor="end"
+                          height={60}
+                        />
+                        <YAxis 
+                          domain={[0, 110]}
+                          tick={{ fill: '#9ca3af', fontSize: 11 }}
+                          axisLine={{ stroke: '#374151' }}
+                          tickLine={{ stroke: '#374151' }}
+                          tickFormatter={(value) => `$${value}`}
+                        />
+                        <Tooltip 
+                          formatter={(value: number, name: string) => {
+                            if (name === 'start') return null;
+                            return [`$${value}`, 'Amount'];
+                          }}
+                          contentStyle={{ 
+                            backgroundColor: '#0a0a0a', 
+                            border: '1px solid #22d3ee', 
+                            borderRadius: '8px',
+                            color: '#fff'
+                          }}
+                        />
+                        <Bar dataKey="start" stackId="a" fill="transparent" />
+                        <Bar dataKey="value" stackId="a">
+                          <Cell fill="#6b7280" />
+                          <Cell fill="#f59e0b" />
+                          <Cell fill="#22d3ee" />
+                          <Cell fill="#22c55e" />
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  {/* Legend */}
+                  <div className="grid grid-cols-2 gap-2 mt-4 text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-gray-500"></div>
+                      <span className="text-gray-400">Gross Sale: $100</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-amber-500"></div>
+                      <span className="text-gray-400">Promoter: -$10</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-cyan-400"></div>
+                      <span className="text-gray-400">VALID™: -$60</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-green-500"></div>
+                      <span className="text-gray-400">Venue Pool: $30</span>
+                    </div>
+                  </div>
                 </div>
-                <ArrowRight className="h-6 w-6 text-gray-600 rotate-90 md:rotate-0" />
-                <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 min-w-[140px]">
-                  <div className="text-2xl font-bold text-amber-400 mb-1">$10</div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider">Promoter (10%)</div>
+
+                {/* Stage 2: Venue Pool Distribution */}
+                <div className="bg-black/40 border border-green-500/20 rounded-xl p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Badge className="bg-green-500/20 text-green-400 border-green-500/50">STAGE 2</Badge>
+                    <h5 className="text-lg font-bold text-white font-orbitron">Venue Pool Distribution</h5>
+                  </div>
+                  <p className="text-sm text-gray-400 mb-2">$30 pool split among participating venues</p>
+                  <p className="text-xs text-green-400 font-semibold mb-4">Weekly Pro-Rata Split</p>
+                  
+                  <div className="h-[280px] w-full relative">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={[
+                            { name: 'Venue A', value: 7.5 },
+                            { name: 'Venue B', value: 7.5 },
+                            { name: 'Venue C', value: 7.5 },
+                            { name: 'Venue D', value: 7.5 },
+                          ]}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={50}
+                          outerRadius={90}
+                          paddingAngle={3}
+                          dataKey="value"
+                          label={({ name, value }) => `${name}: $${value.toFixed(2)}`}
+                          labelLine={{ stroke: '#6b7280', strokeWidth: 1 }}
+                        >
+                          <Cell fill="#06b6d4" />
+                          <Cell fill="#8b5cf6" />
+                          <Cell fill="#f59e0b" />
+                          <Cell fill="#ec4899" />
+                        </Pie>
+                        <Tooltip 
+                          formatter={(value: number) => [`$${value.toFixed(2)} (25%)`, 'Share']}
+                          contentStyle={{ 
+                            backgroundColor: '#0a0a0a', 
+                            border: '1px solid #22c55e', 
+                            borderRadius: '8px',
+                            color: '#fff'
+                          }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                    {/* Center label overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-green-400">$30</div>
+                        <div className="text-xs text-gray-400">POOL</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Legend */}
+                  <div className="grid grid-cols-2 gap-2 text-xs mt-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-cyan-500"></div>
+                      <span className="text-gray-400">Venue A: $7.50 (25%)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-purple-500"></div>
+                      <span className="text-gray-400">Venue B: $7.50 (25%)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-amber-500"></div>
+                      <span className="text-gray-400">Venue C: $7.50 (25%)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded bg-pink-500"></div>
+                      <span className="text-gray-400">Venue D: $7.50 (25%)</span>
+                    </div>
+                  </div>
                 </div>
-                <ArrowRight className="h-6 w-6 text-gray-600 rotate-90 md:rotate-0" />
-                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-4 min-w-[140px]">
-                  <div className="text-2xl font-bold text-cyan-400 mb-1">$54</div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider">VALID (60%)</div>
-                </div>
-                <ArrowRight className="h-6 w-6 text-gray-600 rotate-90 md:rotate-0" />
-                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 min-w-[140px]">
-                  <div className="text-2xl font-bold text-green-400 mb-1">$36</div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider">Venue Pool (40%)</div>
-                </div>
+              </div>
+
+              {/* Summary */}
+              <div className="mt-6 p-4 bg-gradient-to-r from-cyan-950/30 to-green-950/30 border border-white/10 rounded-lg">
+                <p className="text-center text-gray-300 text-sm">
+                  <span className="text-white font-bold">Every dollar tracked:</span> $100 Gross → $10 Promoter → $60 VALID™ → $30 Venue Pool → 
+                  <span className="text-green-400 font-semibold"> Equal split among all participating venues</span>
+                </p>
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { Sun, Moon, Globe, Ghost, Shield, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
+import { PricingSection } from "@/components/PricingSection";
 
 
 const Index = () => {
@@ -159,6 +160,11 @@ const Index = () => {
           >
             {t('cta.loginButton')}
           </button>
+          
+          {/* PRICING CARDS - Directly below Login button */}
+          <div className="mt-12 w-full max-w-5xl mx-auto">
+            <PricingSection />
+          </div>
         </div>
       </section>
     </div>

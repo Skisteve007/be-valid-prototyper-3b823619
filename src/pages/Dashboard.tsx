@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, QrCode, Home, FlaskConical, ShieldCheck, Share2 } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, QrCode, Home, FlaskConical, ShieldCheck, Share2, Fingerprint } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab from "@/components/dashboard/ProfileTab";
@@ -35,7 +35,7 @@ const Dashboard = () => {
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
 
-  const tabs = ["profile", "certifications", "qrcode", "lab-verification", "safety-screen"];
+  const tabs = ["profile", "certifications", "qrcode", "lab-verification", "safety-screen", "verify-id"];
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -253,6 +253,14 @@ const Dashboard = () => {
                       <ShieldCheck className="h-4 w-4 mr-1.5" />
                       <span className="text-sm">Toxicology</span>
                     </TabsTrigger>
+                    <TabsTrigger 
+                      value="verify-id"
+                      className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 data-[state=active]:shadow-[0_0_15px_rgba(245,158,11,0.3)] whitespace-nowrap border border-amber-500/30 bg-amber-500/5 animate-pulse"
+                      style={{ animationDuration: '3s' }}
+                    >
+                      <Fingerprint className="h-4 w-4 mr-1.5" />
+                      <span className="text-sm font-bold">VERIFY ID</span>
+                    </TabsTrigger>
                   </TabsList>
                 </div>
               </div>
@@ -280,6 +288,36 @@ const Dashboard = () => {
                 
                 <TabsContent value="safety-screen">
                   <SafetyScreenTab userId={user.id} />
+                </TabsContent>
+                
+                <TabsContent value="verify-id">
+                  <div className="text-center py-12">
+                    <div className="mx-auto max-w-lg">
+                      <div className="h-20 w-20 mx-auto rounded-full bg-amber-500/20 border-2 border-amber-500/50 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+                        <Fingerprint className="h-10 w-10 text-amber-400" />
+                      </div>
+                      <h2 className="text-2xl font-bold text-white mb-3">Official Identity Verification</h2>
+                      <p className="text-[#E0E0E0]/70 mb-6 leading-relaxed">
+                        Anchor your identity with a government-issued ID (Driver's License or Passport). 
+                        Your verification creates an <span className="text-amber-400 font-semibold">Encrypted Verified Hash</span>—we never store raw documents.
+                      </p>
+                      <div className="bg-black/40 border border-white/10 rounded-xl p-4 mb-6 text-left">
+                        <h3 className="font-bold text-white mb-2 text-sm">Have Ready:</h3>
+                        <ul className="text-sm text-[#E0E0E0]/70 space-y-1">
+                          <li>✓ Valid Driver's License or Passport</li>
+                          <li>✓ Good lighting for document capture</li>
+                          <li>✓ Camera access for liveness check</li>
+                        </ul>
+                      </div>
+                      <Button
+                        onClick={() => navigate("/idv-verification")}
+                        className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold py-3 shadow-[0_0_25px_rgba(245,158,11,0.4)] rounded-xl"
+                      >
+                        <Fingerprint className="h-5 w-5 mr-2" />
+                        START CERTIFICATION
+                      </Button>
+                    </div>
+                  </div>
                 </TabsContent>
               </div>
             </Tabs>

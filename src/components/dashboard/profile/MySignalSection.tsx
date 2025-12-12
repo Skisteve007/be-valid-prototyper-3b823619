@@ -600,12 +600,13 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
                             key={d.value}
                             type="button"
                             onClick={() => setLocationDuration(d.value)}
-                            className={`py-1.5 px-2.5 rounded text-xs transition-all ${
+                            className={`py-1.5 px-2.5 rounded text-xs transition-all flex items-center gap-1 ${
                               locationDuration === d.value
                                 ? "bg-red-500 text-white"
                                 : "bg-card border border-border text-foreground hover:border-red-400/50"
                             } ${d.value === "0.033" ? "text-purple-400 font-semibold" : ""}`}
                           >
+                            {d.value === "0.033" && <Ghost className="w-3 h-3" />}
                             {d.sublabel || d.label}
                           </button>
                         ))}

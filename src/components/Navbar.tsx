@@ -21,7 +21,7 @@ const Navbar = () => {
         
         {/* Beta Version Pill - Center */}
         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2">
-          <span className="px-3 py-1 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
+          <span className="px-3 py-1 text-[10px] md:text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
             Beta Version
           </span>
         </div>

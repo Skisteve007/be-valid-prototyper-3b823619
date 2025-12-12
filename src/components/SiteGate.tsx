@@ -129,9 +129,14 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
             <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 mb-4">
               <Shield className="h-8 w-8 text-cyan-400" />
             </div>
-            <h1 className="text-3xl font-bold font-orbitron text-white mb-2">
-              VALID<sup className="text-sm text-cyan-400">™</sup>
-            </h1>
+            <div className="flex items-center justify-center gap-2">
+              <h1 className="text-3xl font-bold font-orbitron text-white">
+                VALID<sup className="text-sm text-cyan-400">™</sup>
+              </h1>
+              <span className="px-2 py-0.5 text-[8px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
+                Beta
+              </span>
+            </div>
             <p className="text-gray-400 text-sm">Secure Access Portal</p>
           </div>
 

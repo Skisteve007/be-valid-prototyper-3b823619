@@ -311,7 +311,7 @@ export const PersonalInfoSection = ({
                 {/* Share Icons Section - Right side on desktop */}
                 <div className="hidden md:flex flex-col items-center justify-center p-3 rounded-lg border border-white/10 bg-white/5">
                   <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2">CHOOSE YOUR SHARE</p>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="flex gap-2">
                     {/* ID Toggle */}
                     <button
                       type="button"

@@ -123,7 +123,7 @@ const Hero = () => {
       </nav>
 
       {/* 2. MAIN CONTENT */}
-      <div className="flex-1 flex flex-col md:flex-row items-center md:items-start justify-start w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 z-10 gap-8 md:gap-16 mt-4">
+      <div className="flex-1 flex flex-col md:flex-row items-center md:items-start justify-start w-full px-[15px] md:px-6 z-10 gap-8 md:gap-16 mt-4">
         
         {/* LEFT: THE PITCH */}
         <div className="flex-1 text-center md:text-left order-2 md:order-1">

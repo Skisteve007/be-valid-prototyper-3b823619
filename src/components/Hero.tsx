@@ -94,7 +94,7 @@ const Hero = () => {
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
       
       {/* 1. NAVBAR - Fixed mobile visibility with proper vertical centering */}
-      <nav className="w-full px-[15px] md:px-6 pt-8 pb-5 md:pt-10 md:pb-6 z-50 relative">
+      <nav className="w-full px-[15px] md:px-6 pt-14 pb-5 md:pt-16 md:pb-6 z-50 relative">
         {/* Mobile: Single row with logo centered, actions on right */}
         <div className="flex items-center justify-between md:justify-between gap-2 min-h-[48px]">
           {/* Spacer for mobile to center logo */}

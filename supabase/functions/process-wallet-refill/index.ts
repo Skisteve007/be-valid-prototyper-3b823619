@@ -84,7 +84,7 @@ serve(async (req) => {
         const resend = new Resend(resendApiKey);
         
         await resend.emails.send({
-          from: "VALID™ <noreply@bevalid.app>",
+          from: "VALID™ <admin@bevalid.app>",
           to: [user.email],
           subject: "Wallet Funded Successfully - VALID™",
           html: `

@@ -406,7 +406,7 @@ const Partners = () => {
                 </div>
                 
                 <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed mb-8 tracking-[0.04em]">
-                  VALID™ operates as a <strong className="text-cyan-400">cryptographic relay</strong>. We deliver encrypted verification tokens—never raw data. When a patron scans at your door, you receive a simple <span className="text-green-400 font-bold text-3xl">VERIFIED</span> or <span className="text-red-400 font-bold text-3xl">NOT VERIFIED</span> signal.
+                  VALID™ operates as a <strong className="text-cyan-400">cryptographic relay</strong>. We deliver encrypted verification tokens—never raw data. When a patron scans at your entry, you receive a simple <span className="text-green-400 font-bold text-3xl">VERIFIED</span> or <span className="text-red-400 font-bold text-3xl">NOT VERIFIED</span> signal.
                 </p>
                 
                 <p className="text-xl text-gray-300 mb-8 tracking-wide">

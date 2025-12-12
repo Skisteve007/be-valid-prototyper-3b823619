@@ -84,21 +84,41 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    const checkEmailVerification = async (userId: string) => {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("email_verified")
+        .eq("user_id", userId)
+        .single();
+      
+      if (!profile?.email_verified) {
+        toast.error("Please verify your email before accessing the dashboard.");
+        navigate("/auth?mode=login");
+        return false;
+      }
+      return true;
+    };
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         if (!session) {
           navigate("/auth");
+        } else {
+          await checkEmailVerification(session.user.id);
         }
       }
     );
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       if (!session) {
         navigate("/auth");
+      } else {
+        const isVerified = await checkEmailVerification(session.user.id);
+        if (!isVerified) return;
       }
       setLoading(false);
     });

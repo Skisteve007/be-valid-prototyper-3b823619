@@ -13,7 +13,7 @@ const InvestorDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // --- AUTH CHECK (requires email confirmation) ---
+  // --- AUTH CHECK (requires email verification via custom system) ---
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -22,9 +22,15 @@ const InvestorDashboard = () => {
         return;
       }
       
-      // Check if email is confirmed
-      if (!session.user.email_confirmed_at) {
-        navigate('/auth?mode=verify');
+      // Check if email is verified via our custom system
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("email_verified")
+        .eq("user_id", session.user.id)
+        .single();
+      
+      if (!profile?.email_verified) {
+        navigate('/auth?mode=login');
         return;
       }
       
@@ -34,14 +40,22 @@ const InvestorDashboard = () => {
 
     checkAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (!session) {
         navigate('/auth');
-      } else if (!session.user.email_confirmed_at) {
-        navigate('/auth?mode=verify');
       } else {
-        setIsAuthenticated(true);
-        setLoading(false);
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("email_verified")
+          .eq("user_id", session.user.id)
+          .single();
+        
+        if (!profile?.email_verified) {
+          navigate('/auth?mode=login');
+        } else {
+          setIsAuthenticated(true);
+          setLoading(false);
+        }
       }
     });
 

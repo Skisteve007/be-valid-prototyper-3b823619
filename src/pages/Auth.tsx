@@ -64,6 +64,9 @@ const Auth = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (loading) return;
+    
     setLoading(true);
 
     try {
@@ -72,14 +75,17 @@ const Auth = () => {
         password: loginPassword,
       });
 
-      if (error) throw error;
+      if (error) {
+        setLoading(false);
+        toast.error(error.message || "Login failed");
+        return;
+      }
 
       toast.success("Welcome back!");
-      navigate("/investor-dashboard");
+      navigate("/dashboard");
     } catch (error: any) {
-      toast.error(error.message || "Login failed");
-    } finally {
       setLoading(false);
+      toast.error(error.message || "Login failed");
     }
   };
 
@@ -276,9 +282,9 @@ const Auth = () => {
                         type="button" 
                         variant="outline"
                         onClick={() => navigate("/access-portal")}
-                        className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
+                        className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis px-4"
                       >
-                        New member? Sign up here
+                        New member? Sign up
                       </Button>
                     </div>
                   </form>

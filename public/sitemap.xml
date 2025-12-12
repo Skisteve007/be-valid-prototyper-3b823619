@@ -2,61 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Core Pages -->
   <url>
-    <loc>https://bevalid.app/</loc>
+    <loc>https://www.bevalid.app/</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/auth</loc>
+    <loc>https://www.bevalid.app/auth</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/partners</loc>
+    <loc>https://www.bevalid.app/partners</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/compliance</loc>
+    <loc>https://www.bevalid.app/compliance</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/partner-application</loc>
+    <loc>https://www.bevalid.app/partner-application</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/pitch-deck</loc>
+    <loc>https://www.bevalid.app/pitch-deck</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/security-compliance</loc>
+    <loc>https://www.bevalid.app/security-compliance</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/terms</loc>
+    <loc>https://www.bevalid.app/terms</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/privacy</loc>
+    <loc>https://www.bevalid.app/privacy</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/refund</loc>
+    <loc>https://www.bevalid.app/refund</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -64,79 +64,79 @@
   
   <!-- USA Venue Landing Pages -->
   <url>
-    <loc>https://bevalid.app/venues/club-space-miami</loc>
+    <loc>https://www.bevalid.app/venues/club-space-miami</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/e11even-miami</loc>
+    <loc>https://www.bevalid.app/venues/e11even-miami</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/liv-miami</loc>
+    <loc>https://www.bevalid.app/venues/liv-miami</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/story-miami</loc>
+    <loc>https://www.bevalid.app/venues/story-miami</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/basement-miami</loc>
+    <loc>https://www.bevalid.app/venues/basement-miami</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/exchange-miami</loc>
+    <loc>https://www.bevalid.app/venues/exchange-miami</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/xs-nightclub-las-vegas</loc>
+    <loc>https://www.bevalid.app/venues/xs-nightclub-las-vegas</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/omnia-las-vegas</loc>
+    <loc>https://www.bevalid.app/venues/omnia-las-vegas</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/hakkasan-las-vegas</loc>
+    <loc>https://www.bevalid.app/venues/hakkasan-las-vegas</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/marquee-las-vegas</loc>
+    <loc>https://www.bevalid.app/venues/marquee-las-vegas</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/tao-las-vegas</loc>
+    <loc>https://www.bevalid.app/venues/tao-las-vegas</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/avant-gardner-brooklyn</loc>
+    <loc>https://www.bevalid.app/venues/avant-gardner-brooklyn</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/sound-los-angeles</loc>
+    <loc>https://www.bevalid.app/venues/sound-los-angeles</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -144,55 +144,55 @@
   
   <!-- Colombia Venue Landing Pages -->
   <url>
-    <loc>https://bevalid.app/venues/theatron-bogota</loc>
+    <loc>https://www.bevalid.app/venues/theatron-bogota</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/armando-records-bogota</loc>
+    <loc>https://www.bevalid.app/venues/armando-records-bogota</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/baum-bogota</loc>
+    <loc>https://www.bevalid.app/venues/baum-bogota</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/la-house-provenza-medellin</loc>
+    <loc>https://www.bevalid.app/venues/la-house-provenza-medellin</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/envy-rooftop-medellin</loc>
+    <loc>https://www.bevalid.app/venues/envy-rooftop-medellin</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/salon-amador-medellin</loc>
+    <loc>https://www.bevalid.app/venues/salon-amador-medellin</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/cafe-havana-cartagena</loc>
+    <loc>https://www.bevalid.app/venues/cafe-havana-cartagena</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/alquimico-cartagena</loc>
+    <loc>https://www.bevalid.app/venues/alquimico-cartagena</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/bazurto-social-club-cartagena</loc>
+    <loc>https://www.bevalid.app/venues/bazurto-social-club-cartagena</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -200,31 +200,31 @@
   
   <!-- Spain Venue Landing Pages -->
   <url>
-    <loc>https://bevalid.app/venues/amnesia-ibiza</loc>
+    <loc>https://www.bevalid.app/venues/amnesia-ibiza</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/pacha-ibiza</loc>
+    <loc>https://www.bevalid.app/venues/pacha-ibiza</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/ushuaia-ibiza</loc>
+    <loc>https://www.bevalid.app/venues/ushuaia-ibiza</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/hi-ibiza</loc>
+    <loc>https://www.bevalid.app/venues/hi-ibiza</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/dc10-ibiza</loc>
+    <loc>https://www.bevalid.app/venues/dc10-ibiza</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -232,13 +232,13 @@
   
   <!-- Brazil Venue Landing Pages -->
   <url>
-    <loc>https://bevalid.app/venues/green-valley-camboriu</loc>
+    <loc>https://www.bevalid.app/venues/green-valley-camboriu</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/d-edge-sao-paulo</loc>
+    <loc>https://www.bevalid.app/venues/d-edge-sao-paulo</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -246,19 +246,19 @@
   
   <!-- Germany Venue Landing Pages -->
   <url>
-    <loc>https://bevalid.app/venues/berghain-berlin</loc>
+    <loc>https://www.bevalid.app/venues/berghain-berlin</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/tresor-berlin</loc>
+    <loc>https://www.bevalid.app/venues/tresor-berlin</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bevalid.app/venues/watergate-berlin</loc>
+    <loc>https://www.bevalid.app/venues/watergate-berlin</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

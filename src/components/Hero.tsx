@@ -145,13 +145,18 @@ const Hero = () => {
               <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
             </p>
 
-            {/* CTA Button */}
-            <button 
-              onClick={handleAccessClick}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 mb-8"
-            >
-              {t('hero.claimId')} <ArrowRight size={14} />
-            </button>
+            {/* CTA Button + Beta Pill */}
+            <div className="flex items-center gap-3 mb-8">
+              <button 
+                onClick={handleAccessClick}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105"
+              >
+                {t('hero.claimId')} <ArrowRight size={14} />
+              </button>
+              <span className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
+                Beta
+              </span>
+            </div>
 
             {/* Signal Mode Selection */}
             <div className="mb-8">

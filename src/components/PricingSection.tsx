@@ -44,13 +44,12 @@ export const PricingSection = () => {
         .pricing-grid-container {
           display: flex;
           flex-direction: row;
-          flex-wrap: nowrap;
-          gap: 24px;
-          padding: 20px 32px;
+          flex-wrap: wrap;
+          gap: 20px;
+          padding: 20px 16px;
           justify-content: center;
-          overflow-x: auto;
+          max-width: 1200px;
           margin: 0 auto;
-          max-width: 100%;
         }
         .pricing-card {
           border: 1px solid rgba(0, 240, 255, 0.3);
@@ -62,9 +61,8 @@ export const PricingSection = () => {
           flex-direction: column;
           justify-content: space-between;
           min-height: 340px;
-          flex: 1;
-          min-width: 220px;
-          max-width: 280px;
+          width: calc(25% - 20px);
+          min-width: 200px;
           position: relative;
           overflow: hidden;
           animation: border-glow 3s ease-in-out infinite;

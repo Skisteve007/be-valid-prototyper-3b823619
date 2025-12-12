@@ -123,10 +123,10 @@ const Hero = () => {
       </nav>
 
       {/* 2. MAIN CONTENT */}
-      <div className="flex-1 flex flex-col md:flex-row items-start justify-start w-full px-[15px] md:px-6 z-10 gap-8 md:gap-12 mt-4">
+      <div className="flex-1 flex flex-col md:flex-row items-start justify-start w-full px-[15px] md:px-8 lg:px-12 z-10 gap-8 md:gap-12 mt-4">
         
         {/* LEFT: THE PITCH */}
-        <div className="flex-1 text-left order-2 md:order-1">
+        <div className="flex-1 text-left order-2 md:order-1 md:pl-0 lg:pl-4">
           
           {/* TAG: SYNTHESIZED AI with typing effect */}
           <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded-lg text-xs font-mono tracking-widest text-cyan-400">

@@ -292,19 +292,15 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
 
         {/* Google Link - Shows after venue selection */}
         {selectedVenueUrl && (
-          <Button
-            onClick={() => {
-              try {
-                (window.top || window).open(selectedVenueUrl, '_blank');
-              } catch {
-                window.location.href = selectedVenueUrl;
-              }
-            }}
-            className="w-full py-3 h-auto"
+          <a
+            href={selectedVenueUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-3 h-auto rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
           >
             <ExternalLink className="h-4 w-4" />
             View {selectedVenueName} on Google
-          </Button>
+          </a>
         )}
       </div>
     </div>

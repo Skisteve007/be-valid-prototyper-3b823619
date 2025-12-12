@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock, MapPinOff, Navigation, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings } from "lucide-react";
+import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock, MapPinOff, Navigation, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings, MessageSquare } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -137,6 +137,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const [staticDuration, setStaticDuration] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
   const [broadcastActive, setBroadcastActive] = useState(false);
+  const [broadcastMessage, setBroadcastMessage] = useState("");
   const [simulateVenue, setSimulateVenue] = useState(false);
   const [showDevSettings, setShowDevSettings] = useState(false);
   const qrRef = useRef<HTMLDivElement>(null);
@@ -169,29 +170,55 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
     }
   };
 
-  // Render dynamic watermark based on venue status
+  // Render dynamic watermark based on venue status and broadcast message
   const renderBroadcastWatermark = () => {
-    if (currentVenue) {
-      // Venue branding mode
+    const hasMessage = broadcastMessage.trim().length > 0;
+    
+    // If custom broadcast message exists, show it prominently with suppressed watermark
+    if (hasMessage) {
       return (
-        <div className="flex flex-col items-center gap-4">
-          {/* Venue Logo - use Crown as placeholder */}
-          <div className="w-40 h-40 rounded-full border-4 border-white/20 flex items-center justify-center">
-            <Crown className="w-24 h-24 text-white opacity-25" />
-          </div>
-          <span className="text-white/25 text-2xl font-bold tracking-widest text-center">
-            {currentVenue.name.toUpperCase()}
+        <div className="flex flex-col items-center justify-center gap-6 px-8 max-w-[90vw]">
+          {/* Custom broadcast message - LARGE and center-screen */}
+          <span className="text-white text-4xl md:text-6xl font-bold text-center leading-tight tracking-wide break-words">
+            {broadcastMessage}
           </span>
-          <span className="text-white/15 text-sm tracking-wider">VALID™ VERIFIED</span>
+          {/* Suppressed watermark - minimal opacity 5-10% */}
+          <div className="absolute bottom-24 left-1/2 -translate-x-1/2">
+            {currentVenue ? (
+              <div className="flex items-center gap-2 opacity-[0.08]">
+                <Crown className="w-6 h-6 text-white" />
+                <span className="text-white text-xs font-bold tracking-widest">{currentVenue.name.toUpperCase()}</span>
+              </div>
+            ) : (
+              <Ghost className="w-10 h-10 text-white opacity-[0.08]" />
+            )}
+          </div>
         </div>
       );
     }
 
-    // Default Ghost/Valid branding
+    // No custom message - MAXIMIZE watermark for marketing visibility
+    if (currentVenue) {
+      // Venue branding mode - LARGE
+      return (
+        <div className="flex flex-col items-center gap-6">
+          {/* Venue Logo - MAXIMIZED size */}
+          <div className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-white/20 flex items-center justify-center">
+            <Crown className="w-40 h-40 md:w-52 md:h-52 text-white opacity-30" />
+          </div>
+          <span className="text-white/30 text-3xl md:text-4xl font-bold tracking-widest text-center">
+            {currentVenue.name.toUpperCase()}
+          </span>
+          <span className="text-white/20 text-sm md:text-base tracking-wider">VALID™ VERIFIED</span>
+        </div>
+      );
+    }
+
+    // Default Ghost/Valid branding - MAXIMIZED
     return (
-      <div className="flex flex-col items-center gap-4">
-        <Ghost className="w-40 h-40 text-white opacity-20" />
-        <span className="text-white/20 text-2xl font-bold tracking-widest">VALID™</span>
+      <div className="flex flex-col items-center gap-6">
+        <Ghost className="w-64 h-64 md:w-80 md:h-80 text-white opacity-25" />
+        <span className="text-white/25 text-3xl md:text-4xl font-bold tracking-widest">VALID™</span>
       </div>
     );
   };
@@ -894,6 +921,24 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           {/* Broadcast & Share Controls */}
           {selectedMode && (
             <div className="mt-6 pt-4 border-t border-border space-y-4">
+              {/* Broadcast Message Input - VISIBLE AND CLEAR */}
+              <div className="space-y-2">
+                <Label className="text-xs font-medium text-foreground flex items-center gap-2">
+                  <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
+                  Broadcast Message (Optional)
+                </Label>
+                <Input
+                  value={broadcastMessage}
+                  onChange={(e) => setBroadcastMessage(e.target.value)}
+                  placeholder="Enter a short message to display..."
+                  maxLength={50}
+                  className="bg-background border-border text-foreground placeholder:text-muted-foreground"
+                />
+                <p className="text-[10px] text-muted-foreground">
+                  This text will appear large and center-screen on the broadcast beacon.
+                </p>
+              </div>
+
               {/* Broadcast Signal Toggle */}
               <div className="flex items-center justify-between p-3 rounded-lg bg-card/50 border border-border">
                 <div className="flex items-center gap-3">
@@ -959,11 +1004,10 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
         </CardContent>
       </Card>
 
-      {/* Broadcast Overlay - Full Screen Glow Mode */}
+      {/* Broadcast Overlay - Full Screen Glow Mode - TAP RESISTANT */}
       {broadcastActive && (
         <div
-          onClick={() => setBroadcastActive(false)}
-          className={`fixed inset-0 z-[9999] ${getBroadcastColor()} flex items-center justify-center cursor-pointer animate-fade-in`}
+          className={`fixed inset-0 z-[9999] ${getBroadcastColor()} flex items-center justify-center animate-fade-in`}
           style={{
             position: 'fixed',
             top: 0,
@@ -972,24 +1016,29 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             bottom: 0,
             minHeight: '100vh',
             minWidth: '100vw',
+            touchAction: 'none', // Prevent touch interactions
+            userSelect: 'none', // Prevent text selection
           }}
         >
           {/* Dynamic Watermark - Venue or Ghost Logo */}
           {renderBroadcastWatermark()}
           
           {/* Venue indicator badge */}
-          {currentVenue && (
+          {currentVenue && !broadcastMessage.trim() && (
             <div className="absolute top-10 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm">
               <Building2 className="w-4 h-4 text-white/60" />
               <span className="text-white/60 text-sm font-medium">{currentVenue.name}</span>
             </div>
           )}
           
-          {/* Close hint */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-            <X className="w-6 h-6 text-white/30" />
-            <span className="text-white/30 text-xs">Tap anywhere to exit</span>
-          </div>
+          {/* STOP BROADCAST Button - ONLY way to exit */}
+          <button
+            onClick={() => setBroadcastActive(false)}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full shadow-lg transition-all active:scale-95"
+          >
+            <X className="w-5 h-5" />
+            STOP BROADCAST
+          </button>
         </div>
       )}
 

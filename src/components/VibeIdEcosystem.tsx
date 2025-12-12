@@ -131,6 +131,13 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               ${isDark ? 'text-cyan-400' : 'text-slate-600'}`}>
               {description}
             </p>
+            
+            {/* Adaptive Profile Sub-headline */}
+            <p className={`text-base leading-relaxed max-w-xl
+              ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
+              {t('hero.adaptiveProfile')} <span className={isDark ? 'text-white font-bold' : 'text-slate-900 font-bold'}>{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
+              <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
+            </p>
           </div>
 
           {/* RIGHT: Holographic Display */}

@@ -117,7 +117,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
             ${isDark ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10' : 'border-blue-600/30 text-blue-600 bg-blue-50'}`}>
             {t('network.title')}
           </div>
-          <h2 className={`text-3xl md:text-5xl font-black mb-0 font-orbitron
+          <h2 className={`text-2xl md:text-4xl lg:text-5xl font-black mb-0 font-orbitron whitespace-nowrap
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
             {headline} <span className="text-cyan-400">{headlineSuffix}</span>
           </h2>

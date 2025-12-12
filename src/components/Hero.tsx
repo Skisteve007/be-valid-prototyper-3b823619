@@ -93,15 +93,15 @@ const Hero = () => {
   return (
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
       
-      {/* 1. NAVBAR - Fixed mobile visibility */}
-      <nav className="w-full px-[15px] md:px-6 py-[10px] md:py-6 z-50 relative">
+      {/* 1. NAVBAR - Fixed mobile visibility with proper vertical centering */}
+      <nav className="w-full px-[15px] md:px-6 py-5 md:py-6 z-50 relative">
         {/* Mobile: Single row with logo centered, actions on right */}
-        <div className="flex items-center justify-between md:justify-between gap-2">
+        <div className="flex items-center justify-between md:justify-between gap-2 min-h-[48px]">
           {/* Spacer for mobile to center logo */}
           <div className="w-[80px] md:hidden" />
           
-          {/* THE LOGO - Centered on mobile via flex */}
-          <div className="text-xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer flex-shrink-0">
+          {/* THE LOGO - Centered on mobile via flex, vertically centered */}
+          <div className="text-xl md:text-4xl font-black font-orbitron tracking-[0.1em] md:tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)] cursor-pointer flex-shrink-0 flex items-center">
             VALID<sup className="text-[8px] md:text-sm text-cyan-400">™</sup>
           </div>
           

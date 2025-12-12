@@ -58,7 +58,9 @@ const Auth = () => {
         if (profile?.email_verified) {
           navigate("/investor-dashboard");
         } else {
-          // User is logged in but email not verified
+          // User is logged in but email not verified - sign them out
+          await supabase.auth.signOut();
+          setVerificationUserId(session.user.id);
           setVerificationEmail(session.user.email || "");
           setShowEmailVerification(true);
         }

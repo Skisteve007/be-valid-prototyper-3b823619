@@ -444,7 +444,14 @@ const GhostPassModal = ({
           }}
         >
           {/* Modal Container with Dark Blur */}
-          <div className="relative rounded-3xl overflow-hidden">
+          <div 
+            className="relative rounded-3xl overflow-hidden"
+            style={{
+              border: '2px solid rgba(255, 215, 0, 0.6)',
+              boxShadow: '0 0 15px rgba(255, 215, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.15)',
+              animation: 'yellowGlowPulse 2.5s ease-in-out infinite',
+            }}
+          >
             {/* Glassmorphism Background */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" />
             
@@ -839,6 +846,17 @@ const GhostPassModal = ({
           }
           100% {
             opacity: 1;
+          }
+        }
+
+        @keyframes yellowGlowPulse {
+          0%, 100% {
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.25), 0 0 25px rgba(255, 215, 0, 0.1);
+          }
+          50% {
+            border-color: rgba(255, 215, 0, 0.8);
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.4), 0 0 35px rgba(255, 215, 0, 0.2);
           }
         }
       `}</style>

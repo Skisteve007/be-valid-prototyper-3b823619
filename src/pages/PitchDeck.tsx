@@ -45,7 +45,10 @@ import logo from "@/assets/valid-logo.jpeg";
 const PitchDeck = () => {
   const navigate = useNavigate();
   const [displayedText, setDisplayedText] = useState('');
+  const [futureReadyText, setFutureReadyText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
   const fullText = 'POWERED BY SYNTHESIZED AI';
+  const futureText = '2027 FUTURE READY';
   
   useEffect(() => {
     let currentIndex = 0;
@@ -59,6 +62,30 @@ const PitchDeck = () => {
     }, 80);
     
     return () => clearInterval(typingInterval);
+  }, []);
+
+  // Typing animation for 2027 FUTURE READY
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= futureText.length) {
+        setFutureReadyText(futureText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 150); // Slower for dramatic effect
+    
+    return () => clearInterval(typingInterval);
+  }, []);
+
+  // Blinking cursor effect
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+    
+    return () => clearInterval(cursorInterval);
   }, []);
 
   const metrics = [
@@ -720,18 +747,21 @@ const PitchDeck = () => {
         <section className="relative py-16">
           <div className="text-center">
             {/* Animated Typing Block */}
-            <div className="bg-black/60 backdrop-blur-xl border border-cyan-500/40 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-[0_0_60px_rgba(0,240,255,0.15)]">
-              <div className="font-mono text-left space-y-4">
-                {/* Line 1 - Primary */}
-                <div className="overflow-hidden">
-                  <p className="text-3xl md:text-5xl font-bold text-cyan-400 animate-[typing_2s_steps(20)_forwards] whitespace-nowrap overflow-hidden border-r-4 border-cyan-400" style={{ width: '0', animation: 'typing 2s steps(20) forwards, blink 0.75s step-end infinite' }}>
-                    {'> 2027 FUTURE READY_'}
+            <div className="bg-black/80 backdrop-blur-xl border border-cyan-500/50 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto shadow-[0_0_80px_rgba(0,240,255,0.2)]">
+              <div className="font-mono text-center space-y-6">
+                {/* Line 1 - Typing Animation */}
+                <div className="min-h-[60px] md:min-h-[80px] flex items-center justify-center">
+                  <p className="text-4xl md:text-6xl font-bold text-cyan-400 tracking-wider">
+                    <span className="text-cyan-500/70">&gt; </span>
+                    {futureReadyText}
+                    <span className={`inline-block w-[4px] h-[1em] bg-cyan-400 ml-1 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`}></span>
                   </p>
                 </div>
-                {/* Line 2 - Secondary */}
-                <div className="overflow-hidden">
-                  <p className="text-xl md:text-3xl font-semibold text-white animate-[typing_3s_steps(40)_1s_forwards] whitespace-nowrap overflow-hidden border-r-4 border-white" style={{ width: '0', animation: 'typing 3s steps(40) 2s forwards, blink 0.75s step-end infinite 2s' }}>
-                    {'> SPATIAL VALID: Your Spatial Verification Partner_'}
+                
+                {/* Line 2 - Static */}
+                <div className="pt-4 border-t border-cyan-500/20">
+                  <p className="text-xl md:text-2xl font-semibold text-white tracking-wide">
+                    VALID<sup className="text-cyan-400 text-sm">™</sup>: Your Spatial Verification Partner
                   </p>
                 </div>
               </div>
@@ -744,17 +774,6 @@ const PitchDeck = () => {
               </div>
             </div>
           </div>
-          
-          {/* CSS for typing animation */}
-          <style>{`
-            @keyframes typing {
-              from { width: 0; }
-              to { width: 100%; }
-            }
-            @keyframes blink {
-              50% { border-color: transparent; }
-            }
-          `}</style>
         </section>
 
         {/* ===== BEYOND THE QR: SENSING ROADMAP ===== */}

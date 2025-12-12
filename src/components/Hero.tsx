@@ -205,9 +205,8 @@ const Hero = () => {
             <div className="inline-block px-6 py-2 mb-2 border rounded-full text-sm font-mono tracking-[0.2em] uppercase border-cyan-500/30 text-cyan-400 bg-cyan-500/10">
               {t('network.title')}
             </div>
-            <h2 className="text-3xl md:text-5xl font-black mb-0 font-orbitron text-white flex flex-wrap items-center gap-x-4 justify-center md:justify-start">
-              <span>{t('network.headline')}</span>
-              <span>{t('network.headlineSuffix')}</span>
+            <h2 className="text-2xl md:text-5xl font-black mb-0 font-orbitron text-white whitespace-nowrap">
+              {t('network.headline')} {t('network.headlineSuffix')}
             </h2>
           </div>
 

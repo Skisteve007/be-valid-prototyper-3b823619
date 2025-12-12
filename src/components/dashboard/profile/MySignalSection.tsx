@@ -541,12 +541,12 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
     <>
       <Card className="bg-card border-border shadow-sm">
         <CardContent className="p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-4">
+          <div className="flex flex-col gap-1 mb-4">
             <div className="flex items-center gap-2">
-              <Radio className="w-5 h-5 text-cyan-400" />
+              <Radio className="w-5 h-5 text-cyan-400 flex-shrink-0" />
               <h3 className="text-lg font-semibold text-cyan-400">MY SIGNAL</h3>
-              <span className="text-xs text-cyan-400/80">• Select a signal mode to customize your vibe</span>
             </div>
+            <span className="text-xs text-cyan-400/80 pl-7">Select a signal mode to customize your vibe</span>
           </div>
 
           {/* 5-Button Grid with Descriptions */}
@@ -555,25 +555,25 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <button
               type="button"
               onClick={() => handleModeSelect("social")}
-              className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+              className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 min-h-[140px] overflow-hidden ${
                 selectedMode === "social"
                   ? "border-cyan-400 bg-cyan-500/20 shadow-[0_0_15px_rgba(0,240,255,0.4)]"
                   : "border-cyan-400/50 bg-card hover:border-cyan-400 hover:bg-cyan-500/10"
               }`}
             >
               <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-1000 ${
                   selectedMode === "social" ? "bg-cyan-500 animate-[breathe-cyan_2s_ease-in-out_infinite]" : "bg-cyan-500/20"
                 }`}
                 style={selectedMode === "social" ? {
                   animation: "breathe-cyan 2s ease-in-out infinite",
                 } : undefined}
               >
-                <Users className={`w-6 h-6 ${selectedMode === "social" ? "text-white" : "text-cyan-400"}`} />
+                <Users className={`w-5 h-5 ${selectedMode === "social" ? "text-white" : "text-cyan-400"}`} />
               </div>
-              <span className="font-semibold text-foreground">SOCIAL</span>
-              <p className="text-xs text-muted-foreground text-center leading-snug mt-1">
-                Open to connect. Share contacts and socials with one scan.
+              <span className="font-semibold text-foreground text-sm">SOCIAL</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight line-clamp-3 px-1">
+                Open to connect. Share contacts and socials.
               </p>
             </button>
             <style>{`
@@ -603,28 +603,28 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <button
               type="button"
               onClick={() => handleModeSelect("pulse")}
-              className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+              className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 min-h-[140px] overflow-hidden ${
                 selectedMode === "pulse"
                   ? "border-green-400 bg-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.4)]"
                   : "border-green-400/50 bg-card hover:border-green-400 hover:bg-green-500/10"
               }`}
             >
-              <div className="relative flex items-center gap-2">
+              <div className="relative flex items-center gap-1">
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                  className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-1000 ${
                     selectedMode === "pulse" ? "bg-green-500" : "bg-green-500/20"
                   }`}
                   style={selectedMode === "pulse" ? {
                     animation: "breathe-green 2s ease-in-out infinite",
                   } : undefined}
                 >
-                  <Activity className={`w-6 h-6 ${selectedMode === "pulse" ? "text-white" : "text-green-400"}`} />
+                  <Activity className={`w-5 h-5 ${selectedMode === "pulse" ? "text-white" : "text-green-400"}`} />
                 </div>
-                <span className="text-[9px] font-bold text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded-full border border-green-400/50">18+</span>
+                <span className="text-[8px] font-bold text-green-400 bg-green-500/20 px-1 py-0.5 rounded-full border border-green-400/50">18+</span>
               </div>
-              <span className="font-semibold text-foreground">PULSE</span>
-              <p className="text-xs text-muted-foreground text-center leading-snug">
-                High energy. Broadcast your preferences and health verified badge.
+              <span className="font-semibold text-foreground text-sm">PULSE</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight line-clamp-3 px-1">
+                High energy. Broadcast preferences.
               </p>
             </button>
 
@@ -632,25 +632,25 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <button
               type="button"
               onClick={() => handleModeSelect("thrill")}
-              className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+              className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 min-h-[140px] overflow-hidden ${
                 selectedMode === "thrill"
                   ? "border-orange-400 bg-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.4)]"
                   : "border-orange-400/50 bg-card hover:border-orange-400 hover:bg-orange-500/10"
               }`}
             >
               <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-1000 ${
                   selectedMode === "thrill" ? "bg-orange-500" : "bg-orange-500/20"
                 }`}
                 style={selectedMode === "thrill" ? {
                   animation: "breathe-orange 2s ease-in-out infinite",
                 } : undefined}
               >
-                <Zap className={`w-6 h-6 ${selectedMode === "thrill" ? "text-white" : "text-orange-400"}`} />
+                <Zap className={`w-5 h-5 ${selectedMode === "thrill" ? "text-white" : "text-orange-400"}`} />
               </div>
-              <span className="font-semibold text-foreground">THRILL</span>
-              <p className="text-xs text-muted-foreground text-center leading-snug mt-1">
-                Adventure ready. Payments pre-loaded and identity verification.
+              <span className="font-semibold text-foreground text-sm">THRILL</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight line-clamp-3 px-1">
+                Adventure ready. Payments pre-loaded.
               </p>
             </button>
 
@@ -658,28 +658,28 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <button
               type="button"
               onClick={() => handleModeSelect("afterdark")}
-              className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+              className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 min-h-[140px] overflow-hidden ${
                 selectedMode === "afterdark"
                   ? "border-purple-400 bg-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.4)]"
                   : "border-purple-400/50 bg-card hover:border-purple-400 hover:bg-purple-500/10"
               }`}
             >
-              <div className="relative flex items-center gap-2">
+              <div className="relative flex items-center gap-1">
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                  className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-1000 ${
                     selectedMode === "afterdark" ? "bg-purple-500" : "bg-purple-500/20"
                   }`}
                   style={selectedMode === "afterdark" ? {
                     animation: "breathe-purple 2s ease-in-out infinite",
                   } : undefined}
                 >
-                  <Ghost className={`w-6 h-6 ${selectedMode === "afterdark" ? "text-white" : "text-purple-400"}`} />
+                  <Ghost className={`w-5 h-5 ${selectedMode === "afterdark" ? "text-white" : "text-purple-400"}`} />
                 </div>
-                <span className="text-[9px] font-bold text-purple-400 bg-purple-500/20 px-1.5 py-0.5 rounded-full border border-purple-400/50">18+</span>
+                <span className="text-[8px] font-bold text-purple-400 bg-purple-500/20 px-1 py-0.5 rounded-full border border-purple-400/50">18+</span>
               </div>
-              <span className="font-semibold text-foreground">AFTER DARK</span>
-              <p className="text-xs text-muted-foreground text-center leading-snug">
-                Entertainment access. Zero data exposed. Flow through entry.
+              <span className="font-semibold text-foreground text-xs">AFTER DARK</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight line-clamp-3 px-1">
+                Zero data exposed. Flow through entry.
               </p>
             </button>
 
@@ -687,30 +687,30 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <button
               type="button"
               onClick={() => handleModeSelect("location")}
-              className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+              className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1.5 min-h-[140px] overflow-hidden ${
                 selectedMode === "location"
                   ? "border-red-400 bg-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
                   : "border-red-400/50 bg-card hover:border-red-400 hover:bg-red-500/10"
               }`}
             >
-              <div className="relative flex items-center gap-2">
+              <div className="relative flex items-center gap-1">
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-1000 ${
+                  className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-1000 ${
                     selectedMode === "location" ? "bg-red-500" : "bg-red-500/20"
                   }`}
                   style={selectedMode === "location" ? {
                     animation: "breathe-red 2s ease-in-out infinite",
                   } : undefined}
                 >
-                  <MapPin className={`w-6 h-6 ${selectedMode === "location" ? "text-white" : "text-red-400"}`} />
+                  <MapPin className={`w-5 h-5 ${selectedMode === "location" ? "text-white" : "text-red-400"}`} />
                 </div>
                 {locationActive && (
-                  <span className="text-[9px] font-bold text-red-400 bg-red-500/20 px-1.5 py-0.5 rounded-full border border-red-400/50 animate-pulse">LIVE</span>
+                  <span className="text-[8px] font-bold text-red-400 bg-red-500/20 px-1 py-0.5 rounded-full border border-red-400/50 animate-pulse">LIVE</span>
                 )}
               </div>
-              <span className="font-semibold text-foreground text-xs">LOCATION PULSE</span>
-              <p className="text-xs text-muted-foreground text-center leading-snug">
-                Share live location. Time-limited encrypted token.
+              <span className="font-semibold text-foreground text-[10px]">LOCATION PULSE</span>
+              <p className="text-[10px] text-muted-foreground text-center leading-tight line-clamp-3 px-1">
+                Share live location. Encrypted token.
               </p>
             </button>
           </div>

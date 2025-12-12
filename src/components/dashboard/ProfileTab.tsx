@@ -798,54 +798,6 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
 
       {/* Member Beta Feedback Button */}
       <MemberBetaSurvey userId={userId} />
-
-      {/* Floating Save Button */}
-      <div className="fixed bottom-4 right-36 z-50 flex flex-col items-end gap-2">
-        {!profileImageUrl ? (
-          <div className="text-right">
-            <p className="text-xs text-red-500 font-semibold mb-2 bg-red-50 dark:bg-red-950/30 px-3 py-1.5 rounded-lg border border-red-500">
-              ⚠️ Profile photo required
-            </p>
-            <Button 
-              type="button"
-              size="sm"
-              disabled
-              className="shadow-lg opacity-50 cursor-not-allowed"
-            >
-              Save
-            </Button>
-          </div>
-        ) : (
-          <Button 
-            type="submit" 
-            disabled={saving}
-            size="sm"
-            className={`shadow-2xl transition-all duration-300 ${
-              saveSuccess
-                ? 'bg-green-600 hover:bg-green-600 text-white ring-4 ring-green-400/50 shadow-green-500/60'
-                : hasChanges && !saving
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white ring-4 ring-blue-400/50 animate-gentle-glow'
-                  : !saving
-                    ? 'shadow-primary/50 hover:shadow-primary/60' 
-                    : ''
-            }`}
-          >
-            {saving ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Saving...
-              </>
-            ) : saveSuccess ? (
-              <>
-                <CheckCircle className="mr-2 h-4 w-4" />
-                Saved!
-              </>
-            ) : (
-              <>Save Now {hasChanges ? "•" : ""}</>
-            )}
-          </Button>
-        )}
-      </div>
     </form>
   );
 });

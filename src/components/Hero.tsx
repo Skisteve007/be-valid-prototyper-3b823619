@@ -202,9 +202,11 @@ const Hero = () => {
 
           {/* THE VALID NETWORK - Positioned above Power Behind The Signal */}
           <div className="mt-10 text-center md:text-left">
-            <p className="text-xs font-mono tracking-widest text-cyan-400 mb-2 uppercase">{t('validNetwork.pill')}</p>
-            <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white">
-              {t('validNetwork.headline')}
+            <div className="inline-block px-6 py-2 mb-2 border rounded-full text-sm font-mono tracking-[0.2em] uppercase border-cyan-500/30 text-cyan-400 bg-cyan-500/10">
+              {t('network.title')}
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black mb-0 font-orbitron text-white">
+              {t('network.headline')}
             </h2>
           </div>
 

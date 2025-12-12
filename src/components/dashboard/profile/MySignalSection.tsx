@@ -1004,41 +1004,108 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
         </CardContent>
       </Card>
 
-      {/* Broadcast Overlay - Full Screen Glow Mode - TAP RESISTANT */}
+      {/* Broadcast Overlay - Full Screen Glow Mode - MOBILE OPTIMIZED */}
       {broadcastActive && (
         <div
-          className={`fixed inset-0 z-[9999] ${getBroadcastColor()} flex items-center justify-center animate-fade-in`}
+          className={`fixed inset-0 ${getBroadcastColor()} flex items-center justify-center`}
           style={{
             position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
+            width: '100vw',
+            height: '100vh',
             minHeight: '100vh',
             minWidth: '100vw',
-            touchAction: 'none', // Prevent touch interactions
-            userSelect: 'none', // Prevent text selection
+            zIndex: 99999,
+            touchAction: 'none',
+            userSelect: 'none',
           }}
         >
-          {/* Dynamic Watermark - Venue or Ghost Logo */}
-          {renderBroadcastWatermark()}
+          {/* KILL SWITCH - FIXED TOP-RIGHT - ALWAYS VISIBLE */}
+          <button
+            onClick={() => setBroadcastActive(false)}
+            className="fixed top-4 right-4 flex items-center gap-2 px-4 py-3 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-bold text-sm rounded-full shadow-[0_0_20px_rgba(220,38,38,0.6)] transition-all active:scale-95 border-2 border-white/30"
+            style={{
+              zIndex: 100000,
+              minHeight: '48px',
+              minWidth: '140px',
+            }}
+          >
+            <X className="w-5 h-5" />
+            <span>KILL</span>
+          </button>
           
-          {/* Venue indicator badge */}
+          {/* Main Content Area */}
+          <div className="flex flex-col items-center justify-center w-full h-full px-6">
+            {/* Custom Message - PRIORITY DISPLAY */}
+            {broadcastMessage.trim() ? (
+              <div className="flex flex-col items-center justify-center gap-4 max-w-[90vw]">
+                {/* Large Custom Message - HIGH CONTRAST */}
+                <span 
+                  className="text-white text-3xl sm:text-4xl md:text-6xl font-bold text-center leading-tight tracking-wide break-words drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                  style={{
+                    textShadow: '0 4px 20px rgba(0,0,0,0.4), 0 2px 10px rgba(0,0,0,0.3)',
+                    wordBreak: 'break-word',
+                    maxWidth: '100%',
+                  }}
+                >
+                  {broadcastMessage}
+                </span>
+                
+                {/* Suppressed Watermark - 5% opacity */}
+                <div className="absolute bottom-20 left-1/2 -translate-x-1/2 opacity-[0.05]">
+                  {currentVenue ? (
+                    <div className="flex items-center gap-2">
+                      <Crown className="w-6 h-6 text-white" />
+                      <span className="text-white text-xs font-bold tracking-widest">{currentVenue.name.toUpperCase()}</span>
+                    </div>
+                  ) : (
+                    <Ghost className="w-12 h-12 text-white" />
+                  )}
+                </div>
+              </div>
+            ) : (
+              /* No Custom Message - MAXIMIZE Watermark */
+              <div className="flex flex-col items-center justify-center gap-4">
+                {currentVenue ? (
+                  /* Venue Branding - Large */
+                  <>
+                    <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full border-4 border-white/20 flex items-center justify-center">
+                      <Crown className="w-28 h-28 sm:w-40 sm:h-40 md:w-52 md:h-52 text-white opacity-30" />
+                    </div>
+                    <span className="text-white/30 text-xl sm:text-2xl md:text-4xl font-bold tracking-widest text-center">
+                      {currentVenue.name.toUpperCase()}
+                    </span>
+                    <span className="text-white/20 text-xs sm:text-sm md:text-base tracking-wider">VALID™ VERIFIED</span>
+                  </>
+                ) : (
+                  /* Default Ghost Logo - Large */
+                  <>
+                    <Ghost className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 text-white opacity-25" />
+                    <span className="text-white/25 text-xl sm:text-2xl md:text-4xl font-bold tracking-widest">VALID™</span>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+          
+          {/* Venue indicator badge - Only when no custom message */}
           {currentVenue && !broadcastMessage.trim() && (
-            <div className="absolute top-10 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm">
+            <div className="fixed top-4 left-4 flex items-center gap-2 px-3 py-2 bg-white/10 rounded-full backdrop-blur-sm" style={{ zIndex: 100000 }}>
               <Building2 className="w-4 h-4 text-white/60" />
-              <span className="text-white/60 text-sm font-medium">{currentVenue.name}</span>
+              <span className="text-white/60 text-xs sm:text-sm font-medium">{currentVenue.name}</span>
             </div>
           )}
           
-          {/* STOP BROADCAST Button - ONLY way to exit */}
-          <button
-            onClick={() => setBroadcastActive(false)}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full shadow-lg transition-all active:scale-95"
-          >
-            <X className="w-5 h-5" />
-            STOP BROADCAST
-          </button>
+          {/* Signal Mode Indicator */}
+          <div className="fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 bg-black/20 rounded-full backdrop-blur-sm" style={{ zIndex: 100000 }}>
+            <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+            <span className="text-white/80 text-xs font-medium uppercase tracking-wider">
+              {selectedMode} MODE
+            </span>
+          </div>
         </div>
       )}
 

@@ -29,14 +29,25 @@ const Hero = () => {
   const handleAccessClick = async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (session && session.user.email_confirmed_at) {
-        navigate('/dashboard');
+      if (session) {
+        // Check our custom email_verified field
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("email_verified")
+          .eq("user_id", session.user.id)
+          .single();
+        
+        if (profile?.email_verified) {
+          navigate('/dashboard');
+        } else {
+          navigate('/auth?mode=login');
+        }
       } else {
-        navigate('/access-portal');
+        navigate('/auth?mode=login');
       }
     } catch (error) {
       console.error('Auth check error:', error);
-      navigate('/access-portal');
+      navigate('/auth?mode=login');
     }
   };
 

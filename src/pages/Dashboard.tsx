@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, QrCode, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
-import QRCodeTab from "@/components/dashboard/QRCodeTab";
+
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
 import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
@@ -38,7 +38,7 @@ const Dashboard = () => {
   const touchEndX = useRef<number>(0);
   const profileTabRef = useRef<ProfileTabRef>(null);
 
-  const tabs = ["profile", "certifications", "qrcode", "lab-verification", "safety-screen", "verify-id"];
+  const tabs = ["profile", "certifications", "lab-verification", "safety-screen", "verify-id"];
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -275,13 +275,6 @@ const Dashboard = () => {
                         <span className="text-sm">Trust Center</span>
                       </TabsTrigger>
                       <TabsTrigger 
-                        value="qrcode"
-                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                      >
-                        <QrCode className="h-4 w-4 mr-1.5" />
-                        <span className="text-sm">QR Code</span>
-                      </TabsTrigger>
-                      <TabsTrigger 
                         value="lab-verification"
                         className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
                       >
@@ -324,9 +317,6 @@ const Dashboard = () => {
                   <CertificationsTab userId={user.id} />
                 </TabsContent>
                 
-                <TabsContent value="qrcode">
-                  <QRCodeTab key={qrRefreshKey} userId={user.id} />
-                </TabsContent>
                 
                 <TabsContent value="lab-verification">
                   <LabVerificationTab userId={user.id} />

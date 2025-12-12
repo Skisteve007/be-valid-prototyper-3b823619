@@ -23,12 +23,24 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
   const shouldBypass = BYPASS_ROUTES.some(route => location.pathname.startsWith(route));
 
   useEffect(() => {
-    // Check if user already has gate access
-    const gateAccess = localStorage.getItem('valid_gate_access');
-    if (gateAccess) {
-      setHasAccess(true);
-    }
-    setIsLoading(false);
+    const checkAccess = async () => {
+      // Check if user is authenticated - they've already agreed to terms during signup
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        setHasAccess(true);
+        setIsLoading(false);
+        return;
+      }
+      
+      // Check if user already has gate access from localStorage
+      const gateAccess = localStorage.getItem('valid_gate_access');
+      if (gateAccess) {
+        setHasAccess(true);
+      }
+      setIsLoading(false);
+    };
+    
+    checkAccess();
   }, []);
 
   const handleRequestAccess = async () => {
@@ -109,8 +121,8 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
       {/* Background Overlay - NON-INTERACTIVE */}
       <div className="fixed inset-0 bg-black/95 z-[9998] pointer-events-none" />
 
-      {/* Modal Container - INTERACTIVE */}
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+      {/* Modal Container - INTERACTIVE, with scroll for small screens */}
+      <div className="fixed inset-0 z-[9999] flex items-start md:items-center justify-center p-4 pt-8 md:pt-4 overflow-y-auto">
         <div className="w-full max-w-md relative z-50">
           {/* Logo & Header */}
           <div className="text-center mb-8">

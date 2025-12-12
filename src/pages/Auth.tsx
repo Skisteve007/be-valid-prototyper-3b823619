@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { ArrowRight, Eye, EyeOff, Mail } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Mail, Loader2 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 
@@ -32,6 +32,8 @@ const Auth = () => {
   const [showNdaModal, setShowNdaModal] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [verificationEmail, setVerificationEmail] = useState("");
+  const [resendingEmail, setResendingEmail] = useState(false);
+  const [verificationUserId, setVerificationUserId] = useState("");
 
   useEffect(() => {
     // Scroll to top when page loads
@@ -149,7 +151,9 @@ const Auth = () => {
 
       // Send branded verification email
       if (data.user) {
-        const { error: emailError } = await supabase.functions.invoke("send-auth-email", {
+        setVerificationUserId(data.user.id);
+        
+        const { error: emailError, data: emailData } = await supabase.functions.invoke("send-auth-email", {
           body: {
             email: signupEmail,
             userId: data.user.id,
@@ -159,6 +163,9 @@ const Auth = () => {
 
         if (emailError) {
           console.error("Error sending verification email:", emailError);
+          toast.error("Account created but failed to send verification email. Please use the resend button.");
+        } else {
+          toast.success("Verification email sent! Please check your inbox.");
         }
       }
 
@@ -170,6 +177,34 @@ const Auth = () => {
       toast.error(error.message || "Signup failed");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (!verificationEmail || !verificationUserId) {
+      toast.error("Missing user information. Please try signing up again.");
+      return;
+    }
+
+    setResendingEmail(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-auth-email", {
+        body: {
+          email: verificationEmail,
+          userId: verificationUserId,
+          firstName: signupFirstName || "User",
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+      toast.success("Verification email sent! Please check your inbox and spam folder.");
+    } catch (error: any) {
+      console.error("Resend error:", error);
+      toast.error("Failed to resend email. Please try again.");
+    } finally {
+      setResendingEmail(false);
     }
   };
 
@@ -227,6 +262,20 @@ const Auth = () => {
                   </div>
 
                   <div className="pt-4 space-y-3">
+                    <Button 
+                      onClick={handleResendVerification}
+                      disabled={resendingEmail}
+                      className="w-full min-h-[48px] rounded-full bg-primary text-primary-foreground font-semibold shadow-[0_0_20px_hsl(var(--primary)/0.6)]"
+                    >
+                      {resendingEmail ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        "Resend Verification Email"
+                      )}
+                    </Button>
                     <Button 
                       variant="outline"
                       onClick={() => {

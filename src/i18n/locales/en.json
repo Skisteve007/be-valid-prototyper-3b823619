@@ -194,9 +194,13 @@
     "title": "THE VALID™",
     "titleHighlight": "STANDARD",
     "subtitle": "Designed for humans, not data points.",
+    "militaryFortress": "Military-Grade Fortress",
+    "militaryFortressDesc": "Digital Fortress enabled. Unbreachable zero-trust encryption. Your identity is locked in a cryptographic vault that only you control.",
     "militaryFortressAlt": "Military-Grade Fortress - Digital Fortress enabled. Unbreachable zero-trust encryption. Your identity is locked.",
     "acceptedAnywhere": "Accepted Anywhere",
     "acceptedAnywhereDesc": "One Key. Universal Acceptance at Any VALID Portal. Skip the manual check Points of Entry, Airports, Entertainment Venues, Public Agencies, and Corporate Zones Worldwide.",
+    "yourData": "Your Data. Your Rules.",
+    "yourDataDesc": "Ghost Protocol Enabled. Context-aware sharing means you decide exactly what to reveal—and when. Full control, zero exposure.",
     "yourDataAlt": "Your Data. Your Rules. Ghost Protocol Enabled. Context-aware sharing.",
     "instantFinancial": "Instant Financial Access",
     "instantFinancialDesc": "Frictionless Fund Flow. Load once, spend anywhere. Tap-to-Pay instantly at any POS using your Ghost™ Token. Secure funds held in a segregated FBO vault. Zero transaction fees, zero chargebacks. Your liquidity moves at the speed of light."

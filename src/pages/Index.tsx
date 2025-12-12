@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Globe, Ghost } from 'lucide-react';
+import { Sun, Moon, Globe, Ghost, Shield, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import militaryFortressCard from '@/assets/military-fortress-card.jpg';
-import yourDataYourRulesCard from '@/assets/your-data-your-rules-card.jpg';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 
@@ -110,13 +108,13 @@ const Index = () => {
 
           {/* The 4 Pillars */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105 bg-black/50 aspect-[3/4] flex items-center">
-              <img 
-                src={militaryFortressCard} 
-                alt={t('standard.militaryFortressAlt')}
-                className="w-full h-auto object-contain"
-              />
-            </div>
+            <FeatureCard 
+              isDark={isDark}
+              icon={<Shield size={32}/>}
+              title={t('standard.militaryFortress')}
+              desc={t('standard.militaryFortressDesc')}
+              color="cyan"
+            />
             <FeatureCard 
               isDark={isDark}
               icon={<Globe size={32}/>}
@@ -124,13 +122,13 @@ const Index = () => {
               desc={t('standard.acceptedAnywhereDesc')}
               color="cyan"
             />
-            <div className="rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all duration-300 hover:scale-105 bg-black/50 aspect-[3/4] flex items-center">
-              <img 
-                src={yourDataYourRulesCard} 
-                alt={t('standard.yourDataAlt')}
-                className="w-full h-auto object-contain"
-              />
-            </div>
+            <FeatureCard 
+              isDark={isDark}
+              icon={<Lock size={32}/>}
+              title={t('standard.yourData')}
+              desc={t('standard.yourDataDesc')}
+              color="cyan"
+            />
             <FeatureCard 
               isDark={isDark}
               icon={<Ghost size={32}/>}

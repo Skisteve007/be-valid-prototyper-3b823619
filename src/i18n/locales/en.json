@@ -55,7 +55,7 @@
     "instantEntry": "Instant Entry.",
     "instantEntryDesc": "One touch, no friction. Use your verified ID for immediate, seamless access to any VALID portal, venue, or event worldwide.",
     "secureFunds": "Your Funds. Secure & Fast.",
-    "secureFundsDesc": "Load once and pay instantly with your Ghost™ Token. Funds are segregated and fully insured for total payment peace of mind.",
+    "secureFundsDesc": "Load once and pay instantly with your Ghost™ Wallet. Funds are segregated and fully insured for total payment peace of mind.",
     "dataLock": "Total Data Lock.",
     "dataLockDesc": "Your health, payment details, and personal ID are tokenized and invisible. Share only a single, anonymous clearance (e.g., 21+ Verified) when required."
   },
@@ -97,8 +97,8 @@
   },
   "network": {
     "title": "THE VALID NETWORK",
-    "headline": "ONE IDENTITY.",
-    "headlineSuffix": "ZERO LIMITS.",
+    "headline": "ONE IDENTITY. ZERO",
+    "headlineSuffix": "LIMITS.",
     "description": "Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.",
     "descriptionB2b": "Members toggle between modes based on context—each mode reveals only what's relevant. Operations see the right verification signal without accessing private data.",
     "security": "SECURITY",

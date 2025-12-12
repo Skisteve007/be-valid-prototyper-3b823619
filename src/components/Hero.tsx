@@ -148,6 +148,12 @@ const Hero = () => {
             </span>
           </h1>
           
+          {/* SUB-HEADLINE: Adaptive Profile - ABOVE Claim Your ID */}
+          <p className="text-base text-gray-400 mb-6 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
+            {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
+            <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
+          </p>
+
           {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start relative z-50">
             <button 
@@ -188,13 +194,11 @@ const Hero = () => {
             <p className="text-sm text-gray-400 mt-3 text-center md:text-left max-w-md transition-all duration-300">
               {signalModes[activeSignal].description}
             </p>
+            {/* Static profiles paragraph - UNDER the dropdown */}
+            <p className="text-sm text-gray-400 mt-4 text-center md:text-left max-w-lg leading-relaxed">
+              Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.
+            </p>
           </div>
-
-          {/* SUB-HEADLINE: Adaptive Profile - Below signal description */}
-          <p className="text-base text-gray-400 mt-6 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
-            {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
-            <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
-          </p>
 
           {/* The Power Behind The Signal - Feature Cards */}
           <div className="mt-12 w-full">

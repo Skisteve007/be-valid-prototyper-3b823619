@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Zap, MapPin } from 'lucide-react';
+import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Zap, MapPin, ChevronDown, Clock, ArrowUp } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
@@ -28,6 +28,26 @@ interface POSTransaction {
   transaction_type: string;
   status: string;
 }
+
+interface Venue {
+  id: string;
+  venue_name: string;
+  city: string;
+}
+
+const ACCESS_PASS_OPTIONS = [
+  { id: '1_day', duration_hrs: 24, price: 10.00, label: "1-Day" },
+  { id: '3_day', duration_hrs: 72, price: 20.00, label: "3-Day" },
+  { id: '7_day', duration_hrs: 168, price: 50.00, label: "7-Day" },
+];
+
+const PAYMENT_METHODS = [
+  { id: 'apple_pay', label: 'Apple Pay' },
+  { id: 'credit_card', label: 'Credit Card' },
+  { id: 'paypal', label: 'PayPal' },
+  { id: 'venmo', label: 'Venmo' },
+  { id: 'zelle', label: 'Zelle' },
+];
 
 const MIN_BALANCE_THRESHOLD = 5.00;
 
@@ -61,7 +81,19 @@ const GhostPassModal = ({
   const [isLoadingBalance, setIsLoadingBalance] = useState(true);
   const [isReloading, setIsReloading] = useState(false);
   
-  // Active venue state
+  // Venue & Access Pass State
+  const [venues, setVenues] = useState<Venue[]>([]);
+  const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
+  const [selectedPass, setSelectedPass] = useState(ACCESS_PASS_OPTIONS[0]);
+  const [isActivated, setIsActivated] = useState(false);
+  const [expirationDate, setExpirationDate] = useState<Date | null>(null);
+  
+  // Fund Wallet State
+  const [fundAmount, setFundAmount] = useState('');
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+  const [isLoadingFunds, setIsLoadingFunds] = useState(false);
+  
+  // Active venue state (from session)
   const [activeVenue, setActiveVenue] = useState<ActiveVenue | null>(null);
   
   // POS Transaction state
@@ -70,8 +102,22 @@ const GhostPassModal = ({
   const [showTippingModal, setShowTippingModal] = useState(false);
   const [isConfirmingTransaction, setIsConfirmingTransaction] = useState(false);
   
+  // UI State
+  const [activeSection, setActiveSection] = useState<'destination' | 'duration' | 'wallet' | null>(null);
+  
   const prevBalanceRef = useRef(balance);
   const prevSpentRef = useRef(venueSpend);
+
+  // Fetch venues
+  const fetchVenues = useCallback(async () => {
+    try {
+      const { data, error } = await supabase.rpc('get_public_venues');
+      if (error) throw error;
+      setVenues(data || []);
+    } catch (err) {
+      console.error('Error fetching venues:', err);
+    }
+  }, []);
 
   // Fetch initial balance
   const fetchBalance = useCallback(async () => {
@@ -151,13 +197,14 @@ const GhostPassModal = ({
     }
   }, [userId]);
 
-  // Set up Supabase Realtime subscription
+  // Set up initial data fetch and Supabase Realtime subscription
   useEffect(() => {
     if (!userId) return;
 
     fetchBalance();
     fetchVenueSpend();
     fetchActiveVenue();
+    fetchVenues();
 
     // Subscribe to wallet_transactions for real-time updates
     const walletChannel = supabase
@@ -240,7 +287,7 @@ const GhostPassModal = ({
       supabase.removeChannel(posChannel);
       supabase.removeChannel(sessionChannel);
     };
-  }, [userId, fetchBalance, fetchVenueSpend, fetchActiveVenue]);
+  }, [userId, fetchBalance, fetchVenueSpend, fetchActiveVenue, fetchVenues]);
 
   // Animate balance changes
   useEffect(() => {
@@ -288,7 +335,8 @@ const GhostPassModal = ({
 
   // Check if wallet has sufficient funds
   const hasSufficientFunds = balance >= MIN_BALANCE_THRESHOLD;
-  const isLocked = balance < MIN_BALANCE_THRESHOLD;
+  const isLocked = balance < MIN_BALANCE_THRESHOLD && !isActivated;
+  const canActivate = selectedVenue && balance >= selectedPass.price && !isActivated;
 
   // Refresh QR code
   const refreshQR = useCallback(() => {
@@ -323,10 +371,28 @@ const GhostPassModal = ({
       return JSON.stringify({ type: 'LOCKED', userId });
     }
     
+    if (isActivated && selectedVenue && expirationDate) {
+      return JSON.stringify({
+        id: qrKey,
+        userId,
+        type: 'ACCESS_TOKEN',
+        venueId: selectedVenue.id,
+        venueName: selectedVenue.venue_name,
+        tier: selectedPass.label,
+        expires: expirationDate.toISOString(),
+        balance: balance.toFixed(2),
+        permissions: {
+          identity: toggles.identity,
+          payment: toggles.payment,
+          health: toggles.health,
+        },
+      });
+    }
+    
     const data = {
       id: qrKey,
       userId,
-      venueId: activeVenue?.id || null,
+      venueId: activeVenue?.id || selectedVenue?.id || null,
       permissions: {
         identity: toggles.identity,
         payment: toggles.payment,
@@ -366,6 +432,73 @@ const GhostPassModal = ({
     } finally {
       setIsReloading(false);
     }
+  };
+
+  // Handle loading funds
+  const handleLoadFunds = async () => {
+    if (!fundAmount || parseFloat(fundAmount) < 50) {
+      toast.error('Minimum load is $50');
+      return;
+    }
+    if (!selectedPaymentMethod) {
+      toast.error('Select a payment method');
+      return;
+    }
+
+    setIsLoadingFunds(true);
+    
+    // For demo, simulate adding funds
+    const amount = parseFloat(fundAmount);
+    setTimeout(() => {
+      setBalance(prev => prev + amount);
+      setDisplayedBalance(prev => prev + amount);
+      setFundAmount('');
+      toast.success(`Added $${amount.toFixed(2)} to wallet`);
+      setIsLoadingFunds(false);
+      setActiveSection(null);
+    }, 1000);
+  };
+
+  // Handle pass activation
+  const handleActivate = () => {
+    if (!selectedVenue) {
+      toast.error('Select a destination first');
+      return;
+    }
+    if (balance < selectedPass.price) {
+      toast.error(`Insufficient funds. Need $${selectedPass.price.toFixed(2)}`);
+      return;
+    }
+
+    // Deduct and activate
+    setBalance(prev => prev - selectedPass.price);
+    setDisplayedBalance(prev => prev - selectedPass.price);
+    setExpirationDate(new Date(Date.now() + selectedPass.duration_hrs * 60 * 60 * 1000));
+    setIsActivated(true);
+    toast.success(`${selectedPass.label} Access Activated!`);
+  };
+
+  // Handle upgrade
+  const handleUpgrade = (newPass: typeof ACCESS_PASS_OPTIONS[0]) => {
+    const currentIndex = ACCESS_PASS_OPTIONS.findIndex(p => p.id === selectedPass.id);
+    const newIndex = ACCESS_PASS_OPTIONS.findIndex(p => p.id === newPass.id);
+    
+    if (newIndex <= currentIndex) {
+      toast.error('Can only upgrade to a higher tier');
+      return;
+    }
+    
+    const upgradeCost = newPass.price - selectedPass.price;
+    if (balance < upgradeCost) {
+      toast.error(`Insufficient funds. Need $${upgradeCost.toFixed(2)} to upgrade`);
+      return;
+    }
+
+    setBalance(prev => prev - upgradeCost);
+    setDisplayedBalance(prev => prev - upgradeCost);
+    setSelectedPass(newPass);
+    setExpirationDate(new Date(Date.now() + newPass.duration_hrs * 60 * 60 * 1000));
+    toast.success(`Upgraded to ${newPass.label} Access!`);
   };
 
   // Handle tip selection and transaction confirmation
@@ -476,16 +609,18 @@ const GhostPassModal = ({
             right: isMobile ? '16px' : `${16 + buttonPosition.x}px`,
             bottom: isMobile ? '80px' : `${80 + buttonPosition.y}px`,
             background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.95) 100%)',
-            boxShadow: hasSufficientFunds 
-              ? '0 0 0 2px rgba(255,215,0,0.4), 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(34,197,94,0.3)'
-              : '0 0 0 2px rgba(239,68,68,0.4), 0 0 30px rgba(239,68,68,0.4)',
-            animation: hasSufficientFunds && !isDragging ? 'ghostBreathing 3s ease-in-out infinite' : 'none',
+            boxShadow: isActivated 
+              ? '0 0 0 2px rgba(34,197,94,0.6), 0 0 30px rgba(34,197,94,0.5), 0 0 60px rgba(34,197,94,0.3)'
+              : hasSufficientFunds 
+                ? '0 0 0 2px rgba(255,215,0,0.4), 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(34,197,94,0.3)'
+                : '0 0 0 2px rgba(239,68,68,0.4), 0 0 30px rgba(239,68,68,0.4)',
+            animation: (hasSufficientFunds || isActivated) && !isDragging ? 'ghostBreathing 3s ease-in-out infinite' : 'none',
           }}
         >
           {isLocked ? (
             <Lock className="w-6 h-6 md:w-7 md:h-7 text-red-400" />
           ) : (
-            <Ghost className="w-7 h-7 md:w-8 md:h-8 text-amber-400" />
+            <Ghost className={`w-7 h-7 md:w-8 md:h-8 ${isActivated ? 'text-green-400' : 'text-amber-400'}`} />
           )}
         </button>
       )}
@@ -493,7 +628,7 @@ const GhostPassModal = ({
       {/* Ghost QR Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent 
-          className="max-w-sm w-[95vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden top-[20%] translate-y-[-20%]"
+          className="max-w-md w-[95vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden top-[10%] translate-y-[-10%] max-h-[85vh] overflow-y-auto"
           style={{
             animation: 'slideUpEnergize 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
@@ -502,8 +637,10 @@ const GhostPassModal = ({
           <div 
             className="relative rounded-3xl overflow-hidden"
             style={{
-              border: '2px solid rgba(255, 215, 0, 0.6)',
-              boxShadow: '0 0 15px rgba(255, 215, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.15)',
+              border: isActivated ? '2px solid rgba(34, 197, 94, 0.6)' : '2px solid rgba(255, 215, 0, 0.6)',
+              boxShadow: isActivated 
+                ? '0 0 15px rgba(34, 197, 94, 0.3), 0 0 30px rgba(34, 197, 94, 0.15)'
+                : '0 0 15px rgba(255, 215, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.15)',
               animation: 'yellowGlowPulse 2.5s ease-in-out infinite',
             }}
           >
@@ -511,7 +648,7 @@ const GhostPassModal = ({
             <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" />
             
             {/* Content */}
-            <div className="relative z-10 p-6">
+            <div className="relative z-10 p-5">
               {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
@@ -523,236 +660,335 @@ const GhostPassModal = ({
               {/* Header */}
               <div className="text-center mb-4">
                 <div className="inline-flex items-center gap-2 mb-2">
-                  <Ghost className="w-5 h-5 text-amber-400" />
-                  <h2 className="text-lg font-bold tracking-wider text-white">GHOST<sup className="text-xs text-amber-400">™</sup> PASS</h2>
-                </div>
-                
-                {/* Active Venue Display */}
-                {activeVenue && (
-                  <div className="flex items-center justify-center gap-1.5 mt-2 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/40">
-                    <MapPin className="w-3 h-3 text-green-400" />
-                    <span className="text-xs text-green-400 font-medium">
-                      Active at: {activeVenue.venue_name}
+                  <Ghost className={`w-5 h-5 ${isActivated ? 'text-green-400' : 'text-amber-400'}`} />
+                  <h2 className="text-lg font-bold tracking-wider text-white">
+                    GHOST<sup className="text-xs text-amber-400">™</sup> PASS
+                  </h2>
+                  {isActivated && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold bg-green-500 text-black rounded-full animate-pulse">
+                      LIVE
                     </span>
+                  )}
+                </div>
+              </div>
+
+              {/* ===== CONTROL PILLS ===== */}
+              <div className="space-y-2 mb-4">
+                {/* Pill 1: Destination */}
+                <div 
+                  className={`rounded-xl border transition-all cursor-pointer ${
+                    activeSection === 'destination' 
+                      ? 'bg-blue-500/20 border-blue-500' 
+                      : 'bg-white/5 border-white/10 hover:border-white/20'
+                  }`}
+                  onClick={() => setActiveSection(activeSection === 'destination' ? null : 'destination')}
+                >
+                  <div className="flex items-center justify-between p-3">
+                    <div className="flex items-center gap-2">
+                      <MapPin className={`w-4 h-4 ${selectedVenue ? 'text-blue-400' : 'text-gray-500'}`} />
+                      <span className="text-xs font-bold text-blue-400 uppercase">Destination</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-white">
+                        {selectedVenue ? selectedVenue.venue_name : 'Select Venue'}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${activeSection === 'destination' ? 'rotate-180' : ''}`} />
+                    </div>
                   </div>
-                )}
-              </div>
+                  {activeSection === 'destination' && (
+                    <div className="px-3 pb-3">
+                      <select
+                        className="w-full bg-black/50 text-white p-2 rounded-lg border border-white/20 text-sm focus:border-blue-500 outline-none"
+                        value={selectedVenue?.id || ''}
+                        onChange={(e) => {
+                          const venue = venues.find(v => v.id === e.target.value);
+                          setSelectedVenue(venue || null);
+                          if (isActivated) setIsActivated(false);
+                          setActiveSection(null);
+                        }}
+                        disabled={isActivated}
+                      >
+                        <option value="">-- Select Venue --</option>
+                        {venues.map(v => (
+                          <option key={v.id} value={v.id}>{v.venue_name} ({v.city})</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
 
-              {/* Live Wallet Display (HUD) */}
-              <div className="mb-6 text-center">
-                {isLoadingBalance ? (
-                  <div className="text-2xl font-bold text-white/50 animate-pulse">Loading...</div>
-                ) : (
-                  <>
-                    <div className={`text-3xl font-bold tracking-tight transition-colors ${isLocked ? 'text-red-400' : 'text-white'}`}>
-                      ${displayedBalance.toFixed(2)}
+                {/* Pill 2: Access Duration */}
+                <div 
+                  className={`rounded-xl border transition-all cursor-pointer ${
+                    activeSection === 'duration' 
+                      ? 'bg-amber-500/20 border-amber-500' 
+                      : 'bg-white/5 border-white/10 hover:border-white/20'
+                  }`}
+                  onClick={() => setActiveSection(activeSection === 'duration' ? null : 'duration')}
+                >
+                  <div className="flex items-center justify-between p-3">
+                    <div className="flex items-center gap-2">
+                      <Clock className={`w-4 h-4 ${selectedPass ? 'text-amber-400' : 'text-gray-500'}`} />
+                      <span className="text-xs font-bold text-amber-400 uppercase">Access Duration</span>
                     </div>
-                    <div className="text-xs text-gray-400 mt-1">
-                      Running Total Balance
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-white">{selectedPass.label} - ${selectedPass.price}</span>
+                      <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${activeSection === 'duration' ? 'rotate-180' : ''}`} />
                     </div>
-                    {displayedSpent > 0 && (
-                      <div className="text-sm text-gray-500 mt-2">
-                        You've spent <span className="text-amber-400">${displayedSpent.toFixed(2)}</span> here tonight
+                  </div>
+                  {activeSection === 'duration' && (
+                    <div className="px-3 pb-3">
+                      <div className="grid grid-cols-3 gap-2">
+                        {ACCESS_PASS_OPTIONS.map(opt => {
+                          const isCurrentOrLower = isActivated && ACCESS_PASS_OPTIONS.findIndex(p => p.id === opt.id) <= ACCESS_PASS_OPTIONS.findIndex(p => p.id === selectedPass.id);
+                          return (
+                            <button
+                              key={opt.id}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (isActivated) {
+                                  handleUpgrade(opt);
+                                } else {
+                                  setSelectedPass(opt);
+                                }
+                                setActiveSection(null);
+                              }}
+                              disabled={isCurrentOrLower}
+                              className={`py-2 px-2 rounded-lg border text-xs font-bold transition-all ${
+                                selectedPass.id === opt.id 
+                                  ? 'bg-amber-500 text-black border-amber-500' 
+                                  : isCurrentOrLower
+                                    ? 'bg-gray-800 text-gray-600 border-gray-700 cursor-not-allowed'
+                                    : 'bg-black/50 text-gray-300 border-white/20 hover:border-amber-500/50'
+                              }`}
+                            >
+                              <div>{opt.label}</div>
+                              <div className="text-[10px] opacity-75">${opt.price}</div>
+                            </button>
+                          );
+                        })}
                       </div>
-                    )}
-                  </>
-                )}
+                      {isActivated && (
+                        <p className="text-[10px] text-amber-400/70 text-center mt-2">
+                          <ArrowUp className="w-3 h-3 inline mr-1" />
+                          Select a higher tier to upgrade
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Pill 3: Fund Wallet */}
+                <div 
+                  className={`rounded-xl border transition-all cursor-pointer ${
+                    activeSection === 'wallet' 
+                      ? 'bg-green-500/20 border-green-500' 
+                      : 'bg-white/5 border-white/10 hover:border-white/20'
+                  }`}
+                  onClick={() => setActiveSection(activeSection === 'wallet' ? null : 'wallet')}
+                >
+                  <div className="flex items-center justify-between p-3">
+                    <div className="flex items-center gap-2">
+                      <Wallet className="w-4 h-4 text-green-400" />
+                      <span className="text-xs font-bold text-green-400 uppercase">Fund Wallet</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className={`text-sm font-bold ${balance >= selectedPass.price ? 'text-green-400' : 'text-red-400'}`}>
+                        ${displayedBalance.toFixed(2)}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${activeSection === 'wallet' ? 'rotate-180' : ''}`} />
+                    </div>
+                  </div>
+                  {activeSection === 'wallet' && (
+                    <div className="px-3 pb-3 space-y-2" onClick={e => e.stopPropagation()}>
+                      <div className="flex items-center gap-2">
+                        <span className="text-gray-400 font-bold">$</span>
+                        <input 
+                          type="number" 
+                          placeholder="Amount (Min $50)"
+                          value={fundAmount} 
+                          onChange={e => setFundAmount(e.target.value)}
+                          className="flex-1 bg-black/50 text-white p-2 rounded-lg border border-white/20 text-sm focus:border-green-500 outline-none"
+                        />
+                      </div>
+                      <select 
+                        value={selectedPaymentMethod}
+                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                        className="w-full bg-black/50 text-white p-2 rounded-lg border border-white/20 text-sm focus:border-green-500 outline-none"
+                      >
+                        <option value="">-- Payment Method --</option>
+                        {PAYMENT_METHODS.map(pm => (
+                          <option key={pm.id} value={pm.id}>{pm.label}</option>
+                        ))}
+                      </select>
+                      <button 
+                        onClick={handleLoadFunds}
+                        disabled={isLoadingFunds}
+                        className="w-full bg-green-500/20 hover:bg-green-500/30 border border-green-500 text-green-400 font-bold py-2 rounded-lg text-sm transition-all disabled:opacity-50"
+                      >
+                        {isLoadingFunds ? 'Loading...' : 'Load Funds'}
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              {/* Low Balance Warning */}
-              {isLocked && (
-                <div className="mb-4 p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-center">
-                  <p className="text-sm text-red-400 font-medium">
-                    Insufficient Funds. Re-up to continue.
+              {/* Activate / Upgrade Button */}
+              {!isActivated ? (
+                <button 
+                  onClick={handleActivate}
+                  disabled={!canActivate}
+                  className={`w-full py-3 rounded-xl font-bold text-sm transition-all mb-4 ${
+                    canActivate 
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.4)]' 
+                      : 'bg-gray-800 text-gray-500 border border-gray-700 cursor-not-allowed'
+                  }`}
+                >
+                  {!selectedVenue 
+                    ? 'Select Destination First' 
+                    : balance < selectedPass.price 
+                      ? `Need $${(selectedPass.price - balance).toFixed(2)} More`
+                      : `ACTIVATE ${selectedPass.label.toUpperCase()} (-$${selectedPass.price})`
+                  }
+                </button>
+              ) : (
+                <div className="mb-4 p-3 rounded-xl bg-green-500/20 border border-green-500/40 text-center">
+                  <p className="text-sm text-green-400 font-bold">
+                    {selectedPass.label} Access Active at {selectedVenue?.venue_name}
                   </p>
+                  {expirationDate && (
+                    <p className="text-[10px] text-green-400/70 mt-1">
+                      Expires: {expirationDate.toLocaleString()}
+                    </p>
+                  )}
                 </div>
               )}
 
-              {/* Permission Toggles - Only show if not locked */}
-              {!isLocked && (
-                <div className="flex justify-center gap-3 mb-6">
-                  {/* Identity Toggle */}
-                  <button
-                    onClick={() => setToggles(prev => ({ ...prev, identity: !prev.identity }))}
-                    className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
-                      toggles.identity
-                        ? 'bg-blue-500/20 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.4)]'
-                        : 'bg-white/5 border-white/10 opacity-50'
-                    }`}
-                  >
-                    <Fingerprint size={22} className={toggles.identity ? 'text-blue-400' : 'text-gray-500'} />
-                    <span className={`text-[9px] font-bold ${toggles.identity ? 'text-blue-400' : 'text-gray-500'}`}>
-                      ID
-                    </span>
-                  </button>
+              {/* Permission Toggles */}
+              <div className="flex justify-center gap-3 mb-4">
+                {/* Identity Toggle */}
+                <button
+                  onClick={() => setToggles(prev => ({ ...prev, identity: !prev.identity }))}
+                  className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                    toggles.identity
+                      ? 'bg-blue-500/20 border-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.3)]'
+                      : 'bg-white/5 border-white/10 opacity-50'
+                  }`}
+                >
+                  <Fingerprint size={18} className={toggles.identity ? 'text-blue-400' : 'text-gray-500'} />
+                  <span className={`text-[8px] font-bold ${toggles.identity ? 'text-blue-400' : 'text-gray-500'}`}>ID</span>
+                </button>
 
-                  {/* Payment Toggle */}
-                  <button
-                    onClick={() => setToggles(prev => ({ ...prev, payment: !prev.payment }))}
-                    className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
-                      toggles.payment
-                        ? 'bg-amber-500/20 border-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.4)]'
-                        : 'bg-white/5 border-white/10 opacity-50'
-                    }`}
-                  >
-                    <Wallet size={22} className={toggles.payment ? 'text-amber-400' : 'text-gray-500'} />
-                    <span className={`text-[9px] font-bold ${toggles.payment ? 'text-amber-400' : 'text-gray-500'}`}>
-                      FUNDS
-                    </span>
-                  </button>
+                {/* Payment Toggle */}
+                <button
+                  onClick={() => setToggles(prev => ({ ...prev, payment: !prev.payment }))}
+                  className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                    toggles.payment
+                      ? 'bg-amber-500/20 border-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]'
+                      : 'bg-white/5 border-white/10 opacity-50'
+                  }`}
+                >
+                  <Wallet size={18} className={toggles.payment ? 'text-amber-400' : 'text-gray-500'} />
+                  <span className={`text-[8px] font-bold ${toggles.payment ? 'text-amber-400' : 'text-gray-500'}`}>FUNDS</span>
+                </button>
 
-                  {/* Health Toggle */}
-                  <button
-                    onClick={() => setToggles(prev => ({ ...prev, health: !prev.health }))}
-                    className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
-                      toggles.health
-                        ? 'bg-green-500/20 border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.4)]'
-                        : 'bg-white/5 border-white/10 opacity-50'
-                    }`}
-                  >
-                    <HeartPulse size={22} className={toggles.health ? 'text-green-400' : 'text-gray-500'} />
-                    <span className={`text-[9px] font-bold ${toggles.health ? 'text-green-400' : 'text-gray-500'}`}>
-                      BIO
-                    </span>
-                  </button>
-                </div>
-              )}
+                {/* Health Toggle */}
+                <button
+                  onClick={() => setToggles(prev => ({ ...prev, health: !prev.health }))}
+                  className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all duration-300 ${
+                    toggles.health
+                      ? 'bg-green-500/20 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.3)]'
+                      : 'bg-white/5 border-white/10 opacity-50'
+                  }`}
+                >
+                  <HeartPulse size={18} className={toggles.health ? 'text-green-400' : 'text-gray-500'} />
+                  <span className={`text-[8px] font-bold ${toggles.health ? 'text-green-400' : 'text-gray-500'}`}>BIO</span>
+                </button>
+              </div>
 
               {/* QR Code Container with Progress Ring */}
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-center mb-3">
                 <div className="relative">
-                  {/* Progress Ring - Only show if not locked */}
-                  {!isLocked && (
-                    <svg className="absolute -inset-4 w-[calc(100%+32px)] h-[calc(100%+32px)] -rotate-90">
-                      <circle
-                        cx="50%"
-                        cy="50%"
-                        r={radius}
-                        fill="none"
-                        stroke="rgba(255,255,255,0.1)"
-                        strokeWidth="3"
-                      />
-                      <circle
-                        cx="50%"
-                        cy="50%"
-                        r={radius}
-                        fill="none"
-                        stroke={hasSufficientFunds ? '#22c55e' : '#ef4444'}
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeDasharray={circumference}
-                        strokeDashoffset={circumference - progress}
-                        className="transition-all duration-1000 ease-linear"
-                        style={{
-                          filter: hasSufficientFunds ? 'drop-shadow(0 0 8px rgba(34,197,94,0.6))' : 'drop-shadow(0 0 8px rgba(239,68,68,0.6))',
-                        }}
-                      />
-                    </svg>
-                  )}
+                  {/* Progress Ring */}
+                  <svg className="absolute -inset-3 w-[calc(100%+24px)] h-[calc(100%+24px)] -rotate-90">
+                    <circle
+                      cx="50%"
+                      cy="50%"
+                      r={70}
+                      fill="none"
+                      stroke="rgba(255,255,255,0.1)"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="50%"
+                      cy="50%"
+                      r={70}
+                      fill="none"
+                      stroke={isActivated ? '#22c55e' : '#fbbf24'}
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeDasharray={2 * Math.PI * 70}
+                      strokeDashoffset={(2 * Math.PI * 70) - ((30 - timeLeft) / 30) * (2 * Math.PI * 70)}
+                      className="transition-all duration-1000 ease-linear"
+                      style={{
+                        filter: isActivated ? 'drop-shadow(0 0 6px rgba(34,197,94,0.6))' : 'drop-shadow(0 0 6px rgba(251,191,36,0.6))',
+                      }}
+                    />
+                  </svg>
 
-                  {/* Pure White QR Container for Scanner Visibility */}
+                  {/* Pure White QR Container */}
                   <div 
-                    className={`relative w-44 h-44 rounded-2xl overflow-hidden transition-all duration-300 ${isLocked ? 'opacity-30 blur-sm' : ''}`}
+                    className="relative w-36 h-36 rounded-xl overflow-hidden transition-all duration-300"
                     style={{
                       background: '#FFFFFF',
-                      boxShadow: hasSufficientFunds 
-                        ? '0 0 0 3px rgba(34,197,94,0.8), 0 0 40px rgba(34,197,94,0.5), 0 0 80px rgba(34,197,94,0.3)'
-                        : '0 0 0 3px rgba(239,68,68,0.8), 0 0 40px rgba(239,68,68,0.5)',
-                      animation: hasSufficientFunds ? 'neonPulseGreen 2s ease-in-out infinite' : 'none',
+                      boxShadow: isActivated 
+                        ? '0 0 0 2px rgba(34,197,94,0.8), 0 0 30px rgba(34,197,94,0.4)'
+                        : '0 0 0 2px rgba(251,191,36,0.8), 0 0 30px rgba(251,191,36,0.4)',
                     }}
                   >
                     {/* Refresh Animation */}
-                    {isRefreshing && !isLocked && (
+                    {isRefreshing && (
                       <div className="absolute inset-0 z-20 flex items-center justify-center bg-white">
-                        <div className="flex flex-col items-center gap-2">
-                          <RefreshCw size={28} className="text-gray-400 animate-spin" />
-                          <span className="text-[10px] text-gray-500 font-mono">ENCRYPTING...</span>
-                        </div>
+                        <RefreshCw size={24} className="text-gray-400 animate-spin" />
                       </div>
                     )}
 
                     {/* Success Overlay */}
                     {showSuccess && (
-                      <div className="absolute inset-0 z-30 flex items-center justify-center bg-green-500"
-                        style={{ animation: 'successFlash 1.5s ease-out' }}
-                      >
-                        <Check className="w-20 h-20 text-white" strokeWidth={3} />
+                      <div className="absolute inset-0 z-30 flex items-center justify-center bg-green-500">
+                        <Check className="w-16 h-16 text-white" strokeWidth={3} />
                       </div>
                     )}
 
-                    {/* QR Code - Pure Black on Pure White for maximum contrast */}
-                    <div className={`w-full h-full flex items-center justify-center p-4 transition-all duration-300 ${isRefreshing ? 'opacity-0' : 'opacity-100'}`}>
+                    {/* QR Code */}
+                    <div className={`w-full h-full flex items-center justify-center p-3 transition-all duration-300 ${isRefreshing ? 'opacity-0' : 'opacity-100'}`}>
                       <QRCodeSVG
                         key={qrKey}
                         value={generateQRData()}
-                        size={160}
+                        size={120}
                         level="H"
                         bgColor="#FFFFFF"
                         fgColor="#000000"
                       />
                     </div>
                   </div>
-
-                  {/* Lock Overlay */}
-                  {isLocked && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-20 h-20 rounded-full bg-red-500/90 flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.6)]">
-                        <Lock className="w-10 h-10 text-white" />
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
 
-              {/* Quick Reload Button - Show if locked or low balance */}
-              {isLocked && (
-                <div className="mb-4">
-                  <button
-                    onClick={handleQuickReload}
-                    disabled={isReloading}
-                    className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold flex items-center justify-center gap-2 hover:from-amber-400 hover:to-amber-500 transition-all disabled:opacity-50"
-                  >
-                    {isReloading ? (
-                      <RefreshCw size={18} className="animate-spin" />
-                    ) : (
-                      <Zap size={18} />
-                    )}
-                    Add Funds to Ghost Pass
-                  </button>
+              {/* Timer */}
+              <div className="text-center mb-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <div className={`w-1.5 h-1.5 rounded-full ${timeLeft <= 5 ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`} />
+                  <span className="text-[10px] text-gray-400">
+                    Refreshes in <span className={`font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-white'}`}>{timeLeft}s</span>
+                  </span>
                 </div>
-              )}
-
-              {/* Timer - Only show if not locked */}
-              {!isLocked && (
-                <div className="text-center mb-4">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-                    <div className={`w-2 h-2 rounded-full ${timeLeft <= 5 ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`} />
-                    <span className="text-xs text-gray-400">
-                      Refreshes in <span className={`font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-white'}`}>{timeLeft}s</span>
-                    </span>
-                  </div>
-                </div>
-              )}
+              </div>
 
               {/* Privacy Note */}
-              <p className="text-[10px] text-gray-500 text-center leading-relaxed">
-                {isLocked 
-                  ? 'Add funds to activate your Ghost™ Pass'
-                  : 'This code encrypts your selected data for 30 seconds. No raw data is shared with the venue.'
-                }
+              <p className="text-[9px] text-gray-500 text-center leading-relaxed">
+                This code encrypts your selected data for 30 seconds. No raw data is shared with the venue.
               </p>
-
-              {/* Demo: Simulate Scan Success */}
-              {!isLocked && (
-                <div className="mt-4 text-center">
-                  <button
-                    onClick={handleScanSuccess}
-                    className="text-[10px] text-gray-600 hover:text-gray-400 underline transition-colors"
-                  >
-                    [Demo: Simulate Scan]
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         </DialogContent>
@@ -863,56 +1099,43 @@ const GhostPassModal = ({
             box-shadow: 0 0 0 2px rgba(255,215,0,0.4), 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(34,197,94,0.3);
           }
           50% {
-            box-shadow: 0 0 0 3px rgba(255,215,0,0.6), 0 0 50px rgba(255,215,0,0.6), 0 0 80px rgba(34,197,94,0.5);
+            box-shadow: 0 0 0 3px rgba(255,215,0,0.6), 0 0 40px rgba(255,215,0,0.5), 0 0 80px rgba(34,197,94,0.4);
           }
         }
-
+        
+        @keyframes yellowGlowPulse {
+          0%, 100% {
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.15);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2);
+          }
+        }
+        
         @keyframes slideUpEnergize {
           0% {
             opacity: 0;
-            transform: translateY(100px) scale(0.95);
+            transform: translateY(20px) scale(0.95);
           }
           100% {
             opacity: 1;
             transform: translateY(0) scale(1);
           }
         }
-
+        
         @keyframes neonPulseGreen {
           0%, 100% {
             box-shadow: 0 0 0 3px rgba(34,197,94,0.8), 0 0 40px rgba(34,197,94,0.5), 0 0 80px rgba(34,197,94,0.3);
           }
           50% {
-            box-shadow: 0 0 0 4px rgba(34,197,94,1), 0 0 60px rgba(34,197,94,0.7), 0 0 100px rgba(34,197,94,0.5);
+            box-shadow: 0 0 0 4px rgba(34,197,94,0.9), 0 0 50px rgba(34,197,94,0.6), 0 0 100px rgba(34,197,94,0.4);
           }
         }
-
+        
         @keyframes successFlash {
-          0% {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          20% {
-            opacity: 1;
-            transform: scale(1.05);
-          }
-          40% {
-            transform: scale(1);
-          }
-          100% {
-            opacity: 1;
-          }
-        }
-
-        @keyframes yellowGlowPulse {
-          0%, 100% {
-            border-color: rgba(255, 215, 0, 0.5);
-            box-shadow: 0 0 12px rgba(255, 215, 0, 0.25), 0 0 25px rgba(255, 215, 0, 0.1);
-          }
-          50% {
-            border-color: rgba(255, 215, 0, 0.8);
-            box-shadow: 0 0 18px rgba(255, 215, 0, 0.4), 0 0 35px rgba(255, 215, 0, 0.2);
-          }
+          0% { opacity: 0; transform: scale(0.5); }
+          50% { opacity: 1; transform: scale(1.1); }
+          100% { opacity: 0; transform: scale(1); }
         }
       `}</style>
     </>

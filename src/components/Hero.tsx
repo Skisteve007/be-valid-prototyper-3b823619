@@ -198,27 +198,9 @@ const Hero = () => {
 
 
           {/* The Power Behind The Signal - Feature Cards */}
-          <div className="mt-12">
+          <div className="mt-12 w-full">
             <p className="text-xs font-mono tracking-widest text-cyan-400 mb-4 text-center md:text-left uppercase">{t('hero.powerBehind')}</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto md:mx-0">
-              {/* Card 1: Verified Access */}
-              <div className="p-4 rounded-lg border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
-                <h3 className="text-sm font-bold text-cyan-400 mb-1">{t('hero.instantEntry')}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{t('hero.instantEntryDesc')}</p>
-              </div>
-              {/* Card 2: Instant Funds Flow */}
-              <div className="p-4 rounded-lg border border-green-500/30 bg-green-500/5 backdrop-blur-sm hover:border-green-400/50 transition-all">
-                <h3 className="text-sm font-bold text-green-400 mb-1">{t('hero.secureFunds')}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{t('hero.secureFundsDesc')}</p>
-              </div>
-              {/* Card 3: Absolute Privacy */}
-              <div className="p-4 rounded-lg border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
-                <h3 className="text-sm font-bold text-purple-400 mb-1">{t('hero.dataLock')}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{t('hero.dataLockDesc')}</p>
-              </div>
-            </div>
           </div>
-
         </div>
 
         {/* RIGHT: THE PORTAL VIDEO (Fixed Visibility & Centering) */}
@@ -247,6 +229,27 @@ const Hero = () => {
           </div>
         </div>
 
+      </div>
+
+      {/* Power Behind Signal Cards - Full Width Section */}
+      <div className="w-full max-w-7xl px-[15px] md:px-6 z-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+          {/* Card 1: Verified Access */}
+          <div className="p-5 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
+            <h3 className="text-base font-bold text-cyan-400 mb-2">{t('hero.instantEntry')}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.instantEntryDesc')}</p>
+          </div>
+          {/* Card 2: Instant Funds Flow */}
+          <div className="p-5 rounded-xl border border-green-500/30 bg-green-500/5 backdrop-blur-sm hover:border-green-400/50 transition-all">
+            <h3 className="text-base font-bold text-green-400 mb-2">{t('hero.secureFunds')}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.secureFundsDesc')}</p>
+          </div>
+          {/* Card 3: Absolute Privacy */}
+          <div className="p-5 rounded-xl border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
+            <h3 className="text-base font-bold text-purple-400 mb-2">{t('hero.dataLock')}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.dataLockDesc')}</p>
+          </div>
+        </div>
       </div>
 
       {/* 3. BACKGROUND ATMOSPHERE */}

@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, QrCode, Home, FlaskConical, ShieldCheck, Share2, Fingerprint } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, QrCode, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
-import ProfileTab from "@/components/dashboard/ProfileTab";
+import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
 import CertificationsTab from "@/components/dashboard/CertificationsTab";
 import QRCodeTab from "@/components/dashboard/QRCodeTab";
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
@@ -31,9 +31,11 @@ const Dashboard = () => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [vibeMetadata, setVibeMetadata] = useState<Record<string, any>>({});
   const [statusColor, setStatusColor] = useState<string>("green");
+  const [profileSaveState, setProfileSaveState] = useState({ hasChanges: false, saving: false, saveSuccess: false });
   const longPressHandlers = useLongPressHome();
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
+  const profileTabRef = useRef<ProfileTabRef>(null);
 
   const tabs = ["profile", "certifications", "qrcode", "lab-verification", "safety-screen", "verify-id"];
 
@@ -217,51 +219,88 @@ const Dashboard = () => {
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">
                 <div className="overflow-x-auto overflow-y-hidden -mx-2 px-2 pb-3">
-                  <TabsList className="inline-flex bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-1.5 gap-1.5 w-auto min-w-full">
-                    <TabsTrigger 
-                      value="profile" 
-                      className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                    >
-                      <UserIcon className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">Profile</span>
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="certifications"
-                      className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                    >
-                      <Upload className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">Trust Center</span>
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="qrcode"
-                      className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                    >
-                      <QrCode className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">QR Code</span>
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="lab-verification"
-                      className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                    >
-                      <FlaskConical className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">Health Lab</span>
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="safety-screen"
-                      className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                    >
-                      <ShieldCheck className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm">Toxicology</span>
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="verify-id"
-                      className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 data-[state=active]:shadow-[0_0_15px_rgba(245,158,11,0.3)] whitespace-nowrap border border-amber-500/30 bg-amber-500/5 animate-pulse"
-                      style={{ animationDuration: '3s' }}
-                    >
-                      <Fingerprint className="h-4 w-4 mr-1.5" />
-                      <span className="text-sm font-bold">VERIFY ID</span>
-                    </TabsTrigger>
-                  </TabsList>
+                  <div className="flex items-center gap-2 min-w-full">
+                    <TabsList className="inline-flex bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-1.5 gap-1.5 flex-1">
+                      <TabsTrigger 
+                        value="profile" 
+                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
+                      >
+                        <UserIcon className="h-4 w-4 mr-1.5" />
+                        <span className="text-sm">Profile</span>
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="certifications"
+                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
+                      >
+                        <Upload className="h-4 w-4 mr-1.5" />
+                        <span className="text-sm">Trust Center</span>
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="qrcode"
+                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
+                      >
+                        <QrCode className="h-4 w-4 mr-1.5" />
+                        <span className="text-sm">QR Code</span>
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="lab-verification"
+                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
+                      >
+                        <FlaskConical className="h-4 w-4 mr-1.5" />
+                        <span className="text-sm">Health Lab</span>
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="safety-screen"
+                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
+                      >
+                        <ShieldCheck className="h-4 w-4 mr-1.5" />
+                        <span className="text-sm">Toxicology</span>
+                      </TabsTrigger>
+                      <TabsTrigger 
+                        value="verify-id"
+                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 data-[state=active]:shadow-[0_0_15px_rgba(245,158,11,0.3)] whitespace-nowrap border border-amber-500/30 bg-amber-500/5 animate-pulse"
+                        style={{ animationDuration: '3s' }}
+                      >
+                        <Fingerprint className="h-4 w-4 mr-1.5" />
+                        <span className="text-sm font-bold">VERIFY ID</span>
+                      </TabsTrigger>
+                      
+                      {/* Save Now Button - Inside the pill on the right */}
+                      {activeTab === "profile" && (
+                        <Button
+                          type="button"
+                          size="sm"
+                          onClick={() => profileTabRef.current?.triggerSave()}
+                          disabled={profileSaveState.saving}
+                          className={`ml-auto py-2.5 px-4 rounded-lg transition-all duration-300 whitespace-nowrap ${
+                            profileSaveState.saveSuccess
+                              ? 'bg-green-600 hover:bg-green-600 text-white shadow-[0_0_15px_rgba(34,197,94,0.5)]'
+                              : profileSaveState.hasChanges && !profileSaveState.saving
+                                ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-pulse'
+                                : 'bg-white/10 text-[#E0E0E0]/70 hover:bg-white/20'
+                          }`}
+                          style={{ animationDuration: '2s' }}
+                        >
+                          {profileSaveState.saving ? (
+                            <>
+                              <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
+                              <span className="text-sm">Saving...</span>
+                            </>
+                          ) : profileSaveState.saveSuccess ? (
+                            <>
+                              <CheckCircle className="h-4 w-4 mr-1.5" />
+                              <span className="text-sm">Saved!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Save className="h-4 w-4 mr-1.5" />
+                              <span className="text-sm">Save Now{profileSaveState.hasChanges ? " •" : ""}</span>
+                            </>
+                          )}
+                        </Button>
+                      )}
+                    </TabsList>
+                  </div>
                 </div>
               </div>
               
@@ -270,7 +309,12 @@ const Dashboard = () => {
                 <TabsContent value="profile">
                   {/* Venue Check-in - ONLY visible on Profile tab */}
                   <VenueCheckin userId={user.id} />
-                  <ProfileTab userId={user.id} onUpdate={handleProfileUpdate} />
+                  <ProfileTab 
+                    ref={profileTabRef}
+                    userId={user.id} 
+                    onUpdate={handleProfileUpdate}
+                    onSaveStateChange={setProfileSaveState}
+                  />
                 </TabsContent>
                 
                 <TabsContent value="certifications">

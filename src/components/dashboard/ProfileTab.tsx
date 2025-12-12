@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,11 @@ import { useIsAdmin } from "@/hooks/useIsAdmin";
 interface ProfileTabProps {
   userId: string;
   onUpdate?: () => void;
+  onSaveStateChange?: (state: { hasChanges: boolean; saving: boolean; saveSuccess: boolean }) => void;
+}
+
+export interface ProfileTabRef {
+  triggerSave: () => void;
 }
 
 interface ProfileFormData {
@@ -56,7 +61,7 @@ interface ProfileFormData {
   disclaimer_accepted: boolean;
 }
 
-const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
+const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdate, onSaveStateChange }, ref) => {
   const { isAdmin } = useIsAdmin();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -167,6 +172,18 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
     JSON.stringify(selectedInterests.sort()) !== JSON.stringify(initialSelectedInterests.sort()) ||
     JSON.stringify(referenceIds) !== JSON.stringify(initialReferenceIds) ||
     JSON.stringify(vibeMetadata) !== JSON.stringify(initialVibeMetadata);
+
+  // Expose save functionality to parent via ref
+  useImperativeHandle(ref, () => ({
+    triggerSave: () => {
+      handleSubmit(onSubmit)();
+    }
+  }));
+
+  // Notify parent of save state changes
+  useEffect(() => {
+    onSaveStateChange?.({ hasChanges, saving, saveSuccess });
+  }, [hasChanges, saving, saveSuccess, onSaveStateChange]);
 
   // Debug logging
   useEffect(() => {
@@ -815,6 +832,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
       </div>
     </form>
   );
-};
+});
+
+ProfileTab.displayName = "ProfileTab";
 
 export default ProfileTab;

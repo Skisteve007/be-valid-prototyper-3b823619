@@ -188,14 +188,13 @@ const Hero = () => {
             <p className="text-sm text-gray-400 mt-3 text-center md:text-left max-w-md transition-all duration-300">
               {signalModes[activeSignal].description}
             </p>
+            
+            {/* SUB-HEADLINE: Adaptive Profile - Below signal description */}
+            <p className="text-base text-gray-400 mt-4 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
+              {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
+              <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
+            </p>
           </div>
-
-          {/* SUB-HEADLINE: Adaptive Profile - Moved below signal buttons */}
-          <p className="text-lg text-gray-400 my-8 font-light max-w-md mx-auto md:mx-0 leading-relaxed">
-            {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
-            <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
-          </p>
-
 
           {/* The Power Behind The Signal - Feature Cards */}
           <div className="mt-12 w-full">

@@ -27,27 +27,28 @@ export const PricingSection = () => {
       <style>{`
         @keyframes neon-pulse {
           0%, 100% {
-            box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
+            box-shadow: 0 0 4px currentColor, 0 0 8px currentColor;
           }
           50% {
-            box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
+            box-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
           }
         }
         @keyframes border-glow {
           0%, 100% {
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3), inset 0 0 20px rgba(0, 240, 255, 0.05);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.03);
           }
           50% {
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5), inset 0 0 30px rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.05);
           }
         }
         .pricing-grid-container {
           display: flex;
           flex-direction: row;
-          flex-wrap: wrap;
-          gap: 16px;
-          padding: 20px;
+          flex-wrap: nowrap;
+          gap: 12px;
+          padding: 16px;
           justify-content: center;
+          overflow-x: auto;
         }
         .pricing-card {
           border: 1px solid rgba(0, 240, 255, 0.3);
@@ -121,22 +122,18 @@ export const PricingSection = () => {
         .neon-btn-green {
           background: linear-gradient(135deg, #39ff14, #00ff88);
           color: #000;
-          animation: neon-pulse 2s ease-in-out infinite;
-          color: #39ff14;
+          animation: neon-pulse 2.5s ease-in-out infinite;
         }
         .neon-btn-green:hover {
           transform: scale(1.02);
-          background: linear-gradient(135deg, #50ff30, #20ffa0);
         }
         .neon-btn-cyan {
           background: linear-gradient(135deg, #00f0ff, #0088ff);
           color: #000;
-          animation: neon-pulse 2s ease-in-out infinite 0.5s;
-          color: #00f0ff;
+          animation: neon-pulse 2.5s ease-in-out infinite 0.5s;
         }
         .neon-btn-cyan:hover {
           transform: scale(1.02);
-          background: linear-gradient(135deg, #20ffff, #2090ff);
         }
         .currency-note {
           font-size: 0.7em;

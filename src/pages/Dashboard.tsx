@@ -265,12 +265,11 @@ const Dashboard = () => {
                 </div>
               </div>
               
-              {/* Venue Check-in */}
-              <VenueCheckin userId={user.id} />
-              
               {/* Tab Content */}
               <div className="[&_.card]:backdrop-blur-xl [&_.card]:bg-black/40 [&_.card]:border-white/10 [&_h3]:text-[#E0E0E0] [&_label]:text-[#E0E0E0]/80 [&_p]:text-[#E0E0E0]/70">
                 <TabsContent value="profile">
+                  {/* Venue Check-in - ONLY visible on Profile tab */}
+                  <VenueCheckin userId={user.id} />
                   <ProfileTab userId={user.id} onUpdate={handleProfileUpdate} />
                 </TabsContent>
                 

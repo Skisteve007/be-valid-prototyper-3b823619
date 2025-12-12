@@ -286,7 +286,7 @@ const GhostPassModal = ({
       {/* Floating Ghost Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] w-16 h-16 rounded-full flex items-center justify-center transition-transform active:scale-95"
+        className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[9999] w-16 h-16 rounded-full flex items-center justify-center transition-transform active:scale-95"
         style={{
           background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.95) 100%)',
           boxShadow: hasSufficientFunds 
@@ -305,7 +305,7 @@ const GhostPassModal = ({
       {/* Ghost QR Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent 
-          className="max-w-sm w-[95vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden top-[30%] translate-y-[-30%]"
+          className="max-w-sm w-[95vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden top-[20%] translate-y-[-20%]"
           style={{
             animation: 'slideUpEnergize 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           }}

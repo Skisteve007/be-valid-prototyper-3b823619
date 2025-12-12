@@ -91,7 +91,7 @@ const Index = () => {
 
 
       {/* 3. THE TRUST BRIDGE (Explaining the Value) */}
-      <section className={`py-20 px-4 relative z-10 border-b transition-colors duration-500
+      <section className={`pt-20 pb-10 px-4 relative z-10 border-b transition-colors duration-500
         ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
         <div className="max-w-7xl mx-auto">
           
@@ -142,7 +142,7 @@ const Index = () => {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-24 px-4 relative z-10">
+      <section className="pt-10 pb-24 px-4 relative z-10">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className={`text-3xl md:text-4xl font-bold mb-6 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>

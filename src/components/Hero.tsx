@@ -130,7 +130,7 @@ const Hero = () => {
             </h1>
 
             {/* Description */}
-            <p className="text-base text-gray-300 mb-6 max-w-lg leading-relaxed text-left">
+            <p className="text-base text-gray-300 mb-8 mt-8 max-w-lg leading-relaxed text-left">
               {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
               <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
             </p>
@@ -138,9 +138,9 @@ const Hero = () => {
             {/* CTA Button */}
             <button 
               onClick={handleAccessClick}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold text-sm rounded-full hover:bg-cyan-50 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 mb-8"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all hover:scale-105 mb-8"
             >
-              {t('hero.claimId')} <ArrowRight size={16} />
+              {t('hero.claimId')} <ArrowRight size={14} />
             </button>
 
             {/* Signal Mode Selection */}
@@ -176,8 +176,8 @@ const Hero = () => {
             </div>
 
             {/* Valid Network Title */}
-            <div className="mb-6">
-              <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-2">
+            <div className="mb-6 mt-10">
+              <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-4">
                 {t('network.title')}
               </div>
               <h2 className="text-2xl md:text-4xl font-black font-orbitron text-white text-left">

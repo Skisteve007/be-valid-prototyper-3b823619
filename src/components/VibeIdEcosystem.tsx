@@ -76,6 +76,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
   const currentMode = signalModes[activeMode];
 
   const headline = t('network.headline');
+  const headlineSuffix = t('network.headlineSuffix');
   const description = variant === 'b2c'
     ? t('network.description')
     : t('network.descriptionB2b');
@@ -118,7 +119,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
           </div>
           <h2 className={`text-3xl md:text-5xl font-black mb-0 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            {headline}
+            {headline} <span className="text-cyan-400">{headlineSuffix}</span>
           </h2>
         </div>
 

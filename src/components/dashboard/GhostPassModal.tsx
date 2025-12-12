@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Zap, MapPin, ChevronDown, Clock, ArrowUp } from 'lucide-react';
+import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Zap, MapPin, ChevronDown, Clock, ArrowUp, FlaskConical } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
@@ -14,6 +14,7 @@ interface ToggleState {
   identity: boolean;
   payment: boolean;
   health: boolean;
+  tox: boolean;
 }
 
 interface ActiveVenue {
@@ -63,6 +64,7 @@ const GhostPassModal = ({
     identity: true,
     payment: true,
     health: false,
+    tox: false,
   });
   const [timeLeft, setTimeLeft] = useState(30);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -983,6 +985,19 @@ const GhostPassModal = ({
                 >
                   <HeartPulse size={28} className={toggles.health ? 'text-green-400' : 'text-gray-500'} />
                   <span className={`text-[10px] font-bold ${toggles.health ? 'text-green-400' : 'text-gray-500'}`}>BIO</span>
+                </button>
+
+                {/* Tox Toggle */}
+                <button
+                  onClick={() => setToggles(prev => ({ ...prev, tox: !prev.tox }))}
+                  className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all duration-300 ${
+                    toggles.tox
+                      ? 'bg-purple-500/20 border-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.3)]'
+                      : 'bg-white/5 border-white/10 opacity-50'
+                  }`}
+                >
+                  <FlaskConical size={28} className={toggles.tox ? 'text-purple-400' : 'text-gray-500'} />
+                  <span className={`text-[10px] font-bold ${toggles.tox ? 'text-purple-400' : 'text-gray-500'}`}>TOX</span>
                 </button>
               </div>
 

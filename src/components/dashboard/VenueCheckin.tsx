@@ -291,8 +291,9 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
         )}
 
         {/* Google Link - Shows after venue selection */}
-        {selectedVenueUrl && (
+        {selectedVenue && selectedVenueUrl && (
           <a
+            key={`${selectedVenue}-${selectedVenueUrl}`}
             href={selectedVenueUrl}
             target="_blank"
             rel="noopener noreferrer"

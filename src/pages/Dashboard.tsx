@@ -267,13 +267,19 @@ const Dashboard = () => {
                         <UserIcon className="h-4 w-4 mr-1.5" />
                         <span className="text-sm">Profile</span>
                       </TabsTrigger>
-                      <TabsTrigger 
-                        value="certifications"
-                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
+                      <button 
+                        type="button"
+                        onClick={() => {
+                          const trustCenterEl = document.getElementById('trust-center-section');
+                          if (trustCenterEl) {
+                            trustCenterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        }}
+                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 hover:bg-[#00FFFF]/10 hover:text-[#00FFFF] transition-colors whitespace-nowrap flex items-center"
                       >
                         <Upload className="h-4 w-4 mr-1.5" />
                         <span className="text-sm">Trust Center</span>
-                      </TabsTrigger>
+                      </button>
                       <TabsTrigger 
                         value="lab-verification"
                         className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
@@ -313,9 +319,6 @@ const Dashboard = () => {
                   />
                 </TabsContent>
                 
-                <TabsContent value="certifications">
-                  <CertificationsTab userId={user.id} />
-                </TabsContent>
                 
                 
                 <TabsContent value="lab-verification">

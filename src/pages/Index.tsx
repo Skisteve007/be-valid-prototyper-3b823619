@@ -191,15 +191,15 @@ interface FeatureCardProps {
 }
 
 const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage }: FeatureCardProps) => (
-  <div className={`p-8 rounded-2xl border transition-all duration-500 group relative overflow-hidden backdrop-blur-sm
+  <div className={`p-8 rounded-2xl border transition-all duration-500 group relative overflow-hidden
     ${isDark 
-      ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.1)]' 
+      ? 'bg-black/60 border-cyan-500/30 hover:border-cyan-400/70 hover:shadow-[0_0_40px_rgba(0,240,255,0.25)]' 
       : 'bg-white border-slate-200 hover:shadow-xl hover:border-cyan-300'}`}>
     
     {/* Background Image */}
     {backgroundImage && (
       <div 
-        className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+        className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity duration-500"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
@@ -208,20 +208,23 @@ const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage }: Feat
       />
     )}
     
+    {/* Gradient overlay for better text contrast */}
+    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+    
     {/* Content overlay */}
     <div className="relative z-10">
-      <div className={`mb-6 p-4 rounded-full inline-block transition-colors duration-300
-        ${isDark ? 'bg-black/80 text-white' : 'bg-slate-100 text-slate-800'}
-        ${color === 'cyan' && 'group-hover:text-cyan-400'}
+      <div className={`mb-6 p-4 rounded-full inline-block transition-all duration-300 shadow-lg
+        ${isDark ? 'bg-black/90 text-cyan-400 border border-cyan-500/50 group-hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]' : 'bg-slate-100 text-slate-800'}
+        ${color === 'cyan' && 'group-hover:text-cyan-300 group-hover:border-cyan-400'}
         ${color === 'purple' && 'group-hover:text-purple-400'}
         ${color === 'blue' && 'group-hover:text-blue-400'}`}>
         {icon}
       </div>
       
-      <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>
+      <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]' : 'text-slate-900'}`}>
         {title}
       </h3>
-      <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-200' : 'text-slate-600'}`}>
+      <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-100' : 'text-slate-600'}`}>
         {desc}
       </p>
     </div>

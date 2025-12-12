@@ -656,7 +656,7 @@ const PitchDeck = () => {
                   SOCIAL MEDIA / IDENTITY PLATFORMS
                 </Badge>
                 <h3 className="text-xl font-bold text-white mb-2 font-orbitron">
-                  Instagram, TikTok, WhatsApp, LinkedIn <span className="text-sm font-normal text-gray-400">(Social Networks)</span>
+                  Meta (Facebook), Instagram, TikTok, WhatsApp, LinkedIn <span className="text-sm font-normal text-gray-400">(Social Networks)</span>
                 </h3>
                 <p className="text-gray-300">
                   <span className="text-pink-400 font-semibold">Key Differentiator:</span> Valid™ functions as the <span className="text-white font-semibold">Social Chameleon</span>: it provides instant identity fluidity (My Signal), physical broadcasting (Beacon), and privacy control (Location Pulse), which is impossible within the static, digital-only framework of existing social networks.

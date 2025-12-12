@@ -43,9 +43,12 @@ const ACCESS_PASS_OPTIONS = [
 
 const PAYMENT_METHODS = [
   { id: 'apple_pay', label: 'Apple Pay' },
+  { id: 'google_pay', label: 'Google Pay' },
   { id: 'credit_card', label: 'Credit Card' },
   { id: 'paypal', label: 'PayPal' },
   { id: 'venmo', label: 'Venmo' },
+  { id: 'cash_app', label: 'Cash App' },
+  { id: 'coinbase', label: 'Coinbase' },
   { id: 'zelle', label: 'Zelle' },
 ];
 
@@ -672,6 +675,85 @@ const GhostPassModal = ({
                 </div>
               </div>
 
+              {/* QR Code Container with Progress Ring - MOVED ABOVE PILLS */}
+              <div className="flex justify-center mb-4">
+                <div className="relative">
+                  {/* Progress Ring */}
+                  <svg className="absolute -inset-4 w-[calc(100%+32px)] h-[calc(100%+32px)] -rotate-90">
+                    <circle
+                      cx="50%"
+                      cy="50%"
+                      r={90}
+                      fill="none"
+                      stroke="rgba(255,255,255,0.1)"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="50%"
+                      cy="50%"
+                      r={90}
+                      fill="none"
+                      stroke={isActivated ? '#22c55e' : '#fbbf24'}
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeDasharray={2 * Math.PI * 90}
+                      strokeDashoffset={(2 * Math.PI * 90) - ((30 - timeLeft) / 30) * (2 * Math.PI * 90)}
+                      className="transition-all duration-1000 ease-linear"
+                      style={{
+                        filter: isActivated ? 'drop-shadow(0 0 6px rgba(34,197,94,0.6))' : 'drop-shadow(0 0 6px rgba(251,191,36,0.6))',
+                      }}
+                    />
+                  </svg>
+
+                  {/* Pure White QR Container - BIGGER */}
+                  <div 
+                    className="relative w-44 h-44 rounded-xl overflow-hidden transition-all duration-300"
+                    style={{
+                      background: '#FFFFFF',
+                      boxShadow: isActivated 
+                        ? '0 0 0 2px rgba(34,197,94,0.8), 0 0 30px rgba(34,197,94,0.4)'
+                        : '0 0 0 2px rgba(251,191,36,0.8), 0 0 30px rgba(251,191,36,0.4)',
+                    }}
+                  >
+                    {/* Refresh Animation */}
+                    {isRefreshing && (
+                      <div className="absolute inset-0 z-20 flex items-center justify-center bg-white">
+                        <RefreshCw size={24} className="text-gray-400 animate-spin" />
+                      </div>
+                    )}
+
+                    {/* Success Overlay */}
+                    {showSuccess && (
+                      <div className="absolute inset-0 z-30 flex items-center justify-center bg-green-500">
+                        <Check className="w-16 h-16 text-white" strokeWidth={3} />
+                      </div>
+                    )}
+
+                    {/* QR Code - BIGGER */}
+                    <div className={`w-full h-full flex items-center justify-center p-3 transition-all duration-300 ${isRefreshing ? 'opacity-0' : 'opacity-100'}`}>
+                      <QRCodeSVG
+                        key={qrKey}
+                        value={generateQRData()}
+                        size={156}
+                        level="H"
+                        bgColor="#FFFFFF"
+                        fgColor="#000000"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Timer - MOVED BELOW QR */}
+              <div className="text-center mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <div className={`w-1.5 h-1.5 rounded-full ${timeLeft <= 5 ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`} />
+                  <span className="text-[10px] text-gray-400">
+                    Refreshes in <span className={`font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-white'}`}>{timeLeft}s</span>
+                  </span>
+                </div>
+              </div>
+
               {/* ===== CONTROL PILLS ===== */}
               <div className="space-y-2 mb-4">
                 {/* Pill 1: Destination */}
@@ -906,84 +988,6 @@ const GhostPassModal = ({
                 </button>
               </div>
 
-              {/* QR Code Container with Progress Ring */}
-              <div className="flex justify-center mb-3">
-                <div className="relative">
-                  {/* Progress Ring */}
-                  <svg className="absolute -inset-3 w-[calc(100%+24px)] h-[calc(100%+24px)] -rotate-90">
-                    <circle
-                      cx="50%"
-                      cy="50%"
-                      r={70}
-                      fill="none"
-                      stroke="rgba(255,255,255,0.1)"
-                      strokeWidth="2"
-                    />
-                    <circle
-                      cx="50%"
-                      cy="50%"
-                      r={70}
-                      fill="none"
-                      stroke={isActivated ? '#22c55e' : '#fbbf24'}
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeDasharray={2 * Math.PI * 70}
-                      strokeDashoffset={(2 * Math.PI * 70) - ((30 - timeLeft) / 30) * (2 * Math.PI * 70)}
-                      className="transition-all duration-1000 ease-linear"
-                      style={{
-                        filter: isActivated ? 'drop-shadow(0 0 6px rgba(34,197,94,0.6))' : 'drop-shadow(0 0 6px rgba(251,191,36,0.6))',
-                      }}
-                    />
-                  </svg>
-
-                  {/* Pure White QR Container */}
-                  <div 
-                    className="relative w-36 h-36 rounded-xl overflow-hidden transition-all duration-300"
-                    style={{
-                      background: '#FFFFFF',
-                      boxShadow: isActivated 
-                        ? '0 0 0 2px rgba(34,197,94,0.8), 0 0 30px rgba(34,197,94,0.4)'
-                        : '0 0 0 2px rgba(251,191,36,0.8), 0 0 30px rgba(251,191,36,0.4)',
-                    }}
-                  >
-                    {/* Refresh Animation */}
-                    {isRefreshing && (
-                      <div className="absolute inset-0 z-20 flex items-center justify-center bg-white">
-                        <RefreshCw size={24} className="text-gray-400 animate-spin" />
-                      </div>
-                    )}
-
-                    {/* Success Overlay */}
-                    {showSuccess && (
-                      <div className="absolute inset-0 z-30 flex items-center justify-center bg-green-500">
-                        <Check className="w-16 h-16 text-white" strokeWidth={3} />
-                      </div>
-                    )}
-
-                    {/* QR Code */}
-                    <div className={`w-full h-full flex items-center justify-center p-3 transition-all duration-300 ${isRefreshing ? 'opacity-0' : 'opacity-100'}`}>
-                      <QRCodeSVG
-                        key={qrKey}
-                        value={generateQRData()}
-                        size={120}
-                        level="H"
-                        bgColor="#FFFFFF"
-                        fgColor="#000000"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Timer */}
-              <div className="text-center mb-3">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
-                  <div className={`w-1.5 h-1.5 rounded-full ${timeLeft <= 5 ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`} />
-                  <span className="text-[10px] text-gray-400">
-                    Refreshes in <span className={`font-bold ${timeLeft <= 5 ? 'text-red-400' : 'text-white'}`}>{timeLeft}s</span>
-                  </span>
-                </div>
-              </div>
 
               {/* Privacy Note */}
               <p className="text-[9px] text-gray-500 text-center leading-relaxed">

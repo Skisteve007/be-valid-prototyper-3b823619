@@ -46,6 +46,13 @@ const GhostPassModal = ({
   const [qrKey, setQrKey] = useState(Date.now());
   const [showSuccess, setShowSuccess] = useState(false);
   
+  // Draggable button state (desktop only)
+  const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
   // Financial state
   const [balance, setBalance] = useState(0);
   const [venueSpend, setVenueSpend] = useState(0);
@@ -414,26 +421,74 @@ const GhostPassModal = ({
   const circumference = 2 * Math.PI * radius;
   const progress = ((30 - timeLeft) / 30) * circumference;
 
+  // Desktop drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (isMobile) return;
+    e.preventDefault();
+    setIsDragging(true);
+    const rect = buttonRef.current?.getBoundingClientRect();
+    if (rect) {
+      setDragOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    }
+  };
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!isDragging || isMobile) return;
+    const newX = window.innerWidth - e.clientX - (64 - dragOffset.x);
+    const newY = window.innerHeight - e.clientY - (64 - dragOffset.y);
+    // Keep within bounds
+    setButtonPosition({
+      x: Math.max(0, Math.min(window.innerWidth - 80, newX)),
+      y: Math.max(0, Math.min(window.innerHeight - 80, newY)),
+    });
+  }, [isDragging, isMobile, dragOffset]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, handleMouseMove, handleMouseUp]);
+
   return (
     <>
-      {/* Floating Ghost Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[9999] w-16 h-16 rounded-full flex items-center justify-center transition-transform active:scale-95"
-        style={{
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.95) 100%)',
-          boxShadow: hasSufficientFunds 
-            ? '0 0 0 2px rgba(255,215,0,0.4), 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(34,197,94,0.3)'
-            : '0 0 0 2px rgba(239,68,68,0.4), 0 0 30px rgba(239,68,68,0.4)',
-          animation: hasSufficientFunds ? 'ghostBreathing 3s ease-in-out infinite' : 'none',
-        }}
-      >
-        {isLocked ? (
-          <Lock className="w-7 h-7 text-red-400" />
-        ) : (
-          <Ghost className="w-8 h-8 text-amber-400" />
-        )}
-      </button>
+      {/* Floating Ghost Button - Hidden when modal is open */}
+      {!isOpen && (
+        <button
+          ref={buttonRef}
+          onClick={() => !isDragging && setIsOpen(true)}
+          onMouseDown={handleMouseDown}
+          className={`fixed z-[9999] w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-200 ${
+            isDragging ? 'cursor-grabbing scale-110' : 'cursor-pointer active:scale-95'
+          } ${!isMobile ? 'hover:scale-105' : ''}`}
+          style={{
+            right: isMobile ? '16px' : `${16 + buttonPosition.x}px`,
+            bottom: isMobile ? '80px' : `${80 + buttonPosition.y}px`,
+            background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.95) 100%)',
+            boxShadow: hasSufficientFunds 
+              ? '0 0 0 2px rgba(255,215,0,0.4), 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(34,197,94,0.3)'
+              : '0 0 0 2px rgba(239,68,68,0.4), 0 0 30px rgba(239,68,68,0.4)',
+            animation: hasSufficientFunds && !isDragging ? 'ghostBreathing 3s ease-in-out infinite' : 'none',
+          }}
+        >
+          {isLocked ? (
+            <Lock className="w-6 h-6 md:w-7 md:h-7 text-red-400" />
+          ) : (
+            <Ghost className="w-7 h-7 md:w-8 md:h-8 text-amber-400" />
+          )}
+        </button>
+      )}
 
       {/* Ghost QR Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>

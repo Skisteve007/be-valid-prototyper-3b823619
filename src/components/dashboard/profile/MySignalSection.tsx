@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Users, Activity, Zap, Ghost, Radio, MapPin, Clock, MapPinOff, Navigation, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings, MessageSquare } from "lucide-react";
+import { Users, Activity, Zap, Ghost, Radio, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings, MessageSquare } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,8 +18,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 
-type SignalMode = "social" | "pulse" | "thrill" | "afterdark" | "location" | null;
-type LocationType = "live" | "static" | null;
+type SignalMode = "social" | "pulse" | "thrill" | "afterdark" | null;
 
 interface MySignalSectionProps {
   vibeMetadata: Record<string, any>;
@@ -89,52 +88,11 @@ const AFTERDARK_OPTIONS = {
   breakfastPlans: ["Prefer It", "My Place Only", "Hotels Only", "Sometimes", "Never", "Required"],
 };
 
-// Live location durations
-const LOCATION_DURATIONS = [
-  { value: "0.033", label: "Ghosted", sublabel: "2 sec", isGhosted: true },
-  { value: "15", label: "15 Minutes" },
-  { value: "60", label: "1 Hour" },
-  { value: "360", label: "6 Hours" },
-  { value: "720", label: "12 Hours" },
-];
-
-// Static location durations (1-hour intervals only)
-const STATIC_DURATIONS = [
-  { value: "60", label: "1 Hour" },
-  { value: "120", label: "2 Hours" },
-  { value: "180", label: "3 Hours" },
-  { value: "240", label: "4 Hours" },
-];
-
-// Generate fuzzy offset (50-100 meters) for approximate location
-const generateFuzzyOffset = () => {
-  const offset = 50 + Math.random() * 50; // 50-100 meters
-  const angle = Math.random() * 2 * Math.PI; // Random direction
-  const latOffset = (offset / 111320) * Math.cos(angle); // Approx meters to lat
-  const lngOffset = (offset / (111320 * Math.cos(0))) * Math.sin(angle); // Approx meters to lng
-  return { latOffset, lngOffset };
-};
-
-// Detect platform for native map integration
-const detectPlatform = () => {
-  const userAgent = navigator.userAgent || navigator.vendor;
-  if (/iPad|iPhone|iPod/.test(userAgent)) return 'ios';
-  if (/android/i.test(userAgent)) return 'android';
-  return 'web';
-};
-
 const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChange }: MySignalSectionProps) => {
   const [selectedMode, setSelectedMode] = useState<SignalMode>(vibeMetadata?.mode || null);
   const [showAgeWarning, setShowAgeWarning] = useState(false);
   const [pendingMode, setPendingMode] = useState<SignalMode>(null);
   const [localMetadata, setLocalMetadata] = useState<Record<string, any>>(vibeMetadata || {});
-  const [locationDuration, setLocationDuration] = useState<string | null>(null);
-  const [locationActive, setLocationActive] = useState(false);
-  const [locationExpiry, setLocationExpiry] = useState<Date | null>(null);
-  const [locationType, setLocationType] = useState<LocationType>(null);
-  const [fuzzyLocation, setFuzzyLocation] = useState(false);
-  const [staticAddress, setStaticAddress] = useState("");
-  const [staticDuration, setStaticDuration] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
   const [broadcastActive, setBroadcastActive] = useState(false);
   const [broadcastMessage, setBroadcastMessage] = useState("");
@@ -142,15 +100,15 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const [showDevSettings, setShowDevSettings] = useState(false);
   const qrRef = useRef<HTMLDivElement>(null);
 
-  // Simulated venue data (would come from check-in or location detection in production)
+  // Simulated venue data
   const simulatedVenue = {
     name: "Club Nightfall",
-    logo_url: null, // Would be actual URL in production
+    logo_url: null,
     id: "simulated-venue-123"
   };
 
-  // Check if user is at a venue (either checked in or location pulse detected)
-  const isAtVenue = simulateVenue || (selectedMode === "location" && locationActive);
+  // Check if user is at a venue
+  const isAtVenue = simulateVenue;
   const currentVenue = isAtVenue ? simulatedVenue : null;
 
   // Broadcast colors based on mode
@@ -163,9 +121,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       case "social":
       case "pulse":
         return "bg-cyan-500"; // Electric Teal/Cyan
-      case "location":
-        return "bg-green-500"; // Radar Green
       default:
+        return "bg-cyan-500";
         return "bg-cyan-500";
     }
   };
@@ -288,127 +245,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       case "afterdark":
         onStatusColorChange("purple");
         break;
-      case "location":
-        onStatusColorChange("red");
-        break;
       default:
         onStatusColorChange("gray");
-    }
-  };
-
-  const activateLocationShare = () => {
-    if (locationType === "live" && !locationDuration) return;
-    if (locationType === "static" && (!staticAddress || !staticDuration)) return;
-    
-    const durationMinutes = locationType === "live" 
-      ? parseFloat(locationDuration!) 
-      : parseInt(staticDuration!);
-    const expiry = new Date(Date.now() + durationMinutes * 60 * 1000);
-    const isGhostedMode = locationDuration === "0.033";
-    
-    // Generate fuzzy offset if enabled
-    const fuzzyOffset = fuzzyLocation ? generateFuzzyOffset() : null;
-    
-    // Generate encrypted location token for QR embedding
-    const locationToken = {
-      type: locationType,
-      duration: durationMinutes,
-      expiry: expiry.toISOString(),
-      fuzzy: fuzzyLocation,
-      fuzzyOffset: fuzzyOffset,
-      isGhosted: isGhostedMode,
-      peakDuration: isGhostedMode ? 2000 : null, // 2 seconds for ghosted mode
-      staticAddress: locationType === "static" ? staticAddress : null,
-      platform: detectPlatform(),
-      encrypted: true,
-      timestamp: Date.now()
-    };
-    
-    setLocationExpiry(expiry);
-    setLocationActive(true);
-    
-    const newMetadata = { 
-      ...localMetadata, 
-      mode: "location",
-      location_type: locationType,
-      location_duration: durationMinutes,
-      location_expiry: expiry.toISOString(),
-      fuzzy_location: fuzzyLocation,
-      fuzzy_offset: fuzzyOffset,
-      is_ghosted: isGhostedMode,
-      peak_duration: isGhostedMode ? 2000 : null,
-      static_address: locationType === "static" ? staticAddress : null,
-      location_token: locationToken, // Token embedded in QR
-      qr_embedded: true // Flag indicating location is in QR
-    };
-    setLocalMetadata(newMetadata);
-    onVibeMetadataChange(newMetadata);
-    onStatusColorChange("red");
-    
-    toast.success(
-      isGhostedMode 
-        ? "👻 Ghosted mode activated - 2 second peak view embedded in QR"
-        : locationType === "live" 
-          ? `Live location embedded in QR for ${durationMinutes} minutes`
-          : `Static location embedded in QR for ${durationMinutes / 60} hour(s)`
-    );
-  };
-
-  const deactivateLocationShare = () => {
-    setLocationActive(false);
-    setLocationExpiry(null);
-    setLocationDuration(null);
-    setLocationType(null);
-    setStaticAddress("");
-    setStaticDuration(null);
-    setFuzzyLocation(false);
-    
-    const newMetadata = { 
-      ...localMetadata, 
-      mode: null,
-      location_type: null,
-      location_duration: null,
-      location_expiry: null,
-      fuzzy_location: null,
-      fuzzy_offset: null,
-      is_ghosted: null,
-      peak_duration: null,
-      static_address: null,
-      location_token: null,
-      qr_embedded: false
-    };
-    setLocalMetadata(newMetadata);
-    onVibeMetadataChange(newMetadata);
-    onStatusColorChange("gray");
-    setSelectedMode(null);
-  };
-
-  // External share fallback - only when explicitly requested
-  const handleExternalShare = async () => {
-    if (!locationActive) return;
-    
-    const shareText = locationType === "static" && staticAddress
-      ? `📍 Shared Location: ${staticAddress}`
-      : `📍 Live location shared via Valid™`;
-    
-    const shareUrl = `https://bevalid.app/location/${Date.now()}`; // Encrypted token URL
-    
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: 'Valid™ Location Share',
-          text: shareText,
-          url: shareUrl
-        });
-        toast.success("Location shared externally");
-      } else {
-        await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
-        toast.success("Share link copied to clipboard");
-      }
-    } catch (error: any) {
-      if (error.name !== "AbortError") {
-        toast.error("Failed to share externally");
-      }
     }
   };
 
@@ -549,8 +387,8 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <span className="text-xs text-cyan-400/80 pl-7">Select a signal mode to customize your vibe</span>
           </div>
 
-          {/* 5-Button Grid with Descriptions */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3">
+          {/* 4-Button Grid with Descriptions */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {/* SOCIAL Button */}
             <button
               type="button"
@@ -683,234 +521,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
               </p>
             </button>
 
-            {/* LIVE LOCATION PULSE Button */}
-            <button
-              type="button"
-              onClick={() => handleModeSelect("location")}
-              className={`p-2 md:p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1 md:gap-1.5 min-h-[100px] md:min-h-[140px] overflow-hidden col-span-2 md:col-span-1 ${
-                selectedMode === "location"
-                  ? "border-red-400 bg-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
-                  : "border-red-400/50 bg-card hover:border-red-400 hover:bg-red-500/10"
-              }`}
-            >
-              <div className="relative flex items-center gap-1">
-                <div
-                  className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-1000 ${
-                    selectedMode === "location" ? "bg-red-500" : "bg-red-500/20"
-                  }`}
-                  style={selectedMode === "location" ? {
-                    animation: "breathe-red 2s ease-in-out infinite",
-                  } : undefined}
-                >
-                  <MapPin className={`w-4 h-4 md:w-5 md:h-5 ${selectedMode === "location" ? "text-white" : "text-red-400"}`} />
-                </div>
-                {locationActive && (
-                  <span className="text-[7px] md:text-[8px] font-bold text-red-400 bg-red-500/20 px-1 py-0.5 rounded-full border border-red-400/50 animate-pulse">LIVE</span>
-                )}
-              </div>
-              <span className="font-semibold text-foreground text-[9px] md:text-[10px]">LOCATION PULSE</span>
-              <p className="text-[9px] md:text-[10px] text-muted-foreground text-center leading-tight line-clamp-2 md:line-clamp-3 px-0.5 md:px-1">
-                Share live location.
-              </p>
-            </button>
           </div>
-
-          {/* Location Pulse Controls - Compact & Sleek */}
-          {selectedMode === "location" && (
-            <div className="mt-3 p-3 rounded-lg border border-red-400/30 bg-red-500/5 animate-fade-in">
-              {!locationActive ? (
-                <div className="space-y-3">
-                  {/* Compact Type Toggle */}
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      onClick={() => { setLocationType("live"); setStaticAddress(""); setStaticDuration(null); }}
-                      className={`flex-1 py-2 px-3 rounded-md text-xs font-medium transition-all flex items-center justify-center gap-1.5 ${
-                        locationType === "live"
-                          ? "bg-red-500/20 text-red-400 border border-red-400"
-                          : "bg-card border border-border text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <Navigation className="w-3.5 h-3.5" />
-                      Live
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => { setLocationType("static"); setLocationDuration(null); }}
-                      className={`flex-1 py-2 px-3 rounded-md text-xs font-medium transition-all flex items-center justify-center gap-1.5 ${
-                        locationType === "static"
-                          ? "bg-red-500/20 text-red-400 border border-red-400"
-                          : "bg-card border border-border text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <MapPinOff className="w-3.5 h-3.5" />
-                      Static
-                    </button>
-                  </div>
-
-                  {/* Live Location - Compact */}
-                  {locationType === "live" && (
-                    <div className="space-y-2 animate-fade-in">
-                      {/* Fuzzy Toggle - Inline */}
-                      <div className="flex items-center justify-between py-1.5 px-2 rounded bg-card/50 border border-border">
-                        <span className="text-xs text-foreground flex items-center gap-1.5">
-                          <MapPinOff className="w-3 h-3 text-amber-400" />
-                          Fuzzy (~1mi)
-                        </span>
-                        <Switch
-                          checked={fuzzyLocation}
-                          onCheckedChange={setFuzzyLocation}
-                          className="scale-75 data-[state=checked]:bg-amber-500"
-                        />
-                      </div>
-
-                      {/* Duration Pills - Compact */}
-                      <div className="flex flex-wrap gap-1.5">
-                        {LOCATION_DURATIONS.map((d) => (
-                          <button
-                            key={d.value}
-                            type="button"
-                            onClick={() => setLocationDuration(d.value)}
-                            className={`py-1.5 px-2.5 rounded text-xs transition-all flex items-center gap-1 ${
-                              locationDuration === d.value
-                                ? d.value === "0.033" 
-                                  ? "bg-purple-500/80 text-white shadow-[0_0_12px_rgba(168,85,247,0.6)] animate-pulse" 
-                                  : "bg-red-500 text-white"
-                                : "bg-card border border-border text-foreground hover:border-red-400/50"
-                            } ${d.value === "0.033" && locationDuration !== d.value ? "text-purple-400 font-semibold border-purple-400/30" : ""}`}
-                          >
-                            {d.value === "0.033" && <Ghost className="w-3 h-3" />}
-                            {d.sublabel || d.label}
-                          </button>
-                        ))}
-                      </div>
-
-                      <Button
-                        onClick={activateLocationShare}
-                        disabled={!locationDuration}
-                        size="sm"
-                        className="w-full h-8 bg-red-500 hover:bg-red-600 text-white text-xs disabled:opacity-50"
-                      >
-                        {locationDuration === "0.033" ? "👻 Go Ghosted" : "Activate"}
-                      </Button>
-                    </div>
-                  )}
-
-                  {/* Static Location - Compact */}
-                  {locationType === "static" && (
-                    <div className="space-y-2 animate-fade-in">
-                      <Input
-                        value={staticAddress}
-                        onChange={(e) => setStaticAddress(e.target.value)}
-                        placeholder="Enter address..."
-                        className="h-8 text-xs bg-background border-border"
-                      />
-
-                      {/* Fuzzy Toggle - Inline */}
-                      <div className="flex items-center justify-between py-1.5 px-2 rounded bg-card/50 border border-border">
-                        <span className="text-xs text-foreground flex items-center gap-1.5">
-                          <MapPinOff className="w-3 h-3 text-amber-400" />
-                          Fuzzy Area
-                        </span>
-                        <Switch
-                          checked={fuzzyLocation}
-                          onCheckedChange={setFuzzyLocation}
-                          className="scale-75 data-[state=checked]:bg-amber-500"
-                        />
-                      </div>
-
-                      {/* Duration Pills */}
-                      <div className="flex gap-1.5">
-                        {STATIC_DURATIONS.map((d) => (
-                          <button
-                            key={d.value}
-                            type="button"
-                            onClick={() => setStaticDuration(d.value)}
-                            className={`flex-1 py-1.5 rounded text-xs transition-all ${
-                              staticDuration === d.value
-                                ? "bg-red-500 text-white"
-                                : "bg-card border border-border text-foreground hover:border-red-400/50"
-                            }`}
-                          >
-                            {d.label}
-                          </button>
-                        ))}
-                      </div>
-
-                      <Button
-                        onClick={activateLocationShare}
-                        disabled={!staticAddress || !staticDuration}
-                        size="sm"
-                        className="w-full h-8 bg-red-500 hover:bg-red-600 text-white text-xs disabled:opacity-50"
-                      >
-                        Set Location
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                /* Active State - Streamlined In-App Flow */
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between py-1.5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                      <span className="text-xs font-medium text-red-400">
-                        {localMetadata.is_ghosted ? (
-                          <span className="flex items-center gap-1">
-                            <Ghost className="w-3 h-3" /> Ghosted (2s Peak)
-                          </span>
-                        ) : (
-                          <>
-                            {locationType === "live" ? "Live" : "Static"}
-                            {fuzzyLocation && <span className="ml-1 text-amber-400">(~100m Fuzzy)</span>}
-                          </>
-                        )}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-muted-foreground">
-                      Until {locationExpiry?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
-                  </div>
-
-                  {/* QR Embedded Status - No external share buttons by default */}
-                  <div className="flex items-center gap-2 py-2 px-2.5 rounded bg-green-500/10 border border-green-400/30">
-                    <Check className="w-3.5 h-3.5 text-green-400" />
-                    <span className="text-[10px] text-green-400 font-medium">
-                      Location embedded in your QR code
-                    </span>
-                  </div>
-
-                  {/* Peer scanning info */}
-                  <p className="text-[10px] text-muted-foreground leading-relaxed">
-                    When a verified peer scans your QR, they'll see your location in an encrypted in-app map view
-                    {localMetadata.is_ghosted && " that auto-closes after 2 seconds"}
-                    {fuzzyLocation && ". Location is fuzzy (~50-100m offset)"}.
-                  </p>
-
-                  {/* External Share Fallback - Only when explicitly requested */}
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={handleExternalShare}
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 h-7 text-[10px] border-border text-muted-foreground hover:text-foreground"
-                    >
-                      <Share2 className="w-3 h-3 mr-1" />
-                      Share Externally
-                    </Button>
-                    <Button
-                      onClick={deactivateLocationShare}
-                      variant="ghost"
-                      size="sm"
-                      className="flex-1 h-7 text-xs text-red-400 hover:bg-red-500/10"
-                    >
-                      Stop Sharing
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
 
           {/* Dynamic Dropdowns */}
           {selectedMode === "social" && renderSocialDropdowns()}

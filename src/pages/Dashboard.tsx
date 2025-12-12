@@ -18,6 +18,7 @@ import { VenueCheckin } from "@/components/dashboard/VenueCheckin";
 import GhostPassModal from "@/components/dashboard/GhostPassModal";
 import ShareProfileModal from "@/components/dashboard/ShareProfileModal";
 import MySignalSection from "@/components/dashboard/profile/MySignalSection";
+import LocationPulseSection from "@/components/dashboard/profile/LocationPulseSection";
 import { VerifyIDTab } from "@/components/dashboard/VerifyIDTab";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -262,8 +263,13 @@ const Dashboard = () => {
                 <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
               </h1>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
-                Manage your profile, documents, and QR code
+                Manage your profile
               </p>
+            </div>
+            
+            {/* Location Pulse - Separate Pill */}
+            <div className="mt-4">
+              <LocationPulseSection />
             </div>
           </div>
           

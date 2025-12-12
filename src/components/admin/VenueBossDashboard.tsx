@@ -117,7 +117,7 @@ export const VenueBossDashboard = ({ venueId }: VenueBossDashboardProps) => {
               {formatCurrency(venue.total_earnings)}
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              All-time revenue from Ghost Token scans
+              All-time revenue from Ghost Token™ scans
             </p>
           </CardContent>
         </Card>

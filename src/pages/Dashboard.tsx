@@ -140,15 +140,15 @@ const Dashboard = () => {
       <header className="relative z-10 mx-4 md:mx-8 mt-4">
         <div className="backdrop-blur-xl bg-white/5 border border-[#00FFFF]/30 rounded-full px-3 md:px-6 py-3 md:py-4 shadow-[0_0_30px_rgba(0,255,255,0.15)]">
           <div className="flex items-center justify-between gap-2 md:gap-4">
-            {/* Left side - Save button */}
-            <div className="flex-shrink-0">
+            {/* Left side - Save button (desktop only) */}
+            <div className="flex-shrink-0 hidden md:block">
               {activeTab === "profile" && (
                 <Button
                   type="button"
                   onClick={() => profileTabRef.current?.triggerSave()}
                   disabled={profileSaveState.saving}
                   size="sm"
-                  className={`shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[36px] md:min-h-[44px] px-2 md:px-5 rounded-full transition-all duration-300 ${
+                  className={`shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full transition-all duration-300 ${
                     profileSaveState.saveSuccess
                       ? 'shadow-[0_0_20px_rgba(34,197,94,0.5)] border-green-500/60 bg-green-500/10 text-green-400 hover:bg-green-500/20'
                       : profileSaveState.hasChanges && !profileSaveState.saving
@@ -164,7 +164,7 @@ const Dashboard = () => {
                   ) : (
                     <Save className="h-4 w-4" />
                   )}
-                  <span className="hidden md:inline ml-2">
+                  <span className="ml-2">
                     {profileSaveState.saving ? "Saving..." : profileSaveState.saveSuccess ? "Saved!" : `Save${profileSaveState.hasChanges ? " •" : ""}`}
                   </span>
                 </Button>
@@ -188,7 +188,7 @@ const Dashboard = () => {
               </div>
             </div>
             
-            {/* Right side - Share, Theme, Logout */}
+            {/* Right side - Share, Theme, Logout (desktop) */}
             <div className="flex-shrink-0 flex gap-1 md:gap-2 items-center">
               <Button 
                 onClick={() => setShowShareModal(true)}
@@ -199,16 +199,56 @@ const Dashboard = () => {
                 <span className="hidden md:inline ml-2">Share</span>
               </Button>
               <ThemeToggle />
+              {/* Logout - desktop only in header */}
               <Button 
                 onClick={handleLogout}
                 size="sm" 
-                className="shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[36px] md:min-h-[44px] px-2 md:px-5 rounded-full"
+                className="hidden md:flex shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full"
               >
                 <LogOut className="h-4 w-4" />
-                <span className="hidden md:inline ml-2">Logout</span>
+                <span className="ml-2">Logout</span>
               </Button>
             </div>
           </div>
+        </div>
+        
+        {/* Mobile: Save & Logout buttons below header */}
+        <div className="flex md:hidden gap-2 mt-3 justify-center">
+          {activeTab === "profile" && (
+            <Button
+              type="button"
+              onClick={() => profileTabRef.current?.triggerSave()}
+              disabled={profileSaveState.saving}
+              size="sm"
+              className={`flex-1 max-w-[140px] shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[40px] px-3 rounded-full transition-all duration-300 ${
+                profileSaveState.saveSuccess
+                  ? 'shadow-[0_0_20px_rgba(34,197,94,0.5)] border-green-500/60 bg-green-500/10 text-green-400 hover:bg-green-500/20'
+                  : profileSaveState.hasChanges && !profileSaveState.saving
+                    ? 'shadow-[0_0_25px_rgba(236,72,153,0.7)] animate-pulse'
+                    : ''
+              }`}
+              style={{ animationDuration: '2s' }}
+            >
+              {profileSaveState.saving ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : profileSaveState.saveSuccess ? (
+                <CheckCircle className="h-4 w-4" />
+              ) : (
+                <Save className="h-4 w-4" />
+              )}
+              <span className="ml-1.5 text-xs">
+                {profileSaveState.saving ? "Saving" : profileSaveState.saveSuccess ? "Saved" : "Save"}
+              </span>
+            </Button>
+          )}
+          <Button 
+            onClick={handleLogout}
+            size="sm" 
+            className="flex-1 max-w-[140px] shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[40px] px-3 rounded-full"
+          >
+            <LogOut className="h-4 w-4" />
+            <span className="ml-1.5 text-xs">Logout</span>
+          </Button>
         </div>
       </header>
 

@@ -46,6 +46,8 @@ interface ProfileFormData {
   tiktok_handle: string;
   facebook_handle: string;
   onlyfans_handle: string;
+  twitter_handle: string;
+  linkedin_handle: string;
   std_acknowledgment: string;
   user_references: string;
   sexual_preferences: string;
@@ -141,6 +143,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
   const tiktokHandle = watch("tiktok_handle");
   const facebookHandle = watch("facebook_handle");
   const onlyfansHandle = watch("onlyfans_handle");
+  const twitterHandle = watch("twitter_handle");
+  const linkedinHandle = watch("linkedin_handle");
   
   // Detect if any changes have been made
   const hasChanges = 
@@ -733,6 +737,8 @@ const ProfileTab = ({ userId, onUpdate }: ProfileTabProps) => {
         tiktokHandle={tiktokHandle || ""}
         facebookHandle={facebookHandle || ""}
         onlyfansHandle={onlyfansHandle || ""}
+        twitterHandle={twitterHandle || ""}
+        linkedinHandle={linkedinHandle || ""}
         sharingEnabled={sharingSocialEnabled}
         onToggleSharing={(enabled) => setSharingSocialEnabled(enabled)}
       />

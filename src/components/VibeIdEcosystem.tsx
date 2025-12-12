@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Users, Activity, Zap, Moon, Shield, CreditCard, Eye, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import validPhoneCard from '@/assets/valid-phone-card-visual.png';
+import validNetworkHologram from '@/assets/valid-network-hologram.png';
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
@@ -117,50 +117,50 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
             ${isDark ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10' : 'border-blue-600/30 text-blue-600 bg-blue-50'}`}>
             {t('network.title')}
           </div>
-          <h2 className={`text-2xl md:text-4xl lg:text-5xl font-black mb-0 font-orbitron whitespace-nowrap
+          <h2 className={`text-3xl md:text-5xl lg:text-6xl font-black mb-2 font-orbitron tracking-[0.06em]
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
             {headline} <span className="text-cyan-400">{headlineSuffix}</span>
           </h2>
         </div>
 
         {/* Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
           
           {/* LEFT: Text & Mode Buttons */}
           <div className="order-2 lg:order-1">
-            <p className={`text-base md:text-lg leading-relaxed mb-4 max-w-xl tracking-wide
+            <p className={`text-lg md:text-xl leading-relaxed mb-6 max-w-xl tracking-[0.05em]
               ${isDark ? 'text-cyan-400' : 'text-slate-600'}`}>
               {description}
             </p>
             
             {/* Adaptive Profile Sub-headline */}
             {/* Identity Control Messaging */}
-            <p className={`text-base leading-relaxed max-w-xl mt-4
+            <p className={`text-lg md:text-xl leading-relaxed max-w-xl mt-6 tracking-[0.04em]
               ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
               Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.
             </p>
           </div>
 
-          {/* RIGHT: Holographic Display */}
+          {/* RIGHT: Holographic Network Display */}
           <div className="order-1 lg:order-2 flex justify-center">
             <div 
-              className="relative w-[320px] h-[320px] md:w-[450px] md:h-[450px]"
+              className="relative w-[350px] h-[350px] md:w-[500px] md:h-[500px]"
               style={{ perspective: '1000px' }}
             >
-              {/* Stylized Phone/Card Visual */}
+              {/* New Network Hologram Visual */}
               <img 
-                src={validPhoneCard}
-                alt="VALID Phone Interface"
-                className="w-full h-full object-contain transition-all duration-500"
+                src={validNetworkHologram}
+                alt="VALID Network Hologram"
+                className="w-full h-full object-contain transition-all duration-500 rounded-2xl"
                 style={{ 
                   animation: 'float 4s ease-in-out infinite',
-                  filter: `drop-shadow(0 0 40px rgba(0,240,255,0.6))`
+                  filter: `drop-shadow(0 0 50px rgba(0,240,255,0.5)) drop-shadow(0 0 80px rgba(139,92,246,0.3))`
                 }}
               />
               
               {/* Bottom Reflection */}
               <div 
-                className={`absolute -bottom-6 left-1/2 -translate-x-1/2 w-[200px] h-[40px] rounded-full blur-2xl opacity-30 transition-all duration-500
+                className={`absolute -bottom-8 left-1/2 -translate-x-1/2 w-[250px] h-[50px] rounded-full blur-3xl opacity-40 transition-all duration-500
                   ${activeMode === 'social' ? 'bg-blue-500' : activeMode === 'pulse' ? 'bg-green-500' : activeMode === 'thrill' ? 'bg-orange-500' : 'bg-purple-500'}`}
               />
             </div>

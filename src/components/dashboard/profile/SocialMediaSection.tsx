@@ -2,7 +2,7 @@ import { UseFormRegister } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Instagram, Music, Facebook, User, Share2, ExternalLink, Lock, Unlock } from "lucide-react";
+import { Instagram, Music, Facebook, User, Share2, ExternalLink, Lock, Unlock, Twitter, Linkedin } from "lucide-react";
 
 interface SocialMediaSectionProps {
   register: UseFormRegister<any>;
@@ -10,6 +10,8 @@ interface SocialMediaSectionProps {
   tiktokHandle: string;
   facebookHandle: string;
   onlyfansHandle: string;
+  twitterHandle?: string;
+  linkedinHandle?: string;
   sharingEnabled?: boolean;
   onToggleSharing?: (enabled: boolean) => void;
 }
@@ -28,6 +30,10 @@ const getSocialMediaUrl = (platform: string, handle: string): string | null => {
       return handle.startsWith('http') ? handle : `https://facebook.com/${cleanHandle}`;
     case 'onlyfans':
       return `https://onlyfans.com/${cleanHandle}`;
+    case 'twitter':
+      return `https://x.com/${cleanHandle}`;
+    case 'linkedin':
+      return handle.startsWith('http') ? handle : `https://linkedin.com/in/${cleanHandle}`;
     default:
       return null;
   }
@@ -39,6 +45,8 @@ export const SocialMediaSection = ({
   tiktokHandle,
   facebookHandle,
   onlyfansHandle,
+  twitterHandle = "",
+  linkedinHandle = "",
   sharingEnabled = false,
   onToggleSharing,
 }: SocialMediaSectionProps) => {
@@ -145,6 +153,48 @@ export const SocialMediaSection = ({
                 size="icon"
                 onClick={() => window.open(getSocialMediaUrl('onlyfans', onlyfansHandle) || '', '_blank')}
                 title="Visit OnlyFans profile"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="twitter_handle" className="flex items-center gap-2">
+            <Twitter className="w-4 h-4 text-foreground" />
+            X / Twitter
+          </Label>
+          <div className="flex gap-2">
+            <Input id="twitter_handle" {...register("twitter_handle")} placeholder="@username" className="flex-1" />
+            {twitterHandle && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => window.open(getSocialMediaUrl('twitter', twitterHandle) || '', '_blank')}
+                title="Visit X profile"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="linkedin_handle" className="flex items-center gap-2">
+            <Linkedin className="w-4 h-4 text-blue-700" />
+            LinkedIn
+          </Label>
+          <div className="flex gap-2">
+            <Input id="linkedin_handle" {...register("linkedin_handle")} placeholder="Profile URL or username" className="flex-1" />
+            {linkedinHandle && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => window.open(getSocialMediaUrl('linkedin', linkedinHandle) || '', '_blank')}
+                title="Visit LinkedIn profile"
               >
                 <ExternalLink className="h-4 w-4" />
               </Button>

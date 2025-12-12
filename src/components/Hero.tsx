@@ -78,8 +78,7 @@ const Hero = () => {
       {/* ===== NAVBAR ===== */}
       <nav className="w-full px-4 md:px-8 pt-12 pb-6">
         <div className="flex items-center justify-between">
-          {/* Spacer for mobile centering */}
-          <div className="w-20 md:hidden" />
+          {/* Removed spacer - align logo to left */}
           
           {/* Logo */}
           <div className="text-2xl md:text-4xl font-black font-orbitron tracking-widest text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">

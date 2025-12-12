@@ -93,23 +93,44 @@ const Hero = () => {
   return (
     <div className="relative min-h-[85vh] bg-[#050505] text-white overflow-hidden flex flex-col items-center selection:bg-cyan-500 selection:text-black">
       
-      {/* AGGRESSIVE CSS OVERRIDES FOR ALIGNMENT */}
+      {/* STRUCTURAL CSS OVERRIDES FOR ALIGNMENT AND SIZING */}
       <style>{`
-        .hero-text-force-left,
-        .hero-text-force-left * {
+        /* Hero Text - Force hard left alignment, remove any centering */
+        .hero-text-container {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          justify-content: flex-start !important;
           text-align: left !important;
           margin-left: 0 !important;
+          padding-left: 0 !important;
         }
-        .video-force-center {
+        .hero-text-container * {
+          text-align: left !important;
+        }
+        
+        /* Motion Graphic - SCALED UP 25%+ and CENTERED */
+        .video-container-scaled {
+          display: flex !important;
+          justify-content: center !important;
+          align-items: flex-start !important;
+          width: 100% !important;
+        }
+        .video-graphic-scaled {
           display: block !important;
+          width: 100% !important;
+          max-width: 480px !important; /* Increased from 380px = +26% */
           margin-left: auto !important;
           margin-right: auto !important;
-          width: 100% !important;
-          max-width: 380px !important;
         }
         @media (max-width: 768px) {
-          .video-force-center {
-            max-width: 280px !important;
+          .video-graphic-scaled {
+            max-width: 340px !important; /* Increased from 280px = +21% */
+          }
+        }
+        @media (min-width: 1024px) {
+          .video-graphic-scaled {
+            max-width: 520px !important; /* Even larger on desktop */
           }
         }
       `}</style>
@@ -143,11 +164,11 @@ const Hero = () => {
         </div>
       </nav>
 
-      {/* 2. MAIN CONTENT */}
-      <div className="flex-1 flex flex-col md:flex-row items-start justify-start w-full px-[15px] md:px-8 lg:px-12 z-10 gap-8 md:gap-12 mt-4">
+      {/* 2. MAIN CONTENT - Structural layout with explicit alignment */}
+      <div className="flex-1 flex flex-col md:flex-row w-full px-[15px] md:px-8 lg:px-12 z-10 gap-8 md:gap-12 mt-4" style={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         
-        {/* LEFT: THE PITCH - FORCED HARD-LEFT ALIGNMENT */}
-        <div className="flex-1 order-2 md:order-1 hero-text-force-left" style={{ textAlign: 'left', marginLeft: 0, paddingLeft: 0 }}>
+        {/* LEFT: THE PITCH - Explicit left alignment container */}
+        <div className="flex-1 order-2 md:order-1 hero-text-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', textAlign: 'left' }}>
           
           {/* TAG: SYNTHESIZED AI with typing effect */}
           <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded-lg text-xs font-mono tracking-widest text-cyan-400">
@@ -237,9 +258,9 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* RIGHT: THE PORTAL VIDEO - FORCED HORIZONTAL CENTER */}
-        <div className="flex-1 order-1 md:order-2 w-full" style={{ display: 'block', marginTop: '2rem' }}>
-          <div className="relative group aspect-[4/5] video-force-center">
+        {/* RIGHT: THE PORTAL VIDEO - SCALED UP AND CENTERED */}
+        <div className="flex-1 order-1 md:order-2 video-container-scaled" style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', marginTop: '2rem' }}>
+          <div className="relative group aspect-[4/5] video-graphic-scaled">
             
             {/* The Glow Behind */}
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>

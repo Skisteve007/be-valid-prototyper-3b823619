@@ -149,7 +149,7 @@ const Hero = () => {
           </h1>
           
           {/* SUB-HEADLINE: Adaptive Profile - ABOVE Claim Your ID */}
-          <p className="text-base text-gray-400 mb-6 font-light max-w-md leading-relaxed">
+          <p className="text-base text-gray-300 mb-6 font-light max-w-md leading-relaxed">
             {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
             <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
           </p>
@@ -191,11 +191,11 @@ const Hero = () => {
               })}
             </div>
             {/* Dynamic Description */}
-            <p className="text-sm text-gray-400 mt-3 text-left max-w-md transition-all duration-300">
+            <p className="text-sm text-gray-300 mt-3 text-left max-w-md transition-all duration-300">
               {signalModes[activeSignal].description}
             </p>
             {/* Static profiles paragraph - UNDER the dropdown */}
-            <p className="text-sm text-gray-400 mt-4 text-left max-w-lg leading-relaxed">
+            <p className="text-sm text-gray-300 mt-4 text-left max-w-lg leading-relaxed">
               Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.
             </p>
           </div>
@@ -216,9 +216,9 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* RIGHT: THE PORTAL VIDEO (Fixed Visibility & Centering) */}
-        <div className="flex-1 flex justify-start md:justify-center order-1 md:order-2 mt-4 md:-mt-16 w-full">
-          <div className="relative group w-[280px] md:w-[380px] aspect-[4/5]">
+        {/* RIGHT: THE PORTAL VIDEO (Centered) */}
+        <div className="flex-1 flex justify-center order-1 md:order-2 mt-4 md:-mt-16 w-full">
+          <div className="relative group w-[280px] md:w-[380px] aspect-[4/5] mx-auto">
             
             {/* The Glow Behind */}
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-40 group-hover:opacity-70 transition duration-1000"></div>
@@ -250,17 +250,17 @@ const Hero = () => {
           {/* Card 1: Verified Access */}
           <div className="p-5 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
             <h3 className="text-base font-bold text-cyan-400 mb-2">{t('hero.instantEntry')}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.instantEntryDesc')}</p>
+            <p className="text-sm text-gray-300 leading-relaxed">{t('hero.instantEntryDesc')}</p>
           </div>
           {/* Card 2: Instant Funds Flow */}
           <div className="p-5 rounded-xl border border-green-500/30 bg-green-500/5 backdrop-blur-sm hover:border-green-400/50 transition-all">
             <h3 className="text-base font-bold text-green-400 mb-2">{t('hero.secureFunds')}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.secureFundsDesc')}</p>
+            <p className="text-sm text-gray-300 leading-relaxed">{t('hero.secureFundsDesc')}</p>
           </div>
           {/* Card 3: Absolute Privacy */}
           <div className="p-5 rounded-xl border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
             <h3 className="text-base font-bold text-purple-400 mb-2">{t('hero.dataLock')}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.dataLockDesc')}</p>
+            <p className="text-sm text-gray-300 leading-relaxed">{t('hero.dataLockDesc')}</p>
           </div>
         </div>
       </div>

@@ -13,7 +13,8 @@ import {
   Loader2,
   Fingerprint,
   FileCheck,
-  AlertCircle
+  AlertCircle,
+  Crown
 } from "lucide-react";
 
 const IDV_TIERS = {
@@ -29,7 +30,7 @@ const IDV_TIERS = {
     ],
     turnaround: "Under 3 Minutes",
     icon: ShieldCheck,
-    color: "emerald"
+    color: "amber"
   },
   vip: {
     name: "VIP Global Access",
@@ -43,8 +44,8 @@ const IDV_TIERS = {
       "Premium Travel Utility (DTC)"
     ],
     turnaround: "Under 5 Minutes",
-    icon: Globe,
-    color: "fuchsia"
+    icon: Crown,
+    color: "gold"
   }
 };
 
@@ -159,12 +160,12 @@ export const VerifyIDTab = ({ userId }: VerifyIDTabProps) => {
       <Card 
         className={`relative overflow-hidden transition-all duration-300 ${
           isVip 
-            ? "border-2 border-fuchsia-500 shadow-[0_0_30px_rgba(217,70,239,0.2)] bg-gradient-to-br from-fuchsia-950/50 to-purple-950/50" 
-            : "border border-emerald-500/50 bg-gradient-to-br from-emerald-950/30 to-green-950/30"
-        } ${isCurrentTier ? "ring-2 ring-offset-2 ring-offset-background" : ""}`}
+            ? "border-2 border-yellow-500 shadow-[0_0_30px_rgba(234,179,8,0.3)] bg-gradient-to-br from-yellow-950/50 to-amber-950/50" 
+            : "border border-amber-500/50 bg-gradient-to-br from-amber-950/30 to-orange-950/30"
+        } ${isCurrentTier ? "ring-2 ring-offset-2 ring-offset-background ring-yellow-500" : ""}`}
       >
         {isVip && (
-          <div className="absolute top-0 right-0 bg-gradient-to-l from-fuchsia-600 to-purple-600 text-white text-xs font-bold px-4 py-1 rounded-bl-lg">
+          <div className="absolute top-0 right-0 bg-gradient-to-l from-yellow-600 to-amber-600 text-black text-xs font-bold px-4 py-1 rounded-bl-lg">
             RECOMMENDED
           </div>
         )}
@@ -177,18 +178,18 @@ export const VerifyIDTab = ({ userId }: VerifyIDTabProps) => {
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3 mb-2">
             <div className={`h-12 w-12 rounded-xl flex items-center justify-center ${
-              isVip ? "bg-fuchsia-500/20" : "bg-emerald-500/20"
+              isVip ? "bg-yellow-500/20" : "bg-amber-500/20"
             }`}>
-              <Icon className={`h-6 w-6 ${isVip ? "text-fuchsia-400" : "text-emerald-400"}`} />
+              <Icon className={`h-6 w-6 ${isVip ? "text-yellow-400" : "text-amber-400"}`} />
             </div>
             <div>
               <CardTitle className="text-xl font-orbitron">{tier.name}</CardTitle>
-              <CardDescription className={isVip ? "text-fuchsia-400" : "text-emerald-400"}>
+              <CardDescription className={isVip ? "text-yellow-400" : "text-amber-400"}>
                 One-time verification
               </CardDescription>
             </div>
           </div>
-          <div className={`text-4xl font-extrabold ${isVip ? "text-fuchsia-400" : "text-emerald-400"}`}>
+          <div className={`text-4xl font-extrabold ${isVip ? "text-yellow-400" : "text-amber-400"}`}>
             {tier.price}
           </div>
         </CardHeader>
@@ -197,14 +198,14 @@ export const VerifyIDTab = ({ userId }: VerifyIDTabProps) => {
           <div className="space-y-3">
             {tier.features.map((feature, idx) => (
               <div key={idx} className="flex items-start gap-2">
-                <CheckCircle2 className={`h-4 w-4 mt-0.5 ${isVip ? "text-fuchsia-400" : "text-emerald-400"}`} />
+                <CheckCircle2 className={`h-4 w-4 mt-0.5 ${isVip ? "text-yellow-400" : "text-amber-400"}`} />
                 <span className="text-sm text-gray-300">{feature}</span>
               </div>
             ))}
           </div>
 
           <div className="flex items-center gap-2 text-sm">
-            <Loader2 className={`h-4 w-4 ${isVip ? "text-fuchsia-400" : "text-emerald-400"}`} />
+            <Loader2 className={`h-4 w-4 ${isVip ? "text-yellow-400" : "text-amber-400"}`} />
             <span className="text-gray-400">Turnaround:</span>
             <span className="font-bold text-white">{tier.turnaround}</span>
           </div>
@@ -215,8 +216,8 @@ export const VerifyIDTab = ({ userId }: VerifyIDTabProps) => {
               disabled={loading}
               className={`w-full font-bold ${
                 isVip 
-                  ? "bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 shadow-[0_0_20px_rgba(217,70,239,0.4)]" 
-                  : "bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 shadow-[0_0_20px_rgba(16,185,129,0.4)]"
+                  ? "bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-500 hover:to-amber-500 text-black shadow-[0_0_20px_rgba(234,179,8,0.4)]" 
+                  : "bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 shadow-[0_0_20px_rgba(245,158,11,0.4)]"
               }`}
             >
               {loading ? (
@@ -244,11 +245,11 @@ export const VerifyIDTab = ({ userId }: VerifyIDTabProps) => {
     <div className="space-y-8">
       {/* Status Banner */}
       {idvStatus.status !== "unverified" && (
-        <Card className="bg-black/40 border-white/10">
+        <Card className="bg-black/40 border-amber-500/30">
           <CardContent className="py-6">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4">
-                <Fingerprint className="h-8 w-8 text-cyan-400" />
+                <Fingerprint className="h-8 w-8 text-amber-400" />
                 <div>
                   <h3 className="font-bold text-lg">Your Verification Status</h3>
                   <p className="text-gray-400 text-sm">
@@ -275,11 +276,11 @@ export const VerifyIDTab = ({ userId }: VerifyIDTabProps) => {
 
       {/* Hero Section */}
       <div className="text-center">
-        <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 px-4 py-1">
+        <Badge className="mb-4 bg-amber-500/10 text-amber-400 border-amber-500/30 px-4 py-1">
           IDENTITY AS A SERVICE
         </Badge>
         <h1 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">
-          Anchor Your <span className="text-cyan-400">Identity</span>
+          Anchor Your <span className="text-amber-400">Identity</span>
         </h1>
         <p className="text-gray-400 max-w-2xl mx-auto">
           Upgrade to a Government-Verified Vibe-ID for maximum access and trust within the VALID ecosystem.
@@ -294,9 +295,9 @@ export const VerifyIDTab = ({ userId }: VerifyIDTabProps) => {
           { icon: Fingerprint, title: "2. Complete Verification", desc: "Scan your ID and complete liveness check" },
           { icon: ShieldCheck, title: "3. Get Verified", desc: "Receive your encrypted identity hash" }
         ].map((step, idx) => (
-          <Card key={idx} className="bg-black/40 border-white/10">
+          <Card key={idx} className="bg-black/40 border-amber-500/20">
             <CardContent className="py-6 text-center">
-              <step.icon className="h-8 w-8 mx-auto mb-3 text-cyan-400" />
+              <step.icon className="h-8 w-8 mx-auto mb-3 text-amber-400" />
               <h3 className="font-bold mb-1">{step.title}</h3>
               <p className="text-sm text-gray-400">{step.desc}</p>
             </CardContent>
@@ -311,14 +312,14 @@ export const VerifyIDTab = ({ userId }: VerifyIDTabProps) => {
       </div>
 
       {/* Trust Indicators */}
-      <Card className="bg-gradient-to-r from-cyan-950/30 to-blue-950/30 border-cyan-500/30">
+      <Card className="bg-gradient-to-r from-amber-950/30 to-yellow-950/30 border-amber-500/30">
         <CardContent className="py-6">
           <div className="flex items-start gap-4">
-            <AlertCircle className="h-6 w-6 text-cyan-400 flex-shrink-0 mt-1" />
+            <AlertCircle className="h-6 w-6 text-amber-400 flex-shrink-0 mt-1" />
             <div>
               <h3 className="font-bold text-lg mb-2">Privacy-First Architecture</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                VALID never stores your raw identity documents. Your verification creates an <span className="text-cyan-400 font-semibold">Encrypted Verified Hash</span>—a 
+                VALID never stores your raw identity documents. Your verification creates an <span className="text-amber-400 font-semibold">Encrypted Verified Hash</span>—a 
                 cryptographic proof of your identity that venues can verify without accessing your personal data. 
                 This is the foundation of our zero-liability architecture.
               </p>

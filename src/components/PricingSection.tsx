@@ -1,6 +1,8 @@
 import { useCurrency, SUPPORTED_CURRENCIES } from '@/hooks/useCurrency';
 import { CurrencySelector } from './CurrencySelector';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 
 // Base prices in USD
 const PRICES = {
@@ -18,10 +20,35 @@ const PRICES = {
 export const PricingSection = () => {
   const { currency, formatPrice, convertPrice } = useCurrency();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   // PayPal always processes in USD, but we show converted prices for display
   const getDisplayPrice = (usdPrice: number) => formatPrice(usdPrice);
-  
+
+  // Route to access portal - users must be authenticated before purchasing
+  const handleSelectPlan = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("email_verified")
+          .eq("user_id", session.user.id)
+          .single();
+        
+        if (profile?.email_verified) {
+          navigate('/dashboard');
+        } else {
+          navigate('/auth?mode=login');
+        }
+      } else {
+        navigate('/auth?mode=signup');
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+      navigate('/auth?mode=signup');
+    }
+  };
   return (
     <>
       <style>{`
@@ -204,21 +231,9 @@ export const PricingSection = () => {
               </p>
             )}
           </div>
-          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-            <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="VALID - Single Member (Bi-Monthly) - 50% OFF" />
-            <input type="hidden" name="a3" value="19.50" />
-            <input type="hidden" name="p3" value="2" />
-            <input type="hidden" name="t3" value="M" />
-            <input type="hidden" name="src" value="1" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
-            <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-            <button type="submit" className="neon-btn neon-btn-green">
-              {t('pricing.selectPlan')}
-            </button>
-          </form>
+          <button onClick={handleSelectPlan} className="neon-btn neon-btn-green">
+            {t('pricing.selectPlan')}
+          </button>
         </div>
 
         {/* Joint Couple - Bi-Monthly */}
@@ -237,21 +252,9 @@ export const PricingSection = () => {
               </p>
             )}
           </div>
-          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_xclick-subscriptions" />
-            <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="VALID - Joint Couple (Bi-Monthly) - 50% OFF" />
-            <input type="hidden" name="a3" value="34.50" />
-            <input type="hidden" name="p3" value="2" />
-            <input type="hidden" name="t3" value="M" />
-            <input type="hidden" name="src" value="1" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="return" value="https://bevalid.app/payment-success" />
-            <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-            <button type="submit" className="neon-btn neon-btn-green">
-              {t('pricing.selectPlan')}
-            </button>
-          </form>
+          <button onClick={handleSelectPlan} className="neon-btn neon-btn-green">
+            {t('pricing.selectPlan')}
+          </button>
         </div>
 
         {/* Single 1-Year Pass */}
@@ -270,18 +273,9 @@ export const PricingSection = () => {
               </p>
             )}
           </div>
-          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_xclick" />
-            <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="VALID - Single 1-Year Pass - 50% OFF" />
-            <input type="hidden" name="amount" value="64.50" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="return" value="https://bevalid.app/payment-success?type=annual" />
-            <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-            <button type="submit" className="neon-btn neon-btn-cyan">
-              {t('pricing.buyAnnual')}
-            </button>
-          </form>
+          <button onClick={handleSelectPlan} className="neon-btn neon-btn-cyan">
+            {t('pricing.buyAnnual')}
+          </button>
         </div>
 
         {/* Couple 1-Year Pass */}
@@ -300,18 +294,9 @@ export const PricingSection = () => {
               </p>
             )}
           </div>
-          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_xclick" />
-            <input type="hidden" name="business" value="Steve@bigtexasroof.com" />
-            <input type="hidden" name="item_name" value="VALID - Couple 1-Year Pass - 50% OFF" />
-            <input type="hidden" name="amount" value="109.50" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="return" value="https://bevalid.app/payment-success?type=annual-couple" />
-            <input type="hidden" name="cancel_return" value="https://bevalid.app" />
-            <button type="submit" className="neon-btn neon-btn-cyan">
-              {t('pricing.buyAnnual')}
-            </button>
-          </form>
+          <button onClick={handleSelectPlan} className="neon-btn neon-btn-cyan">
+            {t('pricing.buyAnnual')}
+          </button>
         </div>
 
       </div>

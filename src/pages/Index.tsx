@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Globe, Ghost, Shield, Lock, Building2, Zap, Users } from 'lucide-react';
+import { Sun, Moon, Globe, Ghost, Shield, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
@@ -141,78 +141,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* COMPETITIVE MOAT SECTION */}
-      <section className={`py-20 px-4 relative z-10 border-b transition-colors duration-500
-        ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Section Header */}
-          <div className="text-center mb-12">
-            <div className={`inline-block px-4 py-1.5 rounded-full text-xs font-mono tracking-widest uppercase mb-4
-              ${isDark ? 'border border-cyan-500/30 text-cyan-400 bg-cyan-500/10' : 'border border-cyan-300 text-cyan-600 bg-cyan-50'}`}>
-              Competitive Moat
-            </div>
-            <h2 className={`text-3xl md:text-4xl font-bold mb-4 font-orbitron tracking-wide
-              ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              Why <span className="text-cyan-400">VALID™</span> Wins
-            </h2>
-            <p className={`max-w-2xl mx-auto leading-relaxed
-              ${isDark ? 'text-gray-200' : 'text-slate-600'}`}>
-              The only platform integrating identity, payments, and compliance into one secure ecosystem.
-            </p>
-          </div>
-
-          {/* Moat Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <MoatCard 
-              isDark={isDark}
-              icon={<Shield size={28}/>}
-              title="Zero-Trust Architecture"
-              desc="Continuous verification with encrypted tokens. No raw PII stored—ever. Competitors use static, siloed security."
-              color="cyan"
-            />
-            <MoatCard 
-              isDark={isDark}
-              icon={<Zap size={28}/>}
-              title="Instant FBO Settlement"
-              desc="Pre-funded wallets enable zero-delay payments. No 3-day batch processing like legacy systems."
-              color="green"
-            />
-            <MoatCard 
-              isDark={isDark}
-              icon={<Users size={28}/>}
-              title="Viral Network Effect"
-              desc="Decentralized promoter army achieving zero CAC. 10% commission model drives organic growth."
-              color="purple"
-            />
-          </div>
-
-          {/* Enterprise CRM Category - Salesforce Spotlight */}
-          <div className={`p-6 rounded-2xl border transition-all duration-500
-            ${isDark 
-              ? 'bg-purple-500/5 border-purple-500/30 hover:border-purple-400/50' 
-              : 'bg-purple-50 border-purple-200 hover:border-purple-300'}`}>
-            <div className="flex items-start gap-4">
-              <div className={`p-3 rounded-xl ${isDark ? 'bg-purple-500/20 text-purple-400' : 'bg-purple-100 text-purple-600'}`}>
-                <Building2 size={32} />
-              </div>
-              <div className="flex-1">
-                <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3
-                  ${isDark ? 'bg-purple-500/20 text-purple-300' : 'bg-purple-100 text-purple-700'}`}>
-                  Enterprise Solution / CRM
-                </div>
-                <h3 className={`text-xl font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                  Salesforce <span className={`text-sm font-normal ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>(Enterprise CRM)</span>
-                </h3>
-                <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
-                  <strong className={isDark ? 'text-purple-300' : 'text-purple-700'}>Key Differentiator:</strong> Valid™ transcends general CRM by providing <strong className={isDark ? 'text-white' : 'text-slate-900'}>V-CRM (Verified CRM)</strong>, tying secure identity and physical access directly to auditable revenue tracking and FBO settlement, which is not possible within a generalized CRM platform.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA SECTION */}
       <section className="py-24 px-4 relative z-10">
         <div className="max-w-2xl mx-auto text-center">
@@ -239,49 +167,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
-};
-
-// --- MOAT CARD COMPONENT ---
-interface MoatCardProps {
-  isDark: boolean;
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-  color: 'cyan' | 'green' | 'purple';
-}
-
-const MoatCard = ({ isDark, icon, title, desc, color }: MoatCardProps) => {
-  const colorClasses = {
-    cyan: {
-      border: isDark ? 'border-cyan-500/30 hover:border-cyan-400/50' : 'border-cyan-200 hover:border-cyan-300',
-      bg: isDark ? 'bg-cyan-500/5' : 'bg-cyan-50',
-      iconBg: isDark ? 'bg-cyan-500/20 text-cyan-400' : 'bg-cyan-100 text-cyan-600',
-    },
-    green: {
-      border: isDark ? 'border-green-500/30 hover:border-green-400/50' : 'border-green-200 hover:border-green-300',
-      bg: isDark ? 'bg-green-500/5' : 'bg-green-50',
-      iconBg: isDark ? 'bg-green-500/20 text-green-400' : 'bg-green-100 text-green-600',
-    },
-    purple: {
-      border: isDark ? 'border-purple-500/30 hover:border-purple-400/50' : 'border-purple-200 hover:border-purple-300',
-      bg: isDark ? 'bg-purple-500/5' : 'bg-purple-50',
-      iconBg: isDark ? 'bg-purple-500/20 text-purple-400' : 'bg-purple-100 text-purple-600',
-    },
-  };
-
-  return (
-    <div className={`p-6 rounded-2xl border transition-all duration-500 ${colorClasses[color].border} ${colorClasses[color].bg}`}>
-      <div className={`mb-4 p-3 rounded-xl inline-block ${colorClasses[color].iconBg}`}>
-        {icon}
-      </div>
-      <h3 className={`text-lg font-bold mb-2 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>
-        {title}
-      </h3>
-      <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
-        {desc}
-      </p>
     </div>
   );
 };

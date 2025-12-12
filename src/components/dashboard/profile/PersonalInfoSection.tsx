@@ -554,7 +554,7 @@ export const PersonalInfoSection = ({
             I Identify As *
           </Label>
           <div className="flex flex-wrap gap-2">
-            {["Male", "Female", "Transgender"].map((gender) => (
+            {["Male", "Female", "Gay"].map((gender) => (
               <Button
                 key={gender}
                 type="button"
@@ -571,7 +571,7 @@ export const PersonalInfoSection = ({
         <div className="space-y-2">
           <Label>Sexual Orientation *</Label>
           <div className="flex flex-wrap gap-2">
-            {["Straight", "Bi", "Asexual", "Pansexual", "Gay"].map((orientation) => (
+            {["Straight", "Bi", "Asexual", "Pansexual"].map((orientation) => (
               <Button
                 key={orientation}
                 type="button"
@@ -594,6 +594,7 @@ export const PersonalInfoSection = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="Single">Single</SelectItem>
+            <SelectItem value="Dating">Dating</SelectItem>
             <SelectItem value="In a Relationship">In a Relationship</SelectItem>
             <SelectItem value="Married">Married</SelectItem>
             <SelectItem value="Open Relationship">Open Relationship</SelectItem>

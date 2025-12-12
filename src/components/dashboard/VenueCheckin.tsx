@@ -167,19 +167,19 @@ export const VenueCheckin = ({ userId }: VenueCheckinProps) => {
           variant={venueCategory === 'clubs' ? 'default' : 'outline'}
           size="sm"
           onClick={() => setVenueCategory('clubs')}
-          className="flex-1 h-9"
+          className="flex-1 h-9 px-2 text-xs"
         >
-          <Music className="h-4 w-4 mr-1.5" />
-          Clubs & Nightlife
+          <Music className="h-3.5 w-3.5 mr-1 flex-shrink-0" />
+          <span className="truncate">Nightlife</span>
         </Button>
         <Button
           variant={venueCategory === 'sports' ? 'default' : 'outline'}
           size="sm"
           onClick={() => setVenueCategory('sports')}
-          className="flex-1 h-9"
+          className="flex-1 h-9 px-2 text-xs"
         >
-          <Trophy className="h-4 w-4 mr-1.5" />
-          Sports & Arenas
+          <Trophy className="h-3.5 w-3.5 mr-1 flex-shrink-0" />
+          <span className="truncate">Sports</span>
         </Button>
       </div>
 

@@ -138,16 +138,17 @@ const Dashboard = () => {
 
       {/* Header */}
       <header className="relative z-10 mx-4 md:mx-8 mt-4">
-        <div className="backdrop-blur-xl bg-white/5 border border-[#00FFFF]/30 rounded-full px-6 py-4 shadow-[0_0_30px_rgba(0,255,255,0.15)]">
-          <div className="flex items-center gap-4">
+        <div className="backdrop-blur-xl bg-white/5 border border-[#00FFFF]/30 rounded-full px-3 md:px-6 py-3 md:py-4 shadow-[0_0_30px_rgba(0,255,255,0.15)]">
+          <div className="flex items-center justify-between gap-2 md:gap-4">
             {/* Left side - Save button */}
-            <div className="flex-1 flex justify-start">
+            <div className="flex-shrink-0">
               {activeTab === "profile" && (
                 <Button
                   type="button"
                   onClick={() => profileTabRef.current?.triggerSave()}
                   disabled={profileSaveState.saving}
-                  className={`shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full transition-all duration-300 ${
+                  size="sm"
+                  className={`shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[36px] md:min-h-[44px] px-2 md:px-5 rounded-full transition-all duration-300 ${
                     profileSaveState.saveSuccess
                       ? 'shadow-[0_0_20px_rgba(34,197,94,0.5)] border-green-500/60 bg-green-500/10 text-green-400 hover:bg-green-500/20'
                       : profileSaveState.hasChanges && !profileSaveState.saving
@@ -157,30 +158,24 @@ const Dashboard = () => {
                   style={{ animationDuration: '2s' }}
                 >
                   {profileSaveState.saving ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Saving...
-                    </>
+                    <Loader2 className="h-4 w-4 animate-spin" />
                   ) : profileSaveState.saveSuccess ? (
-                    <>
-                      <CheckCircle className="h-4 w-4 mr-2" />
-                      Saved!
-                    </>
+                    <CheckCircle className="h-4 w-4" />
                   ) : (
-                    <>
-                      <Save className="h-4 w-4 mr-2" />
-                      Save{profileSaveState.hasChanges ? " •" : ""}
-                    </>
+                    <Save className="h-4 w-4" />
                   )}
+                  <span className="hidden md:inline ml-2">
+                    {profileSaveState.saving ? "Saving..." : profileSaveState.saveSuccess ? "Saved!" : `Save${profileSaveState.hasChanges ? " •" : ""}`}
+                  </span>
                 </Button>
               )}
             </div>
             
             {/* Center - Video logo */}
-            <div className="flex justify-center">
+            <div className="flex justify-center flex-shrink-0">
               <div className="relative cursor-pointer" {...longPressHandlers}>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/40 via-teal-500/40 to-cyan-500/40 blur-3xl rounded-full scale-150"></div>
-                <div className="relative h-28 md:h-32 aspect-[4/5] rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
+                <div className="relative h-20 md:h-32 aspect-[4/5] rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
                   <video 
                     src="/valid_portal.mp4" 
                     autoPlay 
@@ -194,21 +189,23 @@ const Dashboard = () => {
             </div>
             
             {/* Right side - Share, Theme, Logout */}
-            <div className="flex-1 flex justify-end gap-2 items-center">
+            <div className="flex-shrink-0 flex gap-1 md:gap-2 items-center">
               <Button 
                 onClick={() => setShowShareModal(true)}
-                className="shadow-[0_0_20px_rgba(0,255,255,0.5)] border border-[#00FFFF]/60 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold min-h-[44px] px-5 rounded-full"
+                size="sm"
+                className="shadow-[0_0_20px_rgba(0,255,255,0.5)] border border-[#00FFFF]/60 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold min-h-[36px] md:min-h-[44px] px-2 md:px-5 rounded-full"
               >
-                <Share2 className="h-4 w-4 mr-2" />
-                Share
+                <Share2 className="h-4 w-4" />
+                <span className="hidden md:inline ml-2">Share</span>
               </Button>
               <ThemeToggle />
               <Button 
-                onClick={handleLogout} 
-                className="shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full"
+                onClick={handleLogout}
+                size="sm" 
+                className="shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[36px] md:min-h-[44px] px-2 md:px-5 rounded-full"
               >
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
+                <LogOut className="h-4 w-4" />
+                <span className="hidden md:inline ml-2">Logout</span>
               </Button>
             </div>
           </div>

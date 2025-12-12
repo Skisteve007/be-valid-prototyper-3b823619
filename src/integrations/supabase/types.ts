@@ -747,6 +747,47 @@ export type Database = {
         }
         Relationships: []
       }
+      member_active_sessions: {
+        Row: {
+          check_in_time: string
+          check_out_time: string | null
+          created_at: string
+          ghost_pass_activated: boolean | null
+          id: string
+          is_active: boolean | null
+          user_id: string
+          venue_id: string
+        }
+        Insert: {
+          check_in_time?: string
+          check_out_time?: string | null
+          created_at?: string
+          ghost_pass_activated?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          user_id: string
+          venue_id: string
+        }
+        Update: {
+          check_in_time?: string
+          check_out_time?: string | null
+          created_at?: string
+          ghost_pass_activated?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          user_id?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_active_sessions_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       member_beta_surveys: {
         Row: {
           created_at: string
@@ -885,11 +926,13 @@ export type Database = {
       partner_venues: {
         Row: {
           bank_endpoint: string | null
+          bar_commission_rate: number | null
           category: Database["public"]["Enums"]["venue_category"]
           city: string
           country: string
           created_at: string
           custom_logo_url: string | null
+          door_commission_rate: number | null
           gm_email: string | null
           id: string
           industry_type: string | null
@@ -903,11 +946,13 @@ export type Database = {
         }
         Insert: {
           bank_endpoint?: string | null
+          bar_commission_rate?: number | null
           category: Database["public"]["Enums"]["venue_category"]
           city: string
           country?: string
           created_at?: string
           custom_logo_url?: string | null
+          door_commission_rate?: number | null
           gm_email?: string | null
           id?: string
           industry_type?: string | null
@@ -921,11 +966,13 @@ export type Database = {
         }
         Update: {
           bank_endpoint?: string | null
+          bar_commission_rate?: number | null
           category?: Database["public"]["Enums"]["venue_category"]
           city?: string
           country?: string
           created_at?: string
           custom_logo_url?: string | null
+          door_commission_rate?: number | null
           gm_email?: string | null
           id?: string
           industry_type?: string | null
@@ -938,6 +985,95 @@ export type Database = {
           venue_name?: string
         }
         Relationships: []
+      }
+      pos_transactions: {
+        Row: {
+          affiliate_id: string | null
+          base_amount: number
+          created_at: string
+          fbo_account_id: string | null
+          id: string
+          member_confirmed_at: string | null
+          pos_confirmed_at: string | null
+          staff_shift_id: string | null
+          status: string
+          tip_amount: number | null
+          tip_percentage: number | null
+          total_amount: number
+          transaction_type: string
+          updated_at: string
+          user_id: string
+          venue_id: string
+          wallet_transaction_id: string | null
+        }
+        Insert: {
+          affiliate_id?: string | null
+          base_amount: number
+          created_at?: string
+          fbo_account_id?: string | null
+          id?: string
+          member_confirmed_at?: string | null
+          pos_confirmed_at?: string | null
+          staff_shift_id?: string | null
+          status?: string
+          tip_amount?: number | null
+          tip_percentage?: number | null
+          total_amount: number
+          transaction_type?: string
+          updated_at?: string
+          user_id: string
+          venue_id: string
+          wallet_transaction_id?: string | null
+        }
+        Update: {
+          affiliate_id?: string | null
+          base_amount?: number
+          created_at?: string
+          fbo_account_id?: string | null
+          id?: string
+          member_confirmed_at?: string | null
+          pos_confirmed_at?: string | null
+          staff_shift_id?: string | null
+          status?: string
+          tip_amount?: number | null
+          tip_percentage?: number | null
+          total_amount?: number
+          transaction_type?: string
+          updated_at?: string
+          user_id?: string
+          venue_id?: string
+          wallet_transaction_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pos_transactions_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_transactions_staff_shift_id_fkey"
+            columns: ["staff_shift_id"]
+            isOneToOne: false
+            referencedRelation: "staff_shifts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_transactions_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_transactions_wallet_transaction_id_fkey"
+            columns: ["wallet_transaction_id"]
+            isOneToOne: false
+            referencedRelation: "wallet_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -1604,6 +1740,59 @@ export type Database = {
           website_url?: string | null
         }
         Relationships: []
+      }
+      staff_shifts: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          qr_token: string | null
+          qr_token_expires_at: string | null
+          shift_end: string | null
+          shift_start: string
+          staff_name: string
+          staff_role: string
+          staff_user_id: string
+          updated_at: string
+          venue_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          qr_token?: string | null
+          qr_token_expires_at?: string | null
+          shift_end?: string | null
+          shift_start: string
+          staff_name: string
+          staff_role?: string
+          staff_user_id: string
+          updated_at?: string
+          venue_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          qr_token?: string | null
+          qr_token_expires_at?: string | null
+          shift_end?: string | null
+          shift_start?: string
+          staff_name?: string
+          staff_role?: string
+          staff_user_id?: string
+          updated_at?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_shifts_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_agreements: {
         Row: {

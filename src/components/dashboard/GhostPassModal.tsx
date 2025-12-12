@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Zap } from 'lucide-react';
+import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Zap, MapPin } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
@@ -14,6 +14,19 @@ interface ToggleState {
   identity: boolean;
   payment: boolean;
   health: boolean;
+}
+
+interface ActiveVenue {
+  id: string;
+  venue_name: string;
+  city: string;
+}
+
+interface POSTransaction {
+  id: string;
+  base_amount: number;
+  transaction_type: string;
+  status: string;
 }
 
 const MIN_BALANCE_THRESHOLD = 5.00;
@@ -40,6 +53,15 @@ const GhostPassModal = ({
   const [displayedSpent, setDisplayedSpent] = useState(0);
   const [isLoadingBalance, setIsLoadingBalance] = useState(true);
   const [isReloading, setIsReloading] = useState(false);
+  
+  // Active venue state
+  const [activeVenue, setActiveVenue] = useState<ActiveVenue | null>(null);
+  
+  // POS Transaction state
+  const [pendingPOSTransaction, setPendingPOSTransaction] = useState<POSTransaction | null>(null);
+  const [selectedTip, setSelectedTip] = useState<number | null>(null);
+  const [showTippingModal, setShowTippingModal] = useState(false);
+  const [isConfirmingTransaction, setIsConfirmingTransaction] = useState(false);
   
   const prevBalanceRef = useRef(balance);
   const prevSpentRef = useRef(venueSpend);
@@ -93,15 +115,45 @@ const GhostPassModal = ({
     }
   }, [userId]);
 
+  // Fetch active venue session
+  const fetchActiveVenue = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from('member_active_sessions')
+        .select(`
+          venue_id,
+          partner_venues (
+            id,
+            venue_name,
+            city
+          )
+        `)
+        .eq('user_id', userId)
+        .eq('is_active', true)
+        .order('check_in_time', { ascending: false })
+        .limit(1);
+
+      if (error) throw error;
+
+      if (data && data.length > 0 && data[0].partner_venues) {
+        const venueData = data[0].partner_venues as unknown as ActiveVenue;
+        setActiveVenue(venueData);
+      }
+    } catch (err) {
+      console.error('Error fetching active venue:', err);
+    }
+  }, [userId]);
+
   // Set up Supabase Realtime subscription
   useEffect(() => {
     if (!userId) return;
 
     fetchBalance();
     fetchVenueSpend();
+    fetchActiveVenue();
 
     // Subscribe to wallet_transactions for real-time updates
-    const channel = supabase
+    const walletChannel = supabase
       .channel(`wallet-${userId}`)
       .on(
         'postgres_changes',
@@ -137,10 +189,51 @@ const GhostPassModal = ({
       )
       .subscribe();
 
+    // Subscribe to POS transactions for tipping prompts
+    const posChannel = supabase
+      .channel(`pos-${userId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'pos_transactions',
+          filter: `user_id=eq.${userId}`
+        },
+        (payload) => {
+          console.log('POS transaction received:', payload);
+          const transaction = payload.new as POSTransaction;
+          if (transaction.status === 'pending') {
+            setPendingPOSTransaction(transaction);
+            setShowTippingModal(true);
+          }
+        }
+      )
+      .subscribe();
+
+    // Subscribe to active sessions
+    const sessionChannel = supabase
+      .channel(`session-${userId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'member_active_sessions',
+          filter: `user_id=eq.${userId}`
+        },
+        () => {
+          fetchActiveVenue();
+        }
+      )
+      .subscribe();
+
     return () => {
-      supabase.removeChannel(channel);
+      supabase.removeChannel(walletChannel);
+      supabase.removeChannel(posChannel);
+      supabase.removeChannel(sessionChannel);
     };
-  }, [userId, fetchBalance, fetchVenueSpend]);
+  }, [userId, fetchBalance, fetchVenueSpend, fetchActiveVenue]);
 
   // Animate balance changes
   useEffect(() => {
@@ -217,7 +310,7 @@ const GhostPassModal = ({
     return () => clearInterval(timer);
   }, [refreshQR, isOpen]);
 
-  // Generate QR data
+  // Generate QR data with venue context
   const generateQRData = () => {
     if (isLocked) {
       return JSON.stringify({ type: 'LOCKED', userId });
@@ -226,6 +319,7 @@ const GhostPassModal = ({
     const data = {
       id: qrKey,
       userId,
+      venueId: activeVenue?.id || null,
       permissions: {
         identity: toggles.identity,
         payment: toggles.payment,
@@ -264,6 +358,45 @@ const GhostPassModal = ({
       toast.error('Failed to initiate payment');
     } finally {
       setIsReloading(false);
+    }
+  };
+
+  // Handle tip selection and transaction confirmation
+  const handleConfirmTransaction = async () => {
+    if (!pendingPOSTransaction || selectedTip === null) return;
+    
+    setIsConfirmingTransaction(true);
+    
+    try {
+      const tipAmount = (pendingPOSTransaction.base_amount * selectedTip) / 100;
+      const totalAmount = pendingPOSTransaction.base_amount + tipAmount;
+      
+      // Update POS transaction with tip and confirm
+      const { error } = await supabase
+        .from('pos_transactions')
+        .update({
+          tip_percentage: selectedTip,
+          tip_amount: tipAmount,
+          total_amount: totalAmount,
+          status: 'member_confirmed',
+          member_confirmed_at: new Date().toISOString()
+        })
+        .eq('id', pendingPOSTransaction.id);
+
+      if (error) throw error;
+
+      toast.success('Transaction Confirmed!', {
+        description: `Total: $${totalAmount.toFixed(2)} (incl. ${selectedTip}% tip)`
+      });
+      
+      setShowTippingModal(false);
+      setPendingPOSTransaction(null);
+      setSelectedTip(null);
+    } catch (err) {
+      console.error('Error confirming transaction:', err);
+      toast.error('Failed to confirm transaction');
+    } finally {
+      setIsConfirmingTransaction(false);
     }
   };
 
@@ -331,6 +464,16 @@ const GhostPassModal = ({
                   <Ghost className="w-5 h-5 text-amber-400" />
                   <h2 className="text-lg font-bold tracking-wider text-white">GHOST<sup className="text-xs text-amber-400">™</sup> PASS</h2>
                 </div>
+                
+                {/* Active Venue Display */}
+                {activeVenue && (
+                  <div className="flex items-center justify-center gap-1.5 mt-2 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/40">
+                    <MapPin className="w-3 h-3 text-green-400" />
+                    <span className="text-xs text-green-400 font-medium">
+                      Active at: {activeVenue.venue_name}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Live Wallet Display (HUD) */}
@@ -343,7 +486,7 @@ const GhostPassModal = ({
                       ${displayedBalance.toFixed(2)}
                     </div>
                     <div className="text-xs text-gray-400 mt-1">
-                      Available Balance
+                      Running Total Balance
                     </div>
                     {displayedSpent > 0 && (
                       <div className="text-sm text-gray-500 mt-2">
@@ -512,7 +655,7 @@ const GhostPassModal = ({
                     ) : (
                       <Zap size={18} />
                     )}
-                    Quick Reload ($50)
+                    Add Funds to Ghost Pass
                   </button>
                 </div>
               )}
@@ -547,6 +690,104 @@ const GhostPassModal = ({
                     [Demo: Simulate Scan]
                   </button>
                 </div>
+              )}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* POS Tipping Modal */}
+      <Dialog open={showTippingModal} onOpenChange={setShowTippingModal}>
+        <DialogContent className="max-w-sm w-[95vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden">
+          <div className="relative rounded-3xl overflow-hidden">
+            <div className="absolute inset-0 bg-black/90 backdrop-blur-xl" />
+            
+            <div className="relative z-10 p-6">
+              <div className="text-center mb-6">
+                <h2 className="text-xl font-bold text-white mb-2">Transaction Details</h2>
+                {activeVenue && (
+                  <p className="text-sm text-gray-400">{activeVenue.venue_name}</p>
+                )}
+              </div>
+
+              {pendingPOSTransaction && (
+                <>
+                  {/* Transaction Amount */}
+                  <div className="bg-white/5 rounded-xl p-4 mb-4 border border-white/10">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-gray-400 text-sm">Item Total</span>
+                      <span className="text-white font-bold text-lg">${pendingPOSTransaction.base_amount.toFixed(2)}</span>
+                    </div>
+                    {selectedTip !== null && (
+                      <>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-gray-400 text-sm">Tip ({selectedTip}%)</span>
+                          <span className="text-amber-400 font-medium">
+                            ${((pendingPOSTransaction.base_amount * selectedTip) / 100).toFixed(2)}
+                          </span>
+                        </div>
+                        <div className="border-t border-white/10 pt-2 mt-2">
+                          <div className="flex justify-between items-center">
+                            <span className="text-white font-medium">Total</span>
+                            <span className="text-green-400 font-bold text-xl">
+                              ${(pendingPOSTransaction.base_amount + (pendingPOSTransaction.base_amount * selectedTip) / 100).toFixed(2)}
+                            </span>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    <div className="flex justify-between items-center mt-3 pt-2 border-t border-white/10">
+                      <span className="text-gray-500 text-xs">New Balance After</span>
+                      <span className="text-gray-300 text-sm">
+                        ${(balance - pendingPOSTransaction.base_amount - (selectedTip ? (pendingPOSTransaction.base_amount * selectedTip) / 100 : 0)).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Tip Selection */}
+                  <div className="mb-6">
+                    <p className="text-center text-gray-400 text-sm mb-3">Select Tip Amount</p>
+                    <div className="grid grid-cols-3 gap-3">
+                      {[18, 25, 33].map((tipPercent) => (
+                        <button
+                          key={tipPercent}
+                          onClick={() => setSelectedTip(tipPercent)}
+                          className={`py-4 px-3 rounded-xl font-bold text-lg transition-all ${
+                            selectedTip === tipPercent
+                              ? 'bg-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.5)]'
+                              : 'bg-white/10 text-white border border-white/20 hover:bg-white/20'
+                          }`}
+                        >
+                          {tipPercent}%
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => setSelectedTip(0)}
+                      className={`w-full mt-3 py-2 rounded-lg text-sm transition-all ${
+                        selectedTip === 0
+                          ? 'bg-gray-600 text-white'
+                          : 'bg-transparent text-gray-500 hover:text-gray-400'
+                      }`}
+                    >
+                      No Tip
+                    </button>
+                  </div>
+
+                  {/* Confirm Button */}
+                  <button
+                    onClick={handleConfirmTransaction}
+                    disabled={selectedTip === null || isConfirmingTransaction}
+                    className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg flex items-center justify-center gap-2 hover:from-green-400 hover:to-green-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isConfirmingTransaction ? (
+                      <RefreshCw size={20} className="animate-spin" />
+                    ) : (
+                      <Check size={20} />
+                    )}
+                    AGREE & PAY
+                  </button>
+                </>
               )}
             </div>
           </div>

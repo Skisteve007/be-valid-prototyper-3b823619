@@ -29,6 +29,8 @@ import { LeadOutreachTab } from "@/components/admin/LeadOutreachTab";
 import { MembersTab } from "@/components/admin/MembersTab";
 import { InvestorCRMTab } from "@/components/admin/InvestorCRMTab";
 import { IDVManagementTab } from "@/components/admin/IDVManagementTab";
+import StaffShiftManager from "@/components/admin/StaffShiftManager";
+import AffiliateCommissionManager from "@/components/admin/AffiliateCommissionManager";
 import {
   DndContext,
   closestCenter,

@@ -18,7 +18,13 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { token }: VerifyRequest = await req.json();
     
-    console.log("Verifying token:", token);
+    // Capture IP address and user agent for audit trail
+    const ipAddress = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
+                      req.headers.get("x-real-ip") || 
+                      "unknown";
+    const userAgent = req.headers.get("user-agent") || "unknown";
+    
+    console.log("Verifying token:", token, "from IP:", ipAddress);
 
     if (!token) {
       return new Response(
@@ -58,10 +64,14 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Mark token as used
+    // Mark token as used with IP and user agent for legal audit trail
     await supabaseAdmin
       .from("email_verification_tokens")
-      .update({ verified_at: new Date().toISOString() })
+      .update({ 
+        verified_at: new Date().toISOString(),
+        ip_address: ipAddress,
+        user_agent: userAgent
+      })
       .eq("id", tokenData.id);
 
     // Update profile to mark email as verified

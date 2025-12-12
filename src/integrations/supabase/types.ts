@@ -384,7 +384,9 @@ export type Database = {
           email: string
           expires_at: string
           id: string
+          ip_address: string | null
           token: string
+          user_agent: string | null
           user_id: string
           verified_at: string | null
         }
@@ -393,7 +395,9 @@ export type Database = {
           email: string
           expires_at?: string
           id?: string
+          ip_address?: string | null
           token: string
+          user_agent?: string | null
           user_id: string
           verified_at?: string | null
         }
@@ -402,7 +406,9 @@ export type Database = {
           email?: string
           expires_at?: string
           id?: string
+          ip_address?: string | null
           token?: string
+          user_agent?: string | null
           user_id?: string
           verified_at?: string | null
         }

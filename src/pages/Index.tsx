@@ -101,7 +101,7 @@ const Index = () => {
               {t('standard.title')} <span className="text-cyan-400">{t('standard.titleHighlight')}</span>
             </h2>
             <p className={`max-w-2xl mx-auto leading-relaxed
-              ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+              ${isDark ? 'text-gray-200' : 'text-slate-600'}`}>
               {t('standard.subtitle')}
             </p>
           </div>
@@ -147,7 +147,7 @@ const Index = () => {
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
             {t('cta.ready')} <span className="text-cyan-400">VALID™</span>?
           </h2>
-          <p className={`mb-10 text-lg ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+          <p className={`mb-10 text-lg ${isDark ? 'text-gray-200' : 'text-slate-600'}`}>
             {t('cta.accessPlatform')}
           </p>
           <button
@@ -191,7 +191,7 @@ const FeatureCard = ({ isDark, icon, title, desc, color }: FeatureCardProps) => 
     <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>
       {title}
     </h3>
-    <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
+    <p className={`leading-relaxed text-sm ${isDark ? 'text-gray-200' : 'text-slate-600'}`}>
       {desc}
     </p>
   </div>

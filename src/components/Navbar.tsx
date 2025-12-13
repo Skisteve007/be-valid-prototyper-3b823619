@@ -29,6 +29,12 @@ const Navbar = () => {
         <div className="flex items-center gap-2 md:gap-4">
           <LanguageSelector />
           <Link 
+            to="/vendor-portal" 
+            className="text-sm text-muted-foreground font-medium hover:text-primary transition hidden sm:block"
+          >
+            For Enterprise
+          </Link>
+          <Link 
             to="/partners" 
             className="text-sm text-foreground font-medium hover:text-primary transition hidden sm:block"
           >

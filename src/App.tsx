@@ -37,6 +37,9 @@ import SharedProfile from "./pages/SharedProfile";
 import VerifyEmail from "./pages/VerifyEmail";
 import AccessPending from "./pages/AccessPending";
 import SharedLocation from "./pages/SharedLocation";
+import VendorPortal from "./pages/VendorPortal";
+import VendorDashboard from "./pages/VendorDashboard";
+import StaffPOS from "./pages/StaffPOS";
 
 import ApiDocs from "./pages/ApiDocs";
 import SecurityCompliance from "./pages/SecurityCompliance";
@@ -105,6 +108,9 @@ const App = () => (
               <Route path="/my-access" element={<AgeGate><MyAccess /></AgeGate>} />
               <Route path="/lab-portal" element={<AgeGate><LabPortal /></AgeGate>} />
               <Route path="/vendor-pricing" element={<AgeGate><PlatformFeatures /></AgeGate>} />
+              <Route path="/vendor-portal" element={<VendorPortal />} />
+              <Route path="/vendor-portal/dashboard" element={<VendorDashboard />} />
+              <Route path="/staff/pos" element={<StaffPOS />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
             </Routes>

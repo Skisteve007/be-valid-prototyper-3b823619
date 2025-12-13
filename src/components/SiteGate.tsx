@@ -23,24 +23,52 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
   const shouldBypass = BYPASS_ROUTES.some(route => location.pathname.startsWith(route));
 
   useEffect(() => {
+    let isMounted = true;
+    
     const checkAccess = async () => {
-      // Check if user is authenticated - they've already agreed to terms during signup
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        setHasAccess(true);
-        setIsLoading(false);
-        return;
+      try {
+        // Check if user already has gate access from localStorage first (fast path)
+        const gateAccess = localStorage.getItem('valid_gate_access');
+        if (gateAccess && isMounted) {
+          setHasAccess(true);
+          setIsLoading(false);
+          return;
+        }
+        
+        // Check if user is authenticated - they've already agreed to terms during signup
+        const { data: { session } } = await supabase.auth.getSession();
+        if (isMounted && session?.user) {
+          setHasAccess(true);
+          setIsLoading(false);
+          return;
+        }
+        
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error('SiteGate access check error:', error);
+        // On error, still finish loading to prevent infinite loading state
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
-      
-      // Check if user already has gate access from localStorage
-      const gateAccess = localStorage.getItem('valid_gate_access');
-      if (gateAccess) {
-        setHasAccess(true);
-      }
-      setIsLoading(false);
     };
     
+    // Add a safety timeout to prevent infinite loading on mobile
+    const safetyTimeout = setTimeout(() => {
+      if (isMounted && isLoading) {
+        console.warn('SiteGate: Safety timeout triggered');
+        setIsLoading(false);
+      }
+    }, 3000);
+    
     checkAccess();
+    
+    return () => {
+      isMounted = false;
+      clearTimeout(safetyTimeout);
+    };
   }, []);
 
   const handleRequestAccess = async () => {

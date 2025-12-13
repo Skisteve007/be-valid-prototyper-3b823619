@@ -1032,6 +1032,7 @@ export type Database = {
           member_confirmed_at: string | null
           pos_confirmed_at: string | null
           staff_shift_id: string | null
+          station_id: string | null
           status: string
           tip_amount: number | null
           tip_percentage: number | null
@@ -1051,6 +1052,7 @@ export type Database = {
           member_confirmed_at?: string | null
           pos_confirmed_at?: string | null
           staff_shift_id?: string | null
+          station_id?: string | null
           status?: string
           tip_amount?: number | null
           tip_percentage?: number | null
@@ -1070,6 +1072,7 @@ export type Database = {
           member_confirmed_at?: string | null
           pos_confirmed_at?: string | null
           staff_shift_id?: string | null
+          station_id?: string | null
           status?: string
           tip_amount?: number | null
           tip_percentage?: number | null
@@ -1093,6 +1096,13 @@ export type Database = {
             columns: ["staff_shift_id"]
             isOneToOne: false
             referencedRelation: "staff_shifts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_transactions_station_id_fkey"
+            columns: ["station_id"]
+            isOneToOne: false
+            referencedRelation: "venue_stations"
             referencedColumns: ["id"]
           },
           {
@@ -1813,6 +1823,7 @@ export type Database = {
           staff_name: string
           staff_role: string
           staff_user_id: string
+          station_id: string | null
           updated_at: string
           venue_id: string
         }
@@ -1827,6 +1838,7 @@ export type Database = {
           staff_name: string
           staff_role?: string
           staff_user_id: string
+          station_id?: string | null
           updated_at?: string
           venue_id: string
         }
@@ -1841,10 +1853,18 @@ export type Database = {
           staff_name?: string
           staff_role?: string
           staff_user_id?: string
+          station_id?: string | null
           updated_at?: string
           venue_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "staff_shifts_station_id_fkey"
+            columns: ["station_id"]
+            isOneToOne: false
+            referencedRelation: "venue_stations"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "staff_shifts_venue_id_fkey"
             columns: ["venue_id"]
@@ -2191,6 +2211,44 @@ export type Database = {
           },
           {
             foreignKeyName: "venue_qr_scans_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_stations: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          station_category: string
+          station_name: string
+          updated_at: string
+          venue_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          station_category: string
+          station_name: string
+          updated_at?: string
+          venue_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          station_category?: string
+          station_name?: string
+          updated_at?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_stations_venue_id_fkey"
             columns: ["venue_id"]
             isOneToOne: false
             referencedRelation: "partner_venues"

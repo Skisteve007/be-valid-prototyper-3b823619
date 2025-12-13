@@ -12,8 +12,10 @@ import {
   Activity, DollarSign, Users, Clock, TrendingUp, 
   Beer, DoorOpen, ShoppingBag, Shirt, Settings,
   Download, RefreshCw, LogOut, ChevronDown, ChevronUp,
-  AlertTriangle, FileText, PieChart as PieChartIcon, LineChart as LineChartIcon
+  AlertTriangle, FileText, PieChart as PieChartIcon, LineChart as LineChartIcon,
+  Warehouse
 } from "lucide-react";
+import StationManager from "@/components/admin/StationManager";
 import { Helmet } from "react-helmet-async";
 import { toast } from "sonner";
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend, AreaChart, Area } from "recharts";
@@ -398,6 +400,10 @@ const VendorDashboard = () => {
                 <Clock className="w-4 h-4 mr-2" />
                 4:01 AM Settlement
               </TabsTrigger>
+              <TabsTrigger value="stations" className="data-[state=active]:bg-teal-500/20 data-[state=active]:text-teal-400">
+                <Warehouse className="w-4 h-4 mr-2" />
+                Stations
+              </TabsTrigger>
               <TabsTrigger value="staff" className="data-[state=active]:bg-orange-500/20 data-[state=active]:text-orange-400">
                 <Users className="w-4 h-4 mr-2" />
                 Staff Audit
@@ -649,6 +655,11 @@ const VendorDashboard = () => {
                   </Button>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            {/* STATIONS TAB */}
+            <TabsContent value="stations" className="space-y-6">
+              <StationManager venueId={venueId} onStationsChange={() => loadVenueData(venueId!)} />
             </TabsContent>
 
             {/* STAFF AUDIT TAB */}

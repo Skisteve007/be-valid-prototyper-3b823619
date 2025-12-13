@@ -635,7 +635,7 @@ const GhostPassModal = ({
       {/* Ghost QR Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent 
-          className="max-w-md w-[95vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden top-[10%] translate-y-[-10%] max-h-[85vh] overflow-y-auto"
+          className="max-w-md w-[95vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden fixed top-0 left-1/2 -translate-x-1/2 translate-y-0 pt-16 md:pt-20 max-h-screen overflow-y-auto z-[9999]"
           style={{
             animation: 'slideUpEnergize 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           }}

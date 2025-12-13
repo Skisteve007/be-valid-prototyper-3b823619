@@ -50,8 +50,8 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Failed to generate verification token");
     }
 
-    // Build verification URL - use preview URL for testing, production domain when SSL is ready
-    const baseUrl = "https://16cc7245-4b53-4d55-9023-a9d1ac8edb5b.lovableproject.com";
+    // Build verification URL - use production domain
+    const baseUrl = "https://bevalid.app";
     const verificationUrl = `${baseUrl}/verify-email?token=${token}`;
 
     // Send branded email with improved deliverability headers

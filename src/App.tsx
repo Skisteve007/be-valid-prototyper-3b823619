@@ -36,6 +36,7 @@ import InvestorDashboard from "./pages/InvestorDashboard";
 import SharedProfile from "./pages/SharedProfile";
 import VerifyEmail from "./pages/VerifyEmail";
 import AccessPending from "./pages/AccessPending";
+import SharedLocation from "./pages/SharedLocation";
 
 import ApiDocs from "./pages/ApiDocs";
 import SecurityCompliance from "./pages/SecurityCompliance";
@@ -95,6 +96,7 @@ const App = () => (
               <Route path="/venues/:slug" element={<VenueLanding />} />
               <Route path="/idv-verification" element={<AgeGate><IDVVerification /></AgeGate>} />
               <Route path="/p/:shortId" element={<SharedProfile />} />
+              <Route path="/location/:locationId" element={<SharedLocation />} />
               <Route path="/verify-email" element={<VerifyEmail />} />
               <Route path="/api-docs" element={<ApiDocs />} />
               <Route path="/security-compliance" element={<SecurityCompliance />} />

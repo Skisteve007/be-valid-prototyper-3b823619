@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, CheckCircle, Upload, Move, Activity, Zap, Ghost, Fingerprint, CreditCard, HeartPulse, FlaskConical } from "lucide-react";
 import { useRef, useState } from "react";
 import { ImageCropDialog } from "./ImageCropDialog";
+import MemberBetaSurvey from "@/components/MemberBetaSurvey";
 
 interface PersonalInfoSectionProps {
   register: UseFormRegister<any>;
@@ -44,6 +45,7 @@ interface PersonalInfoSectionProps {
   shareBioEnabled?: boolean;
   shareToxEnabled?: boolean;
   onShareToggle?: (field: string, value: boolean) => void;
+  userId?: string;
 }
 
 export const PersonalInfoSection = ({
@@ -79,6 +81,7 @@ export const PersonalInfoSection = ({
   shareBioEnabled = false,
   shareToxEnabled = false,
   onShareToggle,
+  userId,
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showCropDialog, setShowCropDialog] = useState(false);
@@ -179,7 +182,7 @@ export const PersonalInfoSection = ({
         <div className="relative">
           <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
           <div className="relative flex flex-col p-4 md:p-6 rounded-lg border-2 border-blue-500/30 bg-background/50 backdrop-blur-sm">
-            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b pb-2 mb-4">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4 border-b pb-2 mb-4">
               <div className="flex items-center gap-3">
                 <h3 className="text-lg font-semibold">
                   <span className="bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">Personal Fun Quick Share</span>
@@ -196,6 +199,7 @@ export const PersonalInfoSection = ({
                     {signalIcon.icon}
                   </div>
                 )}
+                <MemberBetaSurvey userId={userId} />
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">

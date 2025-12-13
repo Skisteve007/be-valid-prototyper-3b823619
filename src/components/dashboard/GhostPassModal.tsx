@@ -614,7 +614,7 @@ const GhostPassModal = ({
           } ${!isMobile ? 'hover:scale-105' : ''}`}
           style={{
             right: isMobile ? '16px' : `${16 + buttonPosition.x}px`,
-            bottom: isMobile ? '200px' : `${180 + buttonPosition.y}px`,
+            bottom: isMobile ? '280px' : `${250 + buttonPosition.y}px`,
             background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.95) 100%)',
             boxShadow: isActivated 
               ? '0 0 0 2px rgba(34,197,94,0.6), 0 0 30px rgba(34,197,94,0.5), 0 0 60px rgba(34,197,94,0.3)'

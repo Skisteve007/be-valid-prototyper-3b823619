@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Download, Search, Users, UserPlus, Mail, Calendar, Tag, Copy, Send } from "lucide-react";
+import { Loader2, Download, Search, Users, UserPlus, Mail, Calendar, Tag, Copy, Send, CheckCircle2, Briefcase, TrendingUp } from "lucide-react";
 import { format } from "date-fns";
 
 interface Member {
@@ -23,6 +23,8 @@ interface Member {
   payment_date: string | null;
   status_expiry: string | null;
   phone: string | null;
+  investor_access_approved: boolean | null;
+  partner_access_approved: boolean | null;
 }
 
 type MembershipFilter = 'all' | 'current' | 'expired' | 'unpaid';
@@ -52,7 +54,7 @@ export const MembersTab = () => {
     try {
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, user_id, full_name, email, member_id, created_at, signup_discount_code, status_color, payment_status, payment_date, status_expiry, phone")
+        .select("id, user_id, full_name, email, member_id, created_at, signup_discount_code, status_color, payment_status, payment_date, status_expiry, phone, investor_access_approved, partner_access_approved")
         .order("created_at", { ascending: false });
 
       if (error) throw error;
@@ -475,12 +477,13 @@ export const MembersTab = () => {
                   <TableHead>Membership</TableHead>
                   <TableHead>Expiration</TableHead>
                   <TableHead>Health Status</TableHead>
+                  <TableHead className="text-center">Access</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredMembers.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                    <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">
                       {searchQuery || membershipFilter !== 'all' ? "No members match your filter" : "No members yet"}
                     </TableCell>
                   </TableRow>
@@ -518,6 +521,25 @@ export const MembersTab = () => {
                       <TableCell>{getMembershipBadge(member)}</TableCell>
                       <TableCell>{getExpiryDisplay(member)}</TableCell>
                       <TableCell>{getStatusBadge(member.status_color)}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center justify-center gap-2">
+                          {member.investor_access_approved && (
+                            <div className="flex items-center gap-1 text-cyan-500" title="Investor Deck Access">
+                              <TrendingUp className="h-4 w-4" />
+                              <CheckCircle2 className="h-3 w-3" />
+                            </div>
+                          )}
+                          {member.partner_access_approved && (
+                            <div className="flex items-center gap-1 text-green-500" title="Partner Solutions Access">
+                              <Briefcase className="h-4 w-4" />
+                              <CheckCircle2 className="h-3 w-3" />
+                            </div>
+                          )}
+                          {!member.investor_access_approved && !member.partner_access_approved && (
+                            <span className="text-muted-foreground text-xs">—</span>
+                          )}
+                        </div>
+                      </TableCell>
                     </TableRow>
                   ))
                 )}

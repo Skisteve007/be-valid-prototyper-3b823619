@@ -83,8 +83,8 @@ const Index = () => {
         onClick={toggleTheme}
         className={`fixed bottom-8 right-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 border hover:rotate-180
           ${isDark 
-            ? 'bg-gray-800 text-cyan-400 border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.3)]' 
-            : 'bg-white text-orange-500 border-orange-200 shadow-lg'}`}
+            ? 'bg-slate-900 text-yellow-400 border-yellow-400/60 shadow-[0_0_25px_rgba(250,204,21,0.4)]' 
+            : 'bg-slate-800 text-cyan-300 border-cyan-400/60 shadow-[0_0_25px_rgba(0,240,255,0.4)]'}`}
       >
         {isDark ? <Sun size={24} className="transition-transform duration-500" /> : <Moon size={24} className="transition-transform duration-500" />}
       </button>

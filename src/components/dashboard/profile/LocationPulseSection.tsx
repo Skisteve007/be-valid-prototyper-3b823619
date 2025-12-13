@@ -125,27 +125,58 @@ const LocationPulseSection = ({ onLocationChange }: LocationPulseSectionProps) =
   const handleExternalShare = async () => {
     if (!locationActive) return;
     
-    const shareText = locationType === "static" && staticAddress
-      ? `📍 Shared Location: ${staticAddress}`
-      : `📍 Live location shared via Valid™`;
-    
-    const shareUrl = `https://bevalid.app/location/${Date.now()}`;
-    
     try {
+      // Get current position for live sharing
+      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        });
+      });
+
+      let lat = position.coords.latitude;
+      let lng = position.coords.longitude;
+
+      // Apply fuzzy offset if enabled
+      if (fuzzyLocation) {
+        const offset = generateFuzzyOffset();
+        lat += offset.latOffset;
+        lng += offset.lngOffset;
+      }
+
+      // Build the share URL with location data
+      const isGhostedMode = locationDuration === "0.033";
+      const params = new URLSearchParams({
+        lat: lat.toString(),
+        lng: lng.toString(),
+        label: "Valid™ Location",
+        ghosted: isGhostedMode.toString(),
+        fuzzy: fuzzyLocation.toString(),
+        expiry: locationExpiry?.toISOString() || ""
+      });
+
+      const shareUrl = `https://bevalid.app/location/${Date.now()}?${params.toString()}`;
+      const shareText = locationType === "static" && staticAddress
+        ? `📍 Meet me at: ${staticAddress}`
+        : `📍 Here's my live location via Valid™`;
+      
       if (navigator.share) {
         await navigator.share({
-          title: 'Valid™ Location Share',
+          title: 'Valid™ Location',
           text: shareText,
           url: shareUrl
         });
         toast.success("Location shared!");
       } else {
-        await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+        await navigator.clipboard.writeText(shareUrl);
         toast.success("Location link copied!");
       }
     } catch (error: any) {
-      if (error.name !== "AbortError") {
-        toast.error("Failed to share");
+      if (error.code === 1) {
+        toast.error("Location permission denied");
+      } else if (error.name !== "AbortError") {
+        toast.error("Failed to get location");
       }
     }
   };

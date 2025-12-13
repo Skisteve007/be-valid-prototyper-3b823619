@@ -179,14 +179,14 @@ const MemberBetaSurvey = ({ userId }: MemberBetaSurveyProps) => {
       <DialogTrigger asChild>
         <button
           type="button"
-          className="w-full md:w-auto px-6 py-3 text-lg font-extrabold rounded-lg 
-                     bg-gray-800/80 text-green-400 border-2 border-green-600 
-                     shadow-xl shadow-green-900/50 hover:shadow-green-600/70 transition-all 
-                     flex items-center justify-center space-x-2 mt-6"
+          className="px-2 py-1 text-[9px] font-bold rounded 
+                     bg-gray-800/80 text-green-400 border border-green-600/60 
+                     hover:bg-gray-700/80 transition-all 
+                     flex items-center gap-1 whitespace-nowrap"
           style={{ fontFamily: 'Orbitron, sans-serif' }}
         >
-          <span role="img" aria-label="Clipboard">📋</span>
-          <span>MEMBER BETA FEEDBACK (5 Questions)</span>
+          <span className="text-[8px]">📋</span>
+          <span>Beta Feedback</span>
         </button>
       </DialogTrigger>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto bg-card border-green-600/50">

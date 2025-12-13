@@ -108,14 +108,22 @@ const Partners = () => {
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-purple-500/50"></div>
           </div>
           
-          <Link 
-            to="/" 
-            className="group flex items-center gap-2 px-4 py-2 bg-black/60 border border-white/20 hover:border-cyan-400/60 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-          >
-            <div className="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.8)] animate-pulse"></div>
-            <span className="text-xs font-bold text-white/80 group-hover:text-white uppercase tracking-wider">Live App</span>
-            <ArrowRight className="h-3 w-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link 
+              to="/vendor-pricing" 
+              className="group flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600/80 to-cyan-600/80 border border-purple-500/40 hover:border-cyan-400/60 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+            >
+              <span className="text-xs font-bold text-white uppercase tracking-wider">Vendor Pricing</span>
+            </Link>
+            <Link 
+              to="/" 
+              className="group flex items-center gap-2 px-4 py-2 bg-black/60 border border-white/20 hover:border-cyan-400/60 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+            >
+              <div className="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.8)] animate-pulse"></div>
+              <span className="text-xs font-bold text-white/80 group-hover:text-white uppercase tracking-wider">Live App</span>
+              <ArrowRight className="h-3 w-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </div>
         </div>
       </nav>
 

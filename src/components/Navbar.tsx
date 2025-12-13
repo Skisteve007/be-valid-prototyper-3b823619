@@ -29,12 +29,6 @@ const Navbar = () => {
         <div className="flex items-center gap-2 md:gap-4">
           <LanguageSelector />
           <Link 
-            to="/vendor-pricing" 
-            className="text-sm text-foreground font-medium hover:text-primary transition hidden sm:block"
-          >
-            Vendor Pricing
-          </Link>
-          <Link 
             to="/partners" 
             className="text-sm text-foreground font-medium hover:text-primary transition hidden sm:block"
           >

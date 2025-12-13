@@ -71,21 +71,16 @@ const THRILL_OPTIONS = {
 };
 
 const AFTERDARK_OPTIONS = {
-  dynamic: ["Dom", "Sub", "Switch", "Observer", "Facilitator", "Explorer", "Undecided"],
+  archetype: ["Dom / Top", "Sub / Bottom", "Switch / Vers", "Observer", "Facilitator", "Explorer", "Just Watching"],
   partyFavors: ["Sober", "420 Friendly", "Chem Curious", "PnP", "Dealer's Choice", "Bring Your Own"],
-  vibe: ["Soft Swap", "Full Swap", "Voyeur", "Exhibitionist", "Poly Life", "Monogam-ish", "Open"],
-  hardware: ["BYO Supplies", "Use Mine", "Well Stocked", "Spontaneous", "Safety First", "Ask First"],
+  theDynamic: ["Poly Life", "Monogam-ish", "Open Relationship", "Soft Swap", "Full Swap", "Voyeur", "Exhibitionist"],
+  theToolkit: ["None", "BYO Supplies", "Use Mine", "Well Stocked", "Spontaneous", "Safety First", "Ask First"],
   ndaStatus: ["Required", "Preferred", "Trust Based", "What NDA?", "Notarized Only", "Screenshot = Block"],
   connectionType: ["One Night", "Ongoing", "Friends First", "Instant Chemistry", "Slow Burn", "See Where It Goes"],
   approachStyle: ["Direct", "Flirty Banter", "Eye Contact First", "Dance Floor", "Drink First", "Friend of a Friend"],
   privacyLevel: ["Very Private", "Selective", "Open Book", "Anonymous Only", "Face Pics After Trust", "Full Transparency"],
   sleepoverRules: ["Never", "Sometimes", "Prefer It", "Required", "My Place Only", "Hotels Only"],
-  rules: ["No Kissing", "No Marks", "Safe Words", "Anything Goes", "Discuss First", "Standard Protocol"],
-  archetype: ["Dynamic Observer", "Dom / Top", "Sub / Bottom", "Switch / Vers", "Facilitator", "Explorer", "Just Watching"],
-  theDynamic: ["Poly Life", "Monogam-ish", "Open Relationship", "Soft Swap", "Full Swap", "Voyeur", "Exhibitionist"],
-  theToolkit: ["Select Hardware (None)", "BYO Supplies", "Use Mine", "Well Stocked", "Spontaneous", "Safety First", "Ask First"],
   theRulebook: ["Anything Goes", "Standard Protocol", "Discuss First", "Safe Words Mandatory", "No Marks", "No Kissing"],
-  breakfastPlans: ["Prefer It", "My Place Only", "Hotels Only", "Sometimes", "Never", "Required"],
 };
 
 const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChange }: MySignalSectionProps) => {
@@ -356,21 +351,16 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
 
   const renderAfterDarkDropdowns = () => (
     <div className="grid grid-cols-2 gap-3 mt-4">
-      {renderDropdown("Dynamic", "afterdark_dynamic", AFTERDARK_OPTIONS.dynamic)}
+      {renderDropdown("Archetype", "afterdark_archetype", AFTERDARK_OPTIONS.archetype)}
       {renderDropdown("Party Favors", "afterdark_partyFavors", AFTERDARK_OPTIONS.partyFavors)}
-      {renderDropdown("Vibe", "afterdark_vibe", AFTERDARK_OPTIONS.vibe)}
-      {renderDropdown("Hardware", "afterdark_hardware", AFTERDARK_OPTIONS.hardware)}
+      {renderDropdown("The Dynamic", "afterdark_theDynamic", AFTERDARK_OPTIONS.theDynamic)}
+      {renderDropdown("The Toolkit", "afterdark_theToolkit", AFTERDARK_OPTIONS.theToolkit)}
       {renderDropdown("NDA Status", "afterdark_ndaStatus", AFTERDARK_OPTIONS.ndaStatus)}
       {renderDropdown("Connection Type", "afterdark_connectionType", AFTERDARK_OPTIONS.connectionType)}
       {renderDropdown("Approach Style", "afterdark_approachStyle", AFTERDARK_OPTIONS.approachStyle)}
       {renderDropdown("Privacy Level", "afterdark_privacyLevel", AFTERDARK_OPTIONS.privacyLevel)}
       {renderDropdown("Sleepover Rules", "afterdark_sleepoverRules", AFTERDARK_OPTIONS.sleepoverRules)}
-      {renderDropdown("Rules", "afterdark_rules", AFTERDARK_OPTIONS.rules)}
-      {renderDropdown("Archetype", "afterdark_archetype", AFTERDARK_OPTIONS.archetype)}
-      {renderDropdown("The Dynamic", "afterdark_theDynamic", AFTERDARK_OPTIONS.theDynamic)}
-      {renderDropdown("The Toolkit", "afterdark_theToolkit", AFTERDARK_OPTIONS.theToolkit)}
       {renderDropdown("The Rulebook", "afterdark_theRulebook", AFTERDARK_OPTIONS.theRulebook)}
-      {renderDropdown("Breakfast Plans", "afterdark_breakfastPlans", AFTERDARK_OPTIONS.breakfastPlans)}
       {renderTextInput("The Signal", "afterdark_signal", "What's your signal?")}
     </div>
   );

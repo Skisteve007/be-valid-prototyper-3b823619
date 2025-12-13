@@ -32,8 +32,16 @@ const Hero = () => {
     if (isCheckingAuth) return;
     setIsCheckingAuth(true);
     
+    // Safety timeout - navigate to auth after 2 seconds if stuck
+    const timeout = setTimeout(() => {
+      setIsCheckingAuth(false);
+      navigate('/dashboard');
+    }, 2000);
+    
     try {
       const { data: { session } } = await supabase.auth.getSession();
+      clearTimeout(timeout);
+      
       if (session) {
         // Check our custom email_verified field
         const { data: profile } = await supabase
@@ -51,8 +59,9 @@ const Hero = () => {
         navigate('/auth?mode=login');
       }
     } catch (error) {
+      clearTimeout(timeout);
       console.error('Auth check error:', error);
-      navigate('/auth?mode=login');
+      navigate('/dashboard');
     } finally {
       setIsCheckingAuth(false);
     }

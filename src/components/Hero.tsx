@@ -135,15 +135,15 @@ const Hero = () => {
             </p>
 
             {/* CTA Button + Beta Pill */}
-            <div className="flex items-center gap-3 mb-8">
+            <div className="flex items-center gap-2 mb-8">
               <button 
                 onClick={handleAccessClick}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite]"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-black font-bold text-[11px] rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite] whitespace-nowrap"
               >
-                {t('hero.claimId')} <ArrowDownRight size={14} />
+                {t('hero.claimId')} <ArrowDownRight size={12} />
               </button>
-              <span className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400">
-                Beta Version
+              <span className="px-2 py-1 text-[8px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
+                Beta
               </span>
             </div>
 

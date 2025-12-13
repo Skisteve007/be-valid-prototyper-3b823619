@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Plus, CheckCircle, DollarSign, Users, TrendingUp, Trash2, Eye, ShieldCheck, Clock } from "lucide-react";
+import { Plus, CheckCircle, DollarSign, Users, TrendingUp, Trash2, Eye, ShieldCheck, Clock, ExternalLink, BookOpen } from "lucide-react";
 import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
 
 interface Affiliate {
@@ -291,6 +291,74 @@ const SalesTeamTab = () => {
           <Plus className="h-4 w-4 mr-2" /> Add Affiliate
         </Button>
       </div>
+
+      {/* Accounting Integrations */}
+      <Card className="border-primary/30">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BookOpen className="h-5 w-5 text-primary" />
+            Accounting Integrations
+          </CardTitle>
+          <CardDescription>
+            Connect your bookkeeping software to automatically sync financial data
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* QuickBooks Integration */}
+            <div className="p-4 rounded-lg border border-[#2CA01C]/30 bg-[#2CA01C]/5 hover:bg-[#2CA01C]/10 transition-colors">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#2CA01C] flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">Q</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">QuickBooks</h4>
+                    <p className="text-xs text-muted-foreground">Intuit QuickBooks Online</p>
+                  </div>
+                </div>
+                <Badge variant="outline" className="text-xs">Popular</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Automatically sync commissions, payouts, and revenue data directly to your QuickBooks account.
+              </p>
+              <Button 
+                className="w-full bg-[#2CA01C] hover:bg-[#228B1B] text-white"
+                onClick={() => window.open('https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0', '_blank')}
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Connect QuickBooks
+              </Button>
+            </div>
+
+            {/* Xero Integration */}
+            <div className="p-4 rounded-lg border-[#13B5EA]/30 border bg-[#13B5EA]/5 hover:bg-[#13B5EA]/10 transition-colors">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#13B5EA] flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">X</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Xero</h4>
+                    <p className="text-xs text-muted-foreground">Xero Accounting</p>
+                  </div>
+                </div>
+                <Badge variant="outline" className="text-xs">Global</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Seamlessly transfer affiliate payments and transaction records to your Xero workspace.
+              </p>
+              <Button 
+                className="w-full bg-[#13B5EA] hover:bg-[#0FA0D0] text-white"
+                onClick={() => window.open('https://developer.xero.com/documentation/guides/oauth2/auth-flow/', '_blank')}
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Connect Xero
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

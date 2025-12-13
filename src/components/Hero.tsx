@@ -18,6 +18,7 @@ const Hero = () => {
   const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
   const [displayedText, setDisplayedText] = useState('');
   const [visitCount, setVisitCount] = useState(528);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(false);
   const fullText = t('hero.poweredBy');
 
   const signalModes = {
@@ -28,6 +29,9 @@ const Hero = () => {
   };
 
   const handleAccessClick = async () => {
+    if (isCheckingAuth) return;
+    setIsCheckingAuth(true);
+    
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
@@ -49,6 +53,8 @@ const Hero = () => {
     } catch (error) {
       console.error('Auth check error:', error);
       navigate('/auth?mode=login');
+    } finally {
+      setIsCheckingAuth(false);
     }
   };
 
@@ -116,9 +122,10 @@ const Hero = () => {
             </Link>
             <button 
               onClick={handleAccessClick}
-              className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded text-xs uppercase tracking-wider hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+              disabled={isCheckingAuth}
+              className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded text-xs uppercase tracking-wider hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,240,255,0.4)] disabled:opacity-70"
             >
-              {t('nav.memberLogin')}
+              {isCheckingAuth ? '...' : t('nav.memberLogin')}
             </button>
           </div>
         </div>
@@ -158,9 +165,10 @@ const Hero = () => {
             <div className="flex items-center gap-3 mb-8">
               <button 
                 onClick={handleAccessClick}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite]"
+                disabled={isCheckingAuth}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite] disabled:opacity-70"
               >
-                {t('hero.claimId')} <ArrowDownRight size={14} />
+                {isCheckingAuth ? '...' : t('hero.claimId')} <ArrowDownRight size={14} />
               </button>
               <span className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400">
                 Beta Version

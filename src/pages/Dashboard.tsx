@@ -283,8 +283,8 @@ const Dashboard = () => {
                 <h1 className="text-2xl md:text-3xl font-bold">
                   <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
                 </h1>
-                <span className="px-3 py-1 text-[10px] md:text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
-                  Beta Version
+                <span className="px-2 py-0.5 text-[8px] md:text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
+                  Beta
                 </span>
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">

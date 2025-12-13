@@ -8,14 +8,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   Activity, DollarSign, Users, Clock, TrendingUp, 
   Beer, DoorOpen, ShoppingBag, Shirt, Settings,
   Download, RefreshCw, LogOut, ChevronDown, ChevronUp,
   AlertTriangle, FileText, PieChart as PieChartIcon, LineChart as LineChartIcon,
-  Warehouse
+  Warehouse, Calendar
 } from "lucide-react";
 import StationManager from "@/components/admin/StationManager";
+import LiveOperationsCard from "@/components/vendor/LiveOperationsCard";
+import FinancialsModule from "@/components/vendor/FinancialsModule";
+import WorkforceModule from "@/components/vendor/WorkforceModule";
+import ShiftScheduler from "@/components/vendor/ShiftScheduler";
+import { getIndustryConfig, IndustryType } from "@/config/industryConfig";
 import { Helmet } from "react-helmet-async";
 import { toast } from "sonner";
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend, AreaChart, Area } from "recharts";
@@ -71,6 +77,8 @@ const VendorDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [venueId, setVenueId] = useState<string | null>(null);
   const [venueName, setVenueName] = useState<string>("Your Venue");
+  const [industryType, setIndustryType] = useState<string>("Nightlife");
+  const [stations, setStations] = useState<{ id: string; station_name: string }[]>([]);
   
   // Drill-down states
   const [showRevenueBreakdown, setShowRevenueBreakdown] = useState(false);
@@ -116,14 +124,16 @@ const VendorDashboard = () => {
       // Load first venue for demo purposes
       const { data: venues } = await supabase
         .from("partner_venues")
-        .select("id, venue_name")
+        .select("id, venue_name, industry_type")
         .limit(1)
         .maybeSingle();
 
       if (venues) {
         setVenueId(venues.id);
         setVenueName(venues.venue_name);
+        setIndustryType(venues.industry_type || "Nightlife");
         await loadVenueData(venues.id);
+        await loadStations(venues.id);
       } else {
         // Fallback demo data if no venues exist
         setVenueName("Demo Venue");
@@ -161,6 +171,16 @@ const VendorDashboard = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const loadStations = async (venueId: string) => {
+    const { data } = await supabase
+      .from("venue_stations")
+      .select("id, station_name")
+      .eq("venue_id", venueId)
+      .eq("is_active", true);
+    
+    setStations(data || []);
   };
 
   const loadVenueData = async (venueId: string) => {
@@ -390,23 +410,23 @@ const VendorDashboard = () => {
             <TabsList className="bg-slate-900 border border-slate-700 mb-6 flex flex-wrap">
               <TabsTrigger value="pulse" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400">
                 <Activity className="w-4 h-4 mr-2" />
-                Live Pulse
+                Live Operations
               </TabsTrigger>
-              <TabsTrigger value="revenue" className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400">
+              <TabsTrigger value="financials" className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400">
                 <DollarSign className="w-4 h-4 mr-2" />
-                Revenue Buckets
+                Financials
               </TabsTrigger>
-              <TabsTrigger value="settlement" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">
-                <Clock className="w-4 h-4 mr-2" />
-                4:01 AM Settlement
+              <TabsTrigger value="workforce" className="data-[state=active]:bg-blue-500/20 data-[state=active]:text-blue-400">
+                <Users className="w-4 h-4 mr-2" />
+                Workforce
+              </TabsTrigger>
+              <TabsTrigger value="scheduler" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">
+                <Calendar className="w-4 h-4 mr-2" />
+                Shift Manager
               </TabsTrigger>
               <TabsTrigger value="stations" className="data-[state=active]:bg-teal-500/20 data-[state=active]:text-teal-400">
                 <Warehouse className="w-4 h-4 mr-2" />
                 Stations
-              </TabsTrigger>
-              <TabsTrigger value="staff" className="data-[state=active]:bg-orange-500/20 data-[state=active]:text-orange-400">
-                <Users className="w-4 h-4 mr-2" />
-                Staff Audit
               </TabsTrigger>
               <TabsTrigger value="settings" className="data-[state=active]:bg-slate-500/20 data-[state=active]:text-slate-400">
                 <Settings className="w-4 h-4 mr-2" />
@@ -414,20 +434,15 @@ const VendorDashboard = () => {
               </TabsTrigger>
             </TabsList>
 
-            {/* LIVE PULSE TAB */}
+            {/* LIVE OPERATIONS TAB - Polymorphic */}
             <TabsContent value="pulse" className="space-y-6">
-              <div className="grid md:grid-cols-3 gap-6">
-                <Card className="bg-slate-900 border-slate-700">
-                  <CardHeader className="pb-2">
-                    <CardDescription className="text-slate-400">Current Headcount</CardDescription>
-                    <CardTitle className="text-5xl font-mono text-white">{stats.headcount}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-2 text-green-400">
-                      <TrendingUp className="w-4 h-4" />
-                      <span className="text-sm">Active patrons</span>
-                    </div>
-                  </CardContent>
+              <LiveOperationsCard
+                industryType={industryType}
+                primaryValue={stats.headcount}
+                secondaryValue={stats.barRevenue}
+                tertiaryValue={12}
+                isLive={timePeriod === 'live'}
+              />
                 </Card>
 
                 <Card className="bg-slate-900 border-slate-700">

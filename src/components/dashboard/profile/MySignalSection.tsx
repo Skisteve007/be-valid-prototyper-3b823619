@@ -377,25 +377,27 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           </div>
 
           {/* Broadcast Signal Button - Yellow with Pulsating Glow */}
-          <Button
+          <button
+            type="button"
             onClick={() => setBroadcastActive(true)}
             disabled={!selectedMode}
-            className={`w-full py-4 text-sm font-bold transition-all mb-4 ${
-              selectedMode 
-                ? "bg-yellow-500 hover:bg-yellow-400 text-black shadow-[0_0_25px_rgba(234,179,8,0.7)] animate-[pulse_1.5s_ease-in-out_infinite]"
-                : "bg-muted text-muted-foreground cursor-not-allowed"
-            }`}
-            style={selectedMode ? {
-              animation: 'pulse 1.5s ease-in-out infinite, glow 1.5s ease-in-out infinite alternate',
-              boxShadow: '0 0 20px rgba(234,179,8,0.6), 0 0 40px rgba(234,179,8,0.4), 0 0 60px rgba(234,179,8,0.2)'
-            } : {}}
+            className="w-full py-4 text-sm font-bold transition-all mb-4 rounded-md flex items-center justify-center"
+            style={{
+              backgroundColor: selectedMode ? '#eab308' : 'hsl(var(--muted))',
+              color: selectedMode ? '#000000' : 'hsl(var(--muted-foreground))',
+              cursor: selectedMode ? 'pointer' : 'not-allowed',
+              boxShadow: selectedMode 
+                ? '0 0 20px rgba(234,179,8,0.8), 0 0 40px rgba(234,179,8,0.6), 0 0 60px rgba(234,179,8,0.4)' 
+                : 'none',
+              animation: selectedMode ? 'pulse 1.5s ease-in-out infinite' : 'none',
+            }}
           >
             <ChevronDown className="w-4 h-4 mr-1" />
             <Podcast className="w-4 h-4 mr-1" />
             BROADCAST SIGNAL
             <Podcast className="w-4 h-4 ml-1" />
             <ChevronDown className="w-4 h-4 ml-1" />
-          </Button>
+          </button>
 
           {/* 4-Button Grid with Descriptions */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">

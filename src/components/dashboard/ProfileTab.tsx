@@ -11,7 +11,6 @@ import { Loader2, FileText, UserCheck, QrCode, ExternalLink, CheckCircle, Lock, 
 import { Card, CardContent } from "@/components/ui/card";
 import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
-import MemberBetaSurvey from "@/components/MemberBetaSurvey";
 import MySignalSection from "./profile/MySignalSection";
 import TrustSignalSection from "./profile/TrustSignalSection";
 
@@ -756,6 +755,7 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
           if (field === 'share_bio_enabled') setShareBioEnabled(value);
           if (field === 'share_tox_enabled') setShareToxEnabled(value);
         }}
+        userId={userId}
       />
 
       <div className="relative py-4">
@@ -796,8 +796,6 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
         onReferencesLockedChange={setReferencesLocked}
       />
 
-      {/* Member Beta Feedback Button */}
-      <MemberBetaSurvey userId={userId} />
     </form>
   );
 });

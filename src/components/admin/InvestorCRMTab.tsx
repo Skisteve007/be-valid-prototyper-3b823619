@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -44,6 +45,7 @@ interface Investor {
 const STORAGE_KEY = "cleancheck_investor_crm";
 
 export const InvestorCRMTab = () => {
+  const navigate = useNavigate();
   const [investors, setInvestors] = useState<Investor[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingInvestor, setEditingInvestor] = useState<Investor | null>(null);
@@ -523,7 +525,7 @@ export const InvestorCRMTab = () => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" onClick={() => window.open("/pitch-deck", "_blank")}>
+            <Button variant="outline" onClick={() => navigate("/pitch-deck")}>
               <FileText className="h-4 w-4 mr-2" />
               View Pitch Deck
             </Button>

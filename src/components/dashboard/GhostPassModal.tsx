@@ -609,7 +609,7 @@ const GhostPassModal = ({
           ref={buttonRef}
           onClick={() => !isDragging && setIsOpen(true)}
           onMouseDown={handleMouseDown}
-          className={`fixed z-[9999] w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-200 ${
+          className={`fixed z-[9999] w-12 h-12 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
             isDragging ? 'cursor-grabbing scale-110' : 'cursor-pointer active:scale-95'
           } ${!isMobile ? 'hover:scale-105' : ''}`}
           style={{
@@ -625,9 +625,9 @@ const GhostPassModal = ({
           }}
         >
           {isLocked ? (
-            <Lock className="w-6 h-6 md:w-7 md:h-7 text-red-400" />
+            <Lock className="w-5 h-5 text-red-400" />
           ) : (
-            <Ghost className={`w-7 h-7 md:w-8 md:h-8 ${isActivated ? 'text-green-400' : 'text-amber-400'}`} />
+            <Ghost className={`w-6 h-6 ${isActivated ? 'text-green-400' : 'text-amber-400'}`} />
           )}
         </button>
       )}

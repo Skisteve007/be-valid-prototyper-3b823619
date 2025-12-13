@@ -4,7 +4,7 @@
 // ============================================================================
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, ArrowDownRight, Users, Activity, Zap, Moon } from 'lucide-react';
+import { ArrowDownLeft, Users, Activity, Zap, Moon } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
@@ -140,10 +140,10 @@ const Hero = () => {
                 onClick={handleAccessClick}
                 className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-black font-bold text-[11px] rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite] whitespace-nowrap"
               >
-                {t('hero.claimId')} <ArrowDownRight size={12} />
+                {t('hero.claimId')} <ArrowDownLeft size={12} />
               </button>
-              <span className="px-2 py-1 text-[8px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
-                Beta
+              <span className="px-2 py-0.5 text-[7px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
+                Beta Version
               </span>
             </div>
 

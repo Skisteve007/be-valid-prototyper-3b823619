@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   PartyPopper, 
   Truck, 
@@ -13,18 +12,25 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
+// Import background images
+import nightlifeBg from "@/assets/industry-nightlife-bg.jpg";
+import transportationBg from "@/assets/industry-transportation-bg.jpg";
+import workforceBg from "@/assets/industry-workforce-bg.jpg";
+import labsBg from "@/assets/industry-labs-bg.jpg";
+import rentalsBg from "@/assets/industry-rentals-bg.jpg";
+import securityBg from "@/assets/industry-security-bg.jpg";
+
 const industryCards = [
   {
     id: "nightlife",
-    title: "Nightlife & Marketing™",
+    title: "Nightlife & Marketing Events™",
     icon: PartyPopper,
     price: "$999",
     priceLabel: "The 'Mega Scan' Venue Package",
+    bgImage: nightlifeBg,
+    gradientOverlay: "from-purple-900/90 via-purple-800/70 to-transparent",
     borderColor: "border-purple-500",
-    headerBg: "bg-gradient-to-r from-purple-600 to-purple-500",
-    glowColor: "shadow-[0_0_30px_rgba(168,85,247,0.4)]",
-    iconBg: "bg-purple-500/20",
-    iconColor: "text-purple-400",
+    accentColor: "text-purple-300",
     features: [
       "Venue Access Control",
       "Promoter Tracking",
@@ -38,11 +44,10 @@ const industryCards = [
     icon: Truck,
     price: "$499",
     priceLabel: "Fleet Operations Package",
+    bgImage: transportationBg,
+    gradientOverlay: "from-yellow-900/90 via-amber-800/70 to-transparent",
     borderColor: "border-yellow-500",
-    headerBg: "bg-gradient-to-r from-yellow-500 to-amber-500",
-    glowColor: "shadow-[0_0_30px_rgba(234,179,8,0.4)]",
-    iconBg: "bg-yellow-500/20",
-    iconColor: "text-yellow-400",
+    accentColor: "text-yellow-300",
     features: [
       "Driver Verification",
       "Fleet Tracking",
@@ -56,11 +61,10 @@ const industryCards = [
     icon: Users,
     price: "$299",
     priceLabel: "Enterprise HR Package",
+    bgImage: workforceBg,
+    gradientOverlay: "from-blue-900/90 via-blue-800/70 to-transparent",
     borderColor: "border-blue-500",
-    headerBg: "bg-gradient-to-r from-blue-600 to-blue-500",
-    glowColor: "shadow-[0_0_30px_rgba(59,130,246,0.4)]",
-    iconBg: "bg-blue-500/20",
-    iconColor: "text-blue-400",
+    accentColor: "text-blue-300",
     features: [
       "Time & Attendance",
       "Employee ID Verification",
@@ -74,11 +78,10 @@ const industryCards = [
     icon: FlaskConical,
     price: "$199",
     priceLabel: "Health Compliance Package",
+    bgImage: labsBg,
+    gradientOverlay: "from-emerald-900/90 via-teal-800/70 to-transparent",
     borderColor: "border-emerald-500",
-    headerBg: "bg-gradient-to-r from-emerald-600 to-teal-500",
-    glowColor: "shadow-[0_0_30px_rgba(16,185,129,0.4)]",
-    iconBg: "bg-emerald-500/20",
-    iconColor: "text-emerald-400",
+    accentColor: "text-emerald-300",
     features: [
       "API Integration",
       "Toxicology Results",
@@ -92,11 +95,10 @@ const industryCards = [
     icon: Car,
     price: "$599",
     priceLabel: "Luxury Asset Package",
+    bgImage: rentalsBg,
+    gradientOverlay: "from-gray-900/95 via-amber-950/60 to-transparent",
     borderColor: "border-amber-400",
-    headerBg: "bg-gradient-to-r from-gray-900 via-amber-900 to-gray-900",
-    glowColor: "shadow-[0_0_30px_rgba(251,191,36,0.3)]",
-    iconBg: "bg-amber-500/20",
-    iconColor: "text-amber-400",
+    accentColor: "text-amber-300",
     isLuxury: true,
     features: [
       "Asset Protection",
@@ -111,11 +113,10 @@ const industryCards = [
     icon: Shield,
     price: "$399",
     priceLabel: "Security Operations Package",
+    bgImage: securityBg,
+    gradientOverlay: "from-red-900/90 via-red-800/70 to-transparent",
     borderColor: "border-red-500",
-    headerBg: "bg-gradient-to-r from-red-600 to-red-500",
-    glowColor: "shadow-[0_0_30px_rgba(239,68,68,0.4)]",
-    iconBg: "bg-red-500/20",
-    iconColor: "text-red-400",
+    accentColor: "text-red-300",
     features: [
       "Guard Verification",
       "License Checks",
@@ -157,45 +158,49 @@ const PlatformFeatures = () => {
           {/* 3x2 Grid of Industry Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {industryCards.map((card) => (
-              <Card 
+              <div 
                 key={card.id}
-                className={`relative overflow-hidden bg-card/80 backdrop-blur-sm ${card.borderColor} border-2 ${card.glowColor} transition-all duration-300 hover:scale-[1.02] group`}
+                className={`relative overflow-hidden rounded-2xl ${card.borderColor} border-2 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl group min-h-[420px] flex flex-col`}
               >
-                {/* Header with color */}
-                <div className={`${card.headerBg} px-6 py-4`}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 rounded-lg ${card.iconBg} backdrop-blur-sm`}>
-                        <card.icon className={`h-5 w-5 ${card.iconColor}`} />
-                      </div>
-                      <CardTitle className={`text-lg font-bold ${card.isLuxury ? 'text-amber-300' : 'text-white'}`}>
-                        {card.title}
-                      </CardTitle>
-                    </div>
-                  </div>
-                </div>
+                {/* Background Image */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${card.bgImage})` }}
+                />
                 
-                <CardHeader className="pb-2 pt-6">
-                  {/* Price */}
-                  <div className="text-center">
-                    <div className={`text-4xl md:text-5xl font-black ${card.iconColor}`}>
+                {/* Gradient Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-t ${card.gradientOverlay}`} />
+                
+                {/* Content */}
+                <div className="relative z-10 flex flex-col h-full p-6">
+                  {/* Header */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2.5 rounded-xl bg-black/40 backdrop-blur-sm border border-white/20">
+                      <card.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white drop-shadow-lg">
+                      {card.title}
+                    </h3>
+                  </div>
+                  
+                  {/* Price Section */}
+                  <div className="mb-6">
+                    <div className={`text-5xl md:text-6xl font-black text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]`}>
                       {card.price}
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className={`text-sm font-medium ${card.accentColor} mt-1`}>
                       {card.priceLabel}
                     </p>
                   </div>
-                </CardHeader>
-                
-                <CardContent className="pt-4 pb-6">
+                  
                   {/* Features List */}
-                  <div className="space-y-3 mb-6">
+                  <div className="space-y-2.5 flex-grow">
                     {card.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-3">
-                        <div className={`flex-shrink-0 w-5 h-5 rounded-full ${card.iconBg} flex items-center justify-center`}>
-                          <Check className={`h-3 w-3 ${card.iconColor}`} />
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                          <Check className="h-3 w-3 text-white" />
                         </div>
-                        <span className="text-sm text-foreground/90">{feature}</span>
+                        <span className="text-sm font-medium text-white/90 drop-shadow-sm">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -203,14 +208,14 @@ const PlatformFeatures = () => {
                   {/* CTA Button */}
                   <Button 
                     asChild
-                    className={`w-full ${card.headerBg} hover:opacity-90 ${card.isLuxury ? 'text-amber-100' : 'text-white'} font-bold`}
+                    className="w-full mt-6 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-bold border border-white/30 hover:border-white/50"
                   >
                     <Link to="/partner-application">
                       Get Started
                     </Link>
                   </Button>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
           

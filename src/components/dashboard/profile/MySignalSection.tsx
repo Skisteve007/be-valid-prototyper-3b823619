@@ -574,32 +574,32 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       {/* BROADCAST SIGNAL PILL - Separate Section */}
       <Card className="bg-card border-border shadow-sm mt-4">
         <CardContent className="p-6">
-          <div className="flex flex-col gap-1 mb-4">
-            <div className="flex items-center gap-2">
-              <Podcast className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-              <h3 className="text-lg font-semibold text-cyan-400">BROADCAST SIGNAL</h3>
-            </div>
-            <span className="text-xs text-cyan-400/80 pl-7">Turn your screen into a colored beacon</span>
-          </div>
-
-          {/* Broadcast Signal Toggle */}
-          <div className="flex items-center justify-between p-3 rounded-lg bg-card/50 border border-border mb-4">
-            <div className="flex items-center gap-3">
-              <Podcast className="w-5 h-5 text-cyan-400" />
-              <div>
-                <span className="text-sm font-medium text-foreground">Broadcast Signal</span>
-                <p className="text-xs text-muted-foreground">Turn screen into colored beacon</p>
-              </div>
-            </div>
-            <Switch
-              checked={broadcastActive}
-              onCheckedChange={setBroadcastActive}
-              className="data-[state=checked]:bg-cyan-500"
-            />
-          </div>
+          {/* Broadcast Signal Button with Glow */}
+          <Button
+            onClick={() => setBroadcastActive(true)}
+            disabled={!selectedMode}
+            className={`w-full py-6 text-lg font-bold transition-all ${
+              selectedMode 
+                ? "bg-cyan-600 hover:bg-cyan-500 text-white shadow-[0_0_25px_rgba(0,240,255,0.5)] hover:shadow-[0_0_35px_rgba(0,240,255,0.7)]"
+                : "bg-muted text-muted-foreground cursor-not-allowed"
+            }`}
+          >
+            <Podcast className="w-5 h-5 mr-2" />
+            BROADCAST SIGNAL
+          </Button>
+          {!selectedMode && (
+            <p className="text-[10px] text-muted-foreground text-center mt-2">
+              Select a signal mode above to enable broadcast
+            </p>
+          )}
+          {selectedMode && (
+            <p className="text-[10px] text-cyan-400/80 text-center mt-2">
+              Turn your screen into a colored beacon
+            </p>
+          )}
 
           {/* Broadcast Message Input */}
-          <div className="space-y-2">
+          <div className="space-y-2 mt-4">
             <Label className="text-xs font-medium text-foreground flex items-center gap-2">
               <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
               Broadcast Message (Optional)

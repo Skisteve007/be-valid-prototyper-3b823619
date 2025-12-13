@@ -118,7 +118,6 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
         return "bg-cyan-500"; // Electric Teal/Cyan
       default:
         return "bg-cyan-500";
-        return "bg-cyan-500";
     }
   };
 

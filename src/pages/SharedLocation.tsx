@@ -65,22 +65,19 @@ const SharedLocation = () => {
 
     setIsGhosted(ghosted);
 
-    // Immediately try to open native map
-    const mapUrl = getNativeMapUrl(lat, lng, label);
-    
-    // Use a small delay to ensure the page renders first
+    // Auto-open map after a brief delay to show the branded page first
     const openTimer = setTimeout(() => {
+      const mapUrl = getNativeMapUrl(lat, lng, label);
       window.location.href = mapUrl;
       setMapOpened(true);
-    }, 100);
+    }, 1500); // 1.5 second delay to show branded page
 
-    // For ghosted mode, auto-close after 2 seconds
+    // For ghosted mode, countdown and auto-close
     if (ghosted) {
       const countdownInterval = setInterval(() => {
         setCountdown((prev) => {
           if (prev <= 1) {
             clearInterval(countdownInterval);
-            // Close the window/tab after countdown (won't work for all browsers)
             window.close();
             return 0;
           }

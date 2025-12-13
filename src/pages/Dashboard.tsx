@@ -84,46 +84,74 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
+    
+    // Safety timeout - stop loading after 3 seconds no matter what
+    const safetyTimeout = setTimeout(() => {
+      if (isMounted && loading) {
+        console.warn('Dashboard: Safety timeout triggered');
+        setLoading(false);
+        navigate("/auth");
+      }
+    }, 3000);
+
     const checkEmailVerification = async (userId: string) => {
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("email_verified")
-        .eq("user_id", userId)
-        .single();
-      
-      if (!profile?.email_verified) {
-        toast.error("Please verify your email before accessing the dashboard.");
+      try {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("email_verified")
+          .eq("user_id", userId)
+          .single();
+        
+        if (!profile?.email_verified) {
+          toast.error("Please verify your email before accessing the dashboard.");
+          navigate("/auth?mode=login");
+          return false;
+        }
+        return true;
+      } catch (error) {
+        console.error('Email verification check error:', error);
         navigate("/auth?mode=login");
         return false;
       }
-      return true;
     };
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        if (!isMounted) return;
         setSession(session);
         setUser(session?.user ?? null);
         if (!session) {
           navigate("/auth");
-        } else {
-          await checkEmailVerification(session.user.id);
         }
       }
     );
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (!isMounted) return;
+      clearTimeout(safetyTimeout);
       setSession(session);
       setUser(session?.user ?? null);
       if (!session) {
         navigate("/auth");
       } else {
-        const isVerified = await checkEmailVerification(session.user.id);
-        if (!isVerified) return;
+        await checkEmailVerification(session.user.id);
       }
       setLoading(false);
+    }).catch((error) => {
+      console.error('getSession error:', error);
+      if (isMounted) {
+        clearTimeout(safetyTimeout);
+        setLoading(false);
+        navigate("/auth");
+      }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      clearTimeout(safetyTimeout);
+      subscription.unsubscribe();
+    };
   }, [navigate]);
 
   const handleLogout = async () => {

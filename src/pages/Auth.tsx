@@ -381,6 +381,11 @@ const Auth = () => {
                       className="w-full min-h-[48px] relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary text-primary-foreground font-semibold" 
                       type="submit"
                       disabled={loading}
+                      onClick={(e) => {
+                        if (loading) return;
+                        e.preventDefault();
+                        handleLogin(e as any);
+                      }}
                     >
                       <div className="absolute inset-0 bg-primary/30 blur-xl rounded-md -z-10"></div>
                       {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
@@ -429,7 +434,7 @@ const Auth = () => {
                       type="button" 
                       variant="outline"
                       onClick={() => navigate("/auth?mode=login")}
-                      className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
+                      className="min-h-[48px] px-6 rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold text-sm whitespace-nowrap"
                     >
                       Already a member? Log in
                     </Button>

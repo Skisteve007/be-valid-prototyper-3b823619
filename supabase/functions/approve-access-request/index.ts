@@ -133,13 +133,64 @@ function generateHTML(status: "success" | "error", message: string): string {
   const bgColor = isSuccess ? "#00f0ff" : "#ff4444";
   const icon = isSuccess ? "✅" : "❌";
   
+  // For success, show a brief message then auto-close
+  if (isSuccess) {
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>VALID™ Access Approved</title>
+        <style>
+          body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+          }
+          .card {
+            background: #111;
+            border: 1px solid #00f0ff33;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+          }
+          .icon { font-size: 48px; margin-bottom: 20px; }
+          h1 { color: #00f0ff; margin-bottom: 16px; }
+          p { color: #888; line-height: 1.6; }
+        </style>
+        <script>
+          // Auto-close this tab after 2 seconds
+          setTimeout(function() { window.close(); }, 2000);
+        </script>
+      </head>
+      <body>
+        <div class="card">
+          <div class="icon">✅</div>
+          <h1>Access Approved!</h1>
+          <p>${message}</p>
+          <p style="color: #666; font-size: 12px; margin-top: 16px;">This window will close automatically...</p>
+        </div>
+      </body>
+      </html>
+    `;
+  }
+  
+  // For errors, show the error message
   return `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>VALID™ Access ${isSuccess ? "Approved" : "Error"}</title>
+      <title>VALID™ Access Error</title>
       <style>
         body {
           font-family: 'Segoe UI', Arial, sans-serif;
@@ -154,42 +205,22 @@ function generateHTML(status: "success" | "error", message: string): string {
         }
         .card {
           background: #111;
-          border: 1px solid ${bgColor}33;
+          border: 1px solid #ff444433;
           border-radius: 16px;
           padding: 40px;
           text-align: center;
           max-width: 400px;
         }
-        .icon {
-          font-size: 48px;
-          margin-bottom: 20px;
-        }
-        h1 {
-          color: ${bgColor};
-          margin-bottom: 16px;
-        }
-        p {
-          color: #888;
-          line-height: 1.6;
-        }
-        a {
-          display: inline-block;
-          background: ${bgColor};
-          color: #000;
-          padding: 12px 24px;
-          border-radius: 8px;
-          text-decoration: none;
-          font-weight: bold;
-          margin-top: 20px;
-        }
+        .icon { font-size: 48px; margin-bottom: 20px; }
+        h1 { color: #ff4444; margin-bottom: 16px; }
+        p { color: #888; line-height: 1.6; }
       </style>
     </head>
     <body>
       <div class="card">
-        <div class="icon">${icon}</div>
-        <h1>${isSuccess ? "Access Approved!" : "Error"}</h1>
+        <div class="icon">❌</div>
+        <h1>Error</h1>
         <p>${message}</p>
-        <a href="https://bevalid.app/admin">Go to Admin Panel</a>
       </div>
     </body>
     </html>

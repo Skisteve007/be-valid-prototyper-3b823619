@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { useLocation } from 'react-router-dom';
 
 // Routes that bypass the SiteGate (accessible without NDA)
-const BYPASS_ROUTES = ['/verify-email'];
+const BYPASS_ROUTES = ['/verify-email', '/dashboard', '/auth', '/access-portal'];
 
 const SiteGate = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();

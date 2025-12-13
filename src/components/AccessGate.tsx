@@ -57,8 +57,8 @@ export const AccessGate = ({ accessType, children }: AccessGateProps) => {
 
           {hasPendingRequest ? (
             <>
-              <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 mb-4">
-                <p className="text-amber-400 font-semibold mb-2">Request Pending</p>
+              <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 mb-4">
+                <p className="text-cyan-400 font-semibold mb-2">Request Pending</p>
                 <p className="text-sm text-gray-400">
                   Your access request is being reviewed. You'll receive an email when approved.
                 </p>

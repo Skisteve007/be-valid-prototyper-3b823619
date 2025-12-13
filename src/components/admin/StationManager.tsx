@@ -21,6 +21,9 @@ interface Station {
   station_category: string;
   is_active: boolean;
   created_at: string;
+  assigned_staff_name?: string | null;
+  shift_assignment?: string | null;
+  assignment_number?: number;
 }
 
 interface StationLiveFeed {
@@ -50,6 +53,15 @@ const CATEGORY_OPTIONS = [
   { value: "other", label: "Other", icon: Warehouse, color: "text-slate-400" }
 ];
 
+const SHIFT_OPTIONS = [
+  { value: "morning", label: "Morning (6AM-2PM)" },
+  { value: "afternoon", label: "Afternoon (2PM-10PM)" },
+  { value: "night", label: "Night (10PM-6AM)" },
+  { value: "swing", label: "Swing Shift" },
+  { value: "double", label: "Double Shift" },
+  { value: "on_call", label: "On Call" }
+];
+
 const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
   const [stations, setStations] = useState<Station[]>([]);
   const [liveFeeds, setLiveFeeds] = useState<Record<string, StationLiveFeed>>({});
@@ -58,6 +70,8 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
   const [editingStation, setEditingStation] = useState<Station | null>(null);
   const [newStationName, setNewStationName] = useState("");
   const [newStationCategory, setNewStationCategory] = useState("bar");
+  const [newStaffName, setNewStaffName] = useState("");
+  const [newShiftAssignment, setNewShiftAssignment] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -207,6 +221,8 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
         venue_id: venueId,
         station_name: newStationName.trim(),
         station_category: newStationCategory,
+        assigned_staff_name: newStaffName.trim() || null,
+        shift_assignment: newShiftAssignment || null,
         is_active: true
       })
       .select()
@@ -216,10 +232,12 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
       toast.error("Failed to create station");
       console.error(error);
     } else {
-      toast.success(`Station "${newStationName}" created!`);
+      toast.success(`Station #${data.assignment_number} "${newStationName}" created!`);
       setStations(prev => [...prev, data]);
       setNewStationName("");
       setNewStationCategory("bar");
+      setNewStaffName("");
+      setNewShiftAssignment("");
       setIsAddingStation(false);
       onStationsChange?.();
     }
@@ -232,7 +250,9 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
       .from("venue_stations")
       .update({
         station_name: newStationName,
-        station_category: newStationCategory
+        station_category: newStationCategory,
+        assigned_staff_name: newStaffName.trim() || null,
+        shift_assignment: newShiftAssignment || null
       })
       .eq("id", editingStation.id);
 
@@ -242,12 +262,14 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
       toast.success("Station updated!");
       setStations(prev => prev.map(s => 
         s.id === editingStation.id 
-          ? { ...s, station_name: newStationName, station_category: newStationCategory }
+          ? { ...s, station_name: newStationName, station_category: newStationCategory, assigned_staff_name: newStaffName.trim() || null, shift_assignment: newShiftAssignment || null }
           : s
       ));
       setEditingStation(null);
       setNewStationName("");
       setNewStationCategory("bar");
+      setNewStaffName("");
+      setNewShiftAssignment("");
       onStationsChange?.();
     }
   };
@@ -358,6 +380,30 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
                   </SelectContent>
                 </Select>
               </div>
+              <div className="space-y-2">
+                <Label className="text-slate-300">Assigned Staff Name</Label>
+                <Input
+                  placeholder="e.g., John Smith"
+                  value={newStaffName}
+                  onChange={(e) => setNewStaffName(e.target.value)}
+                  className="bg-slate-800 border-slate-600 text-white"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-slate-300">Shift Assignment</Label>
+                <Select value={newShiftAssignment} onValueChange={setNewShiftAssignment}>
+                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                    <SelectValue placeholder="Select shift..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-slate-800 border-slate-600">
+                    {SHIFT_OPTIONS.map(shift => (
+                      <SelectItem key={shift.value} value={shift.value} className="text-white">
+                        {shift.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               <Button onClick={handleAddStation} className="w-full bg-cyan-500 hover:bg-cyan-600 text-black">
                 Create Station
               </Button>
@@ -370,7 +416,9 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
       <Dialog open={!!editingStation} onOpenChange={(open) => !open && setEditingStation(null)}>
         <DialogContent className="bg-slate-900 border-slate-700">
           <DialogHeader>
-            <DialogTitle className="text-white">Edit Station</DialogTitle>
+            <DialogTitle className="text-white">
+              Edit Station {editingStation?.assignment_number && `#${editingStation.assignment_number}`}
+            </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 pt-4">
             <div className="space-y-2">
@@ -394,6 +442,29 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
                         <cat.icon className={`w-4 h-4 ${cat.color}`} />
                         {cat.label}
                       </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label className="text-slate-300">Assigned Staff Name</Label>
+              <Input
+                value={newStaffName}
+                onChange={(e) => setNewStaffName(e.target.value)}
+                className="bg-slate-800 border-slate-600 text-white"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-slate-300">Shift Assignment</Label>
+              <Select value={newShiftAssignment} onValueChange={setNewShiftAssignment}>
+                <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                  <SelectValue placeholder="Select shift..." />
+                </SelectTrigger>
+                <SelectContent className="bg-slate-800 border-slate-600">
+                  {SHIFT_OPTIONS.map(shift => (
+                    <SelectItem key={shift.value} value={shift.value} className="text-white">
+                      {shift.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -431,6 +502,9 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
+                          <Badge variant="outline" className="border-cyan-500/50 text-cyan-400 text-xs px-1.5 py-0.5">
+                            #{station.assignment_number || '—'}
+                          </Badge>
                           <catInfo.icon className={`w-4 h-4 ${catInfo.color}`} />
                           <CardTitle className="text-white text-base">{station.station_name}</CardTitle>
                         </div>
@@ -448,6 +522,8 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
                               setEditingStation(station);
                               setNewStationName(station.station_name);
                               setNewStationCategory(station.station_category);
+                              setNewStaffName(station.assigned_staff_name || "");
+                              setNewShiftAssignment(station.shift_assignment || "");
                             }}
                           >
                             <Edit className="w-4 h-4" />
@@ -464,6 +540,22 @@ const StationManager = ({ venueId, onStationsChange }: StationManagerProps) => {
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-3">
+                      {/* Staff & Shift Info */}
+                      {(station.assigned_staff_name || station.shift_assignment) && (
+                        <div className="flex flex-wrap items-center gap-2 text-sm">
+                          {station.assigned_staff_name && (
+                            <span className="text-slate-300">
+                              <span className="text-slate-500">Staff:</span> {station.assigned_staff_name}
+                            </span>
+                          )}
+                          {station.shift_assignment && (
+                            <Badge variant="outline" className="border-purple-500/50 text-purple-400 text-xs">
+                              {SHIFT_OPTIONS.find(s => s.value === station.shift_assignment)?.label || station.shift_assignment}
+                            </Badge>
+                          )}
+                        </div>
+                      )}
+                      
                       {/* Summary Stats */}
                       <div className="grid grid-cols-2 gap-2">
                         <div className="bg-slate-800 rounded-lg p-3 text-center">

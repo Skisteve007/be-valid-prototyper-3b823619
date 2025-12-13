@@ -1,8 +1,9 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-
-
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -26,9 +27,22 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Access request notification: ${accessType} access for ${userEmail}`);
 
+    // Get user_id from profile
+    const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("user_id")
+      .eq("email", userEmail)
+      .single();
+
+    const userId = profile?.user_id;
     const accessTypeLabel = accessType === "investor" ? "Investor Deck" : "Partner Solutions";
     
-    // Send notification to admin using Resend API directly
+    // Generate approval token
+    const approvalToken = btoa(`${userId}-${accessType}-valid-approval`).substring(0, 20);
+    const approvalUrl = `${SUPABASE_URL}/functions/v1/approve-access-request?user_id=${userId}&type=${accessType}&token=${approvalToken}`;
+    
+    // Send notification to admin with direct approval button
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -41,7 +55,7 @@ const handler = async (req: Request): Promise<Response> => {
         subject: `🔐 New ${accessTypeLabel} Access Request - ${userName}`,
         html: `
           <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #ffffff; padding: 40px; border-radius: 12px; border: 1px solid #00f0ff33;">
-            <h1 style="color: #00f0ff; margin-bottom: 24px; font-size: 24px;">🔐 Access Request Received</h1>
+            <h1 style="color: #00f0ff; margin-bottom: 24px; font-size: 24px;">🔐 New Access Request</h1>
             
             <div style="background: #111; padding: 20px; border-radius: 8px; margin-bottom: 24px; border-left: 4px solid #00f0ff;">
               <p style="margin: 0 0 12px 0;"><strong style="color: #00f0ff;">Access Type:</strong> ${accessTypeLabel}</p>
@@ -50,16 +64,17 @@ const handler = async (req: Request): Promise<Response> => {
               <p style="margin: 0;"><strong style="color: #00f0ff;">Requested At:</strong> ${new Date(requestedAt).toLocaleString()}</p>
             </div>
             
-            <p style="color: #888; font-size: 14px;">
-              Log into your VALID Admin Panel to approve or deny this request.
+            <p style="color: #fff; font-size: 16px; margin-bottom: 20px;">
+              Click below to instantly approve this request:
             </p>
             
-            <a href="https://bevalid.app/admin" style="display: inline-block; background: linear-gradient(135deg, #00f0ff, #0088ff); color: #000; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 16px;">
-              Open Admin Panel
+            <a href="${approvalUrl}" style="display: inline-block; background: linear-gradient(135deg, #00ff88, #00cc66); color: #000; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
+              ✅ APPROVE ACCESS
             </a>
             
             <p style="color: #666; font-size: 12px; margin-top: 32px; border-top: 1px solid #333; padding-top: 16px;">
-              This is an automated security notification from VALID™ Access Control.
+              This is an automated security notification from VALID™ Access Control.<br>
+              The user will be automatically notified upon approval.
             </p>
           </div>
         `,

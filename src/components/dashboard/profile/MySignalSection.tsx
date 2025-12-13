@@ -625,12 +625,13 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             right: 0,
             bottom: 0,
             width: '100vw',
-            height: '100vh',
-            minHeight: '100vh',
-            minWidth: '100vw',
+            height: '100dvh',
+            minHeight: '-webkit-fill-available',
             zIndex: 99999,
             touchAction: 'none',
             userSelect: 'none',
+            WebkitOverflowScrolling: 'touch',
+            overflow: 'hidden',
           }}
         >
           {/* KILL SWITCH - FIXED TOP-RIGHT - ALWAYS VISIBLE */}
@@ -647,18 +648,22 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <span>KILL</span>
           </button>
           
-          {/* Main Content Area */}
-          <div className="flex flex-col items-center justify-center w-full h-full px-6">
-            {/* Custom Message - PRIORITY DISPLAY */}
+          {/* Main Content Area - FILLS ENTIRE SCREEN */}
+          <div className="flex flex-col items-center justify-center w-full h-full p-4">
+            {/* Custom Message - PRIORITY DISPLAY - MASSIVE FOR VISIBILITY */}
             {broadcastMessage.trim() ? (
-              <div className="flex flex-col items-center justify-center gap-4 max-w-[90vw]">
-                {/* Large Custom Message - HIGH CONTRAST */}
+              <div className="flex flex-col items-center justify-center w-full h-full">
+                {/* HUGE Custom Message - HIGH CONTRAST - Visible from 20+ feet */}
                 <span 
-                  className="text-white text-3xl sm:text-4xl md:text-6xl font-bold text-center leading-tight tracking-wide break-words drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                  className="text-white font-black text-center leading-none tracking-wide break-words uppercase"
                   style={{
-                    textShadow: '0 4px 20px rgba(0,0,0,0.4), 0 2px 10px rgba(0,0,0,0.3)',
+                    fontSize: 'clamp(4rem, 18vw, 12rem)',
+                    textShadow: '0 0 40px rgba(0,0,0,0.8), 0 0 80px rgba(0,0,0,0.6), 0 4px 20px rgba(0,0,0,0.9)',
                     wordBreak: 'break-word',
-                    maxWidth: '100%',
+                    maxWidth: '95vw',
+                    lineHeight: 1.1,
+                    letterSpacing: '0.05em',
+                    WebkitTextStroke: '2px rgba(0,0,0,0.3)',
                   }}
                 >
                   {broadcastMessage}

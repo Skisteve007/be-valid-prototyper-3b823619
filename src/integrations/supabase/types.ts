@@ -2220,27 +2220,36 @@ export type Database = {
       }
       venue_stations: {
         Row: {
+          assigned_staff_name: string | null
+          assignment_number: number
           created_at: string
           id: string
           is_active: boolean | null
+          shift_assignment: string | null
           station_category: string
           station_name: string
           updated_at: string
           venue_id: string
         }
         Insert: {
+          assigned_staff_name?: string | null
+          assignment_number?: number
           created_at?: string
           id?: string
           is_active?: boolean | null
+          shift_assignment?: string | null
           station_category: string
           station_name: string
           updated_at?: string
           venue_id: string
         }
         Update: {
+          assigned_staff_name?: string | null
+          assignment_number?: number
           created_at?: string
           id?: string
           is_active?: boolean | null
+          shift_assignment?: string | null
           station_category?: string
           station_name?: string
           updated_at?: string

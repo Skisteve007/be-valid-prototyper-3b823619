@@ -58,24 +58,8 @@ const VendorPortal = () => {
     }
   };
 
-  const handleVendorLogin = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      navigate("/auth?mode=login&redirect=/vendor-portal");
-      return;
-    }
-
-    // Smart routing based on role
-    if (userRole === "vendor") {
-      navigate("/vendor-portal/dashboard");
-    } else if (userRole === "staff") {
-      navigate("/staff/pos");
-    } else if (userRole === "member") {
-      navigate("/dashboard");
-    } else {
-      navigate("/auth?mode=login&redirect=/vendor-portal");
-    }
+  const handleVendorLogin = () => {
+    navigate("/vendor-portal/dashboard");
   };
 
   return (

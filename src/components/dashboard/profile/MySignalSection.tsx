@@ -376,15 +376,19 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <span className="text-xs text-cyan-400/80 pl-7">Select a signal mode to customize your vibe</span>
           </div>
 
-          {/* Broadcast Signal Button - Yellow with Glow and Inward Arrows */}
+          {/* Broadcast Signal Button - Yellow with Pulsating Glow */}
           <Button
             onClick={() => setBroadcastActive(true)}
             disabled={!selectedMode}
             className={`w-full py-4 text-sm font-bold transition-all mb-4 ${
               selectedMode 
-                ? "bg-yellow-500 hover:bg-yellow-400 text-black shadow-[0_0_20px_rgba(234,179,8,0.6)] hover:shadow-[0_0_30px_rgba(234,179,8,0.8)]"
+                ? "bg-yellow-500 hover:bg-yellow-400 text-black shadow-[0_0_25px_rgba(234,179,8,0.7)] animate-[pulse_1.5s_ease-in-out_infinite]"
                 : "bg-muted text-muted-foreground cursor-not-allowed"
             }`}
+            style={selectedMode ? {
+              animation: 'pulse 1.5s ease-in-out infinite, glow 1.5s ease-in-out infinite alternate',
+              boxShadow: '0 0 20px rgba(234,179,8,0.6), 0 0 40px rgba(234,179,8,0.4), 0 0 60px rgba(234,179,8,0.2)'
+            } : {}}
           >
             <ChevronDown className="w-4 h-4 mr-1" />
             <Podcast className="w-4 h-4 mr-1" />

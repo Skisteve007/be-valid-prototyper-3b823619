@@ -443,6 +443,19 @@ const VendorDashboard = () => {
                 tertiaryValue={12}
                 isLive={timePeriod === 'live'}
               />
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="bg-slate-900 border-slate-700">
+                  <CardHeader className="pb-2">
+                    <CardDescription className="text-slate-400">Headcount</CardDescription>
+                    <CardTitle className="text-5xl font-mono text-white">{stats.headcount}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-2 text-green-400">
+                      <TrendingUp className="w-4 h-4" />
+                      <span className="text-sm">Active patrons</span>
+                    </div>
+                  </CardContent>
                 </Card>
 
                 <Card className="bg-slate-900 border-slate-700">
@@ -670,6 +683,37 @@ const VendorDashboard = () => {
                   </Button>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            {/* FINANCIALS TAB */}
+            <TabsContent value="financials" className="space-y-6">
+              <FinancialsModule 
+                industryType={industryType}
+                venueName={venueName}
+                grossRevenue={stats.totalRevenue}
+                revenueByCategory={{
+                  door: stats.doorRevenue,
+                  bar: stats.barRevenue,
+                  concessions: stats.concessionsRevenue,
+                  swag: stats.swagRevenue
+                }}
+                taxRate={taxRate}
+                onTaxRateChange={setTaxRate}
+              />
+            </TabsContent>
+
+            {/* WORKFORCE TAB */}
+            <TabsContent value="workforce" className="space-y-6">
+              <WorkforceModule 
+                venueId={venueId} 
+                industryType={industryType}
+                stations={stations} 
+              />
+            </TabsContent>
+
+            {/* SHIFT SCHEDULER TAB */}
+            <TabsContent value="scheduler" className="space-y-6">
+              <ShiftScheduler venueId={venueId} industryType={industryType} />
             </TabsContent>
 
             {/* STATIONS TAB */}

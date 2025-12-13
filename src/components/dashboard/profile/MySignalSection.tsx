@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Users, Activity, Zap, Ghost, Radio, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings, MessageSquare } from "lucide-react";
+import { Users, Activity, Zap, Ghost, Radio, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings, MessageSquare, ChevronDown } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -377,6 +377,23 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <span className="text-xs text-cyan-400/80 pl-7">Select a signal mode to customize your vibe</span>
           </div>
 
+          {/* Broadcast Signal Button - Blue with Glow and Inward Arrows */}
+          <Button
+            onClick={() => setBroadcastActive(true)}
+            disabled={!selectedMode}
+            className={`w-full py-4 text-sm font-bold transition-all mb-4 ${
+              selectedMode 
+                ? "bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)]"
+                : "bg-muted text-muted-foreground cursor-not-allowed"
+            }`}
+          >
+            <ChevronDown className="w-4 h-4 mr-1" />
+            <Podcast className="w-4 h-4 mr-1" />
+            BROADCAST SIGNAL
+            <Podcast className="w-4 h-4 ml-1" />
+            <ChevronDown className="w-4 h-4 ml-1" />
+          </Button>
+
           {/* 4-Button Grid with Descriptions */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {/* SOCIAL Button */}
@@ -571,39 +588,19 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
         </CardContent>
       </Card>
 
-      {/* BROADCAST SIGNAL PILL - Separate Section */}
+      {/* BROADCAST MESSAGE PILL - Separate Section */}
       <Card className="bg-card border-border shadow-sm mt-4">
         <CardContent className="p-6">
-          {/* Broadcast Signal Button with Glow */}
-          <Button
-            onClick={() => setBroadcastActive(true)}
-            disabled={!selectedMode}
-            className={`w-full py-6 text-lg font-bold transition-all ${
-              selectedMode 
-                ? "bg-cyan-600 hover:bg-cyan-500 text-white shadow-[0_0_25px_rgba(0,240,255,0.5)] hover:shadow-[0_0_35px_rgba(0,240,255,0.7)]"
-                : "bg-muted text-muted-foreground cursor-not-allowed"
-            }`}
-          >
-            <Podcast className="w-5 h-5 mr-2" />
-            BROADCAST SIGNAL
-          </Button>
-          {!selectedMode && (
-            <p className="text-[10px] text-muted-foreground text-center mt-2">
-              Select a signal mode above to enable broadcast
-            </p>
-          )}
-          {selectedMode && (
-            <p className="text-[10px] text-cyan-400/80 text-center mt-2">
-              Turn your screen into a colored beacon
-            </p>
-          )}
+          <div className="flex flex-col gap-1 mb-4">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+              <h3 className="text-lg font-semibold text-cyan-400">BROADCAST MESSAGE</h3>
+            </div>
+            <span className="text-xs text-cyan-400/80 pl-7">Optional message to display on your beacon</span>
+          </div>
 
           {/* Broadcast Message Input */}
-          <div className="space-y-2 mt-4">
-            <Label className="text-xs font-medium text-foreground flex items-center gap-2">
-              <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
-              Broadcast Message (Optional)
-            </Label>
+          <div className="space-y-2">
             <Input
               value={broadcastMessage}
               onChange={(e) => setBroadcastMessage(e.target.value)}

@@ -376,13 +376,13 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <span className="text-xs text-cyan-400/80 pl-7">Select a signal mode to customize your vibe</span>
           </div>
 
-          {/* Broadcast Signal Button - Blue with Glow and Inward Arrows */}
+          {/* Broadcast Signal Button - Yellow with Glow and Inward Arrows */}
           <Button
             onClick={() => setBroadcastActive(true)}
             disabled={!selectedMode}
             className={`w-full py-4 text-sm font-bold transition-all mb-4 ${
               selectedMode 
-                ? "bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)]"
+                ? "bg-yellow-500 hover:bg-yellow-400 text-black shadow-[0_0_20px_rgba(234,179,8,0.6)] hover:shadow-[0_0_30px_rgba(234,179,8,0.8)]"
                 : "bg-muted text-muted-foreground cursor-not-allowed"
             }`}
           >

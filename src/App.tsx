@@ -104,7 +104,7 @@ const App = () => (
               <Route path="/partners/integrated-health-compliance" element={<IntegratedHealthCompliance />} />
               <Route path="/my-access" element={<AgeGate><MyAccess /></AgeGate>} />
               <Route path="/lab-portal" element={<AgeGate><LabPortal /></AgeGate>} />
-              <Route path="/platform-features" element={<AgeGate><PlatformFeatures /></AgeGate>} />
+              <Route path="/vendor-pricing" element={<AgeGate><PlatformFeatures /></AgeGate>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
             </Routes>

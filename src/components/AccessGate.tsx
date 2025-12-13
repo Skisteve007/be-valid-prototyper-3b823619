@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAccessControl } from "@/hooks/useAccessControl";
-import { Shield, Lock, Loader2 } from "lucide-react";
+import { Shield, Lock, Loader2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface AccessGateProps {
@@ -9,6 +10,7 @@ interface AccessGateProps {
 }
 
 export const AccessGate = ({ accessType, children }: AccessGateProps) => {
+  const navigate = useNavigate();
   const { isLoading, hasAccess, hasPendingRequest, requestAccess } = useAccessControl(accessType);
 
   const accessLabel = accessType === "investor" ? "Investor Deck" : "Partner Solutions";
@@ -54,12 +56,22 @@ export const AccessGate = ({ accessType, children }: AccessGateProps) => {
           </p>
 
           {hasPendingRequest ? (
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
-              <p className="text-amber-400 font-semibold mb-2">Request Pending</p>
-              <p className="text-sm text-gray-400">
-                Your access request is being reviewed. You'll receive an email when approved.
-              </p>
-            </div>
+            <>
+              <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 mb-4">
+                <p className="text-amber-400 font-semibold mb-2">Request Pending</p>
+                <p className="text-sm text-gray-400">
+                  Your access request is being reviewed. You'll receive an email when approved.
+                </p>
+              </div>
+              <Button
+                onClick={() => navigate("/dashboard")}
+                variant="outline"
+                className="w-full border-white/20 text-white hover:bg-white/10"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Go to Dashboard
+              </Button>
+            </>
           ) : (
             <Button
               onClick={requestAccess}

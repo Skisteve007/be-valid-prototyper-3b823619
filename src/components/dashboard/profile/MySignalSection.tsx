@@ -519,43 +519,9 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           {selectedMode === "thrill" && renderThrillDropdowns()}
           {selectedMode === "afterdark" && renderAfterDarkDropdowns()}
 
-          {/* Broadcast & Share Controls */}
+          {/* Share Controls - only show when mode selected */}
           {selectedMode && (
             <div className="mt-6 pt-4 border-t border-border space-y-4">
-              {/* Broadcast Message Input - VISIBLE AND CLEAR */}
-              <div className="space-y-2">
-                <Label className="text-xs font-medium text-foreground flex items-center gap-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
-                  Broadcast Message (Optional)
-                </Label>
-                <Input
-                  value={broadcastMessage}
-                  onChange={(e) => setBroadcastMessage(e.target.value)}
-                  placeholder="Enter a short message to display..."
-                  maxLength={50}
-                  className="bg-background border-border text-foreground placeholder:text-muted-foreground"
-                />
-                <p className="text-[10px] text-muted-foreground">
-                  This text will appear large and center-screen on the broadcast beacon.
-                </p>
-              </div>
-
-              {/* Broadcast Signal Toggle */}
-              <div className="flex items-center justify-between p-3 rounded-lg bg-card/50 border border-border">
-                <div className="flex items-center gap-3">
-                  <Podcast className="w-5 h-5 text-cyan-400" />
-                  <div>
-                    <span className="text-sm font-medium text-foreground">Broadcast Signal</span>
-                    <p className="text-xs text-muted-foreground">Turn screen into colored beacon</p>
-                  </div>
-                </div>
-                <Switch
-                  checked={broadcastActive}
-                  onCheckedChange={setBroadcastActive}
-                  className="data-[state=checked]:bg-cyan-500"
-                />
-              </div>
-
               {/* Share Button */}
               <Button
                 onClick={handleShareSignal}
@@ -602,6 +568,53 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             </div>
           )}
 
+        </CardContent>
+      </Card>
+
+      {/* BROADCAST SIGNAL PILL - Separate Section */}
+      <Card className="bg-card border-border shadow-sm mt-4">
+        <CardContent className="p-6">
+          <div className="flex flex-col gap-1 mb-4">
+            <div className="flex items-center gap-2">
+              <Podcast className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+              <h3 className="text-lg font-semibold text-cyan-400">BROADCAST SIGNAL</h3>
+            </div>
+            <span className="text-xs text-cyan-400/80 pl-7">Turn your screen into a colored beacon</span>
+          </div>
+
+          {/* Broadcast Signal Toggle */}
+          <div className="flex items-center justify-between p-3 rounded-lg bg-card/50 border border-border mb-4">
+            <div className="flex items-center gap-3">
+              <Podcast className="w-5 h-5 text-cyan-400" />
+              <div>
+                <span className="text-sm font-medium text-foreground">Broadcast Signal</span>
+                <p className="text-xs text-muted-foreground">Turn screen into colored beacon</p>
+              </div>
+            </div>
+            <Switch
+              checked={broadcastActive}
+              onCheckedChange={setBroadcastActive}
+              className="data-[state=checked]:bg-cyan-500"
+            />
+          </div>
+
+          {/* Broadcast Message Input */}
+          <div className="space-y-2">
+            <Label className="text-xs font-medium text-foreground flex items-center gap-2">
+              <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
+              Broadcast Message (Optional)
+            </Label>
+            <Input
+              value={broadcastMessage}
+              onChange={(e) => setBroadcastMessage(e.target.value)}
+              placeholder="Enter a short message to display..."
+              maxLength={50}
+              className="bg-background border-border text-foreground placeholder:text-muted-foreground"
+            />
+            <p className="text-[10px] text-muted-foreground">
+              This text will appear large and center-screen on the broadcast beacon.
+            </p>
+          </div>
         </CardContent>
       </Card>
 

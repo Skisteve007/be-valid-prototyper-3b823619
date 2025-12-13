@@ -547,51 +547,55 @@ const Admin = () => {
           <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} />
           
           {/* Desktop Tab Navigation */}
-          <TabsList className="hidden md:flex w-full justify-between relative z-10 flex-wrap gap-1">
-            <TabsTrigger value="members" className="cursor-pointer flex-1">
-              <Users className="h-4 w-4 mr-2" />
+          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-4">
+            <TabsTrigger value="members" className="cursor-pointer text-xs px-2 py-2">
+              <Users className="h-3 w-3 mr-1" />
               Members
             </TabsTrigger>
-            <TabsTrigger value="sponsors" className="cursor-pointer flex-1">
-              Sponsor Management
+            <TabsTrigger value="sponsors" className="cursor-pointer text-xs px-2 py-2">
+              Sponsors
             </TabsTrigger>
-            <TabsTrigger value="lab-integrations" className="cursor-pointer flex-1">
-              <FlaskConical className="h-4 w-4 mr-2" />
-              Lab Integrations
+            <TabsTrigger value="lab-integrations" className="cursor-pointer text-xs px-2 py-2">
+              <FlaskConical className="h-3 w-3 mr-1" />
+              Labs
             </TabsTrigger>
-            <TabsTrigger value="developers" className="cursor-pointer flex-1">
-              <Code className="h-4 w-4 mr-2" />
-              Developers
+            <TabsTrigger value="developers" className="cursor-pointer text-xs px-2 py-2">
+              <Code className="h-3 w-3 mr-1" />
+              Dev
             </TabsTrigger>
-            <TabsTrigger value="campaigns" className="cursor-pointer flex-1">
+            <TabsTrigger value="campaigns" className="cursor-pointer text-xs px-2 py-2">
               Campaigns
             </TabsTrigger>
-            <TabsTrigger value="venues" className="cursor-pointer flex-1">
-              <Globe className="h-4 w-4 mr-2" />
+            <TabsTrigger value="venues" className="cursor-pointer text-xs px-2 py-2">
+              <Globe className="h-3 w-3 mr-1" />
               Venues
             </TabsTrigger>
-            <TabsTrigger value="sales-team" className="cursor-pointer flex-1">
-              💰 Sales Team
+            <TabsTrigger value="sales-team" className="cursor-pointer text-xs px-2 py-2">
+              Sales
             </TabsTrigger>
-            <TabsTrigger value="lead-outreach" className="cursor-pointer flex-1">
-              📧 Lead Outreach
+          </TabsList>
+          
+          {/* Second Row of Tabs */}
+          <TabsList className="hidden md:grid w-full grid-cols-6 gap-1 h-auto p-1 mb-6">
+            <TabsTrigger value="lead-outreach" className="cursor-pointer text-xs px-2 py-2">
+              📧 Leads
             </TabsTrigger>
-            <TabsTrigger value="investor-crm" className="cursor-pointer flex-1">
+            <TabsTrigger value="investor-crm" className="cursor-pointer text-xs px-2 py-2">
               💼 Investors
             </TabsTrigger>
-            <TabsTrigger value="quick-branding" className="cursor-pointer flex-1">
-              <Zap className="h-4 w-4 mr-2" />
-              Fast Setup
+            <TabsTrigger value="quick-branding" className="cursor-pointer text-xs px-2 py-2">
+              <Zap className="h-3 w-3 mr-1" />
+              Setup
             </TabsTrigger>
-            <TabsTrigger value="scanner" className="cursor-pointer flex-1">
-              <QrCode className="h-4 w-4 mr-2" />
+            <TabsTrigger value="scanner" className="cursor-pointer text-xs px-2 py-2">
+              <QrCode className="h-3 w-3 mr-1" />
               Scanner
             </TabsTrigger>
-            <TabsTrigger value="idv-management" className="cursor-pointer flex-1">
+            <TabsTrigger value="idv-management" className="cursor-pointer text-xs px-2 py-2">
               🪪 IDV
             </TabsTrigger>
-            <TabsTrigger value="access-control" className="cursor-pointer flex-1">
-              🔐 Access Control
+            <TabsTrigger value="access-control" className="cursor-pointer text-xs px-2 py-2">
+              🔐 Access
             </TabsTrigger>
           </TabsList>
           

@@ -2,107 +2,126 @@ import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   PartyPopper, 
-  Shield, 
   Truck, 
+  Users,
   FlaskConical, 
   Car,
-  Users,
-  Clock,
-  Lock,
-  GraduationCap,
-  IdCard,
-  MapPin,
-  FileCheck,
-  Activity,
-  FileText,
-  Link2,
-  Gem,
-  ShieldCheck,
-  AlertTriangle,
-  Calendar
+  Shield,
+  Check
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
-const verticalCards = [
+const industryCards = [
   {
     id: "nightlife",
-    title: "Nightlife & Events™",
+    title: "Nightlife & Marketing™",
     icon: PartyPopper,
-    gradient: "from-purple-600 via-pink-500 to-orange-400",
-    bgColor: "bg-gradient-to-br from-purple-900/40 to-pink-900/30",
-    borderColor: "border-purple-500/40",
-    glowColor: "shadow-[0_0_30px_rgba(168,85,247,0.3)]",
+    price: "$999",
+    priceLabel: "The 'Mega Scan' Venue Package",
+    borderColor: "border-purple-500",
+    headerBg: "bg-gradient-to-r from-purple-600 to-purple-500",
+    glowColor: "shadow-[0_0_30px_rgba(168,85,247,0.4)]",
+    iconBg: "bg-purple-500/20",
+    iconColor: "text-purple-400",
     features: [
-      { icon: Users, text: "FBO Revenue Split" },
-      { icon: PartyPopper, text: "Promoter Commissions" },
-      { icon: Gem, text: "VIP Access Control" },
-      { icon: ShieldCheck, text: "Age/Tox Compliance" },
+      "Venue Access Control",
+      "Promoter Tracking",
+      "FBO Split Setup",
+      "Marketing Broadcasts",
     ],
-    description: "Transform nightlife operations with instant verification, automated revenue sharing, and real-time compliance monitoring."
-  },
-  {
-    id: "security",
-    title: "Security & Workforce™",
-    icon: Shield,
-    gradient: "from-blue-600 via-cyan-500 to-teal-400",
-    bgColor: "bg-gradient-to-br from-blue-900/40 to-cyan-900/30",
-    borderColor: "border-cyan-500/40",
-    glowColor: "shadow-[0_0_30px_rgba(6,182,212,0.3)]",
-    features: [
-      { icon: IdCard, text: "Staff ID Verification" },
-      { icon: Clock, text: "Clock-in/out Audit" },
-      { icon: Lock, text: "Zero-Trust Access Control (Z-TAC)" },
-      { icon: GraduationCap, text: "Training/Certification Status" },
-    ],
-    description: "Enterprise-grade workforce management with continuous verification and immutable audit trails."
   },
   {
     id: "transportation",
     title: "Transportation & Logistics™",
     icon: Truck,
-    gradient: "from-green-600 via-emerald-500 to-teal-400",
-    bgColor: "bg-gradient-to-br from-green-900/40 to-emerald-900/30",
-    borderColor: "border-emerald-500/40",
-    glowColor: "shadow-[0_0_30px_rgba(16,185,129,0.3)]",
+    price: "$499",
+    priceLabel: "Fleet Operations Package",
+    borderColor: "border-yellow-500",
+    headerBg: "bg-gradient-to-r from-yellow-500 to-amber-500",
+    glowColor: "shadow-[0_0_30px_rgba(234,179,8,0.4)]",
+    iconBg: "bg-yellow-500/20",
+    iconColor: "text-yellow-400",
     features: [
-      { icon: IdCard, text: "Verified Driver ID" },
-      { icon: Car, text: "Vehicle Access Control" },
-      { icon: FileCheck, text: "Cargo Manifest Audit" },
-      { icon: MapPin, text: "Fleet Tracking Integration" },
+      "Driver Verification",
+      "Fleet Tracking",
+      "Cargo Manifest Audits",
+      "Vehicle Access Control",
     ],
-    description: "Secure logistics operations with verified driver credentials and real-time fleet compliance tracking."
   },
   {
-    id: "lab-health",
-    title: "Lab & Health Vetting™",
-    icon: FlaskConical,
-    gradient: "from-red-600 via-rose-500 to-pink-400",
-    bgColor: "bg-gradient-to-br from-red-900/40 to-rose-900/30",
-    borderColor: "border-rose-500/40",
-    glowColor: "shadow-[0_0_30px_rgba(244,63,94,0.3)]",
+    id: "workforce",
+    title: "Workforce & Staffing™",
+    icon: Users,
+    price: "$299",
+    priceLabel: "Enterprise HR Package",
+    borderColor: "border-blue-500",
+    headerBg: "bg-gradient-to-r from-blue-600 to-blue-500",
+    glowColor: "shadow-[0_0_30px_rgba(59,130,246,0.4)]",
+    iconBg: "bg-blue-500/20",
+    iconColor: "text-blue-400",
     features: [
-      { icon: Activity, text: "Real-time Health/Tox Compliance" },
-      { icon: Lock, text: "Decoupled PII (Pass/Fail Only)" },
-      { icon: FileText, text: "Certification Status" },
-      { icon: Link2, text: "API Integration with Labs" },
+      "Time & Attendance",
+      "Employee ID Verification",
+      "Zero-Trust Access",
+      "Training Status Tracking",
     ],
-    description: "HIPAA-compliant health verification with zero PII exposure and seamless lab partner integration."
+  },
+  {
+    id: "labs",
+    title: "Labs & Health™",
+    icon: FlaskConical,
+    price: "$199",
+    priceLabel: "Health Compliance Package",
+    borderColor: "border-emerald-500",
+    headerBg: "bg-gradient-to-r from-emerald-600 to-teal-500",
+    glowColor: "shadow-[0_0_30px_rgba(16,185,129,0.4)]",
+    iconBg: "bg-emerald-500/20",
+    iconColor: "text-emerald-400",
+    features: [
+      "API Integration",
+      "Toxicology Results",
+      "Health Vetting",
+      "Certification Status",
+    ],
   },
   {
     id: "rentals",
-    title: "Rentals & Exotic Goods™",
+    title: "Rentals & Exotics™",
     icon: Car,
-    gradient: "from-amber-600 via-yellow-500 to-orange-400",
-    bgColor: "bg-gradient-to-br from-amber-900/40 to-yellow-900/30",
-    borderColor: "border-amber-500/40",
-    glowColor: "shadow-[0_0_30px_rgba(245,158,11,0.3)]",
+    price: "$599",
+    priceLabel: "Luxury Asset Package",
+    borderColor: "border-amber-400",
+    headerBg: "bg-gradient-to-r from-gray-900 via-amber-900 to-gray-900",
+    glowColor: "shadow-[0_0_30px_rgba(251,191,36,0.3)]",
+    iconBg: "bg-amber-500/20",
+    iconColor: "text-amber-400",
+    isLuxury: true,
     features: [
-      { icon: Gem, text: "High-Value Asset Custody Verification" },
-      { icon: ShieldCheck, text: "Insurance Compliance Check" },
-      { icon: AlertTriangle, text: "Anti-Fraud Measures" },
-      { icon: Calendar, text: "Rental Term Verification" },
+      "Asset Protection",
+      "Insurance Verify",
+      "High-Value Client Vetting",
+      "Anti-Fraud Measures",
     ],
-    description: "Protect high-value assets with verified identity, insurance compliance, and fraud prevention protocols."
+  },
+  {
+    id: "security",
+    title: "Security & Training™",
+    icon: Shield,
+    price: "$399",
+    priceLabel: "Security Operations Package",
+    borderColor: "border-red-500",
+    headerBg: "bg-gradient-to-r from-red-600 to-red-500",
+    glowColor: "shadow-[0_0_30px_rgba(239,68,68,0.4)]",
+    iconBg: "bg-red-500/20",
+    iconColor: "text-red-400",
+    features: [
+      "Guard Verification",
+      "License Checks",
+      "Incident Reporting",
+      "Certification Tracking",
+    ],
   },
 ];
 
@@ -110,8 +129,8 @@ const PlatformFeatures = () => {
   return (
     <>
       <Helmet>
-        <title>Platform Features | Valid™ Ghost Pass™ Ecosystem</title>
-        <meta name="description" content="Explore the full Ghost Pass™ ecosystem powering multi-vertical operations across nightlife, security, transportation, health, and rentals." />
+        <title>Vendor Pricing | Valid™ Ghost Pass™ Industry Packages</title>
+        <meta name="description" content="Explore Valid™ industry pricing packages for nightlife, transportation, workforce, health, rentals, and security operations." />
       </Helmet>
       
       <Navbar />
@@ -121,7 +140,7 @@ const PlatformFeatures = () => {
           {/* Header Section */}
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-[0.2em] uppercase rounded-full border border-cyan-500/40 bg-cyan-500/10 text-cyan-400 mb-6">
-              Multi-Vertical Operating System
+              B2B Industry Packages
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-cyan-400 via-cyan-300 to-cyan-500 bg-clip-text text-transparent">
@@ -129,56 +148,68 @@ const PlatformFeatures = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              One identity platform. Five vertical markets. Infinite possibilities.
+              Color-coded industry packages tailored for your vertical.
               <br className="hidden md:block" />
-              <span className="text-cyan-400/80">The Network Effect investors need to see.</span>
+              <span className="text-cyan-400/80">Select the package that fits your operation.</span>
             </p>
           </div>
           
-          {/* Vertical Cards Grid */}
+          {/* 3x2 Grid of Industry Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {verticalCards.map((vertical, index) => (
+            {industryCards.map((card) => (
               <Card 
-                key={vertical.id}
-                className={`relative overflow-hidden ${vertical.bgColor} ${vertical.borderColor} border ${vertical.glowColor} backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg group`}
+                key={card.id}
+                className={`relative overflow-hidden bg-card/80 backdrop-blur-sm ${card.borderColor} border-2 ${card.glowColor} transition-all duration-300 hover:scale-[1.02] group`}
               >
-                {/* Gradient overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${vertical.gradient} opacity-5 group-hover:opacity-10 transition-opacity`} />
-                
-                <CardHeader className="relative z-10 pb-2">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className={`p-2.5 rounded-lg bg-gradient-to-br ${vertical.gradient} shadow-lg`}>
-                      <vertical.icon className="h-6 w-6 text-white" />
+                {/* Header with color */}
+                <div className={`${card.headerBg} px-6 py-4`}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg ${card.iconBg} backdrop-blur-sm`}>
+                        <card.icon className={`h-5 w-5 ${card.iconColor}`} />
+                      </div>
+                      <CardTitle className={`text-lg font-bold ${card.isLuxury ? 'text-amber-300' : 'text-white'}`}>
+                        {card.title}
+                      </CardTitle>
                     </div>
-                    <CardTitle className="text-xl md:text-2xl font-bold text-foreground">
-                      {vertical.title}
-                    </CardTitle>
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {vertical.description}
-                  </p>
+                </div>
+                
+                <CardHeader className="pb-2 pt-6">
+                  {/* Price */}
+                  <div className="text-center">
+                    <div className={`text-4xl md:text-5xl font-black ${card.iconColor}`}>
+                      {card.price}
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {card.priceLabel}
+                    </p>
+                  </div>
                 </CardHeader>
                 
-                <CardContent className="relative z-10 pt-4">
-                  <div className="space-y-3">
-                    {vertical.features.map((feature, featureIndex) => (
-                      <div 
-                        key={featureIndex}
-                        className="flex items-center gap-3 p-2.5 rounded-lg bg-background/30 backdrop-blur-sm border border-border/30 transition-colors hover:bg-background/50"
-                      >
-                        <feature.icon className="h-4 w-4 text-cyan-400 flex-shrink-0" />
-                        <span className="text-sm font-medium text-foreground/90">
-                          {feature.text}
-                        </span>
+                <CardContent className="pt-4 pb-6">
+                  {/* Features List */}
+                  <div className="space-y-3 mb-6">
+                    {card.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-center gap-3">
+                        <div className={`flex-shrink-0 w-5 h-5 rounded-full ${card.iconBg} flex items-center justify-center`}>
+                          <Check className={`h-3 w-3 ${card.iconColor}`} />
+                        </div>
+                        <span className="text-sm text-foreground/90">{feature}</span>
                       </div>
                     ))}
                   </div>
+                  
+                  {/* CTA Button */}
+                  <Button 
+                    asChild
+                    className={`w-full ${card.headerBg} hover:opacity-90 ${card.isLuxury ? 'text-amber-100' : 'text-white'} font-bold`}
+                  >
+                    <Link to="/partner-application">
+                      Get Started
+                    </Link>
+                  </Button>
                 </CardContent>
-                
-                {/* Card number indicator */}
-                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-background/20 backdrop-blur-sm border border-border/30 flex items-center justify-center">
-                  <span className="text-xs font-bold text-muted-foreground">{index + 1}</span>
-                </div>
               </Card>
             ))}
           </div>
@@ -187,12 +218,17 @@ const PlatformFeatures = () => {
           <div className="mt-16 text-center">
             <div className="inline-block p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 backdrop-blur-sm">
               <h3 className="text-2xl font-bold text-foreground mb-2">
-                Valid™ is the Infrastructure Layer
+                Need a Custom Package?
               </h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Every vertical runs on the same Zero-Trust architecture. One platform. 
-                Universal compliance. Infinite scalability.
+              <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
+                Enterprise deployments and multi-vertical integrations available.
+                Contact our team for custom pricing.
               </p>
+              <Button asChild variant="outline" className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10">
+                <Link to="/partner-application">
+                  Contact Sales
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

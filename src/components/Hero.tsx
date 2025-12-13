@@ -18,7 +18,7 @@ const Hero = () => {
   const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
   const [displayedText, setDisplayedText] = useState('');
   const [visitCount, setVisitCount] = useState(528);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(false);
+  
   const fullText = t('hero.poweredBy');
 
   const signalModes = {
@@ -28,43 +28,8 @@ const Hero = () => {
     afterdark: { icon: Moon, label: t('signals.afterdark.name'), color: 'purple', description: t('signals.afterdark.description') },
   };
 
-  const handleAccessClick = async () => {
-    if (isCheckingAuth) return;
-    setIsCheckingAuth(true);
-    
-    // Safety timeout - navigate to auth after 2 seconds if stuck
-    const timeout = setTimeout(() => {
-      setIsCheckingAuth(false);
-      navigate('/dashboard');
-    }, 2000);
-    
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      clearTimeout(timeout);
-      
-      if (session) {
-        // Check our custom email_verified field
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("email_verified")
-          .eq("user_id", session.user.id)
-          .single();
-        
-        if (profile?.email_verified) {
-          navigate('/dashboard');
-        } else {
-          navigate('/auth?mode=login');
-        }
-      } else {
-        navigate('/auth?mode=login');
-      }
-    } catch (error) {
-      clearTimeout(timeout);
-      console.error('Auth check error:', error);
-      navigate('/dashboard');
-    } finally {
-      setIsCheckingAuth(false);
-    }
+  const handleAccessClick = () => {
+    navigate('/dashboard');
   };
 
   useEffect(() => {
@@ -131,10 +96,9 @@ const Hero = () => {
             </Link>
             <button 
               onClick={handleAccessClick}
-              disabled={isCheckingAuth}
-              className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded text-xs uppercase tracking-wider hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,240,255,0.4)] disabled:opacity-70"
+              className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded text-xs uppercase tracking-wider hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,240,255,0.4)]"
             >
-              {isCheckingAuth ? '...' : t('nav.memberLogin')}
+              {t('nav.memberLogin')}
             </button>
           </div>
         </div>
@@ -174,10 +138,9 @@ const Hero = () => {
             <div className="flex items-center gap-3 mb-8">
               <button 
                 onClick={handleAccessClick}
-                disabled={isCheckingAuth}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite] disabled:opacity-70"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite]"
               >
-                {isCheckingAuth ? '...' : t('hero.claimId')} <ArrowDownRight size={14} />
+                {t('hero.claimId')} <ArrowDownRight size={14} />
               </button>
               <span className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400">
                 Beta Version

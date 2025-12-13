@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Building2, Users, DollarSign, BarChart3, Lock } from "lucide-react";
+import { Users, DollarSign, BarChart3, Lock } from "lucide-react";
+import validLogo from "@/assets/valid-logo.jpeg";
 import Navbar from "@/components/Navbar";
 import { Helmet } from "react-helmet-async";
 
@@ -93,7 +94,7 @@ const VendorPortal = () => {
           
           <div className="max-w-6xl mx-auto text-center relative z-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 mb-6">
-              <Building2 className="w-4 h-4 text-cyan-400" />
+              <img src={validLogo} alt="Valid™" className="w-5 h-5 rounded-full object-cover" />
               <span className="text-sm font-medium text-cyan-400">Enterprise Solutions</span>
             </div>
             
@@ -142,7 +143,7 @@ const VendorPortal = () => {
 
             <Card className="bg-slate-900/50 border-slate-700 backdrop-blur-sm">
               <CardHeader>
-                <Shield className="w-10 h-10 text-purple-400 mb-2" />
+                <DollarSign className="w-10 h-10 text-purple-400 mb-2" />
                 <CardTitle className="text-white">4:01 AM Settlement</CardTitle>
                 <CardDescription className="text-slate-400">
                   Gross - Tax - Commission - Fees = Your Net Payout

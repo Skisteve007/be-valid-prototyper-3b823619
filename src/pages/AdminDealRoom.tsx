@@ -446,7 +446,7 @@ const AdminDealRoom = () => {
                 <div className={`font-bold text-lg mb-1 ${selectedTranche === 1 ? 'text-amber-400' : 'text-white'}`}>
                   Tranche 1: Launch Round
                 </div>
-                <div className="text-xs text-gray-400">$200K Cap • 50% Discount</div>
+                <div className={`text-xs ${selectedTranche === 1 ? 'text-amber-400/80' : 'text-gray-400'}`}>$200K Cap • 50% Discount</div>
               </button>
               <div
                 className="p-4 rounded-xl border-2 text-left bg-white/5 border-cyan-500/30 cursor-not-allowed relative"
@@ -454,10 +454,10 @@ const AdminDealRoom = () => {
                 <Badge className="absolute -top-2 -right-2 bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 text-[10px] px-2 shadow-[0_0_10px_rgba(0,240,255,0.4)]">
                   Coming Q2 2026
                 </Badge>
-                <div className="font-bold text-lg mb-1 text-gray-400">
+                <div className="font-bold text-lg mb-1 text-cyan-400">
                   Tranche 2: Series Seed
                 </div>
-                <div className="text-xs text-gray-500">$1.5M Cap • 25% Discount</div>
+                <div className="text-xs text-cyan-400/80">$1.5M Cap • 25% Discount</div>
               </div>
             </div>
             

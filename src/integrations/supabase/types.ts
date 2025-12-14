@@ -621,6 +621,39 @@ export type Database = {
         }
         Relationships: []
       }
+      investor_leads: {
+        Row: {
+          accredited_confirmed: boolean
+          created_at: string
+          email: string
+          id: string
+          linkedin_url: string | null
+          name: string
+          tranche_interest: string
+          utm_source: string | null
+        }
+        Insert: {
+          accredited_confirmed?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          linkedin_url?: string | null
+          name: string
+          tranche_interest?: string
+          utm_source?: string | null
+        }
+        Update: {
+          accredited_confirmed?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          linkedin_url?: string | null
+          name?: string
+          tranche_interest?: string
+          utm_source?: string | null
+        }
+        Relationships: []
+      }
       lab_orders: {
         Row: {
           barcode_value: string

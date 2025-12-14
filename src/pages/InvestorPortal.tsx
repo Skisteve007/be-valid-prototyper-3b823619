@@ -106,7 +106,7 @@ const InvestorPortal = () => {
               </div>
 
               <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-wider mb-2">
-                Tranche 1: Launch Round
+                Tranche 1: Launch Round (Friends & Family)
               </h2>
               <p className="text-xl md:text-2xl text-primary font-semibold tracking-wide mb-8">
                 $200,000 Target Raise
@@ -158,7 +158,7 @@ const InvestorPortal = () => {
               <div className="flex items-center gap-2 mb-6">
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted border border-border text-muted-foreground text-sm font-semibold tracking-wider">
                   <Lock className="w-3.5 h-3.5" />
-                  LOCKED
+                  LOCKED - Future Series Seed
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted border border-border text-muted-foreground text-xs font-semibold tracking-wider">
                   <Clock className="w-3.5 h-3.5" />
@@ -170,7 +170,7 @@ const InvestorPortal = () => {
                 Tranche 2: Series Seed
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground font-semibold tracking-wide mb-8">
-                $1,500,000 Target Raise
+                $1.5 Million Target Raise
               </p>
 
               {/* Terms Card - Muted */}

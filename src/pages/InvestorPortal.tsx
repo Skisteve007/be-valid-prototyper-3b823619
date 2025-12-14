@@ -140,7 +140,7 @@ const InvestorPortal = () => {
                   </div>
                   <div className="p-4 md:p-6">
                     <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Minimum Check</p>
-                    <p className="text-foreground font-semibold tracking-wide">$5,000</p>
+                    <p className="text-foreground font-semibold tracking-wide">$10,000</p>
                   </div>
                 </div>
               </div>

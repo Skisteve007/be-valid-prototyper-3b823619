@@ -36,18 +36,18 @@ const AdminDealRoom = () => {
   // Form state
   const [investorName, setInvestorName] = useState("");
   const [investmentAmount, setInvestmentAmount] = useState("25000");
-  const [valuationCap, setValuationCap] = useState("12500000");
-  const [discountRate, setDiscountRate] = useState("20");
+  const [valuationCap, setValuationCap] = useState("200000");
+  const [discountRate, setDiscountRate] = useState("50");
   const [selectedTranche, setSelectedTranche] = useState<1 | 2>(1);
 
   // Handle tranche selection
   const handleTrancheSelect = (tranche: 1 | 2) => {
     setSelectedTranche(tranche);
     if (tranche === 1) {
-      setValuationCap("12500000");
-      setDiscountRate("20");
+      setValuationCap("200000");
+      setDiscountRate("50");
     } else {
-      setValuationCap("20000000");
+      setValuationCap("1500000");
       setDiscountRate("0");
     }
   };
@@ -444,9 +444,9 @@ const AdminDealRoom = () => {
                 }`}
               >
                 <div className={`font-bold text-lg mb-1 ${selectedTranche === 1 ? 'text-amber-400' : 'text-white'}`}>
-                  Tranche 1 (Alpha)
+                  Tranche 1 (Launch)
                 </div>
-                <div className="text-xs text-gray-400">$12.5M Cap • 20% Discount</div>
+                <div className="text-xs text-gray-400">$200K Cap • 50% Discount</div>
               </button>
               <button
                 onClick={() => handleTrancheSelect(2)}
@@ -457,9 +457,9 @@ const AdminDealRoom = () => {
                 }`}
               >
                 <div className={`font-bold text-lg mb-1 ${selectedTranche === 2 ? 'text-cyan-400' : 'text-white'}`}>
-                  Tranche 2 (Institutional)
+                  Tranche 2 (Series Seed)
                 </div>
-                <div className="text-xs text-gray-400">$20M Cap • 0% Discount</div>
+                <div className="text-xs text-gray-400">$1.5M Cap • TBD Discount</div>
               </button>
             </div>
             

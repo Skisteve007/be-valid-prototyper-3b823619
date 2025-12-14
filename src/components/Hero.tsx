@@ -214,7 +214,7 @@ const Hero = () => {
                 </h2>
                 <span className="px-3 py-1.5 text-sm font-bold tracking-wider rounded-full border border-rose-400/60 bg-rose-500/10 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.4)] animate-pulse flex items-center gap-2 w-fit">
                   <span className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.8),0_0_24px_rgba(244,63,94,0.5)] animate-pulse"></span>
-                  {visitCount.toString().padStart(8, '0')}
+                  {visitCount.toString().padStart(8, '0').replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </span>
               </div>
             </div>

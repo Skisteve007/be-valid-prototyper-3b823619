@@ -40,6 +40,7 @@ import SharedLocation from "./pages/SharedLocation";
 import VendorPortal from "./pages/VendorPortal";
 import VendorDashboard from "./pages/VendorDashboard";
 import StaffPOS from "./pages/StaffPOS";
+import InvestorPortal from "./pages/InvestorPortal";
 
 import ApiDocs from "./pages/ApiDocs";
 import SecurityCompliance from "./pages/SecurityCompliance";
@@ -111,6 +112,7 @@ const App = () => (
               <Route path="/vendor-portal" element={<VendorPortal />} />
               <Route path="/vendor-portal/dashboard" element={<VendorDashboard />} />
               <Route path="/staff/pos" element={<StaffPOS />} />
+              <Route path="/investor-portal" element={<AgeGate><InvestorPortal /></AgeGate>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
             </Routes>

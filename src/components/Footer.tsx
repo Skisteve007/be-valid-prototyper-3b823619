@@ -107,13 +107,13 @@ const Footer = () => {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-full transition-all duration-300 hover:scale-110 border
+              className={`p-3 rounded-full transition-all duration-300 hover:scale-110 border
                 ${isDark 
                   ? 'bg-slate-800 text-yellow-400 border-yellow-400/60 shadow-[0_0_15px_rgba(250,204,21,0.3)]' 
                   : 'bg-slate-700 text-cyan-300 border-cyan-400/60 shadow-[0_0_15px_rgba(0,240,255,0.3)]'}`}
               aria-label="Toggle theme"
             >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              {isDark ? <Sun size={22} /> : <Moon size={22} />}
             </button>
             <span className="ml-auto">
             <button

@@ -89,6 +89,17 @@ const InvestorPortal = () => {
         </div>
 
         <div className="container mx-auto px-4 py-8 md:py-12 space-y-8 md:space-y-12">
+          {/* Priority Access Section Header */}
+          <div className="text-center mb-4">
+            <div className="inline-block px-6 py-2 rounded-full border border-primary/30 bg-primary/5 mb-4">
+              <span className="text-primary text-sm font-semibold tracking-widest uppercase">Priority Access</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-wider">
+              Launch Round
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-4"></div>
+          </div>
+
           {/* SECTION 1: Launch Round (Active) */}
           <section className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-cyan-500/20 to-primary/20 rounded-2xl blur-xl opacity-50"></div>
@@ -105,9 +116,9 @@ const InvestorPortal = () => {
                 </span>
               </div>
 
-              <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-wider mb-2">
+              <h3 className="text-2xl md:text-4xl font-bold text-foreground tracking-wider mb-2">
                 Tranche 1: Launch Round (Friends & Family)
-              </h2>
+              </h3>
               <p className="text-xl md:text-2xl text-primary font-semibold tracking-wide mb-8">
                 $200,000 Target Raise
               </p>

@@ -79,17 +79,6 @@ const Index = () => {
         bg-[size:50px_50px]`}>
       </div>
 
-      {/* FLOATING THEME TOGGLE */}
-      <button 
-        onClick={toggleTheme}
-        className={`fixed bottom-8 left-8 z-[100] p-4 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 border hover:rotate-180
-          ${isDark 
-            ? 'bg-slate-900 text-yellow-400 border-yellow-400/60 shadow-[0_0_25px_rgba(250,204,21,0.4)]' 
-            : 'bg-slate-800 text-cyan-300 border-cyan-400/60 shadow-[0_0_25px_rgba(0,240,255,0.4)]'}`}
-      >
-        {isDark ? <Sun size={24} className="transition-transform duration-500" /> : <Moon size={24} className="transition-transform duration-500" />}
-      </button>
-
       {/* 1. HERO SECTION */}
       <div className="relative z-10">
         <Hero />

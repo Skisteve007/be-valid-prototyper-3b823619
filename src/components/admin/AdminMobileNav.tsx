@@ -14,7 +14,8 @@ import {
   QrCode,
   Shield,
   Target,
-  Briefcase
+  Briefcase,
+  BarChart3
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -34,6 +35,7 @@ const navItems = [
   { id: "investor-crm", label: "Investor CRM", icon: Briefcase },
   { id: "quick-branding", label: "Fast Event Setup", icon: Zap },
   { id: "scanner", label: "QR Scanner", icon: QrCode },
+  { id: "traffic", label: "Traffic Analytics", icon: BarChart3 },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange }: AdminMobileNavProps) => {

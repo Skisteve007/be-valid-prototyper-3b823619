@@ -449,12 +449,12 @@ const AdminDealRoom = () => {
                 <div className="text-xs text-gray-400">$200K Cap • 50% Discount</div>
               </button>
               <div
-                className="p-4 rounded-xl border-2 text-left bg-white/5 border-white/10 opacity-50 cursor-not-allowed relative"
+                className="p-4 rounded-xl border-2 text-left bg-white/5 border-cyan-500/30 cursor-not-allowed relative"
               >
-                <Badge className="absolute -top-2 -right-2 bg-muted text-muted-foreground border border-border text-[10px] px-2">
+                <Badge className="absolute -top-2 -right-2 bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 text-[10px] px-2 shadow-[0_0_10px_rgba(0,240,255,0.4)]">
                   Coming Q2 2026
                 </Badge>
-                <div className="font-bold text-lg mb-1 text-gray-500">
+                <div className="font-bold text-lg mb-1 text-gray-400">
                   Tranche 2: Series Seed
                 </div>
                 <div className="text-xs text-gray-500">$1.5M Cap • 25% Discount</div>

@@ -55,7 +55,7 @@ const Hero = () => {
       const { count } = await supabase
         .from('page_views')
         .select('*', { count: 'exact', head: true });
-      setVisitCount(count || 0);
+      setVisitCount(58 + (count || 0));
     };
 
     fetchCount();

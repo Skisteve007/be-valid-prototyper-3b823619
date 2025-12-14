@@ -162,6 +162,17 @@ const InvestorPortal = () => {
             </div>
           </section>
 
+          {/* Future Round Section Header */}
+          <div className="text-center mb-4 opacity-60">
+            <div className="inline-block px-6 py-2 rounded-full border border-border/30 bg-muted/20 mb-4">
+              <span className="text-muted-foreground text-sm font-semibold tracking-widest uppercase">Future Round</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-muted-foreground tracking-wider">
+              Series Seed
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-border to-transparent mx-auto mt-4"></div>
+          </div>
+
           {/* SECTION 2: Series Seed (Locked) */}
           <section className="relative opacity-60">
             <div className="border border-border/40 rounded-2xl bg-muted/30 p-6 md:p-10">
@@ -169,11 +180,11 @@ const InvestorPortal = () => {
               <div className="flex items-center gap-2 mb-6">
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted border border-border text-muted-foreground text-sm font-semibold tracking-wider">
                   <Lock className="w-3.5 h-3.5" />
-                  LOCKED - Future Series Seed
+                  LOCKED
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted border border-border text-muted-foreground text-xs font-semibold tracking-wider">
                   <Clock className="w-3.5 h-3.5" />
-                  COMING Q2 2026
+                  COMING 2026
                 </span>
               </div>
 

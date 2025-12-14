@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/valid-logo.jpeg";
 
 const AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com"];
-const TRANCHE_1_CAP = 100000;
+const TRANCHE_1_CAP = 200000;
 
 type InvestorStatus = "Contract Sent" | "Signed" | "Funds Wired" | "Cleared in Bank";
 
@@ -48,7 +48,7 @@ const AdminDealRoom = () => {
       setDiscountRate("50");
     } else {
       setValuationCap("1500000");
-      setDiscountRate("0");
+      setDiscountRate("25");
     }
   };
 
@@ -444,23 +444,21 @@ const AdminDealRoom = () => {
                 }`}
               >
                 <div className={`font-bold text-lg mb-1 ${selectedTranche === 1 ? 'text-amber-400' : 'text-white'}`}>
-                  Tranche 1 (Launch)
+                  Tranche 1: Launch Round
                 </div>
                 <div className="text-xs text-gray-400">$200K Cap • 50% Discount</div>
               </button>
-              <button
-                onClick={() => handleTrancheSelect(2)}
-                className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
-                  selectedTranche === 2
-                    ? 'bg-cyan-500/20 border-cyan-500 shadow-[0_0_20px_rgba(0,240,255,0.3)]'
-                    : 'bg-white/5 border-white/20 hover:border-white/40'
-                }`}
+              <div
+                className="p-4 rounded-xl border-2 text-left bg-white/5 border-white/10 opacity-50 cursor-not-allowed relative"
               >
-                <div className={`font-bold text-lg mb-1 ${selectedTranche === 2 ? 'text-cyan-400' : 'text-white'}`}>
-                  Tranche 2 (Series Seed)
+                <Badge className="absolute -top-2 -right-2 bg-muted text-muted-foreground border border-border text-[10px] px-2">
+                  Coming Q2 2026
+                </Badge>
+                <div className="font-bold text-lg mb-1 text-gray-500">
+                  Tranche 2: Series Seed
                 </div>
-                <div className="text-xs text-gray-400">$1.5M Cap • TBD Discount</div>
-              </button>
+                <div className="text-xs text-gray-500">$1.5M Cap • 25% Discount</div>
+              </div>
             </div>
             
             {/* Tranche 1 Status Tracker */}
@@ -468,7 +466,7 @@ const AdminDealRoom = () => {
               <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-400">Tranche 1 Status:</span>
                 <span className={`font-mono font-bold ${progressPercentage >= 100 ? 'text-green-400' : 'text-amber-400'}`}>
-                  {formatCurrency(totalRaised.toString())} / $100,000
+                  {formatCurrency(totalRaised.toString())} / $200,000
                   {progressPercentage >= 100 && ' ✓ Complete'}
                 </span>
               </div>
@@ -480,13 +478,13 @@ const AdminDealRoom = () => {
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <FileText className="h-5 w-5 text-cyan-400" />
-                Generate SAFE Agreement
-                <Badge className={`ml-2 ${selectedTranche === 1 ? 'bg-amber-500/20 text-amber-400 border-amber-500/50' : 'bg-cyan-500/20 text-cyan-400 border-cyan-500/50'}`}>
-                  {selectedTranche === 1 ? 'Tranche 1' : 'Tranche 2'}
+                Generate Convertible Note Agreement
+                <Badge className="ml-2 bg-amber-500/20 text-amber-400 border-amber-500/50">
+                  Tranche 1
                 </Badge>
               </CardTitle>
               <CardDescription className="text-gray-400">
-                Fill in the investor details to generate a customized SAFE contract PDF.
+                Fill in the investor details to generate a customized Convertible Note contract PDF.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -537,7 +535,7 @@ const AdminDealRoom = () => {
                     className="bg-white/5 border-white/20 text-white pl-8"
                   />
                 </div>
-                <p className="text-xs text-gray-500">Default: $12,500,000 (Alpha Tranche)</p>
+                <p className="text-xs text-gray-500">Default: $200,000 (Launch Round)</p>
               </div>
 
               {/* Discount Rate */}

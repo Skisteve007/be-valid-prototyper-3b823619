@@ -184,7 +184,7 @@ const InvestorPortal = () => {
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted border border-border text-muted-foreground text-xs font-semibold tracking-wider">
                   <Clock className="w-3.5 h-3.5" />
-                  COMING 2026
+                  COMING Q2 2026
                 </span>
               </div>
 
@@ -192,7 +192,7 @@ const InvestorPortal = () => {
                 Tranche 2: Series Seed
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground font-semibold tracking-wide mb-8">
-                $1.5 Million Target Raise
+                $1,500,000 Target Raise
               </p>
 
               {/* Terms Card - Muted */}
@@ -219,10 +219,10 @@ const InvestorPortal = () => {
 
               {/* CTA - Disabled */}
               <Button
-                onClick={handleWaitlist}
+                disabled
                 variant="outline"
                 size="lg"
-                className="font-bold tracking-wider px-8 py-6 text-base border-border/60 text-muted-foreground hover:bg-muted/50"
+                className="font-bold tracking-wider px-8 py-6 text-base border-border/60 text-muted-foreground cursor-not-allowed opacity-50"
               >
                 Join Waitlist
               </Button>

@@ -1,4 +1,4 @@
-// Pipeline Test: Deployment verified - Dec 14, 2024
+// Pipeline Test v2: Fresh deployment - Dec 14, 2024 @ 15:42 UTC
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sun, Moon, Globe, Ghost, Shield, Lock } from 'lucide-react';

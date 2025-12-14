@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
+import { usePageViewTracking } from '@/hooks/usePageViewTracking';
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
@@ -17,7 +18,10 @@ const Hero = () => {
   const { t } = useTranslation();
   const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
   const [displayedText, setDisplayedText] = useState('');
-  const [visitCount, setVisitCount] = useState(528);
+  const [visitCount, setVisitCount] = useState(0);
+  
+  // Track this page view
+  usePageViewTracking('/');
   
   const fullText = t('hero.poweredBy');
 
@@ -45,12 +49,32 @@ const Hero = () => {
     return () => clearInterval(typingInterval);
   }, [fullText]);
 
-  // Live visit counter - increment randomly
+  // Fetch real visit count and subscribe to realtime updates
   useEffect(() => {
-    const counterInterval = setInterval(() => {
-      setVisitCount(prev => prev + Math.floor(Math.random() * 3));
-    }, 8000 + Math.random() * 7000);
-    return () => clearInterval(counterInterval);
+    const fetchCount = async () => {
+      const { count } = await supabase
+        .from('page_views')
+        .select('*', { count: 'exact', head: true });
+      setVisitCount(count || 0);
+    };
+
+    fetchCount();
+
+    // Subscribe to realtime updates for live counter
+    const channel = supabase
+      .channel('page_views_count')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'page_views' },
+        () => {
+          setVisitCount(prev => prev + 1);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const colorClasses: Record<string, { active: string; inactive: string }> = {

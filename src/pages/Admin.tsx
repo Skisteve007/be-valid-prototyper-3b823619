@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -32,6 +32,7 @@ import { IDVManagementTab } from "@/components/admin/IDVManagementTab";
 import { AccessApprovalManager } from "@/components/admin/AccessApprovalManager";
 import StaffShiftManager from "@/components/admin/StaffShiftManager";
 import AffiliateCommissionManager from "@/components/admin/AffiliateCommissionManager";
+import TrafficAnalytics from "@/components/admin/TrafficAnalytics";
 import {
   DndContext,
   closestCenter,
@@ -576,7 +577,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Second Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-6 gap-1 h-auto p-1 mb-6">
+          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-6">
             <TabsTrigger value="lead-outreach" className="cursor-pointer text-xs px-2 py-2">
               📧 Leads
             </TabsTrigger>
@@ -596,6 +597,10 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="access-control" className="cursor-pointer text-xs px-2 py-2">
               🔐 Access
+            </TabsTrigger>
+            <TabsTrigger value="traffic" className="cursor-pointer text-xs px-2 py-2">
+              <BarChart3 className="h-3 w-3 mr-1" />
+              Traffic
             </TabsTrigger>
           </TabsList>
           
@@ -939,6 +944,10 @@ const Admin = () => {
           
           <TabsContent value="access-control">
             <AccessApprovalManager />
+          </TabsContent>
+          
+          <TabsContent value="traffic">
+            <TrafficAnalytics />
           </TabsContent>
         </Tabs>
       </main>

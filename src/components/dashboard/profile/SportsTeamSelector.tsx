@@ -139,9 +139,9 @@ export const SportsTeamSelector = ({ selectedTeams, onTeamsChange }: SportsTeamS
           {getDisplayContent()}
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-background/95 backdrop-blur-xl border border-white/10">
+      <DialogContent className="sm:max-w-[425px] bg-background/95 backdrop-blur-xl border border-white/10 top-[20%] translate-y-0 sm:top-[15%]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold flex items-center gap-2">
+          <DialogTitle className="text-xl font-bold flex items-center gap-2 text-foreground">
             <Trophy className="w-5 h-5 text-amber-400" />
             Rep Your Squad
           </DialogTitle>

@@ -3,6 +3,8 @@ import { CurrencySelector } from './CurrencySelector';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { BetaRibbon } from './BetaRibbon';
+import { isBetaPeriodActive } from '@/config/betaConfig';
 
 // Base prices in USD
 const PRICES = {
@@ -217,85 +219,129 @@ export const PricingSection = () => {
 
         {/* Single Member - Bi-Monthly */}
         <div className="pricing-card">
+          <BetaRibbon text="BETA: $0" />
           <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
             <div className="tier-label">Starter</div>
             <h3>{t('pricing.singleMember')}</h3>
-            <div className="original-price">{getDisplayPrice(PRICES.originalSingleBiMonthly)}</div>
-            <div className="price-text">{getDisplayPrice(PRICES.singleBiMonthly)}</div>
-            <div className="sub-text">{t('pricing.billedBiMonthly')}</div>
+            {isBetaPeriodActive() ? (
+              <>
+                <div className="original-price">{getDisplayPrice(PRICES.singleBiMonthly)}</div>
+                <div className="price-text">$0.00</div>
+                <div className="sub-text">Free during beta</div>
+              </>
+            ) : (
+              <>
+                <div className="original-price">{getDisplayPrice(PRICES.originalSingleBiMonthly)}</div>
+                <div className="price-text">{getDisplayPrice(PRICES.singleBiMonthly)}</div>
+                <div className="sub-text">{t('pricing.billedBiMonthly')}</div>
+              </>
+            )}
             <p style={{ marginTop: '8px', color: '#ff00ff', fontWeight: 'bold', fontSize: '0.75em', textShadow: '0 0 10px rgba(255,0,255,0.5)' }}>🔥 {t('pricing.limitedTime')}</p>
-            {currency.code !== 'USD' && (
+            {currency.code !== 'USD' && !isBetaPeriodActive() && (
               <p className="currency-note">
                 * {t('pricing.chargedAs')} ${PRICES.singleBiMonthly.toFixed(2)} USD
               </p>
             )}
           </div>
           <button onClick={handleSelectPlan} className="neon-btn neon-btn-green">
-            {t('pricing.selectPlan')}
+            {isBetaPeriodActive() ? 'JOIN FREE BETA' : t('pricing.selectPlan')}
           </button>
         </div>
 
         {/* Joint Couple - Bi-Monthly */}
         <div className="pricing-card">
+          <BetaRibbon text="BETA: $0" />
           <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
             <div className="tier-label">Duo</div>
             <h3>{t('pricing.jointCouple')}</h3>
-            <div className="original-price">{getDisplayPrice(PRICES.originalCoupleBiMonthly)}</div>
-            <div className="price-text">{getDisplayPrice(PRICES.coupleBiMonthly)}</div>
-            <div className="sub-text">{t('pricing.billedBiMonthly')}</div>
+            {isBetaPeriodActive() ? (
+              <>
+                <div className="original-price">{getDisplayPrice(PRICES.coupleBiMonthly)}</div>
+                <div className="price-text">$0.00</div>
+                <div className="sub-text">Free during beta</div>
+              </>
+            ) : (
+              <>
+                <div className="original-price">{getDisplayPrice(PRICES.originalCoupleBiMonthly)}</div>
+                <div className="price-text">{getDisplayPrice(PRICES.coupleBiMonthly)}</div>
+                <div className="sub-text">{t('pricing.billedBiMonthly')}</div>
+              </>
+            )}
             <p style={{ marginTop: '8px', color: '#ff00ff', fontWeight: 'bold', fontSize: '0.75em', textShadow: '0 0 10px rgba(255,0,255,0.5)' }}>🔥 {t('pricing.limitedTime')}</p>
-            {currency.code !== 'USD' && (
+            {currency.code !== 'USD' && !isBetaPeriodActive() && (
               <p className="currency-note">
                 * {t('pricing.chargedAs')} ${PRICES.coupleBiMonthly.toFixed(2)} USD
               </p>
             )}
           </div>
           <button onClick={handleSelectPlan} className="neon-btn neon-btn-green">
-            {t('pricing.selectPlan')}
+            {isBetaPeriodActive() ? 'JOIN FREE BETA' : t('pricing.selectPlan')}
           </button>
         </div>
 
         {/* Single 1-Year Pass */}
         <div className="pricing-card premium">
+          <BetaRibbon text="BETA: $0" />
           <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
             <div className="tier-label" style={{ background: 'linear-gradient(90deg, #00f0ff, #ff00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Premium</div>
             <h3 style={{ color: '#00f0ff' }}>{t('pricing.singleAnnual')}</h3>
-            <div className="original-price">{getDisplayPrice(PRICES.originalSingleAnnual)}</div>
-            <div className="price-text">{getDisplayPrice(PRICES.singleAnnual)}</div>
-            <div className="sub-text">{t('pricing.oneTime')}</div>
+            {isBetaPeriodActive() ? (
+              <>
+                <div className="original-price">{getDisplayPrice(PRICES.singleAnnual)}</div>
+                <div className="price-text">$0.00</div>
+                <div className="sub-text">Free during beta</div>
+              </>
+            ) : (
+              <>
+                <div className="original-price">{getDisplayPrice(PRICES.originalSingleAnnual)}</div>
+                <div className="price-text">{getDisplayPrice(PRICES.singleAnnual)}</div>
+                <div className="sub-text">{t('pricing.oneTime')}</div>
+              </>
+            )}
             <p style={{ marginTop: '8px', color: '#ff00ff', fontWeight: 'bold', fontSize: '0.75em', textShadow: '0 0 10px rgba(255,0,255,0.5)' }}>🔥 {t('pricing.limitedTime')}</p>
-            {currency.code !== 'USD' && (
+            {currency.code !== 'USD' && !isBetaPeriodActive() && (
               <p className="currency-note">
                 * {t('pricing.chargedAs')} ${PRICES.singleAnnual.toFixed(2)} USD
               </p>
             )}
           </div>
           <button onClick={handleSelectPlan} className="neon-btn neon-btn-cyan">
-            {t('pricing.buyAnnual')}
+            {isBetaPeriodActive() ? 'JOIN FREE BETA' : t('pricing.buyAnnual')}
           </button>
         </div>
 
         {/* Couple 1-Year Pass */}
         <div className="pricing-card premium">
+          <BetaRibbon text="BETA: $0" />
           <div className="promo-badge">{t('pricing.discount')}</div>
           <div>
             <div className="tier-label" style={{ background: 'linear-gradient(90deg, #00f0ff, #ff00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Premium Duo</div>
             <h3 style={{ color: '#00f0ff' }}>{t('pricing.coupleAnnual')}</h3>
-            <div className="original-price">{getDisplayPrice(PRICES.originalCoupleAnnual)}</div>
-            <div className="price-text">{getDisplayPrice(PRICES.coupleAnnual)}</div>
-            <div className="sub-text">{t('pricing.oneTime')}</div>
+            {isBetaPeriodActive() ? (
+              <>
+                <div className="original-price">{getDisplayPrice(PRICES.coupleAnnual)}</div>
+                <div className="price-text">$0.00</div>
+                <div className="sub-text">Free during beta</div>
+              </>
+            ) : (
+              <>
+                <div className="original-price">{getDisplayPrice(PRICES.originalCoupleAnnual)}</div>
+                <div className="price-text">{getDisplayPrice(PRICES.coupleAnnual)}</div>
+                <div className="sub-text">{t('pricing.oneTime')}</div>
+              </>
+            )}
             <p style={{ marginTop: '8px', color: '#ff00ff', fontWeight: 'bold', fontSize: '0.75em', textShadow: '0 0 10px rgba(255,0,255,0.5)' }}>🔥 {t('pricing.limitedTime')}</p>
-            {currency.code !== 'USD' && (
+            {currency.code !== 'USD' && !isBetaPeriodActive() && (
               <p className="currency-note">
                 * {t('pricing.chargedAs')} ${PRICES.coupleAnnual.toFixed(2)} USD
               </p>
             )}
           </div>
           <button onClick={handleSelectPlan} className="neon-btn neon-btn-cyan">
-            {t('pricing.buyAnnual')}
+            {isBetaPeriodActive() ? 'JOIN FREE BETA' : t('pricing.buyAnnual')}
           </button>
         </div>
 

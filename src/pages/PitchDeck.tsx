@@ -1393,7 +1393,7 @@ const PitchDeck = () => {
                 {/* THE BACKGROUND */}
                 <div className="border-l-4 border-cyan-500/50 pl-6">
                   <h3 className="text-xl font-bold text-cyan-400 font-orbitron mb-3 tracking-wide">THE BACKGROUND</h3>
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-gray-100 text-lg leading-relaxed">
                     53 years of life. 35 years of execution. Self-made, scaling multiple businesses from zero to exit. I bridged the gap between the hard realities of infrastructure and the precision of high-stakes regulation. A career built on tangible results, not theory.
                   </p>
                 </div>
@@ -1401,7 +1401,7 @@ const PitchDeck = () => {
                 {/* THE OPERATOR */}
                 <div className="border-l-4 border-cyan-500/50 pl-6">
                   <h3 className="text-xl font-bold text-cyan-400 font-orbitron mb-3 tracking-wide">THE OPERATOR</h3>
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-gray-100 text-lg leading-relaxed">
                     A veteran of the real economy—not the sandbox. Deep mastery of Operations, Risk Management, and High-Liability sectors. I don't guess what venues, employers, and operators need. I know, because I've lived it. I translate complex market necessities into functional, revenue-generating systems.
                   </p>
                 </div>
@@ -1409,7 +1409,7 @@ const PitchDeck = () => {
                 {/* THE ARCHITECT */}
                 <div className="border-l-4 border-cyan-500/50 pl-6">
                   <h3 className="text-xl font-bold text-cyan-400 font-orbitron mb-3 tracking-wide">THE ARCHITECT</h3>
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-gray-100 text-lg leading-relaxed">
                     Pioneer of Synthesized AI Methodology. I orchestrate the modern machinery of scale: GitHub for source, Vercel for velocity, Supabase for truth. I command a symphony of AI Agents—coordinating distinct models to build enterprise-grade infrastructure with zero latency. I turned the software development lifecycle into a one-man industrial operation, achieving in 300 hours what traditional teams fail to deliver in a year.
                   </p>
                 </div>

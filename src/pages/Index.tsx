@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
 import { PricingSection } from "@/components/PricingSection";
+import { BetaBanner } from "@/components/BetaBanner";
 
 // Background images for feature cards
 import militaryFortressImg from "@/assets/military-fortress-card.jpg";
@@ -82,6 +83,11 @@ const Index = () => {
       {/* 1. HERO SECTION */}
       <div className="relative z-10">
         <Hero />
+      </div>
+
+      {/* BETA BANNER - Below Hero */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 py-6">
+        <BetaBanner />
       </div>
 
 

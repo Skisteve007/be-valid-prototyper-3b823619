@@ -21,6 +21,9 @@ import MySignalSection from "@/components/dashboard/profile/MySignalSection";
 import LocationPulseSection from "@/components/dashboard/profile/LocationPulseSection";
 import { VerifyIDTab } from "@/components/dashboard/VerifyIDTab";
 import logo from "@/assets/valid-logo.jpeg";
+import { BetaBanner } from "@/components/BetaBanner";
+import { BetaMemberBadge } from "@/components/BetaMemberBadge";
+import { isBetaPeriodActive } from "@/config/betaConfig";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -314,6 +317,13 @@ const Dashboard = () => {
         </div>
       </header>
 
+      {/* Beta Banner for Dashboard */}
+      {isBetaPeriodActive() && (
+        <div className="relative z-10 max-w-4xl mx-auto px-4 pt-4">
+          <BetaBanner variant="compact" />
+        </div>
+      )}
+
       <main className="relative z-10 container mx-auto px-4 py-4 md:py-8">
         <div className="backdrop-blur-xl bg-black/30 border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
           
@@ -324,9 +334,7 @@ const Dashboard = () => {
                 <h1 className="text-2xl md:text-3xl font-bold">
                   <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
                 </h1>
-                <span className="px-2 py-0.5 text-[8px] md:text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
-                  Beta
-                </span>
+                {isBetaPeriodActive() && <BetaMemberBadge />}
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
                 Manage your profile

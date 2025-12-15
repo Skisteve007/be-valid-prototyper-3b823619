@@ -19,11 +19,16 @@ import LiabilityWaiverModal, { useWaiverStatus } from "./LiabilityWaiverModal";
 import { IncognitoQRDialog } from "./IncognitoQRDialog";
 import { SpendingHistory } from "./SpendingHistory";
 import IncognitoQRCodeGenerator from "./IncognitoQRCodeGenerator";
+import { ValidAccessCard, BountyMission } from "@/components/gamification";
+
 interface QRCodeTabProps {
   userId: string;
+  userName?: string;
+  currentSignal?: 'social' | 'pulse' | 'thrill' | 'afterdark' | null;
+  memberId?: string;
 }
 
-const QRCodeTab = ({ userId }: QRCodeTabProps) => {
+const QRCodeTab = ({ userId, userName, currentSignal, memberId }: QRCodeTabProps) => {
   const navigate = useNavigate();
   const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [statusColor, setStatusColor] = useState<"green" | "yellow" | "red" | "gray">("green");
@@ -494,6 +499,15 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
           ) : (
             <>
               <div className="relative">
+                {/* Valid Access Card - Shareable Cyberpunk ID */}
+                <ValidAccessCard
+                  userName={userName || 'MEMBER'}
+                  verificationStatus={hasDocuments ? 'verified' : 'pending'}
+                  currentSignal={currentSignal}
+                  qrCodeUrl={qrCodeUrl}
+                  memberId={memberId}
+                />
+                
                 <div className={`p-6 bg-white dark:bg-card border-4 ${getBorderColor()} rounded-2xl ${getGlowColor()} transition-all duration-500`}>
                   {qrCodeUrl ? (
                     <img
@@ -507,6 +521,15 @@ const QRCodeTab = ({ userId }: QRCodeTabProps) => {
                     </div>
                   )}
                 </div>
+              </div>
+              
+              {/* Bounty Mission Pill */}
+              <div className="w-full max-w-xs">
+                <BountyMission 
+                  onBountyComplete={() => {
+                    toast.success("🏆 Mission Complete! Gold border activated for 24h!");
+                  }}
+                />
               </div>
                 
               {lastDocumentDate && (

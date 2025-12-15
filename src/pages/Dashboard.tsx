@@ -97,6 +97,19 @@ const Dashboard = () => {
 
     const checkEmailVerification = async (userId: string) => {
       try {
+        // Check if user is an administrator - admins bypass email verification
+        const { data: roleData } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", userId)
+          .eq("role", "administrator")
+          .maybeSingle();
+        
+        if (roleData) {
+          // Admin users bypass email verification
+          return true;
+        }
+
         const { data: profile } = await supabase
           .from("profiles")
           .select("email_verified")

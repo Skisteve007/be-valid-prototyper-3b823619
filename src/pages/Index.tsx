@@ -203,10 +203,10 @@ const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage }: Feat
     
     {/* Content overlay */}
     <div className="relative z-10">
-      <h3 className={`text-xl font-bold mb-3 font-orbitron ${isDark ? 'text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]' : 'text-slate-900'}`}>
+      <h3 className={`text-2xl md:text-3xl font-bold mb-4 font-orbitron ${isDark ? 'text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]' : 'text-slate-900'}`}>
         {title}
       </h3>
-      <p className={`leading-relaxed text-sm ${isDark ? 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]' : 'text-slate-600'}`}>
+      <p className={`leading-relaxed text-base md:text-lg ${isDark ? 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]' : 'text-slate-600'}`}>
         {desc}
       </p>
     </div>

@@ -1,18 +1,10 @@
 import { useState, useMemo } from "react";
-import { Trophy, X, Search, Check } from "lucide-react";
+import { Trophy, X, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Checkbox } from "@/components/ui/checkbox";
 import { sportsTeams, LeagueType } from "@/constants/sportsTeams";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 interface SelectedTeams {
   nfl: string[];
@@ -98,34 +90,14 @@ export const SportsTeamSelector = ({ selectedTeams, onTeamsChange }: SportsTeamS
       );
     }
 
-    const displayTeams = allSelectedTeams.slice(0, 3);
-    const remaining = totalSelected - 3;
-
     return (
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="flex items-center gap-1 overflow-hidden">
-              {displayTeams.map((item, idx) => (
-                <span key={idx} className="text-[9px] truncate max-w-[60px]">
-                  {leagueEmojis[item.league]} {item.team.split(' ').pop()}
-                  {idx < displayTeams.length - 1 && " •"}
-                </span>
-              ))}
-              {remaining > 0 && (
-                <span className="text-[9px] text-muted-foreground">+{remaining}</span>
-              )}
-            </div>
-          </TooltipTrigger>
-          {remaining > 0 && (
-            <TooltipContent side="top" className="max-w-[200px]">
-              <p className="text-xs">
-                {allSelectedTeams.slice(3).map(t => `${leagueEmojis[t.league]} ${t.team}`).join(', ')}
-              </p>
-            </TooltipContent>
-          )}
-        </Tooltip>
-      </TooltipProvider>
+      <div className="flex items-center gap-2 flex-wrap">
+        {allSelectedTeams.map((item, idx) => (
+          <span key={idx} className="text-xs md:text-sm font-medium whitespace-nowrap">
+            {leagueEmojis[item.league]} {item.team.split(' ').pop()}
+          </span>
+        ))}
+      </div>
     );
   };
 

@@ -45,7 +45,8 @@ export const PricingSection = () => {
   const { currency, formatPrice } = useCurrency();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const isBeta = isBetaPeriodActive();
+  // FORCED BETA MODE - Always true until Jan 16, 2025
+  const isBeta = true;
 
   const getDisplayPrice = (usdPrice: number) => formatPrice(usdPrice);
 

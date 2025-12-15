@@ -15,10 +15,14 @@ export const BETA_CONFIG = {
 };
 
 export const isBetaPeriodActive = (): boolean => {
-  const now = new Date();
-  const end = BETA_CONFIG.endDate;
-  // Beta is active if current time is before end date
-  return now.getTime() < end.getTime();
+  // FORCED BETA MODE - Always return true until Jan 16, 2025
+  // This ensures FREE BETA displays everywhere regardless of date checks
+  return true;
+  
+  // DISABLED until Jan 16, 2025:
+  // const now = new Date();
+  // const end = BETA_CONFIG.endDate;
+  // return now.getTime() < end.getTime();
 };
 
 export const getBetaTimeRemaining = () => {

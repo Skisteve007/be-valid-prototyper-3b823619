@@ -10,6 +10,14 @@ import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, Che
 import { useRef, useState } from "react";
 import { ImageCropDialog } from "./ImageCropDialog";
 import MemberBetaSurvey from "@/components/MemberBetaSurvey";
+import { SportsTeamSelector } from "./SportsTeamSelector";
+
+interface SelectedTeams {
+  nfl: string[];
+  nba: string[];
+  nhl: string[];
+  mlb: string[];
+}
 
 interface PersonalInfoSectionProps {
   register: UseFormRegister<any>;
@@ -46,6 +54,9 @@ interface PersonalInfoSectionProps {
   shareToxEnabled?: boolean;
   onShareToggle?: (field: string, value: boolean) => void;
   userId?: string;
+  // Sports teams
+  selectedTeams?: SelectedTeams;
+  onTeamsChange?: (teams: SelectedTeams) => void;
 }
 
 export const PersonalInfoSection = ({
@@ -82,6 +93,8 @@ export const PersonalInfoSection = ({
   shareToxEnabled = false,
   onShareToggle,
   userId,
+  selectedTeams = { nfl: [], nba: [], nhl: [], mlb: [] },
+  onTeamsChange,
 }: PersonalInfoSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showCropDialog, setShowCropDialog] = useState(false);
@@ -296,7 +309,13 @@ export const PersonalInfoSection = ({
                 
                 {/* Share Icons Section - Right side on desktop */}
                 <div className="hidden md:flex flex-col items-center justify-center p-3 rounded-lg border border-white/10 bg-white/5">
-                  <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2">CHOOSE YOUR SHARE</p>
+                  <div className="flex items-center gap-2 mb-2">
+                    <p className="text-[10px] text-gray-400 uppercase tracking-wider">CHOOSE YOUR SHARE</p>
+                    <SportsTeamSelector 
+                      selectedTeams={selectedTeams} 
+                      onTeamsChange={onTeamsChange || (() => {})} 
+                    />
+                  </div>
                   <div className="flex gap-2">
                     {/* ID Toggle */}
                     <button
@@ -386,7 +405,13 @@ export const PersonalInfoSection = ({
                 
                 {/* Mobile Share Icons Section */}
                 <div className="md:hidden w-full mt-3 p-3 rounded-lg border border-white/10 bg-white/5">
-                  <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2 text-center">CHOOSE YOUR SHARE</p>
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <p className="text-[10px] text-gray-400 uppercase tracking-wider">CHOOSE YOUR SHARE</p>
+                    <SportsTeamSelector 
+                      selectedTeams={selectedTeams} 
+                      onTeamsChange={onTeamsChange || (() => {})} 
+                    />
+                  </div>
                   <div className="grid grid-cols-4 gap-2">
                     {/* ID Toggle */}
                     <button

@@ -100,6 +100,11 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
   const [shareBioEnabled, setShareBioEnabled] = useState(false);
   const [shareToxEnabled, setShareToxEnabled] = useState(false);
   
+  // Sports teams selection (local state only)
+  const [selectedTeams, setSelectedTeams] = useState<{ nfl: string[]; nba: string[]; nhl: string[]; mlb: string[] }>({
+    nfl: [], nba: [], nhl: [], mlb: []
+  });
+  
   // Track initial values for change detection
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string>("");
   const [initialStatusColor, setInitialStatusColor] = useState<"green" | "yellow" | "red" | "gray" | "blue" | "orange" | "purple">("green");
@@ -756,6 +761,8 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
           if (field === 'share_tox_enabled') setShareToxEnabled(value);
         }}
         userId={userId}
+        selectedTeams={selectedTeams}
+        onTeamsChange={setSelectedTeams}
       />
 
       <div className="relative py-4">

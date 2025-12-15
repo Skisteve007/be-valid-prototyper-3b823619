@@ -1434,13 +1434,12 @@ const PitchDeck = () => {
             <h3 className="text-2xl font-bold text-white mb-4 font-orbitron">Ready to Discuss?</h3>
             <p className="text-gray-300 mb-6">Schedule a direct call with our founding team.</p>
             <Button 
-              variant="outline"
               size="lg"
-              className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 px-8"
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold px-8 py-4 rounded-full hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
               onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}
             >
               <Phone className="mr-2 h-5 w-5" />
-              Schedule Investor Call
+              Schedule 30-Min Call
             </Button>
           </div>
         </section>

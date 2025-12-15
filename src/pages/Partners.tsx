@@ -934,6 +934,20 @@ const Partners = () => {
         </div>
       </section>
 
+      {/* Schedule a Call CTA */}
+      <section className="py-16 relative z-10 bg-gradient-to-b from-transparent to-cyan-950/20">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4 text-white">Ready to Partner?</h2>
+          <p className="text-gray-400 mb-8 text-lg">Schedule a 30-minute call with our team to discuss how VALID™ can transform your operation.</p>
+          <button
+            onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold px-8 py-4 rounded-full hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] text-lg tracking-wider"
+          >
+            Book a Call
+          </button>
+        </div>
+      </section>
+
       <footer className="py-8 text-center text-xs text-gray-600 border-t border-white/10 bg-black relative z-10">
         <p>© 2025 VALID™. Infrastructure for the Real World.</p>
       </footer>

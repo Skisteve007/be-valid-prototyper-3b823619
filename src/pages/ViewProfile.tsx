@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Loader2, Heart, User, CheckCircle2, XCircle, Clock, AlertTriangle, X, ExternalLink, IdCard, Wallet, Shield, Instagram, Lock } from "lucide-react";
 import { toast } from "sonner";
+import { SignalSync, useSignalSync } from "@/components/gamification";
 
 interface Document {
   id: string;
@@ -62,6 +63,10 @@ interface ProfileData {
   vices?: string[];
   sexual_preferences?: string;
   id_status?: string;
+  vibe_metadata?: {
+    currentMode?: string;
+    [key: string]: any;
+  };
   social_media?: {
     instagram?: string;
     tiktok?: string;
@@ -101,6 +106,9 @@ const ViewProfile = () => {
   const [isExpired, setIsExpired] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
   const [documentViewerOpen, setDocumentViewerOpen] = useState(false);
+  const [showSignalSync, setShowSignalSync] = useState(false);
+  const [viewerSignal, setViewerSignal] = useState<'social' | 'pulse' | 'thrill' | 'afterdark' | null>(null);
+  const [scannedSignal, setScannedSignal] = useState<'social' | 'pulse' | 'thrill' | 'afterdark' | null>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -132,6 +140,19 @@ const ViewProfile = () => {
           setIsIncognitoMode(data.isIncognitoMode || false);
           setBundleFlags(data.bundleFlags || null);
           setPrivacySettings(data.privacySettings || null);
+          
+          // Signal Sync: Get scanned user's signal and trigger animation
+          const scannedMode = data.profile.vibe_metadata?.currentMode as 'social' | 'pulse' | 'thrill' | 'afterdark' | null;
+          setScannedSignal(scannedMode);
+          
+          // Try to get viewer's signal from localStorage or session
+          const viewerCurrentSignal = localStorage.getItem('currentSignal') as 'social' | 'pulse' | 'thrill' | 'afterdark' | null;
+          setViewerSignal(viewerCurrentSignal);
+          
+          // Trigger Signal Sync animation if both have signals (and not incognito)
+          if (!data.isIncognitoMode && viewerCurrentSignal && scannedMode) {
+            setTimeout(() => setShowSignalSync(true), 500);
+          }
         } else if (data?.error) {
           setError(data.error);
         } else {
@@ -444,6 +465,15 @@ const ViewProfile = () => {
 
   // Full profile view for non-incognito modes - Only shows safe-to-share info
   return (
+    <>
+      {/* Signal Sync Animation Overlay */}
+      <SignalSync
+        userSignal={viewerSignal}
+        scannedSignal={scannedSignal}
+        isVisible={showSignalSync}
+        onComplete={() => setShowSignalSync(false)}
+      />
+      
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-4 md:space-y-6">
         {/* Countdown Timer */}
@@ -777,6 +807,7 @@ const ViewProfile = () => {
         </Card>
       </div>
     </div>
+    </>
   );
 };
 

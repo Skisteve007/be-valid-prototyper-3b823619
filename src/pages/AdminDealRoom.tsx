@@ -553,7 +553,7 @@ const AdminDealRoom = () => {
                   />
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">%</span>
                 </div>
-                <p className="text-xs text-gray-500">Default: 20% discount on next round</p>
+                <p className="text-xs text-gray-500">Default: 50% discount on next round (Launch Round)</p>
               </div>
 
               {/* Preview Summary */}

@@ -77,12 +77,12 @@ export const PricingSection = () => {
     if (isBeta) {
       return (
         <>
-          <div className="price-text text-3xl font-black">$0.00</div>
-          <div className="sub-text text-xs mt-1 text-gray-400">
-            First {BETA_CONFIG.maxBetaMembers} members • Beta ends <BetaCountdown />
+          <div className="price-text text-4xl font-black">$0.00</div>
+          <div className="sub-text text-xs mt-2 font-bold text-green-400">
+            First {BETA_CONFIG.maxBetaMembers} members — Beta ends in <BetaCountdown />
           </div>
           <div className="sub-text text-xs mt-1 text-gray-500">
-            (After beta: {getDisplayPrice(introPrice)}/{isOneTime ? 'year' : '60 days'} | <span className="line-through">{getDisplayPrice(standardPrice)}</span>)
+            (After beta: {getDisplayPrice(introPrice)}/{isOneTime ? 'year' : '60 days'} | <span className="line-through text-gray-600">{getDisplayPrice(standardPrice)}</span>)
           </div>
         </>
       );

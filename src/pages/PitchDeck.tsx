@@ -1437,7 +1437,7 @@ const PitchDeck = () => {
               variant="outline"
               size="lg"
               className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 px-8"
-              onClick={() => window.open('https://calendly.com/valid-team', '_blank')}
+              onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}
             >
               <Phone className="mr-2 h-5 w-5" />
               Schedule Investor Call

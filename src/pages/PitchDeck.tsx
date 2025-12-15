@@ -1379,54 +1379,48 @@ const PitchDeck = () => {
               
               {/* Name & Title */}
               <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-white font-orbitron mb-2">
-                  Steven Grillo
+                <h2 className="text-3xl md:text-4xl font-bold text-white font-orbitron mb-2 tracking-wider">
+                  STEVEN GRILLO
                 </h2>
-                <p className="text-lg text-cyan-400 font-semibold tracking-wide">
-                  Founder & Systems Architect
+                <p className="text-lg text-cyan-400 font-semibold tracking-widest uppercase">
+                  Founder · Systems Architect
                 </p>
               </div>
               
-              {/* Intro Line */}
-              <div className="text-center mb-8">
-                <p className="text-xl text-gray-300 italic">
-                  28 years building companies.<br />
-                  From construction sites to compliance suites.
-                </p>
+              {/* Three Pillars */}
+              <div className="space-y-8 mb-10">
+                
+                {/* THE BACKGROUND */}
+                <div className="border-l-4 border-cyan-500/50 pl-6">
+                  <h3 className="text-xl font-bold text-cyan-400 font-orbitron mb-3 tracking-wide">THE BACKGROUND</h3>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    53 years of life. 35 years of execution. Self-made, scaling multiple businesses from zero to exit. I bridged the gap between the hard realities of infrastructure and the precision of high-stakes regulation. A career built on tangible results, not theory.
+                  </p>
+                </div>
+                
+                {/* THE OPERATOR */}
+                <div className="border-l-4 border-cyan-500/50 pl-6">
+                  <h3 className="text-xl font-bold text-cyan-400 font-orbitron mb-3 tracking-wide">THE OPERATOR</h3>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    A veteran of the real economy—not the sandbox. Deep mastery of Operations, Risk Management, and High-Liability sectors. I don't guess what venues, employers, and operators need. I know, because I've lived it. I translate complex market necessities into functional, revenue-generating systems.
+                  </p>
+                </div>
+                
+                {/* THE ARCHITECT */}
+                <div className="border-l-4 border-cyan-500/50 pl-6">
+                  <h3 className="text-xl font-bold text-cyan-400 font-orbitron mb-3 tracking-wide">THE ARCHITECT</h3>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    Pioneer of Synthesized AI Methodology. I orchestrate the modern machinery of scale: GitHub for source, Vercel for velocity, Supabase for truth. I command a symphony of AI Agents—coordinating distinct models to build enterprise-grade infrastructure with zero latency. I turned the software development lifecycle into a one-man industrial operation, achieving in 300 hours what traditional teams fail to deliver in a year.
+                  </p>
+                </div>
+                
               </div>
               
-              {/* Bullet Points */}
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3">
-                  <div className="mt-1.5 h-2 w-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
-                  <p className="text-gray-300 text-lg">Built and scaled multiple businesses from zero</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-1.5 h-2 w-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
-                  <p className="text-gray-300 text-lg">Managed operations, compliance, risk, sales — in the real world</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-1.5 h-2 w-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
-                  <p className="text-gray-300 text-lg">Self-taught AI-augmented development (Synthesized AI methodology)</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-1.5 h-2 w-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
-                  <p className="text-gray-300 text-lg">Architected VALID™ — a $12M system — with zero outside capital</p>
-                </div>
-              </div>
-              
-              {/* Narrative Text */}
-              <div className="text-center mb-8 space-y-2">
-                <p className="text-gray-400 text-lg">Not a tech bro in a hoodie.</p>
-                <p className="text-gray-300 text-lg">A builder who's been in the trenches.</p>
-                <p className="text-gray-300 text-lg">Who knows what venues, employers, and operators actually need.</p>
-                <p className="text-white text-lg font-semibold">Who architected something that doesn't exist — because the market needed it.</p>
-              </div>
-              
-              {/* Quote */}
-              <div className="border-l-4 border-cyan-500 pl-6 py-2">
+              {/* THE STANDARD Quote */}
+              <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-6 text-center">
+                <h3 className="text-lg font-bold text-cyan-400 font-orbitron mb-3 tracking-widest">THE STANDARD</h3>
                 <p className="text-2xl md:text-3xl text-white font-bold italic font-orbitron">
-                  "I push hard. I think sharp. And I don't stop."
+                  "Experience cannot be coded. It must be lived."
                 </p>
               </div>
               

@@ -15,7 +15,10 @@ export const BETA_CONFIG = {
 };
 
 export const isBetaPeriodActive = (): boolean => {
-  return new Date() < BETA_CONFIG.endDate;
+  const now = new Date();
+  const end = BETA_CONFIG.endDate;
+  // Beta is active if current time is before end date
+  return now.getTime() < end.getTime();
 };
 
 export const getBetaTimeRemaining = () => {

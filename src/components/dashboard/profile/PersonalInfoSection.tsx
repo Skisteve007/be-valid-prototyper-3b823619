@@ -308,15 +308,17 @@ export const PersonalInfoSection = ({
                 </div>
                 
                 {/* Share Icons Section - Right side on desktop */}
-                <div className="hidden md:flex flex-col items-center justify-center p-3 rounded-lg border border-white/10 bg-white/5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wider">CHOOSE YOUR SHARE</p>
-                    <SportsTeamSelector 
-                      selectedTeams={selectedTeams} 
-                      onTeamsChange={onTeamsChange || (() => {})} 
-                    />
-                  </div>
-                  <div className="flex gap-2">
+                <div className="hidden md:flex items-start gap-3">
+                  {/* My Teams Selector - Sibling pill */}
+                  <SportsTeamSelector 
+                    selectedTeams={selectedTeams} 
+                    onTeamsChange={onTeamsChange || (() => {})} 
+                  />
+                  
+                  {/* Choose Your Share Section */}
+                  <div className="flex flex-col items-center justify-center p-3 rounded-lg border border-white/10 bg-white/5">
+                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2">CHOOSE YOUR SHARE</p>
+                    <div className="flex gap-2">
                     {/* ID Toggle */}
                     <button
                       type="button"
@@ -400,19 +402,24 @@ export const PersonalInfoSection = ({
                         )}
                       </div>
                     </button>
+                    </div>
                   </div>
                 </div>
                 
                 {/* Mobile Share Icons Section */}
-                <div className="md:hidden w-full mt-3 p-3 rounded-lg border border-white/10 bg-white/5">
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wider">CHOOSE YOUR SHARE</p>
+                <div className="md:hidden w-full mt-3 space-y-3">
+                  {/* My Teams Selector - Sibling row on mobile */}
+                  <div className="flex justify-center">
                     <SportsTeamSelector 
                       selectedTeams={selectedTeams} 
                       onTeamsChange={onTeamsChange || (() => {})} 
                     />
                   </div>
-                  <div className="grid grid-cols-4 gap-2">
+                  
+                  {/* Choose Your Share Section */}
+                  <div className="p-3 rounded-lg border border-white/10 bg-white/5">
+                    <p className="text-[10px] text-gray-400 uppercase tracking-wider text-center mb-2">CHOOSE YOUR SHARE</p>
+                    <div className="grid grid-cols-4 gap-2">
                     {/* ID Toggle */}
                     <button
                       type="button"
@@ -496,6 +503,7 @@ export const PersonalInfoSection = ({
                         )}
                       </div>
                     </button>
+                    </div>
                   </div>
                 </div>
               </>

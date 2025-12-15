@@ -449,7 +449,7 @@ const AdminDealRoom = () => {
                 <div className={`text-xs ${selectedTranche === 1 ? 'text-amber-400/80' : 'text-gray-400'}`}>$200K Cap • 50% Discount</div>
               </button>
               <div
-                className="p-4 rounded-xl border-2 text-left bg-white/5 border-cyan-500/30 cursor-not-allowed relative"
+                className="p-4 rounded-xl border-2 text-left bg-cyan-500/10 border-cyan-500/30 cursor-not-allowed relative shadow-[0_0_15px_rgba(0,240,255,0.2)]"
               >
                 <Badge className="absolute -top-2 -right-2 bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 text-[10px] px-2 shadow-[0_0_10px_rgba(0,240,255,0.4)]">
                   Coming Q2 2026
@@ -517,7 +517,7 @@ const AdminDealRoom = () => {
                     className="bg-white/5 border-white/20 text-white pl-8"
                   />
                 </div>
-                <p className="text-xs text-gray-500">Default: $25,000 minimum</p>
+                <p className="text-xs text-gray-500">Default: $10,000 minimum</p>
               </div>
 
               {/* Valuation Cap */}

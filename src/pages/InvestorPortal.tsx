@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Shield, Lock, Check, Sparkles, Clock, ExternalLink, ArrowRight, User, Briefcase, Cpu, Award } from "lucide-react";
+import { Shield, Lock, Check, Sparkles, Clock, ExternalLink, ArrowRight, User, Briefcase, Cpu, Award, Phone, Mail, Globe, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -86,6 +86,13 @@ const InvestorPortal = () => {
 
         <div className="container mx-auto px-4 py-8 md:py-12 space-y-12 md:space-y-16">
           
+          {/* Prominent Tagline */}
+          <div className="text-center">
+            <p className="text-2xl md:text-4xl text-amber-300 font-bold italic tracking-wide">
+              "Experience cannot be coded. It must be lived."
+            </p>
+          </div>
+
           {/* Timeline Visualization */}
           <section className="relative">
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
@@ -304,6 +311,9 @@ const InvestorPortal = () => {
                 <p className="text-cyan-400 font-semibold tracking-widest uppercase text-sm">
                   Founder & Systems Architect
                 </p>
+                <p className="text-emerald-400/80 font-medium tracking-wide text-sm mt-1">
+                  VALID™ | Creator of SYNTH™ — Synthesized AI Methodology
+                </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -333,7 +343,7 @@ const InvestorPortal = () => {
                   </div>
                   <div className="space-y-2 text-gray-200 text-sm leading-relaxed">
                     <p>A veteran of the <span className="text-emerald-400 font-semibold">real economy</span> — not the sandbox.</p>
-                    <p>Deep mastery of Operations, Risk Management, and High-Liability sectors.</p>
+                    <p>Deep mastery of Operations, Risk Management, and High-Liability Sectors.</p>
                     <p className="text-gray-400 italic">Translates complex market necessities into functional, revenue-generating systems.</p>
                   </div>
                 </div>
@@ -347,9 +357,9 @@ const InvestorPortal = () => {
                     <h3 className="text-lg font-bold text-white tracking-wide">THE ARCHITECT</h3>
                   </div>
                   <div className="space-y-2 text-gray-200 text-sm leading-relaxed">
-                    <p>Pioneer of <span className="text-blue-400 font-semibold">Synthesized AI Methodology</span>.</p>
+                    <p>Pioneer of <span className="text-blue-400 font-semibold">SYNTH™ — Synthesized AI Methodology</span>.</p>
                     <p>Orchestrates GitHub, Vercel, Supabase, and AI Agents to build enterprise-grade infrastructure.</p>
-                    <p className="text-gray-400 italic">Built in 300 hours what traditional teams fail to deliver in a year.</p>
+                    <p className="text-gray-400 italic">Built in 340 hours what traditional teams fail to deliver in a year.</p>
                   </div>
                 </div>
 
@@ -370,6 +380,83 @@ const InvestorPortal = () => {
               </div>
             </div>
           </section>
+
+          {/* Contact Information Section */}
+          <section className="relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 rounded-2xl blur-xl opacity-30"></div>
+            <div className="relative border border-cyan-500/20 rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-sm p-6 md:p-10">
+              <div className="text-center mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-white tracking-wider font-orbitron mb-2">
+                  GET IN TOUCH
+                </h2>
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto"></div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <a href="tel:+15127810973" className="flex items-center gap-3 p-4 bg-[#0f0f0f] rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center group-hover:bg-cyan-500/30 transition-colors">
+                    <Phone className="w-5 h-5 text-cyan-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider">Phone</p>
+                    <p className="text-white font-medium">(512) 781-0973</p>
+                  </div>
+                </a>
+
+                <a href="mailto:steve@bevalid.app" className="flex items-center gap-3 p-4 bg-[#0f0f0f] rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors">
+                    <Mail className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider">Email</p>
+                    <p className="text-white font-medium">steve@bevalid.app</p>
+                  </div>
+                </a>
+
+                <a href="https://bevalid.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 bg-[#0f0f0f] rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                    <Globe className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider">Website</p>
+                    <p className="text-white font-medium">bevalid.app</p>
+                  </div>
+                </a>
+
+                <a href="https://calendly.com/steve-bevalid/30min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 bg-[#0f0f0f] rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/30 transition-colors">
+                    <Calendar className="w-5 h-5 text-amber-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider">Book a Call</p>
+                    <p className="text-white font-medium">calendly.com</p>
+                  </div>
+                </a>
+              </div>
+
+              {/* Prominent Schedule Call Button */}
+              <div className="text-center">
+                <Button
+                  onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}
+                  size="lg"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold tracking-wider px-10 py-6 text-lg rounded-full hover:scale-105 transition-all shadow-[0_0_30px_rgba(0,240,255,0.4)]"
+                >
+                  <Calendar className="w-6 h-6 mr-2" />
+                  Schedule Call
+                </Button>
+              </div>
+            </div>
+          </section>
+
+          {/* SYNTH™ Badge */}
+          <div className="text-center py-6">
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0a0a0a] border border-cyan-500/20">
+              <Cpu className="w-4 h-4 text-cyan-400" />
+              <span className="text-sm text-gray-400 tracking-wider">
+                Built with <span className="text-cyan-400 font-semibold">SYNTH™</span> — Synthesized AI Methodology
+              </span>
+            </div>
+          </div>
 
           {/* Legal Disclaimer Footer */}
           <footer className="border-t border-gray-800 pt-8 pb-4">

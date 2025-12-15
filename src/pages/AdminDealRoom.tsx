@@ -610,7 +610,7 @@ const AdminDealRoom = () => {
                 )}
               </CardTitle>
               <CardDescription className="text-gray-400">
-                Track progress toward the $100,000 Alpha Tranche cap
+                Track progress toward the $200,000 Launch Round cap
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

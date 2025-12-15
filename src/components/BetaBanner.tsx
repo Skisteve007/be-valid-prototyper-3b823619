@@ -9,15 +9,14 @@ interface BetaBannerProps {
 export const BetaBanner = ({ variant = 'full' }: BetaBannerProps) => {
   const [isDismissed, setIsDismissed] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(getBetaTimeRemaining());
+  const isBeta = isBetaPeriodActive();
 
   useEffect(() => {
-    // Check localStorage for dismissal
     const dismissed = localStorage.getItem('betaBannerDismissed');
     if (dismissed) {
       setIsDismissed(true);
     }
 
-    // Update countdown every second
     const interval = setInterval(() => {
       setTimeRemaining(getBetaTimeRemaining());
     }, 1000);
@@ -30,37 +29,53 @@ export const BetaBanner = ({ variant = 'full' }: BetaBannerProps) => {
     localStorage.setItem('betaBannerDismissed', 'true');
   };
 
-  if (isDismissed || !isBetaPeriodActive()) {
-    if (timeRemaining.expired && !isDismissed) {
-      return (
-        <div className="relative overflow-hidden rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-orange-500/10 p-4 backdrop-blur-sm">
-          <p className="text-center text-amber-400 font-semibold">
-            Beta period has ended. Standard pricing now applies.
-          </p>
-        </div>
-      );
-    }
+  // Only show "beta ended" AFTER beta actually expires
+  if (!isBeta && timeRemaining.expired) {
+    if (isDismissed) return null;
+    return (
+      <div className="relative overflow-hidden rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-orange-500/10 p-4 backdrop-blur-sm">
+        <button
+          onClick={handleDismiss}
+          className="absolute top-2 right-2 p-1 rounded-full hover:bg-white/10 transition-colors z-10"
+          aria-label="Dismiss banner"
+        >
+          <X className="w-4 h-4 text-white/60 hover:text-white" />
+        </button>
+        <p className="text-center text-amber-400 font-semibold">
+          Beta period has ended. Standard pricing now applies.
+        </p>
+      </div>
+    );
+  }
+
+  // During beta - show FREE BETA celebration banner
+  if (isDismissed || !isBeta) {
     return null;
   }
 
+  const countdownText = `${timeRemaining.days}d ${timeRemaining.hours}h ${timeRemaining.minutes}m ${timeRemaining.seconds}s`;
+
   return (
-    <div className="relative overflow-hidden rounded-xl border border-cyan-500/50 bg-gradient-to-r from-cyan-500/20 via-purple-500/10 to-cyan-500/20 backdrop-blur-sm animate-[glowPulse_3s_ease-in-out_infinite]">
+    <div className="relative overflow-hidden rounded-xl border-2 border-green-400/60 backdrop-blur-sm animate-[glowPulse_2s_ease-in-out_infinite]"
+      style={{
+        background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(250, 204, 21, 0.2) 50%, rgba(34, 197, 94, 0.25) 100%)',
+      }}
+    >
       <style>{`
         @keyframes glowPulse {
           0%, 100% {
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3), inset 0 0 20px rgba(0, 240, 255, 0.05);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4), 0 0 30px rgba(250, 204, 21, 0.2);
           }
           50% {
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5), inset 0 0 30px rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.6), 0 0 50px rgba(250, 204, 21, 0.4);
           }
         }
-        @keyframes rocketPulse {
-          0%, 100% { transform: translateY(0) rotate(-15deg); }
-          50% { transform: translateY(-3px) rotate(-15deg); }
+        @keyframes rocketBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
         }
       `}</style>
       
-      {/* Dismiss button */}
       <button
         onClick={handleDismiss}
         className="absolute top-2 right-2 p-1 rounded-full hover:bg-white/10 transition-colors z-10"
@@ -69,56 +84,30 @@ export const BetaBanner = ({ variant = 'full' }: BetaBannerProps) => {
         <X className="w-4 h-4 text-white/60 hover:text-white" />
       </button>
 
-      <div className={`${variant === 'compact' ? 'p-3' : 'p-4 md:p-6'}`}>
-        <div className="flex flex-col items-center text-center gap-3">
-          {/* Main content */}
-          <div className="flex items-center gap-2">
+      <div className={`${variant === 'compact' ? 'p-3' : 'p-4 md:p-5'}`}>
+        <div className="flex flex-col items-center text-center gap-2">
+          {/* Main headline */}
+          <div className="flex items-center gap-2 flex-wrap justify-center">
             <Rocket 
-              className="w-5 h-5 md:w-6 md:h-6 text-cyan-400" 
-              style={{ animation: 'rocketPulse 1.5s ease-in-out infinite' }}
+              className="w-5 h-5 md:w-6 md:h-6 text-yellow-400" 
+              style={{ animation: 'rocketBounce 1s ease-in-out infinite' }}
             />
-            <span className="text-lg md:text-xl font-bold text-white">
-              🚀 BETA ACCESS — FREE FOR 30 DAYS
+            <span className="text-lg md:text-xl font-black text-transparent bg-clip-text"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, #22c55e, #facc15, #22c55e)',
+              }}
+            >
+              🚀 FREE BETA: Full platform unlock for the first {BETA_CONFIG.maxBetaMembers} members!
             </span>
           </div>
           
-          <p className="text-sm md:text-base text-cyan-300/90">
-            Be one of the first {BETA_CONFIG.maxBetaMembers} members. Full access. Zero cost.
+          {/* Countdown and $0 */}
+          <p className="text-sm md:text-base font-bold text-white">
+            Ends in <span className="text-yellow-400 tabular-nums">{countdownText}</span> • <span className="text-green-400 text-lg">$0.00 signup!</span>
           </p>
 
-          {/* Countdown timer */}
-          <div className="flex gap-2 md:gap-4 mt-2">
-            <div className="flex flex-col items-center">
-              <span className="text-2xl md:text-3xl font-bold text-white tabular-nums">
-                {String(timeRemaining.days).padStart(2, '0')}
-              </span>
-              <span className="text-xs text-cyan-400/80 uppercase tracking-wider">Days</span>
-            </div>
-            <span className="text-2xl md:text-3xl font-bold text-cyan-400/60">:</span>
-            <div className="flex flex-col items-center">
-              <span className="text-2xl md:text-3xl font-bold text-white tabular-nums">
-                {String(timeRemaining.hours).padStart(2, '0')}
-              </span>
-              <span className="text-xs text-cyan-400/80 uppercase tracking-wider">Hours</span>
-            </div>
-            <span className="text-2xl md:text-3xl font-bold text-cyan-400/60">:</span>
-            <div className="flex flex-col items-center">
-              <span className="text-2xl md:text-3xl font-bold text-white tabular-nums">
-                {String(timeRemaining.minutes).padStart(2, '0')}
-              </span>
-              <span className="text-xs text-cyan-400/80 uppercase tracking-wider">Min</span>
-            </div>
-            <span className="text-2xl md:text-3xl font-bold text-cyan-400/60">:</span>
-            <div className="flex flex-col items-center">
-              <span className="text-2xl md:text-3xl font-bold text-white tabular-nums">
-                {String(timeRemaining.seconds).padStart(2, '0')}
-              </span>
-              <span className="text-xs text-cyan-400/80 uppercase tracking-wider">Sec</span>
-            </div>
-          </div>
-
-          {/* Post-beta pricing */}
-          <p className="text-xs text-white/50 mt-1">
+          {/* Post-beta pricing info */}
+          <p className="text-xs text-white/50">
             After beta: {BETA_CONFIG.regularPrice} | Standard: {BETA_CONFIG.standardPrice}
           </p>
         </div>

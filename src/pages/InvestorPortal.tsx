@@ -146,7 +146,7 @@ const InvestorPortal = () => {
               </div>
 
               {/* CTA */}
-              <div className="flex flex-col items-start gap-3">
+              <div className="flex flex-col sm:flex-row items-start gap-4">
                 <Button
                   onClick={() => setIsModalOpen(true)}
                   size="lg"
@@ -155,10 +155,18 @@ const InvestorPortal = () => {
                   <Shield className="w-5 h-5 mr-2" />
                   Request Access
                 </Button>
-                <p className="text-xs text-muted-foreground tracking-wide">
-                  Allocation is limited. Accredited investors only.
-                </p>
+                <Button
+                  onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}
+                  size="lg"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold tracking-wider px-8 py-6 text-base rounded-full hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+                >
+                  <Clock className="w-5 h-5 mr-2" />
+                  Book a Call
+                </Button>
               </div>
+              <p className="text-xs text-muted-foreground tracking-wide mt-3">
+                Allocation is limited. Accredited investors only.
+              </p>
             </div>
           </section>
 

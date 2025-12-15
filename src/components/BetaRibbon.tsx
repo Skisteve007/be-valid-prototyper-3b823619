@@ -1,27 +1,24 @@
 import { isBetaPeriodActive } from '@/config/betaConfig';
 
 interface BetaRibbonProps {
-  text?: string;
+  className?: string;
 }
 
-export const BetaRibbon = ({ text = 'FREE' }: BetaRibbonProps) => {
-  if (!isBetaPeriodActive()) {
-    return null;
-  }
+export const BetaRibbon = ({ className = '' }: BetaRibbonProps) => {
+  const isActive = isBetaPeriodActive();
 
   return (
     <div 
-      className="absolute -top-1 -right-1 z-10 overflow-hidden w-24 h-24 pointer-events-none"
+      className={`absolute top-4 right-[-40px] z-10 ${
+        isActive 
+          ? 'bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.6)]' 
+          : 'bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.6)]'
+      } text-black font-bold px-9 py-2 shadow-lg text-xs uppercase tracking-wide ${className}`}
+      style={{ 
+        transform: 'rotate(-15deg)',
+      }}
     >
-      <div 
-        className="absolute top-5 -right-8 w-32 text-center py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-black text-xs font-bold uppercase tracking-wide shadow-lg"
-        style={{ 
-          transform: 'rotate(45deg)',
-          transformOrigin: 'center',
-        }}
-      >
-        {text}
-      </div>
+      {isActive ? 'FREE BETA' : 'INTRO PRICE'}
     </div>
   );
 };

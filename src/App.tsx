@@ -32,6 +32,7 @@ import PitchDeck from "./pages/PitchDeck";
 import VenueLanding from "./pages/VenueLanding";
 import IDVVerification from "./pages/IDVVerification";
 import AdminDealRoom from "./pages/AdminDealRoom";
+import SynthVault from "./pages/SynthVault";
 import InvestorDashboard from "./pages/InvestorDashboard";
 import SharedProfile from "./pages/SharedProfile";
 import VerifyEmail from "./pages/VerifyEmail";
@@ -76,6 +77,7 @@ const App = () => (
               <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />
               <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
               <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />
+              <Route path="/synth-vault" element={<SynthVault />} />
               <Route path="/investor-dashboard" element={<AgeGate><InvestorDashboard /></AgeGate>} />
               <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
               <Route path="/partners" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />

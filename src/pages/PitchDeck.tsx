@@ -1365,6 +1365,75 @@ const PitchDeck = () => {
           </div>
         </section>
 
+        {/* ===== SLIDE 12: THE FOUNDER ===== */}
+        <section className="py-16">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-gray-900/80 via-gray-900/60 to-cyan-950/40 border border-cyan-500/30 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,240,255,0.1)]">
+              
+              {/* Badge */}
+              <div className="flex justify-center mb-6">
+                <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 px-6 py-2 text-sm font-bold tracking-widest uppercase">
+                  THE FOUNDER
+                </Badge>
+              </div>
+              
+              {/* Name & Title */}
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-white font-orbitron mb-2">
+                  Steven Grillo
+                </h2>
+                <p className="text-lg text-cyan-400 font-semibold tracking-wide">
+                  Founder & Systems Architect
+                </p>
+              </div>
+              
+              {/* Intro Line */}
+              <div className="text-center mb-8">
+                <p className="text-xl text-gray-300 italic">
+                  28 years building companies.<br />
+                  From construction sites to compliance suites.
+                </p>
+              </div>
+              
+              {/* Bullet Points */}
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <div className="mt-1.5 h-2 w-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                  <p className="text-gray-300 text-lg">Built and scaled multiple businesses from zero</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-1.5 h-2 w-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                  <p className="text-gray-300 text-lg">Managed operations, compliance, risk, sales — in the real world</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-1.5 h-2 w-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                  <p className="text-gray-300 text-lg">Self-taught AI-augmented development (Synthesized AI methodology)</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-1.5 h-2 w-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                  <p className="text-gray-300 text-lg">Architected VALID™ — a $12M system — with zero outside capital</p>
+                </div>
+              </div>
+              
+              {/* Narrative Text */}
+              <div className="text-center mb-8 space-y-2">
+                <p className="text-gray-400 text-lg">Not a tech bro in a hoodie.</p>
+                <p className="text-gray-300 text-lg">A builder who's been in the trenches.</p>
+                <p className="text-gray-300 text-lg">Who knows what venues, employers, and operators actually need.</p>
+                <p className="text-white text-lg font-semibold">Who architected something that doesn't exist — because the market needed it.</p>
+              </div>
+              
+              {/* Quote */}
+              <div className="border-l-4 border-cyan-500 pl-6 py-2">
+                <p className="text-2xl md:text-3xl text-white font-bold italic font-orbitron">
+                  "I push hard. I think sharp. And I don't stop."
+                </p>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
         {/* ===== SCHEDULE A CALL ===== */}
         <section className="text-center py-8">
           <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-xl border border-cyan-500/30 rounded-xl p-8">

@@ -619,7 +619,7 @@ const AdminDealRoom = () => {
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Total Raised (Wired/Cleared)</span>
                   <span className={isTranche1Filled ? "text-green-400 font-bold" : "text-white"}>
-                    {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(totalRaised)} / $100,000
+                    {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(totalRaised)} / $200,000
                   </span>
                 </div>
                 <Progress 

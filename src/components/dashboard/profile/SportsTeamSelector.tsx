@@ -176,16 +176,6 @@ export const SportsTeamSelector = ({ selectedTeams, onTeamsChange }: SportsTeamS
           })}
         </div>
 
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 bg-white/5 border-white/10 text-foreground placeholder:text-muted-foreground"
-          />
-        </div>
 
         {/* Teams List */}
         <ScrollArea className="h-[250px] rounded-lg border border-white/10 bg-white/5">

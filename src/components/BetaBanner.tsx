@@ -1,6 +1,7 @@
+// FORCED BETA MODE - Do not change until Jan 16, 2025
 import { useState, useEffect } from 'react';
 import { X, Rocket } from 'lucide-react';
-import { BETA_CONFIG, getBetaTimeRemaining, isBetaPeriodActive } from '@/config/betaConfig';
+import { BETA_CONFIG, getBetaTimeRemaining } from '@/config/betaConfig';
 
 interface BetaBannerProps {
   variant?: 'full' | 'compact';
@@ -9,7 +10,6 @@ interface BetaBannerProps {
 export const BetaBanner = ({ variant = 'full' }: BetaBannerProps) => {
   const [isDismissed, setIsDismissed] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(getBetaTimeRemaining());
-  const isBeta = isBetaPeriodActive();
 
   useEffect(() => {
     const dismissed = localStorage.getItem('betaBannerDismissed');
@@ -29,32 +29,16 @@ export const BetaBanner = ({ variant = 'full' }: BetaBannerProps) => {
     localStorage.setItem('betaBannerDismissed', 'true');
   };
 
-  // Only show "beta ended" AFTER beta actually expires
-  if (!isBeta && timeRemaining.expired) {
-    if (isDismissed) return null;
-    return (
-      <div className="relative overflow-hidden rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-orange-500/10 p-4 backdrop-blur-sm">
-        <button
-          onClick={handleDismiss}
-          className="absolute top-2 right-2 p-1 rounded-full hover:bg-white/10 transition-colors z-10"
-          aria-label="Dismiss banner"
-        >
-          <X className="w-4 h-4 text-white/60 hover:text-white" />
-        </button>
-        <p className="text-center text-amber-400 font-semibold">
-          Beta period has ended. Standard pricing now applies.
-        </p>
-      </div>
-    );
-  }
+  // DISABLED: Beta ended message - DO NOT SHOW until Jan 16, 2025
+  // if (!isBeta && timeRemaining.expired) { ... }
 
-  // During beta - show FREE BETA celebration banner
-  if (isDismissed || !isBeta) {
+  if (isDismissed) {
     return null;
   }
 
   const countdownText = `${timeRemaining.days}d ${timeRemaining.hours}h ${timeRemaining.minutes}m ${timeRemaining.seconds}s`;
 
+  // FORCE: Always show FREE BETA celebration banner
   return (
     <div className="relative overflow-hidden rounded-xl border-2 border-green-400/60 backdrop-blur-sm animate-[glowPulse_2s_ease-in-out_infinite]"
       style={{
@@ -97,18 +81,18 @@ export const BetaBanner = ({ variant = 'full' }: BetaBannerProps) => {
                 backgroundImage: 'linear-gradient(90deg, #22c55e, #facc15, #22c55e)',
               }}
             >
-              🚀 FREE BETA: Full platform unlock for the first {BETA_CONFIG.maxBetaMembers} members!
+              🚀 FREE BETA: No payment required for first {BETA_CONFIG.maxBetaMembers} users!
             </span>
           </div>
           
-          {/* Countdown and $0 */}
+          {/* Countdown */}
           <p className="text-sm md:text-base font-bold text-white">
             Ends in <span className="text-yellow-400 tabular-nums">{countdownText}</span> • <span className="text-green-400 text-lg">$0.00 signup!</span>
           </p>
 
           {/* Post-beta pricing info */}
           <p className="text-xs text-white/50">
-            After beta: {BETA_CONFIG.regularPrice} | Standard: {BETA_CONFIG.standardPrice}
+            After beta: {BETA_CONFIG.regularPrice} | <span className="line-through">{BETA_CONFIG.standardPrice}</span>
           </p>
         </div>
       </div>

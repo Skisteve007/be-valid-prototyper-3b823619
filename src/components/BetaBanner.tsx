@@ -81,7 +81,7 @@ export const BetaBanner = ({ variant = 'full' }: BetaBannerProps) => {
                 backgroundImage: 'linear-gradient(90deg, #22c55e, #facc15, #22c55e)',
               }}
             >
-              🚀 FREE BETA: No payment required for first {BETA_CONFIG.maxBetaMembers} users!
+              FREE BETA: No payment required for first {BETA_CONFIG.maxBetaMembers} users!
             </span>
           </div>
           

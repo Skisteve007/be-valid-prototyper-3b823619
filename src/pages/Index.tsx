@@ -19,34 +19,40 @@ const Index = () => {
   const { t } = useTranslation();
   useReferralTracking();
 
-  // --- THEME ENGINE ---
-  const [isDark, setIsDark] = useState(true);
+  // --- THEME ENGINE - Sync with global dark class ---
+  const [isDark, setIsDark] = useState(() => {
+    // Initialize from localStorage or default to dark
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme ? savedTheme === 'dark' : true;
+  });
   const [ripple, setRipple] = useState({ active: false, x: 0, y: 0 });
 
-  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setRipple({ 
-      active: true, 
-      x: rect.left + rect.width / 2, 
-      y: rect.top + rect.height / 2 
+  // Sync theme state with document class on mount and changes
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const shouldBeDark = savedTheme ? savedTheme === 'dark' : true;
+    setIsDark(shouldBeDark);
+    
+    if (shouldBeDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  // Listen for theme changes from other components (like ResponsiveHeader)
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          const hasDark = document.documentElement.classList.contains('dark');
+          setIsDark(hasDark);
+        }
+      });
     });
     
-    setTimeout(() => {
-      const newIsDark = !isDark;
-      setIsDark(newIsDark);
-      if (newIsDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
-    }, 150);
-    
-    setTimeout(() => setRipple({ active: false, x: 0, y: 0 }), 700);
-  };
-
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
+    observer.observe(document.documentElement, { attributes: true });
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -189,13 +195,13 @@ interface FeatureCardProps {
 const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage }: FeatureCardProps) => (
   <div className={`p-8 rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden
     ${isDark 
-      ? 'bg-black border-cyan-500/60 hover:border-cyan-400 hover:shadow-[0_0_60px_rgba(0,240,255,0.4)]' 
-      : 'bg-white border-slate-200 hover:shadow-xl hover:border-cyan-300'}`}>
+      ? 'bg-black border-cyan-500/60' 
+      : 'bg-white border-slate-200'}`}>
     
     {/* Background Image - Much higher opacity */}
     {backgroundImage && (
       <div 
-        className="absolute inset-0 opacity-70 group-hover:opacity-90 transition-opacity duration-500"
+        className="absolute inset-0 opacity-70 transition-opacity duration-500"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',

@@ -70,11 +70,20 @@ const Hero = () => {
           style={{
             backgroundImage: 'url(/landing-hero-earth.jpg)',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.4,
+            backgroundPosition: 'center 40%',
+            opacity: 0.65,
           }}
         />
-        <div className="absolute inset-0 z-0 bg-black/60" />
+        {/* Reduced dark overlay */}
+        <div className="absolute inset-0 z-0 bg-black/45" />
+        {/* Horizon-lift gradient: dark space at top, subtle haze revealing Earth below */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(30,40,60,0.2) 70%, rgba(40,50,70,0.15) 100%)',
+          }}
+        />
+        {/* Cyan glow accent */}
         <div 
           className="absolute inset-0 z-0"
           style={{

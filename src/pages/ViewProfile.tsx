@@ -796,6 +796,16 @@ const ViewProfile = () => {
           </CardContent>
         </Card>
 
+        {/* Privacy Confirmation - Shows after scan */}
+        <div className="mt-5 p-3 px-4 bg-[#00FFFF]/5 rounded-xl border border-[#00FFFF]/10 flex items-center gap-2.5">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#00FFFF">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+          </svg>
+          <span className="text-muted-foreground text-xs">
+            Scan complete. <span className="text-[#00FFFF]">No data retained.</span>
+          </span>
+        </div>
+
         {/* Privacy Notice */}
         <Card className="bg-muted border-primary/20">
           <CardContent className="pt-6">

@@ -183,6 +183,14 @@ export const ValidAccessCard = ({
                 Share to Stories
               </Button>
 
+              {/* Privacy Trust Mark */}
+              <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex items-center gap-1.5 opacity-70">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#00FFFF">
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                </svg>
+                <span className="text-muted-foreground text-[9px] tracking-wider">ZERO DATA STORED</span>
+              </div>
+
               {/* Footer branding */}
               <div className="mt-4 text-[10px] text-white/20 tracking-widest">
                 bevalid.app

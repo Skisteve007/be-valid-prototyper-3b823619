@@ -14,6 +14,7 @@ import { SocialMediaSection } from "./profile/SocialMediaSection";
 import MySignalSection from "./profile/MySignalSection";
 import TrustSignalSection from "./profile/TrustSignalSection";
 import { ValidAccessCard } from "@/components/gamification";
+import { PrivacyBadgeB2C } from "@/components/privacy";
 
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
@@ -829,6 +830,11 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
         referencesLocked={referencesLocked}
         onReferencesLockedChange={setReferencesLocked}
       />
+
+      {/* Privacy Badge - Full Version */}
+      <div className="mt-6 flex justify-center">
+        <PrivacyBadgeB2C variant="full" />
+      </div>
 
     </form>
   );

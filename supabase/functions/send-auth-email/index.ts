@@ -54,15 +54,15 @@ const handler = async (req: Request): Promise<Response> => {
     const baseUrl = "https://bevalid.app";
     const verificationUrl = `${baseUrl}/verify-email?token=${token}`;
 
-    // Send branded email with improved deliverability headers
+    // Send branded email - using Resend sandbox until domain is verified
+    // NOTE: To use noreply@bevalid.app, verify your domain at https://resend.com/domains
     const emailResponse = await resend.emails.send({
-      from: "Valid™ <noreply@bevalid.app>",
-      reply_to: "support@bevalid.app",
+      from: "VALID™ <onboarding@resend.dev>",
+      reply_to: "steve@bevalid.app",
       to: [email],
-      subject: "Verify Your Email - Valid™ Account Activation",
+      subject: "Welcome to VALID™ — Confirm Your Email",
       headers: {
         "X-Entity-Ref-ID": token,
-        "List-Unsubscribe": `<mailto:unsubscribe@bevalid.app?subject=unsubscribe>`,
       },
       html: `
         <!DOCTYPE html>

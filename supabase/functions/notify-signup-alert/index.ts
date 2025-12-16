@@ -48,6 +48,8 @@ const handler = async (req: Request): Promise<Response> => {
       timeZoneName: 'short'
     });
 
+    // Send email - using Resend sandbox until domain is verified
+    // NOTE: To use alerts@bevalid.app, verify your domain at https://resend.com/domains
     const emailResponse = await resend.emails.send({
       from: "VALID™ Alerts <onboarding@resend.dev>",
       to: ["steve@bevalid.app"],

@@ -45,9 +45,9 @@ const slidesData = [
     id: 6,
     label: 'REVENUE MODEL',
     title: 'The Invisible Fee',
-    subtitle: "We monetize safety. Venues pay. Fans don't notice.",
-    body: 'Ticket Price: $85.00 + Safety Surcharge: $3.00 = Fan Pays: $88.00. VALID™ Revenue: $3.00/head. Net Profit: $2.30/head.',
-    highlight: '50K stadium × 40 events = $4.6M/venue/year',
+    subtitle: "Guest pays. You profit. We split 50/50.",
+    body: 'Safety Surcharge: $3.00. Vendor Cost: $1.25–$1.75. Gross Profit: $1.25–$1.75/head. YOUR CUT (50%): $0.625–$0.875/head. VALID™ (50%): $0.625–$0.875/head.',
+    highlight: '50K fans → You make $31K–$44K per game',
   },
   {
     id: 7,

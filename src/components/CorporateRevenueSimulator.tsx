@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, ShieldCheck, Trophy, TrendingUp } from 'lucide-react';
+import { Shield, ShieldCheck, Trophy, TrendingUp, Building2, DollarSign } from 'lucide-react';
 
 const CorporateRevenueSimulator = () => {
   return (
@@ -15,7 +15,7 @@ const CorporateRevenueSimulator = () => {
             Turn Security Into Revenue
           </h2>
           <p className="text-xl text-gray-400 mt-4 max-w-3xl mx-auto">
-            The "Invisible Fee" Model: Zero cost to venue. Liability mitigation + operational control.
+            The "Invisible Fee" Model: Zero cost to venue. Guest pays. You profit. We handle everything.
           </p>
         </div>
 
@@ -52,16 +52,45 @@ const CorporateRevenueSimulator = () => {
               </div>
             </div>
 
-            {/* Profit Box */}
-            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 mt-6">
-              <p className="text-xs text-cyan-400 uppercase tracking-wider">NET PROFIT PER GUEST</p>
-              <p className="text-4xl font-bold text-cyan-400">$0.75–$1.00</p>
+            {/* Gross Profit Box */}
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4 mt-6">
+              <p className="text-xs text-gray-400 uppercase tracking-wider">GROSS PROFIT PER GUEST</p>
+              <p className="text-3xl font-bold text-white">$0.75–$1.00</p>
+            </div>
+
+            {/* 50/50 Split Display */}
+            <div className="mt-6 space-y-3">
+              <p className="text-xs text-gray-500 uppercase tracking-wider font-bold">PROFIT SPLIT (50/50)</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Building2 className="h-4 w-4 text-cyan-400" />
+                    <p className="text-xs text-cyan-400 font-bold">YOUR CUT (50%)</p>
+                  </div>
+                  <p className="text-2xl font-bold text-cyan-400">$0.375–$0.50</p>
+                  <p className="text-xs text-gray-500">per guest</p>
+                </div>
+                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <DollarSign className="h-4 w-4 text-purple-400" />
+                    <p className="text-xs text-purple-400 font-bold">VALID™ (50%)</p>
+                  </div>
+                  <p className="text-2xl font-bold text-purple-400">$0.375–$0.50</p>
+                  <p className="text-xs text-gray-500">per guest</p>
+                </div>
+              </div>
             </div>
 
             {/* Example Calculation */}
-            <p className="text-sm text-gray-500 mt-3">
-              <span className="text-gray-400">Illustrative example:</span> 2,000 guests/night → $1,500–$2,000 net profit
-            </p>
+            <div className="mt-6 p-4 bg-cyan-500/5 border border-cyan-500/20 rounded-xl">
+              <p className="text-sm text-gray-400 mb-2">
+                <span className="text-white font-semibold">Illustrative example:</span> 2,000 guests/night
+              </p>
+              <div className="flex flex-col gap-1 text-sm">
+                <p className="text-cyan-400 font-semibold">→ YOU MAKE: $750–$1,000</p>
+                <p className="text-purple-400">→ VALID™ makes: $750–$1,000</p>
+              </div>
+            </div>
           </div>
 
           {/* RIGHT CARD — Tier 2: Fortress Protocol (FEATURED) */}
@@ -100,21 +129,66 @@ const CorporateRevenueSimulator = () => {
               </div>
             </div>
 
-            {/* Profit Box (EMPHASIZED) */}
-            <div className="bg-emerald-500/20 border border-emerald-500/50 rounded-xl p-4 mt-6 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-              <p className="text-xs text-emerald-400 uppercase tracking-wider font-bold">NET PROFIT PER GUEST</p>
-              <p className="text-4xl font-bold text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">$1.25–$1.75</p>
+            {/* Gross Profit Box */}
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4 mt-6">
+              <p className="text-xs text-gray-400 uppercase tracking-wider">GROSS PROFIT PER GUEST</p>
+              <p className="text-3xl font-bold text-white">$1.25–$1.75</p>
+            </div>
+
+            {/* 50/50 Split Display (EMPHASIZED) */}
+            <div className="mt-6 space-y-3">
+              <p className="text-xs text-emerald-400 uppercase tracking-wider font-bold">PROFIT SPLIT (50/50)</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-emerald-500/20 border border-emerald-500/50 rounded-xl p-4 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Building2 className="h-4 w-4 text-emerald-400" />
+                    <p className="text-xs text-emerald-400 font-bold">YOUR CUT (50%)</p>
+                  </div>
+                  <p className="text-2xl font-bold text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">$0.625–$0.875</p>
+                  <p className="text-xs text-emerald-300/70">per guest</p>
+                </div>
+                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <DollarSign className="h-4 w-4 text-purple-400" />
+                    <p className="text-xs text-purple-400 font-bold">VALID™ (50%)</p>
+                  </div>
+                  <p className="text-2xl font-bold text-purple-400">$0.625–$0.875</p>
+                  <p className="text-xs text-gray-500">per guest</p>
+                </div>
+              </div>
             </div>
 
             {/* Example Calculation */}
-            <p className="text-sm text-emerald-300 mt-3 font-semibold">
-              <span className="text-emerald-200">Illustrative example:</span> 50,000 guests/game → $62,500–$87,500 net profit
-            </p>
+            <div className="mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
+              <p className="text-sm text-emerald-200 mb-2">
+                <span className="text-white font-semibold">Illustrative example:</span> 50,000 guests/game
+              </p>
+              <div className="flex flex-col gap-1 text-sm">
+                <p className="text-emerald-400 font-bold text-lg">→ YOU MAKE: $31,250–$43,750</p>
+                <p className="text-purple-400">→ VALID™ makes: $31,250–$43,750</p>
+              </div>
+            </div>
             
             {/* Alternative deployment example */}
-            <p className="text-xs text-emerald-400/70 mt-2">
-              Most common deployment (restricted access / pre-clear): 10,000 pre-cleared fans/staff → $12,500–$17,500 net per enrollment cycle
+            <p className="text-xs text-emerald-400/70 mt-4">
+              Most common deployment (restricted access / pre-clear): 10,000 pre-cleared fans/staff → You make $6,250–$8,750 per enrollment cycle
             </p>
+          </div>
+        </div>
+
+        {/* Benefits Row */}
+        <div className="flex flex-wrap justify-center gap-4 mt-12">
+          <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
+            <span className="text-emerald-400">✅</span>
+            <span className="text-emerald-400 text-sm font-semibold">Zero upfront cost</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
+            <span className="text-emerald-400">✅</span>
+            <span className="text-emerald-400 text-sm font-semibold">Liability protection included</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
+            <span className="text-emerald-400">✅</span>
+            <span className="text-emerald-400 text-sm font-semibold">Full compliance coverage</span>
           </div>
         </div>
 
@@ -139,10 +213,10 @@ const CorporateRevenueSimulator = () => {
             {/* Operator × */}
             <span className="text-3xl text-emerald-400 font-bold">×</span>
 
-            {/* Box 2: Net Profit */}
-            <div className="bg-black/60 border border-white/20 rounded-xl px-8 py-6">
-              <p className="text-3xl md:text-4xl font-bold text-emerald-400 font-orbitron">$1.25–$1.75</p>
-              <p className="text-xs text-gray-500 uppercase tracking-wider mt-2">NET PROFIT</p>
+            {/* Box 2: Your Cut */}
+            <div className="bg-black/60 border border-emerald-500/30 rounded-xl px-8 py-6">
+              <p className="text-3xl md:text-4xl font-bold text-emerald-400 font-orbitron">$0.625–$0.875</p>
+              <p className="text-xs text-emerald-400 uppercase tracking-wider mt-2">YOUR CUT (50%)</p>
             </div>
 
             {/* Operator = */}
@@ -151,9 +225,9 @@ const CorporateRevenueSimulator = () => {
             {/* Box 3: Total (HERO NUMBER) */}
             <div className="bg-emerald-500/20 border-2 border-emerald-500/60 rounded-xl px-8 py-6 shadow-[0_0_30px_rgba(16,185,129,0.4)]">
               <p className="text-3xl md:text-4xl font-bold text-emerald-400 font-orbitron drop-shadow-[0_0_15px_rgba(16,185,129,0.6)]">
-                $62,500–$87,500
+                $31,250–$43,750
               </p>
-              <p className="text-xs text-emerald-300 uppercase tracking-wider mt-2 font-semibold">PER GAME</p>
+              <p className="text-xs text-emerald-300 uppercase tracking-wider mt-2 font-semibold">YOU MAKE PER GAME</p>
             </div>
           </div>
 
@@ -161,8 +235,11 @@ const CorporateRevenueSimulator = () => {
           <div className="mt-10 pt-8 border-t border-emerald-500/20">
             <p className="text-gray-400 text-lg">
               <span className="text-white font-semibold">10 Home Games</span> = 
-              <span className="text-emerald-400 font-bold text-2xl ml-2">$625,000–$875,000</span>
-              <span className="text-gray-500 ml-2">per season</span>
+              <span className="text-emerald-400 font-bold text-2xl ml-2">$312,500–$437,500</span>
+              <span className="text-gray-500 ml-2">your venue makes per season</span>
+            </p>
+            <p className="text-gray-500 text-sm mt-2">
+              (VALID™ earns the same — we grow together)
             </p>
           </div>
           

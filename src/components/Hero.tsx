@@ -8,7 +8,7 @@ import { ArrowDownLeft, Users, Activity, Zap, Moon } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
-import LanguageSelector from './LanguageSelector';
+import ResponsiveHeader from './ResponsiveHeader';
 import { usePageViewTracking } from '@/hooks/usePageViewTracking';
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
@@ -100,33 +100,7 @@ const Hero = () => {
     <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
       
       {/* ===== NAVBAR ===== */}
-      <nav className="w-full px-4 md:px-8 pt-12 pb-6">
-        <div className="flex items-center justify-between">
-          {/* Removed spacer - align logo to left */}
-          
-          {/* Logo */}
-          <div className="text-2xl md:text-4xl font-black font-orbitron tracking-widest text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">
-            VALID<sup className="text-xs md:text-sm text-cyan-400">™</sup>
-          </div>
-          
-          {/* Nav Actions */}
-          <div className="flex items-center gap-2 md:gap-4">
-            <LanguageSelector />
-            <Link 
-              to="/partners" 
-              className="text-xs font-bold text-cyan-400/80 hover:text-cyan-300 uppercase tracking-widest border border-cyan-900/50 px-3 py-2 rounded-full hover:bg-cyan-900/20 transition-colors"
-            >
-              {t('nav.partners')}
-            </Link>
-            <button 
-              onClick={handleAccessClick}
-              className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded text-xs uppercase tracking-wider hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,240,255,0.4)]"
-            >
-              {t('nav.memberLogin')}
-            </button>
-          </div>
-        </div>
-      </nav>
+      <ResponsiveHeader />
 
       {/* ===== MAIN HERO: TWO-COLUMN FLEXBOX ===== */}
       <div className="w-full px-4 md:px-8 lg:px-12">

@@ -8,7 +8,7 @@ import {
   Shield,
   Check
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
+import ResponsiveHeader from "@/components/ResponsiveHeader";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -134,7 +134,7 @@ const PlatformFeatures = () => {
         <meta name="description" content="Explore Valid™ industry pricing packages for nightlife, transportation, workforce, health, rentals, and security operations." />
       </Helmet>
       
-      <Navbar />
+      <ResponsiveHeader />
       
       <main className="min-h-screen bg-gradient-to-b from-background via-background/95 to-background pt-20 pb-16 px-4">
         <div className="max-w-7xl mx-auto">

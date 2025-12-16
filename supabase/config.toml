@@ -62,3 +62,6 @@ verify_jwt = false
 
 [functions.notify-access-request]
 verify_jwt = true
+
+[functions.notify-signup-alert]
+verify_jwt = false

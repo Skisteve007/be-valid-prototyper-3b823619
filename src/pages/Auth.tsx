@@ -188,6 +188,17 @@ const Auth = () => {
         } else {
           toast.success("Verification email sent! Please check your inbox.");
         }
+
+        // Send admin alert for new signup (fire and forget - don't block user flow)
+        supabase.functions.invoke("notify-signup-alert", {
+          body: {
+            userId: data.user.id,
+            email: signupEmail,
+            fullName: fullName,
+            createdAt: new Date().toISOString(),
+            source: document.referrer || 'direct',
+          },
+        }).catch(err => console.error("Failed to send signup alert:", err));
       }
 
       // Show email verification message

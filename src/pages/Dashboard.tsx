@@ -347,7 +347,7 @@ const Dashboard = () => {
                 </button>
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
-                Manage your profile
+                Welcome to your Universal Lifestyle Wallet. One place for identity, safety, and access.
               </p>
             </div>
             

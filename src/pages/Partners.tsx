@@ -166,11 +166,13 @@ const Partners = () => {
           </p>
         </div>
         
-        {/* The Quote */}
+        {/* Intro Description - Updated for Conduit Messaging */}
         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm relative">
           <div className="text-4xl text-cyan-500 absolute top-4 left-4 font-serif">"</div>
-          <p className="text-lg md:text-xl text-gray-300 italic leading-relaxed mb-6 px-4">
-            Your operation faces two constant threats: <strong className="text-white">liability exposure</strong> and <strong className="text-white">entry friction</strong>. VALID™ eliminates both—instantly.
+          <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 px-4">
+            Bring privacy-first identity verification to your venues, events, and platforms. We're the <span className="text-cyan-400 font-bold">conduit</span> that keeps your customers safe — without storing their data.
+            <br /><br />
+            <strong className="text-white">Enterprise-Grade Security:</strong> SOC 2 Type II & GDPR compliant. Built for stadiums, healthcare systems, and government contracts.
             <br /><br />
             <strong className="text-white">Monetize Every Scan (The Streaming Model):</strong> Instead of relying solely on your own ticket sales, you earn a <span className="text-cyan-400">Royalty Payout</span> every time a VALID™ user scans into your venue. Just like a streaming service pays an artist for every play, VALID™ pays you for every entry—drawing from the global pool of active Ghost™ Pass™ holders.
             <br /><br />
@@ -178,7 +180,7 @@ const Partners = () => {
             <br /><br />
             <span className="text-cyan-400">Zero credit card fees. Zero chargebacks. Zero funding headaches.</span>
           </p>
-          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— What VALID™ Means for Your Operation</div>
+          <div className="text-xs font-bold text-cyan-500 uppercase tracking-widest">— Partner With VALID™</div>
         </div>
       </header>
 
@@ -260,6 +262,54 @@ const Partners = () => {
               <p className="text-xs text-gray-300 leading-relaxed">One scan. All three signals delivered. You are <span className="text-amber-400 font-bold">Ghosted in.</span></p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* THE CONDUIT ARCHITECTURE - How It Works */}
+      <section className="max-w-6xl mx-auto px-6 py-20 relative z-10">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/5">
+            <ShieldCheck size={16} className="text-cyan-400" />
+            <span className="text-cyan-400 text-xs font-bold tracking-widest uppercase">Privacy By Design</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4">THE CONDUIT <span className="text-cyan-400">ARCHITECTURE</span></h2>
+          <p className="text-white max-w-2xl mx-auto">Unlike legacy systems that warehouse personal data for years, VALID™ operates as a secure conduit:</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+          <div className="bg-gradient-to-b from-cyan-900/20 to-transparent border border-cyan-500/30 p-6 rounded-xl text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-cyan-500/20 border-2 border-cyan-500/50 flex items-center justify-center">
+              <span className="text-2xl font-bold text-cyan-400">1</span>
+            </div>
+            <h4 className="font-bold text-cyan-400 mb-2 font-orbitron">SCAN</h4>
+            <p className="text-sm text-gray-400">User presents QR code or ID</p>
+          </div>
+          <div className="bg-gradient-to-b from-green-900/20 to-transparent border border-green-500/30 p-6 rounded-xl text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/20 border-2 border-green-500/50 flex items-center justify-center">
+              <span className="text-2xl font-bold text-green-400">2</span>
+            </div>
+            <h4 className="font-bold text-green-400 mb-2 font-orbitron">VERIFY</h4>
+            <p className="text-sm text-gray-400">Real-time check against federal databases</p>
+          </div>
+          <div className="bg-gradient-to-b from-amber-900/20 to-transparent border border-amber-500/30 p-6 rounded-xl text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-500/20 border-2 border-amber-500/50 flex items-center justify-center">
+              <span className="text-2xl font-bold text-amber-400">3</span>
+            </div>
+            <h4 className="font-bold text-amber-400 mb-2 font-orbitron">CLEAR</h4>
+            <p className="text-sm text-gray-400">Access granted in under 3 seconds</p>
+          </div>
+          <div className="bg-gradient-to-b from-purple-900/20 to-transparent border border-purple-500/30 p-6 rounded-xl text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-purple-500/20 border-2 border-purple-500/50 flex items-center justify-center">
+              <span className="text-2xl font-bold text-purple-400">4</span>
+            </div>
+            <h4 className="font-bold text-purple-400 mb-2 font-orbitron">PURGE</h4>
+            <p className="text-sm text-gray-400">Data deleted immediately. Nothing stored. Ever.</p>
+          </div>
+        </div>
+
+        <div className="text-center bg-gradient-to-r from-cyan-500/10 via-transparent to-cyan-500/10 border border-cyan-500/20 rounded-xl p-8">
+          <p className="text-lg text-white font-semibold mb-2">This is privacy by design, not privacy by promise.</p>
+          <p className="text-gray-400">We Check. We Don't Collect.</p>
         </div>
       </section>
 

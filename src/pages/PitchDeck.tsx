@@ -326,6 +326,27 @@ const PitchDeck = () => {
               <span className="text-green-400 font-bold ml-2">Revenue Generating</span>
             </div>
           </div>
+
+          {/* Enterprise Trust - Investor Differentiator */}
+          <div className="mt-8 bg-gradient-to-r from-cyan-500/10 via-green-500/10 to-amber-500/10 border border-cyan-500/30 rounded-xl p-6">
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-3">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-cyan-500/20 border border-cyan-500/40 rounded-full">
+                <span>🛡️</span>
+                <span className="text-cyan-400 text-xs font-bold">SOC 2</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/20 border border-green-500/40 rounded-full">
+                <span>🔒</span>
+                <span className="text-green-400 text-xs font-bold">GDPR</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/20 border border-amber-500/40 rounded-full">
+                <span>🔒</span>
+                <span className="text-amber-400 text-xs font-bold">CCPA</span>
+              </div>
+            </div>
+            <p className="text-center text-white font-semibold">
+              Enterprise Trust: Built for SOC 2 & GDPR compliance to win government & healthcare contracts.
+            </p>
+          </div>
         </section>
 
         {/* ===== CORE INSIGHT ===== */}

@@ -88,9 +88,26 @@ const InvestorPortal = () => {
           
           {/* Prominent Tagline */}
           <div className="text-center">
-            <p className="text-2xl md:text-4xl text-amber-300 font-bold italic tracking-wide">
+            <p className="text-2xl md:text-4xl text-amber-300 font-bold italic tracking-wide mb-6">
               "Experience cannot be coded. It must be lived."
             </p>
+            
+            {/* Enterprise Trust - Investor Differentiator */}
+            <div className="inline-flex flex-wrap items-center justify-center gap-3 bg-gradient-to-r from-cyan-500/10 via-green-500/10 to-amber-500/10 border border-cyan-500/30 rounded-xl px-6 py-4">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-cyan-500/20 border border-cyan-500/40 rounded-full">
+                <span>🛡️</span>
+                <span className="text-cyan-400 text-xs font-bold">SOC 2</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/20 border border-green-500/40 rounded-full">
+                <span>🔒</span>
+                <span className="text-green-400 text-xs font-bold">GDPR</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/20 border border-amber-500/40 rounded-full">
+                <span>🔒</span>
+                <span className="text-amber-400 text-xs font-bold">CCPA</span>
+              </div>
+              <span className="text-white text-sm font-semibold">Enterprise Ready</span>
+            </div>
           </div>
 
           {/* Timeline Visualization */}

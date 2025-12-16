@@ -97,6 +97,25 @@ const Footer = () => {
           {/* Security & Compliance Badges */}
           <ComplianceBadges variant="footer" />
 
+          {/* Enterprise Trust Line */}
+          <div className="flex flex-wrap items-center justify-center gap-3 py-3 border-t border-slate-600 mt-3">
+            <div className="flex items-center gap-2">
+              <span className="text-cyan-400">🛡️</span>
+              <span className="text-cyan-400 text-xs font-bold">SOC 2</span>
+            </div>
+            <span className="text-slate-500">•</span>
+            <div className="flex items-center gap-2">
+              <span className="text-green-400">🔒</span>
+              <span className="text-green-400 text-xs font-bold">GDPR</span>
+            </div>
+            <span className="text-slate-500">•</span>
+            <div className="flex items-center gap-2">
+              <span className="text-amber-400">🔒</span>
+              <span className="text-amber-400 text-xs font-bold">CCPA</span>
+            </div>
+            <span className="text-slate-400 text-xs ml-2">| Enterprise Ready</span>
+          </div>
+
           {/* Links & Compliance Row */}
           <div className="flex flex-wrap items-center justify-center gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
             <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.terms')}</Link>

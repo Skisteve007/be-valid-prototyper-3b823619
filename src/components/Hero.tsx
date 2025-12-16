@@ -12,6 +12,7 @@ import ResponsiveHeader from './ResponsiveHeader';
 import ComplianceBadges from './ComplianceBadges';
 import SynthButton from './SynthButton';
 import { usePageViewTracking } from '@/hooks/usePageViewTracking';
+import LiveStats from './LiveStats';
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
 
@@ -153,16 +154,21 @@ const Hero = () => {
             </p>
 
             {/* CTA Button + Beta Pill */}
-            <div className="flex items-center gap-2 mb-8">
-              <button 
-                onClick={handleAccessClick}
-                className="inline-flex items-center gap-1.5 px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm rounded-full hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_40px_rgba(0,240,255,0.6)] transition-all hover:scale-105 whitespace-nowrap"
-              >
-                Get Your VALID™ <ArrowDownLeft size={14} />
-              </button>
-              <span className="px-2 py-0.5 text-[7px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
-                Beta Version
-              </span>
+            <div className="flex flex-col gap-4 mb-8">
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={handleAccessClick}
+                  className="inline-flex items-center gap-1.5 px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm rounded-full hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_40px_rgba(0,240,255,0.6)] transition-all hover:scale-105 whitespace-nowrap"
+                >
+                  Get Your VALID™ <ArrowDownLeft size={14} />
+                </button>
+                <span className="px-2 py-0.5 text-[7px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
+                  Beta Version
+                </span>
+              </div>
+              
+              {/* Live Stats Counter */}
+              <LiveStats />
             </div>
 
             {/* Signal Mode Selection */}

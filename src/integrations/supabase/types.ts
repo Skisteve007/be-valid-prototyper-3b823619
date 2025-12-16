@@ -275,6 +275,42 @@ export type Database = {
         }
         Relationships: []
       }
+      compliance_certifications: {
+        Row: {
+          auditor_name: string | null
+          certificate_url: string | null
+          certification_status: string | null
+          certification_type: string
+          created_at: string | null
+          expiry_date: string | null
+          id: string
+          issued_date: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          auditor_name?: string | null
+          certificate_url?: string | null
+          certification_status?: string | null
+          certification_type: string
+          created_at?: string | null
+          expiry_date?: string | null
+          id?: string
+          issued_date?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          auditor_name?: string | null
+          certificate_url?: string | null
+          certification_status?: string | null
+          certification_type?: string
+          created_at?: string | null
+          expiry_date?: string | null
+          id?: string
+          issued_date?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       discount_codes: {
         Row: {
           code: string
@@ -466,6 +502,27 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      global_stats: {
+        Row: {
+          id: string
+          last_updated: string | null
+          stat_key: string
+          stat_value: number | null
+        }
+        Insert: {
+          id?: string
+          last_updated?: string | null
+          stat_key: string
+          stat_value?: number | null
+        }
+        Update: {
+          id?: string
+          last_updated?: string | null
+          stat_key?: string
+          stat_value?: number | null
+        }
+        Relationships: []
       }
       idv_verifications: {
         Row: {
@@ -1199,6 +1256,39 @@ export type Database = {
           },
         ]
       }
+      privacy_consent_log: {
+        Row: {
+          consent_given: boolean | null
+          consent_timestamp: string | null
+          consent_type: string
+          consent_version: string | null
+          created_at: string | null
+          id: string
+          ip_hash: string | null
+          user_id: string
+        }
+        Insert: {
+          consent_given?: boolean | null
+          consent_timestamp?: string | null
+          consent_type: string
+          consent_version?: string | null
+          created_at?: string | null
+          id?: string
+          ip_hash?: string | null
+          user_id: string
+        }
+        Update: {
+          consent_given?: boolean | null
+          consent_timestamp?: string | null
+          consent_type?: string
+          consent_version?: string | null
+          created_at?: string | null
+          id?: string
+          ip_hash?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           access_approved_by: string | null
@@ -1712,6 +1802,50 @@ export type Database = {
             columns: ["profile_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scan_audit_log: {
+        Row: {
+          created_at: string | null
+          data_purged_at: string | null
+          data_retained: boolean | null
+          id: string
+          result: string
+          scan_timestamp: string | null
+          scan_type: string
+          session_hash: string | null
+          venue_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          data_purged_at?: string | null
+          data_retained?: boolean | null
+          id?: string
+          result: string
+          scan_timestamp?: string | null
+          scan_type: string
+          session_hash?: string | null
+          venue_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          data_purged_at?: string | null
+          data_retained?: boolean | null
+          id?: string
+          result?: string
+          scan_timestamp?: string | null
+          scan_type?: string
+          session_hash?: string | null
+          venue_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scan_audit_log_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
             referencedColumns: ["id"]
           },
         ]
@@ -2244,6 +2378,53 @@ export type Database = {
             columns: ["transaction_id"]
             isOneToOne: false
             referencedRelation: "incognito_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_privacy_stats: {
+        Row: {
+          avg_scan_time_ms: number | null
+          data_retention_time_ms: number | null
+          fan_satisfaction_score: number | null
+          id: string
+          last_updated: string | null
+          threats_blocked_lifetime: number | null
+          threats_blocked_today: number | null
+          total_scans_lifetime: number | null
+          total_scans_today: number | null
+          venue_id: string | null
+        }
+        Insert: {
+          avg_scan_time_ms?: number | null
+          data_retention_time_ms?: number | null
+          fan_satisfaction_score?: number | null
+          id?: string
+          last_updated?: string | null
+          threats_blocked_lifetime?: number | null
+          threats_blocked_today?: number | null
+          total_scans_lifetime?: number | null
+          total_scans_today?: number | null
+          venue_id?: string | null
+        }
+        Update: {
+          avg_scan_time_ms?: number | null
+          data_retention_time_ms?: number | null
+          fan_satisfaction_score?: number | null
+          id?: string
+          last_updated?: string | null
+          threats_blocked_lifetime?: number | null
+          threats_blocked_today?: number | null
+          total_scans_lifetime?: number | null
+          total_scans_today?: number | null
+          venue_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_privacy_stats_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
             referencedColumns: ["id"]
           },
         ]

@@ -162,7 +162,7 @@ const Hero = () => {
                 >
                   Get Your VALID™ <ArrowDownLeft size={14} />
                 </button>
-                <span className="px-2 py-0.5 text-[7px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
+                <span className="px-2 py-0.5 md:px-3 md:py-1 text-[7px] md:text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
                   Beta Version
                 </span>
               </div>

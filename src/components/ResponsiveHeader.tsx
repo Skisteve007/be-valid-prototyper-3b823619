@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
 import SynthButton from './SynthButton';
@@ -21,15 +21,14 @@ const ResponsiveHeader = () => {
     <header className="border-b border-border bg-background sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
+          {/* Logo - Text Only */}
           <Link 
             to="/" 
             className="flex items-center gap-2 flex-shrink-0"
             onClick={closeMobileMenu}
           >
-            <Shield className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-            <span className="text-lg md:text-xl font-bold tracking-widest text-foreground">
-              VALID<sup className="text-xs text-primary">™</sup>
+            <span className="text-xl md:text-2xl font-bold tracking-[0.2em] text-foreground">
+              VALID<sup className="text-[0.6em] text-primary">™</sup>
             </span>
             <span className="px-2 py-0.5 text-[8px] md:text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse whitespace-nowrap">
               Beta

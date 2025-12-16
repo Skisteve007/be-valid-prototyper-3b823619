@@ -384,6 +384,19 @@ const Dashboard = () => {
               <PrivacyBadgeB2C variant="compact" />
             </div>
             
+            {/* Enterprise Trust Badge - Dashboard */}
+            <div className="flex items-center justify-center gap-2 my-3 flex-wrap">
+              <div className="flex items-center gap-1.5 px-2 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full">
+                <span className="text-xs">🛡️</span>
+                <span className="text-cyan-400 text-[10px] font-bold">SOC 2</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-2 py-1 bg-green-500/10 border border-green-500/30 rounded-full">
+                <span className="text-xs">🔒</span>
+                <span className="text-green-400 text-[10px] font-bold">GDPR</span>
+              </div>
+              <span className="text-gray-500 text-[10px]">Enterprise Ready</span>
+            </div>
+            
             {/* Bounty Mission - Daily Quest */}
             <div className="flex justify-center">
               <BountyMission />

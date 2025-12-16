@@ -138,9 +138,33 @@ const Partners = () => {
           </span>
         </div>
         
-        <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-white font-orbitron drop-shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+        <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-white font-orbitron drop-shadow-[0_0_20px_rgba(0,240,255,0.2)]">
           PARTNER SOLUTIONS
         </h1>
+
+        {/* Enterprise Trust Banner - Prominent */}
+        <div className="bg-gradient-to-r from-cyan-500/10 via-green-500/10 to-amber-500/10 border border-cyan-500/30 rounded-xl p-6 mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-3">
+            <div className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/40 rounded-full">
+              <span>🛡️</span>
+              <span className="text-cyan-400 text-sm font-bold">SOC 2 Type II</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/40 rounded-full">
+              <span>🔒</span>
+              <span className="text-green-400 text-sm font-bold">GDPR Compliant</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 border border-amber-500/40 rounded-full">
+              <span>🔒</span>
+              <span className="text-amber-400 text-sm font-bold">CCPA Compliant</span>
+            </div>
+          </div>
+          <p className="text-center text-lg text-white font-semibold">
+            Enterprise Trust: Built for SOC 2 & GDPR compliance to win government & healthcare contracts.
+          </p>
+          <p className="text-center text-sm text-gray-400 mt-2">
+            We check. We don't collect.
+          </p>
+        </div>
         
         {/* The Quote */}
         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm relative">

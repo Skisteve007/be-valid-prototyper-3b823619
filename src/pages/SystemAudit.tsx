@@ -3,7 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { RefreshCw, CheckCircle, XCircle, AlertTriangle, Mail, Shield } from 'lucide-react';
+import { RefreshCw, CheckCircle, XCircle, AlertTriangle, Mail, Shield, TrendingUp, TrendingDown, Minus, History } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface AuditCheck {
@@ -24,10 +24,23 @@ interface AuditReport {
   };
 }
 
+interface AuditLogEntry {
+  id: string;
+  timestamp: string;
+  status: string;
+  passed: number;
+  failed: number;
+  warned: number;
+  trigger_type: string;
+  details: Record<string, unknown>;
+}
+
 const SystemAudit = () => {
   const [audit, setAudit] = useState<AuditReport | null>(null);
+  const [auditHistory, setAuditHistory] = useState<AuditLogEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [trend, setTrend] = useState<'improving' | 'declining' | 'stable'>('stable');
 
   useEffect(() => {
     checkAdmin();
@@ -53,14 +66,50 @@ const SystemAudit = () => {
 
     setIsAdmin(true);
     runAudit();
+    fetchAuditHistory();
+  };
+
+  const fetchAuditHistory = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('audit_logs')
+        .select('*')
+        .order('timestamp', { ascending: false })
+        .limit(20);
+
+      if (error) {
+        console.error('Error fetching audit history:', error);
+        return;
+      }
+
+      if (data) {
+        setAuditHistory(data as AuditLogEntry[]);
+        
+        // Calculate trend from last 2 audits
+        if (data.length >= 2) {
+          const latest = data[0];
+          const previous = data[1];
+          
+          if (latest.failed < previous.failed) {
+            setTrend('improving');
+          } else if (latest.failed > previous.failed) {
+            setTrend('declining');
+          } else {
+            setTrend('stable');
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch audit history:', err);
+    }
   };
 
   const runAudit = async (sendEmail = false) => {
     setLoading(true);
     try {
       const url = sendEmail 
-        ? `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/system-audit?email=true`
-        : `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/system-audit`;
+        ? `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/system-audit?email=true&trigger=manual`
+        : `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/system-audit?trigger=manual`;
 
       const response = await fetch(url, {
         headers: {
@@ -70,6 +119,9 @@ const SystemAudit = () => {
 
       const data = await response.json();
       setAudit(data);
+
+      // Refresh history after running audit
+      setTimeout(() => fetchAuditHistory(), 1000);
 
       if (sendEmail) {
         toast.success('Audit report sent to steve@bevalid.app');
@@ -105,6 +157,45 @@ const SystemAudit = () => {
         return <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">WARN</Badge>;
       default:
         return null;
+    }
+  };
+
+  const getOverallStatusBadge = (status: string) => {
+    switch (status) {
+      case 'HEALTHY':
+        return <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">🟢 HEALTHY</Badge>;
+      case 'WARNING':
+        return <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">🟡 WARNING</Badge>;
+      case 'CRITICAL':
+        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">🔴 CRITICAL</Badge>;
+      default:
+        return <Badge className="bg-muted/20 text-muted-foreground border-border">{status}</Badge>;
+    }
+  };
+
+  const getTrendIndicator = () => {
+    switch (trend) {
+      case 'improving':
+        return (
+          <div className="flex items-center gap-2 text-emerald-400">
+            <TrendingUp className="w-5 h-5" />
+            <span className="text-sm font-medium">Improving</span>
+          </div>
+        );
+      case 'declining':
+        return (
+          <div className="flex items-center gap-2 text-red-400">
+            <TrendingDown className="w-5 h-5" />
+            <span className="text-sm font-medium">Declining</span>
+          </div>
+        );
+      default:
+        return (
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Minus className="w-5 h-5" />
+            <span className="text-sm font-medium">Stable</span>
+          </div>
+        );
     }
   };
 
@@ -157,7 +248,7 @@ const SystemAudit = () => {
         {audit && (
           <>
             {/* Summary Cards */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-4 gap-4 mb-8">
               <Card className="bg-emerald-500/10 border-emerald-500/30">
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl font-bold text-emerald-400">{audit.summary.passed}</div>
@@ -174,6 +265,12 @@ const SystemAudit = () => {
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl font-bold text-amber-400">{audit.summary.warnings}</div>
                   <div className="text-sm text-amber-400/70 uppercase tracking-wider">Warnings</div>
+                </CardContent>
+              </Card>
+              <Card className="bg-card/50 border-border/50">
+                <CardContent className="p-6 text-center">
+                  <div className="mb-1">{getTrendIndicator()}</div>
+                  <div className="text-sm text-muted-foreground uppercase tracking-wider">Trend</div>
                 </CardContent>
               </Card>
             </div>
@@ -230,6 +327,43 @@ const SystemAudit = () => {
               </Card>
             )}
           </>
+        )}
+
+        {/* Audit History */}
+        {auditHistory.length > 0 && (
+          <Card className="mt-8 bg-card/50 backdrop-blur-sm border-border/50">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <History className="w-5 h-5 text-cyan-400" />
+                Audit History
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {auditHistory.map((log) => (
+                  <div
+                    key={log.id}
+                    className="flex items-center justify-between p-3 rounded-lg bg-background/50 border border-border/30"
+                  >
+                    <div className="flex items-center gap-4">
+                      {getOverallStatusBadge(log.status)}
+                      <span className="text-sm text-muted-foreground">
+                        {new Date(log.timestamp).toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm">
+                      <span className="text-emerald-400">{log.passed} passed</span>
+                      {log.failed > 0 && <span className="text-red-400">{log.failed} failed</span>}
+                      {log.warned > 0 && <span className="text-amber-400">{log.warned} warned</span>}
+                      <Badge variant="outline" className="text-xs">
+                        {log.trigger_type}
+                      </Badge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         )}
 
         {/* Playwright Note */}

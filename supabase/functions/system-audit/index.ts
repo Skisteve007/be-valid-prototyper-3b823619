@@ -212,9 +212,45 @@ serve(async (req) => {
       summary
     };
 
-    // Check if we should send email report
+    // Determine overall status for logging
+    let overallStatus = 'HEALTHY';
+    if (summary.failed > 0) {
+      overallStatus = summary.failed >= 3 ? 'CRITICAL' : 'WARNING';
+    } else if (summary.warnings > 0) {
+      overallStatus = 'WARNING';
+    }
+
+    // Get trigger type from query params
     const url = new URL(req.url);
+    const triggerType = url.searchParams.get('trigger') || 'manual';
     const sendEmail = url.searchParams.get('email') === 'true';
+
+    // Save audit log to database
+    try {
+      const { error: insertError } = await supabase
+        .from('audit_logs')
+        .insert({
+          timestamp: new Date().toISOString(),
+          status: overallStatus,
+          passed: summary.passed,
+          failed: summary.failed,
+          warned: summary.warnings,
+          trigger_type: triggerType,
+          details: {
+            checks: checks,
+            site_url: 'https://bevalid.app',
+            issues: summary.issues,
+          },
+        });
+
+      if (insertError) {
+        console.error('Failed to save audit log:', insertError);
+      } else {
+        console.log('Audit log saved successfully');
+      }
+    } catch (logError) {
+      console.error('Error saving audit log:', logError);
+    }
 
     if (sendEmail && resendApiKey) {
       const statusEmoji = summary.failed > 0 ? '❌' : summary.warnings > 0 ? '⚠️' : '✅';

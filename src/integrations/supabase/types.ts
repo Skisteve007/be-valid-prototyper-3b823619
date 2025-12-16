@@ -141,6 +141,42 @@ export type Database = {
           },
         ]
       }
+      audit_logs: {
+        Row: {
+          created_at: string | null
+          details: Json | null
+          failed: number | null
+          id: string
+          passed: number | null
+          status: string
+          timestamp: string | null
+          trigger_type: string | null
+          warned: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          details?: Json | null
+          failed?: number | null
+          id?: string
+          passed?: number | null
+          status: string
+          timestamp?: string | null
+          trigger_type?: string | null
+          warned?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          details?: Json | null
+          failed?: number | null
+          id?: string
+          passed?: number | null
+          status?: string
+          timestamp?: string | null
+          trigger_type?: string | null
+          warned?: number | null
+        }
+        Relationships: []
+      }
       bar_tab_charges: {
         Row: {
           amount: number

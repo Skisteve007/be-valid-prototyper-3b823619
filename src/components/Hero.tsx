@@ -160,7 +160,7 @@ const Hero = () => {
                   onClick={handleAccessClick}
                   className="inline-flex items-center gap-1.5 px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm rounded-full hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_40px_rgba(0,240,255,0.6)] transition-all hover:scale-105 whitespace-nowrap"
                 >
-                  Get Your VALID™ <ArrowDownLeft size={14} />
+                  Get Your VALID<sup className="text-[0.5em]">™</sup> <ArrowDownLeft size={14} />
                 </button>
               </div>
               {/* FREE BETA Glowing Button */}
@@ -275,13 +275,13 @@ const Hero = () => {
       <div className="w-full px-4 md:px-8 lg:px-12 py-16 border-t border-cyan-500/20">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-6">
-            Why VALID™ is Different
+            Why VALID<sup className="text-[0.5em]">™</sup> is Different
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
             Conduit, <span className="text-cyan-400">Not Warehouse</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
-            Unlike legacy systems that store your personal data for years, VALID™ operates as a secure conduit. 
+            Unlike legacy systems that store your personal data for years, VALID<sup className="text-[0.5em]">™</sup> operates as a secure conduit. 
             We verify your identity in real-time, grant access, then <span className="text-cyan-400 font-bold">purge immediately</span>. 
             Your data is never stored. Never sold. Never at risk.
           </p>

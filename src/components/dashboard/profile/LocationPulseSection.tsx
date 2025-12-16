@@ -251,10 +251,10 @@ const LocationPulseSection = ({ onLocationChange }: LocationPulseSectionProps) =
               {locationType === "live" && (
                 <div className="space-y-2 animate-fade-in">
                   {/* Map Placeholder */}
-                  <div className="w-full h-32 bg-muted rounded-lg flex items-center justify-center border border-border">
+                  <div className="w-full h-64 bg-muted rounded-lg flex items-center justify-center">
                     <div className="text-center">
-                      <span className="text-3xl">📍</span>
-                      <p className="text-muted-foreground mt-1 text-xs">Live location coming soon</p>
+                      <span className="text-4xl">📍</span>
+                      <p className="text-muted-foreground mt-2">Live location coming soon</p>
                     </div>
                   </div>
 
@@ -305,10 +305,10 @@ const LocationPulseSection = ({ onLocationChange }: LocationPulseSectionProps) =
               {locationType === "static" && (
                 <div className="space-y-2 animate-fade-in">
                   {/* Map Placeholder */}
-                  <div className="w-full h-32 bg-muted rounded-lg flex items-center justify-center border border-border">
+                  <div className="w-full h-64 bg-muted rounded-lg flex items-center justify-center">
                     <div className="text-center">
-                      <span className="text-3xl">📍</span>
-                      <p className="text-muted-foreground mt-1 text-xs">Map preview coming soon</p>
+                      <span className="text-4xl">📍</span>
+                      <p className="text-muted-foreground mt-2">Map preview coming soon</p>
                     </div>
                   </div>
 

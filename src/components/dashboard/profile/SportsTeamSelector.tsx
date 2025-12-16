@@ -79,7 +79,7 @@ export const SportsTeamSelector = ({ selectedTeams, onTeamsChange }: SportsTeamS
   const allSelectedTeams = Object.entries(selectedTeams)
     .flatMap(([league, teams]) => teams.map(t => ({ league: league as LeagueType, team: t })));
 
-  // Get display text for the pill
+  // Get display text for the pill - arranged in columns of 5, flowing left to right
   const getDisplayContent = () => {
     if (totalSelected === 0) {
       return (
@@ -90,12 +90,22 @@ export const SportsTeamSelector = ({ selectedTeams, onTeamsChange }: SportsTeamS
       );
     }
 
+    // Arrange teams into columns of 5
+    const columnsOf5: typeof allSelectedTeams[] = [];
+    for (let i = 0; i < allSelectedTeams.length; i += 5) {
+      columnsOf5.push(allSelectedTeams.slice(i, i + 5));
+    }
+
     return (
-      <div className="flex items-center gap-2 flex-wrap">
-        {allSelectedTeams.map((item, idx) => (
-          <span key={idx} className="text-xs md:text-sm font-medium whitespace-nowrap">
-            {leagueEmojis[item.league]} {item.team.split(' ').pop()}
-          </span>
+      <div className="flex gap-4">
+        {columnsOf5.map((column, colIdx) => (
+          <div key={colIdx} className="flex flex-col gap-1">
+            {column.map((item, idx) => (
+              <span key={idx} className="text-xs md:text-sm font-medium whitespace-nowrap">
+                {leagueEmojis[item.league]} {item.team.split(' ').pop()}
+              </span>
+            ))}
+          </div>
         ))}
       </div>
     );

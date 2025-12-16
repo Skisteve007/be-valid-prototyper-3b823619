@@ -102,8 +102,8 @@ export const privacyService = {
       session_hash: sessionHash
     });
 
-    // Increment global counter
-    await supabase.rpc('increment_global_stat', { 
+    // Increment global counter (cast to any to handle new function not in types yet)
+    await (supabase.rpc as any)('increment_global_stat', { 
       stat_name: 'total_fans_protected', 
       increment_by: 1 
     });

@@ -129,7 +129,7 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
   if (isLoading) {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center z-[200]">
-        <div className="animate-pulse text-cyan-400 font-orbitron text-2xl">VALID™</div>
+        <div className="animate-pulse text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID<sup className="text-xs text-cyan-400">™</sup></div>
       </div>
     );
   }

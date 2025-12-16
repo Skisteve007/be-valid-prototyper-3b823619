@@ -27,8 +27,8 @@ const ResponsiveHeader = () => {
             className="flex items-center gap-2 flex-shrink-0"
             onClick={closeMobileMenu}
           >
-            <span className="text-xl md:text-2xl font-bold tracking-[0.2em] text-foreground">
-              VALID<sup className="text-[0.6em] text-primary">™</sup>
+            <span className="text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">
+              VALID<sup className="text-xs text-cyan-400">™</sup>
             </span>
             <span className="px-2 py-0.5 text-[8px] md:text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse whitespace-nowrap">
               Beta

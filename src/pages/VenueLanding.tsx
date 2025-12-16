@@ -140,7 +140,7 @@ const VenueLanding = () => {
         <header className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2">
-              <span className="text-xl font-bold text-foreground tracking-wider">VALID<sup className="text-xs text-cyan-400">™</sup></span>
+              <span className="text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID<sup className="text-xs text-cyan-400">™</sup></span>
             </Link>
             <Link to="/auth">
               <Button size="sm" className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold">

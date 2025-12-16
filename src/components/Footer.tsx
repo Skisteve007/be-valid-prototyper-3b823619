@@ -93,6 +93,21 @@ const Footer = () => {
             <LanguageSelector variant="footer" />
           </div>
 
+          {/* Global Privacy Footer */}
+          <div className="py-4 text-center border-t border-slate-600">
+            <div className="flex justify-center items-center gap-2 mb-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#00FFFF">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+              </svg>
+              <span className="text-slate-400 text-[11px]">VALID™ — We Check. We Don't Collect.</span>
+            </div>
+            <div className="flex justify-center gap-4">
+              <Link to="/privacy" className="text-slate-500 text-[10px] hover:text-slate-300">Privacy Policy</Link>
+              <Link to="/terms" className="text-slate-500 text-[10px] hover:text-slate-300">Terms of Service</Link>
+              <span className="text-slate-600 text-[10px]">GDPR • CCPA • SOC2</span>
+            </div>
+          </div>
+
           {/* Links & Compliance Row */}
           <div className="flex flex-wrap items-center justify-center gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
             <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.terms')}</Link>

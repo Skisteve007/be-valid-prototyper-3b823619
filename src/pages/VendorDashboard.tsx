@@ -26,6 +26,7 @@ import { Helmet } from "react-helmet-async";
 import { toast } from "sonner";
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend, AreaChart, Area } from "recharts";
 import jsPDF from "jspdf";
+import { PrivacyBadgeB2B } from "@/components/privacy";
 
 type TimePeriod = "live" | "shift" | "24h" | "week" | "month";
 
@@ -835,6 +836,11 @@ const VendorDashboard = () => {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Privacy & Compliance Dashboard for Venue Owners */}
+              <div className="mt-8">
+                <PrivacyBadgeB2B variant="dashboard" venueId={venueId || undefined} />
+              </div>
             </TabsContent>
           </Tabs>
         </main>

@@ -25,6 +25,7 @@ import { BetaBanner } from "@/components/BetaBanner";
 import { BetaMemberBadge } from "@/components/BetaMemberBadge";
 import { isBetaPeriodActive } from "@/config/betaConfig";
 import { BountyMission } from "@/components/gamification";
+import { PrivacyBadgeB2C } from "@/components/privacy";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -376,6 +377,11 @@ const Dashboard = () => {
                 onVibeMetadataChange={setVibeMetadata}
                 onStatusColorChange={setStatusColor}
               />
+            </div>
+            
+            {/* Privacy Badge - Compact */}
+            <div className="flex justify-center my-3">
+              <PrivacyBadgeB2C variant="compact" />
             </div>
             
             {/* Bounty Mission - Daily Quest */}

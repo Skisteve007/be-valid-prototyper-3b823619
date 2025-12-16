@@ -67,16 +67,22 @@
     <!-- Load Orbitron font with display=optional to prevent CLS -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=optional" rel="stylesheet" />
     
-    <!-- Critical CSS for preventing layout shifts -->
+    <!-- Critical CSS for preventing layout shifts (above-the-fold only) -->
     <style>
       /* Prevent FOUT/CLS by setting fallback font metrics */
       html {
         font-family: 'Orbitron', 'Arial Black', Arial, sans-serif;
+        -webkit-text-size-adjust: 100%;
       }
-      /* Reserve minimum height for above-fold content */
+      /* Critical above-fold styles */
       body {
         min-height: 100vh;
+        background: #050505;
+        color: #fff;
+        margin: 0;
       }
+      /* Hero placeholder to prevent CLS */
+      #root { min-height: 100vh; }
     </style>
     
     <!-- Open Graph / Facebook -->

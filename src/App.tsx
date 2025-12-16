@@ -60,6 +60,7 @@ const IntegratedHealthCompliance = lazy(() => import("./pages/IntegratedHealthCo
 const MyAccess = lazy(() => import("./pages/MyAccess"));
 const LabPortal = lazy(() => import("./pages/LabPortal"));
 const PlatformFeatures = lazy(() => import("./pages/PlatformFeatures"));
+const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 
 const queryClient = new QueryClient();
 
@@ -133,6 +134,7 @@ const App = () => (
                 <Route path="/vendor-portal/dashboard" element={<VendorDashboard />} />
                 <Route path="/staff/pos" element={<StaffPOS />} />
                 <Route path="/investor-portal" element={<AgeGate><InvestorPortal /></AgeGate>} />
+                <Route path="/trust-center" element={<AgeGate><TrustCenter /></AgeGate>} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
               </Routes>

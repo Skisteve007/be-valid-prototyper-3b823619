@@ -8,10 +8,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { ArrowRight, Eye, EyeOff, Mail, Loader2 } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Mail, Loader2, Fingerprint } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import { BetaBanner } from "@/components/BetaBanner";
+import { 
+  isWebAuthnAvailable, 
+  hasWebAuthnCredential, 
+  authenticateWithWebAuthn, 
+  registerWebAuthnCredential,
+  getStoredWebAuthnCredential
+} from "@/lib/webauthn";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -35,6 +42,17 @@ const Auth = () => {
   const [verificationEmail, setVerificationEmail] = useState("");
   const [resendingEmail, setResendingEmail] = useState(false);
   const [verificationUserId, setVerificationUserId] = useState("");
+  
+  // Returning user state
+  const [isReturningUser, setIsReturningUser] = useState(false);
+  const [savedUserName, setSavedUserName] = useState("");
+  const [preferredAuthMethod, setPreferredAuthMethod] = useState<string | null>(null);
+  
+  // Biometric state
+  const [biometricAvailable, setBiometricAvailable] = useState(false);
+  const [hasBiometricCredential, setHasBiometricCredential] = useState(false);
+  const [showBiometricPrompt, setShowBiometricPrompt] = useState(false);
+  const [pendingBiometricSetup, setPendingBiometricSetup] = useState<{ userId: string; email: string; name: string } | null>(null);
 
   useEffect(() => {
     // Scroll to top when page loads
@@ -45,6 +63,32 @@ const Auth = () => {
     if (urlDiscount) {
       localStorage.setItem('discountCode', urlDiscount);
     }
+    
+    // Check for returning user
+    const savedEmail = localStorage.getItem('valid_user_email');
+    const savedName = localStorage.getItem('valid_user_name');
+    const savedPreferredAuth = localStorage.getItem('valid_preferred_auth');
+    
+    if (savedEmail) {
+      setLoginEmail(savedEmail);
+      setIsReturningUser(true);
+      if (savedName) {
+        setSavedUserName(savedName);
+      }
+      if (savedPreferredAuth) {
+        setPreferredAuthMethod(savedPreferredAuth);
+      }
+    }
+    
+    // Check biometric availability
+    const checkBiometric = async () => {
+      const available = await isWebAuthnAvailable();
+      setBiometricAvailable(available);
+      if (available) {
+        setHasBiometricCredential(hasWebAuthnCredential());
+      }
+    };
+    checkBiometric();
     
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -68,13 +112,127 @@ const Auth = () => {
       }
     };
     checkUser();
-
-    // Load saved email from localStorage
-    const savedEmail = localStorage.getItem('loginEmail');
-    if (savedEmail) {
-      setLoginEmail(savedEmail);
-    }
   }, [navigate, mode]);
+
+  // Save user data on successful login
+  const saveUserDataLocally = (email: string, name: string, authMethod: string) => {
+    localStorage.setItem('valid_user_email', email);
+    localStorage.setItem('valid_user_name', name);
+    localStorage.setItem('valid_preferred_auth', authMethod);
+  };
+
+  // Clear saved user data
+  const clearSavedUserData = () => {
+    localStorage.removeItem('valid_user_email');
+    localStorage.removeItem('valid_user_name');
+    localStorage.removeItem('valid_preferred_auth');
+    setIsReturningUser(false);
+    setSavedUserName("");
+    setLoginEmail("");
+    setPreferredAuthMethod(null);
+  };
+
+  // Handle biometric login
+  const handleBiometricLogin = async () => {
+    if (loading) return;
+    setLoading(true);
+    
+    try {
+      const result = await authenticateWithWebAuthn();
+      
+      if (result.success && result.email) {
+        // Get session from Supabase - user should already be logged in if they have a valid session
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+          // Check if email is verified
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("email_verified, full_name")
+            .eq("user_id", session.user.id)
+            .single();
+          
+          if (profile?.email_verified) {
+            saveUserDataLocally(session.user.email || result.email, profile.full_name || "", "biometric");
+            toast.success("Welcome back!");
+            navigate("/dashboard");
+            return;
+          }
+        }
+        
+        // No active session - need to login with password
+        toast.error("Session expired. Please enter your password.");
+        setLoginEmail(result.email);
+      } else {
+        toast.error("Biometric authentication failed");
+      }
+    } catch (error: any) {
+      toast.error("Biometric authentication failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle Google Sign In
+  const handleGoogleSignIn = async () => {
+    if (loading) return;
+    setLoading(true);
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'select_account',
+          },
+        },
+      });
+      
+      if (error) throw error;
+      
+      // OAuth redirects - save preferred method
+      localStorage.setItem('valid_preferred_auth', 'google');
+    } catch (error: any) {
+      toast.error(error.message || "Google sign-in failed");
+      setLoading(false);
+    }
+  };
+
+  // Prompt to enable biometric after successful login
+  const promptBiometricSetup = async (userId: string, email: string, name: string) => {
+    if (biometricAvailable && !hasWebAuthnCredential()) {
+      setPendingBiometricSetup({ userId, email, name });
+      setShowBiometricPrompt(true);
+    }
+  };
+
+  // Setup biometric credential
+  const handleBiometricSetup = async () => {
+    if (!pendingBiometricSetup) return;
+    
+    try {
+      const success = await registerWebAuthnCredential(
+        pendingBiometricSetup.userId,
+        pendingBiometricSetup.email,
+        pendingBiometricSetup.name
+      );
+      
+      if (success) {
+        setHasBiometricCredential(true);
+        toast.success("Biometric login enabled!");
+      } else {
+        toast.error("Failed to enable biometric login");
+      }
+    } catch (error) {
+      toast.error("Failed to enable biometric login");
+    }
+    
+    setShowBiometricPrompt(false);
+    setPendingBiometricSetup(null);
+    navigate("/dashboard");
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,6 +286,21 @@ const Auth = () => {
           }
           return;
         }
+
+        // Save user data locally for returning user experience
+        saveUserDataLocally(data.user.email || loginEmail, profile?.full_name || "", "email");
+        
+        // Prompt biometric setup if available
+        if (biometricAvailable && !hasWebAuthnCredential()) {
+          setPendingBiometricSetup({
+            userId: data.user.id,
+            email: data.user.email || loginEmail,
+            name: profile?.full_name || ""
+          });
+          setShowBiometricPrompt(true);
+          setLoading(false);
+          return;
+        }
       }
 
       toast.success("Welcome back!");
@@ -152,6 +325,7 @@ const Auth = () => {
           data: {
             full_name: fullName,
           },
+          emailRedirectTo: `${window.location.origin}/`,
         },
       });
 
@@ -240,6 +414,43 @@ const Auth = () => {
     }
   };
 
+  // Google Sign-In Button Component
+  const GoogleSignInButton = () => (
+    <button
+      type="button"
+      onClick={handleGoogleSignIn}
+      disabled={loading}
+      className="w-full py-4 bg-white dark:bg-white border border-border rounded-xl flex items-center justify-center gap-3 text-gray-800 font-semibold hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      </svg>
+      <span>Continue with Google</span>
+    </button>
+  );
+
+  // Biometric Sign-In Button Component
+  const BiometricSignInButton = () => {
+    if (!biometricAvailable || !hasBiometricCredential) return null;
+    
+    const storedCred = getStoredWebAuthnCredential();
+    
+    return (
+      <button
+        type="button"
+        onClick={handleBiometricLogin}
+        disabled={loading}
+        className="w-full py-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl flex items-center justify-center gap-3 text-foreground font-semibold hover:from-purple-500/30 hover:to-pink-500/30 transition disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <Fingerprint className="w-6 h-6" />
+        <span>Sign in with Face ID / Touch ID</span>
+      </button>
+    );
+  };
+
   return (
     <div className="min-h-screen text-foreground overflow-x-hidden w-full max-w-full bg-background font-sans">
       {/* Ambient Background Effects - matching homepage */}
@@ -270,6 +481,42 @@ const Auth = () => {
           <div className="mb-6">
             <BetaBanner variant="compact" />
           </div>
+          
+          {/* Biometric Setup Prompt Modal */}
+          <Dialog open={showBiometricPrompt} onOpenChange={setShowBiometricPrompt}>
+            <DialogContent className="max-w-md bg-card border-primary/30">
+              <DialogHeader>
+                <DialogTitle className="text-xl font-bold text-center">
+                  <Fingerprint className="w-12 h-12 mx-auto mb-3 text-primary" />
+                  Enable Quick Login?
+                </DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 text-center">
+                <p className="text-muted-foreground">
+                  Use Face ID / Touch ID to sign in instantly next time — no password needed.
+                </p>
+                <div className="space-y-3 pt-4">
+                  <Button 
+                    onClick={handleBiometricSetup}
+                    className="w-full min-h-[48px] bg-primary text-primary-foreground"
+                  >
+                    ✅ Enable Biometric Login
+                  </Button>
+                  <Button 
+                    variant="ghost"
+                    onClick={() => {
+                      setShowBiometricPrompt(false);
+                      setPendingBiometricSetup(null);
+                      navigate("/dashboard");
+                    }}
+                    className="w-full text-muted-foreground"
+                  >
+                    Maybe Later
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
           
           {/* Email Verification Message */}
           {showEmailVerification ? (
@@ -344,26 +591,59 @@ const Auth = () => {
               <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.4)]">
                 <CardHeader>
                   <CardTitle className="text-3xl text-center bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent font-bold">
-                    Member Login
+                    {isReturningUser ? (
+                      <>Welcome back{savedUserName ? `, ${savedUserName.split(' ')[0]}` : ''}! 👋</>
+                    ) : (
+                      'Member Login'
+                    )}
                   </CardTitle>
-                  <CardDescription className="text-center text-muted-foreground">Welcome back! Access your profile and QR code</CardDescription>
+                  <CardDescription className="text-center text-muted-foreground">
+                    {isReturningUser 
+                      ? "Sign in to access your profile and QR code" 
+                      : "Welcome back! Access your profile and QR code"
+                    }
+                  </CardDescription>
                 </CardHeader>
-                <CardContent className="p-8">
+                <CardContent className="p-8 space-y-6">
+                  {/* Biometric & Social Login Options */}
+                  <div className="space-y-3">
+                    <BiometricSignInButton />
+                    <GoogleSignInButton />
+                  </div>
+                  
+                  {/* Divider */}
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t border-muted-foreground/30" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-card px-2 text-muted-foreground">or sign in with email</span>
+                    </div>
+                  </div>
+                  
                   <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="login-email">Email Address</Label>
-                      <Input 
-                        id="login-email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        value={loginEmail}
-                        onChange={(e) => {
-                          setLoginEmail(e.target.value);
-                          localStorage.setItem('loginEmail', e.target.value);
-                        }}
-                        required
-                        className="h-14"
-                      />
+                      <div className="relative">
+                        <Input 
+                          id="login-email"
+                          type="email"
+                          name="email"
+                          autoComplete="email"
+                          placeholder="your.email@example.com"
+                          value={loginEmail}
+                          onChange={(e) => {
+                            setLoginEmail(e.target.value);
+                          }}
+                          required
+                          className="h-14"
+                        />
+                        {isReturningUser && (
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-primary">
+                            ✓ remembered
+                          </span>
+                        )}
+                      </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="login-password">Password</Label>
@@ -371,6 +651,8 @@ const Auth = () => {
                         <Input 
                           id="login-password"
                           type={showLoginPassword ? "text" : "password"}
+                          name="password"
+                          autoComplete="current-password"
                           placeholder="Enter your password"
                           value={loginPassword}
                           onChange={(e) => setLoginPassword(e.target.value)}
@@ -398,15 +680,23 @@ const Auth = () => {
                       className="w-full min-h-[48px] relative shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.8)] border border-primary/60 bg-primary text-primary-foreground font-semibold" 
                       type="submit"
                       disabled={loading}
-                      onClick={(e) => {
-                        if (loading) return;
-                        e.preventDefault();
-                        handleLogin(e as any);
-                      }}
                     >
                       <div className="absolute inset-0 bg-primary/30 blur-xl rounded-md -z-10"></div>
-                      {loading ? "Logging in..." : "Log In"} <ArrowRight className="ml-2 h-4 w-4" />
+                      {loading ? "Logging in..." : "🔓 Sign In"} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
+
+                    {/* Switch account for returning users */}
+                    {isReturningUser && (
+                      <div className="text-center">
+                        <button
+                          type="button"
+                          onClick={clearSavedUserData}
+                          className="text-sm text-muted-foreground hover:text-primary transition"
+                        >
+                          Not {savedUserName || loginEmail}? Switch account
+                        </button>
+                      </div>
+                    )}
 
                     <div className="text-center pt-4">
                       <Button 
@@ -457,13 +747,30 @@ const Auth = () => {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="p-8">
+                <CardContent className="p-8 space-y-6">
+                  {/* Social Sign Up Options */}
+                  <div className="space-y-3">
+                    <GoogleSignInButton />
+                  </div>
+                  
+                  {/* Divider */}
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t border-muted-foreground/30" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-card px-2 text-muted-foreground">or sign up with email</span>
+                    </div>
+                  </div>
+                  
                   <form onSubmit={handleSignup} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="signup-first-name">First Name *</Label>
                         <Input 
                           id="signup-first-name"
+                          name="given-name"
+                          autoComplete="given-name"
                           placeholder="First name"
                           value={signupFirstName}
                           onChange={(e) => setSignupFirstName(e.target.value)}
@@ -475,6 +782,8 @@ const Auth = () => {
                         <Label htmlFor="signup-last-name">Last Name *</Label>
                         <Input 
                           id="signup-last-name"
+                          name="family-name"
+                          autoComplete="family-name"
                           placeholder="Last name"
                           value={signupLastName}
                           onChange={(e) => setSignupLastName(e.target.value)}
@@ -488,6 +797,8 @@ const Auth = () => {
                       <Input 
                         id="signup-email"
                         type="email"
+                        name="email"
+                        autoComplete="email"
                         placeholder="your.email@example.com"
                         value={signupEmail}
                         onChange={(e) => setSignupEmail(e.target.value)}
@@ -501,6 +812,8 @@ const Auth = () => {
                         <Input 
                           id="signup-password"
                           type={showSignupPassword ? "text" : "password"}
+                          name="new-password"
+                          autoComplete="new-password"
                           placeholder="Create a secure password"
                           value={signupPassword}
                           onChange={(e) => setSignupPassword(e.target.value)}

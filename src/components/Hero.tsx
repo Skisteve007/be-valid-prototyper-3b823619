@@ -111,73 +111,100 @@ const Hero = () => {
       {/* ===== NAVBAR ===== */}
       <ResponsiveHeader />
 
-      {/* ===== MAIN HERO: TWO-COLUMN FLEXBOX ===== */}
-      <div className="w-full px-4 md:px-8 lg:px-12">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-start">
-          
-          {/* ----- LEFT COLUMN: TEXT (HARD LEFT ALIGNED) ----- */}
-          <div className="flex-1 w-full lg:w-1/2 text-left order-2 lg:order-1 pl-0">
-            
-            {/* Synthesized AI Tag */}
-            <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded-lg text-xs font-mono tracking-widest text-cyan-400">
-              <span>{displayedText}</span>
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500 shadow-[0_0_10px_rgba(0,240,255,0.8)]"></span>
-              </span>
-            </div>
+      {/* ===== MAIN HERO: CINEMATIC BACKGROUND ===== */}
+      <div className="relative overflow-hidden">
+        {/* Layer 1: Earth/Space Background Image */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url(/landing-hero-earth.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center bottom',
+            opacity: 0.5,
+          }}
+        />
+        
+        {/* Layer 2: Dark Overlay */}
+        <div className="absolute inset-0 z-0 bg-black/65" />
+        
+        {/* Layer 3: Brand Glow */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            background: 'radial-gradient(circle at 20% 35%, rgba(34,211,238,0.22), transparent 55%)',
+          }}
+        />
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-2 leading-tight text-left font-display">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
-                VALID<sup className="text-[0.5em] align-super">™</sup>
-              </span>
-            </h1>
+        {/* Content Layer */}
+        <div className="relative z-10 w-full px-4 md:px-8 lg:px-12 py-8">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-start">
             
-            {/* Tagline */}
-            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-2 text-left font-display">
-              The Universal Lifestyle Wallet
-            </p>
-            <p className="text-sm sm:text-base text-cyan-400 font-semibold tracking-widest mb-4 text-left">
-              Identity. Payments. Safety. Social.
-            </p>
-            
-            {/* Trust Line */}
-            <p className="text-base sm:text-lg font-bold text-foreground mb-6 text-left">
-              We Check. We Don't Collect.
-            </p>
+            {/* ----- LEFT COLUMN: TEXT (HARD LEFT ALIGNED) ----- */}
+            <div className="flex-1 w-full lg:w-1/2 text-left order-2 lg:order-1 pl-0">
+              
+              {/* Synthesized AI Tag + Beta Pill */}
+              <div className="flex items-center gap-3 mb-6 flex-wrap">
+                <div className="inline-flex items-center gap-3 px-4 py-2 border border-cyan-500/30 bg-cyan-900/10 rounded-lg text-xs font-mono tracking-widest text-cyan-400">
+                  <span>{displayedText}</span>
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500 shadow-[0_0_10px_rgba(0,240,255,0.8)]"></span>
+                  </span>
+                </div>
+                {/* Beta Pill */}
+                <span className="px-3 py-1 text-xs font-bold tracking-wider uppercase rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.4)]">
+                  BETA
+                </span>
+              </div>
 
-            {/* Description */}
-            <p className="text-base text-muted-foreground mb-8 max-w-lg leading-relaxed text-left">
-              {t('hero.adaptiveProfile')} <span className="text-foreground font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
-              <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
-            </p>
+              {/* Main Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-2 leading-[1.1] text-left font-display">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
+                  VALID<sup className="text-[0.5em] align-super">™</sup>
+                </span>
+              </h1>
+              
+              {/* Tagline */}
+              <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2 text-left font-display">
+                The Universal Lifestyle Wallet
+              </p>
+              <p className="text-sm sm:text-base text-cyan-400 font-semibold tracking-widest mb-4 text-left">
+                Identity. Payments. Safety. Social.
+              </p>
+              
+              {/* Trust Line */}
+              <p className="text-base sm:text-lg font-bold text-white mb-6 text-left">
+                We Check. We Don't Collect.
+              </p>
 
-            {/* CTA Button + Beta Pill */}
-            <div className="flex flex-col gap-4 mb-8">
-              <div className="flex items-center gap-2">
+              {/* Description */}
+              <p className="text-base text-gray-300 mb-8 max-w-lg leading-relaxed text-left">
+                {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
+                <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                {/* Primary CTA */}
                 <button 
                   onClick={handleAccessClick}
-                  className="inline-flex items-center gap-1.5 px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm rounded-full hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_40px_rgba(0,240,255,0.6)] transition-all hover:scale-105 whitespace-nowrap"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-black/80 border border-cyan-400/50 text-white font-bold text-base rounded-full hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-black"
                 >
-                  Get Your VALID<sup className="text-[0.5em]">™</sup> <ArrowDownLeft size={14} />
+                  Claim your VALID<sup className="text-[0.6em]">™</sup>
+                  <ArrowDownLeft size={18} />
+                </button>
+                
+                {/* Secondary CTA - Free Access */}
+                <button
+                  onClick={handleAccessClick}
+                  className="inline-flex items-center justify-center px-6 py-4 text-sm font-bold tracking-wider uppercase rounded-full text-emerald-400 border border-emerald-400/50 bg-emerald-500/10 hover:bg-emerald-500/20 transition-all hover:scale-105"
+                >
+                  Free During Beta
                 </button>
               </div>
-              {/* FREE BETA Glowing Button */}
-              <button
-                onClick={handleAccessClick}
-                className="px-6 py-3 text-sm font-bold tracking-wider uppercase rounded-lg text-white whitespace-nowrap transition-all hover:scale-105 animate-[glow_2s_ease-in-out_infinite_alternate]"
-                style={{
-                  background: 'linear-gradient(135deg, #10b981, #34d399)',
-                  boxShadow: '0 0 20px rgba(16, 185, 129, 0.5)',
-                }}
-              >
-                ✨ FREE BETA ✨
-              </button>
               
               {/* Live Stats Counter */}
               <LiveStats />
-            </div>
 
             {/* Signal Mode Selection */}
             <div className="mb-8">
@@ -249,6 +276,7 @@ const Hero = () => {
             </div>
           </div>
 
+          </div>
         </div>
       </div>
 

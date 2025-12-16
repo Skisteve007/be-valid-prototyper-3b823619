@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
@@ -36,6 +36,7 @@ const Dashboard = () => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [vibeMetadata, setVibeMetadata] = useState<Record<string, any>>({});
   const [statusColor, setStatusColor] = useState<string>("green");
+  const [showGhostPass, setShowGhostPass] = useState(false);
   const [profileSaveState, setProfileSaveState] = useState({ hasChanges: false, saving: false, saveSuccess: false });
   const longPressHandlers = useLongPressHome();
   const touchStartX = useRef<number>(0);
@@ -335,6 +336,13 @@ const Dashboard = () => {
                   <span className="bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">Dashboard</span>
                 </h1>
                 {isBetaPeriodActive() && <BetaMemberBadge />}
+                <button
+                  onClick={() => setShowGhostPass(true)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/40 hover:bg-amber-500/20 transition-all shadow-[0_0_15px_rgba(255,215,0,0.2)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]"
+                >
+                  <Ghost className="w-4 h-4 text-amber-400" />
+                  <span className="text-xs font-semibold text-amber-400">Ghost Pass™</span>
+                </button>
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
                 Manage your profile
@@ -473,7 +481,7 @@ const Dashboard = () => {
         <Home className="h-4 w-4 text-[#00FFFF]" />
       </Button>
 
-      <GhostPassModal userId={user.id} />
+      <GhostPassModal userId={user.id} open={showGhostPass} onOpenChange={setShowGhostPass} />
 
       <ShareProfileModal 
         open={showShareModal} 

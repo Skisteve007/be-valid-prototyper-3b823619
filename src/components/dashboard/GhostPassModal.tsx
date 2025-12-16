@@ -8,6 +8,8 @@ import { toast } from 'sonner';
 interface GhostPassModalProps {
   userId: string;
   onScanSuccess?: () => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 interface ToggleState {
@@ -57,9 +59,15 @@ const MIN_BALANCE_THRESHOLD = 5.00;
 
 const GhostPassModal = ({ 
   userId, 
-  onScanSuccess 
+  onScanSuccess,
+  open,
+  onOpenChange
 }: GhostPassModalProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  
+  // Use controlled or uncontrolled state
+  const isOpen = open !== undefined ? open : internalOpen;
+  const setIsOpen = onOpenChange || setInternalOpen;
   const [toggles, setToggles] = useState<ToggleState>({
     identity: true,
     payment: true,
@@ -603,36 +611,6 @@ const GhostPassModal = ({
 
   return (
     <>
-      {/* Floating Ghost Button - Hidden when modal is open */}
-      {!isOpen && (
-        <button
-          ref={buttonRef}
-          onClick={() => !isDragging && setIsOpen(true)}
-          onMouseDown={handleMouseDown}
-          className={`fixed z-[9999] w-12 h-12 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
-            isDragging ? 'cursor-grabbing scale-110' : 'cursor-pointer active:scale-95'
-          } ${!isMobile ? 'hover:scale-105' : ''}`}
-          style={{
-            right: isMobile ? '16px' : `${16 + buttonPosition.x}px`,
-            bottom: isMobile ? '360px' : `${320 + buttonPosition.y}px`,
-            background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.95) 100%)',
-            boxShadow: isActivated 
-              ? '0 0 0 2px rgba(34,197,94,0.6), 0 0 30px rgba(34,197,94,0.5), 0 0 60px rgba(34,197,94,0.3)'
-              : hasSufficientFunds 
-                ? '0 0 0 2px rgba(255,215,0,0.4), 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(34,197,94,0.3)'
-                : '0 0 0 2px rgba(239,68,68,0.4), 0 0 30px rgba(239,68,68,0.4)',
-            animation: (hasSufficientFunds || isActivated) && !isDragging ? 'ghostBreathing 3s ease-in-out infinite' : 'none',
-          }}
-        >
-          {isLocked ? (
-            <Lock className="w-5 h-5 text-red-400" />
-          ) : (
-            <Ghost className={`w-6 h-6 ${isActivated ? 'text-green-400' : 'text-amber-400'}`} />
-          )}
-        </button>
-      )}
-
-      {/* Ghost QR Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent 
           className="max-w-sm w-[92vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden fixed top-0 left-1/2 -translate-x-1/2 translate-y-0 pt-2 md:pt-4 max-h-[calc(100vh-0.75rem)] overflow-y-auto z-[9999]"

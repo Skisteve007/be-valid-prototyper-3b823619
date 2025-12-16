@@ -41,6 +41,12 @@ const Navbar = () => {
             {t('nav.partnerSolutions')}
           </Link>
           <Link 
+            to="/investor-portal" 
+            className="text-sm text-foreground font-medium hover:text-primary transition"
+          >
+            Investors
+          </Link>
+          <Link 
             to="/auth?mode=login" 
             className="px-3 md:px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold rounded-full transition whitespace-nowrap"
           >

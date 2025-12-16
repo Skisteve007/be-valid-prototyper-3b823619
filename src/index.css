@@ -5,6 +5,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font fallback with size-adjust to prevent CLS */
+@font-face {
+  font-family: 'Orbitron Fallback';
+  src: local('Arial Black'), local('Arial');
+  size-adjust: 105%;
+  ascent-override: 95%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* Prevent CLS from images and media */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reserve space for dynamic content containers */
+.min-h-screen {
+  contain: layout;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */

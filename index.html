@@ -62,6 +62,18 @@
     <!-- Load Orbitron font with display=optional to prevent CLS -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=optional" rel="stylesheet" />
     
+    <!-- Critical CSS for preventing layout shifts -->
+    <style>
+      /* Prevent FOUT/CLS by setting fallback font metrics */
+      html {
+        font-family: 'Orbitron', 'Arial Black', Arial, sans-serif;
+      }
+      /* Reserve minimum height for above-fold content */
+      body {
+        min-height: 100vh;
+      }
+    </style>
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.bevalid.app/" />

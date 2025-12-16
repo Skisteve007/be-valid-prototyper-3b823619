@@ -250,6 +250,14 @@ const LocationPulseSection = ({ onLocationChange }: LocationPulseSectionProps) =
               {/* Live Location */}
               {locationType === "live" && (
                 <div className="space-y-2 animate-fade-in">
+                  {/* Map Placeholder */}
+                  <div className="w-full h-32 bg-muted rounded-lg flex items-center justify-center border border-border">
+                    <div className="text-center">
+                      <span className="text-3xl">📍</span>
+                      <p className="text-muted-foreground mt-1 text-xs">Live location coming soon</p>
+                    </div>
+                  </div>
+
                   <div className="flex items-center justify-between py-1.5 px-2 rounded bg-card/50 border border-border">
                     <span className="text-xs text-foreground flex items-center gap-1.5">
                       <MapPinOff className="w-3 h-3 text-amber-400" />
@@ -296,6 +304,14 @@ const LocationPulseSection = ({ onLocationChange }: LocationPulseSectionProps) =
               {/* Static Location */}
               {locationType === "static" && (
                 <div className="space-y-2 animate-fade-in">
+                  {/* Map Placeholder */}
+                  <div className="w-full h-32 bg-muted rounded-lg flex items-center justify-center border border-border">
+                    <div className="text-center">
+                      <span className="text-3xl">📍</span>
+                      <p className="text-muted-foreground mt-1 text-xs">Map preview coming soon</p>
+                    </div>
+                  </div>
+
                   <Input
                     value={staticAddress}
                     onChange={(e) => setStaticAddress(e.target.value)}

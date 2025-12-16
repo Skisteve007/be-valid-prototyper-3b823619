@@ -162,10 +162,18 @@ const Hero = () => {
                 >
                   Get Your VALID™ <ArrowDownLeft size={14} />
                 </button>
-                <span className="px-2 py-0.5 md:px-3 md:py-1 text-[7px] md:text-[10px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
-                  Beta Version
-                </span>
               </div>
+              {/* FREE BETA Glowing Button */}
+              <button
+                onClick={handleAccessClick}
+                className="px-6 py-3 text-sm font-bold tracking-wider uppercase rounded-lg text-white whitespace-nowrap transition-all hover:scale-105 animate-[glow_2s_ease-in-out_infinite_alternate]"
+                style={{
+                  background: 'linear-gradient(135deg, #10b981, #34d399)',
+                  boxShadow: '0 0 20px rgba(16, 185, 129, 0.5)',
+                }}
+              >
+                ✨ FREE BETA ✨
+              </button>
               
               {/* Live Stats Counter */}
               <LiveStats />

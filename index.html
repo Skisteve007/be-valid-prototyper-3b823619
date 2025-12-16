@@ -55,9 +55,14 @@
     <!-- Font Preconnects & Preloads for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://csfwfxkuyapfakrmhgjh.supabase.co" />
     
-    <!-- Preload actual font files to prevent layout shifts -->
+    <!-- Preload critical fonts -->
     <link rel="preload" href="https://fonts.gstatic.com/s/orbitron/v35/yMJRMIlzdpvBhQQL_Qq7dy1biN15.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Preload critical above-fold images (LCP optimization) -->
+    <link rel="preload" href="/valid_portal.mp4" as="video" type="video/mp4" />
+    <link rel="preload" href="/app-icon.jpg" as="image" />
     
     <!-- Load Orbitron font with display=optional to prevent CLS -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=optional" rel="stylesheet" />

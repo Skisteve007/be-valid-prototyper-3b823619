@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Shield, Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
+import SynthButton from './SynthButton';
 
 const ResponsiveHeader = () => {
   const { t } = useTranslation();
@@ -104,6 +105,9 @@ const ResponsiveHeader = () => {
             </Link>
             <div className="px-3 py-2">
               <LanguageSelector />
+            </div>
+            <div className="px-3 py-2">
+              <SynthButton variant="menu-item" />
             </div>
             <Link 
               to="/auth?mode=login" 

@@ -8,7 +8,7 @@ type AccessType = "investor" | "partner";
 export const useAccessControl = (accessType: AccessType) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-  const [hasAccess, setHasAccess] = useState(false);
+  const [hasAccess, setHasAccess] = useState(false); // DEFAULT DENY
   const [hasPendingRequest, setHasPendingRequest] = useState(false);
 
   useEffect(() => {
@@ -17,43 +17,57 @@ export const useAccessControl = (accessType: AccessType) => {
 
   const checkAccess = async () => {
     setIsLoading(true);
+    // DEFAULT DENY - only set true if explicitly approved
+    setHasAccess(false);
+    
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
       
-      if (!session) {
-        navigate("/auth?redirect=" + (accessType === "investor" ? "/pitch-deck" : "/partners"));
+      if (sessionError || !session?.user) {
+        // Not logged in → redirect to auth
+        navigate("/auth?redirect=" + (accessType === "investor" ? "/investor-portal" : "/partners"));
+        setIsLoading(false);
         return;
       }
 
       // Check if user is admin - admins have full access
-      const { data: roles } = await supabase
+      const { data: roles, error: rolesError } = await supabase
         .from("user_roles")
         .select("role")
         .eq("user_id", session.user.id);
 
-      const isAdmin = roles?.some(r => r.role === "administrator");
-      if (isAdmin) {
+      if (!rolesError && roles?.some(r => r.role === "administrator")) {
         setHasAccess(true);
         setIsLoading(false);
         return;
       }
 
-      // Check approval status
-      const { data: profile } = await supabase
+      // Fetch profile to check approval status
+      const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("investor_access_approved, partner_access_approved, investor_access_requested_at, partner_access_requested_at")
         .eq("user_id", session.user.id)
-        .single();
+        .maybeSingle();
 
+      // If profile fetch fails or no profile → DENY
+      if (profileError || !profile) {
+        console.error("Profile fetch failed:", profileError);
+        setHasAccess(false);
+        setIsLoading(false);
+        return;
+      }
+
+      // Check the correct field based on accessType - MUST be explicitly true
       if (accessType === "investor") {
-        setHasAccess(profile?.investor_access_approved === true);
-        setHasPendingRequest(!!profile?.investor_access_requested_at && !profile?.investor_access_approved);
+        setHasAccess(profile.investor_access_approved === true);
+        setHasPendingRequest(!!profile.investor_access_requested_at && profile.investor_access_approved !== true);
       } else {
-        setHasAccess(profile?.partner_access_approved === true);
-        setHasPendingRequest(!!profile?.partner_access_requested_at && !profile?.partner_access_approved);
+        setHasAccess(profile.partner_access_approved === true);
+        setHasPendingRequest(!!profile.partner_access_requested_at && profile.partner_access_approved !== true);
       }
     } catch (error) {
-      console.error("Error checking access:", error);
+      console.error("Access check error:", error);
+      setHasAccess(false); // DENY on any error
     } finally {
       setIsLoading(false);
     }
@@ -71,7 +85,7 @@ export const useAccessControl = (accessType: AccessType) => {
         .from("profiles")
         .select("full_name, email")
         .eq("user_id", session.user.id)
-        .single();
+        .maybeSingle();
 
       const requestedAtField = accessType === "investor" 
         ? "investor_access_requested_at" 

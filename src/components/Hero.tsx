@@ -41,7 +41,7 @@ const Hero = () => {
     if (session?.user?.email_confirmed_at) {
       navigate('/dashboard');
     } else {
-      navigate('/access-portal');
+      navigate('/auth');
     }
   };
 
@@ -106,7 +106,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       
       {/* ===== NAVBAR ===== */}
       <ResponsiveHeader />
@@ -130,12 +130,12 @@ const Hero = () => {
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-2 leading-tight text-left">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
-                VALID™
+                VALID<sup className="text-[0.5em] align-super">™</sup>
               </span>
             </h1>
             
             {/* Tagline */}
-            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2 text-left">
+            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-2 text-left">
               The Universal Lifestyle Wallet
             </p>
             <p className="text-sm sm:text-base text-cyan-400 font-semibold tracking-widest mb-4 text-left">
@@ -143,13 +143,13 @@ const Hero = () => {
             </p>
             
             {/* Trust Line */}
-            <p className="text-base sm:text-lg font-bold text-white mb-6 text-left">
+            <p className="text-base sm:text-lg font-bold text-foreground mb-6 text-left">
               We Check. We Don't Collect.
             </p>
 
             {/* Description */}
-            <p className="text-base text-gray-300 mb-8 max-w-lg leading-relaxed text-left">
-              {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
+            <p className="text-base text-muted-foreground mb-8 max-w-lg leading-relaxed text-left">
+              {t('hero.adaptiveProfile')} <span className="text-foreground font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 
               <span className="text-cyan-400"> {t('hero.signalFlow')}</span> {t('hero.switchIdentity')}
             </p>
 
@@ -206,7 +206,7 @@ const Hero = () => {
               </p>
               
               {/* Identity Control Messaging */}
-              <p className="text-base text-white mt-8 max-w-lg leading-relaxed text-left">
+              <p className="text-base text-foreground mt-8 max-w-lg leading-relaxed text-left">
                 Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for Invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.
               </p>
             </div>
@@ -217,7 +217,7 @@ const Hero = () => {
                 {t('network.title')}
               </div>
               <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
-                <h2 className="text-xl md:text-4xl font-black font-orbitron text-white text-left">
+                <h2 className="text-xl md:text-4xl font-black font-orbitron text-foreground text-left">
                   {t('network.headline')} <span className="text-cyan-400">{t('network.zero')}</span> <span className="text-cyan-400">{t('network.limits')}</span>
                 </h2>
                 <span className="px-3 py-1.5 text-sm font-bold tracking-wider rounded-full border border-rose-400/60 bg-rose-500/10 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.4)] animate-pulse flex items-center gap-2 w-fit">
@@ -258,15 +258,15 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           <div className="p-5 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
             <h3 className="text-base font-bold text-cyan-400 mb-2">{t('hero.instantEntry')}</h3>
-            <p className="text-sm text-gray-300 leading-relaxed">{t('hero.instantEntryDesc')}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.instantEntryDesc')}</p>
           </div>
           <div className="p-5 rounded-xl border border-green-500/30 bg-green-500/5 backdrop-blur-sm hover:border-green-400/50 transition-all">
             <h3 className="text-base font-bold text-green-400 mb-2">{t('hero.secureFunds')}</h3>
-            <p className="text-sm text-gray-300 leading-relaxed">{t('hero.secureFundsDesc')}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.secureFundsDesc')}</p>
           </div>
           <div className="p-5 rounded-xl border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
             <h3 className="text-base font-bold text-purple-400 mb-2">{t('hero.dataLock')}</h3>
-            <p className="text-sm text-gray-300 leading-relaxed">{t('hero.dataLockDesc')}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.dataLockDesc')}</p>
           </div>
         </div>
       </div>
@@ -277,16 +277,16 @@ const Hero = () => {
           <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-6">
             Why VALID™ is Different
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
             Conduit, <span className="text-cyan-400">Not Warehouse</span>
           </h2>
-          <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
             Unlike legacy systems that store your personal data for years, VALID™ operates as a secure conduit. 
             We verify your identity in real-time, grant access, then <span className="text-cyan-400 font-bold">purge immediately</span>. 
             Your data is never stored. Never sold. Never at risk.
           </p>
-          <p className="text-base text-gray-400 italic">
-            This isn't just privacy by policy — it's <span className="text-white font-semibold">privacy by architecture</span>.
+          <p className="text-base text-muted-foreground italic">
+            This isn't just privacy by policy — it's <span className="text-foreground font-semibold">privacy by architecture</span>.
           </p>
         </div>
       </div>
@@ -294,7 +294,7 @@ const Hero = () => {
       {/* ===== ENTERPRISE TRUST BANNER ===== */}
       <div className="w-full px-4 md:px-8 lg:px-12 py-8 bg-gradient-to-r from-cyan-500/5 via-green-500/5 to-cyan-500/5 border-y border-cyan-500/20">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-lg font-semibold text-white mb-4">
+          <p className="text-lg font-semibold text-foreground mb-4">
             Enterprise Trust: Built for SOC 2 & GDPR compliance to win government & healthcare contracts.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">

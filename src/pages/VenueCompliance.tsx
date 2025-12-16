@@ -71,14 +71,9 @@ const VenueCompliance = () => {
             {/* Top row on mobile: Logo + Back button */}
             <div className="flex items-center justify-between w-full md:w-auto">
               <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
-                <img 
-                  src="/valid-logo-share.jpeg" 
-                  alt="VALID Logo" 
-                  className="h-8 w-8 md:h-10 md:w-10 rounded-lg object-cover flex-shrink-0"
-                />
                 <div className="flex flex-col">
-                  <span className="text-lg md:text-xl font-bold tracking-tight text-foreground">VALID<sup className="text-xs text-primary">™</sup></span>
-                  <span className="text-[8px] md:text-[10px] font-semibold text-primary tracking-[0.15em] md:tracking-[0.2em] uppercase">Enterprise Security</span>
+                  <span className="text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID<sup className="text-xs text-cyan-400">™</sup></span>
+                  <span className="text-[8px] md:text-[10px] font-semibold text-cyan-400 tracking-[0.15em] md:tracking-[0.2em] uppercase">Enterprise Security</span>
                 </div>
               </div>
               

@@ -62,6 +62,7 @@ const LabPortal = lazy(() => import("./pages/LabPortal"));
 const PlatformFeatures = lazy(() => import("./pages/PlatformFeatures"));
 const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
+const Synth = lazy(() => import("./pages/Synth"));
 
 const queryClient = new QueryClient();
 
@@ -98,6 +99,7 @@ const App = () => (
                 <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
                 <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />
                 <Route path="/synth-vault" element={<SynthVault />} />
+                <Route path="/synth" element={<AgeGate><Synth /></AgeGate>} />
                 <Route path="/investor-dashboard" element={<AgeGate><InvestorDashboard /></AgeGate>} />
                 <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
                 <Route path="/partners" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />

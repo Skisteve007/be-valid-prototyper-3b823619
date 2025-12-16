@@ -9,6 +9,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import ResponsiveHeader from './ResponsiveHeader';
+import ComplianceBadges from './ComplianceBadges';
+import SynthButton from './SynthButton';
 import { usePageViewTracking } from '@/hooks/usePageViewTracking';
 
 type SignalMode = 'social' | 'pulse' | 'thrill' | 'afterdark';
@@ -236,6 +238,12 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* ===== SECURITY & COMPLIANCE SECTION ===== */}
+      <ComplianceBadges variant="hero" />
+
+      {/* ===== SYNTH FAB ===== */}
+      <SynthButton variant="fab" />
 
       {/* ===== BACKGROUND EFFECTS ===== */}
       <div className="fixed inset-0 pointer-events-none -z-10">

@@ -73,9 +73,24 @@ const InvestorPortal = () => {
         <meta name="description" content="Invest in Valid™ - Priority access to our Launch Round. Limited allocation for accredited investors." />
       </Helmet>
 
-      <div className="min-h-screen bg-[#050505]">
-        {/* Hero Header */}
-        <div className="border-b border-cyan-500/20 bg-[#050505]/95 backdrop-blur supports-[backdrop-filter]:bg-[#050505]/60">
+      <div className="relative min-h-screen overflow-hidden">
+        {/* Cinematic Space Background */}
+        <div 
+          className="fixed inset-0 z-0"
+          style={{
+            backgroundImage: 'url(/investor-bg-earth.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+          }}
+        />
+        {/* Dark Overlay for readability */}
+        <div className="fixed inset-0 z-0 bg-black/70 backdrop-blur-[2px]" />
+        
+        {/* Content Layer */}
+        <div className="relative z-10">
+          {/* Hero Header */}
+          <div className="border-b border-cyan-500/20 bg-[#050505]/80 backdrop-blur-md">
           <div className="container mx-auto px-4 py-10 md:py-16 text-center">
             {/* Primary H1 */}
             <h1 className="text-4xl md:text-6xl font-bold tracking-wider text-white font-display mb-4">
@@ -476,15 +491,17 @@ const InvestorPortal = () => {
             </div>
           </div>
 
-          {/* Legal Disclaimer Footer */}
-          <footer className="border-t border-gray-800 pt-8 pb-4">
-            <p className="text-xs md:text-[13px] text-gray-600 leading-relaxed tracking-wide max-w-4xl">
-              <strong className="text-gray-500">IMPORTANT DISCLOSURES:</strong> This page is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Any offering will be made only to accredited investors pursuant to a formal offering memorandum. Investment involves significant risk, including the potential loss of your entire investment. Past performance is not indicative of future results. Giant Ventures LLC and its affiliates make no representations or warranties regarding the information presented.
+          {/* Legal Disclaimer */}
+          <div className="border-t border-gray-800 pt-8 pb-4">
+            <p className="text-xs md:text-[13px] text-gray-500 leading-relaxed tracking-wide max-w-4xl">
+              <strong className="text-gray-400">IMPORTANT DISCLOSURES:</strong> This page is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Any offering will be made only to accredited investors pursuant to a formal offering memorandum. Investment involves significant risk, including the potential loss of your entire investment. Past performance is not indicative of future results. Giant Ventures LLC and its affiliates make no representations or warranties regarding the information presented.
             </p>
-          </footer>
+          </div>
         </div>
 
         <Footer />
+        
+        </div> {/* Close content layer z-10 */}
 
         {/* Request Access Modal */}
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

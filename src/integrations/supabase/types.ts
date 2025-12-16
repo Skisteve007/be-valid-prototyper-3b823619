@@ -2741,6 +2741,10 @@ export type Database = {
         Returns: undefined
       }
       increment_discount_usage: { Args: { _code: string }; Returns: undefined }
+      increment_global_stat: {
+        Args: { increment_by?: number; stat_name: string }
+        Returns: undefined
+      }
       is_venue_operator: {
         Args: { _user_id: string; _venue_id: string }
         Returns: boolean

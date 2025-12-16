@@ -2,13 +2,32 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Shield, Lock } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useLocation } from 'react-router-dom';
 
-// Routes that bypass the SiteGate (accessible without NDA)
-const BYPASS_ROUTES = ['/verify-email', '/dashboard', '/auth', '/access-portal'];
+// Routes that bypass the SiteGate (accessible without NDA) - PUBLIC ROUTES
+const BYPASS_ROUTES = [
+  '/',              // Landing page - MUST BE PUBLIC
+  '/auth',          // Login/Signup
+  '/access-portal', // Auth portal
+  '/verify-email',  // Email verification
+  '/dashboard',     // User dashboard (has its own auth)
+  '/terms',         // Legal pages
+  '/privacy',
+  '/refund',
+  '/login',         // Redirects
+  '/signup',
+  '/about',
+  '/contact',
+  '/venues',        // Public venue pages
+  '/p/',            // Shared profiles
+  '/location/',     // Shared locations
+  '/payment-success',
+  '/compliance',
+  '/2257-compliance',
+];
 
 const SiteGate = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -129,7 +148,9 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
   if (isLoading) {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center z-[200]">
-        <div className="animate-pulse text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID<sup className="text-xs text-cyan-400">™</sup></div>
+        <h1 className="animate-pulse text-2xl md:text-3xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">
+          VALID<sup className="text-xs text-cyan-400">™</sup>
+        </h1>
       </div>
     );
   }
@@ -152,19 +173,14 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
       {/* Modal Container - INTERACTIVE, with scroll for small screens */}
       <div className="fixed inset-0 z-[9999] flex items-start md:items-center justify-center p-4 pt-8 md:pt-4 overflow-y-auto">
         <div className="w-full max-w-md relative z-50">
-          {/* Logo & Header */}
+          {/* Logo & Header - TEXT ONLY, NO SHIELD */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 mb-4">
-              <Shield className="h-8 w-8 text-cyan-400" />
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <h1 className="text-3xl font-bold font-orbitron text-white">
-                VALID<sup className="text-sm text-cyan-400">™</sup>
-              </h1>
-              <span className="px-2 py-0.5 text-[8px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse">
-                Beta
-              </span>
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold font-orbitron tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)] mb-2">
+              VALID<sup className="text-sm text-cyan-400">™</sup>
+            </h1>
+            <span className="inline-block px-2 py-0.5 text-[8px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] animate-pulse mb-2">
+              Beta
+            </span>
             <p className="text-gray-400 text-sm">Secure Access Portal</p>
           </div>
 

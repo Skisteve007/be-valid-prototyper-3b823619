@@ -9,7 +9,7 @@ import { CurrencyProvider } from "./providers/CurrencyProvider";
 import { AgeGate } from "./components/AgeGate";
 import { AccessGate } from "./components/AccessGate";
 import Footer from "./components/Footer";
-import SiteGate from "./components/SiteGate";
+// SiteGate removed as global wrapper - use AccessGate for protected routes instead
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Critical path - eager load
@@ -87,7 +87,6 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-          <SiteGate>
           <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
             <Suspense fallback={<PageLoader />}>
               <Routes>
@@ -175,7 +174,6 @@ const App = () => (
             </Suspense>
             <Footer />
           </div>
-          </SiteGate>
           </BrowserRouter>
         </TooltipProvider>
       </CurrencyProvider>

@@ -7,8 +7,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useLocation } from 'react-router-dom';
 
-// Routes that bypass the SiteGate (accessible without NDA) - PUBLIC ROUTES
-const BYPASS_ROUTES = [
+// Routes that bypass the SiteGate - EXACT MATCH for specific routes
+const EXACT_BYPASS_ROUTES = [
   '/',              // Landing page - MUST BE PUBLIC
   '/auth',          // Login/Signup
   '/access-portal', // Auth portal
@@ -21,12 +21,17 @@ const BYPASS_ROUTES = [
   '/signup',
   '/about',
   '/contact',
-  '/venues',        // Public venue pages
-  '/p/',            // Shared profiles
-  '/location/',     // Shared locations
+  '/venues',        // Public venue listing
   '/payment-success',
   '/compliance',
   '/2257-compliance',
+];
+
+// Routes that bypass using PREFIX matching (dynamic routes)
+const PREFIX_BYPASS_ROUTES = [
+  '/p/',            // Shared profiles
+  '/location/',     // Shared locations
+  '/venues/',       // Individual venue pages
 ];
 
 const SiteGate = ({ children }: { children: React.ReactNode }) => {
@@ -38,8 +43,14 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Check if current route should bypass the gate
-  const shouldBypass = BYPASS_ROUTES.some(route => location.pathname.startsWith(route));
+  const pathname = location.pathname;
+  
+  // Check if current route should bypass the gate - FIXED LOGIC
+  // Exact match for specific routes
+  const isExactBypass = EXACT_BYPASS_ROUTES.includes(pathname);
+  // Prefix match for dynamic routes (like /p/abc123)
+  const isPrefixBypass = PREFIX_BYPASS_ROUTES.some(prefix => pathname.startsWith(prefix));
+  const shouldBypass = isExactBypass || isPrefixBypass;
 
   useEffect(() => {
     let isMounted = true;

@@ -213,37 +213,17 @@ const Hero = () => {
         <p className="text-xs font-mono tracking-widest text-cyan-400 mb-6 uppercase text-left">{t('hero.powerBehind')}</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           <div className="p-5 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm hover:border-cyan-400/50 transition-all">
-            <h3 className="text-base font-bold text-cyan-400 mb-2">{t('hero.instantEntry')}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.instantEntryDesc')}</p>
+            <h3 className="text-base font-bold text-cyan-400 mb-2">Scan. You're in.</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">Instant entry at VALID venues—no friction.</p>
           </div>
           <div className="p-5 rounded-xl border border-green-500/30 bg-green-500/5 backdrop-blur-sm hover:border-green-400/50 transition-all">
-            <h3 className="text-base font-bold text-green-400 mb-2">{t('hero.secureFunds')}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.secureFundsDesc')}</p>
+            <h3 className="text-base font-bold text-green-400 mb-2">Pay in a tap.</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">Fast checkout and fast payment when it counts.</p>
           </div>
           <div className="p-5 rounded-xl border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
-            <h3 className="text-base font-bold text-purple-400 mb-2">{t('hero.dataLock')}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{t('hero.dataLockDesc')}</p>
+            <h3 className="text-base font-bold text-purple-400 mb-2">Share on your terms.</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">Reveal only what's needed, when you choose.</p>
           </div>
-        </div>
-      </div>
-
-      {/* ===== CONDUIT, NOT WAREHOUSE SECTION ===== */}
-      <div className="w-full px-4 md:px-8 lg:px-12 py-16 border-t border-cyan-500/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-6">
-            Why VALID<sup className="text-[0.5em]">™</sup> is Different
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-            Conduit, <span className="text-cyan-400">Not Warehouse</span>
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
-            Unlike legacy systems that store your personal data for years, VALID<sup className="text-[0.5em]">™</sup> operates as a secure conduit. 
-            We verify your identity in real-time, grant access, then <span className="text-cyan-400 font-bold">purge immediately</span>. 
-            Your data is never stored. Never sold. Never at risk.
-          </p>
-          <p className="text-base text-muted-foreground italic">
-            This isn't just privacy by policy — it's <span className="text-foreground font-semibold">privacy by architecture</span>.
-          </p>
         </div>
       </div>
 

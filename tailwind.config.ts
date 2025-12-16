@@ -128,7 +128,7 @@ export default {
   				'sans-serif'
   			],
   			display: [
-  				'Space Grotesk',
+  				'Oxanium',
   				'sans-serif'
   			],
   			orbitron: [

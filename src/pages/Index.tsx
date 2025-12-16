@@ -108,10 +108,25 @@ const Index = () => {
               ${isDark ? 'text-white' : 'text-slate-900'}`}>
               {t('standard.title')} <span className="text-cyan-400">{t('standard.titleHighlight')}</span>
             </h2>
-            <p className={`max-w-2xl mx-auto leading-relaxed
+            <p className={`max-w-2xl mx-auto leading-relaxed mb-6
               ${isDark ? 'text-gray-200' : 'text-slate-600'}`}>
               {t('standard.subtitle')}
             </p>
+            
+            {/* Compliance Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide ${isDark ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'bg-cyan-100 text-cyan-700'}`}>
+                SOC 2
+              </span>
+              <span className={`${isDark ? 'text-gray-500' : 'text-slate-400'}`}>•</span>
+              <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide ${isDark ? 'bg-green-500/20 text-green-400 border border-green-500/40' : 'bg-green-100 text-green-700'}`}>
+                GDPR
+              </span>
+              <span className={`${isDark ? 'text-gray-500' : 'text-slate-400'}`}>•</span>
+              <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide ${isDark ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-700'}`}>
+                CCPA
+              </span>
+            </div>
           </div>
 
           {/* The 4 Pillars */}

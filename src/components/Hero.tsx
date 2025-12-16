@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import ResponsiveHeader from './ResponsiveHeader';
-import ComplianceBadges from './ComplianceBadges';
+
 import SynthButton from './SynthButton';
 import { usePageViewTracking } from '@/hooks/usePageViewTracking';
 
@@ -247,31 +247,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ===== ENTERPRISE TRUST BANNER ===== */}
-      <div className="w-full px-4 md:px-8 lg:px-12 py-8 bg-gradient-to-r from-cyan-500/5 via-green-500/5 to-cyan-500/5 border-y border-cyan-500/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-lg font-semibold text-foreground mb-4">
-            Enterprise Trust: Built for SOC 2 & GDPR compliance to win government & healthcare contracts.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <div className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/40 rounded-full">
-              <span>🛡️</span>
-              <span className="text-cyan-400 text-sm font-bold">SOC 2 Type II</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/40 rounded-full">
-              <span>🔒</span>
-              <span className="text-green-400 text-sm font-bold">GDPR Compliant</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 border border-amber-500/40 rounded-full">
-              <span>🔒</span>
-              <span className="text-amber-400 text-sm font-bold">CCPA Compliant</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ===== SECURITY & COMPLIANCE SECTION ===== */}
-      <ComplianceBadges variant="hero" />
 
       {/* ===== SYNTH FAB ===== */}
       <SynthButton variant="fab" />

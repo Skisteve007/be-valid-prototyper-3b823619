@@ -74,23 +74,36 @@ const InvestorPortal = () => {
       </Helmet>
 
       <div className="relative min-h-screen overflow-hidden">
-        {/* Cinematic Space Background */}
+        {/* Layer 1: Cinematic Earth/Space Image */}
         <div 
           className="fixed inset-0 z-0"
           style={{
             backgroundImage: 'url(/investor-bg-earth.jpg)',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center bottom',
             backgroundAttachment: 'fixed',
+            opacity: 0.45,
           }}
         />
-        {/* Dark Overlay for readability */}
-        <div className="fixed inset-0 z-0 bg-black/70 backdrop-blur-[2px]" />
+        
+        {/* Layer 2: Gradient Tint with Teal Glow */}
+        <div 
+          className="fixed inset-0 z-0"
+          style={{
+            background: `
+              radial-gradient(circle at 60% 20%, rgba(34,211,238,0.15), transparent 55%),
+              linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.95))
+            `,
+          }}
+        />
+        
+        {/* Layer 3: Readability Overlay */}
+        <div className="fixed inset-0 z-0 bg-black/50" />
         
         {/* Content Layer */}
         <div className="relative z-10">
           {/* Hero Header */}
-          <div className="border-b border-cyan-500/20 bg-[#050505]/80 backdrop-blur-md">
+          <div className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
           <div className="container mx-auto px-4 py-10 md:py-16 text-center">
             {/* Primary H1 */}
             <h1 className="text-4xl md:text-6xl font-bold tracking-wider text-white font-display mb-4">

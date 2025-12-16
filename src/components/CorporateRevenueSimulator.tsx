@@ -15,7 +15,7 @@ const CorporateRevenueSimulator = () => {
             Turn Security Into Revenue
           </h2>
           <p className="text-xl text-gray-400 mt-4 max-w-3xl mx-auto">
-            The "Invisible Fee" Model: Zero Cost to Venue. 100% Liability Protection.
+            The "Invisible Fee" Model: Zero cost to venue. Liability mitigation + operational control.
           </p>
         </div>
 
@@ -43,24 +43,24 @@ const CorporateRevenueSimulator = () => {
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-4 mt-6">
               <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Guest Fee</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wider">Guest Verification Fee</p>
                 <p className="text-3xl font-bold text-white">$1.50</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Our Cost</p>
-                <p className="text-2xl font-bold text-gray-400">$0.50</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wider">Typical Vendor Cost</p>
+                <p className="text-2xl font-bold text-gray-400">$0.50–$0.75</p>
               </div>
             </div>
 
             {/* Profit Box */}
             <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 mt-6">
-              <p className="text-xs text-cyan-400 uppercase tracking-wider">NET PROFIT PER HEAD</p>
-              <p className="text-4xl font-bold text-cyan-400">$1.00</p>
+              <p className="text-xs text-cyan-400 uppercase tracking-wider">NET PROFIT PER GUEST</p>
+              <p className="text-4xl font-bold text-cyan-400">$0.75–$1.00</p>
             </div>
 
             {/* Example Calculation */}
             <p className="text-sm text-gray-500 mt-3">
-              2,000 guests/night = $2,000 profit
+              <span className="text-gray-400">Illustrative example:</span> 2,000 guests/night → $1,500–$2,000 net profit
             </p>
           </div>
 
@@ -85,7 +85,7 @@ const CorporateRevenueSimulator = () => {
               Tier 2: Fortress Protocol
             </h3>
             <p className="text-gray-300 mt-2">
-              IDV + Federal Watchlist Screening (Terrorist/Sex Offender/Sanctions)
+              ID Verification (IDV) + Watchlist Screening (e.g., sanctions/PEP and venue deny-lists; optional expanded checks)
             </p>
 
             {/* Stats Grid */}
@@ -95,20 +95,25 @@ const CorporateRevenueSimulator = () => {
                 <p className="text-3xl font-bold text-white">$3.00</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Our Cost</p>
-                <p className="text-2xl font-bold text-gray-400">$0.70</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wider">Typical Vendor Cost</p>
+                <p className="text-2xl font-bold text-gray-400">$1.25–$1.75</p>
               </div>
             </div>
 
             {/* Profit Box (EMPHASIZED) */}
             <div className="bg-emerald-500/20 border border-emerald-500/50 rounded-xl p-4 mt-6 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-              <p className="text-xs text-emerald-400 uppercase tracking-wider font-bold">NET PROFIT PER HEAD</p>
-              <p className="text-4xl font-bold text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">$2.30</p>
+              <p className="text-xs text-emerald-400 uppercase tracking-wider font-bold">NET PROFIT PER GUEST</p>
+              <p className="text-4xl font-bold text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">$1.25–$1.75</p>
             </div>
 
             {/* Example Calculation */}
             <p className="text-sm text-emerald-300 mt-3 font-semibold">
-              50,000 guests/game = $115,000 profit
+              <span className="text-emerald-200">Illustrative example:</span> 50,000 guests/game → $62,500–$87,500 net profit
+            </p>
+            
+            {/* Alternative deployment example */}
+            <p className="text-xs text-emerald-400/70 mt-2">
+              Most common deployment (restricted access / pre-clear): 10,000 pre-cleared fans/staff → $12,500–$17,500 net per enrollment cycle
             </p>
           </div>
         </div>
@@ -136,7 +141,7 @@ const CorporateRevenueSimulator = () => {
 
             {/* Box 2: Net Profit */}
             <div className="bg-black/60 border border-white/20 rounded-xl px-8 py-6">
-              <p className="text-4xl md:text-5xl font-bold text-emerald-400 font-orbitron">$2.30</p>
+              <p className="text-3xl md:text-4xl font-bold text-emerald-400 font-orbitron">$1.25–$1.75</p>
               <p className="text-xs text-gray-500 uppercase tracking-wider mt-2">NET PROFIT</p>
             </div>
 
@@ -145,8 +150,8 @@ const CorporateRevenueSimulator = () => {
 
             {/* Box 3: Total (HERO NUMBER) */}
             <div className="bg-emerald-500/20 border-2 border-emerald-500/60 rounded-xl px-8 py-6 shadow-[0_0_30px_rgba(16,185,129,0.4)]">
-              <p className="text-4xl md:text-5xl font-bold text-emerald-400 font-orbitron drop-shadow-[0_0_15px_rgba(16,185,129,0.6)]">
-                $115,000
+              <p className="text-3xl md:text-4xl font-bold text-emerald-400 font-orbitron drop-shadow-[0_0_15px_rgba(16,185,129,0.6)]">
+                $62,500–$87,500
               </p>
               <p className="text-xs text-emerald-300 uppercase tracking-wider mt-2 font-semibold">PER GAME</p>
             </div>
@@ -156,10 +161,15 @@ const CorporateRevenueSimulator = () => {
           <div className="mt-10 pt-8 border-t border-emerald-500/20">
             <p className="text-gray-400 text-lg">
               <span className="text-white font-semibold">10 Home Games</span> = 
-              <span className="text-emerald-400 font-bold text-2xl ml-2">$1,150,000</span>
+              <span className="text-emerald-400 font-bold text-2xl ml-2">$625,000–$875,000</span>
               <span className="text-gray-500 ml-2">per season</span>
             </p>
           </div>
+          
+          {/* Footnote */}
+          <p className="text-xs text-gray-500/70 mt-8 max-w-4xl mx-auto leading-relaxed">
+            Illustrative economics shown. Vendor costs vary by verification depth (document + biometric vs document-only), watchlist scope, throughput requirements, and volume-based contract pricing.
+          </p>
         </div>
 
       </div>

@@ -63,6 +63,7 @@ const PlatformFeatures = lazy(() => import("./pages/PlatformFeatures"));
 const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
 const Synth = lazy(() => import("./pages/Synth"));
+const SystemAudit = lazy(() => import("./pages/SystemAudit"));
 
 const queryClient = new QueryClient();
 
@@ -140,6 +141,7 @@ const App = () => (
                 <Route path="/trust-center" element={<AgeGate><TrustCenter /></AgeGate>} />
                 <Route path="/pitch" element={<CinematicPitchDeck />} />
                 <Route path="/deck" element={<CinematicPitchDeck />} />
+                <Route path="/system-audit" element={<SystemAudit />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
               </Routes>

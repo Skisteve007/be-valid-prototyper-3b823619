@@ -557,7 +557,7 @@ const GhostPassModal = ({
   };
 
   // Progress ring calculation
-  const radius = 90;
+  const radius = 72;
   const circumference = 2 * Math.PI * radius;
   const progress = ((30 - timeLeft) / 30) * circumference;
 
@@ -635,7 +635,7 @@ const GhostPassModal = ({
       {/* Ghost QR Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent 
-          className="max-w-md w-[95vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden fixed top-0 left-1/2 -translate-x-1/2 translate-y-0 pt-4 md:pt-8 max-h-screen overflow-y-auto z-[9999]"
+          className="max-w-sm w-[92vw] p-0 border-0 bg-transparent shadow-none [&>button]:hidden fixed top-0 left-1/2 -translate-x-1/2 translate-y-0 pt-2 md:pt-4 max-h-[calc(100vh-0.75rem)] overflow-y-auto z-[9999]"
           style={{
             animation: 'slideUpEnergize 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
@@ -655,7 +655,7 @@ const GhostPassModal = ({
             <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" />
             
             {/* Content */}
-            <div className="relative z-10 p-5">
+            <div className="relative z-10 p-4 md:p-5">
               {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
@@ -683,11 +683,11 @@ const GhostPassModal = ({
               <div className="flex justify-center mb-4">
                 <div className="relative">
                   {/* Progress Ring */}
-                  <svg className="absolute -inset-4 w-[calc(100%+32px)] h-[calc(100%+32px)] -rotate-90">
+                  <svg className="absolute -inset-3 w-[calc(100%+24px)] h-[calc(100%+24px)] -rotate-90">
                     <circle
                       cx="50%"
                       cy="50%"
-                      r={90}
+                      r={radius}
                       fill="none"
                       stroke="rgba(255,255,255,0.1)"
                       strokeWidth="2"
@@ -695,13 +695,13 @@ const GhostPassModal = ({
                     <circle
                       cx="50%"
                       cy="50%"
-                      r={90}
+                      r={radius}
                       fill="none"
                       stroke={isActivated ? '#22c55e' : '#fbbf24'}
                       strokeWidth="2"
                       strokeLinecap="round"
-                      strokeDasharray={2 * Math.PI * 90}
-                      strokeDashoffset={(2 * Math.PI * 90) - ((30 - timeLeft) / 30) * (2 * Math.PI * 90)}
+                      strokeDasharray={circumference}
+                      strokeDashoffset={circumference - progress}
                       className="transition-all duration-1000 ease-linear"
                       style={{
                         filter: isActivated ? 'drop-shadow(0 0 6px rgba(34,197,94,0.6))' : 'drop-shadow(0 0 6px rgba(251,191,36,0.6))',
@@ -709,9 +709,9 @@ const GhostPassModal = ({
                     />
                   </svg>
 
-                  {/* Pure White QR Container - BIGGER */}
+                  {/* Pure White QR Container */}
                   <div 
-                    className="relative w-44 h-44 rounded-xl overflow-hidden transition-all duration-300"
+                    className="relative w-40 h-40 rounded-xl overflow-hidden transition-all duration-300"
                     style={{
                       background: '#FFFFFF',
                       boxShadow: isActivated 
@@ -733,12 +733,12 @@ const GhostPassModal = ({
                       </div>
                     )}
 
-                    {/* QR Code - BIGGER */}
-                    <div className={`w-full h-full flex items-center justify-center p-3 transition-all duration-300 ${isRefreshing ? 'opacity-0' : 'opacity-100'}`}>
+                    {/* QR Code */}
+                    <div className={`w-full h-full flex items-center justify-center p-2.5 transition-all duration-300 ${isRefreshing ? 'opacity-0' : 'opacity-100'}`}>
                       <QRCodeSVG
                         key={qrKey}
                         value={generateQRData()}
-                        size={156}
+                        size={132}
                         level="H"
                         bgColor="#FFFFFF"
                         fgColor="#000000"

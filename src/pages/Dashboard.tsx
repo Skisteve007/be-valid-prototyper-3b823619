@@ -24,6 +24,7 @@ import logo from "@/assets/valid-logo.jpeg";
 import { BetaBanner } from "@/components/BetaBanner";
 import { BetaMemberBadge } from "@/components/BetaMemberBadge";
 import { isBetaPeriodActive } from "@/config/betaConfig";
+import { BountyMission } from "@/components/gamification";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -375,6 +376,11 @@ const Dashboard = () => {
                 onVibeMetadataChange={setVibeMetadata}
                 onStatusColorChange={setStatusColor}
               />
+            </div>
+            
+            {/* Bounty Mission - Daily Quest */}
+            <div className="flex justify-center">
+              <BountyMission />
             </div>
           </div>
 

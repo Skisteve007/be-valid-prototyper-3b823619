@@ -1,62 +1,79 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import Index from "./pages/Index";
-import Auth from "./pages/Auth";
-import Dashboard from "./pages/Dashboard";
-import Admin from "./pages/Admin";
-import AdminLogin from "./pages/AdminLogin";
-import AdminSetup from "./pages/AdminSetup";
-import Sponsors from "./pages/Sponsors";
-import Partners from "./pages/Partners";
-import LabDashboard from "./pages/LabDashboard";
-import Terms from "./pages/Terms";
-import Privacy from "./pages/Privacy";
-import Refund from "./pages/Refund";
-import Compliance2257 from "./pages/Compliance2257";
-import ViewProfile from "./pages/ViewProfile";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import SafetyCertificate from "./pages/SafetyCertificate";
-import LabKitOrder from "./pages/LabKitOrder";
-import ToxicologyKitOrder from "./pages/ToxicologyKitOrder";
-import HealthPanelOrder from "./pages/HealthPanelOrder";
-import VenueCompliance from "./pages/VenueCompliance";
-import SalesPortal from "./pages/SalesPortal";
-import PartnerApplication from "./pages/PartnerApplication";
-import CompetitiveScorecard from "./pages/CompetitiveScorecard";
-import VenueOperatorPortal from "./pages/VenueOperatorPortal";
-import PitchDeck from "./pages/PitchDeck";
-import VenueLanding from "./pages/VenueLanding";
-import IDVVerification from "./pages/IDVVerification";
-import AdminDealRoom from "./pages/AdminDealRoom";
-import SynthVault from "./pages/SynthVault";
-import InvestorDashboard from "./pages/InvestorDashboard";
-import SharedProfile from "./pages/SharedProfile";
-import VerifyEmail from "./pages/VerifyEmail";
-import AccessPending from "./pages/AccessPending";
-import SharedLocation from "./pages/SharedLocation";
-import VendorPortal from "./pages/VendorPortal";
-import VendorDashboard from "./pages/VendorDashboard";
-import StaffPOS from "./pages/StaffPOS";
-import InvestorPortal from "./pages/InvestorPortal";
-
-import ApiDocs from "./pages/ApiDocs";
-import SecurityCompliance from "./pages/SecurityCompliance";
-import IntegratedHealthCompliance from "./pages/IntegratedHealthCompliance";
-import MyAccess from "./pages/MyAccess";
-import LabPortal from "./pages/LabPortal";
-import PlatformFeatures from "./pages/PlatformFeatures";
-import NotFound from "./pages/NotFound";
 import { CurrencyProvider } from "./providers/CurrencyProvider";
 import { AgeGate } from "./components/AgeGate";
 import { AccessGate } from "./components/AccessGate";
 import Footer from "./components/Footer";
 import SiteGate from "./components/SiteGate";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Critical path - eager load
+import Index from "./pages/Index";
+import Auth from "./pages/Auth";
+import NotFound from "./pages/NotFound";
+
+// Lazy loaded pages for code splitting
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Admin = lazy(() => import("./pages/Admin"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminSetup = lazy(() => import("./pages/AdminSetup"));
+const Sponsors = lazy(() => import("./pages/Sponsors"));
+const Partners = lazy(() => import("./pages/Partners"));
+const LabDashboard = lazy(() => import("./pages/LabDashboard"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Refund = lazy(() => import("./pages/Refund"));
+const Compliance2257 = lazy(() => import("./pages/Compliance2257"));
+const ViewProfile = lazy(() => import("./pages/ViewProfile"));
+const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
+const SafetyCertificate = lazy(() => import("./pages/SafetyCertificate"));
+const LabKitOrder = lazy(() => import("./pages/LabKitOrder"));
+const ToxicologyKitOrder = lazy(() => import("./pages/ToxicologyKitOrder"));
+const HealthPanelOrder = lazy(() => import("./pages/HealthPanelOrder"));
+const VenueCompliance = lazy(() => import("./pages/VenueCompliance"));
+const SalesPortal = lazy(() => import("./pages/SalesPortal"));
+const PartnerApplication = lazy(() => import("./pages/PartnerApplication"));
+const CompetitiveScorecard = lazy(() => import("./pages/CompetitiveScorecard"));
+const VenueOperatorPortal = lazy(() => import("./pages/VenueOperatorPortal"));
+const PitchDeck = lazy(() => import("./pages/PitchDeck"));
+const VenueLanding = lazy(() => import("./pages/VenueLanding"));
+const IDVVerification = lazy(() => import("./pages/IDVVerification"));
+const AdminDealRoom = lazy(() => import("./pages/AdminDealRoom"));
+const SynthVault = lazy(() => import("./pages/SynthVault"));
+const InvestorDashboard = lazy(() => import("./pages/InvestorDashboard"));
+const SharedProfile = lazy(() => import("./pages/SharedProfile"));
+const VerifyEmail = lazy(() => import("./pages/VerifyEmail"));
+const AccessPending = lazy(() => import("./pages/AccessPending"));
+const SharedLocation = lazy(() => import("./pages/SharedLocation"));
+const VendorPortal = lazy(() => import("./pages/VendorPortal"));
+const VendorDashboard = lazy(() => import("./pages/VendorDashboard"));
+const StaffPOS = lazy(() => import("./pages/StaffPOS"));
+const InvestorPortal = lazy(() => import("./pages/InvestorPortal"));
+const ApiDocs = lazy(() => import("./pages/ApiDocs"));
+const SecurityCompliance = lazy(() => import("./pages/SecurityCompliance"));
+const IntegratedHealthCompliance = lazy(() => import("./pages/IntegratedHealthCompliance"));
+const MyAccess = lazy(() => import("./pages/MyAccess"));
+const LabPortal = lazy(() => import("./pages/LabPortal"));
+const PlatformFeatures = lazy(() => import("./pages/PlatformFeatures"));
 
 const queryClient = new QueryClient();
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="space-y-4 w-full max-w-md p-8">
+      <Skeleton className="h-12 w-3/4 mx-auto" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-5/6" />
+      <Skeleton className="h-32 w-full" />
+    </div>
+  </div>
+);
 
 const App = () => (
   <HelmetProvider>
@@ -68,56 +85,58 @@ const App = () => (
           <BrowserRouter>
           <SiteGate>
           <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
-            <Routes>
-              <Route path="/" element={<AgeGate><Index /></AgeGate>} />
-              <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
-              <Route path="/access-portal" element={<AgeGate><Auth /></AgeGate>} />
-              <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
-              <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />
-              <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />
-              <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
-              <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />
-              <Route path="/synth-vault" element={<SynthVault />} />
-              <Route path="/investor-dashboard" element={<AgeGate><InvestorDashboard /></AgeGate>} />
-              <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
-              <Route path="/partners" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
-              <Route path="/partners/verification" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
-              <Route path="/lab/dashboard" element={<AgeGate><LabDashboard /></AgeGate>} />
-              <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
-              <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
-              <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />
-              <Route path="/2257-compliance" element={<AgeGate><Compliance2257 /></AgeGate>} />
-              <Route path="/view-profile" element={<AgeGate><ViewProfile /></AgeGate>} />
-              <Route path="/safety-certificate" element={<AgeGate><SafetyCertificate /></AgeGate>} />
-              <Route path="/lab-kit-order" element={<AgeGate><LabKitOrder /></AgeGate>} />
-              <Route path="/toxicology-kit-order" element={<AgeGate><ToxicologyKitOrder /></AgeGate>} />
-              <Route path="/health-panel-order" element={<AgeGate><HealthPanelOrder /></AgeGate>} />
-              <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
-              <Route path="/compliance" element={<VenueCompliance />} />
-              <Route path="/sales-portal" element={<AgeGate><SalesPortal /></AgeGate>} />
-              <Route path="/partner-application" element={<AgeGate><PartnerApplication /></AgeGate>} />
-              <Route path="/competitive-scorecard" element={<AgeGate><CompetitiveScorecard /></AgeGate>} />
-              <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
-              <Route path="/pitch-deck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
-              <Route path="/access-pending" element={<AccessPending />} />
-              <Route path="/venues/:slug" element={<VenueLanding />} />
-              <Route path="/idv-verification" element={<AgeGate><IDVVerification /></AgeGate>} />
-              <Route path="/p/:shortId" element={<SharedProfile />} />
-              <Route path="/location/:locationId" element={<SharedLocation />} />
-              <Route path="/verify-email" element={<VerifyEmail />} />
-              <Route path="/api-docs" element={<ApiDocs />} />
-              <Route path="/security-compliance" element={<SecurityCompliance />} />
-              <Route path="/partners/integrated-health-compliance" element={<IntegratedHealthCompliance />} />
-              <Route path="/my-access" element={<AgeGate><MyAccess /></AgeGate>} />
-              <Route path="/lab-portal" element={<AgeGate><LabPortal /></AgeGate>} />
-              <Route path="/vendor-pricing" element={<AgeGate><PlatformFeatures /></AgeGate>} />
-              <Route path="/vendor-portal" element={<VendorPortal />} />
-              <Route path="/vendor-portal/dashboard" element={<VendorDashboard />} />
-              <Route path="/staff/pos" element={<StaffPOS />} />
-              <Route path="/investor-portal" element={<AgeGate><InvestorPortal /></AgeGate>} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
-            </Routes>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<AgeGate><Index /></AgeGate>} />
+                <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
+                <Route path="/access-portal" element={<AgeGate><Auth /></AgeGate>} />
+                <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
+                <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />
+                <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />
+                <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
+                <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />
+                <Route path="/synth-vault" element={<SynthVault />} />
+                <Route path="/investor-dashboard" element={<AgeGate><InvestorDashboard /></AgeGate>} />
+                <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
+                <Route path="/partners" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
+                <Route path="/partners/verification" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
+                <Route path="/lab/dashboard" element={<AgeGate><LabDashboard /></AgeGate>} />
+                <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
+                <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
+                <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />
+                <Route path="/2257-compliance" element={<AgeGate><Compliance2257 /></AgeGate>} />
+                <Route path="/view-profile" element={<AgeGate><ViewProfile /></AgeGate>} />
+                <Route path="/safety-certificate" element={<AgeGate><SafetyCertificate /></AgeGate>} />
+                <Route path="/lab-kit-order" element={<AgeGate><LabKitOrder /></AgeGate>} />
+                <Route path="/toxicology-kit-order" element={<AgeGate><ToxicologyKitOrder /></AgeGate>} />
+                <Route path="/health-panel-order" element={<AgeGate><HealthPanelOrder /></AgeGate>} />
+                <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
+                <Route path="/compliance" element={<VenueCompliance />} />
+                <Route path="/sales-portal" element={<AgeGate><SalesPortal /></AgeGate>} />
+                <Route path="/partner-application" element={<AgeGate><PartnerApplication /></AgeGate>} />
+                <Route path="/competitive-scorecard" element={<AgeGate><CompetitiveScorecard /></AgeGate>} />
+                <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
+                <Route path="/pitch-deck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
+                <Route path="/access-pending" element={<AccessPending />} />
+                <Route path="/venues/:slug" element={<VenueLanding />} />
+                <Route path="/idv-verification" element={<AgeGate><IDVVerification /></AgeGate>} />
+                <Route path="/p/:shortId" element={<SharedProfile />} />
+                <Route path="/location/:locationId" element={<SharedLocation />} />
+                <Route path="/verify-email" element={<VerifyEmail />} />
+                <Route path="/api-docs" element={<ApiDocs />} />
+                <Route path="/security-compliance" element={<SecurityCompliance />} />
+                <Route path="/partners/integrated-health-compliance" element={<IntegratedHealthCompliance />} />
+                <Route path="/my-access" element={<AgeGate><MyAccess /></AgeGate>} />
+                <Route path="/lab-portal" element={<AgeGate><LabPortal /></AgeGate>} />
+                <Route path="/vendor-pricing" element={<AgeGate><PlatformFeatures /></AgeGate>} />
+                <Route path="/vendor-portal" element={<VendorPortal />} />
+                <Route path="/vendor-portal/dashboard" element={<VendorDashboard />} />
+                <Route path="/staff/pos" element={<StaffPOS />} />
+                <Route path="/investor-portal" element={<AgeGate><InvestorPortal /></AgeGate>} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />
+              </Routes>
+            </Suspense>
             <Footer />
           </div>
           </SiteGate>

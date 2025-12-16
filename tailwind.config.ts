@@ -117,7 +117,7 @@ export default {
   		},
   		fontFamily: {
   			sans: [
-  				'Orbitron',
+  				'Inter',
   				'ui-sans-serif',
   				'system-ui',
   				'-apple-system',
@@ -127,18 +127,20 @@ export default {
   				'Arial',
   				'sans-serif'
   			],
+  			display: [
+  				'Space Grotesk',
+  				'sans-serif'
+  			],
   			orbitron: [
   				'Orbitron',
   				'sans-serif'
   			],
   			serif: [
-  				'Orbitron',
   				'ui-serif',
   				'Georgia',
   				'serif'
   			],
   			mono: [
-  				'Orbitron',
   				'ui-monospace',
   				'SFMono-Regular',
   				'monospace'

@@ -74,41 +74,39 @@ const InvestorPortal = () => {
       </Helmet>
 
       <div className="min-h-screen bg-[#050505]">
-        {/* Header */}
+        {/* Hero Header */}
         <div className="border-b border-cyan-500/20 bg-[#050505]/95 backdrop-blur supports-[backdrop-filter]:bg-[#050505]/60">
-          <div className="container mx-auto px-4 py-6">
-            <h1 className="text-2xl md:text-3xl font-bold tracking-wider text-white font-orbitron">
+          <div className="container mx-auto px-4 py-10 md:py-16 text-center">
+            {/* Primary H1 */}
+            <h1 className="text-4xl md:text-6xl font-bold tracking-wider text-white font-display mb-4">
               DEAL ROOM
             </h1>
-            <p className="text-cyan-400/70 mt-1 tracking-wide">Valid™ Investor Portal</p>
+            <p className="text-cyan-400/80 text-lg tracking-wide mb-6">Valid<sup className="text-[0.5em]">™</sup> Investor Portal</p>
+            
+            {/* Secondary Quote */}
+            <p className="text-base md:text-lg text-amber-300/80 italic tracking-wide mb-8 max-w-xl mx-auto">
+              "Experience cannot be coded. It must be lived."
+            </p>
+            
+            {/* Badges - reduced visual weight */}
+            <div className="inline-flex flex-wrap items-center justify-center gap-2">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full">
+                <span className="text-xs">🛡️</span>
+                <span className="text-cyan-400/80 text-xs font-medium">SOC 2</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-green-500/10 border border-green-500/30 rounded-full">
+                <span className="text-xs">🔒</span>
+                <span className="text-green-400/80 text-xs font-medium">GDPR</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full">
+                <span className="text-xs">🔒</span>
+                <span className="text-amber-400/80 text-xs font-medium">CCPA</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="container mx-auto px-4 py-8 md:py-12 space-y-12 md:space-y-16">
-          
-          {/* Prominent Tagline */}
-          <div className="text-center">
-            <p className="text-2xl md:text-4xl text-amber-300 font-bold italic tracking-wide mb-6">
-              "Experience cannot be coded. It must be lived."
-            </p>
-            
-            {/* Enterprise Trust - Investor Differentiator */}
-            <div className="inline-flex flex-wrap items-center justify-center gap-3 bg-gradient-to-r from-cyan-500/10 via-green-500/10 to-amber-500/10 border border-cyan-500/30 rounded-xl px-6 py-4">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-cyan-500/20 border border-cyan-500/40 rounded-full">
-                <span>🛡️</span>
-                <span className="text-cyan-400 text-xs font-bold">SOC 2</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/20 border border-green-500/40 rounded-full">
-                <span>🔒</span>
-                <span className="text-green-400 text-xs font-bold">GDPR</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/20 border border-amber-500/40 rounded-full">
-                <span>🔒</span>
-                <span className="text-amber-400 text-xs font-bold">CCPA</span>
-              </div>
-              <span className="text-white text-sm font-semibold">Enterprise Ready</span>
-            </div>
-          </div>
 
           {/* Timeline Visualization */}
           <section className="relative">
@@ -165,7 +163,7 @@ const InvestorPortal = () => {
             <div className="inline-block px-6 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 mb-4">
               <span className="text-emerald-400 text-sm font-semibold tracking-widest uppercase">Priority Access</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-wider font-orbitron">
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-wider font-display">
               TRANCHE 1: LAUNCH ROUND
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto mt-4"></div>
@@ -191,7 +189,7 @@ const InvestorPortal = () => {
                 </span>
               </div>
 
-              <h3 className="text-2xl md:text-4xl font-bold text-white tracking-wider mb-2 font-orbitron">
+              <h3 className="text-2xl md:text-4xl font-bold text-white tracking-wider mb-2 font-display">
                 Friends & Family Round
               </h3>
               <p className="text-xl md:text-2xl text-cyan-400 font-semibold tracking-wide mb-8">
@@ -254,7 +252,7 @@ const InvestorPortal = () => {
             <div className="inline-block px-6 py-2 rounded-full border border-gray-700 bg-gray-800/30 mb-4">
               <span className="text-gray-400 text-sm font-semibold tracking-widest uppercase">Future Round</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-500 tracking-wider font-orbitron">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-500 tracking-wider font-display">
               TRANCHE 2: SERIES SEED
             </h2>
             <p className="text-gray-600 mt-2 tracking-wide">Target: 8 Months</p>
@@ -276,7 +274,7 @@ const InvestorPortal = () => {
                 </span>
               </div>
 
-              <h2 className="text-2xl md:text-4xl font-bold text-gray-400 tracking-wider mb-2 font-orbitron">
+              <h2 className="text-2xl md:text-4xl font-bold text-gray-400 tracking-wider mb-2 font-display">
                 Priced Equity Round
               </h2>
               <p className="text-xl md:text-2xl text-gray-500 font-semibold tracking-wide mb-8">
@@ -317,12 +315,15 @@ const InvestorPortal = () => {
             </div>
           </section>
 
+          {/* Divider before Founder Section */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent my-8"></div>
+
           {/* Founder Section */}
           <section className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 rounded-2xl blur-xl opacity-40"></div>
             <div className="relative border border-cyan-500/30 rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-sm p-6 md:p-10">
               <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wider font-orbitron mb-2">
+                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wider font-display mb-2">
                   STEVEN GRILLO
                 </h2>
                 <p className="text-cyan-400 font-semibold tracking-widest uppercase text-sm">

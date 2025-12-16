@@ -128,14 +128,14 @@ const Hero = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-2 leading-tight text-left">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-2 leading-tight text-left font-display">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
                 VALID<sup className="text-[0.5em] align-super">™</sup>
               </span>
             </h1>
             
             {/* Tagline */}
-            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-2 text-left">
+            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-2 text-left font-display">
               The Universal Lifestyle Wallet
             </p>
             <p className="text-sm sm:text-base text-cyan-400 font-semibold tracking-widest mb-4 text-left">

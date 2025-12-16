@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
 import SynthButton from './SynthButton';
@@ -8,6 +8,22 @@ import SynthButton from './SynthButton';
 const ResponsiveHeader = () => {
   const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains("dark"));
+  }, []);
+
+  const toggleTheme = () => {
+    const newDark = !isDark;
+    setIsDark(newDark);
+    if (newDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("theme", newDark ? "dark" : "light");
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -62,6 +78,17 @@ const ResponsiveHeader = () => {
             >
               {t('nav.logIn')}
             </Link>
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-full transition-all duration-300 hover:scale-110 border min-w-[44px] min-h-[44px] flex items-center justify-center
+                ${isDark 
+                  ? 'bg-background text-yellow-400 border-yellow-400/60 shadow-[0_0_15px_rgba(250,204,21,0.3)]' 
+                  : 'bg-background text-cyan-300 border-cyan-400/60 shadow-[0_0_15px_rgba(0,240,255,0.3)]'}`}
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -115,6 +142,20 @@ const ResponsiveHeader = () => {
             >
               {t('nav.logIn')}
             </Link>
+            {/* Mobile Theme Toggle */}
+            <div className="px-3 py-2 flex items-center gap-3">
+              <span className="text-sm text-muted-foreground">Theme:</span>
+              <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-full transition-all duration-300 hover:scale-110 border min-w-[44px] min-h-[44px] flex items-center justify-center
+                  ${isDark 
+                    ? 'bg-background text-yellow-400 border-yellow-400/60 shadow-[0_0_15px_rgba(250,204,21,0.3)]' 
+                    : 'bg-background text-cyan-300 border-cyan-400/60 shadow-[0_0_15px_rgba(0,240,255,0.3)]'}`}
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            </div>
           </nav>
         )}
       </div>

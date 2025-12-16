@@ -101,27 +101,7 @@ const Footer = () => {
             <LanguageSelector variant="footer" />
           </div>
 
-          {/* Security & Compliance Badges */}
-          <ComplianceBadges variant="footer" />
-
-          {/* Enterprise Trust Line */}
-          <div className="flex flex-wrap items-center justify-center gap-3 py-3 border-t border-slate-600 mt-3">
-            <div className="flex items-center gap-2">
-              <span className="text-cyan-400">🛡️</span>
-              <span className="text-cyan-400 text-xs font-bold">SOC 2 Type II</span>
-            </div>
-            <span className="text-slate-500">•</span>
-            <div className="flex items-center gap-2">
-              <span className="text-green-400">🔒</span>
-              <span className="text-green-400 text-xs font-bold">GDPR</span>
-            </div>
-            <span className="text-slate-500">•</span>
-            <div className="flex items-center gap-2">
-              <span className="text-amber-400">🔒</span>
-              <span className="text-amber-400 text-xs font-bold">CCPA</span>
-            </div>
-            <span className="text-slate-400 text-xs ml-2">| Enterprise Trust: Built for compliance.</span>
-          </div>
+          {/* Security badges removed - consolidated to Hero section only */}
 
           {/* Contact Email */}
           <div className="text-center py-2 border-t border-slate-600">
@@ -139,17 +119,7 @@ const Footer = () => {
             <Link to="/vendor-portal" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">For Enterprise</Link>
             <span className="text-white font-bold">•</span>
             <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: {t('footer.ageRequirement')}</span>
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className={`p-3 rounded-full transition-all duration-300 hover:scale-110 border
-                ${isDark 
-                  ? 'bg-slate-800 text-yellow-400 border-yellow-400/60 shadow-[0_0_15px_rgba(250,204,21,0.3)]' 
-                  : 'bg-slate-700 text-cyan-300 border-cyan-400/60 shadow-[0_0_15px_rgba(0,240,255,0.3)]'}`}
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun size={22} /> : <Moon size={22} />}
-            </button>
+            {/* Theme toggle moved to header */}
             <span className="ml-auto">
             <button
                 onClick={handleAdminClick}

@@ -90,12 +90,21 @@ export default {
 				'100%': {
 					top: '0%'
 				}
+			},
+			'glow': {
+				'0%': {
+					boxShadow: '0 0 10px rgba(16, 185, 129, 0.4)'
+				},
+				'100%': {
+					boxShadow: '0 0 25px rgba(16, 185, 129, 0.8)'
+				}
 			}
 		},
 		animation: {
 			'accordion-down': 'accordion-down 0.2s ease-out',
 			'accordion-up': 'accordion-up 0.2s ease-out',
-			'scan': 'scan 4s ease-in-out infinite'
+			'scan': 'scan 4s ease-in-out infinite',
+			'glow': 'glow 2s ease-in-out infinite alternate'
 		},
   		boxShadow: {
   			'2xs': 'var(--shadow-2xs)',

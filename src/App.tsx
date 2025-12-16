@@ -164,8 +164,8 @@ const App = () => (
                 <Route path="/security-compliance" element={<SecurityCompliance />} />
                 <Route path="/my-access" element={<AgeGate><MyAccess /></AgeGate>} />
                 <Route path="/trust-center" element={<AgeGate><TrustCenter /></AgeGate>} />
-                <Route path="/pitch" element={<CinematicPitchDeck />} />
-                <Route path="/deck" element={<CinematicPitchDeck />} />
+                <Route path="/pitch" element={<AccessGate accessType="investor"><CinematicPitchDeck /></AccessGate>} />
+                <Route path="/deck" element={<AccessGate accessType="investor"><CinematicPitchDeck /></AccessGate>} />
                 <Route path="/system-audit" element={<SystemAudit />} />
                 
                 {/* CATCH-ALL - Must be last */}

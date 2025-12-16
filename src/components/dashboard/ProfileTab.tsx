@@ -13,6 +13,7 @@ import { PersonalInfoSection } from "./profile/PersonalInfoSection";
 import { SocialMediaSection } from "./profile/SocialMediaSection";
 import MySignalSection from "./profile/MySignalSection";
 import TrustSignalSection from "./profile/TrustSignalSection";
+import { ValidAccessCard } from "@/components/gamification";
 
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
@@ -720,8 +721,34 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
     );
   }
 
+  // Determine verification status for the card
+  const getVerificationStatus = (): 'verified' | 'pending' | 'unverified' => {
+    if (labCertified) return 'verified';
+    if (profileImageUrl) return 'pending';
+    return 'unverified';
+  };
+
+  // Get current signal from vibe metadata
+  const getCurrentSignal = (): 'social' | 'pulse' | 'thrill' | 'afterdark' | null => {
+    const mode = vibeMetadata?.currentMode;
+    if (mode === 'social' || mode === 'pulse' || mode === 'thrill' || mode === 'afterdark') {
+      return mode;
+    }
+    return null;
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 py-4">
+      {/* Valid Access Card - Shareable Profile Card */}
+      <div className="flex justify-center mb-6">
+        <ValidAccessCard
+          userName={fullName || 'MEMBER'}
+          verificationStatus={getVerificationStatus()}
+          currentSignal={getCurrentSignal()}
+          memberId={memberId}
+        />
+      </div>
+      
       <PersonalInfoSection
         register={register}
         setValue={setValue}

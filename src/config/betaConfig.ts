@@ -1,13 +1,13 @@
 // Beta configuration - easy to update
 export const BETA_CONFIG = {
-  // End date: January 15, 2025 at 11:59 PM EST
-  endDate: new Date('2025-01-15T23:59:59-05:00'),
+  // End date: 48 days from Dec 16, 2025 = Feb 2, 2026 at 11:59 PM EST
+  endDate: new Date('2026-02-02T23:59:59-05:00'),
   
   // Display settings
   maxBetaMembers: 100,
   
   // Pricing display
-  regularPrice: '$19/60 days',
+  regularPrice: '$19 at sign-up',
   standardPrice: '$39/60 days',
   
   // Beta duration for users (60 days free from signup)

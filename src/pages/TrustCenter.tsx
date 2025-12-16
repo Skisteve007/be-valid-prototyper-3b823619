@@ -95,10 +95,15 @@ const TrustCenter: React.FC = () => {
       
       <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
         {/* Header with Back Button */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-4 mb-4">
           <BackButton />
           <h1 className="text-2xl font-bold tracking-wide">Trust Center</h1>
         </div>
+        
+        {/* Page Description */}
+        <p className="text-muted-foreground text-sm mb-6">
+          Your verification hub. Build your trust score by completing identity checks — all verified in real-time, never stored.
+        </p>
 
         {/* Trust Score */}
         <div className="bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 rounded-2xl p-6 border border-cyan-500/30 mb-6 text-center">
@@ -168,7 +173,7 @@ const TrustCenter: React.FC = () => {
             Privacy Protected
           </div>
           <p className="text-muted-foreground text-xs leading-relaxed">
-            All verification data is encrypted and never shared without your consent. 
+            All verification data is processed in real-time and immediately purged. VALID™ is a conduit, not a warehouse. 
             You control who sees your trust score.
           </p>
         </div>

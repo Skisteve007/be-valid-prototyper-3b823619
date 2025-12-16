@@ -77,9 +77,16 @@ const Footer = () => {
     <>
       <footer className="w-full mt-auto border-t border-slate-400 dark:border-slate-700 bg-slate-800 dark:bg-slate-950">
         <div className="container mx-auto px-4 py-4">
+        
+          {/* Core Tagline */}
+          <div className="text-center mb-4 pb-4 border-b border-slate-600">
+            <p className="text-lg font-bold text-white tracking-wide">We Check. We Don't Collect.</p>
+            <p className="text-xs text-gray-400 mt-1">Conduit, Not Warehouse — Your data is verified, then purged. Never stored.</p>
+          </div>
+
         {/* Compact Legal Section */}
           <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-slate-200">
-            <p>{t('footer.copyrightFull')}</p>
+            <p>© 2025 Giant Ventures LLC. All rights reserved. VALID™ and Ghost™ are trademarks.</p>
             <p><strong className="text-white">{t('footer.disclaimerLabel')}</strong> {t('footer.disclaimerText')}</p>
           </div>
 
@@ -101,7 +108,7 @@ const Footer = () => {
           <div className="flex flex-wrap items-center justify-center gap-3 py-3 border-t border-slate-600 mt-3">
             <div className="flex items-center gap-2">
               <span className="text-cyan-400">🛡️</span>
-              <span className="text-cyan-400 text-xs font-bold">SOC 2</span>
+              <span className="text-cyan-400 text-xs font-bold">SOC 2 Type II</span>
             </div>
             <span className="text-slate-500">•</span>
             <div className="flex items-center gap-2">
@@ -113,7 +120,12 @@ const Footer = () => {
               <span className="text-amber-400">🔒</span>
               <span className="text-amber-400 text-xs font-bold">CCPA</span>
             </div>
-            <span className="text-slate-400 text-xs ml-2">| Enterprise Ready</span>
+            <span className="text-slate-400 text-xs ml-2">| Enterprise Trust: Built for compliance.</span>
+          </div>
+
+          {/* Contact Email */}
+          <div className="text-center py-2 border-t border-slate-600">
+            <p className="text-xs text-slate-400">Contact: <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a></p>
           </div>
 
           {/* Links & Compliance Row */}

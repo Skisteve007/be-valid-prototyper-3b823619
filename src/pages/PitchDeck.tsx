@@ -358,13 +358,25 @@ const PitchDeck = () => {
             </div>
             
             <blockquote className="text-xl md:text-2xl text-gray-300 italic border-l-4 border-cyan-500 pl-6 mb-8">
-              "In a world where identity fraud is up 3,000% and trust is the scarcest resource, the company that owns the verification layer owns the transaction."
+              "We're not another data company. We're the privacy-first conduit that venues trust and consumers love."
             </blockquote>
             
-            <p className="text-gray-400 text-lg leading-relaxed">
+            <p className="text-gray-400 text-lg leading-relaxed mb-6">
               VALID™ isn't a health app. It's not an identity company. It's not a payment processor. 
               <span className="text-white font-semibold"> It's the Ghost™ Token protocol—a self-destructing, encrypted trust packet injected into every QR code.</span> When you enter a venue, the Ghost™ Token proves you're verified, processes payment, and vaporizes—zero data left behind. We don't store trust. We transmit it.
             </p>
+            
+            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-6">
+              <h4 className="text-cyan-400 font-bold mb-2 font-orbitron">Conduit, Not Warehouse</h4>
+              <p className="text-gray-300">
+                Unlike legacy systems that store your personal data for years, VALID™ operates as a secure conduit. 
+                We verify your identity in real-time, grant access, then <span className="text-cyan-400 font-bold">purge immediately</span>. 
+                Your data is never stored. Never sold. Never at risk.
+              </p>
+              <p className="text-gray-400 mt-2 italic text-sm">
+                This isn't just privacy by policy — it's privacy by architecture.
+              </p>
+            </div>
           </div>
         </section>
 

@@ -9,21 +9,21 @@ const Synth = () => {
   const features = [
     {
       title: 'Code Lab',
-      description: 'Prototype new features and experiments in a sandbox environment.',
+      description: 'Build and test new VALID™ features in a sandbox environment.',
       Icon: Code2,
       colorClass: 'text-purple-400',
       bgClass: 'bg-purple-500/20',
     },
     {
       title: 'Design Lab',
-      description: 'Explore new visual concepts and UI experiments.',
+      description: 'Explore new interfaces for the Universal Lifestyle Wallet.',
       Icon: Palette,
       colorClass: 'text-pink-400',
       bgClass: 'bg-pink-500/20',
     },
     {
       title: 'Analytics Lab',
-      description: 'Test new metrics, dashboards, and data visualizations.',
+      description: 'Prototype dashboards and metrics for enterprise partners.',
       Icon: BarChart3,
       colorClass: 'text-cyan-400',
       bgClass: 'bg-cyan-500/20',
@@ -57,9 +57,9 @@ const Synth = () => {
               </button>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  Synth
+                  Synth — The VALID™ Idea Lab
                 </h1>
-                <p className="text-muted-foreground text-xs">Idea Branch • AI Lab</p>
+                <p className="text-muted-foreground text-xs">Prototype new features, explore concepts, and shape the future of VALID™</p>
               </div>
             </div>
             
@@ -81,10 +81,10 @@ const Synth = () => {
             </div>
             
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-              Welcome to Synth
+              Synth — The VALID™ Idea Lab
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg max-w-md mx-auto">
-              Your AI-powered idea laboratory. Explore, create, and innovate.
+              Prototype new features, explore concepts, and shape the future of VALID™. This is your innovation sandbox.
             </p>
           </div>
 

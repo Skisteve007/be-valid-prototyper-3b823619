@@ -127,12 +127,24 @@ const Hero = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-6 leading-tight text-left">
-              {t('hero.headline')}<br />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-2 leading-tight text-left">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 drop-shadow-[0_0_25px_rgba(0,240,255,0.5)]">
-                {t('hero.subheadline')}
+                VALID™
               </span>
             </h1>
+            
+            {/* Tagline */}
+            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2 text-left">
+              The Universal Lifestyle Wallet
+            </p>
+            <p className="text-sm sm:text-base text-cyan-400 font-semibold tracking-widest mb-4 text-left">
+              Identity. Payments. Safety. Social.
+            </p>
+            
+            {/* Trust Line */}
+            <p className="text-base sm:text-lg font-bold text-white mb-6 text-left">
+              We Check. We Don't Collect.
+            </p>
 
             {/* Description */}
             <p className="text-base text-gray-300 mb-8 max-w-lg leading-relaxed text-left">
@@ -144,9 +156,9 @@ const Hero = () => {
             <div className="flex items-center gap-2 mb-8">
               <button 
                 onClick={handleAccessClick}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-black font-bold text-[11px] rounded-full hover:bg-cyan-50 shadow-[0_0_40px_rgba(255,255,255,0.9),0_0_80px_rgba(255,255,255,0.5)] transition-all hover:scale-105 animate-[pulse_3s_ease-in-out_infinite] whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm rounded-full hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_40px_rgba(0,240,255,0.6)] transition-all hover:scale-105 whitespace-nowrap"
               >
-                {t('hero.claimId')} <ArrowDownLeft size={12} />
+                Get Your VALID™ <ArrowDownLeft size={14} />
               </button>
               <span className="px-2 py-0.5 text-[7px] font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 whitespace-nowrap">
                 Beta Version
@@ -241,6 +253,49 @@ const Hero = () => {
           <div className="p-5 rounded-xl border border-purple-500/30 bg-purple-500/5 backdrop-blur-sm hover:border-purple-400/50 transition-all">
             <h3 className="text-base font-bold text-purple-400 mb-2">{t('hero.dataLock')}</h3>
             <p className="text-sm text-gray-300 leading-relaxed">{t('hero.dataLockDesc')}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== CONDUIT, NOT WAREHOUSE SECTION ===== */}
+      <div className="w-full px-4 md:px-8 lg:px-12 py-16 border-t border-cyan-500/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-block px-4 py-1.5 border border-cyan-500/30 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-6">
+            Why VALID™ is Different
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Conduit, <span className="text-cyan-400">Not Warehouse</span>
+          </h2>
+          <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto">
+            Unlike legacy systems that store your personal data for years, VALID™ operates as a secure conduit. 
+            We verify your identity in real-time, grant access, then <span className="text-cyan-400 font-bold">purge immediately</span>. 
+            Your data is never stored. Never sold. Never at risk.
+          </p>
+          <p className="text-base text-gray-400 italic">
+            This isn't just privacy by policy — it's <span className="text-white font-semibold">privacy by architecture</span>.
+          </p>
+        </div>
+      </div>
+
+      {/* ===== ENTERPRISE TRUST BANNER ===== */}
+      <div className="w-full px-4 md:px-8 lg:px-12 py-8 bg-gradient-to-r from-cyan-500/5 via-green-500/5 to-cyan-500/5 border-y border-cyan-500/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-lg font-semibold text-white mb-4">
+            Enterprise Trust: Built for SOC 2 & GDPR compliance to win government & healthcare contracts.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex items-center gap-2 px-4 py-2 bg-cyan-500/20 border border-cyan-500/40 rounded-full">
+              <span>🛡️</span>
+              <span className="text-cyan-400 text-sm font-bold">SOC 2 Type II</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/40 rounded-full">
+              <span>🔒</span>
+              <span className="text-green-400 text-sm font-bold">GDPR Compliant</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 border border-amber-500/40 rounded-full">
+              <span>🔒</span>
+              <span className="text-amber-400 text-sm font-bold">CCPA Compliant</span>
+            </div>
           </div>
         </div>
       </div>

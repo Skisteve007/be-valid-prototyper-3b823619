@@ -109,40 +109,56 @@ const Hero = () => {
           </p>
 
           {/* Main Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-display tracking-tight mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-display tracking-tight mb-2 text-left w-full max-w-md">
             <span className="text-white">ONE KEY.</span>
           </h1>
           
-          {/* Colored Tagline */}
-          <p className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-blue-400">
-              Verify. Pay. Vibe.
-            </span>
+          {/* Colored Tagline - Stacked */}
+          <div className="text-left w-full max-w-md mb-6 relative">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 block">Verify.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400 block">Pay.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 block">Vibe.</span>
+            </p>
+            {/* Sun Icon */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2">
+              <div className="w-10 h-10 rounded-full border border-amber-400/60 flex items-center justify-center text-amber-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="4"/>
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="text-base text-muted-foreground leading-relaxed mb-8 text-left w-full max-w-md">
+            Your <span className="text-white font-semibold">Adaptive AI Profile</span> For The New Real World. <span className="text-cyan-400 underline">Signal Your Flow</span>. Instantly Switch Your Identity To Control Your Social Presence, Payments, And Total Invisibility.
           </p>
 
           {/* CTA Row */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 mb-16">
+          <div className="flex items-center gap-4 mb-10 w-full max-w-md">
             {/* Primary CTA */}
             <button 
               onClick={handleAccessClick}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-black border-2 border-cyan-400/60 text-white font-bold text-lg rounded-full hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black/60 border border-cyan-400/40 text-white font-bold text-sm rounded-full hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
             >
-              CLAIM YOUR VALID
-              <ArrowRight size={20} />
+              CLAIM YOUR ID
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
             </button>
             
             {/* Beta Version Pill */}
-            <span className="px-6 py-3 text-sm font-bold tracking-widest uppercase rounded-full border border-emerald-400/50 bg-emerald-500/10 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+            <span className="px-5 py-3 text-sm font-bold tracking-widest uppercase rounded-full border border-emerald-400/50 bg-emerald-500/10 text-emerald-400">
               BETA VERSION
             </span>
           </div>
 
           {/* Signal Selection */}
-          <div className="w-full max-w-xl">
-            <p className="text-xs font-mono tracking-[0.25em] text-cyan-400/70 uppercase mb-4">
+          <div className="w-full max-w-md text-left">
+            <p className="text-xs font-mono tracking-[0.2em] text-muted-foreground uppercase mb-3">
               SELECT YOUR SIGNAL
             </p>
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap gap-2 mb-4">
               {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
                 const { icon: Icon, label, color } = signalModes[mode];
                 const isActive = activeSignal === mode;
@@ -150,22 +166,49 @@ const Hero = () => {
                   <button
                     key={mode}
                     onClick={() => setActiveSignal(mode)}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all duration-300 text-sm font-bold tracking-wider ${
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-sm font-bold tracking-wide ${
                       isActive ? colorClasses[color].active : colorClasses[color].inactive
                     }`}
                   >
-                    <Icon size={16} />
+                    <Icon size={14} />
                     {label}
                   </button>
                 );
               })}
+            </div>
+            {/* Chip Description */}
+            <p className="text-sm text-cyan-400">
+              Open to connect. Share contacts and socials with one scan.
+            </p>
+          </div>
+
+          {/* Static Profiles Description */}
+          <div className="w-full max-w-md text-left mt-10">
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.
+            </p>
+          </div>
+
+          {/* THE VALID™ NETWORK Section */}
+          <div className="w-full max-w-md text-left mt-12">
+            <div className="inline-block px-3 py-1 border border-cyan-500/40 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-4">
+              THE VALID™ NETWORK
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+              <span className="text-white">ONE IDENTITY.</span>{' '}
+              <span className="text-cyan-400">ZERO LIMITS.</span>
+            </h2>
+            {/* Counter Pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 border border-cyan-500/40 rounded-full bg-cyan-500/10">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="text-sm font-mono text-cyan-400">528</span>
             </div>
           </div>
 
         </div>
       </div>
 
-      {/* ===== FEATURE CARDS SECTION ===== */}
+      {/* ===== THE POWER BEHIND THE SIGNAL ===== */}
       <div className="w-full px-4 md:px-8 lg:px-12 py-12">
         <p className="text-xs font-mono tracking-widest text-cyan-400 mb-6 uppercase text-left">{t('hero.powerBehind')}</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">

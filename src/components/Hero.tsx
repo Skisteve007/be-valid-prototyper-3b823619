@@ -114,7 +114,7 @@ const Hero = () => {
             <LanguageSelector />
             <Link 
               to="/partners" 
-              className="hidden sm:block text-xs font-bold text-cyan-400/80 hover:text-cyan-300 uppercase tracking-widest border border-cyan-900/50 px-3 py-2 rounded-full hover:bg-cyan-900/20 transition-colors"
+              className="text-xs font-bold text-cyan-400/80 hover:text-cyan-300 uppercase tracking-widest border border-cyan-900/50 px-3 py-2 rounded-full hover:bg-cyan-900/20 transition-colors"
             >
               {t('nav.partners')}
             </Link>

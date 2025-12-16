@@ -30,13 +30,13 @@ const Navbar = () => {
           <LanguageSelector />
           <Link 
             to="/vendor-portal" 
-            className="text-sm text-muted-foreground font-medium hover:text-primary transition hidden sm:block"
+            className="text-sm text-muted-foreground font-medium hover:text-primary transition"
           >
             For Enterprise
           </Link>
           <Link 
             to="/partners" 
-            className="text-sm text-foreground font-medium hover:text-primary transition hidden sm:block"
+            className="text-sm text-foreground font-medium hover:text-primary transition"
           >
             {t('nav.partnerSolutions')}
           </Link>

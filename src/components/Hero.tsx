@@ -128,25 +128,6 @@ const Hero = () => {
               </span>
             </h1>
 
-            {/* Enterprise Trust Badge */}
-            <div className="flex items-center gap-2 mb-4 flex-wrap">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cyan-500/10 border border-cyan-500/30 rounded-full">
-                <span className="text-cyan-400">🛡️</span>
-                <span className="text-cyan-400 text-xs font-bold">SOC 2</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full">
-                <span className="text-green-400">🔒</span>
-                <span className="text-green-400 text-xs font-bold">GDPR</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-full">
-                <span className="text-amber-400">🔒</span>
-                <span className="text-amber-400 text-xs font-bold">CCPA</span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-400 mb-6 max-w-lg text-left">
-              <span className="text-white font-semibold">Enterprise Trust:</span> Built for SOC 2 & GDPR compliance to win government & healthcare contracts.
-            </p>
-
             {/* Description */}
             <p className="text-base text-gray-300 mb-8 max-w-lg leading-relaxed text-left">
               {t('hero.adaptiveProfile')} <span className="text-white font-bold">{t('hero.adaptiveAI')}</span> {t('hero.forNewWorld')} 

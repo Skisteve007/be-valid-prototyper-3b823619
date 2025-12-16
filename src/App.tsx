@@ -136,7 +136,7 @@ const App = () => (
                 <Route path="/vendor-portal" element={<VendorPortal />} />
                 <Route path="/vendor-portal/dashboard" element={<VendorDashboard />} />
                 <Route path="/staff/pos" element={<StaffPOS />} />
-                <Route path="/investor-portal" element={<AgeGate><InvestorPortal /></AgeGate>} />
+                <Route path="/investor-portal" element={<AgeGate><AccessGate accessType="investor"><InvestorPortal /></AccessGate></AgeGate>} />
                 <Route path="/trust-center" element={<AgeGate><TrustCenter /></AgeGate>} />
                 <Route path="/pitch" element={<CinematicPitchDeck />} />
                 <Route path="/deck" element={<CinematicPitchDeck />} />

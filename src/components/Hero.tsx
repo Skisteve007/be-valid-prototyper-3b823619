@@ -34,8 +34,14 @@ const Hero = () => {
     afterdark: { icon: Moon, label: t('signals.afterdark.name'), color: 'purple', description: t('signals.afterdark.description') },
   };
 
-  const handleAccessClick = () => {
-    navigate('/dashboard');
+  const handleAccessClick = async () => {
+    // Smart routing: check auth status first
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user?.email_confirmed_at) {
+      navigate('/dashboard');
+    } else {
+      navigate('/access-portal');
+    }
   };
 
   useEffect(() => {

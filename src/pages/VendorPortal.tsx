@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, DollarSign, BarChart3, Lock } from "lucide-react";
 import validLogo from "@/assets/valid-logo.jpeg";
-import Navbar from "@/components/Navbar";
+import ResponsiveHeader from "@/components/ResponsiveHeader";
 import { Helmet } from "react-helmet-async";
 
 const VendorPortal = () => {
@@ -69,7 +69,7 @@ const VendorPortal = () => {
         <meta name="description" content="Valid™ enterprise solutions for venues, clubs, and businesses. Real-time analytics, staff management, and seamless Ghost Pass™ integration." />
       </Helmet>
       
-      <Navbar />
+      <ResponsiveHeader />
       
       <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
         {/* Hero Section */}

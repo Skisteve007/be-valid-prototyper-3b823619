@@ -222,12 +222,12 @@ const Hero = () => {
                 Universal Lifestyle Key
               </p>
               {/* ONE KEY. VERIFY. PAY. VIBE. - Much smaller */}
-              <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-4 text-white/50">
+              <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-4 text-white">
                 ONE KEY. VERIFY. PAY. VIBE.
               </p>
               
               {/* Support Line */}
-              <p className="text-base lg:text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+              <p className="text-base lg:text-lg text-white leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Join the network where your privacy is protected and your identity is always under your control.
               </p>
 
@@ -247,7 +247,7 @@ const Hero = () => {
                   href="#chameleon"
                   className="inline-flex items-center gap-2 px-6 py-3 font-bold text-sm rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
                 >
-                  TRY THE SIGNALS
+                  BETA VERSION
                 </a>
               </div>
 

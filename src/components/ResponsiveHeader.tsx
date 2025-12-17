@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeToggle } from './ThemeToggle';
 
 const ResponsiveHeader = () => {
   return (
@@ -11,13 +12,19 @@ const ResponsiveHeader = () => {
         </span>
       </Link>
 
-      {/* Member Login Pill */}
-      <Link 
-        to="/auth?mode=login" 
-        className="px-6 py-2.5 text-sm font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
-      >
-        Member Login
-      </Link>
+      {/* Right Side Controls */}
+      <div className="flex items-center gap-4">
+        {/* Theme Toggle */}
+        <ThemeToggle />
+        
+        {/* Member Login Pill */}
+        <Link 
+          to="/auth?mode=login" 
+          className="px-6 py-2.5 text-sm font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
+        >
+          Member Login
+        </Link>
+      </div>
     </header>
   );
 };

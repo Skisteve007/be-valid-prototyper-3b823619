@@ -318,7 +318,7 @@ const Hero = () => {
             </div>
 
             {/* RIGHT COLUMN: Video/Image */}
-            <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+            <div className="order-1 lg:order-2 flex flex-col items-center lg:items-end">
               {/* Hero Image Container with Glow Frame */}
               <div className="relative w-full max-w-sm lg:max-w-md">
                 {/* Outer Glow */}
@@ -335,6 +335,14 @@ const Hero = () => {
                     className="w-full aspect-[4/5] object-contain"
                   />
                 </div>
+              </div>
+              
+              {/* Counter Pill - Below Video */}
+              <div className="mt-4 inline-flex items-center gap-3 px-5 py-2.5 border border-red-600/70 rounded-full bg-red-900/40 shadow-[0_0_25px_rgba(220,38,38,0.5),0_0_50px_rgba(220,38,38,0.3)]">
+                <span className="w-3.5 h-3.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.9),0_0_30px_rgba(239,68,68,0.6)]"></span>
+                <span className="text-sm font-mono text-red-300 drop-shadow-[0_0_10px_rgba(239,68,68,0.9)]">
+                  {String(counter).padStart(9, '0').replace(/(\d{3})(\d{3})(\d{3})/, '$1,$2,$3')}
+                </span>
               </div>
             </div>
           </div>
@@ -353,31 +361,24 @@ const Hero = () => {
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 tracking-tight">
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.4)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(100,100,100,0.3)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 40%, #e0e0e0 70%, #d0d0d0 100%)',
-                    textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
+                    backgroundImage: 'linear-gradient(180deg, #b8b8b8 0%, #a0a0a0 40%, #888888 70%, #707070 100%)',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.6), 0 8px 16px rgba(0,0,0,0.4)',
                   }}
                 >
                   ONE IDENTITY.
                 </span>{' '}
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(103,232,249,0.4)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(34,211,238,0.3)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #a5f3fc 0%, #67e8f9 30%, #22d3ee 60%, #67e8f9 100%)',
-                    textShadow: '0 0 20px rgba(103,232,249,0.5)',
+                    backgroundImage: 'linear-gradient(180deg, #67e8f9 0%, #22d3ee 30%, #0891b2 60%, #22d3ee 100%)',
+                    textShadow: '0 0 15px rgba(34,211,238,0.4)',
                   }}
                 >
                   ZERO LIMITS.
                 </span>
               </h2>
-              {/* Counter Pill */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 border border-red-500/60 rounded-full bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.4)]">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]"></span>
-                <span className="text-sm font-mono text-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]">
-                  {String(counter).padStart(9, '0').replace(/(\d{3})(\d{3})(\d{3})/, '$1,$2,$3')}
-                </span>
-              </div>
             </div>
           </div>
 

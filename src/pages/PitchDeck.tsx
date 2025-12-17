@@ -98,9 +98,9 @@ const PitchDeck = () => {
 
   // Section divider component for consistent styling
   const SectionDivider = ({ label }: { label: string }) => (
-    <div className="flex items-center gap-4 py-8">
+    <div className="flex items-center gap-4" style={{ padding: 'clamp(48px, 6vw, 96px) 0' }}>
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-      <span className="text-xs tracking-[4px] uppercase text-gray-500">{label}</span>
+      <span className="tracking-[4px] uppercase text-gray-500" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{label}</span>
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     </div>
   );
@@ -142,75 +142,75 @@ const PitchDeck = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 space-y-12 relative z-10 max-w-6xl">
+      <main className="container mx-auto px-4 md:px-8 relative z-10" style={{ maxWidth: '1320px', paddingTop: 'clamp(32px, 4vw, 64px)', paddingBottom: 'clamp(32px, 4vw, 64px)' }}>
         
         {/* ===== HERO SECTION ===== */}
-        <section className="text-center py-6">
+        <section className="text-center" style={{ paddingBottom: 'clamp(24px, 3vw, 48px)' }}>
           <img src={logo} alt="VALID" className="h-32 md:h-40 mx-auto mb-6 rounded-xl shadow-[0_0_40px_rgba(0,240,255,0.2)]" />
           
-          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 px-4 py-1 text-xs tracking-[2px]">
+          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 tracking-[2px]" style={{ padding: 'clamp(8px, 1vw, 12px) clamp(16px, 2vw, 24px)', fontSize: 'clamp(12px, 0.9vw, 14px)' }}>
             CONFIDENTIAL — INVESTOR ONLY
           </Badge>
           
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 font-orbitron">
+          <h1 className="font-bold font-orbitron" style={{ fontSize: 'clamp(40px, 4vw, 72px)', marginBottom: 'clamp(16px, 2vw, 24px)', lineHeight: '1.1' }}>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500">
               INVESTOR DECK
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-gray-400 mb-6">
+          <p className="text-gray-400" style={{ fontSize: 'clamp(18px, 1.5vw, 24px)', marginBottom: 'clamp(24px, 3vw, 40px)', lineHeight: '1.4' }}>
             Zero-Trust Identity & Payment Infrastructure
           </p>
 
-          <div className="flex flex-wrap justify-center gap-3 text-sm mb-6">
-            <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
-              <span className="text-gray-400">TAM:</span>
-              <span className="text-white font-bold ml-2">$5.7B+</span>
+          <div className="flex flex-wrap justify-center gap-4" style={{ marginBottom: 'clamp(24px, 3vw, 40px)' }}>
+            <div className="bg-white/5 border border-white/10 rounded-full flex items-center" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(16px, 2vw, 28px)', height: 'clamp(44px, 3.5vw, 56px)' }}>
+              <span className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>TAM:</span>
+              <span className="text-white font-bold ml-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>$5.7B+</span>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
-              <span className="text-gray-400">Tranche 1:</span>
-              <span className="text-cyan-400 font-bold ml-2">$200K Note</span>
+            <div className="bg-white/5 border border-white/10 rounded-full flex items-center" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(16px, 2vw, 28px)', height: 'clamp(44px, 3.5vw, 56px)' }}>
+              <span className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Tranche 1:</span>
+              <span className="text-cyan-400 font-bold ml-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>$200K Note</span>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
-              <span className="text-gray-400">Stage:</span>
-              <span className="text-green-400 font-bold ml-2">Revenue Generating</span>
+            <div className="bg-white/5 border border-white/10 rounded-full flex items-center" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(16px, 2vw, 28px)', height: 'clamp(44px, 3.5vw, 56px)' }}>
+              <span className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Stage:</span>
+              <span className="text-green-400 font-bold ml-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Revenue Generating</span>
             </div>
           </div>
 
           {/* Trust & Compliance Pills */}
-          <div className="bg-gradient-to-r from-cyan-500/5 via-green-500/5 to-amber-500/5 border border-white/10 rounded-xl p-4">
-            <div className="flex flex-wrap items-center justify-center gap-2 mb-2">
-              <div className="flex items-center gap-1.5 px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full">
-                <span className="text-cyan-400 text-xs font-bold">SOC 2</span>
+          <div className="bg-gradient-to-r from-cyan-500/5 via-green-500/5 to-amber-500/5 border border-white/10 rounded-xl" style={{ padding: 'clamp(16px, 2vw, 28px)' }}>
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-3">
+              <div className="flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full" style={{ padding: 'clamp(8px, 1vw, 12px) clamp(14px, 1.5vw, 20px)' }}>
+                <span className="text-cyan-400 font-bold" style={{ fontSize: 'clamp(13px, 1vw, 15px)' }}>SOC 2</span>
               </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-full">
-                <span className="text-green-400 text-xs font-bold">GDPR</span>
+              <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full" style={{ padding: 'clamp(8px, 1vw, 12px) clamp(14px, 1.5vw, 20px)' }}>
+                <span className="text-green-400 font-bold" style={{ fontSize: 'clamp(13px, 1vw, 15px)' }}>GDPR</span>
               </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full">
-                <span className="text-amber-400 text-xs font-bold">Enterprise Trust</span>
+              <div className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full" style={{ padding: 'clamp(8px, 1vw, 12px) clamp(14px, 1.5vw, 20px)' }}>
+                <span className="text-amber-400 font-bold" style={{ fontSize: 'clamp(13px, 1vw, 15px)' }}>Enterprise Trust</span>
               </div>
             </div>
-            <p className="text-sm text-gray-400">
+            <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>
               Built for SOC 2 + GDPR readiness to win government and healthcare contracts.
             </p>
           </div>
         </section>
 
         {/* ===== CORE INSIGHT ===== */}
-        <section>
-          <div className="bg-gradient-to-br from-cyan-950/30 to-blue-950/30 border border-cyan-500/20 rounded-xl p-6 md:p-8">
-            <div className="flex items-center gap-2 mb-4">
-              <Crown className="h-6 w-6 text-cyan-400" />
-              <h2 className="text-xl font-bold font-orbitron text-white">Core Insight</h2>
+        <section style={{ marginTop: 'clamp(32px, 4vw, 56px)' }}>
+          <div className="bg-gradient-to-br from-cyan-950/30 to-blue-950/30 border border-cyan-500/20 rounded-xl" style={{ padding: 'clamp(24px, 3vw, 40px)' }}>
+            <div className="flex items-center gap-3 mb-5">
+              <Crown style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} className="text-cyan-400" />
+              <h2 className="font-bold font-orbitron text-white" style={{ fontSize: 'clamp(22px, 2vw, 32px)' }}>Core Insight</h2>
             </div>
             
-            <blockquote className="text-lg md:text-xl text-gray-300 italic border-l-4 border-cyan-500 pl-4 mb-4">
+            <blockquote className="text-gray-300 italic border-l-4 border-cyan-500" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', paddingLeft: 'clamp(16px, 2vw, 24px)', marginBottom: 'clamp(20px, 2.5vw, 32px)', lineHeight: '1.45' }}>
               "We're not another data company. We're the privacy-first pipeline that venues trust and consumers love."
             </blockquote>
             
-            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg p-4">
-              <h4 className="text-cyan-400 font-bold mb-1 text-sm tracking-[2px] uppercase">Pipeline, Not Vault</h4>
-              <p className="text-gray-300 text-sm">
+            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg" style={{ padding: 'clamp(16px, 2vw, 28px)' }}>
+              <h4 className="text-cyan-400 font-bold mb-2 tracking-[2px] uppercase" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Pipeline, Not Vault</h4>
+              <p className="text-gray-300" style={{ fontSize: 'clamp(15px, 1.1vw, 18px)', lineHeight: '1.5' }}>
                 We verify in real-time, grant access, then purge. Your data is never stored—privacy by architecture.
               </p>
             </div>
@@ -220,23 +220,23 @@ const PitchDeck = () => {
         <SectionDivider label="Proof" />
 
         {/* ===== PILLAR A: PROOF ===== */}
-        <section className="space-y-8">
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(24px, 3vw, 40px)' }}>
           <div className="text-center">
-            <Badge className="bg-green-500/20 text-green-400 border-green-500/50 mb-2">PILLAR A</Badge>
-            <h2 className="text-2xl font-bold font-orbitron">Proof: Traction & Why Now</h2>
+            <Badge className="bg-green-500/20 text-green-400 border-green-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR A</Badge>
+            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Proof: Traction & Why Now</h2>
           </div>
 
           {/* Current Traction */}
           <div>
-            <h3 className="text-sm tracking-[2px] uppercase text-gray-500 mb-4 text-center">Current Traction</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <h3 className="tracking-[2px] uppercase text-gray-500 text-center" style={{ fontSize: 'clamp(13px, 1vw, 15px)', marginBottom: 'clamp(16px, 2vw, 28px)' }}>Current Traction</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(12px, 1.5vw, 24px)' }}>
               {metrics.map((metric, idx) => (
                 <Card key={idx} className="bg-black/40 border-white/10 hover:border-cyan-500/30 transition-all">
-                  <CardContent className="p-4 text-center">
-                    <metric.icon className={`h-6 w-6 mx-auto mb-2 ${metric.color}`} />
-                    <div className="text-2xl font-bold text-white">{metric.value}</div>
-                    {metric.subtext && <div className="text-xs text-gray-500">{metric.subtext}</div>}
-                    <div className="text-xs text-gray-400 mt-1">{metric.label}</div>
+                  <CardContent className="text-center" style={{ padding: 'clamp(16px, 2vw, 28px)' }}>
+                    <metric.icon className={`mx-auto ${metric.color}`} style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)', marginBottom: 'clamp(8px, 1vw, 14px)' }} />
+                    <div className="font-bold text-white" style={{ fontSize: 'clamp(24px, 2vw, 36px)' }}>{metric.value}</div>
+                    {metric.subtext && <div className="text-gray-500" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)' }}>{metric.subtext}</div>}
+                    <div className="text-gray-400 mt-1" style={{ fontSize: 'clamp(12px, 0.9vw, 15px)' }}>{metric.label}</div>
                   </CardContent>
                 </Card>
               ))}
@@ -245,28 +245,28 @@ const PitchDeck = () => {
 
           {/* Value Drivers - Condensed */}
           <div>
-            <h3 className="text-sm tracking-[2px] uppercase text-gray-500 mb-4 text-center">Value Drivers</h3>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-black/40 border border-amber-500/30 rounded-lg p-4">
-                <Ghost className="h-6 w-6 text-amber-400 mb-2" />
-                <h4 className="font-bold text-white mb-1">Ghost™ Token</h4>
-                <ul className="text-xs text-gray-400 space-y-1">
+            <h3 className="tracking-[2px] uppercase text-gray-500 text-center" style={{ fontSize: 'clamp(13px, 1vw, 15px)', marginBottom: 'clamp(16px, 2vw, 28px)' }}>Value Drivers</h3>
+            <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+              <div className="bg-black/40 border border-amber-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                <Ghost className="text-amber-400" style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Ghost™ Token</h4>
+                <ul className="text-gray-400 space-y-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
                   <li>• 3-in-1: Payment + ID + Health</li>
                   <li>• Self-destructing encryption</li>
                 </ul>
               </div>
-              <div className="bg-black/40 border border-purple-500/30 rounded-lg p-4">
-                <Lock className="h-6 w-6 text-purple-400 mb-2" />
-                <h4 className="font-bold text-white mb-1">Regulatory Moat</h4>
-                <ul className="text-xs text-gray-400 space-y-1">
+              <div className="bg-black/40 border border-purple-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                <Lock className="text-purple-400" style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Regulatory Moat</h4>
+                <ul className="text-gray-400 space-y-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
                   <li>• 18+ months to replicate</li>
                   <li>• HIPAA + Payment rails</li>
                 </ul>
               </div>
-              <div className="bg-black/40 border border-green-500/30 rounded-lg p-4">
-                <Network className="h-6 w-6 text-green-400 mb-2" />
-                <h4 className="font-bold text-white mb-1">Network Effects</h4>
-                <ul className="text-xs text-gray-400 space-y-1">
+              <div className="bg-black/40 border border-green-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                <Network className="text-green-400" style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Network Effects</h4>
+                <ul className="text-gray-400 space-y-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
                   <li>• 3.2x organic referral rate</li>
                   <li>• Every QR is marketing</li>
                 </ul>
@@ -307,26 +307,26 @@ const PitchDeck = () => {
         <SectionDivider label="Moat" />
 
         {/* ===== PILLAR B: MOAT ===== */}
-        <section className="space-y-6">
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 2.5vw, 36px)' }}>
           <div className="text-center">
-            <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50 mb-2">PILLAR B</Badge>
-            <h2 className="text-2xl font-bold font-orbitron">The Thesis: Four Truths</h2>
-            <p className="text-gray-500 text-sm mt-1">Why VALID is inevitable</p>
+            <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR B</Badge>
+            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>The Thesis: Four Truths</h2>
+            <p className="text-gray-500 mt-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Why VALID is inevitable</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
             {[
               { num: "01", title: "We Own the Trust Layer", text: "Every high-stakes interaction requires portable, instant trust verification." },
               { num: "02", title: "Platform, Not Product", text: "Kits and checks are on-ramps. The verified network is the moat." },
               { num: "03", title: "Revenue Compounds", text: "Venues → members → wallets → venues. Flywheel, not funnel." },
               { num: "04", title: "Regulation is Our Friend", text: "As liability laws tighten, we become mandatory infrastructure." },
             ].map((item, idx) => (
-              <div key={idx} className="bg-black/40 border border-white/10 rounded-lg p-4 hover:border-purple-500/30 transition-all">
-                <div className="flex items-start gap-3">
-                  <span className="text-xl font-bold text-purple-500/50 font-orbitron">{item.num}</span>
+              <div key={idx} className="bg-black/40 border border-white/10 rounded-lg hover:border-purple-500/30 transition-all" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                <div className="flex items-start" style={{ gap: 'clamp(12px, 1.2vw, 20px)' }}>
+                  <span className="font-bold text-purple-500/50 font-orbitron" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)' }}>{item.num}</span>
                   <div>
-                    <h4 className="font-bold text-white mb-1">{item.title}</h4>
-                    <p className="text-sm text-gray-400">{item.text}</p>
+                    <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>{item.title}</h4>
+                    <p className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 18px)', lineHeight: '1.5' }}>{item.text}</p>
                   </div>
                 </div>
               </div>
@@ -337,30 +337,30 @@ const PitchDeck = () => {
         <SectionDivider label="Distribution" />
 
         {/* ===== PILLAR C: DISTRIBUTION ===== */}
-        <section className="space-y-6">
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 2.5vw, 36px)' }}>
           <div className="text-center">
-            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/50 mb-2">PILLAR C</Badge>
-            <h2 className="text-2xl font-bold font-orbitron">Distribution: Zero-CAC Growth Engine</h2>
+            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR C</Badge>
+            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Distribution: Zero-CAC Growth Engine</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-black/40 border border-amber-500/30 rounded-lg p-5">
-              <h4 className="font-bold text-amber-400 mb-3 text-sm tracking-[1px] uppercase">Why We Don't Pay for Marketing</h4>
-              <ul className="text-sm text-gray-300 space-y-2">
+          <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+            <div className="bg-black/40 border border-amber-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+              <h4 className="font-bold text-amber-400 tracking-[1px] uppercase" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(12px, 1.2vw, 20px)' }}>Why We Don't Pay for Marketing</h4>
+              <ul className="text-gray-300 space-y-3" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
                 <li>• Decentralized promoter army sells for us</li>
                 <li>• Every QR share is organic distribution</li>
               </ul>
             </div>
-            <div className="bg-black/40 border border-cyan-500/30 rounded-lg p-5">
-              <h4 className="font-bold text-cyan-400 mb-3 text-sm tracking-[1px] uppercase">Account Promoters</h4>
-              <ul className="text-sm text-gray-300 space-y-2">
+            <div className="bg-black/40 border border-cyan-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+              <h4 className="font-bold text-cyan-400 tracking-[1px] uppercase" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(12px, 1.2vw, 20px)' }}>Account Promoters</h4>
+              <ul className="text-gray-300 space-y-3" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
                 <li>• 10% of Access Pass (off top)</li>
                 <li>• Optional spend commissions (venue-paid)</li>
               </ul>
             </div>
-            <div className="bg-black/40 border border-green-500/30 rounded-lg p-5">
-              <h4 className="font-bold text-green-400 mb-3 text-sm tracking-[1px] uppercase">Revenue Pool Distribution</h4>
-              <ul className="text-sm text-gray-300 space-y-2">
+            <div className="bg-black/40 border border-green-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+              <h4 className="font-bold text-green-400 tracking-[1px] uppercase" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(12px, 1.2vw, 20px)' }}>Revenue Pool Distribution</h4>
+              <ul className="text-gray-300 space-y-3" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
                 <li>• Smart-Split at point of sale</li>
                 <li>• Weekly pro-rata venue payouts</li>
               </ul>
@@ -433,44 +433,44 @@ const PitchDeck = () => {
         <SectionDivider label="Economics & Defensibility" />
 
         {/* ===== PILLAR D: ECONOMICS & DEFENSIBILITY ===== */}
-        <section className="space-y-8">
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(24px, 3vw, 40px)' }}>
           <div className="text-center">
-            <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 mb-2">PILLAR D</Badge>
-            <h2 className="text-2xl font-bold font-orbitron">Economics & Defensibility</h2>
+            <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR D</Badge>
+            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Economics & Defensibility</h2>
           </div>
 
           {/* Margin Density */}
-          <div className="bg-gradient-to-r from-cyan-950/30 to-purple-950/30 border border-cyan-500/20 rounded-xl p-5">
-            <h3 className="font-bold text-white mb-3">Margin Density (IDaaS)</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="bg-gradient-to-r from-cyan-950/30 to-purple-950/30 border border-cyan-500/20 rounded-xl" style={{ padding: 'clamp(24px, 2.5vw, 40px)' }}>
+            <h3 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}>Margin Density (IDaaS)</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 text-center" style={{ gap: 'clamp(16px, 2vw, 32px)' }}>
               <div>
-                <div className="text-2xl font-bold text-cyan-400">60%</div>
-                <div className="text-xs text-gray-500">Gross Margin</div>
+                <div className="font-bold text-cyan-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>60%</div>
+                <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Gross Margin</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-green-400">$0</div>
-                <div className="text-xs text-gray-500">CAC</div>
+                <div className="font-bold text-green-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>$0</div>
+                <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>CAC</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-purple-400">3.2x</div>
-                <div className="text-xs text-gray-500">Viral K-Factor</div>
+                <div className="font-bold text-purple-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>3.2x</div>
+                <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Viral K-Factor</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-amber-400">0 sec</div>
-                <div className="text-xs text-gray-500">Settlement</div>
+                <div className="font-bold text-amber-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>0 sec</div>
+                <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Settlement</div>
               </div>
             </div>
           </div>
 
           {/* Competitive Moat */}
           <div>
-            <h3 className="font-bold text-white mb-3">Why Competitors Can't Win</h3>
-            <div className="bg-black/40 border border-cyan-500/20 rounded-xl p-4 mb-4">
-              <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-5 w-5 text-green-400" />
-                <span className="font-bold text-white">VALID: 10/10 Integration Score</span>
+            <h3 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}>Why Competitors Can't Win</h3>
+            <div className="bg-black/40 border border-cyan-500/20 rounded-xl mb-4" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+              <div className="flex items-center mb-3" style={{ gap: 'clamp(8px, 1vw, 14px)' }}>
+                <CheckCircle2 className="text-green-400" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)' }} />
+                <span className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>VALID: 10/10 Integration Score</span>
               </div>
-              <p className="text-sm text-gray-400">Identity + Health + Payments + Access + Network + Compliance. No competitor scores above 4/10.</p>
+              <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', lineHeight: '1.5' }}>Identity + Health + Payments + Access + Network + Compliance. No competitor scores above 4/10.</p>
             </div>
             
             {/* Scrollable scorecard on mobile */}
@@ -520,35 +520,35 @@ const PitchDeck = () => {
           </div>
 
           {/* Roadmap to 2027 */}
-          <div className="bg-black/60 border border-cyan-500/30 rounded-xl p-6 text-center">
-            <h3 className="text-sm tracking-[2px] uppercase text-cyan-400 mb-2">Roadmap to 2027</h3>
-            <p className="text-2xl md:text-3xl font-bold text-white font-orbitron mb-2">
+          <div className="bg-black/60 border border-cyan-500/30 rounded-xl text-center" style={{ padding: 'clamp(24px, 3vw, 48px)' }}>
+            <h3 className="tracking-[2px] uppercase text-cyan-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Roadmap to 2027</h3>
+            <p className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(26px, 2.5vw, 40px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>
               {futureReadyText}
               <span className={`inline-block w-[3px] h-[1em] bg-cyan-400 ml-1 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`}></span>
             </p>
-            <p className="text-gray-400 text-sm">Your Spatial Verification Partner</p>
+            <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>Your Spatial Verification Partner</p>
             
-            <Accordion type="single" collapsible className="mt-4 text-left">
+            <Accordion type="single" collapsible className="mt-6 text-left">
               <AccordionItem value="roadmap" className="border-white/10">
-                <AccordionTrigger className="text-sm text-gray-400 hover:text-white justify-center">
+                <AccordionTrigger className="text-gray-400 hover:text-white justify-center" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>
                   Beyond the QR: Sensing Roadmap
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="grid md:grid-cols-3 gap-4 pt-4">
-                    <div className="bg-cyan-950/30 border border-cyan-500/30 rounded-lg p-4">
-                      <Zap className="h-5 w-5 text-cyan-400 mb-2" />
-                      <h4 className="font-bold text-white text-sm">UWB</h4>
-                      <p className="text-xs text-gray-400">Zero-click access. Phone stays in pocket.</p>
+                  <div className="grid md:grid-cols-3 pt-4" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+                    <div className="bg-cyan-950/30 border border-cyan-500/30 rounded-lg" style={{ padding: 'clamp(16px, 1.5vw, 28px)' }}>
+                      <Zap className="text-cyan-400" style={{ width: 'clamp(22px, 1.8vw, 30px)', height: 'clamp(22px, 1.8vw, 30px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
+                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>UWB</h4>
+                      <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>Zero-click access. Phone stays in pocket.</p>
                     </div>
-                    <div className="bg-purple-950/30 border border-purple-500/30 rounded-lg p-4">
-                      <Radio className="h-5 w-5 text-purple-400 mb-2" />
-                      <h4 className="font-bold text-white text-sm">NFC Type-F</h4>
-                      <p className="text-xs text-gray-400">0.1 sec tap. Stadium-ready.</p>
+                    <div className="bg-purple-950/30 border border-purple-500/30 rounded-lg" style={{ padding: 'clamp(16px, 1.5vw, 28px)' }}>
+                      <Radio className="text-purple-400" style={{ width: 'clamp(22px, 1.8vw, 30px)', height: 'clamp(22px, 1.8vw, 30px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
+                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>NFC Type-F</h4>
+                      <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>0.1 sec tap. Stadium-ready.</p>
                     </div>
-                    <div className="bg-green-950/30 border border-green-500/30 rounded-lg p-4">
-                      <Fingerprint className="h-5 w-5 text-green-400 mb-2" />
-                      <h4 className="font-bold text-white text-sm">Bio-Hash</h4>
-                      <p className="text-xs text-gray-400">You are the wallet. No phone needed.</p>
+                    <div className="bg-green-950/30 border border-green-500/30 rounded-lg" style={{ padding: 'clamp(16px, 1.5vw, 28px)' }}>
+                      <Fingerprint className="text-green-400" style={{ width: 'clamp(22px, 1.8vw, 30px)', height: 'clamp(22px, 1.8vw, 30px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
+                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>Bio-Hash</h4>
+                      <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>You are the wallet. No phone needed.</p>
                     </div>
                   </div>
                 </AccordionContent>
@@ -560,46 +560,47 @@ const PitchDeck = () => {
         <SectionDivider label="Investment" />
 
         {/* ===== USE OF FUNDS ===== */}
-        <section className="space-y-6">
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 2.5vw, 36px)' }}>
           <div className="text-center">
-            <h2 className="text-xl font-bold font-orbitron text-white">Use of Funds</h2>
-            <p className="text-sm text-gray-500">Tranche 1: $200,000</p>
+            <h2 className="font-bold font-orbitron text-white" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Use of Funds</h2>
+            <p className="text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginTop: 'clamp(8px, 0.8vw, 12px)' }}>Tranche 1: $200,000</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
             {[
               { category: "Sales & Marketing", percent: 40, outcome: "First 50 venues", color: "bg-cyan-500" },
               { category: "Product Dev", percent: 30, outcome: "UWB + NFC integration", color: "bg-purple-500" },
               { category: "Operations", percent: 20, outcome: "Team scale to 5", color: "bg-green-500" },
               { category: "Reserve", percent: 10, outcome: "12-month runway buffer", color: "bg-orange-500" },
             ].map((item, idx) => (
-              <div key={idx} className="bg-black/40 border border-white/10 rounded-lg p-4 text-center">
-                <div className={`w-10 h-10 ${item.color} rounded-full flex items-center justify-center text-black font-bold mx-auto mb-2`}>
+              <div key={idx} className="bg-black/40 border border-white/10 rounded-lg text-center" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                <div className={`${item.color} rounded-full flex items-center justify-center text-black font-bold mx-auto`} style={{ width: 'clamp(48px, 4vw, 64px)', height: 'clamp(48px, 4vw, 64px)', fontSize: 'clamp(14px, 1.2vw, 18px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }}>
                   {item.percent}%
                 </div>
-                <h4 className="font-bold text-white text-sm">{item.category}</h4>
-                <p className="text-xs text-gray-500 mt-1">{item.outcome}</p>
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>{item.category}</h4>
+                <p className="text-gray-500 mt-2" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>{item.outcome}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* ===== CURRENT ROUND STRUCTURE ===== */}
-        <section className="bg-black py-12">
-          <div className="text-center mb-10">
-            <h2 className="text-sm tracking-[4px] uppercase mb-2" style={{ color: '#00E5E5' }}>
+        <section className="bg-black" style={{ paddingTop: 'clamp(48px, 5vw, 80px)', paddingBottom: 'clamp(48px, 5vw, 80px)' }}>
+          <div className="text-center" style={{ marginBottom: 'clamp(32px, 4vw, 56px)' }}>
+            <h2 className="tracking-[4px] uppercase" style={{ color: '#00E5E5', fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>
               CURRENT ROUND STRUCTURE
             </h2>
-            <p className="text-base text-white font-light">
+            <p className="text-white font-light" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>
               Two tranches. &nbsp; Strategic positioning. &nbsp; Limited allocation.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 mb-8" style={{ gap: 'clamp(24px, 2.5vw, 40px)' }}>
             {/* TRANCHE 1 */}
             <div 
-              className="relative p-6 rounded-xl transition-all duration-300"
+              className="relative rounded-xl transition-all duration-300"
               style={{
+                padding: 'clamp(24px, 2.5vw, 40px)',
                 background: 'rgba(255, 255, 255, 0.03)',
                 border: '1px solid rgba(0, 229, 229, 0.3)',
                 backdropFilter: 'blur(10px)',
@@ -607,19 +608,19 @@ const PitchDeck = () => {
               }}
             >
               <div 
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs tracking-[2px] uppercase mb-4"
-                style={{ background: 'rgba(0, 229, 229, 0.15)', border: '1px solid #00E5E5', color: '#00E5E5' }}
+                className="inline-flex items-center gap-2 rounded-full tracking-[2px] uppercase"
+                style={{ padding: 'clamp(8px, 0.8vw, 12px) clamp(14px, 1.2vw, 20px)', fontSize: 'clamp(12px, 0.9vw, 14px)', background: 'rgba(0, 229, 229, 0.15)', border: '1px solid #00E5E5', color: '#00E5E5', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}
               >
                 <span className="w-2 h-2 rounded-full bg-[#00E5E5] animate-pulse" />
                 ACTIVE
               </div>
               
-              <div className="mb-6">
-                <p className="text-xs tracking-[3px] uppercase mb-1" style={{ color: '#00E5E5' }}>TRANCHE 1</p>
-                <h3 className="text-xl font-semibold text-white">Launch Round (Friends & Family)</h3>
+              <div style={{ marginBottom: 'clamp(20px, 2vw, 32px)' }}>
+                <p className="tracking-[3px] uppercase" style={{ color: '#00E5E5', fontSize: 'clamp(12px, 0.9vw, 14px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>TRANCHE 1</p>
+                <h3 className="font-semibold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)' }}>Launch Round (Friends & Family)</h3>
               </div>
               
-              <div className="space-y-0 mb-6 text-sm">
+              <div style={{ marginBottom: 'clamp(20px, 2vw, 32px)' }}>
                 {[
                   { label: "Raise", value: "$200,000" },
                   { label: "Instrument", value: "Convertible Note" },
@@ -628,7 +629,7 @@ const PitchDeck = () => {
                   { label: "Maturity", value: "18 months" },
                   { label: "Close", value: "Rolling (target Q3 2026)" },
                 ].map((row, idx) => (
-                  <div key={idx} className="flex justify-between items-center py-2 border-b border-white/10">
+                  <div key={idx} className="flex justify-between items-center border-b border-white/10" style={{ padding: 'clamp(10px, 1vw, 16px) 0', fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
                     <span style={{ color: '#A0A0A0' }}>{row.label}</span>
                     <span className={row.highlight ? "font-semibold" : "font-semibold text-white"} style={row.highlight ? { color: '#00E5E5' } : {}}>
                       {row.value}
@@ -637,14 +638,14 @@ const PitchDeck = () => {
                 ))}
               </div>
 
-              <div className="p-3 rounded-r-lg mb-4" style={{ background: 'rgba(0, 229, 229, 0.08)', borderLeft: '3px solid #00E5E5' }}>
-                <p className="text-xs tracking-[1px] uppercase mb-1" style={{ color: '#00E5E5' }}>EARLY ADVANTAGE</p>
-                <p className="text-sm text-white">50% discount with $6M cap before institutional round.</p>
+              <div className="rounded-r-lg" style={{ padding: 'clamp(14px, 1.2vw, 20px)', marginBottom: 'clamp(16px, 1.5vw, 24px)', background: 'rgba(0, 229, 229, 0.08)', borderLeft: '3px solid #00E5E5' }}>
+                <p className="tracking-[1px] uppercase" style={{ color: '#00E5E5', fontSize: 'clamp(12px, 0.9vw, 14px)', marginBottom: 'clamp(4px, 0.4vw, 8px)' }}>EARLY ADVANTAGE</p>
+                <p className="text-white" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>50% discount with $6M cap before institutional round.</p>
               </div>
 
               <Button 
-                className="w-full py-5 rounded-lg font-semibold text-black"
-                style={{ background: '#00E5E5', boxShadow: '0 0 20px rgba(0, 229, 229, 0.4)' }}
+                className="w-full rounded-lg font-semibold text-black"
+                style={{ padding: 'clamp(16px, 1.5vw, 24px)', fontSize: 'clamp(14px, 1.1vw, 17px)', background: '#00E5E5', boxShadow: '0 0 20px rgba(0, 229, 229, 0.4)' }}
                 onClick={() => navigate('/partner-application')}
               >
                 RESERVE ALLOCATION →
@@ -653,27 +654,28 @@ const PitchDeck = () => {
 
             {/* TRANCHE 2 */}
             <div 
-              className="relative p-6 rounded-xl opacity-70 hover:opacity-100 transition-all duration-300"
+              className="relative rounded-xl opacity-70 hover:opacity-100 transition-all duration-300"
               style={{
+                padding: 'clamp(24px, 2.5vw, 40px)',
                 background: 'rgba(255, 255, 255, 0.03)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(10px)',
               }}
             >
               <div 
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs tracking-[2px] uppercase mb-4"
-                style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.3)', color: '#A0A0A0' }}
+                className="inline-flex items-center gap-2 rounded-full tracking-[2px] uppercase"
+                style={{ padding: 'clamp(8px, 0.8vw, 12px) clamp(14px, 1.2vw, 20px)', fontSize: 'clamp(12px, 0.9vw, 14px)', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.3)', color: '#A0A0A0', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}
               >
-                <Clock className="w-3 h-3" />
+                <Clock style={{ width: 'clamp(14px, 1vw, 18px)', height: 'clamp(14px, 1vw, 18px)' }} />
                 OPENS UPON T1 CLOSE
               </div>
               
-              <div className="mb-6">
-                <p className="text-xs tracking-[3px] uppercase mb-1" style={{ color: '#00E5E5' }}>TRANCHE 2</p>
-                <h3 className="text-xl font-semibold text-white">Series Seed</h3>
+              <div style={{ marginBottom: 'clamp(20px, 2vw, 32px)' }}>
+                <p className="tracking-[3px] uppercase" style={{ color: '#00E5E5', fontSize: 'clamp(12px, 0.9vw, 14px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>TRANCHE 2</p>
+                <h3 className="font-semibold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)' }}>Series Seed</h3>
               </div>
               
-              <div className="space-y-0 mb-6 text-sm">
+              <div style={{ marginBottom: 'clamp(20px, 2vw, 32px)' }}>
                 {[
                   { label: "Target Raise", value: "$1,500,000" },
                   { label: "Instrument", value: "Priced Equity Round" },
@@ -681,7 +683,7 @@ const PitchDeck = () => {
                   { label: "Minimum Check", value: "$50,000" },
                   { label: "Status", value: "Pending T1 Close", dim: true },
                 ].map((row, idx) => (
-                  <div key={idx} className="flex justify-between items-center py-2 border-b border-white/10">
+                  <div key={idx} className="flex justify-between items-center border-b border-white/10" style={{ padding: 'clamp(10px, 1vw, 16px) 0', fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
                     <span style={{ color: '#A0A0A0' }}>{row.label}</span>
                     <span className={row.highlight ? "font-semibold" : row.dim ? "" : "font-semibold text-white"} style={row.highlight ? { color: '#00E5E5' } : row.dim ? { color: '#A0A0A0' } : {}}>
                       {row.value}
@@ -690,14 +692,14 @@ const PitchDeck = () => {
                 ))}
               </div>
 
-              <div className="p-3 rounded-r-lg" style={{ background: 'rgba(255, 255, 255, 0.03)', borderLeft: '3px solid rgba(255, 255, 255, 0.2)' }}>
-                <p className="text-xs tracking-[1px] uppercase mb-1" style={{ color: '#00E5E5' }}>COMPARISON</p>
-                <p className="text-sm text-white">T1 investors get $6M lower cap with 50% discount.</p>
+              <div className="rounded-r-lg" style={{ padding: 'clamp(14px, 1.2vw, 20px)', background: 'rgba(255, 255, 255, 0.03)', borderLeft: '3px solid rgba(255, 255, 255, 0.2)' }}>
+                <p className="tracking-[1px] uppercase" style={{ color: '#00E5E5', fontSize: 'clamp(12px, 0.9vw, 14px)', marginBottom: 'clamp(4px, 0.4vw, 8px)' }}>COMPARISON</p>
+                <p className="text-white" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>T1 investors get $6M lower cap with 50% discount.</p>
               </div>
             </div>
           </div>
 
-          <p className="text-center text-xs text-gray-600">Source of truth: Deal Room terms</p>
+          <p className="text-center text-gray-600" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)' }}>Source of truth: Deal Room terms</p>
         </section>
 
         {/* ===== LIQUIDITY & ROI (Accordion) ===== */}

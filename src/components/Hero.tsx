@@ -348,11 +348,8 @@ const Hero = () => {
               </p>
             </div>
 
-            {/* THE VALID™ NETWORK Section */}
+            {/* ONE IDENTITY. ZERO LIMITS. Section */}
             <div className="text-center lg:text-left">
-              <div className="inline-block px-3 py-1 border border-cyan-500/40 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-4">
-                THE VALID™ NETWORK
-              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 tracking-tight">
                 <span 
                   className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.3)]"

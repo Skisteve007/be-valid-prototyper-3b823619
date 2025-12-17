@@ -210,19 +210,19 @@ const Hero = () => {
               {/* Main Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black font-display tracking-tight mb-4">
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(255,255,255,0.6)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(168,85,247,0.2)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #f0f0f0 80%, #e8e8e8 100%)',
-                    textShadow: '0 0 30px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.3)',
+                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 30%, #e0e0e0 50%, #c4b5fd 80%, #a78bfa 100%)',
+                    textShadow: '0 0 30px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.3)',
                   }}
                 >
                   ONE KEY.
                 </span>{' '}
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(168,85,247,0.3)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(103,232,249,0.3)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #c4b5fd 0%, #a78bfa 20%, #67e8f9 50%, #22d3ee 70%, #a78bfa 100%)',
-                    textShadow: '0 0 20px rgba(168,85,247,0.4), 0 0 30px rgba(103,232,249,0.3)',
+                    backgroundImage: 'linear-gradient(180deg, #e0e7ff 0%, #a5f3fc 25%, #67e8f9 50%, #22d3ee 75%, #c4b5fd 100%)',
+                    textShadow: '0 0 15px rgba(103,232,249,0.3), 0 0 25px rgba(168,85,247,0.15)',
                   }}
                 >
                   VERIFY. PAY. VIBE.

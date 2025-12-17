@@ -1204,151 +1204,261 @@ const PitchDeck = () => {
         </section>
 
         {/* ===== CURRENT ROUND STRUCTURE ===== */}
-        <section className="text-center py-12">
-          <div className="bg-gradient-to-r from-slate-950/80 to-slate-900/80 border border-white/10 rounded-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,240,255,0.1)]">
-            <Rocket className="h-12 w-12 text-cyan-400 mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-white mb-4">CURRENT ROUND STRUCTURE</h2>
-            
-            <p className="text-gray-300 max-w-2xl mx-auto mb-10 text-lg">
-              Strategic allocation across <span className="text-cyan-400 font-semibold">two tranches</span> for optimal investor positioning.
-            </p>
+        <section className="py-20 bg-black">
+          <div className="max-w-6xl mx-auto px-4">
+            {/* Header */}
+            <div className="text-center mb-16">
+              <h2 
+                className="text-sm tracking-[4px] uppercase mb-4"
+                style={{ color: '#00E5E5' }}
+              >
+                CURRENT ROUND STRUCTURE
+              </h2>
+              <p className="text-lg text-white font-light">
+                Two tranches. &nbsp;&nbsp; Strategic positioning. &nbsp;&nbsp; Limited allocation.
+              </p>
+            </div>
 
-            {/* Two Tranches - Pricing Table Style */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+            {/* Tranche Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
               
               {/* TRANCHE 1 - ALPHA ROUND */}
-              <div className="bg-gradient-to-br from-amber-950/50 to-amber-900/30 p-8 rounded-2xl border-2 border-amber-500/60 shadow-[0_0_40px_rgba(245,158,11,0.25)] relative overflow-hidden">
-                {/* Best Value Ribbon */}
-                <div className="absolute top-6 -right-8 bg-amber-500 text-black font-bold text-xs px-10 py-1.5 rotate-45 shadow-lg">
-                  BEST VALUE
+              <div 
+                className="relative p-8 rounded-2xl transition-all duration-300 hover:border-[rgba(0,229,229,0.6)]"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  border: '1px solid rgba(0, 229, 229, 0.3)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 0 30px rgba(0, 229, 229, 0.1)',
+                }}
+              >
+                {/* Status Badge - Pulsing */}
+                <div 
+                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs tracking-[2px] uppercase mb-6 animate-pulse-glow"
+                  style={{
+                    background: 'rgba(0, 229, 229, 0.15)',
+                    border: '1px solid #00E5E5',
+                    color: '#00E5E5',
+                  }}
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#00E5E5] animate-pulse" />
+                  ACTIVE — LIMITED AVAILABILITY
                 </div>
                 
-                <div className="mb-6">
-                  <Badge className="bg-green-500/20 text-green-400 border border-green-500/50 font-bold px-4 py-1.5 mb-4">
-                    <span className="animate-pulse mr-2">●</span> ACTIVE — LIMITED AVAILABILITY
-                  </Badge>
+                {/* Tranche Title */}
+                <div className="mb-8">
+                  <p 
+                    className="text-xs tracking-[3px] uppercase mb-1"
+                    style={{ color: '#00E5E5' }}
+                  >
+                    TRANCHE 1
+                  </p>
+                  <h3 className="text-[28px] font-semibold text-white">
+                    Alpha Round
+                  </h3>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-amber-400 mb-1 font-orbitron">TRANCHE 1</h3>
-                <p className="text-lg text-amber-300/80 mb-6">Alpha Round (Closing Imminently)</p>
-                
-                <div className="space-y-4 mb-8">
-                  <div className="flex justify-between items-center py-3 border-b border-amber-500/20">
-                    <span className="text-gray-400">Allocation</span>
-                    <span className="text-2xl font-bold text-white">$100,000</span>
+                {/* Data Rows */}
+                <div className="space-y-0 mb-8">
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Allocation</span>
+                    <span className="text-sm font-semibold text-white">$100,000</span>
                   </div>
-                  <div className="flex justify-between items-center py-3 border-b border-amber-500/20">
-                    <span className="text-gray-400">Minimum Check</span>
-                    <span className="text-xl font-semibold text-white">$25,000</span>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Minimum Check</span>
+                    <span className="text-sm font-semibold text-white">$25,000</span>
                   </div>
-                  <div className="flex justify-between items-center py-3 border-b border-amber-500/20">
-                    <span className="text-gray-400">Valuation Cap</span>
-                    <span className="text-xl font-bold text-amber-400">$12,500,000</span>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Valuation Cap</span>
+                    <span className="text-sm font-semibold" style={{ color: '#00E5E5' }}>$12,500,000</span>
                   </div>
-                  <div className="flex justify-between items-center py-3 border-b border-amber-500/20">
-                    <span className="text-gray-400">Instrument</span>
-                    <span className="text-lg font-semibold text-white">SAFE (20% Discount)</span>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Instrument</span>
+                    <span className="text-sm font-semibold text-white">SAFE (20% Discount)</span>
                   </div>
                 </div>
 
-                <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Star className="h-5 w-5 text-amber-400" />
-                    <span className="text-amber-400 font-bold text-sm uppercase tracking-wider">Alpha Investor Advantage</span>
-                  </div>
-                  <p className="text-sm text-gray-300">Lock in pricing <span className="text-amber-400 font-bold">37.5% lower</span> than the upcoming institutional round.</p>
+                {/* Advantage Box */}
+                <div 
+                  className="p-4 rounded-r-lg"
+                  style={{
+                    background: 'rgba(0, 229, 229, 0.08)',
+                    borderLeft: '3px solid #00E5E5',
+                  }}
+                >
+                  <p 
+                    className="text-xs tracking-[2px] uppercase mb-2"
+                    style={{ color: '#00E5E5' }}
+                  >
+                    ALPHA INVESTOR ADVANTAGE
+                  </p>
+                  <p className="text-sm text-white leading-relaxed">
+                    Lock in pricing <span style={{ color: '#00E5E5' }} className="font-semibold">37.5% lower</span> than the upcoming institutional round.
+                  </p>
                 </div>
+
+                {/* CTA Button */}
+                <Button 
+                  className="w-full mt-6 py-6 rounded-xl font-semibold text-black transition-all duration-300"
+                  style={{
+                    background: '#00E5E5',
+                    boxShadow: '0 0 20px rgba(0, 229, 229, 0.4)',
+                  }}
+                  onClick={() => navigate('/partner-application')}
+                >
+                  RESERVE ALLOCATION →
+                </Button>
               </div>
 
               {/* TRANCHE 2 - INSTITUTIONAL ROUND */}
-              <div className="bg-gradient-to-br from-slate-900/60 to-slate-800/40 p-8 rounded-2xl border border-white/10 relative">
-                <div className="mb-6">
-                  <Badge className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 font-bold px-4 py-1.5">
-                    OPENS UPON TRANCHE 1 CLOSE
-                  </Badge>
+              <div 
+                className="relative p-8 rounded-2xl transition-all duration-300 opacity-70 hover:opacity-100"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                }}
+              >
+                {/* Status Badge - Pending */}
+                <div 
+                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs tracking-[2px] uppercase mb-6"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    color: '#A0A0A0',
+                  }}
+                >
+                  <Clock className="w-3 h-3" />
+                  OPENS UPON TRANCHE 1 CLOSE
                 </div>
                 
-                <h3 className="text-2xl font-bold text-cyan-400 mb-1 font-orbitron">TRANCHE 2</h3>
-                <p className="text-lg text-cyan-300/80 mb-6">Institutional Round (Follow-On)</p>
+                {/* Tranche Title */}
+                <div className="mb-8">
+                  <p 
+                    className="text-xs tracking-[3px] uppercase mb-1"
+                    style={{ color: '#00E5E5' }}
+                  >
+                    TRANCHE 2
+                  </p>
+                  <h3 className="text-[28px] font-semibold text-white">
+                    Institutional Round
+                  </h3>
+                </div>
                 
-                <div className="space-y-4 mb-8">
+                {/* Data Rows */}
+                <div className="space-y-0 mb-8">
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
-                    <span className="text-gray-400">Target Raise</span>
-                    <span className="text-2xl font-bold text-white">$1,400,000</span>
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Target Raise</span>
+                    <span className="text-sm font-semibold text-white">$1,400,000</span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
-                    <span className="text-gray-400">Valuation Cap</span>
-                    <span className="text-xl font-bold text-cyan-400">$20,000,000</span>
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Valuation Cap</span>
+                    <span className="text-sm font-semibold" style={{ color: '#00E5E5' }}>$20,000,000</span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
-                    <span className="text-gray-400">Instrument</span>
-                    <span className="text-lg font-semibold text-white">SAFE</span>
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Instrument</span>
+                    <span className="text-sm font-semibold text-white">SAFE</span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
-                    <span className="text-gray-400">Status</span>
-                    <span className="text-lg text-gray-400">Pending T1 Close</span>
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Status</span>
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Pending T1 Close</span>
                   </div>
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="h-5 w-5 text-cyan-400" />
-                    <span className="text-cyan-400 font-bold text-sm uppercase tracking-wider">The Comparison</span>
-                  </div>
-                  <p className="text-sm text-gray-300">Tranche 1 investors secure equity at a <span className="text-cyan-400 font-bold">$7.5M lower cap</span> than this round.</p>
+                {/* Comparison Box */}
+                <div 
+                  className="p-4 rounded-r-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.03)',
+                    borderLeft: '3px solid rgba(255, 255, 255, 0.2)',
+                  }}
+                >
+                  <p 
+                    className="text-xs tracking-[2px] uppercase mb-2"
+                    style={{ color: '#00E5E5' }}
+                  >
+                    THE COMPARISON
+                  </p>
+                  <p className="text-sm text-white leading-relaxed">
+                    Tranche 1 investors secure equity at a <span style={{ color: '#00E5E5' }} className="font-semibold">$7.5M lower cap</span> than this round.
+                  </p>
                 </div>
               </div>
             </div>
 
             {/* LIQUIDITY & ROI STRATEGY */}
-            <div className="mb-12">
-              <h3 className="text-2xl font-bold text-white mb-8 font-orbitron">LIQUIDITY & ROI STRATEGY</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                {/* Exit Strategy */}
-                <div className="bg-gradient-to-br from-green-950/40 to-emerald-950/30 border border-green-500/30 rounded-xl p-6 text-left hover:border-green-500/50 transition-all">
-                  <div className="h-12 w-12 rounded-xl bg-green-500/20 flex items-center justify-center mb-4">
-                    <Target className="h-6 w-6 text-green-400" />
-                  </div>
-                  <h4 className="text-lg font-bold text-green-400 mb-3 font-orbitron">THE EXIT STRATEGY</h4>
-                  <p className="text-sm text-gray-300 leading-relaxed">
-                    Acquisition target for <span className="text-white font-semibold">Fintech (Block, Stripe)</span>, Insurance, or Hospitality groups. Projected <span className="text-green-400 font-bold">10x-20x multiple</span> within 3-5 years.
-                  </p>
-                </div>
+            <div className="text-center mb-12">
+              <h3 
+                className="text-xs tracking-[3px] uppercase mb-2"
+                style={{ color: '#00E5E5' }}
+              >
+                LIQUIDITY & ROI STRATEGY
+              </h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {/* Exit Strategy */}
+              <div 
+                className="p-6 rounded-xl text-center transition-all duration-300 hover:border-[rgba(0,229,229,0.4)] hover:bg-[rgba(0,229,229,0.05)]"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                <div className="text-4xl mb-4">🚀</div>
+                <h4 
+                  className="text-xs tracking-[2px] uppercase mb-4"
+                  style={{ color: '#00E5E5' }}
+                >
+                  THE EXIT STRATEGY
+                </h4>
+                <p className="text-sm text-white leading-relaxed">
+                  Acquisition target: Fintech (Block, Stripe), Insurance, or Hospitality. <br /><br />
+                  Projected <span style={{ color: '#00E5E5' }} className="font-semibold">10x-20x multiple</span>. 3-5 year horizon.
+                </p>
+              </div>
 
-                {/* Dividend Distributions */}
-                <div className="bg-gradient-to-br from-purple-950/40 to-pink-950/30 border border-purple-500/30 rounded-xl p-6 text-left hover:border-purple-500/50 transition-all">
-                  <div className="h-12 w-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-4">
-                    <DollarSign className="h-6 w-6 text-purple-400" />
-                  </div>
-                  <h4 className="text-lg font-bold text-purple-400 mb-3 font-orbitron">DIVIDEND DISTRIBUTIONS</h4>
-                  <p className="text-sm text-gray-300 leading-relaxed">
-                    Unlike standard tech burns, VALID™ acts as a <span className="text-white font-semibold">transaction conduit</span>. We intend to distribute a <span className="text-purple-400 font-bold">% of Net Transaction Fees</span> back to equity holders once stabilized.
-                  </p>
-                </div>
+              {/* Dividend Distributions */}
+              <div 
+                className="p-6 rounded-xl text-center transition-all duration-300 hover:border-[rgba(0,229,229,0.4)] hover:bg-[rgba(0,229,229,0.05)]"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                <div className="text-4xl mb-4">💰</div>
+                <h4 
+                  className="text-xs tracking-[2px] uppercase mb-4"
+                  style={{ color: '#00E5E5' }}
+                >
+                  DIVIDEND DISTRIBUTIONS
+                </h4>
+                <p className="text-sm text-white leading-relaxed">
+                  VALID™ is a conduit, not a burn machine. <br /><br />
+                  We intend to distribute a <span style={{ color: '#00E5E5' }} className="font-semibold">% of Net Transaction Fees</span> to equity holders once stabilized.
+                </p>
+              </div>
 
-                {/* Secondary Market */}
-                <div className="bg-gradient-to-br from-cyan-950/40 to-blue-950/30 border border-cyan-500/30 rounded-xl p-6 text-left hover:border-cyan-500/50 transition-all">
-                  <div className="h-12 w-12 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-4">
-                    <ArrowLeftRight className="h-6 w-6 text-cyan-400" />
-                  </div>
-                  <h4 className="text-lg font-bold text-cyan-400 mb-3 font-orbitron">SECONDARY MARKET</h4>
-                  <p className="text-sm text-gray-300 leading-relaxed">
-                    Early Tranche 1 investors will have the option to <span className="text-white font-semibold">sell equity</span> to late-stage <span className="text-cyan-400 font-bold">Series A/B investors</span> for early liquidity.
-                  </p>
-                </div>
+              {/* Secondary Market */}
+              <div 
+                className="p-6 rounded-xl text-center transition-all duration-300 hover:border-[rgba(0,229,229,0.4)] hover:bg-[rgba(0,229,229,0.05)]"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                <div className="text-4xl mb-4">🔄</div>
+                <h4 
+                  className="text-xs tracking-[2px] uppercase mb-4"
+                  style={{ color: '#00E5E5' }}
+                >
+                  SECONDARY MARKET
+                </h4>
+                <p className="text-sm text-white leading-relaxed">
+                  Tranche 1 investors will have the option to sell equity to <span style={{ color: '#00E5E5' }} className="font-semibold">Series A/B investors</span> for early liquidity.
+                </p>
               </div>
             </div>
-
-            {/* CTA Button */}
-            <Button 
-              size="lg"
-              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-black font-bold text-lg px-10 py-6 rounded-full shadow-[0_0_30px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] transition-all duration-300"
-              onClick={() => navigate('/partner-application')}
-            >
-              <Rocket className="mr-2 h-5 w-5" />
-              Secure Tranche 1 Allocation
-            </Button>
           </div>
 
           {/* ===== RISK & LEGAL DISCLOSURE ===== */}

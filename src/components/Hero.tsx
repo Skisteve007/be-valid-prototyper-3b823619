@@ -256,6 +256,10 @@ const Hero = () => {
                   Ghost™ Protocols
                 </span>
               </div>
+              
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 text-center lg:text-left">
+                QR Code Encrypted. Ghost Tokens... Secure Your Payment Info, Your Health Records And Your Identification. We Make Your Life More Fluid, With You In Complete Control Of What You're Going To Choose To Share. Your Privacy And Your Control.
+              </p>
 
               {/* Static Profiles Description */}
               <p className="text-base sm:text-lg text-gray-300 leading-relaxed text-center lg:text-left mb-6 font-medium italic max-w-xl mx-auto lg:mx-0">

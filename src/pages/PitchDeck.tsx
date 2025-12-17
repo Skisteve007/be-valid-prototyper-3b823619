@@ -59,7 +59,7 @@ import {
 import logo from "@/assets/valid-logo.jpeg";
 
 // PUBLIC PDF URL - Update this with your actual investor deck PDF link
-const INVESTOR_DECK_PDF_URL = "https://bevalid.app/images/pitch/VALID-Investor-Deck-2025.pdf";
+const INVESTOR_DECK_PDF_URL = "/images/pitch/VALID-Investor-Deck-2025.pdf";
 
 const PitchDeck = () => {
   const navigate = useNavigate();

@@ -312,33 +312,34 @@ const Hero = () => {
               <div className="inline-block px-3 py-1 border border-cyan-500/40 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-4">
                 THE VALID™ NETWORK
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 tracking-tight">
-                <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.4)]"
-                  style={{
-                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 40%, #e0e0e0 70%, #d0d0d0 100%)',
-                    textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
-                  }}
-                >
-                  ONE IDENTITY.
-                </span>{' '}
-                <span 
-                  className="inline-block text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage: 'linear-gradient(180deg, #67e8f9 0%, #22d3ee 30%, #06b6d4 60%, #22d3ee 100%)',
-                    textShadow: '0 0 30px rgba(34,211,238,0.8), 0 4px 8px rgba(0,0,0,0.4)',
-                    filter: 'drop-shadow(0 0 25px rgba(103,232,249,0.6))',
-                  }}
-                >
-                  ZERO LIMITS.
-                </span>
-              </h2>
-              {/* Counter Pill */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 border border-red-500/60 rounded-full bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.4)]">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]"></span>
-                <span className="text-sm font-mono text-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]">
-                  {String(counter).padStart(9, '0').replace(/(\d{3})(\d{3})(\d{3})/, '$1,$2,$3')}
-                </span>
+              <div className="flex flex-wrap items-center gap-4 mb-6">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight">
+                  <span 
+                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.4)]"
+                    style={{
+                      backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 40%, #e0e0e0 70%, #d0d0d0 100%)',
+                      textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
+                    }}
+                  >
+                    ONE IDENTITY.
+                  </span>{' '}
+                  <span 
+                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(103,232,249,0.4)]"
+                    style={{
+                      backgroundImage: 'linear-gradient(180deg, #a5f3fc 0%, #67e8f9 30%, #22d3ee 60%, #67e8f9 100%)',
+                      textShadow: '0 0 20px rgba(103,232,249,0.5)',
+                    }}
+                  >
+                    ZERO LIMITS.
+                  </span>
+                </h2>
+                {/* Counter Pill - inline with headline */}
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-red-500/60 rounded-full bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
+                  <span className="text-xs font-mono text-red-400">
+                    {String(counter).padStart(9, '0').replace(/(\d{3})(\d{3})(\d{3})/, '$1,$2,$3')}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

@@ -13,6 +13,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/valid-logo.jpeg";
+import PitchCarousel from "@/components/admin/PitchCarousel";
+
+// Pitch deck slide images - replace with actual URLs when uploaded
+const pitchDeckImages = [
+  '/images/pitch/slide-01.png',
+  '/images/pitch/slide-02.png',
+  '/images/pitch/slide-03.png',
+  '/images/pitch/slide-04.png',
+  '/images/pitch/slide-05.png',
+  '/images/pitch/slide-06.png',
+  '/images/pitch/slide-07.png',
+  '/images/pitch/slide-08.png',
+  '/images/pitch/slide-09.png',
+  '/images/pitch/slide-10.png',
+  '/images/pitch/slide-11.png',
+  '/images/pitch/slide-12.png',
+  '/images/pitch/slide-13.png',
+  '/images/pitch/slide-14.png',
+];
 
 const AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com"];
 const TRANCHE_1_CAP = 200000;
@@ -431,8 +450,21 @@ const AdminDealRoom = () => {
             DEAL ROOM
           </h1>
           <p className="text-cyan-400 font-mono tracking-widest text-sm">
-            SAFE CONTRACT GENERATOR
+            INVESTOR PITCH DECK & SAFE CONTRACT GENERATOR
           </p>
+        </div>
+
+        {/* Pitch Deck Carousel */}
+        <div className="max-w-5xl mx-auto mb-16">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-white mb-2 font-orbitron tracking-wide">
+              PITCH DECK
+            </h2>
+            <p className="text-gray-400 text-sm">
+              Auto-advances every 8 seconds • Hover to pause • Click arrows or swipe to navigate
+            </p>
+          </div>
+          <PitchCarousel images={pitchDeckImages} autoAdvanceMs={8000} />
         </div>
 
         <div className="max-w-2xl mx-auto">

@@ -123,7 +123,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
+    <div className="min-h-screen bg-slate-900 text-white overflow-x-hidden">
       
       {/* ===== HEADER ===== */}
       <ResponsiveHeader />
@@ -137,16 +137,16 @@ const Hero = () => {
             backgroundImage: 'url(/landing-hero-earth.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 40%',
-            opacity: 0.75,
+            opacity: 0.85,
           }}
         />
-        {/* Reduced dark overlay - lighter */}
-        <div className="absolute inset-0 z-0 bg-slate-900/30" />
-        {/* Horizon-lift gradient: lighter dark space at top */}
+        {/* Reduced dark overlay - much lighter */}
+        <div className="absolute inset-0 z-0 bg-slate-900/20" />
+        {/* Horizon-lift gradient: very light */}
         <div 
           className="absolute inset-0 z-0"
           style={{
-            background: 'linear-gradient(to bottom, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0.2) 40%, rgba(30,40,60,0.15) 70%, rgba(40,50,70,0.1) 100%)',
+            background: 'linear-gradient(to bottom, rgba(15,23,42,0.4) 0%, rgba(15,23,42,0.1) 40%, transparent 70%, transparent 100%)',
           }}
         />
         {/* Cyan glow accent */}
@@ -171,36 +171,36 @@ const Hero = () => {
                 POWERED BY SYNTHESIZED AI
               </p>
 
-              {/* Main Headline - 3D gradient style */}
+              {/* Main Headline - 3D gradient style - BRIGHT */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black font-display tracking-tight mb-4">
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.4)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(255,255,255,0.6)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 40%, #e0e0e0 70%, #d0d0d0 100%)',
-                    textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
+                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #f0f0f0 80%, #e8e8e8 100%)',
+                    textShadow: '0 0 30px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.3)',
                   }}
                 >
                   ONE KEY.
                 </span>
               </h1>
               
-              {/* Colored Tagline - Inline layout */}
+              {/* Colored Tagline - Inline layout - BRIGHTER */}
               <div className="mb-6 relative">
                 <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
                   <span 
-                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(45,212,191,0.4)]"
+                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(94,234,212,0.6)]"
                     style={{
-                      backgroundImage: 'linear-gradient(180deg, #5eead4 0%, #2dd4bf 40%, #14b8a6 70%, #0d9488 100%)',
-                      textShadow: '0 0 20px rgba(45,212,191,0.6), 0 4px 8px rgba(0,0,0,0.4)',
+                      backgroundImage: 'linear-gradient(180deg, #99f6e4 0%, #5eead4 50%, #2dd4bf 80%, #14b8a6 100%)',
+                      textShadow: '0 0 30px rgba(94,234,212,0.7), 0 2px 4px rgba(0,0,0,0.3)',
                     }}
                   >
                     Verify.
                   </span>{' '}
                   <span 
-                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.3)]"
+                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(255,255,255,0.5)]"
                     style={{
-                      backgroundImage: 'linear-gradient(180deg, #e5e7eb 0%, #d1d5db 40%, #9ca3af 70%, #6b7280 100%)',
-                      textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
+                      backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f3f4f6 50%, #e5e7eb 80%, #d1d5db 100%)',
+                      textShadow: '0 0 20px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.3)',
                     }}
                   >
                     Pay.
@@ -208,10 +208,10 @@ const Hero = () => {
                 </p>
                 <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mt-1">
                   <span 
-                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(45,212,191,0.4)]"
+                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(153,246,228,0.6)]"
                     style={{
-                      backgroundImage: 'linear-gradient(180deg, #99f6e4 0%, #5eead4 40%, #2dd4bf 70%, #14b8a6 100%)',
-                      textShadow: '0 0 20px rgba(45,212,191,0.6), 0 4px 8px rgba(0,0,0,0.4)',
+                      backgroundImage: 'linear-gradient(180deg, #ccfbf1 0%, #99f6e4 50%, #5eead4 80%, #2dd4bf 100%)',
+                      textShadow: '0 0 30px rgba(153,246,228,0.7), 0 2px 4px rgba(0,0,0,0.3)',
                     }}
                   >
                     Vibe.
@@ -355,14 +355,14 @@ const Hero = () => {
             backgroundImage: 'url(/landing-hero-earth.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 60%',
-            opacity: 0.6,
+            opacity: 0.7,
           }}
         />
-        <div className="absolute inset-0 z-0 bg-slate-900/40" />
+        <div className="absolute inset-0 z-0 bg-slate-900/25" />
         <div 
           className="absolute inset-0 z-0"
           style={{
-            background: 'linear-gradient(to bottom, rgba(15,23,42,0.7) 0%, rgba(15,23,42,0.3) 30%, rgba(15,23,42,0.5) 100%)',
+            background: 'linear-gradient(to bottom, rgba(15,23,42,0.5) 0%, rgba(15,23,42,0.2) 30%, rgba(15,23,42,0.3) 100%)',
           }}
         />
         

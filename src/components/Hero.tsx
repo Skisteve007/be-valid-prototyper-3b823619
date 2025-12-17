@@ -165,7 +165,7 @@ const Hero = () => {
       <ResponsiveHeader />
 
       {/* ===== HERO SECTION ===== */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16">
+      <div className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 sm:pt-36 pb-16">
         {/* Background Layers */}
         <div 
           className="absolute inset-0 z-0"

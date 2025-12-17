@@ -262,10 +262,10 @@ const Hero = () => {
 
               {/* Signal Selection */}
               <div id="signals" className="text-center lg:text-left mt-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
-                <p className="text-sm font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
+                <p className="text-base font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
                   ✦ SELECT YOUR SIGNAL ✦
                 </p>
-                <p className="text-sm text-white/80 mb-4">
+                <p className="text-base text-white/80 mb-4">
                   Pick A Signal. Your Whole Presence Updates Instantly.
                 </p>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4">
@@ -276,11 +276,11 @@ const Hero = () => {
                       <button
                         key={mode}
                         onClick={() => handleSignalClick(mode)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-sm font-bold tracking-wide ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-base font-bold tracking-wide ${
                           isActive ? colorClasses[color].active : colorClasses[color].inactive
                         }`}
                       >
-                        <Icon size={14} />
+                        <Icon size={16} />
                         {label}
                       </button>
                     );
@@ -288,7 +288,7 @@ const Hero = () => {
                 </div>
                 {/* Chip Description - Dynamic based on active signal - fixed height to prevent jumping */}
                 <div className="min-h-[3.5rem] flex items-center justify-center lg:justify-start">
-                  <p className={`text-base lg:text-lg font-medium transition-colors duration-300 ${
+                  <p className={`text-lg lg:text-xl font-medium transition-colors duration-300 ${
                     activeSignal === 'social' ? 'text-cyan-400' :
                     activeSignal === 'pulse' ? 'text-green-400' :
                     activeSignal === 'thrill' ? 'text-orange-400' :
@@ -298,20 +298,20 @@ const Hero = () => {
                   </p>
                 </div>
                 {/* Proof Line */}
-                <p className="text-xs text-white/50 mt-2 italic">
+                <p className="text-sm text-white/50 mt-2 italic">
                   This Is The Chameleon Layer — No Other Network Does This.
                 </p>
               </div>
 
               {/* ===== THE SOCIAL CHAMELEON SECTION ===== */}
               <div id="chameleon" className="mt-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
-                <p className="text-sm font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
+                <p className="text-base font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
                   ✦ THE SOCIAL CHAMELEON ✦
                 </p>
-                <p className="text-sm text-white/80 mb-2">
+                <p className="text-base text-white/80 mb-2">
                   Instantly Switch Your Signal To Match The Moment — Social, Pulse, Thrill, Or After Dark.
                 </p>
-                <p className="text-xs text-white/50 italic">
+                <p className="text-sm text-white/50 italic">
                   Other Networks Lock You Into One Profile. <span className="text-cyan-400 font-semibold">VALID™</span> Lets You Adapt In Real Time.
                 </p>
               </div>

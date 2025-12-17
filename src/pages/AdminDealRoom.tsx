@@ -457,7 +457,7 @@ const AdminDealRoom = () => {
         {/* Pitch Deck Carousel */}
         <div className="max-w-5xl mx-auto mb-16">
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-slate-300 via-white to-slate-300 bg-clip-text text-transparent mb-2 font-orbitron tracking-wide drop-shadow-[0_0_20px_rgba(192,192,192,0.8)] animate-pulse">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-300 via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-2 font-orbitron tracking-wide drop-shadow-[0_0_25px_rgba(45,212,191,0.8)] animate-[pulse_2s_ease-in-out_infinite]">
               PITCH DECK
             </h2>
             <p className="text-muted-foreground text-sm">

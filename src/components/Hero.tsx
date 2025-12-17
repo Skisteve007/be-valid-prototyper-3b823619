@@ -202,11 +202,6 @@ const Hero = () => {
             {/* LEFT COLUMN: Headlines + CTA */}
             <div className="order-2 lg:order-1 text-center lg:text-left">
               
-              {/* Powered By Line */}
-              <p className="text-xs font-mono tracking-[0.3em] text-cyan-400/80 uppercase mb-2">
-                POWERED BY SYNTHESIZED AI
-              </p>
-              
               {/* Universal Lifestyle Key - Bold 3D Gradient */}
               <p 
                 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black mb-6"
@@ -222,8 +217,13 @@ const Hero = () => {
                 Universal Lifestyle Key
               </p>
               {/* ONE KEY. VERIFY. PAY. VIBE. - Much smaller */}
-              <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-4 text-white">
+              <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-2 text-white">
                 ONE KEY. VERIFY. PAY. VIBE.
+              </p>
+              
+              {/* Powered By Line - Under ONE KEY */}
+              <p className="text-xs font-mono tracking-[0.3em] text-cyan-400/80 uppercase mb-4">
+                POWERED BY SYNTHESIZED AI
               </p>
               
               {/* Support Line */}

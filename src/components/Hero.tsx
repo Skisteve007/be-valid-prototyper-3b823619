@@ -224,21 +224,6 @@ const Hero = () => {
                 </a>
               </div>
 
-              {/* ===== NEW ADDITION: THE SOCIAL CHAMELEON SECTION ===== */}
-              <div id="chameleon" className="mt-6 p-6 rounded-2xl border border-purple-500/40 bg-gradient-to-br from-purple-500/10 via-cyan-500/5 to-purple-500/10 backdrop-blur-sm">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-2">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400">
-                    The Social Chameleon.
-                  </span>
-                </h2>
-                <p className="text-lg sm:text-xl text-white/90 mb-2">
-                  Instantly Switch Your Signal To Match The Moment — Social, Pulse, Thrill, Or After Dark.
-                </p>
-                <p className="text-sm text-white/60 mb-4">
-                  Other Networks Lock You Into One Profile. <span className="text-cyan-400 font-semibold">VALID™</span> Lets You Adapt In Real Time.
-                </p>
-              </div>
-
               {/* Signal Selection */}
               <div id="signals" className="text-center lg:text-left mt-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
                 <p className="text-sm font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
@@ -279,6 +264,21 @@ const Hero = () => {
                 {/* Proof Line */}
                 <p className="text-xs text-white/50 mt-2 italic">
                   This Is The Chameleon Layer — No Other Network Does This.
+                </p>
+              </div>
+
+              {/* ===== THE SOCIAL CHAMELEON SECTION ===== */}
+              <div id="chameleon" className="mt-6 p-6 rounded-2xl border border-purple-500/40 bg-gradient-to-br from-purple-500/10 via-cyan-500/5 to-purple-500/10 backdrop-blur-sm">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-2">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400">
+                    The Social Chameleon.
+                  </span>
+                </h2>
+                <p className="text-lg sm:text-xl text-white/90 mb-2">
+                  Instantly Switch Your Signal To Match The Moment — Social, Pulse, Thrill, Or After Dark.
+                </p>
+                <p className="text-sm text-white/60 mb-4">
+                  Other Networks Lock You Into One Profile. <span className="text-cyan-400 font-semibold">VALID™</span> Lets You Adapt In Real Time.
                 </p>
               </div>
             </div>

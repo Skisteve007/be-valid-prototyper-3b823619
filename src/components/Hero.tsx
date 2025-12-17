@@ -269,10 +269,18 @@ const Hero = () => {
               Signal Share
               </p>
 
-              {/* Ghost™ Protocols Description */}
-              <p className="text-base sm:text-lg text-gray-300 leading-relaxed text-center lg:text-left mb-6 font-medium italic max-w-xl mx-auto lg:mx-0">
-                Our Ghost™ Protocols Now Make Points Of Entry Fluid. Environments More Secure. Your Privacy Yours To Choose. <span className="text-cyan-400 font-bold">VALID™</span> Provides A QR Encrypted Code Shuttled Via Our Proprietary <span className="text-purple-400 font-bold">Ghost™ Tokens™</span>. You Choose To Share Or You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>. Have Fun With <span className="text-cyan-400 font-bold">VALID™</span>'s Signal Share Which Allows You To Open Your Profile For <span className="text-emerald-400">Connections</span>. Our Ghost™ Protocols Have Made Your Identity Quickly Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>. No Other Social Network Does This.
-              </p>
+              {/* Signal Share Description */}
+              <div className="text-base sm:text-lg text-gray-300 leading-relaxed text-center lg:text-left mb-6 max-w-xl mx-auto lg:mx-0 space-y-3">
+                <p className="text-cyan-400 font-bold tracking-widest">
+                  Your Vibe. &nbsp; Your Visibility. &nbsp; Your Call.
+                </p>
+                <p>
+                  Go visible when you want to connect. &nbsp; Go ghost when you don't.
+                </p>
+                <p>
+                  <span className="text-cyan-400 font-bold">VALID™</span> Signal Share lets you open your profile for real connections — or lock it down for total invisibility. &nbsp; One tap. &nbsp; Instantly adaptable. &nbsp; No other network does this.
+                </p>
+              </div>
 
             </div>
 

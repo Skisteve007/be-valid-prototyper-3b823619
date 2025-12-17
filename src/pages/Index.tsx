@@ -57,7 +57,7 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-all duration-700 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
-      ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
+      ${isDark ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'}`}>
       
       {/* RIPPLE TRANSITION EFFECT */}
       {ripple.active && (

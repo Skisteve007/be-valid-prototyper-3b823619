@@ -3,7 +3,7 @@
 // ============================================================================
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Users, Activity, Zap, Moon } from 'lucide-react';
+import { ArrowRight, Users, Activity, Zap, Moon, Ghost } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
@@ -249,7 +249,15 @@ const Hero = () => {
                 <span className="text-cyan-400"> Connectivity.</span>
               </p>
 
-              {/* Static Profiles Description - Moved up closer */}
+              {/* Ghost Encryptions */}
+              <div className="flex items-center gap-2 justify-center lg:justify-start mb-3">
+                <Ghost className="w-5 h-5 text-purple-400" />
+                <span className="text-sm sm:text-base font-mono tracking-widest text-purple-400 uppercase">
+                  Ghost™ Encryptions
+                </span>
+              </div>
+
+              {/* Static Profiles Description */}
               <p className="text-base sm:text-lg text-gray-300 leading-relaxed text-center lg:text-left mb-6 font-medium italic max-w-xl mx-auto lg:mx-0">
                 Static Profiles Are <span className="text-white font-bold">Ancient</span>. Now You Choose What You Share. Points Of Entry Are <span className="text-cyan-400">Fluid</span>. You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>, Or Open Your Profile For That <span className="text-emerald-400">Connection</span>. Your Identity Is Now Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>.
               </p>

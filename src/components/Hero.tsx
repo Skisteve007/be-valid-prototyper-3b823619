@@ -459,10 +459,6 @@ const Hero = () => {
         </div>
       </div>
 
-
-      {/* ===== SYNTH FAB ===== */}
-      <SynthButton variant="fab" />
-
       {/* ===== BACKGROUND EFFECTS ===== */}
       <div className="fixed inset-0 pointer-events-none -z-10">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[150px]"></div>

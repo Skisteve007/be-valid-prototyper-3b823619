@@ -306,7 +306,7 @@ const Hero = () => {
           </div>
 
           {/* Below the fold content - full width */}
-          <div className="mt-16 lg:mt-24 max-w-3xl mx-auto lg:mx-0">
+          <div className="mt-8 lg:mt-12 max-w-3xl mx-auto lg:mx-0">
             {/* Static Profiles Description */}
             <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed text-center lg:text-left mb-12 font-medium italic">
               Static Profiles Are <span className="text-white font-bold">Ancient</span>. Now You Choose What You Share. Points Of Entry Are <span className="text-cyan-400">Fluid</span>. You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>, Or Open Your Profile For That <span className="text-emerald-400">Connection</span>. Your Identity Is Now Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>.

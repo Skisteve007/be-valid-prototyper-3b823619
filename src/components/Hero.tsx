@@ -262,9 +262,9 @@ const Hero = () => {
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 tracking-tight">
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.3)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.4)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #a0a0a0 50%, #606060 100%)',
+                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 40%, #e0e0e0 70%, #d0d0d0 100%)',
                     textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
                   }}
                 >
@@ -273,9 +273,9 @@ const Hero = () => {
                 <span 
                   className="inline-block text-transparent bg-clip-text"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #22d3ee 0%, #06b6d4 30%, #0891b2 60%, #0e7490 100%)',
-                    textShadow: '0 0 30px rgba(34,211,238,0.6), 0 4px 8px rgba(0,0,0,0.4)',
-                    filter: 'drop-shadow(0 0 20px rgba(34,211,238,0.5))',
+                    backgroundImage: 'linear-gradient(180deg, #67e8f9 0%, #22d3ee 30%, #06b6d4 60%, #22d3ee 100%)',
+                    textShadow: '0 0 30px rgba(34,211,238,0.8), 0 4px 8px rgba(0,0,0,0.4)',
+                    filter: 'drop-shadow(0 0 25px rgba(103,232,249,0.6))',
                   }}
                 >
                   ZERO LIMITS.

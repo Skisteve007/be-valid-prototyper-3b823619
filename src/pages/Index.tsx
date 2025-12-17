@@ -79,6 +79,29 @@ const Index = () => {
         </div>
       )}
       
+      {/* EXTENDED EARTH BACKGROUND - Continues from Hero */}
+      {isDark && (
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          {/* Earth image extending down */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'url(/landing-hero-earth.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center 40%',
+              opacity: 0.45,
+            }}
+          />
+          {/* Gradient fade - stronger at bottom to blend to dark */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, rgba(5,5,5,0.85) 80%, rgba(5,5,5,1) 100%)',
+            }}
+          />
+        </div>
+      )}
+      
       {/* BACKGROUND TEXTURE */}
       <div className={`fixed inset-0 pointer-events-none z-0 transition-opacity duration-700
         ${isDark ? 'opacity-[0.03]' : 'opacity-[0.02]'}

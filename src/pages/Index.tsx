@@ -138,12 +138,8 @@ const Index = () => {
             backgroundPosition: 'center',
           }}
         >
-          {/* Top content - THE VALID STANDARD */}
+          {/* Top content */}
           <div className="px-4 pt-12 pb-8 text-center bg-gradient-to-b from-black/70 via-black/30 to-transparent">
-            {/* Badge pill */}
-            <div className="inline-block px-4 py-1.5 border border-cyan-500/40 rounded-full text-xs font-mono tracking-[0.2em] uppercase text-cyan-400 bg-cyan-500/10 mb-6 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
-              THE VALID™ STANDARD
-            </div>
             
             <h2 className="text-3xl md:text-5xl font-bold mb-4 font-orbitron tracking-wide text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
               {t('standard.title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400">{t('standard.titleHighlight')}</span>

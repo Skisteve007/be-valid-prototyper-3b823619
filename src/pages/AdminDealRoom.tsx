@@ -27,7 +27,7 @@ const pitchDeckImages = [
   '/images/pitch/slide-08.jpg',
   '/images/pitch/slide-09.jpg',
   '/images/pitch/slide-10.jpg',
-  '/images/pitch/slide-11.jpg',
+  '/images/pitch/slide-11.png',
   '/images/pitch/slide-12.jpg',
   '/images/pitch/slide-13.jpg',
   '/images/pitch/slide-14.jpg',

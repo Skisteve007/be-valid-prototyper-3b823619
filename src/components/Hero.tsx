@@ -232,7 +232,7 @@ const Hero = () => {
                 {/* Secondary CTA */}
                 <a 
                   href="#chameleon"
-                  className="inline-flex items-center gap-2 px-6 py-3 font-bold text-sm rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 font-bold text-xs rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
                 >
                   BETA VERSION
                 </a>

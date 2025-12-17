@@ -67,7 +67,7 @@ export const usePageViewTracking = (pagePath?: string) => {
         }
 
         // Insert page view
-        await supabase.from('page_views').insert({
+        const { error } = await supabase.from('page_views').insert({
           page_path: currentPath,
           referrer,
           user_agent: userAgent,
@@ -79,6 +79,14 @@ export const usePageViewTracking = (pagePath?: string) => {
           city,
           region
         });
+
+        // Increment global visitor counter if insert succeeded
+        if (!error) {
+          await supabase.rpc('increment_global_stat', { 
+            stat_name: 'total_visitors',
+            increment_by: 1 
+          });
+        }
       } catch (error) {
         // Silently fail - don't break the app for analytics
         console.error('Page view tracking error:', error);

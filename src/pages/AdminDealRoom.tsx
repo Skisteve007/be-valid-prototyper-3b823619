@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock } from "lucide-react";
+import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock, ExternalLink, FileDown, Pin } from "lucide-react";
 import { jsPDF } from "jspdf";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -32,6 +32,9 @@ const pitchDeckImages = [
   '/images/pitch/slide-13.jpg',
   '/images/pitch/slide-14.jpg',
 ];
+
+// PUBLIC PDF URL - Same as PitchDeck.tsx for consistency
+const INVESTOR_DECK_PDF_URL = "/images/pitch/VALID-Investor-Deck-2025.pdf";
 
 const AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com"];
 const TRANCHE_1_CAP = 200000;
@@ -487,6 +490,51 @@ const AdminDealRoom = () => {
           <p className="text-cyan-400 font-mono tracking-widest text-sm drop-shadow-[0_0_10px_rgba(0,200,255,0.5)]">
             INVESTOR PITCH DECK & CONVERTIBLE NOTE GENERATOR
           </p>
+        </div>
+
+        {/* ===== PINNED ASSETS ===== */}
+        <div className="max-w-3xl mx-auto mb-12">
+          <div className="flex items-center gap-2 mb-4">
+            <Pin className="h-5 w-5 text-amber-400" />
+            <h2 className="text-lg font-bold text-white font-orbitron tracking-wide">PINNED ASSETS</h2>
+          </div>
+          <div className="bg-gradient-to-r from-amber-500/10 to-cyan-500/10 border border-amber-500/30 rounded-xl p-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="bg-amber-500/20 rounded-lg p-2">
+                  <FileText className="h-6 w-6 text-amber-400" />
+                </div>
+                <div>
+                  <p className="font-bold text-white">Investor Deck (PDF, 14 slides)</p>
+                  <p className="text-sm text-gray-400">Public link • No login required</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
+                  className="bg-amber-500/20 border border-amber-500/50 text-amber-300 hover:bg-amber-500/30"
+                >
+                  <ExternalLink className="h-4 w-4 mr-1" />
+                  View
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = INVESTOR_DECK_PDF_URL;
+                    link.download = 'VALID-Investor-Deck-2025.pdf';
+                    link.click();
+                  }}
+                  className="border-cyan-500/50 text-cyan-300 hover:bg-cyan-500/20"
+                >
+                  <FileDown className="h-4 w-4 mr-1" />
+                  Download
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Pitch Deck Carousel */}

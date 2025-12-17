@@ -202,16 +202,16 @@ const Hero = () => {
             {/* LEFT COLUMN: Headlines + CTA */}
             <div className="order-2 lg:order-1 text-center lg:text-left">
               
-              {/* Universal Lifestyle Key - Bold 3D Gradient */}
+              {/* Universal Lifestyle Key - Bold Chrome Gradient */}
               <p 
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black mb-6"
+                className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black mb-6"
                 style={{
-                  background: 'linear-gradient(180deg, #ffffff 0%, #00f0ff 50%, #0080ff 100%)',
+                  background: 'linear-gradient(180deg, #ffffff 0%, #e8e8e8 20%, #00f0ff 50%, #a0a0a0 70%, #0080ff 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                  textShadow: '0 4px 8px rgba(0,240,255,0.3), 0 8px 16px rgba(0,128,255,0.2)',
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))',
+                  textShadow: '0 2px 4px rgba(255,255,255,0.4), 0 4px 8px rgba(0,240,255,0.3), 0 8px 16px rgba(0,128,255,0.2)',
+                  filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.6))',
                 }}
               >
                 Universal Lifestyle Key

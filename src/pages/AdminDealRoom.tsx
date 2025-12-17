@@ -15,22 +15,22 @@ import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/valid-logo.jpeg";
 import PitchCarousel from "@/components/admin/PitchCarousel";
 
-// Pitch deck slide images - replace with actual URLs when uploaded
+// Pitch deck slide images
 const pitchDeckImages = [
-  '/images/pitch/slide-01.png',
-  '/images/pitch/slide-02.png',
-  '/images/pitch/slide-03.png',
-  '/images/pitch/slide-04.png',
-  '/images/pitch/slide-05.png',
-  '/images/pitch/slide-06.png',
-  '/images/pitch/slide-07.png',
-  '/images/pitch/slide-08.png',
-  '/images/pitch/slide-09.png',
-  '/images/pitch/slide-10.png',
-  '/images/pitch/slide-11.png',
-  '/images/pitch/slide-12.png',
-  '/images/pitch/slide-13.png',
-  '/images/pitch/slide-14.png',
+  '/images/pitch/slide-01.jpg',
+  '/images/pitch/slide-02.jpg',
+  '/images/pitch/slide-03.jpg',
+  '/images/pitch/slide-04.jpg',
+  '/images/pitch/slide-05.jpg',
+  '/images/pitch/slide-06.jpg',
+  '/images/pitch/slide-07.jpg',
+  '/images/pitch/slide-08.jpg',
+  '/images/pitch/slide-09.jpg',
+  '/images/pitch/slide-10.jpg',
+  '/images/pitch/slide-11.jpg',
+  '/images/pitch/slide-12.jpg',
+  '/images/pitch/slide-13.jpg',
+  '/images/pitch/slide-14.jpg',
 ];
 
 const AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com"];

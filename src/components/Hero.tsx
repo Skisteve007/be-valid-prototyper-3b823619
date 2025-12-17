@@ -2,7 +2,7 @@
 // HERO COMPONENT - MATCHING REFERENCE IMAGE5
 // ============================================================================
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Users, Activity, Zap, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -19,6 +19,10 @@ const Hero = () => {
   const { t } = useTranslation();
   const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
   const [counter, setCounter] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  const signalOrder: SignalMode[] = ['social', 'pulse', 'thrill', 'afterdark'];
   
   usePageViewTracking('/');
 
@@ -41,6 +45,46 @@ const Hero = () => {
     }, duration / steps);
     
     return () => clearInterval(timer);
+  }, []);
+
+  // Auto-rotate signals every 4 seconds
+  useEffect(() => {
+    if (isPaused) return;
+    
+    const rotationInterval = setInterval(() => {
+      setActiveSignal((current) => {
+        const currentIndex = signalOrder.indexOf(current);
+        const nextIndex = (currentIndex + 1) % signalOrder.length;
+        return signalOrder[nextIndex];
+      });
+    }, 4000);
+    
+    return () => clearInterval(rotationInterval);
+  }, [isPaused]);
+
+  // Handle manual signal selection with pause
+  const handleSignalClick = useCallback((mode: SignalMode) => {
+    setActiveSignal(mode);
+    setIsPaused(true);
+    
+    // Clear any existing pause timeout
+    if (pauseTimeoutRef.current) {
+      clearTimeout(pauseTimeoutRef.current);
+    }
+    
+    // Resume auto-rotation after 12 seconds
+    pauseTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 12000);
+  }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (pauseTimeoutRef.current) {
+        clearTimeout(pauseTimeoutRef.current);
+      }
+    };
   }, []);
 
   const signalModes = {
@@ -203,7 +247,7 @@ const Hero = () => {
                     return (
                       <button
                         key={mode}
-                        onClick={() => setActiveSignal(mode)}
+                        onClick={() => handleSignalClick(mode)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-sm font-bold tracking-wide ${
                           isActive ? colorClasses[color].active : colorClasses[color].inactive
                         }`}

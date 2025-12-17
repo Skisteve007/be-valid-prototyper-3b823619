@@ -179,7 +179,7 @@ const Hero = () => {
                 {/* Primary CTA */}
                 <button 
                   onClick={handleAccessClick}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-black/60 border border-cyan-400/40 text-white font-bold text-sm rounded-full hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold text-sm rounded-full border border-white/80 hover:bg-gray-100 transition-all animate-pulse shadow-[0_0_20px_rgba(255,255,255,0.5),0_0_40px_rgba(0,240,255,0.3)]"
                 >
                   CLAIM YOUR ID
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
@@ -192,9 +192,9 @@ const Hero = () => {
               </div>
 
               {/* Signal Selection */}
-              <div className="text-center lg:text-left">
-                <p className="text-xs font-mono tracking-[0.2em] text-muted-foreground uppercase mb-3">
-                  SELECT YOUR SIGNAL
+              <div className="text-center lg:text-left mt-4 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
+                <p className="text-sm font-mono tracking-[0.25em] text-cyan-400 uppercase mb-4 font-bold">
+                  ✦ SELECT YOUR SIGNAL ✦
                 </p>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4">
                   {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
@@ -215,7 +215,7 @@ const Hero = () => {
                   })}
                 </div>
                 {/* Chip Description - Dynamic based on active signal */}
-                <p className={`text-sm transition-colors duration-300 ${
+                <p className={`text-base lg:text-lg font-medium transition-colors duration-300 ${
                   activeSignal === 'social' ? 'text-cyan-400' :
                   activeSignal === 'pulse' ? 'text-green-400' :
                   activeSignal === 'thrill' ? 'text-orange-400' :

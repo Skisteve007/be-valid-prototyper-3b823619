@@ -226,19 +226,13 @@ const Hero = () => {
                 ONE KEY. VERIFY. PAY. VIBE.
               </p>
               
-              {/* Subhead */}
-              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-4 max-w-2xl mx-auto lg:mx-0">
-                <span className="text-white">Verified. Protected.</span>
-                <span className="text-cyan-400"> Connected.</span>
-              </p>
-
               {/* Support Line */}
               <p className="text-base lg:text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Join the network where your privacy is protected and your identity is always under your control.
               </p>
 
               {/* CTA Row */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-4">
                 {/* Primary CTA */}
                 <button 
                   onClick={handleAccessClick}
@@ -256,6 +250,12 @@ const Hero = () => {
                   TRY THE SIGNALS
                 </a>
               </div>
+
+              {/* Verified. Protected. Connected. - Moved under CTA */}
+              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-10 max-w-2xl mx-auto lg:mx-0">
+                <span className="text-white">Verified. Protected.</span>
+                <span className="text-cyan-400"> Connected.</span>
+              </p>
 
               {/* Signal Selection */}
               <div id="signals" className="text-center lg:text-left mt-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">

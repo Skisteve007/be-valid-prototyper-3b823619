@@ -88,10 +88,10 @@ const Hero = () => {
   }, []);
 
   const signalModes = {
-    social: { icon: Users, label: 'SOCIAL', color: 'cyan', description: 'Open to connect. Share contacts and socials with one scan.' },
-    pulse: { icon: Activity, label: 'PULSE', color: 'green', description: 'Broadcasting your energy. Let others find your vibe.' },
-    thrill: { icon: Zap, label: 'THRILL', color: 'orange', description: 'Adventure mode activated. Ready for spontaneous connections.' },
-    afterdark: { icon: Moon, label: 'AFTER DARK', color: 'purple', description: 'Ghost Protocol engaged. Selective visibility only.' },
+    social: { icon: Users, label: 'SOCIAL', micro: 'Connect & Collaborate', color: 'cyan', description: 'Friends, Founders, And Familiar Faces. Say Hi, Swap Contacts, Talk Collabs—Then Slide Back Into The Night.' },
+    pulse: { icon: Activity, label: 'PULSE', micro: 'On The Move', color: 'green', description: 'Fast Hellos, Quick Plans, Instant Pivots. Perfect When You\'re Bouncing Rooms And Moving With Momentum.' },
+    thrill: { icon: Zap, label: 'THRILL', micro: 'Adventure Mode', color: 'orange', description: 'High-Energy, High-Curiosity. Meet Bold People, Follow The Vibe, And Let The Night Get Interesting.' },
+    afterdark: { icon: Moon, label: 'AFTER DARK', micro: 'Private Mode', color: 'purple', description: 'Selective, Boundaries-On. You Choose What\'s Shown, To Who, And For How Long—Always On Your Terms.' },
   };
 
   const handleAccessClick = async () => {

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2 } from "lucide-react";
+import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock } from "lucide-react";
 import { jsPDF } from "jspdf";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -439,7 +439,20 @@ const AdminDealRoom = () => {
               <span className="text-cyan-300 font-mono text-sm tracking-wider">RESTRICTED ACCESS</span>
             </div>
           </div>
-          <img src={logo} alt="Valid" className="h-14 w-auto rounded-lg shadow-[0_0_20px_rgba(0,200,255,0.3)]" />
+          <div className="flex items-center gap-4">
+            {/* Top Secret Synth Access - Admin Only */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate("/synth")}
+              className="relative bg-gradient-to-r from-purple-600/20 to-pink-500/20 border-purple-400/50 text-purple-300 hover:bg-purple-500/30 hover:border-purple-300 hover:text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all group"
+            >
+              <Brain className="h-4 w-4 mr-2" />
+              <span className="font-mono text-xs tracking-wider">SYNTH™</span>
+              <Lock className="h-3 w-3 ml-2 text-purple-400 group-hover:text-white" />
+            </Button>
+            <img src={logo} alt="Valid" className="h-14 w-auto rounded-lg shadow-[0_0_20px_rgba(0,200,255,0.3)]" />
+          </div>
         </div>
       </header>
 

@@ -243,10 +243,10 @@ const Hero = () => {
                 </a>
               </div>
 
-              {/* Verified. Protected. Connected. - Moved under CTA */}
+              {/* Fluidity. Security. Frictionless. Connectivity. */}
               <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-6 max-w-2xl mx-auto lg:mx-0">
-                <span className="text-white">Verified. Protected.</span>
-                <span className="text-cyan-400"> Connected.</span>
+                <span className="text-white">Fluidity. Security. Frictionless.</span>
+                <span className="text-cyan-400"> Connectivity.</span>
               </p>
 
               {/* Static Profiles Description - Moved up closer */}

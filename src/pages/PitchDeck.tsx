@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from "recharts";
+import { Switch } from "@/components/ui/switch";
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell, PieChart, Pie } from "recharts";
 import { 
   ArrowLeft, 
   Globe, 
@@ -42,7 +44,8 @@ import {
   FileText,
   PiggyBank,
   CreditCard,
-  Calendar
+  Calendar,
+  Info
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -50,6 +53,7 @@ const PitchDeck = () => {
   const navigate = useNavigate();
   const [futureReadyText, setFutureReadyText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
+  const [noPromoter, setNoPromoter] = useState(false);
   const futureText = '2027 FUTURE READY';
   
   useEffect(() => {
@@ -88,7 +92,7 @@ const PitchDeck = () => {
     { feature: "Rolling Compliance & Screening", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, dice: false },
     { feature: "In-App Wallet Payments", valid: true, clear: false, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, dice: true },
     { feature: "Digital Identity Verification", valid: true, clear: true, idme: true, ticketmaster: true, sterling: true, stdcheck: false, eventbrite: true, dice: true },
-    { feature: "FBO Instant Payout", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, highlight: true },
+    { feature: "Instant Settlement", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, highlight: true },
     { feature: "Viral Identity & Beacon", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, highlight: true },
   ];
 
@@ -294,8 +298,9 @@ const PitchDeck = () => {
                     </div>
                     <div className="bg-black/40 border border-cyan-500/30 rounded-lg p-4">
                       <Zap className="h-6 w-6 text-cyan-400 mb-2" />
-                      <h4 className="font-bold text-white mb-1">FBO Settlement</h4>
-                      <p className="text-xs text-gray-400">0 sec settlement time</p>
+                      <h4 className="font-bold text-white mb-1">Instant Settlement</h4>
+                      <p className="text-xs text-gray-400">Verified funds flow fast</p>
+                      <p className="text-[9px] text-gray-500 mt-1">Timing may vary based on rails.</p>
                     </div>
                     <div className="bg-black/40 border border-red-500/30 rounded-lg p-4">
                       <Lock className="h-6 w-6 text-red-400 mb-2" />
@@ -353,10 +358,118 @@ const PitchDeck = () => {
 
           {/* HOW THE SPLIT WORKS */}
           <div className="bg-gradient-to-br from-green-950/40 to-cyan-950/30 border border-green-500/30 rounded-xl" style={{ padding: 'clamp(24px, 2.5vw, 40px)' }}>
-            <h3 className="font-bold text-green-400 tracking-[1px] uppercase text-center" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(20px, 2vw, 32px)' }}>
+            <h3 className="font-bold text-green-400 tracking-[1px] uppercase text-center" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}>
               How The Split Works (Per Pass Purchase)
             </h3>
-            
+
+            {/* VISUAL SPLIT BAR */}
+            <div className="mb-6">
+              {/* Toggle */}
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className={`text-sm transition-colors ${!noPromoter ? 'text-white font-medium' : 'text-gray-500'}`}>With Promoter</span>
+                <Switch 
+                  checked={noPromoter} 
+                  onCheckedChange={setNoPromoter}
+                  className="data-[state=checked]:bg-amber-500"
+                />
+                <span className={`text-sm transition-colors ${noPromoter ? 'text-amber-400 font-medium' : 'text-gray-500'}`}>No Promoter</span>
+              </div>
+
+              {/* Split Bar */}
+              <div className="w-full h-12 md:h-14 rounded-lg overflow-hidden flex transition-all duration-300">
+                {/* Promoter */}
+                <TooltipProvider>
+                  <UITooltip>
+                    <TooltipTrigger asChild>
+                      <div 
+                        className={`flex items-center justify-center transition-all duration-300 cursor-pointer ${noPromoter ? 'w-0 opacity-0' : 'bg-amber-500/80'}`}
+                        style={{ width: noPromoter ? '0%' : '10%' }}
+                      >
+                        {!noPromoter && <span className="text-black font-bold text-xs md:text-sm whitespace-nowrap">10%</span>}
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-amber-900 border-amber-500/50">
+                      <p className="font-semibold">Promoter / Account Manager</p>
+                      <p className="text-xs text-gray-300">Paid if a promoter exists for that buyer/venue.</p>
+                    </TooltipContent>
+                  </UITooltip>
+                </TooltipProvider>
+
+                {/* Pass Pool */}
+                <TooltipProvider>
+                  <UITooltip>
+                    <TooltipTrigger asChild>
+                      <div 
+                        className="bg-cyan-500/80 flex items-center justify-center cursor-pointer transition-all duration-300"
+                        style={{ width: '30%' }}
+                      >
+                        <span className="text-black font-bold text-xs md:text-sm whitespace-nowrap flex items-center gap-1">
+                          30%
+                          <Info className="w-3 h-3 opacity-70" />
+                        </span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-cyan-900 border-cyan-500/50 max-w-xs">
+                      <p className="font-semibold">Pass Pool</p>
+                      <p className="text-xs text-gray-300">Pool is distributed weekly to participating venues based on verified check-ins.</p>
+                    </TooltipContent>
+                  </UITooltip>
+                </TooltipProvider>
+
+                {/* Venue */}
+                <TooltipProvider>
+                  <UITooltip>
+                    <TooltipTrigger asChild>
+                      <div 
+                        className="bg-green-500/80 flex items-center justify-center cursor-pointer transition-all duration-300"
+                        style={{ width: noPromoter ? '35%' : '30%' }}
+                      >
+                        <span className="text-black font-bold text-xs md:text-sm whitespace-nowrap">{noPromoter ? '35%' : '30%'}</span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-green-900 border-green-500/50">
+                      <p className="font-semibold">Venue (Immediate)</p>
+                      <p className="text-xs text-gray-300">Direct payout to venue at point of sale.</p>
+                    </TooltipContent>
+                  </UITooltip>
+                </TooltipProvider>
+
+                {/* VALID */}
+                <TooltipProvider>
+                  <UITooltip>
+                    <TooltipTrigger asChild>
+                      <div 
+                        className="bg-purple-500/80 flex items-center justify-center cursor-pointer transition-all duration-300"
+                        style={{ width: noPromoter ? '35%' : '30%' }}
+                      >
+                        <span className="text-black font-bold text-xs md:text-sm whitespace-nowrap">{noPromoter ? '35%' : '30%'}</span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-purple-900 border-purple-500/50">
+                      <p className="font-semibold">VALID™ (Platform)</p>
+                      <p className="text-xs text-gray-300">Platform revenue for infrastructure & growth.</p>
+                    </TooltipContent>
+                  </UITooltip>
+                </TooltipProvider>
+              </div>
+
+              {/* Labels under bar */}
+              <div className="flex mt-2 text-[10px] md:text-xs text-gray-500">
+                <div className={`text-center transition-all duration-300 ${noPromoter ? 'w-0 opacity-0 overflow-hidden' : ''}`} style={{ width: noPromoter ? '0%' : '10%' }}>Promoter</div>
+                <div className="text-center" style={{ width: '30%' }}>Pass Pool</div>
+                <div className="text-center transition-all duration-300" style={{ width: noPromoter ? '35%' : '30%' }}>Venue</div>
+                <div className="text-center transition-all duration-300" style={{ width: noPromoter ? '35%' : '30%' }}>VALID™</div>
+              </div>
+
+              {/* Caption */}
+              <p className="text-center text-gray-400 mt-3 transition-all duration-300" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)' }}>
+                {noPromoter 
+                  ? "The 10% promoter allocation is reallocated 50/50 to Venue and VALID™."
+                  : "Totals = 100% of the pass purchase."
+                }
+              </p>
+            </div>
+
             <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
               {/* 10% Promoter */}
               <div className="bg-black/50 border border-amber-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>

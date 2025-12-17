@@ -128,34 +128,6 @@ const Index = () => {
 
 
 
-      {/* 3. THE TRUST BRIDGE (Explaining the Value) */}
-      <section className={`pt-20 pb-10 px-4 relative z-10 border-b transition-colors duration-500
-        ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Section Header - Enhanced Design */}
-          <div className="text-center mb-16 relative">
-            {/* Background glow */}
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent blur-3xl -z-10" />
-            
-            {/* Badge pill */}
-            <div className="inline-block px-4 py-1.5 border border-cyan-500/40 rounded-full text-xs font-mono tracking-[0.2em] uppercase text-cyan-400 bg-cyan-500/10 mb-6 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
-              THE VALID™ STANDARD
-            </div>
-            
-            <h2 className={`text-3xl md:text-5xl font-bold mb-4 font-orbitron tracking-wide
-              ${isDark ? 'text-white' : 'text-slate-900'}`}>
-              {t('standard.title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400">{t('standard.titleHighlight')}</span>
-            </h2>
-            <p className={`max-w-2xl mx-auto leading-relaxed text-lg
-              ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
-              {t('standard.subtitle')}
-            </p>
-          </div>
-
-        </div>
-      </section>
-
       {/* PIPELINE, NOT VAULT - Trust Enhancer with Image Background */}
       <section className="relative z-10 overflow-hidden">
         <div 
@@ -166,16 +138,32 @@ const Index = () => {
             backgroundPosition: 'center',
           }}
         >
-          {/* Content positioned at bottom of image */}
-          <div className="min-h-[400px] md:min-h-[500px] flex flex-col justify-end">
-            <div className="px-4 pb-12 pt-32 text-center bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4 font-orbitron text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                Pipeline, <span className="text-cyan-400">Not Vault.</span>
-              </h2>
-              <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-2xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
-                We Verify In The Moment, Then Release — We Don't Warehouse Your Personal Data.
-              </p>
+          {/* Top content - THE VALID STANDARD */}
+          <div className="px-4 pt-12 pb-8 text-center bg-gradient-to-b from-black/70 via-black/30 to-transparent">
+            {/* Badge pill */}
+            <div className="inline-block px-4 py-1.5 border border-cyan-500/40 rounded-full text-xs font-mono tracking-[0.2em] uppercase text-cyan-400 bg-cyan-500/10 mb-6 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+              THE VALID™ STANDARD
             </div>
+            
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 font-orbitron tracking-wide text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              {t('standard.title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400">{t('standard.titleHighlight')}</span>
+            </h2>
+            <p className="max-w-2xl mx-auto leading-relaxed text-lg text-gray-200 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+              {t('standard.subtitle')}
+            </p>
+          </div>
+
+          {/* Spacer for middle of photo */}
+          <div className="min-h-[200px] md:min-h-[300px]"></div>
+
+          {/* Bottom content - Pipeline Not Vault */}
+          <div className="px-4 pb-12 pt-16 text-center bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+            <h2 className="text-2xl md:text-4xl font-bold mb-4 font-orbitron text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              Pipeline, <span className="text-cyan-400">Not Vault.</span>
+            </h2>
+            <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-2xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+              We Verify In The Moment, Then Release — We Don't Warehouse Your Personal Data.
+            </p>
           </div>
         </div>
         

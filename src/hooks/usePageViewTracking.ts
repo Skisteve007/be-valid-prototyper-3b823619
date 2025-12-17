@@ -47,45 +47,21 @@ export const usePageViewTracking = (pagePath?: string) => {
         const userAgent = navigator.userAgent;
         const { deviceType, browser, os } = parseUserAgent(userAgent);
 
-        // Fetch geo data from free IP API (no API key needed)
-        let country = null;
-        let city = null;
-        let region = null;
-        
-        try {
-          const geoResponse = await fetch('https://ipapi.co/json/', { 
-            signal: AbortSignal.timeout(3000) // 3 second timeout
-          });
-          if (geoResponse.ok) {
-            const geoData = await geoResponse.json();
-            country = geoData.country_name || null;
-            city = geoData.city || null;
-            region = geoData.region || null;
+        // Call edge function for server-side geo lookup
+        const { error } = await supabase.functions.invoke('track-page-view', {
+          body: {
+            page_path: currentPath,
+            referrer,
+            user_agent: userAgent,
+            session_id: sessionId,
+            device_type: deviceType,
+            browser,
+            os
           }
-        } catch {
-          // Geo lookup failed, continue without it
-        }
-
-        // Insert page view
-        const { error } = await supabase.from('page_views').insert({
-          page_path: currentPath,
-          referrer,
-          user_agent: userAgent,
-          session_id: sessionId,
-          device_type: deviceType,
-          browser,
-          os,
-          country,
-          city,
-          region
         });
 
-        // Increment global visitor counter if insert succeeded
-        if (!error) {
-          await supabase.rpc('increment_global_stat', { 
-            stat_name: 'total_visitors',
-            increment_by: 1 
-          });
+        if (error) {
+          console.error('Page view tracking error:', error);
         }
       } catch (error) {
         // Silently fail - don't break the app for analytics

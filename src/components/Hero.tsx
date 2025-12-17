@@ -243,48 +243,6 @@ const Hero = () => {
                 <span className="text-cyan-400"> Connected.</span>
               </p>
 
-              {/* Signal Selection */}
-              <div id="signals" className="text-center lg:text-left mt-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
-                <p className="text-base font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
-                  ✦ SELECT YOUR SIGNAL ✦
-                </p>
-                <p className="text-base text-white/80 mb-4">
-                  Pick A Signal. Your Whole Presence Updates Instantly.
-                </p>
-                <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4">
-                  {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
-                    const { icon: Icon, label, color } = signalModes[mode];
-                    const isActive = activeSignal === mode;
-                    return (
-                      <button
-                        key={mode}
-                        onClick={() => handleSignalClick(mode)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-base font-bold tracking-wide ${
-                          isActive ? colorClasses[color].active : colorClasses[color].inactive
-                        }`}
-                      >
-                        <Icon size={16} />
-                        {label}
-                      </button>
-                    );
-                  })}
-                </div>
-                {/* Chip Description - Dynamic based on active signal - fixed height to prevent jumping */}
-                <div className="min-h-[3.5rem] flex items-center justify-center lg:justify-start">
-                  <p className={`text-lg lg:text-xl font-medium transition-colors duration-300 ${
-                    activeSignal === 'social' ? 'text-cyan-400' :
-                    activeSignal === 'pulse' ? 'text-green-400' :
-                    activeSignal === 'thrill' ? 'text-orange-400' :
-                    'text-purple-400'
-                  }`}>
-                    {signalModes[activeSignal].description}
-                  </p>
-                </div>
-                {/* Proof Line */}
-                <p className="text-sm text-white/50 mt-2 italic">
-                  This Is The Chameleon Layer — No Other Network Does This.
-                </p>
-              </div>
 
             </div>
 
@@ -321,9 +279,52 @@ const Hero = () => {
           {/* Below the fold content - full width */}
           <div className="mt-8 lg:mt-12 max-w-3xl mx-auto lg:mx-0">
             {/* Static Profiles Description */}
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed text-center lg:text-left mb-12 font-medium italic">
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed text-center lg:text-left mb-8 font-medium italic">
               Static Profiles Are <span className="text-white font-bold">Ancient</span>. Now You Choose What You Share. Points Of Entry Are <span className="text-cyan-400">Fluid</span>. You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>, Or Open Your Profile For That <span className="text-emerald-400">Connection</span>. Your Identity Is Now Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>.
             </p>
+
+            {/* Signal Selection - Moved below Static Profiles */}
+            <div id="signals" className="text-center lg:text-left p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm mb-12">
+              <p className="text-base font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
+                ✦ SELECT YOUR SIGNAL ✦
+              </p>
+              <p className="text-base text-white/80 mb-4">
+                Pick A Signal. Your Whole Presence Updates Instantly.
+              </p>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4">
+                {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
+                  const { icon: Icon, label, color } = signalModes[mode];
+                  const isActive = activeSignal === mode;
+                  return (
+                    <button
+                      key={mode}
+                      onClick={() => handleSignalClick(mode)}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 text-base font-bold tracking-wide ${
+                        isActive ? colorClasses[color].active : colorClasses[color].inactive
+                      }`}
+                    >
+                      <Icon size={16} />
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+              {/* Chip Description - Dynamic based on active signal - fixed height to prevent jumping */}
+              <div className="min-h-[3.5rem] flex items-center justify-center lg:justify-start">
+                <p className={`text-lg lg:text-xl font-medium transition-colors duration-300 ${
+                  activeSignal === 'social' ? 'text-cyan-400' :
+                  activeSignal === 'pulse' ? 'text-green-400' :
+                  activeSignal === 'thrill' ? 'text-orange-400' :
+                  'text-purple-400'
+                }`}>
+                  {signalModes[activeSignal].description}
+                </p>
+              </div>
+              {/* Proof Line */}
+              <p className="text-sm text-white/50 mt-2 italic">
+                This Is The Chameleon Layer — No Other Network Does This.
+              </p>
+            </div>
 
             {/* THE VALID™ NETWORK Section */}
             <div className="text-center lg:text-left">

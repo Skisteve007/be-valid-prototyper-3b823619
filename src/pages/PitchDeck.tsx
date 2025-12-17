@@ -1222,7 +1222,7 @@ const PitchDeck = () => {
             {/* Tranche Cards */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
               
-              {/* TRANCHE 1 - ALPHA ROUND */}
+              {/* TRANCHE 1 - LAUNCH ROUND */}
               <div 
                 className="relative p-8 rounded-2xl transition-all duration-300 hover:border-[rgba(0,229,229,0.6)]"
                 style={{
@@ -1254,27 +1254,35 @@ const PitchDeck = () => {
                     TRANCHE 1
                   </p>
                   <h3 className="text-[28px] font-semibold text-white">
-                    Alpha Round
+                    Launch Round (Friends & Family)
                   </h3>
                 </div>
                 
                 {/* Data Rows */}
                 <div className="space-y-0 mb-8">
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
-                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Allocation</span>
-                    <span className="text-sm font-semibold text-white">$100,000</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-white/10">
-                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Minimum Check</span>
-                    <span className="text-sm font-semibold text-white">$25,000</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-white/10">
-                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Valuation Cap</span>
-                    <span className="text-sm font-semibold" style={{ color: '#00E5E5' }}>$12,500,000</span>
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Raise</span>
+                    <span className="text-sm font-semibold text-white">$200,000</span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
                     <span className="text-sm" style={{ color: '#A0A0A0' }}>Instrument</span>
-                    <span className="text-sm font-semibold text-white">SAFE (20% Discount)</span>
+                    <span className="text-sm font-semibold text-white">Convertible Note</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Valuation Cap</span>
+                    <span className="text-sm font-semibold" style={{ color: '#00E5E5' }}>$6,000,000</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Discount</span>
+                    <span className="text-sm font-semibold text-white">50%</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Maturity</span>
+                    <span className="text-sm font-semibold text-white">18 months</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Close</span>
+                    <span className="text-sm font-semibold text-white">Rolling close (target Q3 2026)</span>
                   </div>
                 </div>
 
@@ -1290,10 +1298,10 @@ const PitchDeck = () => {
                     className="text-xs tracking-[2px] uppercase mb-2"
                     style={{ color: '#00E5E5' }}
                   >
-                    ALPHA INVESTOR ADVANTAGE
+                    EARLY INVESTOR ADVANTAGE
                   </p>
                   <p className="text-sm text-white leading-relaxed">
-                    Lock in pricing <span style={{ color: '#00E5E5' }} className="font-semibold">37.5% lower</span> than the upcoming institutional round.
+                    Lock in pricing at <span style={{ color: '#00E5E5' }} className="font-semibold">50% discount</span> with a <span style={{ color: '#00E5E5' }} className="font-semibold">$6M cap</span> before institutional round.
                   </p>
                 </div>
 
@@ -1310,7 +1318,7 @@ const PitchDeck = () => {
                 </Button>
               </div>
 
-              {/* TRANCHE 2 - INSTITUTIONAL ROUND */}
+              {/* TRANCHE 2 - SERIES SEED */}
               <div 
                 className="relative p-8 rounded-2xl transition-all duration-300 opacity-70 hover:opacity-100"
                 style={{
@@ -1341,7 +1349,7 @@ const PitchDeck = () => {
                     TRANCHE 2
                   </p>
                   <h3 className="text-[28px] font-semibold text-white">
-                    Institutional Round
+                    Series Seed
                   </h3>
                 </div>
                 
@@ -1349,15 +1357,19 @@ const PitchDeck = () => {
                 <div className="space-y-0 mb-8">
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
                     <span className="text-sm" style={{ color: '#A0A0A0' }}>Target Raise</span>
-                    <span className="text-sm font-semibold text-white">$1,400,000</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-white/10">
-                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Valuation Cap</span>
-                    <span className="text-sm font-semibold" style={{ color: '#00E5E5' }}>$20,000,000</span>
+                    <span className="text-sm font-semibold text-white">$1,500,000</span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
                     <span className="text-sm" style={{ color: '#A0A0A0' }}>Instrument</span>
-                    <span className="text-sm font-semibold text-white">SAFE</span>
+                    <span className="text-sm font-semibold text-white">Priced Equity Round</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Valuation Cap</span>
+                    <span className="text-sm font-semibold" style={{ color: '#00E5E5' }}>$12,000,000</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-sm" style={{ color: '#A0A0A0' }}>Minimum Check</span>
+                    <span className="text-sm font-semibold text-white">$50,000</span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-white/10">
                     <span className="text-sm" style={{ color: '#A0A0A0' }}>Status</span>
@@ -1380,7 +1392,7 @@ const PitchDeck = () => {
                     THE COMPARISON
                   </p>
                   <p className="text-sm text-white leading-relaxed">
-                    Tranche 1 investors secure equity at a <span style={{ color: '#00E5E5' }} className="font-semibold">$7.5M lower cap</span> than this round.
+                    Tranche 1 investors secure equity at a <span style={{ color: '#00E5E5' }} className="font-semibold">$6M lower cap</span> with <span style={{ color: '#00E5E5' }} className="font-semibold">50% discount</span>.
                   </p>
                 </div>
               </div>

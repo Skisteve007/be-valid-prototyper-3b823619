@@ -153,7 +153,34 @@ const Index = () => {
             </p>
           </div>
 
-          {/* The 4 Pillars */}
+        </div>
+      </section>
+
+      {/* PIPELINE, NOT VAULT - Trust Enhancer with Image Background */}
+      <section className="relative z-10 overflow-hidden">
+        <div 
+          className="relative w-full"
+          style={{
+            backgroundImage: `url(${vplBgImg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          {/* Content positioned at bottom of image */}
+          <div className="min-h-[400px] md:min-h-[500px] flex flex-col justify-end">
+            <div className="px-4 pb-12 pt-32 text-center bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+              <h2 className="text-2xl md:text-4xl font-bold mb-4 font-orbitron text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                Pipeline, <span className="text-cyan-400">Not Vault.</span>
+              </h2>
+              <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-2xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                We Verify In The Moment, Then Release — We Don't Warehouse Your Personal Data.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* The 4 Pillars - Moved under Pipeline section */}
+        <div className="max-w-7xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard 
               isDark={isDark}
@@ -189,30 +216,6 @@ const Index = () => {
               color="cyan"
               backgroundImage={instantFinancialImg}
             />
-          </div>
-        </div>
-      </section>
-
-      {/* PIPELINE, NOT VAULT - Trust Enhancer with Image Background */}
-      <section className="relative z-10 overflow-hidden">
-        <div 
-          className="relative w-full"
-          style={{
-            backgroundImage: `url(${vplBgImg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          {/* Content positioned at bottom of image */}
-          <div className="min-h-[400px] md:min-h-[500px] flex flex-col justify-end">
-            <div className="px-4 pb-12 pt-32 text-center bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4 font-orbitron text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                Pipeline, <span className="text-cyan-400">Not Vault.</span>
-              </h2>
-              <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-2xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
-                We Verify In The Moment, Then Release — We Don't Warehouse Your Personal Data.
-              </p>
-            </div>
           </div>
         </div>
       </section>

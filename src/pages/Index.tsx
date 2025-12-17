@@ -126,10 +126,6 @@ const Index = () => {
         <Hero />
       </div>
 
-      {/* BETA BANNER - Below Hero */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 py-6">
-        <BetaBanner />
-      </div>
 
 
       {/* 3. THE TRUST BRIDGE (Explaining the Value) */}
@@ -241,8 +237,13 @@ const Index = () => {
             {t('cta.loginButton')}
           </button>
           
+          {/* BETA BANNER - Below Login button, shrunk */}
+          <div className="mt-4 max-w-xs mx-auto scale-90">
+            <BetaBanner />
+          </div>
+          
           {/* PRICING CARDS - Directly below Login button */}
-          <div className="mt-12 w-full max-w-5xl mx-auto">
+          <div className="mt-8 w-full max-w-5xl mx-auto">
             <PricingSection />
           </div>
         </div>

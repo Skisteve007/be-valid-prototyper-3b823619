@@ -207,19 +207,14 @@ const Hero = () => {
                 Universal Lifestyle Key
               </h2>
               
-              {/* ONE KEY. VERIFY. PAY. VIBE. - Much smaller */}
+              {/* VERIFY. PAY. VIBE. - Much smaller */}
               <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-2 text-white">
-                ONE KEY. VERIFY. PAY. VIBE.
+                VERIFY. PAY. VIBE.
               </p>
               
-              {/* Powered By Line - Under ONE KEY */}
-              <p className="text-xs font-mono tracking-[0.3em] text-cyan-400/80 uppercase mb-4">
+              {/* Powered By Line */}
+              <p className="text-xs font-mono tracking-[0.3em] text-cyan-400/80 uppercase mb-6">
                 POWERED BY SYNTHESIZED AI
-              </p>
-              
-              {/* Support Line */}
-              <p className="text-base lg:text-lg text-white leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                Join the network where your privacy is protected and your identity is always under your control.
               </p>
 
               {/* CTA Row */}
@@ -243,11 +238,15 @@ const Hero = () => {
               </div>
 
               {/* Verified. Protected. Connected. - Moved under CTA */}
-              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-10 max-w-2xl mx-auto lg:mx-0">
+              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-3 max-w-2xl mx-auto lg:mx-0">
                 <span className="text-white">Verified. Protected.</span>
                 <span className="text-cyan-400"> Connected.</span>
               </p>
 
+              {/* Static Profiles Description - Moved up closer */}
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed text-center lg:text-left mb-6 font-medium italic max-w-xl mx-auto lg:mx-0">
+                Static Profiles Are <span className="text-white font-bold">Ancient</span>. Now You Choose What You Share. Points Of Entry Are <span className="text-cyan-400">Fluid</span>. You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>, Or Open Your Profile For That <span className="text-emerald-400">Connection</span>. Your Identity Is Now Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>.
+              </p>
 
             </div>
 
@@ -283,11 +282,6 @@ const Hero = () => {
 
           {/* Below the fold content - full width */}
           <div className="mt-8 lg:mt-12 max-w-3xl mx-auto lg:mx-0">
-            {/* Static Profiles Description */}
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed text-center lg:text-left mb-8 font-medium italic">
-              Static Profiles Are <span className="text-white font-bold">Ancient</span>. Now You Choose What You Share. Points Of Entry Are <span className="text-cyan-400">Fluid</span>. You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>, Or Open Your Profile For That <span className="text-emerald-400">Connection</span>. Your Identity Is Now Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>.
-            </p>
-
             {/* Signal Selection - Moved below Static Profiles */}
             <div id="signals" className="text-center lg:text-left p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm mb-12">
               <p className="text-base font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">

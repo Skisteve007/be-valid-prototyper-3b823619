@@ -4,25 +4,25 @@ import { ThemeToggle } from './ThemeToggle';
 
 const ResponsiveHeader = () => {
   return (
-    <header className="w-full px-4 sm:px-8 md:px-16 lg:px-24 py-4 flex items-center justify-between bg-transparent absolute top-0 left-0 right-0 z-50">
+    <header className="w-full px-3 sm:px-8 md:px-16 lg:px-24 py-3 sm:py-4 flex items-center justify-between bg-transparent absolute top-0 left-0 right-0 z-50">
       {/* Logo - Text Only */}
-      <Link to="/" className="flex flex-col items-start">
-        <span className="text-2xl md:text-3xl font-bold font-display tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">
+      <Link to="/" className="flex flex-col items-start shrink-0">
+        <span className="text-lg sm:text-2xl md:text-3xl font-bold font-display tracking-[0.15em] sm:tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">
           VALID<sup className="text-[0.5em] text-cyan-400">™</sup>
         </span>
-        <span className="text-[0.5rem] md:text-[0.6rem] tracking-[0.15em] text-cyan-400/80 font-medium uppercase">
+        <span className="text-[0.4rem] sm:text-[0.5rem] md:text-[0.6rem] tracking-[0.1em] sm:tracking-[0.15em] text-cyan-400/80 font-medium uppercase">
           Powered By Synthesized AI
         </span>
       </Link>
 
       {/* Right Side Controls */}
-      <div className="flex items-center gap-2 sm:gap-4">
-        {/* Partner Solutions Button */}
+      <div className="flex items-center gap-1.5 sm:gap-4">
+        {/* Partner Solutions Button - Visible on all screens */}
         <Link 
           to="/partners" 
-          className="hidden sm:inline-flex px-4 py-2 text-xs sm:text-sm font-bold tracking-wider uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 hover:shadow-[0_0_20px_rgba(251,191,36,0.4)] transition-all"
+          className="px-2 sm:px-4 py-1.5 sm:py-2 text-[0.6rem] sm:text-sm font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 hover:shadow-[0_0_20px_rgba(251,191,36,0.4)] transition-all whitespace-nowrap"
         >
-          Partner Solutions
+          Partners
         </Link>
         
         {/* Theme Toggle */}
@@ -31,9 +31,9 @@ const ResponsiveHeader = () => {
         {/* Member Login Pill */}
         <Link 
           to="/auth?mode=login" 
-          className="px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
+          className="px-2 sm:px-6 py-1.5 sm:py-2.5 text-[0.6rem] sm:text-sm font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all whitespace-nowrap"
         >
-          Member Login
+          Login
         </Link>
       </div>
     </header>

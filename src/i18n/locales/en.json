@@ -62,23 +62,31 @@
   "signals": {
     "social": {
       "name": "SOCIAL",
-      "tagline": "Open Connection",
-      "description": "Open to connect. Share contacts and socials with one scan."
+      "headline": "Mingle, Or Make A Move?",
+      "tagline": "Social, But Strategic",
+      "micro": "Connect & Collaborate",
+      "description": "Friends, Founders, And Familiar Faces. Say Hi, Swap Contacts, Talk Collabs—Then Slide Back Into The Night."
     },
     "pulse": {
       "name": "PULSE",
-      "tagline": "High Energy",
-      "description": "High energy. Broadcast your preferences, relationship status, and health verified badge."
+      "headline": "What's Your Tempo Right Now?",
+      "tagline": "On The Move",
+      "micro": "On The Move",
+      "description": "Fast Hellos, Quick Plans, Instant Pivots. Perfect When You're Bouncing Rooms And Moving With Momentum."
     },
     "thrill": {
       "name": "THRILL",
-      "tagline": "Adventure Ready",
-      "description": "Adventure ready. Payments pre-loaded, fast-track travel docs, and identity verification."
+      "headline": "Are You Chasing The Moment?",
+      "tagline": "Adventure Mode",
+      "micro": "Adventure Mode",
+      "description": "High-Energy, High-Curiosity. Meet Bold People, Follow The Vibe, And Let The Night Get Interesting."
     },
     "afterdark": {
       "name": "AFTER DARK",
-      "tagline": "Stealth Mode",
-      "description": "Entertainment access. Zero data exposed. Flow through entry."
+      "headline": "Private Mode: Who Gets Access?",
+      "tagline": "Private Mode",
+      "micro": "Private Mode",
+      "description": "Selective, Boundaries-On. You Choose What's Shown, To Who, And For How Long—Always On Your Terms."
     }
   },
   "features": {

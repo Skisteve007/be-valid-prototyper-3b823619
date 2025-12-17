@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from 'lucide-react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Volume2, VolumeX } from 'lucide-react';
 
 interface PitchCarouselProps {
   images: string[];
@@ -14,6 +14,34 @@ const PitchCarousel: React.FC<PitchCarouselProps> = ({
   const [isPaused, setIsPaused] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Initialize audio
+  useEffect(() => {
+    audioRef.current = new Audio('/audio/pitch-deck-music.mp3');
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.3;
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  // Handle mute toggle
+  const toggleMute = useCallback(() => {
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.play().catch(console.error);
+      } else {
+        audioRef.current.pause();
+      }
+      setIsMuted(!isMuted);
+    }
+  }, [isMuted]);
 
   // Auto-advance
   useEffect(() => {
@@ -105,6 +133,15 @@ const PitchCarousel: React.FC<PitchCarouselProps> = ({
         aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
       >
         {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+      </button>
+
+      {/* Mute Toggle */}
+      <button
+        onClick={toggleMute}
+        className="absolute top-3 md:top-4 right-14 md:right-16 p-2 rounded-full bg-white/10 hover:bg-cyan-500/30 text-white transition-all hover:scale-110 backdrop-blur-sm border border-white/10"
+        aria-label={isMuted ? 'Unmute music' : 'Mute music'}
+      >
+        {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
       </button>
 
       {/* Dot Indicators */}

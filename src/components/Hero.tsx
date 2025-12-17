@@ -171,7 +171,7 @@ const Hero = () => {
                 POWERED BY SYNTHESIZED AI
               </p>
 
-              {/* Main Headline - 3D gradient style - BRIGHT */}
+              {/* Main Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black font-display tracking-tight mb-4">
                 <span 
                   className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(255,255,255,0.6)]"
@@ -180,48 +180,19 @@ const Hero = () => {
                     textShadow: '0 0 30px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.3)',
                   }}
                 >
-                  ONE KEY.
+                  The Social Chameleon.
                 </span>
               </h1>
               
-              {/* Colored Tagline - Inline layout - BRIGHTER */}
-              <div className="mb-6 relative">
-                <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span 
-                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(94,234,212,0.6)]"
-                    style={{
-                      backgroundImage: 'linear-gradient(180deg, #99f6e4 0%, #5eead4 50%, #2dd4bf 80%, #14b8a6 100%)',
-                      textShadow: '0 0 30px rgba(94,234,212,0.7), 0 2px 4px rgba(0,0,0,0.3)',
-                    }}
-                  >
-                    Verify.
-                  </span>{' '}
-                  <span 
-                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(255,255,255,0.5)]"
-                    style={{
-                      backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f3f4f6 50%, #e5e7eb 80%, #d1d5db 100%)',
-                      textShadow: '0 0 20px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.3)',
-                    }}
-                  >
-                    Pay.
-                  </span>
-                </p>
-                <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mt-1">
-                  <span 
-                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(153,246,228,0.6)]"
-                    style={{
-                      backgroundImage: 'linear-gradient(180deg, #ccfbf1 0%, #99f6e4 50%, #5eead4 80%, #2dd4bf 100%)',
-                      textShadow: '0 0 30px rgba(153,246,228,0.7), 0 2px 4px rgba(0,0,0,0.3)',
-                    }}
-                  >
-                    Vibe.
-                  </span>
-                </p>
-              </div>
+              {/* Subhead */}
+              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-4 max-w-2xl mx-auto lg:mx-0">
+                <span className="text-white">Instantly Switch Your Signal To Match The Moment</span>
+                <span className="text-cyan-400"> — Social, Pulse, Thrill, Or After Dark.</span>
+              </p>
 
-              {/* Description */}
-              <p className="text-lg lg:text-xl xl:text-2xl text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                Your <span className="text-white font-semibold">Adaptive AI Profile</span> For The New Real World. <span className="text-cyan-400 underline">Signal Your Flow</span>. Instantly Switch Your Identity To Control Your Social Presence, Payments, And Total Invisibility.
+              {/* Support Line */}
+              <p className="text-base lg:text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+                Other Networks Lock You Into One Profile. <span className="text-cyan-400 font-semibold">VALID™</span> Lets You Adapt In Real Time.
               </p>
 
               {/* CTA Row */}
@@ -232,19 +203,25 @@ const Hero = () => {
                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold text-sm rounded-full border border-white/80 hover:bg-gray-100 transition-all animate-pulse shadow-[0_0_20px_rgba(255,255,255,0.5),0_0_40px_rgba(0,240,255,0.3)]"
                 >
                   CLAIM YOUR ID
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
+                  <ArrowRight className="w-4 h-4" />
                 </button>
                 
-                {/* Beta Version Pill */}
-                <span className="px-5 py-3 text-sm font-bold tracking-widest uppercase rounded-full border border-emerald-400/50 bg-emerald-500/10 text-emerald-400">
-                  BETA VERSION
-                </span>
+                {/* Secondary CTA */}
+                <a 
+                  href="#signals"
+                  className="inline-flex items-center gap-2 px-6 py-3 font-bold text-sm rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
+                >
+                  TRY THE SIGNALS
+                </a>
               </div>
 
               {/* Signal Selection */}
-              <div className="text-center lg:text-left mt-4 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
-                <p className="text-sm font-mono tracking-[0.25em] text-cyan-400 uppercase mb-4 font-bold">
+              <div id="signals" className="text-center lg:text-left mt-4 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
+                <p className="text-sm font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
                   ✦ SELECT YOUR SIGNAL ✦
+                </p>
+                <p className="text-sm text-white/80 mb-4">
+                  Pick A Signal. Your Whole Presence Updates Instantly.
                 </p>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4">
                   {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
@@ -275,6 +252,10 @@ const Hero = () => {
                     {signalModes[activeSignal].description}
                   </p>
                 </div>
+                {/* Proof Line */}
+                <p className="text-xs text-white/50 mt-2 italic">
+                  This Is The Chameleon Layer — No Other Network Does This.
+                </p>
               </div>
             </div>
 

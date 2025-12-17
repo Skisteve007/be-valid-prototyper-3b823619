@@ -143,7 +143,7 @@ const Index = () => {
             
             <h2 className="mb-4 font-orbitron drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
               <span className="text-2xl font-normal text-white">THE </span>
-              <span className="text-5xl font-bold" style={{ color: '#00F5D4' }}>VALID<sup className="text-[0.4em]">™</sup></span>
+              <span className="text-5xl font-bold" style={{ color: '#00E5E5' }}>VALID<sup className="text-[0.4em]">™</sup></span>
               <span className="text-5xl font-bold text-white"> STANDARD</span>
             </h2>
             <p className="max-w-2xl mx-auto leading-relaxed text-lg text-gray-200 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
@@ -220,9 +220,9 @@ const Index = () => {
             onClick={() => navigate('/access-portal')}
             className={`px-10 py-4 rounded-full font-bold text-lg transition-all duration-200 uppercase tracking-widest hover:scale-[1.02]
               ${isDark 
-                ? 'bg-cyan-500 text-black hover:shadow-[0_0_25px_rgba(0,245,212,0.4)]' 
+                ? 'text-black hover:shadow-[0_0_25px_rgba(0,229,229,0.4)]' 
                 : 'bg-cyan-500 text-white hover:bg-cyan-600 shadow-lg'}`}
-            style={{ backgroundColor: '#00F5D4' }}
+            style={{ backgroundColor: '#00E5E5' }}
           >
             {t('cta.loginButton')}
           </button>
@@ -261,10 +261,10 @@ const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage, colorD
       onClick={() => setIsExpanded(!isExpanded)}
       className={`rounded-lg transition-all duration-500 group relative overflow-hidden cursor-pointer
         ${isDark 
-          ? 'bg-[rgba(0,245,212,0.05)] hover:bg-[rgba(0,245,212,0.08)]' 
+          ? 'bg-[rgba(0,229,229,0.05)] hover:bg-[rgba(0,229,229,0.08)]' 
           : 'bg-white border-slate-200 hover:border-slate-300'}`}
       style={{
-        borderLeft: '3px solid #00F5D4',
+        borderLeft: '3px solid #00E5E5',
         paddingLeft: '16px',
       }}
     >

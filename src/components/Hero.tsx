@@ -218,7 +218,7 @@ const Hero = () => {
                 className="text-lg lg:text-[22px] font-medium font-display uppercase mb-8"
                 style={{
                   letterSpacing: '6px',
-                  color: '#00F5D4',
+                  color: '#00E5E5',
                 }}
               >
                 VERIFY. PAY. VIBE.
@@ -226,13 +226,14 @@ const Hero = () => {
 
               {/* CTA Row */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6">
-                {/* Primary CTA */}
+                {/* Primary CTA - Pulsating Glow */}
                 <button 
                   onClick={handleAccessClick}
-                  className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,245,212,0.3)]"
+                  className="inline-flex items-center gap-2 px-7 py-3 font-semibold text-sm rounded-full transition-all duration-200 animate-pulse-glow"
                   style={{
-                    backgroundColor: '#00F5D4',
+                    backgroundColor: '#00E5E5',
                     color: '#000000',
+                    boxShadow: '0 0 15px rgba(0,229,229,0.6), 0 0 30px rgba(0,229,229,0.4), 0 0 45px rgba(0,229,229,0.2)',
                   }}
                 >
                   CLAIM YOUR ID
@@ -242,11 +243,11 @@ const Hero = () => {
                 {/* Secondary CTA */}
                 <a 
                   href="#chameleon"
-                  className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,245,212,0.3)]"
+                  className="inline-flex items-center gap-2 px-7 py-3 font-semibold text-sm rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,229,229,0.3)]"
                   style={{
                     backgroundColor: 'transparent',
-                    border: '1px solid #00F5D4',
-                    color: '#00F5D4',
+                    border: '1px solid #00E5E5',
+                    color: '#00E5E5',
                   }}
                 >
                   BETA VERSION
@@ -256,7 +257,7 @@ const Hero = () => {
               {/* Fluidity. Security. Frictionless. Connectivity. */}
               <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-8 max-w-2xl mx-auto lg:mx-0">
                 <span className="text-white">Fluidity. Security. Frictionless.</span>
-                <span style={{ color: '#00F5D4' }}> Connectivity.</span>
+                <span style={{ color: '#00E5E5' }}> Connectivity.</span>
               </p>
 
               {/* Ghost Protocols */}
@@ -266,7 +267,7 @@ const Hero = () => {
                   className="text-sm lg:text-base font-bold uppercase"
                   style={{
                     letterSpacing: '2px',
-                    color: '#00F5D4',
+                    color: '#00E5E5',
                   }}
                 >
                   Ghost™ Protocols
@@ -274,7 +275,7 @@ const Hero = () => {
               </div>
               
               <div className="text-[15px] lg:text-base text-white leading-[1.5] mb-8 text-center lg:text-left space-y-1.5 max-w-[420px] mx-auto lg:mx-0">
-                <p style={{ color: '#00F5D4' }} className="font-bold tracking-widest">
+                <p style={{ color: '#00E5E5' }} className="font-bold tracking-widest">
                   Encrypted. &nbsp; Tokenized. &nbsp; Untouchable.
                 </p>
                 <p className="text-white">
@@ -291,7 +292,7 @@ const Hero = () => {
                   className="text-sm lg:text-base font-bold uppercase"
                   style={{
                     letterSpacing: '2px',
-                    color: '#00F5D4',
+                    color: '#00E5E5',
                   }}
                 >
                   Signal Share
@@ -300,14 +301,14 @@ const Hero = () => {
 
               {/* Signal Share Description */}
               <div className="text-[15px] lg:text-base text-white leading-[1.5] text-center lg:text-left mb-6 max-w-[420px] mx-auto lg:mx-0 space-y-1.5">
-                <p style={{ color: '#00F5D4' }} className="font-bold tracking-widest">
+                <p style={{ color: '#00E5E5' }} className="font-bold tracking-widest">
                   Your Vibe. &nbsp; Your Visibility. &nbsp; Your Call.
                 </p>
                 <p className="text-white">
                   Go visible when you want to connect. &nbsp; Go ghost when you don't.
                 </p>
                 <p className="text-white">
-                  <span style={{ color: '#00F5D4' }} className="font-bold">VALID™</span> Signal Share lets you open your profile for real connections — or lock it down for total invisibility. &nbsp; One tap. &nbsp; Instantly adaptable. &nbsp; No other network does this.
+                  <span style={{ color: '#00E5E5' }} className="font-bold">VALID™</span> Signal Share lets you open your profile for real connections — or lock it down for total invisibility. &nbsp; One tap. &nbsp; Instantly adaptable. &nbsp; No other network does this.
                 </p>
               </div>
 
@@ -391,11 +392,11 @@ const Hero = () => {
             {/* ONE IDENTITY. ZERO LIMITS. Section */}
             <div className="text-center lg:text-left">
               <h2 
-                className="text-5xl lg:text-[64px] font-extrabold mb-6 text-center"
+                className="text-[48px] lg:text-[72px] font-extrabold mb-6 text-center uppercase"
                 style={{
-                  letterSpacing: '2px',
-                  color: '#00F5D4',
-                  textShadow: '0 0 30px rgba(0,245,212,0.4), 0 0 60px rgba(0,245,212,0.2)',
+                  letterSpacing: '3px',
+                  color: '#00E5E5',
+                  textShadow: '0 0 20px rgba(0,229,229,0.5), 0 0 40px rgba(0,229,229,0.3), 0 0 60px rgba(0,229,229,0.2)',
                 }}
               >
                 ONE IDENTITY. ZERO LIMITS.

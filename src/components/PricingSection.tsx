@@ -184,8 +184,8 @@ export const PricingSection = () => {
           background: linear-gradient(90deg, transparent, #00f0ff, #ff00ff, #00f0ff, transparent);
         }
         .pricing-card.recommended {
-          border: 2px solid #00F5D4;
-          box-shadow: 0 0 30px rgba(0, 245, 212, 0.2);
+          border: 2px solid #00E5E5;
+          box-shadow: 0 0 30px rgba(0, 229, 229, 0.2);
         }
         .tier-label {
           font-size: 0.7em;

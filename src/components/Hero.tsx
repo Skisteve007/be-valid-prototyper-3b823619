@@ -204,7 +204,7 @@ const Hero = () => {
               
               {/* Universal Lifestyle Key - Large with gradient */}
               <h2 
-                className="text-3xl sm:text-4xl lg:text-5xl font-black font-display tracking-wide mb-3 text-transparent bg-clip-text"
+                className="text-[56px] lg:text-[72px] font-bold font-display leading-[1.1] mb-4 text-transparent bg-clip-text"
                 style={{
                   backgroundImage: 'linear-gradient(135deg, #ffffff 0%, #a5f3fc 30%, #22d3ee 50%, #c084fc 80%, #ffffff 100%)',
                   textShadow: '0 0 30px rgba(34,211,238,0.4), 0 0 60px rgba(192,132,252,0.3)',
@@ -214,16 +214,26 @@ const Hero = () => {
               </h2>
               
               {/* VERIFY. PAY. VIBE. */}
-              <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-6 text-white">
+              <p 
+                className="text-lg lg:text-[22px] font-medium font-display uppercase mb-8"
+                style={{
+                  letterSpacing: '6px',
+                  color: '#00F5D4',
+                }}
+              >
                 VERIFY. PAY. VIBE.
               </p>
 
               {/* CTA Row */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-4">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6">
                 {/* Primary CTA */}
                 <button 
                   onClick={handleAccessClick}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold text-sm rounded-full border border-white/80 hover:bg-gray-100 transition-all animate-pulse shadow-[0_0_20px_rgba(255,255,255,0.5),0_0_40px_rgba(0,240,255,0.3)]"
+                  className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,245,212,0.3)]"
+                  style={{
+                    backgroundColor: '#00F5D4',
+                    color: '#000000',
+                  }}
                 >
                   CLAIM YOUR ID
                   <ArrowRight className="w-4 h-4" />
@@ -232,55 +242,72 @@ const Hero = () => {
                 {/* Secondary CTA */}
                 <a 
                   href="#chameleon"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 font-bold text-xs rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm rounded-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,245,212,0.3)]"
+                  style={{
+                    backgroundColor: 'transparent',
+                    border: '1px solid #00F5D4',
+                    color: '#00F5D4',
+                  }}
                 >
                   BETA VERSION
                 </a>
               </div>
 
               {/* Fluidity. Security. Frictionless. Connectivity. */}
-              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-6 max-w-2xl mx-auto lg:mx-0">
+              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-8 max-w-2xl mx-auto lg:mx-0">
                 <span className="text-white">Fluidity. Security. Frictionless.</span>
-                <span className="text-cyan-400"> Connectivity.</span>
+                <span style={{ color: '#00F5D4' }}> Connectivity.</span>
               </p>
 
               {/* Ghost Protocols */}
               <div className="flex items-center gap-2 justify-center lg:justify-start mb-3 animate-pulse">
                 <Ghost className="w-5 h-5 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]" />
-                <span className="text-xl sm:text-2xl font-mono tracking-widest text-yellow-400 uppercase drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]">
+                <span 
+                  className="text-sm lg:text-base font-bold uppercase"
+                  style={{
+                    letterSpacing: '2px',
+                    color: '#00F5D4',
+                  }}
+                >
                   Ghost™ Protocols
                 </span>
               </div>
               
-              <div className="text-base sm:text-lg text-white leading-relaxed mb-8 text-center lg:text-left space-y-2">
-                <p className="text-cyan-400 font-bold tracking-widest">
+              <div className="text-[15px] lg:text-base text-white leading-[1.5] mb-8 text-center lg:text-left space-y-1.5 max-w-[420px] mx-auto lg:mx-0">
+                <p style={{ color: '#00F5D4' }} className="font-bold tracking-widest">
                   Encrypted. &nbsp; Tokenized. &nbsp; Untouchable.
                 </p>
-                <p>
+                <p className="text-white">
                   Ghost™ Tokens™ secure your payments, health records, and ID — all encrypted, all portable, all yours.
                 </p>
-                <p>
+                <p className="text-white">
                   Your life stays fluid. &nbsp; Your data stays locked. &nbsp; You decide what gets shared.
                 </p>
               </div>
 
               {/* Signal Share Label */}
               <div className="flex items-center gap-2 justify-center lg:justify-start mb-3 animate-pulse">
-                <span className="text-xl sm:text-2xl font-mono tracking-widest text-cyan-400 uppercase drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]">
+                <span 
+                  className="text-sm lg:text-base font-bold uppercase"
+                  style={{
+                    letterSpacing: '2px',
+                    color: '#00F5D4',
+                  }}
+                >
                   Signal Share
                 </span>
               </div>
 
               {/* Signal Share Description */}
-              <div className="text-base sm:text-lg text-white leading-relaxed text-center lg:text-left mb-6 max-w-xl mx-auto lg:mx-0 space-y-2">
-                <p className="text-cyan-400 font-bold tracking-widest">
+              <div className="text-[15px] lg:text-base text-white leading-[1.5] text-center lg:text-left mb-6 max-w-[420px] mx-auto lg:mx-0 space-y-1.5">
+                <p style={{ color: '#00F5D4' }} className="font-bold tracking-widest">
                   Your Vibe. &nbsp; Your Visibility. &nbsp; Your Call.
                 </p>
-                <p>
+                <p className="text-white">
                   Go visible when you want to connect. &nbsp; Go ghost when you don't.
                 </p>
-                <p>
-                  <span className="text-cyan-400 font-bold">VALID™</span> Signal Share lets you open your profile for real connections — or lock it down for total invisibility. &nbsp; One tap. &nbsp; Instantly adaptable. &nbsp; No other network does this.
+                <p className="text-white">
+                  <span style={{ color: '#00F5D4' }} className="font-bold">VALID™</span> Signal Share lets you open your profile for real connections — or lock it down for total invisibility. &nbsp; One tap. &nbsp; Instantly adaptable. &nbsp; No other network does this.
                 </p>
               </div>
 
@@ -363,25 +390,15 @@ const Hero = () => {
 
             {/* ONE IDENTITY. ZERO LIMITS. Section */}
             <div className="text-center lg:text-left">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 tracking-tight">
-                <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.3)]"
-                  style={{
-                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 30%, #e0e0e0 60%, #d0d0d0 100%)',
-                    textShadow: '0 2px 4px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3)',
-                  }}
-                >
-                  ONE IDENTITY.
-                </span>{' '}
-                <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(34,211,238,0.4)]"
-                  style={{
-                    backgroundImage: 'linear-gradient(180deg, #a5f3fc 0%, #67e8f9 30%, #22d3ee 60%, #67e8f9 100%)',
-                    textShadow: '0 0 20px rgba(34,211,238,0.5), 0 0 40px rgba(34,211,238,0.3)',
-                  }}
-                >
-                  ZERO LIMITS.
-                </span>
+              <h2 
+                className="text-5xl lg:text-[64px] font-extrabold mb-6 text-center"
+                style={{
+                  letterSpacing: '2px',
+                  color: '#00F5D4',
+                  textShadow: '0 0 30px rgba(0,245,212,0.4), 0 0 60px rgba(0,245,212,0.2)',
+                }}
+              >
+                ONE IDENTITY. ZERO LIMITS.
               </h2>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
@@ -208,15 +208,23 @@ const Dashboard = () => {
       <header className="relative z-10 mx-4 md:mx-8 mt-4">
         <div className="backdrop-blur-xl bg-white/5 border border-[#00FFFF]/30 rounded-full px-3 md:px-6 py-3 md:py-4 shadow-[0_0_30px_rgba(0,255,255,0.15)]">
           <div className="flex items-center justify-between gap-2 md:gap-4">
-            {/* Left side - Save button (desktop only) */}
-            <div className="flex-shrink-0 hidden md:block">
+            {/* Left side - Back button + Save button */}
+            <div className="flex-shrink-0 flex items-center gap-2">
+              <Button
+                onClick={() => navigate("/")}
+                size="sm"
+                className="shadow-[0_0_20px_rgba(0,255,255,0.3)] border border-[#00FFFF]/40 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold min-h-[36px] md:min-h-[44px] px-2 md:px-4 rounded-full"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="hidden md:inline ml-2">Home</span>
+              </Button>
               {activeTab === "profile" && (
                 <Button
                   type="button"
                   onClick={() => profileTabRef.current?.triggerSave()}
                   disabled={profileSaveState.saving}
                   size="sm"
-                  className={`shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full transition-all duration-300 ${
+                  className={`hidden md:flex shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full transition-all duration-300 ${
                     profileSaveState.saveSuccess
                       ? 'shadow-[0_0_20px_rgba(34,197,94,0.5)] border-green-500/60 bg-green-500/10 text-green-400 hover:bg-green-500/20'
                       : profileSaveState.hasChanges && !profileSaveState.saving

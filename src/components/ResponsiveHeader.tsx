@@ -6,9 +6,12 @@ const ResponsiveHeader = () => {
   return (
     <header className="w-full px-6 md:px-12 py-4 flex items-center justify-between bg-transparent absolute top-0 left-0 right-0 z-50">
       {/* Logo - Text Only */}
-      <Link to="/" className="flex items-center">
+      <Link to="/" className="flex flex-col items-start">
         <span className="text-2xl md:text-3xl font-bold font-display tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">
           VALID<sup className="text-[0.5em] text-cyan-400">™</sup>
+        </span>
+        <span className="text-[0.5rem] md:text-[0.6rem] tracking-[0.15em] text-cyan-400/70 uppercase font-medium">
+          Powered By Synthetic AI*
         </span>
       </Link>
 

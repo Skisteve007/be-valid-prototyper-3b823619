@@ -202,6 +202,11 @@ const Hero = () => {
             {/* LEFT COLUMN: Headlines + CTA */}
             <div className="order-2 lg:order-1 text-center lg:text-left">
               
+              {/* Universal Lifestyle Key - Large */}
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display tracking-wide mb-3 text-white">
+                Universal Lifestyle Key
+              </h2>
+              
               {/* ONE KEY. VERIFY. PAY. VIBE. - Much smaller */}
               <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-2 text-white">
                 ONE KEY. VERIFY. PAY. VIBE.

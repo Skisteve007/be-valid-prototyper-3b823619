@@ -36,10 +36,10 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       aria-label="Toggle Dark/Light Theme"
-      className={`h-10 w-10 rounded-full transition-all duration-300
+      className={`h-10 w-10 rounded-full transition-all duration-300 border-2
         ${isDark 
-          ? 'text-cyan-400 hover:bg-cyan-900/30 hover:text-cyan-300' 
-          : 'text-orange-500 hover:bg-orange-100 hover:text-orange-600'}`}
+          ? 'text-yellow-400 border-yellow-400/50 bg-slate-800/80 hover:bg-slate-700 hover:text-yellow-300 shadow-[0_0_10px_rgba(250,204,21,0.3)]' 
+          : 'text-indigo-600 border-indigo-400/50 bg-white/90 hover:bg-slate-100 hover:text-indigo-700 shadow-md'}`}
     >
       {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </Button>

@@ -252,7 +252,7 @@ const Hero = () => {
                 </span>
               </div>
               
-              <div className="text-sm sm:text-base text-white leading-relaxed mb-8 text-center lg:text-left space-y-3">
+              <div className="text-base sm:text-lg text-white leading-relaxed mb-8 text-center lg:text-left space-y-2">
                 <p className="text-cyan-400 font-bold tracking-widest">
                   Encrypted. &nbsp; Tokenized. &nbsp; Untouchable.
                 </p>
@@ -265,12 +265,14 @@ const Hero = () => {
               </div>
 
               {/* Signal Share Label */}
-              <p className="text-xl sm:text-2xl font-mono tracking-widest text-cyan-400 uppercase mb-2 text-center lg:text-left">
-              Signal Share
-              </p>
+              <div className="flex items-center gap-2 justify-center lg:justify-start mb-3 animate-pulse">
+                <span className="text-xl sm:text-2xl font-mono tracking-widest text-cyan-400 uppercase drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]">
+                  Signal Share
+                </span>
+              </div>
 
               {/* Signal Share Description */}
-              <div className="text-base sm:text-lg text-gray-300 leading-relaxed text-center lg:text-left mb-6 max-w-xl mx-auto lg:mx-0 space-y-3">
+              <div className="text-base sm:text-lg text-white leading-relaxed text-center lg:text-left mb-6 max-w-xl mx-auto lg:mx-0 space-y-2">
                 <p className="text-cyan-400 font-bold tracking-widest">
                   Your Vibe. &nbsp; Your Visibility. &nbsp; Your Call.
                 </p>

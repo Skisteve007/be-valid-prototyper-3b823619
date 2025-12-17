@@ -249,11 +249,11 @@ const Hero = () => {
                 <span className="text-cyan-400"> Connectivity.</span>
               </p>
 
-              {/* Ghost Encryptions */}
-              <div className="flex items-center gap-2 justify-center lg:justify-start mb-3">
-                <Ghost className="w-5 h-5 text-purple-400" />
-                <span className="text-sm sm:text-base font-mono tracking-widest text-purple-400 uppercase">
-                  Ghost™ Encryptions
+              {/* Ghost Protocols */}
+              <div className="flex items-center gap-2 justify-center lg:justify-start mb-3 animate-pulse">
+                <Ghost className="w-5 h-5 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]" />
+                <span className="text-sm sm:text-base font-mono tracking-widest text-yellow-400 uppercase drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]">
+                  Ghost™ Protocols
                 </span>
               </div>
 

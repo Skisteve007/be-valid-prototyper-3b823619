@@ -260,7 +260,7 @@ const Hero = () => {
                 <span style={{ color: '#00E5E5' }}> Connectivity.</span>
               </p>
 
-              {/* Ghost Protocols */}
+              {/* GHOST™ Protocols */}
               <div className="flex items-center gap-2 justify-center lg:justify-start mb-3 animate-pulse">
                 <Ghost className="w-5 h-5 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]" />
                 <span 
@@ -270,7 +270,7 @@ const Hero = () => {
                     color: '#00E5E5',
                   }}
                 >
-                  Ghost™ Protocols
+                  GHOST™ PROTOCOLS
                 </span>
               </div>
               
@@ -279,7 +279,7 @@ const Hero = () => {
                   Encrypted. &nbsp; Tokenized. &nbsp; Untouchable.
                 </p>
                 <p className="text-white">
-                  Ghost™ Tokens™ secure your payments, health records, and ID — all encrypted, all portable, all yours.
+                  GHOST™ Tokens™ secure your payments, health records, and ID — all encrypted, all portable, all yours.
                 </p>
                 <p className="text-white">
                   Your life stays fluid. &nbsp; Your data stays locked. &nbsp; You decide what gets shared.
@@ -305,7 +305,7 @@ const Hero = () => {
                   Your Vibe. &nbsp; Your Visibility. &nbsp; Your Call.
                 </p>
                 <p className="text-white">
-                  Go visible when you want to connect. &nbsp; Go ghost when you don't.
+                  Go visible when you want to connect. &nbsp; Go GHOST™ when you don't.
                 </p>
                 <p className="text-white">
                   <span style={{ color: '#00E5E5' }} className="font-bold">VALID™</span> Signal Share lets you open your profile for real connections — or lock it down for total invisibility. &nbsp; One tap. &nbsp; Instantly adaptable. &nbsp; No other network does this.

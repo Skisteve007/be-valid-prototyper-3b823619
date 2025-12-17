@@ -213,11 +213,6 @@ const Hero = () => {
                 Universal Lifestyle Key
               </h2>
               
-              {/* VERIFY. PAY. VIBE. - Much smaller */}
-              <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-2 text-white">
-                VERIFY. PAY. VIBE.
-              </p>
-              
               {/* Powered By Line */}
               <p className="text-xs font-mono tracking-[0.3em] text-cyan-400/80 uppercase mb-6">
                 POWERED BY SYNTHESIZED AI

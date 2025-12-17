@@ -180,19 +180,28 @@ const Hero = () => {
                     textShadow: '0 0 30px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.3)',
                   }}
                 >
-                  The Social Chameleon.
+                  YOUR IDENTITY.
+                </span>{' '}
+                <span 
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(103,232,249,0.4)]"
+                  style={{
+                    backgroundImage: 'linear-gradient(180deg, #a5f3fc 0%, #67e8f9 30%, #22d3ee 60%, #67e8f9 100%)',
+                    textShadow: '0 0 20px rgba(103,232,249,0.5)',
+                  }}
+                >
+                  YOUR CONTROL.
                 </span>
               </h1>
               
               {/* Subhead */}
               <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-4 max-w-2xl mx-auto lg:mx-0">
-                <span className="text-white">Instantly Switch Your Signal To Match The Moment</span>
-                <span className="text-cyan-400"> — Social, Pulse, Thrill, Or After Dark.</span>
+                <span className="text-white">Verified. Protected.</span>
+                <span className="text-cyan-400"> Connected.</span>
               </p>
 
               {/* Support Line */}
               <p className="text-base lg:text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                Other Networks Lock You Into One Profile. <span className="text-cyan-400 font-semibold">VALID™</span> Lets You Adapt In Real Time.
+                Join the network where your privacy is protected and your identity is always under your control.
               </p>
 
               {/* CTA Row */}
@@ -208,15 +217,30 @@ const Hero = () => {
                 
                 {/* Secondary CTA */}
                 <a 
-                  href="#signals"
+                  href="#chameleon"
                   className="inline-flex items-center gap-2 px-6 py-3 font-bold text-sm rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
                 >
                   TRY THE SIGNALS
                 </a>
               </div>
 
+              {/* ===== NEW ADDITION: THE SOCIAL CHAMELEON SECTION ===== */}
+              <div id="chameleon" className="mt-6 p-6 rounded-2xl border border-purple-500/40 bg-gradient-to-br from-purple-500/10 via-cyan-500/5 to-purple-500/10 backdrop-blur-sm">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-2">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400">
+                    The Social Chameleon.
+                  </span>
+                </h2>
+                <p className="text-lg sm:text-xl text-white/90 mb-2">
+                  Instantly Switch Your Signal To Match The Moment — Social, Pulse, Thrill, Or After Dark.
+                </p>
+                <p className="text-sm text-white/60 mb-4">
+                  Other Networks Lock You Into One Profile. <span className="text-cyan-400 font-semibold">VALID™</span> Lets You Adapt In Real Time.
+                </p>
+              </div>
+
               {/* Signal Selection */}
-              <div id="signals" className="text-center lg:text-left mt-4 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
+              <div id="signals" className="text-center lg:text-left mt-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
                 <p className="text-sm font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
                   ✦ SELECT YOUR SIGNAL ✦
                 </p>

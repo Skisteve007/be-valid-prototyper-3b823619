@@ -361,19 +361,19 @@ const Hero = () => {
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 tracking-tight">
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(100,100,100,0.3)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.3)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #b8b8b8 0%, #a0a0a0 40%, #888888 70%, #707070 100%)',
-                    textShadow: '0 2px 4px rgba(0,0,0,0.6), 0 8px 16px rgba(0,0,0,0.4)',
+                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 30%, #e0e0e0 60%, #d0d0d0 100%)',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3)',
                   }}
                 >
                   ONE IDENTITY.
                 </span>{' '}
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(34,211,238,0.3)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(34,211,238,0.4)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #67e8f9 0%, #22d3ee 30%, #0891b2 60%, #22d3ee 100%)',
-                    textShadow: '0 0 15px rgba(34,211,238,0.4)',
+                    backgroundImage: 'linear-gradient(180deg, #a5f3fc 0%, #67e8f9 30%, #22d3ee 60%, #67e8f9 100%)',
+                    textShadow: '0 0 20px rgba(34,211,238,0.5), 0 0 40px rgba(34,211,238,0.3)',
                   }}
                 >
                   ZERO LIMITS.

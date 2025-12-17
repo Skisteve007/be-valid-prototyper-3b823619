@@ -811,7 +811,7 @@ const Auth = () => {
                   <CardDescription className="text-center text-lg font-semibold text-cyan-400 tracking-wider mt-2">
                     Your identity, controlled.
                   </CardDescription>
-                  <div className="text-center pt-3">
+                  <div className="text-center pt-2">
                     <Button 
                       type="button" 
                       variant="outline"
@@ -822,7 +822,7 @@ const Auth = () => {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="p-8 space-y-6">
+                <CardContent className="p-6 pt-4 space-y-4">
                   {/* Social Sign Up Options */}
                   <div className="space-y-3">
                     <GoogleSignInButton />

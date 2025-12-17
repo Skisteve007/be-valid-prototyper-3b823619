@@ -36,7 +36,7 @@ const AdminDealRoom = () => {
   // Form state
   const [investorName, setInvestorName] = useState("");
   const [investmentAmount, setInvestmentAmount] = useState("25000");
-  const [valuationCap, setValuationCap] = useState("200000");
+  const [valuationCap, setValuationCap] = useState("6000000");
   const [discountRate, setDiscountRate] = useState("50");
   const [selectedTranche, setSelectedTranche] = useState<1 | 2>(1);
 
@@ -44,10 +44,10 @@ const AdminDealRoom = () => {
   const handleTrancheSelect = (tranche: 1 | 2) => {
     setSelectedTranche(tranche);
     if (tranche === 1) {
-      setValuationCap("200000");
+      setValuationCap("6000000");
       setDiscountRate("50");
     } else {
-      setValuationCap("1500000");
+      setValuationCap("12000000");
       setDiscountRate("25");
     }
   };
@@ -179,6 +179,11 @@ const AdminDealRoom = () => {
   const generateSAFEPDF = () => {
     if (!investorName.trim()) {
       toast.error("Please enter the investor name");
+      return;
+    }
+    
+    if (!valuationCap || parseFloat(valuationCap) <= 0) {
+      toast.error("Please enter a valid valuation cap");
       return;
     }
 
@@ -446,7 +451,7 @@ const AdminDealRoom = () => {
                 <div className={`font-bold text-lg mb-1 ${selectedTranche === 1 ? 'text-amber-400' : 'text-white'}`}>
                   Tranche 1: Launch Round
                 </div>
-                <div className={`text-xs ${selectedTranche === 1 ? 'text-amber-400/80' : 'text-gray-400'}`}>$200K Cap • 50% Discount</div>
+                <div className={`text-xs ${selectedTranche === 1 ? 'text-amber-400/80' : 'text-gray-400'}`}>$200K Raise • $6M Valuation Cap • 50% Discount</div>
               </button>
               <div
                 className="p-4 rounded-xl border-2 text-left bg-cyan-500/10 border-cyan-500/30 cursor-not-allowed relative shadow-[0_0_15px_rgba(0,240,255,0.2)]"
@@ -457,7 +462,7 @@ const AdminDealRoom = () => {
                 <div className="font-bold text-lg mb-1 text-cyan-400">
                   Tranche 2: Series Seed
                 </div>
-                <div className="text-xs text-cyan-400/80">$1.5M Cap • 25% Discount</div>
+                <div className="text-xs text-cyan-400/80">$1.5M Raise • $10-12M Valuation Cap • 25% Discount</div>
               </div>
             </div>
             
@@ -535,7 +540,7 @@ const AdminDealRoom = () => {
                     className="bg-white/5 border-white/20 text-white pl-8"
                   />
                 </div>
-                <p className="text-xs text-gray-500">Default: $200,000 (Launch Round)</p>
+                <p className="text-xs text-gray-500">Default: $6,000,000 Valuation Cap (Launch Round)</p>
               </div>
 
               {/* Discount Rate */}
@@ -574,7 +579,7 @@ const AdminDealRoom = () => {
               {/* Generate Button */}
               <Button
                 onClick={generateSAFEPDF}
-                disabled={generating || !investorName.trim()}
+                disabled={generating || !investorName.trim() || !valuationCap || parseFloat(valuationCap) <= 0}
                 className="w-full h-14 text-lg font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-[0_0_30px_rgba(0,240,255,0.3)]"
               >
                 {generating ? (

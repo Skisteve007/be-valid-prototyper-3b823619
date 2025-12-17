@@ -180,7 +180,7 @@ const Hero = () => {
                     textShadow: '0 0 30px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.3)',
                   }}
                 >
-                  YOUR IDENTITY.
+                  ONE IDENTITY.
                 </span>{' '}
                 <span 
                   className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(103,232,249,0.4)]"
@@ -189,7 +189,7 @@ const Hero = () => {
                     textShadow: '0 0 20px rgba(103,232,249,0.5)',
                   }}
                 >
-                  YOUR CONTROL.
+                  ZERO LIMITS.
                 </span>
               </h1>
               

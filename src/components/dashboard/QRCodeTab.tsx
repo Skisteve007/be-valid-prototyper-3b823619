@@ -114,10 +114,10 @@ const QRCodeTab = ({ userId, userName, currentSignal, memberId }: QRCodeTabProps
   const loadProfileAndDocuments = async () => {
     try {
       console.log("QRCodeTab: Loading profile and documents");
-      // Load profile to get status color, ID, and profile image
+      // Load profile to get status color, ID, member_id, and profile image
       const { data: profileData } = await supabase
         .from("profiles")
-        .select("id, status_color, profile_image_url")
+        .select("id, status_color, profile_image_url, member_id")
         .eq("user_id", userId)
         .single();
       
@@ -127,8 +127,11 @@ const QRCodeTab = ({ userId, userName, currentSignal, memberId }: QRCodeTabProps
         setProfileId(profileData.id);
         setHasProfileImage(!!profileData.profile_image_url);
         
-        // Generate access token for this profile
-        await generateAccessToken(profileData.id);
+        // Generate QR code with VALID:<member_id> format
+        if (profileData.member_id) {
+          generateQRCodeWithMemberId(profileData.member_id);
+          setAccessToken(profileData.member_id); // Store member_id for sharing
+        }
       } else {
         setHasProfileImage(false);
       }
@@ -159,35 +162,34 @@ const QRCodeTab = ({ userId, userName, currentSignal, memberId }: QRCodeTabProps
     }
   };
 
+  // Generate QR code with VALID:<member_id> format for scanner compatibility
+  const generateQRCodeWithMemberId = (memberIdValue: string) => {
+    const qrData = `VALID:${memberIdValue}`;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}`;
+    setQrCodeUrl(qrUrl);
+    console.log("Generated QR code with data:", qrData);
+  };
+
+  // Legacy function for backward compatibility
   const generateAccessToken = async (profileId: string) => {
-    try {
-      const { data, error } = await supabase.functions.invoke('generate-qr-token', {
-        body: { profileId },
-      });
-
-      if (error) {
-        console.error("Failed to generate access token:", error);
-        toast.error("Failed to generate secure access token");
-        return;
-      }
-
-      if (data?.token) {
-        setAccessToken(data.token);
-        // Generate QR code with token
-        const profileUrl = `${window.location.origin}/view-profile?token=${data.token}`;
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(profileUrl)}`;
-        setQrCodeUrl(qrUrl);
-      }
-    } catch (error) {
-      console.error("Error generating access token:", error);
-      toast.error("Failed to generate secure access token");
+    // Now just load member_id from profile and generate QR
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("member_id")
+      .eq("id", profileId)
+      .single();
+    
+    if (profileData?.member_id) {
+      generateQRCodeWithMemberId(profileData.member_id);
+      setAccessToken(profileData.member_id);
     }
   };
 
   const generateQRCode = () => {
     if (!accessToken) return;
-    const profileUrl = `${window.location.origin}/view-profile?token=${accessToken}`;
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(profileUrl)}`;
+    // Generate QR code with VALID:<member_id> format for scanner compatibility
+    const qrData = `VALID:${accessToken}`;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}`;
     setQrCodeUrl(qrUrl);
   };
 

@@ -79,7 +79,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
       
       {/* ===== HEADER ===== */}
       <ResponsiveHeader />
@@ -93,16 +93,16 @@ const Hero = () => {
             backgroundImage: 'url(/landing-hero-earth.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 40%',
-            opacity: 0.65,
+            opacity: 0.75,
           }}
         />
-        {/* Reduced dark overlay */}
-        <div className="absolute inset-0 z-0 bg-black/45" />
-        {/* Horizon-lift gradient: dark space at top, subtle haze revealing Earth below */}
+        {/* Reduced dark overlay - lighter */}
+        <div className="absolute inset-0 z-0 bg-slate-900/30" />
+        {/* Horizon-lift gradient: lighter dark space at top */}
         <div 
           className="absolute inset-0 z-0"
           style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(30,40,60,0.2) 70%, rgba(40,50,70,0.15) 100%)',
+            background: 'linear-gradient(to bottom, rgba(15,23,42,0.6) 0%, rgba(15,23,42,0.2) 40%, rgba(30,40,60,0.15) 70%, rgba(40,50,70,0.1) 100%)',
           }}
         />
         {/* Cyan glow accent */}
@@ -303,14 +303,14 @@ const Hero = () => {
             backgroundImage: 'url(/landing-hero-earth.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 60%',
-            opacity: 0.5,
+            opacity: 0.6,
           }}
         />
-        <div className="absolute inset-0 z-0 bg-black/50" />
+        <div className="absolute inset-0 z-0 bg-slate-900/40" />
         <div 
           className="absolute inset-0 z-0"
           style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.6) 100%)',
+            background: 'linear-gradient(to bottom, rgba(15,23,42,0.7) 0%, rgba(15,23,42,0.3) 30%, rgba(15,23,42,0.5) 100%)',
           }}
         />
         

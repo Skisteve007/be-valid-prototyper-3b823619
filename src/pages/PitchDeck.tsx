@@ -266,6 +266,9 @@ const PitchDeck = () => {
                 className="w-full"
                 style={{ height: 'clamp(560px, 50vw, 720px)' }}
                 title="VALID Investor Deck"
+                onError={(e) => {
+                  (e.target as HTMLIFrameElement).style.display = 'none';
+                }}
               />
               
               {/* Full Screen Control */}
@@ -278,6 +281,19 @@ const PitchDeck = () => {
                 <Maximize2 className="w-4 h-4 mr-1" />
                 Full Screen
               </Button>
+            </div>
+            
+            {/* Fallback link if embed fails */}
+            <div className="mt-4 text-center">
+              <a 
+                href={INVESTOR_DECK_PDF_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-400 hover:text-cyan-300 underline text-sm inline-flex items-center gap-2"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open deck in new tab
+              </a>
             </div>
           </div>
 

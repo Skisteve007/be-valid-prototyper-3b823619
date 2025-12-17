@@ -68,32 +68,34 @@ export const BetaBanner = ({ variant = 'full' }: BetaBannerProps) => {
         <X className="w-4 h-4 text-white/60 hover:text-white" />
       </button>
 
-      <div className={`${variant === 'compact' ? 'p-3' : 'p-4 md:p-5'}`}>
-        <div className="flex flex-col items-center text-center gap-2">
-          {/* Main headline */}
-          <div className="flex items-center gap-2 flex-wrap justify-center">
+      <div className={`${variant === 'compact' ? 'px-3 py-2' : 'px-4 py-3'}`}>
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+          {/* Rocket + Main headline */}
+          <div className="flex items-center gap-1.5">
             <Rocket 
-              className="w-5 h-5 md:w-6 md:h-6 text-yellow-400" 
+              className="w-4 h-4 md:w-5 md:h-5 text-yellow-400 shrink-0" 
               style={{ animation: 'rocketBounce 1s ease-in-out infinite' }}
             />
-            <span className="text-lg md:text-xl font-black text-transparent bg-clip-text"
+            <span className="text-sm md:text-base font-black text-transparent bg-clip-text whitespace-nowrap"
               style={{
                 backgroundImage: 'linear-gradient(90deg, #22c55e, #facc15, #22c55e)',
               }}
             >
-              FREE BETA: No payment required for first {BETA_CONFIG.maxBetaMembers} users!
+              FREE BETA: First {BETA_CONFIG.maxBetaMembers} users free!
             </span>
           </div>
           
-          {/* Countdown */}
-          <p className="text-sm md:text-base font-bold text-white">
-            Ends in <span className="text-yellow-400 tabular-nums">{countdownText}</span> • <span className="text-green-400 text-lg">$0.00 signup!</span>
-          </p>
+          {/* Countdown + Price inline */}
+          <span className="text-xs md:text-sm font-bold text-white whitespace-nowrap">
+            <span className="text-yellow-400 tabular-nums">{countdownText}</span>
+            <span className="mx-1.5 text-white/40">•</span>
+            <span className="text-green-400 font-bold">$0.00</span>
+          </span>
 
-          {/* Post-beta pricing info */}
-          <p className="text-xs text-white/50">
-            After beta: {BETA_CONFIG.regularPrice} | <span className="line-through">{BETA_CONFIG.standardPrice}</span>
-          </p>
+          {/* Post-beta pricing */}
+          <span className="text-[10px] md:text-xs text-white/50 whitespace-nowrap">
+            After: {BETA_CONFIG.regularPrice} | <span className="line-through">{BETA_CONFIG.standardPrice}</span>
+          </span>
         </div>
       </div>
     </div>

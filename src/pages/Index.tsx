@@ -142,7 +142,7 @@ const Index = () => {
           <div className="px-4 pt-12 pb-8 text-center bg-gradient-to-b from-black/70 via-black/30 to-transparent">
             
             <h2 className="text-3xl md:text-5xl font-bold mb-4 font-orbitron tracking-wide text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-              {t('standard.title')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400">{t('standard.titleHighlight')}</span>
+              {t('standard.title')}<sup className="text-[0.5em] ml-0.5">™</sup> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400">{t('standard.titleHighlight')}</span>
             </h2>
             <p className="max-w-2xl mx-auto leading-relaxed text-lg text-gray-200 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
               {t('standard.subtitle')}
@@ -154,8 +154,8 @@ const Index = () => {
 
           {/* Bottom content - Pipeline Not Vault */}
           <div className="px-4 pb-12 pt-16 text-center bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 font-orbitron text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-              Pipeline, <span className="text-cyan-400">Not Vault.</span>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 font-orbitron tracking-wide text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              PIPELINE, <span className="text-cyan-400">NOT VAULT.</span>
             </h2>
             <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-2xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
               We Verify In The Moment, Then Release — We Don't Warehouse Your Personal Data.

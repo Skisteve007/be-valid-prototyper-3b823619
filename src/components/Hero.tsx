@@ -261,6 +261,11 @@ const Hero = () => {
                 QR Code Encrypted. Ghost Tokens... Secure Your Payment Info, Your Health Records And Your Identification. We Make Your Life More Fluid, With You In Complete Control Of What You're Going To Choose To Share. Your Privacy And Control.
               </p>
 
+              {/* Signal Share Label */}
+              <p className="text-lg sm:text-xl font-mono tracking-widest text-cyan-400 uppercase mb-2 text-center lg:text-left">
+                Signal Share
+              </p>
+
               {/* Static Profiles Description */}
               <p className="text-base sm:text-lg text-gray-300 leading-relaxed text-center lg:text-left mb-6 font-medium italic max-w-xl mx-auto lg:mx-0">
                 Static Profiles Are <span className="text-white font-bold">Ancient</span>. Now You Choose What You Share. Points Of Entry Are <span className="text-cyan-400">Fluid</span>. You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>, Or Open Your Profile For That <span className="text-emerald-400">Connection</span>. Your Identity Is Now Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>.
@@ -303,7 +308,7 @@ const Hero = () => {
             {/* Signal Selection - Moved below Static Profiles */}
             <div id="signals" className="text-center lg:text-left p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm mb-12">
               <p className="text-base font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
-                ✦ SELECT YOUR SIGNAL ✦
+                
               </p>
               <p className="text-base text-white/80 mb-4">
                 Pick A Signal. Your Whole Presence Updates Instantly.

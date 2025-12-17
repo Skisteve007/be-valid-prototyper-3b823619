@@ -251,8 +251,8 @@ const Hero = () => {
           {/* Below the fold content - full width */}
           <div className="mt-16 lg:mt-24 max-w-3xl mx-auto lg:mx-0">
             {/* Static Profiles Description */}
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed text-center lg:text-left mb-12 font-medium">
-              Static profiles are <span className="text-white font-bold">ancient</span>. Now you choose what you share. Points of entry are <span className="text-cyan-400">fluid</span>. You lock down your Vitals for <span className="text-purple-400">invisibility</span>, or open your profile for that <span className="text-emerald-400">Connection</span>. Your identity is now adaptable, secure, and entirely under <span className="text-white font-bold">your control</span>.
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed text-center lg:text-left mb-12 font-medium italic">
+              Static Profiles Are <span className="text-white font-bold">Ancient</span>. Now You Choose What You Share. Points Of Entry Are <span className="text-cyan-400">Fluid</span>. You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>, Or Open Your Profile For That <span className="text-emerald-400">Connection</span>. Your Identity Is Now Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>.
             </p>
 
             {/* THE VALID™ NETWORK Section */}

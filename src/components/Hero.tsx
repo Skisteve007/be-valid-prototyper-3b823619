@@ -244,7 +244,7 @@ const Hero = () => {
               </div>
 
               {/* Verified. Protected. Connected. - Moved under CTA */}
-              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-3 max-w-2xl mx-auto lg:mx-0">
+              <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-6 max-w-2xl mx-auto lg:mx-0">
                 <span className="text-white">Verified. Protected.</span>
                 <span className="text-cyan-400"> Connected.</span>
               </p>

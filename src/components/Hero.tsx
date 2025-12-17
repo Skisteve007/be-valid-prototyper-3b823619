@@ -171,41 +171,47 @@ const Hero = () => {
                 POWERED BY SYNTHESIZED AI
               </p>
 
-              {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black font-display tracking-tight mb-2">
+              {/* Main Headline - 3D gradient style */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black font-display tracking-tight mb-4">
                 <span 
-                  className="text-transparent bg-clip-text"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.4)]"
                   style={{
-                    backgroundImage: 'linear-gradient(135deg, #a0a0a0 0%, #e0e0e0 25%, #808080 50%, #d0d0d0 75%, #909090 100%)',
+                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 40%, #e0e0e0 70%, #d0d0d0 100%)',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
                   }}
                 >
                   ONE KEY.
                 </span>
               </h1>
               
-              {/* Colored Tagline - Stacked with teal/gray metallic effect */}
-              <div className="mb-6 relative inline-block lg:block">
+              {/* Colored Tagline - Inline layout */}
+              <div className="mb-6 relative">
                 <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
                   <span 
-                    className="text-transparent bg-clip-text block"
+                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(45,212,191,0.4)]"
                     style={{
-                      backgroundImage: 'linear-gradient(135deg, #2dd4bf 0%, #99f6e4 30%, #5eead4 50%, #14b8a6 70%, #0d9488 100%)',
+                      backgroundImage: 'linear-gradient(180deg, #5eead4 0%, #2dd4bf 40%, #14b8a6 70%, #0d9488 100%)',
+                      textShadow: '0 0 20px rgba(45,212,191,0.6), 0 4px 8px rgba(0,0,0,0.4)',
                     }}
                   >
                     Verify.
-                  </span>
+                  </span>{' '}
                   <span 
-                    className="text-transparent bg-clip-text block"
+                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.3)]"
                     style={{
-                      backgroundImage: 'linear-gradient(135deg, #6b7280 0%, #d1d5db 30%, #9ca3af 50%, #e5e7eb 70%, #6b7280 100%)',
+                      backgroundImage: 'linear-gradient(180deg, #e5e7eb 0%, #d1d5db 40%, #9ca3af 70%, #6b7280 100%)',
+                      textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
                     }}
                   >
                     Pay.
                   </span>
+                </p>
+                <p className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mt-1">
                   <span 
-                    className="text-transparent bg-clip-text block"
+                    className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(45,212,191,0.4)]"
                     style={{
-                      backgroundImage: 'linear-gradient(135deg, #14b8a6 0%, #5eead4 30%, #2dd4bf 50%, #99f6e4 70%, #0d9488 100%)',
+                      backgroundImage: 'linear-gradient(180deg, #99f6e4 0%, #5eead4 40%, #2dd4bf 70%, #14b8a6 100%)',
+                      textShadow: '0 0 20px rgba(45,212,191,0.6), 0 4px 8px rgba(0,0,0,0.4)',
                     }}
                   >
                     Vibe.

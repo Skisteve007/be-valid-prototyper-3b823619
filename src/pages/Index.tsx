@@ -166,6 +166,7 @@ const Index = () => {
               desc={t('standard.militaryFortressDesc')}
               color="cyan"
               backgroundImage={militaryFortressImg}
+              colorDampen="green"
             />
             <FeatureCard 
               isDark={isDark}
@@ -182,6 +183,7 @@ const Index = () => {
               desc={t('standard.yourDataDesc')}
               color="cyan"
               backgroundImage={yourDataRulesImg}
+              colorDampen="purple"
             />
             <FeatureCard 
               isDark={isDark}
@@ -257,9 +259,10 @@ interface FeatureCardProps {
   desc: string;
   color: 'blue' | 'cyan' | 'purple';
   backgroundImage?: string;
+  colorDampen?: 'purple' | 'green';
 }
 
-const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage }: FeatureCardProps) => (
+const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage, colorDampen }: FeatureCardProps) => (
   <div className={`p-8 rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden
     ${isDark 
       ? 'bg-black border-cyan-500/60' 
@@ -275,6 +278,14 @@ const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage }: Feat
           backgroundPosition: 'center',
         }}
       />
+    )}
+    
+    {/* Color dampening overlay for overly bright images */}
+    {colorDampen === 'purple' && (
+      <div className="absolute inset-0 bg-black/30" style={{ mixBlendMode: 'saturation' }} />
+    )}
+    {colorDampen === 'green' && (
+      <div className="absolute inset-0 bg-black/25" style={{ mixBlendMode: 'saturation' }} />
     )}
     
     {/* Subtle gradient overlay - only at bottom for text readability */}

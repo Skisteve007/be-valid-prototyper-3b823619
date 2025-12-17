@@ -117,18 +117,13 @@ export default {
   		},
   		fontFamily: {
   			sans: [
-  				'Inter',
+  				'Orbitron',
   				'ui-sans-serif',
   				'system-ui',
-  				'-apple-system',
-  				'BlinkMacSystemFont',
-  				'Segoe UI',
-  				'Helvetica Neue',
-  				'Arial',
   				'sans-serif'
   			],
   			display: [
-  				'Oxanium',
+  				'Orbitron',
   				'sans-serif'
   			],
   			orbitron: [
@@ -136,11 +131,13 @@ export default {
   				'sans-serif'
   			],
   			serif: [
+  				'Orbitron',
   				'ui-serif',
   				'Georgia',
   				'serif'
   			],
   			mono: [
+  				'Orbitron',
   				'ui-monospace',
   				'SFMono-Regular',
   				'monospace'

@@ -158,10 +158,7 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
             </div>
 
             {/* Active Mode Description Panel */}
-            <div 
-              key={activeMode}
-              className={`p-5 rounded-xl border transition-all duration-500 animate-fade-in ${currentMode.borderColor} bg-gradient-to-br ${currentMode.bgGradient}`}
-            >
+            <div className={`p-5 rounded-xl border transition-all duration-500 ${currentMode.borderColor} bg-gradient-to-br ${currentMode.bgGradient}`}>
               <div className={`text-xs font-mono tracking-widest uppercase mb-2 ${currentMode.color}`}>
                 {currentMode.statusText}
               </div>

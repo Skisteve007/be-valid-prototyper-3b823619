@@ -48,7 +48,13 @@ import {
   Info,
   Maximize2,
   FileDown,
-  ExternalLink
+  ExternalLink,
+  Layers,
+  Shield,
+  Activity,
+  MapPin,
+  Sparkles,
+  CircleDot
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -113,10 +119,22 @@ const PitchDeck = () => {
 
   // Section divider component for consistent styling
   const SectionDivider = ({ label }: { label: string }) => (
-    <div className="flex items-center gap-4" style={{ padding: 'clamp(48px, 6vw, 96px) 0' }}>
-      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-      <span className="tracking-[4px] uppercase text-gray-500" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{label}</span>
-      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+    <div className="flex items-center gap-4" style={{ padding: 'clamp(64px, 8vw, 96px) 0' }}>
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+      <span className="tracking-[0.3em] uppercase text-gray-400 font-medium" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{label}</span>
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+    </div>
+  );
+
+  // Section header with icon for visual hierarchy
+  const SectionHeader = ({ icon: Icon, label, title, subtitle }: { icon: any; label: string; title: string; subtitle?: string }) => (
+    <div className="text-center" style={{ marginBottom: 'clamp(32px, 4vw, 48px)' }}>
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <Icon className="text-cyan-400" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)' }} />
+        <span className="tracking-[0.25em] uppercase text-cyan-400 font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>{label}</span>
+      </div>
+      <h2 className="font-bold font-orbitron text-white" style={{ fontSize: 'clamp(30px, 2.4vw, 44px)', lineHeight: '1.2' }}>{title}</h2>
+      {subtitle && <p className="text-gray-400 mt-3 max-w-3xl mx-auto" style={{ fontSize: 'clamp(16px, 1.1vw, 20px)', lineHeight: '1.5' }}>{subtitle}</p>}
     </div>
   );
 
@@ -160,35 +178,35 @@ const PitchDeck = () => {
       <main className="container mx-auto px-4 md:px-8 relative z-10" style={{ maxWidth: '1320px', paddingTop: 'clamp(32px, 4vw, 64px)', paddingBottom: 'clamp(32px, 4vw, 64px)' }}>
         
         {/* ===== HERO SECTION ===== */}
-        <section className="text-center" style={{ paddingBottom: 'clamp(24px, 3vw, 48px)' }}>
-          <img src={logo} alt="VALID" className="h-32 md:h-40 mx-auto mb-6 rounded-xl shadow-[0_0_40px_rgba(0,240,255,0.2)]" />
+        <section className="text-center" style={{ paddingBottom: 'clamp(32px, 4vw, 56px)' }}>
+          <img src={logo} alt="VALID" className="mx-auto mb-8 rounded-xl shadow-[0_0_50px_rgba(0,240,255,0.25)]" style={{ height: 'clamp(120px, 12vw, 180px)' }} />
           
-          <Badge className="mb-4 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 tracking-[2px]" style={{ padding: 'clamp(8px, 1vw, 12px) clamp(16px, 2vw, 24px)', fontSize: 'clamp(12px, 0.9vw, 14px)' }}>
+          <Badge className="mb-5 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 tracking-[0.2em]" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(20px, 2.5vw, 32px)', fontSize: 'clamp(12px, 0.9vw, 15px)', height: 'clamp(48px, 3.5vw, 56px)' }}>
             CONFIDENTIAL — INVESTOR ONLY
           </Badge>
           
-          <h1 className="font-bold font-orbitron" style={{ fontSize: 'clamp(40px, 4vw, 72px)', marginBottom: 'clamp(16px, 2vw, 24px)', lineHeight: '1.1' }}>
+          <h1 className="font-bold font-orbitron" style={{ fontSize: 'clamp(52px, 4vw, 84px)', marginBottom: 'clamp(20px, 2.5vw, 32px)', lineHeight: '1.05' }}>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500">
               INVESTOR DECK
             </span>
           </h1>
           
-          <p className="text-gray-400" style={{ fontSize: 'clamp(18px, 1.5vw, 24px)', marginBottom: 'clamp(24px, 3vw, 40px)', lineHeight: '1.4' }}>
+          <p className="text-gray-300" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(32px, 4vw, 48px)', lineHeight: '1.45' }}>
             Zero-Trust Identity & Payment Infrastructure
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4" style={{ marginBottom: 'clamp(24px, 3vw, 40px)' }}>
-            <div className="bg-white/5 border border-white/10 rounded-full flex items-center" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(16px, 2vw, 28px)', height: 'clamp(44px, 3.5vw, 56px)' }}>
-              <span className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>TAM:</span>
-              <span className="text-white font-bold ml-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>$5.7B+</span>
+          <div className="flex flex-wrap justify-center" style={{ gap: 'clamp(12px, 1.5vw, 20px)', marginBottom: 'clamp(32px, 4vw, 48px)' }}>
+            <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
+              <span className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>TAM:</span>
+              <span className="text-white font-bold ml-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>$5.7B+</span>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-full flex items-center" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(16px, 2vw, 28px)', height: 'clamp(44px, 3.5vw, 56px)' }}>
-              <span className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Tranche 1:</span>
-              <span className="text-cyan-400 font-bold ml-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>$200K Note</span>
+            <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
+              <span className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>Tranche 1:</span>
+              <span className="text-cyan-400 font-bold ml-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>$200K Note</span>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-full flex items-center" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(16px, 2vw, 28px)', height: 'clamp(44px, 3.5vw, 56px)' }}>
-              <span className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Stage:</span>
-              <span className="text-green-400 font-bold ml-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Revenue Generating</span>
+            <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
+              <span className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>Stage:</span>
+              <span className="text-green-400 font-bold ml-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>Revenue Generating</span>
             </div>
           </div>
 
@@ -306,23 +324,25 @@ const PitchDeck = () => {
         <SectionDivider label="Proof" />
 
         {/* ===== PILLAR A: PROOF ===== */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(24px, 3vw, 40px)' }}>
-          <div className="text-center">
-            <Badge className="bg-green-500/20 text-green-400 border-green-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR A</Badge>
-            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Proof: Traction & Why Now</h2>
-          </div>
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(28px, 3.5vw, 48px)' }}>
+          <SectionHeader 
+            icon={Activity} 
+            label="PILLAR A — PROOF" 
+            title="Traction & Why Now"
+            subtitle="Revenue generating with demonstrated product-market fit"
+          />
 
           {/* Current Traction */}
           <div>
-            <h3 className="tracking-[2px] uppercase text-gray-500 text-center" style={{ fontSize: 'clamp(13px, 1vw, 15px)', marginBottom: 'clamp(16px, 2vw, 28px)' }}>Current Traction</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(12px, 1.5vw, 24px)' }}>
+            <h3 className="tracking-[0.2em] uppercase text-gray-400 text-center font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(20px, 2.5vw, 32px)' }}>Current Traction</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(16px, 2vw, 32px)' }}>
               {metrics.map((metric, idx) => (
-                <Card key={idx} className="bg-black/40 border-white/10 hover:border-cyan-500/30 transition-all">
-                  <CardContent className="text-center" style={{ padding: 'clamp(16px, 2vw, 28px)' }}>
-                    <metric.icon className={`mx-auto ${metric.color}`} style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)', marginBottom: 'clamp(8px, 1vw, 14px)' }} />
-                    <div className="font-bold text-white" style={{ fontSize: 'clamp(24px, 2vw, 36px)' }}>{metric.value}</div>
-                    {metric.subtext && <div className="text-gray-500" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)' }}>{metric.subtext}</div>}
-                    <div className="text-gray-400 mt-1" style={{ fontSize: 'clamp(12px, 0.9vw, 15px)' }}>{metric.label}</div>
+                <Card key={idx} className="bg-black/50 border-white/10 hover:border-cyan-500/40 transition-all rounded-xl">
+                  <CardContent className="text-center" style={{ padding: 'clamp(24px, 2.5vw, 36px)' }}>
+                    <metric.icon className={`mx-auto ${metric.color}`} style={{ width: 'clamp(30px, 2.4vw, 38px)', height: 'clamp(30px, 2.4vw, 38px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }} />
+                    <div className="font-bold text-white" style={{ fontSize: 'clamp(28px, 2.4vw, 40px)' }}>{metric.value}</div>
+                    {metric.subtext && <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>{metric.subtext}</div>}
+                    <div className="text-gray-300 mt-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>{metric.label}</div>
                   </CardContent>
                 </Card>
               ))}
@@ -331,28 +351,28 @@ const PitchDeck = () => {
 
           {/* Value Drivers - Condensed */}
           <div>
-            <h3 className="tracking-[2px] uppercase text-gray-500 text-center" style={{ fontSize: 'clamp(13px, 1vw, 15px)', marginBottom: 'clamp(16px, 2vw, 28px)' }}>Value Drivers</h3>
-            <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
-              <div className="bg-black/40 border border-amber-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-                <Ghost className="text-amber-400" style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Ghost™ Token</h4>
-                <ul className="text-gray-400 space-y-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
+            <h3 className="tracking-[0.2em] uppercase text-gray-400 text-center font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(20px, 2.5vw, 32px)' }}>Value Drivers</h3>
+            <div className="grid md:grid-cols-3" style={{ gap: 'clamp(20px, 2vw, 32px)' }}>
+              <div className="bg-black/50 border border-amber-500/30 rounded-xl hover:border-amber-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <Ghost className="text-amber-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Ghost™ Token</h4>
+                <ul className="text-gray-300 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
                   <li>• 3-in-1: Payment + ID + Health</li>
                   <li>• Self-destructing encryption</li>
                 </ul>
               </div>
-              <div className="bg-black/40 border border-purple-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-                <Lock className="text-purple-400" style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Regulatory Moat</h4>
-                <ul className="text-gray-400 space-y-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
+              <div className="bg-black/50 border border-purple-500/30 rounded-xl hover:border-purple-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <Lock className="text-purple-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Regulatory Moat</h4>
+                <ul className="text-gray-300 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
                   <li>• 18+ months to replicate</li>
                   <li>• HIPAA + Payment rails</li>
                 </ul>
               </div>
-              <div className="bg-black/40 border border-green-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-                <Network className="text-green-400" style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Network Effects</h4>
-                <ul className="text-gray-400 space-y-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
+              <div className="bg-black/50 border border-green-500/30 rounded-xl hover:border-green-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <Network className="text-green-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Network Effects</h4>
+                <ul className="text-gray-300 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
                   <li>• 3.2x organic referral rate</li>
                   <li>• Every QR is marketing</li>
                 </ul>
@@ -394,26 +414,27 @@ const PitchDeck = () => {
         <SectionDivider label="Moat" />
 
         {/* ===== PILLAR B: MOAT ===== */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 2.5vw, 36px)' }}>
-          <div className="text-center">
-            <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR B</Badge>
-            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>The Thesis: Four Truths</h2>
-            <p className="text-gray-500 mt-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Why VALID is inevitable</p>
-          </div>
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(28px, 3vw, 44px)' }}>
+          <SectionHeader 
+            icon={Shield} 
+            label="PILLAR B — MOAT" 
+            title="The Thesis: Four Truths"
+            subtitle="Why VALID is inevitable"
+          />
 
-          <div className="grid md:grid-cols-2" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+          <div className="grid md:grid-cols-2" style={{ gap: 'clamp(20px, 2vw, 32px)' }}>
             {[
               { num: "01", title: "We Own the Trust Layer", text: "Every high-stakes interaction requires portable, instant trust verification." },
               { num: "02", title: "Platform, Not Product", text: "Kits and checks are on-ramps. The verified network is the moat." },
               { num: "03", title: "Revenue Compounds", text: "Venues → members → wallets → venues. Flywheel, not funnel." },
               { num: "04", title: "Regulation is Our Friend", text: "As liability laws tighten, we become mandatory infrastructure." },
             ].map((item, idx) => (
-              <div key={idx} className="bg-black/40 border border-white/10 rounded-lg hover:border-purple-500/30 transition-all" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-                <div className="flex items-start" style={{ gap: 'clamp(12px, 1.2vw, 20px)' }}>
-                  <span className="font-bold text-purple-500/50 font-orbitron" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)' }}>{item.num}</span>
+              <div key={idx} className="bg-black/50 border border-white/10 rounded-xl hover:border-purple-500/40 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <div className="flex items-start" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+                  <span className="font-bold text-purple-500/60 font-orbitron" style={{ fontSize: 'clamp(24px, 2vw, 36px)' }}>{item.num}</span>
                   <div>
-                    <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>{item.title}</h4>
-                    <p className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 18px)', lineHeight: '1.5' }}>{item.text}</p>
+                    <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(8px, 0.8vw, 14px)' }}>{item.title}</h4>
+                    <p className="text-gray-300" style={{ fontSize: 'clamp(16px, 1.1vw, 20px)', lineHeight: '1.55' }}>{item.text}</p>
                   </div>
                 </div>
               </div>
@@ -424,18 +445,20 @@ const PitchDeck = () => {
         <SectionDivider label="Revenue Model" />
 
         {/* ===== PILLAR C: REVENUE MODEL / SMART SPLIT ===== */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(24px, 3vw, 44px)' }}>
-          <div className="text-center">
-            <Badge className="bg-green-500/20 text-green-400 border-green-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR C</Badge>
-            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Stop Losing Money. Start Making It.</h2>
-            <p className="text-gray-400 mt-3 max-w-3xl mx-auto" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
-              Every Ghost™ Pass purchase is pre-funded, fee-free, and splits revenue automatically—turning verification into a profit center.
-            </p>
-          </div>
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(32px, 4vw, 52px)' }}>
+          <SectionHeader 
+            icon={DollarSign} 
+            label="PILLAR C — ECONOMICS" 
+            title="Stop Losing Money. Start Making It."
+            subtitle="Every Ghost™ Pass purchase is pre-funded, fee-free, and splits revenue automatically—turning verification into a profit center."
+          />
 
-          {/* HOW THE SPLIT WORKS */}
-          <div className="bg-gradient-to-br from-green-950/40 to-cyan-950/30 border border-green-500/30 rounded-xl" style={{ padding: 'clamp(24px, 2.5vw, 40px)' }}>
-            <h3 className="font-bold text-green-400 tracking-[1px] uppercase text-center" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}>
+          {/* HOW THE SPLIT WORKS - System Diagram Style */}
+          <div className="relative bg-gradient-to-br from-green-950/40 to-cyan-950/30 border border-green-500/30 rounded-2xl overflow-hidden" style={{ padding: 'clamp(32px, 3vw, 48px)' }}>
+            {/* Subtle edge glow */}
+            <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_40px_rgba(34,197,94,0.1)]" />
+            
+            <h3 className="font-bold text-green-400 tracking-[0.15em] uppercase text-center relative z-10" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)', marginBottom: 'clamp(20px, 2vw, 32px)' }}>
               How The Split Works (Per Pass Purchase)
             </h3>
 
@@ -729,41 +752,157 @@ const PitchDeck = () => {
             </Accordion>
           </div>
 
-          {/* Roadmap to 2027 */}
-          <div className="bg-black/60 border border-cyan-500/30 rounded-xl text-center" style={{ padding: 'clamp(24px, 3vw, 48px)' }}>
-            <h3 className="tracking-[2px] uppercase text-cyan-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Roadmap to 2027</h3>
-            <p className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(26px, 2.5vw, 40px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>
-              {futureReadyText}
-              <span className={`inline-block w-[3px] h-[1em] bg-cyan-400 ml-1 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`}></span>
-            </p>
-            <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>Your Spatial Verification Partner</p>
-            
-            <Accordion type="single" collapsible className="mt-6 text-left">
-              <AccordionItem value="roadmap" className="border-white/10">
-                <AccordionTrigger className="text-gray-400 hover:text-white justify-center" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>
-                  Beyond the QR: Sensing Roadmap
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="grid md:grid-cols-3 pt-4" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
-                    <div className="bg-cyan-950/30 border border-cyan-500/30 rounded-lg" style={{ padding: 'clamp(16px, 1.5vw, 28px)' }}>
-                      <Zap className="text-cyan-400" style={{ width: 'clamp(22px, 1.8vw, 30px)', height: 'clamp(22px, 1.8vw, 30px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
-                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>UWB</h4>
-                      <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>Zero-click access. Phone stays in pocket.</p>
-                    </div>
-                    <div className="bg-purple-950/30 border border-purple-500/30 rounded-lg" style={{ padding: 'clamp(16px, 1.5vw, 28px)' }}>
-                      <Radio className="text-purple-400" style={{ width: 'clamp(22px, 1.8vw, 30px)', height: 'clamp(22px, 1.8vw, 30px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
-                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>NFC Type-F</h4>
-                      <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>0.1 sec tap. Stadium-ready.</p>
-                    </div>
-                    <div className="bg-green-950/30 border border-green-500/30 rounded-lg" style={{ padding: 'clamp(16px, 1.5vw, 28px)' }}>
-                      <Fingerprint className="text-green-400" style={{ width: 'clamp(22px, 1.8vw, 30px)', height: 'clamp(22px, 1.8vw, 30px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
-                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>Bio-Hash</h4>
-                      <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>You are the wallet. No phone needed.</p>
-                    </div>
+          {/* ===== ROADMAP TO 2027: SPATIAL VERIFICATION NETWORK ===== */}
+          <div className="relative overflow-hidden rounded-2xl" style={{ padding: 'clamp(32px, 4vw, 64px)', background: 'linear-gradient(135deg, rgba(0,50,80,0.6) 0%, rgba(0,0,0,0.9) 50%, rgba(30,0,60,0.4) 100%)', border: '1px solid rgba(0,229,229,0.4)' }}>
+            {/* Background spatial grid effect */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,229,229,0.3)_0%,transparent_50%)]"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(139,92,246,0.2)_0%,transparent_50%)]"></div>
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+            </div>
+
+            <div className="relative z-10">
+              {/* Section Header */}
+              <div className="text-center mb-8">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <MapPin className="text-cyan-400" style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
+                  <span className="tracking-[0.25em] uppercase text-cyan-400 font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>ROADMAP</span>
+                </div>
+                <h3 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(28px, 2.4vw, 44px)', marginBottom: 'clamp(8px, 1vw, 16px)' }}>
+                  Roadmap to 2027: Spatial Verification Network
+                </h3>
+                <p className="text-gray-300" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>
+                  {futureReadyText}
+                  <span className={`inline-block w-[3px] h-[0.9em] bg-cyan-400 ml-1 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`}></span>
+                </p>
+              </div>
+
+              {/* Timeline Visual */}
+              <div className="grid lg:grid-cols-[1fr_2fr] gap-8 items-start" style={{ marginBottom: 'clamp(32px, 4vw, 48px)' }}>
+                {/* LEFT: Timeline with glowing nodes */}
+                <div className="relative">
+                  {/* Gradient line */}
+                  <div className="absolute left-6 top-6 bottom-6 w-1 bg-gradient-to-b from-cyan-400 via-purple-500 to-green-400 rounded-full shadow-[0_0_20px_rgba(0,229,229,0.5)]" />
+                  
+                  {/* Timeline items */}
+                  <div className="space-y-8">
+                    {[
+                      { year: "2025", label: "Launch", outcome: "50+ Venues Live", color: "cyan", active: true },
+                      { year: "2026", label: "Scale", outcome: "500 Venues · UWB Pilots", color: "purple" },
+                      { year: "2027", label: "Network", outcome: "Spatial Utility Standard", color: "green" },
+                    ].map((milestone, idx) => (
+                      <div key={idx} className="flex items-start gap-4">
+                        {/* Glowing node */}
+                        <div className={`relative flex-shrink-0 w-12 h-12 rounded-full border-2 flex items-center justify-center ${
+                          milestone.active 
+                            ? 'bg-cyan-500/30 border-cyan-400 shadow-[0_0_25px_rgba(0,229,229,0.6)]' 
+                            : milestone.color === 'purple' 
+                              ? 'bg-purple-500/20 border-purple-400/50' 
+                              : 'bg-green-500/20 border-green-400/50'
+                        }`}>
+                          {milestone.active && (
+                            <span className="absolute inset-0 rounded-full bg-cyan-400/30 animate-ping" />
+                          )}
+                          <CircleDot className={`w-5 h-5 ${
+                            milestone.color === 'cyan' ? 'text-cyan-400' : 
+                            milestone.color === 'purple' ? 'text-purple-400' : 'text-green-400'
+                          }`} />
+                        </div>
+                        
+                        {/* Content */}
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`font-bold font-orbitron ${
+                              milestone.color === 'cyan' ? 'text-cyan-400' : 
+                              milestone.color === 'purple' ? 'text-purple-400' : 'text-green-400'
+                            }`} style={{ fontSize: 'clamp(18px, 1.4vw, 24px)' }}>{milestone.year}</span>
+                            <span className="text-white font-semibold" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>· {milestone.label}</span>
+                          </div>
+                          <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{milestone.outcome}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                </div>
+
+                {/* RIGHT: Hero card with headline */}
+                <div className="bg-gradient-to-br from-cyan-950/50 to-purple-950/30 border border-cyan-500/30 rounded-xl relative overflow-hidden" style={{ padding: 'clamp(28px, 3vw, 48px)' }}>
+                  {/* Subtle radar/beacon visual */}
+                  <div className="absolute top-0 right-0 w-64 h-64 opacity-20">
+                    <div className="absolute inset-0 rounded-full border border-cyan-400/30 animate-pulse" />
+                    <div className="absolute inset-4 rounded-full border border-cyan-400/20" />
+                    <div className="absolute inset-8 rounded-full border border-cyan-400/10" />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <Sparkles className="text-cyan-400 mb-4" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)' }} />
+                    <h4 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(22px, 1.8vw, 32px)', marginBottom: 'clamp(12px, 1.2vw, 20px)', lineHeight: '1.2' }}>
+                      Verification Center → Network Utility
+                    </h4>
+                    <p className="text-gray-300" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
+                      From scanning QR codes to seamless spatial verification—where your identity flows with you, verified in real-time without friction.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Beyond QR: Tech Roadmap */}
+              <div className="mb-8">
+                <h4 className="text-center tracking-[0.15em] uppercase text-gray-400 font-semibold mb-6" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+                  Beyond the QR: Sensing Technology
+                </h4>
+                <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 28px)' }}>
+                  <div className="bg-black/50 border border-cyan-500/30 rounded-xl relative overflow-hidden group hover:border-cyan-400/60 transition-all" style={{ padding: 'clamp(24px, 2vw, 36px)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Zap className="text-cyan-400 relative z-10" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                    <h5 className="font-bold text-white relative z-10" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>UWB</h5>
+                    <p className="text-gray-300 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Zero-click access. Phone stays in pocket.</p>
+                  </div>
+                  <div className="bg-black/50 border border-purple-500/30 rounded-xl relative overflow-hidden group hover:border-purple-400/60 transition-all" style={{ padding: 'clamp(24px, 2vw, 36px)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Radio className="text-purple-400 relative z-10" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                    <h5 className="font-bold text-white relative z-10" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>NFC Type-F</h5>
+                    <p className="text-gray-300 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>0.1 sec tap. Stadium-ready throughput.</p>
+                  </div>
+                  <div className="bg-black/50 border border-green-500/30 rounded-xl relative overflow-hidden group hover:border-green-400/60 transition-all" style={{ padding: 'clamp(24px, 2vw, 36px)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Fingerprint className="text-green-400 relative z-10" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                    <h5 className="font-bold text-white relative z-10" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Bio-Hash</h5>
+                    <p className="text-gray-300 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>You are the wallet. No phone needed.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Partner-Ready Badges */}
+              <div className="flex flex-wrap justify-center" style={{ gap: 'clamp(12px, 1.5vw, 20px)' }}>
+                {[
+                  { label: "Gov-Ready", icon: Shield, color: "cyan" },
+                  { label: "Healthcare-Ready", icon: Heart, color: "green" },
+                  { label: "Hospitality-Ready", icon: Building2, color: "purple" },
+                ].map((badge, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`flex items-center gap-3 rounded-full border ${
+                      badge.color === 'cyan' ? 'bg-cyan-500/10 border-cyan-500/40' :
+                      badge.color === 'green' ? 'bg-green-500/10 border-green-500/40' :
+                      'bg-purple-500/10 border-purple-500/40'
+                    }`}
+                    style={{ padding: 'clamp(12px, 1.2vw, 18px) clamp(20px, 2vw, 32px)', height: 'clamp(52px, 4vw, 64px)' }}
+                  >
+                    <badge.icon className={`${
+                      badge.color === 'cyan' ? 'text-cyan-400' :
+                      badge.color === 'green' ? 'text-green-400' :
+                      'text-purple-400'
+                    }`} style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)' }} />
+                    <span className={`font-bold ${
+                      badge.color === 'cyan' ? 'text-cyan-400' :
+                      badge.color === 'green' ? 'text-green-400' :
+                      'text-purple-400'
+                    }`} style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>{badge.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 

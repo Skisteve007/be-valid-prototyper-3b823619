@@ -22,10 +22,10 @@ const Hero = () => {
   usePageViewTracking('/');
 
   const signalModes = {
-    social: { icon: Users, label: 'SOCIAL', color: 'cyan' },
-    pulse: { icon: Activity, label: 'PULSE', color: 'green' },
-    thrill: { icon: Zap, label: 'THRILL', color: 'orange' },
-    afterdark: { icon: Moon, label: 'AFTER DARK', color: 'purple' },
+    social: { icon: Users, label: 'SOCIAL', color: 'cyan', description: 'Open to connect. Share contacts and socials with one scan.' },
+    pulse: { icon: Activity, label: 'PULSE', color: 'green', description: 'Broadcasting your energy. Let others find your vibe.' },
+    thrill: { icon: Zap, label: 'THRILL', color: 'orange', description: 'Adventure mode activated. Ready for spontaneous connections.' },
+    afterdark: { icon: Moon, label: 'AFTER DARK', color: 'purple', description: 'Ghost Protocol engaged. Selective visibility only.' },
   };
 
   const handleAccessClick = async () => {
@@ -201,9 +201,14 @@ const Hero = () => {
                     );
                   })}
                 </div>
-                {/* Chip Description */}
-                <p className="text-sm text-cyan-400">
-                  Open to connect. Share contacts and socials with one scan.
+                {/* Chip Description - Dynamic based on active signal */}
+                <p className={`text-sm transition-colors duration-300 ${
+                  activeSignal === 'social' ? 'text-cyan-400' :
+                  activeSignal === 'pulse' ? 'text-green-400' :
+                  activeSignal === 'thrill' ? 'text-orange-400' :
+                  'text-purple-400'
+                }`}>
+                  {signalModes[activeSignal].description}
                 </p>
               </div>
             </div>

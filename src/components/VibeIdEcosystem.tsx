@@ -132,8 +132,44 @@ const VibeIdEcosystem = ({ isDark = true, variant = 'b2c' }: VibeIdEcosystemProp
               ${isDark ? 'text-cyan-400' : 'text-slate-600'}`}>
               {description}
             </p>
+
+            {/* Signal Mode Pill Buttons */}
+            <div className="flex flex-wrap gap-3 mb-6">
+              {(Object.keys(signalModes) as SignalMode[]).map((mode) => {
+                const modeConfig = signalModes[mode];
+                const isActive = activeMode === mode;
+                return (
+                  <button
+                    key={mode}
+                    onClick={() => setActiveMode(mode)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-semibold tracking-wide uppercase transition-all duration-300
+                      ${isActive
+                        ? `${modeConfig.borderColor} ${modeConfig.color} bg-gradient-to-r ${modeConfig.bgGradient} ${modeConfig.glowColor}`
+                        : isDark
+                          ? 'border-white/20 text-white/60 hover:border-white/40 hover:text-white/80'
+                          : 'border-slate-300 text-slate-500 hover:border-slate-400 hover:text-slate-700'
+                      }`}
+                  >
+                    {modeConfig.icon}
+                    <span>{modeConfig.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Mode Description Panel */}
+            <div className={`p-5 rounded-xl border transition-all duration-500 ${currentMode.borderColor} bg-gradient-to-br ${currentMode.bgGradient}`}>
+              <div className={`text-xs font-mono tracking-widest uppercase mb-2 ${currentMode.color}`}>
+                {currentMode.statusText}
+              </div>
+              <h3 className={`text-xl font-bold mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                {currentMode.tagline}
+              </h3>
+              <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+                {currentMode.description}
+              </p>
+            </div>
             
-            {/* Adaptive Profile Sub-headline */}
             {/* Identity Control Messaging */}
             <p className={`text-lg md:text-xl leading-relaxed max-w-xl mt-6 tracking-[0.04em]
               ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>

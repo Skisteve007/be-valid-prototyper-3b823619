@@ -1,7 +1,7 @@
 // Pipeline Test v2: Fresh deployment - Dec 14, 2024 @ 15:42 UTC
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Globe, Ghost, Shield, Lock } from 'lucide-react';
+import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import Hero from "@/components/Hero";
@@ -251,7 +251,7 @@ const Index = () => {
   );
 };
 
-// --- FEATURE CARD COMPONENT ---
+// --- FEATURE CARD COMPONENT (Collapsible) ---
 interface FeatureCardProps {
   isDark: boolean;
   icon: React.ReactNode;
@@ -262,45 +262,65 @@ interface FeatureCardProps {
   colorDampen?: 'purple' | 'green';
 }
 
-const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage, colorDampen }: FeatureCardProps) => (
-  <div className={`p-8 rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden
-    ${isDark 
-      ? 'bg-black border-cyan-500/60' 
-      : 'bg-white border-slate-200'}`}>
-    
-    {/* Background Image - Much higher opacity */}
-    {backgroundImage && (
-      <div 
-        className="absolute inset-0 opacity-70 transition-opacity duration-500"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-    )}
-    
-    {/* Color dampening overlay for overly bright images */}
-    {colorDampen === 'purple' && (
-      <div className="absolute inset-0 bg-black/30" style={{ mixBlendMode: 'saturation' }} />
-    )}
-    {colorDampen === 'green' && (
-      <div className="absolute inset-0 bg-black/25" style={{ mixBlendMode: 'saturation' }} />
-    )}
-    
-    {/* Subtle gradient overlay - only at bottom for text readability */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-    
-    {/* Content overlay */}
-    <div className="relative z-10">
-      <h3 className={`text-2xl md:text-3xl font-bold mb-4 font-orbitron ${isDark ? 'text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]' : 'text-slate-900'}`}>
-        {title}
-      </h3>
-      <p className={`leading-relaxed text-base md:text-lg ${isDark ? 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]' : 'text-slate-600'}`}>
-        {desc}
-      </p>
+const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage, colorDampen }: FeatureCardProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  return (
+    <div 
+      onClick={() => setIsExpanded(!isExpanded)}
+      className={`rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden cursor-pointer
+        ${isDark 
+          ? 'bg-black border-cyan-500/60 hover:border-cyan-400' 
+          : 'bg-white border-slate-200 hover:border-slate-300'}`}
+    >
+      {/* Background Image - Much higher opacity */}
+      {backgroundImage && (
+        <div 
+          className="absolute inset-0 opacity-70 transition-opacity duration-500"
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+      )}
+      
+      {/* Color dampening overlay for overly bright images */}
+      {colorDampen === 'purple' && (
+        <div className="absolute inset-0 bg-black/30" style={{ mixBlendMode: 'saturation' }} />
+      )}
+      {colorDampen === 'green' && (
+        <div className="absolute inset-0 bg-black/25" style={{ mixBlendMode: 'saturation' }} />
+      )}
+      
+      {/* Subtle gradient overlay - only at bottom for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+      
+      {/* Content overlay */}
+      <div className="relative z-10 p-6">
+        {/* Header - Always visible */}
+        <div className="flex items-center justify-between">
+          <h3 className={`text-xl md:text-2xl font-bold font-orbitron ${isDark ? 'text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]' : 'text-slate-900'}`}>
+            {title}
+          </h3>
+          <ChevronDown 
+            className={`w-5 h-5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''} ${isDark ? 'text-cyan-400' : 'text-slate-600'}`}
+          />
+        </div>
+        
+        {/* Description - Collapsible */}
+        <div 
+          className={`overflow-hidden transition-all duration-300 ease-out ${
+            isExpanded ? 'max-h-40 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'
+          }`}
+        >
+          <p className={`leading-relaxed text-base md:text-lg ${isDark ? 'text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]' : 'text-slate-600'}`}>
+            {desc}
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Index;

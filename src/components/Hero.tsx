@@ -252,9 +252,17 @@ const Hero = () => {
                 </span>
               </div>
               
-              <p className="text-sm sm:text-base text-white leading-relaxed mb-8 text-center lg:text-left">
-                QR Code Encrypted. Ghost™ Tokens™... Secure Your Payment Info, Your Health Records And Your Identification. We Make Your Life More Fluid And Safe, With You In Complete Control Of What You're Going To Choose To Share. Your Privacy And Control.
-              </p>
+              <div className="text-sm sm:text-base text-white leading-relaxed mb-8 text-center lg:text-left space-y-3">
+                <p className="text-cyan-400 font-bold tracking-widest">
+                  Encrypted. &nbsp; Tokenized. &nbsp; Untouchable.
+                </p>
+                <p>
+                  Ghost™ Tokens™ secure your payments, health records, and ID — all encrypted, all portable, all yours.
+                </p>
+                <p>
+                  Your life stays fluid. &nbsp; Your data stays locked. &nbsp; You decide what gets shared.
+                </p>
+              </div>
 
               {/* Signal Share Label */}
               <p className="text-xl sm:text-2xl font-mono tracking-widest text-cyan-400 uppercase mb-2 text-center lg:text-left">

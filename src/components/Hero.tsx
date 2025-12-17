@@ -257,7 +257,7 @@ const Hero = () => {
                 </span>
               </div>
               
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 text-center lg:text-left">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-8 text-center lg:text-left">
                 QR Code Encrypted. Ghost Tokens... Secure Your Payment Info, Your Health Records And Your Identification. We Make Your Life More Fluid, With You In Complete Control Of What You're Going To Choose To Share. Your Privacy And Control.
               </p>
 

@@ -18,10 +18,10 @@ import PitchCarousel from "@/components/admin/PitchCarousel";
 // Pitch deck slide images
 const pitchDeckImages = [
   '/images/pitch/slide-01.jpg',
-  '/images/pitch/slide-02.jpg',
+  '/images/pitch/slide-02.jpg?v=20251217',
   '/images/pitch/slide-03.jpg',
   '/images/pitch/slide-04.jpg',
-  '/images/pitch/slide-05.jpg',
+  '/images/pitch/slide-05.jpg?v=20251217',
   '/images/pitch/slide-06.jpg',
   '/images/pitch/slide-07.jpg',
   '/images/pitch/slide-08.jpg',

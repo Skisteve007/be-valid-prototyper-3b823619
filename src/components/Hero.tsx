@@ -203,10 +203,20 @@ const Hero = () => {
             <div className="order-2 lg:order-1 text-center lg:text-left">
               
               {/* Powered By Line */}
-              <p className="text-xs font-mono tracking-[0.3em] text-cyan-400/80 uppercase mb-6">
+              <p className="text-xs font-mono tracking-[0.3em] text-cyan-400/80 uppercase mb-2">
                 POWERED BY SYNTHESIZED AI
               </p>
-
+              
+              {/* Universal Lifestyle Key - Script Style */}
+              <p 
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl italic font-light mb-6 text-white/90"
+                style={{
+                  fontStyle: 'italic',
+                  textShadow: '0 0 20px rgba(255,255,255,0.2)',
+                }}
+              >
+                Universal Lifestyle Key
+              </p>
               {/* Main Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black font-display tracking-tight mb-4">
                 <span 

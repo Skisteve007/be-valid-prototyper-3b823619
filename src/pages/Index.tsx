@@ -13,6 +13,7 @@ import militaryFortressImg from "@/assets/military-fortress-card.jpg";
 import acceptedAnywhereImg from "@/assets/accepted-anywhere-card.jpg";
 import yourDataRulesImg from "@/assets/your-data-your-rules-card.jpg";
 import instantFinancialImg from "@/assets/instant-financial-card.jpg";
+import vplBgImg from "@/assets/vpl-bg.jpg";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -194,18 +195,27 @@ const Index = () => {
         </div>
       </section>
 
-      {/* PIPELINE, NOT VAULT - Trust Enhancer */}
-      <section className={`py-16 px-4 relative z-10 border-b transition-colors duration-500
-        ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className={`text-2xl md:text-3xl font-bold mb-4 font-orbitron
-            ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            Pipeline, <span className="text-cyan-400">Not Vault.</span>
-          </h2>
-          <p className={`text-lg leading-relaxed
-            ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
-            We Verify In The Moment, Then Release — We Don't Warehouse Your Personal Data.
-          </p>
+      {/* PIPELINE, NOT VAULT - Trust Enhancer with Image Background */}
+      <section className="relative z-10 overflow-hidden">
+        <div 
+          className="relative w-full"
+          style={{
+            backgroundImage: `url(${vplBgImg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          {/* Content positioned at bottom of image */}
+          <div className="min-h-[400px] md:min-h-[500px] flex flex-col justify-end">
+            <div className="px-4 pb-12 pt-32 text-center bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+              <h2 className="text-2xl md:text-4xl font-bold mb-4 font-orbitron text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                Pipeline, <span className="text-cyan-400">Not Vault.</span>
+              </h2>
+              <p className="text-lg md:text-xl leading-relaxed text-white/90 max-w-2xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                We Verify In The Moment, Then Release — We Don't Warehouse Your Personal Data.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

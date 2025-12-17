@@ -26,25 +26,61 @@ const Hero = () => {
   
   usePageViewTracking('/');
 
-  // Animated counter effect
+  // Fetch real visitor count and animate to it
   useEffect(() => {
-    const target = 528;
-    const duration = 2000; // 2 seconds
-    const steps = 60;
-    const increment = target / steps;
-    let current = 0;
-    
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        setCounter(target);
-        clearInterval(timer);
-      } else {
-        setCounter(Math.floor(current));
+    const fetchAndAnimateCounter = async () => {
+      try {
+        // Fetch current visitor count from global_stats
+        const { data, error } = await supabase
+          .from('global_stats')
+          .select('stat_value')
+          .eq('stat_key', 'total_visitors')
+          .single();
+        
+        const target = error || !data ? 1144 : (data.stat_value || 1144);
+        
+        // Animate counter to target
+        const duration = 2000;
+        const steps = 60;
+        const increment = target / steps;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            setCounter(target);
+            clearInterval(timer);
+          } else {
+            setCounter(Math.floor(current));
+          }
+        }, duration / steps);
+        
+        return () => clearInterval(timer);
+      } catch (err) {
+        console.error('Error fetching visitor count:', err);
+        setCounter(1144);
       }
-    }, duration / steps);
-    
-    return () => clearInterval(timer);
+    };
+
+    fetchAndAnimateCounter();
+
+    // Subscribe to real-time updates
+    const channel = supabase
+      .channel('visitor-counter')
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'global_stats', filter: 'stat_key=eq.total_visitors' },
+        (payload) => {
+          if (payload.new && typeof payload.new.stat_value === 'number') {
+            setCounter(payload.new.stat_value);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   // Auto-rotate signals every 4 seconds

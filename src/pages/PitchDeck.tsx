@@ -16,6 +16,7 @@ import {
   Target,
   Zap,
   ArrowRight,
+  ArrowRightLeft,
   Check,
   X,
   ShieldCheck,
@@ -36,8 +37,12 @@ import {
   Radio,
   Phone,
   AlertTriangle,
+  AlertCircle,
   ChevronDown,
-  FileText
+  FileText,
+  PiggyBank,
+  CreditCard,
+  Calendar
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -334,100 +339,115 @@ const PitchDeck = () => {
           </div>
         </section>
 
-        <SectionDivider label="Distribution" />
+        <SectionDivider label="Revenue Model" />
 
-        {/* ===== PILLAR C: DISTRIBUTION ===== */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 2.5vw, 36px)' }}>
+        {/* ===== PILLAR C: REVENUE MODEL / SMART SPLIT ===== */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(24px, 3vw, 44px)' }}>
           <div className="text-center">
-            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR C</Badge>
-            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Distribution: Zero-CAC Growth Engine</h2>
+            <Badge className="bg-green-500/20 text-green-400 border-green-500/50 mb-3" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', padding: 'clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 20px)' }}>PILLAR C</Badge>
+            <h2 className="font-bold font-orbitron" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Stop Losing Money. Start Making It.</h2>
+            <p className="text-gray-400 mt-3 max-w-3xl mx-auto" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
+              Every Ghost™ Pass purchase is pre-funded, fee-free, and splits revenue automatically—turning verification into a profit center.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
-            <div className="bg-black/40 border border-amber-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-              <h4 className="font-bold text-amber-400 tracking-[1px] uppercase" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(12px, 1.2vw, 20px)' }}>Why We Don't Pay for Marketing</h4>
-              <ul className="text-gray-300 space-y-3" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
-                <li>• Decentralized promoter army sells for us</li>
-                <li>• Every QR share is organic distribution</li>
-              </ul>
-            </div>
-            <div className="bg-black/40 border border-cyan-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-              <h4 className="font-bold text-cyan-400 tracking-[1px] uppercase" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(12px, 1.2vw, 20px)' }}>Account Promoters</h4>
-              <ul className="text-gray-300 space-y-3" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
-                <li>• 10% of Access Pass (off top)</li>
-                <li>• Optional spend commissions (venue-paid)</li>
-              </ul>
-            </div>
-            <div className="bg-black/40 border border-green-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-              <h4 className="font-bold text-green-400 tracking-[1px] uppercase" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(12px, 1.2vw, 20px)' }}>Revenue Pool Distribution</h4>
-              <ul className="text-gray-300 space-y-3" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.45' }}>
-                <li>• Smart-Split at point of sale</li>
-                <li>• Weekly pro-rata venue payouts</li>
-              </ul>
-            </div>
-          </div>
+          {/* HOW THE SPLIT WORKS */}
+          <div className="bg-gradient-to-br from-green-950/40 to-cyan-950/30 border border-green-500/30 rounded-xl" style={{ padding: 'clamp(24px, 2.5vw, 40px)' }}>
+            <h3 className="font-bold text-green-400 tracking-[1px] uppercase text-center" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(20px, 2vw, 32px)' }}>
+              How The Split Works (Per Pass Purchase)
+            </h3>
+            
+            <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+              {/* 10% Promoter */}
+              <div className="bg-black/50 border border-amber-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-bold text-amber-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>10%</span>
+                  <Users className="text-amber-400" style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
+                </div>
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Promoter / Account Manager</h4>
+                <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                  Paid only if a promoter or account manager exists for that buyer or venue.
+                </p>
+              </div>
 
-          <Accordion type="single" collapsible>
-            <AccordionItem value="waterfall" className="border-white/10">
-              <AccordionTrigger className="text-sm text-gray-400 hover:text-white">
-                View Revenue Waterfall & Pool Charts
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="grid lg:grid-cols-2 gap-6 pt-4">
-                  <div className="bg-black/40 border border-cyan-500/20 rounded-xl p-4">
-                    <h5 className="text-sm font-bold text-white mb-2">Stage 1: Revenue Waterfall ($100 sale)</h5>
-                    <div className="h-[200px] w-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={[
-                          { name: 'Promoter', value: 10 },
-                          { name: 'VALID™', value: 60 },
-                          { name: 'Venue Pool', value: 30 },
-                        ]}>
-                          <XAxis dataKey="name" tick={{ fill: '#9ca3af', fontSize: 10 }} axisLine={{ stroke: '#374151' }} />
-                          <YAxis tick={{ fill: '#9ca3af', fontSize: 10 }} tickFormatter={(v) => `$${v}`} />
-                          <Bar dataKey="value">
-                            <Cell fill="#f59e0b" />
-                            <Cell fill="#22d3ee" />
-                            <Cell fill="#22c55e" />
-                          </Bar>
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
+              {/* 30% Pass Pool */}
+              <div className="bg-black/50 border border-cyan-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-bold text-cyan-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>30%</span>
+                  <PiggyBank className="text-cyan-400" style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
+                </div>
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Pass Pool</h4>
+                <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                  Deposited into the Pass Pool. Paid out weekly to participating venues based on verified attendance (where patrons actually check in).
+                </p>
+              </div>
+
+              {/* 60% Direct Split */}
+              <div className="bg-black/50 border border-green-500/30 rounded-lg" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-bold text-green-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>60%</span>
+                  <ArrowRightLeft className="text-green-400" style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
+                </div>
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Direct Split</h4>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+                    <span>→ Venue (immediate)</span>
+                    <span className="font-bold text-green-400">30%</span>
                   </div>
-                  <div className="bg-black/40 border border-green-500/20 rounded-xl p-4">
-                    <h5 className="text-sm font-bold text-white mb-2">Stage 2: Venue Pool Split ($30)</h5>
-                    <div className="h-[200px] w-full relative">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Pie
-                            data={[
-                              { name: 'Venue A', value: 7.5 },
-                              { name: 'Venue B', value: 7.5 },
-                              { name: 'Venue C', value: 7.5 },
-                              { name: 'Venue D', value: 7.5 },
-                            ]}
-                            cx="50%" cy="50%" innerRadius={40} outerRadius={70}
-                            dataKey="value" paddingAngle={3}
-                          >
-                            <Cell fill="#06b6d4" />
-                            <Cell fill="#8b5cf6" />
-                            <Cell fill="#f59e0b" />
-                            <Cell fill="#ec4899" />
-                          </Pie>
-                        </PieChart>
-                      </ResponsiveContainer>
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div className="text-center">
-                          <div className="text-lg font-bold text-green-400">$30</div>
-                          <div className="text-xs text-gray-400">POOL</div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="flex items-center justify-between text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+                    <span>→ VALID™ (platform)</span>
+                    <span className="font-bold text-cyan-400">30%</span>
                   </div>
                 </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+              </div>
+            </div>
+          </div>
+
+          {/* NO PROMOTER REALLOCATION */}
+          <div className="bg-black/40 border border-amber-500/20 rounded-xl" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+            <div className="flex items-start" style={{ gap: 'clamp(12px, 1.5vw, 20px)' }}>
+              <div className="bg-amber-500/20 rounded-full flex-shrink-0" style={{ padding: 'clamp(10px, 1vw, 14px)' }}>
+                <AlertCircle className="text-amber-400" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+              </div>
+              <div>
+                <h4 className="font-bold text-amber-400" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>No Promoter? (10% Reallocation)</h4>
+                <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', lineHeight: '1.5' }}>
+                  If no promoter/account manager is assigned, that 10% is not lost: <span className="text-green-400 font-semibold">5% goes to the Venue</span> and <span className="text-cyan-400 font-semibold">5% goes to VALID™</span>. Totals always equal 100%.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* WHY THIS MATTERS */}
+          <div>
+            <h3 className="font-bold text-white text-center" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}>Why This Matters (Operator Benefits)</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-5" style={{ gap: 'clamp(12px, 1.2vw, 20px)' }}>
+              {[
+                { icon: CreditCard, text: "0% credit card fees", sub: "Pre-funded wallet architecture" },
+                { icon: ShieldCheck, text: "Chargeback immunity", sub: "No card dispute risk" },
+                { icon: Zap, text: "Instant funds verification", sub: "No batch delays" },
+                { icon: Calendar, text: "Weekly Pool payouts", sub: "Based on real foot traffic" },
+                { icon: TrendingUp, text: "Verification = Revenue", sub: "Not a cost center" },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-black/40 border border-white/10 rounded-lg text-center hover:border-green-500/30 transition-all" style={{ padding: 'clamp(16px, 1.5vw, 24px)' }}>
+                  <item.icon className="text-green-400 mx-auto" style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }} />
+                  <p className="font-bold text-white" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(4px, 0.4vw, 6px)' }}>{item.text}</p>
+                  <p className="text-gray-500" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>{item.sub}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center" style={{ marginTop: 'clamp(12px, 1.5vw, 24px)' }}>
+            <Button 
+              onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}
+              className="bg-gradient-to-r from-green-500 to-cyan-500 text-black font-bold rounded-full hover:scale-105 transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)]"
+              style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', padding: 'clamp(12px, 1.2vw, 20px) clamp(24px, 2.5vw, 40px)' }}
+            >
+              Request Wallet Integration Demo
+            </Button>
+          </div>
         </section>
 
         <SectionDivider label="Economics & Defensibility" />

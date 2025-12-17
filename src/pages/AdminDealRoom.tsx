@@ -446,10 +446,10 @@ const AdminDealRoom = () => {
       <div className="container mx-auto px-4 py-12">
         {/* Page Title */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-4 font-orbitron tracking-wider">
+          <h1 className="text-4xl md:text-6xl font-black mb-4 font-orbitron tracking-wider bg-gradient-to-r from-white via-cyan-200 to-white bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.5)] [text-shadow:_0_4px_20px_rgba(0,200,255,0.4),_0_8px_40px_rgba(0,0,0,0.8)] transform perspective-1000 hover:scale-105 transition-transform duration-300">
             DEAL ROOM
           </h1>
-          <p className="text-cyan-400 font-mono tracking-widest text-sm">
+          <p className="text-cyan-400 font-mono tracking-widest text-sm drop-shadow-[0_0_10px_rgba(0,200,255,0.5)]">
             INVESTOR PITCH DECK & SAFE CONTRACT GENERATOR
           </p>
         </div>
@@ -457,16 +457,17 @@ const AdminDealRoom = () => {
         {/* Pitch Deck Carousel */}
         <div className="max-w-5xl mx-auto mb-16">
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-white mb-2 font-orbitron tracking-wide">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-slate-300 via-white to-slate-300 bg-clip-text text-transparent mb-2 font-orbitron tracking-wide drop-shadow-[0_0_20px_rgba(192,192,192,0.6)]">
               PITCH DECK
             </h2>
             <p className="text-muted-foreground text-sm">
               Auto-advances every 8 seconds • Hover to pause • Click arrows or swipe to navigate
             </p>
           </div>
-          {/* 3D Gradient Container for Pitch Deck */}
-          <div className="relative p-1 rounded-2xl bg-gradient-to-br from-cyan-500/40 via-blue-600/30 to-purple-600/40 shadow-[0_0_40px_rgba(0,200,255,0.3),0_20px_60px_rgba(0,0,0,0.5)] transform perspective-1000 hover:scale-[1.01] transition-all duration-500">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-transparent via-white/5 to-white/10 pointer-events-none" />
+          {/* Silver Pulsating Glow Container for Pitch Deck */}
+          <div className="relative p-1.5 rounded-2xl bg-gradient-to-br from-slate-400/50 via-white/40 to-slate-400/50 shadow-[0_0_50px_rgba(192,192,192,0.5),0_0_100px_rgba(192,192,192,0.3)] animate-pulse transform perspective-1000 hover:scale-[1.01] transition-all duration-500">
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-transparent via-white/10 to-white/20 pointer-events-none animate-[pulse_2s_ease-in-out_infinite]" />
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-slate-300/30 via-white/40 to-slate-300/30 blur-xl animate-[pulse_3s_ease-in-out_infinite] -z-10" />
             <PitchCarousel images={pitchDeckImages} autoAdvanceMs={8000} />
           </div>
         </div>

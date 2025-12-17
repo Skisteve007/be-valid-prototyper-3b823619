@@ -18,8 +18,30 @@ const Hero = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
+  const [counter, setCounter] = useState(0);
   
   usePageViewTracking('/');
+
+  // Animated counter effect
+  useEffect(() => {
+    const target = 528;
+    const duration = 2000; // 2 seconds
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+    
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        setCounter(target);
+        clearInterval(timer);
+      } else {
+        setCounter(Math.floor(current));
+      }
+    }, duration / steps);
+    
+    return () => clearInterval(timer);
+  }, []);
 
   const signalModes = {
     social: { icon: Users, label: 'SOCIAL', color: 'cyan', description: 'Open to connect. Share contacts and socials with one scan.' },
@@ -252,9 +274,11 @@ const Hero = () => {
                 <span className="text-cyan-400">ZERO LIMITS.</span>
               </h2>
               {/* Counter Pill */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 border border-cyan-500/40 rounded-full bg-cyan-500/10">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span className="text-sm font-mono text-cyan-400">528</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 border border-red-500/60 rounded-full bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]"></span>
+                <span className="text-sm font-mono text-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]">
+                  {String(counter).padStart(9, '0').replace(/(\d{3})(\d{3})(\d{3})/, '$1,$2,$3')}
+                </span>
               </div>
             </div>
           </div>
@@ -263,57 +287,77 @@ const Hero = () => {
       </div>
 
       {/* ===== THE POWER BEHIND THE SIGNAL ===== */}
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-12">
-        <p className="text-xs font-mono tracking-widest text-cyan-400 mb-6 uppercase text-left">{t('hero.powerBehind')}</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-          {/* Card 1 - Scan */}
-          <div className="group relative p-6 lg:p-8 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
-            {/* Animated gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/30 via-cyan-500/10 to-blue-600/20 backdrop-blur-md" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            {/* Glowing border */}
-            <div className="absolute inset-0 rounded-2xl border border-cyan-400/50 group-hover:border-cyan-400 group-hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all duration-500" />
-            {/* Corner accent */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-cyan-400/30 to-transparent rounded-bl-full" />
-            {/* Content */}
-            <div className="relative z-10">
-              <span className="inline-block px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-cyan-500/30 text-cyan-300 rounded-full mb-3 border border-cyan-400/40">SOC 2</span>
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-2 drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]">Scan. You're in.</h3>
-              <p className="text-sm lg:text-base text-cyan-100/80 leading-relaxed">Instant entry at VALID™ venues—zero friction, total security.</p>
+      <div className="relative w-full py-12">
+        {/* Extended Earth Background */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url(/landing-hero-earth.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center 60%',
+            opacity: 0.5,
+          }}
+        />
+        <div className="absolute inset-0 z-0 bg-black/50" />
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.6) 100%)',
+          }}
+        />
+        
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-8">
+          <p className="text-xs font-mono tracking-widest text-cyan-400 mb-6 uppercase text-left">{t('hero.powerBehind')}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+            {/* Card 1 - Scan */}
+            <div className="group relative p-6 lg:p-8 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
+              {/* Animated gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/30 via-cyan-500/10 to-blue-600/20 backdrop-blur-md" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              {/* Glowing border */}
+              <div className="absolute inset-0 rounded-2xl border border-cyan-400/50 group-hover:border-cyan-400 group-hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all duration-500" />
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-cyan-400/30 to-transparent rounded-bl-full" />
+              {/* Content */}
+              <div className="relative z-10">
+                <span className="inline-block px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-cyan-500/30 text-cyan-300 rounded-full mb-3 border border-cyan-400/40">SOC 2</span>
+                <h3 className="text-xl lg:text-2xl font-bold text-white mb-2 drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]">Scan. You're in.</h3>
+                <p className="text-sm lg:text-base text-cyan-100/80 leading-relaxed">Instant entry at VALID™ venues—zero friction, total security.</p>
+              </div>
             </div>
-          </div>
-          
-          {/* Card 2 - Pay */}
-          <div className="group relative p-6 lg:p-8 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
-            {/* Animated gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/30 via-green-500/10 to-teal-600/20 backdrop-blur-md" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            {/* Glowing border */}
-            <div className="absolute inset-0 rounded-2xl border border-emerald-400/50 group-hover:border-emerald-400 group-hover:shadow-[0_0_30px_rgba(52,211,153,0.4)] transition-all duration-500" />
-            {/* Corner accent */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-emerald-400/30 to-transparent rounded-bl-full" />
-            {/* Content */}
-            <div className="relative z-10">
-              <span className="inline-block px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-emerald-500/30 text-emerald-300 rounded-full mb-3 border border-emerald-400/40">GDPR</span>
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-2 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]">Pay in a tap.</h3>
-              <p className="text-sm lg:text-base text-emerald-100/80 leading-relaxed">Lightning-fast checkout when every second counts.</p>
+            
+            {/* Card 2 - Pay */}
+            <div className="group relative p-6 lg:p-8 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
+              {/* Animated gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/30 via-green-500/10 to-teal-600/20 backdrop-blur-md" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              {/* Glowing border */}
+              <div className="absolute inset-0 rounded-2xl border border-emerald-400/50 group-hover:border-emerald-400 group-hover:shadow-[0_0_30px_rgba(52,211,153,0.4)] transition-all duration-500" />
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-emerald-400/30 to-transparent rounded-bl-full" />
+              {/* Content */}
+              <div className="relative z-10">
+                <span className="inline-block px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-emerald-500/30 text-emerald-300 rounded-full mb-3 border border-emerald-400/40">GDPR</span>
+                <h3 className="text-xl lg:text-2xl font-bold text-white mb-2 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]">Pay in a tap.</h3>
+                <p className="text-sm lg:text-base text-emerald-100/80 leading-relaxed">Lightning-fast checkout when every second counts.</p>
+              </div>
             </div>
-          </div>
-          
-          {/* Card 3 - Share */}
-          <div className="group relative p-6 lg:p-8 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
-            {/* Animated gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/30 via-violet-500/10 to-fuchsia-600/20 backdrop-blur-md" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            {/* Glowing border */}
-            <div className="absolute inset-0 rounded-2xl border border-purple-400/50 group-hover:border-purple-400 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-all duration-500" />
-            {/* Corner accent */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-purple-400/30 to-transparent rounded-bl-full" />
-            {/* Content */}
-            <div className="relative z-10">
-              <span className="inline-block px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-purple-500/30 text-purple-300 rounded-full mb-3 border border-purple-400/40">CCPA</span>
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-2 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">Share on your terms.</h3>
-              <p className="text-sm lg:text-base text-purple-100/80 leading-relaxed">Reveal only what's needed, when you choose.</p>
+            
+            {/* Card 3 - Share */}
+            <div className="group relative p-6 lg:p-8 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
+              {/* Animated gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/30 via-violet-500/10 to-fuchsia-600/20 backdrop-blur-md" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              {/* Glowing border */}
+              <div className="absolute inset-0 rounded-2xl border border-purple-400/50 group-hover:border-purple-400 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-all duration-500" />
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-purple-400/30 to-transparent rounded-bl-full" />
+              {/* Content */}
+              <div className="relative z-10">
+                <span className="inline-block px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-purple-500/30 text-purple-300 rounded-full mb-3 border border-purple-400/40">CCPA</span>
+                <h3 className="text-xl lg:text-2xl font-bold text-white mb-2 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">Share on your terms.</h3>
+                <p className="text-sm lg:text-base text-purple-100/80 leading-relaxed">Reveal only what's needed, when you choose.</p>
+              </div>
             </div>
           </div>
         </div>

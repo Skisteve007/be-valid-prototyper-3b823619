@@ -220,7 +220,7 @@ const Hero = () => {
               </div>
 
               {/* Description */}
-              <p className="text-base lg:text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+              <p className="text-lg lg:text-xl xl:text-2xl text-muted-foreground leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Your <span className="text-white font-semibold">Adaptive AI Profile</span> For The New Real World. <span className="text-cyan-400 underline">Signal Your Flow</span>. Instantly Switch Your Identity To Control Your Social Presence, Payments, And Total Invisibility.
               </p>
 
@@ -264,15 +264,17 @@ const Hero = () => {
                     );
                   })}
                 </div>
-                {/* Chip Description - Dynamic based on active signal */}
-                <p className={`text-base lg:text-lg font-medium transition-colors duration-300 ${
-                  activeSignal === 'social' ? 'text-cyan-400' :
-                  activeSignal === 'pulse' ? 'text-green-400' :
-                  activeSignal === 'thrill' ? 'text-orange-400' :
-                  'text-purple-400'
-                }`}>
-                  {signalModes[activeSignal].description}
-                </p>
+                {/* Chip Description - Dynamic based on active signal - fixed height to prevent jumping */}
+                <div className="min-h-[3.5rem] flex items-center justify-center lg:justify-start">
+                  <p className={`text-base lg:text-lg font-medium transition-colors duration-300 ${
+                    activeSignal === 'social' ? 'text-cyan-400' :
+                    activeSignal === 'pulse' ? 'text-green-400' :
+                    activeSignal === 'thrill' ? 'text-orange-400' :
+                    'text-purple-400'
+                  }`}>
+                    {signalModes[activeSignal].description}
+                  </p>
+                </div>
               </div>
             </div>
 

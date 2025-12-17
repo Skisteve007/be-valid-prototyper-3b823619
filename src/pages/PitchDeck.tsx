@@ -711,18 +711,18 @@ const PitchDeck = () => {
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="bg-black/60 border border-white/10 rounded-lg p-4 text-center">
                     <div className="text-3xl mb-2">🚀</div>
-                    <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">Exit Strategy</h4>
-                    <p className="text-sm text-gray-300">Acquisition target: Fintech, Insurance, Hospitality. <span className="text-cyan-400 font-semibold">10x-20x</span> in 3-5 years.</p>
+                    <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">The Exit Strategy</h4>
+                    <p className="text-sm text-gray-300">Acquisition target: Fintech (Block, Stripe), Insurance, or Hospitality. Target outcome: strategic acquisition or major growth event. Timeline: 3–5 years <span className="text-gray-500">(not guaranteed)</span>.</p>
                   </div>
                   <div className="bg-black/60 border border-white/10 rounded-lg p-4 text-center">
                     <div className="text-3xl mb-2">💰</div>
-                    <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">Dividends</h4>
-                    <p className="text-sm text-gray-300">% of Net Transaction Fees to equity holders once stabilized.</p>
+                    <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">Dividend Distributions</h4>
+                    <p className="text-sm text-gray-300">VALID™ is a pipeline, not a burn machine. We intend to distribute a portion of Net Transaction Fees to equity holders once operations are stable <span className="text-gray-500">(subject to board approval)</span>.</p>
                   </div>
                   <div className="bg-black/60 border border-white/10 rounded-lg p-4 text-center">
                     <div className="text-3xl mb-2">🔄</div>
                     <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">Secondary Market</h4>
-                    <p className="text-sm text-gray-300">T1 investors can sell to Series A/B for early liquidity.</p>
+                    <p className="text-sm text-gray-300">Tranche 1 investors may have the option to sell shares in future secondary transactions <span className="text-gray-500">(subject to company approval and buyer availability)</span>.</p>
                   </div>
                 </div>
               </AccordionContent>

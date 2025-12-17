@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes" />
+    
+    <!-- Mobile Optimization -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VALID">
+    <meta name="theme-color" content="#00f0ff" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    
+    <!-- Touch & Interaction Optimization -->
+    <meta name="HandheldFriendly" content="true" />
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://www.paypal.com https://www.paypalobjects.com https://translate.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https: http:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://maps.googleapis.com https://maps.google.com https://www.google.com https://*.google.com https://google.com https://www.paypal.com https://translate.googleapis.com; frame-src 'self' https://www.paypal.com https://maps.google.com https://www.google.com https://google.com https://*.google.com https://translate.google.com; navigate-to 'self' https://www.google.com https://google.com https://*.google.com https://www.paypal.com; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self' https://www.paypal.com https://www.google.com https://google.com;" />
+    <meta name="MobileOptimized" content="width" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    
+    <!-- Cache Control - Force fresh content v3.1.6 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment.</title>
+    <meta name="title" content="QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment." />
+    <meta name="description" content="VALID is the all-access pass to verified trust — a secure QR platform that lets anyone instantly share or confirm validated information, from health results and toxicology tests to IDs, background checks, age verification, and workplace compliance. Built for peer-to-peer connections and enterprise partners alike, VALID delivers the fastest, most accurate, real-time verification system on the market." />
+    <meta name="author" content="VALID" />
+    <meta name="keywords" content="verification platform, QR code verification, identity verification, background check verification, drug test verification, health test verification, age verification, compliance verification, secure QR code, digital identity, safety verification, enterprise compliance, partner verification, user safety, digital proof system, VALID platform, BeValid" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.bevalid.app/" />
+    
+    <!-- App Icons for iOS -->
+    <link rel="apple-touch-icon" href="/app-icon.jpg">
+    <link rel="apple-touch-icon" sizes="120x120" href="/app-icon.jpg">
+    <link rel="apple-touch-icon" sizes="152x152" href="/app-icon.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/app-icon.jpg">
+    
+    <!-- App Icons for Android -->
+    <link rel="icon" type="image/jpeg" sizes="192x192" href="/app-icon.jpg" />
+    <link rel="icon" type="image/jpeg" sizes="512x512" href="/app-icon.jpg" />
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="/app-icon.jpg" />
+    <link rel="icon" type="image/jpeg" sizes="16x16" href="/app-icon.jpg" />
+    <link rel="shortcut icon" href="/app-icon.jpg" />
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json?v=4" />
+    
+    <!-- Font Preconnects & Preloads for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://csfwfxkuyapfakrmhgjh.supabase.co" />
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/exo/v21/4UaZrEtFpBI4f1ZSIK9d4LjJ4lM3OwRmOw.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Preload critical above-fold images (LCP optimization) -->
+    <link rel="preload" href="/valid_portal.mp4" as="video" type="video/mp4" />
+    <link rel="preload" href="/app-icon.jpg" as="image" />
+    
+    <!-- Load fonts with display=swap for better UX -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Critical CSS for preventing layout shifts (above-the-fold only) -->
+    <style>
+      /* Prevent FOUT/CLS by setting fallback font metrics */
+      html {
+        font-family: 'Exo', 'Arial', sans-serif;
+        -webkit-text-size-adjust: 100%;
+      }
+      /* Critical above-fold styles */
+      body {
+        min-height: 100vh;
+        background: #050505;
+        color: #fff;
+        margin: 0;
+      }
+      /* Hero placeholder to prevent CLS */
+      #root { min-height: 100vh; }
+    </style>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.bevalid.app/" />
+    <meta property="og:title" content="VALID: Health Verified. Integrated Payment." />
+    <meta property="og:description" content="Zero-Trust Identity, Integrated Payments, and Automated Risk Management for high-liability sectors." />
+    <meta property="og:image" content="https://www.bevalid.app/valid-logo-share.jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:site_name" content="VALID" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@BeValidApp" />
+    <meta name="twitter:title" content="QR-Coded Access. Zero Trust ID Security. Health Verified. Integrated Payment." />
+    <meta name="twitter:description" content="VALID is the all-access pass to verified trust — a secure QR platform that lets anyone instantly share or confirm validated information, from health results and toxicology tests to IDs, background checks, age verification, and workplace compliance." />
+    <meta name="twitter:image" content="https://bevalid.app/icon-512-v3.png" />
+    
+    <!-- Prevent indexing of sensitive pages -->
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "VALID",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "39.00",
+        "priceCurrency": "USD"
+      },
+      "description": "VALID is a trusted digital verification platform that lets users instantly share secure, tamper-proof QR codes containing identity, background checks, health results, age verification, licenses, and compliance documents. Built for individuals, clubs, employers, and enterprise partners."
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/index-BxaCuhr0.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-wPYSlCyy.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+    
+    <!-- iOS Install Prompt -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+        
+        if (isIOS && isSafari && !window.matchMedia('(display-mode: standalone)').matches) {
+          const showIosInstallPrompt = () => {
+            const installBanner = document.createElement('div');
+            installBanner.id = 'ios-install-prompt';
+            installBanner.innerHTML = `
+              <div style="position: fixed; bottom: 0; left: 0; right: 0; padding: 15px; background: rgba(0, 0, 0, 0.9); color: white; text-align: center; font-size: 16px; z-index: 9999;">
+                For the full app experience, tap the 
+                <span style="font-size: 20px; vertical-align: middle; margin: 0 5px;">⬆️</span> 
+                icon and select <strong>'Add to Home Screen'</strong>.
+                <button onclick="document.getElementById('ios-install-prompt').style.display='none'" 
+                  style="background: none; border: none; color: #39FF14; font-weight: bold; margin-left: 10px; cursor: pointer;">
+                  X
+                </button>
+              </div>
+            `;
+            document.body.appendChild(installBanner);
+          };
+          
+          setTimeout(showIosInstallPrompt, 3000);
+        }
+      });
+    </script>
+    
+    <!-- Android Install Prompt -->
+    <script>
+      // Variable to store the native browser installation event
+      let deferredPrompt;
+
+      // 1. Intercept the native, small installation prompt and store the event
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the default small infobar from showing
+        e.preventDefault();
+        // Stash the event so it can be triggered later by our large button
+        deferredPrompt = e;
+        
+        // Don't show if already in standalone mode
+        if (window.matchMedia('(display-mode: standalone)').matches) return;
+        
+        // Display the large, custom installation banner
+        showCustomInstallBanner();
+      });
+
+      function showCustomInstallBanner() {
+        if (!deferredPrompt || document.getElementById('custom-pwa-install')) return; // Prevents double-creation
+        
+        const bannerHtml = `
+          <div id="custom-pwa-install" style="
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: linear-gradient(to right, #0a0a0a, #00f0ff, #0a0a0a);
+            padding: 20px; 
+            color: white; 
+            text-align: center; 
+            z-index: 10000;
+            border-top: 4px solid #00f0ff;
+            box-shadow: 0 -4px 12px rgba(0, 240, 255, 0.4);
+            font-family: 'Exo', Arial, sans-serif;
+          ">
+            <div style="font-size: 28px; font-weight: bold; margin-bottom: 5px; text-shadow: 0 0 5px rgba(0, 240, 255, 0.7);">
+              Install the VALID App!
+            </div>
+            <div style="font-size: 18px; margin-bottom: 15px;">
+              Get the best experience with Instant Entry and Zero Trust Security.
+            </div>
+            <button id="install-button-custom" style="
+              background-color: #00f0ff;
+              color: black; 
+              padding: 15px 40px; 
+              border: none; 
+              border-radius: 10px; 
+              font-weight: bold; 
+              font-size: 20px; 
+              cursor: pointer;
+              box-shadow: 0 0 10px #00f0ff;
+              font-family: 'Exo', Arial, sans-serif;
+            ">
+              INSTALL VALID NOW
+            </button>
+            <button onclick="document.getElementById('custom-pwa-install').style.display='none'" 
+              style="background: none; border: none; color: white; font-weight: bold; margin-left: 15px; cursor: pointer; font-size: 18px;">
+              ✕
+            </button>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', bannerHtml);
+
+        // 3. Attach event listener to the custom button
+        document.getElementById('install-button-custom').addEventListener('click', () => {
+          // Hide the custom banner and trigger the native install process
+          document.getElementById('custom-pwa-install').style.display = 'none';
+          deferredPrompt.prompt();
+        });
+      }
+      
+      // Hide prompt if app gets installed
+      window.addEventListener('appinstalled', () => {
+        const banner = document.getElementById('custom-pwa-install');
+        if (banner) banner.style.display = 'none';
+        deferredPrompt = null;
+      });
+    </script>
+    
+    <!-- Mobile Scroll Optimization -->
+    <style>
+      * {
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-touch-callout: none;
+      }
+      
+      html {
+        -webkit-text-size-adjust: 100%;
+        touch-action: manipulation;
+      }
+      
+      body {
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* Improve touch targets on mobile */
+      @media (max-width: 768px) {
+        button, a, input, select, textarea {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+    </style>
+  </body>
+</html>

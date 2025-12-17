@@ -263,9 +263,13 @@ const Hero = () => {
 
               {/* Signal Share Label */}
               <p className="text-lg sm:text-xl font-mono tracking-widest text-cyan-400 uppercase mb-2 text-center lg:text-left">
-                Signal Share
+              Signal Share
               </p>
 
+              {/* Ghost Protocols Description */}
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed text-center lg:text-left mb-6 font-medium italic max-w-xl mx-auto lg:mx-0">
+                Our Ghost Protocols Now Make Points Of Entry Fluid. Environments More Secure. Your Privacy Yours To Choose. <span className="text-cyan-400 font-bold">VALID™</span> Provides A QR Encrypted Code Shuttled Via Our Proprietary <span className="text-purple-400 font-bold">Ghost Tokens™</span>. You Choose To Share Or You Lock Down Your Vitals For <span className="text-purple-400">Invisibility</span>. <span className="text-cyan-400 font-bold">VALID™</span>'s Signal Share Allows You To Open Your Profile For <span className="text-emerald-400">Connections</span>. We Have Made Your Identity Quickly Adaptable, Secure, And Entirely Under <span className="text-white font-bold">Your Control</span>. No Other Network Does This.
+              </p>
 
             </div>
 

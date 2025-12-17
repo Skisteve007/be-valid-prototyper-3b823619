@@ -219,10 +219,10 @@ const Hero = () => {
                   ONE KEY.
                 </span>{' '}
                 <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(103,232,249,0.4)]"
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(168,85,247,0.3)]"
                   style={{
-                    backgroundImage: 'linear-gradient(180deg, #a5f3fc 0%, #67e8f9 30%, #22d3ee 60%, #67e8f9 100%)',
-                    textShadow: '0 0 20px rgba(103,232,249,0.5)',
+                    backgroundImage: 'linear-gradient(180deg, #c4b5fd 0%, #a78bfa 20%, #67e8f9 50%, #22d3ee 70%, #a78bfa 100%)',
+                    textShadow: '0 0 20px rgba(168,85,247,0.4), 0 0 30px rgba(103,232,249,0.3)',
                   }}
                 >
                   VERIFY. PAY. VIBE.

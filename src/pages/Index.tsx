@@ -141,8 +141,10 @@ const Index = () => {
           {/* Top content */}
           <div className="px-4 pt-12 pb-8 text-center bg-gradient-to-b from-black/70 via-black/30 to-transparent">
             
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 font-orbitron tracking-wide text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-              {t('standard.title')}<sup className="text-[0.5em] ml-0.5">™</sup> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400">{t('standard.titleHighlight')}</span>
+            <h2 className="mb-4 font-orbitron drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              <span className="text-2xl font-normal text-white">THE </span>
+              <span className="text-5xl font-bold" style={{ color: '#00F5D4' }}>VALID<sup className="text-[0.4em]">™</sup></span>
+              <span className="text-5xl font-bold text-white"> STANDARD</span>
             </h2>
             <p className="max-w-2xl mx-auto leading-relaxed text-lg text-gray-200 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
               {t('standard.subtitle')}
@@ -216,10 +218,11 @@ const Index = () => {
           </p>
           <button
             onClick={() => navigate('/access-portal')}
-            className={`px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 uppercase tracking-widest
+            className={`px-10 py-4 rounded-full font-bold text-lg transition-all duration-200 uppercase tracking-widest hover:scale-[1.02]
               ${isDark 
-                ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-[0_0_30px_rgba(0,240,255,0.4)] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)]' 
+                ? 'bg-cyan-500 text-black hover:shadow-[0_0_25px_rgba(0,245,212,0.4)]' 
                 : 'bg-cyan-500 text-white hover:bg-cyan-600 shadow-lg'}`}
+            style={{ backgroundColor: '#00F5D4' }}
           >
             {t('cta.loginButton')}
           </button>
@@ -256,10 +259,14 @@ const FeatureCard = ({ isDark, icon, title, desc, color, backgroundImage, colorD
   return (
     <div 
       onClick={() => setIsExpanded(!isExpanded)}
-      className={`rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden cursor-pointer
+      className={`rounded-lg transition-all duration-500 group relative overflow-hidden cursor-pointer
         ${isDark 
-          ? 'bg-black border-cyan-500/60 hover:border-cyan-400' 
+          ? 'bg-[rgba(0,245,212,0.05)] hover:bg-[rgba(0,245,212,0.08)]' 
           : 'bg-white border-slate-200 hover:border-slate-300'}`}
+      style={{
+        borderLeft: '3px solid #00F5D4',
+        paddingLeft: '16px',
+      }}
     >
       {/* Background Image - Much higher opacity */}
       {backgroundImage && (

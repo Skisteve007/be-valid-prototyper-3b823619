@@ -183,6 +183,10 @@ export const PricingSection = () => {
         .pricing-card.premium::before {
           background: linear-gradient(90deg, transparent, #00f0ff, #ff00ff, #00f0ff, transparent);
         }
+        .pricing-card.recommended {
+          border: 2px solid #00F5D4;
+          box-shadow: 0 0 30px rgba(0, 245, 212, 0.2);
+        }
         .tier-label {
           font-size: 0.7em;
           text-transform: uppercase;
@@ -214,7 +218,7 @@ export const PricingSection = () => {
 
       <div className="pricing-grid-container">
         {/* Single Member - Bi-Monthly */}
-        <div className="pricing-card">
+        <div className="pricing-card recommended">
           <BetaRibbon />
           <div>
             <div className="tier-label">Starter</div>

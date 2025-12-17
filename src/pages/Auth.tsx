@@ -506,15 +506,15 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen text-foreground overflow-x-hidden w-full max-w-full bg-background font-sans">
-      {/* Ambient Background Effects - matching homepage */}
+    <div className="min-h-screen text-white overflow-x-hidden w-full max-w-full bg-slate-950 font-sans">
+      {/* Ambient Background Effects - matching homepage cyan theme */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary/20 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-slate-950 to-transparent" />
       </div>
 
       {/* Header - Clean minimal design */}
-      <header className="relative border-b border-primary/20 bg-background/70 backdrop-blur-xl sticky top-0 z-50">
+      <header className="relative border-b border-cyan-400/20 bg-slate-950/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="flex items-center justify-center">
             {/* Centered logo */}
@@ -522,7 +522,7 @@ const Auth = () => {
               className="relative flex-shrink-0 cursor-pointer"
               {...longPressHandlers}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/40 via-blue-400/40 to-cyan-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
               <img src={logo} alt="VALID" className="relative w-auto h-16 md:h-20 lg:h-24 select-none" draggable={false} />
             </div>
           </div>
@@ -575,8 +575,8 @@ const Auth = () => {
           {/* Email Verification Message */}
           {showEmailVerification ? (
             <div className="relative">
-              <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-lg"></div>
-              <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.4)]">
+              <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-lg"></div>
+              <Card className="relative bg-slate-900/50 backdrop-blur-sm border-cyan-400/30 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
                 <CardHeader className="text-center pb-2">
                   <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
                     <Mail className="w-8 h-8 text-primary" />
@@ -672,10 +672,10 @@ const Auth = () => {
             </div>
           ) : mode === "login" ? (
             <div className="relative">
-              <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-lg"></div>
-              <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.4)]">
+              <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-lg"></div>
+              <Card className="relative bg-slate-900/50 backdrop-blur-sm border-cyan-400/30 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
                 <CardHeader>
-                  <CardTitle className="text-3xl text-center bg-gradient-to-r from-primary via-accent to-foreground bg-clip-text text-transparent font-bold">
+                  <CardTitle className="text-3xl text-center bg-gradient-to-r from-cyan-400 via-white to-blue-400 bg-clip-text text-transparent font-bold">
                     {isReturningUser ? (
                       <>Welcome back{savedUserName ? `, ${savedUserName.split(' ')[0]}` : ''}! 👋</>
                     ) : (
@@ -699,10 +699,12 @@ const Auth = () => {
                   {/* Divider */}
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t border-muted-foreground/30" />
+                      <span className="w-full border-t border-cyan-400/30" />
                     </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-card px-2 text-muted-foreground">or sign in with email</span>
+                    <div className="relative flex justify-center">
+                      <span className="px-6 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400">
+                        Sign In With Email
+                      </span>
                     </div>
                   </div>
                   
@@ -800,13 +802,13 @@ const Auth = () => {
           ) : (
             /* Signup Form */
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 blur-2xl rounded-lg"></div>
-              <Card className="relative bg-card/50 backdrop-blur-sm border-primary/30 shadow-[0_0_30px_hsl(var(--primary)/0.3)]">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-cyan-500/20 blur-2xl rounded-lg"></div>
+              <Card className="relative bg-slate-900/50 backdrop-blur-sm border-cyan-400/30 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-2xl md:text-3xl text-center font-orbitron font-bold tracking-wide text-foreground">
+                  <CardTitle className="text-2xl md:text-3xl text-center font-bold tracking-wide bg-gradient-to-r from-cyan-400 via-white to-blue-400 bg-clip-text text-transparent">
                     One Key. Verify. Pay. Vibe.
                   </CardTitle>
-                  <CardDescription className="text-center text-lg font-semibold text-primary tracking-wider mt-2">
+                  <CardDescription className="text-center text-lg font-semibold text-cyan-400 tracking-wider mt-2">
                     Your identity, controlled.
                   </CardDescription>
                   <div className="text-center pt-3">
@@ -814,7 +816,7 @@ const Auth = () => {
                       type="button" 
                       variant="outline"
                       onClick={() => navigate("/auth?mode=login")}
-                      className="min-h-[48px] px-6 rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold text-sm whitespace-nowrap"
+                      className="min-h-[48px] px-6 rounded-full border border-cyan-400/60 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 font-semibold text-sm whitespace-nowrap"
                     >
                       Already a member? Log in
                     </Button>
@@ -829,10 +831,12 @@ const Auth = () => {
                   {/* Divider */}
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t border-muted-foreground/30" />
+                      <span className="w-full border-t border-cyan-400/30" />
                     </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-card px-2 text-muted-foreground">or sign up with email</span>
+                    <div className="relative flex justify-center">
+                      <span className="px-6 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400">
+                        Sign Up With Email
+                      </span>
                     </div>
                   </div>
                   

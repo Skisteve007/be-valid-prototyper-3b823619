@@ -269,7 +269,7 @@ const Hero = () => {
 
               {/* ===== THE SOCIAL CHAMELEON SECTION ===== */}
               <div id="chameleon" className="mt-6 p-6 rounded-2xl border border-purple-500/40 bg-gradient-to-br from-purple-500/10 via-cyan-500/5 to-purple-500/10 backdrop-blur-sm">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-2">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-black mb-2 font-orbitron tracking-wide">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400">
                     The Social Chameleon.
                   </span>

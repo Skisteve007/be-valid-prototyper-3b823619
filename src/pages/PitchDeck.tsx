@@ -318,8 +318,8 @@ const PitchDeck = () => {
               <span className="text-white font-bold ml-2">$5.7B+</span>
             </div>
             <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
-              <span className="text-gray-400">SAFE Round:</span>
-              <span className="text-cyan-400 font-bold ml-2">$1.5M</span>
+              <span className="text-gray-400">Tranche 1:</span>
+              <span className="text-cyan-400 font-bold ml-2">$200K Note</span>
             </div>
             <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2">
               <span className="text-gray-400">Stage:</span>
@@ -1497,8 +1497,8 @@ const PitchDeck = () => {
                         </div>
                         
                         <div>
-                          <h5 className="font-bold text-amber-400 mb-1">2. Not a Loan</h5>
-                          <p>The funds contributed via SAFE (Simple Agreement for Future Equity) are not a loan. There is no maturity date, no interest rate, and no requirement for repayment. If the company dissolves or ceases operations, investors may receive $0.</p>
+                          <h5 className="font-bold text-amber-400 mb-1">2. Convertible Note Terms</h5>
+                          <p>Tranche 1 funds are contributed via Convertible Note with an 18-month maturity, $6,000,000 valuation cap, and 50% discount. The Note converts to equity upon a qualifying financing event or at maturity. If the company dissolves or ceases operations before conversion, investors may receive $0.</p>
                         </div>
                         
                         <div>

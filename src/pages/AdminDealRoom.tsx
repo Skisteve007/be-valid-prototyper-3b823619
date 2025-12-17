@@ -461,13 +461,13 @@ const AdminDealRoom = () => {
               PITCH DECK
             </h2>
             <p className="text-muted-foreground text-sm">
-              Auto-advances every 8 seconds • Hover to pause • Click arrows or swipe to navigate
+              Auto-advances every 5 seconds • Hover to pause • Click arrows or swipe to navigate
             </p>
           </div>
           {/* 3D Gradient Container for Pitch Deck */}
           <div className="relative p-1 rounded-2xl bg-gradient-to-br from-cyan-500/40 via-blue-600/30 to-purple-600/40 shadow-[0_0_40px_rgba(0,200,255,0.3),0_20px_60px_rgba(0,0,0,0.5)] transform perspective-1000 hover:scale-[1.01] transition-all duration-500">
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-transparent via-white/5 to-white/10 pointer-events-none" />
-            <PitchCarousel images={pitchDeckImages} autoAdvanceMs={8000} />
+            <PitchCarousel images={pitchDeckImages} autoAdvanceMs={5000} />
           </div>
         </div>
 
@@ -515,7 +515,7 @@ const AdminDealRoom = () => {
             </div>
           </div>
 
-          <Card className="bg-black/40 border-cyan-500/30 backdrop-blur-sm">
+          <Card className="bg-black/40 border-2 border-cyan-500/60 backdrop-blur-sm shadow-[0_0_30px_rgba(0,240,255,0.4)] animate-[pulse_3s_ease-in-out_infinite] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)] transition-shadow duration-300">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <FileText className="h-5 w-5 text-cyan-400" />

@@ -300,18 +300,6 @@ const Hero = () => {
                 </p>
               </div>
 
-              {/* ===== THE SOCIAL CHAMELEON SECTION ===== */}
-              <div id="chameleon" className="mt-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 backdrop-blur-sm">
-                <p className="text-base font-mono tracking-[0.25em] text-cyan-400 uppercase mb-2 font-bold">
-                  ✦ THE SOCIAL CHAMELEON ✦
-                </p>
-                <p className="text-base text-white/80 mb-2">
-                  Instantly Switch Your Signal To Match The Moment — Social, Pulse, Thrill, Or After Dark.
-                </p>
-                <p className="text-sm text-white/50 italic">
-                  Other Networks Lock You Into One Profile. <span className="text-cyan-400 font-semibold">VALID™</span> Lets You Adapt In Real Time.
-                </p>
-              </div>
             </div>
 
             {/* RIGHT COLUMN: Video/Image */}

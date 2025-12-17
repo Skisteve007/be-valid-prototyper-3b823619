@@ -45,9 +45,15 @@ import {
   PiggyBank,
   CreditCard,
   Calendar,
-  Info
+  Info,
+  Maximize2,
+  FileDown,
+  ExternalLink
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
+
+// PUBLIC PDF URL - Update this with your actual investor deck PDF link
+const INVESTOR_DECK_PDF_URL = "/images/pitch/VALID-Investor-Deck-2025.pdf";
 
 const PitchDeck = () => {
   const navigate = useNavigate();
@@ -183,6 +189,77 @@ const PitchDeck = () => {
             <div className="bg-white/5 border border-white/10 rounded-full flex items-center" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(16px, 2vw, 28px)', height: 'clamp(44px, 3.5vw, 56px)' }}>
               <span className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Stage:</span>
               <span className="text-green-400 font-bold ml-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>Revenue Generating</span>
+            </div>
+          </div>
+
+          {/* ===== 14-SLIDE INVESTOR DECK (QUICK VIEW) ===== */}
+          <div id="investor-deck-pdf" className="bg-gradient-to-b from-cyan-950/20 to-black/60 border border-cyan-500/30 rounded-xl" style={{ padding: 'clamp(24px, 3vw, 40px)', marginBottom: 'clamp(24px, 3vw, 40px)' }}>
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
+              <div>
+                <h3 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>
+                  14‑Slide Investor Deck (Quick View)
+                </h3>
+                <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
+                  Read in under 3 minutes.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+                  style={{ fontSize: 'clamp(14px, 1vw, 16px)', padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)' }}
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  View Deck
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = INVESTOR_DECK_PDF_URL;
+                    link.download = 'VALID-Investor-Deck-2025.pdf';
+                    link.click();
+                  }}
+                  className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
+                  style={{ fontSize: 'clamp(14px, 1vw, 16px)', padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)' }}
+                >
+                  <FileDown className="w-4 h-4 mr-2" />
+                  Download PDF
+                </Button>
+              </div>
+            </div>
+
+            {/* Mobile: Open Full Screen button */}
+            <div className="lg:hidden mb-4">
+              <Button
+                variant="ghost"
+                onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
+                className="w-full border border-white/20 text-white hover:bg-white/10"
+              >
+                <Maximize2 className="w-4 h-4 mr-2" />
+                Open Full Screen
+              </Button>
+            </div>
+
+            {/* Embedded PDF */}
+            <div className="relative bg-black/60 rounded-lg overflow-hidden border border-white/10">
+              <iframe
+                src={`${INVESTOR_DECK_PDF_URL}#toolbar=0&navpanes=1&scrollbar=1`}
+                className="w-full"
+                style={{ height: 'clamp(560px, 50vw, 720px)' }}
+                title="VALID Investor Deck"
+              />
+              
+              {/* Full Screen Control */}
+              <Button
+                variant="ghost"
+                onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
+                className="absolute top-3 right-3 bg-black/70 border border-white/20 text-white hover:bg-white/20 hidden lg:flex"
+                size="sm"
+              >
+                <Maximize2 className="w-4 h-4 mr-1" />
+                Full Screen
+              </Button>
             </div>
           </div>
 
@@ -719,6 +796,27 @@ const PitchDeck = () => {
 
         {/* ===== CURRENT ROUND STRUCTURE ===== */}
         <section className="bg-black" style={{ paddingTop: 'clamp(48px, 5vw, 80px)', paddingBottom: 'clamp(48px, 5vw, 80px)' }}>
+          {/* Banner linking to PDF deck */}
+          <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4 mx-auto mb-8" style={{ padding: 'clamp(12px, 1.2vw, 20px) clamp(16px, 2vw, 28px)', maxWidth: '900px' }}>
+            <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>
+              Prefer the full story? <a href="#investor-deck-pdf" className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2">View the 14‑slide deck →</a>
+            </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = INVESTOR_DECK_PDF_URL;
+                link.download = 'VALID-Investor-Deck-2025.pdf';
+                link.click();
+              }}
+              className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10"
+            >
+              <FileDown className="w-4 h-4 mr-1" />
+              Download PDF
+            </Button>
+          </div>
+
           <div className="text-center" style={{ marginBottom: 'clamp(32px, 4vw, 56px)' }}>
             <h2 className="tracking-[4px] uppercase" style={{ color: '#00E5E5', fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>
               CURRENT ROUND STRUCTURE

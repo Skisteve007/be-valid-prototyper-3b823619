@@ -426,20 +426,20 @@ const AdminDealRoom = () => {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Button 
-              variant="ghost" 
+              variant="outline" 
               size="sm" 
               onClick={() => navigate("/admin")}
-              className="text-cyan-400 hover:text-cyan-300"
+              className="bg-gradient-to-r from-blue-600/20 to-cyan-500/20 border-cyan-400/50 text-cyan-300 hover:bg-cyan-500/30 hover:border-cyan-300 hover:text-white shadow-[0_0_15px_rgba(0,200,255,0.3)] transition-all"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Admin
             </Button>
-            <div className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-amber-400" />
-              <span className="text-amber-400 font-mono text-sm tracking-wider">RESTRICTED ACCESS</span>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600/20 to-cyan-500/20 border border-cyan-400/50 shadow-[0_0_15px_rgba(0,200,255,0.3)]">
+              <Shield className="h-5 w-5 text-cyan-300" />
+              <span className="text-cyan-300 font-mono text-sm tracking-wider">RESTRICTED ACCESS</span>
             </div>
           </div>
-          <img src={logo} alt="Valid" className="h-10 w-auto" />
+          <img src={logo} alt="Valid" className="h-14 w-auto rounded-lg shadow-[0_0_20px_rgba(0,200,255,0.3)]" />
         </div>
       </header>
 
@@ -460,11 +460,15 @@ const AdminDealRoom = () => {
             <h2 className="text-2xl font-bold text-white mb-2 font-orbitron tracking-wide">
               PITCH DECK
             </h2>
-            <p className="text-gray-400 text-sm">
+            <p className="text-muted-foreground text-sm">
               Auto-advances every 8 seconds • Hover to pause • Click arrows or swipe to navigate
             </p>
           </div>
-          <PitchCarousel images={pitchDeckImages} autoAdvanceMs={8000} />
+          {/* 3D Gradient Container for Pitch Deck */}
+          <div className="relative p-1 rounded-2xl bg-gradient-to-br from-cyan-500/40 via-blue-600/30 to-purple-600/40 shadow-[0_0_40px_rgba(0,200,255,0.3),0_20px_60px_rgba(0,0,0,0.5)] transform perspective-1000 hover:scale-[1.01] transition-all duration-500">
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-transparent via-white/5 to-white/10 pointer-events-none" />
+            <PitchCarousel images={pitchDeckImages} autoAdvanceMs={8000} />
+          </div>
         </div>
 
         <div className="max-w-2xl mx-auto">

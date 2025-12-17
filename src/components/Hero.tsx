@@ -207,37 +207,24 @@ const Hero = () => {
                 POWERED BY SYNTHESIZED AI
               </p>
               
-              {/* Universal Lifestyle Key - Script Style */}
+              {/* Universal Lifestyle Key - Bold 3D Gradient */}
               <p 
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl italic font-light mb-6 text-white/90"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black mb-6"
                 style={{
-                  fontStyle: 'italic',
-                  textShadow: '0 0 20px rgba(255,255,255,0.2)',
+                  background: 'linear-gradient(180deg, #ffffff 0%, #00f0ff 50%, #0080ff 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  textShadow: '0 4px 8px rgba(0,240,255,0.3), 0 8px 16px rgba(0,128,255,0.2)',
+                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))',
                 }}
               >
                 Universal Lifestyle Key
               </p>
-              {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black font-display tracking-tight mb-4">
-                <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(168,85,247,0.2)]"
-                  style={{
-                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #f0f0f0 30%, #e0e0e0 50%, #c4b5fd 80%, #a78bfa 100%)',
-                    textShadow: '0 0 30px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.3)',
-                  }}
-                >
-                  ONE KEY.
-                </span>{' '}
-                <span 
-                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_2px_4px_rgba(103,232,249,0.3)]"
-                  style={{
-                    backgroundImage: 'linear-gradient(180deg, #e0e7ff 0%, #a5f3fc 25%, #67e8f9 50%, #22d3ee 75%, #c4b5fd 100%)',
-                    textShadow: '0 0 15px rgba(103,232,249,0.3), 0 0 25px rgba(168,85,247,0.15)',
-                  }}
-                >
-                  VERIFY. PAY. VIBE.
-                </span>
-              </h1>
+              {/* ONE KEY. VERIFY. PAY. VIBE. - Much smaller */}
+              <p className="text-sm sm:text-base lg:text-lg font-semibold font-display tracking-widest mb-4 text-white/50">
+                ONE KEY. VERIFY. PAY. VIBE.
+              </p>
               
               {/* Subhead */}
               <p className="text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug mb-4 max-w-2xl mx-auto lg:mx-0">

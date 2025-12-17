@@ -117,27 +117,27 @@ export default {
   		},
   		fontFamily: {
   			sans: [
-  				'Orbitron',
+  				'Exo 2',
   				'ui-sans-serif',
   				'system-ui',
   				'sans-serif'
   			],
   			display: [
-  				'Orbitron',
+  				'Exo 2',
   				'sans-serif'
   			],
   			orbitron: [
-  				'Orbitron',
+  				'Exo 2',
   				'sans-serif'
   			],
   			serif: [
-  				'Orbitron',
+  				'Exo 2',
   				'ui-serif',
   				'Georgia',
   				'serif'
   			],
   			mono: [
-  				'Orbitron',
+  				'Exo 2',
   				'ui-monospace',
   				'SFMono-Regular',
   				'monospace'

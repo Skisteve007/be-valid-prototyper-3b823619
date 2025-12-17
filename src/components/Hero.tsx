@@ -202,15 +202,12 @@ const Hero = () => {
                   })}
                 </div>
                 {/* Chip Description - Dynamic based on active signal */}
-                <p 
-                  key={activeSignal}
-                  className={`text-sm animate-fade-in transition-colors duration-300 ${
-                    activeSignal === 'social' ? 'text-cyan-400' :
-                    activeSignal === 'pulse' ? 'text-green-400' :
-                    activeSignal === 'thrill' ? 'text-orange-400' :
-                    'text-purple-400'
-                  }`}
-                >
+                <p className={`text-sm transition-colors duration-300 ${
+                  activeSignal === 'social' ? 'text-cyan-400' :
+                  activeSignal === 'pulse' ? 'text-green-400' :
+                  activeSignal === 'thrill' ? 'text-orange-400' :
+                  'text-purple-400'
+                }`}>
                   {signalModes[activeSignal].description}
                 </p>
               </div>

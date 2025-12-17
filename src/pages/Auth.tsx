@@ -101,18 +101,20 @@ const Auth = () => {
           .single();
         
         if (profile?.email_verified) {
-          navigate("/investor-dashboard");
-        } else {
+          // Redirect to member dashboard, not investor dashboard
+          navigate("/dashboard");
+        } else if (profile) {
           // User is logged in but email not verified - sign them out
           await supabase.auth.signOut();
           setVerificationUserId(session.user.id);
           setVerificationEmail(session.user.email || "");
           setShowEmailVerification(true);
         }
+        // If profile doesn't exist, let user stay on auth page
       }
     };
     checkUser();
-  }, [navigate, mode]);
+  }, [navigate]);
 
   // Save user data on successful login
   const saveUserDataLocally = (email: string, name: string, authMethod: string) => {

@@ -195,7 +195,7 @@ const AdminDealRoom = () => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
   };
 
-  const generateSAFEPDF = () => {
+  const generateConvertibleNotePDF = () => {
     if (!investorName.trim()) {
       toast.error("Please enter the investor name");
       return;
@@ -216,6 +216,9 @@ const AdminDealRoom = () => {
       let y = 20;
       
       const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      const maturityDate = new Date();
+      maturityDate.setMonth(maturityDate.getMonth() + 18);
+      const maturityDateStr = maturityDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
       // Helper function to add text and handle page breaks
       const addText = (text: string, fontSize: number = 10, isBold: boolean = false, lineHeight: number = 5) => {
@@ -234,19 +237,16 @@ const AdminDealRoom = () => {
         return lines.length * lineHeight;
       };
 
-      // Title - SAFE Header
+      // Title - Convertible Note Header
       doc.setFontSize(14);
       doc.setFont("helvetica", "bold");
-      doc.text("SAFE", pageWidth / 2, y, { align: "center" });
-      y += 6;
-      doc.setFontSize(11);
-      doc.text("(Simple Agreement for Future Equity)", pageWidth / 2, y, { align: "center" });
+      doc.text("CONVERTIBLE PROMISSORY NOTE", pageWidth / 2, y, { align: "center" });
       y += 12;
 
       // Securities Disclaimer
       doc.setFontSize(8);
       doc.setFont("helvetica", "bolditalic");
-      const disclaimerText = "THIS INSTRUMENT AND THE SECURITIES ISSUABLE PURSUANT HERETO HAVE NOT BEEN REGISTERED UNDER THE SECURITIES ACT OF 1933.";
+      const disclaimerText = "THIS NOTE AND THE SECURITIES ISSUABLE UPON CONVERSION HEREOF HAVE NOT BEEN REGISTERED UNDER THE SECURITIES ACT OF 1933, AS AMENDED.";
       const disclaimerLines = doc.splitTextToSize(disclaimerText, contentWidth);
       doc.text(disclaimerLines, pageWidth / 2, y, { align: "center" });
       y += disclaimerLines.length * 4 + 10;
@@ -254,7 +254,7 @@ const AdminDealRoom = () => {
       // Key Terms Box
       doc.setDrawColor(0);
       doc.setLineWidth(0.5);
-      doc.rect(margin, y, contentWidth, 45);
+      doc.rect(margin, y, contentWidth, 60);
       y += 8;
       
       doc.setFontSize(10);
@@ -265,13 +265,13 @@ const AdminDealRoom = () => {
       y += 7;
       
       doc.setFont("helvetica", "bold");
-      doc.text("Purchaser:", margin + 5, y);
+      doc.text("Holder:", margin + 5, y);
       doc.setFont("helvetica", "normal");
-      doc.text(investorName, margin + 35, y);
+      doc.text(investorName, margin + 25, y);
       y += 7;
       
       doc.setFont("helvetica", "bold");
-      doc.text("Purchase Amount:", margin + 5, y);
+      doc.text("Principal Amount:", margin + 5, y);
       doc.setFont("helvetica", "normal");
       doc.text(formatCurrency(investmentAmount), margin + 45, y);
       y += 7;
@@ -287,66 +287,88 @@ const AdminDealRoom = () => {
       doc.setFont("helvetica", "normal");
       doc.text(`${discountRate}%`, margin + 40, y);
       y += 7;
+
+      doc.setFont("helvetica", "bold");
+      doc.text("Maturity Date:", margin + 5, y);
+      doc.setFont("helvetica", "normal");
+      doc.text(`${maturityDateStr} (18 months from Issue Date)`, margin + 40, y);
+      y += 7;
       
       doc.setFont("helvetica", "bold");
-      doc.text("Date:", margin + 5, y);
+      doc.text("Issue Date:", margin + 5, y);
       doc.setFont("helvetica", "normal");
-      doc.text(currentDate, margin + 20, y);
+      doc.text(currentDate, margin + 30, y);
       y += 15;
 
-      // Certification paragraph
-      const certText = `THIS CERTIFIES THAT in exchange for the payment by the Investor (the "Purchase Amount") on or about the date of this instrument, Giant Ventures, LLC, a Texas Limited Liability Company (the "Company"), hereby issues to the Investor the right to certain units of the Company's Capital Stock, subject to the terms set forth below.`;
-      addText(certText, 10, false, 5);
+      // Principal paragraph
+      const principalText = `FOR VALUE RECEIVED, Giant Ventures, LLC, a Texas Limited Liability Company (the "Company"), promises to pay to ${investorName} (the "Holder"), or the Holder's assigns, the principal sum of ${formatCurrency(investmentAmount)} (the "Principal Amount"), together with accrued and unpaid interest thereon, on the terms and conditions set forth below.`;
+      addText(principalText, 10, false, 5);
       y += 10;
 
-      // Section 1 - Events
-      addText("1. Events", 11, true, 6);
+      // Section 1 - Interest
+      addText("1. Interest", 11, true, 6);
       y += 3;
 
-      const event1a = `(a) Equity Financing. If there is an Equity Financing before the expiration or termination of this instrument, the Company will automatically issue to the Investor a number of Safe Units equal to the Purchase Amount divided by the Conversion Price. (The Conversion Price is the lower of: (i) the Valuation Cap Price or (ii) the Discount Price).`;
-      addText(event1a, 10, false, 5);
+      const interestText = `This Note shall bear simple interest at a rate of 0% per annum. No interest shall accrue or be payable on this Note.`;
+      addText(interestText, 10, false, 5);
+      y += 8;
+
+      // Section 2 - Maturity
+      addText("2. Maturity", 11, true, 6);
+      y += 3;
+
+      const maturityText = `Unless earlier converted pursuant to Section 3, the outstanding Principal Amount of this Note shall be due and payable on ${maturityDateStr} (the "Maturity Date"), which is eighteen (18) months from the Issue Date.`;
+      addText(maturityText, 10, false, 5);
+      y += 8;
+
+      // Section 3 - Conversion
+      addText("3. Conversion", 11, true, 6);
+      y += 3;
+
+      const conversion3a = `(a) Qualified Financing. Upon the closing of an equity financing in which the Company raises at least $500,000 in gross proceeds (a "Qualified Financing"), the outstanding Principal Amount shall automatically convert into equity securities of the same type issued in the Qualified Financing at a conversion price equal to the lesser of: (i) the Valuation Cap Price (${formatCurrency(valuationCap)} divided by the Company's fully-diluted capitalization), or (ii) the Discount Price (${100 - parseInt(discountRate)}% of the price per share paid by investors in the Qualified Financing).`;
+      addText(conversion3a, 10, false, 5);
       y += 5;
 
-      const event1b = `(b) Liquidity Event. If there is a Liquidity Event (Sale of Company, Merger, IPO) before the expiration or termination of this instrument, the Investor will, at its option, receive (i) a cash payment equal to the Purchase Amount or (ii) the amount payable as if the Investor had converted to Common Stock at the Valuation Cap.`;
-      addText(event1b, 10, false, 5);
+      const conversion3b = `(b) Change of Control. If a Change of Control (sale, merger, or acquisition) occurs prior to conversion, the Holder may elect to either: (i) receive a cash payment equal to two times (2x) the Principal Amount, or (ii) convert the Principal Amount at the Valuation Cap Price.`;
+      addText(conversion3b, 10, false, 5);
       y += 5;
 
-      const event1c = `(c) Dissolution. If there is a Dissolution Event (Company fails/closes) before this instrument expires, the Company will pay an amount equal to the Purchase Amount, due and payable to the Investor immediately prior to, or concurrent with, the consummation of the Dissolution Event. The Investor acknowledges that if assets are insufficient, they may receive $0.`;
-      addText(event1c, 10, false, 5);
+      const conversion3c = `(c) Maturity Conversion. If this Note has not been converted or repaid prior to the Maturity Date, the outstanding Principal Amount shall automatically convert into equity securities of the Company at the Valuation Cap Price.`;
+      addText(conversion3c, 10, false, 5);
       y += 10;
 
-      // Section 2 - Company Representations
-      addText("2. Company Representations", 11, true, 6);
+      // Section 4 - Company Representations
+      addText("4. Company Representations", 11, true, 6);
       y += 3;
 
-      const rep2a = `(a) The Company is a Limited Liability Company duly organized, validly existing, and in good standing under the laws of the state of Texas.`;
-      addText(rep2a, 10, false, 5);
+      const rep4a = `(a) The Company is a Limited Liability Company duly organized, validly existing, and in good standing under the laws of the state of Texas.`;
+      addText(rep4a, 10, false, 5);
       y += 5;
 
-      const rep2b = `(b) The execution, delivery, and performance of this instrument by the Company has been duly authorized by all necessary limited liability company action.`;
-      addText(rep2b, 10, false, 5);
+      const rep4b = `(b) The execution, delivery, and performance of this Note by the Company has been duly authorized by all necessary limited liability company action.`;
+      addText(rep4b, 10, false, 5);
       y += 10;
 
-      // Section 3 - Investor Representations
-      addText("3. Investor Representations", 11, true, 6);
+      // Section 5 - Holder Representations
+      addText("5. Holder Representations", 11, true, 6);
       y += 3;
 
-      const rep3a = `(a) The Investor has full legal capacity, power, and authority to execute and deliver this instrument.`;
-      addText(rep3a, 10, false, 5);
+      const rep5a = `(a) The Holder has full legal capacity, power, and authority to execute and deliver this Note.`;
+      addText(rep5a, 10, false, 5);
       y += 5;
 
-      const rep3b = `(b) The Investor is an accredited investor as such term is defined in Rule 501 of Regulation D under the Securities Act.`;
-      addText(rep3b, 10, false, 5);
+      const rep5b = `(b) The Holder is an accredited investor as such term is defined in Rule 501 of Regulation D under the Securities Act.`;
+      addText(rep5b, 10, false, 5);
       y += 5;
 
-      const rep3c = `(c) The Investor acknowledges that this SAFE is speculative and involves a high degree of risk, including the risk of losing the entire investment.`;
-      addText(rep3c, 10, false, 5);
+      const rep5c = `(c) The Holder acknowledges that this investment is speculative and involves a high degree of risk, including the risk of losing the entire investment.`;
+      addText(rep5c, 10, false, 5);
       y += 15;
 
       // Witness statement
       doc.setFont("helvetica", "bolditalic");
       doc.setFontSize(10);
-      const witnessText = "IN WITNESS WHEREOF, the undersigned have caused this instrument to be duly executed and delivered.";
+      const witnessText = "IN WITNESS WHEREOF, the undersigned have caused this Note to be duly executed and delivered as of the Issue Date.";
       const witnessLines = doc.splitTextToSize(witnessText, contentWidth);
       if (y + 60 > 275) {
         doc.addPage();
@@ -372,10 +394,10 @@ const AdminDealRoom = () => {
       doc.text("Address: Boca Raton, FL 33487", margin, y);
       y += 20;
 
-      // Investor Signature Block
+      // Holder Signature Block
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
-      doc.text(`INVESTOR: ${investorName}`, margin, y);
+      doc.text(`HOLDER: ${investorName}`, margin, y);
       y += 15;
 
       doc.setFont("helvetica", "normal");
@@ -396,9 +418,9 @@ const AdminDealRoom = () => {
       }
 
       // Save the PDF
-      doc.save(`SAFE_Agreement_${investorName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
+      doc.save(`Convertible_Note_${investorName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
       
-      toast.success("SAFE Agreement PDF generated successfully!");
+      toast.success("Convertible Note PDF generated successfully!");
     } catch (error) {
       console.error("PDF generation error:", error);
       toast.error("Failed to generate PDF");
@@ -463,7 +485,7 @@ const AdminDealRoom = () => {
             DEAL ROOM
           </h1>
           <p className="text-cyan-400 font-mono tracking-widest text-sm drop-shadow-[0_0_10px_rgba(0,200,255,0.5)]">
-            INVESTOR PITCH DECK & SAFE CONTRACT GENERATOR
+            INVESTOR PITCH DECK & CONVERTIBLE NOTE GENERATOR
           </p>
         </div>
 
@@ -627,7 +649,7 @@ const AdminDealRoom = () => {
 
               {/* Generate Button */}
               <Button
-                onClick={generateSAFEPDF}
+                onClick={generateConvertibleNotePDF}
                 disabled={generating || !investorName.trim() || !valuationCap || parseFloat(valuationCap) <= 0}
                 className="w-full h-14 text-lg font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-[0_0_30px_rgba(0,240,255,0.3)]"
               >
@@ -639,13 +661,13 @@ const AdminDealRoom = () => {
                 ) : (
                   <>
                     <Download className="h-5 w-5 mr-2" />
-                    Generate SAFE PDF
+                    Generate Convertible Note PDF
                   </>
                 )}
               </Button>
 
               <p className="text-xs text-gray-500 text-center">
-                This tool generates a draft SAFE agreement. Always have legal counsel review before execution.
+                This tool generates a draft Convertible Note agreement. Always have legal counsel review before execution.
               </p>
             </CardContent>
           </Card>

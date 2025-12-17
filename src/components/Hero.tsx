@@ -260,8 +260,8 @@ const Hero = () => {
           {/* Below the fold content - full width */}
           <div className="mt-16 lg:mt-24 max-w-3xl mx-auto lg:mx-0">
             {/* Static Profiles Description */}
-            <p className="text-sm lg:text-base text-muted-foreground leading-relaxed text-center lg:text-left mb-12">
-              Static profiles are ancient. Now you choose what you share. Points of entry are fluid. You lock down your Vitals for invisibility, or open your profile for that Connection. Your identity is now adaptable, secure, and entirely under your control.
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed text-center lg:text-left mb-12 font-medium">
+              Static profiles are <span className="text-white font-bold">ancient</span>. Now you choose what you share. Points of entry are <span className="text-cyan-400">fluid</span>. You lock down your Vitals for <span className="text-purple-400">invisibility</span>, or open your profile for that <span className="text-emerald-400">Connection</span>. Your identity is now adaptable, secure, and entirely under <span className="text-white font-bold">your control</span>.
             </p>
 
             {/* THE VALID™ NETWORK Section */}
@@ -269,9 +269,26 @@ const Hero = () => {
               <div className="inline-block px-3 py-1 border border-cyan-500/40 rounded-full text-xs font-mono tracking-widest uppercase text-cyan-400 bg-cyan-500/10 mb-4">
                 THE VALID™ NETWORK
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-                <span className="text-white">ONE IDENTITY.</span>{' '}
-                <span className="text-cyan-400">ZERO LIMITS.</span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-6 tracking-tight">
+                <span 
+                  className="inline-block text-transparent bg-clip-text drop-shadow-[0_4px_8px_rgba(255,255,255,0.3)]"
+                  style={{
+                    backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #a0a0a0 50%, #606060 100%)',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.5), 0 8px 16px rgba(0,0,0,0.3)',
+                  }}
+                >
+                  ONE IDENTITY.
+                </span>{' '}
+                <span 
+                  className="inline-block text-transparent bg-clip-text"
+                  style={{
+                    backgroundImage: 'linear-gradient(180deg, #22d3ee 0%, #06b6d4 30%, #0891b2 60%, #0e7490 100%)',
+                    textShadow: '0 0 30px rgba(34,211,238,0.6), 0 4px 8px rgba(0,0,0,0.4)',
+                    filter: 'drop-shadow(0 0 20px rgba(34,211,238,0.5))',
+                  }}
+                >
+                  ZERO LIMITS.
+                </span>
               </h2>
               {/* Counter Pill */}
               <div className="inline-flex items-center gap-2 px-4 py-2 border border-red-500/60 rounded-full bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.4)]">

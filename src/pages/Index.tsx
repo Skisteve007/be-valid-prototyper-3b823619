@@ -79,21 +79,21 @@ const Index = () => {
         </div>
       )}
       
-      {/* EXTENDED EARTH BACKGROUND - Site-wide */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        {/* Earth image extending down (keep the globe visible) */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'url(/landing-hero-earth.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 78%',
-            opacity: 0.9,
-            filter: 'saturate(1.15) contrast(1.05) brightness(1.05)',
-          }}
-        />
-        {/* Dark-mode veil only (kept light so the Earth remains visible) */}
-        {isDark && (
+      {/* EXTENDED EARTH BACKGROUND (dark mode only) */}
+      {isDark && (
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          {/* Earth image extending down (keep the globe visible) */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'url(/landing-hero-earth.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center 40%',
+              opacity: 0.55,
+              filter: 'saturate(1.15) contrast(1.05) brightness(1.05)',
+            }}
+          />
+          {/* Dark-mode veil only (kept light so the Earth remains visible) */}
           <div
             className="absolute inset-0"
             style={{
@@ -101,16 +101,17 @@ const Index = () => {
                 'linear-gradient(to bottom, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.22) 45%, rgba(0,0,0,0.30) 75%, rgba(0,0,0,0.38) 100%)',
             }}
           />
-        )}
-        {/* Subtle cyan atmospheric glow near the horizon */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse at 50% 88%, rgba(0,240,255,0.16) 0%, transparent 62%)',
-          }}
-        />
-      </div>
+          {/* Subtle atmospheric glow near the horizon */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse at 50% 88%, hsl(var(--primary) / 0.16) 0%, transparent 62%)',
+            }}
+          />
+        </div>
+      )}
+
       
       {/* BACKGROUND TEXTURE */}
       <div className={`fixed inset-0 pointer-events-none z-0 transition-opacity duration-700

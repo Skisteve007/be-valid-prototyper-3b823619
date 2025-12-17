@@ -202,8 +202,14 @@ const Hero = () => {
             {/* LEFT COLUMN: Headlines + CTA */}
             <div className="order-2 lg:order-1 text-center lg:text-left">
               
-              {/* Universal Lifestyle Key - Large */}
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display tracking-wide mb-3 text-white">
+              {/* Universal Lifestyle Key - Large with gradient */}
+              <h2 
+                className="text-3xl sm:text-4xl lg:text-5xl font-black font-display tracking-wide mb-3 text-transparent bg-clip-text"
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, #ffffff 0%, #a5f3fc 30%, #22d3ee 50%, #c084fc 80%, #ffffff 100%)',
+                  textShadow: '0 0 30px rgba(34,211,238,0.4), 0 0 60px rgba(192,132,252,0.3)',
+                }}
+              >
                 Universal Lifestyle Key
               </h2>
               

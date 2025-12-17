@@ -200,11 +200,11 @@ const Index = () => {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className={`text-2xl md:text-3xl font-bold mb-4 font-orbitron
             ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            Pipeline, <span className="text-cyan-400">not vault.</span>
+            Pipeline, <span className="text-cyan-400">Not Vault.</span>
           </h2>
           <p className={`text-lg leading-relaxed
             ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
-            We verify in the moment, then release — we don't warehouse your personal data.
+            We Verify In The Moment, Then Release — We Don't Warehouse Your Personal Data.
           </p>
         </div>
       </section>

@@ -298,9 +298,9 @@ const PitchDeck = () => {
                     </div>
                     <div className="bg-black/40 border border-cyan-500/30 rounded-lg p-4">
                       <Zap className="h-6 w-6 text-cyan-400 mb-2" />
-                      <h4 className="font-bold text-white mb-1">Instant Settlement</h4>
-                      <p className="text-xs text-gray-400">Verified funds flow fast</p>
-                      <p className="text-[9px] text-gray-500 mt-1">Timing may vary based on rails.</p>
+                      <h4 className="font-bold text-white mb-1">Fast Verified Payouts</h4>
+                      <p className="text-xs text-gray-400">Payouts typically occur within minutes to a few hours, depending on payment rails. Verification isn't a cost—it's a profit center.</p>
+                      <p className="text-[9px] text-gray-500 mt-2 leading-tight">Timing may vary based on bank/payment rails, cut-off times, KYC/AML, and operational controls.</p>
                     </div>
                     <div className="bg-black/40 border border-red-500/30 rounded-lg p-4">
                       <Lock className="h-6 w-6 text-red-400 mb-2" />

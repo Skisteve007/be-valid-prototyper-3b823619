@@ -247,7 +247,7 @@ const Hero = () => {
               {/* Ghost Protocols */}
               <div className="flex items-center gap-2 justify-center lg:justify-start mb-3 animate-pulse">
                 <Ghost className="w-5 h-5 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]" />
-                <span className="text-sm sm:text-base font-mono tracking-widest text-yellow-400 uppercase drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]">
+                <span className="text-xl sm:text-2xl font-mono tracking-widest text-yellow-400 uppercase drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]">
                   Ghost™ Protocols
                 </span>
               </div>
@@ -257,7 +257,7 @@ const Hero = () => {
               </p>
 
               {/* Signal Share Label */}
-              <p className="text-lg sm:text-xl font-mono tracking-widest text-cyan-400 uppercase mb-2 text-center lg:text-left">
+              <p className="text-xl sm:text-2xl font-mono tracking-widest text-cyan-400 uppercase mb-2 text-center lg:text-left">
               Signal Share
               </p>
 

@@ -93,6 +93,20 @@ const Auth = () => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
+        // Check if user is an admin (admins bypass email verification)
+        const { data: roleData } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", session.user.id)
+          .eq("role", "administrator")
+          .maybeSingle();
+        
+        if (roleData) {
+          // Admin - let them in regardless of email verification
+          navigate("/dashboard");
+          return;
+        }
+        
         // Check if user's email is verified via our custom system
         const { data: profile } = await supabase
           .from("profiles")
@@ -269,6 +283,28 @@ const Auth = () => {
 
       // Check if email is verified via our custom system
       if (data.user) {
+        // Check if user is admin (bypass email verification for admins)
+        const { data: roleData } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", data.user.id)
+          .eq("role", "administrator")
+          .maybeSingle();
+        
+        if (roleData) {
+          // Admin - let them in regardless of email verification
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("full_name")
+            .eq("user_id", data.user.id)
+            .single();
+          
+          saveUserDataLocally(data.user.email || loginEmail, profile?.full_name || "", "email");
+          toast.success("Welcome back, Admin!");
+          navigate("/dashboard");
+          return;
+        }
+        
         const { data: profile } = await supabase
           .from("profiles")
           .select("email_verified, full_name")
@@ -594,7 +630,38 @@ const Auth = () => {
                     </Button>
                     <Button 
                       variant="outline"
-                      onClick={() => navigate("/auth?mode=login")}
+                      onClick={async () => {
+                        // Check if user has an active session and is verified
+                        const { data: { session } } = await supabase.auth.getSession();
+                        if (session) {
+                          // Check if admin or email verified
+                          const { data: roleData } = await supabase
+                            .from("user_roles")
+                            .select("role")
+                            .eq("user_id", session.user.id)
+                            .eq("role", "administrator")
+                            .maybeSingle();
+                          
+                          if (roleData) {
+                            // Admin - let them in
+                            navigate("/dashboard");
+                            return;
+                          }
+                          
+                          const { data: profile } = await supabase
+                            .from("profiles")
+                            .select("email_verified")
+                            .eq("user_id", session.user.id)
+                            .single();
+                          
+                          if (profile?.email_verified) {
+                            navigate("/dashboard");
+                            return;
+                          }
+                        }
+                        // No session or not verified - go to login
+                        navigate("/auth?mode=login");
+                      }}
                       className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold"
                     >
                       Already verified? Log In

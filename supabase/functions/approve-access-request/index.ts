@@ -86,7 +86,7 @@ const handler = async (req: Request): Promise<Response> => {
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "VALID Access Control <onboarding@resend.dev>",
+          from: "VALID Access Control <noreply@bevalid.app>",
           to: [profile.email],
           subject: `✅ Your ${accessLabel} Access Has Been Approved`,
           html: `

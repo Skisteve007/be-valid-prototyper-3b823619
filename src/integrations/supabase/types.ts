@@ -2259,6 +2259,114 @@ export type Database = {
           },
         ]
       }
+      synth_audit_logs: {
+        Row: {
+          agent_outputs: Json | null
+          coherence_score: number | null
+          created_at: string
+          failed_checks: string[] | null
+          final_answer: string | null
+          final_answer_hash: string | null
+          id: string
+          judge_output: Json | null
+          outcome: string
+          policy_ok: boolean | null
+          processing_time_ms: number | null
+          prompt_hash: string | null
+          redaction_summary: Json | null
+          request_id: string
+          risk_decision: string
+          sanitized_prompt: string | null
+          timestamp: string
+          user_role: string | null
+          verification_results: Json | null
+          verification_score: number | null
+        }
+        Insert: {
+          agent_outputs?: Json | null
+          coherence_score?: number | null
+          created_at?: string
+          failed_checks?: string[] | null
+          final_answer?: string | null
+          final_answer_hash?: string | null
+          id?: string
+          judge_output?: Json | null
+          outcome: string
+          policy_ok?: boolean | null
+          processing_time_ms?: number | null
+          prompt_hash?: string | null
+          redaction_summary?: Json | null
+          request_id?: string
+          risk_decision: string
+          sanitized_prompt?: string | null
+          timestamp?: string
+          user_role?: string | null
+          verification_results?: Json | null
+          verification_score?: number | null
+        }
+        Update: {
+          agent_outputs?: Json | null
+          coherence_score?: number | null
+          created_at?: string
+          failed_checks?: string[] | null
+          final_answer?: string | null
+          final_answer_hash?: string | null
+          id?: string
+          judge_output?: Json | null
+          outcome?: string
+          policy_ok?: boolean | null
+          processing_time_ms?: number | null
+          prompt_hash?: string | null
+          redaction_summary?: Json | null
+          request_id?: string
+          risk_decision?: string
+          sanitized_prompt?: string | null
+          timestamp?: string
+          user_role?: string | null
+          verification_results?: Json | null
+          verification_score?: number | null
+        }
+        Relationships: []
+      }
+      synth_policies: {
+        Row: {
+          coherence_threshold: number
+          created_at: string
+          id: string
+          is_active: boolean | null
+          phi_redaction_enabled: boolean | null
+          pii_redaction_enabled: boolean | null
+          policy_name: string
+          storage_mode: string
+          updated_at: string
+          verification_threshold: number
+        }
+        Insert: {
+          coherence_threshold?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          phi_redaction_enabled?: boolean | null
+          pii_redaction_enabled?: boolean | null
+          policy_name: string
+          storage_mode?: string
+          updated_at?: string
+          verification_threshold?: number
+        }
+        Update: {
+          coherence_threshold?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          phi_redaction_enabled?: boolean | null
+          pii_redaction_enabled?: boolean | null
+          policy_name?: string
+          storage_mode?: string
+          updated_at?: string
+          verification_threshold?: number
+        }
+        Relationships: []
+      }
       user_agreements: {
         Row: {
           created_at: string

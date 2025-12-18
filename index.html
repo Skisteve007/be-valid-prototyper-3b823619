@@ -2,6 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    
+    <!-- Critical Preconnects - MUST be first for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://csfwfxkuyapfakrmhgjh.supabase.co" crossorigin />
+    
+    <!-- DNS Prefetch fallback for older browsers -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://csfwfxkuyapfakrmhgjh.supabase.co" />
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/exo/v21/4UaZrEtFpBI4f1ZSIK9d4LjJ4lM3OwRmOw.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Load fonts early with display=swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes" />
     
     <!-- Mobile Optimization -->
@@ -52,20 +69,9 @@
     <!-- Manifest for PWA -->
     <link rel="manifest" href="/manifest.json?v=4" />
     
-    <!-- Font Preconnects & Preloads for Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://csfwfxkuyapfakrmhgjh.supabase.co" />
-    
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/exo/v21/4UaZrEtFpBI4f1ZSIK9d4LjJ4lM3OwRmOw.woff2" as="font" type="font/woff2" crossorigin />
-    
     <!-- Preload critical above-fold images (LCP optimization) -->
     <link rel="preload" href="/valid_portal.mp4" as="video" type="video/mp4" />
     <link rel="preload" href="/app-icon.jpg" as="image" />
-    
-    <!-- Load fonts with display=swap for better UX -->
-    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     
     <!-- Critical CSS for preventing layout shifts (above-the-fold only) -->
     <style>

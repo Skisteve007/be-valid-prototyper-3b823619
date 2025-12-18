@@ -237,7 +237,7 @@ const InvestorPortal = () => {
                   </div>
                   <div className="p-4 md:p-6">
                     <p className="text-xs text-cyan-400/70 uppercase tracking-widest mb-1">Discount</p>
-                    <p className="text-emerald-400 font-semibold tracking-wide">20% on Series Seed</p>
+                    <p className="text-emerald-400 font-semibold tracking-wide">50% on Series Seed</p>
                   </div>
                   <div className="p-4 md:p-6">
                     <p className="text-xs text-cyan-400/70 uppercase tracking-widest mb-1">Minimum Check</p>

@@ -187,10 +187,24 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         </button>
       )}
 
-      {/* Main Slide Content */}
-      <div className="relative flex-1 min-h-0 w-full flex items-center justify-center">
-        <div className="w-full h-full">
-          <PitchSlide slide={pitchSlides[current]} />
+      {/* Main Slide Content - Horizontal sliding carousel */}
+      <div className="relative flex-1 min-h-0 w-full overflow-hidden">
+        <div 
+          className="flex h-full transition-transform duration-500 ease-in-out"
+          style={{ 
+            width: `${totalSlides * 100}%`,
+            transform: `translateX(-${(current * 100) / totalSlides}%)`
+          }}
+        >
+          {pitchSlides.map((slide, index) => (
+            <div 
+              key={slide.id} 
+              className="h-full flex-shrink-0"
+              style={{ width: `${100 / totalSlides}%` }}
+            >
+              <PitchSlide slide={slide} />
+            </div>
+          ))}
         </div>
       </div>
 

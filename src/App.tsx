@@ -68,6 +68,7 @@ const SystemAudit = lazy(() => import("./pages/SystemAudit"));
 const Scanner = lazy(() => import("./pages/Scanner"));
 const ManagerQuickstart = lazy(() => import("./pages/ManagerQuickstart"));
 const StaffQuickstart = lazy(() => import("./pages/StaffQuickstart"));
+const DevicePairing = lazy(() => import("./pages/DevicePairing"));
 const ManagerAdmin = lazy(() => import("./pages/ManagerAdmin"));
 
 const queryClient = new QueryClient();
@@ -176,6 +177,7 @@ const App = () => (
                   <Route path="/scanner" element={<Scanner />} />
                   <Route path="/manager-quickstart" element={<ManagerQuickstart />} />
                   <Route path="/staff-quickstart" element={<StaffQuickstart />} />
+                  <Route path="/device-pairing" element={<DevicePairing />} />
                   <Route path="/manager-admin" element={<ManagerAdmin />} />
                   
                   {/* CATCH-ALL - Must be last */}

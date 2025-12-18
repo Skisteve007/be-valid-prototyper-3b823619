@@ -146,12 +146,19 @@ export const pitchSlides: SlideData[] = [
   {
     id: 12,
     title: "FINANCIALS",
+    subtitle: "Revenue Projections — Year 1–3 (By Stream)",
     stats: [
       { label: "Gross Margin", value: "60%" },
-      { label: "Y1 Revenue", value: "$1.6M" },
-      { label: "Y2 Revenue", value: "$6M" },
-      { label: "Y3 Revenue", value: "$17M" }
+      { label: "Y1 Total", value: "$1.6M" },
+      { label: "Y2 Total", value: "$6.0M" },
+      { label: "Y3 Total", value: "$17.0M" }
     ],
+    bullets: [
+      "YEAR 1 ($1.6M): Venue Licensing $600K • GHOST™ Passes $400K • Member Subs $300K • Gas Fees $150K • Other $150K",
+      "YEAR 2 ($6.0M): Venue Licensing $2.0M • GHOST™ Passes $1.5M • Member Subs $1.0M • Gas Fees $900K • Other $600K",
+      "YEAR 3 ($17.0M): Venue Licensing $5.0M • GHOST™ Passes $4.0M • Member Subs $3.0M • Gas Fees $3.0M • Other $2.0M"
+    ],
+    content: ["Gas Fees scale automatically with scan volume; per-scan rates decrease with volume tiers."],
     layout: 'stats',
   },
   {

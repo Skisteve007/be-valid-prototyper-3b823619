@@ -15,7 +15,7 @@ const handler = async (req: Request): Promise<Response> => {
   if (!userId || !accessType || !token) {
     return new Response(generateHTML("error", "Invalid request parameters"), {
       status: 400,
-      headers: { "Content-Type": "text/html" },
+      headers: { "Content-Type": "text/html; charset=utf-8" },
     });
   }
 
@@ -24,7 +24,7 @@ const handler = async (req: Request): Promise<Response> => {
   if (token !== expectedToken) {
     return new Response(generateHTML("error", "Invalid or expired approval token"), {
       status: 403,
-      headers: { "Content-Type": "text/html" },
+      headers: { "Content-Type": "text/html; charset=utf-8" },
     });
   }
 
@@ -42,7 +42,7 @@ const handler = async (req: Request): Promise<Response> => {
       console.error("Profile not found:", profileError);
       return new Response(generateHTML("error", "User not found"), {
         status: 404,
-        headers: { "Content-Type": "text/html" },
+        headers: { "Content-Type": "text/html; charset=utf-8" },
       });
     }
 
@@ -66,7 +66,7 @@ const handler = async (req: Request): Promise<Response> => {
       console.error("Update error:", updateError);
       return new Response(generateHTML("error", "Failed to approve access"), {
         status: 500,
-        headers: { "Content-Type": "text/html" },
+        headers: { "Content-Type": "text/html; charset=utf-8" },
       });
     }
 
@@ -119,117 +119,71 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Access approved for ${profile.email} - ${accessType}`);
 
-    return new Response(generateHTML("success", `${accessLabel} access approved for ${profile.full_name || profile.email}!`), {
+    return new Response(generateHTML("success", ""), {
       status: 200,
-      headers: { "Content-Type": "text/html" },
+      headers: { "Content-Type": "text/html; charset=utf-8" },
     });
 
   } catch (error: any) {
     console.error("Error approving access:", error);
     return new Response(generateHTML("error", error.message), {
       status: 500,
-      headers: { "Content-Type": "text/html" },
+      headers: { "Content-Type": "text/html; charset=utf-8" },
     });
   }
 };
 
 function generateHTML(status: "success" | "error", message: string): string {
-  const isSuccess = status === "success";
-  const bgColor = isSuccess ? "#00f0ff" : "#ff4444";
-  const icon = isSuccess ? "✅" : "❌";
-  
-  // For success, show a brief message then auto-close
-  if (isSuccess) {
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>VALID™ Access Approved</title>
-        <style>
-          body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #0a0a0a;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding: 20px;
-          }
-          .card {
-            background: #111;
-            border: 1px solid #00f0ff33;
-            border-radius: 16px;
-            padding: 40px;
-            text-align: center;
-            max-width: 400px;
-          }
-          .icon { font-size: 48px; margin-bottom: 20px; }
-          h1 { color: #00f0ff; margin-bottom: 16px; }
-          p { color: #888; line-height: 1.6; }
-        </style>
-        <script>
-          // Auto-close this tab after 2 seconds
-          setTimeout(function() { window.close(); }, 2000);
-        </script>
-      </head>
-      <body>
-        <div class="card">
-          <div class="icon">✅</div>
-          <h1>Access Approved!</h1>
-          <p>${message}</p>
-          <p style="color: #666; font-size: 12px; margin-top: 16px;">This window will close automatically...</p>
-        </div>
-      </body>
-      </html>
-    `;
+  if (status === "success") {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approval Sent</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{background:#111;border:2px solid #00e5e5;border-radius:20px;padding:50px 40px;text-align:center;max-width:380px;box-shadow:0 0 40px rgba(0,229,229,0.2)}
+.check{width:80px;height:80px;background:#00e5e5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:40px}
+h1{color:#00e5e5;font-size:28px;margin-bottom:12px}
+p{color:#999;font-size:16px}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="check">✓</div>
+<h1>Approval Sent!</h1>
+<p>The user has been notified.</p>
+</div>
+</body>
+</html>`;
   }
   
-  // For errors, show the error message
-  return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>VALID™ Access Error</title>
-      <style>
-        body {
-          font-family: 'Segoe UI', Arial, sans-serif;
-          background: #0a0a0a;
-          color: white;
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0;
-          padding: 20px;
-        }
-        .card {
-          background: #111;
-          border: 1px solid #ff444433;
-          border-radius: 16px;
-          padding: 40px;
-          text-align: center;
-          max-width: 400px;
-        }
-        .icon { font-size: 48px; margin-bottom: 20px; }
-        h1 { color: #ff4444; margin-bottom: 16px; }
-        p { color: #888; line-height: 1.6; }
-      </style>
-    </head>
-    <body>
-      <div class="card">
-        <div class="icon">❌</div>
-        <h1>Error</h1>
-        <p>${message}</p>
-      </div>
-    </body>
-    </html>
-  `;
+  // For errors
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Error</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{background:#111;border:2px solid #ff4444;border-radius:20px;padding:50px 40px;text-align:center;max-width:380px}
+.icon{width:80px;height:80px;background:#ff4444;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:40px}
+h1{color:#ff4444;font-size:28px;margin-bottom:12px}
+p{color:#999;font-size:16px}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="icon">✕</div>
+<h1>Error</h1>
+<p>${message}</p>
+</div>
+</body>
+</html>`;
 }
 
 serve(handler);

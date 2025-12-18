@@ -36,6 +36,7 @@ const navItems = [
   { id: "quick-branding", label: "Fast Event Setup", icon: Zap },
   { id: "scanner", label: "QR Scanner", icon: QrCode },
   { id: "traffic", label: "Traffic Analytics", icon: BarChart3 },
+  { id: "pricing", label: "Pricing Reference", icon: DollarSign },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange }: AdminMobileNavProps) => {

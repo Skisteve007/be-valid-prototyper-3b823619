@@ -61,6 +61,7 @@ const IntegratedHealthCompliance = lazy(() => import("./pages/IntegratedHealthCo
 const MyAccess = lazy(() => import("./pages/MyAccess"));
 const LabPortal = lazy(() => import("./pages/LabPortal"));
 const PlatformFeatures = lazy(() => import("./pages/PlatformFeatures"));
+const Pricing = lazy(() => import("./pages/Pricing"));
 const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
 const Synth = lazy(() => import("./pages/Synth"));
@@ -160,6 +161,7 @@ const App = () => (
                   <Route path="/competitive-scorecard" element={<AgeGate><CompetitiveScorecard /></AgeGate>} />
                   <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
                   <Route path="/vendor-pricing" element={<AgeGate><PlatformFeatures /></AgeGate>} />
+                  <Route path="/pricing" element={<AgeGate><Pricing /></AgeGate>} />
                   <Route path="/vendor-portal" element={<VendorPortal />} />
                   <Route path="/vendor-portal/dashboard" element={<VendorDashboard />} />
                   <Route path="/staff/pos" element={<StaffPOS />} />

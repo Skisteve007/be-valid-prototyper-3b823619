@@ -81,14 +81,17 @@ export const pitchSlides: SlideData[] = [
   {
     id: 7,
     title: "BUSINESS MODEL",
-    subtitle: "6 Revenue Streams",
+    subtitle: "9 Revenue Streams",
     bullets: [
+      "TRANSACTION FEES — 1.5% on all payments",
       "MEMBER SUBSCRIPTIONS — $39 per 60 days",
-      "GHOST™ PASSES — 1-Day: $10 · 3-Day: $20 · 1-Week: $50 (30% Venue / 30% Pool / 10% Acct Mgr / 30% VALID™)",
-      "COMMUNITY POOL — Weekly distribution to venues based on scan activity",
-      "HEALTH VERIFICATION — Lab kit resale, 40-60% margin",
-      "VENUE LICENSING — $99–$7,500/month (Starter to Stadium tiers)",
-      "VERIFICATION REQUESTS — $0.50-$2.00 per identity check"
+      "GHOST™ PASSES — $10 / $20 / $50 (30/30/10/30 split)",
+      "COMMUNITY POOL — Weekly venue distributions",
+      "HEALTH/LAB MARGINS — 40-60% on lab tests",
+      "VENUE LICENSING — $99–$7,500/month base",
+      "PER-USER FEES — $3–$8/person/month",
+      "VERIFICATION FEES — $50–$100/background check",
+      "GAS FEES (Per-Scan) — $0.05–$0.50/scan · Every ID scan = revenue"
     ],
     layout: 'bullets',
   },
@@ -145,24 +148,25 @@ export const pitchSlides: SlideData[] = [
     title: "FINANCIALS",
     stats: [
       { label: "Gross Margin", value: "60%" },
-      { label: "Y1 Revenue", value: "$250K" },
-      { label: "Y3 Revenue", value: "$4.5M" },
-      { label: "Y5 Revenue", value: "$18M+" }
+      { label: "Y1 Revenue", value: "$1.6M" },
+      { label: "Y2 Revenue", value: "$6M" },
+      { label: "Y3 Revenue", value: "$17M" }
     ],
     layout: 'stats',
   },
   {
     id: 13,
     title: "THE REVENUE ENGINE",
-    subtitle: "We're Not Burning Cash. We're Building a Tollbooth.",
+    subtitle: "9 Streams — Every Scan = Revenue",
     stats: [
       { label: "Transaction Fees", value: "1.5%" },
-      { label: "Member Subscriptions", value: "$39/60 days" },
-      { label: "Venue Licensing", value: "$99–$7,500/mo" },
-      { label: "Verification Requests", value: "$0.50–$2.00" },
-      { label: "Health Verification", value: "40-60%" },
-      { label: "GHOST™ Passes", value: "30/30/10/30" }
+      { label: "Member Subs", value: "$39/60 days" },
+      { label: "GHOST™ Passes", value: "$10/$20/$50" },
+      { label: "Venue Licensing", value: "$99–$7.5K/mo" },
+      { label: "Per-User Fees", value: "$3–$8/mo" },
+      { label: "GAS FEES", value: "$0.05–$0.50/scan" }
     ],
+    content: ["GAS FEE MODEL: Every venue scan collects $0.05–$0.50. Stadium example: 70K fans × $0.12 × 10 games = $84K/year. Revenue scales automatically with customer growth."],
     layout: 'stats',
   },
   {

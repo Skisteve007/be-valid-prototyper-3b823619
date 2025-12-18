@@ -19,7 +19,7 @@ const StaffQuickstart = () => {
         </Button>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.4)] animate-pulse">
             GHOST™ Pass Scan — Staff Quickstart
           </h1>
           <p className="text-muted-foreground">2-minute guide for Door, Security, and Host staff</p>

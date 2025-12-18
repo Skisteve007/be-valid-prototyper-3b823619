@@ -9,7 +9,8 @@ import {
   Calendar,
   Building2,
   Check,
-  DollarSign
+  DollarSign,
+  GraduationCap
 } from "lucide-react";
 import ResponsiveHeader from "@/components/ResponsiveHeader";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ import workforceBg from "@/assets/industry-workforce-bg.jpg";
 import labsBg from "@/assets/industry-labs-bg.jpg";
 import rentalsBg from "@/assets/industry-rentals-bg.jpg";
 import securityBg from "@/assets/industry-security-bg.jpg";
+import universityBg from "@/assets/industry-university-bg.jpg";
 
 const industryCards = [
   {
@@ -218,6 +220,30 @@ const industryCards = [
       { name: "Health Badge Verify", price: "$35–$75/test" },
     ],
     onboarding: "from $500",
+  },
+  {
+    id: "universities",
+    title: "Universities & Education™",
+    icon: GraduationCap,
+    priceStart: "$50K",
+    priceSuffix: "/year (campus license)",
+    tiers: "Small: $50K–$100K | Medium: $100K–$250K | Large: $250K–$500K",
+    bgImage: universityBg,
+    gradientOverlay: "from-indigo-900/95 via-violet-800/80 to-transparent",
+    borderColor: "border-violet-500",
+    accentColor: "text-violet-300",
+    included: [
+      "Building-by-Building Tracking",
+      "Watchlist Screening",
+      "Title IX / Clery Act Compliance",
+    ],
+    perUnit: [
+      { name: "Per-Student/Person", price: "$5–$15/person/year" },
+      { name: "Per-Building", price: "$500–$2,000/building/mo" },
+      { name: "Stadium Integration", price: "$25K–$75K/year" },
+      { name: "Continuous Monitoring", price: "$3–$5/person/mo" },
+    ],
+    onboarding: "from $5,000",
   },
 ];
 

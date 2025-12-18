@@ -79,6 +79,7 @@ const StaffPayment = lazy(() => import("./pages/StaffPayment"));
 const AdminDocumentation = lazy(() => import("./pages/AdminDocumentation"));
 const PartnerHelp = lazy(() => import("./pages/PartnerHelp"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
+const WalletFundingSuccess = lazy(() => import("./pages/WalletFundingSuccess"));
 const PaymentGuide = lazy(() => import("./pages/PaymentGuide"));
 
 const queryClient = new QueryClient();
@@ -164,6 +165,7 @@ const App = () => (
                   <Route path="/toxicology-kit-order" element={<AgeGate><ToxicologyKitOrder /></AgeGate>} />
                   <Route path="/health-panel-order" element={<AgeGate><HealthPanelOrder /></AgeGate>} />
                   <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
+                  <Route path="/wallet-funding-success" element={<AgeGate><WalletFundingSuccess /></AgeGate>} />
                   
                   {/* VENDOR & PORTAL ROUTES */}
                   <Route path="/compliance" element={<VenueCompliance />} />

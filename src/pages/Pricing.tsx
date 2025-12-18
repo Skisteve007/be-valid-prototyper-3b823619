@@ -28,6 +28,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import industrySecurityBg from "@/assets/industry-security-bg.jpg";
 import industryEventsBg from "@/assets/industry-events-bg.jpg";
+import industryNightlifeBg from "@/assets/industry-nightlife-bg.jpg";
+import industryTransportationBg from "@/assets/industry-transportation-bg.jpg";
+import industryWorkforceBg from "@/assets/industry-workforce-bg.jpg";
+import industryLabsBg from "@/assets/industry-labs-bg.jpg";
+import industryRentalsBg from "@/assets/industry-rentals-bg.jpg";
+import industryStadiumBg from "@/assets/industry-stadium-bg.jpg";
+import industryHospitalityBg from "@/assets/industry-hospitality-bg.jpg";
 
 const hardwareOptions = [
   {
@@ -158,15 +165,21 @@ const Pricing = () => {
 
             <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {/* Nightlife Card with Tabs */}
-              <Card className="border-purple-500/30 bg-gradient-to-br from-purple-500/5 to-transparent overflow-hidden">
+              <Card className="relative border-purple-500/30 overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${industryNightlifeBg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="relative z-10">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-purple-500/20 border border-purple-500/40">
-                      <PartyPopper className="h-6 w-6 text-purple-400" />
+                    <div className="p-3 rounded-xl bg-purple-500/30 border border-purple-400/50">
+                      <PartyPopper className="h-6 w-6 text-purple-300" />
                     </div>
                     <div>
-                      <CardTitle className="text-xl text-foreground">🎤 Nightlife & Entertainment</CardTitle>
-                      <p className="text-sm text-muted-foreground">Clubs, bars, lounges, venues</p>
+                      <CardTitle className="text-xl md:text-2xl font-bold text-white">🎤 Nightlife & Entertainment</CardTitle>
+                      <p className="text-sm text-gray-300">Clubs, bars, lounges, venues</p>
                     </div>
                   </div>
                 </CardHeader>
@@ -179,8 +192,8 @@ const Pricing = () => {
                     </TabsList>
 
                     <TabsContent value="starter" className="mt-4 space-y-4">
-                      <div className="text-center py-4 border-b border-border/50">
-                        <p className="text-3xl font-bold text-emerald-400">$99<span className="text-lg text-muted-foreground">/mo</span></p>
+                      <div className="text-center py-4 border-b border-white/20">
+                        <p className="text-3xl md:text-4xl font-bold text-cyan-400">$99<span className="text-base md:text-lg text-gray-300">/mo</span></p>
                       </div>
                       <div className="space-y-3">
                         <div className="p-3 rounded-lg bg-muted/30">
@@ -274,174 +287,196 @@ const Pricing = () => {
                     <Link to="/partner-application">Get Started</Link>
                   </Button>
                 </CardContent>
+              </div>
               </Card>
 
               {/* Transportation Card */}
-              <Card className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-transparent overflow-hidden">
+              <Card className="relative border-amber-500/30 overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${industryTransportationBg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="relative z-10">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-amber-500/20 border border-amber-500/40">
-                      <Truck className="h-6 w-6 text-amber-400" />
+                    <div className="p-3 rounded-xl bg-amber-500/30 border border-amber-400/50">
+                      <Truck className="h-6 w-6 text-amber-300" />
                     </div>
                     <div>
-                      <CardTitle className="text-xl text-foreground">🚛 Transportation & Logistics</CardTitle>
-                      <p className="text-sm text-muted-foreground">Fleets, delivery, rideshare</p>
+                      <CardTitle className="text-xl md:text-2xl font-bold text-white">🚛 Transportation & Logistics</CardTitle>
+                      <p className="text-sm text-gray-300">Fleets, delivery, rideshare</p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-center py-4 border-b border-border/50">
-                    <p className="text-3xl font-bold text-emerald-400">$99–$299<span className="text-lg text-muted-foreground">/mo</span></p>
-                    <p className="text-sm text-muted-foreground">+ per-driver fees</p>
+                  <div className="text-center py-4 border-b border-white/20">
+                    <p className="text-3xl md:text-4xl font-bold text-cyan-400">$99–$299<span className="text-base md:text-lg text-gray-300">/mo</span></p>
+                    <p className="text-sm text-gray-300">+ per-driver fees</p>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-xs font-semibold text-muted-foreground mb-2">BASE PLATFORM</p>
-                    <ul className="text-sm space-y-1">
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Fleet dashboard</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Driver verification</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Compliance reporting</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Vehicle access control</li>
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">BASE PLATFORM</p>
+                    <ul className="text-sm md:text-base space-y-1 text-gray-200">
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Fleet dashboard</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Driver verification</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Compliance reporting</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Vehicle access control</li>
                     </ul>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-xs font-semibold text-muted-foreground mb-2">PER-DRIVER FEES</p>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div>Active driver/mo: <span className="text-cyan-400">$5–$8</span></div>
-                      <div>Background check: <span className="text-cyan-400">$50–$100</span></div>
-                      <div>MVR: <span className="text-cyan-400">$15–$25</span></div>
-                      <div>DOT drug screen: <span className="text-cyan-400">$50–$85</span></div>
-                      <div className="col-span-2">Continuous monitoring: <span className="text-cyan-400">$5–$10/mo</span></div>
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">PER-DRIVER FEES</p>
+                    <div className="grid grid-cols-2 gap-2 text-sm md:text-base text-gray-200">
+                      <div>Active driver/mo: <span className="text-cyan-400 font-semibold">$5–$8</span></div>
+                      <div>Background check: <span className="text-cyan-400 font-semibold">$50–$100</span></div>
+                      <div>MVR: <span className="text-cyan-400 font-semibold">$15–$25</span></div>
+                      <div>DOT drug screen: <span className="text-cyan-400 font-semibold">$50–$85</span></div>
+                      <div className="col-span-2">Continuous monitoring: <span className="text-cyan-400 font-semibold">$5–$10/mo</span></div>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-center">
-                    <p className="text-xs text-amber-400">📝 Example: 100 drivers ≈ <span className="font-bold text-white">$800–$1,000/month</span> total</p>
+                  <div className="p-3 rounded-xl bg-amber-500/20 border border-amber-400/40 text-center">
+                    <p className="text-sm md:text-base text-amber-300">📝 Example: 100 drivers ≈ <span className="font-bold text-white">$800–$1,000/month</span> total</p>
                   </div>
 
-                  <Button asChild className="w-full bg-amber-600 hover:bg-amber-700">
+                  <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Get Started</Link>
                   </Button>
                 </CardContent>
+                </div>
               </Card>
 
               {/* Workforce Card */}
-              <Card className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-transparent overflow-hidden">
+              <Card className="relative border-blue-500/30 overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${industryWorkforceBg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="relative z-10">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-blue-500/20 border border-blue-500/40">
-                      <Users className="h-6 w-6 text-blue-400" />
+                    <div className="p-3 rounded-xl bg-blue-500/30 border border-blue-400/50">
+                      <Users className="h-6 w-6 text-blue-300" />
                     </div>
                     <div>
-                      <CardTitle className="text-xl text-foreground">👔 Workforce & Staffing</CardTitle>
-                      <p className="text-sm text-muted-foreground">HR, staffing agencies, enterprises</p>
+                      <CardTitle className="text-xl md:text-2xl font-bold text-white">👔 Workforce & Staffing</CardTitle>
+                      <p className="text-sm text-gray-300">HR, staffing agencies, enterprises</p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-center py-4 border-b border-border/50">
-                    <p className="text-3xl font-bold text-emerald-400">$199–$499<span className="text-lg text-muted-foreground">/mo</span></p>
-                    <p className="text-sm text-muted-foreground">+ per-employee fees</p>
+                  <div className="text-center py-4 border-b border-white/20">
+                    <p className="text-3xl md:text-4xl font-bold text-cyan-400">$199–$499<span className="text-base md:text-lg text-gray-300">/mo</span></p>
+                    <p className="text-sm text-gray-300">+ per-employee fees</p>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-xs font-semibold text-muted-foreground mb-2">BASE PLATFORM</p>
-                    <ul className="text-sm space-y-1">
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> HR dashboard</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Employee verification</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Time & attendance</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Zero-trust access</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Training tracking</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Compliance reporting</li>
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">BASE PLATFORM</p>
+                    <ul className="text-sm md:text-base space-y-1 text-gray-200">
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> HR dashboard</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Employee verification</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Time & attendance</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Zero-trust access</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Training tracking</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Compliance reporting</li>
                     </ul>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-xs font-semibold text-muted-foreground mb-2">PER-EMPLOYEE FEES</p>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div>Active employee/mo: <span className="text-cyan-400">$3–$6</span></div>
-                      <div>Background check: <span className="text-cyan-400">$50–$100</span></div>
-                      <div>Drug screen: <span className="text-cyan-400">$50–$85</span></div>
-                      <div>I-9/E-Verify: <span className="text-cyan-400">$8–$15</span></div>
-                      <div className="col-span-2">Continuous monitoring: <span className="text-cyan-400">$5–$10/mo</span></div>
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">PER-EMPLOYEE FEES</p>
+                    <div className="grid grid-cols-2 gap-2 text-sm md:text-base text-gray-200">
+                      <div>Active employee/mo: <span className="text-cyan-400 font-semibold">$3–$6</span></div>
+                      <div>Background check: <span className="text-cyan-400 font-semibold">$50–$100</span></div>
+                      <div>Drug screen: <span className="text-cyan-400 font-semibold">$50–$85</span></div>
+                      <div>I-9/E-Verify: <span className="text-cyan-400 font-semibold">$8–$15</span></div>
+                      <div className="col-span-2">Continuous monitoring: <span className="text-cyan-400 font-semibold">$5–$10/mo</span></div>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/30 text-center">
-                    <p className="text-xs text-blue-400">📝 Example: 200 employees ≈ <span className="font-bold text-white">$1,100/month</span> total</p>
+                  <div className="p-3 rounded-xl bg-blue-500/20 border border-blue-400/40 text-center">
+                    <p className="text-sm md:text-base text-blue-300">📝 Example: 200 employees ≈ <span className="font-bold text-white">$1,100/month</span> total</p>
                   </div>
 
-                  <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                  <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Get Started</Link>
                   </Button>
                 </CardContent>
+                </div>
               </Card>
 
               {/* Stadium Card */}
-              <Card className="border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-transparent overflow-hidden">
+              <Card className="relative border-yellow-500/30 overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${industryStadiumBg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="relative z-10">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-yellow-500/20 border border-yellow-500/40">
-                      <Building2 className="h-6 w-6 text-yellow-400" />
+                    <div className="p-3 rounded-xl bg-yellow-500/30 border border-yellow-400/50">
+                      <Building2 className="h-6 w-6 text-yellow-300" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <CardTitle className="text-xl text-foreground">🏟️ Stadium & Arena</CardTitle>
-                        <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/50">PREMIUM</Badge>
+                        <CardTitle className="text-xl md:text-2xl font-bold text-white">🏟️ Stadium & Arena</CardTitle>
+                        <Badge className="bg-yellow-500/30 text-yellow-300 border-yellow-400/50">PREMIUM</Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground">NFL, arenas, large venues</p>
+                      <p className="text-sm text-gray-300">NFL, arenas, large venues</p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-center py-4 border-b border-border/50">
-                    <p className="text-3xl font-bold text-emerald-400">$2,500–$7,500<span className="text-lg text-muted-foreground">/mo</span></p>
+                  <div className="text-center py-4 border-b border-white/20">
+                    <p className="text-3xl md:text-4xl font-bold text-cyan-400">$2,500–$7,500<span className="text-base md:text-lg text-gray-300">/mo</span></p>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-xs font-semibold text-muted-foreground mb-2">HARDWARE INCLUDED</p>
-                    <ul className="text-sm space-y-1">
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> 2 Desktop Hubs</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> 20 Handhelds</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> 5 Kiosks</li>
-                      <li className="text-xs text-muted-foreground ml-6">Additional units available</li>
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">HARDWARE INCLUDED</p>
+                    <ul className="text-sm md:text-base space-y-1 text-gray-200">
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> 2 Desktop Hubs</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> 20 Handhelds</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> 5 Kiosks</li>
+                      <li className="text-sm text-gray-400 ml-6">Additional units available</li>
                     </ul>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-xs font-semibold text-muted-foreground mb-2">SOFTWARE</p>
-                    <ul className="text-sm space-y-1">
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Enterprise dashboard</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Real-time crowd analytics</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> API access (full)</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Multi-gate management</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> Emergency protocols</li>
-                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400" /> White-label available</li>
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">SOFTWARE</p>
+                    <ul className="text-sm md:text-base space-y-1 text-gray-200">
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Enterprise dashboard</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Real-time crowd analytics</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> API access (full)</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Multi-gate management</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> Emergency protocols</li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400" /> White-label available</li>
                     </ul>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-xs font-semibold text-muted-foreground mb-2">PRICING OPTIONS</p>
-                    <div className="text-sm space-y-1">
-                      <p>Per-scan: <span className="text-cyan-400">$0.10–$0.50</span> (volume-based)</p>
-                      <p className="text-muted-foreground">OR flat monthly fee</p>
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">PRICING OPTIONS</p>
+                    <div className="text-sm md:text-base space-y-1 text-gray-200">
+                      <p>Per-scan: <span className="text-cyan-400 font-semibold">$0.10–$0.50</span> (volume-based)</p>
+                      <p className="text-gray-400">OR flat monthly fee</p>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 text-center">
-                    <p className="text-sm text-yellow-400 font-semibold">⚡ Stadium pays for guest scans — NOT the guests</p>
+                  <div className="p-3 rounded-xl bg-yellow-500/20 border border-yellow-400/40 text-center">
+                    <p className="text-sm md:text-base text-yellow-300 font-semibold">⚡ Stadium pays for guest scans — NOT the guests</p>
                   </div>
 
-                  <div className="text-center text-sm text-muted-foreground space-y-1">
-                    <p>Support: <span className="text-foreground">Dedicated Success Team + 24/7/365</span></p>
-                    <p>Onboarding: <span className="text-cyan-400">$10,000–$25,000</span></p>
+                  <div className="text-center text-sm md:text-base text-gray-300 space-y-1">
+                    <p>Support: <span className="text-white">Dedicated Success Team + 24/7/365</span></p>
+                    <p>Onboarding: <span className="text-cyan-400 font-semibold">$10,000–$25,000</span></p>
                   </div>
 
-                  <Button asChild className="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-semibold">
+                  <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Contact Sales</Link>
                   </Button>
                 </CardContent>
+                </div>
               </Card>
             </div>
 
@@ -643,33 +678,40 @@ const Pricing = () => {
               </Card>
 
               {/* Rentals & Exotics */}
-              <Card className="border-red-500/30 bg-gradient-to-br from-red-500/5 to-transparent overflow-hidden">
+              <Card className="relative border-red-500/30 overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${industryRentalsBg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="relative z-10">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-red-500/20 border border-red-500/40">
-                      <Car className="h-6 w-6 text-red-400" />
+                    <div className="p-3 rounded-xl bg-red-500/30 border border-red-400/50">
+                      <Car className="h-6 w-6 text-red-300" />
                     </div>
-                    <CardTitle className="text-xl md:text-2xl font-bold text-foreground">🚗 Rentals & Exotics</CardTitle>
+                    <CardTitle className="text-xl md:text-2xl font-bold text-white">🚗 Rentals & Exotics</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-center py-4 border-b border-border/50">
-                    <p className="text-3xl md:text-4xl font-bold text-emerald-400">$199–$399<span className="text-base md:text-lg text-muted-foreground">/mo</span></p>
-                    <p className="text-sm md:text-base text-muted-foreground">+ per-rental fees</p>
+                  <div className="text-center py-4 border-b border-white/20">
+                    <p className="text-3xl md:text-4xl font-bold text-cyan-400">$199–$399<span className="text-base md:text-lg text-gray-300">/mo</span></p>
+                    <p className="text-sm md:text-base text-gray-300">+ per-rental fees</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-sm md:text-base font-semibold text-foreground mb-2">PER-RENTAL FEES</p>
-                    <div className="text-sm md:text-base space-y-2">
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">PER-RENTAL FEES</p>
+                    <div className="text-sm md:text-base space-y-2 text-gray-200">
                       <p>Customer ID verification: <span className="text-cyan-400 font-semibold">$5–$10</span></p>
                       <p>Full background check: <span className="text-cyan-400 font-semibold">$50–$100</span></p>
                       <p>Insurance verification: <span className="text-cyan-400 font-semibold">$5–$10</span></p>
                       <p>High-value vetting: <span className="text-cyan-400 font-semibold">$25–$50</span></p>
                     </div>
                   </div>
-                  <Button asChild className="w-full bg-red-600 hover:bg-red-700 font-bold text-base md:text-lg py-3 px-6">
+                  <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Get Started</Link>
                   </Button>
                 </CardContent>
+                </div>
               </Card>
 
               {/* Security & Training */}
@@ -751,33 +793,40 @@ const Pricing = () => {
               </Card>
 
               {/* Hospitality */}
-              <Card className="border-teal-500/30 bg-gradient-to-br from-teal-500/5 to-transparent overflow-hidden">
+              <Card className="relative border-teal-500/30 overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${industryHospitalityBg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="relative z-10">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-teal-500/20 border border-teal-500/40">
-                      <Hotel className="h-6 w-6 text-teal-400" />
+                    <div className="p-3 rounded-xl bg-teal-500/30 border border-teal-400/50">
+                      <Hotel className="h-6 w-6 text-teal-300" />
                     </div>
-                    <CardTitle className="text-xl md:text-2xl font-bold text-foreground">🏨 Hospitality</CardTitle>
+                    <CardTitle className="text-xl md:text-2xl font-bold text-white">🏨 Hospitality</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-center py-4 border-b border-border/50">
-                    <p className="text-3xl md:text-4xl font-bold text-emerald-400">$199–$599<span className="text-base md:text-lg text-muted-foreground">/mo</span></p>
-                    <p className="text-sm md:text-base text-muted-foreground">+ per-guest fees</p>
+                  <div className="text-center py-4 border-b border-white/20">
+                    <p className="text-3xl md:text-4xl font-bold text-cyan-400">$199–$599<span className="text-base md:text-lg text-gray-300">/mo</span></p>
+                    <p className="text-sm md:text-base text-gray-300">+ per-guest fees</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <p className="text-sm md:text-base font-semibold text-foreground mb-2">PER-GUEST FEES</p>
-                    <div className="text-sm md:text-base space-y-2">
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">PER-GUEST FEES</p>
+                    <div className="text-sm md:text-base space-y-2 text-gray-200">
                       <p>Guest verification: <span className="text-cyan-400 font-semibold">$1–$3/check-in</span></p>
                       <p>VIP recognition: <span className="text-cyan-400 font-semibold">$2–$5</span></p>
                       <p>Amenity access: <span className="text-cyan-400 font-semibold">$0.50–$1/scan</span></p>
                       <p>Health badge verify: <span className="text-cyan-400 font-semibold">$35–$75</span></p>
                     </div>
                   </div>
-                  <Button asChild className="w-full bg-teal-600 hover:bg-teal-700 font-bold text-base md:text-lg py-3 px-6">
+                  <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Get Started</Link>
                   </Button>
                 </CardContent>
+                </div>
               </Card>
             </div>
           </div>

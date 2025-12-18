@@ -189,61 +189,66 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
     </div>
   );
 
-  const renderBulletsSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-8 py-12">
-      <h2 
-        className="font-bold mb-6"
-        style={{ 
-          fontSize: 'clamp(48px, 7vw, 80px)',
-          color: '#00E5E5',
-          textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
-        }}
-      >
-        {slide.title}
-      </h2>
-      {slide.subtitle && (
-        <p 
-          className="mb-10"
+  const renderBulletsSlide = () => {
+    const bulletCount = slide.bullets?.length || 0;
+    const isCompact = bulletCount > 4;
+    
+    return (
+      <div className={`flex flex-col items-center h-full text-center px-6 ${isCompact ? 'py-6 justify-start pt-8' : 'py-12 justify-center'}`}>
+        <h2 
+          className={`font-bold ${isCompact ? 'mb-3' : 'mb-6'}`}
           style={{ 
-            fontSize: 'clamp(22px, 3vw, 36px)',
-            background: chromeGradient,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            filter: 'brightness(1.15) contrast(1.2)'
+            fontSize: isCompact ? 'clamp(36px, 5vw, 60px)' : 'clamp(48px, 7vw, 80px)',
+            color: '#00E5E5',
+            textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
           }}
         >
-          {slide.subtitle}
-        </p>
-      )}
-      {slide.bullets && (
-        <ul className="space-y-4 max-w-4xl text-left">
-          {slide.bullets.map((bullet, i) => (
-            <li 
-              key={i}
-              className="flex items-start gap-4"
-            >
-              <span 
-                className="mt-2 w-3 h-3 rounded-full flex-shrink-0"
-                style={{
-                  background: '#00E5E5',
-                  boxShadow: '0 0 12px rgba(0, 229, 229, 0.6)'
-                }}
-              />
-              <span 
-                className="text-white"
-                style={{ 
-                  fontSize: 'clamp(18px, 2.5vw, 28px)',
-                  lineHeight: '1.4'
-                }}
+          {slide.title}
+        </h2>
+        {slide.subtitle && (
+          <p 
+            className={isCompact ? 'mb-4' : 'mb-10'}
+            style={{ 
+              fontSize: isCompact ? 'clamp(18px, 2.5vw, 28px)' : 'clamp(22px, 3vw, 36px)',
+              background: chromeGradient,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'brightness(1.15) contrast(1.2)'
+            }}
+          >
+            {slide.subtitle}
+          </p>
+        )}
+        {slide.bullets && (
+          <ul className={`${isCompact ? 'space-y-2' : 'space-y-4'} max-w-4xl text-left`}>
+            {slide.bullets.map((bullet, i) => (
+              <li 
+                key={i}
+                className="flex items-start gap-3"
               >
-                {bullet}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+                <span 
+                  className={`${isCompact ? 'mt-1.5 w-2 h-2' : 'mt-2 w-3 h-3'} rounded-full flex-shrink-0`}
+                  style={{
+                    background: '#00E5E5',
+                    boxShadow: '0 0 12px rgba(0, 229, 229, 0.6)'
+                  }}
+                />
+                <span 
+                  className="text-white"
+                  style={{ 
+                    fontSize: isCompact ? 'clamp(14px, 2vw, 22px)' : 'clamp(18px, 2.5vw, 28px)',
+                    lineHeight: '1.35'
+                  }}
+                >
+                  {bullet}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  };
 
   const renderComparisonSlide = () => (
     <div className="flex flex-col items-center justify-center h-full text-center px-8 py-12">

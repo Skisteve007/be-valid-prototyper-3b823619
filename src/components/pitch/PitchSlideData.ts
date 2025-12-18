@@ -81,7 +81,7 @@ export const pitchSlides: SlideData[] = [
       "GHOST™ PASSES — 1-Day: $10 · 3-Day: $20 · 1-Week: $50 (30% Venue / 30% Pool / 10% Acct Mgr / 30% VALID™)",
       "COMMUNITY POOL — Weekly distribution to venues based on scan activity",
       "HEALTH VERIFICATION — Lab kit resale, 40-60% margin",
-      "VENUE LICENSING — $299-$499/month per venue",
+      "VENUE LICENSING — $99–$7,500/month (Starter to Stadium tiers)",
       "VERIFICATION REQUESTS — $0.50-$2.00 per identity check"
     ],
     layout: 'bullets',
@@ -151,9 +151,9 @@ export const pitchSlides: SlideData[] = [
     subtitle: "We're Not Burning Cash. We're Building a Tollbooth.",
     stats: [
       { label: "Transaction Fees", value: "1.5%" },
-      { label: "Member Subscriptions", value: "$9.99/mo" },
-      { label: "Venue Licensing", value: "$10K-$100K/yr" },
-      { label: "Verification Requests", value: "$0.10-$1.00" },
+      { label: "Member Subscriptions", value: "$39/60 days" },
+      { label: "Venue Licensing", value: "$99–$7,500/mo" },
+      { label: "Verification Requests", value: "$0.50–$2.00" },
       { label: "Health Verification", value: "40-60%" },
       { label: "GHOST™ Passes", value: "30/30/10/30" }
     ],

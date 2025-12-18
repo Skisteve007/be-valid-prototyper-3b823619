@@ -81,6 +81,7 @@ const PartnerHelp = lazy(() => import("./pages/PartnerHelp"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const WalletFundingSuccess = lazy(() => import("./pages/WalletFundingSuccess"));
 const PaymentGuide = lazy(() => import("./pages/PaymentGuide"));
+const GhostPassOwnerGuide = lazy(() => import("./pages/GhostPassOwnerGuide"));
 
 const queryClient = new QueryClient();
 
@@ -203,6 +204,7 @@ const App = () => (
                   <Route path="/driver-dashboard" element={<AgeGate><DriverDashboard /></AgeGate>} />
                   <Route path="/manager-admin" element={<ManagerAdmin />} />
                   <Route path="/staff/payment" element={<StaffPayment />} />
+                  <Route path="/ghost-pass-owner-guide" element={<GhostPassOwnerGuide />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

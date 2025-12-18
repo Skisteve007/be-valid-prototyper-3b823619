@@ -25,12 +25,41 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
-    const payload = await req.json();
-    logStep("Payload received", { event: payload.event, fp_id: payload.data?.fp_id });
+    const rawBody = await req.text();
+
+    if (!rawBody) {
+      logStep("Empty request body (likely webhook verification/test ping)");
+      return new Response(JSON.stringify({ received: true }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
+
+    let payload: any;
+    try {
+      payload = JSON.parse(rawBody);
+    } catch (e) {
+      logStep("Invalid JSON body (ignoring)", { error: String(e) });
+      return new Response(JSON.stringify({ received: true }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
+
+    // Some providers send a verification challenge payload
+    if (payload?.challenge) {
+      logStep("Webhook challenge received");
+      return new Response(JSON.stringify({ challenge: payload.challenge }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
+
+    logStep("Payload received", { event: payload?.event, fp_id: payload?.data?.fp_id });
 
     // Handle different Footprint webhook events
-    const eventType = payload.event;
-    const fpData = payload.data;
+    const eventType = payload?.event;
+    const fpData = payload?.data;
 
     if (!fpData) {
       logStep("No data in payload");

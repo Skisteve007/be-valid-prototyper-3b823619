@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Globe, MapPin, Monitor, Smartphone, Tablet, TrendingUp, Users, Clock } from 'lucide-react';
+import { Globe, MapPin, Monitor, Smartphone, Tablet, TrendingUp, Users, Clock, Bot, UserCheck } from 'lucide-react';
 
 interface PageView {
   id: string;
@@ -22,6 +22,9 @@ interface AnalyticsSummary {
   totalViews: number;
   uniqueSessions: number;
   todayViews: number;
+  realHumans: number;
+  botsServers: number;
+  realHumanCities: { name: string; count: number }[];
   countries: { name: string; count: number }[];
   cities: { name: string; count: number }[];
   devices: { type: string; count: number }[];
@@ -29,6 +32,43 @@ interface AnalyticsSummary {
   topPages: { path: string; count: number }[];
   topReferrers: { source: string; count: number }[];
 }
+
+// Detect if a page view is likely from a bot/server vs real human
+const isLikelyBot = (view: PageView): boolean => {
+  const referrer = view.referrer || '';
+  
+  // Known infrastructure/bot patterns
+  const botPatterns = [
+    'lovableproject.com',
+    'vercel.com',
+    'netlify.com',
+    '__lovable_token',
+  ];
+  
+  // If referrer contains bot patterns = bot
+  if (botPatterns.some(pattern => referrer.includes(pattern))) {
+    return true;
+  }
+  
+  // No referrer AND from known cloud infrastructure locations = likely bot
+  // (Amsterdam, Ashburn, Dublin, Frankfurt, Singapore are common data center cities)
+  const dataCenterCities = ['Amsterdam', 'Ashburn', 'Dublin', 'Frankfurt', 'Singapore', 'Hounslow', 'Aulnay-sous-Bois'];
+  if (!view.referrer && view.city && dataCenterCities.includes(view.city)) {
+    return true;
+  }
+  
+  // Has real external referrer = human
+  if (referrer && !botPatterns.some(pattern => referrer.includes(pattern))) {
+    return false;
+  }
+  
+  // No referrer = could be direct traffic or bot, mark as bot for safety
+  if (!view.referrer) {
+    return true;
+  }
+  
+  return false;
+};
 
 const TrafficAnalytics: React.FC = () => {
   const [analytics, setAnalytics] = useState<AnalyticsSummary | null>(null);
@@ -66,6 +106,10 @@ const TrafficAnalytics: React.FC = () => {
 
       const pageViews = views as PageView[];
       
+      // Separate real humans from bots/servers
+      const humanViews = pageViews.filter(v => !isLikelyBot(v));
+      const botViews = pageViews.filter(v => isLikelyBot(v));
+      
       // Calculate today's views
       const today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -86,7 +130,7 @@ const TrafficAnalytics: React.FC = () => {
         .sort((a, b) => b.count - a.count)
         .slice(0, 10);
 
-      // City breakdown
+      // City breakdown (all traffic)
       const cityMap = new Map<string, number>();
       pageViews.forEach(v => {
         if (v.city) {
@@ -95,6 +139,19 @@ const TrafficAnalytics: React.FC = () => {
         }
       });
       const cities = Array.from(cityMap.entries())
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
+
+      // Real human cities only (for advertising focus)
+      const realHumanCityMap = new Map<string, number>();
+      humanViews.forEach(v => {
+        if (v.city) {
+          const cityLabel = v.region ? `${v.city}, ${v.region}` : v.city;
+          realHumanCityMap.set(cityLabel, (realHumanCityMap.get(cityLabel) || 0) + 1);
+        }
+      });
+      const realHumanCities = Array.from(realHumanCityMap.entries())
         .map(([name, count]) => ({ name, count }))
         .sort((a, b) => b.count - a.count)
         .slice(0, 10);
@@ -153,6 +210,9 @@ const TrafficAnalytics: React.FC = () => {
         totalViews: pageViews.length,
         uniqueSessions,
         todayViews,
+        realHumans: humanViews.length,
+        botsServers: botViews.length,
+        realHumanCities,
         countries,
         cities,
         devices,
@@ -195,6 +255,52 @@ const TrafficAnalytics: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Real Humans vs Bots - TOP PRIORITY */}
+      <Card className="bg-gradient-to-r from-emerald-900/60 via-black/40 to-red-900/40 border-emerald-500/40">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg text-white flex items-center gap-2">
+            🎯 Traffic Quality (Advertise Here)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
+              <div className="flex items-center gap-3 mb-2">
+                <UserCheck className="w-6 h-6 text-emerald-400" />
+                <span className="text-emerald-400 font-semibold">Real Humans</span>
+              </div>
+              <p className="text-3xl font-bold text-white">{analytics.realHumans.toLocaleString()}</p>
+              <p className="text-xs text-emerald-300/70 mt-1">Visitors with referrer source</p>
+            </div>
+            <div className="p-4 bg-red-500/10 rounded-lg border border-red-500/30">
+              <div className="flex items-center gap-3 mb-2">
+                <Bot className="w-6 h-6 text-red-400" />
+                <span className="text-red-400 font-semibold">Bots & Servers</span>
+              </div>
+              <p className="text-3xl font-bold text-white">{analytics.botsServers.toLocaleString()}</p>
+              <p className="text-xs text-red-300/70 mt-1">Build servers, crawlers, CDN</p>
+            </div>
+          </div>
+          
+          {/* Real Human Cities - Where to Advertise */}
+          {analytics.realHumanCities.length > 0 && (
+            <div className="mt-4 p-4 bg-emerald-500/5 rounded-lg border border-emerald-500/20">
+              <p className="text-sm font-semibold text-emerald-400 mb-2">📍 Real Human Locations (Advertise Here)</p>
+              <div className="flex flex-wrap gap-2">
+                {analytics.realHumanCities.map(city => (
+                  <Badge 
+                    key={city.name} 
+                    className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                  >
+                    {city.name} ({city.count})
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="bg-gradient-to-br from-cyan-900/40 to-cyan-800/20 border-cyan-500/30">
@@ -425,27 +531,42 @@ const TrafficAnalytics: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-2 max-h-[300px] overflow-y-auto">
-            {recentViews.map(view => (
-              <div 
-                key={view.id} 
-                className="flex items-center justify-between p-2 bg-gray-800/50 rounded text-sm"
-              >
-                <div className="flex items-center gap-3">
-                  {getDeviceIcon(view.device_type || 'desktop')}
-                  <div>
-                    <span className="text-gray-300">{view.page_path}</span>
-                    {view.city && view.country && (
-                      <span className="text-gray-500 ml-2">
-                        from {view.city}, {view.country}
-                      </span>
+            {recentViews.map(view => {
+              const isBot = isLikelyBot(view);
+              return (
+                <div 
+                  key={view.id} 
+                  className={`flex items-center justify-between p-2 rounded text-sm ${
+                    isBot ? 'bg-red-900/20 border border-red-500/20' : 'bg-emerald-900/20 border border-emerald-500/20'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    {isBot ? (
+                      <Bot className="w-4 h-4 text-red-400" />
+                    ) : (
+                      <UserCheck className="w-4 h-4 text-emerald-400" />
                     )}
+                    {getDeviceIcon(view.device_type || 'desktop')}
+                    <div>
+                      <span className="text-gray-300">{view.page_path}</span>
+                      {view.city && view.country && (
+                        <span className="text-gray-500 ml-2">
+                          from {view.city}, {view.country}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge className={isBot ? 'bg-red-500/20 text-red-400 text-xs' : 'bg-emerald-500/20 text-emerald-400 text-xs'}>
+                      {isBot ? 'Bot' : 'Human'}
+                    </Badge>
+                    <span className="text-gray-500 text-xs">
+                      {new Date(view.created_at).toLocaleTimeString()}
+                    </span>
                   </div>
                 </div>
-                <span className="text-gray-500 text-xs">
-                  {new Date(view.created_at).toLocaleTimeString()}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </CardContent>
       </Card>

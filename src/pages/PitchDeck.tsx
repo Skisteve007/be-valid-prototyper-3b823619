@@ -65,6 +65,7 @@ const INVESTOR_DECK_PDF_URL = "/images/pitch/VALID-Investor-Deck-2025.pdf";
 
 const PitchDeck = () => {
   const navigate = useNavigate();
+  const [deckOpenRequest, setDeckOpenRequest] = useState(0);
   const [futureReadyText, setFutureReadyText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const [noPromoter, setNoPromoter] = useState(false);
@@ -225,12 +226,13 @@ const PitchDeck = () => {
               </div>
               <div className="flex flex-wrap gap-3">
                 <Button
-                  onClick={() =>
+                  onClick={() => {
+                    setDeckOpenRequest((v) => v + 1);
                     document.getElementById('investor-deck-slides')?.scrollIntoView({
                       behavior: 'smooth',
                       block: 'start',
-                    })
-                  }
+                    });
+                  }}
                   className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
                   style={{ fontSize: 'clamp(14px, 1vw, 16px)', padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)' }}
                 >
@@ -238,13 +240,15 @@ const PitchDeck = () => {
                   View Deck
                 </Button>
                 <Button
+                  asChild
                   variant="outline"
-                  onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
                   className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
                   style={{ fontSize: 'clamp(14px, 1vw, 16px)', padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)' }}
                 >
-                  <FileDown className="w-4 h-4 mr-2" />
-                  Open PDF
+                  <a href={INVESTOR_DECK_PDF_URL} target="_blank" rel="noopener noreferrer">
+                    <FileDown className="w-4 h-4 mr-2" />
+                    Open PDF
+                  </a>
                 </Button>
               </div>
             </div>
@@ -253,12 +257,13 @@ const PitchDeck = () => {
             <div className="lg:hidden mb-4">
               <Button
                 variant="ghost"
-                onClick={() =>
+                onClick={() => {
+                  setDeckOpenRequest((v) => v + 1);
                   document.getElementById('investor-deck-slides')?.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start',
-                  })
-                }
+                  });
+                }}
                 className="w-full border border-white/20 text-white hover:bg-white/10"
               >
                 <Maximize2 className="w-4 h-4 mr-2" />
@@ -269,6 +274,7 @@ const PitchDeck = () => {
             {/* Slides (replaces blocked PDF embed) */}
             <div id="investor-deck-slides" className="relative bg-black/60 rounded-lg overflow-hidden border border-white/10">
               <InvestorDeckCarousel
+                openFullscreenRequest={deckOpenRequest}
                 images={[
                   '/images/pitch/slide-01.jpg',
                   '/images/pitch/slide-02.jpg?v=20251217',

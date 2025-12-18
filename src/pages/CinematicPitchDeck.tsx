@@ -102,7 +102,7 @@ const slidesData = [
     label: 'THE ASK',
     title: '$200K Convertible Note',
     subtitle: 'Fuel the first three venue pilots.',
-    body: 'Terms: 20% discount, $3M cap, 5% interest, 18-month maturity. Use: Hardware Fleet $60K, Venue Pilots $40K, Sales Hire $50K, Development $30K, Legal $20K.',
+    body: 'Terms: 50% discount, $6M cap, 5% interest, 18-month maturity. Use: Hardware Fleet $60K, Venue Pilots $40K, Sales Hire $50K, Development $30K, Legal $20K.',
     highlight: 'Milestone: 3 paying venues → Series A ready',
   },
   {

@@ -18,7 +18,8 @@ import {
   Calendar,
   Phone,
   FileText,
-  ArrowRight
+  ArrowRight,
+  GraduationCap
 } from "lucide-react";
 import ResponsiveHeader from "@/components/ResponsiveHeader";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,7 @@ import industryLabsBg from "@/assets/industry-labs-bg.jpg";
 import industryRentalsBg from "@/assets/industry-rentals-bg.jpg";
 import industryStadiumBg from "@/assets/industry-stadium-bg.jpg";
 import industryHospitalityBg from "@/assets/industry-hospitality-bg.jpg";
+import industryUniversityBg from "@/assets/industry-university-bg.jpg";
 
 const hardwareOptions = [
   {
@@ -474,6 +476,139 @@ const Pricing = () => {
 
                   <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Contact Sales</Link>
+                  </Button>
+                </CardContent>
+                </div>
+              </Card>
+
+              {/* Universities & Education Card */}
+              <Card className="relative border-indigo-500/30 overflow-hidden lg:col-span-2">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${industryUniversityBg})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
+                <div className="relative z-10">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 rounded-xl bg-indigo-500/30 border border-indigo-400/50">
+                      <GraduationCap className="h-6 w-6 text-indigo-300" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <CardTitle className="text-xl md:text-2xl font-bold text-white">🎓 Universities & Education</CardTitle>
+                        <Badge className="bg-indigo-500/30 text-indigo-300 border-indigo-400/50">ENTERPRISE</Badge>
+                      </div>
+                      <p className="text-sm md:text-base text-gray-200 font-medium">Know exactly who's on your campus — always</p>
+                      <p className="text-xs text-gray-400 mt-1">Also ideal for corporate campuses, HQs, research parks, and business parks ("corporate zones").</p>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {/* Annual Campus License Tiers */}
+                  <div className="p-4 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-3">ANNUAL CAMPUS LICENSE</p>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center border-b border-white/10 pb-2">
+                        <div>
+                          <p className="text-sm md:text-base text-gray-200 font-medium">Small Campus</p>
+                          <p className="text-xs text-gray-400">Under 10K students / small corporate campus</p>
+                        </div>
+                        <p className="text-lg md:text-xl font-bold text-cyan-400">$50K–$100K<span className="text-sm text-gray-300">/yr</span></p>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-white/10 pb-2">
+                        <div>
+                          <p className="text-sm md:text-base text-gray-200 font-medium">Medium Campus</p>
+                          <p className="text-xs text-gray-400">10K–30K / mid-size campus or business park</p>
+                        </div>
+                        <p className="text-lg md:text-xl font-bold text-cyan-400">$100K–$250K<span className="text-sm text-gray-300">/yr</span></p>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-sm md:text-base text-gray-200 font-medium">Large Campus</p>
+                          <p className="text-xs text-gray-400">30K+ / multi-campus system or major corporate zone</p>
+                        </div>
+                        <p className="text-lg md:text-xl font-bold text-cyan-400">$250K–$500K<span className="text-sm text-gray-300">/yr</span></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Alternative Pricing */}
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">ALTERNATIVE PRICING MODELS</p>
+                    <ul className="text-sm md:text-base space-y-1 text-gray-200">
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Per-student / per-person: <span className="text-cyan-400 font-semibold">$5–$15 / person / year</span></li>
+                      <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Per-building: <span className="text-cyan-400 font-semibold">$500–$2,000 / building / month</span></li>
+                    </ul>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {/* Who Gets Verified */}
+                    <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                      <p className="text-sm md:text-base font-semibold text-white mb-2">WHO GETS VERIFIED</p>
+                      <ul className="text-sm space-y-1 text-gray-200">
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Students / Employees: ID verified + watchlist</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Faculty & Staff: background + monitoring</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Visitors: real-time screening + temp badges</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Contractors: credentialed, time-limited</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Event attendees: football, concerts, graduation</li>
+                      </ul>
+                    </div>
+
+                    {/* Watchlist Screening */}
+                    <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                      <p className="text-sm md:text-base font-semibold text-white mb-2">WATCHLIST SCREENING</p>
+                      <ul className="text-sm space-y-1 text-gray-200">
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-red-400 flex-shrink-0" /> Terrorist watchlist</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-red-400 flex-shrink-0" /> Sex offender registry</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-red-400 flex-shrink-0" /> Criminal database</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-amber-400 flex-shrink-0" /> Continuous monitoring (alerts if status changes)</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {/* Real-time Dashboard */}
+                    <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                      <p className="text-sm md:text-base font-semibold text-white mb-2">REAL-TIME DASHBOARD</p>
+                      <ul className="text-sm space-y-1 text-gray-200">
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Know who's on campus right now</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Building-by-building tracking</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Instant alerts for flagged individuals</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-cyan-400 flex-shrink-0" /> Title IX, Clery Act compliance reporting</li>
+                      </ul>
+                    </div>
+
+                    {/* Hardware Included */}
+                    <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                      <p className="text-sm md:text-base font-semibold text-white mb-2">HARDWARE INCLUDED</p>
+                      <ul className="text-sm space-y-1 text-gray-200">
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400 flex-shrink-0" /> Entry kiosks</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400 flex-shrink-0" /> Handheld scanners</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400 flex-shrink-0" /> Building access points</li>
+                        <li className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-400 flex-shrink-0" /> Stadium / arena integration</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Add-ons */}
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">ADD-ONS</p>
+                    <div className="grid grid-cols-2 gap-2 text-sm text-gray-200">
+                      <p>Stadium package: <span className="text-cyan-400 font-semibold">+$25K–$75K/yr</span></p>
+                      <p>Background checks: <span className="text-cyan-400 font-semibold">$50–$100/check</span></p>
+                      <p>Continuous monitoring: <span className="text-cyan-400 font-semibold">$3–$5/person/mo</span></p>
+                      <p>Additional kiosks: <span className="text-cyan-400 font-semibold">$1,500 + $200/mo</span></p>
+                    </div>
+                  </div>
+
+                  <div className="text-center text-sm md:text-base text-gray-300 space-y-1">
+                    <p>Support: <span className="text-white">Dedicated Success Team + 24/7/365</span></p>
+                    <p>Onboarding: <span className="text-cyan-400 font-semibold">$5,000–$25,000</span> (one-time, based on campus size)</p>
+                  </div>
+
+                  <Button asChild className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-base md:text-lg py-3 px-6">
+                    <Link to="/partner-application">Request Campus Assessment</Link>
                   </Button>
                 </CardContent>
                 </div>

@@ -33,6 +33,7 @@ import { AccessApprovalManager } from "@/components/admin/AccessApprovalManager"
 import StaffShiftManager from "@/components/admin/StaffShiftManager";
 import AffiliateCommissionManager from "@/components/admin/AffiliateCommissionManager";
 import TrafficAnalytics from "@/components/admin/TrafficAnalytics";
+import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
 import {
   DndContext,
   closestCenter,
@@ -577,7 +578,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Second Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-6">
+          <TabsList className="hidden md:grid w-full grid-cols-8 gap-1 h-auto p-1 mb-6">
             <TabsTrigger value="lead-outreach" className="cursor-pointer text-xs px-2 py-2">
               📧 Leads
             </TabsTrigger>
@@ -601,6 +602,9 @@ const Admin = () => {
             <TabsTrigger value="traffic" className="cursor-pointer text-xs px-2 py-2">
               <BarChart3 className="h-3 w-3 mr-1" />
               Traffic
+            </TabsTrigger>
+            <TabsTrigger value="pricing" className="cursor-pointer text-xs px-2 py-2">
+              💰 Pricing
             </TabsTrigger>
           </TabsList>
           
@@ -948,6 +952,10 @@ const Admin = () => {
           
           <TabsContent value="traffic">
             <TrafficAnalytics />
+          </TabsContent>
+          
+          <TabsContent value="pricing">
+            <PricingReferenceTab />
           </TabsContent>
         </Tabs>
       </main>

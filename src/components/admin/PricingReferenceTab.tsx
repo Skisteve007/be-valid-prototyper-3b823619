@@ -13,7 +13,8 @@ import {
   Building2, 
   Users,
   CreditCard,
-  GraduationCap
+  GraduationCap,
+  Fuel
 } from "lucide-react";
 import {
   Table,
@@ -874,6 +875,159 @@ export const PricingReferenceTab = () => {
               <p className="text-2xl font-bold text-purple-400">40–60%</p>
               <p className="text-xs text-muted-foreground">on lab kits</p>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Section N: Gas Fee — Per-Scan Verification Fee */}
+      <Card className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-transparent">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <Fuel className="h-5 w-5 text-amber-400" />
+            ⛽ GAS FEE — Per-Scan Verification Fee
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          
+          {/* What It Is */}
+          <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
+            <p className="text-sm font-semibold text-foreground mb-2">WHAT IT IS</p>
+            <p className="text-sm text-muted-foreground">
+              A small fee charged to venues for every ID verification scan. This is <span className="text-amber-400 font-semibold">separate from subscription fees</span> and GHOST™ Pass revenue.
+            </p>
+          </div>
+
+          {/* Standard Volume Tiers */}
+          <div className="space-y-3">
+            <p className="text-sm font-semibold text-foreground">STANDARD VOLUME TIERS (DEFAULT)</p>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-border/50">
+                    <TableHead className="text-foreground font-semibold">Volume / Month</TableHead>
+                    <TableHead className="text-foreground font-semibold">Fee Per Scan</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Under 1,000 scans</TableCell>
+                    <TableCell className="text-amber-400 font-semibold">$0.25–$0.50/scan</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">1,000–10,000 scans</TableCell>
+                    <TableCell className="text-amber-400 font-semibold">$0.15–$0.25/scan</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">10,000–100,000 scans</TableCell>
+                    <TableCell className="text-amber-400 font-semibold">$0.10–$0.15/scan</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">100,000+ scans</TableCell>
+                    <TableCell className="text-amber-400 font-semibold">$0.05–$0.10/scan (negotiated)</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
+            <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/30">
+              <p className="text-xs text-red-400 font-semibold">
+                ⚠️ MINIMUM MONTHLY: $50 (even if low/no usage)
+              </p>
+            </div>
+          </div>
+
+          {/* By Vertical */}
+          <div className="space-y-3">
+            <p className="text-sm font-semibold text-foreground">BY VERTICAL (Use these rates in proposals)</p>
+            <div className="grid md:grid-cols-2 gap-2">
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Nightlife & Entertainment</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.15–$0.25/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Events & Festivals</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.10–$0.20/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Stadium & Arena</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.08–$0.15/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Universities & Education</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.05–$0.10/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Hospitality</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.25–$0.50/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Transportation & Logistics</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.25–$0.50/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Workforce & Staffing</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.15–$0.25/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Security & Training</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.20–$0.35/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Rentals & Exotics</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.50–$1.00/scan</span>
+              </div>
+              <div className="p-2 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center">
+                <span className="text-xs">Labs & Health</span>
+                <span className="text-xs text-amber-400 font-semibold">$0.25–$0.50/scan</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Revenue Examples */}
+          <div className="space-y-3">
+            <p className="text-sm font-semibold text-foreground">REVENUE EXAMPLES (Use in sales pitches)</p>
+            <div className="grid md:grid-cols-2 gap-3">
+              <div className="p-3 rounded-lg bg-purple-500/10 border border-purple-500/30">
+                <p className="text-xs font-semibold text-purple-400 mb-1">🎤 NIGHTCLUB</p>
+                <p className="text-xs text-muted-foreground">1,500 scans/night × $0.20 × 20 nights</p>
+                <p className="text-lg font-bold text-emerald-400">= $6,000/month</p>
+              </div>
+              <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/30">
+                <p className="text-xs font-semibold text-blue-400 mb-1">🏟️ STADIUM</p>
+                <p className="text-xs text-muted-foreground">70,000/game × $0.12 × 10 games</p>
+                <p className="text-lg font-bold text-emerald-400">= $84,000/year</p>
+              </div>
+              <div className="p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
+                <p className="text-xs font-semibold text-cyan-400 mb-1">🎓 UNIVERSITY</p>
+                <p className="text-xs text-muted-foreground">30,000/day × $0.07 × 200 days</p>
+                <p className="text-lg font-bold text-emerald-400">= $420,000/year</p>
+              </div>
+              <div className="p-3 rounded-lg bg-pink-500/10 border border-pink-500/30">
+                <p className="text-xs font-semibold text-pink-400 mb-1">🎪 FESTIVAL (3-Day)</p>
+                <p className="text-xs text-muted-foreground">50,000/day × $0.15 × 3 days</p>
+                <p className="text-lg font-bold text-emerald-400">= $22,500/event</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Sales Tips */}
+          <div className="space-y-3">
+            <p className="text-sm font-semibold text-foreground">SALES TIPS</p>
+            <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 space-y-2">
+              <ul className="text-xs text-muted-foreground space-y-1.5">
+                <li>• Frame as <span className="text-emerald-400 font-semibold">"verification fee"</span> (not "gas fee") for corporate clients</li>
+                <li>• Emphasize volume discounts — <span className="text-emerald-400">"costs less as you scale"</span></li>
+                <li>• Compare to GHOST™ earnings — <span className="text-emerald-400">"you'll earn more than you pay in verification fees"</span></li>
+                <li>• High-volume clients: negotiate within range, <span className="text-red-400 font-semibold">never below minimums</span></li>
+                <li>• Enterprise: bundle into "all-in" pricing if needed</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Margin Note */}
+          <div className="p-3 rounded-lg bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/50">
+            <p className="text-sm text-center font-bold text-emerald-400">
+              💰 MARGIN NOTE: Gas fees are <span className="text-white">pure margin</span> — no COGS on verification.
+            </p>
           </div>
         </CardContent>
       </Card>

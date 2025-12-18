@@ -57,8 +57,10 @@ import {
   CircleDot
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
+import InvestorDeckCarousel from "@/components/pitch/InvestorDeckCarousel";
 
-// PUBLIC PDF URL - Update this with your actual investor deck PDF link
+// NOTE: The PDF at this path is not reliably embeddable in Chrome.
+// We render the 14-slide deck as images below for maximum compatibility.
 const INVESTOR_DECK_PDF_URL = "/images/pitch/VALID-Investor-Deck-2025.pdf";
 
 const PitchDeck = () => {
@@ -218,12 +220,17 @@ const PitchDeck = () => {
                   14‑Slide Investor Deck (Quick View)
                 </h3>
                 <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
-                  Read in under 3 minutes.
+                  Swipe on mobile or use the arrows.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <Button
-                  onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
+                  onClick={() =>
+                    document.getElementById('investor-deck-slides')?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    })
+                  }
                   className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
                   style={{ fontSize: 'clamp(14px, 1vw, 16px)', padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)' }}
                 >
@@ -232,69 +239,58 @@ const PitchDeck = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => {
-                    const link = document.createElement('a');
-                    link.href = INVESTOR_DECK_PDF_URL;
-                    link.download = 'VALID-Investor-Deck-2025.pdf';
-                    link.click();
-                  }}
+                  onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
                   className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
                   style={{ fontSize: 'clamp(14px, 1vw, 16px)', padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)' }}
                 >
                   <FileDown className="w-4 h-4 mr-2" />
-                  Download PDF
+                  Open PDF
                 </Button>
               </div>
             </div>
 
-            {/* Mobile: Open Full Screen button */}
+            {/* Mobile: jump to slides */}
             <div className="lg:hidden mb-4">
               <Button
                 variant="ghost"
-                onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
+                onClick={() =>
+                  document.getElementById('investor-deck-slides')?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  })
+                }
                 className="w-full border border-white/20 text-white hover:bg-white/10"
               >
                 <Maximize2 className="w-4 h-4 mr-2" />
-                Open Full Screen
+                Jump to Slides
               </Button>
             </div>
 
-            {/* Embedded PDF */}
-            <div className="relative bg-black/60 rounded-lg overflow-hidden border border-white/10">
-              <iframe
-                src={`${INVESTOR_DECK_PDF_URL}#toolbar=0&navpanes=1&scrollbar=1`}
-                className="w-full"
-                style={{ height: 'clamp(560px, 50vw, 720px)' }}
-                title="VALID Investor Deck"
-                onError={(e) => {
-                  (e.target as HTMLIFrameElement).style.display = 'none';
-                }}
+            {/* Slides (replaces blocked PDF embed) */}
+            <div id="investor-deck-slides" className="relative bg-black/60 rounded-lg overflow-hidden border border-white/10">
+              <InvestorDeckCarousel
+                images={[
+                  '/images/pitch/slide-01.jpg',
+                  '/images/pitch/slide-02.jpg?v=20251217',
+                  '/images/pitch/slide-03.jpg',
+                  '/images/pitch/slide-04.jpg',
+                  '/images/pitch/slide-05.jpg?v=20251217',
+                  '/images/pitch/slide-06.jpg',
+                  '/images/pitch/slide-07.jpg',
+                  '/images/pitch/slide-08.jpg',
+                  '/images/pitch/slide-09.jpg',
+                  '/images/pitch/slide-10.jpg',
+                  '/images/pitch/slide-11.png',
+                  '/images/pitch/slide-12.jpg',
+                  '/images/pitch/slide-13.jpg',
+                  '/images/pitch/slide-14.jpg',
+                ]}
               />
-              
-              {/* Full Screen Control */}
-              <Button
-                variant="ghost"
-                onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
-                className="absolute top-3 right-3 bg-black/70 border border-white/20 text-white hover:bg-white/20 hidden lg:flex"
-                size="sm"
-              >
-                <Maximize2 className="w-4 h-4 mr-1" />
-                Full Screen
-              </Button>
             </div>
-            
-            {/* Fallback link if embed fails */}
-            <div className="mt-4 text-center">
-              <a 
-                href={INVESTOR_DECK_PDF_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cyan-400 hover:text-cyan-300 underline text-sm inline-flex items-center gap-2"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Open deck in new tab
-              </a>
-            </div>
+
+            <p className="mt-4 text-center text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+              If your browser blocks embedded PDFs, the slides above will always work.
+            </p>
           </div>
 
           {/* Trust & Compliance Pills */}

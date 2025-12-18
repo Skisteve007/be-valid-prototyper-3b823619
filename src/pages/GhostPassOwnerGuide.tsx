@@ -56,7 +56,7 @@ export default function GhostPassOwnerGuide() {
         name: "Where does manual evidence go?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "It’s venue-controlled. Export/backup to your own storage (example: Google Drive). You control access and retention.",
+          text: "In Manual mode, any notes/photos are recorded by venue staff using Valid as a documentation tool. Records are associated with your venue account so your authorized team can review them. Your venue controls who can access them and how long they're retained. If you want an external backup or to follow your own retention policy, a manager can export/offload copies to your venue's storage (example: Google Drive). Valid does not verify identity in Manual mode and does not make entry/compliance decisions.",
         },
       },
     ],
@@ -313,7 +313,7 @@ export default function GhostPassOwnerGuide() {
             <div>
               <p className="font-medium mb-1">Q: Where does manual evidence go?</p>
               <p className="text-sm text-muted-foreground">
-                A: It's venue-controlled. Export/backup to your own storage (example: Google Drive). You control access and retention.
+                A: In Manual mode, any notes/photos are recorded by venue staff using Valid as a documentation tool. Records are associated with your venue account so your authorized team can review them. Your venue controls who can access them and how long they're retained. If you want an external backup or to follow your own retention policy, a manager can export/offload copies to your venue's storage (example: Google Drive). Valid does not verify identity in Manual mode and does not make entry/compliance decisions.
               </p>
             </div>
           </CardContent>

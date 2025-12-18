@@ -127,13 +127,21 @@ const SynthConsole: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => navigate('/synth')}>
+              <Brain className="w-4 h-4 mr-2" />
+              Overview
+            </Button>
             <Button variant="outline" size="sm" onClick={() => navigate('/synth/logs')}>
               <History className="w-4 h-4 mr-2" />
               Logs
             </Button>
             <Button variant="outline" size="sm" onClick={() => navigate('/synth/docs')}>
               <BookOpen className="w-4 h-4 mr-2" />
-              API Docs
+              Docs
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => navigate('/synth/policies')}>
+              <Shield className="w-4 h-4 mr-2" />
+              Policies
             </Button>
           </div>
         </div>

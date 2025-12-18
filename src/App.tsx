@@ -66,6 +66,10 @@ const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
 const Synth = lazy(() => import("./pages/Synth"));
 const SynthAdmin = lazy(() => import("./pages/SynthAdmin"));
+const SynthConsole = lazy(() => import("./pages/SynthConsole"));
+const SynthLogs = lazy(() => import("./pages/SynthLogs"));
+const SynthDocs = lazy(() => import("./pages/SynthDocs"));
+const SynthPolicies = lazy(() => import("./pages/SynthPolicies"));
 const SystemAudit = lazy(() => import("./pages/SystemAudit"));
 const Scanner = lazy(() => import("./pages/Scanner"));
 const ManagerQuickstart = lazy(() => import("./pages/ManagerQuickstart"));
@@ -129,6 +133,10 @@ const App = () => (
                   <Route path="/synth-vault" element={<SynthVault />} />
                   <Route path="/synth" element={<AgeGate><Synth /></AgeGate>} />
                   <Route path="/synth/admin" element={<AgeGate><SynthAdmin /></AgeGate>} />
+                  <Route path="/synth/console" element={<SynthConsole />} />
+                  <Route path="/synth/logs" element={<SynthLogs />} />
+                  <Route path="/synth/docs" element={<SynthDocs />} />
+                  <Route path="/synth/policies" element={<SynthPolicies />} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

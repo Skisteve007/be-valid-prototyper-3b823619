@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Volume2, VolumeX } from "lucide-react";
 
 interface InvestorDeckCarouselProps {
   images: string[];
@@ -14,8 +14,52 @@ const InvestorDeckCarousel: React.FC<InvestorDeckCarouselProps> = ({
   const [isPaused, setIsPaused] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+  const [audioReady, setAudioReady] = useState(false);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Initialize audio and attempt autoplay
+  useEffect(() => {
+    audioRef.current = new Audio('/audio/pitch-deck-music.mp3');
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.3;
+    
+    // Attempt autoplay
+    const playPromise = audioRef.current.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setAudioReady(true);
+          setIsMuted(false);
+        })
+        .catch(() => {
+          // Autoplay blocked - wait for user interaction
+          setAudioReady(true);
+          setIsMuted(true);
+        });
+    }
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  // Handle mute toggle
+  const toggleMute = useCallback(() => {
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.play().catch(console.error);
+      } else {
+        audioRef.current.pause();
+      }
+      setIsMuted(!isMuted);
+    }
+  }, [isMuted]);
 
   const prev = useCallback(() => {
     setCurrent((c) => (c - 1 + images.length) % images.length);
@@ -114,6 +158,15 @@ const InvestorDeckCarousel: React.FC<InvestorDeckCarouselProps> = ({
         aria-label="Next slide"
       >
         <ChevronRight size={22} />
+      </button>
+
+      {/* Mute Toggle */}
+      <button
+        onClick={toggleMute}
+        className="absolute top-3 md:top-4 right-14 md:right-16 p-2 rounded-full bg-background/70 hover:bg-background text-foreground transition-all hover:scale-105 backdrop-blur-sm border border-border"
+        aria-label={isMuted ? "Unmute music" : "Mute music"}
+      >
+        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
       </button>
 
       {/* Fullscreen Toggle */}

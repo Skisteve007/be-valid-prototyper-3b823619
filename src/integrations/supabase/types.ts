@@ -2383,6 +2383,102 @@ export type Database = {
         }
         Relationships: []
       }
+      valid_transactions: {
+        Row: {
+          community_pool_share: number | null
+          created_at: string
+          direct_payment_type: string | null
+          gas_fee_applied: number
+          ghost_pass_tier: string | null
+          gross_amount: number
+          id: string
+          payment_method: string | null
+          payment_model: string
+          payment_reference: string | null
+          processed_at: string | null
+          promoter_code: string | null
+          promoter_id: string | null
+          promoter_share: number | null
+          staff_user_id: string | null
+          status: string
+          transaction_fee_applied: number
+          updated_at: string
+          user_id: string
+          valid_net: number
+          valid_share: number | null
+          venue_id: string
+          venue_net: number
+          venue_share: number | null
+        }
+        Insert: {
+          community_pool_share?: number | null
+          created_at?: string
+          direct_payment_type?: string | null
+          gas_fee_applied?: number
+          ghost_pass_tier?: string | null
+          gross_amount: number
+          id?: string
+          payment_method?: string | null
+          payment_model: string
+          payment_reference?: string | null
+          processed_at?: string | null
+          promoter_code?: string | null
+          promoter_id?: string | null
+          promoter_share?: number | null
+          staff_user_id?: string | null
+          status?: string
+          transaction_fee_applied?: number
+          updated_at?: string
+          user_id: string
+          valid_net?: number
+          valid_share?: number | null
+          venue_id: string
+          venue_net?: number
+          venue_share?: number | null
+        }
+        Update: {
+          community_pool_share?: number | null
+          created_at?: string
+          direct_payment_type?: string | null
+          gas_fee_applied?: number
+          ghost_pass_tier?: string | null
+          gross_amount?: number
+          id?: string
+          payment_method?: string | null
+          payment_model?: string
+          payment_reference?: string | null
+          processed_at?: string | null
+          promoter_code?: string | null
+          promoter_id?: string | null
+          promoter_share?: number | null
+          staff_user_id?: string | null
+          status?: string
+          transaction_fee_applied?: number
+          updated_at?: string
+          user_id?: string
+          valid_net?: number
+          valid_share?: number | null
+          venue_id?: string
+          venue_net?: number
+          venue_share?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "valid_transactions_promoter_id_fkey"
+            columns: ["promoter_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "valid_transactions_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       venue_devices: {
         Row: {
           created_at: string | null
@@ -2422,6 +2518,47 @@ export type Database = {
             foreignKeyName: "venue_devices_venue_id_fkey"
             columns: ["venue_id"]
             isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_gas_fee_config: {
+        Row: {
+          created_at: string
+          id: string
+          manual_gas_fee: number | null
+          minimum_monthly_amount: number | null
+          minimum_monthly_enabled: boolean
+          updated_at: string
+          use_auto_tier: boolean
+          venue_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          manual_gas_fee?: number | null
+          minimum_monthly_amount?: number | null
+          minimum_monthly_enabled?: boolean
+          updated_at?: string
+          use_auto_tier?: boolean
+          venue_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          manual_gas_fee?: number | null
+          minimum_monthly_amount?: number | null
+          minimum_monthly_enabled?: boolean
+          updated_at?: string
+          use_auto_tier?: boolean
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_gas_fee_config_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: true
             referencedRelation: "partner_venues"
             referencedColumns: ["id"]
           },
@@ -2687,6 +2824,44 @@ export type Database = {
           },
           {
             foreignKeyName: "venue_qr_scans_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_scan_counts: {
+        Row: {
+          created_at: string
+          gas_fees_collected: number
+          id: string
+          month_year: string
+          scan_count: number
+          updated_at: string
+          venue_id: string
+        }
+        Insert: {
+          created_at?: string
+          gas_fees_collected?: number
+          id?: string
+          month_year: string
+          scan_count?: number
+          updated_at?: string
+          venue_id: string
+        }
+        Update: {
+          created_at?: string
+          gas_fees_collected?: number
+          id?: string
+          month_year?: string
+          scan_count?: number
+          updated_at?: string
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_scan_counts_venue_id_fkey"
             columns: ["venue_id"]
             isOneToOne: false
             referencedRelation: "partner_venues"
@@ -3003,6 +3178,7 @@ export type Database = {
           venue_name: string
         }[]
       }
+      get_venue_gas_fee: { Args: { p_venue_id: string }; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

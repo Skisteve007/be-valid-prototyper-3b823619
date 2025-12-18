@@ -377,6 +377,57 @@ export type Database = {
         }
         Relationships: []
       }
+      door_scan_log: {
+        Row: {
+          created_at: string | null
+          deny_reason: string | null
+          device_id: string | null
+          id: string
+          scan_result: string
+          scanned_user_id: string | null
+          staff_user_id: string | null
+          synced_at: string | null
+          venue_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          deny_reason?: string | null
+          device_id?: string | null
+          id?: string
+          scan_result: string
+          scanned_user_id?: string | null
+          staff_user_id?: string | null
+          synced_at?: string | null
+          venue_id: string
+        }
+        Update: {
+          created_at?: string | null
+          deny_reason?: string | null
+          device_id?: string | null
+          id?: string
+          scan_result?: string
+          scanned_user_id?: string | null
+          staff_user_id?: string | null
+          synced_at?: string | null
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "door_scan_log_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "venue_devices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "door_scan_log_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_campaign_log: {
         Row: {
           campaign_name: string
@@ -816,6 +867,47 @@ export type Database = {
         }
         Relationships: []
       }
+      manual_check_evidence: {
+        Row: {
+          created_at: string | null
+          evidence_confirmed: boolean | null
+          final_decision: string
+          id: string
+          notes: string
+          photo_url: string | null
+          scan_log_id: string
+          staff_user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          evidence_confirmed?: boolean | null
+          final_decision: string
+          id?: string
+          notes: string
+          photo_url?: string | null
+          scan_log_id: string
+          staff_user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          evidence_confirmed?: boolean | null
+          final_decision?: string
+          id?: string
+          notes?: string
+          photo_url?: string | null
+          scan_log_id?: string
+          staff_user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "manual_check_evidence_scan_log_id_fkey"
+            columns: ["scan_log_id"]
+            isOneToOne: false
+            referencedRelation: "door_scan_log"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       marketing_leads: {
         Row: {
           category: string
@@ -1132,6 +1224,7 @@ export type Database = {
       }
       partner_venues: {
         Row: {
+          age_policy: string | null
           bank_endpoint: string | null
           bar_commission_rate: number | null
           category: Database["public"]["Enums"]["venue_category"]
@@ -1152,6 +1245,7 @@ export type Database = {
           venue_name: string
         }
         Insert: {
+          age_policy?: string | null
           bank_endpoint?: string | null
           bar_commission_rate?: number | null
           category: Database["public"]["Enums"]["venue_category"]
@@ -1172,6 +1266,7 @@ export type Database = {
           venue_name: string
         }
         Update: {
+          age_policy?: string | null
           bank_endpoint?: string | null
           bar_commission_rate?: number | null
           category?: Database["public"]["Enums"]["venue_category"]
@@ -2246,6 +2341,50 @@ export type Database = {
         }
         Relationships: []
       }
+      venue_devices: {
+        Row: {
+          created_at: string | null
+          device_name: string
+          device_token: string | null
+          device_type: string | null
+          id: string
+          is_online: boolean | null
+          last_seen_at: string | null
+          updated_at: string | null
+          venue_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          device_name: string
+          device_token?: string | null
+          device_type?: string | null
+          id?: string
+          is_online?: boolean | null
+          last_seen_at?: string | null
+          updated_at?: string | null
+          venue_id: string
+        }
+        Update: {
+          created_at?: string | null
+          device_name?: string
+          device_token?: string | null
+          device_type?: string | null
+          id?: string
+          is_online?: boolean | null
+          last_seen_at?: string | null
+          updated_at?: string | null
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_devices_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       venue_gross_revenue_log: {
         Row: {
           amount: number
@@ -2508,6 +2647,44 @@ export type Database = {
             foreignKeyName: "venue_qr_scans_venue_id_fkey"
             columns: ["venue_id"]
             isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_settings: {
+        Row: {
+          age_policy: string | null
+          allow_door_to_collect_payment: boolean | null
+          created_at: string | null
+          id: string
+          offline_mode_enabled: boolean | null
+          updated_at: string | null
+          venue_id: string
+        }
+        Insert: {
+          age_policy?: string | null
+          allow_door_to_collect_payment?: boolean | null
+          created_at?: string | null
+          id?: string
+          offline_mode_enabled?: boolean | null
+          updated_at?: string | null
+          venue_id: string
+        }
+        Update: {
+          age_policy?: string | null
+          allow_door_to_collect_payment?: boolean | null
+          created_at?: string | null
+          id?: string
+          offline_mode_enabled?: boolean | null
+          updated_at?: string | null
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_settings_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: true
             referencedRelation: "partner_venues"
             referencedColumns: ["id"]
           },

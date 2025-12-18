@@ -66,6 +66,8 @@ const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
 const Synth = lazy(() => import("./pages/Synth"));
 const SystemAudit = lazy(() => import("./pages/SystemAudit"));
 const Scanner = lazy(() => import("./pages/Scanner"));
+const ManagerQuickstart = lazy(() => import("./pages/ManagerQuickstart"));
+const ManagerAdmin = lazy(() => import("./pages/ManagerAdmin"));
 
 const queryClient = new QueryClient();
 
@@ -171,6 +173,8 @@ const App = () => (
                   <Route path="/deck" element={<AccessGate accessType="investor"><CinematicPitchDeck /></AccessGate>} />
                   <Route path="/system-audit" element={<SystemAudit />} />
                   <Route path="/scanner" element={<Scanner />} />
+                  <Route path="/manager-quickstart" element={<ManagerQuickstart />} />
+                  <Route path="/manager-admin" element={<ManagerAdmin />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

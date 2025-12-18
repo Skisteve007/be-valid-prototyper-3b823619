@@ -602,6 +602,13 @@ const Pricing = () => {
                     </div>
                   </div>
 
+                  {/* Quote */}
+                  <div className="p-4 rounded-lg bg-indigo-500/20 border border-indigo-400/30">
+                    <p className="text-base md:text-lg text-white font-medium italic text-center">
+                      "If someone shouldn't be on your campus, you'll know <span className="text-cyan-400 font-bold">BEFORE</span> they walk through the door."
+                    </p>
+                  </div>
+
                   <div className="text-center text-sm md:text-base text-gray-300 space-y-1">
                     <p>Support: <span className="text-white">Dedicated Success Team + 24/7/365</span></p>
                     <p>Onboarding: <span className="text-cyan-400 font-semibold">$5,000–$25,000</span> (one-time, based on campus size)</p>

@@ -530,6 +530,24 @@ const Admin = () => {
 
             <Button
               variant="outline"
+              onClick={() => navigate("/staff-quickstart")}
+              className="hidden md:flex"
+            >
+              <BookOpen className="h-4 w-4 mr-2" />
+              Door Staff Training
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={() => navigate("/manager-quickstart")}
+              className="hidden md:flex"
+            >
+              <BookOpen className="h-4 w-4 mr-2" />
+              Manager Training
+            </Button>
+
+            <Button
+              variant="outline"
               onClick={() => navigate("/ghost-pass-owner-guide")}
               className="hidden md:flex"
             >
@@ -558,7 +576,23 @@ const Admin = () => {
           {/* Mobile Navigation */}
           <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} />
 
-          <div className="md:hidden mt-3">
+          <div className="md:hidden mt-3 space-y-2">
+            <Button
+              variant="outline"
+              className="w-full justify-center gap-2"
+              onClick={() => navigate("/staff-quickstart")}
+            >
+              <BookOpen className="h-4 w-4" />
+              Door Staff Training
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-center gap-2"
+              onClick={() => navigate("/manager-quickstart")}
+            >
+              <BookOpen className="h-4 w-4" />
+              Manager Training
+            </Button>
             <Button
               variant="outline"
               className="w-full justify-center gap-2"

@@ -40,6 +40,9 @@ serve(async (req) => {
       });
     }
 
+    // Extract validation_id for the verifications table
+    const validationId = fpData.fp_id || fpData.session_id;
+
     // Find driver profile by footprint session or user ID
     let driverProfile = null;
     
@@ -61,26 +64,14 @@ serve(async (req) => {
       driverProfile = data;
     }
 
-    if (!driverProfile) {
-      logStep("No matching driver profile found", { session_id: fpData.session_id, fp_id: fpData.fp_id });
-      return new Response(JSON.stringify({ received: true, message: "No matching profile" }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,
-      });
-    }
-
-    logStep("Driver profile found", { id: driverProfile.id, user_id: driverProfile.user_id });
-
     // Determine verification status based on event
-    let verificationStatus = driverProfile.verification_status;
-    let verifiedAt = driverProfile.verified_at;
+    let verificationStatus = "pending";
 
     switch (eventType) {
       case "onboarding.completed":
       case "user.liveness_passed":
       case "user.verified":
         verificationStatus = "verified";
-        verifiedAt = new Date().toISOString();
         logStep("Verification successful", { event: eventType });
         break;
       case "user.liveness_failed":
@@ -96,27 +87,71 @@ serve(async (req) => {
         logStep("Unhandled event type", { event: eventType });
     }
 
-    // Update driver profile
-    const { error: updateError } = await supabaseClient
-      .from("driver_profiles")
-      .update({
-        verification_status: verificationStatus,
-        verified_at: verifiedAt,
-        footprint_user_id: fpData.fp_id || driverProfile.footprint_user_id,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", driverProfile.id);
+    // Insert/update into verifications table
+    if (validationId) {
+      const { error: verificationError } = await supabaseClient
+        .from("verifications")
+        .upsert(
+          {
+            validation_id: validationId,
+            status: verificationStatus,
+            user_id: driverProfile?.user_id || null,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "validation_id" }
+        );
 
-    if (updateError) {
-      logStep("Update error", { error: updateError.message });
-      throw new Error(`Database update error: ${updateError.message}`);
+      if (verificationError) {
+        logStep("Verifications table error", { error: verificationError.message });
+      } else {
+        logStep("Verification record saved", { validation_id: validationId, status: verificationStatus });
+      }
+
+      // Send real-time broadcast to notify the app
+      const channel = supabaseClient.channel("verification-updates");
+      await channel.send({
+        type: "broadcast",
+        event: "verification_status",
+        payload: {
+          validation_id: validationId,
+          status: verificationStatus,
+          user_id: driverProfile?.user_id || null,
+          timestamp: new Date().toISOString(),
+        },
+      });
+      logStep("Broadcast sent", { validation_id: validationId });
     }
 
-    logStep("Driver profile updated", { status: verificationStatus });
+    // Update driver profile if found
+    if (driverProfile) {
+      logStep("Driver profile found", { id: driverProfile.id, user_id: driverProfile.user_id });
+
+      const verifiedAt = verificationStatus === "verified" ? new Date().toISOString() : driverProfile.verified_at;
+
+      const { error: updateError } = await supabaseClient
+        .from("driver_profiles")
+        .update({
+          verification_status: verificationStatus,
+          verified_at: verifiedAt,
+          footprint_user_id: fpData.fp_id || driverProfile.footprint_user_id,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", driverProfile.id);
+
+      if (updateError) {
+        logStep("Update error", { error: updateError.message });
+        throw new Error(`Database update error: ${updateError.message}`);
+      }
+
+      logStep("Driver profile updated", { status: verificationStatus });
+    } else {
+      logStep("No matching driver profile found", { session_id: fpData.session_id, fp_id: fpData.fp_id });
+    }
 
     return new Response(JSON.stringify({
       received: true,
       status: verificationStatus,
+      validation_id: validationId,
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,

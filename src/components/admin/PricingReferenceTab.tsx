@@ -12,7 +12,8 @@ import {
   Hotel, 
   Building2, 
   Users,
-  CreditCard
+  CreditCard,
+  GraduationCap
 } from "lucide-react";
 import {
   Table,
@@ -714,7 +715,108 @@ export const PricingReferenceTab = () => {
         </CardContent>
       </Card>
 
-      {/* Section K: Member/Consumer Pricing */}
+      {/* Section K: Universities & Education */}
+      <Card className="border-indigo-500/30 bg-gradient-to-br from-indigo-500/5 to-transparent">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <GraduationCap className="h-5 w-5 text-indigo-400" />
+            🎓 Universities & Education
+            <Badge variant="outline" className="ml-2 text-xs border-indigo-500/50 text-indigo-400">ENTERPRISE</Badge>
+          </CardTitle>
+          <p className="text-xs text-muted-foreground">Also: Corporate campuses, HQs, research parks, business parks ("corporate zones")</p>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Campus License Pricing */}
+          <div className="p-3 rounded-lg bg-muted/30 border border-border/50">
+            <p className="text-sm font-semibold text-foreground mb-2">Campus License (Annual):</p>
+            <div className="text-xs space-y-2">
+              <div className="flex justify-between items-center border-b border-border/30 pb-1">
+                <span>Small Campus <span className="text-muted-foreground">(under 10K students / small corporate)</span></span>
+                <span className="text-emerald-400 font-semibold">$50,000–$100,000/yr</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-border/30 pb-1">
+                <span>Medium Campus <span className="text-muted-foreground">(10K–30K / mid-size campus or business park)</span></span>
+                <span className="text-emerald-400 font-semibold">$100,000–$250,000/yr</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Large Campus <span className="text-muted-foreground">(30K+ / multi-campus system or major corporate zone)</span></span>
+                <span className="text-emerald-400 font-semibold">$250,000–$500,000/yr</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Alternative Pricing */}
+          <div className="p-3 rounded-lg bg-muted/30 border border-border/50">
+            <p className="text-sm font-semibold text-foreground mb-2">Alternative Pricing Models:</p>
+            <div className="text-xs space-y-1">
+              <p>• Per-student / per-person: <span className="text-cyan-400">$5–$15 / person / year</span></p>
+              <p>• Per-building: <span className="text-cyan-400">$500–$2,000 / building / month</span></p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {/* Add-ons */}
+            <div className="p-3 rounded-lg bg-muted/30 border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-2">Add-Ons:</p>
+              <div className="text-xs space-y-1">
+                <p>• Stadium integration: <span className="text-cyan-400">$25,000–$75,000/yr</span></p>
+                <p>• Background checks (new hires): <span className="text-cyan-400">$50–$100/check</span></p>
+                <p>• Continuous monitoring: <span className="text-cyan-400">$3–$5/person/mo</span></p>
+                <p>• Visitor kiosks: <span className="text-cyan-400">$1,500 + $200/mo</span></p>
+              </div>
+            </div>
+
+            {/* Who's Verified */}
+            <div className="p-3 rounded-lg bg-muted/30 border border-border/50">
+              <p className="text-sm font-semibold text-foreground mb-2">Who's Verified:</p>
+              <div className="text-xs space-y-1 text-muted-foreground">
+                <p>• Students / Employees (ID + watchlist)</p>
+                <p>• Faculty & Staff (background + monitoring)</p>
+                <p>• Visitors (real-time screening + temp badges)</p>
+                <p>• Contractors (credentialed, time-limited)</p>
+                <p>• Event attendees (football, concerts, graduation)</p>
+                <p>• Vendors</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Watchlist Screening */}
+          <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30">
+            <p className="text-sm font-semibold text-foreground mb-2">Watchlist Screening:</p>
+            <div className="text-xs grid grid-cols-2 gap-1 text-red-300">
+              <p>• Terrorist watchlist</p>
+              <p>• Sex offender registry</p>
+              <p>• Criminal database</p>
+              <p>• Continuous monitoring alerts</p>
+            </div>
+          </div>
+
+          {/* Onboarding */}
+          <div className="p-3 rounded-lg bg-muted/30 border border-border/50">
+            <p className="text-sm">
+              <span className="font-semibold text-foreground">Onboarding:</span>{" "}
+              <span className="text-cyan-400 font-semibold">$5,000–$25,000</span>{" "}
+              <span className="text-muted-foreground">(one-time, based on campus size)</span>
+            </p>
+          </div>
+
+          {/* Example */}
+          <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+            <p className="text-xs text-emerald-400">
+              📝 Example: 30K campus: license ~$200K + stadium ~$50K + checks ~$15K = <span className="font-bold">~$265K/year</span>
+            </p>
+          </div>
+
+          {/* Sales Tip */}
+          <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+            <p className="text-xs text-amber-400 font-semibold">
+              💡 Sales tip: One state university system or corporate campus network can be a multi-site <span className="text-white">$5M+ opportunity</span>.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Section L: Member/Consumer Pricing */}
       <Card className="border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-transparent">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-lg">
@@ -747,7 +849,7 @@ export const PricingReferenceTab = () => {
         </CardContent>
       </Card>
 
-      {/* Section L: Transaction & API Revenue */}
+      {/* Section M: Transaction & API Revenue */}
       <Card className="border-teal-500/30 bg-gradient-to-br from-teal-500/5 to-transparent">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-lg">

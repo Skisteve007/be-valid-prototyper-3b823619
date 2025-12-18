@@ -76,6 +76,10 @@ const VenueOnboarding = lazy(() => import("./pages/VenueOnboarding"));
 const ManagerAdmin = lazy(() => import("./pages/ManagerAdmin"));
 const DriverDashboard = lazy(() => import("./pages/DriverDashboard"));
 const StaffPayment = lazy(() => import("./pages/StaffPayment"));
+const AdminDocumentation = lazy(() => import("./pages/AdminDocumentation"));
+const PartnerHelp = lazy(() => import("./pages/PartnerHelp"));
+const HowItWorks = lazy(() => import("./pages/HowItWorks"));
+const PaymentGuide = lazy(() => import("./pages/PaymentGuide"));
 
 const queryClient = new QueryClient();
 
@@ -118,8 +122,14 @@ const App = () => (
                   <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />
                   <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
                   <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />
+                  <Route path="/admin/documentation" element={<AgeGate><AdminDocumentation /></AgeGate>} />
                   <Route path="/synth-vault" element={<SynthVault />} />
                   <Route path="/synth" element={<AgeGate><Synth /></AgeGate>} />
+                  
+                  {/* DOCUMENTATION ROUTES */}
+                  <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />
+                  <Route path="/how-it-works" element={<AgeGate><HowItWorks /></AgeGate>} />
+                  <Route path="/settings/payment-guide" element={<AgeGate><PaymentGuide /></AgeGate>} />
                   
                   {/* INVESTOR ROUTES - Protected */}
                   <Route path="/investor-dashboard" element={<AgeGate><InvestorDashboard /></AgeGate>} />

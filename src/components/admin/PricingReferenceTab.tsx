@@ -280,55 +280,176 @@ export const PricingReferenceTab = () => {
         </CardContent>
       </Card>
 
-      {/* Section E: Labs & Health */}
+      {/* Section E: Labs & Health - EXPANDED 3 REVENUE MODELS */}
       <Card className="border-emerald-500/30 bg-gradient-to-br from-emerald-500/5 to-transparent">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-lg">
             <FlaskConical className="h-5 w-5 text-emerald-400" />
-            🏥 Labs & Health
+            🏥 Labs & Health — REVENUE MODELS
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-border/50">
-                  <TableHead className="text-foreground font-semibold">Tier</TableHead>
-                  <TableHead className="text-foreground font-semibold">Monthly</TableHead>
-                  <TableHead className="text-foreground font-semibold">Hardware</TableHead>
-                  <TableHead className="text-foreground font-semibold">Onboarding</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow className="border-border/30 hover:bg-muted/30">
-                  <TableCell className="font-medium">Starter</TableCell>
-                  <TableCell className="text-emerald-400 font-semibold">$99</TableCell>
-                  <TableCell className="text-sm">Use existing devices</TableCell>
-                  <TableCell className="text-cyan-400">$250</TableCell>
-                </TableRow>
-                <TableRow className="border-border/30 hover:bg-muted/30">
-                  <TableCell className="font-medium">Professional</TableCell>
-                  <TableCell className="text-emerald-400 font-semibold">$199</TableCell>
-                  <TableCell className="text-sm">1 Tablet</TableCell>
-                  <TableCell className="text-cyan-400">$500</TableCell>
-                </TableRow>
-                <TableRow className="border-border/30 hover:bg-muted/30">
-                  <TableCell className="font-medium">Enterprise</TableCell>
-                  <TableCell className="text-emerald-400 font-semibold">$299</TableCell>
-                  <TableCell className="text-sm">2 Tablets + Hub</TableCell>
-                  <TableCell className="text-cyan-400">$1,000</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </div>
+        <CardContent className="space-y-6">
           
-          <div className="p-3 rounded-lg bg-muted/30 border border-border/50">
-            <p className="text-sm font-semibold text-foreground mb-2">💵 Revenue Model:</p>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div>Lab kit sales: <span className="text-emerald-400 font-semibold">40–60% margin (WE KEEP)</span></div>
-              <div>API verification: <span className="text-cyan-400">$1–$3/call</span></div>
-              <div>Certificate generation: <span className="text-cyan-400">$2–$5/cert</span></div>
-              <div>Tox screen (10-panel): <span className="text-cyan-400">$50–$100/test</span></div>
+          {/* MODEL 1: Small Labs / Clinics */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/50">MODEL 1</Badge>
+              <span className="font-semibold text-foreground">SMALL LABS / CLINICS PAY US</span>
+            </div>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-border/50">
+                    <TableHead className="text-foreground font-semibold">Tier</TableHead>
+                    <TableHead className="text-foreground font-semibold">Monthly</TableHead>
+                    <TableHead className="text-foreground font-semibold">Onboarding</TableHead>
+                    <TableHead className="text-foreground font-semibold">Includes</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Starter</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$99</TableCell>
+                    <TableCell className="text-cyan-400">$250</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">100 verifications</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Professional</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$199</TableCell>
+                    <TableCell className="text-cyan-400">$500</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">Unlimited, analytics</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Enterprise</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$299</TableCell>
+                    <TableCell className="text-cyan-400">$1,000</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">Multi-location, dedicated support</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
+            <div className="p-2 rounded-lg bg-muted/30 border border-border/50">
+              <p className="text-xs text-muted-foreground">
+                <span className="font-semibold">Per-use:</span> API <span className="text-cyan-400">$1–$3</span> | 
+                Certs <span className="text-cyan-400">$2–$5</span> | 
+                Margin <span className="text-emerald-400 font-semibold">40–60%</span>
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-border/30" />
+
+          {/* MODEL 2: Big Labs Partner Program */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50">MODEL 2</Badge>
+              <span className="font-semibold text-foreground">BIG LABS PAY US FOR MEMBER ACCESS (Partner Program)</span>
+            </div>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-border/50">
+                    <TableHead className="text-foreground font-semibold">Partner Tier</TableHead>
+                    <TableHead className="text-foreground font-semibold">Monthly</TableHead>
+                    <TableHead className="text-foreground font-semibold">Setup</TableHead>
+                    <TableHead className="text-foreground font-semibold">We Earn</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Basic Partner</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">FREE</TableCell>
+                    <TableCell className="text-emerald-400">FREE</TableCell>
+                    <TableCell className="text-amber-400 font-semibold">20% commission</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Preferred Partner</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$500</TableCell>
+                    <TableCell className="text-cyan-400">$500</TableCell>
+                    <TableCell className="text-amber-400 font-semibold">25% commission</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Premium Partner</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$2,000</TableCell>
+                    <TableCell className="text-cyan-400">$2,000</TableCell>
+                    <TableCell className="text-amber-400 font-semibold">30% commission</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
+            <div className="p-3 rounded-lg bg-purple-500/10 border border-purple-500/30">
+              <p className="text-sm text-purple-400">
+                💡 Sales tip: "Big labs want our members — they'll pay for featured access."
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-border/30" />
+
+          {/* MODEL 3: Affiliate Revenue */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/50">MODEL 3</Badge>
+              <span className="font-semibold text-foreground">AFFILIATE REVENUE (No Integration Required)</span>
+            </div>
+            <div className="p-3 rounded-lg bg-muted/30 border border-border/50">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                <div>Priority STD Testing: <span className="text-emerald-400 font-semibold">30%</span></div>
+                <div>HealthLabs: <span className="text-emerald-400 font-semibold">30%</span></div>
+                <div>myLAB Box: <span className="text-emerald-400 font-semibold">20%</span></div>
+                <div>Quest Diagnostics: <span className="text-cyan-400">Commission/test</span></div>
+                <div>Ulta Lab Tests: <span className="text-emerald-400 font-semibold">Up to 20%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-border/30" />
+
+          {/* MEMBER TEST PRICING */}
+          <div className="space-y-3">
+            <p className="font-semibold text-foreground">💰 MEMBER TEST PRICING (What We Charge Members)</p>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-border/50">
+                    <TableHead className="text-foreground font-semibold">Test</TableHead>
+                    <TableHead className="text-foreground font-semibold">Our Cost</TableHead>
+                    <TableHead className="text-foreground font-semibold">Member Price</TableHead>
+                    <TableHead className="text-foreground font-semibold">Margin</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">10-Panel Drug</TableCell>
+                    <TableCell className="text-muted-foreground">$15–$25</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$39</TableCell>
+                    <TableCell className="text-cyan-400">$14–$24 (40–60%)</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Basic STD (3-test)</TableCell>
+                    <TableCell className="text-muted-foreground">$30–$40</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$59</TableCell>
+                    <TableCell className="text-cyan-400">$19–$29 (40–50%)</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Full STD Panel</TableCell>
+                    <TableCell className="text-muted-foreground">$60–$80</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$149</TableCell>
+                    <TableCell className="text-cyan-400">$69–$89 (45–60%)</TableCell>
+                  </TableRow>
+                  <TableRow className="border-border/30 hover:bg-muted/30">
+                    <TableCell className="font-medium">Comprehensive Wellness</TableCell>
+                    <TableCell className="text-muted-foreground">$80–$100</TableCell>
+                    <TableCell className="text-emerald-400 font-semibold">$199</TableCell>
+                    <TableCell className="text-cyan-400">$99–$119 (50–60%)</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
+            <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+              <p className="text-sm text-emerald-400">
+                📊 Example: 1,000 tests/month at 50% avg margin: 1,000 × $50 margin = <span className="font-bold text-white">$50,000/month</span> lab revenue
+              </p>
             </div>
           </div>
         </CardContent>

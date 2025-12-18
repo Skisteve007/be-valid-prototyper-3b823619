@@ -71,6 +71,7 @@ const StaffQuickstart = lazy(() => import("./pages/StaffQuickstart"));
 const DevicePairing = lazy(() => import("./pages/DevicePairing"));
 const ScanningDecisions = lazy(() => import("./pages/ScanningDecisions"));
 const Troubleshooting = lazy(() => import("./pages/Troubleshooting"));
+const VenueOnboarding = lazy(() => import("./pages/VenueOnboarding"));
 const ManagerAdmin = lazy(() => import("./pages/ManagerAdmin"));
 
 const queryClient = new QueryClient();
@@ -182,6 +183,7 @@ const App = () => (
                   <Route path="/device-pairing" element={<DevicePairing />} />
                   <Route path="/scanning-decisions" element={<ScanningDecisions />} />
                   <Route path="/troubleshooting" element={<Troubleshooting />} />
+                  <Route path="/venue-onboarding" element={<VenueOnboarding />} />
                   <Route path="/manager-admin" element={<ManagerAdmin />} />
                   
                   {/* CATCH-ALL - Must be last */}

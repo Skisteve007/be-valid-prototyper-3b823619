@@ -65,6 +65,7 @@ const Pricing = lazy(() => import("./pages/Pricing"));
 const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
 const Synth = lazy(() => import("./pages/Synth"));
+const SynthAdmin = lazy(() => import("./pages/SynthAdmin"));
 const SystemAudit = lazy(() => import("./pages/SystemAudit"));
 const Scanner = lazy(() => import("./pages/Scanner"));
 const ManagerQuickstart = lazy(() => import("./pages/ManagerQuickstart"));
@@ -127,6 +128,7 @@ const App = () => (
                   <Route path="/admin/documentation" element={<AgeGate><AdminDocumentation /></AgeGate>} />
                   <Route path="/synth-vault" element={<SynthVault />} />
                   <Route path="/synth" element={<AgeGate><Synth /></AgeGate>} />
+                  <Route path="/synth/admin" element={<AgeGate><SynthAdmin /></AgeGate>} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

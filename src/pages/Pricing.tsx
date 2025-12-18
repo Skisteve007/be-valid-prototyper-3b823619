@@ -170,7 +170,7 @@ const Pricing = () => {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${industryNightlifeBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
                 <div className="relative z-10">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
@@ -296,7 +296,7 @@ const Pricing = () => {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${industryTransportationBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
                 <div className="relative z-10">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
@@ -353,7 +353,7 @@ const Pricing = () => {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${industryWorkforceBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
                 <div className="relative z-10">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
@@ -412,7 +412,7 @@ const Pricing = () => {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${industryStadiumBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
                 <div className="relative z-10">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
@@ -683,7 +683,7 @@ const Pricing = () => {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${industryRentalsBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
                 <div className="relative z-10">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3">
@@ -720,7 +720,7 @@ const Pricing = () => {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${industrySecurityBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
                 <div className="relative z-10">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-3">
@@ -757,7 +757,7 @@ const Pricing = () => {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${industryEventsBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/75 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
                 <div className="relative z-10">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-3">
@@ -798,7 +798,7 @@ const Pricing = () => {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${industryHospitalityBg})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black/95" />
                 <div className="relative z-10">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3">

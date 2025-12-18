@@ -2383,6 +2383,42 @@ export type Database = {
         }
         Relationships: []
       }
+      user_wallets: {
+        Row: {
+          balance: number
+          created_at: string
+          daily_funded_amount: number
+          daily_funded_date: string | null
+          id: string
+          monthly_funded_amount: number
+          monthly_funded_month: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          daily_funded_amount?: number
+          daily_funded_date?: string | null
+          id?: string
+          monthly_funded_amount?: number
+          monthly_funded_month?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          daily_funded_amount?: number
+          daily_funded_date?: string | null
+          id?: string
+          monthly_funded_amount?: number
+          monthly_funded_month?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       valid_transactions: {
         Row: {
           community_pool_share: number | null
@@ -3023,6 +3059,51 @@ export type Database = {
         }
         Relationships: []
       }
+      wallet_funding_transactions: {
+        Row: {
+          amount: number
+          convenience_fee: number
+          created_at: string
+          credited_at: string | null
+          id: string
+          payment_method: string
+          status: string
+          stripe_payment_intent: string | null
+          stripe_session_id: string | null
+          total_charged: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          convenience_fee: number
+          created_at?: string
+          credited_at?: string | null
+          id?: string
+          payment_method?: string
+          status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          total_charged: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          convenience_fee?: number
+          created_at?: string
+          credited_at?: string | null
+          id?: string
+          payment_method?: string
+          status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          total_charged?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       wallet_transactions: {
         Row: {
           amount: number
@@ -3167,7 +3248,36 @@ export type Database = {
     Functions: {
       check_status_expiry: { Args: never; Returns: undefined }
       cleanup_expired_qr_tokens: { Args: never; Returns: undefined }
+      credit_wallet: {
+        Args: {
+          p_amount: number
+          p_fee: number
+          p_transaction_id: string
+          p_user_id: string
+        }
+        Returns: boolean
+      }
       generate_member_id: { Args: never; Returns: string }
+      get_or_create_wallet: {
+        Args: { p_user_id: string }
+        Returns: {
+          balance: number
+          created_at: string
+          daily_funded_amount: number
+          daily_funded_date: string | null
+          id: string
+          monthly_funded_amount: number
+          monthly_funded_month: string | null
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_wallets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       get_public_venues: {
         Args: never
         Returns: {

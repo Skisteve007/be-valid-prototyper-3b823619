@@ -45,18 +45,18 @@ export default function GhostPassOwnerGuide() {
       },
       {
         "@type": "Question",
-        name: "Are you liable for manual checks?",
+        name: "Is VALID liable for manual checks?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Manual checks are performed by venue staff. VALID™ does not verify identity in Manual mode; the venue is responsible for decisions and compliance.",
+          text: "Absolutely not. VALID™ assumes ZERO liability for any manual checks, manual runs, or manual mode operations. All decisions and responsibility rest entirely with the venue and its staff.",
         },
       },
       {
         "@type": "Question",
-        name: "Where does manual evidence go?",
+        name: "Does VALID store any data from manual mode?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "In Manual mode, any notes/photos are recorded by venue staff using VALID™ as a documentation tool. Records are associated with your venue account so your authorized team can review them. Your venue controls who can access them and how long they're retained. If you want an external backup or to follow your own retention policy, a manager can export/offload copies to your venue's storage (example: Google Drive). VALID™ does not verify identity in Manual mode and does not make entry/compliance decisions.",
+          text: "No. VALID™ does NOT store any photos, notes, personal data, or any information whatsoever from manual mode. All data stays on YOUR device or YOUR storage systems. VALID™ has no access to it and accepts no responsibility for it.",
         },
       },
     ],
@@ -153,6 +153,43 @@ export default function GhostPassOwnerGuide() {
           </CardContent>
         </Card>
 
+        {/* CRITICAL LIABILITY DISCLAIMER */}
+        <Card className="mb-6 border-2 border-destructive/50 bg-destructive/5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-destructive">
+              <AlertTriangle className="h-5 w-5" />
+              IMPORTANT: VALID™ LIABILITY DISCLAIMER
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-4 bg-background border border-destructive/30 rounded-lg">
+              <p className="font-bold text-sm mb-3 uppercase tracking-wide">Manual Mode — Zero Liability to VALID™</p>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-destructive mt-1 font-bold">⚠</span>
+                  <span><strong>VALID™ assumes ABSOLUTELY NO LIABILITY for any manual checks, manual runs, or manual mode operations.</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-destructive mt-1 font-bold">⚠</span>
+                  <span><strong>VALID™ DOES NOT STORE ANY INFORMATION</strong> — no photos, no notes, no personal data, no ID images — NOTHING is stored by VALID™ in manual mode.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-destructive mt-1 font-bold">⚠</span>
+                  <span>Any photos, notes, or data captured using the device in manual mode are stored <strong>LOCALLY ON YOUR DEVICE</strong> or exported to <strong>YOUR OWN storage systems</strong> — NOT on VALID™ servers.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-destructive mt-1 font-bold">⚠</span>
+                  <span>VALID™ has <strong>NO RESPONSIBILITY</strong> for any data you or your staff choose to capture, store, retain, or manage on your own devices or storage.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-destructive mt-1 font-bold">⚠</span>
+                  <span>The venue and its staff bear <strong>FULL AND SOLE RESPONSIBILITY</strong> for all manual check decisions, data handling, compliance with privacy laws, and any consequences thereof.</span>
+                </li>
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Section 2: Manual Mode Responsibility */}
         <Card className="mb-6">
           <CardHeader>
@@ -165,19 +202,19 @@ export default function GhostPassOwnerGuide() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>Manual mode decisions are made by the venue and its staff.</span>
+                <span>Manual mode decisions are made <strong>entirely by the venue and its staff</strong>.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span><strong>VALID™ does not verify identity in Manual mode.</strong></span>
+                <span><strong>VALID™ does not verify identity in Manual mode and accepts no liability for manual checks.</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>The venue is responsible for entry decisions, compliance with local laws, and staff training.</span>
+                <span>The venue is <strong>solely responsible</strong> for entry decisions, compliance with local laws, staff training, and all data captured.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>VALID™ provides tools to record what your staff did (notes/evidence) for your venue's internal accountability.</span>
+                <span>VALID™ provides tools only — <strong>VALID™ does not store, process, or retain any data from manual checks.</strong></span>
               </li>
             </ul>
           </CardContent>
@@ -188,26 +225,35 @@ export default function GhostPassOwnerGuide() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <HardDrive className="h-5 w-5 text-primary" />
-              3) Manual Evidence — Where Photos/Notes Are Stored
+              3) Manual Evidence — YOUR Storage, NOT Ours
             </CardTitle>
-            <Badge variant="outline" className="w-fit">Venue-Controlled</Badge>
+            <Badge variant="outline" className="w-fit">Venue-Controlled — VALID™ Stores Nothing</Badge>
           </CardHeader>
           <CardContent>
+            <div className="p-3 bg-destructive/10 border border-destructive/30 rounded-lg mb-4">
+              <p className="text-sm font-bold text-destructive">
+                VALID™ DOES NOT STORE ANY PHOTOS, NOTES, OR DATA FROM MANUAL MODE.
+              </p>
+            </div>
             <p className="text-sm text-muted-foreground mb-4">
               In Manual mode, if your venue uses photo evidence:
             </p>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>Evidence is stored under <strong>your venue's control</strong>, not ours.</span>
+                <span>All evidence stays on <strong>YOUR device</strong> or is exported to <strong>YOUR storage</strong> (e.g., Google Drive).</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>Your manager device can export/backup evidence to your own storage (example: Google Drive).</span>
+                <span><strong>Nothing is transmitted to or stored on VALID™ servers.</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>You control retention, access, and who can view it.</span>
+                <span>You control retention, access, deletion, and who can view it — <strong>VALID™ has no access to this data.</strong></span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-1">•</span>
+                <span>VALID™ accepts <strong>no responsibility</strong> for any data you capture, store, or manage on your devices.</span>
               </li>
             </ul>
             <div className="mt-4 p-3 bg-muted/50 border border-border rounded-lg">
@@ -304,9 +350,16 @@ export default function GhostPassOwnerGuide() {
             </div>
 
             <div className="border-b pb-4">
-              <p className="font-medium mb-1">Q: Are you liable for manual checks?</p>
+              <p className="font-medium mb-1">Q: Is VALID™ liable for manual checks?</p>
               <p className="text-sm text-muted-foreground">
-                A: Manual checks are performed by venue staff. VALID™ does not verify identity in Manual mode; the venue is responsible for decisions and compliance.
+                A: <strong>Absolutely not.</strong> VALID™ assumes ZERO liability for any manual checks, manual runs, or manual mode operations. All decisions and responsibility rest entirely with the venue and its staff.
+              </p>
+            </div>
+
+            <div className="border-b pb-4">
+              <p className="font-medium mb-1">Q: Does VALID™ store any data from manual mode?</p>
+              <p className="text-sm text-muted-foreground">
+                A: <strong>No.</strong> VALID™ does NOT store any photos, notes, personal data, or any information whatsoever from manual mode. All data stays on YOUR device or YOUR storage systems. VALID™ has no access to it and accepts no responsibility for it.
               </p>
             </div>
 

@@ -14,8 +14,8 @@ const ManagerQuickstart = () => {
   return (
     <>
       <Helmet>
-        <title>GHOST Pass™ — Manager Quickstart | Valid™</title>
-        <meta name="description" content="2-minute manager guide for venue setup and oversight with GHOST Pass™" />
+        <title>GHOST™ Pass — Manager Quickstart | VALID™</title>
+        <meta name="description" content="2-minute manager guide for venue setup and oversight with GHOST™ Pass" />
       </Helmet>
 
       <div className="min-h-screen bg-background text-foreground">
@@ -27,7 +27,7 @@ const ManagerQuickstart = () => {
               Back
             </Button>
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold">GHOST Pass™ — Manager Quickstart</h1>
+              <h1 className="text-3xl font-bold text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.4)] animate-pulse">GHOST™ Pass — Manager Quickstart</h1>
               <Badge variant="outline" className="border-primary/50 text-primary">2 minutes</Badge>
             </div>
             <p className="text-muted-foreground">

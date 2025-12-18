@@ -48,7 +48,7 @@ export default function GhostPassOwnerGuide() {
         name: "Are you liable for manual checks?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Manual checks are performed by venue staff. Valid does not verify identity in Manual mode; the venue is responsible for decisions and compliance.",
+          text: "Manual checks are performed by venue staff. VALID™ does not verify identity in Manual mode; the venue is responsible for decisions and compliance.",
         },
       },
       {
@@ -56,7 +56,7 @@ export default function GhostPassOwnerGuide() {
         name: "Where does manual evidence go?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "In Manual mode, any notes/photos are recorded by venue staff using Valid as a documentation tool. Records are associated with your venue account so your authorized team can review them. Your venue controls who can access them and how long they're retained. If you want an external backup or to follow your own retention policy, a manager can export/offload copies to your venue's storage (example: Google Drive). Valid does not verify identity in Manual mode and does not make entry/compliance decisions.",
+          text: "In Manual mode, any notes/photos are recorded by venue staff using VALID™ as a documentation tool. Records are associated with your venue account so your authorized team can review them. Your venue controls who can access them and how long they're retained. If you want an external backup or to follow your own retention policy, a manager can export/offload copies to your venue's storage (example: Google Drive). VALID™ does not verify identity in Manual mode and does not make entry/compliance decisions.",
         },
       },
     ],
@@ -65,10 +65,10 @@ export default function GhostPassOwnerGuide() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Ghost Pass Owner Guide | VALID</title>
+        <title>GHOST™ Pass Owner Guide | VALID™</title>
         <meta
           name="description"
-          content="Ghost Pass Owner Guide for venues: ID check modes, manual evidence storage, and billing/payouts."
+          content="GHOST™ Pass Owner Guide for venues: ID check modes, manual evidence storage, and billing/payouts."
         />
         <link rel="canonical" href={canonicalUrl} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
@@ -84,8 +84,8 @@ export default function GhostPassOwnerGuide() {
         </Button>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">
-            VALID / GHOST PASS™
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.4)] animate-pulse">
+            VALID™ / GHOST™ PASS
           </h1>
           <p className="text-xl text-muted-foreground">Owner Module</p>
         </div>
@@ -144,7 +144,7 @@ export default function GhostPassOwnerGuide() {
                 <span className="font-semibold">Manual Check (No third-party fee)</span>
               </div>
               <p className="text-sm text-muted-foreground mb-2">
-                <strong>What it does:</strong> Your staff visually checks the ID at the door. Valid provides documentation tools (note + optional evidence) for your internal records.
+                <strong>What it does:</strong> Your staff visually checks the ID at the door. VALID™ provides documentation tools (note + optional evidence) for your internal records.
               </p>
               <p className="text-sm font-medium text-primary">
                 Price: No provider per-scan fee.
@@ -169,7 +169,7 @@ export default function GhostPassOwnerGuide() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span><strong>Valid does not verify identity in Manual mode.</strong></span>
+                <span><strong>VALID™ does not verify identity in Manual mode.</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
@@ -177,7 +177,7 @@ export default function GhostPassOwnerGuide() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>Valid provides tools to record what your staff did (notes/evidence) for your venue's internal accountability.</span>
+                <span>VALID™ provides tools to record what your staff did (notes/evidence) for your venue's internal accountability.</span>
               </li>
             </ul>
           </CardContent>
@@ -232,15 +232,15 @@ export default function GhostPassOwnerGuide() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <h4 className="font-semibold mb-2">When guests pay using Ghost Pass QR / Wallet</h4>
+              <h4 className="font-semibold mb-2">When guests pay using GHOST™ Pass QR / Wallet</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>Payments run through Valid's platform via Stripe Connect.</span>
+                  <span>Payments run through VALID™'s platform via Stripe Connect.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>Fees can be deducted from that night's Ghost Pass sales before payout, including:</span>
+                  <span>Fees can be deducted from that night's GHOST™ Pass sales before payout, including:</span>
                 </li>
               </ul>
               <ul className="ml-6 mt-2 space-y-1 text-sm text-muted-foreground">
@@ -258,10 +258,10 @@ export default function GhostPassOwnerGuide() {
             <div>
               <h4 className="font-semibold mb-2 flex items-center gap-2">
                 <CreditCard className="h-4 w-4" />
-                Nights with low or no Ghost Pass sales
+                Nights with low or no GHOST™ Pass sales
               </h4>
               <p className="text-sm text-muted-foreground mb-2">
-                If there are not enough Ghost Pass sales to cover usage-based fees:
+                If there are not enough GHOST™ Pass sales to cover usage-based fees:
               </p>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
@@ -306,14 +306,14 @@ export default function GhostPassOwnerGuide() {
             <div className="border-b pb-4">
               <p className="font-medium mb-1">Q: Are you liable for manual checks?</p>
               <p className="text-sm text-muted-foreground">
-                A: Manual checks are performed by venue staff. Valid does not verify identity in Manual mode; the venue is responsible for decisions and compliance.
+                A: Manual checks are performed by venue staff. VALID™ does not verify identity in Manual mode; the venue is responsible for decisions and compliance.
               </p>
             </div>
 
             <div>
               <p className="font-medium mb-1">Q: Where does manual evidence go?</p>
               <p className="text-sm text-muted-foreground">
-                A: In Manual mode, any notes/photos are recorded by venue staff using Valid as a documentation tool. Records are associated with your venue account so your authorized team can review them. Your venue controls who can access them and how long they're retained. If you want an external backup or to follow your own retention policy, a manager can export/offload copies to your venue's storage (example: Google Drive). Valid does not verify identity in Manual mode and does not make entry/compliance decisions.
+                A: In Manual mode, any notes/photos are recorded by venue staff using VALID™ as a documentation tool. Records are associated with your venue account so your authorized team can review them. Your venue controls who can access them and how long they're retained. If you want an external backup or to follow your own retention policy, a manager can export/offload copies to your venue's storage (example: Google Drive). VALID™ does not verify identity in Manual mode and does not make entry/compliance decisions.
               </p>
             </div>
           </CardContent>

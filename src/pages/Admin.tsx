@@ -531,7 +531,7 @@ const Admin = () => {
             <Button
               variant="outline"
               onClick={() => navigate("/staff-quickstart")}
-              className="hidden md:flex"
+              className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
             >
               <BookOpen className="h-4 w-4 mr-2" />
               Door Staff Training
@@ -540,7 +540,7 @@ const Admin = () => {
             <Button
               variant="outline"
               onClick={() => navigate("/manager-quickstart")}
-              className="hidden md:flex"
+              className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
             >
               <BookOpen className="h-4 w-4 mr-2" />
               Manager Training
@@ -549,10 +549,10 @@ const Admin = () => {
             <Button
               variant="outline"
               onClick={() => navigate("/ghost-pass-owner-guide")}
-              className="hidden md:flex"
+              className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
             >
               <BookOpen className="h-4 w-4 mr-2" />
-              Ghost Pass Owner Guide
+              GHOST™ Pass Owner Guide
             </Button>
 
             {/* Quick Scanner Button - Mobile */}
@@ -579,7 +579,7 @@ const Admin = () => {
           <div className="md:hidden mt-3 space-y-2">
             <Button
               variant="outline"
-              className="w-full justify-center gap-2"
+              className="w-full justify-center gap-2 shadow-[0_0_8px_rgba(250,204,21,0.3)] border-yellow-500/30"
               onClick={() => navigate("/staff-quickstart")}
             >
               <BookOpen className="h-4 w-4" />
@@ -587,7 +587,7 @@ const Admin = () => {
             </Button>
             <Button
               variant="outline"
-              className="w-full justify-center gap-2"
+              className="w-full justify-center gap-2 shadow-[0_0_8px_rgba(250,204,21,0.3)] border-yellow-500/30"
               onClick={() => navigate("/manager-quickstart")}
             >
               <BookOpen className="h-4 w-4" />
@@ -595,11 +595,11 @@ const Admin = () => {
             </Button>
             <Button
               variant="outline"
-              className="w-full justify-center gap-2"
+              className="w-full justify-center gap-2 shadow-[0_0_8px_rgba(250,204,21,0.3)] border-yellow-500/30"
               onClick={() => navigate("/ghost-pass-owner-guide")}
             >
               <BookOpen className="h-4 w-4" />
-              Ghost Pass Owner Guide
+              GHOST™ Pass Owner Guide
             </Button>
           </div>
           

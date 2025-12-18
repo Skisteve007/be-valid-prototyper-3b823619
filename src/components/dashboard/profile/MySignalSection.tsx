@@ -381,7 +381,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             type="button"
             onClick={() => setBroadcastActive(true)}
             disabled={!selectedMode}
-            className="w-full py-4 text-sm font-bold transition-all mb-4 rounded-md flex items-center justify-center"
+            className="w-full py-4 text-sm font-bold transition-all mb-2 rounded-md flex items-center justify-center"
             style={{
               backgroundColor: selectedMode ? '#eab308' : 'hsl(var(--muted))',
               color: selectedMode ? '#000000' : 'hsl(var(--muted-foreground))',
@@ -398,6 +398,15 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <Podcast className="w-4 h-4 ml-1" />
             <ChevronDown className="w-4 h-4 ml-1" />
           </button>
+
+          {/* Broadcast Message Input - Directly under broadcast button */}
+          <Input
+            value={broadcastMessage}
+            onChange={(e) => setBroadcastMessage(e.target.value)}
+            placeholder="Enter broadcast message..."
+            maxLength={50}
+            className="bg-background border-border text-foreground placeholder:text-muted-foreground mb-4"
+          />
 
           {/* 4-Button Grid with Descriptions */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
@@ -593,32 +602,6 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
         </CardContent>
       </Card>
 
-      {/* BROADCAST MESSAGE PILL - Separate Section */}
-      <Card className="bg-card border-border shadow-sm mt-4">
-        <CardContent className="p-6">
-          <div className="flex flex-col gap-1 mb-4">
-            <div className="flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-              <h3 className="text-lg font-semibold text-cyan-400">BROADCAST MESSAGE</h3>
-            </div>
-            <span className="text-xs text-cyan-400/80 pl-7">Optional message to display on your beacon</span>
-          </div>
-
-          {/* Broadcast Message Input */}
-          <div className="space-y-2">
-            <Input
-              value={broadcastMessage}
-              onChange={(e) => setBroadcastMessage(e.target.value)}
-              placeholder="Enter a short message to display..."
-              maxLength={50}
-              className="bg-background border-border text-foreground placeholder:text-muted-foreground"
-            />
-            <p className="text-[10px] text-muted-foreground">
-              This text will appear large and center-screen on the broadcast beacon.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Broadcast Overlay - Full Screen Glow Mode - MOBILE OPTIMIZED */}
       {broadcastActive && (

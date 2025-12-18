@@ -337,13 +337,6 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
           {isFullscreen ? <Minimize2 size={16} className="md:w-[18px] md:h-[18px]" /> : <Maximize2 size={16} className="md:w-[18px] md:h-[18px]" />}
         </button>
       </div>
-
-      {/* Mobile Tap Hint - shows briefly */}
-      {!showMobileControls && (
-        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 md:hidden text-white/40 text-xs animate-pulse">
-          Tap for controls • Swipe to navigate
-        </div>
-      )}
     </div>
   );
 };

@@ -130,11 +130,17 @@ const Partners = () => {
 
       {/* 2. THE BUILDER'S VISION (Hero) */}
       <header className="relative py-28 px-6 text-center z-10 max-w-5xl mx-auto">
-        <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 rounded-lg border border-cyan-500/30 bg-cyan-900/10 text-cyan-400 text-xs font-mono tracking-widest">
-          <span>POWERED BY SYNTHESIZED AI</span>
-          <span className="relative flex h-3 w-3">
+        <div className="inline-flex items-center gap-3 mb-6 px-5 py-2.5 rounded-full border border-cyan-400/40 text-xs font-mono tracking-widest relative overflow-hidden group cursor-default"
+          style={{
+            background: 'linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(20,40,60,0.8) 50%, rgba(0,0,0,0.6) 100%)',
+            boxShadow: '0 0 20px rgba(0,200,255,0.15), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.3)',
+          }}>
+          {/* Shimmer effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+          <span className="relative z-10 bg-gradient-to-r from-cyan-300 via-white to-cyan-300 bg-clip-text text-transparent font-semibold">POWERED BY SYNTHESIZED AI</span>
+          <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500 shadow-[0_0_10px_rgba(0,240,255,0.8),0_0_20px_rgba(0,240,255,0.5)]"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gradient-to-br from-cyan-300 to-cyan-500 shadow-[0_0_8px_rgba(0,240,255,0.9),0_0_16px_rgba(0,240,255,0.5)]"></span>
           </span>
         </div>
         

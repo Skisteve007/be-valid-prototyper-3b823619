@@ -164,7 +164,7 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         "relative bg-black flex flex-col group " +
         (isFullscreen
           ? "fixed inset-0 z-50"
-          : "w-full h-[70vh] md:h-[80vh] rounded-2xl overflow-hidden border border-white/10")
+          : "w-full h-[45vh] sm:h-[55vh] md:h-[70vh] lg:h-[80vh] rounded-xl md:rounded-2xl overflow-hidden border border-white/10")
       }
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -176,14 +176,14 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
       {showMusicPrompt && !hasUserInteracted && (
         <button
           onClick={startAudio}
-          className="absolute top-12 md:top-14 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-4 py-2 font-bold rounded-full shadow-lg animate-pulse transition-all"
+          className="absolute top-10 md:top-14 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 font-bold rounded-full shadow-lg animate-pulse transition-all text-xs md:text-sm"
           style={{
             background: '#00E5E5',
             color: '#000'
           }}
         >
-          <Music size={18} />
-          <span className="text-sm">Tap for Music</span>
+          <Music size={14} className="md:w-[18px] md:h-[18px]" />
+          <span>Tap for Music</span>
         </button>
       )}
 
@@ -208,20 +208,34 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         </div>
       </div>
 
-      {/* Controls Bar */}
-      <div className="w-full shrink-0 border-t border-white/10 bg-black/90 backdrop-blur-sm px-3 md:px-4 py-3">
-        <div className="flex items-center gap-3">
-          <div className="flex-1 flex justify-center">
-            <div className="flex gap-1.5 md:gap-2 flex-wrap justify-center max-w-[92%]">
+      {/* Controls Bar - Bottom */}
+      <div className="w-full shrink-0 border-t border-white/10 bg-black/90 backdrop-blur-sm px-2 md:px-4 py-2 md:py-3">
+        <div className="flex items-center justify-between gap-2">
+          {/* Auto indicator - left */}
+          <div className="flex items-center gap-1 md:gap-2 shrink-0">
+            <div
+              className={
+                "w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-colors " +
+                (isPaused ? "bg-amber-400" : "bg-emerald-400 animate-pulse")
+              }
+            />
+            <span className="text-white/50 text-[10px] md:text-xs font-mono">
+              {isPaused ? "PAUSED" : "AUTO"}
+            </span>
+          </div>
+
+          {/* Dot indicators - center */}
+          <div className="flex-1 flex justify-center overflow-hidden">
+            <div className="flex gap-1 md:gap-1.5 flex-wrap justify-center max-w-[70%] md:max-w-[80%]">
               {pitchSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goTo(index)}
                   className={
-                    "h-2 rounded-full transition-all duration-300 " +
+                    "h-1.5 md:h-2 rounded-full transition-all duration-300 " +
                     (index === current
-                      ? "w-6"
-                      : "w-2")
+                      ? "w-3 md:w-6"
+                      : "w-1.5 md:w-2")
                   }
                   style={{
                     background: index === current ? '#00E5E5' : 'rgba(255, 255, 255, 0.3)',
@@ -233,65 +247,56 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
             </div>
           </div>
 
-          <div className="text-white/50 text-xs font-mono tracking-wider whitespace-nowrap">
-            {current + 1} / {totalSlides}
+          {/* Slide counter - right */}
+          <div className="text-white/50 text-[10px] md:text-xs font-mono tracking-wider whitespace-nowrap shrink-0">
+            {current + 1}/{totalSlides}
           </div>
         </div>
       </div>
 
-      {/* Left Arrow */}
+      {/* Left Arrow - positioned outside main content area */}
       <button
         onClick={prev}
-        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-black/70 hover:bg-black text-white transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 hover:scale-105 backdrop-blur-sm border border-white/20"
+        className="absolute left-1 md:left-3 top-[calc(50%-24px)] md:top-1/2 md:-translate-y-1/2 p-1.5 md:p-2.5 rounded-full bg-black/80 text-white transition-all opacity-90 md:opacity-0 md:group-hover:opacity-100 hover:scale-105 backdrop-blur-sm border border-white/30 z-10"
         aria-label="Previous slide"
       >
-        <ChevronLeft size={22} />
+        <ChevronLeft size={16} className="md:w-5 md:h-5" />
       </button>
 
-      {/* Right Arrow */}
+      {/* Right Arrow - positioned outside main content area */}
       <button
         onClick={next}
-        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-black/70 hover:bg-black text-white transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 hover:scale-105 backdrop-blur-sm border border-white/20"
+        className="absolute right-1 md:right-3 top-[calc(50%-24px)] md:top-1/2 md:-translate-y-1/2 p-1.5 md:p-2.5 rounded-full bg-black/80 text-white transition-all opacity-90 md:opacity-0 md:group-hover:opacity-100 hover:scale-105 backdrop-blur-sm border border-white/30 z-10"
         aria-label="Next slide"
       >
-        <ChevronRight size={22} />
+        <ChevronRight size={16} className="md:w-5 md:h-5" />
       </button>
 
-      {/* Auto indicator */}
-      <div className="absolute top-3 md:top-4 left-3 md:left-4 flex items-center gap-2">
-        <div
-          className={
-            "w-2 h-2 rounded-full transition-colors " +
-            (isPaused ? "bg-amber-400" : "bg-emerald-400 animate-pulse")
-          }
-        />
-        <span className="text-white/40 text-xs font-mono hidden md:inline">
-          {isPaused ? "PAUSED" : "AUTO"}
-        </span>
+      {/* Top Controls - grouped together */}
+      <div className="absolute top-2 md:top-3 right-2 md:right-3 flex items-center gap-1.5 md:gap-2 z-10">
+        {/* Mute Toggle */}
+        <button
+          onClick={toggleMute}
+          className="p-1.5 md:p-2 rounded-full transition-all hover:scale-105 backdrop-blur-sm border"
+          style={{
+            background: isMuted ? 'rgba(0, 229, 229, 0.2)' : 'rgba(0, 0, 0, 0.8)',
+            borderColor: isMuted ? 'rgba(0, 229, 229, 0.5)' : 'rgba(255, 255, 255, 0.3)',
+            color: isMuted ? '#00E5E5' : '#fff'
+          }}
+          aria-label={isMuted ? "Unmute music" : "Mute music"}
+        >
+          {isMuted ? <VolumeX size={14} className="md:w-[18px] md:h-[18px]" /> : <Volume2 size={14} className="md:w-[18px] md:h-[18px]" />}
+        </button>
+
+        {/* Fullscreen Toggle */}
+        <button
+          onClick={() => setIsFullscreen((v) => !v)}
+          className="p-1.5 md:p-2 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30"
+          aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+        >
+          {isFullscreen ? <Minimize2 size={14} className="md:w-[18px] md:h-[18px]" /> : <Maximize2 size={14} className="md:w-[18px] md:h-[18px]" />}
+        </button>
       </div>
-
-      {/* Mute Toggle */}
-      <button
-        onClick={toggleMute}
-        className="absolute top-3 md:top-4 right-14 md:right-16 p-2 rounded-full transition-all hover:scale-105 backdrop-blur-sm border"
-        style={{
-          background: isMuted ? 'rgba(0, 229, 229, 0.2)' : 'rgba(0, 0, 0, 0.7)',
-          borderColor: isMuted ? 'rgba(0, 229, 229, 0.5)' : 'rgba(255, 255, 255, 0.2)',
-          color: isMuted ? '#00E5E5' : '#fff'
-        }}
-        aria-label={isMuted ? "Unmute music" : "Mute music"}
-      >
-        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-      </button>
-
-      {/* Fullscreen Toggle */}
-      <button
-        onClick={() => setIsFullscreen((v) => !v)}
-        className="absolute top-3 md:top-4 right-3 md:right-4 p-2 rounded-full bg-black/70 hover:bg-black text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/20"
-        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-      >
-        {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
-      </button>
     </div>
   );
 };

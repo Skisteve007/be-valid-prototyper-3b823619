@@ -75,13 +75,14 @@ export const pitchSlides: SlideData[] = [
   {
     id: 7,
     title: "BUSINESS MODEL",
-    subtitle: "5 Revenue Streams",
+    subtitle: "6 Revenue Streams",
     bullets: [
-      "Member Subscriptions — $39/60 days",
-      "GHOST™ Token Access — $10/scan (30% venue share)",
-      "Health Reseller Margin — 40-60% on lab kits",
-      "SaaS Subscriptions — $299-$499/mo",
-      "IDV Revenue — $0.10-$1.00/ID, $1.00-$5.00/Health"
+      "MEMBER SUBSCRIPTIONS — $39 per 60 days",
+      "GHOST™ PASSES — 1-Day: $10 · 3-Day: $20 · 1-Week: $50 (VALID™ 70% / Venue 30%)",
+      "GHOST™ TOKEN POOL — Every scan = token revenue (VALID™ 70% / Venue 30%)",
+      "HEALTH VERIFICATION — Lab kit resale, 40-60% margin",
+      "SAAS SUBSCRIPTIONS — $299-$499/month per venue",
+      "IDV REVENUE — $0.50-$2.00 per identity verification"
     ],
     layout: 'bullets',
   },

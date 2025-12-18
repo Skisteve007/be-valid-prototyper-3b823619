@@ -83,3 +83,6 @@ verify_jwt = true
 
 [functions.verify-wallet-funding]
 verify_jwt = false
+
+[functions.synth-audit]
+verify_jwt = false

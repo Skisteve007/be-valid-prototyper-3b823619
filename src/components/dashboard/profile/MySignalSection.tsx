@@ -400,12 +400,24 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <span className="text-xs text-cyan-400/80 pl-7">Select a signal mode to customize your vibe</span>
           </div>
 
+          {/* Broadcast Message Input - FIRST, under header */}
+          <Input
+            value={broadcastMessage}
+            onChange={(e) => setBroadcastMessage(e.target.value)}
+            placeholder="Enter broadcast message..."
+            maxLength={50}
+            className="bg-background border-border text-foreground placeholder:text-muted-foreground mb-2 text-center"
+          />
+
           {/* Broadcast Signal Button - Yellow with Pulsating Glow */}
           <button
             type="button"
-            onClick={() => setBroadcastActive(true)}
+            onClick={() => {
+              console.log("Broadcasting with message:", broadcastMessage);
+              setBroadcastActive(true);
+            }}
             disabled={!selectedMode}
-            className="w-full py-4 text-sm font-bold transition-all mb-2 rounded-md flex items-center justify-center"
+            className="w-full py-4 text-sm font-bold transition-all mb-4 rounded-md flex items-center justify-center"
             style={{
               backgroundColor: selectedMode ? '#eab308' : 'hsl(var(--muted))',
               color: selectedMode ? '#000000' : 'hsl(var(--muted-foreground))',
@@ -422,15 +434,6 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             <Podcast className="w-4 h-4 ml-1" />
             <ChevronDown className="w-4 h-4 ml-1" />
           </button>
-
-          {/* Broadcast Message Input - Directly under broadcast button */}
-          <Input
-            value={broadcastMessage}
-            onChange={(e) => setBroadcastMessage(e.target.value)}
-            placeholder="Enter broadcast message..."
-            maxLength={50}
-            className="bg-background border-border text-foreground placeholder:text-muted-foreground mb-4"
-          />
 
           {/* 4-Button Grid with Descriptions */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
@@ -661,19 +664,20 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           {/* Main Content Area - FILLS ENTIRE SCREEN */}
           <div className="flex flex-col items-center justify-center w-full h-full p-4">
             {/* Custom Message - PRIORITY DISPLAY - MASSIVE WHITE TEXT */}
-            {broadcastMessage.trim() ? (
+            {broadcastMessage && broadcastMessage.trim().length > 0 ? (
               <div className="flex flex-col items-center justify-center w-full h-full px-6">
                 {/* HUGE Custom Message - WHITE ON COLOR - Maximum contrast */}
                 <span 
                   className="font-black text-center leading-tight tracking-wide break-words uppercase"
                   style={{
-                    fontSize: 'clamp(2.5rem, 12vw, 8rem)',
+                    fontSize: 'clamp(3rem, 15vw, 10rem)',
                     color: '#FFFFFF',
-                    textShadow: '0 4px 20px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3)',
+                    textShadow: '0 6px 30px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.9)',
                     wordBreak: 'break-word',
-                    maxWidth: '90vw',
-                    lineHeight: 1.2,
-                    letterSpacing: '0.05em',
+                    maxWidth: '95vw',
+                    lineHeight: 1.1,
+                    letterSpacing: '0.08em',
+                    WebkitTextStroke: '1px rgba(0,0,0,0.3)',
                   }}
                 >
                   {broadcastMessage}

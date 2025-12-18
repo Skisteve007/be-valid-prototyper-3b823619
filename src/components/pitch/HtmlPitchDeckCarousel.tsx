@@ -179,7 +179,7 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         "relative bg-black flex flex-col group touch-pan-y " +
         (isFullscreen
           ? "fixed inset-0 z-50"
-          : "w-full h-[55vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] rounded-xl md:rounded-2xl overflow-hidden border border-white/10")
+          : "w-full h-auto min-h-[50vh] sm:min-h-[55vh] md:min-h-[70vh] lg:min-h-[80vh] rounded-xl md:rounded-2xl overflow-hidden border border-white/10")
       }
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -188,21 +188,6 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
       onClick={handleTap}
       aria-label="Investor deck slides"
     >
-      {/* Music Prompt Banner - positioned safely */}
-      {showMusicPrompt && !hasUserInteracted && (
-        <button
-          onClick={(e) => { e.stopPropagation(); startAudio(); }}
-          className="absolute top-2 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 px-3 py-1.5 font-bold rounded-full shadow-lg animate-pulse transition-all text-xs"
-          style={{
-            background: '#00E5E5',
-            color: '#000'
-          }}
-        >
-          <Music size={14} />
-          <span>Tap for Music</span>
-        </button>
-      )}
-
       {/* Main Slide Content - Horizontal sliding carousel */}
       <div className="relative flex-1 min-h-0 w-full overflow-hidden">
         <div 
@@ -224,41 +209,46 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         </div>
       </div>
 
-      {/* Controls Bar - Bottom (auto-hides on mobile after tap) */}
-      <div 
-        className={`w-full shrink-0 border-t border-white/10 bg-black/90 backdrop-blur-sm px-2 md:px-4 py-2 md:py-3 transition-all duration-300 ${
-          showMobileControls ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 md:translate-y-0 md:opacity-100'
-        }`}
-      >
-        <div className="flex items-center justify-between gap-2">
-          {/* Auto indicator - left (hidden on mobile) */}
-          <div className="hidden md:flex items-center gap-2 shrink-0">
-            <div
-              className={
-                "w-2 h-2 rounded-full transition-colors " +
-                (isPaused ? "bg-amber-400" : "bg-emerald-400 animate-pulse")
-              }
-            />
-            <span className="text-white/50 text-xs font-mono">
-              {isPaused ? "PAUSED" : "AUTO"}
-            </span>
+      {/* Controls Footer - Always visible, OUTSIDE slide area */}
+      <div className="w-full shrink-0 border-t border-white/10 bg-black/95 px-3 md:px-4 py-2.5 md:py-3">
+        <div className="flex items-center justify-between gap-3">
+          {/* Left: Music + Auto indicator */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={(e) => { e.stopPropagation(); toggleMute(); }}
+              className="p-1.5 rounded-full transition-all backdrop-blur-sm border"
+              style={{
+                background: isMuted ? 'rgba(0, 229, 229, 0.2)' : 'rgba(0, 0, 0, 0.8)',
+                borderColor: isMuted ? 'rgba(0, 229, 229, 0.5)' : 'rgba(255, 255, 255, 0.3)',
+                color: isMuted ? '#00E5E5' : '#fff'
+              }}
+              aria-label={isMuted ? "Unmute music" : "Mute music"}
+            >
+              {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+            </button>
+            <div className="hidden sm:flex items-center gap-1.5">
+              <div
+                className={
+                  "w-1.5 h-1.5 rounded-full transition-colors " +
+                  (isPaused ? "bg-amber-400" : "bg-emerald-400 animate-pulse")
+                }
+              />
+              <span className="text-white/50 text-[10px] font-mono">
+                {isPaused ? "PAUSED" : "AUTO"}
+              </span>
+            </div>
           </div>
 
-          {/* Slide counter - mobile only (left side) */}
-          <div className="md:hidden text-white/70 text-sm font-mono tracking-wider whitespace-nowrap shrink-0">
-            {current + 1}/{totalSlides}
-          </div>
-
-          {/* Dot indicators - center (simplified on mobile) */}
-          <div className="flex-1 flex justify-center overflow-hidden">
-            <div className="hidden md:flex gap-1.5 flex-wrap justify-center max-w-[80%]">
+          {/* Center: Dot indicators */}
+          <div className="flex-1 flex justify-center overflow-x-auto scrollbar-hide">
+            <div className="flex gap-1 sm:gap-1.5 items-center">
               {pitchSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={(e) => { e.stopPropagation(); goTo(index); }}
                   className={
-                    "h-2 rounded-full transition-all duration-300 " +
-                    (index === current ? "w-6" : "w-2")
+                    "h-1.5 sm:h-2 rounded-full transition-all duration-300 flex-shrink-0 " +
+                    (index === current ? "w-4 sm:w-6" : "w-1.5 sm:w-2")
                   }
                   style={{
                     background: index === current ? '#00E5E5' : 'rgba(255, 255, 255, 0.3)',
@@ -268,75 +258,59 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
                 />
               ))}
             </div>
-            {/* Mobile: simple progress bar instead of dots */}
-            <div className="md:hidden w-full max-w-[200px] h-1 bg-white/20 rounded-full overflow-hidden">
-              <div 
-                className="h-full rounded-full transition-all duration-300"
-                style={{ 
-                  width: `${((current + 1) / totalSlides) * 100}%`,
-                  background: '#00E5E5',
-                  boxShadow: '0 0 8px rgba(0, 229, 229, 0.6)'
-                }}
-              />
-            </div>
           </div>
 
-          {/* Slide counter - desktop only (right side) */}
-          <div className="hidden md:block text-white/50 text-xs font-mono tracking-wider whitespace-nowrap shrink-0">
-            {current + 1}/{totalSlides}
+          {/* Right: Counter + Fullscreen */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-white/60 text-xs font-mono tracking-wider whitespace-nowrap">
+              {current + 1}/{totalSlides}
+            </span>
+            <button
+              onClick={(e) => { e.stopPropagation(); setIsFullscreen((v) => !v); }}
+              className="p-1.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30"
+              aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+            >
+              {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Left Arrow - auto-hides on mobile */}
+      {/* Navigation Arrows - Only show on desktop or when controls visible on mobile */}
       <button
         onClick={(e) => { e.stopPropagation(); prev(); }}
-        className={`absolute left-1 md:left-3 top-1/2 -translate-y-1/2 p-2 md:p-2.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30 z-10 ${
-          showMobileControls ? 'opacity-90' : 'opacity-0 md:opacity-0'
-        } md:group-hover:opacity-100`}
+        className={`absolute left-1 md:left-3 top-[calc(50%-2rem)] -translate-y-1/2 p-2 md:p-2.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30 z-10 ${
+          showMobileControls ? 'opacity-80' : 'opacity-0'
+        } md:opacity-0 md:group-hover:opacity-100`}
         aria-label="Previous slide"
       >
-        <ChevronLeft size={20} className="md:w-5 md:h-5" />
+        <ChevronLeft size={18} className="md:w-5 md:h-5" />
       </button>
 
-      {/* Right Arrow - auto-hides on mobile */}
       <button
         onClick={(e) => { e.stopPropagation(); next(); }}
-        className={`absolute right-1 md:right-3 top-1/2 -translate-y-1/2 p-2 md:p-2.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30 z-10 ${
-          showMobileControls ? 'opacity-90' : 'opacity-0 md:opacity-0'
-        } md:group-hover:opacity-100`}
+        className={`absolute right-1 md:right-3 top-[calc(50%-2rem)] -translate-y-1/2 p-2 md:p-2.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30 z-10 ${
+          showMobileControls ? 'opacity-80' : 'opacity-0'
+        } md:opacity-0 md:group-hover:opacity-100`}
         aria-label="Next slide"
       >
-        <ChevronRight size={20} className="md:w-5 md:h-5" />
+        <ChevronRight size={18} className="md:w-5 md:h-5" />
       </button>
 
-      {/* Top Controls - auto-hides on mobile */}
-      <div className={`absolute top-2 md:top-3 right-2 md:right-3 flex items-center gap-1.5 md:gap-2 z-10 transition-opacity duration-300 ${
-        showMobileControls ? 'opacity-100' : 'opacity-0 md:opacity-100'
-      }`}>
-        {/* Mute Toggle */}
+      {/* Music Prompt - Only on desktop, positioned safely */}
+      {showMusicPrompt && !hasUserInteracted && (
         <button
-          onClick={(e) => { e.stopPropagation(); toggleMute(); }}
-          className="p-1.5 md:p-2 rounded-full transition-all hover:scale-105 backdrop-blur-sm border"
+          onClick={(e) => { e.stopPropagation(); startAudio(); }}
+          className="hidden md:flex absolute top-3 left-1/2 -translate-x-1/2 z-30 items-center gap-2 px-3 py-1.5 font-bold rounded-full shadow-lg animate-pulse transition-all text-xs"
           style={{
-            background: isMuted ? 'rgba(0, 229, 229, 0.2)' : 'rgba(0, 0, 0, 0.8)',
-            borderColor: isMuted ? 'rgba(0, 229, 229, 0.5)' : 'rgba(255, 255, 255, 0.3)',
-            color: isMuted ? '#00E5E5' : '#fff'
+            background: '#00E5E5',
+            color: '#000'
           }}
-          aria-label={isMuted ? "Unmute music" : "Mute music"}
         >
-          {isMuted ? <VolumeX size={16} className="md:w-[18px] md:h-[18px]" /> : <Volume2 size={16} className="md:w-[18px] md:h-[18px]" />}
+          <Music size={14} />
+          <span>Tap for Music</span>
         </button>
-
-        {/* Fullscreen Toggle */}
-        <button
-          onClick={(e) => { e.stopPropagation(); setIsFullscreen((v) => !v); }}
-          className="p-1.5 md:p-2 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30"
-          aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-        >
-          {isFullscreen ? <Minimize2 size={16} className="md:w-[18px] md:h-[18px]" /> : <Maximize2 size={16} className="md:w-[18px] md:h-[18px]" />}
-        </button>
-      </div>
+      )}
     </div>
   );
 };

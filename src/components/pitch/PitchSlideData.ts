@@ -81,7 +81,7 @@ export const pitchSlides: SlideData[] = [
       "GHOST™ Token Access — $10/scan (30% venue share)",
       "Health Reseller Margin — 40-60% on lab kits",
       "SaaS Subscriptions — $299-$499/mo",
-      "IDV Revenue — $48-$112 per verification"
+      "IDV Revenue — $0.10-$1.00/ID, $1.00-$5.00/Health"
     ],
     layout: 'bullets',
   },

@@ -391,6 +391,20 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
     }
   };
 
+  // Determine chrome position based on slide ID for variety
+  const getChromePosition = () => {
+    const positions = [
+      { top: '-10%', left: '-10%', rotate: '0deg' },      // 1-4: top-left
+      { bottom: '-10%', right: '-10%', rotate: '180deg' }, // 5-8: bottom-right
+      { top: '-10%', right: '-10%', rotate: '90deg' },     // 9-12: top-right
+      { bottom: '-10%', left: '-10%', rotate: '270deg' },  // 13-16: bottom-left
+    ];
+    const groupIndex = Math.floor((slide.id - 1) / 4) % 4;
+    return positions[groupIndex];
+  };
+
+  const chromePos = getChromePosition();
+
   return (
     <div 
       className="w-full h-full relative overflow-hidden"
@@ -399,28 +413,98 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         fontFamily: 'Exo, sans-serif'
       }}
     >
+      {/* Chrome/Silver Swirl Backdrop - Primary */}
+      <div 
+        className="absolute pointer-events-none"
+        style={{
+          width: '60%',
+          height: '60%',
+          ...chromePos,
+          background: `
+            radial-gradient(ellipse at 30% 30%, 
+              rgba(240, 240, 240, 0.4) 0%, 
+              rgba(200, 200, 200, 0.3) 20%, 
+              rgba(160, 160, 160, 0.2) 40%, 
+              rgba(120, 120, 120, 0.1) 60%, 
+              transparent 80%
+            )
+          `,
+          filter: 'blur(40px) brightness(1.2)',
+          transform: `rotate(${chromePos.rotate})`,
+          mixBlendMode: 'screen',
+          opacity: 0.35,
+        }}
+      />
+
+      {/* Chrome/Silver Swirl Backdrop - Secondary (opposite corner) */}
+      <div 
+        className="absolute pointer-events-none"
+        style={{
+          width: '45%',
+          height: '45%',
+          ...(chromePos.top ? { bottom: '-5%' } : { top: '-5%' }),
+          ...(chromePos.left ? { right: '-5%' } : { left: '-5%' }),
+          background: `
+            radial-gradient(ellipse at 60% 60%, 
+              rgba(255, 255, 255, 0.3) 0%, 
+              rgba(220, 220, 220, 0.25) 15%, 
+              rgba(180, 180, 180, 0.15) 35%, 
+              rgba(140, 140, 140, 0.08) 55%, 
+              transparent 75%
+            )
+          `,
+          filter: 'blur(35px) brightness(1.15)',
+          transform: `rotate(${parseInt(chromePos.rotate) + 45}deg)`,
+          mixBlendMode: 'screen',
+          opacity: 0.25,
+        }}
+      />
+
+      {/* Liquid Chrome Wave Effect */}
+      <div 
+        className="absolute pointer-events-none"
+        style={{
+          width: '80%',
+          height: '30%',
+          left: '10%',
+          top: slide.id % 2 === 0 ? '60%' : '10%',
+          background: `
+            linear-gradient(
+              ${90 + (slide.id * 15)}deg,
+              transparent 0%,
+              rgba(192, 192, 192, 0.08) 20%,
+              rgba(224, 224, 224, 0.15) 40%,
+              rgba(255, 255, 255, 0.2) 50%,
+              rgba(224, 224, 224, 0.15) 60%,
+              rgba(192, 192, 192, 0.08) 80%,
+              transparent 100%
+            )
+          `,
+          filter: 'blur(25px)',
+          mixBlendMode: 'screen',
+          opacity: 0.3,
+        }}
+      />
+
+      {/* Teal Accent Glow on Chrome */}
+      <div 
+        className="absolute pointer-events-none"
+        style={{
+          width: '40%',
+          height: '40%',
+          ...chromePos,
+          background: 'radial-gradient(circle, rgba(0, 229, 229, 0.15) 0%, transparent 60%)',
+          filter: 'blur(50px)',
+          opacity: 0.5,
+        }}
+      />
+
       {/* Subtle grid background */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'linear-gradient(rgba(0, 229, 229, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 229, 0.02) 1px, transparent 1px)',
           backgroundSize: '40px 40px'
-        }}
-      />
-      
-      {/* Ambient glow */}
-      <div 
-        className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(0, 229, 229, 0.08) 0%, transparent 70%)',
-          filter: 'blur(60px)'
-        }}
-      />
-      <div 
-        className="absolute bottom-0 left-0 w-80 h-80 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(0, 102, 255, 0.06) 0%, transparent 70%)',
-          filter: 'blur(50px)'
         }}
       />
 

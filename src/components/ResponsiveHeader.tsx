@@ -16,11 +16,11 @@ const ResponsiveHeader = () => {
       </Link>
 
       {/* Right Side Controls */}
-      <div className="flex items-center gap-1.5 sm:gap-4">
+      <div className="flex items-center gap-1 sm:gap-4">
         {/* Partner Solutions Button - Visible on all screens */}
         <Link 
           to="/partners" 
-          className="px-2 sm:px-4 py-1.5 sm:py-2 text-[0.6rem] sm:text-sm font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 hover:shadow-[0_0_20px_rgba(251,191,36,0.4)] transition-all whitespace-nowrap"
+          className="px-1.5 sm:px-4 py-1 sm:py-2 text-[0.5rem] sm:text-sm font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 hover:shadow-[0_0_20px_rgba(251,191,36,0.4)] transition-all whitespace-nowrap"
         >
           Partners
         </Link>
@@ -31,7 +31,7 @@ const ResponsiveHeader = () => {
         {/* Member Login Pill */}
         <Link 
           to="/auth?mode=login" 
-          className="px-2 sm:px-6 py-1.5 sm:py-2.5 text-[0.6rem] sm:text-sm font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all whitespace-nowrap"
+          className="px-1.5 sm:px-6 py-1 sm:py-2.5 text-[0.5rem] sm:text-sm font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all whitespace-nowrap"
         >
           Login
         </Link>

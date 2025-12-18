@@ -95,6 +95,24 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const [showDevSettings, setShowDevSettings] = useState(false);
   const qrRef = useRef<HTMLDivElement>(null);
 
+  // Handle browser back button - close broadcast instead of navigating away
+  useEffect(() => {
+    if (broadcastActive) {
+      // Push a state so we can intercept back
+      window.history.pushState({ broadcast: true }, '');
+      
+      const handlePopState = (e: PopStateEvent) => {
+        if (broadcastActive) {
+          e.preventDefault();
+          setBroadcastActive(false);
+        }
+      };
+      
+      window.addEventListener('popstate', handlePopState);
+      return () => window.removeEventListener('popstate', handlePopState);
+    }
+  }, [broadcastActive]);
+
   // Simulated venue data
   const simulatedVenue = {
     name: "Club Nightfall",
@@ -106,20 +124,25 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const isAtVenue = simulateVenue;
   const currentVenue = isAtVenue ? simulatedVenue : null;
 
-  // Broadcast colors based on mode - returns hex for inline style
+  // Broadcast colors based on mode - BRIGHT NEON for maximum visibility
   const getBroadcastColor = (): string => {
     switch (selectedMode) {
       case "afterdark":
-        return "#9333ea"; // Deep Neon Purple (purple-600)
+        return "#a855f7"; // Bright Neon Purple
       case "thrill":
-        return "#f97316"; // Vibrant Neon Orange (orange-500)
+        return "#fb923c"; // Bright Neon Orange
       case "pulse":
-        return "#10b981"; // Electric Green (emerald-500)
+        return "#34d399"; // Bright Neon Green
       case "social":
-        return "#06b6d4"; // Electric Cyan (cyan-500)
+        return "#22d3ee"; // Bright Neon Cyan
       default:
-        return "#06b6d4"; // Cyan fallback
+        return "#22d3ee"; // Cyan fallback
     }
+  };
+
+  // Handle back navigation - return to profile, don't kick off
+  const handleBroadcastClose = () => {
+    setBroadcastActive(false);
   };
 
   // Render dynamic watermark based on venue status and broadcast message
@@ -625,40 +648,32 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             backgroundColor: getBroadcastColor(),
           }}
         >
-          {/* KILL SWITCH - FIXED TOP-RIGHT - ALWAYS VISIBLE */}
+          {/* RED DOT KILL SWITCH - TOP RIGHT */}
           <button
-            onClick={() => setBroadcastActive(false)}
-            className="fixed top-4 right-4 flex items-center gap-2 px-4 py-3 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-bold text-sm rounded-full shadow-[0_0_20px_rgba(220,38,38,0.6)] transition-all active:scale-95 border-2 border-white/30"
-            style={{
-              zIndex: 100000,
-              minHeight: '48px',
-              minWidth: '140px',
-            }}
+            onClick={handleBroadcastClose}
+            className="fixed top-6 right-6 w-14 h-14 rounded-full bg-red-500 shadow-[0_0_30px_rgba(239,68,68,0.8),0_0_60px_rgba(239,68,68,0.4)] border-4 border-white/40 transition-all active:scale-90 flex items-center justify-center"
+            style={{ zIndex: 100000 }}
+            aria-label="Stop broadcast"
           >
-            <X className="w-5 h-5" />
-            <span>KILL</span>
+            <div className="w-8 h-8 rounded-full bg-red-600 animate-pulse" />
           </button>
           
           {/* Main Content Area - FILLS ENTIRE SCREEN */}
           <div className="flex flex-col items-center justify-center w-full h-full p-4">
-            {/* Custom Message - PRIORITY DISPLAY - MASSIVE FOR VISIBILITY */}
+            {/* Custom Message - PRIORITY DISPLAY - MASSIVE WHITE TEXT */}
             {broadcastMessage.trim() ? (
-              <div className="flex flex-col items-center justify-center w-full h-full px-4">
-                {/* HUGE Custom Message - HIGH CONTRAST - Visible from 20+ feet */}
+              <div className="flex flex-col items-center justify-center w-full h-full px-6">
+                {/* HUGE Custom Message - WHITE ON COLOR - Maximum contrast */}
                 <span 
-                  className="font-black text-center leading-none tracking-wide break-words uppercase"
+                  className="font-black text-center leading-tight tracking-wide break-words uppercase"
                   style={{
-                    fontSize: 'clamp(3rem, 15vw, 10rem)',
-                    color: '#000000',
-                    textShadow: '0 0 30px rgba(255,255,255,0.9), 0 0 60px rgba(255,255,255,0.6), 0 2px 10px rgba(255,255,255,0.8)',
+                    fontSize: 'clamp(2.5rem, 12vw, 8rem)',
+                    color: '#FFFFFF',
+                    textShadow: '0 4px 20px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3)',
                     wordBreak: 'break-word',
                     maxWidth: '90vw',
-                    lineHeight: 1.15,
-                    letterSpacing: '0.03em',
-                    WebkitTextStroke: '1px rgba(255,255,255,0.5)',
-                    padding: '1rem',
-                    borderRadius: '1rem',
-                    backgroundColor: 'rgba(255,255,255,0.15)',
+                    lineHeight: 1.2,
+                    letterSpacing: '0.05em',
                   }}
                 >
                   {broadcastMessage}
@@ -709,13 +724,17 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             </div>
           )}
           
-          {/* Signal Mode Indicator */}
-          <div className="fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 bg-black/20 rounded-full backdrop-blur-sm" style={{ zIndex: 100000 }}>
+          {/* Signal Mode Indicator - Tap to close */}
+          <button 
+            onClick={handleBroadcastClose}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-3 bg-black/30 rounded-full backdrop-blur-sm active:scale-95 transition-all" 
+            style={{ zIndex: 100000 }}
+          >
             <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-            <span className="text-white/80 text-xs font-medium uppercase tracking-wider">
-              {selectedMode} MODE
+            <span className="text-white/90 text-sm font-medium uppercase tracking-wider">
+              TAP TO EXIT
             </span>
-          </div>
+          </button>
         </div>
       )}
 

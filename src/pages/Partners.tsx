@@ -138,7 +138,12 @@ const Partners = () => {
           </span>
         </div>
         
-        <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-white font-orbitron drop-shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+        <h1 className="text-5xl md:text-7xl font-light mb-6 tracking-tight font-orbitron drop-shadow-[0_0_30px_rgba(100,180,255,0.3)]" style={{
+          background: 'linear-gradient(135deg, #E8E8E8 0%, #A0C4E8 25%, #F0F0F0 50%, #8AB4D8 75%, #D0D0D0 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}>
           PARTNER SOLUTIONS
         </h1>
 

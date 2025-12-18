@@ -9,12 +9,12 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   const chromeGradient = 'linear-gradient(180deg, #A0A0A0 0%, #D0D0D0 40%, #F0F0F0 70%, #FFFFFF 100%)';
   
   const renderCoverSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-8">
+    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-8">
       {slide.highlight && (
         <span 
-          className="uppercase tracking-[0.3em] mb-8"
+          className="uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-8"
           style={{ 
-            fontSize: 'clamp(14px, 2vw, 20px)',
+            fontSize: 'clamp(10px, 2vw, 20px)',
             color: '#00E5E5',
             textShadow: '0 0 20px rgba(0, 229, 229, 0.5)'
           }}
@@ -23,9 +23,9 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         </span>
       )}
       <h1 
-        className="font-bold mb-6"
+        className="font-bold mb-3 sm:mb-6"
         style={{ 
-          fontSize: 'clamp(60px, 10vw, 100px)',
+          fontSize: 'clamp(36px, 10vw, 100px)',
           background: chromeGradient,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -39,7 +39,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         <p 
           className="max-w-3xl"
           style={{ 
-            fontSize: 'clamp(22px, 3vw, 36px)',
+            fontSize: 'clamp(14px, 3vw, 36px)',
             color: '#00E5E5',
             textShadow: '0 0 15px rgba(0, 229, 229, 0.4)'
           }}
@@ -51,11 +51,11 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   );
 
   const renderTitleContentSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-8 py-12">
+    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-8 py-6 sm:py-12">
       <h2 
-        className="font-bold mb-8"
+        className="font-bold mb-4 sm:mb-8"
         style={{ 
-          fontSize: 'clamp(48px, 7vw, 80px)',
+          fontSize: 'clamp(24px, 7vw, 80px)',
           color: '#00E5E5',
           textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
         }}
@@ -64,9 +64,9 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       </h2>
       {slide.subtitle && (
         <p 
-          className="mb-8"
+          className="mb-4 sm:mb-8"
           style={{ 
-            fontSize: 'clamp(24px, 3.5vw, 40px)',
+            fontSize: 'clamp(14px, 3.5vw, 40px)',
             background: chromeGradient,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -77,14 +77,14 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         </p>
       )}
       {slide.content && (
-        <div className="space-y-4 max-w-4xl">
+        <div className="space-y-2 sm:space-y-4 max-w-4xl">
           {slide.content.map((text, i) => (
             <p 
               key={i}
               className="text-white"
               style={{ 
-                fontSize: 'clamp(18px, 2.5vw, 28px)',
-                lineHeight: '1.5'
+                fontSize: 'clamp(12px, 2.5vw, 28px)',
+                lineHeight: '1.4'
               }}
             >
               {text}
@@ -96,11 +96,11 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   );
 
   const renderStatsSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-8 py-12">
+    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-8 py-4 sm:py-12">
       <h2 
-        className="font-bold mb-8"
+        className="font-bold mb-3 sm:mb-8"
         style={{ 
-          fontSize: 'clamp(48px, 7vw, 80px)',
+          fontSize: 'clamp(22px, 7vw, 80px)',
           color: '#00E5E5',
           textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
         }}
@@ -109,9 +109,9 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       </h2>
       {slide.subtitle && (
         <p 
-          className="mb-10"
+          className="mb-4 sm:mb-10"
           style={{ 
-            fontSize: 'clamp(20px, 3vw, 32px)',
+            fontSize: 'clamp(12px, 3vw, 32px)',
             color: 'rgba(255, 255, 255, 0.7)'
           }}
         >
@@ -119,22 +119,22 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         </p>
       )}
       {slide.stats && (
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10 mb-8">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-6 md:gap-10 mb-4 sm:mb-8">
           {slide.stats.map((stat, i) => (
             <div 
               key={i}
-              className="text-center px-6 py-4"
+              className="text-center px-3 sm:px-6 py-2 sm:py-4"
               style={{
                 background: 'rgba(0, 229, 229, 0.05)',
                 border: '1px solid rgba(0, 229, 229, 0.2)',
-                borderRadius: '16px',
+                borderRadius: '12px',
                 boxShadow: '0 0 30px rgba(0, 229, 229, 0.1)'
               }}
             >
               <div 
                 className="font-bold"
                 style={{ 
-                  fontSize: 'clamp(32px, 5vw, 56px)',
+                  fontSize: 'clamp(20px, 5vw, 56px)',
                   background: chromeGradient,
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -146,10 +146,10 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
               </div>
               <div 
                 style={{ 
-                  fontSize: 'clamp(14px, 2vw, 22px)',
+                  fontSize: 'clamp(10px, 2vw, 22px)',
                   color: '#00E5E5',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.1em'
+                  letterSpacing: '0.05em'
                 }}
               >
                 {stat.label}
@@ -159,12 +159,12 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         </div>
       )}
       {slide.content && (
-        <div className="space-y-2 max-w-3xl">
+        <div className="space-y-1 sm:space-y-2 max-w-3xl">
           {slide.content.map((text, i) => (
             <p 
               key={i}
               className="text-white/70"
-              style={{ fontSize: 'clamp(16px, 2vw, 24px)' }}
+              style={{ fontSize: 'clamp(11px, 2vw, 24px)' }}
             >
               {text}
             </p>
@@ -173,12 +173,12 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       )}
       {slide.highlight && (
         <div 
-          className="mt-8 px-8 py-3 rounded-full"
+          className="mt-4 sm:mt-8 px-4 sm:px-8 py-2 sm:py-3 rounded-full"
           style={{
             background: 'rgba(0, 229, 229, 0.15)',
             border: '1px solid rgba(0, 229, 229, 0.4)',
             color: '#00E5E5',
-            fontSize: 'clamp(16px, 2vw, 24px)',
+            fontSize: 'clamp(11px, 2vw, 24px)',
             fontWeight: 'bold',
             textShadow: '0 0 10px rgba(0, 229, 229, 0.5)'
           }}
@@ -194,11 +194,11 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
     const isCompact = bulletCount > 4;
     
     return (
-      <div className={`flex flex-col items-center h-full text-center px-6 ${isCompact ? 'py-6 justify-start pt-8' : 'py-12 justify-center'}`}>
+      <div className={`flex flex-col items-center h-full text-center px-3 sm:px-6 ${isCompact ? 'py-3 sm:py-6 justify-start pt-4 sm:pt-8' : 'py-4 sm:py-12 justify-center'}`}>
         <h2 
-          className={`font-bold ${isCompact ? 'mb-3' : 'mb-6'}`}
+          className={`font-bold ${isCompact ? 'mb-2 sm:mb-3' : 'mb-3 sm:mb-6'}`}
           style={{ 
-            fontSize: isCompact ? 'clamp(36px, 5vw, 60px)' : 'clamp(48px, 7vw, 80px)',
+            fontSize: isCompact ? 'clamp(20px, 5vw, 60px)' : 'clamp(24px, 7vw, 80px)',
             color: '#00E5E5',
             textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
           }}
@@ -207,9 +207,9 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         </h2>
         {slide.subtitle && (
           <p 
-            className={isCompact ? 'mb-4' : 'mb-10'}
+            className={isCompact ? 'mb-2 sm:mb-4' : 'mb-4 sm:mb-10'}
             style={{ 
-              fontSize: isCompact ? 'clamp(18px, 2.5vw, 28px)' : 'clamp(22px, 3vw, 36px)',
+              fontSize: isCompact ? 'clamp(11px, 2.5vw, 28px)' : 'clamp(13px, 3vw, 36px)',
               background: chromeGradient,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -220,14 +220,14 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
           </p>
         )}
         {slide.bullets && (
-          <ul className={`${isCompact ? 'space-y-2' : 'space-y-4'} max-w-4xl text-left`}>
+          <ul className={`${isCompact ? 'space-y-1 sm:space-y-2' : 'space-y-2 sm:space-y-4'} max-w-4xl text-left`}>
             {slide.bullets.map((bullet, i) => (
               <li 
                 key={i}
-                className="flex items-start gap-3"
+                className="flex items-start gap-2 sm:gap-3"
               >
                 <span 
-                  className={`${isCompact ? 'mt-1.5 w-2 h-2' : 'mt-2 w-3 h-3'} rounded-full flex-shrink-0`}
+                  className={`${isCompact ? 'mt-1 w-1.5 h-1.5 sm:mt-1.5 sm:w-2 sm:h-2' : 'mt-1.5 w-2 h-2 sm:mt-2 sm:w-3 sm:h-3'} rounded-full flex-shrink-0`}
                   style={{
                     background: '#00E5E5',
                     boxShadow: '0 0 12px rgba(0, 229, 229, 0.6)'
@@ -236,8 +236,8 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
                 <span 
                   className="text-white"
                   style={{ 
-                    fontSize: isCompact ? 'clamp(14px, 2vw, 22px)' : 'clamp(18px, 2.5vw, 28px)',
-                    lineHeight: '1.35'
+                    fontSize: isCompact ? 'clamp(10px, 2vw, 22px)' : 'clamp(12px, 2.5vw, 28px)',
+                    lineHeight: '1.3'
                   }}
                 >
                   {bullet}
@@ -251,11 +251,11 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   };
 
   const renderComparisonSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-8 py-12">
+    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-8 py-4 sm:py-12">
       <h2 
-        className="font-bold mb-4"
+        className="font-bold mb-2 sm:mb-4"
         style={{ 
-          fontSize: 'clamp(48px, 7vw, 80px)',
+          fontSize: 'clamp(22px, 7vw, 80px)',
           color: '#00E5E5',
           textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
         }}
@@ -264,9 +264,9 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       </h2>
       {slide.subtitle && (
         <p 
-          className="mb-8"
+          className="mb-4 sm:mb-8"
           style={{ 
-            fontSize: 'clamp(20px, 3vw, 32px)',
+            fontSize: 'clamp(12px, 3vw, 32px)',
             color: 'rgba(255, 255, 255, 0.7)'
           }}
         >
@@ -274,14 +274,14 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         </p>
       )}
       {slide.content && (
-        <div className="space-y-3 max-w-4xl text-left mb-8">
+        <div className="space-y-2 sm:space-y-3 max-w-4xl text-left mb-4 sm:mb-8">
           {slide.content.map((text, i) => (
             <p 
               key={i}
               className={i === slide.content!.length - 1 ? '' : 'text-white/60'}
               style={{ 
-                fontSize: 'clamp(16px, 2.2vw, 26px)',
-                lineHeight: '1.5',
+                fontSize: 'clamp(11px, 2.2vw, 26px)',
+                lineHeight: '1.4',
                 color: i === slide.content!.length - 1 ? '#00E5E5' : undefined,
                 fontWeight: i === slide.content!.length - 1 ? 'bold' : 'normal'
               }}
@@ -293,7 +293,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       )}
       {slide.highlight && (
         <div 
-          className="px-8 py-4 rounded-xl"
+          className="px-4 sm:px-8 py-2 sm:py-4 rounded-xl"
           style={{
             background: 'rgba(0, 229, 229, 0.1)',
             border: '2px solid rgba(0, 229, 229, 0.4)',
@@ -303,7 +303,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
           <span 
             className="font-bold"
             style={{ 
-              fontSize: 'clamp(24px, 3.5vw, 44px)',
+              fontSize: 'clamp(14px, 3.5vw, 44px)',
               background: chromeGradient,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -318,11 +318,11 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   );
 
   const renderCtaSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-6 py-6">
+    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 py-4 sm:py-6">
       <h2 
-        className="font-bold mb-4"
+        className="font-bold mb-2 sm:mb-4"
         style={{ 
-          fontSize: 'clamp(40px, 6vw, 72px)',
+          fontSize: 'clamp(24px, 6vw, 72px)',
           background: chromeGradient,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -334,9 +334,9 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       </h2>
       {slide.subtitle && (
         <p 
-          className="mb-6"
+          className="mb-3 sm:mb-6"
           style={{ 
-            fontSize: 'clamp(18px, 2.5vw, 32px)',
+            fontSize: 'clamp(12px, 2.5vw, 32px)',
             color: '#00E5E5',
             textShadow: '0 0 15px rgba(0, 229, 229, 0.4)'
           }}
@@ -345,13 +345,13 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         </p>
       )}
       {slide.content && (
-        <div className="space-y-2 mb-6">
+        <div className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
           {slide.content.map((text, i) => (
             <p 
               key={i}
               className="text-white"
               style={{ 
-                fontSize: 'clamp(16px, 2vw, 26px)',
+                fontSize: 'clamp(11px, 2vw, 26px)',
                 lineHeight: '1.3'
               }}
             >
@@ -362,11 +362,11 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       )}
       {slide.highlight && (
         <button 
-          className="px-8 py-4 rounded-full font-bold transition-all hover:scale-105"
+          className="px-4 sm:px-8 py-2 sm:py-4 rounded-full font-bold transition-all hover:scale-105"
           style={{
             background: 'linear-gradient(135deg, #00E5E5, #0066FF)',
             color: '#000',
-            fontSize: 'clamp(16px, 2vw, 26px)',
+            fontSize: 'clamp(12px, 2vw, 26px)',
             boxShadow: '0 0 40px rgba(0, 229, 229, 0.5)'
           }}
           onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}

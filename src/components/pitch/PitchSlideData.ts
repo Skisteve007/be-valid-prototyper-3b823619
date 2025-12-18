@@ -78,11 +78,11 @@ export const pitchSlides: SlideData[] = [
     subtitle: "6 Revenue Streams",
     bullets: [
       "MEMBER SUBSCRIPTIONS — $39 per 60 days",
-      "GHOST™ PASSES — 1-Day: $10 · 3-Day: $20 · 1-Week: $50 (VALID™ 70% / Venue 30%)",
-      "GHOST™ TOKEN POOL — Every scan = token revenue (VALID™ 70% / Venue 30%)",
+      "GHOST™ PASSES — 1-Day: $10 · 3-Day: $20 · 1-Week: $50 (30% Venue / 30% Pool / 10% Acct Mgr / 30% VALID™)",
+      "COMMUNITY POOL — Weekly distribution to venues based on scan activity",
       "HEALTH VERIFICATION — Lab kit resale, 40-60% margin",
-      "SAAS SUBSCRIPTIONS — $299-$499/month per venue",
-      "IDV REVENUE — $0.50-$2.00 per identity verification"
+      "VENUE LICENSING — $299-$499/month per venue",
+      "VERIFICATION REQUESTS — $0.50-$2.00 per identity check"
     ],
     layout: 'bullets',
   },
@@ -151,9 +151,11 @@ export const pitchSlides: SlideData[] = [
     subtitle: "We're Not Burning Cash. We're Building a Tollbooth.",
     stats: [
       { label: "Transaction Fees", value: "1.5%" },
-      { label: "Premium Subs", value: "$9.99/mo" },
-      { label: "Enterprise", value: "$10K-$100K/yr" },
-      { label: "API Calls", value: "$0.10-$1.00" }
+      { label: "Member Subscriptions", value: "$9.99/mo" },
+      { label: "Venue Licensing", value: "$10K-$100K/yr" },
+      { label: "Verification Requests", value: "$0.10-$1.00" },
+      { label: "Health Verification", value: "40-60%" },
+      { label: "GHOST™ Passes", value: "30/30/10/30" }
     ],
     layout: 'stats',
   },

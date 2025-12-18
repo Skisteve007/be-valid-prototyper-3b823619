@@ -92,7 +92,7 @@ const PitchCarousel: React.FC<PitchCarouselProps> = ({
         relative bg-black flex items-center justify-center group
         ${isFullscreen 
           ? 'fixed inset-0 z-50' 
-          : 'w-full h-[70vh] md:h-[80vh] rounded-2xl overflow-hidden border border-white/10'}
+          : 'w-full h-[50vh] sm:h-[60vh] md:h-[80vh] rounded-xl md:rounded-2xl overflow-hidden border border-white/10'}
       `}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -100,7 +100,7 @@ const PitchCarousel: React.FC<PitchCarouselProps> = ({
       onTouchEnd={handleTouchEnd}
     >
       {/* Main Image Container */}
-      <div className="relative w-full h-full flex items-center justify-center p-4 md:p-8">
+      <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-4 md:p-8">
         <img
           src={images[current]}
           alt={`Pitch slide ${current + 1}`}
@@ -108,70 +108,76 @@ const PitchCarousel: React.FC<PitchCarouselProps> = ({
         />
       </div>
 
-      {/* Left Arrow */}
+      {/* Left Arrow - always visible on mobile */}
       <button
         onClick={prev}
-        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-white/10 hover:bg-cyan-500/30 text-white transition-all opacity-0 group-hover:opacity-100 hover:scale-110 backdrop-blur-sm border border-white/10"
+        className="absolute left-1 md:left-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-black/60 md:bg-white/10 hover:bg-cyan-500/30 text-white transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 hover:scale-110 backdrop-blur-sm border border-white/20 z-10"
         aria-label="Previous slide"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={20} className="md:w-6 md:h-6" />
       </button>
 
-      {/* Right Arrow */}
+      {/* Right Arrow - always visible on mobile */}
       <button
         onClick={next}
-        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-white/10 hover:bg-cyan-500/30 text-white transition-all opacity-0 group-hover:opacity-100 hover:scale-110 backdrop-blur-sm border border-white/10"
+        className="absolute right-1 md:right-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-black/60 md:bg-white/10 hover:bg-cyan-500/30 text-white transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100 hover:scale-110 backdrop-blur-sm border border-white/20 z-10"
         aria-label="Next slide"
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={20} className="md:w-6 md:h-6" />
       </button>
 
-      {/* Fullscreen Toggle */}
-      <button
-        onClick={() => setIsFullscreen(!isFullscreen)}
-        className="absolute top-3 md:top-4 right-3 md:right-4 p-2 rounded-full bg-white/10 hover:bg-cyan-500/30 text-white transition-all hover:scale-110 backdrop-blur-sm border border-white/10"
-        aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-      >
-        {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
-      </button>
+      {/* Top Controls Container - properly positioned on mobile */}
+      <div className="absolute top-2 md:top-4 right-2 md:right-4 flex items-center gap-2 z-10">
+        {/* Mute Toggle */}
+        <button
+          onClick={toggleMute}
+          className="p-2 rounded-full bg-black/60 md:bg-white/10 hover:bg-cyan-500/30 text-white transition-all hover:scale-110 backdrop-blur-sm border border-white/20"
+          aria-label={isMuted ? 'Unmute music' : 'Mute music'}
+        >
+          {isMuted ? <VolumeX size={18} className="md:w-5 md:h-5" /> : <Volume2 size={18} className="md:w-5 md:h-5" />}
+        </button>
 
-      {/* Mute Toggle */}
-      <button
-        onClick={toggleMute}
-        className="absolute top-3 md:top-4 right-14 md:right-16 p-2 rounded-full bg-white/10 hover:bg-cyan-500/30 text-white transition-all hover:scale-110 backdrop-blur-sm border border-white/10"
-        aria-label={isMuted ? 'Unmute music' : 'Mute music'}
-      >
-        {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-      </button>
-
-      {/* Dot Indicators */}
-      <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-2 flex-wrap justify-center max-w-[90%]">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goTo(index)}
-            className={`
-              h-2 rounded-full transition-all duration-300
-              ${index === current 
-                ? 'bg-cyan-400 w-6 shadow-[0_0_10px_rgba(0,240,255,0.5)]' 
-                : 'bg-white/30 hover:bg-white/50 w-2'}
-            `}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+        {/* Fullscreen Toggle */}
+        <button
+          onClick={() => setIsFullscreen(!isFullscreen)}
+          className="p-2 rounded-full bg-black/60 md:bg-white/10 hover:bg-cyan-500/30 text-white transition-all hover:scale-110 backdrop-blur-sm border border-white/20"
+          aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+        >
+          {isFullscreen ? <Minimize2 size={18} className="md:w-5 md:h-5" /> : <Maximize2 size={18} className="md:w-5 md:h-5" />}
+        </button>
       </div>
 
-      {/* Slide Counter */}
-      <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6 text-white/50 text-sm font-mono tracking-wider">
-        {current + 1} / {images.length}
-      </div>
+      {/* Bottom Controls - dots and counter */}
+      <div className="absolute bottom-2 md:bottom-6 left-0 right-0 px-2 md:px-4 flex items-center justify-between z-10">
+        {/* Auto-play indicator */}
+        <div className="flex items-center gap-1 md:gap-2 bg-black/40 md:bg-transparent px-2 py-1 rounded-full">
+          <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-colors ${isPaused ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'}`} />
+          <span className="text-white/60 text-[10px] md:text-xs font-mono">
+            {isPaused ? 'PAUSED' : 'AUTO'}
+          </span>
+        </div>
 
-      {/* Auto-play indicator */}
-      <div className="absolute top-3 md:top-4 left-3 md:left-4 flex items-center gap-2">
-        <div className={`w-2 h-2 rounded-full transition-colors ${isPaused ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'}`} />
-        <span className="text-white/40 text-xs font-mono hidden md:inline">
-          {isPaused ? 'PAUSED' : 'AUTO'}
-        </span>
+        {/* Dot Indicators */}
+        <div className="flex gap-1 md:gap-2 flex-wrap justify-center max-w-[50%] md:max-w-[60%]">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goTo(index)}
+              className={`
+                h-1.5 md:h-2 rounded-full transition-all duration-300
+                ${index === current 
+                  ? 'bg-cyan-400 w-4 md:w-6 shadow-[0_0_10px_rgba(0,240,255,0.5)]' 
+                  : 'bg-white/30 hover:bg-white/50 w-1.5 md:w-2'}
+              `}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Slide Counter */}
+        <div className="text-white/60 text-[10px] md:text-sm font-mono tracking-wider bg-black/40 md:bg-transparent px-2 py-1 rounded-full">
+          {current + 1}/{images.length}
+        </div>
       </div>
     </div>
   );

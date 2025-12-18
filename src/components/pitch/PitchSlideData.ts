@@ -81,17 +81,18 @@ export const pitchSlides: SlideData[] = [
   {
     id: 7,
     title: "BUSINESS MODEL",
-    subtitle: "9 Revenue Streams",
+    subtitle: "10 Revenue Streams",
     bullets: [
       "TRANSACTION FEES — 1.5% on all payments",
       "MEMBER SUBSCRIPTIONS — $39 per 60 days",
       "GHOST™ PASSES — $10 / $20 / $50 (30/30/10/30 split)",
       "COMMUNITY POOL — Weekly venue distributions",
-      "HEALTH/LAB MARGINS — 40-60% on lab tests",
+      "HEALTH/LAB MARGINS — 40-60% on lab services",
       "VENUE LICENSING — $99–$7,500/month base",
       "PER-USER FEES — $3–$8/person/month",
       "VERIFICATION FEES — $50–$100/background check",
-      "GAS FEES (Per-Scan) — $0.05–$0.50/scan · Every ID scan = revenue"
+      "GAS FEES (Per-Scan) — $0.05–$0.50/scan · Every ID scan = revenue",
+      "WALLET FUNDING FEES — $1.99–$149.99 per deposit"
     ],
     layout: 'bullets',
   },
@@ -164,16 +165,16 @@ export const pitchSlides: SlideData[] = [
   {
     id: 13,
     title: "THE REVENUE ENGINE",
-    subtitle: "9 Streams — Every Scan = Revenue",
+    subtitle: "10 Streams — Every Scan = Revenue",
     stats: [
       { label: "Transaction Fees", value: "1.5%" },
       { label: "Member Subs", value: "$39/60 days" },
       { label: "GHOST™ Passes", value: "$10/$20/$50" },
       { label: "Venue Licensing", value: "$99–$7.5K/mo" },
-      { label: "Per-User Fees", value: "$3–$8/mo" },
-      { label: "GAS FEES", value: "$0.05–$0.50/scan" }
+      { label: "GAS FEES", value: "$0.05–$0.50/scan" },
+      { label: "Wallet Funding", value: "$1.99–$149.99" }
     ],
-    content: ["GAS FEE MODEL: Every venue scan collects $0.05–$0.50. Stadium example: 70K fans × $0.12 × 10 games = $84K/year. Revenue scales automatically with customer growth."],
+    content: ["GAS FEE MODEL: Every venue scan collects $0.05–$0.50. Stadium example: 70K fans × $0.12 × 10 games = $84K/year. WALLET FUNDING: Tiered convenience fees on every deposit. Revenue scales automatically with customer growth."],
     layout: 'stats',
   },
   {

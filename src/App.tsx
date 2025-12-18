@@ -75,6 +75,7 @@ const Troubleshooting = lazy(() => import("./pages/Troubleshooting"));
 const VenueOnboarding = lazy(() => import("./pages/VenueOnboarding"));
 const ManagerAdmin = lazy(() => import("./pages/ManagerAdmin"));
 const DriverDashboard = lazy(() => import("./pages/DriverDashboard"));
+const StaffPayment = lazy(() => import("./pages/StaffPayment"));
 
 const queryClient = new QueryClient();
 
@@ -189,6 +190,7 @@ const App = () => (
                   <Route path="/venue-onboarding" element={<VenueOnboarding />} />
                   <Route path="/driver-dashboard" element={<AgeGate><DriverDashboard /></AgeGate>} />
                   <Route path="/manager-admin" element={<ManagerAdmin />} />
+                  <Route path="/staff/payment" element={<StaffPayment />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

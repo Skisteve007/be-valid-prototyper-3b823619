@@ -49,7 +49,7 @@ Clean Check provides:
 ✅ Zero-tolerance instant red flags
 ✅ Full liability documentation
 
-Fleet License: $299/month - unlimited drivers.
+Fleet License: Starting at $99/month - unlimited drivers.
 
 Ready to protect your assets?
 
@@ -69,7 +69,7 @@ Clean Check's Fleet Risk Tier system provides:
 ✅ Real-time driver status dashboards
 ✅ Reduced insurance premiums through verified safety
 
-Enterprise Fleet License: $299/month
+Enterprise Fleet License: Starting at $99/month
 
 Let's discuss how we can reduce your fleet liability exposure.
 

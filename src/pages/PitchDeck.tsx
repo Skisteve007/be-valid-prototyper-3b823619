@@ -213,12 +213,12 @@ const PitchDeck = () => {
             </div>
           </div>
 
-          {/* ===== 14-SLIDE INVESTOR DECK (QUICK VIEW) ===== */}
+          {/* ===== 16-SLIDE INVESTOR DECK (QUICK VIEW) ===== */}
           <div id="investor-deck-pdf" className="bg-gradient-to-b from-cyan-950/20 to-black/60 border border-cyan-500/30 rounded-xl" style={{ padding: 'clamp(24px, 3vw, 40px)', marginBottom: 'clamp(24px, 3vw, 40px)' }}>
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
               <div>
                 <h3 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>
-                  14‑Slide Investor Deck (Quick View)
+                  16‑Slide Investor Deck (Quick View)
                 </h3>
                 <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
                   Swipe on mobile or use the arrows.

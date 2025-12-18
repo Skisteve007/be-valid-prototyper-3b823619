@@ -19,7 +19,8 @@ import {
   Phone,
   FileText,
   ArrowRight,
-  GraduationCap
+  GraduationCap,
+  Fuel
 } from "lucide-react";
 import ResponsiveHeader from "@/components/ResponsiveHeader";
 import { Button } from "@/components/ui/button";
@@ -157,6 +158,78 @@ const Pricing = () => {
           </div>
         </section>
 
+        {/* Gas Fee Section */}
+        <section className="py-12 md:py-16 bg-gradient-to-b from-amber-500/5 via-background to-background">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-10">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Fuel className="h-6 w-6 text-amber-400" />
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground">⛽ Verification Gas Fee</h2>
+              </div>
+              <p className="text-muted-foreground">Every ID verification scan includes a small per-scan fee (volume-discounted)</p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              {/* Volume Pricing Table */}
+              <Card className="border-amber-500/30 bg-card/50 backdrop-blur-sm mb-6">
+                <CardContent className="p-6">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-amber-500/30">
+                          <th className="text-left py-3 px-4 text-amber-400 font-semibold">Volume / Month</th>
+                          <th className="text-right py-3 px-4 text-amber-400 font-semibold">Fee Per Scan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-border/30">
+                          <td className="py-3 px-4 text-foreground">Under 1,000 scans/month</td>
+                          <td className="py-3 px-4 text-right text-cyan-400 font-semibold">$0.25–$0.50/scan</td>
+                        </tr>
+                        <tr className="border-b border-border/30">
+                          <td className="py-3 px-4 text-foreground">1,000–10,000 scans/month</td>
+                          <td className="py-3 px-4 text-right text-cyan-400 font-semibold">$0.15–$0.25/scan</td>
+                        </tr>
+                        <tr className="border-b border-border/30">
+                          <td className="py-3 px-4 text-foreground">10,000–100,000 scans/month</td>
+                          <td className="py-3 px-4 text-right text-cyan-400 font-semibold">$0.10–$0.15/scan</td>
+                        </tr>
+                        <tr>
+                          <td className="py-3 px-4 text-foreground">100,000+ scans/month</td>
+                          <td className="py-3 px-4 text-right text-emerald-400 font-semibold">$0.05–$0.10/scan</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Key Points */}
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-center">
+                  <p className="text-sm text-amber-400 font-semibold">📉 Volume Discounts</p>
+                  <p className="text-xs text-muted-foreground mt-1">Fees scale down as you grow</p>
+                </div>
+                <div className="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-center">
+                  <p className="text-sm text-cyan-400 font-semibold">💳 Flexible Billing</p>
+                  <p className="text-xs text-muted-foreground mt-1">Billed monthly or deducted from venue wallet</p>
+                </div>
+                <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center">
+                  <p className="text-sm text-emerald-400 font-semibold">📊 Real-Time Tracking</p>
+                  <p className="text-xs text-muted-foreground mt-1">Monitor usage in your dashboard</p>
+                </div>
+              </div>
+
+              {/* Profit Callout */}
+              <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/40 text-center">
+                <p className="text-emerald-400 font-semibold">
+                  💰 Most venues: Gas fees are more than offset by GHOST™ Pass revenue you earn through VALID™.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Vertical Pricing Cards */}
         <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
@@ -285,6 +358,11 @@ const Pricing = () => {
                     <p className="text-sm text-emerald-400 font-semibold">💰 Earn 30% on every GHOST™ Pass sold!</p>
                   </div>
 
+                  <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                    <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.15–$0.25/scan</p>
+                    <p className="text-xs text-gray-300">Example: 1,500 scans/night × $0.20 = <span className="text-white font-semibold">$300/night</span></p>
+                  </div>
+
                   <Button asChild className="w-full bg-purple-600 hover:bg-purple-700">
                     <Link to="/partner-application">Get Started</Link>
                   </Button>
@@ -340,6 +418,11 @@ const Pricing = () => {
 
                   <div className="p-3 rounded-xl bg-amber-500/20 border border-amber-400/40 text-center">
                     <p className="text-sm md:text-base text-amber-300">📝 Example: 100 drivers ≈ <span className="font-bold text-white">$800–$1,000/month</span> total</p>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                    <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.25–$0.50/scan</p>
+                    <p className="text-xs text-gray-300">Example: 200 drivers × $0.35 = <span className="text-white font-semibold">$70/day</span></p>
                   </div>
 
                   <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
@@ -401,6 +484,11 @@ const Pricing = () => {
                     <p className="text-sm md:text-base text-blue-300">📝 Example: 200 employees ≈ <span className="font-bold text-white">$1,100/month</span> total</p>
                   </div>
 
+                  <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                    <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.15–$0.25/scan</p>
+                    <p className="text-xs text-gray-300">Example: 500 employees × $0.20 = <span className="text-white font-semibold">$100/day</span></p>
+                  </div>
+
                   <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Get Started</Link>
                   </Button>
@@ -458,10 +546,11 @@ const Pricing = () => {
                   </div>
 
                   <div className="p-3 rounded-lg bg-black/40 border border-white/10">
-                    <p className="text-sm md:text-base font-semibold text-white mb-2">PRICING OPTIONS</p>
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">⛽ GAS FEE MODEL</p>
                     <div className="text-sm md:text-base space-y-1 text-gray-200">
-                      <p>Per-scan: <span className="text-cyan-400 font-semibold">$0.10–$0.50</span> (volume-based)</p>
-                      <p className="text-gray-400">OR flat monthly fee</p>
+                      <p>Per-scan: <span className="text-cyan-400 font-semibold">$0.08–$0.15</span> (volume-based)</p>
+                      <p className="text-amber-300">Example: 70,000 fans × $0.12 = <span className="text-white font-semibold">$8,400/game</span></p>
+                      <p className="text-gray-400 text-xs">OR flat monthly fee available</p>
                     </div>
                   </div>
 
@@ -612,6 +701,11 @@ const Pricing = () => {
                   <div className="text-center text-sm md:text-base text-gray-300 space-y-1">
                     <p>Support: <span className="text-white">Dedicated Success Team + 24/7/365</span></p>
                     <p>Onboarding: <span className="text-cyan-400 font-semibold">$5,000–$25,000</span> (one-time, based on campus size)</p>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                    <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.05–$0.10/scan</p>
+                    <p className="text-xs text-gray-300">Example: 30,000 daily × $0.07 = <span className="text-white font-semibold">$2,100/day</span></p>
                   </div>
 
                   <Button asChild className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-base md:text-lg py-3 px-6">
@@ -798,10 +892,15 @@ const Pricing = () => {
                             <td className="py-2 px-2 text-emerald-400 font-semibold">$199</td>
                           </tr>
                         </tbody>
-                      </table>
+                    </table>
                     </div>
                     
                     <p className="text-xs text-muted-foreground italic">Our margin: 40–60% on all lab tests.</p>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                    <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.25–$0.50/scan</p>
+                    <p className="text-xs text-muted-foreground">Example: 200 patients × $0.35 = <span className="text-foreground font-semibold">$70/day</span></p>
                   </div>
 
                   {/* CTAs */}
@@ -849,6 +948,10 @@ const Pricing = () => {
                       <p>High-value vetting: <span className="text-cyan-400 font-semibold">$25–$50</span></p>
                     </div>
                   </div>
+                  <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                    <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.50–$1.00/scan</p>
+                    <p className="text-xs text-gray-300">Example: 50 rentals × $0.75 = <span className="text-white font-semibold">$37.50/day</span></p>
+                  </div>
                   <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Get Started</Link>
                   </Button>
@@ -884,7 +987,11 @@ const Pricing = () => {
                         <p>Background check: <span className="text-cyan-400 font-semibold">$50–$100</span></p>
                         <p>License verification: <span className="text-cyan-400 font-semibold">$10–$20</span></p>
                         <p>Continuous monitoring: <span className="text-cyan-400 font-semibold">$5–$10/mo</span></p>
-                      </div>
+                    </div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                      <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.20–$0.35/scan</p>
+                      <p className="text-xs text-gray-300">Example: 200 guards × $0.25 = <span className="text-white font-semibold">$50/day</span></p>
                     </div>
                     <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                       <Link to="/partner-application">Get Started</Link>
@@ -927,6 +1034,10 @@ const Pricing = () => {
                         <p>GHOST™ Pass split: <span className="text-cyan-400 font-semibold">30/30/10/30</span></p>
                       </div>
                     </div>
+                    <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                      <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.10–$0.20/scan</p>
+                      <p className="text-xs text-gray-300">Example: 25,000 attendees × $0.15 = <span className="text-white font-semibold">$3,750/event</span></p>
+                    </div>
                     <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                       <Link to="/partner-application">Contact Sales</Link>
                     </Button>
@@ -963,6 +1074,10 @@ const Pricing = () => {
                       <p>Amenity access: <span className="text-cyan-400 font-semibold">$0.50–$1/scan</span></p>
                       <p>Health badge verify: <span className="text-cyan-400 font-semibold">$35–$75</span></p>
                     </div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                    <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.25–$0.50/scan</p>
+                    <p className="text-xs text-gray-300">Example: 500 guests × $0.35 = <span className="text-white font-semibold">$175/day</span></p>
                   </div>
                   <Button asChild className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold text-base md:text-lg py-3 px-6">
                     <Link to="/partner-application">Get Started</Link>

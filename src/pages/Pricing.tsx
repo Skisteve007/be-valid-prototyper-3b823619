@@ -455,37 +455,188 @@ const Pricing = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {/* Labs & Health */}
-              <Card className="border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-transparent overflow-hidden">
+              {/* Labs & Health - EXPANDED */}
+              <Card className="border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-transparent overflow-hidden md:col-span-2 lg:col-span-3">
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-pink-500/20 border border-pink-500/40">
                       <Heart className="h-5 w-5 text-pink-400" />
                     </div>
-                    <CardTitle className="text-lg text-foreground">🏥 Labs & Health</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="text-center py-3 border-b border-border/50">
-                    <p className="text-2xl font-bold text-emerald-400">$99–$299<span className="text-sm text-muted-foreground">/mo</span></p>
-                  </div>
-                  <div className="text-xs space-y-1">
-                    <p>Starter: $99/mo (use existing devices) — $250 onboarding</p>
-                    <p>Professional: $199/mo (1 tablet) — $500 onboarding</p>
-                    <p>Enterprise: $299/mo (2 tablets + hub) — $1,000 onboarding</p>
-                  </div>
-                  <div className="p-2 rounded-lg bg-muted/30">
-                    <p className="text-xs font-semibold text-muted-foreground mb-1">REVENUE STREAMS</p>
-                    <div className="text-xs space-y-1">
-                      <p>Lab kit margin: <span className="text-cyan-400">40–60%</span></p>
-                      <p>API verification: <span className="text-cyan-400">$1–$3/call</span></p>
-                      <p>Certificate generation: <span className="text-cyan-400">$2–$5/cert</span></p>
-                      <p>Tox screen: <span className="text-cyan-400">$50–$100/test</span></p>
+                    <div>
+                      <CardTitle className="text-lg text-foreground">🏥 Labs & Health</CardTitle>
+                      <p className="text-sm text-muted-foreground">Two ways to partner with VALID™</p>
                     </div>
                   </div>
-                  <Button asChild className="w-full bg-pink-600 hover:bg-pink-700" size="sm">
-                    <Link to="/partner-application">Get Started</Link>
-                  </Button>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Model 1 - Clinics & Small Labs */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-pink-500/20 text-pink-400 border-pink-500/50">Model 1</Badge>
+                      <h4 className="font-semibold text-foreground">For Clinics & Small Labs</h4>
+                      <span className="text-xs text-muted-foreground">(They pay us)</span>
+                    </div>
+                    
+                    {/* Tier Table */}
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-xs border-collapse">
+                        <thead>
+                          <tr className="border-b border-border/50">
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Tier</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Monthly</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Onboarding</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Includes</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-border/30">
+                            <td className="py-2 px-2 text-foreground font-medium">Starter</td>
+                            <td className="py-2 px-2 text-emerald-400">$99</td>
+                            <td className="py-2 px-2 text-cyan-400">$250</td>
+                            <td className="py-2 px-2 text-muted-foreground">API access, 100 verifications, basic certificates</td>
+                          </tr>
+                          <tr className="border-b border-border/30">
+                            <td className="py-2 px-2 text-foreground font-medium">Professional</td>
+                            <td className="py-2 px-2 text-emerald-400">$199</td>
+                            <td className="py-2 px-2 text-cyan-400">$500</td>
+                            <td className="py-2 px-2 text-muted-foreground">Unlimited verification, analytics, white-label certificates</td>
+                          </tr>
+                          <tr>
+                            <td className="py-2 px-2 text-foreground font-medium">Enterprise</td>
+                            <td className="py-2 px-2 text-emerald-400">$299</td>
+                            <td className="py-2 px-2 text-cyan-400">$1,000</td>
+                            <td className="py-2 px-2 text-muted-foreground">Everything in Pro, multi-location, dedicated support</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    {/* Per-use Revenue */}
+                    <div className="p-3 rounded-lg bg-muted/30">
+                      <p className="text-xs font-semibold text-muted-foreground mb-2">PER-USE / REVENUE</p>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                        <p>API verification: <span className="text-cyan-400">$1–$3</span></p>
+                        <p>Certificate gen: <span className="text-cyan-400">$2–$5</span></p>
+                        <p>Lab test margin: <span className="text-cyan-400">40–60%</span></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-border/30 pt-6" />
+
+                  {/* Model 2 - Major Labs */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/50">Model 2</Badge>
+                      <h4 className="font-semibold text-foreground">For Major Labs</h4>
+                      <span className="text-xs text-muted-foreground">(Lab Partner Program)</span>
+                    </div>
+                    
+                    <p className="text-sm text-muted-foreground">
+                      We give you access to our verified member network. You pay for placement. We earn commission on orders.
+                    </p>
+                    
+                    {/* Partner Tier Table */}
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-xs border-collapse">
+                        <thead>
+                          <tr className="border-b border-border/50">
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Partner Tier</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Monthly</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Setup</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Commission</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">What You Get</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-border/30">
+                            <td className="py-2 px-2 text-foreground font-medium">Basic Partner</td>
+                            <td className="py-2 px-2 text-emerald-400">FREE</td>
+                            <td className="py-2 px-2 text-emerald-400">FREE</td>
+                            <td className="py-2 px-2 text-amber-400">We earn 20%</td>
+                            <td className="py-2 px-2 text-muted-foreground">Listed in lab directory, basic API, member network access</td>
+                          </tr>
+                          <tr className="border-b border-border/30">
+                            <td className="py-2 px-2 text-foreground font-medium">Preferred Partner</td>
+                            <td className="py-2 px-2 text-emerald-400">$500</td>
+                            <td className="py-2 px-2 text-cyan-400">$500</td>
+                            <td className="py-2 px-2 text-amber-400">We earn 25%</td>
+                            <td className="py-2 px-2 text-muted-foreground">Featured placement, priority in search, co-branded certs, monthly reports</td>
+                          </tr>
+                          <tr>
+                            <td className="py-2 px-2 text-foreground font-medium">Premium Partner</td>
+                            <td className="py-2 px-2 text-emerald-400">$2,000</td>
+                            <td className="py-2 px-2 text-cyan-400">$2,000</td>
+                            <td className="py-2 px-2 text-amber-400">We earn 30%</td>
+                            <td className="py-2 px-2 text-muted-foreground">Exclusive placement, push notifications, dedicated landing page, white-label, account manager</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    {/* Why Partner Callout */}
+                    <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+                      <p className="text-sm text-emerald-400">
+                        💡 <span className="font-semibold">Why partner?</span> Access 10,000+ verified members actively seeking health testing. Premium partners see <span className="text-white font-bold">3× more orders</span> than basic listings.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-border/30 pt-6" />
+
+                  {/* VALID Member Lab Pricing */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-foreground">VALID™ Member Lab Pricing — Exclusive Discounts</h4>
+                    
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-xs border-collapse">
+                        <thead>
+                          <tr className="border-b border-border/50">
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Test</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">Retail Price</th>
+                            <th className="text-left py-2 px-2 text-muted-foreground font-semibold">VALID™ Member</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-border/30">
+                            <td className="py-2 px-2 text-foreground">10-Panel Drug Test</td>
+                            <td className="py-2 px-2 text-muted-foreground line-through">$50–$85</td>
+                            <td className="py-2 px-2 text-emerald-400 font-semibold">$39</td>
+                          </tr>
+                          <tr className="border-b border-border/30">
+                            <td className="py-2 px-2 text-foreground">Basic STD (3-test)</td>
+                            <td className="py-2 px-2 text-muted-foreground line-through">$79–$129</td>
+                            <td className="py-2 px-2 text-emerald-400 font-semibold">$59</td>
+                          </tr>
+                          <tr className="border-b border-border/30">
+                            <td className="py-2 px-2 text-foreground">Full STD Panel</td>
+                            <td className="py-2 px-2 text-muted-foreground line-through">$199–$349</td>
+                            <td className="py-2 px-2 text-emerald-400 font-semibold">$149</td>
+                          </tr>
+                          <tr>
+                            <td className="py-2 px-2 text-foreground">Comprehensive Wellness</td>
+                            <td className="py-2 px-2 text-muted-foreground line-through">$299–$499</td>
+                            <td className="py-2 px-2 text-emerald-400 font-semibold">$199</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <p className="text-xs text-muted-foreground italic">Our margin: 40–60% on all lab tests.</p>
+                  </div>
+
+                  {/* CTAs */}
+                  <div className="flex flex-wrap gap-3 pt-4">
+                    <Button asChild className="bg-pink-600 hover:bg-pink-700" size="sm">
+                      <Link to="/partner-application">Partner With Us</Link>
+                    </Button>
+                    <Button asChild variant="outline" className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10" size="sm">
+                      <Link to="/lab-portal">View Lab Directory</Link>
+                    </Button>
+                    <Button asChild variant="outline" className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10" size="sm">
+                      <Link to="/lab-kit-order">Order Test</Link>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
 

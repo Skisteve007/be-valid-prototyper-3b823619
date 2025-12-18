@@ -1,0 +1,196 @@
+// Slide content data for HTML/CSS rendered pitch deck
+export interface SlideData {
+  id: number;
+  title: string;
+  subtitle?: string;
+  content?: string[];
+  stats?: { label: string; value: string }[];
+  bullets?: string[];
+  highlight?: string;
+  layout: 'cover' | 'title-content' | 'stats' | 'bullets' | 'comparison' | 'cta';
+}
+
+export const pitchSlides: SlideData[] = [
+  {
+    id: 1,
+    title: "VALID™",
+    subtitle: "Zero-Trust Identity & Payment Infrastructure",
+    highlight: "Confidential — Investor Only",
+    layout: 'cover',
+  },
+  {
+    id: 2,
+    title: "THE PROBLEM",
+    content: [
+      "Venues lose $2.4B annually to fraud, chargebacks, and liability claims",
+      "Identity verification is fragmented across 12+ systems",
+      "No unified solution connects ID, health status, and payments"
+    ],
+    layout: 'title-content',
+  },
+  {
+    id: 3,
+    title: "THE SOLUTION",
+    subtitle: "One Scan. Identity + Payment + Compliance.",
+    content: [
+      "VALID™ is a zero-trust identity wallet that verifies, authorizes, and settles in 3 seconds",
+      "We are a Pipeline, Not a Vault — we transmit encrypted tokens, never store raw PII"
+    ],
+    layout: 'title-content',
+  },
+  {
+    id: 4,
+    title: "PRODUCT OVERVIEW",
+    subtitle: "The GHOST™ Token",
+    bullets: [
+      "Encrypted identity verification in real-time",
+      "Pre-funded wallet with instant settlement",
+      "Health/toxicology status integration",
+      "Works across 6 industry verticals"
+    ],
+    layout: 'bullets',
+  },
+  {
+    id: 5,
+    title: "HOW IT WORKS",
+    bullets: [
+      "Member creates VALID™ account & verifies identity",
+      "Funds GHOST™ wallet (pre-paid, zero chargebacks)",
+      "Scans QR at venue — verified in 3 seconds",
+      "Venue receives instant settlement + liability shield"
+    ],
+    layout: 'bullets',
+  },
+  {
+    id: 6,
+    title: "MARKET OPPORTUNITY",
+    stats: [
+      { label: "TAM", value: "$5.7B+" },
+      { label: "SAM", value: "$1.2B" },
+      { label: "SOM (Y3)", value: "$48M" }
+    ],
+    content: ["Identity verification + venue payments + compliance tech"],
+    layout: 'stats',
+  },
+  {
+    id: 7,
+    title: "BUSINESS MODEL",
+    subtitle: "5 Revenue Streams",
+    bullets: [
+      "Member Subscriptions — $39/60 days",
+      "GHOST™ Token Access — $10/scan (30% venue share)",
+      "Health Reseller Margin — 40-60% on lab kits",
+      "SaaS Subscriptions — $299-$499/mo",
+      "IDV Revenue — $48-$112 per verification"
+    ],
+    layout: 'bullets',
+  },
+  {
+    id: 8,
+    title: "TRACTION",
+    stats: [
+      { label: "Partner Venues", value: "28+" },
+      { label: "Countries", value: "11" },
+      { label: "Member Growth", value: "15% MoM" }
+    ],
+    highlight: "Revenue Generating",
+    layout: 'stats',
+  },
+  {
+    id: 9,
+    title: "COMPETITIVE LANDSCAPE",
+    subtitle: "VALID™ vs. The Market",
+    content: [
+      "CLEAR — ID only, no payments, no health",
+      "ID.me — Government focus, no venue integration",
+      "Ticketmaster — Ticketing only, no identity layer",
+      "VALID™ — Full stack: ID + Payments + Health + Compliance"
+    ],
+    highlight: "10/10 Feature Integration Score",
+    layout: 'comparison',
+  },
+  {
+    id: 10,
+    title: "GO-TO-MARKET",
+    subtitle: "Viral Sales Force Model",
+    bullets: [
+      "Zero CAC — decentralized promoter network",
+      "10% commission drives organic growth",
+      "Land & expand in nightlife → sports → workforce",
+      "Partner-first distribution strategy"
+    ],
+    layout: 'bullets',
+  },
+  {
+    id: 11,
+    title: "TEAM",
+    subtitle: "The Builder",
+    content: [
+      "Steve Grillo — Founder & CEO",
+      "20+ years in nightlife operations & technology",
+      "Built and scaled multiple venue tech platforms",
+      "Deep industry relationships across 6 verticals"
+    ],
+    layout: 'title-content',
+  },
+  {
+    id: 12,
+    title: "FINANCIALS",
+    stats: [
+      { label: "Gross Margin", value: "60%" },
+      { label: "Y1 Revenue", value: "$250K" },
+      { label: "Y3 Revenue", value: "$4.5M" },
+      { label: "Y5 Revenue", value: "$18M+" }
+    ],
+    layout: 'stats',
+  },
+  {
+    id: 13,
+    title: "THE REVENUE ENGINE",
+    subtitle: "We're Not Burning Cash. We're Building a Tollbooth.",
+    stats: [
+      { label: "Transaction Fees", value: "1.5%" },
+      { label: "Premium Subs", value: "$9.99/mo" },
+      { label: "Enterprise", value: "$10K-$100K/yr" },
+      { label: "API Calls", value: "$0.10-$1.00" }
+    ],
+    layout: 'stats',
+  },
+  {
+    id: 14,
+    title: "YOUR RETURN",
+    subtitle: "Your Money Comes Back. Multiplied.",
+    bullets: [
+      "Exit: 10x-20x in 3-5 years",
+      "Tranche 1: $25K → $250K-$500K potential",
+      "Dividends from transaction fees",
+      "Secondary market options"
+    ],
+    layout: 'bullets',
+  },
+  {
+    id: 15,
+    title: "THE ASK",
+    subtitle: "Tranche 1 — Launch Round",
+    stats: [
+      { label: "Raise", value: "$200K" },
+      { label: "Valuation Cap", value: "$6M" },
+      { label: "Discount", value: "50%" },
+      { label: "Minimum", value: "$15K" }
+    ],
+    highlight: "Convertible Note — 18 Month Maturity",
+    layout: 'stats',
+  },
+  {
+    id: 16,
+    title: "LET'S BUILD",
+    subtitle: "Contact",
+    content: [
+      "Steve Grillo — Founder & CEO",
+      "invest@bevalid.app",
+      "bevalid.app"
+    ],
+    highlight: "Schedule a Call →",
+    layout: 'cta',
+  },
+];

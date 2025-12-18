@@ -201,7 +201,7 @@ const PitchDeck = () => {
           <div className="flex flex-wrap justify-center" style={{ gap: 'clamp(12px, 1.5vw, 20px)', marginBottom: 'clamp(32px, 4vw, 48px)' }}>
             <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
               <span className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>TAM:</span>
-              <span className="text-white font-bold ml-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>$5.7B+</span>
+              <span className="text-white font-bold ml-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>$11.4B+</span>
             </div>
             <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
               <span className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>Tranche 1:</span>

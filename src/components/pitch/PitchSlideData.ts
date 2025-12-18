@@ -46,7 +46,7 @@ export const pitchSlides: SlideData[] = [
       "Encrypted identity verification in real-time",
       "Pre-funded wallet with instant settlement",
       "Health/toxicology status integration",
-      "Works across 6 industry verticals"
+      "Works across 10 industry verticals"
     ],
     layout: 'bullets',
   },
@@ -64,12 +64,18 @@ export const pitchSlides: SlideData[] = [
   {
     id: 6,
     title: "MARKET OPPORTUNITY",
+    subtitle: "Total Addressable Market: $11.4B+",
     stats: [
-      { label: "TAM", value: "$5.7B+" },
-      { label: "SAM", value: "$1.2B" },
-      { label: "SOM (Y3)", value: "$48M" }
+      { label: "TAM", value: "$11.4B+" },
+      { label: "SAM", value: "$2.8B" },
+      { label: "SOM (Y3)", value: "$50M" }
     ],
-    content: ["Identity verification + venue payments + compliance tech"],
+    bullets: [
+      "Entertainment & Hospitality — $6.4B (Nightlife $2.5B, Events $1.8B, Stadiums $1.2B, Hospitality $0.9B)",
+      "Enterprise & Security — $3.5B (Universities $1.2B, Workforce $1.5B, Transportation $0.8B)",
+      "Specialized Verticals — $1.5B (Labs $0.6B, Rentals $0.4B, Other $0.5B)"
+    ],
+    content: ["Identity verification isn't just for nightclubs. From clubs to campuses to stadiums — we're building the universal trust layer for physical spaces."],
     layout: 'stats',
   },
   {
@@ -130,7 +136,7 @@ export const pitchSlides: SlideData[] = [
       "Steve Grillo — Founder & CEO",
       "20+ years in nightlife operations & technology",
       "Built and scaled multiple venue tech platforms",
-      "Deep industry relationships across 6 verticals"
+      "Deep industry relationships across 10 verticals"
     ],
     layout: 'title-content',
   },

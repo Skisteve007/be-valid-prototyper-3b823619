@@ -288,6 +288,8 @@ const PitchDeck = () => {
                   '/images/pitch/slide-10.jpg',
                   '/images/pitch/slide-11.png',
                   '/images/pitch/slide-12.jpg',
+                  '/images/pitch/slide-revenue-engine.jpg',
+                  '/images/pitch/slide-your-return.jpg',
                   '/images/pitch/slide-13.jpg',
                   '/images/pitch/slide-14.jpg',
                 ]}

@@ -57,7 +57,7 @@ import {
   CircleDot
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
-import InvestorDeckCarousel from "@/components/pitch/InvestorDeckCarousel";
+import HtmlPitchDeckCarousel from "@/components/pitch/HtmlPitchDeckCarousel";
 
 // NOTE: The PDF at this path is not reliably embeddable in Chrome.
 // We render the 14-slide deck as images below for maximum compatibility.
@@ -273,26 +273,8 @@ const PitchDeck = () => {
 
             {/* Slides (replaces blocked PDF embed) */}
             <div id="investor-deck-slides" className="relative bg-black/60 rounded-lg overflow-hidden border border-white/10">
-              <InvestorDeckCarousel
+              <HtmlPitchDeckCarousel
                 openFullscreenRequest={deckOpenRequest}
-                images={[
-                  '/images/pitch/slide-01.jpg',
-                  '/images/pitch/slide-02.jpg?v=20251217',
-                  '/images/pitch/slide-03.jpg',
-                  '/images/pitch/slide-04.jpg',
-                  '/images/pitch/slide-05.jpg?v=20251217',
-                  '/images/pitch/slide-06.jpg',
-                  '/images/pitch/slide-07.jpg',
-                  '/images/pitch/slide-08.jpg',
-                  '/images/pitch/slide-09.jpg',
-                  '/images/pitch/slide-10.jpg',
-                  '/images/pitch/slide-11.png',
-                  '/images/pitch/slide-12.jpg',
-                  '/images/pitch/slide-revenue-engine.jpg',
-                  '/images/pitch/slide-your-return.jpg',
-                  '/images/pitch/slide-13.jpg',
-                  '/images/pitch/slide-14.jpg',
-                ]}
               />
             </div>
 

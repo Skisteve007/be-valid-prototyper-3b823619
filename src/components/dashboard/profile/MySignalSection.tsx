@@ -106,18 +106,19 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const isAtVenue = simulateVenue;
   const currentVenue = isAtVenue ? simulatedVenue : null;
 
-  // Broadcast colors based on mode
-  const getBroadcastColor = () => {
+  // Broadcast colors based on mode - returns hex for inline style
+  const getBroadcastColor = (): string => {
     switch (selectedMode) {
       case "afterdark":
-        return "bg-purple-600"; // Deep Neon Purple
+        return "#9333ea"; // Deep Neon Purple (purple-600)
       case "thrill":
-        return "bg-orange-500"; // Vibrant Neon Orange
-      case "social":
+        return "#f97316"; // Vibrant Neon Orange (orange-500)
       case "pulse":
-        return "bg-cyan-500"; // Electric Teal/Cyan
+        return "#10b981"; // Electric Green (emerald-500)
+      case "social":
+        return "#06b6d4"; // Electric Cyan (cyan-500)
       default:
-        return "bg-cyan-500";
+        return "#06b6d4"; // Cyan fallback
     }
   };
 
@@ -606,7 +607,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       {/* Broadcast Overlay - Full Screen Glow Mode - MOBILE OPTIMIZED */}
       {broadcastActive && (
         <div
-          className={`fixed inset-0 ${getBroadcastColor()} flex items-center justify-center`}
+          className="fixed inset-0 flex items-center justify-center"
           style={{
             position: 'fixed',
             top: 0,
@@ -621,6 +622,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
             userSelect: 'none',
             WebkitOverflowScrolling: 'touch',
             overflow: 'hidden',
+            backgroundColor: getBroadcastColor(),
           }}
         >
           {/* KILL SWITCH - FIXED TOP-RIGHT - ALWAYS VISIBLE */}
@@ -641,18 +643,22 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           <div className="flex flex-col items-center justify-center w-full h-full p-4">
             {/* Custom Message - PRIORITY DISPLAY - MASSIVE FOR VISIBILITY */}
             {broadcastMessage.trim() ? (
-              <div className="flex flex-col items-center justify-center w-full h-full">
+              <div className="flex flex-col items-center justify-center w-full h-full px-4">
                 {/* HUGE Custom Message - HIGH CONTRAST - Visible from 20+ feet */}
                 <span 
-                  className="text-white font-black text-center leading-none tracking-wide break-words uppercase"
+                  className="font-black text-center leading-none tracking-wide break-words uppercase"
                   style={{
-                    fontSize: 'clamp(4rem, 18vw, 12rem)',
-                    textShadow: '0 0 40px rgba(0,0,0,0.8), 0 0 80px rgba(0,0,0,0.6), 0 4px 20px rgba(0,0,0,0.9)',
+                    fontSize: 'clamp(3rem, 15vw, 10rem)',
+                    color: '#000000',
+                    textShadow: '0 0 30px rgba(255,255,255,0.9), 0 0 60px rgba(255,255,255,0.6), 0 2px 10px rgba(255,255,255,0.8)',
                     wordBreak: 'break-word',
-                    maxWidth: '95vw',
-                    lineHeight: 1.1,
-                    letterSpacing: '0.05em',
-                    WebkitTextStroke: '2px rgba(0,0,0,0.3)',
+                    maxWidth: '90vw',
+                    lineHeight: 1.15,
+                    letterSpacing: '0.03em',
+                    WebkitTextStroke: '1px rgba(255,255,255,0.5)',
+                    padding: '1rem',
+                    borderRadius: '1rem',
+                    backgroundColor: 'rgba(255,255,255,0.15)',
                   }}
                 >
                   {broadcastMessage}

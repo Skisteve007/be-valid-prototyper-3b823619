@@ -70,6 +70,8 @@ const SynthConsole = lazy(() => import("./pages/SynthConsole"));
 const SynthLogs = lazy(() => import("./pages/SynthLogs"));
 const SynthDocs = lazy(() => import("./pages/SynthDocs"));
 const SynthPolicies = lazy(() => import("./pages/SynthPolicies"));
+const SynthMethodology = lazy(() => import("./pages/SynthMethodology"));
+const SynthChallenges = lazy(() => import("./pages/SynthChallenges"));
 const SystemAudit = lazy(() => import("./pages/SystemAudit"));
 const Scanner = lazy(() => import("./pages/Scanner"));
 const ManagerQuickstart = lazy(() => import("./pages/ManagerQuickstart"));
@@ -137,6 +139,8 @@ const App = () => (
                   <Route path="/synth/logs" element={<SynthLogs />} />
                   <Route path="/synth/docs" element={<SynthDocs />} />
                   <Route path="/synth/policies" element={<SynthPolicies />} />
+                  <Route path="/synth/methodology" element={<SynthMethodology />} />
+                  <Route path="/synth/challenges" element={<SynthChallenges />} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

@@ -313,11 +313,11 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   );
 
   const renderCtaSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-8 py-12">
+    <div className="flex flex-col items-center justify-center h-full text-center px-6 py-6">
       <h2 
-        className="font-bold mb-6"
+        className="font-bold mb-4"
         style={{ 
-          fontSize: 'clamp(52px, 8vw, 90px)',
+          fontSize: 'clamp(40px, 6vw, 72px)',
           background: chromeGradient,
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -329,9 +329,9 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       </h2>
       {slide.subtitle && (
         <p 
-          className="mb-10"
+          className="mb-6"
           style={{ 
-            fontSize: 'clamp(24px, 3.5vw, 40px)',
+            fontSize: 'clamp(18px, 2.5vw, 32px)',
             color: '#00E5E5',
             textShadow: '0 0 15px rgba(0, 229, 229, 0.4)'
           }}
@@ -340,14 +340,14 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         </p>
       )}
       {slide.content && (
-        <div className="space-y-3 mb-10">
+        <div className="space-y-2 mb-6">
           {slide.content.map((text, i) => (
             <p 
               key={i}
               className="text-white"
               style={{ 
-                fontSize: 'clamp(20px, 2.8vw, 32px)',
-                lineHeight: '1.4'
+                fontSize: 'clamp(16px, 2vw, 26px)',
+                lineHeight: '1.3'
               }}
             >
               {text}
@@ -357,11 +357,11 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
       )}
       {slide.highlight && (
         <button 
-          className="px-10 py-5 rounded-full font-bold transition-all hover:scale-105"
+          className="px-8 py-4 rounded-full font-bold transition-all hover:scale-105"
           style={{
             background: 'linear-gradient(135deg, #00E5E5, #0066FF)',
             color: '#000',
-            fontSize: 'clamp(20px, 2.5vw, 32px)',
+            fontSize: 'clamp(16px, 2vw, 26px)',
             boxShadow: '0 0 40px rgba(0, 229, 229, 0.5)'
           }}
           onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}

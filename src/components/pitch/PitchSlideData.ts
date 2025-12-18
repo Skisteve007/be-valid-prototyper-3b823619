@@ -186,7 +186,7 @@ export const pitchSlides: SlideData[] = [
     title: "LET'S BUILD",
     subtitle: "Contact",
     content: [
-      "Steve Grillo — Founder & CEO",
+      "Steve Grillo — Founder and Chief Architect",
       "invest@bevalid.app",
       "bevalid.app"
     ],

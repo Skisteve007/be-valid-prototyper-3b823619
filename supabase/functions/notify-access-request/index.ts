@@ -42,7 +42,11 @@ const handler = async (req: Request): Promise<Response> => {
     const approvalToken = btoa(`${userId}-${accessType}-valid-approval`).substring(0, 20);
     const approvalUrl = `${SUPABASE_URL}/functions/v1/approve-access-request?user_id=${userId}&type=${accessType}&token=${approvalToken}`;
     
+    console.log("Sending admin notification email for access request");
+    console.log("Approval URL:", approvalUrl);
+    
     // Send notification to admin with direct approval button
+    // Using Resend sandbox email for reliability - update to verified domain when ready
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -50,7 +54,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "VALID Access Control <noreply@bevalid.app>",
+        from: "VALID Access Control <onboarding@resend.dev>",
         to: ["Steve@BeValid.app"],
         subject: `🔐 New ${accessTypeLabel} Access Request - ${userName}`,
         html: `
@@ -82,7 +86,14 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     const emailResponse = await res.json();
-    console.log("Access request notification sent:", emailResponse);
+    console.log("Resend API response:", JSON.stringify(emailResponse));
+    
+    if (!res.ok) {
+      console.error("Resend API error:", emailResponse);
+      throw new Error(emailResponse.message || "Failed to send email");
+    }
+
+    console.log("Access request notification sent successfully");
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,

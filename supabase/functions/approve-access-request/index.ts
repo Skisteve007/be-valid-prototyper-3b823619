@@ -77,14 +77,16 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to the user
     if (profile.email) {
-      await fetch("https://api.resend.com/emails", {
+      console.log("Sending approval confirmation to:", profile.email);
+      
+      const emailRes = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "VALID Access Control <noreply@bevalid.app>",
+          from: "VALID Access Control <onboarding@resend.dev>",
           to: [profile.email],
           subject: `✅ Your ${accessLabel} Access Has Been Approved`,
           html: `
@@ -110,6 +112,9 @@ const handler = async (req: Request): Promise<Response> => {
           `,
         }),
       });
+      
+      const emailResponse = await emailRes.json();
+      console.log("User notification email response:", JSON.stringify(emailResponse));
     }
 
     console.log(`Access approved for ${profile.email} - ${accessType}`);

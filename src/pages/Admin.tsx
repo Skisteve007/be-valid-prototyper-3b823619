@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3 } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -527,6 +527,16 @@ const Admin = () => {
                 Deal Room
               </Button>
             )}
+
+            <Button
+              variant="outline"
+              onClick={() => navigate("/ghost-pass-owner-guide")}
+              className="hidden md:flex"
+            >
+              <BookOpen className="h-4 w-4 mr-2" />
+              Ghost Pass Owner Guide
+            </Button>
+
             {/* Quick Scanner Button - Mobile */}
             <Button 
               variant="outline" 
@@ -547,6 +557,17 @@ const Admin = () => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Mobile Navigation */}
           <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} />
+
+          <div className="md:hidden mt-3">
+            <Button
+              variant="outline"
+              className="w-full justify-center gap-2"
+              onClick={() => navigate("/ghost-pass-owner-guide")}
+            >
+              <BookOpen className="h-4 w-4" />
+              Ghost Pass Owner Guide
+            </Button>
+          </div>
           
           {/* Desktop Tab Navigation */}
           <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-4">

@@ -1,25 +1,78 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Shield, 
-  ShieldCheck, 
-  ClipboardCheck, 
-  DollarSign, 
+import {
+  Shield,
+  ShieldCheck,
+  ClipboardCheck,
+  DollarSign,
   HardDrive,
   CreditCard,
   HelpCircle,
   ArrowLeft,
-  AlertTriangle
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 export default function GhostPassOwnerGuide() {
   const navigate = useNavigate();
+  const canonicalUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/ghost-pass-owner-guide`
+      : "/ghost-pass-owner-guide";
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Who pays per-scan fees?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The venue pays per-scan fees for Verified ID (Standard) and Verified ID (Enhanced).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can we avoid per-scan charges on slow nights?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes — switch to Mode 3 (Manual Check).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Are you liable for manual checks?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Manual checks are performed by venue staff. Valid does not verify identity in Manual mode; the venue is responsible for decisions and compliance.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Where does manual evidence go?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "It’s venue-controlled. Export/backup to your own storage (example: Google Drive). You control access and retention.",
+        },
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Ghost Pass Owner Guide | VALID</title>
+        <meta
+          name="description"
+          content="Ghost Pass Owner Guide for venues: ID check modes, manual evidence storage, and billing/payouts."
+        />
+        <link rel="canonical" href={canonicalUrl} />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <Button 
           variant="ghost" 
@@ -93,7 +146,7 @@ export default function GhostPassOwnerGuide() {
               <p className="text-sm text-muted-foreground mb-2">
                 <strong>What it does:</strong> Your staff visually checks the ID at the door. Valid provides documentation tools (note + optional evidence) for your internal records.
               </p>
-              <p className="text-sm font-medium text-green-600 dark:text-green-400">
+              <p className="text-sm font-medium text-primary">
                 Price: No provider per-scan fee.
               </p>
             </div>
@@ -157,9 +210,9 @@ export default function GhostPassOwnerGuide() {
                 <span>You control retention, access, and who can view it.</span>
               </li>
             </ul>
-            <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+            <div className="mt-4 p-3 bg-muted/50 border border-border rounded-lg">
               <p className="text-sm flex items-start gap-2">
-                <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
+                <AlertTriangle className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
                 <span>
                   <strong>Recommended practice:</strong> Set a simple policy like "export nightly" or "export weekly" so you are protected if a device is lost.
                 </span>

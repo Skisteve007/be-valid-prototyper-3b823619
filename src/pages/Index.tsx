@@ -1,9 +1,10 @@
 // Pipeline Test v2: Fresh deployment - Dec 14, 2024 @ 15:42 UTC
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown } from 'lucide-react';
+import { BookOpen, Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
+import { Button } from "@/components/ui/button";
 import Hero from "@/components/Hero";
 import { PricingSection } from "@/components/PricingSection";
 import { BetaBanner } from "@/components/BetaBanner";
@@ -226,6 +227,17 @@ const Index = () => {
           >
             {t('cta.loginButton')}
           </button>
+
+          <div className="mt-4 flex justify-center">
+            <Button
+              variant="outline"
+              onClick={() => navigate('/ghost-pass-owner-guide')}
+              className="gap-2"
+            >
+              <BookOpen className="h-4 w-4" />
+              Ghost Pass Owner Guide
+            </Button>
+          </div>
           
           {/* BETA BANNER - Below Login button, shrunk */}
           <div className="mt-4 max-w-xs mx-auto scale-90">

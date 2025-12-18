@@ -428,6 +428,48 @@ export type Database = {
           },
         ]
       }
+      driver_profiles: {
+        Row: {
+          created_at: string
+          footprint_session_id: string | null
+          footprint_user_id: string | null
+          full_name: string | null
+          id: string
+          license_number: string | null
+          phone_number: string
+          updated_at: string
+          user_id: string
+          verification_status: string
+          verified_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          footprint_session_id?: string | null
+          footprint_user_id?: string | null
+          full_name?: string | null
+          id?: string
+          license_number?: string | null
+          phone_number: string
+          updated_at?: string
+          user_id: string
+          verification_status?: string
+          verified_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          footprint_session_id?: string | null
+          footprint_user_id?: string | null
+          full_name?: string | null
+          id?: string
+          license_number?: string | null
+          phone_number?: string
+          updated_at?: string
+          user_id?: string
+          verification_status?: string
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
       email_campaign_log: {
         Row: {
           campaign_name: string

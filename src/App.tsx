@@ -73,6 +73,7 @@ const ScanningDecisions = lazy(() => import("./pages/ScanningDecisions"));
 const Troubleshooting = lazy(() => import("./pages/Troubleshooting"));
 const VenueOnboarding = lazy(() => import("./pages/VenueOnboarding"));
 const ManagerAdmin = lazy(() => import("./pages/ManagerAdmin"));
+const DriverDashboard = lazy(() => import("./pages/DriverDashboard"));
 
 const queryClient = new QueryClient();
 
@@ -184,6 +185,7 @@ const App = () => (
                   <Route path="/scanning-decisions" element={<ScanningDecisions />} />
                   <Route path="/troubleshooting" element={<Troubleshooting />} />
                   <Route path="/venue-onboarding" element={<VenueOnboarding />} />
+                  <Route path="/driver-dashboard" element={<AgeGate><DriverDashboard /></AgeGate>} />
                   <Route path="/manager-admin" element={<ManagerAdmin />} />
                   
                   {/* CATCH-ALL - Must be last */}

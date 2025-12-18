@@ -68,3 +68,9 @@ verify_jwt = false
 
 [functions.validate-member]
 verify_jwt = false
+
+[functions.trigger-footprint-liveness]
+verify_jwt = true
+
+[functions.footprint-webhook]
+verify_jwt = false

@@ -9,7 +9,16 @@ import {
   Wrench,
   Monitor,
   Tablet,
-  MonitorSmartphone
+  MonitorSmartphone,
+  Heart,
+  Car,
+  Shield,
+  Ticket,
+  Hotel,
+  Calendar,
+  Phone,
+  FileText,
+  ArrowRight
 } from "lucide-react";
 import ResponsiveHeader from "@/components/ResponsiveHeader";
 import { Button } from "@/components/ui/button";
@@ -434,12 +443,269 @@ const Pricing = () => {
               </Card>
             </div>
 
-            {/* CTA Section */}
-            <div className="text-center mt-16">
-              <p className="text-muted-foreground mb-4">Need a custom solution?</p>
-              <Button asChild variant="outline" size="lg" className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10">
-                <Link to="/partner-application">Talk to Our Team</Link>
-              </Button>
+          </div>
+        </section>
+
+        {/* Additional Industry Cards */}
+        <section className="py-12 md:py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">More Industries</h2>
+              <p className="text-muted-foreground">Tailored solutions for every vertical</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {/* Labs & Health */}
+              <Card className="border-pink-500/30 bg-gradient-to-br from-pink-500/5 to-transparent overflow-hidden">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-pink-500/20 border border-pink-500/40">
+                      <Heart className="h-5 w-5 text-pink-400" />
+                    </div>
+                    <CardTitle className="text-lg text-foreground">🏥 Labs & Health</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-center py-3 border-b border-border/50">
+                    <p className="text-2xl font-bold text-emerald-400">$99–$299<span className="text-sm text-muted-foreground">/mo</span></p>
+                  </div>
+                  <div className="text-xs space-y-1">
+                    <p>Starter: $99/mo (use existing devices) — $250 onboarding</p>
+                    <p>Professional: $199/mo (1 tablet) — $500 onboarding</p>
+                    <p>Enterprise: $299/mo (2 tablets + hub) — $1,000 onboarding</p>
+                  </div>
+                  <div className="p-2 rounded-lg bg-muted/30">
+                    <p className="text-xs font-semibold text-muted-foreground mb-1">REVENUE STREAMS</p>
+                    <div className="text-xs space-y-1">
+                      <p>Lab kit margin: <span className="text-cyan-400">40–60%</span></p>
+                      <p>API verification: <span className="text-cyan-400">$1–$3/call</span></p>
+                      <p>Certificate generation: <span className="text-cyan-400">$2–$5/cert</span></p>
+                      <p>Tox screen: <span className="text-cyan-400">$50–$100/test</span></p>
+                    </div>
+                  </div>
+                  <Button asChild className="w-full bg-pink-600 hover:bg-pink-700" size="sm">
+                    <Link to="/partner-application">Get Started</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Rentals & Exotics */}
+              <Card className="border-red-500/30 bg-gradient-to-br from-red-500/5 to-transparent overflow-hidden">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-red-500/20 border border-red-500/40">
+                      <Car className="h-5 w-5 text-red-400" />
+                    </div>
+                    <CardTitle className="text-lg text-foreground">🚗 Rentals & Exotics</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-center py-3 border-b border-border/50">
+                    <p className="text-2xl font-bold text-emerald-400">$199–$399<span className="text-sm text-muted-foreground">/mo</span></p>
+                    <p className="text-xs text-muted-foreground">+ per-rental fees</p>
+                  </div>
+                  <div className="p-2 rounded-lg bg-muted/30">
+                    <p className="text-xs font-semibold text-muted-foreground mb-1">PER-RENTAL FEES</p>
+                    <div className="text-xs space-y-1">
+                      <p>Customer ID verification: <span className="text-cyan-400">$5–$10</span></p>
+                      <p>Full background check: <span className="text-cyan-400">$50–$100</span></p>
+                      <p>Insurance verification: <span className="text-cyan-400">$5–$10</span></p>
+                      <p>High-value vetting: <span className="text-cyan-400">$25–$50</span></p>
+                    </div>
+                  </div>
+                  <Button asChild className="w-full bg-red-600 hover:bg-red-700" size="sm">
+                    <Link to="/partner-application">Get Started</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Security & Training */}
+              <Card className="border-slate-500/30 bg-gradient-to-br from-slate-500/5 to-transparent overflow-hidden">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-slate-500/20 border border-slate-500/40">
+                      <Shield className="h-5 w-5 text-slate-400" />
+                    </div>
+                    <CardTitle className="text-lg text-foreground">🛡️ Security & Training</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-center py-3 border-b border-border/50">
+                    <p className="text-2xl font-bold text-emerald-400">$199–$399<span className="text-sm text-muted-foreground">/mo</span></p>
+                    <p className="text-xs text-muted-foreground">+ per-guard fees</p>
+                  </div>
+                  <div className="p-2 rounded-lg bg-muted/30">
+                    <p className="text-xs font-semibold text-muted-foreground mb-1">PER-GUARD FEES</p>
+                    <div className="text-xs space-y-1">
+                      <p>Active guard/month: <span className="text-cyan-400">$5–$8</span></p>
+                      <p>Background check: <span className="text-cyan-400">$50–$100</span></p>
+                      <p>License verification: <span className="text-cyan-400">$10–$20</span></p>
+                      <p>Continuous monitoring: <span className="text-cyan-400">$5–$10/mo</span></p>
+                    </div>
+                  </div>
+                  <Button asChild className="w-full bg-slate-600 hover:bg-slate-700" size="sm">
+                    <Link to="/partner-application">Get Started</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Events & Festivals */}
+              <Card className="border-orange-500/30 bg-gradient-to-br from-orange-500/5 to-transparent overflow-hidden">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-orange-500/20 border border-orange-500/40">
+                      <Ticket className="h-5 w-5 text-orange-400" />
+                    </div>
+                    <CardTitle className="text-lg text-foreground">🎪 Events & Festivals</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-center py-3 border-b border-border/50">
+                    <p className="text-2xl font-bold text-emerald-400">$499–$2,500<span className="text-sm text-muted-foreground">/event</span></p>
+                  </div>
+                  <div className="text-xs space-y-1">
+                    <p>Single Day: $499–$999 (5 handhelds) — $2,500 onboarding</p>
+                    <p>Multi-Day: $1,500–$2,500 (10 handhelds) — $5,000 onboarding</p>
+                    <p>Festival: Custom — $10,000+ onboarding</p>
+                  </div>
+                  <div className="p-2 rounded-lg bg-muted/30">
+                    <p className="text-xs font-semibold text-muted-foreground mb-1">PER-ATTENDEE FEES</p>
+                    <div className="text-xs space-y-1">
+                      <p>Per scan: <span className="text-cyan-400">$0.10–$0.25</span></p>
+                      <p>VIP verification: <span className="text-cyan-400">$2–$5</span></p>
+                      <p>Vendor/staff check: <span className="text-cyan-400">$5–$10</span></p>
+                      <p>GHOST™ Pass split: <span className="text-cyan-400">30/30/10/30</span></p>
+                    </div>
+                  </div>
+                  <Button asChild className="w-full bg-orange-600 hover:bg-orange-700" size="sm">
+                    <Link to="/partner-application">Contact Sales</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Hospitality */}
+              <Card className="border-teal-500/30 bg-gradient-to-br from-teal-500/5 to-transparent overflow-hidden">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-teal-500/20 border border-teal-500/40">
+                      <Hotel className="h-5 w-5 text-teal-400" />
+                    </div>
+                    <CardTitle className="text-lg text-foreground">🏨 Hospitality</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-center py-3 border-b border-border/50">
+                    <p className="text-2xl font-bold text-emerald-400">$199–$599<span className="text-sm text-muted-foreground">/mo</span></p>
+                    <p className="text-xs text-muted-foreground">+ per-guest fees</p>
+                  </div>
+                  <div className="p-2 rounded-lg bg-muted/30">
+                    <p className="text-xs font-semibold text-muted-foreground mb-1">PER-GUEST FEES</p>
+                    <div className="text-xs space-y-1">
+                      <p>Guest verification: <span className="text-cyan-400">$1–$3/check-in</span></p>
+                      <p>VIP recognition: <span className="text-cyan-400">$2–$5</span></p>
+                      <p>Amenity access: <span className="text-cyan-400">$0.50–$1/scan</span></p>
+                      <p>Health badge verify: <span className="text-cyan-400">$35–$75</span></p>
+                    </div>
+                  </div>
+                  <Button asChild className="w-full bg-teal-600 hover:bg-teal-700" size="sm">
+                    <Link to="/partner-application">Get Started</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* How Pricing Works Section */}
+        <section className="py-12 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">💡 How VALID™ Pricing Works</h2>
+              <p className="text-muted-foreground">Simple formula, transparent costs</p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 mb-10">
+                <div className="flex flex-col items-center p-4 md:p-6 rounded-xl bg-cyan-500/10 border border-cyan-500/30 min-w-[140px]">
+                  <div className="p-3 rounded-full bg-cyan-500/20 mb-2">
+                    <FileText className="h-6 w-6 text-cyan-400" />
+                  </div>
+                  <p className="text-xs text-muted-foreground">STEP 1</p>
+                  <p className="font-semibold text-foreground text-sm md:text-base">Base Platform Fee</p>
+                </div>
+                <ArrowRight className="h-6 w-6 text-muted-foreground hidden md:block" />
+                <div className="flex flex-col items-center p-4 md:p-6 rounded-xl bg-purple-500/10 border border-purple-500/30 min-w-[140px]">
+                  <div className="p-3 rounded-full bg-purple-500/20 mb-2">
+                    <Monitor className="h-6 w-6 text-purple-400" />
+                  </div>
+                  <p className="text-xs text-muted-foreground">STEP 2</p>
+                  <p className="font-semibold text-foreground text-sm md:text-base">Hardware</p>
+                  <p className="text-xs text-muted-foreground">(lease or buy)</p>
+                </div>
+                <ArrowRight className="h-6 w-6 text-muted-foreground hidden md:block" />
+                <div className="flex flex-col items-center p-4 md:p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 min-w-[140px]">
+                  <div className="p-3 rounded-full bg-emerald-500/20 mb-2">
+                    <Users className="h-6 w-6 text-emerald-400" />
+                  </div>
+                  <p className="text-xs text-muted-foreground">STEP 3</p>
+                  <p className="font-semibold text-foreground text-sm md:text-base">Per-User Fees</p>
+                  <p className="text-xs text-muted-foreground">(if applicable)</p>
+                </div>
+                <ArrowRight className="h-6 w-6 text-muted-foreground hidden md:block" />
+                <div className="flex flex-col items-center p-4 md:p-6 rounded-xl bg-amber-500/10 border border-amber-500/30 min-w-[140px]">
+                  <div className="p-3 rounded-full bg-amber-500/20 mb-2">
+                    <Calendar className="h-6 w-6 text-amber-400" />
+                  </div>
+                  <p className="text-xs text-muted-foreground">STEP 4</p>
+                  <p className="font-semibold text-foreground text-sm md:text-base">Onboarding</p>
+                  <p className="text-xs text-muted-foreground">(one-time)</p>
+                </div>
+              </div>
+
+              <div className="text-center p-6 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-emerald-500/10 border border-cyan-500/30">
+                <p className="text-lg font-semibold text-foreground mb-2">= YOUR TOTAL MONTHLY COST</p>
+              </div>
+
+              <div className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/40 text-center">
+                <p className="text-lg md:text-xl text-emerald-400 font-semibold">
+                  💰 NIGHTLIFE VENUES: Your GHOST™ Pass earnings often <span className="text-white">EXCEED</span> your costs!
+                </p>
+                <p className="text-muted-foreground mt-2">Most venues <span className="text-emerald-400 font-semibold">PROFIT</span> from VALID™.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-background via-cyan-500/5 to-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">Not sure which package?</h2>
+              <p className="text-muted-foreground mb-8">Our team will help you find the perfect solution for your operation.</p>
+              
+              <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+                <Button asChild size="lg" className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold">
+                  <a href="https://calendly.com/steve-bevalid/30min" target="_blank" rel="noopener noreferrer">
+                    <Phone className="h-4 w-4 mr-2" />
+                    Schedule a Call
+                  </a>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10">
+                  <Link to="/partner-application">
+                    <FileText className="h-4 w-4 mr-2" />
+                    Get Custom Quote
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10">
+                  <Link to="/auth">
+                    Start Free Trial
+                  </Link>
+                </Button>
+              </div>
+
+              <p className="text-muted-foreground">
+                Or contact us: <a href="mailto:sales@bevalid.app" className="text-cyan-400 hover:underline">sales@bevalid.app</a>
+              </p>
             </div>
           </div>
         </section>

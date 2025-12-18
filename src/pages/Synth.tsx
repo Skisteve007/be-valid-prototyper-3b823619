@@ -230,19 +230,34 @@ const Synth = () => {
               </div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* Navigation Buttons - Clear & Easy Access */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
               <Button
-                onClick={() => document.getElementById('pipeline')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold px-8 py-6"
+                onClick={() => navigate('/synth/console')}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-6"
               >
-                View Architecture
+                Console
               </Button>
               <Button
-                onClick={() => navigate('/synth/admin')}
+                onClick={() => navigate('/synth/logs')}
                 variant="outline"
-                className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10 px-8 py-6"
+                className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 py-6"
               >
-                Open Demo Console
+                Logs
+              </Button>
+              <Button
+                onClick={() => navigate('/synth/docs')}
+                variant="outline"
+                className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 py-6"
+              >
+                API Docs
+              </Button>
+              <Button
+                onClick={() => navigate('/synth/policies')}
+                variant="outline"
+                className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 py-6"
+              >
+                Policies
               </Button>
             </div>
           </section>
@@ -337,18 +352,80 @@ const Synth = () => {
             </div>
           </section>
 
-          {/* CTA Section */}
+          {/* Investor Positioning Section */}
           <section className="text-center py-12 border-t border-border/50">
-            <h3 className="text-2xl font-bold text-foreground mb-4">Ready to audit your AI?</h3>
-            <p className="text-muted-foreground mb-8">
-              Access the demo console to see SYNTH™ in action
-            </p>
-            <Button
-              onClick={() => navigate('/synth/admin')}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold px-8 py-6"
-            >
-              Open Admin Console
-            </Button>
+            <div className="max-w-3xl mx-auto">
+              <div className="inline-block px-4 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-semibold tracking-wider mb-6">
+                INVESTOR POSITIONING
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mb-4">SYNTH™ is Already Built</h3>
+              <p className="text-muted-foreground mb-6">
+                We've already built SYNTH™, our audit-grade AI governance engine:
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                {['sanitize', 'debate', 'judge', 'verify', 'log', 'release'].map((step) => (
+                  <span key={step} className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-400 text-sm font-medium">
+                    {step}
+                  </span>
+                ))}
+              </div>
+              <p className="text-foreground/80 mb-6">
+                SYNTH™ is <span className="text-emerald-400 font-semibold">live today</span> as an API + web console, which proves the core system works.
+              </p>
+              <div className="bg-muted/30 rounded-xl p-6 border border-border/50 text-left mb-8">
+                <p className="text-sm text-muted-foreground mb-4">
+                  <strong className="text-foreground">Distribution channels</strong> (Chrome extension, partner integrations, SDKs) are thin clients that simply call the SYNTH™ API. That means we can ship new distribution fast without rebuilding the engine.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                  <div className="p-3 rounded-lg bg-background/50">
+                    <p className="text-blue-400 font-semibold mb-1">Immediate Defensibility</p>
+                    <p className="text-muted-foreground">Value is in the governance engine, not a UI wrapper</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/50">
+                    <p className="text-purple-400 font-semibold mb-1">Model-Agnostic</p>
+                    <p className="text-muted-foreground">Swap underlying models as AI landscape evolves</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/50">
+                    <p className="text-emerald-400 font-semibold mb-1">Enterprise-Ready</p>
+                    <p className="text-muted-foreground">Logs, controls, and human review routing</p>
+                  </div>
+                </div>
+              </div>
+              <p className="text-amber-400 italic text-sm mb-8">
+                "We can demonstrate SYNTH™ today: paste a prompt, see the decision, view the claim table, and export the audit log."
+              </p>
+            </div>
+            
+            {/* Quick Access Buttons */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
+              <Button
+                onClick={() => navigate('/synth/console')}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-6"
+              >
+                Console
+              </Button>
+              <Button
+                onClick={() => navigate('/synth/logs')}
+                variant="outline"
+                className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 py-6"
+              >
+                Logs
+              </Button>
+              <Button
+                onClick={() => navigate('/synth/docs')}
+                variant="outline"
+                className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 py-6"
+              >
+                API Docs
+              </Button>
+              <Button
+                onClick={() => navigate('/synth/policies')}
+                variant="outline"
+                className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 py-6"
+              >
+                Policies
+              </Button>
+            </div>
           </section>
         </main>
 

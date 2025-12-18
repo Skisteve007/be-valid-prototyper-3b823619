@@ -2,6 +2,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   Shield,
   ShieldCheck,
   ClipboardCheck,
@@ -153,42 +159,44 @@ export default function GhostPassOwnerGuide() {
           </CardContent>
         </Card>
 
-        {/* CRITICAL LIABILITY DISCLAIMER */}
-        <Card className="mb-6 border-2 border-destructive/50 bg-destructive/5">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-destructive">
-              <AlertTriangle className="h-5 w-5" />
-              IMPORTANT: VALID™ LIABILITY DISCLAIMER
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 bg-background border border-destructive/30 rounded-lg">
-              <p className="font-bold text-sm mb-3 uppercase tracking-wide">Manual Mode — Zero Liability to VALID™</p>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-1 font-bold">⚠</span>
-                  <span><strong>VALID™ assumes ABSOLUTELY NO LIABILITY for any manual checks, manual runs, or manual mode operations.</strong></span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-1 font-bold">⚠</span>
-                  <span><strong>VALID™ DOES NOT STORE ANY INFORMATION</strong> — no photos, no notes, no personal data, no ID images — NOTHING is stored by VALID™ in manual mode.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-1 font-bold">⚠</span>
-                  <span>Any photos, notes, or data captured using the device in manual mode are stored <strong>LOCALLY ON YOUR DEVICE</strong> or exported to <strong>YOUR OWN storage systems</strong> — NOT on VALID™ servers.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-1 font-bold">⚠</span>
-                  <span>VALID™ has <strong>NO RESPONSIBILITY</strong> for any data you or your staff choose to capture, store, retain, or manage on your own devices or storage.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-1 font-bold">⚠</span>
-                  <span>The venue and its staff bear <strong>FULL AND SOLE RESPONSIBILITY</strong> for all manual check decisions, data handling, compliance with privacy laws, and any consequences thereof.</span>
-                </li>
-              </ul>
-            </div>
-          </CardContent>
-        </Card>
+        {/* CRITICAL LIABILITY DISCLAIMER - Accordion */}
+        <Accordion type="single" collapsible className="mb-6">
+          <AccordionItem value="liability" className="border-2 border-destructive/50 bg-destructive/5 rounded-lg">
+            <AccordionTrigger className="px-6 py-4 hover:no-underline">
+              <div className="flex items-center gap-2 text-destructive font-semibold">
+                <AlertTriangle className="h-5 w-5" />
+                IMPORTANT: VALID™ LIABILITY DISCLAIMER
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-6">
+              <div className="p-4 bg-background border border-destructive/30 rounded-lg">
+                <p className="font-bold text-sm mb-3 uppercase tracking-wide">Manual Mode — Zero Liability to VALID™</p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="text-destructive mt-1 font-bold">⚠</span>
+                    <span><strong>VALID™ assumes ABSOLUTELY NO LIABILITY for any manual checks, manual runs, or manual mode operations.</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-destructive mt-1 font-bold">⚠</span>
+                    <span><strong>VALID™ DOES NOT STORE ANY INFORMATION</strong> — no photos, no notes, no personal data, no ID images — NOTHING is stored by VALID™ in manual mode.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-destructive mt-1 font-bold">⚠</span>
+                    <span>Any photos, notes, or data captured using the device in manual mode are stored <strong>LOCALLY ON YOUR DEVICE</strong> or exported to <strong>YOUR OWN storage systems</strong> — NOT on VALID™ servers.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-destructive mt-1 font-bold">⚠</span>
+                    <span>VALID™ has <strong>NO RESPONSIBILITY</strong> for any data you or your staff choose to capture, store, retain, or manage on your own devices or storage.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-destructive mt-1 font-bold">⚠</span>
+                    <span>The venue and its staff bear <strong>FULL AND SOLE RESPONSIBILITY</strong> for all manual check decisions, data handling, compliance with privacy laws, and any consequences thereof.</span>
+                  </li>
+                </ul>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         {/* Section 2: Manual Mode Responsibility */}
         <Card className="mb-6">

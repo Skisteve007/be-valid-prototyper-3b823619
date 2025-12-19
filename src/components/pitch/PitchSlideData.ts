@@ -170,7 +170,8 @@ export const pitchSlides: SlideData[] = [
     title: "YOUR RETURN",
     subtitle: "Your Money Comes Back. Multiplied.",
     bullets: [
-      "Exit: 10x-20x in 3-5 years",
+      "Exit: 10x-20x potential (not guaranteed)",
+      "9-month execution runway for go-to-market milestones",
       "Tranche 1: $25K → $250K-$500K potential",
       "Dividends from transaction fees",
       "Secondary market options"

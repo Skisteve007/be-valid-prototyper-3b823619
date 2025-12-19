@@ -292,15 +292,13 @@ const scorecardData = [
                   View Deck
                 </Button>
                 <Button
-                  asChild
                   variant="outline"
                   className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
                   style={{ fontSize: 'clamp(14px, 1vw, 16px)', padding: 'clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)' }}
+                  onClick={() => window.open(INVESTOR_DECK_PDF_URL, '_blank')}
                 >
-                  <a href={INVESTOR_DECK_PDF_URL} target="_blank" rel="noopener noreferrer">
-                    <FileDown className="w-4 h-4 mr-2" />
-                    Open PDF
-                  </a>
+                  <FileDown className="w-4 h-4 mr-2" />
+                  Open PDF
                 </Button>
               </div>
             </div>

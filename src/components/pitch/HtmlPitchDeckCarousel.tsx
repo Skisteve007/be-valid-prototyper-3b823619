@@ -179,7 +179,7 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         "relative bg-black flex flex-col group touch-pan-y " +
         (isFullscreen
           ? "fixed inset-0 z-50"
-          : "w-full h-auto min-h-[50vh] sm:min-h-[55vh] md:min-h-[70vh] lg:min-h-[80vh] rounded-xl md:rounded-2xl overflow-hidden border border-white/10")
+          : "w-full rounded-xl md:rounded-2xl overflow-hidden border border-white/10")
       }
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -188,10 +188,18 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
       onClick={handleTap}
       aria-label="Investor deck slides"
     >
-      {/* Main Slide Content - Horizontal sliding carousel */}
-      <div className="relative flex-1 min-h-0 w-full overflow-hidden">
+      {/* Main Slide Content - Use aspect ratio for consistent sizing */}
+      <div 
+        className="relative w-full overflow-hidden"
+        style={{ 
+          // 16:9 aspect ratio on desktop, taller on mobile for readability
+          aspectRatio: isFullscreen ? 'auto' : undefined,
+          height: isFullscreen ? 'calc(100% - 52px)' : undefined,
+          paddingBottom: isFullscreen ? undefined : 'clamp(56.25%, 56.25%, 56.25%)' // 16:9 aspect ratio
+        }}
+      >
         <div 
-          className="flex h-full transition-transform duration-500 ease-in-out"
+          className="absolute inset-0 flex transition-transform duration-500 ease-in-out"
           style={{ 
             width: `${totalSlides * 100}%`,
             transform: `translateX(-${(current * 100) / totalSlides}%)`

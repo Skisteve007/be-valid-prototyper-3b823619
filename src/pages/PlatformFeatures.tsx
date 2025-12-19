@@ -273,7 +273,7 @@ const PlatformFeatures = () => {
               Industry packages <span className="text-cyan-400 font-semibold">starting at $99/month</span>
             </p>
             <p className="text-sm text-muted-foreground max-w-2xl mx-auto mb-4">
-              Base platform + per-user fees that scale with your business.
+              Base platform + usage fees (per scan/transaction) that scale with your business.
             </p>
             <p className="text-sm text-emerald-400 font-medium">
               All packages include GHOST™ Pass revenue share — venues earn 30% on every pass sold.

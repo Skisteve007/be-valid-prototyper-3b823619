@@ -59,6 +59,7 @@ import {
 import logo from "@/assets/valid-logo.jpeg";
 import HtmlPitchDeckCarousel from "@/components/pitch/HtmlPitchDeckCarousel";
 import SynthButton from "@/components/SynthButton";
+import RevenueModelSection from "@/components/pitch/RevenueModelSection";
 
 // NOTE: The PDF at this path is not reliably embeddable in Chrome.
 // We render the 14-slide deck as images below for maximum compatibility.
@@ -998,75 +999,8 @@ const scorecardData = [
             </div>
           </div>
 
-          {/* ===== REVENUE STACK ===== */}
-          <div className="bg-gradient-to-br from-green-950/30 to-black/60 border border-green-500/30 rounded-2xl" style={{ padding: 'clamp(28px, 3vw, 48px)' }}>
-            <h3 
-              className="font-bold text-center font-orbitron"
-              style={{ 
-                fontSize: 'clamp(22px, 1.8vw, 32px)', 
-                marginBottom: 'clamp(24px, 2.5vw, 36px)',
-                color: '#22c55e',
-                textShadow: '0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3)',
-              }}
-            >
-              Multi-Stream Revenue Stack
-            </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
-              {[
-                { name: "Ghost Pass™ Sales", revenue: "$39-99/pass", icon: Ghost, color: "amber", desc: "One-time verification passes" },
-                { name: "Wallet Transactions", revenue: "3% per tx", icon: CreditCard, color: "cyan", desc: "Pre-funded wallet spend fees" },
-                { name: "Venue Subscriptions", revenue: "$299-999/mo", icon: Building2, color: "purple", desc: "SaaS dashboard access" },
-                { name: "IDV Verification", revenue: "$5-15/check", icon: Fingerprint, color: "green", desc: "Background & identity checks" },
-                { name: "Lab Test Kits", revenue: "$49-149/kit", icon: Activity, color: "blue", desc: "Health & toxicology panels" },
-                { name: "Enterprise API", revenue: "Custom pricing", icon: Layers, color: "orange", desc: "White-label integrations" },
-              ].map((stream, idx) => (
-                <div 
-                  key={idx} 
-                  className={`bg-black/50 border rounded-xl transition-all hover:scale-[1.02] ${
-                    stream.color === 'amber' ? 'border-amber-500/40 hover:border-amber-500/70' :
-                    stream.color === 'cyan' ? 'border-cyan-500/40 hover:border-cyan-500/70' :
-                    stream.color === 'purple' ? 'border-purple-500/40 hover:border-purple-500/70' :
-                    stream.color === 'green' ? 'border-green-500/40 hover:border-green-500/70' :
-                    stream.color === 'blue' ? 'border-blue-500/40 hover:border-blue-500/70' :
-                    'border-orange-500/40 hover:border-orange-500/70'
-                  }`}
-                  style={{ padding: 'clamp(20px, 2vw, 32px)' }}
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <stream.icon 
-                      className={`${
-                        stream.color === 'amber' ? 'text-amber-400' :
-                        stream.color === 'cyan' ? 'text-cyan-400' :
-                        stream.color === 'purple' ? 'text-purple-400' :
-                        stream.color === 'green' ? 'text-green-400' :
-                        stream.color === 'blue' ? 'text-blue-400' :
-                        'text-orange-400'
-                      }`}
-                      style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)' }}
-                    />
-                    <span 
-                      className={`font-bold ${
-                        stream.color === 'amber' ? 'text-amber-400' :
-                        stream.color === 'cyan' ? 'text-cyan-400' :
-                        stream.color === 'purple' ? 'text-purple-400' :
-                        stream.color === 'green' ? 'text-green-400' :
-                        stream.color === 'blue' ? 'text-blue-400' :
-                        'text-orange-400'
-                      }`}
-                      style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}
-                    >
-                      {stream.revenue}
-                    </span>
-                  </div>
-                  <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>{stream.name}</h4>
-                  <p className="text-white/80" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.4' }}>{stream.desc}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-center text-white/80 mt-6" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
-              <span className="text-green-400 font-bold">6 revenue streams</span> — Each compounds the next. No single point of failure.
-            </p>
-          </div>
+          {/* ===== REVENUE MODEL SECTION (New Component) ===== */}
+          <RevenueModelSection />
 
           {/* Competitive Moat */}
           <div>

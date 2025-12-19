@@ -418,6 +418,47 @@ export type Database = {
         }
         Relationships: []
       }
+      contract_templates: {
+        Row: {
+          contract_terms: Json | null
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          package_id: string | null
+          template_content: string | null
+          template_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          contract_terms?: Json | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          package_id?: string | null
+          template_content?: string | null
+          template_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          contract_terms?: Json | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          package_id?: string | null
+          template_content?: string | null
+          template_name?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_templates_package_id_fkey"
+            columns: ["package_id"]
+            isOneToOne: false
+            referencedRelation: "industry_packages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       discount_codes: {
         Row: {
           code: string
@@ -862,6 +903,60 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      industry_packages: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_name: string
+          id: string
+          included_events: string[] | null
+          is_active: boolean | null
+          package_key: string
+          payout_cadence_default: string | null
+          payout_cadence_options: string[] | null
+          saas_annual_fee: number | null
+          saas_monthly_fee: number | null
+          sort_order: number | null
+          target_audience: string | null
+          updated_at: string | null
+          volume_tiers: Json | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_name: string
+          id?: string
+          included_events?: string[] | null
+          is_active?: boolean | null
+          package_key: string
+          payout_cadence_default?: string | null
+          payout_cadence_options?: string[] | null
+          saas_annual_fee?: number | null
+          saas_monthly_fee?: number | null
+          sort_order?: number | null
+          target_audience?: string | null
+          updated_at?: string | null
+          volume_tiers?: Json | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_name?: string
+          id?: string
+          included_events?: string[] | null
+          is_active?: boolean | null
+          package_key?: string
+          payout_cadence_default?: string | null
+          payout_cadence_options?: string[] | null
+          saas_annual_fee?: number | null
+          saas_monthly_fee?: number | null
+          sort_order?: number | null
+          target_audience?: string | null
+          updated_at?: string | null
+          volume_tiers?: Json | null
+        }
+        Relationships: []
       }
       interest_tags: {
         Row: {
@@ -1575,6 +1670,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      pricing_catalog: {
+        Row: {
+          billing_cadence: string | null
+          created_at: string | null
+          description: string | null
+          event_code: string
+          event_name: string
+          id: string
+          is_active: boolean | null
+          markup: number | null
+          payer: string
+          unit_price: number
+          updated_at: string | null
+          vendor_cost: number | null
+        }
+        Insert: {
+          billing_cadence?: string | null
+          created_at?: string | null
+          description?: string | null
+          event_code: string
+          event_name: string
+          id?: string
+          is_active?: boolean | null
+          markup?: number | null
+          payer: string
+          unit_price?: number
+          updated_at?: string | null
+          vendor_cost?: number | null
+        }
+        Update: {
+          billing_cadence?: string | null
+          created_at?: string | null
+          description?: string | null
+          event_code?: string
+          event_name?: string
+          id?: string
+          is_active?: boolean | null
+          markup?: number | null
+          payer?: string
+          unit_price?: number
+          updated_at?: string | null
+          vendor_cost?: number | null
+        }
+        Relationships: []
       }
       pricing_models: {
         Row: {
@@ -2483,6 +2623,44 @@ export type Database = {
             columns: ["venue_id"]
             isOneToOne: false
             referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      statement_templates: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          line_item_config: Json | null
+          package_id: string | null
+          template_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          line_item_config?: Json | null
+          package_id?: string | null
+          template_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          line_item_config?: Json | null
+          package_id?: string | null
+          template_name?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "statement_templates_package_id_fkey"
+            columns: ["package_id"]
+            isOneToOne: false
+            referencedRelation: "industry_packages"
             referencedColumns: ["id"]
           },
         ]

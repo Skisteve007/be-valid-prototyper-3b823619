@@ -45,10 +45,10 @@ const slidesData = [
   {
     id: 6,
     label: 'REVENUE MODEL',
-    title: 'The Invisible Fee',
-    subtitle: "Guest pays. You profit. We split 50/50.",
-    body: 'Safety Surcharge: $3.00. Vendor Cost: $1.25–$1.75. Gross Profit: $1.25–$1.75/head. YOUR CUT (50%): $0.625–$0.875/head. VALID™ (50%): $0.625–$0.875/head.',
-    highlight: '50K fans → You make $31K–$44K per game',
+    title: 'Per-Scan Event Pricing',
+    subtitle: "Simple, transparent usage-based fees.",
+    body: 'Nightlife: $0.20 per Scan Event (door or purchase). Stadiums: Tiered pricing $0.03–$0.10/scan based on volume. Transportation: $2.50 per driver deep check. Rentals: Per-rental verification + optional payments.',
+    highlight: 'Stadium 50K fans × $0.08/scan = $4,000/game',
   },
   {
     id: 7,

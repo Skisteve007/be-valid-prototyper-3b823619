@@ -34,6 +34,7 @@ import StaffShiftManager from "@/components/admin/StaffShiftManager";
 import AffiliateCommissionManager from "@/components/admin/AffiliateCommissionManager";
 import TrafficAnalytics from "@/components/admin/TrafficAnalytics";
 import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
+import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import {
   DndContext,
@@ -1015,7 +1016,7 @@ const Admin = () => {
           </TabsContent>
           
           <TabsContent value="pricing">
-            <PricingReferenceTab />
+            <PricingContractsTab />
           </TabsContent>
           
           <TabsContent value="webhooks">

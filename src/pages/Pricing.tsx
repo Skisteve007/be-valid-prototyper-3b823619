@@ -354,13 +354,18 @@ const Pricing = () => {
                     </TabsContent>
                   </Tabs>
 
-                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center">
-                    <p className="text-sm text-emerald-400 font-semibold">💰 Earn 30% on every GHOST™ Pass sold!</p>
+                  <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30">
+                    <p className="text-xs font-semibold text-cyan-400 mb-2">💳 SCAN EVENT PRICING</p>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <p className="text-gray-300">Door scan: <span className="text-white font-semibold">$0.20</span></p>
+                      <p className="text-gray-300">Purchase scan: <span className="text-white font-semibold">$0.20</span></p>
+                    </div>
+                    <p className="text-xs text-gray-400 mt-2">Instant Load: $3.95 (guest-paid) • ACH: free</p>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                    <p className="text-xs font-semibold text-amber-400 mb-1">⛽ GAS FEE: $0.15–$0.25/scan</p>
-                    <p className="text-xs text-gray-300">Example: 1,500 scans/night × $0.20 = <span className="text-white font-semibold">$300/night</span></p>
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center">
+                    <p className="text-xs text-muted-foreground mb-1">Settlement: Nightly or Weekly (venue choice)</p>
+                    <p className="text-sm text-emerald-400 font-semibold">💰 Net payout = Gross − scan fees − IDV − promoter payouts</p>
                   </div>
 
                   <Button asChild className="w-full bg-purple-600 hover:bg-purple-700">
@@ -546,11 +551,21 @@ const Pricing = () => {
                   </div>
 
                   <div className="p-3 rounded-lg bg-black/40 border border-white/10">
-                    <p className="text-sm md:text-base font-semibold text-white mb-2">⛽ GAS FEE MODEL</p>
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">💳 TIERED SCAN EVENT PRICING</p>
                     <div className="text-sm md:text-base space-y-1 text-gray-200">
-                      <p>Per-scan: <span className="text-cyan-400 font-semibold">$0.08–$0.15</span> (volume-based)</p>
-                      <p className="text-amber-300">Example: 70,000 fans × $0.12 = <span className="text-white font-semibold">$8,400/game</span></p>
-                      <p className="text-gray-400 text-xs">OR flat monthly fee available</p>
+                      <p>0–50K scans/mo: <span className="text-cyan-400 font-semibold">$0.10/scan</span></p>
+                      <p>50K–200K scans/mo: <span className="text-cyan-400 font-semibold">$0.06/scan</span></p>
+                      <p>200K+ scans/mo: <span className="text-emerald-400 font-semibold">$0.03/scan</span></p>
+                      <p className="text-xs text-amber-300 mt-2">Target range: $0.03–$0.10 per Scan Event</p>
+                    </div>
+                  </div>
+                  
+                  <div className="p-3 rounded-lg bg-black/40 border border-white/10">
+                    <p className="text-sm md:text-base font-semibold text-white mb-2">🔐 OPTIONAL VERIFICATION MODULES</p>
+                    <div className="text-sm text-gray-200 space-y-1">
+                      <p>Standard IDV: <span className="text-cyan-400">$2.00/verify</span></p>
+                      <p>Premium + Watchlist: <span className="text-cyan-400">$4.00/verify</span></p>
+                      <p className="text-xs text-gray-400">Billed only when used. Stadium pays, not guests.</p>
                     </div>
                   </div>
 

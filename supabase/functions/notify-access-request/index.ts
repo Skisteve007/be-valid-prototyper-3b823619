@@ -46,7 +46,6 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Approval URL:", approvalUrl);
     
     // Send notification to admin with direct approval button
-    // Using Resend sandbox email for reliability - update to verified domain when ready
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -54,9 +53,9 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "VALID Access Control <onboarding@resend.dev>",
+        from: "VALID™ Access Control <noreply@bevalid.app>",
         to: ["steve@bevalid.app"],
-        subject: `🔐 New ${accessTypeLabel} Access Request - ${userName}`,
+        subject: `VALID™ Access Control — ${accessTypeLabel} access request`,
         html: `
           <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #ffffff; padding: 40px; border-radius: 12px; border: 1px solid #00f0ff33;">
             <h1 style="color: #00f0ff; margin-bottom: 24px; font-size: 24px;">🔐 New Access Request</h1>

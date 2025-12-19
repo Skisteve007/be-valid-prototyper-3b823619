@@ -157,7 +157,7 @@ const Synth = () => {
         <meta name="description" content="Enterprise AI Logic Flight Recorder & Consensus Engine. Intercepts risk before an answer is released." />
       </Helmet>
 
-      <div className="min-h-screen synth-bg text-foreground">
+      <div className="min-h-screen synth-bg text-foreground font-electrolize">
         {/* Grid overlay */}
         <div className="fixed inset-0 z-0 synth-grid opacity-50" />
         

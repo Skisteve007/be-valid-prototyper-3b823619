@@ -216,15 +216,16 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
           <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={(e) => { e.stopPropagation(); toggleMute(); }}
-              className="p-1.5 rounded-full transition-all backdrop-blur-sm border"
+              className="p-2 rounded-full transition-all backdrop-blur-sm border hover:scale-110"
               style={{
-                background: isMuted ? 'rgba(0, 229, 229, 0.2)' : 'rgba(0, 0, 0, 0.8)',
-                borderColor: isMuted ? 'rgba(0, 229, 229, 0.5)' : 'rgba(255, 255, 255, 0.3)',
-                color: isMuted ? '#00E5E5' : '#fff'
+                background: isMuted ? 'rgba(0, 229, 229, 0.25)' : 'rgba(0, 0, 0, 0.8)',
+                borderColor: isMuted ? 'rgba(0, 229, 229, 0.6)' : 'rgba(255, 255, 255, 0.4)',
+                color: isMuted ? '#00E5E5' : '#fff',
+                boxShadow: isMuted ? '0 0 10px rgba(0, 229, 229, 0.3)' : 'none'
               }}
               aria-label={isMuted ? "Unmute music" : "Mute music"}
             >
-              {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+              {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
             </button>
             <div className="hidden sm:flex items-center gap-1.5">
               <div

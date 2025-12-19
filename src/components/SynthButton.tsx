@@ -1,20 +1,84 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Brain } from 'lucide-react';
+import { Brain, Sparkles } from 'lucide-react';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 
 interface SynthButtonProps {
-  variant?: 'fab' | 'pill' | 'menu-item' | 'header';
+  variant?: 'fab' | 'pill' | 'menu-item' | 'header' | 'hidden-trigger';
 }
 
 const SynthButton: React.FC<SynthButtonProps> = ({ variant = 'fab' }) => {
   const navigate = useNavigate();
+  const { isAdmin, loading } = useIsAdmin();
+  const [pulseCount, setPulseCount] = useState(0);
 
   const handleSynthClick = () => {
     navigate('/synth');
   };
 
-  // FAB VARIANT - Floating Action Button
+  // Hidden trigger - requires 3 rapid taps to activate (for non-admins to discover)
+  const handleHiddenTrigger = () => {
+    setPulseCount(prev => {
+      const newCount = prev + 1;
+      if (newCount >= 3) {
+        navigate('/synth');
+        return 0;
+      }
+      // Reset after 1.5 seconds of no taps
+      setTimeout(() => setPulseCount(0), 1500);
+      return newCount;
+    });
+  };
+
+  // HIDDEN TRIGGER VARIANT - Mysterious glowing element anyone can see
+  if (variant === 'hidden-trigger') {
+    return (
+      <button
+        onClick={handleHiddenTrigger}
+        className="group relative p-2 rounded-full transition-all duration-500 hover:scale-110"
+        style={{ 
+          WebkitTapHighlightColor: 'transparent',
+        }}
+        aria-label="Discover"
+      >
+        {/* Mysterious pulsing glow */}
+        <div 
+          className="absolute inset-0 rounded-full opacity-60 blur-sm animate-pulse"
+          style={{
+            background: `radial-gradient(circle, rgba(168, 85, 247, ${0.2 + pulseCount * 0.15}) 0%, transparent 70%)`,
+          }}
+        />
+        <Sparkles 
+          className="w-4 h-4 transition-all duration-300 group-hover:text-purple-400"
+          style={{
+            color: pulseCount > 0 ? '#a855f7' : 'rgba(168, 85, 247, 0.5)',
+            filter: pulseCount > 0 ? 'drop-shadow(0 0 6px rgba(168, 85, 247, 0.6))' : 'none',
+          }}
+        />
+        {/* Hint dots showing progress */}
+        {pulseCount > 0 && (
+          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex gap-0.5">
+            {[...Array(3)].map((_, i) => (
+              <div 
+                key={i}
+                className="w-1 h-1 rounded-full transition-all duration-200"
+                style={{
+                  backgroundColor: i < pulseCount ? '#a855f7' : 'rgba(168, 85, 247, 0.3)',
+                  boxShadow: i < pulseCount ? '0 0 4px #a855f7' : 'none',
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </button>
+    );
+  }
+
+  // FAB VARIANT - Admin only floating button
   if (variant === 'fab') {
+    // Only show FAB to admins
+    if (loading || !isAdmin) return null;
+    
     return (
       <button
         onClick={handleSynthClick}
@@ -26,14 +90,15 @@ const SynthButton: React.FC<SynthButtonProps> = ({ variant = 'fab' }) => {
         aria-label="Open Synth"
       >
         <Brain className="w-7 h-7 text-white" />
-        {/* Pulse ring */}
         <span className="absolute inset-0 rounded-full bg-purple-500 animate-ping opacity-30" />
       </button>
     );
   }
 
-  // PILL VARIANT - Dashboard pill button
+  // PILL VARIANT - Admin only dashboard pill
   if (variant === 'pill') {
+    if (loading || !isAdmin) return null;
+    
     return (
       <button
         onClick={handleSynthClick}
@@ -49,10 +114,9 @@ const SynthButton: React.FC<SynthButtonProps> = ({ variant = 'fab' }) => {
             <div className="text-purple-300/70 text-xs">Idea Branch • AI Lab</div>
           </div>
         </div>
-        
         <div className="flex items-center gap-2">
           <span className="text-purple-400 text-xs font-medium bg-purple-500/20 px-2 py-1 rounded-full">
-            NEW
+            ADMIN
           </span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-purple-400">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
@@ -62,8 +126,10 @@ const SynthButton: React.FC<SynthButtonProps> = ({ variant = 'fab' }) => {
     );
   }
 
-  // MENU-ITEM VARIANT - For mobile menu
+  // MENU-ITEM VARIANT - Admin only mobile menu
   if (variant === 'menu-item') {
+    if (loading || !isAdmin) return null;
+    
     return (
       <button
         onClick={handleSynthClick}
@@ -77,13 +143,15 @@ const SynthButton: React.FC<SynthButtonProps> = ({ variant = 'fab' }) => {
           <span className="text-foreground font-medium">Synth</span>
           <span className="text-purple-300/60 text-xs block">Idea Branch</span>
         </div>
-        <span className="text-purple-400 text-xs font-medium">NEW</span>
+        <span className="text-purple-400 text-xs font-medium">ADMIN</span>
       </button>
     );
   }
 
-  // HEADER VARIANT - Compact header button
+  // HEADER VARIANT - Admin only compact header button
   if (variant === 'header') {
+    if (loading || !isAdmin) return null;
+    
     return (
       <button
         onClick={handleSynthClick}

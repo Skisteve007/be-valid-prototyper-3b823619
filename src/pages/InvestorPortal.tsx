@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
-import { Shield, Lock, Check, Sparkles, Clock, ExternalLink, ArrowRight, User, Briefcase, Cpu, Award, Phone, Mail, Globe, Calendar, Brain } from "lucide-react";
+import { Shield, Lock, Check, Sparkles, Clock, ExternalLink, ArrowRight, User, Briefcase, Cpu, Award, Phone, Mail, Globe, Calendar } from "lucide-react";
+import SynthButton from "@/components/SynthButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -106,32 +107,13 @@ const InvestorPortal = () => {
         <div className="relative z-10">
           {/* Hero Header */}
           <div className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
-            {/* SYNTH Button - Fixed header nav */}
-            <div className="absolute top-4 right-4 z-50">
-              <button
-                onClick={() => navigate('/synth')}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 border border-blue-500/50 text-blue-400 text-sm font-semibold tracking-wider hover:bg-blue-500/30 transition-all group"
-                style={{
-                  animation: 'synthPulse 2s ease-in-out infinite',
-                }}
-              >
-                <Brain className="w-4 h-4" />
-                <span>SYNTH™</span>
-                <span 
-                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{
-                    boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)',
-                  }}
-                />
-              </button>
+            {/* Header nav - Admin Synth button + Hidden trigger for discovery */}
+            <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
+              {/* Hidden trigger - mysterious sparkle anyone can discover */}
+              <SynthButton variant="hidden-trigger" />
+              {/* Full SYNTH button - admin only */}
+              <SynthButton variant="header" />
             </div>
-            
-            <style>{`
-              @keyframes synthPulse {
-                0%, 100% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
-                50% { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); }
-              }
-            `}</style>
             
           <div className="container mx-auto px-4 py-10 md:py-16 text-center">
             {/* Primary H1 */}

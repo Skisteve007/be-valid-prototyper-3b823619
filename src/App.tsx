@@ -164,7 +164,7 @@ const App = () => (
                   <Route path="/pitchdeck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
                   <Route path="/partners" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
                   <Route path="/partners/verification" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
-                  <Route path="/partners/integrated-health-compliance" element={<IntegratedHealthCompliance />} />
+                  <Route path="/partners/integrated-health-compliance" element={<AgeGate><AccessGate accessType="partner"><IntegratedHealthCompliance /></AccessGate></AgeGate>} />
                   
                   {/* SPONSOR & LAB ROUTES */}
                   <Route path="/sponsors" element={<AgeGate><Sponsors /></AgeGate>} />
@@ -195,7 +195,7 @@ const App = () => (
                   <Route path="/sales-portal" element={<AgeGate><SalesPortal /></AgeGate>} />
                   <Route path="/partner-application" element={<AgeGate><PartnerApplication /></AgeGate>} />
                   <Route path="/competitive-scorecard" element={<AgeGate><CompetitiveScorecard /></AgeGate>} />
-                  <Route path="/venue-portal" element={<AgeGate><VenueOperatorPortal /></AgeGate>} />
+                  <Route path="/venue-portal" element={<AgeGate><AccessGate accessType="partner"><VenueOperatorPortal /></AccessGate></AgeGate>} />
                   <Route path="/vendor-pricing" element={<AgeGate><PlatformFeatures /></AgeGate>} />
                   <Route path="/pricing" element={<AgeGate><Pricing /></AgeGate>} />
                   <Route path="/vendor-portal" element={<VendorPortal />} />

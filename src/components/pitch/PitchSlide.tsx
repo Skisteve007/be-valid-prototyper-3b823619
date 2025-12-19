@@ -50,50 +50,55 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
     </div>
   );
 
-  const renderTitleContentSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-8 py-6 sm:py-12">
-      <h2 
-        className="font-bold mb-4 sm:mb-8"
-        style={{ 
-          fontSize: 'clamp(24px, 7vw, 80px)',
-          color: '#00E5E5',
-          textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
-        }}
-      >
-        {slide.title}
-      </h2>
-      {slide.subtitle && (
-        <p 
-          className="mb-4 sm:mb-8"
+  const renderTitleContentSlide = () => {
+    const contentCount = slide.content?.length || 0;
+    const isCompact = contentCount > 4;
+    
+    return (
+      <div className={`flex flex-col items-center h-full text-center px-3 sm:px-6 ${isCompact ? 'py-2 sm:py-4 justify-start pt-2 sm:pt-4' : 'py-6 sm:py-12 justify-center'}`}>
+        <h2 
+          className={`font-bold ${isCompact ? 'mb-1 sm:mb-2' : 'mb-4 sm:mb-8'}`}
           style={{ 
-            fontSize: 'clamp(14px, 3.5vw, 40px)',
-            background: chromeGradient,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            filter: 'brightness(1.15) contrast(1.2)'
+            fontSize: isCompact ? 'clamp(18px, 5vw, 50px)' : 'clamp(24px, 7vw, 80px)',
+            color: '#00E5E5',
+            textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
           }}
         >
-          {slide.subtitle}
-        </p>
-      )}
-      {slide.content && (
-        <div className="space-y-2 sm:space-y-4 max-w-4xl">
-          {slide.content.map((text, i) => (
-            <p 
-              key={i}
-              className="text-white"
-              style={{ 
-                fontSize: 'clamp(12px, 2.5vw, 28px)',
-                lineHeight: '1.4'
-              }}
-            >
-              {text}
-            </p>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+          {slide.title}
+        </h2>
+        {slide.subtitle && (
+          <p 
+            className={isCompact ? 'mb-1 sm:mb-2' : 'mb-4 sm:mb-8'}
+            style={{ 
+              fontSize: isCompact ? 'clamp(11px, 2.5vw, 28px)' : 'clamp(14px, 3.5vw, 40px)',
+              background: chromeGradient,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'brightness(1.15) contrast(1.2)'
+            }}
+          >
+            {slide.subtitle}
+          </p>
+        )}
+        {slide.content && (
+          <div className={`${isCompact ? 'space-y-1 sm:space-y-2' : 'space-y-2 sm:space-y-4'} max-w-4xl`}>
+            {slide.content.map((text, i) => (
+              <p 
+                key={i}
+                className="text-white"
+                style={{ 
+                  fontSize: isCompact ? 'clamp(9px, 1.8vw, 20px)' : 'clamp(12px, 2.5vw, 28px)',
+                  lineHeight: '1.4'
+                }}
+              >
+                {text}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const renderStatsSlide = () => {
     const statsCount = slide.stats?.length || 0;

@@ -157,25 +157,25 @@ const scorecardData = [
 
       {/* Header — Premium Redesign */}
       <header className="border-b border-white/[0.06] bg-black/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-2 md:px-4 flex justify-between items-center" style={{ height: 'clamp(56px, 5vw, 76px)' }}>
-          {/* Left: Partner Solutions with premium pill */}
+        <div className="container mx-auto px-3 md:px-4 flex justify-between items-center h-14 md:h-16 lg:h-[76px]">
+          {/* Left: Back button */}
           <Button 
             variant="ghost" 
             onClick={() => navigate('/partners')}
-            className="group relative px-2 md:px-4 py-1.5 md:py-2 rounded-full bg-white/[0.06] border border-cyan-500/20 hover:bg-white/[0.1] hover:border-cyan-500/40 transition-all"
+            className="group relative px-3 py-2 rounded-full bg-white/[0.06] border border-cyan-500/20 hover:bg-white/[0.1] hover:border-cyan-500/40 transition-all flex-shrink-0"
             style={{ backdropFilter: 'blur(8px)' }}
           >
-            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2 text-white/80 group-hover:text-cyan-400 transition-colors" />
-            <span className="text-gray-200 font-medium tracking-wide text-xs md:text-sm lg:text-base">
+            <ArrowLeft className="h-4 w-4 text-white/80 group-hover:text-cyan-400 transition-colors" />
+            <span className="hidden sm:inline text-gray-200 font-medium tracking-wide text-sm ml-2">
               Back
             </span>
           </Button>
 
           {/* Right: Brand lockup + CTA */}
-          <div className="flex items-center gap-1.5 md:gap-3 lg:gap-5">
-            {/* Brand glyph with cyan glow - hidden on smallest screens */}
+          <div className="flex items-center gap-2 md:gap-3 lg:gap-5 flex-shrink-0">
+            {/* Brand glyph with cyan glow - hidden on mobile */}
             <div 
-              className="hidden sm:flex items-center justify-center w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
+              className="hidden md:flex items-center justify-center w-5 h-5 lg:w-6 lg:h-6"
               style={{ 
                 filter: 'drop-shadow(0 0 12px rgba(77,235,255,0.35))'
               }}
@@ -184,11 +184,11 @@ const scorecardData = [
             </div>
 
             {/* SYNTH pill - hidden on mobile */}
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <SynthButton variant="hidden-trigger" />
             </div>
             <div 
-              className="hidden md:block px-2 md:px-3 py-1 md:py-1.5 rounded-full border border-white/10 bg-white/[0.04]"
+              className="hidden lg:block px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04]"
               style={{ backdropFilter: 'blur(6px)' }}
             >
               <SynthButton variant="header" />
@@ -197,7 +197,7 @@ const scorecardData = [
             {/* VALID wordmark with gradient + TM */}
             <div className="flex items-baseline">
               <span 
-                className="font-bold font-orbitron tracking-[0.15em] md:tracking-[0.25em] text-sm md:text-lg lg:text-xl"
+                className="font-bold font-orbitron tracking-[0.15em] md:tracking-[0.25em] text-base md:text-lg lg:text-xl"
                 style={{ 
                   background: 'linear-gradient(135deg, #E9EEF5 0%, #7FEFFF 100%)',
                   WebkitBackgroundClip: 'text',
@@ -218,10 +218,9 @@ const scorecardData = [
 
             {/* Contact Us CTA */}
             <Button 
-              className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] text-[10px] md:text-xs lg:text-sm px-2 md:px-4 lg:px-6 py-1.5 md:py-2 h-7 md:h-9 lg:h-10"
+              className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] text-xs md:text-sm px-3 md:px-4 lg:px-6 py-2 h-8 md:h-9 lg:h-10"
               onClick={() => window.open("mailto:invest@bevalid.app", "_blank")}
             >
-              {/* Inner highlight */}
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
               Contact
             </Button>

@@ -15,7 +15,9 @@ import {
   Shield,
   Target,
   Briefcase,
-  BarChart3
+  BarChart3,
+  Lock,
+  Webhook
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -35,8 +37,11 @@ const navItems = [
   { id: "investor-crm", label: "Investor CRM", icon: Briefcase },
   { id: "quick-branding", label: "Fast Event Setup", icon: Zap },
   { id: "scanner", label: "QR Scanner", icon: QrCode },
+  { id: "idv-management", label: "IDV Management", icon: Shield },
+  { id: "access-control", label: "Access Control", icon: Lock },
   { id: "traffic", label: "Traffic Analytics", icon: BarChart3 },
-  { id: "pricing", label: "Pricing Reference", icon: DollarSign },
+  { id: "pricing", label: "Pricing & Contracts", icon: DollarSign },
+  { id: "webhooks", label: "Webhooks", icon: Webhook },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange }: AdminMobileNavProps) => {

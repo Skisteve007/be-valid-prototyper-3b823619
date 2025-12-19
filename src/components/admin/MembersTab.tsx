@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Download, Search, Users, UserPlus, Mail, Calendar, Tag, Copy, Send, CheckCircle2, Briefcase, TrendingUp } from "lucide-react";
+import { Loader2, Download, Search, Users, UserPlus, Mail, Calendar, Tag, Copy, Send, X } from "lucide-react";
 import { format } from "date-fns";
 
 interface Member {
@@ -283,6 +283,37 @@ export const MembersTab = () => {
     toast.success(`Selected ${expiredIds.length} expired member(s)`);
   };
 
+  const handleRevokeAccess = async (userId: string, accessType: "investor" | "partner") => {
+    try {
+      const updateData = accessType === "investor"
+        ? {
+            investor_access_approved: false,
+            investor_access_approved_at: null,
+            investor_access_requested_at: null,
+            access_approved_by: null,
+          }
+        : {
+            partner_access_approved: false,
+            partner_access_approved_at: null,
+            partner_access_requested_at: null,
+            access_approved_by: null,
+          };
+
+      const { error } = await supabase
+        .from("profiles")
+        .update(updateData)
+        .eq("user_id", userId);
+
+      if (error) throw error;
+
+      toast.success(`${accessType === "investor" ? "Investor" : "Partner"} access revoked`);
+      loadMembers();
+    } catch (error) {
+      console.error("Error revoking access:", error);
+      toast.error("Failed to revoke access");
+    }
+  };
+
   const filteredMembers = getFilteredMembers();
   const allFilteredSelected = filteredMembers.length > 0 && filteredMembers.every(m => selectedMembers.has(m.id));
 
@@ -522,17 +553,33 @@ export const MembersTab = () => {
                       <TableCell>{getExpiryDisplay(member)}</TableCell>
                       <TableCell>{getStatusBadge(member.status_color)}</TableCell>
                       <TableCell>
-                        <div className="flex items-center justify-center gap-2">
+                        <div className="flex items-center justify-center gap-1 flex-wrap">
                           {member.investor_access_approved && (
-                            <div className="flex items-center gap-1 text-cyan-500" title="Investor Deck Access">
-                              <TrendingUp className="h-4 w-4" />
-                              <CheckCircle2 className="h-3 w-3" />
+                            <div className="flex items-center gap-1">
+                              <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 text-xs">Investor</Badge>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-5 w-5 p-0 text-red-500 hover:text-red-400 hover:bg-red-500/20"
+                                onClick={() => handleRevokeAccess(member.user_id, "investor")}
+                                title="Revoke Investor Access"
+                              >
+                                <X className="w-3 h-3" />
+                              </Button>
                             </div>
                           )}
                           {member.partner_access_approved && (
-                            <div className="flex items-center gap-1 text-green-500" title="Partner Solutions Access">
-                              <Briefcase className="h-4 w-4" />
-                              <CheckCircle2 className="h-3 w-3" />
+                            <div className="flex items-center gap-1">
+                              <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50 text-xs">Partner</Badge>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-5 w-5 p-0 text-red-500 hover:text-red-400 hover:bg-red-500/20"
+                                onClick={() => handleRevokeAccess(member.user_id, "partner")}
+                                title="Revoke Partner Access"
+                              >
+                                <X className="w-3 h-3" />
+                              </Button>
                             </div>
                           )}
                           {!member.investor_access_approved && !member.partner_access_approved && (

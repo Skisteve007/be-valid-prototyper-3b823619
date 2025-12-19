@@ -383,9 +383,11 @@ export type Database = {
           deny_reason: string | null
           device_id: string | null
           id: string
+          operator_label: string | null
           scan_result: string
           scanned_user_id: string | null
           staff_user_id: string | null
+          station_label: string | null
           synced_at: string | null
           venue_id: string
         }
@@ -394,9 +396,11 @@ export type Database = {
           deny_reason?: string | null
           device_id?: string | null
           id?: string
+          operator_label?: string | null
           scan_result: string
           scanned_user_id?: string | null
           staff_user_id?: string | null
+          station_label?: string | null
           synced_at?: string | null
           venue_id: string
         }
@@ -405,9 +409,11 @@ export type Database = {
           deny_reason?: string | null
           device_id?: string | null
           id?: string
+          operator_label?: string | null
           scan_result?: string
           scanned_user_id?: string | null
           staff_user_id?: string | null
+          station_label?: string | null
           synced_at?: string | null
           venue_id?: string
         }
@@ -1156,6 +1162,76 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      operator_events: {
+        Row: {
+          created_at: string
+          current_station_label: string | null
+          device_id: string | null
+          event_type: Database["public"]["Enums"]["operator_event_type"]
+          from_station_label: string | null
+          id: string
+          metadata: Json | null
+          operator_label: string
+          operator_verification: Database["public"]["Enums"]["operator_verification_type"]
+          scan_log_id: string | null
+          timestamp: string
+          to_station_label: string | null
+          venue_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          current_station_label?: string | null
+          device_id?: string | null
+          event_type: Database["public"]["Enums"]["operator_event_type"]
+          from_station_label?: string | null
+          id?: string
+          metadata?: Json | null
+          operator_label: string
+          operator_verification?: Database["public"]["Enums"]["operator_verification_type"]
+          scan_log_id?: string | null
+          timestamp?: string
+          to_station_label?: string | null
+          venue_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          current_station_label?: string | null
+          device_id?: string | null
+          event_type?: Database["public"]["Enums"]["operator_event_type"]
+          from_station_label?: string | null
+          id?: string
+          metadata?: Json | null
+          operator_label?: string
+          operator_verification?: Database["public"]["Enums"]["operator_verification_type"]
+          scan_log_id?: string | null
+          timestamp?: string
+          to_station_label?: string | null
+          venue_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "operator_events_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "venue_devices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "operator_events_scan_log_id_fkey"
+            columns: ["scan_log_id"]
+            isOneToOne: false
+            referencedRelation: "door_scan_log"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "operator_events_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -3663,6 +3739,14 @@ export type Database = {
         | "paid"
         | "active_member"
         | "administrator"
+      operator_event_type:
+        | "STATION_SWITCH"
+        | "SHIFT_START"
+        | "SHIFT_END"
+        | "SCAN_PERFORMED"
+        | "STATION_LOGIN"
+        | "STATION_LOGOUT"
+      operator_verification_type: "self_entered" | "pin" | "biometric_future"
       order_status:
         | "pending"
         | "sample_collected"
@@ -3859,6 +3943,15 @@ export const Constants = {
         "active_member",
         "administrator",
       ],
+      operator_event_type: [
+        "STATION_SWITCH",
+        "SHIFT_START",
+        "SHIFT_END",
+        "SCAN_PERFORMED",
+        "STATION_LOGIN",
+        "STATION_LOGOUT",
+      ],
+      operator_verification_type: ["self_entered", "pin", "biometric_future"],
       order_status: [
         "pending",
         "sample_collected",

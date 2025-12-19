@@ -95,3 +95,6 @@ verify_jwt = false
 
 [functions.door-scan]
 verify_jwt = false
+
+[functions.log-operator-event]
+verify_jwt = false

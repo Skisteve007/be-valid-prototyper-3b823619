@@ -55,9 +55,9 @@ const TrustCenterPill: React.FC<TrustCenterPillProps> = ({
     }
   };
 
-  // Toggle expansion - works on mobile AND desktop
+  // Navigate directly to Trust Center upload page
   const handlePillClick = () => {
-    setIsExpanded(!isExpanded);
+    navigate('/trust-center');
   };
 
   // Navigate to Trust Center full page

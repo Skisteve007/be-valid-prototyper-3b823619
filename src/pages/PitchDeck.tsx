@@ -957,7 +957,7 @@ const scorecardData = [
         <SectionDivider label="Investment" />
 
         {/* ===== USE OF FUNDS ===== */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 2.5vw, 36px)' }}>
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(16px, 2vw, 28px)' }}>
           <div className="text-center">
             <span 
               className="inline-flex items-center gap-2 rounded-full font-bold tracking-wide text-black animate-[pulse_3s_ease-in-out_infinite] font-orbitron"
@@ -970,24 +970,70 @@ const scorecardData = [
             >
               Use of Funds
             </span>
-            <p className="text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginTop: 'clamp(12px, 1.2vw, 18px)' }}>Tranche 1: $200,000</p>
+            <div style={{ marginTop: 'clamp(16px, 1.8vw, 24px)' }}>
+              <span className="text-gray-400" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>Tranche 1: </span>
+              <span 
+                className="font-bold font-orbitron animate-[pulse_3s_ease-in-out_infinite]"
+                style={{ 
+                  fontSize: 'clamp(32px, 3vw, 52px)', 
+                  color: '#00ff88',
+                  textShadow: '0 0 20px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.5), 0 0 60px rgba(0, 255, 136, 0.3)',
+                }}
+              >
+                $200,000
+              </span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
-            {[
-              { category: "Sales & Marketing", percent: 40, outcome: "First 50 venues", color: "bg-cyan-500" },
-              { category: "Product Dev", percent: 30, outcome: "UWB + NFC integration", color: "bg-purple-500" },
-              { category: "Operations", percent: 20, outcome: "Team scale to 5", color: "bg-green-500" },
-              { category: "Reserve", percent: 10, outcome: "12-month runway buffer", color: "bg-orange-500" },
-            ].map((item, idx) => (
-              <div key={idx} className="bg-black/40 border border-white/10 rounded-lg text-center" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-                <div className={`${item.color} rounded-full flex items-center justify-center text-black font-bold mx-auto`} style={{ width: 'clamp(48px, 4vw, 64px)', height: 'clamp(48px, 4vw, 64px)', fontSize: 'clamp(14px, 1.2vw, 18px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }}>
-                  {item.percent}%
+          {/* Horizontal Bar Chart */}
+          <div className="bg-black/50 border border-white/10 rounded-xl" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+            <div className="flex flex-col" style={{ gap: 'clamp(12px, 1.2vw, 18px)' }}>
+              {[
+                { category: "Sales & Marketing", percent: 40, outcome: "First 50 venues", color: "#00bfff" },
+                { category: "Product Dev", percent: 30, outcome: "UWB + NFC integration", color: "#a855f7" },
+                { category: "Operations", percent: 20, outcome: "Team scale to 5", color: "#22c55e" },
+                { category: "Reserve", percent: 10, outcome: "12-month runway buffer", color: "#f97316" },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center" style={{ gap: 'clamp(12px, 1.5vw, 20px)' }}>
+                  {/* Label */}
+                  <div className="flex-shrink-0 text-right" style={{ width: 'clamp(100px, 12vw, 160px)' }}>
+                    <span className="text-white font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 17px)' }}>{item.category}</span>
+                  </div>
+                  {/* Bar */}
+                  <div className="flex-1 h-8 bg-white/10 rounded-full overflow-hidden relative">
+                    <div 
+                      className="h-full rounded-full flex items-center justify-end transition-all"
+                      style={{ 
+                        width: `${item.percent}%`, 
+                        background: `linear-gradient(90deg, ${item.color}80 0%, ${item.color} 100%)`,
+                        boxShadow: `0 0 15px ${item.color}60`,
+                      }}
+                    >
+                      <span className="text-black font-bold px-3" style={{ fontSize: 'clamp(12px, 1vw, 16px)' }}>{item.percent}%</span>
+                    </div>
+                  </div>
+                  {/* Outcome */}
+                  <div className="flex-shrink-0 hidden md:block" style={{ width: 'clamp(120px, 14vw, 180px)' }}>
+                    <span className="text-gray-400" style={{ fontSize: 'clamp(12px, 0.9vw, 15px)' }}>{item.outcome}</span>
+                  </div>
                 </div>
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>{item.category}</h4>
-                <p className="text-gray-500 mt-2" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>{item.outcome}</p>
+              ))}
+            </div>
+            {/* Mobile outcomes */}
+            <div className="md:hidden mt-4 pt-4 border-t border-white/10">
+              <div className="grid grid-cols-2 gap-2 text-center">
+                {[
+                  { category: "Sales", outcome: "First 50 venues" },
+                  { category: "Product", outcome: "UWB + NFC" },
+                  { category: "Operations", outcome: "Team scale to 5" },
+                  { category: "Reserve", outcome: "12-mo runway" },
+                ].map((item, idx) => (
+                  <div key={idx} className="text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 13px)' }}>
+                    <span className="text-white">{item.category}:</span> {item.outcome}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </section>
 

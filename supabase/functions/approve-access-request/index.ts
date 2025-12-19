@@ -86,9 +86,9 @@ const handler = async (req: Request): Promise<Response> => {
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "VALID Access Control <onboarding@resend.dev>",
+          from: "VALID™ Access Control <noreply@bevalid.app>",
           to: [profile.email],
-          subject: `✅ Your ${accessLabel} Access Has Been Approved`,
+          subject: `VALID™ Access Control — ${accessLabel} approved`,
           html: `
             <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #ffffff; padding: 40px; border-radius: 12px; border: 1px solid #00f0ff33;">
               <h1 style="color: #00f0ff; margin-bottom: 24px; font-size: 24px;">✅ Access Approved!</h1>
@@ -113,8 +113,14 @@ const handler = async (req: Request): Promise<Response> => {
         }),
       });
       
-      const emailResponse = await emailRes.json();
-      console.log("User notification email response:", JSON.stringify(emailResponse));
+        const emailResponse = await emailRes.json();
+        console.log("User notification email response:", JSON.stringify(emailResponse));
+
+        if (!emailRes.ok) {
+          console.error("Resend user notification email error:", emailResponse);
+        } else {
+          console.log("User notification email sent successfully");
+        }
     }
 
     console.log(`Access approved for ${profile.email} - ${accessType}`);

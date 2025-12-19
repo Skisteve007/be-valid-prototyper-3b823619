@@ -95,99 +95,105 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
     </div>
   );
 
-  const renderStatsSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-8 py-4 sm:py-12">
-      <h2 
-        className="font-bold mb-3 sm:mb-8"
-        style={{ 
-          fontSize: 'clamp(22px, 7vw, 80px)',
-          color: '#00E5E5',
-          textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
-        }}
-      >
-        {slide.title}
-      </h2>
-      {slide.subtitle && (
-        <p 
-          className="mb-4 sm:mb-10"
+  const renderStatsSlide = () => {
+    const statsCount = slide.stats?.length || 0;
+    const isCompact = statsCount > 6;
+    
+    return (
+      <div className={`flex flex-col items-center h-full text-center px-3 sm:px-6 ${isCompact ? 'py-2 sm:py-4 justify-start pt-2 sm:pt-4' : 'py-4 sm:py-12 justify-center'}`}>
+        <h2 
+          className={`font-bold ${isCompact ? 'mb-1 sm:mb-2' : 'mb-3 sm:mb-8'}`}
           style={{ 
-            fontSize: 'clamp(12px, 3vw, 32px)',
-            color: 'rgba(255, 255, 255, 0.7)'
-          }}
-        >
-          {slide.subtitle}
-        </p>
-      )}
-      {slide.stats && (
-        <div className="flex flex-wrap justify-center gap-3 sm:gap-6 md:gap-10 mb-4 sm:mb-8">
-          {slide.stats.map((stat, i) => (
-            <div 
-              key={i}
-              className="text-center px-3 sm:px-6 py-2 sm:py-4"
-              style={{
-                background: 'rgba(0, 229, 229, 0.05)',
-                border: '1px solid rgba(0, 229, 229, 0.2)',
-                borderRadius: '12px',
-                boxShadow: '0 0 30px rgba(0, 229, 229, 0.1)'
-              }}
-            >
-              <div 
-                className="font-bold"
-                style={{ 
-                  fontSize: 'clamp(20px, 5vw, 56px)',
-                  background: chromeGradient,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  filter: 'brightness(1.15) contrast(1.2)',
-                  textShadow: '0 0 20px rgba(255, 255, 255, 0.3)'
-                }}
-              >
-                {stat.value}
-              </div>
-              <div 
-                style={{ 
-                  fontSize: 'clamp(10px, 2vw, 22px)',
-                  color: '#00E5E5',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em'
-                }}
-              >
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-      {slide.content && (
-        <div className="space-y-1 sm:space-y-2 max-w-3xl">
-          {slide.content.map((text, i) => (
-            <p 
-              key={i}
-              className="text-white/70"
-              style={{ fontSize: 'clamp(11px, 2vw, 24px)' }}
-            >
-              {text}
-            </p>
-          ))}
-        </div>
-      )}
-      {slide.highlight && (
-        <div 
-          className="mt-4 sm:mt-8 px-4 sm:px-8 py-2 sm:py-3 rounded-full"
-          style={{
-            background: 'rgba(0, 229, 229, 0.15)',
-            border: '1px solid rgba(0, 229, 229, 0.4)',
+            fontSize: isCompact ? 'clamp(18px, 5vw, 50px)' : 'clamp(22px, 7vw, 80px)',
             color: '#00E5E5',
-            fontSize: 'clamp(11px, 2vw, 24px)',
-            fontWeight: 'bold',
-            textShadow: '0 0 10px rgba(0, 229, 229, 0.5)'
+            textShadow: '0 0 25px rgba(0, 229, 229, 0.5)'
           }}
         >
-          {slide.highlight}
-        </div>
-      )}
-    </div>
-  );
+          {slide.title}
+        </h2>
+        {slide.subtitle && (
+          <p 
+            className={isCompact ? 'mb-1 sm:mb-2' : 'mb-4 sm:mb-10'}
+            style={{ 
+              fontSize: isCompact ? 'clamp(9px, 2vw, 22px)' : 'clamp(12px, 3vw, 32px)',
+              color: 'rgba(255, 255, 255, 0.7)'
+            }}
+          >
+            {slide.subtitle}
+          </p>
+        )}
+        {slide.stats && (
+          <div className={`flex flex-wrap justify-center ${isCompact ? 'gap-1.5 sm:gap-2 md:gap-3 mb-1 sm:mb-2' : 'gap-3 sm:gap-6 md:gap-10 mb-4 sm:mb-8'}`}>
+            {slide.stats.map((stat, i) => (
+              <div 
+                key={i}
+                className={`text-center ${isCompact ? 'px-2 sm:px-3 py-1 sm:py-2' : 'px-3 sm:px-6 py-2 sm:py-4'}`}
+                style={{
+                  background: 'rgba(0, 229, 229, 0.05)',
+                  border: '1px solid rgba(0, 229, 229, 0.2)',
+                  borderRadius: isCompact ? '8px' : '12px',
+                  boxShadow: '0 0 30px rgba(0, 229, 229, 0.1)',
+                  minWidth: isCompact ? 'clamp(70px, 15vw, 120px)' : undefined
+                }}
+              >
+                <div 
+                  className="font-bold"
+                  style={{ 
+                    fontSize: isCompact ? 'clamp(12px, 3vw, 32px)' : 'clamp(20px, 5vw, 56px)',
+                    background: chromeGradient,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'brightness(1.15) contrast(1.2)',
+                    textShadow: '0 0 20px rgba(255, 255, 255, 0.3)'
+                  }}
+                >
+                  {stat.value}
+                </div>
+                <div 
+                  style={{ 
+                    fontSize: isCompact ? 'clamp(7px, 1.5vw, 14px)' : 'clamp(10px, 2vw, 22px)',
+                    color: '#00E5E5',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.03em'
+                  }}
+                >
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {slide.content && (
+          <div className={`${isCompact ? 'space-y-0.5 sm:space-y-1' : 'space-y-1 sm:space-y-2'} max-w-3xl`}>
+            {slide.content.map((text, i) => (
+              <p 
+                key={i}
+                className="text-white/70"
+                style={{ fontSize: isCompact ? 'clamp(8px, 1.5vw, 16px)' : 'clamp(11px, 2vw, 24px)' }}
+              >
+                {text}
+              </p>
+            ))}
+          </div>
+        )}
+        {slide.highlight && (
+          <div 
+            className={`${isCompact ? 'mt-1 sm:mt-2 px-3 sm:px-5 py-1 sm:py-2' : 'mt-4 sm:mt-8 px-4 sm:px-8 py-2 sm:py-3'} rounded-full`}
+            style={{
+              background: 'rgba(0, 229, 229, 0.15)',
+              border: '1px solid rgba(0, 229, 229, 0.4)',
+              color: '#00E5E5',
+              fontSize: isCompact ? 'clamp(8px, 1.5vw, 16px)' : 'clamp(11px, 2vw, 24px)',
+              fontWeight: 'bold',
+              textShadow: '0 0 10px rgba(0, 229, 229, 0.5)'
+            }}
+          >
+            {slide.highlight}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const renderBulletsSlide = () => {
     const bulletCount = slide.bullets?.length || 0;

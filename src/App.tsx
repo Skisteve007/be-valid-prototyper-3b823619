@@ -94,6 +94,7 @@ const GhostwareQR = lazy(() => import("./pages/GhostwareQR"));
 const DoorDevice = lazy(() => import("./pages/DoorDevice"));
 const StadiumPricingModel = lazy(() => import("./pages/StadiumPricingModel"));
 const TransportationPricingModel = lazy(() => import("./pages/TransportationPricingModel"));
+const SalesTrainingFees = lazy(() => import("./pages/SalesTrainingFees"));
 
 const queryClient = new QueryClient();
 
@@ -228,6 +229,7 @@ const App = () => (
                   <Route path="/door" element={<DoorDevice />} />
                   <Route path="/pricing/stadiums" element={<StadiumPricingModel />} />
                   <Route path="/pricing/transportation" element={<TransportationPricingModel />} />
+                  <Route path="/sales/fee-comparison" element={<SalesTrainingFees />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

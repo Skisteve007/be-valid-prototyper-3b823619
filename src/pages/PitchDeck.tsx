@@ -328,28 +328,75 @@ const scorecardData = [
 
         <SectionDivider label="Proof" />
 
-        {/* ===== PILLAR A: PROOF ===== */}
+        {/* ===== PILLAR A: PROOF — LAUNCH READINESS ===== */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(28px, 3.5vw, 48px)' }}>
           <SectionHeader 
             icon={Activity} 
             label="PILLAR A — PROOF" 
-            title="Traction & Why Now"
-            subtitle="Revenue generating with demonstrated product-market fit"
+            title="Launch Readiness & Why Now"
+            subtitle="Production-grade verification, now entering pilots"
           />
 
-          {/* Current Traction */}
+          {/* This Week (Pilot Readiness) Metrics */}
           <div>
-            <h3 className="tracking-[0.2em] uppercase text-gray-400 text-center font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(20px, 2.5vw, 32px)' }}>Current Traction</h3>
+            <h3 className="tracking-[0.2em] uppercase text-cyan-400 text-center font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(20px, 2.5vw, 32px)' }}>This Week (Pilot Readiness)</h3>
             <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(16px, 2vw, 32px)' }}>
-              {metrics.map((metric, idx) => (
+              {[
+                { value: "< 2 sec", label: "Decision latency target", sublabel: "(Door Mode)", icon: Zap, color: "text-cyan-400" },
+                { value: "60s", label: "Self-destructing QR TTL", sublabel: "(anti-replay)", icon: Clock, color: "text-amber-400" },
+                { value: "Front + Back", label: "Visual match verification", sublabel: "(door-ready)", icon: Fingerprint, color: "text-purple-400" },
+                { value: "Q1 2025", label: "Pilot Launch Target", sublabel: "Now onboarding testers", icon: Rocket, color: "text-green-400" },
+              ].map((metric, idx) => (
                 <Card key={idx} className="bg-black/50 border-white/10 hover:border-cyan-500/40 transition-all rounded-xl">
-                  <CardContent className="text-center" style={{ padding: 'clamp(24px, 2.5vw, 36px)' }}>
-                    <metric.icon className={`mx-auto ${metric.color}`} style={{ width: 'clamp(30px, 2.4vw, 38px)', height: 'clamp(30px, 2.4vw, 38px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }} />
-                    <div className="font-bold text-white" style={{ fontSize: 'clamp(28px, 2.4vw, 40px)' }}>{metric.value}</div>
-                    {metric.subtext && <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>{metric.subtext}</div>}
-                    <div className="text-gray-300 mt-2" style={{ fontSize: 'clamp(14px, 1vw, 17px)' }}>{metric.label}</div>
+                  <CardContent className="text-center" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+                    <metric.icon className={`mx-auto ${metric.color}`} style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
+                    <div className="font-bold text-white" style={{ fontSize: 'clamp(22px, 2vw, 34px)' }}>{metric.value}</div>
+                    <div className="text-gray-300 mt-1" style={{ fontSize: 'clamp(12px, 0.9vw, 15px)' }}>{metric.label}</div>
+                    <div className="text-gray-500" style={{ fontSize: 'clamp(10px, 0.8vw, 13px)' }}>{metric.sublabel}</div>
                   </CardContent>
                 </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* What's Already Working */}
+          <div className="bg-gradient-to-br from-green-950/30 to-cyan-950/20 border border-green-500/30 rounded-xl" style={{ padding: 'clamp(24px, 2.5vw, 40px)' }}>
+            <h4 className="font-bold text-green-400 tracking-[0.15em] uppercase text-center" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}>
+              What's Already Working
+            </h4>
+            <div className="grid md:grid-cols-2" style={{ gap: 'clamp(12px, 1.2vw, 20px)' }}>
+              {[
+                "Door-ready kiosk flow (stay-awake, scan loop, instant reset)",
+                "Ephemeral QR (60s) + screenshot-resistant replays",
+                "ID front/back viewer with CLEAR/KILL for staff control",
+                "Audit events for scans + station switches (incident-ready)",
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-start gap-3">
+                  <CheckCircle2 className="text-green-400 flex-shrink-0 mt-0.5" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
+                  <span className="text-gray-200" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.5' }}>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Pilot Traction (Updating Live) */}
+          <div className="bg-black/40 border border-white/10 rounded-xl" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+            <h4 className="font-semibold text-gray-400 tracking-[0.12em] uppercase text-center" style={{ fontSize: 'clamp(12px, 0.95vw, 15px)', marginBottom: 'clamp(14px, 1.3vw, 22px)' }}>
+              Pilot Traction (Updating Live)
+            </h4>
+            <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+              {[
+                { label: "Partner Venues", status: "Pilot outreach in progress", icon: Building2 },
+                { label: "Markets", status: "Launching in 1 market first", icon: Globe },
+                { label: "Member Growth", status: "Collecting baseline this week", icon: TrendingUp },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 bg-black/30 rounded-lg" style={{ padding: 'clamp(12px, 1.2vw, 20px)' }}>
+                  <item.icon className="text-gray-500 flex-shrink-0" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <div>
+                    <div className="text-white font-medium" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>{item.label}</div>
+                    <div className="text-gray-500 italic" style={{ fontSize: 'clamp(11px, 0.85vw, 14px)' }}>{item.status}</div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>

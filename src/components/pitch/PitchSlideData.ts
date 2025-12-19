@@ -134,8 +134,8 @@ export const pitchSlides: SlideData[] = [
   },
   {
     id: 11,
-    title: "TEAM",
-    subtitle: "The Architect",
+    title: "THE ARCHITECT",
+    subtitle: "Steven A. Grillo",
     content: [
       "Founder & CEO of VALID™: The First \"Zero-Knowledge\" Verification Platform.",
       "I am a \"Full-Cycle\" Serial Entrepreneur who has built multiple businesses from the ground up to exit.",

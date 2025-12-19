@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2, DollarSign, TrendingUp, Percent, Building2, Save } from "lucide-react";
+import { VenuePayoutManager } from "@/components/venue/VenuePayoutManager";
 
 interface VenueData {
   id: string;
@@ -139,6 +140,9 @@ export const VenueBossDashboard = ({ venueId }: VenueBossDashboardProps) => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Payout Manager */}
+      <VenuePayoutManager venueId={venueId} venueName={venue.venue_name} />
 
       {/* Commission Settings */}
       <Card>

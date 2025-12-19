@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen, Webhook } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -34,6 +34,7 @@ import StaffShiftManager from "@/components/admin/StaffShiftManager";
 import AffiliateCommissionManager from "@/components/admin/AffiliateCommissionManager";
 import TrafficAnalytics from "@/components/admin/TrafficAnalytics";
 import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
+import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import {
   DndContext,
   closestCenter,
@@ -661,6 +662,10 @@ const Admin = () => {
             <TabsTrigger value="pricing" className="cursor-pointer text-xs px-2 py-2">
               💰 Pricing
             </TabsTrigger>
+            <TabsTrigger value="webhooks" className="cursor-pointer text-xs px-2 py-2">
+              <Webhook className="h-3 w-3 mr-1" />
+              Webhooks
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="members" className="space-y-8">
@@ -1011,6 +1016,10 @@ const Admin = () => {
           
           <TabsContent value="pricing">
             <PricingReferenceTab />
+          </TabsContent>
+          
+          <TabsContent value="webhooks">
+            <WebhookEventsViewer />
           </TabsContent>
         </Tabs>
       </main>

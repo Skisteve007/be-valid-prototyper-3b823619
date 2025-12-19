@@ -154,31 +154,86 @@ const scorecardData = [
         <div className="absolute bottom-[-10%] left-[20%] w-[400px] h-[400px] bg-blue-600/8 rounded-full blur-[100px]"></div>
       </div>
 
-      {/* Header */}
-      <header className="border-b border-white/10 bg-black/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      {/* Header — Premium Redesign */}
+      <header className="border-b border-white/[0.06] bg-black/90 backdrop-blur-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 flex justify-between items-center" style={{ height: 'clamp(64px, 5vw, 76px)' }}>
+          {/* Left: Partner Solutions with premium pill */}
           <Button 
             variant="ghost" 
             onClick={() => navigate('/partners')}
-            className="text-gray-400 hover:text-white hover:bg-white/10"
+            className="group relative px-4 py-2 rounded-full bg-white/[0.06] border border-cyan-500/20 hover:bg-white/[0.1] hover:border-cyan-500/40 transition-all"
+            style={{ backdropFilter: 'blur(8px)' }}
           >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            Partner Solutions
-          </Button>
-          <div className="flex items-center gap-4">
-            <SynthButton variant="hidden-trigger" />
-            <SynthButton variant="header" />
-            <span className="text-xl font-bold font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">
-              VALID<sup className="text-xs text-cyan-400">™</sup>
+            <ArrowLeft className="h-4 w-4 mr-2 text-gray-400 group-hover:text-cyan-400 transition-colors" />
+            <span className="text-gray-200 font-medium tracking-wide" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>
+              Partner Solutions
             </span>
+          </Button>
+
+          {/* Right: Brand lockup + CTA */}
+          <div className="flex items-center gap-5">
+            {/* Brand glyph with cyan glow */}
+            <div 
+              className="flex items-center justify-center"
+              style={{ 
+                width: 'clamp(20px, 1.6vw, 24px)', 
+                height: 'clamp(20px, 1.6vw, 24px)',
+                filter: 'drop-shadow(0 0 12px rgba(77,235,255,0.35))'
+              }}
+            >
+              <Sparkles className="w-full h-full text-cyan-400" />
+            </div>
+
+            {/* SYNTH pill */}
+            <SynthButton variant="hidden-trigger" />
+            <div 
+              className="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04]"
+              style={{ backdropFilter: 'blur(6px)' }}
+            >
+              <SynthButton variant="header" />
+            </div>
+
+            {/* VALID wordmark with gradient + TM */}
+            <div className="flex items-baseline">
+              <span 
+                className="font-bold font-orbitron tracking-[0.25em]"
+                style={{ 
+                  fontSize: 'clamp(20px, 1.6vw, 26px)',
+                  background: 'linear-gradient(135deg, #E9EEF5 0%, #7FEFFF 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  textShadow: '0 0 30px rgba(0,240,255,0.3)'
+                }}
+              >
+                VALID
+              </span>
+              <sup 
+                className="text-cyan-400 font-medium ml-0.5" 
+                style={{ fontSize: 'clamp(9px, 0.7vw, 11px)', position: 'relative', top: '-0.6em' }}
+              >
+                ™
+              </sup>
+            </div>
+
+            {/* Contact Us CTA */}
             <Button 
-              className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+              className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
+              style={{ 
+                fontSize: 'clamp(13px, 1vw, 15px)', 
+                padding: 'clamp(10px, 1vw, 14px) clamp(18px, 1.8vw, 28px)',
+                height: 'clamp(40px, 3vw, 48px)'
+              }}
               onClick={() => window.open("mailto:invest@bevalid.app", "_blank")}
             >
+              {/* Inner highlight */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
               Contact Us
             </Button>
           </div>
         </div>
+        {/* Bottom divider with fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
       </header>
 
       <main className="container mx-auto px-4 md:px-8 relative z-10" style={{ maxWidth: '1320px', paddingTop: 'clamp(32px, 4vw, 64px)', paddingBottom: 'clamp(32px, 4vw, 64px)' }}>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import SynthButton from "@/components/SynthButton";
 
 const slidesData = [
   {
@@ -314,9 +315,13 @@ const CinematicPitchDeck: React.FC = () => {
         VALID™
       </div>
 
-      {/* Slide Counter */}
-      <div className="fixed top-6 right-6 z-20 text-foreground/30 text-xs font-mono tracking-widest">
-        PITCH DECK 2025
+      {/* Top-right: hidden trigger + slide counter */}
+      <div className="fixed top-6 right-6 z-20 flex items-center gap-3">
+        <SynthButton variant="hidden-trigger" />
+        <SynthButton variant="header" />
+        <div className="text-foreground/30 text-xs font-mono tracking-widest">
+          PITCH DECK 2025
+        </div>
       </div>
     </div>
   );

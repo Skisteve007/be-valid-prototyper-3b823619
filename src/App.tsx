@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AgeGate } from "./components/AgeGate";
 import { AccessGate } from "./components/AccessGate";
 import Footer from "./components/Footer";
+import SynthButton from "@/components/SynthButton";
 // SiteGate removed as global wrapper - use AccessGate for protected routes instead
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -114,6 +115,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
             <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
+              <SynthButton variant="fab" />
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   {/* PUBLIC ROUTES - No SiteGate protection */}
@@ -152,8 +154,7 @@ const App = () => (
                   <Route path="/investor-portal" element={<AgeGate><AccessGate accessType="investor"><InvestorPortal /></AccessGate></AgeGate>} />
                   <Route path="/investors" element={<AgeGate><AccessGate accessType="investor"><InvestorPortal /></AccessGate></AgeGate>} />
                   <Route path="/pitch-deck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
-                  
-                  {/* PARTNER ROUTES - Protected */}
+                  <Route path="/pitchdeck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
                   <Route path="/partners" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
                   <Route path="/partners/verification" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
                   <Route path="/partners/integrated-health-compliance" element={<IntegratedHealthCompliance />} />

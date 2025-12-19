@@ -376,26 +376,90 @@ export function PricingContractsTab() {
                   {pkg.volume_tiers && Array.isArray(pkg.volume_tiers) && pkg.volume_tiers.length > 0 && (
                     <div>
                       <Label className="text-xs">Volume Tiers</Label>
-                      <Table className="mt-2">
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>Tier</TableHead>
-                            <TableHead>Volume Range</TableHead>
-                            <TableHead className="text-right">Per-Scan Fee</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {(pkg.volume_tiers as any[]).map((tier: any) => (
-                            <TableRow key={tier.tier}>
-                              <TableCell className="font-medium">Tier {tier.tier}</TableCell>
-                              <TableCell>{tier.label}</TableCell>
-                              <TableCell className="text-right text-emerald-400 font-semibold">
-                                ${tier.per_scan_fee.toFixed(2)}
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
+                      {(() => {
+                        const tiers = pkg.volume_tiers as any[];
+                        const hasPerScanFee = tiers.some((t) => typeof t?.per_scan_fee === "number");
+                        const hasSaasMonthly = tiers.some((t) => t?.saas_monthly != null);
+
+                        if (hasPerScanFee) {
+                          return (
+                            <Table className="mt-2">
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead>Tier</TableHead>
+                                  <TableHead>Volume Range</TableHead>
+                                  <TableHead className="text-right">Per-Scan Fee</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                {tiers.map((tier: any, idx: number) => {
+                                  const fee = tier?.per_scan_fee;
+                                  return (
+                                    <TableRow key={tier?.tier ?? idx}>
+                                      <TableCell className="font-medium">Tier {tier?.tier ?? "—"}</TableCell>
+                                      <TableCell>{tier?.label ?? "—"}</TableCell>
+                                      <TableCell className="text-right text-emerald-400 font-semibold">
+                                        {typeof fee === "number" ? `$${fee.toFixed(2)}` : "—"}
+                                      </TableCell>
+                                    </TableRow>
+                                  );
+                                })}
+                              </TableBody>
+                            </Table>
+                          );
+                        }
+
+                        if (hasSaasMonthly) {
+                          return (
+                            <Table className="mt-2">
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead>Tier</TableHead>
+                                  <TableHead>Driver Range</TableHead>
+                                  <TableHead className="text-right">SaaS Monthly</TableHead>
+                                  <TableHead className="text-right">Included Checks</TableHead>
+                                  <TableHead className="text-right">Overage Rate</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                {tiers.map((tier: any, idx: number) => {
+                                  const min = tier?.min_drivers;
+                                  const max = tier?.max_drivers;
+                                  const driverRange =
+                                    min != null || max != null
+                                      ? `${min ?? "—"}–${max ?? "∞"}`
+                                      : tier?.label ?? "—";
+                                  const saasMonthly = tier?.saas_monthly;
+                                  const includedChecks = tier?.included_checks;
+                                  const overageRate = tier?.overage_rate;
+
+                                  return (
+                                    <TableRow key={tier?.tier ?? idx}>
+                                      <TableCell className="font-medium">{tier?.tier ?? "—"}</TableCell>
+                                      <TableCell>{driverRange}</TableCell>
+                                      <TableCell className="text-right">
+                                        {typeof saasMonthly === "number" ? `$${saasMonthly.toLocaleString()}` : "—"}
+                                      </TableCell>
+                                      <TableCell className="text-right">
+                                        {typeof includedChecks === "number" ? includedChecks : "—"}
+                                      </TableCell>
+                                      <TableCell className="text-right">
+                                        {typeof overageRate === "number" ? `$${overageRate.toFixed(2)}` : "—"}
+                                      </TableCell>
+                                    </TableRow>
+                                  );
+                                })}
+                              </TableBody>
+                            </Table>
+                          );
+                        }
+
+                        return (
+                          <pre className="mt-2 rounded-md border border-border bg-muted/30 p-3 text-xs overflow-auto">
+                            {JSON.stringify(tiers, null, 2)}
+                          </pre>
+                        );
+                      })()}
                     </div>
                   )}
                 </CardContent>

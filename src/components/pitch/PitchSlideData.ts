@@ -168,9 +168,13 @@ export const pitchSlides: SlideData[] = [
     subtitle: "10 Streams — Every Scan = Revenue",
     stats: [
       { label: "Transaction Fees", value: "1.5%" },
-      { label: "Member Subs", value: "$39/60 days" },
+      { label: "Member Subs", value: "$19/60 days" },
       { label: "GHOST™ Passes", value: "$10/$20/$50" },
+      { label: "Community Pool", value: "Weekly" },
+      { label: "Health/Lab Margins", value: "40-60%" },
       { label: "Venue Licensing", value: "$99–$7.5K/mo" },
+      { label: "Per-User Fees", value: "$3–$8/mo" },
+      { label: "Verification Fees", value: "$50–$100" },
       { label: "GAS FEES", value: "$0.05–$0.50/scan" },
       { label: "Wallet Funding", value: "$1.99–$149.99" }
     ],

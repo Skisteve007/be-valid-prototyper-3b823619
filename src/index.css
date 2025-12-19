@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Body uses Inter, display headings use Space Grotesk */
+/* Body uses Exo 2, display headings use Space Grotesk */
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Exo', 'Exo 2', system-ui, -apple-system, sans-serif;
+}
+
+/* Universal Exo 2 font for entire site */
+* {
+  font-family: 'Exo', 'Exo 2', system-ui, -apple-system, sans-serif;
 }
 
 /* Prevent CLS from images and media */

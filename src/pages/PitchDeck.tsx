@@ -802,6 +802,63 @@ const scorecardData = [
             </Accordion>
           </div>
 
+          {/* ===== TOAST & SQUARE COMPARISON ===== */}
+          <div className="grid md:grid-cols-2" style={{ gap: 'clamp(20px, 2vw, 32px)', marginTop: 'clamp(32px, 3vw, 48px)' }}>
+            {/* VALID vs Toast */}
+            <div className="bg-gradient-to-br from-orange-950/40 to-black/60 border border-orange-500/40 rounded-xl overflow-hidden" style={{ padding: 'clamp(24px, 2.5vw, 40px)' }}>
+              <div className="flex items-center justify-between mb-6">
+                <h4 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)' }}>VALID vs Toast</h4>
+                <span className="bg-orange-500/20 text-orange-400 font-bold rounded-full" style={{ padding: 'clamp(6px, 0.6vw, 10px) clamp(12px, 1.2vw, 20px)', fontSize: 'clamp(12px, 0.9vw, 14px)' }}>POS Competitor</span>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <XCircle className="text-red-400 flex-shrink-0 mt-1" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <div>
+                    <span className="text-white font-semibold" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>Toast:</span>
+                    <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>No identity verification. No health compliance. Payment only. 2.6% + 30¢ fees.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="text-emerald-400 flex-shrink-0 mt-1 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <div>
+                    <span className="text-cyan-400 font-semibold" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>VALID:</span>
+                    <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>ID + Health + Payments unified. 0% card fees via pre-funded wallet. Instant settlement.</p>
+                  </div>
+                </div>
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg mt-4" style={{ padding: 'clamp(12px, 1.2vw, 18px)' }}>
+                  <p className="text-cyan-400 font-bold" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>💡 Toast can't add identity verification without rebuilding from scratch.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* VALID vs Square */}
+            <div className="bg-gradient-to-br from-blue-950/40 to-black/60 border border-blue-500/40 rounded-xl overflow-hidden" style={{ padding: 'clamp(24px, 2.5vw, 40px)' }}>
+              <div className="flex items-center justify-between mb-6">
+                <h4 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)' }}>VALID vs Square</h4>
+                <span className="bg-blue-500/20 text-blue-400 font-bold rounded-full" style={{ padding: 'clamp(6px, 0.6vw, 10px) clamp(12px, 1.2vw, 20px)', fontSize: 'clamp(12px, 0.9vw, 14px)' }}>POS Competitor</span>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <XCircle className="text-red-400 flex-shrink-0 mt-1" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <div>
+                    <span className="text-white font-semibold" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>Square:</span>
+                    <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Generic retail POS. No venue-specific compliance. No age or health verification. Batch settlements.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="text-emerald-400 flex-shrink-0 mt-1 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <div>
+                    <span className="text-cyan-400 font-semibold" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>VALID:</span>
+                    <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Purpose-built for high-liability venues. Age + ID verification at door. Zero chargebacks. Real-time compliance.</p>
+                  </div>
+                </div>
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg mt-4" style={{ padding: 'clamp(12px, 1.2vw, 18px)' }}>
+                  <p className="text-cyan-400 font-bold" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>💡 Square serves retail. VALID owns nightlife, events & hospitality compliance.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* ===== ROADMAP TO 2027: SPATIAL VERIFICATION NETWORK ===== */}
           <div className="relative overflow-hidden rounded-2xl" style={{ padding: 'clamp(32px, 4vw, 64px)', background: 'linear-gradient(135deg, rgba(0,50,80,0.6) 0%, rgba(0,0,0,0.9) 50%, rgba(30,0,60,0.4) 100%)', border: '1px solid rgba(0,229,229,0.4)' }}>
             {/* Background spatial grid effect */}

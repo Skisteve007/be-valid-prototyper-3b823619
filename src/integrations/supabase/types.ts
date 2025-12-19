@@ -1576,6 +1576,87 @@ export type Database = {
           },
         ]
       }
+      pricing_models: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_name: string
+          id: string
+          idv_premium_markup: number | null
+          idv_premium_passthrough: number | null
+          idv_standard_markup: number | null
+          idv_standard_passthrough: number | null
+          instant_load_fee_flat: number | null
+          instant_load_fee_percent: number | null
+          is_active: boolean | null
+          model_key: string
+          payout_cadence_default: string | null
+          payout_cadence_options: string[] | null
+          saas_annual_discount_percent: number | null
+          saas_monthly_fee: number | null
+          scan_fee_door_default: number | null
+          scan_fee_door_max: number | null
+          scan_fee_door_min: number | null
+          scan_fee_purchase_default: number | null
+          scan_fee_purchase_max: number | null
+          scan_fee_purchase_min: number | null
+          updated_at: string | null
+          volume_tiers: Json | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_name: string
+          id?: string
+          idv_premium_markup?: number | null
+          idv_premium_passthrough?: number | null
+          idv_standard_markup?: number | null
+          idv_standard_passthrough?: number | null
+          instant_load_fee_flat?: number | null
+          instant_load_fee_percent?: number | null
+          is_active?: boolean | null
+          model_key: string
+          payout_cadence_default?: string | null
+          payout_cadence_options?: string[] | null
+          saas_annual_discount_percent?: number | null
+          saas_monthly_fee?: number | null
+          scan_fee_door_default?: number | null
+          scan_fee_door_max?: number | null
+          scan_fee_door_min?: number | null
+          scan_fee_purchase_default?: number | null
+          scan_fee_purchase_max?: number | null
+          scan_fee_purchase_min?: number | null
+          updated_at?: string | null
+          volume_tiers?: Json | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_name?: string
+          id?: string
+          idv_premium_markup?: number | null
+          idv_premium_passthrough?: number | null
+          idv_standard_markup?: number | null
+          idv_standard_passthrough?: number | null
+          instant_load_fee_flat?: number | null
+          instant_load_fee_percent?: number | null
+          is_active?: boolean | null
+          model_key?: string
+          payout_cadence_default?: string | null
+          payout_cadence_options?: string[] | null
+          saas_annual_discount_percent?: number | null
+          saas_monthly_fee?: number | null
+          scan_fee_door_default?: number | null
+          scan_fee_door_max?: number | null
+          scan_fee_door_min?: number | null
+          scan_fee_purchase_default?: number | null
+          scan_fee_purchase_max?: number | null
+          scan_fee_purchase_min?: number | null
+          updated_at?: string | null
+          volume_tiers?: Json | null
+        }
+        Relationships: []
+      }
       privacy_consent_log: {
         Row: {
           consent_given: boolean | null
@@ -3473,6 +3554,83 @@ export type Database = {
             foreignKeyName: "venue_settings_venue_id_fkey"
             columns: ["venue_id"]
             isOneToOne: true
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_statements: {
+        Row: {
+          account_manager_payouts: number | null
+          adjustments: number | null
+          created_at: string | null
+          door_scan_count: number | null
+          gross_spend: number | null
+          id: string
+          idv_fees_total: number | null
+          instant_load_fees_total: number | null
+          net_payout: number | null
+          paid_at: string | null
+          payout_status: string | null
+          promoter_payouts: number | null
+          purchase_scan_count: number | null
+          refunds_voids: number | null
+          scan_fees_total: number | null
+          statement_period_end: string
+          statement_period_start: string
+          total_scan_count: number | null
+          updated_at: string | null
+          venue_id: string
+        }
+        Insert: {
+          account_manager_payouts?: number | null
+          adjustments?: number | null
+          created_at?: string | null
+          door_scan_count?: number | null
+          gross_spend?: number | null
+          id?: string
+          idv_fees_total?: number | null
+          instant_load_fees_total?: number | null
+          net_payout?: number | null
+          paid_at?: string | null
+          payout_status?: string | null
+          promoter_payouts?: number | null
+          purchase_scan_count?: number | null
+          refunds_voids?: number | null
+          scan_fees_total?: number | null
+          statement_period_end: string
+          statement_period_start: string
+          total_scan_count?: number | null
+          updated_at?: string | null
+          venue_id: string
+        }
+        Update: {
+          account_manager_payouts?: number | null
+          adjustments?: number | null
+          created_at?: string | null
+          door_scan_count?: number | null
+          gross_spend?: number | null
+          id?: string
+          idv_fees_total?: number | null
+          instant_load_fees_total?: number | null
+          net_payout?: number | null
+          paid_at?: string | null
+          payout_status?: string | null
+          promoter_payouts?: number | null
+          purchase_scan_count?: number | null
+          refunds_voids?: number | null
+          scan_fees_total?: number | null
+          statement_period_end?: string
+          statement_period_start?: string
+          total_scan_count?: number | null
+          updated_at?: string | null
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_statements_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
             referencedRelation: "partner_venues"
             referencedColumns: ["id"]
           },

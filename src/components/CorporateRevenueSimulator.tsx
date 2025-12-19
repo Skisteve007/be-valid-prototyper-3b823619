@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, ShieldCheck, Trophy, TrendingUp, Building2, DollarSign } from 'lucide-react';
+import { Shield, ShieldCheck, Trophy, TrendingUp, Building2, DollarSign, Zap, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const CorporateRevenueSimulator = () => {
   return (
@@ -15,18 +15,35 @@ const CorporateRevenueSimulator = () => {
             Turn Security Into Revenue
           </h2>
           <p className="text-xl text-gray-400 mt-4 max-w-3xl mx-auto">
-            The "Invisible Fee" Model: Zero cost to venue. Guest pays. You profit. We handle everything.
+            Per-Scan Event pricing. No upfront cost. Pay only for successful authorizations.
           </p>
         </div>
 
+        {/* SCAN EVENT DEFINITION CALLOUT */}
+        <div className="bg-gradient-to-r from-cyan-900/30 via-purple-900/20 to-cyan-900/30 border border-cyan-500/40 rounded-2xl p-6 mb-12">
+          <div className="flex items-start gap-4">
+            <div className="h-12 w-12 rounded-full bg-cyan-500/20 flex items-center justify-center shrink-0">
+              <Zap className="h-6 w-6 text-cyan-400" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-white mb-2">What is a Scan Event?</h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                <strong className="text-cyan-400">1 Scan Event = 1 successful authorization</strong> — either a door entry authorization OR a purchase authorization. 
+                Re-scans caused by connectivity issues, user error, or staff retrying the same transaction do NOT create additional Scan Events. 
+                Built-in idempotency ensures you never pay twice for the same authorization.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Pricing Tier Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
           
-          {/* LEFT CARD — Tier 1: Verified Access */}
+          {/* LEFT CARD — Nightlife & Events */}
           <div className="bg-black/40 border border-white/10 rounded-2xl p-8 hover:border-cyan-500/30 transition-all">
             {/* Top Badge */}
             <span className="inline-block bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 text-xs px-3 py-1 rounded-full mb-4">
-              NIGHTLIFE & BARS
+              NIGHTLIFE & EVENTS
             </span>
             
             {/* Icon */}
@@ -34,71 +51,83 @@ const CorporateRevenueSimulator = () => {
             
             {/* Title & Subtitle */}
             <h3 className="text-2xl font-bold text-white font-orbitron">
-              Tier 1: Verified Access
+              Clubs, Bars & Festivals
             </h3>
             <p className="text-gray-400 mt-2">
-              Forensic ID Scanning + Age Verification
+              Ghost Pass™ revenue share + per-scan fees
             </p>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Guest Verification Fee</p>
-                <p className="text-3xl font-bold text-white">$1.50</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Typical Vendor Cost</p>
-                <p className="text-2xl font-bold text-gray-400">$0.50–$0.75</p>
-              </div>
-            </div>
-
-            {/* Gross Profit Box */}
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 mt-6">
-              <p className="text-xs text-gray-400 uppercase tracking-wider">GROSS PROFIT PER GUEST</p>
-              <p className="text-3xl font-bold text-white">$0.75–$1.00</p>
-            </div>
-
-            {/* 50/50 Split Display */}
-            <div className="mt-6 space-y-3">
-              <p className="text-xs text-gray-500 uppercase tracking-wider font-bold">PROFIT SPLIT (50/50)</p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Building2 className="h-4 w-4 text-cyan-400" />
-                    <p className="text-xs text-cyan-400 font-bold">YOUR CUT (50%)</p>
+            {/* Per-Scan Pricing */}
+            <div className="mt-6 space-y-4">
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">PER-SCAN EVENT FEES</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-xs text-cyan-400 font-semibold">Door Entry</p>
+                    <p className="text-2xl font-bold text-white">$0.20</p>
+                    <p className="text-xs text-gray-500">per authorization</p>
                   </div>
-                  <p className="text-2xl font-bold text-cyan-400">$0.375–$0.50</p>
-                  <p className="text-xs text-gray-500">per guest</p>
-                </div>
-                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <DollarSign className="h-4 w-4 text-purple-400" />
-                    <p className="text-xs text-purple-400 font-bold">VALID™ (50%)</p>
+                  <div>
+                    <p className="text-xs text-purple-400 font-semibold">Purchase/POS</p>
+                    <p className="text-2xl font-bold text-white">$0.15</p>
+                    <p className="text-xs text-gray-500">per authorization</p>
                   </div>
-                  <p className="text-2xl font-bold text-purple-400">$0.375–$0.50</p>
-                  <p className="text-xs text-gray-500">per guest</p>
                 </div>
+              </div>
+
+              {/* Volume Discounts */}
+              <div className="bg-cyan-500/5 border border-cyan-500/20 rounded-xl p-4">
+                <p className="text-xs text-cyan-400 uppercase tracking-wider mb-2">VOLUME TIERS (Door Entry)</p>
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">0–999 scans/mo</span>
+                    <span className="text-white font-semibold">$0.50</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">1,000–9,999</span>
+                    <span className="text-white font-semibold">$0.25</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">10,000–99,999</span>
+                    <span className="text-white font-semibold">$0.15</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">100,000+</span>
+                    <span className="text-cyan-400 font-bold">$0.10</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Ghost Pass Revenue */}
+              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <DollarSign className="h-4 w-4 text-emerald-400" />
+                  <p className="text-xs text-emerald-400 font-bold uppercase">GHOST PASS™ REVENUE SHARE</p>
+                </div>
+                <p className="text-2xl font-bold text-emerald-400">30%</p>
+                <p className="text-xs text-gray-400 mt-1">of every Ghost Pass™ purchased at your venue</p>
               </div>
             </div>
 
             {/* Example Calculation */}
             <div className="mt-6 p-4 bg-cyan-500/5 border border-cyan-500/20 rounded-xl">
               <p className="text-sm text-gray-400 mb-2">
-                <span className="text-white font-semibold">Illustrative example:</span> 2,000 guests/night
+                <span className="text-white font-semibold">Example:</span> 2,000 guests/night × 4 nights/week
               </p>
               <div className="flex flex-col gap-1 text-sm">
-                <p className="text-cyan-400 font-semibold">→ YOU MAKE: $750–$1,000</p>
-                <p className="text-purple-400">→ VALID™ makes: $750–$1,000</p>
+                <p className="text-gray-400">8,000 door scans × $0.25 = <span className="text-cyan-400 font-semibold">$2,000/mo scan fees</span></p>
+                <p className="text-gray-400">+ Ghost Pass™ revenue share</p>
+                <p className="text-emerald-400 font-semibold mt-2">Payout: Nightly or Weekly</p>
               </div>
             </div>
           </div>
 
-          {/* RIGHT CARD — Tier 2: Fortress Protocol (FEATURED) */}
+          {/* RIGHT CARD — Stadiums & Arenas (Enterprise) */}
           <div className="relative bg-gradient-to-br from-emerald-950/50 to-green-950/30 border-2 border-emerald-500/60 rounded-2xl p-8 overflow-hidden shadow-[0_0_40px_rgba(16,185,129,0.25)] animate-pulse-border">
             
-            {/* FLAGSHIP Ribbon */}
+            {/* ENTERPRISE Ribbon */}
             <div className="absolute top-6 -right-8 rotate-45 bg-emerald-500 text-black font-bold text-xs px-10 py-1.5 shadow-lg">
-              FLAGSHIP
+              ENTERPRISE
             </div>
 
             {/* Top Badge */}
@@ -111,84 +140,108 @@ const CorporateRevenueSimulator = () => {
             
             {/* Title & Subtitle */}
             <h3 className="text-2xl font-bold text-white font-orbitron">
-              Tier 2: Fortress Protocol
+              Enterprise SaaS Model
             </h3>
             <p className="text-gray-300 mt-2">
-              ID Verification (IDV) + Watchlist Screening (e.g., sanctions/PEP and venue deny-lists; optional expanded checks)
+              10,000+ attendees — Monthly SaaS + tiered per-scan pricing
             </p>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Safety Surcharge</p>
-                <p className="text-3xl font-bold text-white">$3.00</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Typical Vendor Cost</p>
-                <p className="text-2xl font-bold text-gray-400">$1.25–$1.75</p>
-              </div>
-            </div>
-
-            {/* Gross Profit Box */}
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 mt-6">
-              <p className="text-xs text-gray-400 uppercase tracking-wider">GROSS PROFIT PER GUEST</p>
-              <p className="text-3xl font-bold text-white">$1.25–$1.75</p>
-            </div>
-
-            {/* 50/50 Split Display (EMPHASIZED) */}
-            <div className="mt-6 space-y-3">
-              <p className="text-xs text-emerald-400 uppercase tracking-wider font-bold">PROFIT SPLIT (50/50)</p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-emerald-500/20 border border-emerald-500/50 rounded-xl p-4 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Building2 className="h-4 w-4 text-emerald-400" />
-                    <p className="text-xs text-emerald-400 font-bold">YOUR CUT (50%)</p>
-                  </div>
-                  <p className="text-2xl font-bold text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">$0.625–$0.875</p>
-                  <p className="text-xs text-emerald-300/70">per guest</p>
+            {/* Enterprise Pricing */}
+            <div className="mt-6 space-y-4">
+              {/* SaaS Fee */}
+              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4">
+                <p className="text-xs text-emerald-400 uppercase tracking-wider mb-2">MONTHLY PLATFORM FEE</p>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-3xl font-bold text-white">$2,500</p>
+                  <span className="text-gray-400">/month</span>
                 </div>
-                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <DollarSign className="h-4 w-4 text-purple-400" />
-                    <p className="text-xs text-purple-400 font-bold">VALID™ (50%)</p>
+                <p className="text-xs text-gray-400 mt-1">Includes dashboard, analytics, API access, support</p>
+              </div>
+
+              {/* Per-Scan Pricing */}
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">PER-SCAN EVENT FEES</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-xs text-emerald-400 font-semibold">Door Entry</p>
+                    <p className="text-2xl font-bold text-white">$0.12</p>
+                    <p className="text-xs text-gray-500">per authorization</p>
                   </div>
-                  <p className="text-2xl font-bold text-purple-400">$0.625–$0.875</p>
-                  <p className="text-xs text-gray-500">per guest</p>
+                  <div>
+                    <p className="text-xs text-purple-400 font-semibold">Purchase/POS</p>
+                    <p className="text-2xl font-bold text-white">$0.08</p>
+                    <p className="text-xs text-gray-500">per authorization</p>
+                  </div>
                 </div>
+              </div>
+
+              {/* Volume Tiers */}
+              <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4">
+                <p className="text-xs text-emerald-400 uppercase tracking-wider mb-2">VOLUME TIERS (Door Entry)</p>
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">0–49,999 scans/mo</span>
+                    <span className="text-white font-semibold">$0.15</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">50,000–99,999</span>
+                    <span className="text-white font-semibold">$0.12</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">100,000–499,999</span>
+                    <span className="text-white font-semibold">$0.10</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">500,000+</span>
+                    <span className="text-emerald-400 font-bold">$0.08</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Optional Add-ons */}
+              <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
+                <p className="text-xs text-purple-400 uppercase tracking-wider mb-2">OPTIONAL VERIFICATION MODULES</p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-300">Standard IDV (document)</span>
+                    <span className="text-white font-semibold">$2.00</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300">Premium IDV (doc + biometric)</span>
+                    <span className="text-white font-semibold">$4.00</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 mt-2">Stadium pays for guest verifications (not guests)</p>
               </div>
             </div>
 
             {/* Example Calculation */}
             <div className="mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
               <p className="text-sm text-emerald-200 mb-2">
-                <span className="text-white font-semibold">Illustrative example:</span> 50,000 guests/game
+                <span className="text-white font-semibold">NFL Sunday:</span> 50,000 fans × 10 home games
               </p>
               <div className="flex flex-col gap-1 text-sm">
-                <p className="text-emerald-400 font-bold text-lg">→ YOU MAKE: $31,250–$43,750</p>
-                <p className="text-purple-400">→ VALID™ makes: $31,250–$43,750</p>
+                <p className="text-gray-300">500,000 annual scans × $0.10 = <span className="text-emerald-400 font-semibold">$50,000</span></p>
+                <p className="text-gray-300">+ $2,500 × 12 months = <span className="text-emerald-400 font-semibold">$30,000</span></p>
+                <p className="text-emerald-400 font-bold text-lg mt-2">Total: ~$80,000/year</p>
               </div>
             </div>
-            
-            {/* Alternative deployment example */}
-            <p className="text-xs text-emerald-400/70 mt-4">
-              Most common deployment (restricted access / pre-clear): 10,000 pre-cleared fans/staff → You make $6,250–$8,750 per enrollment cycle
-            </p>
           </div>
         </div>
 
         {/* Benefits Row */}
         <div className="flex flex-wrap justify-center gap-4 mt-12">
           <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
-            <span className="text-emerald-400">✅</span>
-            <span className="text-emerald-400 text-sm font-semibold">Zero upfront cost</span>
+            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+            <span className="text-emerald-400 text-sm font-semibold">Idempotent billing — no double charges</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
-            <span className="text-emerald-400">✅</span>
-            <span className="text-emerald-400 text-sm font-semibold">Liability protection included</span>
+            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+            <span className="text-emerald-400 text-sm font-semibold">60-second grace window</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
-            <span className="text-emerald-400">✅</span>
-            <span className="text-emerald-400 text-sm font-semibold">Full compliance coverage</span>
+            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+            <span className="text-emerald-400 text-sm font-semibold">Weekly statements</span>
           </div>
         </div>
 
@@ -198,54 +251,62 @@ const CorporateRevenueSimulator = () => {
           {/* Header */}
           <Trophy className="h-10 w-10 text-emerald-400 mx-auto mb-4" />
           <h3 className="text-2xl font-bold text-white font-orbitron tracking-wider">
-            NFL SUNDAY: THE MATH
+            ENTERPRISE ECONOMICS
           </h3>
+          <p className="text-gray-400 mt-2 mb-8">Per-scan pricing scales with your volume</p>
 
           {/* Calculation Display */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mt-8">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
             
             {/* Box 1: Attendees */}
             <div className="bg-black/60 border border-white/20 rounded-xl px-8 py-6">
-              <p className="text-4xl md:text-5xl font-bold text-white font-orbitron">50,000</p>
-              <p className="text-xs text-gray-500 uppercase tracking-wider mt-2">ATTENDEES</p>
+              <p className="text-4xl md:text-5xl font-bold text-white font-orbitron">500K</p>
+              <p className="text-xs text-gray-500 uppercase tracking-wider mt-2">ANNUAL SCANS</p>
             </div>
 
             {/* Operator × */}
             <span className="text-3xl text-emerald-400 font-bold">×</span>
 
-            {/* Box 2: Your Cut */}
+            {/* Box 2: Per-Scan */}
             <div className="bg-black/60 border border-emerald-500/30 rounded-xl px-8 py-6">
-              <p className="text-3xl md:text-4xl font-bold text-emerald-400 font-orbitron">$0.625–$0.875</p>
-              <p className="text-xs text-emerald-400 uppercase tracking-wider mt-2">YOUR CUT (50%)</p>
+              <p className="text-3xl md:text-4xl font-bold text-emerald-400 font-orbitron">$0.10</p>
+              <p className="text-xs text-emerald-400 uppercase tracking-wider mt-2">PER SCAN</p>
+            </div>
+
+            {/* Operator + */}
+            <span className="text-3xl text-emerald-400 font-bold">+</span>
+
+            {/* Box 3: SaaS */}
+            <div className="bg-black/60 border border-purple-500/30 rounded-xl px-8 py-6">
+              <p className="text-3xl md:text-4xl font-bold text-purple-400 font-orbitron">$30K</p>
+              <p className="text-xs text-purple-400 uppercase tracking-wider mt-2">ANNUAL SAAS</p>
             </div>
 
             {/* Operator = */}
             <span className="text-3xl text-emerald-400 font-bold">=</span>
 
-            {/* Box 3: Total (HERO NUMBER) */}
+            {/* Box 4: Total */}
             <div className="bg-emerald-500/20 border-2 border-emerald-500/60 rounded-xl px-8 py-6 shadow-[0_0_30px_rgba(16,185,129,0.4)]">
               <p className="text-3xl md:text-4xl font-bold text-emerald-400 font-orbitron drop-shadow-[0_0_15px_rgba(16,185,129,0.6)]">
-                $31,250–$43,750
+                $80K
               </p>
-              <p className="text-xs text-emerald-300 uppercase tracking-wider mt-2 font-semibold">YOU MAKE PER GAME</p>
+              <p className="text-xs text-emerald-300 uppercase tracking-wider mt-2 font-semibold">ANNUAL REVENUE</p>
             </div>
           </div>
 
-          {/* Season Projection */}
+          {/* Payout Info */}
           <div className="mt-10 pt-8 border-t border-emerald-500/20">
             <p className="text-gray-400 text-lg">
-              <span className="text-white font-semibold">10 Home Games</span> = 
-              <span className="text-emerald-400 font-bold text-2xl ml-2">$312,500–$437,500</span>
-              <span className="text-gray-500 ml-2">your venue makes per season</span>
-            </p>
-            <p className="text-gray-500 text-sm mt-2">
-              (VALID™ earns the same — we grow together)
+              <span className="text-white font-semibold">Payout Cadence:</span> 
+              <span className="text-emerald-400 font-bold ml-2">Weekly (default)</span>
+              <span className="text-gray-500 ml-2">or Nightly (configurable)</span>
             </p>
           </div>
           
           {/* Footnote */}
           <p className="text-xs text-gray-500/70 mt-8 max-w-4xl mx-auto leading-relaxed">
-            Illustrative economics shown. Vendor costs vary by verification depth (document + biometric vs document-only), watchlist scope, throughput requirements, and volume-based contract pricing.
+            Scan Event = 1 successful authorization. Re-scans and retries do not incur additional fees. 
+            Volume tiers reset monthly. Enterprise contracts available for multi-venue deployments.
           </p>
         </div>
 

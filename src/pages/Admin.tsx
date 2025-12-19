@@ -635,7 +635,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Second Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-8 gap-1 h-auto p-1 mb-6">
+          <TabsList className="hidden md:grid w-full grid-cols-9 gap-1 h-auto p-1 mb-6">
             <TabsTrigger value="lead-outreach" className="cursor-pointer text-xs px-2 py-2">
               📧 Leads
             </TabsTrigger>

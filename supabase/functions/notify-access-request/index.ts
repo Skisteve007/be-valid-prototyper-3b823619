@@ -11,6 +11,7 @@ const corsHeaders = {
 };
 
 interface AccessRequestPayload {
+  userId?: string;
   userEmail: string;
   userName: string;
   accessType: "investor" | "partner";
@@ -23,25 +24,42 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { userEmail, userName, accessType, requestedAt }: AccessRequestPayload = await req.json();
+    const { userId, userEmail, userName, accessType, requestedAt }: AccessRequestPayload = await req.json();
 
     console.log(`Access request notification: ${accessType} access for ${userEmail}`);
 
-    // Get user_id from profile
     const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("user_id")
-      .eq("email", userEmail)
-      .single();
 
-    const userId = profile?.user_id;
+    // Prefer userId from client (most reliable). Fallback to email lookup if missing.
+    let resolvedUserId = userId;
+    if (!resolvedUserId) {
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("user_id")
+        .eq("email", userEmail)
+        .maybeSingle();
+
+      if (profileError) {
+        console.error("Profile lookup failed:", profileError);
+      }
+
+      resolvedUserId = profile?.user_id ?? undefined;
+    }
+
     const accessTypeLabel = accessType === "investor" ? "Investor Deck" : "Partner Solutions";
-    
+
     // Generate approval token
-    const approvalToken = btoa(`${userId}-${accessType}-valid-approval`).substring(0, 20);
-    const approvalUrl = `${SUPABASE_URL}/functions/v1/approve-access-request?user_id=${userId}&type=${accessType}&token=${approvalToken}`;
-    
+    const approvalToken = btoa(`${resolvedUserId}-${accessType}-valid-approval`).substring(0, 20);
+    const approvalUrl = `${SUPABASE_URL}/functions/v1/approve-access-request?user_id=${encodeURIComponent(
+      resolvedUserId ?? ""
+    )}&type=${encodeURIComponent(accessType)}&token=${encodeURIComponent(approvalToken)}`;
+
+    console.log("Admin notify email meta:", {
+      to: "steve@bevalid.app",
+      subject: "VALID™ Access Control",
+      resolvedUserId: resolvedUserId ? "present" : "missing",
+    });
+
     console.log("Sending admin notification email for access request");
     console.log("Approval URL:", approvalUrl);
     

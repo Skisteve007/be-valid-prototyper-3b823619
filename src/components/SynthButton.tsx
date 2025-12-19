@@ -92,47 +92,9 @@ const SynthButton: React.FC<SynthButtonProps> = ({ variant = "fab" }) => {
   // Admin-only variants below
   if (loading || !isAdmin) return null;
 
+  // FAB variant removed - no floating brain button
   if (variant === "fab") {
-    // On Partners page: top-left near Investor button, smaller
-    if (isPartnersPage) {
-      return (
-        <button
-          onClick={goSynth}
-          className="fixed top-20 left-4 sm:top-20 sm:left-6 z-40 grid size-10 sm:size-11 place-items-center rounded-full border border-border/40 backdrop-blur-sm transition-transform hover:scale-110 active:scale-95"
-          style={{
-            WebkitTapHighlightColor: "transparent",
-            background: `linear-gradient(135deg, ${colors.purple}, ${colors.magenta})`,
-            boxShadow: `0 0 20px ${colors.glow}, 0 6px 20px hsl(var(--foreground) / 0.08)`,
-          }}
-          aria-label="Open Synth"
-        >
-          <Brain className="h-5 w-5" style={{ color: "hsl(var(--primary-foreground))" }} />
-          <span
-            className="absolute inset-0 rounded-full animate-ping"
-            style={{ background: colors.purple, opacity: 0.18 }}
-          />
-        </button>
-      );
-    }
-
-    return (
-      <button
-        onClick={goSynth}
-        className="fixed bottom-24 right-4 sm:bottom-8 sm:right-8 z-40 grid size-14 sm:size-16 place-items-center rounded-full border border-border/40 backdrop-blur-sm transition-transform hover:scale-110 active:scale-95"
-        style={{
-          WebkitTapHighlightColor: "transparent",
-          background: `linear-gradient(135deg, ${colors.purple}, ${colors.magenta})`,
-          boxShadow: `0 0 30px ${colors.glow}, 0 10px 30px hsl(var(--foreground) / 0.08)`,
-        }}
-        aria-label="Open Synth"
-      >
-        <Brain className="h-7 w-7" style={{ color: "hsl(var(--primary-foreground))" }} />
-        <span
-          className="absolute inset-0 rounded-full animate-ping"
-          style={{ background: colors.purple, opacity: 0.18 }}
-        />
-      </button>
-    );
+    return null;
   }
 
   if (variant === "pill") {

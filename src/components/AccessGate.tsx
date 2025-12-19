@@ -110,7 +110,8 @@ export const AccessGate = ({ accessType, children }: AccessGateProps) => {
       if (updateError) throw updateError;
 
       // Send notification email to admin
-      const { error: notifyError } = await supabase.functions.invoke("notify-access-request", {
+      console.log("Invoking notify-access-request for:", user.email, accessType);
+      const { data, error: notifyError } = await supabase.functions.invoke("notify-access-request", {
         body: {
           userId: user.id,
           userEmail: user.email,
@@ -120,14 +121,15 @@ export const AccessGate = ({ accessType, children }: AccessGateProps) => {
         },
       });
 
+      console.log("notify-access-request response:", data, notifyError);
+
       if (notifyError) {
         console.error("Failed to send notification:", notifyError);
-        toast.error("Request saved, but approval email failed to send. Please try again.");
+        toast.error("Request saved, but approval email failed. Admin will review manually.");
       } else {
         toast.success("Access request submitted! You'll be notified when approved.");
       }
 
-      toast.success("Access request submitted! You'll be notified when approved.");
       setHasPendingRequest(true);
     } catch (error) {
       console.error("Error requesting access:", error);

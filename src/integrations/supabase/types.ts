@@ -222,6 +222,77 @@ export type Database = {
           },
         ]
       }
+      billable_scan_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          fee_amount: number
+          id: string
+          idempotency_key: string
+          pos_transaction_id: string | null
+          scan_log_id: string | null
+          settled_at: string | null
+          settlement_ledger_id: string | null
+          user_id: string | null
+          venue_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          fee_amount?: number
+          id?: string
+          idempotency_key: string
+          pos_transaction_id?: string | null
+          scan_log_id?: string | null
+          settled_at?: string | null
+          settlement_ledger_id?: string | null
+          user_id?: string | null
+          venue_id: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          fee_amount?: number
+          id?: string
+          idempotency_key?: string
+          pos_transaction_id?: string | null
+          scan_log_id?: string | null
+          settled_at?: string | null
+          settlement_ledger_id?: string | null
+          user_id?: string | null
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billable_scan_events_pos_transaction_id_fkey"
+            columns: ["pos_transaction_id"]
+            isOneToOne: false
+            referencedRelation: "pos_transactions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billable_scan_events_scan_log_id_fkey"
+            columns: ["scan_log_id"]
+            isOneToOne: false
+            referencedRelation: "door_scan_log"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billable_scan_events_settlement_ledger_id_fkey"
+            columns: ["settlement_ledger_id"]
+            isOneToOne: false
+            referencedRelation: "venue_ledger_entries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billable_scan_events_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       campaign_analytics: {
         Row: {
           bounce_count: number
@@ -3789,6 +3860,15 @@ export type Database = {
         Args: { _user_id: string; _venue_id: string }
         Returns: boolean
       }
+      is_within_scan_grace_window: {
+        Args: {
+          p_event_type: string
+          p_grace_seconds?: number
+          p_user_id: string
+          p_venue_id: string
+        }
+        Returns: boolean
+      }
       log_synth_event: {
         Args: {
           p_answer_hash?: string
@@ -3802,6 +3882,18 @@ export type Database = {
           p_source?: Database["public"]["Enums"]["synth_event_source"]
           p_user_id: string
           p_verification_score?: number
+        }
+        Returns: string
+      }
+      record_billable_scan_event: {
+        Args: {
+          p_event_type: string
+          p_fee_amount?: number
+          p_idempotency_key: string
+          p_pos_transaction_id?: string
+          p_scan_log_id?: string
+          p_user_id: string
+          p_venue_id: string
         }
         Returns: string
       }

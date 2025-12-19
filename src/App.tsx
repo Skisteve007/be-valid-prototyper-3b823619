@@ -92,6 +92,8 @@ const PaymentGuide = lazy(() => import("./pages/PaymentGuide"));
 const GhostPassOwnerGuide = lazy(() => import("./pages/GhostPassOwnerGuide"));
 const GhostwareQR = lazy(() => import("./pages/GhostwareQR"));
 const DoorDevice = lazy(() => import("./pages/DoorDevice"));
+const StadiumPricingModel = lazy(() => import("./pages/StadiumPricingModel"));
+const TransportationPricingModel = lazy(() => import("./pages/TransportationPricingModel"));
 
 const queryClient = new QueryClient();
 
@@ -224,6 +226,8 @@ const App = () => (
                   <Route path="/ghost-pass-owner-guide" element={<GhostPassOwnerGuide />} />
                   <Route path="/ghostware" element={<AgeGate><GhostwareQR /></AgeGate>} />
                   <Route path="/door" element={<DoorDevice />} />
+                  <Route path="/pricing/stadiums" element={<StadiumPricingModel />} />
+                  <Route path="/pricing/transportation" element={<TransportationPricingModel />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

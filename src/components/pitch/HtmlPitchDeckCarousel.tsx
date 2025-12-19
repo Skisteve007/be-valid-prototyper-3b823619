@@ -158,6 +158,11 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
   }, [showMusicPrompt]);
 
 
+  // Mobile-first: use viewport height on small screens, aspect ratio on larger
+  const slideContainerClass = isFullscreen
+    ? "flex-1 min-h-0"
+    : "h-[70dvh] min-h-[280px] max-h-[82dvh] sm:h-auto sm:min-h-0 sm:max-h-none sm:aspect-[16/10] md:aspect-video";
+
   return (
     <div
       ref={rootRef}
@@ -165,7 +170,7 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         "relative bg-black flex flex-col group touch-pan-y " +
         (isFullscreen
           ? "fixed inset-0 z-50"
-          : "w-full rounded-xl md:rounded-2xl overflow-hidden border border-white/10")
+          : "w-full rounded-lg md:rounded-2xl overflow-hidden border border-white/10")
       }
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -173,10 +178,8 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
       onTouchEnd={handleTouchEnd}
       aria-label="Investor deck slides"
     >
-      {/* Main Slide Content - Flexes in fullscreen, taller on mobile for visibility */}
-      <div
-        className={"relative w-full overflow-hidden " + (isFullscreen ? "flex-1 min-h-0" : "aspect-[4/3] sm:aspect-[16/10] md:aspect-video")}
-      >
+      {/* Main Slide Content - Large viewport height on mobile, aspect ratio on desktop */}
+      <div className={"relative w-full overflow-hidden " + slideContainerClass}>
         <div
           className="absolute inset-0 flex transition-transform duration-500 ease-in-out"
           style={{
@@ -196,14 +199,14 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         </div>
       </div>
 
-      {/* Controls Footer - Always visible, OUTSIDE slide area */}
-      <div className="w-full shrink-0 border-t border-white/10 bg-black/95 px-3 md:px-4 py-2.5 md:py-3">
-        <div className="flex items-center justify-between gap-3">
+      {/* Controls Footer - Compact on mobile, normal on desktop */}
+      <div className="w-full shrink-0 border-t border-white/10 bg-black/95 px-2 sm:px-4 py-2 sm:py-3">
+        <div className="flex items-center justify-between gap-2 sm:gap-3">
           {/* Left: Music + Auto indicator */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={(e) => { e.stopPropagation(); toggleMute(); }}
-              className="p-2 rounded-full transition-all backdrop-blur-sm border hover:scale-110"
+              className="p-1.5 sm:p-2 rounded-full transition-all backdrop-blur-sm border hover:scale-110"
               style={{
                 background: isMuted ? 'rgba(0, 229, 229, 0.25)' : 'rgba(0, 0, 0, 0.8)',
                 borderColor: isMuted ? 'rgba(0, 229, 229, 0.6)' : 'rgba(255, 255, 255, 0.4)',
@@ -212,7 +215,7 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
               }}
               aria-label={isMuted ? "Unmute music" : "Mute music"}
             >
-              {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+              {isMuted ? <VolumeX size={14} className="sm:w-4 sm:h-4" /> : <Volume2 size={14} className="sm:w-4 sm:h-4" />}
             </button>
             <div className="hidden sm:flex items-center gap-1.5">
               <div
@@ -227,16 +230,16 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
             </div>
           </div>
 
-          {/* Center: Dot indicators */}
+          {/* Center: Dot indicators - smaller on mobile */}
           <div className="flex-1 flex justify-center overflow-x-auto scrollbar-hide">
-            <div className="flex gap-1 sm:gap-1.5 items-center">
+            <div className="flex gap-0.5 sm:gap-1.5 items-center">
               {pitchSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={(e) => { e.stopPropagation(); goTo(index); }}
                   className={
-                    "h-1.5 sm:h-2 rounded-full transition-all duration-300 flex-shrink-0 " +
-                    (index === current ? "w-4 sm:w-6" : "w-1.5 sm:w-2")
+                    "h-1 sm:h-2 rounded-full transition-all duration-300 flex-shrink-0 " +
+                    (index === current ? "w-3 sm:w-6" : "w-1 sm:w-2")
                   }
                   style={{
                     background: index === current ? '#00E5E5' : 'rgba(255, 255, 255, 0.3)',
@@ -249,19 +252,19 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
           </div>
 
           {/* Right: Mobile nav + Counter + Fullscreen */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 prev();
               }}
-              className="md:hidden p-1.5 rounded-full bg-black/80 text-white transition-all backdrop-blur-sm border border-white/30"
+              className="md:hidden p-1 sm:p-1.5 rounded-full bg-black/80 text-white transition-all backdrop-blur-sm border border-white/30"
               aria-label="Previous slide"
             >
-              <ChevronLeft size={14} />
+              <ChevronLeft size={12} className="sm:w-3.5 sm:h-3.5" />
             </button>
 
-            <span className="text-white/60 text-xs font-mono tracking-wider whitespace-nowrap">
+            <span className="text-white/60 text-[10px] sm:text-xs font-mono tracking-wider whitespace-nowrap">
               {current + 1}/{totalSlides}
             </span>
 
@@ -270,10 +273,10 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
                 e.stopPropagation();
                 next();
               }}
-              className="md:hidden p-1.5 rounded-full bg-black/80 text-white transition-all backdrop-blur-sm border border-white/30"
+              className="md:hidden p-1 sm:p-1.5 rounded-full bg-black/80 text-white transition-all backdrop-blur-sm border border-white/30"
               aria-label="Next slide"
             >
-              <ChevronRight size={14} />
+              <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
             </button>
 
             <button
@@ -281,10 +284,10 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
                 e.stopPropagation();
                 setIsFullscreen((v) => !v);
               }}
-              className="p-1.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30"
+              className="p-1 sm:p-1.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30"
               aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
             >
-              {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+              {isFullscreen ? <Minimize2 size={12} className="sm:w-3.5 sm:h-3.5" /> : <Maximize2 size={12} className="sm:w-3.5 sm:h-3.5" />}
             </button>
           </div>
         </div>

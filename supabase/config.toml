@@ -92,3 +92,6 @@ verify_jwt = false
 
 [functions.synth-event]
 verify_jwt = false
+
+[functions.door-scan]
+verify_jwt = false

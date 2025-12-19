@@ -16,12 +16,26 @@ import {
   Clock,
   User,
   MapPin,
-  ArrowLeftRight
+  ArrowLeftRight,
+  Moon,
+  Wifi
 } from "lucide-react";
 import { toast } from "sonner";
 import StationSelector from "@/components/door/StationSelector";
 
 const DISPLAY_TTL_SECONDS = 60;
+
+// Premium color palette
+const COLORS = {
+  background: '#07090D',
+  backgroundAlt: '#0B0F14',
+  accent: '#4DEBFF',
+  verified: '#2EE59D',
+  review: '#FFB020',
+  denied: '#FF3B3B',
+  text: '#E9EEF5',
+  textMuted: '#6B7280'
+};
 
 type ScanStatus = 'idle' | 'scanning' | 'verified' | 'review' | 'denied' | 'expired' | 'used' | 'invalid';
 
@@ -48,6 +62,107 @@ interface StationContext {
   shiftStartedAt: string;
 }
 
+// Demo Alien ID Component
+const DemoAlienIdFront = () => (
+  <div className="w-full h-full relative overflow-hidden" style={{ background: 'linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%)' }}>
+    {/* Hologram strip */}
+    <div className="absolute top-0 right-0 w-8 h-full opacity-30"
+      style={{ 
+        background: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(77,235,255,0.3) 2px, rgba(77,235,255,0.3) 4px)'
+      }} 
+    />
+    
+    {/* Card content */}
+    <div className="p-4 h-full flex flex-col justify-between">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-[8px] tracking-[0.3em] opacity-40" style={{ color: COLORS.accent }}>
+            GALACTIC AUTHORITY
+          </div>
+          <div className="text-lg font-bold tracking-wide" style={{ color: COLORS.text }}>
+            BEVALID
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="text-[8px] opacity-40" style={{ color: COLORS.textMuted }}>ID NO.</div>
+          <div className="text-xs font-mono" style={{ color: COLORS.accent }}>GW-07A9-221</div>
+        </div>
+      </div>
+      
+      {/* Photo + Info */}
+      <div className="flex gap-4 items-center">
+        {/* Alien silhouette photo */}
+        <div className="w-20 h-24 rounded flex items-center justify-center"
+          style={{ background: 'linear-gradient(180deg, #1f2937 0%, #111827 100%)', border: '1px solid rgba(77,235,255,0.2)' }}>
+          <svg viewBox="0 0 60 80" className="w-14 h-18 opacity-60" style={{ color: COLORS.accent }}>
+            <ellipse cx="30" cy="28" rx="18" ry="22" fill="currentColor" opacity="0.3"/>
+            <ellipse cx="22" cy="26" rx="5" ry="7" fill="currentColor" opacity="0.5"/>
+            <ellipse cx="38" cy="26" rx="5" ry="7" fill="currentColor" opacity="0.5"/>
+            <path d="M20 45 Q30 55 40 45 L42 75 Q30 80 18 75 Z" fill="currentColor" opacity="0.3"/>
+          </svg>
+        </div>
+        
+        <div className="flex-1">
+          <div className="text-[8px] opacity-40" style={{ color: COLORS.textMuted }}>NAME</div>
+          <div className="text-base font-bold tracking-wide mb-2" style={{ color: COLORS.text }}>ZORP QUELL</div>
+          
+          <div className="text-[8px] opacity-40" style={{ color: COLORS.textMuted }}>EXPIRES</div>
+          <div className="text-xs font-mono" style={{ color: COLORS.text }}>12/2099</div>
+        </div>
+      </div>
+      
+      {/* Microtext footer */}
+      <div className="text-[6px] tracking-widest opacity-20" style={{ color: COLORS.textMuted }}>
+        VERIFIED • BIOMETRIC CONFIRMED • CLASS-A CLEARANCE • VALID NETWORK AUTHORIZED
+      </div>
+    </div>
+  </div>
+);
+
+const DemoAlienIdBack = () => (
+  <div className="w-full h-full relative overflow-hidden" style={{ background: 'linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%)' }}>
+    {/* Stripe pattern */}
+    <div className="absolute top-6 left-0 right-0 h-8 opacity-20"
+      style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(77,235,255,0.2) 2px, rgba(77,235,255,0.2) 4px)' }}
+    />
+    
+    <div className="p-4 h-full flex flex-col justify-between">
+      {/* Barcode area */}
+      <div className="mt-8">
+        <div className="h-16 flex items-end gap-[2px]">
+          {Array.from({ length: 40 }).map((_, i) => (
+            <div 
+              key={i}
+              className="flex-1 bg-current"
+              style={{ 
+                height: `${30 + Math.random() * 70}%`,
+                color: COLORS.text,
+                opacity: 0.8
+              }}
+            />
+          ))}
+        </div>
+        <div className="text-center text-xs font-mono mt-2 tracking-widest" style={{ color: COLORS.text }}>
+          GW-07A9-221
+        </div>
+      </div>
+      
+      {/* Authorized text */}
+      <div className="text-center">
+        <div className="text-[10px] tracking-[0.4em] font-bold" style={{ color: COLORS.accent }}>
+          AUTHORIZED ENTRY
+        </div>
+      </div>
+      
+      {/* Microtext */}
+      <div className="text-[6px] tracking-widest opacity-20 text-center" style={{ color: COLORS.textMuted }}>
+        SCAN AT DESIGNATED PORTAL • SINGLE-USE TOKEN REQUIRED • BEVALID NETWORK
+      </div>
+    </div>
+  </div>
+);
+
 export default function DoorDevice() {
   const [stationContext, setStationContext] = useState<StationContext | null>(null);
   const [showStationSelector, setShowStationSelector] = useState(false);
@@ -58,7 +173,10 @@ export default function DoorDevice() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [manualInput, setManualInput] = useState('');
   const [scanCount, setScanCount] = useState(0);
+  const [isSleeping, setIsSleeping] = useState(false);
+  const [wakeLockSupported, setWakeLockSupported] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const wakeLockRef = useRef<WakeLockSentinel | null>(null);
 
   // Initialize audio context
   useEffect(() => {
@@ -67,6 +185,43 @@ export default function DoorDevice() {
       audioContextRef.current?.close();
     };
   }, []);
+
+  // Wake Lock management
+  useEffect(() => {
+    const requestWakeLock = async () => {
+      if ('wakeLock' in navigator) {
+        setWakeLockSupported(true);
+        try {
+          wakeLockRef.current = await navigator.wakeLock.request('screen');
+          wakeLockRef.current.addEventListener('release', () => {
+            console.log('Wake Lock released');
+          });
+        } catch (err) {
+          console.log('Wake Lock request failed:', err);
+        }
+      }
+    };
+
+    requestWakeLock();
+
+    // Re-acquire wake lock on visibility change
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === 'visible' && wakeLockSupported) {
+        try {
+          wakeLockRef.current = await navigator.wakeLock.request('screen');
+        } catch (err) {
+          console.log('Wake Lock re-request failed:', err);
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      wakeLockRef.current?.release();
+    };
+  }, [wakeLockSupported]);
 
   // Log operator event
   const logOperatorEvent = useCallback(async (
@@ -110,10 +265,8 @@ export default function DoorDevice() {
     setStationContext(newContext);
     setShowStationSelector(false);
 
-    // Log the appropriate event
     try {
       if (previousStation && previousStation !== station) {
-        // Station switch
         await supabase.functions.invoke('log-operator-event', {
           body: {
             eventType: 'STATION_SWITCH',
@@ -126,7 +279,6 @@ export default function DoorDevice() {
         });
         toast.success(`Switched to ${station}`);
       } else if (!previousStation) {
-        // New shift start
         await supabase.functions.invoke('log-operator-event', {
           body: {
             eventType: 'SHIFT_START',
@@ -211,7 +363,6 @@ export default function DoorDevice() {
       setShowBack(false);
       setScanCount(prev => prev + 1);
 
-      // Log scan performed
       logOperatorEvent('SCAN_PERFORMED', {
         metadata: {
           decision: scanResult.decision,
@@ -242,7 +393,41 @@ export default function DoorDevice() {
     }
   }, [playSound, stationContext, scanCount, logOperatorEvent]);
 
-  // Handle manual token entry (for testing)
+  // Demo scan (uses demo Alien ID)
+  const handleDemoScan = (decision: 'GOOD' | 'REVIEW' | 'NO') => {
+    const demoResult: ScanResult = {
+      status: decision === 'GOOD' ? 'verified' : decision === 'REVIEW' ? 'review' : 'denied',
+      decision,
+      profile: {
+        fullName: 'ZORP QUELL',
+        memberId: 'GW-07A9-221',
+        isValid: decision === 'GOOD',
+        idvStatus: decision === 'GOOD' ? 'verified' : 'pending',
+        idvTier: 'standard'
+      },
+      message: decision === 'GOOD' ? 'Identity verified — Access granted' :
+               decision === 'REVIEW' ? 'Manual verification required' :
+               'Access denied — Policy violation'
+    };
+    
+    setResult(demoResult);
+    setTimeLeft(DISPLAY_TTL_SECONDS);
+    setShowBack(false);
+    setScanCount(prev => prev + 1);
+    
+    if (decision === 'GOOD') {
+      setStatus('verified');
+      playSound('success');
+    } else if (decision === 'REVIEW') {
+      setStatus('review');
+      playSound('warning');
+    } else {
+      setStatus('denied');
+      playSound('error');
+    }
+  };
+
+  // Handle manual token entry
   const handleManualScan = () => {
     if (manualInput.trim()) {
       try {
@@ -280,57 +465,20 @@ export default function DoorDevice() {
     toast.info('Shift ended');
   };
 
-  // Get status styling
-  const getStatusStyle = () => {
-    switch (status) {
-      case 'verified':
-        return 'bg-green-500/20 border-green-500';
-      case 'review':
-        return 'bg-amber-500/20 border-amber-500';
-      case 'denied':
-      case 'expired':
-      case 'used':
-      case 'invalid':
-        return 'bg-red-500/20 border-red-500';
-      default:
-        return 'bg-card border-border';
-    }
-  };
-
-  const getDecisionIcon = () => {
-    switch (status) {
-      case 'verified':
-        return <CheckCircle2 className="w-24 h-24 text-green-500" />;
-      case 'review':
-        return <AlertTriangle className="w-24 h-24 text-amber-500" />;
-      case 'denied':
-      case 'expired':
-      case 'used':
-      case 'invalid':
-        return <XCircle className="w-24 h-24 text-red-500" />;
-      default:
-        return null;
-    }
-  };
-
-  const getDecisionText = () => {
-    switch (status) {
-      case 'verified':
-        return 'GOOD';
-      case 'review':
-        return 'REVIEW';
-      case 'denied':
-        return 'NO';
-      case 'expired':
-        return 'EXPIRED';
-      case 'used':
-        return 'USED';
-      case 'invalid':
-        return 'INVALID';
-      default:
-        return '';
-    }
-  };
+  // Sleep screen
+  if (isSleeping) {
+    return (
+      <div 
+        className="min-h-screen flex items-center justify-center cursor-pointer select-none"
+        style={{ background: '#000000' }}
+        onClick={() => setIsSleeping(false)}
+      >
+        <p className="text-[10px] opacity-20" style={{ color: COLORS.textMuted }}>
+          Tap to Wake
+        </p>
+      </div>
+    );
+  }
 
   // Show station selector if no context or explicitly requested
   if (!stationContext || showStationSelector) {
@@ -343,122 +491,267 @@ export default function DoorDevice() {
     );
   }
 
+  const getDecisionColor = () => {
+    switch (status) {
+      case 'verified': return COLORS.verified;
+      case 'review': return COLORS.review;
+      default: return COLORS.denied;
+    }
+  };
+
+  const getDecisionText = () => {
+    switch (status) {
+      case 'verified': return 'GOOD';
+      case 'review': return 'REVIEW';
+      case 'denied': return 'NO';
+      case 'expired': return 'EXPIRED';
+      case 'used': return 'USED';
+      case 'invalid': return 'INVALID';
+      default: return '';
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: COLORS.background, color: COLORS.text }}>
+      {/* Ghost watermark background */}
+      <div className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        <Ghost 
+          className="w-96 h-96 animate-pulse"
+          style={{ 
+            color: COLORS.accent,
+            opacity: 0.05,
+            animation: 'ghostPulse 8s ease-in-out infinite'
+          }} 
+        />
+      </div>
+      
+      <style>{`
+        @keyframes ghostPulse {
+          0%, 100% { opacity: 0.05; }
+          50% { opacity: 0.10; }
+        }
+      `}</style>
+
       {/* Header */}
-      <header className="flex items-center justify-between p-4 border-b border-white/10">
-        <div className="flex items-center gap-2">
-          <Ghost className="w-6 h-6 text-purple-400" />
-          <span className="font-bold text-lg">Ghostware™</span>
+      <header className="relative z-10 flex items-center justify-between p-4" style={{ borderBottom: `1px solid rgba(77,235,255,0.1)` }}>
+        <div className="flex items-center gap-3">
+          <Ghost className="w-6 h-6" style={{ color: COLORS.accent }} />
+          <span className="font-bold text-lg tracking-wide">Ghostware™</span>
         </div>
         <div className="flex items-center gap-4">
+          {/* Network indicator */}
+          <div className="flex items-center gap-1">
+            <Wifi className="w-3 h-3" style={{ color: COLORS.verified }} />
+          </div>
+          
           {/* Station & Operator Info */}
           <button 
             onClick={() => setShowStationSelector(true)}
-            className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all hover:opacity-80"
+            style={{ 
+              background: 'rgba(77,235,255,0.05)',
+              border: `1px solid rgba(77,235,255,0.2)`
+            }}
           >
-            <MapPin className="w-4 h-4 text-purple-400" />
+            <MapPin className="w-4 h-4" style={{ color: COLORS.accent }} />
             <span className="text-sm font-medium">{stationContext.station}</span>
-            <ArrowLeftRight className="w-3 h-3 text-muted-foreground" />
+            <ArrowLeftRight className="w-3 h-3" style={{ color: COLORS.textMuted }} />
           </button>
-          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          
+          <div className="flex items-center gap-1 text-sm" style={{ color: COLORS.textMuted }}>
             <User className="w-4 h-4" />
             <span>{stationContext.operator}</span>
           </div>
+          
           {status !== 'idle' && (
             <div className="flex items-center gap-1 text-sm">
               <Clock className="w-4 h-4" />
-              <span className={timeLeft <= 10 ? 'text-red-400' : ''}>{timeLeft}s</span>
+              <span style={{ color: timeLeft <= 10 ? COLORS.denied : COLORS.text }}>{timeLeft}s</span>
             </div>
           )}
+          
           <button onClick={() => setSoundEnabled(!soundEnabled)}>
             {soundEnabled ? (
-              <Volume2 className="w-5 h-5 text-muted-foreground" />
+              <Volume2 className="w-5 h-5" style={{ color: COLORS.textMuted }} />
             ) : (
-              <VolumeX className="w-5 h-5 text-red-400" />
+              <VolumeX className="w-5 h-5" style={{ color: COLORS.denied }} />
             )}
+          </button>
+          
+          <button 
+            onClick={() => setIsSleeping(true)}
+            className="p-2 rounded-lg transition-all hover:opacity-80"
+            style={{ background: 'rgba(77,235,255,0.05)' }}
+            title="Sleep Screen"
+          >
+            <Moon className="w-4 h-4" style={{ color: COLORS.textMuted }} />
           </button>
         </div>
       </header>
 
+      {/* Wake Lock warning */}
+      {!wakeLockSupported && (
+        <div className="px-4 py-2 text-center text-[10px]" style={{ background: 'rgba(255,176,32,0.1)', color: COLORS.review }}>
+          Set device screen timeout to max in Settings for best experience
+        </div>
+      )}
+
       {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center justify-center p-4">
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center p-4">
         {status === 'idle' ? (
           <div className="text-center space-y-8">
-            <div className="relative">
-              <div className="w-64 h-64 border-2 border-dashed border-purple-500/50 rounded-2xl flex items-center justify-center">
-                <ScanLine className="w-32 h-32 text-purple-400 animate-pulse" />
-              </div>
-              <div className="absolute inset-0 bg-purple-500/5 rounded-2xl animate-pulse" />
+            {/* Ready status */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full"
+              style={{ border: `1px solid ${COLORS.accent}`, background: 'rgba(77,235,255,0.05)' }}>
+              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: COLORS.accent }} />
+              <span className="text-sm font-medium tracking-wider" style={{ color: COLORS.accent }}>READY</span>
             </div>
+
+            {/* Scan area */}
+            <div className="relative">
+              <div 
+                className="w-64 h-64 rounded-2xl flex items-center justify-center"
+                style={{ 
+                  border: `2px dashed rgba(77,235,255,0.3)`,
+                  background: 'rgba(77,235,255,0.02)'
+                }}
+              >
+                <ScanLine className="w-24 h-24 animate-pulse" style={{ color: COLORS.accent, opacity: 0.6 }} />
+              </div>
+            </div>
+
             <div>
-              <h2 className="text-2xl font-bold mb-2">Ready to Scan</h2>
-              <p className="text-muted-foreground">Point camera at guest's QR code</p>
-              <p className="text-xs text-muted-foreground mt-2">
+              <h2 className="text-xl font-bold mb-2 tracking-wide">Ghostware™ Door</h2>
+              <p className="text-sm" style={{ color: COLORS.textMuted }}>Point camera at guest's QR code</p>
+              <p className="text-xs mt-2" style={{ color: COLORS.textMuted }}>
                 Scans this shift: {scanCount}
               </p>
             </div>
 
-            {/* Manual Entry for Testing */}
+            {/* Demo Buttons */}
+            <div className="flex gap-2 flex-wrap justify-center">
+              <Button 
+                onClick={() => handleDemoScan('GOOD')}
+                className="text-xs px-3 py-1"
+                style={{ background: COLORS.verified, color: '#000' }}
+              >
+                Demo: GOOD
+              </Button>
+              <Button 
+                onClick={() => handleDemoScan('REVIEW')}
+                className="text-xs px-3 py-1"
+                style={{ background: COLORS.review, color: '#000' }}
+              >
+                Demo: REVIEW
+              </Button>
+              <Button 
+                onClick={() => handleDemoScan('NO')}
+                className="text-xs px-3 py-1"
+                style={{ background: COLORS.denied, color: '#fff' }}
+              >
+                Demo: NO
+              </Button>
+            </div>
+
+            {/* Manual Entry */}
             <div className="w-full max-w-xs space-y-2">
               <input
                 type="text"
                 value={manualInput}
                 onChange={(e) => setManualInput(e.target.value)}
                 placeholder="Enter token (testing)"
-                className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-sm"
+                className="w-full px-4 py-2 rounded-lg text-sm"
+                style={{ 
+                  background: 'rgba(77,235,255,0.05)',
+                  border: `1px solid rgba(77,235,255,0.2)`,
+                  color: COLORS.text
+                }}
                 onKeyDown={(e) => e.key === 'Enter' && handleManualScan()}
               />
-              <Button onClick={handleManualScan} className="w-full" variant="outline">
+              <Button 
+                onClick={handleManualScan} 
+                className="w-full"
+                variant="outline"
+                style={{ borderColor: 'rgba(77,235,255,0.3)', color: COLORS.text }}
+              >
                 Test Scan
               </Button>
             </div>
           </div>
         ) : status === 'scanning' ? (
           <div className="text-center space-y-4">
-            <div className="w-32 h-32 border-4 border-purple-500 rounded-full flex items-center justify-center animate-pulse">
-              <ScanLine className="w-16 h-16 text-purple-400 animate-spin" />
+            <div 
+              className="w-32 h-32 rounded-full flex items-center justify-center animate-pulse"
+              style={{ border: `4px solid ${COLORS.accent}` }}
+            >
+              <ScanLine className="w-16 h-16 animate-spin" style={{ color: COLORS.accent }} />
             </div>
-            <p className="text-lg">Validating...</p>
+            <p className="text-lg tracking-wide">Validating...</p>
           </div>
         ) : (
-          <div className={`w-full max-w-md rounded-2xl border-2 ${getStatusStyle()} overflow-hidden`}>
+          <div 
+            className="w-full max-w-md rounded-2xl overflow-hidden"
+            style={{ 
+              border: `2px solid ${getDecisionColor()}`,
+              background: `${getDecisionColor()}10`
+            }}
+          >
             {/* Decision Banner */}
-            <div className={`py-4 text-center ${
-              status === 'verified' ? 'bg-green-500' :
-              status === 'review' ? 'bg-amber-500' :
-              'bg-red-500'
-            }`}>
+            <div className="py-6 text-center" style={{ background: getDecisionColor() }}>
               <div className="flex items-center justify-center gap-3">
-                {getDecisionIcon()}
-                <span className="text-4xl font-black">{getDecisionText()}</span>
+                {status === 'verified' ? (
+                  <CheckCircle2 className="w-16 h-16" style={{ color: '#000' }} />
+                ) : status === 'review' ? (
+                  <AlertTriangle className="w-16 h-16" style={{ color: '#000' }} />
+                ) : (
+                  <XCircle className="w-16 h-16" style={{ color: '#fff' }} />
+                )}
+                <span 
+                  className="text-5xl font-black tracking-wider"
+                  style={{ color: status === 'denied' || status === 'expired' || status === 'used' || status === 'invalid' ? '#fff' : '#000' }}
+                >
+                  {getDecisionText()}
+                </span>
               </div>
             </div>
 
             {/* ID Card View */}
             {result?.profile && (
-              <div className="p-4">
+              <div className="p-4" style={{ background: COLORS.backgroundAlt }}>
+                {/* Front/Back tabs */}
                 <div className="flex items-center justify-between mb-4">
                   <button
                     onClick={() => setShowBack(false)}
-                    className={`flex items-center gap-1 px-3 py-1 rounded ${!showBack ? 'bg-white/20' : ''}`}
+                    className="flex items-center gap-1 px-3 py-1 rounded transition-all"
+                    style={{ 
+                      background: !showBack ? 'rgba(77,235,255,0.2)' : 'transparent',
+                      color: COLORS.text
+                    }}
                   >
                     <ChevronLeft className="w-4 h-4" />
                     Front
                   </button>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm" style={{ color: COLORS.textMuted }}>
                     {showBack ? 'ID Back' : 'ID Front'}
                   </span>
                   <button
                     onClick={() => setShowBack(true)}
-                    className={`flex items-center gap-1 px-3 py-1 rounded ${showBack ? 'bg-white/20' : ''}`}
+                    className="flex items-center gap-1 px-3 py-1 rounded transition-all"
+                    style={{ 
+                      background: showBack ? 'rgba(77,235,255,0.2)' : 'transparent',
+                      color: COLORS.text
+                    }}
                   >
                     Back
                     <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
 
-                <div className="aspect-[1.6/1] bg-white/5 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
+                {/* ID Card display */}
+                <div 
+                  className="aspect-[1.6/1] rounded-xl mb-4 overflow-hidden"
+                  style={{ border: `1px solid rgba(77,235,255,0.2)` }}
+                >
                   {showBack ? (
                     result.profile.idBackUrl ? (
                       <img 
@@ -467,10 +760,7 @@ export default function DoorDevice() {
                         className="w-full h-full object-contain"
                       />
                     ) : (
-                      <div className="text-center text-muted-foreground">
-                        <p>ID Back</p>
-                        <p className="text-xs">(Barcode side)</p>
-                      </div>
+                      <DemoAlienIdBack />
                     )
                   ) : (
                     result.profile.idFrontUrl ? (
@@ -479,33 +769,25 @@ export default function DoorDevice() {
                         alt="ID Front" 
                         className="w-full h-full object-contain"
                       />
-                    ) : result.profile.profileImageUrl ? (
-                      <img 
-                        src={result.profile.profileImageUrl} 
-                        alt="Profile" 
-                        className="w-full h-full object-cover"
-                      />
                     ) : (
-                      <div className="text-center text-muted-foreground">
-                        <Ghost className="w-16 h-16 mx-auto mb-2 opacity-50" />
-                        <p>No ID image</p>
-                      </div>
+                      <DemoAlienIdFront />
                     )
                   )}
                 </div>
 
+                {/* Profile info */}
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Name</span>
+                    <span style={{ color: COLORS.textMuted }}>Name</span>
                     <span className="font-medium">{result.profile.fullName}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Member ID</span>
-                    <span className="font-mono">{result.profile.memberId}</span>
+                    <span style={{ color: COLORS.textMuted }}>Member ID</span>
+                    <span className="font-mono" style={{ color: COLORS.accent }}>{result.profile.memberId}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">IDV Status</span>
-                    <span className={result.profile.idvStatus === 'verified' ? 'text-green-400' : 'text-amber-400'}>
+                    <span style={{ color: COLORS.textMuted }}>IDV Status</span>
+                    <span style={{ color: result.profile.idvStatus === 'verified' ? COLORS.verified : COLORS.review }}>
                       {result.profile.idvStatus}
                     </span>
                   </div>
@@ -513,20 +795,21 @@ export default function DoorDevice() {
               </div>
             )}
 
-            <div className="px-4 py-3 border-t border-white/10 text-center">
-              <p className="text-sm">{result?.message}</p>
+            {/* Message footer */}
+            <div className="px-4 py-3 text-center" style={{ borderTop: `1px solid rgba(77,235,255,0.1)`, background: COLORS.background }}>
+              <p className="text-sm" style={{ color: COLORS.textMuted }}>{result?.message}</p>
             </div>
           </div>
         )}
       </main>
 
       {/* Footer Controls */}
-      <footer className="p-4 border-t border-white/10">
+      <footer className="relative z-10 p-4" style={{ borderTop: `1px solid rgba(77,235,255,0.1)` }}>
         <div className="flex gap-3 max-w-md mx-auto">
           <Button
             onClick={handleClear}
-            variant="destructive"
-            className="flex-1"
+            className="flex-1 font-bold"
+            style={{ background: COLORS.denied, color: '#fff' }}
             disabled={status === 'idle'}
           >
             <X className="w-4 h-4 mr-2" />
@@ -534,7 +817,8 @@ export default function DoorDevice() {
           </Button>
           <Button
             onClick={handleClear}
-            className="flex-1 bg-purple-600 hover:bg-purple-700"
+            className="flex-1 font-bold"
+            style={{ background: COLORS.accent, color: '#000' }}
           >
             <RotateCcw className="w-4 h-4 mr-2" />
             NEXT SCAN
@@ -546,7 +830,8 @@ export default function DoorDevice() {
           <Button
             onClick={handleEndShift}
             variant="ghost"
-            className="w-full text-muted-foreground hover:text-red-400"
+            className="w-full hover:opacity-80"
+            style={{ color: COLORS.textMuted }}
           >
             End Shift
           </Button>

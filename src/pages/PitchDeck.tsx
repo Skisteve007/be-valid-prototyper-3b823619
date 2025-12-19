@@ -116,9 +116,9 @@ const scorecardData = [
 
   const renderCheck = (value: boolean, isValid?: boolean) => {
     if (value) {
-      return <Check className={`h-4 w-4 mx-auto ${isValid ? 'text-cyan-400' : 'text-green-500'}`} />;
+      return <Check className={`h-5 w-5 mx-auto ${isValid ? 'text-emerald-400 drop-shadow-[0_0_6px_rgba(52,211,153,0.8)]' : 'text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.8)]'}`} />;
     }
-    return <X className="h-4 w-4 mx-auto text-red-500/50" />;
+    return <X className="h-5 w-5 mx-auto text-red-400 drop-shadow-[0_0_6px_rgba(248,113,113,0.8)]" />;
   };
 
   // Section divider component for consistent styling
@@ -143,15 +143,15 @@ const scorecardData = [
   );
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white selection:bg-cyan-500 selection:text-black relative overflow-hidden">
+    <div className="min-h-screen bg-[#0a0a0f] text-white selection:bg-cyan-500 selection:text-black relative overflow-hidden">
       
       {/* Background Grid */}
-      <div className="fixed inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
+      <div className="fixed inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
       
       {/* Background Atmosphere */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-[-10%] left-[20%] w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-cyan-500/8 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] left-[20%] w-[400px] h-[400px] bg-blue-600/8 rounded-full blur-[100px]"></div>
       </div>
 
       {/* Header */}
@@ -720,26 +720,26 @@ const scorecardData = [
                   </span>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="overflow-x-auto bg-black/40 rounded-lg border border-white/10 mt-2">
+                  <div className="overflow-x-auto bg-[#12141a] rounded-lg border border-white/20 mt-2">
                     <table className="w-full" style={{ fontSize: 'clamp(12px, 1vw, 16px)' }}>
                       <thead>
-                        <tr className="bg-white/5 text-white">
+                        <tr className="bg-white/10 text-white">
                           <th className="p-3 text-left font-bold" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)' }}>Feature</th>
-                          <th className="p-3 text-center text-cyan-400 font-bold" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)' }}>VALID</th>
-                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CLEAR</th>
-                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>ID.me</th>
-                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>TICKETMASTER</th>
-                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>STERLING</th>
-                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>DICE</th>
-                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>EVENTBRITE</th>
-                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>SALESFORCE</th>
-                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CHECKR</th>
+                          <th className="p-3 text-center font-bold drop-shadow-[0_0_8px_rgba(0,229,229,0.6)]" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)', color: '#00E5E5' }}>VALID</th>
+                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CLEAR</th>
+                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>ID.me</th>
+                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>TICKETMASTER</th>
+                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>STERLING</th>
+                          <th className="p-3 text-center text-orange-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>DICE</th>
+                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>EVENTBRITE</th>
+                          <th className="p-3 text-center text-purple-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>SALESFORCE</th>
+                          <th className="p-3 text-center text-blue-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CHECKR</th>
                         </tr>
                       </thead>
                       <tbody>
                         {scorecardData.map((row, idx) => (
-                          <tr key={idx} className="border-b border-white/5">
-                            <td className="p-3 text-gray-300" style={{ fontSize: 'clamp(12px, 1vw, 16px)' }}>{row.feature}</td>
+                          <tr key={idx} className="border-b border-white/10 hover:bg-white/5 transition-colors">
+                            <td className="p-3 text-gray-200" style={{ fontSize: 'clamp(12px, 1vw, 16px)' }}>{row.feature}</td>
                             <td className="p-3 text-center">{renderCheck(row.valid, true)}</td>
                             <td className="p-3 text-center">{renderCheck(row.clear)}</td>
                             <td className="p-3 text-center">{renderCheck(row.idme)}</td>
@@ -751,17 +751,17 @@ const scorecardData = [
                             <td className="p-3 text-center">{renderCheck(row.checkr)}</td>
                           </tr>
                         ))}
-                        <tr className="bg-white/5 font-bold">
+                        <tr className="bg-emerald-900/30 font-bold border-t-2 border-emerald-500/50">
                           <td className="p-3 text-white" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)' }}>TOTAL</td>
-                          <td className="p-3 text-center text-cyan-400 font-extrabold" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>{validScore}/10</td>
-                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
-                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
-                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
-                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
-                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
-                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
-                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
-                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
+                          <td className="p-3 text-center font-extrabold drop-shadow-[0_0_10px_rgba(0,229,229,0.8)]" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)', color: '#00E5E5' }}>{validScore}/10</td>
+                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
+                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
+                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
+                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
+                          <td className="p-3 text-center text-orange-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
+                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
+                          <td className="p-3 text-center text-purple-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
+                          <td className="p-3 text-center text-blue-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
                         </tr>
                       </tbody>
                     </table>

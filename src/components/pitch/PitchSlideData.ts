@@ -55,7 +55,7 @@ export const pitchSlides: SlideData[] = [
     title: "HOW IT WORKS",
     bullets: [
       "Member creates VALID™ account & verifies identity",
-      "Funds GHOST™ wallet (pre-paid, zero chargebacks)",
+      "Funds GHOST™ wallet (pre-paid, ACH preferred, deflect chargebacks)",
       "Scans QR at venue — verified in 3 seconds",
       "Venue receives instant settlement + liability shield"
     ],

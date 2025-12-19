@@ -27,7 +27,6 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
   const [isMuted, setIsMuted] = useState(true);
   const [showMusicPrompt, setShowMusicPrompt] = useState(true);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
-  const [showMobileControls, setShowMobileControls] = useState(true);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -158,19 +157,6 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
     return () => clearTimeout(timer);
   }, [showMusicPrompt]);
 
-  // Auto-hide mobile controls after 4 seconds of inactivity
-  useEffect(() => {
-    if (!showMobileControls) return;
-    const timer = setTimeout(() => {
-      setShowMobileControls(false);
-    }, 4000);
-    return () => clearTimeout(timer);
-  }, [showMobileControls, current]);
-
-  // Show controls on tap (mobile)
-  const handleTap = () => {
-    setShowMobileControls(true);
-  };
 
   return (
     <div
@@ -185,29 +171,23 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      onClick={handleTap}
       aria-label="Investor deck slides"
     >
-      {/* Main Slide Content - Use aspect ratio for consistent sizing */}
-      <div 
-        className="relative w-full overflow-hidden"
-        style={{ 
-          // 16:9 aspect ratio on desktop, taller on mobile for readability
-          aspectRatio: isFullscreen ? 'auto' : undefined,
-          height: isFullscreen ? 'calc(100% - 52px)' : undefined,
-          paddingBottom: isFullscreen ? undefined : 'clamp(56.25%, 56.25%, 56.25%)' // 16:9 aspect ratio
-        }}
+      {/* Main Slide Content - Flexes in fullscreen, stays 16:9 otherwise */}
+      <div
+        className={"relative w-full overflow-hidden " + (isFullscreen ? "flex-1 min-h-0" : "")}
+        style={isFullscreen ? undefined : { aspectRatio: "16 / 9" }}
       >
-        <div 
+        <div
           className="absolute inset-0 flex transition-transform duration-500 ease-in-out"
-          style={{ 
+          style={{
             width: `${totalSlides * 100}%`,
-            transform: `translateX(-${(current * 100) / totalSlides}%)`
+            transform: `translateX(-${(current * 100) / totalSlides}%)`,
           }}
         >
-          {pitchSlides.map((slide, index) => (
-            <div 
-              key={slide.id} 
+          {pitchSlides.map((slide) => (
+            <div
+              key={slide.id}
               className="h-full flex-shrink-0"
               style={{ width: `${100 / totalSlides}%` }}
             >
@@ -269,13 +249,39 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
             </div>
           </div>
 
-          {/* Right: Counter + Fullscreen */}
+          {/* Right: Mobile nav + Counter + Fullscreen */}
           <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
+              className="md:hidden p-1.5 rounded-full bg-black/80 text-white transition-all backdrop-blur-sm border border-white/30"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft size={14} />
+            </button>
+
             <span className="text-white/60 text-xs font-mono tracking-wider whitespace-nowrap">
               {current + 1}/{totalSlides}
             </span>
+
             <button
-              onClick={(e) => { e.stopPropagation(); setIsFullscreen((v) => !v); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
+              className="md:hidden p-1.5 rounded-full bg-black/80 text-white transition-all backdrop-blur-sm border border-white/30"
+              aria-label="Next slide"
+            >
+              <ChevronRight size={14} />
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsFullscreen((v) => !v);
+              }}
               className="p-1.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30"
               aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
             >
@@ -285,25 +291,27 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         </div>
       </div>
 
-      {/* Navigation Arrows - Only show on desktop or when controls visible on mobile */}
+      {/* Navigation Arrows - Desktop hover only (never overlays mobile) */}
       <button
-        onClick={(e) => { e.stopPropagation(); prev(); }}
-        className={`absolute left-1 md:left-3 top-[calc(50%-2rem)] -translate-y-1/2 p-2 md:p-2.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30 z-10 ${
-          showMobileControls ? 'opacity-80' : 'opacity-0'
-        } md:opacity-0 md:group-hover:opacity-100`}
+        onClick={(e) => {
+          e.stopPropagation();
+          prev();
+        }}
+        className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30 z-10 opacity-0 group-hover:opacity-100"
         aria-label="Previous slide"
       >
-        <ChevronLeft size={18} className="md:w-5 md:h-5" />
+        <ChevronLeft size={20} />
       </button>
 
       <button
-        onClick={(e) => { e.stopPropagation(); next(); }}
-        className={`absolute right-1 md:right-3 top-[calc(50%-2rem)] -translate-y-1/2 p-2 md:p-2.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30 z-10 ${
-          showMobileControls ? 'opacity-80' : 'opacity-0'
-        } md:opacity-0 md:group-hover:opacity-100`}
+        onClick={(e) => {
+          e.stopPropagation();
+          next();
+        }}
+        className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/80 text-white transition-all hover:scale-105 backdrop-blur-sm border border-white/30 z-10 opacity-0 group-hover:opacity-100"
         aria-label="Next slide"
       >
-        <ChevronRight size={18} className="md:w-5 md:h-5" />
+        <ChevronRight size={20} />
       </button>
 
       {/* Music Prompt - Only on desktop, positioned safely */}

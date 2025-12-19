@@ -354,7 +354,7 @@ const scorecardData = [
             </div>
           </div>
 
-          {/* Value Drivers - Condensed */}
+          {/* Value Drivers - Expanded */}
           <div>
             <h3 
               className="tracking-[0.2em] uppercase text-center font-bold"
@@ -367,70 +367,99 @@ const scorecardData = [
             >
               Six Value Drivers
             </h3>
-            <div className="grid md:grid-cols-3" style={{ gap: 'clamp(20px, 2vw, 32px)' }}>
-              <div className="bg-black/50 border border-amber-500/30 rounded-xl hover:border-amber-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
-                <Ghost className="text-amber-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Ghost™ Token</h4>
-                <ul className="text-gray-300 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
-                  <li>• 3-in-1: Payment + ID + Health</li>
-                  <li>• Self-destructing encryption</li>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: 'clamp(20px, 2vw, 32px)' }}>
+              {/* 1. vaGhost™ Token */}
+              <div className="bg-black/50 border border-amber-500/30 rounded-xl hover:border-amber-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                <Ghost className="text-amber-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>vaGhost™ Token</h4>
+                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                  <li>• One credential powers entry, payment & verification</li>
+                  <li>• Ephemeral by design (single-use tokens)</li>
+                  <li>• Every scan creates an auditable event</li>
+                  <li>• 2-second door decisions (real line speed)</li>
                 </ul>
               </div>
-              <div className="bg-black/50 border border-purple-500/30 rounded-xl hover:border-purple-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
-                <Lock className="text-purple-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Regulatory Moat</h4>
-                <ul className="text-gray-300 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
-                  <li>• 18+ months to replicate</li>
-                  <li>• HIPAA + Payment rails</li>
+
+              {/* 2. 3-in-1: Payment + ID + Health */}
+              <div className="bg-black/50 border border-cyan-500/30 rounded-xl hover:border-cyan-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                <CreditCard className="text-cyan-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>3-in-1: Payment + ID + Health</h4>
+                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                  <li>• PASS / REVIEW / FAIL without exposing details</li>
+                  <li>• Flexible per-venue rules (ID-only, payment-only, combined)</li>
+                  <li>• Fewer apps/cards, fewer disputes at door</li>
+                  <li>• "Verified guest" lanes & VIP throughput</li>
                 </ul>
               </div>
-              <div className="bg-black/50 border border-green-500/30 rounded-xl hover:border-green-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
-                <Network className="text-green-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Network Effects</h4>
-                <ul className="text-gray-300 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
-                  <li>• 3.2x organic referral rate</li>
-                  <li>• Every QR is marketing</li>
+
+              {/* 3. Self-destructing encryption */}
+              <div className="bg-black/50 border border-red-500/30 rounded-xl hover:border-red-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                <Lock className="text-red-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Self-Destructing Encryption</h4>
+                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                  <li>• Tokens expire automatically (default 60s)</li>
+                  <li>• Screenshot-resistant: expired codes fail</li>
+                  <li>• Sensitive proofs via short-lived access only</li>
+                  <li>• Minimizes breach impact: nothing persists</li>
+                </ul>
+              </div>
+
+              {/* 4. Regulatory Moat */}
+              <div className="bg-black/50 border border-purple-500/30 rounded-xl hover:border-purple-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                <Shield className="text-purple-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Regulatory Moat</h4>
+                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                  <li>• Compliance is the product: audit trails + access controls</li>
+                  <li>• ID + verification + payments in one OS</li>
+                  <li>• Process + partnerships, not just UI</li>
+                  <li>• Creates switching costs: venues standardize ops</li>
+                </ul>
+              </div>
+
+              {/* 5. Network Effects */}
+              <div className="bg-black/50 border border-green-500/30 rounded-xl hover:border-green-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                <Network className="text-green-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Network Effects</h4>
+                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                  <li>• Every QR is marketing: guests see it, ask, share</li>
+                  <li>• Faster lines → more adoption → more venues</li>
+                  <li>• Shared credential increases repeat usage</li>
+                  <li>• Higher trust loop: better verification → more scans</li>
+                </ul>
+              </div>
+
+              {/* 6. Liability Firewall */}
+              <div className="bg-black/50 border border-blue-500/30 rounded-xl hover:border-blue-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                <ShieldCheck className="text-blue-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Liability Firewall</h4>
+                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                  <li>• Venues never store sensitive customer data</li>
+                  <li>• Minimum-necessary info for face-match & entry</li>
+                  <li>• Incident-ready logs without exposing PII</li>
+                  <li>• Insurance & compliance-ready for premium venues</li>
                 </ul>
               </div>
             </div>
-          <Accordion type="single" collapsible className="mt-6">
-              <AccordionItem value="more-drivers" className="border-none rounded-xl">
-                <AccordionTrigger className="py-4 hover:no-underline justify-center text-cyan-400 hover:text-cyan-300">
-                  <span className="flex items-center gap-2" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>
-                    <ChevronDown style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
-                    <span className="font-semibold">Expand All Six</span>
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="grid md:grid-cols-3 gap-6 pt-6">
-                    <div className="bg-black/50 border border-blue-500/40 rounded-xl hover:border-blue-500/60 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                      <ShieldCheck className="text-blue-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
-                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Liability Firewall</h4>
-                      <ul className="text-gray-200 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
-                        <li>• $0 venue liability exposure</li>
-                        <li>• Insurance-grade compliance</li>
-                      </ul>
-                    </div>
-                    <div className="bg-black/50 border border-cyan-500/40 rounded-xl hover:border-cyan-500/60 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                      <Zap className="text-cyan-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
-                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Fast Verified Payouts</h4>
-                      <ul className="text-gray-200 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
-                        <li>• Payouts within minutes</li>
-                        <li>• Verification = profit center</li>
-                      </ul>
-                    </div>
-                    <div className="bg-black/50 border border-red-500/40 rounded-xl hover:border-red-500/60 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                      <Lock className="text-red-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
-                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>VALID Token Only</h4>
-                      <ul className="text-gray-200 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
-                        <li>• Zero raw PII stored</li>
-                        <li>• Self-destructing proofs</li>
-                      </ul>
-                    </div>
+
+            {/* Footer sub-bullets */}
+            <div className="mt-8 bg-gradient-to-r from-cyan-950/30 to-green-950/30 border border-cyan-500/20 rounded-xl" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
+              <div className="grid md:grid-cols-2" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+                <div className="flex items-start gap-3">
+                  <Zap className="text-cyan-400 flex-shrink-0 mt-1" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <div>
+                    <span className="font-bold text-cyan-400" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>Fast Verified Payouts</span>
+                    <p className="text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>Verification unlocks faster settlement & higher conversion</p>
                   </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Lock className="text-green-400 flex-shrink-0 mt-1" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <div>
+                    <span className="font-bold text-green-400" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>VALID Token Only</span>
+                    <p className="text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>Tokenized identifiers + short-lived proofs (privacy by architecture)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

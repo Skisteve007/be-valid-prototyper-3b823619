@@ -242,7 +242,7 @@ const scorecardData = [
         <section className="text-center" style={{ paddingBottom: 'clamp(32px, 4vw, 56px)' }}>
           <img src={logo} alt="VALID" className="mx-auto mb-8 rounded-xl shadow-[0_0_50px_rgba(0,240,255,0.25)]" style={{ height: 'clamp(120px, 12vw, 180px)' }} />
           
-          <Badge className="mb-5 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 tracking-[0.2em]" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(20px, 2.5vw, 32px)', fontSize: 'clamp(12px, 0.9vw, 15px)', height: 'clamp(48px, 3.5vw, 56px)' }}>
+          <Badge className="mb-5 bg-cyan-500/10 text-cyan-400 border-cyan-500/30 tracking-[0.2em]" style={{ padding: 'clamp(10px, 1.2vw, 16px) clamp(20px, 2.5vw, 32px)', fontSize: 'clamp(14px, 1vw, 16px)', height: 'clamp(48px, 3.5vw, 56px)' }}>
             CONFIDENTIAL — INVESTOR ONLY
           </Badge>
           
@@ -252,22 +252,22 @@ const scorecardData = [
             </span>
           </h1>
           
-          <p className="text-gray-300" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(32px, 4vw, 48px)', lineHeight: '1.45' }}>
+          <p style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(32px, 4vw, 48px)', lineHeight: '1.55', color: 'rgba(233, 238, 245, 0.88)' }}>
             Zero-Trust Identity & Payment Infrastructure
           </p>
 
           <div className="flex flex-wrap justify-center" style={{ gap: 'clamp(12px, 1.5vw, 20px)', marginBottom: 'clamp(32px, 4vw, 48px)' }}>
             <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
-              <span className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>TAM:</span>
-              <span className="text-white font-bold ml-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>$11.4B+</span>
+              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(233, 238, 245, 0.72)' }}>TAM:</span>
+              <span className="text-white font-bold ml-2" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>$11.4B+</span>
             </div>
             <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
-              <span className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>Tranche 1:</span>
-              <span className="text-cyan-400 font-bold ml-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>$200K Note</span>
+              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(233, 238, 245, 0.72)' }}>Tranche 1:</span>
+              <span className="text-cyan-400 font-bold ml-2" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>$200K Note</span>
             </div>
             <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
-              <span className="text-gray-400" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>Stage:</span>
-              <span className="text-green-400 font-bold ml-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)' }}>Revenue Generating</span>
+              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(233, 238, 245, 0.72)' }}>Stage:</span>
+              <span className="text-green-400 font-bold ml-2" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>Revenue Generating</span>
             </div>
           </div>
 
@@ -278,7 +278,7 @@ const scorecardData = [
                 <h3 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>
                   16‑Slide Investor Deck (Quick View)
                 </h3>
-                <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
+                <p style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', color: 'rgba(233, 238, 245, 0.72)' }}>
                   Swipe on mobile or use the arrows.
                 </p>
               </div>
@@ -413,7 +413,7 @@ const scorecardData = [
               <h4 className="text-cyan-400 font-bold tracking-[0.15em] uppercase mb-4" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
                 PIPELINE, NOT VAULT
               </h4>
-              <p className="text-gray-300 mb-5" style={{ fontSize: 'clamp(15px, 1.15vw, 19px)', lineHeight: '1.5' }}>
+              <p style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', lineHeight: '1.6', marginBottom: '1.25rem', color: 'rgba(233, 238, 245, 0.88)' }}>
                 Verify in real time → grant access → purge by default.
               </p>
 
@@ -425,14 +425,14 @@ const scorecardData = [
                   { icon: FileText, text: "Audit without exposure: event logs prove what happened without storing sensitive payloads." },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <item.icon className="text-cyan-400/70 flex-shrink-0 mt-0.5" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
-                    <span className="text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.5' }}>{item.text}</span>
+                    <item.icon className="text-cyan-400/80 flex-shrink-0 mt-1" style={{ width: 'clamp(18px, 1.4vw, 22px)', height: 'clamp(18px, 1.4vw, 22px)' }} />
+                    <span style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }}>{item.text}</span>
                   </div>
                 ))}
               </div>
 
               {/* Kicker line */}
-              <p className="text-cyan-400/60 italic" style={{ fontSize: 'clamp(12px, 0.95vw, 15px)' }}>
+              <p className="text-cyan-400/70 italic" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>
                 "Trust at the edge, privacy at the core."
               </p>
             </div>
@@ -455,7 +455,7 @@ const scorecardData = [
 
           {/* This Week (Pilot Readiness) Metrics */}
           <div>
-            <h3 className="tracking-[0.2em] uppercase text-cyan-400 text-center font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(20px, 2.5vw, 32px)' }}>This Week (Pilot Readiness)</h3>
+            <h3 className="tracking-[0.2em] uppercase text-cyan-400 text-center font-semibold" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(20px, 2.5vw, 32px)' }}>This Week (Pilot Readiness)</h3>
             <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(16px, 2vw, 32px)' }}>
               {[
                 { value: "< 2 sec", label: "Decision latency target", sublabel: "(Door Mode)", icon: Zap, color: "text-cyan-400" },
@@ -466,9 +466,9 @@ const scorecardData = [
                 <Card key={idx} className="bg-black/50 border-white/10 hover:border-cyan-500/40 transition-all rounded-xl">
                   <CardContent className="text-center" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
                     <metric.icon className={`mx-auto ${metric.color}`} style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
-                    <div className="font-bold text-white" style={{ fontSize: 'clamp(22px, 2vw, 34px)' }}>{metric.value}</div>
-                    <div className="text-gray-300 mt-1" style={{ fontSize: 'clamp(12px, 0.9vw, 15px)' }}>{metric.label}</div>
-                    <div className="text-gray-500" style={{ fontSize: 'clamp(10px, 0.8vw, 13px)' }}>{metric.sublabel}</div>
+                    <div className="font-bold text-white" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>{metric.value}</div>
+                    <div style={{ fontSize: 'clamp(14px, 1vw, 16px)', marginTop: '0.25rem', color: 'rgba(233, 238, 245, 0.88)' }}>{metric.label}</div>
+                    <div style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', color: 'rgba(233, 238, 245, 0.6)' }}>{metric.sublabel}</div>
                   </CardContent>
                 </Card>
               ))}
@@ -480,7 +480,7 @@ const scorecardData = [
             <h4 className="font-bold text-green-400 tracking-[0.15em] uppercase text-center" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}>
               What's Already Working
             </h4>
-            <div className="grid md:grid-cols-2" style={{ gap: 'clamp(12px, 1.2vw, 20px)' }}>
+            <div className="grid md:grid-cols-2" style={{ gap: 'clamp(14px, 1.4vw, 22px)' }}>
               {[
                 "Door-ready kiosk flow (stay-awake, scan loop, instant reset)",
                 "Ephemeral QR (60s) + screenshot-resistant replays",
@@ -488,8 +488,8 @@ const scorecardData = [
                 "Audit events for scans + station switches (incident-ready)",
               ].map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 className="text-green-400 flex-shrink-0 mt-0.5" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
-                  <span className="text-gray-200" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.5' }}>{item}</span>
+                  <CheckCircle2 className="text-green-400 flex-shrink-0 mt-1" style={{ width: 'clamp(18px, 1.4vw, 22px)', height: 'clamp(18px, 1.4vw, 22px)' }} />
+                  <span style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -497,7 +497,7 @@ const scorecardData = [
 
           {/* Pilot Traction (Updating Live) */}
           <div className="bg-black/40 border border-white/10 rounded-xl" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-            <h4 className="font-semibold text-gray-400 tracking-[0.12em] uppercase text-center" style={{ fontSize: 'clamp(12px, 0.95vw, 15px)', marginBottom: 'clamp(14px, 1.3vw, 22px)' }}>
+            <h4 className="font-semibold tracking-[0.12em] uppercase text-center" style={{ fontSize: 'clamp(14px, 1vw, 16px)', marginBottom: 'clamp(14px, 1.3vw, 22px)', color: 'rgba(233, 238, 245, 0.72)' }}>
               Pilot Traction (Updating Live)
             </h4>
             <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
@@ -506,11 +506,11 @@ const scorecardData = [
                 { label: "Markets", status: "Launching in 1 market first", icon: Globe },
                 { label: "Member Growth", status: "Collecting baseline this week", icon: TrendingUp },
               ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 bg-black/30 rounded-lg" style={{ padding: 'clamp(12px, 1.2vw, 20px)' }}>
-                  <item.icon className="text-gray-500 flex-shrink-0" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                <div key={idx} className="flex items-center gap-3 bg-black/30 rounded-lg" style={{ padding: 'clamp(14px, 1.4vw, 22px)' }}>
+                  <item.icon className="flex-shrink-0" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)', color: 'rgba(233, 238, 245, 0.5)' }} />
                   <div>
-                    <div className="text-white font-medium" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>{item.label}</div>
-                    <div className="text-gray-500 italic" style={{ fontSize: 'clamp(11px, 0.85vw, 14px)' }}>{item.status}</div>
+                    <div className="text-white font-medium" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>{item.label}</div>
+                    <div className="italic" style={{ fontSize: 'clamp(13px, 0.95vw, 15px)', color: 'rgba(233, 238, 245, 0.6)' }}>{item.status}</div>
                   </div>
                 </div>
               ))}
@@ -532,10 +532,10 @@ const scorecardData = [
             </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: 'clamp(20px, 2vw, 32px)' }}>
               {/* 1. vaGhost™ Token */}
-              <div className="bg-black/50 border border-amber-500/30 rounded-xl hover:border-amber-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                <Ghost className="text-amber-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>vaGhost™ Token</h4>
-                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+              <div className="bg-black/50 border border-amber-500/30 rounded-xl hover:border-amber-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <Ghost className="text-amber-400" style={{ width: 'clamp(30px, 2.4vw, 40px)', height: 'clamp(30px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.5vw, 24px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }}>vaGhost™ Token</h4>
+                <ul style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }} className="space-y-2">
                   <li>• One credential powers entry, payment & verification</li>
                   <li>• Ephemeral by design (single-use tokens)</li>
                   <li>• Every scan creates an auditable event</li>
@@ -544,10 +544,10 @@ const scorecardData = [
               </div>
 
               {/* 2. 3-in-1: Payment + ID + Health */}
-              <div className="bg-black/50 border border-cyan-500/30 rounded-xl hover:border-cyan-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                <CreditCard className="text-cyan-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>3-in-1: Payment + ID + Health</h4>
-                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+              <div className="bg-black/50 border border-cyan-500/30 rounded-xl hover:border-cyan-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <CreditCard className="text-cyan-400" style={{ width: 'clamp(30px, 2.4vw, 40px)', height: 'clamp(30px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.5vw, 24px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }}>3-in-1: Payment + ID + Health</h4>
+                <ul style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }} className="space-y-2">
                   <li>• PASS / REVIEW / FAIL without exposing details</li>
                   <li>• Flexible per-venue rules (ID-only, payment-only, combined)</li>
                   <li>• Fewer apps/cards, fewer disputes at door</li>
@@ -556,10 +556,10 @@ const scorecardData = [
               </div>
 
               {/* 3. Self-destructing encryption */}
-              <div className="bg-black/50 border border-red-500/30 rounded-xl hover:border-red-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                <Lock className="text-red-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Self-Destructing Encryption</h4>
-                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+              <div className="bg-black/50 border border-red-500/30 rounded-xl hover:border-red-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <Lock className="text-red-400" style={{ width: 'clamp(30px, 2.4vw, 40px)', height: 'clamp(30px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.5vw, 24px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }}>Self-Destructing Encryption</h4>
+                <ul style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }} className="space-y-2">
                   <li>• Tokens expire automatically (default 60s)</li>
                   <li>• Screenshot-resistant: expired codes fail</li>
                   <li>• Sensitive proofs via short-lived access only</li>
@@ -568,10 +568,10 @@ const scorecardData = [
               </div>
 
               {/* 4. Regulatory Moat */}
-              <div className="bg-black/50 border border-purple-500/30 rounded-xl hover:border-purple-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                <Shield className="text-purple-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Regulatory Moat</h4>
-                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+              <div className="bg-black/50 border border-purple-500/30 rounded-xl hover:border-purple-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <Shield className="text-purple-400" style={{ width: 'clamp(30px, 2.4vw, 40px)', height: 'clamp(30px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.5vw, 24px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }}>Regulatory Moat</h4>
+                <ul style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }} className="space-y-2">
                   <li>• Compliance is the product: audit trails + access controls</li>
                   <li>• ID + verification + payments in one OS</li>
                   <li>• Process + partnerships, not just UI</li>
@@ -580,10 +580,10 @@ const scorecardData = [
               </div>
 
               {/* 5. Network Effects */}
-              <div className="bg-black/50 border border-green-500/30 rounded-xl hover:border-green-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                <Network className="text-green-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Network Effects</h4>
-                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+              <div className="bg-black/50 border border-green-500/30 rounded-xl hover:border-green-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <Network className="text-green-400" style={{ width: 'clamp(30px, 2.4vw, 40px)', height: 'clamp(30px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.5vw, 24px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }}>Network Effects</h4>
+                <ul style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }} className="space-y-2">
                   <li>• Every QR is marketing: guests see it, ask, share</li>
                   <li>• Faster lines → more adoption → more venues</li>
                   <li>• Shared credential increases repeat usage</li>
@@ -592,10 +592,10 @@ const scorecardData = [
               </div>
 
               {/* 6. Liability Firewall */}
-              <div className="bg-black/50 border border-blue-500/30 rounded-xl hover:border-blue-500/50 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
-                <ShieldCheck className="text-blue-400" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(12px, 1vw, 18px)' }} />
-                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Liability Firewall</h4>
-                <ul className="text-gray-200 space-y-1.5" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+              <div className="bg-black/50 border border-blue-500/30 rounded-xl hover:border-blue-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
+                <ShieldCheck className="text-blue-400" style={{ width: 'clamp(30px, 2.4vw, 40px)', height: 'clamp(30px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                <h4 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.5vw, 24px)', marginBottom: 'clamp(12px, 1.2vw, 18px)' }}>Liability Firewall</h4>
+                <ul style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }} className="space-y-2">
                   <li>• Venues never store sensitive customer data</li>
                   <li>• Minimum-necessary info for face-match & entry</li>
                   <li>• Incident-ready logs without exposing PII</li>
@@ -605,20 +605,20 @@ const scorecardData = [
             </div>
 
             {/* Footer sub-bullets */}
-            <div className="mt-8 bg-gradient-to-r from-cyan-950/30 to-green-950/30 border border-cyan-500/20 rounded-xl" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-              <div className="grid md:grid-cols-2" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+            <div className="mt-8 bg-gradient-to-r from-cyan-950/30 to-green-950/30 border border-cyan-500/20 rounded-xl" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+              <div className="grid md:grid-cols-2" style={{ gap: 'clamp(18px, 1.6vw, 28px)' }}>
                 <div className="flex items-start gap-3">
-                  <Zap className="text-cyan-400 flex-shrink-0 mt-1" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <Zap className="text-cyan-400 flex-shrink-0 mt-1" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)' }} />
                   <div>
-                    <span className="font-bold text-cyan-400" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>Fast Verified Payouts</span>
-                    <p className="text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>Verification unlocks faster settlement & higher conversion</p>
+                    <span className="font-bold text-cyan-400" style={{ fontSize: 'clamp(16px, 1.3vw, 20px)' }}>Fast Verified Payouts</span>
+                    <p style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }}>Verification unlocks faster settlement & higher conversion</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Lock className="text-green-400 flex-shrink-0 mt-1" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                  <Lock className="text-green-400 flex-shrink-0 mt-1" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)' }} />
                   <div>
-                    <span className="font-bold text-green-400" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>VALID Token Only</span>
-                    <p className="text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>Tokenized identifiers + short-lived proofs (privacy by architecture)</p>
+                    <span className="font-bold text-green-400" style={{ fontSize: 'clamp(16px, 1.3vw, 20px)' }}>VALID Token Only</span>
+                    <p style={{ fontSize: 'clamp(16px, 1.1vw, 18px)', lineHeight: '1.6', color: 'rgba(233, 238, 245, 0.88)' }}>Tokenized identifiers + short-lived proofs (privacy by architecture)</p>
                   </div>
                 </div>
               </div>

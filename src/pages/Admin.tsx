@@ -36,6 +36,7 @@ import TrafficAnalytics from "@/components/admin/TrafficAnalytics";
 import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
 import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
+import ThinkTankManager from "@/components/admin/ThinkTankManager";
 import {
   DndContext,
   closestCenter,
@@ -635,7 +636,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Second Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-9 gap-1 h-auto p-1 mb-6">
+          <TabsList className="hidden md:grid w-full grid-cols-10 gap-1 h-auto p-1 mb-6">
             <TabsTrigger value="lead-outreach" className="cursor-pointer text-xs px-2 py-2">
               📧 Leads
             </TabsTrigger>
@@ -666,6 +667,9 @@ const Admin = () => {
             <TabsTrigger value="webhooks" className="cursor-pointer text-xs px-2 py-2">
               <Webhook className="h-3 w-3 mr-1" />
               Webhooks
+            </TabsTrigger>
+            <TabsTrigger value="think-tank" className="cursor-pointer text-xs px-2 py-2">
+              🧠 Think Tank
             </TabsTrigger>
           </TabsList>
           
@@ -1021,6 +1025,10 @@ const Admin = () => {
           
           <TabsContent value="webhooks">
             <WebhookEventsViewer />
+          </TabsContent>
+          
+          <TabsContent value="think-tank">
+            <ThinkTankManager />
           </TabsContent>
         </Tabs>
       </main>

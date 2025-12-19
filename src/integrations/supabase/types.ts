@@ -3006,6 +3006,57 @@ export type Database = {
         }
         Relationships: []
       }
+      think_tank_entries: {
+        Row: {
+          author_id: string | null
+          author_name: string | null
+          category: Database["public"]["Enums"]["think_tank_category"]
+          content: string
+          created_at: string | null
+          excerpt: string | null
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          slug: string
+          tags: string[] | null
+          title: string
+          updated_at: string | null
+          version: number | null
+        }
+        Insert: {
+          author_id?: string | null
+          author_name?: string | null
+          category: Database["public"]["Enums"]["think_tank_category"]
+          content: string
+          created_at?: string | null
+          excerpt?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          slug: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string | null
+          version?: number | null
+        }
+        Update: {
+          author_id?: string | null
+          author_name?: string | null
+          category?: Database["public"]["Enums"]["think_tank_category"]
+          content?: string
+          created_at?: string | null
+          excerpt?: string | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          slug?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string | null
+          version?: number | null
+        }
+        Relationships: []
+      }
       user_agreements: {
         Row: {
           created_at: string
@@ -4308,6 +4359,11 @@ export type Database = {
         | "RELEASED_SAFE_PARTIAL_DUE_TO_RESTRICTED_RISK"
       synth_risk_decision: "ALLOW" | "RESTRICT" | "BLOCK"
       test_type: "STD_PANEL" | "TOX_10_PANEL"
+      think_tank_category:
+        | "synth_standards"
+        | "playbooks"
+        | "decision_log"
+        | "templates"
       venue_category:
         | "Nightlife"
         | "Gentlemen"
@@ -4517,6 +4573,12 @@ export const Constants = {
       ],
       synth_risk_decision: ["ALLOW", "RESTRICT", "BLOCK"],
       test_type: ["STD_PANEL", "TOX_10_PANEL"],
+      think_tank_category: [
+        "synth_standards",
+        "playbooks",
+        "decision_log",
+        "templates",
+      ],
       venue_category: [
         "Nightlife",
         "Gentlemen",

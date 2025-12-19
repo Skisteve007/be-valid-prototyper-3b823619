@@ -18,6 +18,13 @@ const ResponsiveHeader = () => {
 
       {/* Right Side Controls */}
       <div className="flex items-center gap-1.5 sm:gap-4">
+        {/* Think Tank - Hidden on mobile */}
+        <Link 
+          to="/think-tank" 
+          className="hidden md:inline-flex px-3 py-1.5 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/40 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all whitespace-nowrap"
+        >
+          Think Tank
+        </Link>
         {/* Partner Solutions Button - Visible on all screens */}
         <Link 
           to="/partners" 

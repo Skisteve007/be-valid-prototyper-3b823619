@@ -305,24 +305,85 @@ const scorecardData = [
           </div>
         </section>
 
-        {/* ===== CORE INSIGHT ===== */}
-        <section style={{ marginTop: 'clamp(32px, 4vw, 56px)' }}>
-          <div className="bg-gradient-to-br from-cyan-950/30 to-blue-950/30 border border-cyan-500/20 rounded-xl" style={{ padding: 'clamp(24px, 3vw, 40px)' }}>
-            <div className="flex items-center gap-3 mb-5">
-              <Crown style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} className="text-cyan-400" />
-              <h2 className="font-bold font-orbitron text-white" style={{ fontSize: 'clamp(22px, 2vw, 32px)' }}>Core Insight</h2>
+        {/* ===== CORE INSIGHT — PREMIUM THESIS PANEL ===== */}
+        <section className="relative" style={{ marginTop: 'clamp(32px, 4vw, 56px)' }}>
+          {/* Matte charcoal container with gradient */}
+          <div 
+            className="relative overflow-hidden rounded-2xl"
+            style={{ 
+              background: 'linear-gradient(135deg, #07090D 0%, #0B0F14 50%, #0A0D12 100%)',
+              padding: 'clamp(28px, 3.5vw, 48px)',
+            }}
+          >
+            {/* Left cyan accent edge */}
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 via-cyan-500 to-cyan-600" />
+            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-cyan-500/20 to-transparent" />
+            
+            {/* Faint ghost watermark */}
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none">
+              <Ghost className="w-48 h-48 md:w-64 md:h-64 text-cyan-400" />
             </div>
+
+            {/* Top scanline */}
+            <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
             
-            <blockquote className="text-gray-300 italic border-l-4 border-cyan-500" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', paddingLeft: 'clamp(16px, 2vw, 24px)', marginBottom: 'clamp(20px, 2.5vw, 32px)', lineHeight: '1.45' }}>
-              "We're not another data company. We're the privacy-first pipeline that venues trust and consumers love."
-            </blockquote>
-            
-            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg" style={{ padding: 'clamp(16px, 2vw, 28px)' }}>
-              <h4 className="text-cyan-400 font-bold mb-2 tracking-[2px] uppercase" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Pipeline, Not Vault</h4>
-              <p className="text-gray-300" style={{ fontSize: 'clamp(15px, 1.1vw, 18px)', lineHeight: '1.5' }}>
-                We verify in real-time, grant access, then purge. Your data is never stored—privacy by architecture.
+            {/* Content */}
+            <div className="relative z-10" style={{ paddingLeft: 'clamp(16px, 2vw, 28px)' }}>
+              {/* Pill label */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-5">
+                <Crown className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="text-cyan-400 font-semibold tracking-[0.2em] uppercase" style={{ fontSize: 'clamp(10px, 0.8vw, 12px)' }}>
+                  CORE INSIGHT
+                </span>
+              </div>
+
+              {/* Main quote */}
+              <blockquote 
+                className="text-white font-medium mb-6"
+                style={{ 
+                  fontSize: 'clamp(20px, 1.8vw, 30px)', 
+                  lineHeight: '1.35',
+                  maxWidth: '800px'
+                }}
+              >
+                "We're not another data company. We're the privacy-first trust pipeline that venues rely on and consumers actually want."
+              </blockquote>
+
+              {/* Scanline divider */}
+              <div className="relative mb-6" style={{ maxWidth: '400px' }}>
+                <div className="h-px bg-gradient-to-r from-cyan-500/60 via-cyan-400/40 to-transparent" />
+              </div>
+
+              {/* PIPELINE, NOT VAULT subhead */}
+              <h4 className="text-cyan-400 font-bold tracking-[0.15em] uppercase mb-4" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
+                PIPELINE, NOT VAULT
+              </h4>
+              <p className="text-gray-300 mb-5" style={{ fontSize: 'clamp(15px, 1.15vw, 19px)', lineHeight: '1.5' }}>
+                Verify in real time → grant access → purge by default.
+              </p>
+
+              {/* 3 Supporting bullets with icons */}
+              <div className="space-y-3 mb-6">
+                {[
+                  { icon: Target, text: "Minimum necessary: outcomes travel (GOOD / REVIEW / NO), not raw records." },
+                  { icon: Clock, text: "Ephemeral proofs: QR + access links expire fast; screenshots don't replay." },
+                  { icon: FileText, text: "Audit without exposure: event logs prove what happened without storing sensitive payloads." },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <item.icon className="text-cyan-400/70 flex-shrink-0 mt-0.5" style={{ width: 'clamp(16px, 1.2vw, 20px)', height: 'clamp(16px, 1.2vw, 20px)' }} />
+                    <span className="text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.5' }}>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Kicker line */}
+              <p className="text-cyan-400/60 italic" style={{ fontSize: 'clamp(12px, 0.95vw, 15px)' }}>
+                "Trust at the edge, privacy at the core."
               </p>
             </div>
+
+            {/* Bottom scanline */}
+            <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
           </div>
         </section>
 

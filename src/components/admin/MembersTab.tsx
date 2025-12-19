@@ -7,8 +7,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Download, Search, Users, UserPlus, Mail, Calendar, Tag, Copy, Send, X } from "lucide-react";
+import { Loader2, Download, Search, Users, UserPlus, Mail, Calendar, Tag, Copy, Send, X, Trash2 } from "lucide-react";
 import { format } from "date-fns";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Member {
   id: string;
@@ -35,6 +45,9 @@ export const MembersTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedMembers, setSelectedMembers] = useState<Set<string>>(new Set());
   const [membershipFilter, setMembershipFilter] = useState<MembershipFilter>('all');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [memberToDelete, setMemberToDelete] = useState<Member | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
     thisWeek: 0,
@@ -314,6 +327,36 @@ export const MembersTab = () => {
     }
   };
 
+  const handleDeleteMember = async () => {
+    if (!memberToDelete) return;
+    
+    setDeleting(true);
+    try {
+      // Delete profile first (this will cascade delete related data)
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .delete()
+        .eq("user_id", memberToDelete.user_id);
+
+      if (profileError) throw profileError;
+
+      toast.success(`Member ${memberToDelete.full_name || memberToDelete.email || memberToDelete.member_id} deleted successfully`);
+      setDeleteDialogOpen(false);
+      setMemberToDelete(null);
+      loadMembers();
+    } catch (error) {
+      console.error("Error deleting member:", error);
+      toast.error("Failed to delete member. You may need to delete the auth user from the backend.");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const openDeleteDialog = (member: Member) => {
+    setMemberToDelete(member);
+    setDeleteDialogOpen(true);
+  };
+
   const filteredMembers = getFilteredMembers();
   const allFilteredSelected = filteredMembers.length > 0 && filteredMembers.every(m => selectedMembers.has(m.id));
 
@@ -509,12 +552,13 @@ export const MembersTab = () => {
                   <TableHead>Expiration</TableHead>
                   <TableHead>Health Status</TableHead>
                   <TableHead className="text-center">Access</TableHead>
+                  <TableHead className="text-center">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredMembers.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">
+                    <TableCell colSpan={10} className="text-center py-8 text-muted-foreground">
                       {searchQuery || membershipFilter !== 'all' ? "No members match your filter" : "No members yet"}
                     </TableCell>
                   </TableRow>
@@ -587,6 +631,19 @@ export const MembersTab = () => {
                           )}
                         </div>
                       </TableCell>
+                      <TableCell>
+                        <div className="flex items-center justify-center">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="h-8 w-8 p-0 text-red-500 hover:text-red-400 hover:bg-red-500/20"
+                            onClick={() => openDeleteDialog(member)}
+                            title="Delete Member"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
                     </TableRow>
                   ))
                 )}
@@ -599,6 +656,30 @@ export const MembersTab = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Member</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete <strong>{memberToDelete?.full_name || memberToDelete?.email || memberToDelete?.member_id}</strong>? 
+              This will remove their profile data. This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDeleteMember}
+              className="bg-red-500 hover:bg-red-600"
+              disabled={deleting}
+            >
+              {deleting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              Delete Member
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

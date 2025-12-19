@@ -384,11 +384,19 @@ const scorecardData = [
               </div>
             </div>
           <Accordion type="single" collapsible className="mt-6">
-              <AccordionItem value="more-drivers" className="border-white/20 border rounded-xl px-4">
-                <AccordionTrigger className="text-gray-200 hover:text-white py-5">
-                  <span className="flex items-center gap-3" style={{ fontSize: 'clamp(18px, 1.5vw, 26px)' }}>
+              <AccordionItem value="more-drivers" className="border-none rounded-xl">
+                <AccordionTrigger className="py-5 hover:no-underline justify-center">
+                  <span 
+                    className="inline-flex items-center gap-3 rounded-full font-bold tracking-wide text-black animate-[pulse_3s_ease-in-out_infinite]"
+                    style={{ 
+                      fontSize: 'clamp(18px, 1.5vw, 26px)', 
+                      padding: 'clamp(14px, 1.5vw, 22px) clamp(28px, 3vw, 48px)',
+                      background: 'linear-gradient(135deg, #00bfff 0%, #0080ff 50%, #00bfff 100%)',
+                      boxShadow: '0 0 30px rgba(0, 191, 255, 0.6), 0 0 60px rgba(0, 128, 255, 0.3)',
+                    }}
+                  >
                     <ChevronDown style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
-                    <span className="font-bold tracking-wide">View All 6 Value Drivers</span>
+                    View All 6 Value Drivers
                   </span>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -702,7 +710,19 @@ const scorecardData = [
 
           {/* Competitive Moat */}
           <div>
-            <h3 className="font-bold text-white" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(16px, 1.5vw, 24px)' }}>Why Competitors Can't Win</h3>
+            <div className="flex justify-center mb-6">
+              <span 
+                className="inline-flex items-center gap-2 rounded-full font-bold tracking-wide text-black animate-[pulse_3s_ease-in-out_infinite]"
+                style={{ 
+                  fontSize: 'clamp(18px, 1.5vw, 26px)', 
+                  padding: 'clamp(14px, 1.5vw, 22px) clamp(28px, 3vw, 48px)',
+                  background: 'linear-gradient(135deg, #00bfff 0%, #0080ff 50%, #00bfff 100%)',
+                  boxShadow: '0 0 30px rgba(0, 191, 255, 0.6), 0 0 60px rgba(0, 128, 255, 0.3)',
+                }}
+              >
+                Why Competitors Can't Win
+              </span>
+            </div>
             <div className="bg-black/40 border border-cyan-500/20 rounded-xl mb-4" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
               <div className="flex items-center mb-3" style={{ gap: 'clamp(8px, 1vw, 14px)' }}>
                 <CheckCircle2 className="text-green-400" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)' }} />
@@ -713,10 +733,19 @@ const scorecardData = [
             
             {/* Scrollable scorecard on mobile */}
             <Accordion type="single" collapsible>
-              <AccordionItem value="scorecard" className="border-white/20 border rounded-xl px-4">
-                <AccordionTrigger className="text-gray-200 hover:text-white py-5">
-                  <span className="flex items-center gap-3" style={{ fontSize: 'clamp(18px, 1.5vw, 26px)' }}>
-                    <span className="font-bold tracking-wide">View Full Competitive Scorecard</span>
+              <AccordionItem value="scorecard" className="border-none rounded-xl">
+                <AccordionTrigger className="py-5 hover:no-underline justify-center">
+                  <span 
+                    className="inline-flex items-center gap-3 rounded-full font-bold tracking-wide text-black animate-[pulse_3s_ease-in-out_infinite]"
+                    style={{ 
+                      fontSize: 'clamp(18px, 1.5vw, 26px)', 
+                      padding: 'clamp(14px, 1.5vw, 22px) clamp(28px, 3vw, 48px)',
+                      background: 'linear-gradient(135deg, #00bfff 0%, #0080ff 50%, #00bfff 100%)',
+                      boxShadow: '0 0 30px rgba(0, 191, 255, 0.6), 0 0 60px rgba(0, 128, 255, 0.3)',
+                    }}
+                  >
+                    <ChevronDown style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
+                    View Full Competitive Scorecard
                   </span>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -930,8 +959,18 @@ const scorecardData = [
         {/* ===== USE OF FUNDS ===== */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 2.5vw, 36px)' }}>
           <div className="text-center">
-            <h2 className="font-bold font-orbitron text-white" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>Use of Funds</h2>
-            <p className="text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginTop: 'clamp(8px, 0.8vw, 12px)' }}>Tranche 1: $200,000</p>
+            <span 
+              className="inline-flex items-center gap-2 rounded-full font-bold tracking-wide text-black animate-[pulse_3s_ease-in-out_infinite] font-orbitron"
+              style={{ 
+                fontSize: 'clamp(20px, 1.8vw, 32px)', 
+                padding: 'clamp(16px, 1.8vw, 26px) clamp(32px, 4vw, 56px)',
+                background: 'linear-gradient(135deg, #00bfff 0%, #0080ff 50%, #00bfff 100%)',
+                boxShadow: '0 0 30px rgba(0, 191, 255, 0.6), 0 0 60px rgba(0, 128, 255, 0.3)',
+              }}
+            >
+              Use of Funds
+            </span>
+            <p className="text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', marginTop: 'clamp(12px, 1.2vw, 18px)' }}>Tranche 1: $200,000</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
@@ -976,10 +1015,18 @@ const scorecardData = [
           </div>
 
           <div className="text-center" style={{ marginBottom: 'clamp(32px, 4vw, 56px)' }}>
-            <h2 className="tracking-[4px] uppercase" style={{ color: '#00E5E5', fontSize: 'clamp(14px, 1.1vw, 18px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>
-              CURRENT ROUND STRUCTURE
-            </h2>
-            <p className="text-white font-light" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>
+            <span 
+              className="inline-flex items-center gap-2 rounded-full font-bold tracking-[4px] uppercase text-black animate-[pulse_3s_ease-in-out_infinite]"
+              style={{ 
+                fontSize: 'clamp(18px, 1.5vw, 26px)', 
+                padding: 'clamp(14px, 1.5vw, 22px) clamp(28px, 3vw, 48px)',
+                background: 'linear-gradient(135deg, #00bfff 0%, #0080ff 50%, #00bfff 100%)',
+                boxShadow: '0 0 30px rgba(0, 191, 255, 0.6), 0 0 60px rgba(0, 128, 255, 0.3)',
+              }}
+            >
+              Current Round Structure
+            </span>
+            <p className="text-white font-light" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)', marginTop: 'clamp(16px, 1.5vw, 24px)' }}>
               Two tranches. &nbsp; Strategic positioning. &nbsp; Limited allocation.
             </p>
           </div>
@@ -1094,9 +1141,20 @@ const scorecardData = [
         {/* ===== LIQUIDITY & ROI (Accordion) ===== */}
         <section>
           <Accordion type="single" collapsible>
-            <AccordionItem value="liquidity" className="border border-white/10 rounded-xl bg-black/40">
-              <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                <span className="text-lg font-bold text-white">Liquidity & Returns (Expanded)</span>
+            <AccordionItem value="liquidity" className="border-none rounded-xl">
+              <AccordionTrigger className="py-5 hover:no-underline justify-center">
+                <span 
+                  className="inline-flex items-center gap-3 rounded-full font-bold tracking-wide text-black animate-[pulse_3s_ease-in-out_infinite]"
+                  style={{ 
+                    fontSize: 'clamp(18px, 1.5vw, 26px)', 
+                    padding: 'clamp(14px, 1.5vw, 22px) clamp(28px, 3vw, 48px)',
+                    background: 'linear-gradient(135deg, #00bfff 0%, #0080ff 50%, #00bfff 100%)',
+                    boxShadow: '0 0 30px rgba(0, 191, 255, 0.6), 0 0 60px rgba(0, 128, 255, 0.3)',
+                  }}
+                >
+                  <ChevronDown style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
+                  Liquidity & Returns (Expanded)
+                </span>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6">
                 <div className="grid md:grid-cols-3 gap-4">

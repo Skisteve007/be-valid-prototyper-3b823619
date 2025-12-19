@@ -55,10 +55,11 @@ const Dashboard = () => {
     }
   }, [searchParams]);
 
-  // Swipe gesture handlers
+  // Swipe gesture handlers - only for tab content area, not for tab navigation
   const handleTouchStart = (e: React.TouchEvent) => {
     const target = e.target as HTMLElement;
-    const isInteractive = target.closest('button, a, input, select, textarea, label, [role="button"], [role="checkbox"], [role="switch"], [data-radix-select-trigger]');
+    // Don't interfere with interactive elements or scroll containers
+    const isInteractive = target.closest('button, a, input, select, textarea, label, [role="button"], [role="checkbox"], [role="switch"], [data-radix-select-trigger], .overflow-x-auto, [role="tablist"]');
     if (isInteractive) {
       touchStartX.current = 0;
       return;
@@ -424,52 +425,51 @@ const Dashboard = () => {
             {/* Tab Navigation */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="relative mb-6">
-                <div className="overflow-x-auto overflow-y-hidden -mx-2 px-2 pb-3">
-                  <div className="flex items-center gap-2 min-w-full">
-                    <TabsList className="inline-flex bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-1.5 gap-1.5 flex-1">
-                      <TabsTrigger 
-                        value="profile" 
-                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                      >
-                        <UserIcon className="h-4 w-4 mr-1.5" />
-                        <span className="text-sm">Profile</span>
-                      </TabsTrigger>
-                      <button 
-                        type="button"
-                        onClick={() => {
-                          const trustCenterEl = document.getElementById('trust-center-section');
-                          if (trustCenterEl) {
-                            trustCenterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          }
-                        }}
-                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 hover:bg-[#00FFFF]/10 hover:text-[#00FFFF] transition-colors whitespace-nowrap flex items-center"
-                      >
-                        <Upload className="h-4 w-4 mr-1.5" />
-                        <span className="text-sm">Trust Center</span>
-                      </button>
-                      <TabsTrigger 
-                        value="lab-verification"
-                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                      >
-                        <FlaskConical className="h-4 w-4 mr-1.5" />
-                        <span className="text-sm">Health Lab</span>
-                      </TabsTrigger>
-                      <TabsTrigger 
-                        value="safety-screen"
-                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                      >
-                        <ShieldCheck className="h-4 w-4 mr-1.5" />
-                        <span className="text-sm">Toxicology</span>
-                      </TabsTrigger>
-                      <TabsTrigger 
-                        value="verify-id"
-                        className="py-2.5 px-4 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap"
-                      >
-                        <Fingerprint className="h-4 w-4 mr-1.5" />
-                        <span className="text-sm">Verify ID</span>
-                      </TabsTrigger>
-                    </TabsList>
-                  </div>
+                {/* Mobile-optimized horizontal scroll container */}
+                <div className="overflow-x-auto overflow-y-hidden scrollbar-none -mx-4 px-4 pb-3 touch-pan-x">
+                  <TabsList className="inline-flex bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-1.5 gap-1 min-w-max">
+                    <TabsTrigger 
+                      value="profile" 
+                      className="py-2 px-3 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap text-xs sm:text-sm touch-manipulation"
+                    >
+                      <UserIcon className="h-4 w-4 mr-1" />
+                      <span>Profile</span>
+                    </TabsTrigger>
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        const trustCenterEl = document.getElementById('trust-center-section');
+                        if (trustCenterEl) {
+                          trustCenterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                      className="py-2 px-3 rounded-lg text-[#E0E0E0]/70 hover:bg-[#00FFFF]/10 hover:text-[#00FFFF] transition-colors whitespace-nowrap flex items-center text-xs sm:text-sm touch-manipulation"
+                    >
+                      <Upload className="h-4 w-4 mr-1" />
+                      <span>Trust</span>
+                    </button>
+                    <TabsTrigger 
+                      value="lab-verification"
+                      className="py-2 px-3 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap text-xs sm:text-sm touch-manipulation"
+                    >
+                      <FlaskConical className="h-4 w-4 mr-1" />
+                      <span>Health</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="safety-screen"
+                      className="py-2 px-3 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap text-xs sm:text-sm touch-manipulation"
+                    >
+                      <ShieldCheck className="h-4 w-4 mr-1" />
+                      <span>Tox</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="verify-id"
+                      className="py-2 px-3 rounded-lg text-[#E0E0E0]/70 data-[state=active]:bg-[#00FFFF]/20 data-[state=active]:text-[#00FFFF] data-[state=active]:shadow-[0_0_15px_rgba(0,255,255,0.3)] whitespace-nowrap text-xs sm:text-sm touch-manipulation"
+                    >
+                      <Fingerprint className="h-4 w-4 mr-1" />
+                      <span>ID</span>
+                    </TabsTrigger>
+                  </TabsList>
                 </div>
               </div>
               

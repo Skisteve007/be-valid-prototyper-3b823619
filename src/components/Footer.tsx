@@ -109,7 +109,15 @@ const Footer = () => {
           </div>
 
           {/* Links & Compliance Row */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
+          <div className="flex flex-wrap items-center justify-start gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
+            <button
+              onClick={handleAdminClick}
+              disabled={checkingAuth}
+              className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-gradient-to-r from-cyan-500 to-blue-600 text-black disabled:opacity-50 shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider"
+            >
+              {isAdmin ? t('footer.adminPanel') : t('footer.admin')}
+            </button>
+            <span className="text-white font-bold">|</span>
             <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.terms')}</Link>
             <span className="text-white font-bold">|</span>
             <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.privacy')}</Link>
@@ -119,16 +127,6 @@ const Footer = () => {
             <Link to="/vendor-portal" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">For Enterprise</Link>
             <span className="text-white font-bold">•</span>
             <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: {t('footer.ageRequirement')}</span>
-            {/* Theme toggle moved to header */}
-            <span className="ml-auto">
-            <button
-                onClick={handleAdminClick}
-                disabled={checkingAuth}
-                className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-gradient-to-r from-cyan-500 to-blue-600 text-black disabled:opacity-50 shadow-[0_0_20px_rgba(0,240,255,0.4)] uppercase tracking-wider"
-              >
-                {isAdmin ? t('footer.adminPanel') : t('footer.admin')}
-              </button>
-            </span>
           </div>
         </div>
       </footer>

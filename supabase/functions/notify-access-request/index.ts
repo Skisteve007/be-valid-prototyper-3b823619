@@ -54,8 +54,8 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "VALID Access Control <noreply@bevalid.app>",
-        to: ["Steve@BeValid.app"],
+        from: "VALID Access Control <onboarding@resend.dev>",
+        to: ["steve@bevalid.app"],
         subject: `🔐 New ${accessTypeLabel} Access Request - ${userName}`,
         html: `
           <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #ffffff; padding: 40px; border-radius: 12px; border: 1px solid #00f0ff33;">

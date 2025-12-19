@@ -1566,7 +1566,11 @@ const scorecardData = [
                   <div className="bg-black/60 border border-white/10 rounded-lg p-4 text-center">
                     <div className="text-3xl mb-2">🚀</div>
                     <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">The Exit Strategy</h4>
-                    <p className="text-sm text-white/80">Acquisition target: Fintech (Block, Stripe), Insurance, or Hospitality. Target outcome: strategic acquisition or major growth event. Timeline: 3–5 years <span className="text-white/60">(not guaranteed)</span>.</p>
+                    <p className="text-sm text-white/80">
+                      <span className="font-semibold text-cyan-400">Acquisition Targets (Examples):</span> Fintech (e.g., Block, Stripe), Insurance, or Hospitality operators/platforms (examples only). <br/>
+                      <span className="font-semibold text-cyan-400">Target Outcome:</span> Strategic acquisition OR major growth milestone <span className="text-white/60">(not guaranteed)</span>. <br/>
+                      <span className="font-semibold text-cyan-400">Timeline:</span> 9-month execution runway for go-to-market and traction milestones. Any acquisition discussion is opportunistic and not guaranteed.
+                    </p>
                   </div>
                   <div className="bg-black/60 border border-white/10 rounded-lg p-4 text-center">
                     <div className="text-3xl mb-2">💰</div>

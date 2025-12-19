@@ -30,13 +30,13 @@ export const WebhookEventsViewer = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from("webhook_events")
+        .from("stripe_webhook_events")
         .select("*")
         .order("created_at", { ascending: false })
         .limit(20);
 
       if (error) throw error;
-      setEvents((data as WebhookEvent[]) || []);
+      setEvents((data as unknown as WebhookEvent[]) || []);
     } catch (error) {
       console.error("Failed to load webhook events:", error);
     } finally {

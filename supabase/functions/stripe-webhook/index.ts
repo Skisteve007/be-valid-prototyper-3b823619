@@ -27,7 +27,7 @@ const logWebhookEvent = async (
   errorMessage?: string
 ) => {
   try {
-    await supabaseAdmin.from("webhook_events").insert({
+    await supabaseAdmin.from("stripe_webhook_events").insert({
       event_id: eventId,
       event_type: eventType,
       payload: payload,

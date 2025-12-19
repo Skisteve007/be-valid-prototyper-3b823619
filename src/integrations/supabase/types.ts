@@ -2335,6 +2335,42 @@ export type Database = {
           },
         ]
       }
+      stripe_webhook_events: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          event_id: string
+          event_type: string
+          id: string
+          payload: Json
+          processed_at: string | null
+          response_body: string | null
+          response_status: number | null
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          event_id: string
+          event_type: string
+          id?: string
+          payload?: Json
+          processed_at?: string | null
+          response_body?: string | null
+          response_status?: number | null
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          event_id?: string
+          event_type?: string
+          id?: string
+          payload?: Json
+          processed_at?: string | null
+          response_body?: string | null
+          response_status?: number | null
+        }
+        Relationships: []
+      }
       synth_audit_logs: {
         Row: {
           agent_outputs: Json | null

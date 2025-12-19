@@ -141,53 +141,162 @@ const handler = async (req: Request): Promise<Response> => {
 
 function generateHTML(status: "success" | "error", message: string): string {
   if (status === "success") {
-    return `<!DOCTYPE html>
+    return `
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Approval Sent</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center}
-.card{background:#111;border:2px solid #00e5e5;border-radius:20px;padding:50px 40px;text-align:center;max-width:380px;box-shadow:0 0 40px rgba(0,229,229,0.2)}
-.check{width:80px;height:80px;background:#00e5e5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:40px}
-h1{color:#00e5e5;font-size:28px;margin-bottom:12px}
-p{color:#999;font-size:16px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Access Approved | VALID</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0e1a 0%, #120a21 50%, #0a0e1a 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(17, 17, 17, 0.9);
+      border: 2px solid #00e5e5;
+      border-radius: 24px;
+      padding: 60px 50px;
+      text-align: center;
+      max-width: 420px;
+      box-shadow: 0 0 60px rgba(0, 229, 229, 0.25), 0 20px 40px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+    .check {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #00e5e5, #00a0a0);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      font-size: 50px;
+      box-shadow: 0 0 30px rgba(0, 229, 229, 0.5);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(0, 229, 229, 0.5); }
+      50% { box-shadow: 0 0 50px rgba(0, 229, 229, 0.8); }
+    }
+    h1 {
+      color: #00e5e5;
+      font-size: 32px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    p {
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(0, 229, 229, 0.15);
+      border: 1px solid rgba(0, 229, 229, 0.4);
+      color: #00e5e5;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 24px;
+    }
+    .logo {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+      letter-spacing: 3px;
+    }
+  </style>
 </head>
 <body>
-<div class="card">
-<div class="check">✓</div>
-<h1>Approval Sent!</h1>
-<p>The user has been notified.</p>
-</div>
+  <div class="card">
+    <div class="check">✓</div>
+    <h1>Access Approved!</h1>
+    <p>The user has been granted access and notified via email.</p>
+    <div class="badge">VALID™ Access Control</div>
+    <div class="logo">VALID™</div>
+  </div>
 </body>
 </html>`;
   }
   
-  // For errors
-  return `<!DOCTYPE html>
+  return `
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Error</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center}
-.card{background:#111;border:2px solid #ff4444;border-radius:20px;padding:50px 40px;text-align:center;max-width:380px}
-.icon{width:80px;height:80px;background:#ff4444;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:40px}
-h1{color:#ff4444;font-size:28px;margin-bottom:12px}
-p{color:#999;font-size:16px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Error | VALID</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0e1a 0%, #1a0a0a 50%, #0a0e1a 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(17, 17, 17, 0.9);
+      border: 2px solid #ff4444;
+      border-radius: 24px;
+      padding: 60px 50px;
+      text-align: center;
+      max-width: 420px;
+      box-shadow: 0 0 60px rgba(255, 68, 68, 0.25), 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    .icon {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #ff4444, #cc0000);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      font-size: 50px;
+      box-shadow: 0 0 30px rgba(255, 68, 68, 0.5);
+    }
+    h1 {
+      color: #ff4444;
+      font-size: 32px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    p {
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .logo {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+      letter-spacing: 3px;
+    }
+  </style>
 </head>
 <body>
-<div class="card">
-<div class="icon">✕</div>
-<h1>Error</h1>
-<p>${message}</p>
-</div>
+  <div class="card">
+    <div class="icon">✕</div>
+    <h1>Error</h1>
+    <p>${message}</p>
+    <div class="logo">VALID™</div>
+  </div>
 </body>
 </html>`;
 }

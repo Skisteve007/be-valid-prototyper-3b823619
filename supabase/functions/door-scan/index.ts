@@ -24,7 +24,11 @@ interface DoorScanResult {
   };
   expiresAt?: string;
   message: string;
+  scanEventId?: string;
+  scanFeeBilled?: boolean;
 }
+
+const SCAN_FEE_AMOUNT = 0.20;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -38,7 +42,7 @@ serve(async (req) => {
     // Use service role for door scan validation
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { token, venueId, deviceId } = await req.json();
+    const { token, venueId, deviceId, idempotencyKey } = await req.json();
 
     if (!token) {
       const result: DoorScanResult = {
@@ -69,7 +73,7 @@ serve(async (req) => {
         message: 'Token not recognized'
       };
       
-      // Log scan event
+      // Log scan event (failed - no billing)
       await supabase.from('door_scan_log').insert({
         venue_id: venueId || '00000000-0000-0000-0000-000000000000',
         device_id: deviceId,
@@ -178,13 +182,65 @@ serve(async (req) => {
       }
     }
 
-    // Log successful scan
-    await supabase.from('door_scan_log').insert({
-      venue_id: venueId || '00000000-0000-0000-0000-000000000000',
-      device_id: deviceId,
-      scanned_user_id: profile.user_id,
-      scan_result: decision === 'GOOD' ? 'approved' : 'review'
-    });
+    // Log successful scan first to get the scan_log_id
+    const { data: scanLog, error: scanLogError } = await supabase
+      .from('door_scan_log')
+      .insert({
+        venue_id: venueId || '00000000-0000-0000-0000-000000000000',
+        device_id: deviceId,
+        scanned_user_id: profile.user_id,
+        scan_result: decision === 'GOOD' ? 'approved' : 'review'
+      })
+      .select('id')
+      .single();
+
+    if (scanLogError) {
+      console.error('Failed to log scan:', scanLogError);
+    }
+
+    // Record billable scan event (idempotent)
+    // Use the provided idempotency key or generate one from scan_log_id
+    const effectiveVenueId = venueId || '00000000-0000-0000-0000-000000000000';
+    const scanIdempotencyKey = idempotencyKey || 
+      `door_entry:${effectiveVenueId}:${profile.user_id}:${scanLog?.id || tokenData.id}`;
+
+    let scanEventId: string | null = null;
+    let scanFeeBilled = false;
+
+    // Only bill for successful authorizations (GOOD or REVIEW decisions, not NO)
+    if (scanLog?.id && (decision === 'GOOD' || decision === 'REVIEW')) {
+      // Check grace window first (60 seconds default)
+      const { data: inGraceWindow } = await supabase
+        .rpc('is_within_scan_grace_window', {
+          p_venue_id: effectiveVenueId,
+          p_user_id: profile.user_id,
+          p_event_type: 'door_entry',
+          p_grace_seconds: 60
+        });
+
+      if (!inGraceWindow) {
+        // Record the billable scan event
+        const { data: eventId, error: eventError } = await supabase
+          .rpc('record_billable_scan_event', {
+            p_venue_id: effectiveVenueId,
+            p_user_id: profile.user_id,
+            p_event_type: 'door_entry',
+            p_idempotency_key: scanIdempotencyKey,
+            p_scan_log_id: scanLog.id,
+            p_fee_amount: SCAN_FEE_AMOUNT
+          });
+
+        if (eventError) {
+          console.error('Failed to record billable scan event:', eventError);
+        } else {
+          scanEventId = eventId;
+          scanFeeBilled = true;
+          console.log('Billable scan event recorded:', eventId);
+        }
+      } else {
+        console.log('Scan within grace window, not billing');
+      }
+    }
 
     // Generate short-lived signed URLs for ID images (60s)
     // For now, we'll return the stored URLs directly
@@ -208,10 +264,12 @@ serve(async (req) => {
       expiresAt: new Date(Date.now() + 60000).toISOString(), // Door display expires in 60s
       message: decision === 'GOOD' ? 'Verified — Entry Approved' : 
                decision === 'REVIEW' ? 'Review Required — Check ID' : 
-               'Entry Denied'
+               'Entry Denied',
+      scanEventId: scanEventId || undefined,
+      scanFeeBilled
     };
 
-    console.log('Door scan successful:', result.status, result.decision);
+    console.log('Door scan successful:', result.status, result.decision, 'billed:', scanFeeBilled);
 
     return new Response(
       JSON.stringify(result),

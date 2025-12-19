@@ -58,6 +58,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 import HtmlPitchDeckCarousel from "@/components/pitch/HtmlPitchDeckCarousel";
+import SynthButton from "@/components/SynthButton";
 
 // NOTE: The PDF at this path is not reliably embeddable in Chrome.
 // We render the 14-slide deck as images below for maximum compatibility.
@@ -165,6 +166,8 @@ const PitchDeck = () => {
             Partner Solutions
           </Button>
           <div className="flex items-center gap-4">
+            <SynthButton variant="hidden-trigger" />
+            <SynthButton variant="header" />
             <span className="text-xl font-bold font-orbitron tracking-[0.2em] text-white drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]">
               VALID<sup className="text-xs text-cyan-400">™</sup>
             </span>

@@ -29,7 +29,7 @@ export const useIsAdmin = () => {
         .from("user_roles")
         .select("role")
         .eq("user_id", user.id)
-        .in("role", ["administrator", "admin"])
+        .eq("role", "administrator")
         .maybeSingle();
 
       setIsAdmin(!!roleData);

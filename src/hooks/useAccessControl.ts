@@ -21,9 +21,10 @@ export const useAccessControl = (accessType: AccessType) => {
     setHasAccess(false);
     
     try {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      // SECURITY: Use getUser() instead of getSession() for fresh server-side validation
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
       
-      if (sessionError || !session?.user) {
+      if (userError || !user) {
         // Not logged in → redirect to auth
         navigate("/auth?redirect=" + (accessType === "investor" ? "/investor-portal" : "/partners"));
         setIsLoading(false);
@@ -34,7 +35,7 @@ export const useAccessControl = (accessType: AccessType) => {
       const { data: roles, error: rolesError } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", session.user.id);
+        .eq("user_id", user.id);
 
       if (!rolesError && roles?.some(r => r.role === "administrator")) {
         setHasAccess(true);
@@ -42,11 +43,11 @@ export const useAccessControl = (accessType: AccessType) => {
         return;
       }
 
-      // Fetch profile to check approval status
+      // SECURITY: Always fetch FRESH data from database
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("investor_access_approved, partner_access_approved, investor_access_requested_at, partner_access_requested_at")
-        .eq("user_id", session.user.id)
+        .eq("user_id", user.id)
         .maybeSingle();
 
       // If profile fetch fails or no profile → DENY
@@ -57,7 +58,7 @@ export const useAccessControl = (accessType: AccessType) => {
         return;
       }
 
-      // Check the correct field based on accessType - MUST be explicitly true
+      // SECURITY: Check the correct field based on accessType - MUST be explicitly true
       if (accessType === "investor") {
         setHasAccess(profile.investor_access_approved === true);
         setHasPendingRequest(!!profile.investor_access_requested_at && profile.investor_access_approved !== true);

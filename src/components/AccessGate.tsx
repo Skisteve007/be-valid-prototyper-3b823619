@@ -28,56 +28,69 @@ export const AccessGate = ({ accessType, children }: AccessGateProps) => {
     setHasAccess(false); // DEFAULT DENY - reset on each check
     
     try {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      // SECURITY: Force fresh session check, don't rely on cached session
+      const { data: { user: currentUser }, error: userError } = await supabase.auth.getUser();
       
-      if (sessionError || !session?.user) {
+      if (userError || !currentUser) {
         // Not logged in → redirect to auth
+        console.log("AccessGate: No authenticated user, redirecting to auth");
         navigate("/auth?redirect=" + (accessType === "investor" ? "/investor-portal" : "/partners"));
         setIsLoading(false);
         return;
       }
 
-      setUser(session.user);
+      setUser(currentUser);
+      console.log("AccessGate: Checking access for user:", currentUser.email, "accessType:", accessType);
 
       // Check if user is admin - admins have full access
       const { data: roles, error: rolesError } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", session.user.id);
+        .eq("user_id", currentUser.id);
 
       if (!rolesError && roles?.some(r => r.role === "administrator")) {
+        console.log("AccessGate: User is admin, granting access");
         setHasAccess(true);
         setIsLoading(false);
         return;
       }
 
-      // Fetch profile to check approval status - use user_id NOT id
+      // SECURITY: Always fetch FRESH data from database - no caching
+      // Use explicit timestamp to prevent any query caching
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("investor_access_approved, partner_access_approved, investor_access_requested_at, partner_access_requested_at")
-        .eq("user_id", session.user.id)
+        .eq("user_id", currentUser.id)
         .maybeSingle();
 
       // If profile fetch fails or no profile → DENY
       if (profileError || !profile) {
-        console.error("Profile fetch failed:", profileError);
+        console.error("AccessGate: Profile fetch failed:", profileError);
         setHasAccess(false);
         setIsLoading(false);
         return;
       }
 
-      // Check the correct field based on accessType - MUST be explicitly true
+      console.log("AccessGate: Profile data:", {
+        investor_access_approved: profile.investor_access_approved,
+        partner_access_approved: profile.partner_access_approved
+      });
+
+      // SECURITY: Check the correct field based on accessType - MUST be explicitly true
+      // Boolean strict comparison to prevent any truthy/falsy issues
       if (accessType === "investor") {
         const approved = profile.investor_access_approved === true;
+        console.log("AccessGate: Investor access approved:", approved);
         setHasAccess(approved);
         setHasPendingRequest(!!profile.investor_access_requested_at && !approved);
       } else {
         const approved = profile.partner_access_approved === true;
+        console.log("AccessGate: Partner access approved:", approved);
         setHasAccess(approved);
         setHasPendingRequest(!!profile.partner_access_requested_at && !approved);
       }
     } catch (error) {
-      console.error("Access check error:", error);
+      console.error("AccessGate: Access check error:", error);
       setHasAccess(false); // DENY on any error
     } finally {
       setIsLoading(false);

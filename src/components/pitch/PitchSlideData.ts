@@ -140,7 +140,9 @@ export const pitchSlides: SlideData[] = [
       "Founder & CEO of VALID™: The First \"Zero-Knowledge\" Verification Platform.",
       "I am a \"Full-Cycle\" Serial Entrepreneur who has built multiple businesses from the ground up to exit.",
       "I don't just theorize about risk; I have lived it for three decades.",
-      "Possessing deep industry relationships across 10 verticals."
+      "Possessing deep industry relationships across 10 verticals.",
+      "I advise institutional investors on how to bridge the gap between Corporate Policy and Human Reality to eliminate liability before it starts.",
+      "To solve this, I invented the SYNTH™ Protocol and Ghost Token Encryption™—proprietary technologies that force AI to cross-verify data and transport it securely, eliminating the \"hallucinations\" and \"data leaks\" that plague the industry."
     ],
     layout: 'title-content',
   },

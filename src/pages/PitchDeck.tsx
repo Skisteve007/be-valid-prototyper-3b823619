@@ -157,38 +157,38 @@ const scorecardData = [
 
       {/* Header — Premium Redesign */}
       <header className="border-b border-white/[0.06] bg-black/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 flex justify-between items-center" style={{ height: 'clamp(64px, 5vw, 76px)' }}>
+        <div className="container mx-auto px-2 md:px-4 flex justify-between items-center" style={{ height: 'clamp(56px, 5vw, 76px)' }}>
           {/* Left: Partner Solutions with premium pill */}
           <Button 
             variant="ghost" 
             onClick={() => navigate('/partners')}
-            className="group relative px-4 py-2 rounded-full bg-white/[0.06] border border-cyan-500/20 hover:bg-white/[0.1] hover:border-cyan-500/40 transition-all"
+            className="group relative px-2 md:px-4 py-1.5 md:py-2 rounded-full bg-white/[0.06] border border-cyan-500/20 hover:bg-white/[0.1] hover:border-cyan-500/40 transition-all"
             style={{ backdropFilter: 'blur(8px)' }}
           >
-            <ArrowLeft className="h-4 w-4 mr-2 text-white/80 group-hover:text-cyan-400 transition-colors" />
-            <span className="text-gray-200 font-medium tracking-wide" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>
-              Partner Solutions
+            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2 text-white/80 group-hover:text-cyan-400 transition-colors" />
+            <span className="text-gray-200 font-medium tracking-wide text-xs md:text-sm lg:text-base">
+              Back
             </span>
           </Button>
 
           {/* Right: Brand lockup + CTA */}
-          <div className="flex items-center gap-5">
-            {/* Brand glyph with cyan glow */}
+          <div className="flex items-center gap-1.5 md:gap-3 lg:gap-5">
+            {/* Brand glyph with cyan glow - hidden on smallest screens */}
             <div 
-              className="flex items-center justify-center"
+              className="hidden sm:flex items-center justify-center w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
               style={{ 
-                width: 'clamp(20px, 1.6vw, 24px)', 
-                height: 'clamp(20px, 1.6vw, 24px)',
                 filter: 'drop-shadow(0 0 12px rgba(77,235,255,0.35))'
               }}
             >
               <Sparkles className="w-full h-full text-cyan-400" />
             </div>
 
-            {/* SYNTH pill */}
-            <SynthButton variant="hidden-trigger" />
+            {/* SYNTH pill - hidden on mobile */}
+            <div className="hidden md:block">
+              <SynthButton variant="hidden-trigger" />
+            </div>
             <div 
-              className="px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04]"
+              className="hidden md:block px-2 md:px-3 py-1 md:py-1.5 rounded-full border border-white/10 bg-white/[0.04]"
               style={{ backdropFilter: 'blur(6px)' }}
             >
               <SynthButton variant="header" />
@@ -197,9 +197,8 @@ const scorecardData = [
             {/* VALID wordmark with gradient + TM */}
             <div className="flex items-baseline">
               <span 
-                className="font-bold font-orbitron tracking-[0.25em]"
+                className="font-bold font-orbitron tracking-[0.15em] md:tracking-[0.25em] text-sm md:text-lg lg:text-xl"
                 style={{ 
-                  fontSize: 'clamp(20px, 1.6vw, 26px)',
                   background: 'linear-gradient(135deg, #E9EEF5 0%, #7FEFFF 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -210,8 +209,8 @@ const scorecardData = [
                 VALID
               </span>
               <sup 
-                className="text-cyan-400 font-medium ml-0.5" 
-                style={{ fontSize: 'clamp(9px, 0.7vw, 11px)', position: 'relative', top: '-0.6em' }}
+                className="text-cyan-400 font-medium ml-0.5 text-[8px] md:text-[10px]" 
+                style={{ position: 'relative', top: '-0.6em' }}
               >
                 ™
               </sup>
@@ -219,17 +218,12 @@ const scorecardData = [
 
             {/* Contact Us CTA */}
             <Button 
-              className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
-              style={{ 
-                fontSize: 'clamp(13px, 1vw, 15px)', 
-                padding: 'clamp(10px, 1vw, 14px) clamp(18px, 1.8vw, 28px)',
-                height: 'clamp(40px, 3vw, 48px)'
-              }}
+              className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] text-[10px] md:text-xs lg:text-sm px-2 md:px-4 lg:px-6 py-1.5 md:py-2 h-7 md:h-9 lg:h-10"
               onClick={() => window.open("mailto:invest@bevalid.app", "_blank")}
             >
               {/* Inner highlight */}
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-              Contact Us
+              Contact
             </Button>
           </div>
         </div>

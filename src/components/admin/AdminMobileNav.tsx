@@ -17,7 +17,8 @@ import {
   Briefcase,
   BarChart3,
   Lock,
-  Webhook
+  Webhook,
+  Brain
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -42,6 +43,7 @@ const navItems = [
   { id: "traffic", label: "Traffic Analytics", icon: BarChart3 },
   { id: "pricing", label: "Pricing & Contracts", icon: DollarSign },
   { id: "webhooks", label: "Webhooks", icon: Webhook },
+  { id: "think-tank", label: "Think Tank", icon: Brain },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange }: AdminMobileNavProps) => {

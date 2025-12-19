@@ -125,7 +125,7 @@ const scorecardData = [
   const SectionDivider = ({ label }: { label: string }) => (
     <div className="flex items-center gap-4" style={{ padding: 'clamp(64px, 8vw, 96px) 0' }}>
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-      <span className="tracking-[0.3em] uppercase text-gray-400 font-medium" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{label}</span>
+      <span className="tracking-[0.3em] uppercase text-white/80 font-medium" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{label}</span>
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
     </div>
   );
@@ -138,7 +138,7 @@ const scorecardData = [
         <span className="tracking-[0.25em] uppercase text-cyan-400 font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>{label}</span>
       </div>
       <h2 className="font-bold font-orbitron text-white" style={{ fontSize: 'clamp(30px, 2.4vw, 44px)', lineHeight: '1.2' }}>{title}</h2>
-      {subtitle && <p className="text-gray-400 mt-3 max-w-3xl mx-auto" style={{ fontSize: 'clamp(16px, 1.1vw, 20px)', lineHeight: '1.5' }}>{subtitle}</p>}
+      {subtitle && <p className="text-white/80 mt-3 max-w-3xl mx-auto" style={{ fontSize: 'clamp(16px, 1.1vw, 20px)', lineHeight: '1.5' }}>{subtitle}</p>}
     </div>
   );
 
@@ -164,7 +164,7 @@ const scorecardData = [
             className="group relative px-4 py-2 rounded-full bg-white/[0.06] border border-cyan-500/20 hover:bg-white/[0.1] hover:border-cyan-500/40 transition-all"
             style={{ backdropFilter: 'blur(8px)' }}
           >
-            <ArrowLeft className="h-4 w-4 mr-2 text-gray-400 group-hover:text-cyan-400 transition-colors" />
+            <ArrowLeft className="h-4 w-4 mr-2 text-white/80 group-hover:text-cyan-400 transition-colors" />
             <span className="text-gray-200 font-medium tracking-wide" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>
               Partner Solutions
             </span>
@@ -258,15 +258,15 @@ const scorecardData = [
 
           <div className="flex flex-wrap justify-center" style={{ gap: 'clamp(12px, 1.5vw, 20px)', marginBottom: 'clamp(32px, 4vw, 48px)' }}>
             <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
-              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(233, 238, 245, 0.72)' }}>TAM:</span>
+              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(255, 255, 255, 0.9)' }}>TAM:</span>
               <span className="text-white font-bold ml-2" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>$11.4B+</span>
             </div>
             <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
-              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(233, 238, 245, 0.72)' }}>Tranche 1:</span>
+              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(255, 255, 255, 0.9)' }}>Tranche 1:</span>
               <span className="text-cyan-400 font-bold ml-2" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>$200K Note</span>
             </div>
             <div className="bg-white/5 border border-white/15 rounded-full flex items-center" style={{ padding: 'clamp(12px, 1.4vw, 20px) clamp(20px, 2.5vw, 36px)', height: 'clamp(52px, 4vw, 64px)' }}>
-              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(233, 238, 245, 0.72)' }}>Stage:</span>
+              <span style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', color: 'rgba(255, 255, 255, 0.9)' }}>Stage:</span>
               <span className="text-green-400 font-bold ml-2" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>Revenue Generating</span>
             </div>
           </div>
@@ -278,7 +278,7 @@ const scorecardData = [
                 <h3 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>
                   16‑Slide Investor Deck (Quick View)
                 </h3>
-                <p style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', color: 'rgba(233, 238, 245, 0.72)' }}>
+                <p style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', color: 'rgba(255, 255, 255, 0.9)' }}>
                   Swipe on mobile or use the arrows.
                 </p>
               </div>
@@ -336,7 +336,7 @@ const scorecardData = [
               />
             </div>
 
-            <p className="mt-4 text-center text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+            <p className="mt-4 text-center text-white/80" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
               If your browser blocks embedded PDFs, the slides above will always work.
             </p>
           </div>
@@ -354,7 +354,7 @@ const scorecardData = [
                 <span className="text-amber-400 font-bold" style={{ fontSize: 'clamp(13px, 1vw, 15px)' }}>Enterprise Trust</span>
               </div>
             </div>
-            <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>
+            <p className="text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>
               Built for SOC 2 + GDPR readiness to win government and healthcare contracts.
             </p>
           </div>
@@ -432,7 +432,7 @@ const scorecardData = [
               </div>
 
               {/* Kicker line */}
-              <p className="text-cyan-400/70 italic" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>
+              <p className="text-cyan-400 italic" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>
                 "Trust at the edge, privacy at the core."
               </p>
             </div>
@@ -468,7 +468,7 @@ const scorecardData = [
                     <metric.icon className={`mx-auto ${metric.color}`} style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(10px, 1vw, 16px)' }} />
                     <div className="font-bold text-white" style={{ fontSize: 'clamp(24px, 2.2vw, 36px)' }}>{metric.value}</div>
                     <div style={{ fontSize: 'clamp(14px, 1vw, 16px)', marginTop: '0.25rem', color: 'rgba(233, 238, 245, 0.88)' }}>{metric.label}</div>
-                    <div style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', color: 'rgba(233, 238, 245, 0.6)' }}>{metric.sublabel}</div>
+                    <div style={{ fontSize: 'clamp(12px, 0.9vw, 14px)', color: 'rgba(255, 255, 255, 0.8)' }}>{metric.sublabel}</div>
                   </CardContent>
                 </Card>
               ))}
@@ -497,7 +497,7 @@ const scorecardData = [
 
           {/* Pilot Traction (Updating Live) */}
           <div className="bg-black/40 border border-white/10 rounded-xl" style={{ padding: 'clamp(20px, 2vw, 32px)' }}>
-            <h4 className="font-semibold tracking-[0.12em] uppercase text-center" style={{ fontSize: 'clamp(14px, 1vw, 16px)', marginBottom: 'clamp(14px, 1.3vw, 22px)', color: 'rgba(233, 238, 245, 0.72)' }}>
+            <h4 className="font-semibold tracking-[0.12em] uppercase text-center" style={{ fontSize: 'clamp(14px, 1vw, 16px)', marginBottom: 'clamp(14px, 1.3vw, 22px)', color: 'rgba(255, 255, 255, 0.9)' }}>
               Pilot Traction (Updating Live)
             </h4>
             <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
@@ -507,10 +507,10 @@ const scorecardData = [
                 { label: "Member Growth", status: "Collecting baseline this week", icon: TrendingUp },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 bg-black/30 rounded-lg" style={{ padding: 'clamp(14px, 1.4vw, 22px)' }}>
-                  <item.icon className="flex-shrink-0" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)', color: 'rgba(233, 238, 245, 0.5)' }} />
+                  <item.icon className="flex-shrink-0" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)', color: 'rgba(255, 255, 255, 0.8)' }} />
                   <div>
                     <div className="text-white font-medium" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>{item.label}</div>
-                    <div className="italic" style={{ fontSize: 'clamp(13px, 0.95vw, 15px)', color: 'rgba(233, 238, 245, 0.6)' }}>{item.status}</div>
+                    <div className="italic" style={{ fontSize: 'clamp(13px, 0.95vw, 15px)', color: 'rgba(255, 255, 255, 0.8)' }}>{item.status}</div>
                   </div>
                 </div>
               ))}
@@ -726,7 +726,7 @@ const scorecardData = [
                     <span className="font-bold text-cyan-400/80 font-orbitron shrink-0" style={{ fontSize: 'clamp(18px, 1.5vw, 26px)' }}>{item.num}</span>
                     <div>
                       <h4 className="font-bold text-white" style={{ fontSize: 'clamp(17px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 14px)', lineHeight: '1.3' }}>{item.title}</h4>
-                      <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.6' }}>{item.text}</p>
+                      <p className="text-white/90" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.6' }}>{item.text}</p>
                     </div>
                   </div>
                 </div>
@@ -737,8 +737,8 @@ const scorecardData = [
           {/* Moat Proof Footer */}
           <div className="text-center" style={{ padding: '0 clamp(16px, 2vw, 32px) clamp(32px, 3vw, 48px)' }}>
             <div className="relative inline-block">
-              <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-5" />
-              <p className="text-gray-400 italic" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/40 to-transparent mb-5" />
+              <p className="text-white/80 italic" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
                 "Moats aren't claimed—they're enforced by trust, compliance, and compounding network effects."
               </p>
             </div>
@@ -769,13 +769,13 @@ const scorecardData = [
             <div className="mb-6">
               {/* Toggle */}
               <div className="flex items-center justify-center gap-3 mb-4">
-                <span className={`text-sm transition-colors ${!noPromoter ? 'text-white font-medium' : 'text-gray-500'}`}>With Promoter</span>
+                <span className={`text-sm transition-colors ${!noPromoter ? 'text-white font-medium' : 'text-white/60'}`}>With Promoter</span>
                 <Switch 
                   checked={noPromoter} 
                   onCheckedChange={setNoPromoter}
                   className="data-[state=checked]:bg-amber-500"
                 />
-                <span className={`text-sm transition-colors ${noPromoter ? 'text-amber-400 font-medium' : 'text-gray-500'}`}>No Promoter</span>
+                <span className={`text-sm transition-colors ${noPromoter ? 'text-amber-400 font-medium' : 'text-white/60'}`}>No Promoter</span>
               </div>
 
               {/* Split Bar */}
@@ -793,7 +793,7 @@ const scorecardData = [
                     </TooltipTrigger>
                     <TooltipContent className="bg-amber-900 border-amber-500/50">
                       <p className="font-semibold">Promoter / Account Manager</p>
-                      <p className="text-xs text-gray-300">Paid if a promoter exists for that buyer/venue.</p>
+                      <p className="text-xs text-white/90">Paid if a promoter exists for that buyer/venue.</p>
                     </TooltipContent>
                   </UITooltip>
                 </TooltipProvider>
@@ -814,7 +814,7 @@ const scorecardData = [
                     </TooltipTrigger>
                     <TooltipContent className="bg-cyan-900 border-cyan-500/50 max-w-xs">
                       <p className="font-semibold">Pass Pool</p>
-                      <p className="text-xs text-gray-300">Pool is distributed weekly to participating venues based on verified check-ins.</p>
+                      <p className="text-xs text-white/90">Pool is distributed weekly to participating venues based on verified check-ins.</p>
                     </TooltipContent>
                   </UITooltip>
                 </TooltipProvider>
@@ -832,7 +832,7 @@ const scorecardData = [
                     </TooltipTrigger>
                     <TooltipContent className="bg-green-900 border-green-500/50">
                       <p className="font-semibold">Venue (Immediate)</p>
-                      <p className="text-xs text-gray-300">Direct payout to venue at point of sale.</p>
+                      <p className="text-xs text-white/90">Direct payout to venue at point of sale.</p>
                     </TooltipContent>
                   </UITooltip>
                 </TooltipProvider>
@@ -850,14 +850,14 @@ const scorecardData = [
                     </TooltipTrigger>
                     <TooltipContent className="bg-purple-900 border-purple-500/50">
                       <p className="font-semibold">VALID™ (Platform)</p>
-                      <p className="text-xs text-gray-300">Platform revenue for infrastructure & growth.</p>
+                      <p className="text-xs text-white/90">Platform revenue for infrastructure & growth.</p>
                     </TooltipContent>
                   </UITooltip>
                 </TooltipProvider>
               </div>
 
               {/* Labels under bar */}
-              <div className="flex mt-2 text-[10px] md:text-xs text-gray-500">
+              <div className="flex mt-2 text-[10px] md:text-xs text-white/70">
                 <div className={`text-center transition-all duration-300 ${noPromoter ? 'w-0 opacity-0 overflow-hidden' : ''}`} style={{ width: noPromoter ? '0%' : '10%' }}>Promoter</div>
                 <div className="text-center" style={{ width: '30%' }}>Pass Pool</div>
                 <div className="text-center transition-all duration-300" style={{ width: noPromoter ? '35%' : '30%' }}>Venue</div>
@@ -865,7 +865,7 @@ const scorecardData = [
               </div>
 
               {/* Caption */}
-              <p className="text-center text-gray-400 mt-3 transition-all duration-300" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)' }}>
+              <p className="text-center text-white/80 mt-3 transition-all duration-300" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)' }}>
                 {noPromoter 
                   ? "The 10% promoter allocation is reallocated 50/50 to Venue and VALID™."
                   : "Totals = 100% of the pass purchase."
@@ -881,7 +881,7 @@ const scorecardData = [
                   <Users className="text-amber-400" style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
                 </div>
                 <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Promoter / Account Manager</h4>
-                <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                <p className="text-white/80" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
                   Paid only if a promoter or account manager exists for that buyer or venue.
                 </p>
               </div>
@@ -893,7 +893,7 @@ const scorecardData = [
                   <PiggyBank className="text-cyan-400" style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
                 </div>
                 <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Pass Pool</h4>
-                <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
+                <p className="text-white/80" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.45' }}>
                   Deposited into the Pass Pool. Paid out weekly to participating venues based on verified attendance (where patrons actually check in).
                 </p>
               </div>
@@ -906,11 +906,11 @@ const scorecardData = [
                 </div>
                 <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Direct Split</h4>
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+                  <div className="flex items-center justify-between text-white/90" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
                     <span>→ Venue (immediate)</span>
                     <span className="font-bold text-green-400">30%</span>
                   </div>
-                  <div className="flex items-center justify-between text-gray-300" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+                  <div className="flex items-center justify-between text-white/90" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
                     <span>→ VALID™ (platform)</span>
                     <span className="font-bold text-cyan-400">30%</span>
                   </div>
@@ -927,7 +927,7 @@ const scorecardData = [
               </div>
               <div>
                 <h4 className="font-bold text-amber-400" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>No Promoter? (10% Reallocation)</h4>
-                <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', lineHeight: '1.5' }}>
+                <p className="text-white/90" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', lineHeight: '1.5' }}>
                   If no promoter/account manager is assigned, that 10% is not lost: <span className="text-green-400 font-semibold">5% goes to the Venue</span> and <span className="text-cyan-400 font-semibold">5% goes to VALID™</span>. Totals always equal 100%.
                 </p>
               </div>
@@ -948,7 +948,7 @@ const scorecardData = [
                 <div key={idx} className="bg-black/40 border border-white/10 rounded-lg text-center hover:border-green-500/30 transition-all" style={{ padding: 'clamp(16px, 1.5vw, 24px)' }}>
                   <item.icon className="text-green-400 mx-auto" style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }} />
                   <p className="font-bold text-white" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(4px, 0.4vw, 6px)' }}>{item.text}</p>
-                  <p className="text-gray-500" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>{item.sub}</p>
+                  <p className="text-white/70" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>{item.sub}</p>
                 </div>
               ))}
             </div>
@@ -981,19 +981,19 @@ const scorecardData = [
             <div className="grid grid-cols-2 md:grid-cols-4 text-center" style={{ gap: 'clamp(16px, 2vw, 32px)' }}>
               <div>
                 <div className="font-bold text-cyan-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>60%</div>
-                <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Gross Margin</div>
+                <div className="text-white/70" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Gross Margin</div>
               </div>
               <div>
                 <div className="font-bold text-green-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>$0</div>
-                <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>CAC</div>
+                <div className="text-white/70" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>CAC</div>
               </div>
               <div>
                 <div className="font-bold text-purple-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>3.2x</div>
-                <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Viral K-Factor</div>
+                <div className="text-white/70" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Viral K-Factor</div>
               </div>
               <div>
                 <div className="font-bold text-amber-400" style={{ fontSize: 'clamp(28px, 2.5vw, 44px)' }}>0 sec</div>
-                <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Settlement</div>
+                <div className="text-white/70" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Settlement</div>
               </div>
             </div>
           </div>
@@ -1059,11 +1059,11 @@ const scorecardData = [
                     </span>
                   </div>
                   <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>{stream.name}</h4>
-                  <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.4' }}>{stream.desc}</p>
+                  <p className="text-white/80" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.4' }}>{stream.desc}</p>
                 </div>
               ))}
             </div>
-            <p className="text-center text-gray-400 mt-6" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
+            <p className="text-center text-white/80 mt-6" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
               <span className="text-green-400 font-bold">6 revenue streams</span> — Each compounds the next. No single point of failure.
             </p>
           </div>
@@ -1088,7 +1088,7 @@ const scorecardData = [
                 <CheckCircle2 className="text-green-400" style={{ width: 'clamp(22px, 1.8vw, 28px)', height: 'clamp(22px, 1.8vw, 28px)' }} />
                 <span className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>VALID: 10/10 Integration Score</span>
               </div>
-              <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', lineHeight: '1.5' }}>Identity + Health + Payments + Access + Network + Compliance. No competitor scores above 4/10.</p>
+              <p className="text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', lineHeight: '1.5' }}>Identity + Health + Payments + Access + Network + Compliance. No competitor scores above 4/10.</p>
             </div>
             
             {/* Scrollable scorecard on mobile */}
@@ -1115,12 +1115,12 @@ const scorecardData = [
                         <tr className="bg-white/10 text-white">
                           <th className="p-3 text-left font-bold" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)' }}>Feature</th>
                           <th className="p-3 text-center font-bold drop-shadow-[0_0_8px_rgba(0,229,229,0.6)]" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)', color: '#00E5E5' }}>VALID</th>
-                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CLEAR</th>
-                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>ID.me</th>
-                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>TICKETMASTER</th>
-                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>STERLING</th>
+                          <th className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CLEAR</th>
+                          <th className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>ID.me</th>
+                          <th className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>TICKETMASTER</th>
+                          <th className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>STERLING</th>
                           <th className="p-3 text-center text-orange-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>DICE</th>
-                          <th className="p-3 text-center text-gray-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>EVENTBRITE</th>
+                          <th className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>EVENTBRITE</th>
                           <th className="p-3 text-center text-purple-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>SALESFORCE</th>
                           <th className="p-3 text-center text-blue-300" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CHECKR</th>
                         </tr>
@@ -1128,7 +1128,7 @@ const scorecardData = [
                       <tbody>
                         {scorecardData.map((row, idx) => (
                           <tr key={idx} className="border-b border-white/10 hover:bg-white/5 transition-colors">
-                            <td className="p-3 text-gray-200" style={{ fontSize: 'clamp(12px, 1vw, 16px)' }}>{row.feature}</td>
+                            <td className="p-3 text-white/90" style={{ fontSize: 'clamp(12px, 1vw, 16px)' }}>{row.feature}</td>
                             <td className="p-3 text-center">{renderCheck(row.valid, true)}</td>
                             <td className="p-3 text-center">{renderCheck(row.clear)}</td>
                             <td className="p-3 text-center">{renderCheck(row.idme)}</td>
@@ -1143,12 +1143,12 @@ const scorecardData = [
                         <tr className="bg-emerald-900/30 font-bold border-t-2 border-emerald-500/50">
                           <td className="p-3 text-white" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)' }}>TOTAL</td>
                           <td className="p-3 text-center font-extrabold drop-shadow-[0_0_10px_rgba(0,229,229,0.8)]" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)', color: '#00E5E5' }}>{validScore}/10</td>
-                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
-                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
-                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
-                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
+                          <td className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
+                          <td className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
+                          <td className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
+                          <td className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
                           <td className="p-3 text-center text-orange-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
-                          <td className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
+                          <td className="p-3 text-center text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
                           <td className="p-3 text-center text-purple-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
                           <td className="p-3 text-center text-blue-400" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
                         </tr>
@@ -1173,14 +1173,14 @@ const scorecardData = [
                   <XCircle className="text-red-400 flex-shrink-0 mt-1" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
                   <div>
                     <span className="text-white font-semibold" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>Toast:</span>
-                    <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>No identity verification. No health compliance. Payment only. 2.6% + 30¢ fees.</p>
+                    <p className="text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>No identity verification. No health compliance. Payment only. 2.6% + 30¢ fees.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <CheckCircle2 className="text-emerald-400 flex-shrink-0 mt-1 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
                   <div>
                     <span className="text-cyan-400 font-semibold" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>VALID:</span>
-                    <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>ID + Health + Payments unified. 0% card fees via pre-funded wallet. Instant settlement.</p>
+                    <p className="text-white/90" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>ID + Health + Payments unified. 0% card fees via pre-funded wallet. Instant settlement.</p>
                   </div>
                 </div>
                 <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg mt-4" style={{ padding: 'clamp(12px, 1.2vw, 18px)' }}>
@@ -1200,14 +1200,14 @@ const scorecardData = [
                   <XCircle className="text-red-400 flex-shrink-0 mt-1" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
                   <div>
                     <span className="text-white font-semibold" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>Square:</span>
-                    <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Generic retail POS. No venue-specific compliance. No age or health verification. Batch settlements.</p>
+                    <p className="text-white/80" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Generic retail POS. No venue-specific compliance. No age or health verification. Batch settlements.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <CheckCircle2 className="text-emerald-400 flex-shrink-0 mt-1 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]" style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
                   <div>
                     <span className="text-cyan-400 font-semibold" style={{ fontSize: 'clamp(15px, 1.2vw, 19px)' }}>VALID:</span>
-                    <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Purpose-built for high-liability venues. Age + ID verification at door. Zero chargebacks. Real-time compliance.</p>
+                    <p className="text-white/90" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Purpose-built for high-liability venues. Age + ID verification at door. Zero chargebacks. Real-time compliance.</p>
                   </div>
                 </div>
                 <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg mt-4" style={{ padding: 'clamp(12px, 1.2vw, 18px)' }}>
@@ -1236,7 +1236,7 @@ const scorecardData = [
                 <h3 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(28px, 2.4vw, 44px)', marginBottom: 'clamp(8px, 1vw, 16px)' }}>
                   Roadmap to 2027: Spatial Verification Network
                 </h3>
-                <p className="text-gray-300" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>
+                <p className="text-white/90" style={{ fontSize: 'clamp(16px, 1.2vw, 20px)' }}>
                   {futureReadyText}
                   <span className={`inline-block w-[3px] h-[0.9em] bg-cyan-400 ml-1 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`}></span>
                 </p>
@@ -1283,7 +1283,7 @@ const scorecardData = [
                             }`} style={{ fontSize: 'clamp(18px, 1.4vw, 24px)' }}>{milestone.year}</span>
                             <span className="text-white font-semibold" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>· {milestone.label}</span>
                           </div>
-                          <p className="text-gray-400" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{milestone.outcome}</p>
+                          <p className="text-white/80" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{milestone.outcome}</p>
                         </div>
                       </div>
                     ))}
@@ -1304,7 +1304,7 @@ const scorecardData = [
                     <h4 className="font-bold text-white font-orbitron" style={{ fontSize: 'clamp(22px, 1.8vw, 32px)', marginBottom: 'clamp(12px, 1.2vw, 20px)', lineHeight: '1.2' }}>
                       Verification Center → Network Utility
                     </h4>
-                    <p className="text-gray-300" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
+                    <p className="text-white/90" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
                       From scanning QR codes to seamless spatial verification—where your identity flows with you, verified in real-time without friction.
                     </p>
                   </div>
@@ -1313,7 +1313,7 @@ const scorecardData = [
 
               {/* Beyond QR: Tech Roadmap */}
               <div className="mb-8">
-                <h4 className="text-center tracking-[0.15em] uppercase text-gray-400 font-semibold mb-6" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+                <h4 className="text-center tracking-[0.15em] uppercase text-white/80 font-semibold mb-6" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
                   Beyond the QR: Sensing Technology
                 </h4>
                 <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 28px)' }}>
@@ -1321,19 +1321,19 @@ const scorecardData = [
                     <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <Zap className="text-cyan-400 relative z-10" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
                     <h5 className="font-bold text-white relative z-10" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>UWB</h5>
-                    <p className="text-gray-300 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Zero-click access. Phone stays in pocket.</p>
+                    <p className="text-white/90 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>Zero-click access. Phone stays in pocket.</p>
                   </div>
                   <div className="bg-black/50 border border-purple-500/30 rounded-xl relative overflow-hidden group hover:border-purple-400/60 transition-all" style={{ padding: 'clamp(24px, 2vw, 36px)' }}>
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <Radio className="text-purple-400 relative z-10" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
                     <h5 className="font-bold text-white relative z-10" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>NFC Type-F</h5>
-                    <p className="text-gray-300 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>0.1 sec tap. Stadium-ready throughput.</p>
+                    <p className="text-white/90 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>0.1 sec tap. Stadium-ready throughput.</p>
                   </div>
                   <div className="bg-black/50 border border-green-500/30 rounded-xl relative overflow-hidden group hover:border-green-400/60 transition-all" style={{ padding: 'clamp(24px, 2vw, 36px)' }}>
                     <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <Fingerprint className="text-green-400 relative z-10" style={{ width: 'clamp(28px, 2.2vw, 36px)', height: 'clamp(28px, 2.2vw, 36px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
                     <h5 className="font-bold text-white relative z-10" style={{ fontSize: 'clamp(18px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 12px)' }}>Bio-Hash</h5>
-                    <p className="text-gray-300 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>You are the wallet. No phone needed.</p>
+                    <p className="text-white/90 relative z-10" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)', lineHeight: '1.5' }}>You are the wallet. No phone needed.</p>
                   </div>
                 </div>
               </div>
@@ -1388,7 +1388,7 @@ const scorecardData = [
               Use of Funds
             </span>
             <div style={{ marginTop: 'clamp(16px, 1.8vw, 24px)' }}>
-              <span className="text-gray-400" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>Tranche 1: </span>
+              <span className="text-white/80" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>Tranche 1: </span>
               <span 
                 className="font-bold font-orbitron animate-[pulse_3s_ease-in-out_infinite]"
                 style={{ 
@@ -1431,7 +1431,7 @@ const scorecardData = [
                   </div>
                   {/* Outcome */}
                   <div className="flex-shrink-0 hidden md:block" style={{ width: 'clamp(120px, 14vw, 180px)' }}>
-                    <span className="text-gray-400" style={{ fontSize: 'clamp(12px, 0.9vw, 15px)' }}>{item.outcome}</span>
+                    <span className="text-white/80" style={{ fontSize: 'clamp(12px, 0.9vw, 15px)' }}>{item.outcome}</span>
                   </div>
                 </div>
               ))}
@@ -1445,7 +1445,7 @@ const scorecardData = [
                   { category: "Operations", outcome: "Team scale to 5" },
                   { category: "Reserve", outcome: "12-mo runway" },
                 ].map((item, idx) => (
-                  <div key={idx} className="text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 13px)' }}>
+                  <div key={idx} className="text-white/80" style={{ fontSize: 'clamp(11px, 0.9vw, 13px)' }}>
                     <span className="text-white">{item.category}:</span> {item.outcome}
                   </div>
                 ))}
@@ -1458,7 +1458,7 @@ const scorecardData = [
         <section className="bg-black" style={{ paddingTop: 'clamp(48px, 5vw, 80px)', paddingBottom: 'clamp(48px, 5vw, 80px)' }}>
           {/* Banner linking to PDF deck */}
           <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4 mx-auto mb-8" style={{ padding: 'clamp(12px, 1.2vw, 20px) clamp(16px, 2vw, 28px)', maxWidth: '900px' }}>
-            <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>
+            <p className="text-white/90" style={{ fontSize: 'clamp(14px, 1.1vw, 17px)' }}>
               Prefer the full story? <a href="#investor-deck-pdf" className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2">View the 14‑slide deck →</a>
             </p>
             <Button
@@ -1529,7 +1529,7 @@ const scorecardData = [
                   { label: "Close", value: "Rolling (target Q3 2026)" },
                 ].map((row, idx) => (
                   <div key={idx} className="flex justify-between items-center border-b border-white/10" style={{ padding: 'clamp(10px, 1vw, 16px) 0', fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
-                    <span style={{ color: '#A0A0A0' }}>{row.label}</span>
+                    <span style={{ color: '#FFFFFF' }}>{row.label}</span>
                     <span className={row.highlight ? "font-semibold" : "font-semibold text-white"} style={row.highlight ? { color: '#00E5E5' } : {}}>
                       {row.value}
                     </span>
@@ -1583,7 +1583,7 @@ const scorecardData = [
                   { label: "Status", value: "Pending T1 Close", dim: true },
                 ].map((row, idx) => (
                   <div key={idx} className="flex justify-between items-center border-b border-white/10" style={{ padding: 'clamp(10px, 1vw, 16px) 0', fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
-                    <span style={{ color: '#A0A0A0' }}>{row.label}</span>
+                    <span style={{ color: '#FFFFFF' }}>{row.label}</span>
                     <span className={row.highlight ? "font-semibold" : row.dim ? "" : "font-semibold text-white"} style={row.highlight ? { color: '#00E5E5' } : row.dim ? { color: '#A0A0A0' } : {}}>
                       {row.value}
                     </span>
@@ -1598,7 +1598,7 @@ const scorecardData = [
             </div>
           </div>
 
-          <p className="text-center text-gray-600" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)' }}>Source of truth: Deal Room terms</p>
+          <p className="text-center text-white/60" style={{ fontSize: 'clamp(12px, 0.9vw, 14px)' }}>Source of truth: Deal Room terms</p>
         </section>
 
         {/* ===== LIQUIDITY & ROI (Accordion) ===== */}
@@ -1624,17 +1624,17 @@ const scorecardData = [
                   <div className="bg-black/60 border border-white/10 rounded-lg p-4 text-center">
                     <div className="text-3xl mb-2">🚀</div>
                     <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">The Exit Strategy</h4>
-                    <p className="text-sm text-gray-300">Acquisition target: Fintech (Block, Stripe), Insurance, or Hospitality. Target outcome: strategic acquisition or major growth event. Timeline: 3–5 years <span className="text-gray-500">(not guaranteed)</span>.</p>
+                    <p className="text-sm text-white/80">Acquisition target: Fintech (Block, Stripe), Insurance, or Hospitality. Target outcome: strategic acquisition or major growth event. Timeline: 3–5 years <span className="text-white/60">(not guaranteed)</span>.</p>
                   </div>
                   <div className="bg-black/60 border border-white/10 rounded-lg p-4 text-center">
                     <div className="text-3xl mb-2">💰</div>
                     <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">Dividend Distributions</h4>
-                    <p className="text-sm text-gray-300">VALID™ is a pipeline, not a burn machine. We intend to distribute a portion of Net Transaction Fees to equity holders once operations are stable <span className="text-gray-500">(subject to board approval)</span>.</p>
+                    <p className="text-sm text-white/80">VALID™ is a pipeline, not a burn machine. We intend to distribute a portion of Net Transaction Fees to equity holders once operations are stable <span className="text-white/60">(subject to board approval)</span>.</p>
                   </div>
                   <div className="bg-black/60 border border-white/10 rounded-lg p-4 text-center">
                     <div className="text-3xl mb-2">🔄</div>
                     <h4 className="text-xs tracking-[1px] uppercase text-cyan-400 mb-2">Secondary Market</h4>
-                    <p className="text-sm text-gray-300">Tranche 1 investors may have the option to sell shares in future secondary transactions <span className="text-gray-500">(subject to company approval and buyer availability)</span>.</p>
+                    <p className="text-sm text-white/80">Tranche 1 investors may have the option to sell shares in future secondary transactions <span className="text-white/60">(subject to company approval and buyer availability)</span>.</p>
                   </div>
                 </div>
               </AccordionContent>
@@ -1644,7 +1644,7 @@ const scorecardData = [
 
         {/* ===== RISK DISCLOSURES (Accordion with Summary) ===== */}
         <section>
-          <div className="bg-gray-900/80 border border-gray-700/50 rounded-xl p-4">
+          <div className="bg-white/10 border border-white/20 rounded-xl p-4">
             <Accordion type="single" collapsible>
               <AccordionItem value="risk" className="border-none">
                 <AccordionTrigger className="py-2 hover:no-underline">
@@ -1664,7 +1664,7 @@ const scorecardData = [
                   </div>
                   
                   {/* Full text */}
-                  <div className="space-y-4 text-sm text-gray-300">
+                  <div className="space-y-4 text-sm text-white/80">
                     <div>
                       <h5 className="font-bold text-amber-400 mb-1">1. Speculative Investment</h5>
                       <p>Investment in Valid™ (via Giant Ventures, LLC) is highly speculative and involves a high degree of risk. This opportunity is suitable only for persons who can afford to lose their entire investment.</p>
@@ -1712,40 +1712,40 @@ const scorecardData = [
             <div className="grid md:grid-cols-3 gap-4 mb-6">
               <div className="text-center p-3 bg-black/40 rounded-lg">
                 <div className="text-xl font-bold text-white">35+</div>
-                <div className="text-xs text-gray-400">Years Execution</div>
+                <div className="text-xs text-white/70">Years Execution</div>
               </div>
               <div className="text-center p-3 bg-black/40 rounded-lg">
                 <div className="text-xl font-bold text-white">Multi-Exit</div>
-                <div className="text-xs text-gray-400">Operator</div>
+                <div className="text-xs text-white/70">Operator</div>
               </div>
               <div className="text-center p-3 bg-black/40 rounded-lg">
                 <div className="text-xl font-bold text-white">AI-Native</div>
-                <div className="text-xs text-gray-400">Builder</div>
+                <div className="text-xs text-white/70">Builder</div>
               </div>
             </div>
 
-            <p className="text-gray-300 text-center text-sm mb-4">
+            <p className="text-white/80 text-center text-sm mb-4">
               Self-made operator who scaled multiple businesses from zero to exit. Deep expertise in operations, risk management, and high-liability sectors.
             </p>
 
             <Accordion type="single" collapsible>
               <AccordionItem value="bio" className="border-white/10">
-                <AccordionTrigger className="text-sm text-gray-400 hover:text-white justify-center">
+                <AccordionTrigger className="text-sm text-white/70 hover:text-white justify-center">
                   Full Bio
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="space-y-4 pt-4">
                     <div className="border-l-4 border-cyan-500/50 pl-4">
                       <h4 className="text-cyan-400 font-bold mb-1">The Background</h4>
-                      <p className="text-sm text-gray-300">53 years of life. 35 years of execution. Bridged hard infrastructure with high-stakes regulation. Career built on tangible results, not theory.</p>
+                      <p className="text-sm text-white/80">53 years of life. 35 years of execution. Bridged hard infrastructure with high-stakes regulation. Career built on tangible results, not theory.</p>
                     </div>
                     <div className="border-l-4 border-cyan-500/50 pl-4">
                       <h4 className="text-cyan-400 font-bold mb-1">The Operator</h4>
-                      <p className="text-sm text-gray-300">Veteran of the real economy. Deep mastery of Operations and Risk Management. Translates complex market necessities into revenue-generating systems.</p>
+                      <p className="text-sm text-white/80">Veteran of the real economy. Deep mastery of Operations and Risk Management. Translates complex market necessities into revenue-generating systems.</p>
                     </div>
                     <div className="border-l-4 border-cyan-500/50 pl-4">
                       <h4 className="text-cyan-400 font-bold mb-1">The Architect</h4>
-                      <p className="text-sm text-gray-300">Pioneer of Synthesized AI Methodology. Commands a symphony of AI agents—delivering in 300 hours what teams fail to deliver in a year.</p>
+                      <p className="text-sm text-white/80">Pioneer of Synthesized AI Methodology. Commands a symphony of AI agents—delivering in 300 hours what teams fail to deliver in a year.</p>
                     </div>
                   </div>
                 </AccordionContent>
@@ -1764,7 +1764,7 @@ const scorecardData = [
         <section className="text-center py-8">
           <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-xl p-8">
             <h3 className="text-2xl font-bold text-white mb-2 font-orbitron">Ready to Discuss?</h3>
-            <p className="text-gray-400 mb-6 text-sm">Schedule a direct call with our founding team.</p>
+            <p className="text-white/80 mb-6 text-sm">Schedule a direct call with our founding team.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button 
                 size="lg"

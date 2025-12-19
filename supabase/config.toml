@@ -101,3 +101,15 @@ verify_jwt = false
 
 [functions.stripe-webhook]
 verify_jwt = false
+
+[functions.create-venue-connect-account]
+verify_jwt = true
+
+[functions.create-venue-onboarding-link]
+verify_jwt = true
+
+[functions.get-venue-connect-status]
+verify_jwt = true
+
+[functions.venue-cash-out]
+verify_jwt = true

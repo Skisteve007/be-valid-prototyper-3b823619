@@ -17,8 +17,31 @@ const logStep = (step: string, details?: Record<string, unknown>) => {
   console.log(`[STRIPE-WEBHOOK] ${step}${detailsStr}`);
 };
 
+// Log webhook event to database
+const logWebhookEvent = async (
+  eventId: string,
+  eventType: string,
+  payload: unknown,
+  responseStatus: number,
+  responseBody?: string,
+  errorMessage?: string
+) => {
+  try {
+    await supabaseAdmin.from("webhook_events").insert({
+      event_id: eventId,
+      event_type: eventType,
+      payload: payload,
+      response_status: responseStatus,
+      response_body: responseBody,
+      error_message: errorMessage,
+      processed_at: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.error("Failed to log webhook event:", err);
+  }
+};
+
 serve(async (req) => {
-  // Only accept POST requests
   if (req.method !== "POST") {
     return new Response("Method not allowed", { status: 405 });
   }
@@ -58,9 +81,6 @@ serve(async (req) => {
           customerId: paymentIntent.customer,
           metadata: paymentIntent.metadata,
         });
-
-        // Record successful payment in database if needed
-        // You can add custom logic here based on metadata
         break;
       }
 
@@ -83,19 +103,17 @@ serve(async (req) => {
           metadata: session.metadata,
         });
 
-        // Handle membership/subscription activation based on session metadata
         if (session.metadata?.user_id && session.metadata?.membership_type) {
           const userId = session.metadata.user_id;
           const membershipType = session.metadata.membership_type;
           
-          // Calculate expiry based on membership type
           let expiryDate = new Date();
           if (membershipType === "driver_pass_14_day") {
             expiryDate.setDate(expiryDate.getDate() + 14);
           } else if (membershipType === "annual_pass") {
             expiryDate.setFullYear(expiryDate.getFullYear() + 1);
           } else {
-            expiryDate.setMonth(expiryDate.getMonth() + 1); // Default 1 month
+            expiryDate.setMonth(expiryDate.getMonth() + 1);
           }
 
           const { error } = await supabaseAdmin
@@ -124,6 +142,25 @@ serve(async (req) => {
           chargesEnabled: account.charges_enabled,
           payoutsEnabled: account.payouts_enabled,
         });
+
+        // Update venue with latest account status
+        const { error } = await supabaseAdmin
+          .from("partner_venues")
+          .update({
+            stripe_charges_enabled: account.charges_enabled,
+            stripe_payouts_enabled: account.payouts_enabled,
+            stripe_onboarding_complete: 
+              (account.requirements?.currently_due?.length || 0) === 0 &&
+              (account.requirements?.past_due?.length || 0) === 0,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("stripe_account_id", account.id);
+
+        if (error) {
+          logStep("ERROR: Failed to update venue Stripe status", { error: error.message });
+        } else {
+          logStep("Venue Stripe status updated", { accountId: account.id });
+        }
         break;
       }
 
@@ -134,7 +171,16 @@ serve(async (req) => {
           amount: transfer.amount,
           currency: transfer.currency,
           destination: transfer.destination,
+          metadata: transfer.metadata,
         });
+
+        // Update ledger entry if exists
+        if (transfer.metadata?.venue_id) {
+          await supabaseAdmin
+            .from("venue_ledger_entries")
+            .update({ paid_at: new Date().toISOString() })
+            .eq("stripe_transfer_id", transfer.id);
+        }
         break;
       }
 
@@ -145,6 +191,17 @@ serve(async (req) => {
           amount: payout.amount,
           currency: payout.currency,
           arrivalDate: payout.arrival_date,
+        });
+        break;
+      }
+
+      case "payout.failed": {
+        const payout = event.data.object as Stripe.Payout;
+        logStep("Payout failed", {
+          payoutId: payout.id,
+          amount: payout.amount,
+          failureCode: payout.failure_code,
+          failureMessage: payout.failure_message,
         });
         break;
       }
@@ -193,6 +250,9 @@ serve(async (req) => {
         logStep("Unhandled event type", { eventType: event.type });
     }
 
+    // Log successful webhook processing
+    await logWebhookEvent(event.id, event.type, event.data.object, 200, "success");
+
     return new Response(JSON.stringify({ received: true, eventType: event.type }), {
       headers: { "Content-Type": "application/json" },
       status: 200,
@@ -200,6 +260,10 @@ serve(async (req) => {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
     logStep("ERROR: Processing webhook", { error: errorMessage, eventType: event.type });
+
+    // Log failed webhook processing
+    await logWebhookEvent(event.id, event.type, event.data.object, 500, undefined, errorMessage);
+
     return new Response(JSON.stringify({ error: errorMessage }), {
       headers: { "Content-Type": "application/json" },
       status: 500,

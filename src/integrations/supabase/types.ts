@@ -3026,6 +3026,53 @@ export type Database = {
           },
         ]
       }
+      venue_ledger_entries: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string | null
+          entry_type: string
+          id: string
+          idempotency_key: string | null
+          paid_at: string | null
+          stripe_transfer_id: string | null
+          transaction_id: string | null
+          venue_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          description?: string | null
+          entry_type: string
+          id?: string
+          idempotency_key?: string | null
+          paid_at?: string | null
+          stripe_transfer_id?: string | null
+          transaction_id?: string | null
+          venue_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          entry_type?: string
+          id?: string
+          idempotency_key?: string | null
+          paid_at?: string | null
+          stripe_transfer_id?: string | null
+          transaction_id?: string | null
+          venue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_ledger_entries_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       venue_operators: {
         Row: {
           access_level: string

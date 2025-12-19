@@ -376,6 +376,7 @@ serve(async (req) => {
     if (supabaseUrl && supabaseServiceKey) {
       const supabase = createClient(supabaseUrl, supabaseServiceKey);
       
+      // Log to synth_audit_logs (existing)
       await supabase.from("synth_audit_logs").insert({
         request_id: requestId,
         user_role: user_role || "anonymous",
@@ -400,6 +401,49 @@ serve(async (req) => {
       });
       
       console.log(`[${requestId}] Audit log saved to database`);
+
+      // Step G: Log movement events (new event-based tracking)
+      const userId = metadata?.user_id || null;
+      
+      // Map decision to synth_decision enum
+      const synthDecision = decision === "RELEASE_FULL" ? "RELEASE_FULL"
+        : decision === "RELEASE_SAFE_PARTIAL" ? "RELEASE_SAFE_PARTIAL"
+        : decision === "REFUSE" ? "REFUSE"
+        : decision === "HUMAN_REVIEW_REQUIRED" ? "HUMAN_REVIEW_REQUIRED"
+        : null;
+      
+      // Map risk to synth_risk_decision enum
+      const synthRisk = riskDecision === "ALLOW" ? "ALLOW"
+        : riskDecision === "RESTRICT" ? "RESTRICT"
+        : riskDecision === "BLOCK" ? "BLOCK"
+        : null;
+
+      // Log AUDIT_COMPLETED event with full context
+      try {
+        await supabase.rpc('log_synth_event', {
+          p_user_id: userId,
+          p_event_type: 'AUDIT_COMPLETED',
+          p_request_id: requestId,
+          p_source: 'console',
+          p_risk_decision: synthRisk,
+          p_decision: synthDecision,
+          p_coherence_score: judgeResult.coherenceScore,
+          p_verification_score: verificationScore,
+          p_prompt_hash: hashString(prompt),
+          p_answer_hash: hashString(judgeResult.finalAnswer),
+          p_metadata: {
+            processing_time_ms: processingTimeMs,
+            entities_redacted: sanitization.entitiesRedacted,
+            risks_count: risks.length,
+            claims_count: claims.length,
+            contradictions_count: judgeResult.contradictions.length,
+          }
+        });
+        console.log(`[${requestId}] Movement event logged`);
+      } catch (eventError) {
+        console.error(`[${requestId}] Failed to log movement event:`, eventError);
+      }
+
     }
 
     // Build response

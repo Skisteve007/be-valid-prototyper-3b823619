@@ -135,12 +135,12 @@ export const pitchSlides: SlideData[] = [
   {
     id: 11,
     title: "TEAM",
-    subtitle: "The Builder",
+    subtitle: "The Architect",
     content: [
-      "Steve Grillo — Founder & CEO",
-      "20+ years in nightlife operations & technology",
-      "Built and scaled multiple venue tech platforms",
-      "Deep industry relationships across 10 verticals"
+      "Founder & CEO of VALID™: The First \"Zero-Knowledge\" Verification Platform.",
+      "I am a \"Full-Cycle\" Serial Entrepreneur who has built multiple businesses from the ground up to exit.",
+      "I don't just theorize about risk; I have lived it for three decades.",
+      "Possessing deep industry relationships across 10 verticals."
     ],
     layout: 'title-content',
   },

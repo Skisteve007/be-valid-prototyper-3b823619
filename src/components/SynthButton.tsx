@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Brain, Sparkles } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
@@ -9,9 +9,12 @@ interface SynthButtonProps {
 
 const SynthButton: React.FC<SynthButtonProps> = ({ variant = "fab" }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAdmin, loading } = useIsAdmin();
   const [pulseCount, setPulseCount] = useState(0);
   const resetTimerRef = useRef<number | null>(null);
+
+  const isPartnersPage = location.pathname === "/partners";
 
   const colors = useMemo(() => {
     return {
@@ -90,6 +93,28 @@ const SynthButton: React.FC<SynthButtonProps> = ({ variant = "fab" }) => {
   if (loading || !isAdmin) return null;
 
   if (variant === "fab") {
+    // On Partners page: top-left near Investor button, smaller
+    if (isPartnersPage) {
+      return (
+        <button
+          onClick={goSynth}
+          className="fixed top-20 left-4 sm:top-20 sm:left-6 z-40 grid size-10 sm:size-11 place-items-center rounded-full border border-border/40 backdrop-blur-sm transition-transform hover:scale-110 active:scale-95"
+          style={{
+            WebkitTapHighlightColor: "transparent",
+            background: `linear-gradient(135deg, ${colors.purple}, ${colors.magenta})`,
+            boxShadow: `0 0 20px ${colors.glow}, 0 6px 20px hsl(var(--foreground) / 0.08)`,
+          }}
+          aria-label="Open Synth"
+        >
+          <Brain className="h-5 w-5" style={{ color: "hsl(var(--primary-foreground))" }} />
+          <span
+            className="absolute inset-0 rounded-full animate-ping"
+            style={{ background: colors.purple, opacity: 0.18 }}
+          />
+        </button>
+      );
+    }
+
     return (
       <button
         onClick={goSynth}

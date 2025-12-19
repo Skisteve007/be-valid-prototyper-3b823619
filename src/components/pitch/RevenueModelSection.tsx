@@ -20,8 +20,26 @@ const RevenueModelSection = () => {
       <div className="text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/20 border border-green-500/40 mb-4">
           <DollarSign className="w-5 h-5 text-green-400" />
-          <span className="text-green-400 font-bold tracking-wide uppercase text-sm">Revenue Model</span>
+          <span 
+            className="font-bold tracking-wide uppercase text-sm animate-[pulseWhiteGlow_2.5s_ease-in-out_infinite]"
+            style={{
+              color: '#ffffff',
+              textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)',
+            }}
+          >
+            Revenue Model
+          </span>
         </div>
+        <style>{`
+          @keyframes pulseWhiteGlow {
+            0%, 100% { 
+              text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+            50% { 
+              text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 45px rgba(255, 255, 255, 0.6);
+            }
+          }
+        `}</style>
         <h2 
           className="font-bold font-orbitron text-white"
           style={{ 

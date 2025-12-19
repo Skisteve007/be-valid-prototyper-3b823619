@@ -122,11 +122,20 @@ const scorecardData = [
     return <X className="h-5 w-5 mx-auto text-red-400 drop-shadow-[0_0_6px_rgba(248,113,113,0.8)]" />;
   };
 
-  // Section divider component for consistent styling
+  // Section divider component for consistent styling with pulsating white glow
   const SectionDivider = ({ label }: { label: string }) => (
     <div className="flex items-center gap-4" style={{ padding: 'clamp(64px, 8vw, 96px) 0' }}>
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-      <span className="tracking-[0.3em] uppercase text-white/80 font-medium" style={{ fontSize: 'clamp(14px, 1vw, 16px)' }}>{label}</span>
+      <span 
+        className="tracking-[0.3em] uppercase font-medium animate-[pulseGlow_2.5s_ease-in-out_infinite]" 
+        style={{ 
+          fontSize: 'clamp(14px, 1vw, 16px)',
+          color: '#ffffff',
+          textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)',
+        }}
+      >
+        {label}
+      </span>
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
     </div>
   );
@@ -146,6 +155,28 @@ const scorecardData = [
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white selection:bg-cyan-500 selection:text-black relative overflow-hidden">
       
+      {/* Pulsating glow keyframes */}
+      <style>{`
+        @keyframes pulseGlow {
+          0%, 100% { 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+          }
+          50% { 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 45px rgba(255, 255, 255, 0.6);
+          }
+        }
+        @keyframes bluePulseGlow {
+          0%, 100% { 
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.6), 0 0 20px rgba(59, 130, 246, 0.4), 0 0 30px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4), 0 0 30px rgba(59, 130, 246, 0.2);
+          }
+          50% { 
+            text-shadow: 0 0 15px rgba(59, 130, 246, 1), 0 0 30px rgba(59, 130, 246, 0.8), 0 0 45px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6), 0 0 50px rgba(59, 130, 246, 0.4);
+          }
+        }
+      `}</style>
+
       {/* Background Grid */}
       <div className="fixed inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0"></div>
       
@@ -967,8 +998,8 @@ const scorecardData = [
           <div className="text-center" style={{ marginTop: 'clamp(12px, 1.5vw, 24px)' }}>
             <Button 
               onClick={() => window.open('https://calendly.com/steve-bevalid/30min', '_blank')}
-              className="bg-gradient-to-r from-green-500 to-cyan-500 text-black font-bold rounded-full hover:scale-105 transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)]"
-              style={{ fontSize: 'clamp(14px, 1.1vw, 18px)', padding: 'clamp(12px, 1.2vw, 20px) clamp(24px, 2.5vw, 40px)' }}
+              className="bg-gradient-to-r from-green-500 to-cyan-500 text-black font-bold rounded-full hover:scale-105 transition-all shadow-[0_0_15px_rgba(34,197,94,0.3)]"
+              style={{ fontSize: 'clamp(11px, 0.9vw, 14px)', padding: 'clamp(8px, 0.8vw, 12px) clamp(16px, 1.8vw, 28px)' }}
             >
               Request Wallet Integration Demo
             </Button>
@@ -1255,7 +1286,14 @@ const scorecardData = [
 
               {/* Beyond QR: Tech Roadmap */}
               <div className="mb-8">
-                <h4 className="text-center tracking-[0.15em] uppercase text-white/80 font-semibold mb-6" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>
+                <h4 
+                  className="text-center tracking-[0.15em] uppercase font-semibold mb-6 italic animate-[bluePulseGlow_2.5s_ease-in-out_infinite]" 
+                  style={{ 
+                    fontSize: 'clamp(13px, 1vw, 16px)',
+                    color: '#60a5fa',
+                    textShadow: '0 0 15px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.6), 0 0 45px rgba(59, 130, 246, 0.4)',
+                  }}
+                >
                   Beyond the QR: Sensing Technology
                 </h4>
                 <div className="grid md:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 28px)' }}>

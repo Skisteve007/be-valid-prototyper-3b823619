@@ -661,9 +661,9 @@ const Partners = () => {
                   <span className="text-cyan-400 font-bold">Verification = New Profit Center</span>
                </div>
               </div>
-             <button className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm tracking-widest rounded transition uppercase flex items-center justify-center gap-2">
+             <button className="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs tracking-widest rounded transition uppercase flex items-center justify-center gap-2">
                Request Wallet Integration Demo
-               <ArrowRight className="h-4 w-4" />
+               <ArrowRight className="h-3 w-3" />
              </button>
           </div>
         </div>
@@ -815,7 +815,23 @@ const Partners = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <span className="inline-block bg-purple-600/30 text-purple-400 border border-purple-600/50 text-sm px-5 py-1.5 rounded-full tracking-widest mb-4">POST-OPTICAL ERA</span>
-            <h2 className="text-3xl md:text-4xl font-bold font-orbitron mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <style>{`
+              @keyframes bluePulseGlowPartners {
+                0%, 100% { 
+                  text-shadow: 0 0 10px rgba(59, 130, 246, 0.6), 0 0 20px rgba(59, 130, 246, 0.4), 0 0 30px rgba(59, 130, 246, 0.2);
+                }
+                50% { 
+                  text-shadow: 0 0 15px rgba(59, 130, 246, 1), 0 0 30px rgba(59, 130, 246, 0.8), 0 0 45px rgba(59, 130, 246, 0.6);
+                }
+              }
+            `}</style>
+            <h2 
+              className="text-3xl md:text-4xl font-bold font-orbitron mb-4 italic animate-[bluePulseGlowPartners_2.5s_ease-in-out_infinite]"
+              style={{
+                color: '#60a5fa',
+                textShadow: '0 0 15px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.6), 0 0 45px rgba(59, 130, 246, 0.4)',
+              }}
+            >
               Beyond The QR: The Sensing Roadmap
             </h2>
             <p className="text-gray-300 max-w-3xl mx-auto text-base md:text-lg leading-relaxed">

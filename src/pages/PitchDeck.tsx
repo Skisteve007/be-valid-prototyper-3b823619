@@ -356,7 +356,17 @@ const scorecardData = [
 
           {/* Value Drivers - Condensed */}
           <div>
-            <h3 className="tracking-[0.2em] uppercase text-gray-400 text-center font-semibold" style={{ fontSize: 'clamp(13px, 1vw, 16px)', marginBottom: 'clamp(20px, 2.5vw, 32px)' }}>Value Drivers</h3>
+            <h3 
+              className="tracking-[0.2em] uppercase text-center font-bold"
+              style={{ 
+                fontSize: 'clamp(20px, 1.8vw, 32px)', 
+                marginBottom: 'clamp(20px, 2.5vw, 32px)',
+                color: '#00bfff',
+                textShadow: '0 0 20px rgba(0, 191, 255, 0.8), 0 0 40px rgba(0, 191, 255, 0.5)',
+              }}
+            >
+              Six Value Drivers
+            </h3>
             <div className="grid md:grid-cols-3" style={{ gap: 'clamp(20px, 2vw, 32px)' }}>
               <div className="bg-black/50 border border-amber-500/30 rounded-xl hover:border-amber-500/50 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
                 <Ghost className="text-amber-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
@@ -385,18 +395,10 @@ const scorecardData = [
             </div>
           <Accordion type="single" collapsible className="mt-6">
               <AccordionItem value="more-drivers" className="border-none rounded-xl">
-                <AccordionTrigger className="py-5 hover:no-underline justify-center">
-                  <span 
-                    className="inline-flex items-center gap-3 rounded-full font-bold tracking-wide text-black animate-[pulse_3s_ease-in-out_infinite]"
-                    style={{ 
-                      fontSize: 'clamp(18px, 1.5vw, 26px)', 
-                      padding: 'clamp(14px, 1.5vw, 22px) clamp(28px, 3vw, 48px)',
-                      background: 'linear-gradient(135deg, #00bfff 0%, #0080ff 50%, #00bfff 100%)',
-                      boxShadow: '0 0 30px rgba(0, 191, 255, 0.6), 0 0 60px rgba(0, 128, 255, 0.3)',
-                    }}
-                  >
-                    <ChevronDown style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
-                    View All 6 Value Drivers
+                <AccordionTrigger className="py-4 hover:no-underline justify-center text-cyan-400 hover:text-cyan-300">
+                  <span className="flex items-center gap-2" style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}>
+                    <ChevronDown style={{ width: 'clamp(20px, 1.6vw, 26px)', height: 'clamp(20px, 1.6vw, 26px)' }} />
+                    <span className="font-semibold">Expand All Six</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent>

@@ -74,6 +74,37 @@ export const AccessApprovalManager = () => {
     }
   };
 
+  const handleRevoke = async (userId: string, accessType: "investor" | "partner") => {
+    try {
+      const updateData = accessType === "investor"
+        ? {
+            investor_access_approved: false,
+            investor_access_approved_at: null,
+            investor_access_requested_at: null,
+            access_approved_by: null,
+          }
+        : {
+            partner_access_approved: false,
+            partner_access_approved_at: null,
+            partner_access_requested_at: null,
+            access_approved_by: null,
+          };
+
+      const { error } = await supabase
+        .from("profiles")
+        .update(updateData)
+        .eq("user_id", userId);
+
+      if (error) throw error;
+
+      toast.success(`${accessType === "investor" ? "Investor" : "Partner"} access revoked`);
+      fetchPendingRequests();
+    } catch (error) {
+      console.error("Error revoking access:", error);
+      toast.error("Failed to revoke access");
+    }
+  };
+
   const pendingInvestor = requests.filter(r => r.investor_access_requested_at && !r.investor_access_approved);
   const pendingPartner = requests.filter(r => r.partner_access_requested_at && !r.partner_access_approved);
   const approved = requests.filter(r => r.investor_access_approved || r.partner_access_approved);
@@ -209,12 +240,32 @@ export const AccessApprovalManager = () => {
                     <p className="font-medium">{req.full_name || "Unknown"}</p>
                     <p className="text-sm text-muted-foreground">{req.email}</p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 items-center">
                     {req.investor_access_approved && (
-                      <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50">Investor</Badge>
+                      <>
+                        <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50">Investor</Badge>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-red-500 text-red-500 hover:bg-red-500/20 h-7 px-2"
+                          onClick={() => handleRevoke(req.user_id, "investor")}
+                        >
+                          <X className="w-3 h-3 mr-1" /> Revoke
+                        </Button>
+                      </>
                     )}
                     {req.partner_access_approved && (
-                      <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50">Partner</Badge>
+                      <>
+                        <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50">Partner</Badge>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-red-500 text-red-500 hover:bg-red-500/20 h-7 px-2"
+                          onClick={() => handleRevoke(req.user_id, "partner")}
+                        >
+                          <X className="w-3 h-3 mr-1" /> Revoke
+                        </Button>
+                      </>
                     )}
                   </div>
                 </div>

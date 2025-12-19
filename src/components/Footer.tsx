@@ -80,7 +80,7 @@ const Footer = () => {
         
           {/* Core Tagline */}
           <div className="text-center mb-4 pb-4 border-b border-slate-600">
-            <p className="text-lg font-bold text-white tracking-wide">We Check. We Don't Collect.</p>
+            <p className="text-lg font-bold text-white tracking-wide">Fluid. Frictionless. Trusted. Zero Stored.</p>
             <p className="text-xs text-gray-400 mt-1">Pipeline, Not Vault — Your data is verified, then purged. Never stored.</p>
           </div>
 

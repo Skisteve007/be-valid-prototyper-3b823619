@@ -301,9 +301,9 @@ const PlatformFeatures = () => {
                   {/* Header */}
                   <div className="flex items-center gap-2 mb-2">
                     <div className="p-1.5 rounded-lg bg-black/40 backdrop-blur-sm border border-white/20">
-                      <card.icon className="h-4 w-4 text-white" />
+                      <card.icon className="h-5 w-5 text-white" />
                     </div>
-                    <h3 className="text-sm font-bold text-white drop-shadow-lg leading-tight">
+                    <h3 className="text-base font-bold text-white drop-shadow-lg leading-tight">
                       {card.title}
                     </h3>
                   </div>
@@ -311,24 +311,24 @@ const PlatformFeatures = () => {
                   {/* Price Section */}
                   <div className="mb-3">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-[10px] text-white/60 uppercase tracking-wide">Starting at</span>
+                      <span className="text-xs text-white uppercase tracking-wide font-medium">Starting at</span>
                     </div>
-                    <div className="text-2xl font-black text-white drop-shadow-lg">
-                      {card.priceStart}<span className="text-xs font-medium text-white/80">{card.priceSuffix}</span>
+                    <div className="text-3xl font-black text-white drop-shadow-lg">
+                      {card.priceStart}<span className="text-sm font-medium text-white">{card.priceSuffix}</span>
                     </div>
-                    <p className={`text-[10px] font-medium ${card.accentColor} mt-1 leading-tight`}>
+                    <p className="text-xs font-semibold text-white mt-1 leading-tight">
                       {card.tiers}
                     </p>
                   </div>
                   
                   {/* Included Section */}
                   <div className="mb-3">
-                    <p className="text-[10px] text-white/60 uppercase tracking-wide mb-1">Included:</p>
+                    <p className="text-xs text-white uppercase tracking-wide mb-1 font-semibold">Included:</p>
                     <div className="space-y-1">
                       {card.included.map((item, idx) => (
                         <div key={idx} className="flex items-center gap-1.5">
-                          <Check className="h-3 w-3 text-emerald-400 flex-shrink-0" />
-                          <span className="text-[11px] text-white/90">{item}</span>
+                          <Check className="h-4 w-4 text-emerald-400 flex-shrink-0" />
+                          <span className="text-sm text-white font-medium">{item}</span>
                         </div>
                       ))}
                     </div>
@@ -337,14 +337,14 @@ const PlatformFeatures = () => {
                   {/* Per-Unit or Add-Ons Section */}
                   {(card.perUnit || card.addOns) && (
                     <div className="mb-3 flex-grow">
-                      <p className="text-[10px] text-white/60 uppercase tracking-wide mb-1">
+                      <p className="text-xs text-white uppercase tracking-wide mb-1 font-semibold">
                         {card.addOns ? "Optional Add-Ons:" : "Per-Use Fees:"}
                       </p>
                       <div className="space-y-0.5">
                         {(card.perUnit || card.addOns)?.slice(0, 4).map((item, idx) => (
-                          <div key={idx} className="flex justify-between items-center text-[10px]">
-                            <span className="text-white/70">{item.name}</span>
-                            <span className={`${card.accentColor} font-medium`}>{item.price}</span>
+                          <div key={idx} className="flex justify-between items-center text-xs">
+                            <span className="text-white font-medium">{item.name}</span>
+                            <span className="text-white font-bold">{item.price}</span>
                           </div>
                         ))}
                       </div>
@@ -352,7 +352,7 @@ const PlatformFeatures = () => {
                   )}
                   
                   {/* Onboarding */}
-                  <p className="text-[10px] text-white/50 mb-2">+ Onboarding {card.onboarding}</p>
+                  <p className="text-xs text-white font-medium mb-2">+ Onboarding {card.onboarding}</p>
                   
                   {/* CTA Button */}
                   <Button 

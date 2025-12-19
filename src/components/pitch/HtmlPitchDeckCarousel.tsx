@@ -173,10 +173,9 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
       onTouchEnd={handleTouchEnd}
       aria-label="Investor deck slides"
     >
-      {/* Main Slide Content - Flexes in fullscreen, stays 16:9 otherwise */}
+      {/* Main Slide Content - Flexes in fullscreen, taller on mobile for visibility */}
       <div
-        className={"relative w-full overflow-hidden " + (isFullscreen ? "flex-1 min-h-0" : "")}
-        style={isFullscreen ? undefined : { aspectRatio: "16 / 9" }}
+        className={"relative w-full overflow-hidden " + (isFullscreen ? "flex-1 min-h-0" : "aspect-[4/3] sm:aspect-[16/10] md:aspect-video")}
       >
         <div
           className="absolute inset-0 flex transition-transform duration-500 ease-in-out"

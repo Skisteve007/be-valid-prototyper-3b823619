@@ -130,6 +130,10 @@ export default {
   				'Exo',
   				'sans-serif'
   			],
+  			electrolize: [
+  				'Electrolize',
+  				'sans-serif'
+  			],
   			serif: [
   				'Exo',
   				'ui-serif',

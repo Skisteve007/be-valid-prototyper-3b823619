@@ -98,3 +98,6 @@ verify_jwt = false
 
 [functions.log-operator-event]
 verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false

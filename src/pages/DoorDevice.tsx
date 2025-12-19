@@ -13,9 +13,13 @@ import {
   CheckCircle2,
   AlertTriangle,
   XCircle,
-  Clock
+  Clock,
+  User,
+  MapPin,
+  ArrowLeftRight
 } from "lucide-react";
 import { toast } from "sonner";
+import StationSelector from "@/components/door/StationSelector";
 
 const DISPLAY_TTL_SECONDS = 60;
 
@@ -38,13 +42,22 @@ interface ScanResult {
   message: string;
 }
 
+interface StationContext {
+  station: string;
+  operator: string;
+  shiftStartedAt: string;
+}
+
 export default function DoorDevice() {
+  const [stationContext, setStationContext] = useState<StationContext | null>(null);
+  const [showStationSelector, setShowStationSelector] = useState(false);
   const [status, setStatus] = useState<ScanStatus>('idle');
   const [result, setResult] = useState<ScanResult | null>(null);
   const [showBack, setShowBack] = useState(false);
   const [timeLeft, setTimeLeft] = useState(DISPLAY_TTL_SECONDS);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [manualInput, setManualInput] = useState('');
+  const [scanCount, setScanCount] = useState(0);
   const audioContextRef = useRef<AudioContext | null>(null);
 
   // Initialize audio context
@@ -54,6 +67,80 @@ export default function DoorDevice() {
       audioContextRef.current?.close();
     };
   }, []);
+
+  // Log operator event
+  const logOperatorEvent = useCallback(async (
+    eventType: string,
+    options: {
+      fromStation?: string;
+      toStation?: string;
+      currentStation?: string;
+      metadata?: Record<string, unknown>;
+    } = {}
+  ) => {
+    if (!stationContext) return;
+
+    try {
+      await supabase.functions.invoke('log-operator-event', {
+        body: {
+          eventType,
+          operatorLabel: stationContext.operator,
+          currentStationLabel: options.currentStation || stationContext.station,
+          fromStationLabel: options.fromStation,
+          toStationLabel: options.toStation,
+          metadata: options.metadata
+        }
+      });
+    } catch (error) {
+      console.error('Failed to log operator event:', error);
+    }
+  }, [stationContext]);
+
+  // Handle station selection complete
+  const handleStationComplete = async (station: string, operator: string) => {
+    const previousStation = stationContext?.station;
+    const previousOperator = stationContext?.operator;
+    
+    const newContext: StationContext = {
+      station,
+      operator,
+      shiftStartedAt: stationContext?.shiftStartedAt || new Date().toISOString()
+    };
+    
+    setStationContext(newContext);
+    setShowStationSelector(false);
+
+    // Log the appropriate event
+    try {
+      if (previousStation && previousStation !== station) {
+        // Station switch
+        await supabase.functions.invoke('log-operator-event', {
+          body: {
+            eventType: 'STATION_SWITCH',
+            operatorLabel: operator,
+            fromStationLabel: previousStation,
+            toStationLabel: station,
+            currentStationLabel: station,
+            metadata: { previousOperator }
+          }
+        });
+        toast.success(`Switched to ${station}`);
+      } else if (!previousStation) {
+        // New shift start
+        await supabase.functions.invoke('log-operator-event', {
+          body: {
+            eventType: 'SHIFT_START',
+            operatorLabel: operator,
+            currentStationLabel: station,
+            toStationLabel: station
+          }
+        });
+        toast.success(`Shift started at ${station}`);
+      }
+    } catch (error) {
+      console.error('Failed to log station event:', error);
+    }
+  };
 
   // Play sound
   const playSound = useCallback((type: 'success' | 'error' | 'warning') => {
@@ -109,8 +196,10 @@ export default function DoorDevice() {
       const { data, error } = await supabase.functions.invoke('door-scan', {
         body: { 
           token,
-          venueId: null, // Would come from device config
-          deviceId: null
+          venueId: null,
+          deviceId: null,
+          stationLabel: stationContext?.station,
+          operatorLabel: stationContext?.operator
         }
       });
 
@@ -120,6 +209,16 @@ export default function DoorDevice() {
       setResult(scanResult);
       setTimeLeft(DISPLAY_TTL_SECONDS);
       setShowBack(false);
+      setScanCount(prev => prev + 1);
+
+      // Log scan performed
+      logOperatorEvent('SCAN_PERFORMED', {
+        metadata: {
+          decision: scanResult.decision,
+          memberId: scanResult.profile?.memberId,
+          scanNumber: scanCount + 1
+        }
+      });
 
       if (scanResult.decision === 'GOOD') {
         setStatus('verified');
@@ -141,7 +240,7 @@ export default function DoorDevice() {
       });
       playSound('error');
     }
-  }, [playSound]);
+  }, [playSound, stationContext, scanCount, logOperatorEvent]);
 
   // Handle manual token entry (for testing)
   const handleManualScan = () => {
@@ -152,7 +251,6 @@ export default function DoorDevice() {
           processScan(parsed.t);
         }
       } catch {
-        // Try as raw token
         processScan(manualInput.trim());
       }
       setManualInput('');
@@ -165,6 +263,21 @@ export default function DoorDevice() {
     setResult(null);
     setShowBack(false);
     setTimeLeft(DISPLAY_TTL_SECONDS);
+  };
+
+  // End shift
+  const handleEndShift = async () => {
+    if (stationContext) {
+      await logOperatorEvent('SHIFT_END', {
+        metadata: { 
+          totalScans: scanCount,
+          shiftDuration: Date.now() - new Date(stationContext.shiftStartedAt).getTime()
+        }
+      });
+    }
+    setStationContext(null);
+    setScanCount(0);
+    toast.info('Shift ended');
   };
 
   // Get status styling
@@ -219,6 +332,17 @@ export default function DoorDevice() {
     }
   };
 
+  // Show station selector if no context or explicitly requested
+  if (!stationContext || showStationSelector) {
+    return (
+      <StationSelector
+        onComplete={handleStationComplete}
+        currentStation={stationContext?.station}
+        lastOperator={stationContext?.operator}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       {/* Header */}
@@ -226,9 +350,21 @@ export default function DoorDevice() {
         <div className="flex items-center gap-2">
           <Ghost className="w-6 h-6 text-purple-400" />
           <span className="font-bold text-lg">Ghostware™</span>
-          <span className="text-xs text-muted-foreground">DOOR</span>
         </div>
         <div className="flex items-center gap-4">
+          {/* Station & Operator Info */}
+          <button 
+            onClick={() => setShowStationSelector(true)}
+            className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
+          >
+            <MapPin className="w-4 h-4 text-purple-400" />
+            <span className="text-sm font-medium">{stationContext.station}</span>
+            <ArrowLeftRight className="w-3 h-3 text-muted-foreground" />
+          </button>
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <User className="w-4 h-4" />
+            <span>{stationContext.operator}</span>
+          </div>
           {status !== 'idle' && (
             <div className="flex items-center gap-1 text-sm">
               <Clock className="w-4 h-4" />
@@ -248,7 +384,6 @@ export default function DoorDevice() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center p-4">
         {status === 'idle' ? (
-          /* Idle/Ready State */
           <div className="text-center space-y-8">
             <div className="relative">
               <div className="w-64 h-64 border-2 border-dashed border-purple-500/50 rounded-2xl flex items-center justify-center">
@@ -259,6 +394,9 @@ export default function DoorDevice() {
             <div>
               <h2 className="text-2xl font-bold mb-2">Ready to Scan</h2>
               <p className="text-muted-foreground">Point camera at guest's QR code</p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Scans this shift: {scanCount}
+              </p>
             </div>
 
             {/* Manual Entry for Testing */}
@@ -277,7 +415,6 @@ export default function DoorDevice() {
             </div>
           </div>
         ) : status === 'scanning' ? (
-          /* Scanning State */
           <div className="text-center space-y-4">
             <div className="w-32 h-32 border-4 border-purple-500 rounded-full flex items-center justify-center animate-pulse">
               <ScanLine className="w-16 h-16 text-purple-400 animate-spin" />
@@ -285,7 +422,6 @@ export default function DoorDevice() {
             <p className="text-lg">Validating...</p>
           </div>
         ) : (
-          /* Result State */
           <div className={`w-full max-w-md rounded-2xl border-2 ${getStatusStyle()} overflow-hidden`}>
             {/* Decision Banner */}
             <div className={`py-4 text-center ${
@@ -302,7 +438,6 @@ export default function DoorDevice() {
             {/* ID Card View */}
             {result?.profile && (
               <div className="p-4">
-                {/* Front/Back Toggle */}
                 <div className="flex items-center justify-between mb-4">
                   <button
                     onClick={() => setShowBack(false)}
@@ -323,7 +458,6 @@ export default function DoorDevice() {
                   </button>
                 </div>
 
-                {/* ID Image Area */}
                 <div className="aspect-[1.6/1] bg-white/5 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
                   {showBack ? (
                     result.profile.idBackUrl ? (
@@ -360,7 +494,6 @@ export default function DoorDevice() {
                   )}
                 </div>
 
-                {/* Profile Info */}
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Name</span>
@@ -380,7 +513,6 @@ export default function DoorDevice() {
               </div>
             )}
 
-            {/* Message */}
             <div className="px-4 py-3 border-t border-white/10 text-center">
               <p className="text-sm">{result?.message}</p>
             </div>
@@ -406,6 +538,17 @@ export default function DoorDevice() {
           >
             <RotateCcw className="w-4 h-4 mr-2" />
             NEXT SCAN
+          </Button>
+        </div>
+        
+        {/* End Shift Button */}
+        <div className="mt-3 max-w-md mx-auto">
+          <Button
+            onClick={handleEndShift}
+            variant="ghost"
+            className="w-full text-muted-foreground hover:text-red-400"
+          >
+            End Shift
           </Button>
         </div>
       </footer>

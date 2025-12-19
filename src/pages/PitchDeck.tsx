@@ -465,32 +465,120 @@ const scorecardData = [
 
         <SectionDivider label="Moat" />
 
-        {/* ===== PILLAR B: MOAT ===== */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(28px, 3vw, 44px)' }}>
-          <SectionHeader 
-            icon={Shield} 
-            label="PILLAR B — MOAT" 
-            title="The Thesis: Four Truths"
-            subtitle="Why VALID is inevitable"
-          />
+        {/* ===== PILLAR B: MOAT — PREMIUM UPGRADE ===== */}
+        <section className="relative" style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(32px, 3.5vw, 52px)' }}>
+          {/* Deep charcoal gradient background with ghost watermark */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950 rounded-3xl -z-10" />
+          <div className="absolute inset-0 opacity-[0.03] -z-10 overflow-hidden rounded-3xl">
+            <Ghost className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] text-cyan-400" />
+          </div>
+          
+          {/* Pillar Header with premium styling */}
+          <div className="text-center" style={{ padding: 'clamp(32px, 3vw, 48px) clamp(24px, 2vw, 40px) 0' }}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-4">
+              <Shield className="w-4 h-4 text-cyan-400" />
+              <span className="text-cyan-400 font-semibold tracking-[0.2em] uppercase" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>
+                PILLAR B — MOAT
+              </span>
+            </div>
+            <h2 className="font-bold text-white" style={{ fontSize: 'clamp(28px, 2.8vw, 48px)', marginBottom: 'clamp(8px, 1vw, 16px)' }}>
+              The Thesis: Six Truths
+            </h2>
+            <p className="text-cyan-300/80" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>
+              Why VALID is inevitable
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2" style={{ gap: 'clamp(20px, 2vw, 32px)' }}>
+          {/* Scanline divider */}
+          <div className="relative mx-auto" style={{ width: '80%', maxWidth: '600px' }}>
+            <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/60 to-transparent" />
+            <div className="absolute inset-0 blur-sm bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
+          </div>
+
+          {/* Six Truths - Premium Cards Grid */}
+          <div className="grid md:grid-cols-2" style={{ gap: 'clamp(20px, 2vw, 28px)', padding: '0 clamp(16px, 2vw, 32px) clamp(24px, 2.5vw, 40px)' }}>
             {[
-              { num: "01", title: "We Own the Trust Layer", text: "Every high-stakes interaction requires portable, instant trust verification." },
-              { num: "02", title: "Platform, Not Product", text: "Kits and checks are on-ramps. The verified network is the moat." },
-              { num: "03", title: "Revenue Compounds", text: "Venues → members → wallets → venues. Flywheel, not funnel." },
-              { num: "04", title: "Regulation is Our Friend", text: "As liability laws tighten, we become mandatory infrastructure." },
+              { 
+                num: "01", 
+                pill: "Trust",
+                title: "We Own the Trust Layer", 
+                text: "Every high-stakes interaction needs portable, instant verification—at the door, at purchase, at payout. VALID becomes the default trust handshake."
+              },
+              { 
+                num: "02", 
+                pill: "Network",
+                title: "Platform, Not Product", 
+                text: "Kits and checks are on-ramps. The compounding value is the verified network: shared credential, shared rules, shared acceptance."
+              },
+              { 
+                num: "03", 
+                pill: "Payments",
+                title: "Revenue Compounds (Flywheel, Not Funnel)", 
+                text: "Venues → members → wallets → venues. Every verified member increases conversion, and every new venue increases utility."
+              },
+              { 
+                num: "04", 
+                pill: "Compliance",
+                title: "Regulation Is Our Friend", 
+                text: "As liability tightens, venues stop wanting to hold data. VALID turns compliance into infrastructure: minimal data exposure, auditable outcomes."
+              },
+              { 
+                num: "05", 
+                pill: "Data",
+                title: "Privacy by Architecture (Token-Only)", 
+                text: "Competitors store data and hope nothing happens. VALID stores tokens + short-lived proofs, reducing breach value and operational risk by design."
+              },
+              { 
+                num: "06", 
+                pill: "Defense",
+                title: "Payments + Verification = Lock-In", 
+                text: "Identity alone is a feature. Payments alone are a commodity. The combination—verified access tied to settlement, payouts, and dispute reduction—creates switching costs competitors can't replicate quickly."
+              },
             ].map((item, idx) => (
-              <div key={idx} className="bg-black/50 border border-white/10 rounded-xl hover:border-purple-500/40 transition-all" style={{ padding: 'clamp(28px, 2.5vw, 40px)' }}>
-                <div className="flex items-start" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
-                  <span className="font-bold text-purple-500/60 font-orbitron" style={{ fontSize: 'clamp(24px, 2vw, 36px)' }}>{item.num}</span>
-                  <div>
-                    <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(8px, 0.8vw, 14px)' }}>{item.title}</h4>
-                    <p className="text-gray-300" style={{ fontSize: 'clamp(16px, 1.1vw, 20px)', lineHeight: '1.55' }}>{item.text}</p>
+              <div 
+                key={idx} 
+                className="relative bg-black/70 rounded-xl overflow-hidden hover:scale-[1.02] transition-all duration-300 group"
+                style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}
+              >
+                {/* Top border glow */}
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60" />
+                <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                {/* Large faint index number */}
+                <span 
+                  className="absolute top-2 right-4 font-orbitron font-bold text-cyan-500/10 pointer-events-none select-none"
+                  style={{ fontSize: 'clamp(60px, 6vw, 100px)', lineHeight: '1' }}
+                >
+                  {item.num}
+                </span>
+                
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Micro-label pill */}
+                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 font-medium tracking-wide uppercase mb-3" style={{ fontSize: 'clamp(9px, 0.7vw, 11px)' }}>
+                    {item.pill}
+                  </span>
+                  
+                  <div className="flex items-start" style={{ gap: 'clamp(12px, 1.2vw, 20px)' }}>
+                    <span className="font-bold text-cyan-400/80 font-orbitron shrink-0" style={{ fontSize: 'clamp(18px, 1.5vw, 26px)' }}>{item.num}</span>
+                    <div>
+                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(17px, 1.4vw, 24px)', marginBottom: 'clamp(8px, 0.8vw, 14px)', lineHeight: '1.3' }}>{item.title}</h4>
+                      <p className="text-gray-300" style={{ fontSize: 'clamp(14px, 1vw, 17px)', lineHeight: '1.6' }}>{item.text}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Moat Proof Footer */}
+          <div className="text-center" style={{ padding: '0 clamp(16px, 2vw, 32px) clamp(32px, 3vw, 48px)' }}>
+            <div className="relative inline-block">
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-5" />
+              <p className="text-gray-400 italic" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
+                "Moats aren't claimed—they're enforced by trust, compliance, and compounding network effects."
+              </p>
+            </div>
           </div>
         </section>
 

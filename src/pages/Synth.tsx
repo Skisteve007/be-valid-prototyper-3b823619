@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Brain, Code2, Palette, BarChart3, ToggleRight, Home, ArrowLeft, 
   Shield, AlertTriangle, Eye, Scale, CheckCircle, XCircle, UserCheck,
-  Zap, Lock, FileText, ChevronDown, ChevronRight
+  Zap, Lock, FileText, ChevronDown, ChevronRight, Sparkles
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
@@ -51,7 +51,7 @@ const Synth = () => {
       subtitle: 'Coherence Score',
       description: 'A judge agent resolves contradictions and produces a coherence score.',
       icon: Eye,
-      color: 'emerald',
+      color: 'cyan',
     },
     {
       step: 6,
@@ -75,7 +75,7 @@ const Synth = () => {
       subtitle: 'Answer Delivery',
       description: 'Safe answers are released; unsafe requests are refused or escalated.',
       icon: Zap,
-      color: 'pink',
+      color: 'cyan',
     },
   ];
 
@@ -92,7 +92,7 @@ const Synth = () => {
       role: 'Solution Designer',
       description: 'Crafts the best compliant helpful answer. Balances helpfulness with safety requirements.',
       icon: CheckCircle,
-      color: 'emerald',
+      color: 'cyan',
     },
     {
       name: 'Fact-Checker',
@@ -114,7 +114,7 @@ const Synth = () => {
     {
       label: 'RELEASE_FULL',
       description: 'Complete answer delivered',
-      color: 'emerald',
+      color: 'cyan',
       icon: CheckCircle,
     },
     {
@@ -132,21 +132,19 @@ const Synth = () => {
     {
       label: 'HUMAN_REVIEW_REQUIRED',
       description: 'Escalated to human reviewer',
-      color: 'blue',
+      color: 'orange',
       icon: UserCheck,
     },
   ];
 
   const getColorClasses = (color: string) => {
     const colors: Record<string, { bg: string; border: string; text: string; glow: string }> = {
-      cyan: { bg: 'bg-cyan-500/20', border: 'border-cyan-500/50', text: 'text-cyan-400', glow: 'shadow-[0_0_20px_rgba(6,182,212,0.3)]' },
+      cyan: { bg: 'bg-cyan-500/20', border: 'border-cyan-500/50', text: 'text-cyan-400', glow: 'shadow-[0_0_20px_rgba(0,212,255,0.3)]' },
       amber: { bg: 'bg-amber-500/20', border: 'border-amber-500/50', text: 'text-amber-400', glow: 'shadow-[0_0_20px_rgba(245,158,11,0.3)]' },
       purple: { bg: 'bg-purple-500/20', border: 'border-purple-500/50', text: 'text-purple-400', glow: 'shadow-[0_0_20px_rgba(168,85,247,0.3)]' },
       blue: { bg: 'bg-blue-500/20', border: 'border-blue-500/50', text: 'text-blue-400', glow: 'shadow-[0_0_20px_rgba(59,130,246,0.3)]' },
-      emerald: { bg: 'bg-emerald-500/20', border: 'border-emerald-500/50', text: 'text-emerald-400', glow: 'shadow-[0_0_20px_rgba(16,185,129,0.3)]' },
-      green: { bg: 'bg-green-500/20', border: 'border-green-500/50', text: 'text-green-400', glow: 'shadow-[0_0_20px_rgba(34,197,94,0.3)]' },
+      green: { bg: 'bg-emerald-500/20', border: 'border-emerald-500/50', text: 'text-emerald-400', glow: 'shadow-[0_0_20px_rgba(16,185,129,0.3)]' },
       orange: { bg: 'bg-orange-500/20', border: 'border-orange-500/50', text: 'text-orange-400', glow: 'shadow-[0_0_20px_rgba(249,115,22,0.3)]' },
-      pink: { bg: 'bg-pink-500/20', border: 'border-pink-500/50', text: 'text-pink-400', glow: 'shadow-[0_0_20px_rgba(236,72,153,0.3)]' },
       red: { bg: 'bg-red-500/20', border: 'border-red-500/50', text: 'text-red-400', glow: 'shadow-[0_0_20px_rgba(239,68,68,0.3)]' },
     };
     return colors[color] || colors.cyan;
@@ -159,38 +157,41 @@ const Synth = () => {
         <meta name="description" content="Enterprise AI Logic Flight Recorder & Consensus Engine. Intercepts risk before an answer is released." />
       </Helmet>
 
-      <div className="min-h-screen bg-background text-foreground">
-        {/* Background */}
+      <div className="min-h-screen synth-bg text-foreground">
+        {/* Grid overlay */}
+        <div className="fixed inset-0 z-0 synth-grid opacity-50" />
+        
+        {/* Background gradient accents */}
         <div 
           className="fixed inset-0 z-0"
           style={{
             background: `
-              radial-gradient(circle at 30% 20%, rgba(59,130,246,0.1), transparent 50%),
-              radial-gradient(circle at 70% 80%, rgba(168,85,247,0.1), transparent 50%),
-              linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)))
+              radial-gradient(ellipse at 30% 20%, rgba(0,212,255,0.08), transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(59,130,246,0.08), transparent 50%),
+              radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.5), transparent 80%)
             `,
           }}
         />
         
         {/* Header */}
-        <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-blue-500/20">
+        <header className="fixed top-0 left-0 right-0 z-50 synth-header">
           <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate(-1)}
-                className="p-2 rounded-full bg-muted hover:bg-muted/80 transition"
+                className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-5 h-5 text-gray-300" />
               </button>
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold synth-neon-blue">
                   SYNTH™ — The Digital Auditor
                 </h1>
-                <p className="text-muted-foreground text-xs">Enterprise AI Logic Flight Recorder & Consensus Engine</p>
+                <p className="text-gray-400 text-xs tracking-wide">Enterprise AI Logic Flight Recorder & Consensus Engine</p>
               </div>
             </div>
             
-            <span className="text-blue-400 text-xs font-medium bg-blue-500/20 px-3 py-1 rounded-full border border-blue-500/30">
+            <span className="synth-badge-release px-3 py-1 rounded-full text-xs font-semibold tracking-wider synth-pulse">
               ENTERPRISE
             </span>
           </div>
@@ -204,68 +205,76 @@ const Synth = () => {
           
           {/* Hero Section */}
           <section className="text-center py-12">
-            <div className="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-lg shadow-blue-500/30 mb-8">
+            <div className="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/30 mb-8 synth-pulse">
               <Brain className="w-12 h-12 text-white" />
             </div>
             
-            <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
               SYNTH™ — The Digital Auditor
             </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
               Enterprise AI Logic Flight Recorder & Consensus Engine
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <div className="flex items-center gap-2 text-foreground/80">
-                <Shield className="w-5 h-5 text-blue-400" />
+              <div className="flex items-center gap-2 text-gray-300">
+                <Shield className="w-5 h-5 text-cyan-400" />
                 <span>Intercepts risk before an answer is released</span>
               </div>
-              <div className="flex items-center gap-2 text-foreground/80">
-                <Scale className="w-5 h-5 text-purple-400" />
+              <div className="flex items-center gap-2 text-gray-300">
+                <Scale className="w-5 h-5 text-blue-400" />
                 <span>Forces multi-agent consensus + verification</span>
               </div>
-              <div className="flex items-center gap-2 text-foreground/80">
+              <div className="flex items-center gap-2 text-gray-300">
                 <FileText className="w-5 h-5 text-emerald-400" />
                 <span>Creates audit logs for compliance</span>
               </div>
             </div>
             
-            {/* Navigation Buttons - Clear & Easy Access */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
+            {/* Navigation Buttons */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-4xl mx-auto">
               <Button
                 onClick={() => navigate('/synth/console')}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-6"
+                className="synth-btn-primary font-semibold py-6"
               >
                 Console
               </Button>
               <Button
                 onClick={() => navigate('/synth/logs')}
                 variant="outline"
-                className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 py-6"
+                className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 py-6 bg-transparent"
               >
                 Logs
               </Button>
               <Button
                 onClick={() => navigate('/synth/docs')}
                 variant="outline"
-                className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 py-6"
+                className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10 py-6 bg-transparent"
               >
                 API Docs
               </Button>
               <Button
                 onClick={() => navigate('/synth/policies')}
                 variant="outline"
-                className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 py-6"
+                className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 py-6 bg-transparent"
               >
                 Policies
+              </Button>
+              <Button
+                onClick={() => navigate('/synth/challenges')}
+                variant="outline"
+                className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 py-6 bg-transparent"
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Challenges
               </Button>
             </div>
           </section>
 
           {/* How SYNTH Works - Pipeline */}
           <section id="pipeline" className="scroll-mt-24">
-            <h3 className="text-3xl font-bold text-foreground text-center mb-4">How SYNTH™ Works</h3>
-            <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
+            <h3 className="text-3xl font-bold text-white text-center mb-4">How SYNTH™ Works</h3>
+            <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
               Every AI request passes through our 8-step verification pipeline
             </p>
             
@@ -275,21 +284,22 @@ const Synth = () => {
                 return (
                   <div
                     key={step.step}
-                    className={`relative p-5 rounded-xl border ${colors.border} ${colors.bg} backdrop-blur-sm transition-all hover:scale-105 cursor-pointer ${colors.glow}`}
+                    className={`relative p-5 rounded-xl synth-card transition-all hover:scale-105 cursor-pointer ${colors.glow}`}
                     onClick={() => setExpandedStep(expandedStep === step.step ? null : step.step)}
                   >
-                    <div className="flex items-start gap-3">
+                    <div className="absolute inset-0 rounded-xl synth-sheen pointer-events-none" />
+                    <div className="relative flex items-start gap-3">
                       <div className={`w-10 h-10 rounded-lg ${colors.bg} border ${colors.border} flex items-center justify-center flex-shrink-0`}>
                         <step.icon className={`w-5 h-5 ${colors.text}`} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className={`text-xs font-semibold ${colors.text} mb-1`}>STEP {step.step}</div>
-                        <h4 className="text-foreground font-bold text-sm">{step.title}</h4>
-                        <p className="text-muted-foreground text-xs">{step.subtitle}</p>
+                        <h4 className="text-white font-bold text-sm">{step.title}</h4>
+                        <p className="text-gray-400 text-xs">{step.subtitle}</p>
                       </div>
                     </div>
                     {expandedStep === step.step && (
-                      <p className="mt-3 text-muted-foreground text-xs border-t border-border/50 pt-3">
+                      <p className="relative mt-3 text-gray-400 text-xs border-t border-white/10 pt-3">
                         {step.description}
                       </p>
                     )}
@@ -301,8 +311,8 @@ const Synth = () => {
 
           {/* Supreme Court Agents */}
           <section>
-            <h3 className="text-3xl font-bold text-foreground text-center mb-4">The "Supreme Court" Agents</h3>
-            <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
+            <h3 className="text-3xl font-bold text-white text-center mb-4">The "Supreme Court" Agents</h3>
+            <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
               Four specialized AI agents debate every high-risk request
             </p>
             
@@ -312,14 +322,17 @@ const Synth = () => {
                 return (
                   <div
                     key={agent.name}
-                    className={`relative p-6 rounded-2xl border ${colors.border} ${colors.bg} backdrop-blur-sm ${colors.glow}`}
+                    className={`relative p-6 rounded-2xl synth-card ${colors.glow}`}
                   >
-                    <div className={`w-14 h-14 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center mb-4`}>
-                      <agent.icon className={`w-7 h-7 ${colors.text}`} />
+                    <div className="absolute inset-0 rounded-2xl synth-sheen pointer-events-none" />
+                    <div className="relative">
+                      <div className={`w-14 h-14 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center mb-4`}>
+                        <agent.icon className={`w-7 h-7 ${colors.text}`} />
+                      </div>
+                      <h4 className={`text-lg font-bold ${colors.text} mb-1`}>{agent.name}</h4>
+                      <p className="text-white/80 text-sm font-medium mb-3">{agent.role}</p>
+                      <p className="text-gray-400 text-sm">{agent.description}</p>
                     </div>
-                    <h4 className={`text-lg font-bold ${colors.text} mb-1`}>{agent.name}</h4>
-                    <p className="text-foreground/80 text-sm font-medium mb-3">{agent.role}</p>
-                    <p className="text-muted-foreground text-sm">{agent.description}</p>
                   </div>
                 );
               })}
@@ -328,23 +341,28 @@ const Synth = () => {
 
           {/* Output Modes */}
           <section>
-            <h3 className="text-3xl font-bold text-foreground text-center mb-4">Output Modes</h3>
-            <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
+            <h3 className="text-3xl font-bold text-white text-center mb-4">Output Modes</h3>
+            <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
               Every request results in one of four possible outcomes
             </p>
             
             <div className="flex flex-wrap justify-center gap-4">
               {outcomes.map((outcome) => {
+                const badgeClass = 
+                  outcome.color === 'cyan' ? 'synth-badge-release' :
+                  outcome.color === 'amber' ? 'synth-badge-partial' :
+                  outcome.color === 'red' ? 'synth-badge-refuse' :
+                  'synth-badge-review';
                 const colors = getColorClasses(outcome.color);
                 return (
                   <div
                     key={outcome.label}
-                    className={`flex items-center gap-3 px-6 py-4 rounded-full border ${colors.border} ${colors.bg} ${colors.glow}`}
+                    className={`flex items-center gap-3 px-6 py-4 rounded-full ${badgeClass}`}
                   >
                     <outcome.icon className={`w-5 h-5 ${colors.text}`} />
                     <div>
-                      <div className={`font-bold text-sm ${colors.text}`}>{outcome.label}</div>
-                      <div className="text-muted-foreground text-xs">{outcome.description}</div>
+                      <div className="font-bold text-sm">{outcome.label}</div>
+                      <div className="text-gray-400 text-xs">{outcome.description}</div>
                     </div>
                   </div>
                 );
@@ -353,41 +371,41 @@ const Synth = () => {
           </section>
 
           {/* Investor Positioning Section */}
-          <section className="text-center py-12 border-t border-border/50">
+          <section className="text-center py-12 border-t border-cyan-500/20">
             <div className="max-w-3xl mx-auto">
-              <div className="inline-block px-4 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-semibold tracking-wider mb-6">
+              <div className="inline-block synth-badge-release px-4 py-1 rounded-full text-xs font-semibold tracking-wider mb-6">
                 INVESTOR POSITIONING
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">SYNTH™ is Already Built</h3>
-              <p className="text-muted-foreground mb-6">
+              <h3 className="text-2xl font-bold text-white mb-4">SYNTH™ is Already Built</h3>
+              <p className="text-gray-400 mb-6">
                 We've already built SYNTH™, our audit-grade AI governance engine:
               </p>
               <div className="flex flex-wrap justify-center gap-2 mb-6">
                 {['sanitize', 'debate', 'judge', 'verify', 'log', 'release'].map((step) => (
-                  <span key={step} className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-400 text-sm font-medium">
+                  <span key={step} className="px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/40 text-cyan-400 text-sm font-medium">
                     {step}
                   </span>
                 ))}
               </div>
-              <p className="text-foreground/80 mb-6">
-                SYNTH™ is <span className="text-emerald-400 font-semibold">live today</span> as an API + web console, which proves the core system works.
+              <p className="text-gray-300 mb-6">
+                SYNTH™ is <span className="text-cyan-400 font-semibold">live today</span> as an API + web console, which proves the core system works.
               </p>
-              <div className="bg-muted/30 rounded-xl p-6 border border-border/50 text-left mb-8">
-                <p className="text-sm text-muted-foreground mb-4">
-                  <strong className="text-foreground">Distribution channels</strong> (Chrome extension, partner integrations, SDKs) are thin clients that simply call the SYNTH™ API. That means we can ship new distribution fast without rebuilding the engine.
+              <div className="synth-card rounded-xl p-6 text-left mb-8">
+                <p className="text-sm text-gray-400 mb-4">
+                  <strong className="text-white">Distribution channels</strong> (Chrome extension, partner integrations, SDKs) are thin clients that simply call the SYNTH™ API. That means we can ship new distribution fast without rebuilding the engine.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                  <div className="p-3 rounded-lg bg-background/50">
-                    <p className="text-blue-400 font-semibold mb-1">Immediate Defensibility</p>
-                    <p className="text-muted-foreground">Value is in the governance engine, not a UI wrapper</p>
+                  <div className="p-3 rounded-lg bg-white/5 border border-cyan-500/20">
+                    <p className="text-cyan-400 font-semibold mb-1">Immediate Defensibility</p>
+                    <p className="text-gray-400">Value is in the governance engine, not a UI wrapper</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-background/50">
-                    <p className="text-purple-400 font-semibold mb-1">Model-Agnostic</p>
-                    <p className="text-muted-foreground">Swap underlying models as AI landscape evolves</p>
+                  <div className="p-3 rounded-lg bg-white/5 border border-blue-500/20">
+                    <p className="text-blue-400 font-semibold mb-1">Model-Agnostic</p>
+                    <p className="text-gray-400">Swap underlying models as AI landscape evolves</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-background/50">
+                  <div className="p-3 rounded-lg bg-white/5 border border-emerald-500/20">
                     <p className="text-emerald-400 font-semibold mb-1">Enterprise-Ready</p>
-                    <p className="text-muted-foreground">Logs, controls, and human review routing</p>
+                    <p className="text-gray-400">Logs, controls, and human review routing</p>
                   </div>
                 </div>
               </div>
@@ -400,30 +418,34 @@ const Synth = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
               <Button
                 onClick={() => navigate('/synth/console')}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-6"
+                className="synth-btn-primary font-semibold"
               >
+                <Brain className="w-4 h-4 mr-2" />
                 Console
               </Button>
               <Button
                 onClick={() => navigate('/synth/logs')}
                 variant="outline"
-                className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 py-6"
+                className="border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 bg-transparent"
               >
+                <FileText className="w-4 h-4 mr-2" />
                 Logs
               </Button>
               <Button
                 onClick={() => navigate('/synth/docs')}
                 variant="outline"
-                className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 py-6"
+                className="border-blue-500/40 text-blue-400 hover:bg-blue-500/10 bg-transparent"
               >
-                API Docs
+                <Code2 className="w-4 h-4 mr-2" />
+                Docs
               </Button>
               <Button
-                onClick={() => navigate('/synth/policies')}
+                onClick={() => navigate('/synth/methodology')}
                 variant="outline"
-                className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 py-6"
+                className="border-purple-500/40 text-purple-400 hover:bg-purple-500/10 bg-transparent"
               >
-                Policies
+                <BarChart3 className="w-4 h-4 mr-2" />
+                Methodology
               </Button>
             </div>
           </section>
@@ -432,9 +454,9 @@ const Synth = () => {
         {/* Home FAB */}
         <button
           onClick={() => navigate('/')}
-          className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-muted border border-border flex items-center justify-center hover:bg-muted/80 transition z-50"
+          className="fixed bottom-8 right-8 w-14 h-14 rounded-full synth-card flex items-center justify-center hover:scale-110 transition z-50 synth-pulse"
         >
-          <Home className="w-6 h-6" />
+          <Home className="w-6 h-6 text-cyan-400" />
         </button>
       </div>
     </>

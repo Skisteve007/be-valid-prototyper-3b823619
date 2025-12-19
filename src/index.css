@@ -839,3 +839,19 @@ html, body, #root {
   color: hsl(0 84% 60%);
   text-shadow: 0 0 8px hsl(0 84% 60% / 0.5);
 }
+
+/* Hide scrollbars for horizontal scroll containers */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Improve touch scrolling for mobile */
+.touch-scroll-x {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+}

@@ -89,3 +89,6 @@ verify_jwt = false
 
 [functions.synth-challenge-score]
 verify_jwt = false
+
+[functions.synth-event]
+verify_jwt = false

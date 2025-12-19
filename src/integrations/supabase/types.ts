@@ -2328,6 +2328,77 @@ export type Database = {
         }
         Relationships: []
       }
+      synth_events: {
+        Row: {
+          answer_hash: string | null
+          coherence_score: number | null
+          created_at: string
+          decision: Database["public"]["Enums"]["synth_decision"] | null
+          event_type: Database["public"]["Enums"]["synth_event_type"]
+          id: string
+          metadata: Json | null
+          prompt_hash: string | null
+          request_id: string | null
+          risk_decision:
+            | Database["public"]["Enums"]["synth_risk_decision"]
+            | null
+          session_id: string | null
+          source: Database["public"]["Enums"]["synth_event_source"]
+          timestamp: string
+          user_hash: string | null
+          user_id: string | null
+          verification_score: number | null
+        }
+        Insert: {
+          answer_hash?: string | null
+          coherence_score?: number | null
+          created_at?: string
+          decision?: Database["public"]["Enums"]["synth_decision"] | null
+          event_type: Database["public"]["Enums"]["synth_event_type"]
+          id?: string
+          metadata?: Json | null
+          prompt_hash?: string | null
+          request_id?: string | null
+          risk_decision?:
+            | Database["public"]["Enums"]["synth_risk_decision"]
+            | null
+          session_id?: string | null
+          source?: Database["public"]["Enums"]["synth_event_source"]
+          timestamp?: string
+          user_hash?: string | null
+          user_id?: string | null
+          verification_score?: number | null
+        }
+        Update: {
+          answer_hash?: string | null
+          coherence_score?: number | null
+          created_at?: string
+          decision?: Database["public"]["Enums"]["synth_decision"] | null
+          event_type?: Database["public"]["Enums"]["synth_event_type"]
+          id?: string
+          metadata?: Json | null
+          prompt_hash?: string | null
+          request_id?: string | null
+          risk_decision?:
+            | Database["public"]["Enums"]["synth_risk_decision"]
+            | null
+          session_id?: string | null
+          source?: Database["public"]["Enums"]["synth_event_source"]
+          timestamp?: string
+          user_hash?: string | null
+          user_id?: string | null
+          verification_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "synth_events_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "synth_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       synth_policies: {
         Row: {
           coherence_threshold: number
@@ -2364,6 +2435,132 @@ export type Database = {
           storage_mode?: string
           updated_at?: string
           verification_threshold?: number
+        }
+        Relationships: []
+      }
+      synth_sessions: {
+        Row: {
+          created_at: string
+          ended_at: string | null
+          event_count: number | null
+          id: string
+          last_activity_at: string
+          source: Database["public"]["Enums"]["synth_event_source"]
+          started_at: string
+          user_hash: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          ended_at?: string | null
+          event_count?: number | null
+          id?: string
+          last_activity_at?: string
+          source?: Database["public"]["Enums"]["synth_event_source"]
+          started_at?: string
+          user_hash?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          ended_at?: string | null
+          event_count?: number | null
+          id?: string
+          last_activity_at?: string
+          source?: Database["public"]["Enums"]["synth_event_source"]
+          started_at?: string
+          user_hash?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      synth_user_metrics: {
+        Row: {
+          acceptance_rate: number | null
+          audits_completed: number | null
+          avg_coherence_score: number | null
+          avg_time_to_decision_ms: number | null
+          avg_verification_score: number | null
+          completion_rate: number | null
+          created_at: string
+          human_reviews_requested: number | null
+          id: string
+          median_time_to_decision_ms: number | null
+          metadata: Json | null
+          period_end: string
+          period_start: string
+          period_type: string
+          policy_blocks_triggered: number | null
+          prompts_submitted: number | null
+          reason_codes:
+            | Database["public"]["Enums"]["synth_reason_code"][]
+            | null
+          review_rate: number | null
+          revision_rate: number | null
+          revisions_submitted: number | null
+          rewrites_accepted: number | null
+          rewrites_rejected: number | null
+          tier_percentile: number | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          acceptance_rate?: number | null
+          audits_completed?: number | null
+          avg_coherence_score?: number | null
+          avg_time_to_decision_ms?: number | null
+          avg_verification_score?: number | null
+          completion_rate?: number | null
+          created_at?: string
+          human_reviews_requested?: number | null
+          id?: string
+          median_time_to_decision_ms?: number | null
+          metadata?: Json | null
+          period_end: string
+          period_start: string
+          period_type?: string
+          policy_blocks_triggered?: number | null
+          prompts_submitted?: number | null
+          reason_codes?:
+            | Database["public"]["Enums"]["synth_reason_code"][]
+            | null
+          review_rate?: number | null
+          revision_rate?: number | null
+          revisions_submitted?: number | null
+          rewrites_accepted?: number | null
+          rewrites_rejected?: number | null
+          tier_percentile?: number | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          acceptance_rate?: number | null
+          audits_completed?: number | null
+          avg_coherence_score?: number | null
+          avg_time_to_decision_ms?: number | null
+          avg_verification_score?: number | null
+          completion_rate?: number | null
+          created_at?: string
+          human_reviews_requested?: number | null
+          id?: string
+          median_time_to_decision_ms?: number | null
+          metadata?: Json | null
+          period_end?: string
+          period_start?: string
+          period_type?: string
+          policy_blocks_triggered?: number | null
+          prompts_submitted?: number | null
+          reason_codes?:
+            | Database["public"]["Enums"]["synth_reason_code"][]
+            | null
+          review_rate?: number | null
+          revision_rate?: number | null
+          revisions_submitted?: number | null
+          rewrites_accepted?: number | null
+          rewrites_rejected?: number | null
+          tier_percentile?: number | null
+          updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -3366,6 +3563,14 @@ export type Database = {
         Returns: boolean
       }
       generate_member_id: { Args: never; Returns: string }
+      get_or_create_synth_session: {
+        Args: {
+          p_source?: Database["public"]["Enums"]["synth_event_source"]
+          p_user_hash?: string
+          p_user_id: string
+        }
+        Returns: string
+      }
       get_or_create_wallet: {
         Args: { p_user_id: string }
         Returns: {
@@ -3425,6 +3630,22 @@ export type Database = {
         Args: { _user_id: string; _venue_id: string }
         Returns: boolean
       }
+      log_synth_event: {
+        Args: {
+          p_answer_hash?: string
+          p_coherence_score?: number
+          p_decision?: Database["public"]["Enums"]["synth_decision"]
+          p_event_type: Database["public"]["Enums"]["synth_event_type"]
+          p_metadata?: Json
+          p_prompt_hash?: string
+          p_request_id?: string
+          p_risk_decision?: Database["public"]["Enums"]["synth_risk_decision"]
+          p_source?: Database["public"]["Enums"]["synth_event_source"]
+          p_user_id: string
+          p_verification_score?: number
+        }
+        Returns: string
+      }
       restore_stevieg_profile: { Args: never; Returns: undefined }
       update_affiliate_pending_earnings: {
         Args: { _affiliate_id: string; _amount: number }
@@ -3449,6 +3670,48 @@ export type Database = {
         | "result_received_locked"
         | "verified_active"
       result_status: "negative" | "positive" | "inconclusive"
+      synth_decision:
+        | "RELEASE_FULL"
+        | "RELEASE_SAFE_PARTIAL"
+        | "REFUSE"
+        | "HUMAN_REVIEW_REQUIRED"
+      synth_event_source: "console" | "extension" | "partner" | "api"
+      synth_event_type:
+        | "PROMPT_SUBMITTED"
+        | "AUDIT_STARTED"
+        | "AUDIT_COMPLETED"
+        | "DECISION_VIEWED"
+        | "SAFE_ANSWER_COPIED"
+        | "SAFE_ANSWER_INSERTED"
+        | "USER_ACCEPTED_REWRITE"
+        | "USER_REJECTED_REWRITE"
+        | "USER_EDITED_AND_RESUBMITTED"
+        | "USER_CHANGED_RISKY_INTENT"
+        | "HUMAN_REVIEW_REQUESTED"
+        | "HUMAN_REVIEW_COMPLETED"
+        | "HUMAN_REVIEW_OVERRULED"
+        | "POLICY_BLOCK_TRIGGERED"
+        | "INJECTION_PATTERN_DETECTED"
+        | "TEMPLATE_DUPLICATION_DETECTED"
+        | "ANOMALY_SCORE_SPIKE_DETECTED"
+      synth_reason_code:
+        | "HIGH_STABILITY_OVER_TIME"
+        | "CONSISTENT_CONTRADICTION_AVOIDANCE"
+        | "STRONG_EVIDENCE_DISCIPLINE"
+        | "SAFE_REFRAME_BEHAVIOR"
+        | "CALIBRATED_UNCERTAINTY"
+        | "HIGH_ACCEPTANCE_OF_SAFE_REWRITES"
+        | "HIGH_UNSUPPORTED_CLAIM_RATE"
+        | "LOW_STABILITY_HIGH_VARIANCE"
+        | "FREQUENT_POLICY_BOUNDARY_HITS"
+        | "REPEATED_TEMPLATE_USAGE"
+        | "INCONSISTENT_REVISIONS"
+        | "OVERCONFIDENT_LANGUAGE_PATTERN"
+        | "ESCALATED_DUE_TO_LOW_COHERENCE"
+        | "ESCALATED_DUE_TO_LOW_VERIFICATION"
+        | "REFUSED_DUE_TO_POLICY_BLOCK"
+        | "RELEASED_SAFE_PARTIAL_DUE_TO_RESTRICTED_RISK"
+      synth_risk_decision: "ALLOW" | "RESTRICT" | "BLOCK"
       test_type: "STD_PANEL" | "TOX_10_PANEL"
       venue_category:
         | "Nightlife"
@@ -3604,6 +3867,51 @@ export const Constants = {
         "verified_active",
       ],
       result_status: ["negative", "positive", "inconclusive"],
+      synth_decision: [
+        "RELEASE_FULL",
+        "RELEASE_SAFE_PARTIAL",
+        "REFUSE",
+        "HUMAN_REVIEW_REQUIRED",
+      ],
+      synth_event_source: ["console", "extension", "partner", "api"],
+      synth_event_type: [
+        "PROMPT_SUBMITTED",
+        "AUDIT_STARTED",
+        "AUDIT_COMPLETED",
+        "DECISION_VIEWED",
+        "SAFE_ANSWER_COPIED",
+        "SAFE_ANSWER_INSERTED",
+        "USER_ACCEPTED_REWRITE",
+        "USER_REJECTED_REWRITE",
+        "USER_EDITED_AND_RESUBMITTED",
+        "USER_CHANGED_RISKY_INTENT",
+        "HUMAN_REVIEW_REQUESTED",
+        "HUMAN_REVIEW_COMPLETED",
+        "HUMAN_REVIEW_OVERRULED",
+        "POLICY_BLOCK_TRIGGERED",
+        "INJECTION_PATTERN_DETECTED",
+        "TEMPLATE_DUPLICATION_DETECTED",
+        "ANOMALY_SCORE_SPIKE_DETECTED",
+      ],
+      synth_reason_code: [
+        "HIGH_STABILITY_OVER_TIME",
+        "CONSISTENT_CONTRADICTION_AVOIDANCE",
+        "STRONG_EVIDENCE_DISCIPLINE",
+        "SAFE_REFRAME_BEHAVIOR",
+        "CALIBRATED_UNCERTAINTY",
+        "HIGH_ACCEPTANCE_OF_SAFE_REWRITES",
+        "HIGH_UNSUPPORTED_CLAIM_RATE",
+        "LOW_STABILITY_HIGH_VARIANCE",
+        "FREQUENT_POLICY_BOUNDARY_HITS",
+        "REPEATED_TEMPLATE_USAGE",
+        "INCONSISTENT_REVISIONS",
+        "OVERCONFIDENT_LANGUAGE_PATTERN",
+        "ESCALATED_DUE_TO_LOW_COHERENCE",
+        "ESCALATED_DUE_TO_LOW_VERIFICATION",
+        "REFUSED_DUE_TO_POLICY_BLOCK",
+        "RELEASED_SAFE_PARTIAL_DUE_TO_RESTRICTED_RISK",
+      ],
+      synth_risk_decision: ["ALLOW", "RESTRICT", "BLOCK"],
       test_type: ["STD_PANEL", "TOX_10_PANEL"],
       venue_category: [
         "Nightlife",

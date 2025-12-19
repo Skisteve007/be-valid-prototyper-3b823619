@@ -99,17 +99,17 @@ const PitchDeck = () => {
     { label: "Member Growth", value: "15%", subtext: "MoM", icon: TrendingUp, color: "text-orange-400" },
   ];
 
-  const scorecardData = [
-    { feature: "Integrated Health/Tox Status (HIPAA)", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, dice: false, highlight: true },
-    { feature: "Zero-Trust Backend Security", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, highlight: true },
-    { feature: "Automated Revenue Share", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, highlight: true },
-    { feature: "Peer-to-Peer Network Trust", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, highlight: true },
-    { feature: "Frictionless Staff Workflow", valid: true, clear: true, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, dice: true },
-    { feature: "Rolling Compliance & Screening", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, dice: false },
-    { feature: "In-App Wallet Payments", valid: true, clear: false, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, dice: true },
-    { feature: "Digital Identity Verification", valid: true, clear: true, idme: true, ticketmaster: true, sterling: true, stdcheck: false, eventbrite: true, dice: true },
-    { feature: "Instant Settlement", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, highlight: true },
-    { feature: "Viral Identity & Beacon", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, highlight: true },
+const scorecardData = [
+    { feature: "Integrated Health/Tox Status (HIPAA)", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, dice: false, salesforce: false, checkr: false, highlight: true },
+    { feature: "Zero-Trust Backend Security", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, salesforce: false, checkr: false, highlight: true },
+    { feature: "Automated Revenue Share", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, salesforce: false, checkr: false, highlight: true },
+    { feature: "Peer-to-Peer Network Trust", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, salesforce: false, checkr: false, highlight: true },
+    { feature: "Frictionless Staff Workflow", valid: true, clear: true, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, dice: true, salesforce: true, checkr: false },
+    { feature: "Rolling Compliance & Screening", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: true, eventbrite: false, dice: false, salesforce: false, checkr: true },
+    { feature: "In-App Wallet Payments", valid: true, clear: false, idme: false, ticketmaster: true, sterling: false, stdcheck: false, eventbrite: true, dice: true, salesforce: false, checkr: false },
+    { feature: "Digital Identity Verification", valid: true, clear: true, idme: true, ticketmaster: true, sterling: true, stdcheck: false, eventbrite: true, dice: true, salesforce: false, checkr: true },
+    { feature: "Instant Settlement", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, salesforce: false, checkr: false, highlight: true },
+    { feature: "Viral Identity & Beacon", valid: true, clear: false, idme: false, ticketmaster: false, sterling: false, stdcheck: false, eventbrite: false, dice: false, salesforce: false, checkr: false, highlight: true },
   ];
 
   const validScore = scorecardData.filter(r => r.valid).length;
@@ -383,12 +383,12 @@ const PitchDeck = () => {
                 </ul>
               </div>
             </div>
-            <Accordion type="single" collapsible className="mt-4">
-              <AccordionItem value="more-drivers" className="border-white/10">
-                <AccordionTrigger className="text-sm text-gray-400 hover:text-white">
-                  <span className="flex items-center gap-2">
-                    <ChevronDown className="h-4 w-4" />
-                    View all 6 value drivers
+          <Accordion type="single" collapsible className="mt-6">
+              <AccordionItem value="more-drivers" className="border-white/20 border rounded-xl px-4">
+                <AccordionTrigger className="text-gray-200 hover:text-white py-5">
+                  <span className="flex items-center gap-3" style={{ fontSize: 'clamp(18px, 1.5vw, 26px)' }}>
+                    <ChevronDown style={{ width: 'clamp(24px, 2vw, 32px)', height: 'clamp(24px, 2vw, 32px)' }} />
+                    <span className="font-bold tracking-wide">View All 6 Value Drivers</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -713,41 +713,55 @@ const PitchDeck = () => {
             
             {/* Scrollable scorecard on mobile */}
             <Accordion type="single" collapsible>
-              <AccordionItem value="scorecard" className="border-white/10">
-                <AccordionTrigger className="text-sm text-gray-400 hover:text-white">
-                  View Full Competitive Scorecard
+              <AccordionItem value="scorecard" className="border-white/20 border rounded-xl px-4">
+                <AccordionTrigger className="text-gray-200 hover:text-white py-5">
+                  <span className="flex items-center gap-3" style={{ fontSize: 'clamp(18px, 1.5vw, 26px)' }}>
+                    <span className="font-bold tracking-wide">View Full Competitive Scorecard</span>
+                  </span>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="overflow-x-auto bg-black/40 rounded-lg border border-white/10 mt-2">
-                    <table className="w-full text-xs">
+                    <table className="w-full" style={{ fontSize: 'clamp(12px, 1vw, 16px)' }}>
                       <thead>
                         <tr className="bg-white/5 text-white">
-                          <th className="p-2 text-left">Feature</th>
-                          <th className="p-2 text-center text-cyan-400">VALID</th>
-                          <th className="p-2 text-center text-gray-500">CLEAR</th>
-                          <th className="p-2 text-center text-gray-500">ID.me</th>
-                          <th className="p-2 text-center text-gray-500">TICKETMASTER</th>
-                          <th className="p-2 text-center text-gray-500">STERLING</th>
+                          <th className="p-3 text-left font-bold" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)' }}>Feature</th>
+                          <th className="p-3 text-center text-cyan-400 font-bold" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)' }}>VALID</th>
+                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CLEAR</th>
+                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>ID.me</th>
+                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>TICKETMASTER</th>
+                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>STERLING</th>
+                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>DICE</th>
+                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>EVENTBRITE</th>
+                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>SALESFORCE</th>
+                          <th className="p-3 text-center text-gray-400" style={{ fontSize: 'clamp(11px, 0.9vw, 14px)' }}>CHECKR</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {scorecardData.slice(0, 6).map((row, idx) => (
+                        {scorecardData.map((row, idx) => (
                           <tr key={idx} className="border-b border-white/5">
-                            <td className="p-2 text-gray-300">{row.feature}</td>
-                            <td className="p-2 text-center">{renderCheck(row.valid, true)}</td>
-                            <td className="p-2 text-center">{renderCheck(row.clear)}</td>
-                            <td className="p-2 text-center">{renderCheck(row.idme)}</td>
-                            <td className="p-2 text-center">{renderCheck(row.ticketmaster)}</td>
-                            <td className="p-2 text-center">{renderCheck(row.sterling)}</td>
+                            <td className="p-3 text-gray-300" style={{ fontSize: 'clamp(12px, 1vw, 16px)' }}>{row.feature}</td>
+                            <td className="p-3 text-center">{renderCheck(row.valid, true)}</td>
+                            <td className="p-3 text-center">{renderCheck(row.clear)}</td>
+                            <td className="p-3 text-center">{renderCheck(row.idme)}</td>
+                            <td className="p-3 text-center">{renderCheck(row.ticketmaster)}</td>
+                            <td className="p-3 text-center">{renderCheck(row.sterling)}</td>
+                            <td className="p-3 text-center">{renderCheck(row.dice)}</td>
+                            <td className="p-3 text-center">{renderCheck(row.eventbrite)}</td>
+                            <td className="p-3 text-center">{renderCheck(row.salesforce)}</td>
+                            <td className="p-3 text-center">{renderCheck(row.checkr)}</td>
                           </tr>
                         ))}
                         <tr className="bg-white/5 font-bold">
-                          <td className="p-2 text-white">TOTAL</td>
-                          <td className="p-2 text-center text-cyan-400">{validScore}/10</td>
-                          <td className="p-2 text-center text-gray-500">2/10</td>
-                          <td className="p-2 text-center text-gray-500">1/10</td>
-                          <td className="p-2 text-center text-gray-500">3/10</td>
-                          <td className="p-2 text-center text-gray-500">1/10</td>
+                          <td className="p-3 text-white" style={{ fontSize: 'clamp(13px, 1.1vw, 17px)' }}>TOTAL</td>
+                          <td className="p-3 text-center text-cyan-400 font-extrabold" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)' }}>{validScore}/10</td>
+                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
+                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
+                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
+                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
+                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
+                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>3/10</td>
+                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>1/10</td>
+                          <td className="p-3 text-center text-gray-500" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>2/10</td>
                         </tr>
                       </tbody>
                     </table>

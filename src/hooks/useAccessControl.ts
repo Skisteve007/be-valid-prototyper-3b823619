@@ -102,6 +102,7 @@ export const useAccessControl = (accessType: AccessType) => {
       // Send notification email to admin
       const { error: notifyError } = await supabase.functions.invoke("notify-access-request", {
         body: {
+          userId: session.user.id,
           userEmail: session.user.email,
           userName: profile?.full_name || session.user.email,
           accessType,
@@ -111,9 +112,11 @@ export const useAccessControl = (accessType: AccessType) => {
 
       if (notifyError) {
         console.error("Failed to send notification:", notifyError);
+        toast.error("Request saved, but approval email failed to send. Please try again.");
+      } else {
+        toast.success("Access request submitted! You'll be notified when approved.");
       }
 
-      toast.success("Access request submitted! You'll be notified when approved.");
       navigate(`/access-pending?type=${accessType}`);
     } catch (error) {
       console.error("Error requesting access:", error);

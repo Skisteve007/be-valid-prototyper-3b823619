@@ -696,15 +696,19 @@ const Auth = () => {
                     <GoogleSignInButton />
                   </div>
                   
-                  {/* Divider */}
+                  {/* Divider - Click focuses email field */}
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
                       <span className="w-full border-t border-cyan-400/30" />
                     </div>
                     <div className="relative flex justify-center">
-                      <span className="px-6 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400">
+                      <button
+                        type="button"
+                        onClick={() => document.getElementById('login-email')?.focus()}
+                        className="px-6 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400 transition-all cursor-pointer"
+                      >
                         Sign In With Email
-                      </span>
+                      </button>
                     </div>
                   </div>
                   
@@ -828,15 +832,19 @@ const Auth = () => {
                     <GoogleSignInButton />
                   </div>
                   
-                  {/* Divider */}
+                  {/* Divider - Click focuses email field */}
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
                       <span className="w-full border-t border-cyan-400/30" />
                     </div>
                     <div className="relative flex justify-center">
-                      <span className="px-6 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400">
+                      <button
+                        type="button"
+                        onClick={() => document.getElementById('signup-first-name')?.focus()}
+                        className="px-6 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400 transition-all cursor-pointer"
+                      >
                         Sign Up With Email
-                      </span>
+                      </button>
                     </div>
                   </div>
                   

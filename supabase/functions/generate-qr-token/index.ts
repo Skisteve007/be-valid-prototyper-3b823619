@@ -48,12 +48,12 @@ serve(async (req) => {
       );
     }
 
-    // Generate a secure random token
+    // Generate a secure random token (Ghostware™ format)
     const token = crypto.randomUUID();
     
-    // Token expires in 6 hours
+    // Token expires in 60 seconds (Ghostware™ evaporation)
     const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 6);
+    expiresAt.setSeconds(expiresAt.getSeconds() + 60);
 
     // Create token record
     const { data: tokenData, error: tokenError } = await supabase

@@ -90,6 +90,8 @@ const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const WalletFundingSuccess = lazy(() => import("./pages/WalletFundingSuccess"));
 const PaymentGuide = lazy(() => import("./pages/PaymentGuide"));
 const GhostPassOwnerGuide = lazy(() => import("./pages/GhostPassOwnerGuide"));
+const GhostwareQR = lazy(() => import("./pages/GhostwareQR"));
+const DoorDevice = lazy(() => import("./pages/DoorDevice"));
 
 const queryClient = new QueryClient();
 
@@ -220,6 +222,8 @@ const App = () => (
                   <Route path="/manager-admin" element={<ManagerAdmin />} />
                   <Route path="/staff/payment" element={<StaffPayment />} />
                   <Route path="/ghost-pass-owner-guide" element={<GhostPassOwnerGuide />} />
+                  <Route path="/ghostware" element={<AgeGate><GhostwareQR /></AgeGate>} />
+                  <Route path="/door" element={<DoorDevice />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

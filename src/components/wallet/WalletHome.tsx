@@ -3,9 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Wallet, Plus, History, RefreshCw, Info } from "lucide-react";
 import { useWallet } from "@/hooks/useWallet";
-import { FundWalletDialog } from "./FundWalletDialog";
+import { StripeTopUpForm } from "./StripeTopUpForm";
 import { FeeScheduleModal } from "./FeeScheduleModal";
 import { format } from "date-fns";
 
@@ -110,12 +111,17 @@ export function WalletHome() {
         </CardContent>
       </Card>
 
-      <FundWalletDialog 
-        open={fundDialogOpen} 
-        onOpenChange={setFundDialogOpen}
-        wallet={wallet}
-        onSuccess={refetch}
-      />
+      <Dialog open={fundDialogOpen} onOpenChange={setFundDialogOpen}>
+        <DialogContent className="sm:max-w-md p-0 overflow-hidden">
+          <StripeTopUpForm
+            onSuccess={() => {
+              setFundDialogOpen(false);
+              refetch();
+            }}
+            onCancel={() => setFundDialogOpen(false)}
+          />
+        </DialogContent>
+      </Dialog>
       
       <FeeScheduleModal 
         open={feeModalOpen} 

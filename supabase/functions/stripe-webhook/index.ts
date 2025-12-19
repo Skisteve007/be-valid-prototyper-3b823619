@@ -81,6 +81,57 @@ serve(async (req) => {
           customerId: paymentIntent.customer,
           metadata: paymentIntent.metadata,
         });
+
+        // Handle wallet top-up
+        if (paymentIntent.metadata?.type === "topup" && paymentIntent.metadata?.user_id) {
+          const userId = paymentIntent.metadata.user_id;
+          const amountCents = parseInt(paymentIntent.metadata.amount_cents || "0", 10);
+          const amountDollars = amountCents / 100;
+
+          logStep("Processing wallet top-up", { userId, amountCents, amountDollars });
+
+          // Check idempotency - ensure we don't double-credit
+          const { data: existingTx } = await supabaseAdmin
+            .from("wallet_funding_transactions")
+            .select("id, status")
+            .eq("stripe_payment_intent", paymentIntent.id)
+            .single();
+
+          if (existingTx?.status === "completed") {
+            logStep("Top-up already processed (idempotent check)", { paymentIntentId: paymentIntent.id });
+            break;
+          }
+
+          // Credit the wallet
+          const { error: creditError } = await supabaseAdmin.rpc("credit_wallet", {
+            p_user_id: userId,
+            p_amount: amountDollars,
+            p_fee: 0, // Fee already included in amount_received
+            p_transaction_id: existingTx?.id || null,
+          });
+
+          if (creditError) {
+            logStep("ERROR: Failed to credit wallet", { error: creditError.message });
+            
+            // Update transaction status to failed
+            await supabaseAdmin
+              .from("wallet_funding_transactions")
+              .update({ status: "failed", updated_at: new Date().toISOString() })
+              .eq("stripe_payment_intent", paymentIntent.id);
+          } else {
+            logStep("Wallet credited successfully", { userId, amountDollars });
+            
+            // Update transaction status if not already done by RPC
+            await supabaseAdmin
+              .from("wallet_funding_transactions")
+              .update({ 
+                status: "completed", 
+                credited_at: new Date().toISOString(),
+                updated_at: new Date().toISOString() 
+              })
+              .eq("stripe_payment_intent", paymentIntent.id);
+          }
+        }
         break;
       }
 
@@ -89,7 +140,21 @@ serve(async (req) => {
         logStep("Payment failed", {
           paymentIntentId: paymentIntent.id,
           error: paymentIntent.last_payment_error?.message,
+          metadata: paymentIntent.metadata,
         });
+
+        // Handle failed wallet top-up
+        if (paymentIntent.metadata?.type === "topup") {
+          await supabaseAdmin
+            .from("wallet_funding_transactions")
+            .update({ 
+              status: "failed", 
+              updated_at: new Date().toISOString() 
+            })
+            .eq("stripe_payment_intent", paymentIntent.id);
+          
+          logStep("Top-up transaction marked as failed", { paymentIntentId: paymentIntent.id });
+        }
         break;
       }
 

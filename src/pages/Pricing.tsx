@@ -77,7 +77,7 @@ const Pricing = () => {
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>Pricing | VALID™</title>
-        <meta name="description" content="Transparent pricing that scales with your business. Base platform + hardware + per-user fees." />
+        <meta name="description" content="Transparent pricing that scales with your business. Base platform + hardware + usage fees." />
       </Helmet>
 
       <ResponsiveHeader />
@@ -104,7 +104,7 @@ const Pricing = () => {
               </div>
               <span className="text-muted-foreground self-center">+</span>
               <div className="px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-                Per-User Fees
+                Usage Fees
               </div>
               <span className="text-muted-foreground self-center">=</span>
               <div className="px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-semibold">
@@ -1121,8 +1121,8 @@ const Pricing = () => {
                     <Users className="h-6 w-6 text-emerald-400" />
                   </div>
                   <p className="text-xs text-muted-foreground">STEP 3</p>
-                  <p className="font-semibold text-foreground text-sm md:text-base">Per-User Fees</p>
-                  <p className="text-xs text-muted-foreground">(if applicable)</p>
+                  <p className="font-semibold text-foreground text-sm md:text-base">Usage Fees</p>
+                  <p className="text-xs text-muted-foreground">(per scan/tx)</p>
                 </div>
                 <ArrowRight className="h-6 w-6 text-muted-foreground hidden md:block" />
                 <div className="flex flex-col items-center p-4 md:p-6 rounded-xl bg-amber-500/10 border border-amber-500/30 min-w-[140px]">

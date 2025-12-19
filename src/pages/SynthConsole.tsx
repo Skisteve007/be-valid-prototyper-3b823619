@@ -20,7 +20,8 @@ import {
   Copy,
   FileText,
   History,
-  BookOpen
+  BookOpen,
+  Sparkles
 } from 'lucide-react';
 
 interface AuditResult {
@@ -77,13 +78,13 @@ const SynthConsole: React.FC = () => {
     }
   };
 
-  const getDecisionColor = (decision: string) => {
+  const getDecisionBadgeClass = (decision: string) => {
     switch (decision) {
-      case 'RELEASE_FULL': return 'bg-green-500/20 text-green-400 border-green-500/30';
-      case 'RELEASE_SAFE_PARTIAL': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-      case 'HUMAN_REVIEW_REQUIRED': return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
-      case 'REFUSE': return 'bg-red-500/20 text-red-400 border-red-500/30';
-      default: return 'bg-muted text-muted-foreground';
+      case 'RELEASE_FULL': return 'synth-badge-release';
+      case 'RELEASE_SAFE_PARTIAL': return 'synth-badge-partial';
+      case 'HUMAN_REVIEW_REQUIRED': return 'synth-badge-review';
+      case 'REFUSE': return 'synth-badge-refuse';
+      default: return 'bg-gray-500/20 text-gray-400';
     }
   };
 
@@ -97,67 +98,81 @@ const SynthConsole: React.FC = () => {
     }
   };
 
+  const getScoreClass = (score: number) => {
+    if (score >= 0.85) return 'synth-score-high';
+    if (score >= 0.6) return 'synth-score-medium';
+    return 'synth-score-low';
+  };
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast.success('Copied to clipboard');
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen synth-bg">
       <Helmet>
         <title>SYNTH™ Console | Digital Auditor</title>
         <meta name="description" content="SYNTH™ AI audit console - test prompts through the sanitize, debate, judge, verify pipeline" />
       </Helmet>
 
+      {/* Grid overlay */}
+      <div className="fixed inset-0 z-0 synth-grid opacity-50" />
+
       {/* Header */}
-      <header className="border-b border-border/40 bg-background/95 backdrop-blur sticky top-0 z-50">
+      <header className="synth-header sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => navigate('/synth')}
+              className="text-gray-300 hover:text-white hover:bg-white/10"
+            >
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center synth-pulse">
                 <Brain className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="font-bold text-lg">SYNTH™ Console</h1>
-                <p className="text-xs text-muted-foreground">Digital Auditor</p>
+                <h1 className="font-bold text-lg synth-neon-blue">SYNTH™ Console</h1>
+                <p className="text-xs text-gray-400">Digital Auditor</p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => navigate('/synth')}>
+            <Button variant="outline" size="sm" onClick={() => navigate('/synth')} className="border-gray-600 text-gray-300 hover:bg-white/10 bg-transparent">
               <Brain className="w-4 h-4 mr-2" />
               Overview
             </Button>
-            <Button variant="outline" size="sm" onClick={() => navigate('/synth/logs')}>
+            <Button variant="outline" size="sm" onClick={() => navigate('/synth/logs')} className="border-gray-600 text-gray-300 hover:bg-white/10 bg-transparent">
               <History className="w-4 h-4 mr-2" />
               Logs
             </Button>
-            <Button variant="outline" size="sm" onClick={() => navigate('/synth/docs')}>
+            <Button variant="outline" size="sm" onClick={() => navigate('/synth/docs')} className="border-gray-600 text-gray-300 hover:bg-white/10 bg-transparent">
               <BookOpen className="w-4 h-4 mr-2" />
               Docs
             </Button>
-            <Button variant="outline" size="sm" onClick={() => navigate('/synth/policies')}>
-              <Shield className="w-4 h-4 mr-2" />
-              Policies
+            <Button variant="outline" size="sm" onClick={() => navigate('/synth/challenges')} className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 bg-transparent">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Challenges
             </Button>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 max-w-6xl">
+      <main className="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Input Panel */}
           <div className="space-y-6">
-            <Card>
+            <Card className="synth-card border-0">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-purple-400" />
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <FileText className="w-5 h-5 text-cyan-400" />
                   Audit Prompt
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-400">
                   Paste any prompt to run it through the SYNTH™ pipeline
                 </CardDescription>
               </CardHeader>
@@ -166,16 +181,16 @@ const SynthConsole: React.FC = () => {
                   placeholder="Enter the prompt you want to audit..."
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  className="min-h-[200px] font-mono text-sm"
+                  className="min-h-[200px] font-mono text-sm synth-terminal text-gray-200 placeholder:text-gray-500 border-gray-700 focus:border-cyan-500/50"
                 />
                 
                 <div className="flex items-center gap-4">
                   <div className="flex-1">
                     <Select value={userRole} onValueChange={setUserRole}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-white/5 border-gray-700 text-gray-200">
                         <SelectValue placeholder="User Role (optional)" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-900 border-gray-700">
                         <SelectItem value="user">User</SelectItem>
                         <SelectItem value="admin">Admin</SelectItem>
                         <SelectItem value="enterprise">Enterprise</SelectItem>
@@ -186,7 +201,7 @@ const SynthConsole: React.FC = () => {
                   <Button 
                     onClick={handleAudit} 
                     disabled={isLoading || !prompt.trim()}
-                    className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                    className="synth-btn-primary"
                   >
                     {isLoading ? (
                       <>
@@ -205,24 +220,24 @@ const SynthConsole: React.FC = () => {
             </Card>
 
             {/* Pipeline Status */}
-            <Card>
+            <Card className="synth-card border-0">
               <CardHeader>
-                <CardTitle className="text-sm">Pipeline Status</CardTitle>
+                <CardTitle className="text-sm text-white">Pipeline Status</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-2 text-sm">
                   {['Classify', 'Sanitize', 'Debate', 'Judge', 'Verify', 'Log'].map((step, i) => (
                     <React.Fragment key={step}>
-                      <div className={`px-2 py-1 rounded text-xs ${
+                      <div className={`px-2 py-1 rounded text-xs font-medium ${
                         isLoading 
-                          ? 'bg-purple-500/20 text-purple-400 animate-pulse' 
+                          ? 'bg-cyan-500/20 text-cyan-400 animate-pulse' 
                           : result 
-                            ? 'bg-green-500/20 text-green-400' 
-                            : 'bg-muted text-muted-foreground'
+                            ? 'synth-badge-release' 
+                            : 'bg-gray-700/50 text-gray-400'
                       }`}>
                         {step}
                       </div>
-                      {i < 5 && <span className="text-muted-foreground">→</span>}
+                      {i < 5 && <span className="text-gray-600">→</span>}
                     </React.Fragment>
                   ))}
                 </div>
@@ -235,27 +250,31 @@ const SynthConsole: React.FC = () => {
             {result ? (
               <>
                 {/* Decision Badge */}
-                <Card>
+                <Card className="synth-card border-0">
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <Badge className={`text-base px-4 py-2 ${getDecisionColor(result.decision)}`}>
+                        <div className={`text-base px-4 py-2 rounded-full flex items-center gap-2 ${getDecisionBadgeClass(result.decision)}`}>
                           {getDecisionIcon(result.decision)}
-                          <span className="ml-2">{result.decision.replace(/_/g, ' ')}</span>
-                        </Badge>
-                        <Badge variant="outline" className="text-xs">
+                          <span className="font-semibold">{result.decision.replace(/_/g, ' ')}</span>
+                        </div>
+                        <Badge variant="outline" className="text-xs border-gray-600 text-gray-300">
                           Risk: {result.risk_decision}
                         </Badge>
                       </div>
-                      <div className="text-right text-sm text-muted-foreground">
-                        <div>Coherence: <span className="text-foreground font-mono">{(result.coherence_score * 100).toFixed(0)}%</span></div>
-                        <div>Verification: <span className="text-foreground font-mono">{(result.verification_score * 100).toFixed(0)}%</span></div>
+                      <div className="text-right text-sm">
+                        <div className="text-gray-400">
+                          Coherence: <span className={`font-mono font-bold ${getScoreClass(result.coherence_score)}`}>{(result.coherence_score * 100).toFixed(0)}%</span>
+                        </div>
+                        <div className="text-gray-400">
+                          Verification: <span className={`font-mono font-bold ${getScoreClass(result.verification_score)}`}>{(result.verification_score * 100).toFixed(0)}%</span>
+                        </div>
                       </div>
                     </div>
                     
                     {result.redaction_summary.entities_redacted > 0 && (
-                      <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-sm">
-                        <Shield className="w-4 h-4 inline mr-2 text-yellow-400" />
+                      <div className="mt-4 p-3 synth-badge-partial rounded-lg text-sm">
+                        <Shield className="w-4 h-4 inline mr-2" />
                         {result.redaction_summary.entities_redacted} entities redacted
                         {result.redaction_summary.pii_detected && ' (PII detected)'}
                         {result.redaction_summary.phi_detected && ' (PHI detected)'}
@@ -265,25 +284,26 @@ const SynthConsole: React.FC = () => {
                 </Card>
 
                 {/* Tabbed Results */}
-                <Card>
+                <Card className="synth-card border-0">
                   <CardContent className="pt-6">
                     <Tabs defaultValue="answer">
-                      <TabsList className="grid grid-cols-5 mb-4">
-                        <TabsTrigger value="answer">Answer</TabsTrigger>
-                        <TabsTrigger value="risks">Risks</TabsTrigger>
-                        <TabsTrigger value="claims">Claims</TabsTrigger>
-                        <TabsTrigger value="contradictions">Issues</TabsTrigger>
-                        <TabsTrigger value="raw">Raw</TabsTrigger>
+                      <TabsList className="grid grid-cols-5 mb-4 bg-white/5">
+                        <TabsTrigger value="answer" className="data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400">Answer</TabsTrigger>
+                        <TabsTrigger value="risks" className="data-[state=active]:bg-red-500/20 data-[state=active]:text-red-400">Risks</TabsTrigger>
+                        <TabsTrigger value="claims" className="data-[state=active]:bg-blue-500/20 data-[state=active]:text-blue-400">Claims</TabsTrigger>
+                        <TabsTrigger value="contradictions" className="data-[state=active]:bg-orange-500/20 data-[state=active]:text-orange-400">Issues</TabsTrigger>
+                        <TabsTrigger value="raw" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">Raw</TabsTrigger>
                       </TabsList>
 
                       <TabsContent value="answer" className="space-y-4">
-                        <div className="p-4 bg-muted/50 rounded-lg">
-                          <p className="text-sm whitespace-pre-wrap">{result.final_answer}</p>
+                        <div className="p-4 synth-terminal rounded-lg">
+                          <p className="text-sm whitespace-pre-wrap text-gray-200">{result.final_answer}</p>
                         </div>
                         <Button 
                           variant="outline" 
                           size="sm"
                           onClick={() => copyToClipboard(result.final_answer)}
+                          className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 bg-transparent"
                         >
                           <Copy className="w-4 h-4 mr-2" />
                           Copy Safe Answer
@@ -294,14 +314,14 @@ const SynthConsole: React.FC = () => {
                         {result.risks.length > 0 ? (
                           <ul className="space-y-2">
                             {result.risks.map((risk, i) => (
-                              <li key={i} className="flex items-start gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm">
-                                <AlertTriangle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
+                              <li key={i} className="flex items-start gap-2 p-3 synth-badge-refuse rounded-lg text-sm">
+                                <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
                                 {risk}
                               </li>
                             ))}
                           </ul>
                         ) : (
-                          <p className="text-muted-foreground text-sm">No risks identified</p>
+                          <p className="text-gray-400 text-sm">No risks identified</p>
                         )}
                       </TabsContent>
 
@@ -309,22 +329,22 @@ const SynthConsole: React.FC = () => {
                         {result.claims.length > 0 ? (
                           <div className="space-y-2">
                             {result.claims.map((claim, i) => (
-                              <div key={i} className="p-3 border rounded-lg text-sm">
+                              <div key={i} className="p-3 border border-gray-700 rounded-lg text-sm bg-white/5">
                                 <div className="flex items-center justify-between mb-1">
-                                  <span className="font-medium">{claim.claim}</span>
-                                  <Badge variant={
-                                    claim.status === 'SUPPORTED' ? 'default' :
-                                    claim.status === 'CONTRADICTED' ? 'destructive' : 'secondary'
-                                  } className="text-xs">
+                                  <span className="font-medium text-gray-200">{claim.claim}</span>
+                                  <Badge className={
+                                    claim.status === 'SUPPORTED' ? 'synth-badge-release' :
+                                    claim.status === 'CONTRADICTED' ? 'synth-badge-refuse' : 'synth-badge-partial'
+                                  }>
                                     {claim.status}
                                   </Badge>
                                 </div>
-                                {claim.notes && <p className="text-muted-foreground text-xs">{claim.notes}</p>}
+                                {claim.notes && <p className="text-gray-400 text-xs">{claim.notes}</p>}
                               </div>
                             ))}
                           </div>
                         ) : (
-                          <p className="text-muted-foreground text-sm">No claims extracted</p>
+                          <p className="text-gray-400 text-sm">No claims extracted</p>
                         )}
                       </TabsContent>
 
@@ -332,24 +352,24 @@ const SynthConsole: React.FC = () => {
                         {result.contradictions.length > 0 ? (
                           <ul className="space-y-2">
                             {result.contradictions.map((c, i) => (
-                              <li key={i} className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg text-sm">
+                              <li key={i} className="p-3 synth-badge-review rounded-lg text-sm">
                                 {c}
                               </li>
                             ))}
                           </ul>
                         ) : (
-                          <p className="text-muted-foreground text-sm">No contradictions detected</p>
+                          <p className="text-gray-400 text-sm">No contradictions detected</p>
                         )}
                       </TabsContent>
 
                       <TabsContent value="raw">
-                        <pre className="p-4 bg-muted/50 rounded-lg overflow-auto text-xs max-h-[400px]">
+                        <pre className="p-4 synth-terminal rounded-lg overflow-auto text-xs max-h-[400px] text-gray-300">
                           {JSON.stringify(result, null, 2)}
                         </pre>
                         <Button 
                           variant="outline" 
                           size="sm"
-                          className="mt-2"
+                          className="mt-2 border-purple-500/50 text-purple-400 hover:bg-purple-500/10 bg-transparent"
                           onClick={() => copyToClipboard(JSON.stringify(result, null, 2))}
                         >
                           <Copy className="w-4 h-4 mr-2" />
@@ -361,9 +381,9 @@ const SynthConsole: React.FC = () => {
                 </Card>
               </>
             ) : (
-              <Card className="h-full min-h-[400px] flex items-center justify-center">
-                <CardContent className="text-center text-muted-foreground">
-                  <Brain className="w-16 h-16 mx-auto mb-4 opacity-20" />
+              <Card className="synth-card border-0 h-full min-h-[400px] flex items-center justify-center">
+                <CardContent className="text-center text-gray-400">
+                  <Brain className="w-16 h-16 mx-auto mb-4 opacity-20 text-cyan-400" />
                   <p>Enter a prompt and click Audit to see results</p>
                 </CardContent>
               </Card>

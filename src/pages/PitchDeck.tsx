@@ -402,22 +402,30 @@ const scorecardData = [
                   </span>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="grid md:grid-cols-3 gap-4 pt-4">
-                    <div className="bg-black/40 border border-blue-500/30 rounded-lg p-4">
-                      <ShieldCheck className="h-6 w-6 text-blue-400 mb-2" />
-                      <h4 className="font-bold text-white mb-1">Liability Transfer</h4>
-                      <p className="text-xs text-gray-400">$0 venue liability exposure</p>
+                  <div className="grid md:grid-cols-3 gap-6 pt-6">
+                    <div className="bg-black/50 border border-blue-500/40 rounded-xl hover:border-blue-500/60 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                      <ShieldCheck className="text-blue-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Liability Firewall</h4>
+                      <ul className="text-gray-200 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
+                        <li>• $0 venue liability exposure</li>
+                        <li>• Insurance-grade compliance</li>
+                      </ul>
                     </div>
-                    <div className="bg-black/40 border border-cyan-500/30 rounded-lg p-4">
-                      <Zap className="h-6 w-6 text-cyan-400 mb-2" />
-                      <h4 className="font-bold text-white mb-1">Fast Verified Payouts</h4>
-                      <p className="text-xs text-gray-400">Payouts typically occur within minutes to a few hours, depending on payment rails. Verification isn't a cost—it's a profit center.</p>
-                      <p className="text-[9px] text-gray-500 mt-2 leading-tight">Timing may vary based on bank/payment rails, cut-off times, KYC/AML, and operational controls.</p>
+                    <div className="bg-black/50 border border-cyan-500/40 rounded-xl hover:border-cyan-500/60 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                      <Zap className="text-cyan-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>Fast Verified Payouts</h4>
+                      <ul className="text-gray-200 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
+                        <li>• Payouts within minutes</li>
+                        <li>• Verification = profit center</li>
+                      </ul>
                     </div>
-                    <div className="bg-black/40 border border-red-500/30 rounded-lg p-4">
-                      <Lock className="h-6 w-6 text-red-400 mb-2" />
-                      <h4 className="font-bold text-white mb-1">Zero-Trust</h4>
-                      <p className="text-xs text-gray-400">0 raw PII stored</p>
+                    <div className="bg-black/50 border border-red-500/40 rounded-xl hover:border-red-500/60 transition-all" style={{ padding: 'clamp(24px, 2.2vw, 36px)' }}>
+                      <Lock className="text-red-400" style={{ width: 'clamp(32px, 2.4vw, 40px)', height: 'clamp(32px, 2.4vw, 40px)', marginBottom: 'clamp(14px, 1.2vw, 20px)' }} />
+                      <h4 className="font-bold text-white" style={{ fontSize: 'clamp(20px, 1.6vw, 28px)', marginBottom: 'clamp(10px, 1vw, 16px)' }}>VALID Token Only</h4>
+                      <ul className="text-gray-200 space-y-2" style={{ fontSize: 'clamp(15px, 1.1vw, 19px)', lineHeight: '1.5' }}>
+                        <li>• Zero raw PII stored</li>
+                        <li>• Self-destructing proofs</li>
+                      </ul>
                     </div>
                   </div>
                 </AccordionContent>
@@ -708,6 +716,76 @@ const scorecardData = [
                 <div className="text-gray-500" style={{ fontSize: 'clamp(13px, 1vw, 16px)' }}>Settlement</div>
               </div>
             </div>
+          </div>
+
+          {/* ===== REVENUE STACK ===== */}
+          <div className="bg-gradient-to-br from-green-950/30 to-black/60 border border-green-500/30 rounded-2xl" style={{ padding: 'clamp(28px, 3vw, 48px)' }}>
+            <h3 
+              className="font-bold text-center font-orbitron"
+              style={{ 
+                fontSize: 'clamp(22px, 1.8vw, 32px)', 
+                marginBottom: 'clamp(24px, 2.5vw, 36px)',
+                color: '#22c55e',
+                textShadow: '0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3)',
+              }}
+            >
+              Multi-Stream Revenue Stack
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: 'clamp(16px, 1.5vw, 24px)' }}>
+              {[
+                { name: "Ghost Pass™ Sales", revenue: "$39-99/pass", icon: Ghost, color: "amber", desc: "One-time verification passes" },
+                { name: "Wallet Transactions", revenue: "3% per tx", icon: CreditCard, color: "cyan", desc: "Pre-funded wallet spend fees" },
+                { name: "Venue Subscriptions", revenue: "$299-999/mo", icon: Building2, color: "purple", desc: "SaaS dashboard access" },
+                { name: "IDV Verification", revenue: "$5-15/check", icon: Fingerprint, color: "green", desc: "Background & identity checks" },
+                { name: "Lab Test Kits", revenue: "$49-149/kit", icon: Activity, color: "blue", desc: "Health & toxicology panels" },
+                { name: "Enterprise API", revenue: "Custom pricing", icon: Layers, color: "orange", desc: "White-label integrations" },
+              ].map((stream, idx) => (
+                <div 
+                  key={idx} 
+                  className={`bg-black/50 border rounded-xl transition-all hover:scale-[1.02] ${
+                    stream.color === 'amber' ? 'border-amber-500/40 hover:border-amber-500/70' :
+                    stream.color === 'cyan' ? 'border-cyan-500/40 hover:border-cyan-500/70' :
+                    stream.color === 'purple' ? 'border-purple-500/40 hover:border-purple-500/70' :
+                    stream.color === 'green' ? 'border-green-500/40 hover:border-green-500/70' :
+                    stream.color === 'blue' ? 'border-blue-500/40 hover:border-blue-500/70' :
+                    'border-orange-500/40 hover:border-orange-500/70'
+                  }`}
+                  style={{ padding: 'clamp(20px, 2vw, 32px)' }}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <stream.icon 
+                      className={`${
+                        stream.color === 'amber' ? 'text-amber-400' :
+                        stream.color === 'cyan' ? 'text-cyan-400' :
+                        stream.color === 'purple' ? 'text-purple-400' :
+                        stream.color === 'green' ? 'text-green-400' :
+                        stream.color === 'blue' ? 'text-blue-400' :
+                        'text-orange-400'
+                      }`}
+                      style={{ width: 'clamp(26px, 2vw, 34px)', height: 'clamp(26px, 2vw, 34px)' }}
+                    />
+                    <span 
+                      className={`font-bold ${
+                        stream.color === 'amber' ? 'text-amber-400' :
+                        stream.color === 'cyan' ? 'text-cyan-400' :
+                        stream.color === 'purple' ? 'text-purple-400' :
+                        stream.color === 'green' ? 'text-green-400' :
+                        stream.color === 'blue' ? 'text-blue-400' :
+                        'text-orange-400'
+                      }`}
+                      style={{ fontSize: 'clamp(15px, 1.2vw, 20px)' }}
+                    >
+                      {stream.revenue}
+                    </span>
+                  </div>
+                  <h4 className="font-bold text-white" style={{ fontSize: 'clamp(16px, 1.3vw, 22px)', marginBottom: 'clamp(6px, 0.6vw, 10px)' }}>{stream.name}</h4>
+                  <p className="text-gray-400" style={{ fontSize: 'clamp(13px, 1vw, 16px)', lineHeight: '1.4' }}>{stream.desc}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-gray-400 mt-6" style={{ fontSize: 'clamp(14px, 1.1vw, 18px)' }}>
+              <span className="text-green-400 font-bold">6 revenue streams</span> — Each compounds the next. No single point of failure.
+            </p>
           </div>
 
           {/* Competitive Moat */}

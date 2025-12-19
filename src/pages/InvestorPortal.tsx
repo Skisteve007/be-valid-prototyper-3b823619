@@ -361,8 +361,27 @@ const InvestorPortal = () => {
           <section className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 rounded-2xl blur-xl opacity-40"></div>
             <div className="relative border border-cyan-500/30 rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-sm p-6 md:p-10">
+              <style>{`
+                @keyframes pulseWhiteGlowInvestor {
+                  0%, 100% { 
+                    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+                  }
+                  50% { 
+                    text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8), 0 0 45px rgba(255, 255, 255, 0.6);
+                  }
+                }
+              `}</style>
               <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wider font-display mb-2">
+                <span 
+                  className="text-xs font-bold tracking-widest uppercase animate-[pulseWhiteGlowInvestor_2.5s_ease-in-out_infinite]"
+                  style={{
+                    color: '#ffffff',
+                    textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)',
+                  }}
+                >
+                  Founder
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wider font-display mb-2 mt-2">
                   STEVEN GRILLO
                 </h2>
                 <p className="text-cyan-400 font-semibold tracking-widest uppercase text-sm">

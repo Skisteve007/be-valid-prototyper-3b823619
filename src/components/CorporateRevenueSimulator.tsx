@@ -3,7 +3,7 @@ import { Shield, ShieldCheck, Trophy, TrendingUp, Building2, DollarSign } from '
 
 const CorporateRevenueSimulator = () => {
   return (
-    <section className="w-full bg-black py-20 px-4 md:px-8 lg:px-12">
+    <section className="w-full bg-[#1a1a1a] py-20 px-4 md:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}

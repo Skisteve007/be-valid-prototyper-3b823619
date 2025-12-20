@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SYNTH™ Evaluator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Consent Modal -->
+    <div id="consent-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="synth-logo">SYNTH™</div>
+          <div class="modal-subtitle">AI Governance Evaluator</div>
+        </div>
+        <div class="modal-body">
+          <p class="consent-text">
+            By using SYNTH you consent to storing your submitted text + metadata to compute your SYNTH Index and rankings.
+          </p>
+          <label class="checkbox-label">
+            <input type="checkbox" id="consent-checkbox">
+            <span>I agree to the data storage policy</span>
+          </label>
+          <div class="privacy-links">
+            <a href="https://bevalid.app/synth/privacy" target="_blank">Privacy Controls</a>
+            <span>•</span>
+            <a href="https://bevalid.app/synth/privacy#delete" target="_blank">Delete Data</a>
+            <span>•</span>
+            <a href="https://bevalid.app/synth/privacy#export" target="_blank">Export Data</a>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="consent-accept" class="btn-primary" disabled>Accept & Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Interface -->
+    <div id="main-interface" class="hidden">
+      <!-- Header -->
+      <header class="header">
+        <div class="logo-section">
+          <div class="synth-logo">SYNTH™</div>
+          <div class="status-indicator" id="status-indicator">
+            <span class="dot"></span>
+            <span id="status-text">Ready</span>
+          </div>
+        </div>
+        <div class="user-section">
+          <span id="user-tier" class="tier-badge">INITIATE</span>
+          <span id="runs-remaining" class="runs-count">10 runs</span>
+        </div>
+      </header>
+
+      <!-- Template Selector -->
+      <div class="section">
+        <label class="section-label">Template</label>
+        <select id="template-select" class="select-input">
+          <option value="general">General</option>
+          <option value="college_essay">College Essay</option>
+          <option value="swe_technical">SWE Technical</option>
+          <option value="security_analysis">Security Analysis</option>
+          <option value="product_brief">Product Brief</option>
+          <option value="research_summary">Research Summary</option>
+        </select>
+      </div>
+
+      <!-- Input Section -->
+      <div class="section">
+        <label class="section-label">Input Text</label>
+        <textarea id="input-text" class="text-input" placeholder="Select text on any page or paste here..."></textarea>
+        <div class="input-meta">
+          <span id="char-count">0 chars</span>
+          <span id="source-url" class="source-url"></span>
+        </div>
+      </div>
+
+      <!-- Run Button -->
+      <button id="run-button" class="btn-run" disabled>
+        <span class="btn-icon">▶</span>
+        <span>Run SYNTH</span>
+      </button>
+
+      <!-- Results Section -->
+      <div id="results-section" class="section hidden">
+        <div class="results-header">
+          <div class="tier-display">
+            <span id="result-tier" class="result-tier">OPERATOR</span>
+            <span id="result-percentile" class="result-percentile">Top 25%</span>
+          </div>
+          <div class="synth-index-display">
+            <span class="index-label">SYNTH Index</span>
+            <span id="synth-index" class="index-value">78</span>
+          </div>
+        </div>
+
+        <!-- Mini Radar Chart -->
+        <div class="chart-section">
+          <canvas id="radar-chart" width="200" height="200"></canvas>
+        </div>
+
+        <!-- Trend Line -->
+        <div class="trend-section">
+          <span class="section-label">Trend (Last 4)</span>
+          <div class="trend-line">
+            <canvas id="trend-chart" width="180" height="50"></canvas>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-section">
+          <button id="copy-output" class="btn-secondary">
+            <span>📋</span> Copy SYNTH Output
+          </button>
+          <button id="view-dossier" class="btn-primary">
+            <span>📊</span> View Full Dossier
+          </button>
+        </div>
+      </div>
+
+      <!-- Locked View (for expired trials) -->
+      <div id="locked-section" class="section hidden">
+        <div class="locked-content">
+          <div class="lock-icon">🔒</div>
+          <h3>Trial Expired</h3>
+          <p>Unlock ranking windows to continue evaluating:</p>
+          <div class="pass-options">
+            <button class="pass-btn" data-pass="7d">7 Day Pass</button>
+            <button class="pass-btn" data-pass="30d">30 Day Pass</button>
+            <button class="pass-btn" data-pass="60d">60 Day Pass</button>
+            <button class="pass-btn" data-pass="90d">90 Day Pass</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <span class="powered-by">SYNTH Board (proprietary multi-judge frontier evaluation)</span>
+        <a href="https://bevalid.app/synth" target="_blank">bevalid.app</a>
+      </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+      <div class="loading-spinner"></div>
+      <span class="loading-text">Evaluating...</span>
+    </div>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

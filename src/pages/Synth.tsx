@@ -178,16 +178,10 @@ const Synth = () => {
           <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => {
-                  if (window.history.length > 1) {
-                    navigate(-1);
-                  } else {
-                    navigate('/');
-                  }
-                }}
-                className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition"
+                onClick={() => navigate('/')}
+                className="p-2 rounded-full bg-cyan-500/10 border border-cyan-500/40 hover:bg-cyan-500/20 transition shadow-[0_0_15px_rgba(0,212,255,0.4)] hover:shadow-[0_0_25px_rgba(0,212,255,0.6)]"
               >
-                <ArrowLeft className="w-5 h-5 text-gray-300" />
+                <ArrowLeft className="w-5 h-5 text-cyan-400" />
               </button>
               <div>
                 <h1 className="text-xl font-bold synth-neon-blue">

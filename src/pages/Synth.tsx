@@ -153,7 +153,7 @@ const Synth = () => {
   return (
     <>
       <Helmet>
-        <title>SYNTH™ - The Digital Auditor | Valid™</title>
+        <title>SYNTH™ - Neural Oversight Engine | Valid™</title>
         <meta name="description" content="Enterprise AI Logic Flight Recorder & Consensus Engine. Intercepts risk before an answer is released." />
       </Helmet>
 
@@ -191,9 +191,9 @@ const Synth = () => {
               </button>
               <div>
                 <h1 className="text-xl font-bold synth-neon-blue">
-                  SYNTH™ — The Digital Auditor
+                  SYNTH™ — Neural Oversight Engine
                 </h1>
-                <p className="text-gray-400 text-xs tracking-wide">Enterprise AI Logic Flight Recorder & Consensus Engine</p>
+                <p className="text-gray-400 text-xs tracking-wide">Agentic AI Governance & Consensus Architecture</p>
               </div>
             </div>
             
@@ -216,10 +216,10 @@ const Synth = () => {
             </div>
             
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              SYNTH™ — The Digital Auditor
+              SYNTH™ — Neural Oversight Engine
             </h2>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-              Enterprise AI Logic Flight Recorder & Consensus Engine
+              Agentic AI Governance & Consensus Architecture
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -238,7 +238,7 @@ const Synth = () => {
             </div>
             
             {/* Navigation Buttons */}
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 max-w-5xl mx-auto">
               <Button
                 onClick={() => navigate('/synth/console')}
                 className="synth-btn-primary font-semibold py-6"
@@ -273,6 +273,14 @@ const Synth = () => {
               >
                 <Sparkles className="w-4 h-4 mr-2" />
                 Challenges
+              </Button>
+              <Button
+                onClick={() => navigate('/think-tank')}
+                variant="outline"
+                className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 py-6 bg-transparent"
+              >
+                <Brain className="w-4 h-4 mr-2" />
+                Think Tank
               </Button>
             </div>
           </section>

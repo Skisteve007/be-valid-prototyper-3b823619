@@ -97,6 +97,7 @@ const TransportationPricingModel = lazy(() => import("./pages/TransportationPric
 const SalesTrainingFees = lazy(() => import("./pages/SalesTrainingFees"));
 const RevenueEngine = lazy(() => import("./pages/RevenueEngine"));
 const PilotReadiness = lazy(() => import("./pages/PilotReadiness"));
+const ThinkTank = lazy(() => import("./pages/ThinkTank"));
 
 const queryClient = new QueryClient();
 
@@ -234,6 +235,7 @@ const App = () => (
                   <Route path="/sales/fee-comparison" element={<SalesTrainingFees />} />
                   <Route path="/sales/revenue-engine" element={<RevenueEngine />} />
                   <Route path="/sales/pilot-readiness" element={<PilotReadiness />} />
+                  <Route path="/think-tank" element={<ThinkTank />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

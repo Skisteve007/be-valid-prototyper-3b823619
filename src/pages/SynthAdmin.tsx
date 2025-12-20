@@ -165,7 +165,7 @@ const SynthAdmin = () => {
     <>
       <Helmet>
         <title>SYNTH™ Admin Console | Valid™</title>
-        <meta name="description" content="SYNTH™ Administration Console - View audit logs, manage policies, and monitor AI safety." />
+        <meta name="description" content="SYNTH™ Neural Oversight Engine - View audit logs, manage policies, and monitor AI governance." />
       </Helmet>
 
       <div className="min-h-screen bg-background text-foreground">
@@ -193,9 +193,9 @@ const SynthAdmin = () => {
               </button>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  SYNTH™ Admin Console
+                  SYNTH™ Neural Oversight Console
                 </h1>
-                <p className="text-muted-foreground text-xs">Flight Recorder & Policy Management</p>
+                <p className="text-muted-foreground text-xs">AI Governance Flight Recorder & Policy Management</p>
               </div>
             </div>
             

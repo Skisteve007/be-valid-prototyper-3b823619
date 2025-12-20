@@ -37,6 +37,7 @@ import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
 import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import ThinkTankManager from "@/components/admin/ThinkTankManager";
+import { SynthAdminTab } from "@/components/admin/SynthAdminTab";
 import {
   DndContext,
   closestCenter,
@@ -1025,6 +1026,10 @@ const Admin = () => {
           
           <TabsContent value="webhooks">
             <WebhookEventsViewer />
+          </TabsContent>
+
+          <TabsContent value="synth">
+            <SynthAdminTab />
           </TabsContent>
           
           <TabsContent value="think-tank">

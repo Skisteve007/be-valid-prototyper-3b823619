@@ -77,6 +77,7 @@ const SynthAccepted = lazy(() => import("./pages/SynthAccepted"));
 const SynthLocked = lazy(() => import("./pages/SynthLocked"));
 const SynthDossier = lazy(() => import("./pages/SynthDossier"));
 const SynthIntake = lazy(() => import("./pages/SynthIntake"));
+const SynthE2ETest = lazy(() => import("./pages/SynthE2ETest"));
 const SystemAudit = lazy(() => import("./pages/SystemAudit"));
 const Scanner = lazy(() => import("./pages/Scanner"));
 const ManagerQuickstart = lazy(() => import("./pages/ManagerQuickstart"));
@@ -159,6 +160,7 @@ const App = () => (
                   <Route path="/synth/locked" element={<SynthLocked />} />
                   <Route path="/synth/dossier" element={<SynthDossier />} />
                   <Route path="/synth/intake" element={<SynthIntake />} />
+                  <Route path="/synth/e2e-test" element={<SynthE2ETest />} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

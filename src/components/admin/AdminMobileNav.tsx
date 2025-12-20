@@ -18,6 +18,7 @@ import {
   BarChart3,
   Lock,
   Webhook,
+  Bot,
   Brain
 } from "lucide-react";
 
@@ -43,6 +44,7 @@ const navItems = [
   { id: "traffic", label: "Traffic Analytics", icon: BarChart3 },
   { id: "pricing", label: "Pricing & Contracts", icon: DollarSign },
   { id: "webhooks", label: "Webhooks", icon: Webhook },
+  { id: "synth", label: "SYNTH™", icon: Bot },
   { id: "think-tank", label: "Think Tank", icon: Brain },
 ];
 

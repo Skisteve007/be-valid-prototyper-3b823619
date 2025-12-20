@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, Home, Brain, Shield, AlertTriangle, CheckCircle, XCircle, 
   UserCheck, Clock, Filter, RefreshCw, Settings, ChevronDown, ChevronRight,
-  BarChart3, FileText, Sliders
+  BarChart3, FileText, Sliders, Lightbulb
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import ThinkTankManager from '@/components/admin/ThinkTankManager';
 
 interface AuditLog {
   id: string;
@@ -226,6 +227,10 @@ const SynthAdmin = () => {
               <TabsTrigger value="policies" className="data-[state=active]:bg-blue-500/20">
                 <Sliders className="w-4 h-4 mr-2" />
                 Policies
+              </TabsTrigger>
+              <TabsTrigger value="think-tank" className="data-[state=active]:bg-cyan-500/20">
+                <Lightbulb className="w-4 h-4 mr-2" />
+                Think Tank
               </TabsTrigger>
             </TabsList>
 
@@ -495,6 +500,11 @@ const SynthAdmin = () => {
                   </div>
                 )}
               </div>
+            </TabsContent>
+
+            {/* Think Tank Tab */}
+            <TabsContent value="think-tank" className="space-y-6">
+              <ThinkTankManager />
             </TabsContent>
           </Tabs>
         </main>

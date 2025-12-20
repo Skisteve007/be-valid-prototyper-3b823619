@@ -1898,6 +1898,16 @@ export type Database = {
           status_expiry: string | null
           std_acknowledgment: string | null
           std_acknowledgment_locked: boolean | null
+          synth_accepted_at: string | null
+          synth_age_range: string | null
+          synth_codename: string | null
+          synth_consent_analytics: boolean | null
+          synth_consent_scoring: boolean | null
+          synth_display_name: string | null
+          synth_domain_interest: string | null
+          synth_intake_completed_at: string | null
+          synth_leaderboard_visibility: string | null
+          synth_primary_goal: string | null
           tiktok_handle: string | null
           twitter_handle: string | null
           updated_at: string
@@ -1976,6 +1986,16 @@ export type Database = {
           status_expiry?: string | null
           std_acknowledgment?: string | null
           std_acknowledgment_locked?: boolean | null
+          synth_accepted_at?: string | null
+          synth_age_range?: string | null
+          synth_codename?: string | null
+          synth_consent_analytics?: boolean | null
+          synth_consent_scoring?: boolean | null
+          synth_display_name?: string | null
+          synth_domain_interest?: string | null
+          synth_intake_completed_at?: string | null
+          synth_leaderboard_visibility?: string | null
+          synth_primary_goal?: string | null
           tiktok_handle?: string | null
           twitter_handle?: string | null
           updated_at?: string
@@ -2054,6 +2074,16 @@ export type Database = {
           status_expiry?: string | null
           std_acknowledgment?: string | null
           std_acknowledgment_locked?: boolean | null
+          synth_accepted_at?: string | null
+          synth_age_range?: string | null
+          synth_codename?: string | null
+          synth_consent_analytics?: boolean | null
+          synth_consent_scoring?: boolean | null
+          synth_display_name?: string | null
+          synth_domain_interest?: string | null
+          synth_intake_completed_at?: string | null
+          synth_leaderboard_visibility?: string | null
+          synth_primary_goal?: string | null
           tiktok_handle?: string | null
           twitter_handle?: string | null
           updated_at?: string
@@ -2770,6 +2800,45 @@ export type Database = {
         }
         Relationships: []
       }
+      synth_entitlements: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          is_active: boolean | null
+          plan: string
+          runs_remaining: number | null
+          stripe_payment_intent: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          is_active?: boolean | null
+          plan: string
+          runs_remaining?: number | null
+          stripe_payment_intent?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          is_active?: boolean | null
+          plan?: string
+          runs_remaining?: number | null
+          stripe_payment_intent?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       synth_events: {
         Row: {
           answer_hash: string | null
@@ -2880,6 +2949,107 @@ export type Database = {
         }
         Relationships: []
       }
+      synth_runs: {
+        Row: {
+          adaptation_score: number | null
+          board_profile_id: string
+          client_meta: Json | null
+          coherence_score: number | null
+          constraint_discipline_score: number | null
+          created_at: string
+          final_output: string | null
+          id: string
+          input_hash: string
+          input_length: number
+          integrity_flags: string[] | null
+          integrity_score: number | null
+          omission_resistance_score: number | null
+          percentile: number
+          policy_version_id: string
+          processing_time_ms: number | null
+          ranking_window: string
+          reason_codes: string[] | null
+          session_id: string | null
+          source_hostname: string | null
+          source_type: string
+          source_url: string | null
+          synth_index: number
+          template_category: string | null
+          template_id: string
+          tier: string
+          user_id: string
+          verification_score: number | null
+        }
+        Insert: {
+          adaptation_score?: number | null
+          board_profile_id?: string
+          client_meta?: Json | null
+          coherence_score?: number | null
+          constraint_discipline_score?: number | null
+          created_at?: string
+          final_output?: string | null
+          id?: string
+          input_hash: string
+          input_length: number
+          integrity_flags?: string[] | null
+          integrity_score?: number | null
+          omission_resistance_score?: number | null
+          percentile: number
+          policy_version_id?: string
+          processing_time_ms?: number | null
+          ranking_window: string
+          reason_codes?: string[] | null
+          session_id?: string | null
+          source_hostname?: string | null
+          source_type?: string
+          source_url?: string | null
+          synth_index: number
+          template_category?: string | null
+          template_id: string
+          tier: string
+          user_id: string
+          verification_score?: number | null
+        }
+        Update: {
+          adaptation_score?: number | null
+          board_profile_id?: string
+          client_meta?: Json | null
+          coherence_score?: number | null
+          constraint_discipline_score?: number | null
+          created_at?: string
+          final_output?: string | null
+          id?: string
+          input_hash?: string
+          input_length?: number
+          integrity_flags?: string[] | null
+          integrity_score?: number | null
+          omission_resistance_score?: number | null
+          percentile?: number
+          policy_version_id?: string
+          processing_time_ms?: number | null
+          ranking_window?: string
+          reason_codes?: string[] | null
+          session_id?: string | null
+          source_hostname?: string | null
+          source_type?: string
+          source_url?: string | null
+          synth_index?: number
+          template_category?: string | null
+          template_id?: string
+          tier?: string
+          user_id?: string
+          verification_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "synth_runs_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "synth_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       synth_sessions: {
         Row: {
           created_at: string
@@ -2913,6 +3083,45 @@ export type Database = {
           started_at?: string
           user_hash?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      synth_templates: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          non_negotiables: Json | null
+          rubric: Json
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description?: string | null
+          id: string
+          is_active?: boolean | null
+          name: string
+          non_negotiables?: Json | null
+          rubric?: Json
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          non_negotiables?: Json | null
+          rubric?: Json
+          sort_order?: number | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -4179,7 +4388,33 @@ export type Database = {
         }
         Returns: boolean
       }
+      decrement_synth_trial_run: {
+        Args: { p_entitlement_id: string }
+        Returns: boolean
+      }
       generate_member_id: { Args: never; Returns: string }
+      generate_synth_codename: { Args: { p_tier?: string }; Returns: string }
+      get_or_create_synth_entitlement: {
+        Args: { p_user_id: string }
+        Returns: {
+          created_at: string
+          expires_at: string
+          id: string
+          is_active: boolean | null
+          plan: string
+          runs_remaining: number | null
+          stripe_payment_intent: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "synth_entitlements"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       get_or_create_synth_session: {
         Args: {
           p_source?: Database["public"]["Enums"]["synth_event_source"]

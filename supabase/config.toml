@@ -116,3 +116,15 @@ verify_jwt = true
 
 [functions.create-topup-payment-intent]
 verify_jwt = true
+
+[functions.synth-run]
+verify_jwt = true
+
+[functions.synth-check-entitlement]
+verify_jwt = true
+
+[functions.synth-intake]
+verify_jwt = true
+
+[functions.synth-dossier]
+verify_jwt = true

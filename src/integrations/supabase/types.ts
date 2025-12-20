@@ -1900,14 +1900,28 @@ export type Database = {
           std_acknowledgment_locked: boolean | null
           synth_accepted_at: string | null
           synth_age_range: string | null
+          synth_avatar_class_id: string | null
+          synth_avatar_color: string | null
+          synth_city: string | null
           synth_codename: string | null
           synth_consent_analytics: boolean | null
           synth_consent_scoring: boolean | null
+          synth_country: string | null
           synth_display_name: string | null
           synth_domain_interest: string | null
+          synth_experience_level: string | null
+          synth_gender: string | null
+          synth_gender_self_describe: string | null
           synth_intake_completed_at: string | null
+          synth_intake_started_at: string | null
           synth_leaderboard_visibility: string | null
+          synth_llm_experience_level: string | null
+          synth_primary_assistant: string | null
+          synth_primary_assistant_other: string | null
           synth_primary_goal: string | null
+          synth_state_region: string | null
+          synth_usage_frequency: string | null
+          synth_use_cases: string[] | null
           tiktok_handle: string | null
           twitter_handle: string | null
           updated_at: string
@@ -1988,14 +2002,28 @@ export type Database = {
           std_acknowledgment_locked?: boolean | null
           synth_accepted_at?: string | null
           synth_age_range?: string | null
+          synth_avatar_class_id?: string | null
+          synth_avatar_color?: string | null
+          synth_city?: string | null
           synth_codename?: string | null
           synth_consent_analytics?: boolean | null
           synth_consent_scoring?: boolean | null
+          synth_country?: string | null
           synth_display_name?: string | null
           synth_domain_interest?: string | null
+          synth_experience_level?: string | null
+          synth_gender?: string | null
+          synth_gender_self_describe?: string | null
           synth_intake_completed_at?: string | null
+          synth_intake_started_at?: string | null
           synth_leaderboard_visibility?: string | null
+          synth_llm_experience_level?: string | null
+          synth_primary_assistant?: string | null
+          synth_primary_assistant_other?: string | null
           synth_primary_goal?: string | null
+          synth_state_region?: string | null
+          synth_usage_frequency?: string | null
+          synth_use_cases?: string[] | null
           tiktok_handle?: string | null
           twitter_handle?: string | null
           updated_at?: string
@@ -2076,14 +2104,28 @@ export type Database = {
           std_acknowledgment_locked?: boolean | null
           synth_accepted_at?: string | null
           synth_age_range?: string | null
+          synth_avatar_class_id?: string | null
+          synth_avatar_color?: string | null
+          synth_city?: string | null
           synth_codename?: string | null
           synth_consent_analytics?: boolean | null
           synth_consent_scoring?: boolean | null
+          synth_country?: string | null
           synth_display_name?: string | null
           synth_domain_interest?: string | null
+          synth_experience_level?: string | null
+          synth_gender?: string | null
+          synth_gender_self_describe?: string | null
           synth_intake_completed_at?: string | null
+          synth_intake_started_at?: string | null
           synth_leaderboard_visibility?: string | null
+          synth_llm_experience_level?: string | null
+          synth_primary_assistant?: string | null
+          synth_primary_assistant_other?: string | null
           synth_primary_goal?: string | null
+          synth_state_region?: string | null
+          synth_usage_frequency?: string | null
+          synth_use_cases?: string[] | null
           tiktok_handle?: string | null
           twitter_handle?: string | null
           updated_at?: string

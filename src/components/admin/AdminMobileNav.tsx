@@ -1,13 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { 
   Menu, 
-  X, 
   Users, 
   FlaskConical, 
   Code, 
-  Mail, 
   Globe, 
   DollarSign,
   Zap,
@@ -19,12 +18,13 @@ import {
   Lock,
   Webhook,
   Bot,
-  Brain
+  FileText
 } from "lucide-react";
 
 interface AdminMobileNavProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  canAccessDealRoom?: boolean;
 }
 
 const navItems = [
@@ -32,7 +32,7 @@ const navItems = [
   { id: "sponsors", label: "Sponsor Management", icon: Shield },
   { id: "lab-integrations", label: "Lab Integrations", icon: FlaskConical },
   { id: "developers", label: "Developers", icon: Code },
-  { id: "campaigns", label: "Campaigns", icon: Mail },
+  { id: "campaigns", label: "Campaigns", icon: Globe },
   { id: "venues", label: "Venue Directory", icon: Globe },
   { id: "sales-team", label: "Sales Team", icon: DollarSign },
   { id: "lead-outreach", label: "Lead Outreach", icon: Target },
@@ -47,8 +47,9 @@ const navItems = [
   { id: "synth", label: "SYNTH™", icon: Bot },
 ];
 
-export const AdminMobileNav = ({ activeTab, onTabChange }: AdminMobileNavProps) => {
+export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom }: AdminMobileNavProps) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleTabSelect = (tabId: string) => {
     onTabChange(tabId);
@@ -81,6 +82,20 @@ export const AdminMobileNav = ({ activeTab, onTabChange }: AdminMobileNavProps) 
             </SheetTitle>
           </SheetHeader>
           <nav className="p-2">
+            {/* Deal Room - Only for authorized users */}
+            {canAccessDealRoom && (
+              <button
+                onClick={() => {
+                  navigate("/admin/deal-room");
+                  setOpen(false);
+                }}
+                className="w-full flex items-center gap-3 px-4 py-4 rounded-lg text-left transition-colors mb-1 hover:bg-muted text-amber-400 border border-amber-500/30"
+              >
+                <FileText className="h-5 w-5 text-amber-400" />
+                <span className="text-base font-medium">Deal Room</span>
+              </button>
+            )}
+            
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;

@@ -45,7 +45,6 @@ const navItems = [
   { id: "pricing", label: "Pricing & Contracts", icon: DollarSign },
   { id: "webhooks", label: "Webhooks", icon: Webhook },
   { id: "synth", label: "SYNTH™", icon: Bot },
-  { id: "think-tank", label: "Think Tank", icon: Brain },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange }: AdminMobileNavProps) => {

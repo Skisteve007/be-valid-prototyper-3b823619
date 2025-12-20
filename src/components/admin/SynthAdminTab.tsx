@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, BookOpen, Bot, ScrollText, Settings2 } from "lucide-react";
+import { ArrowRight, BookOpen, Bot, Brain, ScrollText, Settings2 } from "lucide-react";
 
 export function SynthAdminTab() {
   const navigate = useNavigate();
@@ -46,6 +46,11 @@ export function SynthAdminTab() {
             <Button variant="outline" onClick={() => navigate("/synth/docs")} className="justify-between">
               Docs
               <BookOpen className="h-4 w-4" />
+            </Button>
+
+            <Button variant="outline" onClick={() => navigate("/synth/admin")} className="justify-between sm:col-span-2">
+              Think Tank
+              <Brain className="h-4 w-4" />
             </Button>
           </div>
 

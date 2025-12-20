@@ -105,7 +105,7 @@ function sanitizePrompt(prompt: string): {
 // Call AI model with specific role
 async function callAgent(
   apiKey: string, 
-  role: 'skeptic' | 'optimist' | 'factchecker',
+  role: 'skeptic' | 'optimist' | 'factchecker' | 'realist',
   prompt: string
 ): Promise<string> {
   const systemPrompts: Record<string, string> = {
@@ -128,6 +128,14 @@ Respond in JSON format: { "answer": "your helpful response", "disclaimers": ["if
 - Assess which claims can be verified vs unverifiable
 - Flag any contradictions or inconsistencies
 Respond in JSON format: { "claims": [{"claim": "...", "status": "SUPPORTED" | "UNVERIFIED" | "CONTRADICTED", "notes": "..."}] }`,
+
+    realist: `You are GROK, the REALIST agent in the Senate. Your goal is to:
+- Identify bias, unnecessary censorship, or "sanitized" logic in the other agents' responses
+- Value raw, objective truth over politeness
+- Call out when other agents are sugar-coating the answer or being evasive
+- Represent the "Free Speech / Raw Truth" vote in the debate
+- Be direct and unfiltered while remaining factually accurate
+Respond in JSON format: { "bias_detected": ["list any biases found"], "censorship_flags": ["any unnecessary filtering"], "raw_assessment": "your unfiltered take", "truth_score": 0.0-1.0 }`,
   };
 
   try {
@@ -159,41 +167,47 @@ Respond in JSON format: { "claims": [{"claim": "...", "status": "SUPPORTED" | "U
   }
 }
 
-// Step D: Judge the debate
+// Step D: Judge the debate (4-Agent Senate)
 async function runJudge(
   apiKey: string,
   prompt: string,
   skepticOutput: string,
   optimistOutput: string,
-  factcheckerOutput: string
+  factcheckerOutput: string,
+  realistOutput: string
 ): Promise<{
   decision: string;
   coherenceScore: number;
   contradictions: string[];
   finalAnswer: string;
+  realistInsights: string[];
 }> {
-  const judgePrompt = `You are the SUPREME COURT JUDGE in a multi-model AI governance system.
+  const judgePrompt = `You are the SUPREME COURT JUDGE in a 4-agent AI governance system (The Senate).
 
-You have received outputs from three agents debating this request:
+You have received outputs from FOUR agents debating this request:
 "${prompt}"
 
-SKEPTIC says: ${skepticOutput}
+🔴 SKEPTIC (The Prosecutor) says: ${skepticOutput}
 
-OPTIMIST says: ${optimistOutput}
+🟢 OPTIMIST (The Defender) says: ${optimistOutput}
 
-FACT-CHECKER says: ${factcheckerOutput}
+🔵 FACT-CHECKER (The Witness) says: ${factcheckerOutput}
+
+⚡ REALIST (The Unfiltered Voice - Grok) says: ${realistOutput}
 
 Your job:
 1. Detect any contradictions between agents
-2. Calculate a coherence score (0.0-1.0) based on how much the agents agree
-3. Decide whether to RELEASE the optimist's answer or declare MISTRIAL
-4. If releasing, provide the final safe answer
+2. Consider the Realist's bias/censorship flags - if the other agents are sanitizing too much
+3. Calculate a coherence score (0.0-1.0) based on how much the agents agree
+4. Decide whether to RELEASE the optimist's answer or declare MISTRIAL
+5. If releasing, provide the final answer (incorporate Realist insights where valid)
 
 Respond in JSON format:
 {
   "decision": "RELEASE" | "MISTRIAL",
   "coherence_score": 0.0-1.0,
   "contradictions": ["any contradictions found"],
+  "realist_insights": ["valid points from the Realist to incorporate"],
   "reasoning": "why you made this decision",
   "final_answer": "the safe answer to release, or explanation if MISTRIAL"
 }`;
@@ -221,6 +235,7 @@ Respond in JSON format:
         coherenceScore: 0,
         contradictions: ["Judge failed to respond"],
         finalAnswer: "Unable to process request due to internal error.",
+        realistInsights: [],
       };
     }
 
@@ -236,6 +251,7 @@ Respond in JSON format:
         coherenceScore: parsed.coherence_score || 0,
         contradictions: parsed.contradictions || [],
         finalAnswer: parsed.final_answer || "Unable to provide answer.",
+        realistInsights: parsed.realist_insights || [],
       };
     }
     
@@ -244,6 +260,7 @@ Respond in JSON format:
       coherenceScore: 0,
       contradictions: ["Could not parse judge output"],
       finalAnswer: content,
+      realistInsights: [],
     };
   } catch (error) {
     console.error("Judge exception:", error);
@@ -252,6 +269,7 @@ Respond in JSON format:
       coherenceScore: 0,
       contradictions: [String(error)],
       finalAnswer: "System error occurred.",
+      realistInsights: [],
     };
   }
 }
@@ -323,26 +341,29 @@ serve(async (req) => {
     const sanitization = sanitizePrompt(prompt);
     console.log(`[${requestId}] Sanitization complete. Entities redacted: ${sanitization.entitiesRedacted}`);
 
-    // Step C: Debate (parallel agent calls)
-    console.log(`[${requestId}] Starting multi-agent debate...`);
-    const [skepticRaw, optimistRaw, factcheckerRaw] = await Promise.all([
+    // Step C: Debate (parallel 4-agent Senate calls)
+    console.log(`[${requestId}] Starting 4-agent Senate debate...`);
+    const [skepticRaw, optimistRaw, factcheckerRaw, realistRaw] = await Promise.all([
       callAgent(LOVABLE_API_KEY, "skeptic", sanitization.sanitized),
       callAgent(LOVABLE_API_KEY, "optimist", sanitization.sanitized),
       callAgent(LOVABLE_API_KEY, "factchecker", sanitization.sanitized),
+      callAgent(LOVABLE_API_KEY, "realist", sanitization.sanitized),
     ]);
 
     const skeptic = parseAgentOutput(skepticRaw);
     const optimist = parseAgentOutput(optimistRaw);
     const factchecker = parseAgentOutput(factcheckerRaw);
+    const realist = parseAgentOutput(realistRaw);
 
-    // Step D: Judge
-    console.log(`[${requestId}] Running judge...`);
+    // Step D: Judge (4-Agent Senate)
+    console.log(`[${requestId}] Running Supreme Court Judge on 4-agent Senate...`);
     const judgeResult = await runJudge(
       LOVABLE_API_KEY,
       sanitization.sanitized,
       skepticRaw,
       optimistRaw,
-      factcheckerRaw
+      factcheckerRaw,
+      realistRaw
     );
 
     // Step E: Verification Gate
@@ -388,7 +409,7 @@ serve(async (req) => {
           phi_detected: sanitization.phiDetected,
           entities_redacted: sanitization.entitiesRedacted,
         },
-        agent_outputs: { skeptic, optimist, factchecker },
+        agent_outputs: { skeptic, optimist, factchecker, realist },
         judge_output: judgeResult,
         verification_results: { claims, verification_score: verificationScore },
         outcome: decision,

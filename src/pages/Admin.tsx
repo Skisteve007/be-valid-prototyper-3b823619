@@ -1031,10 +1031,6 @@ const Admin = () => {
           <TabsContent value="synth">
             <SynthAdminTab />
           </TabsContent>
-          
-          <TabsContent value="think-tank">
-            <ThinkTankManager />
-          </TabsContent>
         </Tabs>
       </main>
     </div>

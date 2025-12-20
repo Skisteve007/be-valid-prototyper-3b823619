@@ -281,13 +281,13 @@ export function CampaignsTab() {
             }`}
           >
             <CardHeader>
-              <div className="flex items-start justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div className="flex-1">
                   <CardTitle className="text-xl flex items-center gap-2">
                     <Mail className="h-5 w-5 text-primary" />
                     {template.campaign_name}
                   </CardTitle>
-                  <CardDescription className="mt-2 flex items-center gap-4">
+                  <CardDescription className="mt-2 flex flex-wrap items-center gap-2 sm:gap-4">
                     <span className="flex items-center gap-1">
                       <Users className="h-4 w-4" />
                       Target: {template.target_segment}
@@ -298,12 +298,12 @@ export function CampaignsTab() {
                     </span>
                   </CardDescription>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 w-full sm:w-auto">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => handleEdit(template)}
-                    className="gap-2"
+                    className="gap-2 flex-1 sm:flex-initial"
                   >
                     <Edit className="h-4 w-4" />
                     Edit
@@ -311,7 +311,7 @@ export function CampaignsTab() {
                   <Button
                     size="sm"
                     onClick={() => handleSendBlast(template)}
-                    className="bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 gap-2"
+                    className="bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-700 hover:to-pink-700 gap-2 flex-1 sm:flex-initial"
                   >
                     <Send className="h-4 w-4" />
                     Send Blast

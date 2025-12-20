@@ -153,7 +153,7 @@ const Synth = () => {
   return (
     <>
       <Helmet>
-        <title>SYNTH™ - Neural Oversight Engine | Valid™</title>
+        <title>SYNTH™ - Neural Oversight Nexus | Valid™</title>
         <meta name="description" content="Enterprise AI Logic Flight Recorder & Consensus Engine. Intercepts risk before an answer is released." />
       </Helmet>
 
@@ -185,7 +185,7 @@ const Synth = () => {
               </button>
               <div>
                 <h1 className="text-xl font-bold synth-neon-blue">
-                  SYNTH™ — Neural Oversight Engine
+                  SYNTH™ — Neural Oversight Nexus
                 </h1>
                 <p className="text-gray-400 text-xs tracking-wide">Agentic AI Governance & Consensus Architecture</p>
               </div>
@@ -210,7 +210,7 @@ const Synth = () => {
             </div>
             
             <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              SYNTH™ — Neural Oversight Engine
+              SYNTH™ — Neural Oversight Nexus
             </h2>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
               Agentic AI Governance & Consensus Architecture

@@ -73,6 +73,9 @@ const SynthDocs = lazy(() => import("./pages/SynthDocs"));
 const SynthPolicies = lazy(() => import("./pages/SynthPolicies"));
 const SynthMethodology = lazy(() => import("./pages/SynthMethodology"));
 const SynthChallenges = lazy(() => import("./pages/SynthChallenges"));
+const SynthAccepted = lazy(() => import("./pages/SynthAccepted"));
+const SynthLocked = lazy(() => import("./pages/SynthLocked"));
+const SynthDossier = lazy(() => import("./pages/SynthDossier"));
 const SystemAudit = lazy(() => import("./pages/SystemAudit"));
 const Scanner = lazy(() => import("./pages/Scanner"));
 const ManagerQuickstart = lazy(() => import("./pages/ManagerQuickstart"));
@@ -150,6 +153,10 @@ const App = () => (
                   <Route path="/synth/docs" element={<SynthDocs />} />
                   <Route path="/synth/policies" element={<SynthPolicies />} />
                   <Route path="/synth/methodology" element={<SynthMethodology />} />
+                  <Route path="/synth/challenges" element={<SynthChallenges />} />
+                  <Route path="/synth/accepted" element={<SynthAccepted />} />
+                  <Route path="/synth/locked" element={<SynthLocked />} />
+                  <Route path="/synth/dossier" element={<SynthDossier />} />
                   <Route path="/synth/challenges" element={<SynthChallenges />} />
                   
                   {/* DOCUMENTATION ROUTES */}

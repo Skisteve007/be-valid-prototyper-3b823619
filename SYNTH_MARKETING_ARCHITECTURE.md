@@ -23,13 +23,14 @@ A "Digital Supreme Court" that runs in your browser.
 ## 2. THE ARCHITECTURE (How We Explain It)
 
 ### The Senate
-We do not trust one model. We force 3 agents to fight:
+We do not trust one model. We force 4 agents to fight:
 
 | Agent | Role | Function |
 |-------|------|----------|
 | 🔴 **The Skeptic** | Prosecutor | Attacks the answer - finds flaws, risks, inaccuracies |
 | 🟢 **The Optimist** | Defender | Defends the answer - provides helpful, compliant responses |
 | 🔵 **The Fact-Checker** | Witness | Verifies the data - confirms factual accuracy |
+| ⚡ **The Realist** | Unfiltered Voice | Calls out bias, censorship, and sugar-coated logic |
 
 ### The Judge
 - **If they disagree** → `MISTRIAL` (Safety Block)
@@ -37,16 +38,16 @@ We do not trust one model. We force 3 agents to fight:
 
 ### Visual Flow
 ```
-User Input → [SKEPTIC attacks] → [OPTIMIST defends] → [FACT-CHECKER verifies]
-                                      ↓
-                              [JUDGE deliberates]
-                                      ↓
-                    ┌─────────────────┴─────────────────┐
-                    ↓                                   ↓
-              AGREEMENT                            DISAGREEMENT
-                    ↓                                   ↓
-            ✅ CERTIFIED                         🚫 MISTRIAL
-              (Release)                          (Safety Block)
+User Input → [SKEPTIC attacks] → [OPTIMIST defends] → [FACT-CHECKER verifies] → [REALIST audits for bias]
+                                                  ↓
+                                          [JUDGE deliberates]
+                                                  ↓
+                              ┌───────────────────┴───────────────────┐
+                              ↓                                       ↓
+                        AGREEMENT                                DISAGREEMENT
+                              ↓                                       ↓
+                      ✅ CERTIFIED                              🚫 MISTRIAL
+                        (Release)                               (Safety Block)
 ```
 
 ---
@@ -78,34 +79,36 @@ This is the standard for **"Liability-Free AI"** in high-risk industries.
 
 ## 5. KEY DIFFERENTIATORS
 
-1. **Multi-Agent Debate** - Not one AI, but a tribunal
-2. **Local PII Sanitization** - Data never leaves the browser unprotected
-3. **Audit Trail** - Every decision logged with reasoning
-4. **SYNTH Index** - Quantified reliability score (0-100)
-5. **Tier System** - Trust levels based on historical accuracy
+1. **4-Agent Senate** - Not one AI, but a tribunal of Skeptic, Optimist, Fact-Checker, and Realist
+2. **The Realist (Grok)** - Unfiltered bias detection; calls out when AI is sugar-coating
+3. **Local PII Sanitization** - Data never leaves the browser unprotected
+4. **Audit Trail** - Every decision logged with reasoning
+5. **SYNTH Index** - Quantified reliability score (0-100)
+6. **Tier System** - Trust levels based on historical accuracy
 
 ---
 
 ## 6. SALES POSITIONING
 
 ### Elevator Pitch (30 seconds)
-> "SYNTH is a Chrome extension that forces AI to debate itself before answering. Three agents—a Skeptic, an Optimist, and a Fact-Checker—must reach consensus before any output is released. If they disagree, it's a Mistrial. This is how professionals get liability-free AI."
+> "SYNTH is a Chrome extension that forces AI to debate itself before answering. Four agents—a Skeptic, an Optimist, a Fact-Checker, and a Realist—must reach consensus before any output is released. The Realist ensures nothing is sugar-coated. If they disagree, it's a Mistrial. This is how professionals get liability-free AI."
 
 ### Enterprise Pitch (2 minutes)
-> "Your team uses AI daily, but one hallucinated contract clause or fabricated medical reference could cost millions. SYNTH runs a 'Digital Supreme Court' in the browser—three adversarial agents debate every response, a judge calculates a Safety Score, and PII is redacted locally before anything touches the cloud. We're not selling AI. We're selling reliability engineering for AI."
+> "Your team uses AI daily, but one hallucinated contract clause or fabricated medical reference could cost millions. SYNTH runs a 'Digital Supreme Court' in the browser—four adversarial agents debate every response (including a Realist that catches bias and censorship), a judge calculates a Safety Score, and PII is redacted locally before anything touches the cloud. We're not selling AI. We're selling reliability engineering for AI."
 
 ---
 
 ## 7. COMPETITIVE MOAT
 
-| Feature | ChatGPT | Claude | Gemini | SYNTH |
-|---------|---------|--------|--------|-------|
-| Single Model Output | ✅ | ✅ | ✅ | ❌ |
-| Multi-Agent Debate | ❌ | ❌ | ❌ | ✅ |
-| Local PII Redaction | ❌ | ❌ | ❌ | ✅ |
-| Safety Score | ❌ | ❌ | ❌ | ✅ |
-| Audit Trail | ❌ | ❌ | ❌ | ✅ |
-| Liability Shield | ❌ | ❌ | ❌ | ✅ |
+| Feature | ChatGPT | Claude | Gemini | Grok | SYNTH |
+|---------|---------|--------|--------|------|-------|
+| Single Model Output | ✅ | ✅ | ✅ | ✅ | ❌ |
+| 4-Agent Senate Debate | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Bias/Censorship Detection | ❌ | ❌ | ❌ | Partial | ✅ |
+| Local PII Redaction | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Safety Score | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Audit Trail | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Liability Shield | ❌ | ❌ | ❌ | ❌ | ✅ |
 
 ---
 
@@ -117,9 +120,10 @@ This is the standard for **"Liability-Free AI"** in high-risk industries.
 ├─────────────────────────────────────────────────────────────┤
 │  1. "AI lies. Professionals can't afford that."             │
 │  2. "We built a Digital Supreme Court."                     │
-│  3. "Three agents debate. One judge decides."               │
-│  4. "Disagreement = Mistrial. Agreement = Certified."       │
-│  5. "Your data stays local. Your liability stays zero."     │
+│  3. "Four agents debate. One judge decides."                │
+│  4. "The Realist catches the BS the others miss."           │
+│  5. "Disagreement = Mistrial. Agreement = Certified."       │
+│  6. "Your data stays local. Your liability stays zero."     │
 └─────────────────────────────────────────────────────────────┘
 ```
 

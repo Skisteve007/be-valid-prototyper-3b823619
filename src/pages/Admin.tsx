@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen, Webhook } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen, Webhook, ArrowLeft } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -568,6 +568,15 @@ const Admin = () => {
             >
               <QrCode className="h-6 w-6" />
             </Button>
+            {/* Back to Dashboard - Mobile */}
+            <Button 
+              variant="outline" 
+              size="icon"
+              className="md:hidden h-12 w-12"
+              onClick={() => navigate("/dashboard")}
+            >
+              <ArrowLeft className="h-6 w-6" />
+            </Button>
             <Button variant="outline" onClick={() => navigate("/dashboard")} className="hidden md:flex">
               Back to Dashboard
             </Button>
@@ -578,7 +587,7 @@ const Admin = () => {
       <main className="container mx-auto px-4 py-4 md:py-8 space-y-4 md:space-y-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Mobile Navigation */}
-          <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} />
+          <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} canAccessDealRoom={!!canAccessDealRoom} />
 
           <div className="md:hidden mt-3 space-y-2">
             <Button

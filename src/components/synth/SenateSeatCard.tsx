@@ -3,9 +3,31 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle, XCircle, AlertTriangle, Clock, Wifi, WifiOff } from 'lucide-react';
 
+// ============================================================
+// BALLOT V1 SCHEMA - Matches backend contract
+// ============================================================
+interface BallotV1Timing {
+  latency_ms: number;
+  started_at?: string;
+  completed_at?: string;
+}
+
+interface BallotV1Usage {
+  input_tokens?: number;
+  output_tokens?: number;
+  total_tokens?: number;
+}
+
+interface BallotV1Error {
+  code: string;
+  message: string;
+}
+
 export interface SeatBallot {
+  ballot_version: "v1";
   seat_id: number;
-  provider: string;
+  seat_name: string;
+  provider: "OpenAI" | "Anthropic" | "Google" | "Meta" | "DeepSeek" | "Mistral" | "xAI";
   model: string;
   status: 'online' | 'offline' | 'timeout' | 'error';
   stance: 'approve' | 'revise' | 'block' | 'abstain';
@@ -15,8 +37,11 @@ export interface SeatBallot {
   key_points: string[];
   counterpoints: string[];
   recommended_edits?: string[];
-  latency_ms?: number;
-  token_usage?: number;
+  citations?: Array<{ title: string; url: string }>;
+  raw_text?: string;
+  timing: BallotV1Timing;
+  usage?: BallotV1Usage;
+  error?: BallotV1Error;
 }
 
 interface SenateSeatCardProps {
@@ -24,14 +49,14 @@ interface SenateSeatCardProps {
   weight: number;
 }
 
-const SEAT_CONFIG: Record<number, { name: string; color: string; icon: string }> = {
-  1: { name: 'OpenAI', color: 'emerald', icon: '🟢' },
-  2: { name: 'Anthropic', color: 'orange', icon: '🟠' },
-  3: { name: 'Google', color: 'blue', icon: '🔵' },
-  4: { name: 'Meta', color: 'indigo', icon: '🟣' },
-  5: { name: 'DeepSeek', color: 'cyan', icon: '🔷' },
-  6: { name: 'Mistral', color: 'amber', icon: '🟡' },
-  7: { name: 'xAI', color: 'red', icon: '🔴' },
+const SEAT_COLORS: Record<string, { icon: string; accent: string }> = {
+  'OpenAI': { icon: '🟢', accent: 'emerald' },
+  'Anthropic': { icon: '🟠', accent: 'orange' },
+  'Google': { icon: '🔵', accent: 'blue' },
+  'Meta': { icon: '🟣', accent: 'indigo' },
+  'DeepSeek': { icon: '🔷', accent: 'cyan' },
+  'Mistral': { icon: '🟡', accent: 'amber' },
+  'xAI': { icon: '🔴', accent: 'red' },
 };
 
 const getStanceIcon = (stance: string) => {
@@ -61,7 +86,7 @@ const getScoreColor = (score: number) => {
 };
 
 export const SenateSeatCard: React.FC<SenateSeatCardProps> = ({ seat, weight }) => {
-  const config = SEAT_CONFIG[seat.seat_id] || { name: 'Unknown', color: 'gray', icon: '⚪' };
+  const colorConfig = SEAT_COLORS[seat.provider] || { icon: '⚪', accent: 'gray' };
   const isOffline = seat.status === 'offline' || seat.status === 'timeout' || seat.status === 'error';
 
   return (
@@ -70,9 +95,9 @@ export const SenateSeatCard: React.FC<SenateSeatCardProps> = ({ seat, weight }) 
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <span className="text-lg">{config.icon}</span>
+            <span className="text-lg">{colorConfig.icon}</span>
             <div>
-              <h4 className="font-semibold text-sm text-white">{config.name}</h4>
+              <h4 className="font-semibold text-sm text-white">{seat.provider}</h4>
               <p className="text-xs text-gray-400">{seat.model}</p>
             </div>
           </div>
@@ -91,10 +116,12 @@ export const SenateSeatCard: React.FC<SenateSeatCardProps> = ({ seat, weight }) 
         {/* Status */}
         {isOffline ? (
           <div className="p-3 rounded-lg bg-gray-800/50 border border-gray-700 text-center">
-            <span className="text-gray-400 text-sm font-medium">
-              {seat.status === 'offline' ? 'Offline' : seat.status === 'timeout' ? 'Timeout' : 'Error'}
+            <span className="text-gray-400 text-sm font-medium uppercase">
+              {seat.status}
             </span>
-            <p className="text-xs text-gray-500 mt-1">No API key configured</p>
+            {seat.error && (
+              <p className="text-xs text-gray-500 mt-1">{seat.error.message}</p>
+            )}
           </div>
         ) : (
           <>
@@ -152,12 +179,17 @@ export const SenateSeatCard: React.FC<SenateSeatCardProps> = ({ seat, weight }) 
               </div>
             )}
 
-            {/* Latency */}
-            {seat.latency_ms && (
-              <p className="text-[10px] text-gray-500 mt-2">
-                {seat.latency_ms}ms
+            {/* Latency & Usage */}
+            <div className="flex justify-between items-center mt-2">
+              <p className="text-[10px] text-gray-500">
+                {seat.timing.latency_ms}ms
               </p>
-            )}
+              {seat.usage?.total_tokens && (
+                <p className="text-[10px] text-gray-500">
+                  {seat.usage.total_tokens} tokens
+                </p>
+              )}
+            </div>
           </>
         )}
       </CardContent>

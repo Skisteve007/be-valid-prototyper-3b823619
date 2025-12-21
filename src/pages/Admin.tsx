@@ -199,6 +199,7 @@ const SortableItem = ({ sponsor, onDelete, onToggleActive, analytics }: {
 };
 
 const DEAL_ROOM_AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com"];
+const SYNTH_AUTHORIZED_EMAILS = ["steve@bevalid.app"];
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -225,6 +226,7 @@ const Admin = () => {
   });
 
   const canAccessDealRoom = userEmail && DEAL_ROOM_AUTHORIZED_EMAILS.includes(userEmail.toLowerCase());
+  const canAccessSynth = userEmail && SYNTH_AUTHORIZED_EMAILS.includes(userEmail.toLowerCase());
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -587,7 +589,7 @@ const Admin = () => {
       <main className="container mx-auto px-4 py-4 md:py-8 space-y-4 md:space-y-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Mobile Navigation */}
-          <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} canAccessDealRoom={!!canAccessDealRoom} />
+          <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} canAccessDealRoom={!!canAccessDealRoom} canAccessSynth={!!canAccessSynth} />
 
           <div className="md:hidden mt-3 space-y-2">
             <Button
@@ -681,6 +683,11 @@ const Admin = () => {
             <TabsTrigger value="think-tank" className="cursor-pointer text-xs px-2 py-2">
               🧠 Think Tank
             </TabsTrigger>
+            {canAccessSynth && (
+              <TabsTrigger value="synth" className="cursor-pointer text-xs px-2 py-2 bg-primary/10 border border-primary/30">
+                🤖 SYNTH™
+              </TabsTrigger>
+            )}
           </TabsList>
           
           <TabsContent value="members" className="space-y-8">

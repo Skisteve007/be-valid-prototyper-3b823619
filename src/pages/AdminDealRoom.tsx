@@ -458,10 +458,6 @@ const AdminDealRoom = () => {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Admin
             </Button>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600/20 to-cyan-500/20 border border-cyan-400/50 shadow-[0_0_15px_rgba(0,200,255,0.3)]">
-              <Shield className="h-5 w-5 text-cyan-300" />
-              <span className="text-cyan-300 font-mono text-sm tracking-wider">RESTRICTED ACCESS</span>
-            </div>
           </div>
           <div className="flex items-center gap-4">
             {/* Top Secret Synth Access - Admin Only */}

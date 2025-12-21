@@ -268,14 +268,6 @@ const Synth = () => {
                 <Sparkles className="w-4 h-4 mr-2" />
                 Challenges
               </Button>
-              <Button
-                onClick={() => navigate('/think-tank')}
-                variant="outline"
-                className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 py-6 bg-transparent"
-              >
-                <Brain className="w-4 h-4 mr-2" />
-                Think Tank
-              </Button>
             </div>
           </section>
 

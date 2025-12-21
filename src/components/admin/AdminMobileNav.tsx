@@ -25,6 +25,7 @@ interface AdminMobileNavProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
   canAccessDealRoom?: boolean;
+  canAccessSynth?: boolean;
 }
 
 const navItems = [
@@ -44,10 +45,9 @@ const navItems = [
   { id: "traffic", label: "Traffic Analytics", icon: BarChart3 },
   { id: "pricing", label: "Pricing & Contracts", icon: DollarSign },
   { id: "webhooks", label: "Webhooks", icon: Webhook },
-  { id: "synth", label: "SYNTH™", icon: Bot },
 ];
 
-export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom }: AdminMobileNavProps) => {
+export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canAccessSynth }: AdminMobileNavProps) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -114,6 +114,21 @@ export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom }: Ad
                 </button>
               );
             })}
+            
+            {/* SYNTH - Only for authorized users */}
+            {canAccessSynth && (
+              <button
+                onClick={() => handleTabSelect("synth")}
+                className={`w-full flex items-center gap-3 px-4 py-4 rounded-lg text-left transition-colors mb-1 border border-primary/30 ${
+                  activeTab === "synth"
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "hover:bg-muted text-foreground"
+                }`}
+              >
+                <Bot className={`h-5 w-5 ${activeTab === "synth" ? "text-primary" : "text-muted-foreground"}`} />
+                <span className="text-base">SYNTH™</span>
+              </button>
+            )}
           </nav>
         </SheetContent>
       </Sheet>

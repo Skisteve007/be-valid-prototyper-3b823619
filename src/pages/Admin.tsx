@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen, Webhook, ArrowLeft } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen, Webhook, ArrowLeft, Send } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -226,7 +226,15 @@ const Admin = () => {
   });
 
   const canAccessDealRoom = userEmail && DEAL_ROOM_AUTHORIZED_EMAILS.includes(userEmail.toLowerCase());
-  const canAccessSynth = userEmail && SYNTH_AUTHORIZED_EMAILS.includes(userEmail.toLowerCase());
+  const canUnlockSynth = userEmail && SYNTH_AUTHORIZED_EMAILS.includes(userEmail.toLowerCase());
+
+  const handleTabChange = (tab: string) => {
+    if (tab === "synth" && !canUnlockSynth) {
+      toast.error("SYNTH™ is locked. Only Steve@bevalid.app can unlock it.");
+      return;
+    }
+    setActiveTab(tab);
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -587,11 +595,22 @@ const Admin = () => {
       </header>
 
       <main className="container mx-auto px-4 py-4 md:py-8 space-y-4 md:space-y-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
           {/* Mobile Navigation */}
-          <AdminMobileNav activeTab={activeTab} onTabChange={setActiveTab} canAccessDealRoom={!!canAccessDealRoom} canAccessSynth={!!canAccessSynth} />
+          <AdminMobileNav activeTab={activeTab} onTabChange={handleTabChange} canAccessDealRoom={!!canAccessDealRoom} canUnlockSynth={!!canUnlockSynth} />
 
           <div className="md:hidden mt-3 space-y-2">
+            <Button
+              variant="outline"
+              className={`w-full justify-center gap-2 border border-primary/30 ${
+                canUnlockSynth ? "bg-primary/10" : "opacity-70"
+              }`}
+              onClick={() => handleTabChange("synth")}
+              title={canUnlockSynth ? "Open SYNTH™" : "Locked: only Steve@bevalid.app can unlock"}
+            >
+              <Send className="h-4 w-4" />
+              SYNTH™{canUnlockSynth ? "" : " (Locked)"}
+            </Button>
             <Button
               variant="outline"
               className="w-full justify-center gap-2 shadow-[0_0_8px_rgba(250,204,21,0.3)] border-yellow-500/30"
@@ -683,11 +702,15 @@ const Admin = () => {
             <TabsTrigger value="think-tank" className="cursor-pointer text-xs px-2 py-2">
               🧠 Think Tank
             </TabsTrigger>
-            {canAccessSynth && (
-              <TabsTrigger value="synth" className="cursor-pointer text-xs px-2 py-2 bg-primary/10 border border-primary/30">
-                🤖 SYNTH™
-              </TabsTrigger>
-            )}
+            <TabsTrigger
+              value="synth"
+              className={`cursor-pointer text-xs px-2 py-2 border border-primary/30 ${
+                canUnlockSynth ? "bg-primary/10" : "opacity-70 cursor-not-allowed"
+              }`}
+              title={canUnlockSynth ? "Open SYNTH™" : "Locked: only Steve@bevalid.app can unlock"}
+            >
+              🤖 SYNTH™{canUnlockSynth ? "" : " (Locked)"}
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="members" className="space-y-8">

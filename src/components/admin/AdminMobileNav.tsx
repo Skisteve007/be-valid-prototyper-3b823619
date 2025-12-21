@@ -17,7 +17,7 @@ import {
   BarChart3,
   Lock,
   Webhook,
-  Bot,
+  Send,
   FileText
 } from "lucide-react";
 
@@ -25,7 +25,7 @@ interface AdminMobileNavProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
   canAccessDealRoom?: boolean;
-  canAccessSynth?: boolean;
+  canUnlockSynth?: boolean;
 }
 
 const navItems = [
@@ -47,7 +47,7 @@ const navItems = [
   { id: "webhooks", label: "Webhooks", icon: Webhook },
 ];
 
-export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canAccessSynth }: AdminMobileNavProps) => {
+export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canUnlockSynth }: AdminMobileNavProps) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -56,7 +56,13 @@ export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canA
     setOpen(false);
   };
 
-  const activeItem = navItems.find(item => item.id === activeTab);
+  const handleSynthSelect = () => {
+    onTabChange("synth");
+    if (canUnlockSynth) setOpen(false);
+  };
+
+  const menuItems = [{ id: "synth", label: "SYNTH™", icon: Send }, ...navItems];
+  const activeItem = menuItems.find((item) => item.id === activeTab);
 
   return (
     <div className="md:hidden">
@@ -82,6 +88,23 @@ export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canA
             </SheetTitle>
           </SheetHeader>
           <nav className="p-2">
+            {/* SYNTH - Visible to admins, but only Steve can unlock */}
+            <button
+              onClick={handleSynthSelect}
+              title={canUnlockSynth ? "Open SYNTH™" : "Locked: only Steve@bevalid.app can unlock"}
+              className={`w-full flex items-center gap-3 px-4 py-4 rounded-lg text-left transition-colors mb-2 border border-primary/30 ${
+                activeTab === "synth"
+                  ? "bg-primary/10 text-primary font-medium"
+                  : "hover:bg-muted text-foreground"
+              } ${canUnlockSynth ? "" : "opacity-70"}`}
+            >
+              <Send className={`h-5 w-5 ${activeTab === "synth" ? "text-primary" : "text-muted-foreground"}`} />
+              <span className="text-base">SYNTH™</span>
+              {!canUnlockSynth && (
+                <span className="ml-auto text-xs text-muted-foreground">Locked</span>
+              )}
+            </button>
+
             {/* Deal Room - Only for authorized users */}
             {canAccessDealRoom && (
               <button
@@ -95,7 +118,7 @@ export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canA
                 <span className="text-base font-medium">Deal Room</span>
               </button>
             )}
-            
+
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -104,8 +127,8 @@ export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canA
                   key={item.id}
                   onClick={() => handleTabSelect(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-4 rounded-lg text-left transition-colors mb-1 ${
-                    isActive 
-                      ? "bg-primary/10 text-primary font-medium" 
+                    isActive
+                      ? "bg-primary/10 text-primary font-medium"
                       : "hover:bg-muted text-foreground"
                   }`}
                 >
@@ -114,21 +137,6 @@ export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canA
                 </button>
               );
             })}
-            
-            {/* SYNTH - Only for authorized users */}
-            {canAccessSynth && (
-              <button
-                onClick={() => handleTabSelect("synth")}
-                className={`w-full flex items-center gap-3 px-4 py-4 rounded-lg text-left transition-colors mb-1 border border-primary/30 ${
-                  activeTab === "synth"
-                    ? "bg-primary/10 text-primary font-medium"
-                    : "hover:bg-muted text-foreground"
-                }`}
-              >
-                <Bot className={`h-5 w-5 ${activeTab === "synth" ? "text-primary" : "text-muted-foreground"}`} />
-                <span className="text-base">SYNTH™</span>
-              </button>
-            )}
           </nav>
         </SheetContent>
       </Sheet>

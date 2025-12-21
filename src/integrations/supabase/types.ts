@@ -3151,6 +3151,7 @@ export type Database = {
           extra_logging: boolean
           id: string
           is_active: boolean
+          notes: string | null
           org_id: string | null
           started_at: string
           step_up_auth: boolean
@@ -3165,6 +3166,7 @@ export type Database = {
           extra_logging?: boolean
           id?: string
           is_active?: boolean
+          notes?: string | null
           org_id?: string | null
           started_at?: string
           step_up_auth?: boolean
@@ -3179,6 +3181,7 @@ export type Database = {
           extra_logging?: boolean
           id?: string
           is_active?: boolean
+          notes?: string | null
           org_id?: string | null
           started_at?: string
           step_up_auth?: boolean
@@ -3299,6 +3302,7 @@ export type Database = {
       }
       synth_security_events: {
         Row: {
+          action_taken: string | null
           created_at: string
           escalation_level: number
           event_type: string
@@ -3310,6 +3314,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          action_taken?: string | null
           created_at?: string
           escalation_level?: number
           event_type: string
@@ -3321,6 +3326,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          action_taken?: string | null
           created_at?: string
           escalation_level?: number
           event_type?: string
@@ -3343,7 +3349,9 @@ export type Database = {
           input_text: string
           judge_output: Json
           participation_summary: Json
+          previous_hash: string | null
           processing_time_ms: number | null
+          record_hash: string | null
           trace_id: string
           user_id: string
           weights_used: Json
@@ -3357,7 +3365,9 @@ export type Database = {
           input_text: string
           judge_output?: Json
           participation_summary?: Json
+          previous_hash?: string | null
           processing_time_ms?: number | null
+          record_hash?: string | null
           trace_id: string
           user_id: string
           weights_used?: Json
@@ -3371,7 +3381,9 @@ export type Database = {
           input_text?: string
           judge_output?: Json
           participation_summary?: Json
+          previous_hash?: string | null
           processing_time_ms?: number | null
+          record_hash?: string | null
           trace_id?: string
           user_id?: string
           weights_used?: Json
@@ -4720,6 +4732,23 @@ export type Database = {
       decrement_synth_trial_run: {
         Args: { p_entitlement_id: string }
         Returns: boolean
+      }
+      detect_session_lock_trigger: {
+        Args: {
+          p_current_readability: number
+          p_current_tokens: number
+          p_language_shift?: boolean
+          p_previous_readability: number
+          p_previous_tokens: number
+          p_session_id: string
+          p_user_id: string
+        }
+        Returns: {
+          action: string
+          escalation_level: number
+          reason_codes: string[]
+          should_escalate: boolean
+        }[]
       }
       generate_member_id: { Args: never; Returns: string }
       generate_synth_codename: { Args: { p_tier?: string }; Returns: string }

@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
-import { Sliders, Save, RotateCcw, Shield, AlertTriangle, User } from 'lucide-react';
+import { Sliders, Save, RotateCcw, Shield, AlertTriangle, User, Loader2 } from 'lucide-react';
 
 interface CalibrationWeights {
   seat_1_weight: number;
@@ -47,8 +47,40 @@ interface CalibrationPanelProps {
 export const CalibrationPanel: React.FC<CalibrationPanelProps> = ({ isEmployer = false }) => {
   const [weights, setWeights] = useState<CalibrationWeights>(DEFAULT_WEIGHTS);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [probationUserId, setProbationUserId] = useState('');
   const [probationEnabled, setProbationEnabled] = useState(false);
+  const [isProbationSaving, setIsProbationSaving] = useState(false);
+
+  useEffect(() => {
+    loadCalibration();
+  }, []);
+
+  const loadCalibration = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('synth-calibration', {
+        method: 'GET'
+      });
+      
+      if (error) throw error;
+      
+      if (data?.calibration) {
+        setWeights({
+          seat_1_weight: data.calibration.seat_1_weight,
+          seat_2_weight: data.calibration.seat_2_weight,
+          seat_3_weight: data.calibration.seat_3_weight,
+          seat_4_weight: data.calibration.seat_4_weight,
+          seat_5_weight: data.calibration.seat_5_weight,
+          seat_6_weight: data.calibration.seat_6_weight,
+          seat_7_weight: data.calibration.seat_7_weight,
+        });
+      }
+    } catch (error) {
+      console.error('Failed to load calibration:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const totalWeight = Object.values(weights).reduce((a, b) => a + b, 0);
   const isValid = totalWeight === 100;
@@ -57,7 +89,6 @@ export const CalibrationPanel: React.FC<CalibrationPanelProps> = ({ isEmployer =
     const newWeights = { ...weights, [seatKey]: value };
     const newTotal = Object.values(newWeights).reduce((a, b) => a + b, 0);
     
-    // Auto-normalize if over 100
     if (newTotal > 100) {
       const diff = newTotal - 100;
       const otherSeats = Object.keys(newWeights).filter(k => k !== seatKey) as (keyof CalibrationWeights)[];
@@ -79,10 +110,12 @@ export const CalibrationPanel: React.FC<CalibrationPanelProps> = ({ isEmployer =
 
     setIsSaving(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Not authenticated');
+      const { error } = await supabase.functions.invoke('synth-calibration', {
+        method: 'PUT',
+        body: weights
+      });
 
-      // This would save to synth_calibration table
+      if (error) throw error;
       toast.success('Calibration saved successfully');
     } catch (error) {
       console.error('Save error:', error);
@@ -103,22 +136,47 @@ export const CalibrationPanel: React.FC<CalibrationPanelProps> = ({ isEmployer =
       return;
     }
 
+    setIsProbationSaving(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
-      // This would insert into synth_probation table
-      toast.success(`30-day probation enabled for user ${probationUserId}`);
+      const { error } = await supabase.from('synth_probation').insert({
+        target_user_id: probationUserId,
+        enabled_by: user.id,
+        started_at: new Date().toISOString(),
+        expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        is_active: true,
+        extra_logging: true,
+        strict_session_lock: true,
+        step_up_auth: false
+      });
+
+      if (error) throw error;
+      toast.success('30-day probation enabled for user');
       setProbationEnabled(true);
+      setProbationUserId('');
     } catch (error) {
       console.error('Probation error:', error);
       toast.error('Failed to enable probation');
+    } finally {
+      setIsProbationSaving(false);
     }
   };
 
+  if (isLoading) {
+    return (
+      <Card className="synth-card border-0">
+        <CardContent className="flex items-center justify-center py-12">
+          <Loader2 className="w-6 h-6 animate-spin text-cyan-400 mr-2" />
+          <span className="text-gray-400">Loading calibration...</span>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <div className="space-y-6">
-      {/* Weighting Sliders */}
       <Card className="synth-card border-0">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-white">
@@ -153,7 +211,6 @@ export const CalibrationPanel: React.FC<CalibrationPanelProps> = ({ isEmployer =
             );
           })}
 
-          {/* Total */}
           <div className="flex items-center justify-between pt-4 border-t border-gray-700">
             <span className="text-gray-300 font-medium">Total</span>
             <Badge className={isValid ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}>
@@ -161,14 +218,17 @@ export const CalibrationPanel: React.FC<CalibrationPanelProps> = ({ isEmployer =
             </Badge>
           </div>
 
-          {/* Actions */}
           <div className="flex gap-3 pt-4">
             <Button
               onClick={handleSave}
               disabled={!isValid || isSaving}
               className="synth-btn-primary flex-1"
             >
-              <Save className="w-4 h-4 mr-2" />
+              {isSaving ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <Save className="w-4 h-4 mr-2" />
+              )}
               {isSaving ? 'Saving...' : 'Save Calibration'}
             </Button>
             <Button
@@ -183,7 +243,6 @@ export const CalibrationPanel: React.FC<CalibrationPanelProps> = ({ isEmployer =
         </CardContent>
       </Card>
 
-      {/* Probation Mode (Employer Only) */}
       {isEmployer && (
         <Card className="synth-card border-0">
           <CardHeader>
@@ -212,11 +271,15 @@ export const CalibrationPanel: React.FC<CalibrationPanelProps> = ({ isEmployer =
               </div>
               <Button
                 onClick={handleEnableProbation}
-                disabled={!probationUserId.trim()}
+                disabled={!probationUserId.trim() || isProbationSaving}
                 className="bg-amber-600 hover:bg-amber-700 text-white mt-6"
               >
-                <AlertTriangle className="w-4 h-4 mr-2" />
-                Enable Probation
+                {isProbationSaving ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <AlertTriangle className="w-4 h-4 mr-2" />
+                )}
+                {isProbationSaving ? 'Enabling...' : 'Enable Probation'}
               </Button>
             </div>
 

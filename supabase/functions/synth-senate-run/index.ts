@@ -426,6 +426,90 @@ Synthesize a final answer based on the weighted votes. Return JSON:
 }
 
 // ============================================================
+// SESSION LOCK DETECTION
+// ============================================================
+interface SessionLockResult {
+  should_escalate: boolean;
+  escalation_level: number;
+  reason_codes: string[];
+  action: 'none' | 'verify' | 'restrict' | 'lock';
+}
+
+async function checkSessionLock(
+  supabaseClient: any,
+  userId: string,
+  sessionId: string | null,
+  currentText: string,
+  isProbation: boolean
+): Promise<SessionLockResult> {
+  // Get previous run for comparison
+  const { data: previousRun } = await supabaseClient
+    .from('synth_senate_runs')
+    .select('input_text')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+
+  if (!previousRun) {
+    return { should_escalate: false, escalation_level: 0, reason_codes: [], action: 'none' };
+  }
+
+  const currentTokens = currentText.split(/\s+/).length;
+  const previousTokens = previousRun.input_text.split(/\s+/).length;
+  
+  // Simple readability proxy (average word length)
+  const currentReadability = currentText.length / Math.max(currentTokens, 1);
+  const previousReadability = previousRun.input_text.length / Math.max(previousTokens, 1);
+  
+  // Call the database function for detection
+  const { data, error } = await supabaseClient.rpc('detect_session_lock_trigger', {
+    p_user_id: userId,
+    p_session_id: sessionId,
+    p_current_tokens: currentTokens,
+    p_previous_tokens: previousTokens,
+    p_current_readability: currentReadability,
+    p_previous_readability: previousReadability,
+    p_language_shift: false // Would require language detection
+  });
+
+  if (error || !data || data.length === 0) {
+    console.log('[SESSION-LOCK] No escalation needed or error:', error);
+    return { should_escalate: false, escalation_level: 0, reason_codes: [], action: 'none' };
+  }
+
+  const result = data[0];
+  return {
+    should_escalate: result.should_escalate,
+    escalation_level: result.escalation_level,
+    reason_codes: result.reason_codes || [],
+    action: result.action as SessionLockResult['action']
+  };
+}
+
+// ============================================================
+// CHECK PROBATION STATUS
+// ============================================================
+async function checkProbationStatus(
+  supabaseClient: any,
+  userId: string
+): Promise<{ isProbation: boolean; probationSettings: any | null }> {
+  const { data, error } = await supabaseClient
+    .from('synth_probation')
+    .select('*')
+    .eq('target_user_id', userId)
+    .eq('is_active', true)
+    .gt('expires_at', new Date().toISOString())
+    .single();
+
+  if (error || !data) {
+    return { isProbation: false, probationSettings: null };
+  }
+
+  return { isProbation: true, probationSettings: data };
+}
+
+// ============================================================
 // MAIN HANDLER
 // ============================================================
 serve(async (req) => {
@@ -474,6 +558,50 @@ serve(async (req) => {
     const createdAt = new Date().toISOString();
     const traceId = generateTraceId();
 
+    // ========== CHECK PROBATION STATUS ==========
+    const { isProbation, probationSettings } = await checkProbationStatus(supabaseClient, userId);
+    const effectiveMode = isProbation ? "probation" : mode;
+    
+    if (isProbation) {
+      console.log(`[SENATE-RUN] User ${userId} is on PROBATION - applying stricter thresholds`);
+    }
+
+    // ========== SESSION LOCK CHECK ==========
+    const sessionId = options.session_id || null;
+    const sessionLock = await checkSessionLock(supabaseClient, userId, sessionId, prompt, isProbation);
+    
+    if (sessionLock.should_escalate) {
+      console.log(`[SESSION-LOCK] Escalation triggered: level=${sessionLock.escalation_level}, action=${sessionLock.action}`);
+      
+      // Log security event
+      await supabaseClient.from('synth_security_events').insert({
+        user_id: userId,
+        session_id: sessionId,
+        event_type: 'session_lock_trigger',
+        reason_codes: sessionLock.reason_codes,
+        metrics: { 
+          input_length: prompt.length,
+          escalation_level: sessionLock.escalation_level 
+        },
+        escalation_level: sessionLock.escalation_level,
+        action_taken: sessionLock.action
+      });
+
+      // If LOCK level, reject the request
+      if (sessionLock.action === 'lock') {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Session locked due to security concerns',
+            session_lock: {
+              action: 'lock',
+              reason_codes: sessionLock.reason_codes
+            }
+          }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
     // Get user calibration weights or use defaults
     const { data: calibrationData } = await supabaseClient
       .from('synth_calibration')
@@ -494,7 +622,7 @@ serve(async (req) => {
       }
     };
 
-    console.log(`[SENATE-RUN] Trace: ${traceId}, Weights:`, weights.by_seat_id);
+    console.log(`[SENATE-RUN] Trace: ${traceId}, Weights:`, weights.by_seat_id, `Mode: ${effectiveMode}`);
 
     // Evaluate all seats in parallel
     const ballotPromises = SEAT_CONFIG.map(config => {
@@ -524,24 +652,32 @@ serve(async (req) => {
     const { judge, contested, contested_reasons } = await runJudge(prompt, seats, weights);
 
     // Build full response
-    const response: SenateRunResponseV1 = {
+    const response: SenateRunResponseV1 & { 
+      probation_mode?: boolean;
+      session_lock?: { action: string; reason_codes: string[] } | null;
+    } = {
       response_version: "v1",
       trace_id: traceId,
       created_at: createdAt,
       request: {
         prompt,
         context_ids,
-        mode: mode as "standard" | "probation"
+        mode: effectiveMode as "standard" | "probation"
       },
       weights,
       seats,
       judge,
       participation_summary,
       contested,
-      contested_reasons
+      contested_reasons,
+      probation_mode: isProbation,
+      session_lock: sessionLock.should_escalate ? {
+        action: sessionLock.action,
+        reason_codes: sessionLock.reason_codes
+      } : null
     };
 
-    // Store in database
+    // Store in database (hash chain is handled by trigger)
     const { error: insertError } = await supabaseClient
       .from('synth_senate_runs')
       .insert({
@@ -561,7 +697,23 @@ serve(async (req) => {
       console.error('[SENATE-RUN] Failed to store run:', insertError);
     }
 
-    console.log(`[SENATE-RUN] Complete. Trace: ${traceId}, Contested: ${contested}`);
+    // Log enhanced event if probation
+    if (isProbation && probationSettings?.extra_logging) {
+      await supabaseClient.from('synth_security_events').insert({
+        user_id: userId,
+        session_id: sessionId,
+        event_type: 'probation_run_logged',
+        reason_codes: ['PROBATION_ENHANCED_LOGGING'],
+        metrics: { 
+          trace_id: traceId,
+          contested,
+          online_seats: participation_summary.online_seats.length
+        },
+        escalation_level: 0
+      });
+    }
+
+    console.log(`[SENATE-RUN] Complete. Trace: ${traceId}, Contested: ${contested}, Probation: ${isProbation}`);
 
     return new Response(
       JSON.stringify(response),

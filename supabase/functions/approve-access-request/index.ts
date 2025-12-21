@@ -5,6 +5,30 @@ const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
+// Hard-coded app base URL (per product decision)
+const APP_BASE_URL = "https://bevalid.app";
+
+const redirectToAccessApproved = (params: {
+  status: "success" | "error";
+  type?: string | null;
+  email?: string | null;
+  reason?: string | null;
+}) => {
+  const url = new URL(`${APP_BASE_URL}/access-approved`);
+  url.searchParams.set("status", params.status);
+  if (params.type) url.searchParams.set("type", params.type);
+  if (params.email) url.searchParams.set("email", params.email);
+  if (params.reason) url.searchParams.set("reason", params.reason);
+
+  return new Response(null, {
+    status: 303,
+    headers: {
+      Location: url.toString(),
+      "Cache-Control": "no-store",
+    },
+  });
+};
+
 const handler = async (req: Request): Promise<Response> => {
   const url = new URL(req.url);
   const userId = url.searchParams.get("user_id");
@@ -13,18 +37,20 @@ const handler = async (req: Request): Promise<Response> => {
 
   // Simple validation
   if (!userId || !accessType || !token) {
-    return new Response(generateHTML("error", "Invalid request parameters"), {
-      status: 400,
-      headers: { "Content-Type": "text/html; charset=utf-8" },
+    return redirectToAccessApproved({
+      status: "error",
+      type: accessType ?? null,
+      reason: "invalid_params",
     });
   }
 
   // Validate token (simple hash check)
   const expectedToken = btoa(`${userId}-${accessType}-valid-approval`).substring(0, 20);
   if (token !== expectedToken) {
-    return new Response(generateHTML("error", "Invalid or expired approval token"), {
-      status: 403,
-      headers: { "Content-Type": "text/html; charset=utf-8" },
+    return redirectToAccessApproved({
+      status: "error",
+      type: accessType,
+      reason: "invalid_token",
     });
   }
 
@@ -40,45 +66,43 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (profileError || !profile) {
       console.error("Profile not found:", profileError);
-      return new Response(generateHTML("error", "User not found"), {
-        status: 404,
-        headers: { "Content-Type": "text/html; charset=utf-8" },
+      return redirectToAccessApproved({
+        status: "error",
+        type: accessType,
+        reason: "user_not_found",
       });
     }
 
     // Update approval status
-    const approvalField = accessType === "investor" 
-      ? "investor_access_approved" 
-      : "partner_access_approved";
-    const approvalDateField = accessType === "investor"
-      ? "investor_access_approved_at"
-      : "partner_access_approved_at";
+    const approvalField = accessType === "investor" ? "investor_access_approved" : "partner_access_approved";
+    const approvalDateField =
+      accessType === "investor" ? "investor_access_approved_at" : "partner_access_approved_at";
 
     const { error: updateError } = await supabase
       .from("profiles")
-      .update({ 
+      .update({
         [approvalField]: true,
-        [approvalDateField]: new Date().toISOString()
+        [approvalDateField]: new Date().toISOString(),
       })
       .eq("user_id", userId);
 
     if (updateError) {
       console.error("Update error:", updateError);
-      return new Response(generateHTML("error", "Failed to approve access"), {
-        status: 500,
-        headers: { "Content-Type": "text/html; charset=utf-8" },
+      return redirectToAccessApproved({
+        status: "error",
+        type: accessType,
+        email: profile.email ?? null,
+        reason: "update_failed",
       });
     }
 
     const accessLabel = accessType === "investor" ? "Investor Deck" : "Partner Solutions";
-    const accessUrl = accessType === "investor" 
-      ? "https://bevalid.app/pitch-deck" 
-      : "https://bevalid.app/partners";
+    const accessUrl = accessType === "investor" ? "https://bevalid.app/pitch-deck" : "https://bevalid.app/partners";
 
     // Send confirmation email to the user
     if (profile.email) {
       console.log("Sending approval confirmation to:", profile.email);
-      
+
       const emailRes = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
@@ -112,29 +136,31 @@ const handler = async (req: Request): Promise<Response> => {
           `,
         }),
       });
-      
-        const emailResponse = await emailRes.json();
-        console.log("User notification email response:", JSON.stringify(emailResponse));
 
-        if (!emailRes.ok) {
-          console.error("Resend user notification email error:", emailResponse);
-        } else {
-          console.log("User notification email sent successfully");
-        }
+      const emailResponse = await emailRes.json();
+      console.log("User notification email response:", JSON.stringify(emailResponse));
+
+      if (!emailRes.ok) {
+        console.error("Resend user notification email error:", emailResponse);
+      } else {
+        console.log("User notification email sent successfully");
+      }
     }
 
     console.log(`Access approved for ${profile.email} - ${accessType}`);
 
-    return new Response(generateHTML("success", ""), {
-      status: 200,
-      headers: { "Content-Type": "text/html; charset=utf-8" },
+    // Redirect admin to an in-app confirmation page (no more raw function HTML)
+    return redirectToAccessApproved({
+      status: "success",
+      type: accessType,
+      email: profile.email ?? null,
     });
-
   } catch (error: any) {
     console.error("Error approving access:", error);
-    return new Response(generateHTML("error", error.message), {
-      status: 500,
-      headers: { "Content-Type": "text/html; charset=utf-8" },
+    return redirectToAccessApproved({
+      status: "error",
+      type: accessType ?? null,
+      reason: "unexpected",
     });
   }
 };

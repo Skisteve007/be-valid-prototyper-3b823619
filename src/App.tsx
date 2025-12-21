@@ -51,6 +51,7 @@ const InvestorDashboard = lazy(() => import("./pages/InvestorDashboard"));
 const SharedProfile = lazy(() => import("./pages/SharedProfile"));
 const VerifyEmail = lazy(() => import("./pages/VerifyEmail"));
 const AccessPending = lazy(() => import("./pages/AccessPending"));
+const AccessApproved = lazy(() => import("./pages/AccessApproved"));
 const SharedLocation = lazy(() => import("./pages/SharedLocation"));
 const VendorPortal = lazy(() => import("./pages/VendorPortal"));
 const VendorDashboard = lazy(() => import("./pages/VendorDashboard"));
@@ -216,6 +217,7 @@ const App = () => (
                   {/* VENUE ROUTES */}
                   <Route path="/venues/:slug" element={<VenueLanding />} />
                   <Route path="/access-pending" element={<AccessPending />} />
+                  <Route path="/access-approved" element={<AgeGate><AccessApproved /></AgeGate>} />
                   
                   {/* VERIFICATION & UTILITY ROUTES */}
                   <Route path="/idv-verification" element={<AgeGate><IDVVerification /></AgeGate>} />

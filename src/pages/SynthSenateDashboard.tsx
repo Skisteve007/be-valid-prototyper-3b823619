@@ -10,7 +10,6 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { 
   ArrowLeft, 
-  Brain, 
   Scale, 
   History,
   BookOpen,
@@ -20,21 +19,52 @@ import {
   Loader2
 } from 'lucide-react';
 import { SenateSeatCard, SeatBallot } from '@/components/synth/SenateSeatCard';
-import { SenateJudgeCard, JudgeOutput } from '@/components/synth/SenateJudgeCard';
+import { SenateJudgeCard, JudgeOutput, ParticipationSummary } from '@/components/synth/SenateJudgeCard';
 import { CalibrationPanel } from '@/components/synth/CalibrationPanel';
 import { LearningRateChart } from '@/components/synth/LearningRateChart';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 
-// Default offline seat configuration
+// ============================================================
+// SENATE RUN RESPONSE V1 - Full response from backend
+// ============================================================
+interface SenateRunResponseV1 {
+  response_version: "v1";
+  trace_id: string;
+  created_at: string;
+  request: { prompt: string; context_ids?: string[]; mode?: string };
+  weights: { normalization: string; by_seat_id: Record<string, number> };
+  seats: SeatBallot[];
+  judge: JudgeOutput;
+  participation_summary: ParticipationSummary;
+  contested: boolean;
+  contested_reasons: string[];
+}
+
+// Default offline seat configuration matching v1 schema
 const createDefaultSeats = (): SeatBallot[] => [
-  { seat_id: 1, provider: 'OpenAI', model: 'GPT-4o', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [] },
-  { seat_id: 2, provider: 'Anthropic', model: 'Claude 3.5', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [] },
-  { seat_id: 3, provider: 'Google', model: 'Gemini 1.5', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [] },
-  { seat_id: 4, provider: 'Meta', model: 'Llama 3', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [] },
-  { seat_id: 5, provider: 'DeepSeek', model: 'V3', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [] },
-  { seat_id: 6, provider: 'Mistral', model: 'Large', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [] },
-  { seat_id: 7, provider: 'xAI', model: 'Grok', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [] },
+  { ballot_version: "v1", seat_id: 1, seat_name: "Seat 1 — OpenAI", provider: 'OpenAI', model: 'GPT-4o', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 2, seat_name: "Seat 2 — Anthropic", provider: 'Anthropic', model: 'Claude 3.5', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 3, seat_name: "Seat 3 — Google", provider: 'Google', model: 'Gemini 1.5', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 4, seat_name: "Seat 4 — Meta", provider: 'Meta', model: 'Llama 3', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 5, seat_name: "Seat 5 — DeepSeek", provider: 'DeepSeek', model: 'V3', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 6, seat_name: "Seat 6 — Mistral", provider: 'Mistral', model: 'Large', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 7, seat_name: "Seat 7 — xAI", provider: 'xAI', model: 'Grok', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
 ];
+
+const createDefaultParticipation = (): ParticipationSummary => ({
+  online_seats: [],
+  offline_seats: [1, 2, 3, 4, 5, 6, 7],
+  timeout_seats: [],
+  error_seats: []
+});
+
+const createDefaultJudge = (): JudgeOutput => ({
+  provider: "OpenAI",
+  model: "o1",
+  final_answer: "",
+  rationale: [],
+  risk_verdict: { level: "medium", notes: [] }
+});
 
 const SynthSenateDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -45,6 +75,10 @@ const SynthSenateDashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [seats, setSeats] = useState<SeatBallot[]>(createDefaultSeats());
   const [judgeOutput, setJudgeOutput] = useState<JudgeOutput | null>(null);
+  const [participationSummary, setParticipationSummary] = useState<ParticipationSummary>(createDefaultParticipation());
+  const [contested, setContested] = useState(false);
+  const [contestedReasons, setContestedReasons] = useState<string[]>([]);
+  const [traceId, setTraceId] = useState('');
   const [activeTab, setActiveTab] = useState('senate');
   
   const [weights] = useState({
@@ -59,15 +93,12 @@ const SynthSenateDashboard: React.FC = () => {
     if (prefillId) {
       loadPrefill(prefillId);
     } else if (prefillType === 'local') {
-      // Handle local storage prefill from extension when API wasn't available
       loadLocalPrefill();
     }
   }, [searchParams]);
 
   const loadLocalPrefill = async () => {
     try {
-      // Try to get pending prefill from extension storage via message
-      // This is a fallback when the extension couldn't call the API
       const chromeRuntime = (window as any).chrome?.runtime;
       if (chromeRuntime?.sendMessage) {
         chromeRuntime.sendMessage({ type: 'GET_PENDING_PREFILL' }, (response: any) => {
@@ -107,22 +138,36 @@ const SynthSenateDashboard: React.FC = () => {
     setIsLoading(true);
     setSeats(createDefaultSeats());
     setJudgeOutput(null);
+    setParticipationSummary(createDefaultParticipation());
+    setContested(false);
+    setContestedReasons([]);
+    setTraceId('pending...');
 
     try {
       const { data, error } = await supabase.functions.invoke('synth-senate-run', {
-        body: { input_text: prompt.trim() }
+        body: { prompt: prompt.trim() }
       });
 
       if (error) throw error;
 
-      if (data?.ballots) {
-        setSeats(data.ballots);
-      }
-      if (data?.judge_output) {
-        setJudgeOutput(data.judge_output);
-      }
+      const response = data as SenateRunResponseV1;
 
-      toast.success(data?.contested ? 'Senate run complete (CONTESTED)' : 'Senate run complete');
+      if (response.seats) {
+        setSeats(response.seats);
+      }
+      if (response.judge) {
+        setJudgeOutput(response.judge);
+      }
+      if (response.participation_summary) {
+        setParticipationSummary(response.participation_summary);
+      }
+      if (response.trace_id) {
+        setTraceId(response.trace_id);
+      }
+      setContested(response.contested || false);
+      setContestedReasons(response.contested_reasons || []);
+
+      toast.success(response.contested ? 'Senate run complete (CONTESTED)' : 'Senate run complete');
     } catch (error) {
       console.error('Senate run error:', error);
       toast.error('Senate run failed. Please try again.');
@@ -270,12 +315,11 @@ const SynthSenateDashboard: React.FC = () => {
             {/* Judge Output */}
             {(judgeOutput || isLoading) && (
               <SenateJudgeCard 
-                judge={judgeOutput || {
-                  final_answer: '',
-                  participation_summary: {},
-                  contested: false,
-                  trace_id: 'pending...'
-                }}
+                judge={judgeOutput || createDefaultJudge()}
+                participation_summary={participationSummary}
+                contested={contested}
+                contested_reasons={contestedReasons}
+                trace_id={traceId}
                 isLoading={isLoading && !judgeOutput}
               />
             )}

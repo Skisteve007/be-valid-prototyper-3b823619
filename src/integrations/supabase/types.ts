@@ -2842,6 +2842,89 @@ export type Database = {
         }
         Relationships: []
       }
+      synth_calibration: {
+        Row: {
+          created_at: string
+          id: string
+          org_id: string | null
+          seat_1_weight: number
+          seat_2_weight: number
+          seat_3_weight: number
+          seat_4_weight: number
+          seat_5_weight: number
+          seat_6_weight: number
+          seat_7_weight: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          org_id?: string | null
+          seat_1_weight?: number
+          seat_2_weight?: number
+          seat_3_weight?: number
+          seat_4_weight?: number
+          seat_5_weight?: number
+          seat_6_weight?: number
+          seat_7_weight?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          org_id?: string | null
+          seat_1_weight?: number
+          seat_2_weight?: number
+          seat_3_weight?: number
+          seat_4_weight?: number
+          seat_5_weight?: number
+          seat_6_weight?: number
+          seat_7_weight?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "synth_calibration_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      synth_calibration_audit: {
+        Row: {
+          action_type: string
+          actor_user_id: string
+          created_at: string
+          from_value: Json | null
+          id: string
+          target_id: string | null
+          to_value: Json | null
+        }
+        Insert: {
+          action_type: string
+          actor_user_id: string
+          created_at?: string
+          from_value?: Json | null
+          id?: string
+          target_id?: string | null
+          to_value?: Json | null
+        }
+        Update: {
+          action_type?: string
+          actor_user_id?: string
+          created_at?: string
+          from_value?: Json | null
+          id?: string
+          target_id?: string | null
+          to_value?: Json | null
+        }
+        Relationships: []
+      }
       synth_entitlements: {
         Row: {
           created_at: string
@@ -2952,6 +3035,36 @@ export type Database = {
           },
         ]
       }
+      synth_learning_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          is_error: boolean
+          metadata: Json | null
+          score: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          is_error?: boolean
+          metadata?: Json | null
+          score?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          is_error?: boolean
+          metadata?: Json | null
+          score?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       synth_policies: {
         Row: {
           coherence_threshold: number
@@ -2990,6 +3103,98 @@ export type Database = {
           verification_threshold?: number
         }
         Relationships: []
+      }
+      synth_prefills: {
+        Row: {
+          consumed: boolean
+          created_at: string
+          expires_at: string
+          id: string
+          prefill_id: string
+          selected_text: string
+          timestamp: number
+          title: string | null
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          consumed?: boolean
+          created_at?: string
+          expires_at?: string
+          id?: string
+          prefill_id: string
+          selected_text: string
+          timestamp: number
+          title?: string | null
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          consumed?: boolean
+          created_at?: string
+          expires_at?: string
+          id?: string
+          prefill_id?: string
+          selected_text?: string
+          timestamp?: number
+          title?: string | null
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      synth_probation: {
+        Row: {
+          created_at: string
+          enabled_by: string
+          expires_at: string
+          extra_logging: boolean
+          id: string
+          is_active: boolean
+          org_id: string | null
+          started_at: string
+          step_up_auth: boolean
+          strict_session_lock: boolean
+          target_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          enabled_by: string
+          expires_at?: string
+          extra_logging?: boolean
+          id?: string
+          is_active?: boolean
+          org_id?: string | null
+          started_at?: string
+          step_up_auth?: boolean
+          strict_session_lock?: boolean
+          target_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          enabled_by?: string
+          expires_at?: string
+          extra_logging?: boolean
+          id?: string
+          is_active?: boolean
+          org_id?: string | null
+          started_at?: string
+          step_up_auth?: boolean
+          strict_session_lock?: boolean
+          target_user_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "synth_probation_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       synth_runs: {
         Row: {
@@ -3091,6 +3296,87 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      synth_security_events: {
+        Row: {
+          created_at: string
+          escalation_level: number
+          event_type: string
+          id: string
+          metrics: Json
+          reason_codes: string[]
+          resolved_at: string | null
+          session_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          escalation_level?: number
+          event_type: string
+          id?: string
+          metrics?: Json
+          reason_codes?: string[]
+          resolved_at?: string | null
+          session_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          escalation_level?: number
+          event_type?: string
+          id?: string
+          metrics?: Json
+          reason_codes?: string[]
+          resolved_at?: string | null
+          session_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      synth_senate_runs: {
+        Row: {
+          ballots: Json
+          contested: boolean
+          created_at: string
+          final_answer: string | null
+          id: string
+          input_text: string
+          judge_output: Json
+          participation_summary: Json
+          processing_time_ms: number | null
+          trace_id: string
+          user_id: string
+          weights_used: Json
+        }
+        Insert: {
+          ballots?: Json
+          contested?: boolean
+          created_at?: string
+          final_answer?: string | null
+          id?: string
+          input_text: string
+          judge_output?: Json
+          participation_summary?: Json
+          processing_time_ms?: number | null
+          trace_id: string
+          user_id: string
+          weights_used?: Json
+        }
+        Update: {
+          ballots?: Json
+          contested?: boolean
+          created_at?: string
+          final_answer?: string | null
+          id?: string
+          input_text?: string
+          judge_output?: Json
+          participation_summary?: Json
+          processing_time_ms?: number | null
+          trace_id?: string
+          user_id?: string
+          weights_used?: Json
+        }
+        Relationships: []
       }
       synth_sessions: {
         Row: {
@@ -4421,6 +4707,7 @@ export type Database = {
     Functions: {
       check_status_expiry: { Args: never; Returns: undefined }
       cleanup_expired_qr_tokens: { Args: never; Returns: undefined }
+      cleanup_expired_synth_prefills: { Args: never; Returns: undefined }
       credit_wallet: {
         Args: {
           p_amount: number

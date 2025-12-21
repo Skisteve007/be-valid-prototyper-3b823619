@@ -26,6 +26,7 @@ const Auth = () => {
   const longPressHandlers = useLongPressHome();
   const searchParams = new URLSearchParams(location.search);
   const mode = searchParams.get("mode") || "signup";
+  const redirectTo = searchParams.get("redirect") || "/dashboard";
   const discountCode = searchParams.get("discount") || localStorage.getItem('discountCode') || "";
   const [loading, setLoading] = useState(false);
   const [signupFirstName, setSignupFirstName] = useState("");
@@ -103,7 +104,7 @@ const Auth = () => {
         
         if (roleData) {
           // Admin - let them in regardless of email verification
-          navigate("/dashboard");
+          navigate(redirectTo);
           return;
         }
         
@@ -115,8 +116,8 @@ const Auth = () => {
           .single();
         
         if (profile?.email_verified) {
-          // Redirect to member dashboard, not investor dashboard
-          navigate("/dashboard");
+          // Redirect to saved destination or member dashboard
+          navigate(redirectTo);
         } else if (profile) {
           // User is logged in but email not verified - sign them out
           await supabase.auth.signOut();
@@ -171,7 +172,7 @@ const Auth = () => {
           if (profile?.email_verified) {
             saveUserDataLocally(session.user.email || result.email, profile.full_name || "", "biometric");
             toast.success("Welcome back!");
-            navigate("/dashboard");
+            navigate(redirectTo);
             return;
           }
         }
@@ -259,7 +260,7 @@ const Auth = () => {
     
     setShowBiometricPrompt(false);
     setPendingBiometricSetup(null);
-    navigate("/dashboard");
+    navigate(redirectTo);
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -301,7 +302,7 @@ const Auth = () => {
           
           saveUserDataLocally(data.user.email || loginEmail, profile?.full_name || "", "email");
           toast.success("Welcome back, Admin!");
-          navigate("/dashboard");
+          navigate(redirectTo);
           return;
         }
         
@@ -354,7 +355,7 @@ const Auth = () => {
       }
 
       toast.success("Welcome back!");
-      navigate("/dashboard");
+      navigate(redirectTo);
     } catch (error: any) {
       setLoading(false);
       toast.error(error.message || "Login failed");
@@ -561,7 +562,7 @@ const Auth = () => {
                     onClick={() => {
                       setShowBiometricPrompt(false);
                       setPendingBiometricSetup(null);
-                      navigate("/dashboard");
+                      navigate(redirectTo);
                     }}
                     className="w-full text-muted-foreground"
                   >
@@ -644,7 +645,7 @@ const Auth = () => {
                           
                           if (roleData) {
                             // Admin - let them in
-                            navigate("/dashboard");
+                            navigate(redirectTo);
                             return;
                           }
                           
@@ -655,7 +656,7 @@ const Auth = () => {
                             .single();
                           
                           if (profile?.email_verified) {
-                            navigate("/dashboard");
+                            navigate(redirectTo);
                             return;
                           }
                         }
@@ -793,7 +794,7 @@ const Auth = () => {
                       <Button 
                         type="button" 
                         variant="outline"
-                        onClick={() => navigate("/access-portal")}
+                        onClick={() => navigate(`/auth${redirectTo !== '/dashboard' ? `?redirect=${encodeURIComponent(redirectTo)}` : ''}`)}
                         className="w-full min-h-[48px] rounded-full border border-accent/50 bg-accent/10 hover:bg-accent/20 text-foreground font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis px-4"
                       >
                         New member? Sign up
@@ -819,7 +820,7 @@ const Auth = () => {
                     <Button 
                       type="button" 
                       variant="outline"
-                      onClick={() => navigate("/auth?mode=login")}
+                      onClick={() => navigate(`/auth?mode=login${redirectTo !== '/dashboard' ? `&redirect=${encodeURIComponent(redirectTo)}` : ''}`)}
                       className="min-h-[48px] px-6 rounded-full border border-cyan-400/60 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 font-semibold text-sm whitespace-nowrap"
                     >
                       Already a member? Log in

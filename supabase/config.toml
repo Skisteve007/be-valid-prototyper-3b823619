@@ -1,4 +1,4 @@
-project_id = "nqhkuyapfakrmhgjh"
+project_id = "csfwfxkuyapfakrmhgjh"
 
 [functions.view-profile-with-token]
 verify_jwt = false
@@ -136,4 +136,7 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.synth-calibration]
+verify_jwt = true
+
+[functions.synth-e2e-test]
 verify_jwt = true

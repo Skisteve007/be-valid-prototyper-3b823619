@@ -54,10 +54,33 @@ const SynthSenateDashboard: React.FC = () => {
   // Check for prefill from Chrome extension
   useEffect(() => {
     const prefillId = searchParams.get('prefill_id');
+    const prefillType = searchParams.get('prefill');
+    
     if (prefillId) {
       loadPrefill(prefillId);
+    } else if (prefillType === 'local') {
+      // Handle local storage prefill from extension when API wasn't available
+      loadLocalPrefill();
     }
   }, [searchParams]);
+
+  const loadLocalPrefill = async () => {
+    try {
+      // Try to get pending prefill from extension storage via message
+      // This is a fallback when the extension couldn't call the API
+      const chromeRuntime = (window as any).chrome?.runtime;
+      if (chromeRuntime?.sendMessage) {
+        chromeRuntime.sendMessage({ type: 'GET_PENDING_PREFILL' }, (response: any) => {
+          if (response?.prefill?.selected_text) {
+            setPrompt(response.prefill.selected_text);
+            toast.success('Context loaded from extension');
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Failed to load local prefill:', error);
+    }
+  };
 
   const loadPrefill = async (prefillId: string) => {
     try {

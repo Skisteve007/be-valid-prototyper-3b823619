@@ -69,6 +69,7 @@ const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
 const Synth = lazy(() => import("./pages/Synth"));
 const SynthAdmin = lazy(() => import("./pages/SynthAdmin"));
 const SynthConsole = lazy(() => import("./pages/SynthConsole"));
+const SynthSenateDashboard = lazy(() => import("./pages/SynthSenateDashboard"));
 const SynthLogs = lazy(() => import("./pages/SynthLogs"));
 const SynthDocs = lazy(() => import("./pages/SynthDocs"));
 const SynthPolicies = lazy(() => import("./pages/SynthPolicies"));
@@ -152,6 +153,7 @@ const App = () => (
                   <Route path="/synth" element={<AgeGate><Synth /></AgeGate>} />
                   <Route path="/synth/admin" element={<AgeGate><SynthAdmin /></AgeGate>} />
                   <Route path="/synth/console" element={<SynthConsole />} />
+                  <Route path="/synth/senate" element={<SynthSenateDashboard />} />
                   <Route path="/synth/logs" element={<SynthLogs />} />
                   <Route path="/synth/docs" element={<SynthDocs />} />
                   <Route path="/synth/policies" element={<SynthPolicies />} />

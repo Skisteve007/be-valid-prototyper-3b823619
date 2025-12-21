@@ -128,3 +128,12 @@ verify_jwt = true
 
 [functions.synth-dossier]
 verify_jwt = true
+
+[functions.synth-senate-run]
+verify_jwt = true
+
+[functions.synth-prefill]
+verify_jwt = true
+
+[functions.synth-calibration]
+verify_jwt = true

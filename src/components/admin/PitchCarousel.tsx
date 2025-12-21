@@ -13,7 +13,6 @@ const PitchCarousel: React.FC<PitchCarouselProps> = ({
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -58,12 +57,45 @@ const PitchCarousel: React.FC<PitchCarouselProps> = ({
   const prev = useCallback(() => setCurrent((c) => (c - 1 + images.length) % images.length), [images.length]);
   const next = useCallback(() => setCurrent((c) => (c + 1) % images.length), [images.length]);
 
-  // Handle swipe
-  const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.touches[0].clientX);
+  // Handle swipe - track both start position and whether we're in a swipe gesture
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const [isSwiping, setIsSwiping] = useState(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+    setIsSwiping(false);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+    
+    const deltaX = Math.abs(e.touches[0].clientX - touchStartRef.current.x);
+    const deltaY = Math.abs(e.touches[0].clientY - touchStartRef.current.y);
+    
+    // If horizontal movement is greater than vertical, we're swiping slides
+    if (deltaX > deltaY && deltaX > 10) {
+      setIsSwiping(true);
+      e.preventDefault(); // Prevent page scroll during horizontal swipe
+    }
+  };
+
   const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+    
     const touchEnd = e.changedTouches[0].clientX;
-    if (touchStart - touchEnd > 50) next();
-    if (touchEnd - touchStart > 50) prev();
+    const deltaX = touchStartRef.current.x - touchEnd;
+    
+    // Only trigger navigation if we were swiping horizontally
+    if (isSwiping || Math.abs(deltaX) > 50) {
+      if (deltaX > 50) next();
+      if (deltaX < -50) prev();
+    }
+    
+    touchStartRef.current = null;
+    setIsSwiping(false);
   };
 
   // Handle keyboard navigation
@@ -89,14 +121,16 @@ const PitchCarousel: React.FC<PitchCarouselProps> = ({
   return (
     <div 
       className={`
-        relative bg-black flex flex-col group
+        relative bg-black flex flex-col group select-none
         ${isFullscreen 
           ? 'fixed inset-0 z-50' 
           : 'w-full h-auto min-h-[50vh] sm:min-h-[60vh] md:min-h-[75vh] rounded-xl md:rounded-2xl overflow-hidden border border-white/10'}
       `}
+      style={{ touchAction: isSwiping ? 'none' : 'pan-y' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       {/* Main Image Container - No overlays on mobile */}

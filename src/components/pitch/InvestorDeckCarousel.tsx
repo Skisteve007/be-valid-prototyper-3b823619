@@ -24,7 +24,6 @@ const InvestorDeckCarousel: React.FC<InvestorDeckCarouselProps> = ({
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [showMusicPrompt, setShowMusicPrompt] = useState(true);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
@@ -133,14 +132,45 @@ const InvestorDeckCarousel: React.FC<InvestorDeckCarouselProps> = ({
     setIsFullscreen(true);
   }, [openFullscreenRequest]);
 
-  // Handle swipe
+  // Handle swipe - track both start position and whether we're in a swipe gesture
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const [isSwiping, setIsSwiping] = useState(false);
+
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.touches[0].clientX);
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+    setIsSwiping(false);
   };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+    
+    const deltaX = Math.abs(e.touches[0].clientX - touchStartRef.current.x);
+    const deltaY = Math.abs(e.touches[0].clientY - touchStartRef.current.y);
+    
+    // If horizontal movement is greater than vertical, we're swiping slides
+    if (deltaX > deltaY && deltaX > 10) {
+      setIsSwiping(true);
+      e.preventDefault(); // Prevent page scroll during horizontal swipe
+    }
+  };
+
   const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+    
     const touchEnd = e.changedTouches[0].clientX;
-    if (touchStart - touchEnd > 50) next();
-    if (touchEnd - touchStart > 50) prev();
+    const deltaX = touchStartRef.current.x - touchEnd;
+    
+    // Only trigger navigation if we were swiping horizontally
+    if (isSwiping || Math.abs(deltaX) > 50) {
+      if (deltaX > 50) next();
+      if (deltaX < -50) prev();
+    }
+    
+    touchStartRef.current = null;
+    setIsSwiping(false);
   };
 
   // When entering fullscreen, pause auto-advance and scroll into view
@@ -171,14 +201,16 @@ const InvestorDeckCarousel: React.FC<InvestorDeckCarouselProps> = ({
     <div
       ref={rootRef}
       className={
-        "relative bg-black flex flex-col group " +
+        "relative bg-black flex flex-col group select-none " +
         (isFullscreen
           ? "fixed inset-0 z-50"
           : "w-full h-auto min-h-[60vh] md:min-h-[75vh] rounded-2xl overflow-hidden border border-white/10")
       }
+      style={{ touchAction: isSwiping ? 'none' : 'pan-y' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       aria-label="Investor deck slides"
     >

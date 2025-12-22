@@ -443,17 +443,21 @@ const Dashboard = () => {
                         onClick={() => {
                           // First switch to profile tab, then scroll to trust section
                           setActiveTab("profile");
+                          // Longer delay to ensure tab content renders
                           setTimeout(() => {
                             const trustCenterEl = document.getElementById('trust-center-section');
                             if (trustCenterEl) {
-                              trustCenterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                              // Click to expand the collapsible if closed
-                              const trigger = trustCenterEl.querySelector('[data-state="closed"]');
-                              if (trigger && trigger instanceof HTMLElement) {
-                                trigger.click();
+                              // First expand the collapsible if closed
+                              const closedTrigger = trustCenterEl.querySelector('[data-state="closed"]');
+                              if (closedTrigger && closedTrigger instanceof HTMLElement) {
+                                closedTrigger.click();
                               }
+                              // Then scroll with a small delay to allow expansion
+                              setTimeout(() => {
+                                trustCenterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              }, 150);
                             }
-                          }, 100);
+                          }, 200);
                         }}
                         className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium hover:bg-blue-500/20 hover:text-white transition-all duration-300 whitespace-nowrap flex items-center text-xs sm:text-sm touch-manipulation"
                       >

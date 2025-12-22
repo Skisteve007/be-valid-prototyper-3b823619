@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Users, Activity, Zap, Ghost, Radio, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings, MessageSquare, ChevronDown } from "lucide-react";
+import { Users, Activity, Zap, Ghost, Radio, Share2, Copy, Check, Podcast, X, Crown, Building2, Settings, MessageSquare, ChevronDown, Save, Loader2, CheckCircle } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,6 +24,8 @@ interface MySignalSectionProps {
   vibeMetadata: Record<string, any>;
   onVibeMetadataChange: (metadata: Record<string, any>) => void;
   onStatusColorChange: (color: "green" | "yellow" | "red" | "gray" | "blue" | "orange" | "purple") => void;
+  saveState?: { hasChanges: boolean; saving: boolean; saveSuccess: boolean };
+  onSave?: () => void;
 }
 
 // Dropdown options for each mode
@@ -83,7 +85,7 @@ const AFTERDARK_OPTIONS = {
   theRulebook: ["Anything Goes", "Standard Protocol", "Discuss First", "Safe Words Mandatory", "No Marks", "No Kissing"],
 };
 
-const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChange }: MySignalSectionProps) => {
+const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChange, saveState, onSave }: MySignalSectionProps) => {
   const [selectedMode, setSelectedMode] = useState<SignalMode>(vibeMetadata?.mode || null);
   const [showAgeWarning, setShowAgeWarning] = useState(false);
   const [pendingMode, setPendingMode] = useState<SignalMode>(null);
@@ -393,9 +395,39 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
       <Card className="bg-card border-border shadow-sm">
         <CardContent className="p-6">
           <div className="flex flex-col gap-1 mb-4">
-            <div className="flex items-center gap-2">
-              <Radio className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-              <h3 className="text-lg font-semibold text-cyan-400">MY SIGNAL</h3>
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <Radio className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                <h3 className="text-lg font-semibold text-cyan-400">MY SIGNAL</h3>
+              </div>
+              {/* Save Button */}
+              {onSave && saveState && (
+                <Button
+                  type="button"
+                  onClick={onSave}
+                  disabled={saveState.saving}
+                  size="sm"
+                  className={`shadow-[0_0_15px_rgba(236,72,153,0.4)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold h-8 px-3 rounded-full transition-all duration-300 ${
+                    saveState.saveSuccess
+                      ? 'shadow-[0_0_15px_rgba(34,197,94,0.4)] border-green-500/60 bg-green-500/10 text-green-400 hover:bg-green-500/20'
+                      : saveState.hasChanges && !saveState.saving
+                        ? 'shadow-[0_0_20px_rgba(236,72,153,0.6)] animate-pulse'
+                        : ''
+                  }`}
+                  style={{ animationDuration: '2s' }}
+                >
+                  {saveState.saving ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  ) : saveState.saveSuccess ? (
+                    <CheckCircle className="h-3.5 w-3.5" />
+                  ) : (
+                    <Save className="h-3.5 w-3.5" />
+                  )}
+                  <span className="ml-1.5 text-xs">
+                    {saveState.saving ? "Saving" : saveState.saveSuccess ? "Saved" : `Save${saveState.hasChanges ? " •" : ""}`}
+                  </span>
+                </Button>
+              )}
             </div>
             <span className="text-xs text-cyan-400/80 pl-7">Select a signal mode to customize your vibe</span>
           </div>

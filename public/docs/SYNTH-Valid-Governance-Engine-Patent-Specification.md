@@ -2,7 +2,7 @@
 ## Patent Specification — Multi-Model AI Governance System
 
 **Document Version:** 1.0 Final  
-**Date:** December 21, 2025  
+**Date:** December 22, 2025  
 Note: Appendix A sample outputs are from later validation runs; timestamps reflect extraction time and do not alter the invention’s disclosure.
 Classification: Technical Patent Specification
 ---
@@ -437,7 +437,7 @@ CREATE TRIGGER trg_chain_senate_hash
 
 ---
 
-## APPENDIX A:REAL SAMPLE OUTPUTS (Validation Database; PII Redacted)
+## APPENDIX APPENDIX A: REAL SAMPLE OUTPUTS (Validation Database; PII Redacted)
 
 ### A.1 Hash-Chain Audit Trail (synth_senate_runs)
 
@@ -604,5 +604,4 @@ CREATE TRIGGER trg_chain_senate_hash
 
 ---
 
-*Document prepared for patent filing. All code implementations verified as of December 21, 2024.*
-*Sample outputs extracted from production database with PII redacted.*
+Document prepared for patent filing. All code implementations verified as of December 22, 2025. Sample outputs extracted from a validation environment with PII redacted.

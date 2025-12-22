@@ -437,7 +437,7 @@ CREATE TRIGGER trg_chain_senate_hash
 
 ---
 
-## APPENDIX APPENDIX A: REAL SAMPLE OUTPUTS (Validation Database; PII Redacted)
+## APPENDIX A: REAL SAMPLE OUTPUTS (Validation Database; PII Redacted)
 
 ### A.1 Hash-Chain Audit Trail (synth_senate_runs)
 

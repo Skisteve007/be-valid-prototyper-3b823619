@@ -438,32 +438,16 @@ const Dashboard = () => {
                         <UserIcon className="h-4 w-4 mr-1.5" />
                         <span>Profile</span>
                       </TabsTrigger>
-                      <button 
-                        type="button"
-                        onClick={() => {
-                          // First switch to profile tab, then scroll to trust section
-                          setActiveTab("profile");
-                          // Longer delay to ensure tab content renders
-                          setTimeout(() => {
-                            const trustCenterEl = document.getElementById('trust-center-section');
-                            if (trustCenterEl) {
-                              // First expand the collapsible if closed
-                              const closedTrigger = trustCenterEl.querySelector('[data-state="closed"]');
-                              if (closedTrigger && closedTrigger instanceof HTMLElement) {
-                                closedTrigger.click();
-                              }
-                              // Then scroll with a small delay to allow expansion
-                              setTimeout(() => {
-                                trustCenterEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                              }, 150);
-                            }
-                          }, 200);
-                        }}
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium hover:bg-blue-500/20 hover:text-white transition-all duration-300 whitespace-nowrap flex items-center text-xs sm:text-sm touch-manipulation"
+
+                      {/* Trust Center (Uploads) */}
+                      <TabsTrigger 
+                        value="certifications" 
+                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
                       >
                         <Upload className="h-4 w-4 mr-1.5" />
                         <span>Trust</span>
-                      </button>
+                      </TabsTrigger>
+
                       <TabsTrigger 
                         value="lab-verification"
                         className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
@@ -502,8 +486,10 @@ const Dashboard = () => {
                     onSaveStateChange={setProfileSaveState}
                   />
                 </TabsContent>
-                
-                
+
+                <TabsContent value="certifications">
+                  <CertificationsTab userId={user.id} />
+                </TabsContent>
                 
                 <TabsContent value="lab-verification">
                   <LabVerificationTab userId={user.id} />

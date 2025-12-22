@@ -2,7 +2,8 @@
 ## Patent Specification — Multi-Model AI Governance System
 
 **Document Version:** 1.0 Final  
-**Date:** December 21, 2024  
+**Date:** December 21, 2025  
+Note: Appendix A sample outputs are from later validation runs; timestamps reflect extraction time and do not alter the invention’s disclosure.
 **Classification:** Technical Patent Specification
 
 ---
@@ -109,7 +110,7 @@ When a seat fails to respond within the configured timeout (default: 30 seconds)
 
 | Condition | Status | Behavior |
 |-----------|--------|----------|
-| Timeout | `timeout` | Abstain, weight redistributed |
+| Timeout | `timeout` | Abstain,weights are renormalized across participating seats. |
 | API Error | `error` | Abstain, log error code |
 | Parse Failure | `parse_error` | Abstain, log raw response |
 | Rate Limited | `rate_limited` | Abstain, log retry-after |
@@ -437,7 +438,7 @@ CREATE TRIGGER trg_chain_senate_hash
 
 ---
 
-## APPENDIX A: REAL SAMPLE OUTPUTS (Production Database)
+## APPENDIX A:REAL SAMPLE OUTPUTS (Validation Database; PII Redacted)
 
 ### A.1 Hash-Chain Audit Trail (synth_senate_runs)
 

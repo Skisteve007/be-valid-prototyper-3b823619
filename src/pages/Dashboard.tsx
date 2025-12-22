@@ -9,7 +9,7 @@ import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Shar
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
-import CertificationsTab from "@/components/dashboard/CertificationsTab";
+
 
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
@@ -45,7 +45,7 @@ const Dashboard = () => {
   const touchEndX = useRef<number>(0);
   const profileTabRef = useRef<ProfileTabRef>(null);
 
-  const tabs = ["profile", "certifications", "lab-verification", "safety-screen", "verify-id"];
+  const tabs = ["profile", "lab-verification", "safety-screen", "verify-id"];
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -439,14 +439,15 @@ const Dashboard = () => {
                         <span>Profile</span>
                       </TabsTrigger>
 
-                      {/* Trust Center (Uploads) */}
-                      <TabsTrigger 
-                        value="certifications" 
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
+                      {/* Trust Center - Navigates to /trust-center page */}
+                      <button 
+                        type="button"
+                        onClick={() => navigate('/trust-center')}
+                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium hover:bg-blue-500/20 hover:text-white whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center"
                       >
                         <Upload className="h-4 w-4 mr-1.5" />
                         <span>Trust</span>
-                      </TabsTrigger>
+                      </button>
 
                       <TabsTrigger 
                         value="lab-verification"
@@ -487,9 +488,6 @@ const Dashboard = () => {
                   />
                 </TabsContent>
 
-                <TabsContent value="certifications">
-                  <CertificationsTab userId={user.id} />
-                </TabsContent>
                 
                 <TabsContent value="lab-verification">
                   <LabVerificationTab userId={user.id} />

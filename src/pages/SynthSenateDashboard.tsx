@@ -293,7 +293,7 @@ const SynthSenateDashboard: React.FC = () => {
               </CardContent>
             </Card>
 
-            {/* 7 Seat Grid */}
+            {/* 7 Seat Grid - Mobile: stacked, Desktop: 7-column */}
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Senate Seats</h3>
@@ -301,7 +301,8 @@ const SynthSenateDashboard: React.FC = () => {
                   {seats.filter(s => s.status === 'online').length}/7 Online
                 </Badge>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+              {/* Mobile: 1 col, Tablet: 2 cols, Desktop: 4 cols, XL: 7 cols - ALL 7 ALWAYS VISIBLE */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 md:gap-4">
                 {seats.map((seat) => (
                   <SenateSeatCard 
                     key={seat.seat_id} 

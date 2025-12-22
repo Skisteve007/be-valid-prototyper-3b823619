@@ -55,9 +55,9 @@ const TrustCenterPill: React.FC<TrustCenterPillProps> = ({
     }
   };
 
-  // Navigate directly to Trust Center upload page
+  // Toggle expanded state to show verification options
   const handlePillClick = () => {
-    navigate('/trust-center');
+    setIsExpanded(!isExpanded);
   };
 
   // Navigate to Trust Center full page

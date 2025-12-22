@@ -4,8 +4,7 @@
 **Document Version:** 1.0 Final  
 **Date:** December 21, 2025  
 Note: Appendix A sample outputs are from later validation runs; timestamps reflect extraction time and do not alter the invention’s disclosure.
-**Classification:** Technical Patent Specification
-
+Classification: Technical Patent Specification
 ---
 
 ## ABSTRACT
@@ -110,7 +109,7 @@ When a seat fails to respond within the configured timeout (default: 30 seconds)
 
 | Condition | Status | Behavior |
 |-----------|--------|----------|
-| Timeout | `timeout` | Abstain,weights are renormalized across participating seats. |
+| Timeout | `timeout` | Abstain; weights are renormalized across participating seats. |
 | API Error | `error` | Abstain, log error code |
 | Parse Failure | `parse_error` | Abstain, log raw response |
 | Rate Limited | `rate_limited` | Abstain, log retry-after |
@@ -548,7 +547,7 @@ CREATE TRIGGER trg_chain_senate_hash
 
 2. The method of claim 1, further comprising:
    - Fault-tolerant handling of seat timeouts, errors, and rate limits
-   - Automatic weight redistribution when seats abstain
+   - Automatic weight renormalization when seats abstain
    - Logging of abstention reason codes
 
 3. The method of claim 1, further comprising:

@@ -20,7 +20,7 @@ import {
 const IDV_TIERS = {
   standard: {
     name: "Standard VIBE-ID",
-    price: "$48.00",
+    price: "$14.99",
     features: [
       "Passport/ID Document Scan",
       "Biometric Liveness Check",
@@ -33,8 +33,8 @@ const IDV_TIERS = {
     color: "emerald"
   },
   vip: {
-    name: "VIP Global Access",
-    price: "$112.00",
+    name: "Global Access",
+    price: "$34.99",
     features: [
       "All Standard Features",
       "Full Global AML/PEP Screening",

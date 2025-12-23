@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { AlertTriangle, Target, Cpu, Wallet, Eye, Zap, Users, Plane, Check, Loader2, Video, CheckCircle, Circle } from "lucide-react";
+import { AlertTriangle, Target, Cpu, Wallet, Eye, Zap, Users, Plane, Check, Loader2, Video, CheckCircle, Circle, Calendar, MapPin, Clock, DollarSign, Crosshair, Beer, Shirt } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -379,6 +379,244 @@ const DealRoom = () => {
                     <h3 className="font-bold text-white uppercase tracking-wide">The Asset</h3>
                     <p className="font-mono text-sm text-gray-300">
                       VALID - Universal Lifestyle Wallet.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* HUNTER'S ITINERARY - 3-Day Battle Plan */}
+        <section className="max-w-4xl mx-auto">
+          <Card className="bg-black/50 border border-[#00FFFF]/30 overflow-hidden">
+            <CardHeader className="border-b border-[#00FFFF]/20">
+              <CardTitle className="text-[#00FFFF] font-mono text-sm tracking-widest flex items-center gap-2">
+                <Crosshair className="h-4 w-4" />
+                HUNTER'S ITINERARY
+              </CardTitle>
+              <p className="font-mono text-xs text-gray-400 mt-2">
+                We are treating this like a military operation. We aren't wandering around; we are hitting specific targets who have recently raised massive Series B/C rounds and are terrified of AI liability. These companies have $100M+ in the bank and need "Safety" to go public.
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-6 pt-6">
+              {/* THE ASK */}
+              <div className="p-4 bg-gradient-to-r from-[#00FFFF]/10 via-transparent to-[#00FFFF]/10 border border-[#00FFFF]/30 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <DollarSign className="h-6 w-6 text-[#00FFFF] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="font-mono text-[#00FFFF] font-bold tracking-wide">THE ASK: $250,000 "Sovereign Audit" Pilot</h3>
+                    <p className="font-mono text-sm text-white mt-1 italic">
+                      "You have $200M. One AI hallucination lawsuit kills you. We are your insurance."
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3-Day Battle Plan Header */}
+              <div className="text-center py-2">
+                <h3 className="font-mono text-white font-bold tracking-widest text-lg">3-DAY BATTLE PLAN</h3>
+                <p className="font-mono text-xs text-[#00FFFF]">JANUARY 12–14, 2026</p>
+              </div>
+
+              {/* DAY 1 */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 pb-2 border-b border-yellow-500/30">
+                  <Calendar className="h-5 w-5 text-yellow-400" />
+                  <div>
+                    <h4 className="font-mono text-yellow-400 font-bold tracking-wide">DAY 1: MONDAY, JAN 12</h4>
+                    <p className="font-mono text-xs text-gray-400">Focus: Generative AI Leaders (The ones most at risk of lying)</p>
+                  </div>
+                </div>
+
+                {/* Target 1 */}
+                <div className="pl-4 border-l-2 border-[#00FFFF]/30 space-y-3">
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-xs text-[#00FFFF]">09:00 AM</span>
+                      <span className="font-mono text-white font-bold">TARGET 1: AMBIENCE HEALTHCARE</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They just raised $243M. They build an "AI Operating System" for hospitals. If their AI messes up a diagnosis code, they are finished.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Mike Ng (CEO) or Nikhil Buduma (Chief Scientist)</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> Westin St. Francis Lobby (The "Zoo")</p>
+                      <p className="text-white mt-2 italic">"You guys are the OS. But who is auditing the OS? We provide the safety layer."</p>
+                    </div>
+                  </div>
+
+                  {/* Target 2 */}
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-xs text-[#00FFFF]">12:00 PM</span>
+                      <span className="font-mono text-white font-bold">TARGET 2: ABIRIDGE</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Raised $316M. They record doctor-patient conversations. Privacy and accuracy are their entire business.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Dr. Shivdev Rao (CEO)</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> Union Square Coffee (Intercept)</p>
+                      <p className="text-white mt-2 italic">"Your AI summarizes medical advice. If it hallucinates a prescription, you get sued. Synth fixes that."</p>
+                    </div>
+                  </div>
+
+                  {/* Target 3 */}
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-xs text-[#00FFFF]">03:00 PM</span>
+                      <span className="font-mono text-white font-bold">TARGET 3: HIPPOCRATIC AI</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They are obsessed with "Safety-First LLMs." They raised $50M+. Their entire brand is safety. They need a third-party audit to prove it.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Munjal Shah (CEO)</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> St. Regis Bar</p>
+                      <p className="text-white mt-2 italic">"You claim safety. We prove it. Let us run a 'Sovereign Audit' on your model for $250k."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* DAY 2 */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 pb-2 border-b border-green-500/30">
+                  <Calendar className="h-5 w-5 text-green-400" />
+                  <div>
+                    <h4 className="font-mono text-green-400 font-bold tracking-wide">DAY 2: TUESDAY, JAN 13</h4>
+                    <p className="font-mono text-xs text-gray-400">Focus: Medical Data & Research (Where accuracy is worth billions)</p>
+                  </div>
+                </div>
+
+                <div className="pl-4 border-l-2 border-[#00FFFF]/30 space-y-3">
+                  {/* Target 4 */}
+                  <div className="p-3 bg-gray-900/50 rounded border border-red-500/30 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 bg-red-500 text-white font-mono text-[10px] px-2 py-0.5 tracking-wider">
+                      #1 TARGET
+                    </div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-xs text-[#00FFFF]">09:00 AM</span>
+                      <span className="font-mono text-white font-bold">TARGET 4: OPENEVIDENCE</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Raised $210M (Series B). They are the "Google for Doctors." If they give a doctor the wrong answer, patients die.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Daniel Nadler (Founder)</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> Four Seasons Lobby</p>
+                      <p className="text-white mt-2 italic">"You are the source of truth. We are the verification of truth. Partner with us."</p>
+                    </div>
+                  </div>
+
+                  {/* Target 5 */}
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-xs text-[#00FFFF]">12:00 PM</span>
+                      <span className="font-mono text-white font-bold">TARGET 5: TENNR</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Raised $101M. They automate messy medical faxes and documents. High error rate potential.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Trey Holterman (CEO)</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> JPM Conference Floor</p>
+                      <p className="text-white mt-2 italic">"We can clean your error rates by 99% using multi-agent consensus."</p>
+                    </div>
+                  </div>
+
+                  {/* Target 6 */}
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-xs text-[#00FFFF]">03:00 PM</span>
+                      <span className="font-mono text-white font-bold">TARGET 6: FORMATION BIO</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Raised $372M. They use AI to run drug trials.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Benjamine Liu (CEO)</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> Private Suite / Meeting Room</p>
+                      <p className="text-white mt-2 italic">"FDA compliance requires 100% accuracy. Our 'Senate' architecture guarantees it."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* DAY 3 */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 pb-2 border-b border-purple-500/30">
+                  <Calendar className="h-5 w-5 text-purple-400" />
+                  <div>
+                    <h4 className="font-mono text-purple-400 font-bold tracking-wide">DAY 3: WEDNESDAY, JAN 14</h4>
+                    <p className="font-mono text-xs text-gray-400">Focus: The VC Whales (Selling the Equity, not the Contract)</p>
+                  </div>
+                </div>
+
+                <div className="pl-4 border-l-2 border-[#00FFFF]/30 space-y-3">
+                  {/* Target 7 */}
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-xs text-[#00FFFF]">09:00 AM</span>
+                      <span className="font-mono text-white font-bold">TARGET 7: ANDREESSEN HOROWITZ (A16Z BIO)</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They led almost every round listed above. They are heavily exposed to AI risk.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Vijay Pande (General Partner)</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> The St. Regis (They usually rent a whole floor)</p>
+                      <p className="text-white mt-2 italic">"You have $1B invested in AI Health. You have no insurance against hallucination liability. We are that insurance."</p>
+                    </div>
+                  </div>
+
+                  {/* Target 8 */}
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-xs text-[#00FFFF]">12:00 PM</span>
+                      <span className="font-mono text-white font-bold">TARGET 8: KHOSLA VENTURES</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Vinod Khosla loves "impossible" tech. They backed OpenAI early.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Alex Morgan (Partner)</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> InterContinental Hotel</p>
+                      <p className="text-white mt-2 italic">"We aren't building another model. We are building the brakes for the models you already own."</p>
+                    </div>
+                  </div>
+
+                  {/* Closing Drink */}
+                  <div className="p-3 bg-gradient-to-r from-purple-900/30 via-transparent to-purple-900/30 rounded border border-purple-500/30">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Beer className="h-4 w-4 text-purple-400" />
+                      <span className="font-mono text-xs text-purple-400">03:00 PM</span>
+                      <span className="font-mono text-white font-bold">THE CLOSING DRINK</span>
+                    </div>
+                    <div className="space-y-1 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> The St. Regis Lobby Bar</p>
+                      <p className="text-gray-300"><span className="text-yellow-400">Mission:</span> This is where "The Boys" assemble. We invite the targets we met earlier to come have a drink with us. This is where you close the $250k deals on a handshake.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* LOGISTICS */}
+              <div className="border-t border-[#00FFFF]/20 pt-6 space-y-4">
+                <h4 className="font-mono text-[#00FFFF] font-bold tracking-widest flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  LOGISTICS FOR "THE BOYS"
+                </h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Shirt className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-white font-bold text-sm">Dress Code</span>
+                    </div>
+                    <p className="font-mono text-xs text-gray-300">
+                      "Billionaire Casual." No suits. Cashmere sweaters, dark jeans, expensive boots. Look like you already made it.
+                    </p>
+                  </div>
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <MapPin className="h-4 w-4 text-[#00FFFF]" />
+                      <span className="font-mono text-white font-bold text-sm">The "Deal Room"</span>
+                    </div>
+                    <p className="font-mono text-xs text-gray-300">
+                      Keep the Lovable link ready on your phone. If a VC gets interested, you don't send a deck. You text them the link to the "Vault."
                     </p>
                   </div>
                 </div>

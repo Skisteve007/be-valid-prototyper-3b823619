@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { AlertTriangle, Target, Cpu, Wallet, Eye, Zap, Users, Plane, Check, Loader2 } from "lucide-react";
+import { AlertTriangle, Target, Cpu, Wallet, Eye, Zap, Users, Plane, Check, Loader2, Video, CheckCircle, Circle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -174,6 +174,55 @@ const DealRoom = () => {
           </Card>
         </section>
 
+        {/* MISSION LOGISTICS - Tactical Breakdown */}
+        <section className="max-w-3xl mx-auto">
+          <Card className="bg-black/50 border border-[#00FFFF]/30">
+            <CardHeader>
+              <CardTitle className="text-[#00FFFF] font-mono text-sm tracking-widest flex items-center gap-2">
+                <Target className="h-4 w-4" />
+                MISSION LOGISTICS ($15K TARGET)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex items-center gap-3 font-mono text-sm">
+                <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                <span className="text-gray-300">
+                  <span className="text-white font-bold">Target:</span> J.P. Morgan Healthcare Conference (San Francisco).
+                </span>
+              </div>
+              <div className="flex items-center gap-3 font-mono text-sm">
+                <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                <span className="text-gray-300">
+                  <span className="text-white font-bold">Asset Prep:</span> Sales Playbooks & Technical Maps (Currently printing at FedEx Kinkos).
+                </span>
+              </div>
+              <div className="flex items-center gap-3 font-mono text-sm">
+                <Circle className="h-5 w-5 text-gray-500 flex-shrink-0" />
+                <span className="text-gray-300">
+                  <span className="text-white font-bold">Deployment:</span> Secure "Command Center" Suite at St. Regis/W Hotel.
+                </span>
+              </div>
+              <div className="flex items-center gap-3 font-mono text-sm">
+                <Circle className="h-5 w-5 text-gray-500 flex-shrink-0" />
+                <span className="text-gray-300">
+                  <span className="text-white font-bold">Strike Team:</span> Grillo, Chris, John (Boots on the ground Jan 10).
+                </span>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* THE INVITE TEXT */}
+        <section className="max-w-3xl mx-auto">
+          <Card className="bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 border border-[#00FFFF]/50">
+            <CardContent className="py-6">
+              <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
+                "This is a <span className="text-[#00FFFF] font-bold">Strategic Strike</span>. We aren't just asking for capital; we are building a coalition. If you back this mission, you are welcome to fly out and <span className="text-[#00FFFF] font-bold">join the raid</span>. We will be in the room with the targets."
+              </p>
+            </CardContent>
+          </Card>
+        </section>
+
         {/* THE INTEL - Bullet Points */}
         <section className="max-w-3xl mx-auto">
           <Card className="bg-black/50 border border-[#00FFFF]/30">
@@ -267,21 +316,32 @@ const DealRoom = () => {
           </div>
         </section>
 
-        {/* ACTION BUTTON */}
-        <section className="text-center py-8">
-          <Button
-            size="lg"
-            onClick={() => setIsModalOpen(true)}
-            className="relative bg-[#00FFFF] hover:bg-[#00CED1] text-black font-bold text-lg px-12 py-6 h-auto tracking-wider uppercase transition-all duration-300 hover:scale-105"
-            style={{
-              boxShadow: "0 0 30px #00FFFF, 0 0 60px #00FFFF50",
-            }}
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              <Zap className="h-5 w-5" />
-              SECURE ALLOCATION
-            </span>
-          </Button>
+        {/* ACTION BUTTONS */}
+        <section className="text-center py-8 space-y-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button
+              size="lg"
+              onClick={() => setIsModalOpen(true)}
+              className="relative bg-[#00FFFF] hover:bg-[#00CED1] text-black font-bold text-lg px-12 py-6 h-auto tracking-wider uppercase transition-all duration-300 hover:scale-105"
+              style={{
+                boxShadow: "0 0 30px #00FFFF, 0 0 60px #00FFFF50",
+              }}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <Zap className="h-5 w-5" />
+                SECURE ALLOCATION
+              </span>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => window.open("https://calendly.com", "_blank")}
+              className="border-[#00FFFF] text-[#00FFFF] hover:bg-[#00FFFF]/10 font-bold text-lg px-8 py-6 h-auto tracking-wider uppercase transition-all duration-300 hover:scale-105 bg-transparent"
+            >
+              <Video className="h-5 w-5 mr-2" />
+              REQUEST GROUP BRIEFING (VIDEO)
+            </Button>
+          </div>
           <p className="font-mono text-xs text-gray-500 mt-4 tracking-wide">
             // HANDSHAKE AGREEMENT • NO PROSPECTUS REQUIRED //
           </p>

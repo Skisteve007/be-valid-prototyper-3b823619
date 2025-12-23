@@ -107,6 +107,19 @@ const InvestorPortal = () => {
         <div className="relative z-10">
           {/* Hero Header */}
           <div className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
+            <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/deal-room")}
+                className="gap-2 border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/10 hover:text-white"
+              >
+                <FileText className="h-4 w-4" />
+                Deal Room
+              </Button>
+              <SynthButton variant="hidden-trigger" />
+              <SynthButton variant="header" />
+            </div>
           <div className="container mx-auto px-4 py-10 md:py-16 text-center">
             {/* Primary H1 */}
             <h1 className="text-4xl md:text-6xl font-bold tracking-wider text-white font-display mb-4">

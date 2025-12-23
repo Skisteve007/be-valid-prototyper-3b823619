@@ -104,22 +104,41 @@ const DealRoom = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("investor_leads").insert({
+      // First save to investor_leads
+      const { error: dbError } = await supabase.from("investor_leads").insert({
         name: formData.name,
         email: formData.email,
         tranche_interest: `deal_room_${selectedTier}_$${formData.amount}`,
         accredited_confirmed: true,
       });
 
-      if (error) throw error;
+      if (dbError) {
+        console.error("DB error:", dbError);
+      }
 
-      toast.success("Allocation Secured", {
-        description: "You'll receive mission briefing details within 24 hours.",
+      // Then redirect to Stripe payment
+      const { data, error } = await supabase.functions.invoke("create-deal-room-payment", {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          amount: parseInt(formData.amount, 10),
+          tier: selectedTier,
+        },
       });
 
-      setIsModalOpen(false);
-      setFormData({ name: "", email: "", amount: "" });
-      setSelectedTier(null);
+      if (error) throw error;
+
+      if (data?.url) {
+        window.open(data.url, "_blank");
+        toast.success("Redirecting to Payment", {
+          description: "Complete your investment in the new tab.",
+        });
+        setIsModalOpen(false);
+        setFormData({ name: "", email: "", amount: "" });
+        setSelectedTier(null);
+      } else {
+        throw new Error("No checkout URL returned");
+      }
     } catch (error) {
       console.error("Submission error:", error);
       toast.error("Transmission Failed", {
@@ -437,7 +456,7 @@ const DealRoom = () => {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => window.open("https://calendly.com", "_blank")}
+              onClick={() => window.open("https://calendly.com/validnetwork", "_blank")}
               className="border-[#00FFFF] text-[#00FFFF] hover:bg-[#00FFFF]/10 font-bold text-lg px-8 py-6 h-auto tracking-wider uppercase transition-all duration-300 hover:scale-105 bg-transparent"
             >
               <Video className="h-5 w-5 mr-2" />

@@ -75,7 +75,16 @@ const Footer = () => {
   
   return (
     <>
-      <footer className="w-full mt-auto border-t border-slate-400 dark:border-slate-700 bg-slate-800 dark:bg-slate-950">
+      <footer className="w-full mt-auto border-t border-slate-400 dark:border-slate-700 bg-slate-800 dark:bg-slate-950 relative">
+        {/* Admin Panel Button - Top Right */}
+        <button
+          onClick={handleAdminClick}
+          disabled={checkingAuth}
+          className="absolute top-2 right-4 text-[10px] px-2 py-1 rounded transition-colors hover:opacity-80 focus:outline-none text-teal-300 hover:text-teal-200 disabled:opacity-50"
+        >
+          {isAdmin ? t('footer.adminPanel') : t('footer.admin')}
+        </button>
+
         <div className="container mx-auto px-4 py-4">
         
           {/* Core Tagline */}
@@ -125,20 +134,13 @@ const Footer = () => {
               <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: {t('footer.ageRequirement')}</span>
             </div>
             
-            {/* Right side - Admin buttons with glow */}
+            {/* Right side - Admin Setup button only */}
             <div className="flex items-center gap-2">
               <button
                 onClick={() => navigate('/admin/setup')}
                 className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] uppercase tracking-wider"
               >
                 Admin Setup
-              </button>
-              <button
-                onClick={handleAdminClick}
-                disabled={checkingAuth}
-                className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-blue-600 text-white disabled:opacity-50 shadow-[0_0_20px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] uppercase tracking-wider"
-              >
-                {isAdmin ? t('footer.adminPanel') : t('footer.admin')}
               </button>
             </div>
           </div>

@@ -92,12 +92,11 @@ const Partners = () => {
             <span className="text-2xl sm:text-3xl md:text-4xl font-bold font-orbitron tracking-[0.15em] sm:tracking-[0.18em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID<sup className="text-[0.5em] text-cyan-400">™</sup></span>
             <Link 
               to="/pitch-deck" 
-              className="flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs sm:text-sm font-bold rounded-full transition-all uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
+              className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-[11px] sm:text-xs font-bold rounded-full transition-all uppercase tracking-wider shadow-[0_0_14px_rgba(6,182,212,0.28)] hover:shadow-[0_0_22px_rgba(6,182,212,0.45)]"
             >
-              <Eye className="h-4 w-4 sm:h-4.5 sm:w-4.5 animate-pulse drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-pulse drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
               Investors
             </Link>
-          </div>
           
           {/* Catchy tagline - centered */}
           <div className="hidden xl:flex items-center gap-4 text-sm font-mono tracking-wider absolute left-1/2 -translate-x-1/2">
@@ -109,24 +108,22 @@ const Partners = () => {
             <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-500/50"></div>
           </div>
           
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link 
               to="/vendor-pricing" 
-              className="group flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-purple-600/80 to-cyan-600/80 border border-purple-500/40 hover:border-cyan-400/60 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+              className="group flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-purple-600/80 to-cyan-600/80 border border-purple-500/40 hover:border-cyan-400/60 rounded-full transition-all duration-300 hover:shadow-[0_0_16px_rgba(168,85,247,0.35)]"
             >
-              <span className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">Pricing</span>
+              <span className="text-[11px] sm:text-xs font-bold text-white uppercase tracking-wider">Pricing</span>
             </Link>
             <Link 
               to="/" 
-              className="group flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-2.5 bg-black/60 border border-white/20 hover:border-cyan-400/60 rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+              className="group flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2 bg-black/60 border border-white/20 hover:border-cyan-400/60 rounded-full transition-all duration-300 hover:shadow-[0_0_16px_rgba(0,240,255,0.25)]"
             >
-              <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.8)] animate-pulse"></div>
-              <span className="text-xs sm:text-sm font-bold text-white/80 group-hover:text-white uppercase tracking-wider">App</span>
-              <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+              <div className="h-2 w-2 sm:h-2 sm:w-2 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.8)] animate-pulse"></div>
+              <span className="text-[11px] sm:text-xs font-bold text-white/80 group-hover:text-white uppercase tracking-wider">App</span>
+              <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
-        </div>
-      </nav>
 
       {/* 2. THE BUILDER'S VISION (Hero) */}
       <header className="relative py-28 px-6 text-center z-10 max-w-5xl mx-auto">

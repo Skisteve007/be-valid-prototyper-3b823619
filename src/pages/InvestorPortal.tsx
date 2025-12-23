@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
-import { Shield, Lock, Check, Sparkles, Clock, ExternalLink, ArrowRight, User, Briefcase, Cpu, Award, Phone, Mail, Globe, Calendar } from "lucide-react";
+import { Shield, Lock, Check, Sparkles, Clock, ExternalLink, ArrowRight, User, Briefcase, Cpu, Award, Phone, Mail, Globe, Calendar, FileText } from "lucide-react";
 import SynthButton from "@/components/SynthButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -107,8 +107,18 @@ const InvestorPortal = () => {
         <div className="relative z-10">
           {/* Hero Header */}
           <div className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
-            {/* Header nav - Admin Synth button + Hidden trigger for discovery */}
+            {/* Header nav - Deal Room button + Admin Synth button + Hidden trigger for discovery */}
             <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
+              {/* Deal Room Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/admin/deal-room")}
+                className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 hover:border-amber-400"
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                Deal Room
+              </Button>
               {/* Hidden trigger - mysterious sparkle anyone can discover */}
               <SynthButton variant="hidden-trigger" />
               {/* Full SYNTH button - admin only */}

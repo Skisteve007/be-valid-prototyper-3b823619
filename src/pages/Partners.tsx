@@ -124,6 +124,9 @@ const Partners = () => {
               <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
+          </div>
+        </div>
+      </nav>
 
       {/* 2. THE BUILDER'S VISION (Hero) */}
       <header className="relative py-28 px-6 text-center z-10 max-w-5xl mx-auto">

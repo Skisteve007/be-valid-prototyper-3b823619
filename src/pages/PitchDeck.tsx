@@ -247,6 +247,16 @@ const scorecardData = [
               </sup>
             </div>
 
+            <Button
+              variant="secondary"
+              onClick={() => navigate("/deal-room")}
+              className="h-8 md:h-9 lg:h-10 px-3 md:px-4 lg:px-6 text-xs md:text-sm gap-2"
+              aria-label="Open Deal Room"
+            >
+              <FileText className="h-4 w-4" />
+              <span className="hidden sm:inline">Deal Room</span>
+            </Button>
+
             {/* Contact Us CTA */}
             <Button 
               className="relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)] text-xs md:text-sm px-3 md:px-4 lg:px-6 py-2 h-8 md:h-9 lg:h-10"

@@ -1,4 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { FileText } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import SynthButton from "@/components/SynthButton";
 
 const slidesData = [
@@ -222,6 +226,7 @@ const SlideCard: React.FC<SlideCardProps> = ({
 
 const CinematicPitchDeck: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (videoRef.current) {
@@ -315,8 +320,18 @@ const CinematicPitchDeck: React.FC = () => {
         VALID™
       </div>
 
-      {/* Top-right: hidden trigger + slide counter */}
+      {/* Top-right: Deal Room + hidden trigger + slide counter */}
       <div className="fixed top-6 right-6 z-20 flex items-center gap-3">
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => navigate("/deal-room")}
+          className="gap-2"
+          aria-label="Open Deal Room"
+        >
+          <FileText className="h-4 w-4" />
+          <span className="hidden sm:inline">Deal Room</span>
+        </Button>
         <SynthButton variant="hidden-trigger" />
         <SynthButton variant="header" />
         <div className="text-foreground/30 text-xs font-mono tracking-widest">

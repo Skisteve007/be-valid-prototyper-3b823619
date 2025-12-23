@@ -109,6 +109,7 @@ const ThinkTank = lazy(() => import("./pages/ThinkTank"));
 const DealRoom = lazy(() => import("./pages/DealRoom"));
 const AdminSecurityPositioning = lazy(() => import("./pages/AdminSecurityPositioning"));
 const SenateAutopilotDocs = lazy(() => import("./pages/SenateAutopilotDocs"));
+const SenateOrchestratorSpec = lazy(() => import("./pages/SenateOrchestratorSpec"));
 
 const queryClient = new QueryClient();
 
@@ -163,6 +164,7 @@ const App = () => (
                   <Route path="/synth/logs" element={<SynthLogs />} />
                   <Route path="/synth/docs" element={<SynthDocs />} />
                   <Route path="/synth/docs/senate-autopilot" element={<SenateAutopilotDocs />} />
+                  <Route path="/synth/docs/senate-orchestrator-spec" element={<SenateOrchestratorSpec />} />
                   <Route path="/synth/policies" element={<SynthPolicies />} />
                   <Route path="/synth/methodology" element={<SynthMethodology />} />
                   <Route path="/synth/challenges" element={<SynthChallenges />} />

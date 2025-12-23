@@ -107,6 +107,7 @@ const RevenueEngine = lazy(() => import("./pages/RevenueEngine"));
 const PilotReadiness = lazy(() => import("./pages/PilotReadiness"));
 const ThinkTank = lazy(() => import("./pages/ThinkTank"));
 const DealRoom = lazy(() => import("./pages/DealRoom"));
+const AdminSecurityPositioning = lazy(() => import("./pages/AdminSecurityPositioning"));
 
 const queryClient = new QueryClient();
 
@@ -152,6 +153,7 @@ const App = () => (
                   <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
                   <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />
                   <Route path="/admin/documentation" element={<AgeGate><AdminDocumentation /></AgeGate>} />
+                  <Route path="/admin/security-positioning" element={<AgeGate><AdminSecurityPositioning /></AgeGate>} />
                   <Route path="/synth-vault" element={<SynthVault />} />
                   <Route path="/synth" element={<AgeGate><Synth /></AgeGate>} />
                   <Route path="/synth/admin" element={<AgeGate><SynthAdmin /></AgeGate>} />

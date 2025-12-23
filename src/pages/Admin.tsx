@@ -226,13 +226,10 @@ const Admin = () => {
   });
 
   const canAccessDealRoom = userEmail && DEAL_ROOM_AUTHORIZED_EMAILS.includes(userEmail.toLowerCase());
-  const canUnlockSynth = userEmail && SYNTH_AUTHORIZED_EMAILS.includes(userEmail.toLowerCase());
+  // Synth is now unlocked for all admins
+  const canUnlockSynth = true;
 
   const handleTabChange = (tab: string) => {
-    if (tab === "synth" && !canUnlockSynth) {
-      toast.error("SYNTH™ is locked. Only Steve@bevalid.app can unlock it.");
-      return;
-    }
     setActiveTab(tab);
   };
 

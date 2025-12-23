@@ -22,7 +22,6 @@ import {
   GraduationCap,
   Fuel
 } from "lucide-react";
-import ResponsiveHeader from "@/components/ResponsiveHeader";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -79,8 +78,6 @@ const Pricing = () => {
         <title>Pricing | VALID™</title>
         <meta name="description" content="Transparent pricing that scales with your business. Base platform + hardware + usage fees." />
       </Helmet>
-
-      <ResponsiveHeader />
 
       <main className="pt-20">
         {/* Hero Header */}

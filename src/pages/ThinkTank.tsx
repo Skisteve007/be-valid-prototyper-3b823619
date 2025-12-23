@@ -9,7 +9,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Search, Brain, BookOpen, FileText, ClipboardList, Copy, Pin, ArrowLeft, Calendar, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import ResponsiveHeader from '@/components/ResponsiveHeader';
 import { Helmet } from 'react-helmet-async';
 
 type ThinkTankCategory = 'synth_standards' | 'playbooks' | 'decision_log' | 'templates';
@@ -94,7 +93,6 @@ const ThinkTank = () => {
           <title>{selectedEntry.title} | Think Tank | VALID™</title>
           <meta name="description" content={selectedEntry.excerpt || selectedEntry.title} />
         </Helmet>
-        <ResponsiveHeader />
         
         <main className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
           <Button
@@ -171,7 +169,6 @@ const ThinkTank = () => {
         <title>Think Tank | VALID™ Knowledge Base</title>
         <meta name="description" content="SYNTH™ standards, playbooks, decision logs, and templates for the VALID™ ecosystem." />
       </Helmet>
-      <ResponsiveHeader />
       
       <main className="container mx-auto px-4 pt-24 pb-16">
         {/* Header */}

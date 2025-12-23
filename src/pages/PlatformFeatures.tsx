@@ -12,7 +12,6 @@ import {
   DollarSign,
   GraduationCap
 } from "lucide-react";
-import ResponsiveHeader from "@/components/ResponsiveHeader";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -254,8 +253,6 @@ const PlatformFeatures = () => {
         <title>Vendor Pricing | VALID™ GHOST PASS™ Industry Packages</title>
         <meta name="description" content="Explore VALID™ industry pricing packages starting at $99/month for nightlife, transportation, workforce, health, rentals, and security operations." />
       </Helmet>
-      
-      <ResponsiveHeader />
       
       <main className="min-h-screen bg-gradient-to-b from-background via-background/95 to-background pt-20 pb-16 px-4">
         <div className="max-w-7xl mx-auto">

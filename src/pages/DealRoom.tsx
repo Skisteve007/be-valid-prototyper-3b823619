@@ -480,7 +480,7 @@ const DealRoom = () => {
 
       {/* ALLOCATION FORM MODAL */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-black border border-[#00FFFF]/50 text-white max-w-md top-[35%]">
+        <DialogContent className="bg-black border border-[#00FFFF]/50 text-white max-w-md top-[25%] translate-y-[-25%]">
           <DialogHeader>
             <DialogTitle className="text-[#00FFFF] font-mono tracking-widest text-center">
               SECURE YOUR ALLOCATION

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ThemeToggle } from './ThemeToggle';
-import { supabase } from '@/integrations/supabase/client';
-import { AdminLoginDialog } from './AdminLoginDialog';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ThemeToggle } from "./ThemeToggle";
+import { supabase } from "@/integrations/supabase/client";
+import { AdminLoginDialog } from "./AdminLoginDialog";
 
 const ResponsiveHeader = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const ResponsiveHeader = () => {
 
   return (
     <>
-      <header className="w-full px-2 sm:px-8 md:px-16 lg:px-24 py-3 sm:py-4 flex items-center justify-between bg-transparent absolute top-0 left-0 right-0 z-50">
+      <header className="w-full px-2 sm:px-8 md:px-16 lg:px-24 py-3 sm:py-4 flex items-start sm:items-center justify-between gap-3 bg-transparent absolute top-0 left-0 right-0 z-50">
         {/* Logo - Text Only */}
         <Link to="/" className="flex flex-col items-start shrink-0">
           <span className="text-base sm:text-2xl md:text-3xl font-bold font-display tracking-[0.12em] sm:tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">
@@ -67,7 +67,7 @@ const ResponsiveHeader = () => {
         </Link>
 
         {/* Right Side Controls */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:gap-3">
           {/* Partner Solutions Button */}
           <Link 
             to="/partners" 

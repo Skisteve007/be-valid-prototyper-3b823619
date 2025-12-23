@@ -174,6 +174,7 @@ const App = () => (
                   {/* INVESTOR ROUTES - Protected */}
                   <Route path="/investor-dashboard" element={<AgeGate><InvestorDashboard /></AgeGate>} />
                   <Route path="/investor-portal" element={<AgeGate><AccessGate accessType="investor"><InvestorPortal /></AccessGate></AgeGate>} />
+                  <Route path="/investor" element={<AgeGate><AccessGate accessType="investor"><InvestorPortal /></AccessGate></AgeGate>} />
                   <Route path="/investors" element={<AgeGate><AccessGate accessType="investor"><InvestorPortal /></AccessGate></AgeGate>} />
                   <Route path="/pitch-deck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
                   <Route path="/pitchdeck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />

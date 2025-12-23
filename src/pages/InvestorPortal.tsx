@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { Shield, Lock, Check, Sparkles, Clock, ExternalLink, ArrowRight, User, Briefcase, Cpu, Award, Phone, Mail, Globe, Calendar, FileText } from "lucide-react";
-import SynthButton from "@/components/SynthButton";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -106,62 +106,63 @@ const InvestorPortal = () => {
         {/* Content Layer */}
         <div className="relative z-10">
           {/* Hero Header */}
-          <div className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
-            <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate("/deal-room")}
-                className="gap-2 border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/10 hover:text-white"
-              >
-                <FileText className="h-4 w-4" />
-                Deal Room
-              </Button>
-              <SynthButton variant="hidden-trigger" />
-              <SynthButton variant="header" />
-            </div>
-          <div className="container mx-auto px-4 py-10 md:py-16 text-center">
-            {/* Primary H1 */}
-            <h1 className="text-4xl md:text-6xl font-bold tracking-wider text-white font-display mb-4">
-              DEAL ROOM
-            </h1>
-            <p className="text-cyan-400/80 text-lg tracking-wide mb-6">Valid<sup className="text-[0.5em]">™</sup> Investor Portal</p>
-            
-            {/* Primary CTA to Deal Room */}
-            <div className="flex justify-center mb-8">
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => navigate("/deal-room")}
-                className="gap-2"
-              >
-                <FileText className="h-5 w-5" />
-                Open Deal Room
-              </Button>
-            </div>
-            
-            {/* Secondary Quote */}
-            <p className="text-base md:text-lg text-amber-300/80 italic tracking-wide mb-8 max-w-xl mx-auto">
-              "Experience cannot be coded. It must be lived."
-            </p>
-            
-            {/* Badges - reduced visual weight */}
-            <div className="inline-flex flex-wrap items-center justify-center gap-2">
-              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full">
-                <span className="text-xs">🛡️</span>
-                <span className="text-cyan-400/80 text-xs font-medium">SOC 2</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-green-500/10 border border-green-500/30 rounded-full">
-                <span className="text-xs">🔒</span>
-                <span className="text-green-400/80 text-xs font-medium">GDPR</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full">
-                <span className="text-xs">🔒</span>
-                <span className="text-amber-400/80 text-xs font-medium">CCPA</span>
+          <header className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
+            <div className="container mx-auto px-4 pt-4">
+              <div className="flex justify-end">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigate("/deal-room")}
+                  className="gap-2"
+                >
+                  <FileText className="h-4 w-4" />
+                  Deal Room
+                </Button>
               </div>
             </div>
-          </div>
-        </div>
+
+            <div className="container mx-auto px-4 py-10 md:py-16 text-center">
+              {/* Primary H1 */}
+              <h1 className="text-4xl md:text-6xl font-bold tracking-wider text-white font-display mb-4">
+                DEAL ROOM
+              </h1>
+              <p className="text-cyan-400/80 text-lg tracking-wide mb-6">Valid<sup className="text-[0.5em]">™</sup> Investor Portal</p>
+
+              {/* Primary CTA to Deal Room */}
+              <div className="flex justify-center mb-8">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => navigate("/deal-room")}
+                  className="gap-2"
+                >
+                  <FileText className="h-5 w-5" />
+                  Open Deal Room
+                </Button>
+              </div>
+
+              {/* Secondary Quote */}
+              <p className="text-base md:text-lg text-amber-300/80 italic tracking-wide mb-8 max-w-xl mx-auto">
+                "Experience cannot be coded. It must be lived."
+              </p>
+
+              {/* Badges - reduced visual weight */}
+              <div className="inline-flex flex-wrap items-center justify-center gap-2">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full">
+                  <span className="text-xs">🛡️</span>
+                  <span className="text-cyan-400/80 text-xs font-medium">SOC 2</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-green-500/10 border border-green-500/30 rounded-full">
+                  <span className="text-xs">🔒</span>
+                  <span className="text-green-400/80 text-xs font-medium">GDPR</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full">
+                  <span className="text-xs">🔒</span>
+                  <span className="text-amber-400/80 text-xs font-medium">CCPA</span>
+                </div>
+              </div>
+            </div>
+          </header>
 
         <div className="container mx-auto px-4 py-8 md:py-12 space-y-12 md:space-y-16">
 

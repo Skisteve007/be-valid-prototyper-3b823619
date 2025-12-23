@@ -107,6 +107,14 @@ const InvestorDashboard = () => {
   return (
     <div className={`min-h-screen transition-all duration-700 ease-in-out font-sans selection:bg-cyan-500 selection:text-white
       ${isDark ? 'bg-[#050505] text-white' : 'bg-slate-50 text-slate-900'}`}>
+
+      <button
+        type="button"
+        onClick={() => navigate('/deal-room')}
+        className="fixed top-4 right-4 z-[101] rounded-md border border-border bg-background/70 px-3 py-2 text-sm font-medium text-foreground backdrop-blur"
+      >
+        Deal Room
+      </button>
       
       {/* RIPPLE TRANSITION EFFECT */}
       {ripple.active && (

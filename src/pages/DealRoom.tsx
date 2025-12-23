@@ -192,7 +192,23 @@ const DealRoom = () => {
                   <span className="text-yellow-400 font-bold">⚡ PRIORITY ONE:</span>{" "}
                   <span className="text-white font-bold">UI/UX "WIZARD" BUILD ($3,500)</span>
                   <p className="text-gray-300 mt-1 text-xs">
-                    Retaining top-tier Creative Developer for the 'Iron Man' Chrome Extension Interface + High-Fidelity Motion Video for the SF Pitch.
+                    Retaining top-tier Creative Developer for the "Iron Man" Chrome Extension Interface + High-Fidelity Motion Video for the SF Pitch.
+                  </p>
+                  <span className="inline-block mt-1 text-xs text-red-400 font-bold tracking-wider animate-pulse">
+                    🔴 HIRING IMMEDIATELY
+                  </span>
+                </div>
+              </div>
+
+              {/* PRIORITY TWO - Glowing urgent item */}
+              <div className="flex items-start gap-3 font-mono text-sm p-3 rounded border border-yellow-500/50 bg-yellow-500/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-transparent to-yellow-500/20 animate-pulse pointer-events-none" />
+                <Zap className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" style={{ filter: "drop-shadow(0 0 8px #facc15)" }} />
+                <div className="relative z-10">
+                  <span className="text-yellow-400 font-bold">⚡ PRIORITY TWO:</span>{" "}
+                  <span className="text-white font-bold">LEAD FULL STACK DESIGNER & DEVELOPER ($3,500)</span>
+                  <p className="text-gray-300 mt-1 text-xs">
+                    Needed to take the helm of our platform. End-to-end ownership of product design and engineering.
                   </p>
                   <span className="inline-block mt-1 text-xs text-red-400 font-bold tracking-wider animate-pulse">
                     🔴 HIRING IMMEDIATELY

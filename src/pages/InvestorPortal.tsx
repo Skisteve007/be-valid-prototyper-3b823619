@@ -107,14 +107,6 @@ const InvestorPortal = () => {
         <div className="relative z-10">
           {/* Hero Header */}
           <div className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
-            {/* Header nav - Admin Synth button + Hidden trigger for discovery */}
-            <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
-              {/* Hidden trigger - mysterious sparkle anyone can discover */}
-              <SynthButton variant="hidden-trigger" />
-              {/* Full SYNTH button - admin only */}
-              <SynthButton variant="header" />
-            </div>
-            
           <div className="container mx-auto px-4 py-10 md:py-16 text-center">
             {/* Primary H1 */}
             <h1 className="text-4xl md:text-6xl font-bold tracking-wider text-white font-display mb-4">

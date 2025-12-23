@@ -10,7 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-const MISSION_TARGET = 15000;
+const MISSION_TARGET = 50000;
 
 const commitmentLevels = [
   {
@@ -180,7 +180,7 @@ const DealRoom = () => {
             <CardHeader>
               <CardTitle className="text-[#00FFFF] font-mono text-sm tracking-widest flex items-center gap-2">
                 <Target className="h-4 w-4" />
-                MISSION LOGISTICS ($15K TARGET)
+                MISSION LOGISTICS (STAGE $15K → $50K)
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">

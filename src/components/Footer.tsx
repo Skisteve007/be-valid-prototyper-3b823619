@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
-import { AdminLoginDialog } from './AdminLoginDialog';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
-import ComplianceBadges from './ComplianceBadges';
 import { Sun, Moon } from 'lucide-react';
 
 const Footer = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [showLoginDialog, setShowLoginDialog] = useState(false);
-  const [checkingAuth, setCheckingAuth] = useState(true);
   const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
@@ -30,128 +24,68 @@ const Footer = () => {
     }
     localStorage.setItem("theme", newDark ? "dark" : "light");
   };
-
-  useEffect(() => {
-    const checkAdminStatus = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (session?.user) {
-          const { data: roleData } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", session.user.id)
-            .eq("role", "administrator")
-            .maybeSingle();
-          
-          setIsAdmin(!!roleData);
-        } else {
-          setIsAdmin(false);
-        }
-      } catch (error) {
-        console.error("Error checking admin status:", error);
-        setIsAdmin(false);
-      } finally {
-        setCheckingAuth(false);
-      }
-    };
-
-    checkAdminStatus();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      checkAdminStatus();
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const handleAdminClick = () => {
-    if (isAdmin) {
-      navigate("/admin");
-    } else {
-      setShowLoginDialog(true);
-    }
-  };
   
   return (
-    <>
-      <footer className="w-full mt-auto border-t border-slate-400 dark:border-slate-700 bg-slate-800 dark:bg-slate-950 relative">
-        {/* Admin Panel Button - Top Right */}
-        <button
-          onClick={handleAdminClick}
-          disabled={checkingAuth}
-          className="absolute top-2 right-4 text-[10px] px-2 py-1 rounded transition-colors hover:opacity-80 focus:outline-none text-teal-300 hover:text-teal-200 disabled:opacity-50"
-        >
-          {isAdmin ? t('footer.adminPanel') : t('footer.admin')}
-        </button>
+    <footer className="w-full mt-auto border-t border-slate-400 dark:border-slate-700 bg-slate-800 dark:bg-slate-950">
+      <div className="container mx-auto px-4 py-4">
+      
+        {/* Core Tagline */}
+        <div className="text-center mb-4 pb-4 border-b border-slate-600">
+          <p className="text-lg font-bold text-white tracking-wide">Fluid. Frictionless. Trusted. Zero Stored.</p>
+          <p className="text-xs text-gray-400 mt-1">Pipeline, Not Vault — Your data is verified, then purged. Never stored.</p>
+        </div>
 
-        <div className="container mx-auto px-4 py-4">
-        
-          {/* Core Tagline */}
-          <div className="text-center mb-4 pb-4 border-b border-slate-600">
-            <p className="text-lg font-bold text-white tracking-wide">Fluid. Frictionless. Trusted. Zero Stored.</p>
-            <p className="text-xs text-gray-400 mt-1">Pipeline, Not Vault — Your data is verified, then purged. Never stored.</p>
+      {/* Compact Legal Section */}
+        <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-slate-200">
+          <p>© 2025 Giant Ventures LLC. All rights reserved. VALID™ and Ghost™ are trademarks.</p>
+          <p><strong className="text-white">{t('footer.disclaimerLabel')}</strong> {t('footer.disclaimerText')}</p>
+        </div>
+
+        {/* Proprietary Rights Notice */}
+        <div className="text-[10px] leading-relaxed mb-3 text-slate-400 border-t border-slate-600 pt-3">
+          <p><strong className="text-slate-300">{t('footer.legalNoticeLabel')}</strong> {t('footer.legalNoticeText')}</p>
+        </div>
+
+        {/* Language Selector */}
+        <div className="border-t border-slate-600 pt-3 mb-3">
+          <p className="text-xs text-slate-400 mb-2 text-center">{t('footer.selectLanguage')}</p>
+          <LanguageSelector variant="footer" />
+        </div>
+
+        {/* Contact Email */}
+        <div className="text-center py-2 border-t border-slate-600">
+          <p className="text-xs text-slate-400">Contact: <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a></p>
+        </div>
+
+        {/* Links & Compliance Row */}
+        <div className="flex flex-wrap items-center justify-between gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
+          {/* Left side - legal links */}
+          <div className="flex flex-wrap items-center gap-2">
+            <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.terms')}</Link>
+            <span className="text-white font-bold">|</span>
+            <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.privacy')}</Link>
+            <span className="text-white font-bold">|</span>
+            <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.refund')}</Link>
+            <span className="text-white font-bold">|</span>
+            <Link to="/vendor-portal" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">For Enterprise</Link>
+            <span className="text-white font-bold">|</span>
+            <Link to="/think-tank" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Think Tank</Link>
+            <span className="text-white font-bold">•</span>
+            <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: {t('footer.ageRequirement')}</span>
           </div>
-
-        {/* Compact Legal Section */}
-          <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-slate-200">
-            <p>© 2025 Giant Ventures LLC. All rights reserved. VALID™ and Ghost™ are trademarks.</p>
-            <p><strong className="text-white">{t('footer.disclaimerLabel')}</strong> {t('footer.disclaimerText')}</p>
-          </div>
-
-          {/* Proprietary Rights Notice */}
-          <div className="text-[10px] leading-relaxed mb-3 text-slate-400 border-t border-slate-600 pt-3">
-            <p><strong className="text-slate-300">{t('footer.legalNoticeLabel')}</strong> {t('footer.legalNoticeText')}</p>
-          </div>
-
-          {/* Language Selector */}
-          <div className="border-t border-slate-600 pt-3 mb-3">
-            <p className="text-xs text-slate-400 mb-2 text-center">{t('footer.selectLanguage')}</p>
-            <LanguageSelector variant="footer" />
-          </div>
-
-          {/* Security badges removed - consolidated to Hero section only */}
-
-          {/* Contact Email */}
-          <div className="text-center py-2 border-t border-slate-600">
-            <p className="text-xs text-slate-400">Contact: <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a></p>
-          </div>
-
-          {/* Links & Compliance Row */}
-          <div className="flex flex-wrap items-center justify-between gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
-            {/* Left side - legal links */}
-            <div className="flex flex-wrap items-center gap-2">
-              <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.terms')}</Link>
-              <span className="text-white font-bold">|</span>
-              <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.privacy')}</Link>
-              <span className="text-white font-bold">|</span>
-              <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.refund')}</Link>
-              <span className="text-white font-bold">|</span>
-              <Link to="/vendor-portal" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">For Enterprise</Link>
-              <span className="text-white font-bold">|</span>
-              <Link to="/think-tank" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Think Tank</Link>
-              <span className="text-white font-bold">•</span>
-              <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: {t('footer.ageRequirement')}</span>
-            </div>
-            
-            {/* Right side - Admin Setup button only */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => navigate('/admin/setup')}
-                className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] uppercase tracking-wider"
-              >
-                Admin Setup
-              </button>
-            </div>
+          
+          {/* Right side - Admin Setup button only */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigate('/admin/setup')}
+              className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] uppercase tracking-wider"
+            >
+              Admin Setup
+            </button>
           </div>
         </div>
-      </footer>
-
-      <AdminLoginDialog 
-        open={showLoginDialog} 
-        onOpenChange={setShowLoginDialog} 
-      />
-    </>
+      </div>
+    </footer>
   );
 };
 

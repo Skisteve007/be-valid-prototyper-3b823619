@@ -7,7 +7,7 @@ import { ArrowRight, Users, Activity, Zap, Moon, Ghost } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
-import ResponsiveHeader from './ResponsiveHeader';
+
 
 import SynthButton from './SynthButton';
 import { usePageViewTracking } from '@/hooks/usePageViewTracking';
@@ -160,9 +160,6 @@ const Hero = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white overflow-x-hidden">
-      
-      {/* ===== HEADER ===== */}
-      <ResponsiveHeader />
 
       {/* ===== HERO SECTION ===== */}
       <div className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 sm:pt-36 pb-16">

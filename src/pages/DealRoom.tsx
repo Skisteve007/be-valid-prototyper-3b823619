@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { AlertTriangle, Target, Cpu, Wallet, Eye, Zap, Users, Plane, Check, Loader2, Video, CheckCircle, Circle, Calendar, MapPin, Clock, DollarSign, Crosshair, Beer, Shirt } from "lucide-react";
+import { AlertTriangle, Target, Cpu, Wallet, Eye, Zap, Users, Plane, Check, Loader2, Video, CheckCircle, Circle, Calendar, MapPin, Clock, DollarSign, Crosshair, Beer, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -413,213 +413,334 @@ const DealRoom = () => {
                 </div>
               </div>
 
-              {/* 3-Day Battle Plan Header */}
+              {/* Full Campaign Schedule Header */}
               <div className="text-center py-2">
-                <h3 className="font-mono text-white font-bold tracking-widest text-lg">3-DAY BATTLE PLAN</h3>
-                <p className="font-mono text-xs text-[#00FFFF]">JANUARY 12–14, 2026</p>
+                <h3 className="font-mono text-white font-bold tracking-widest text-lg">FULL CAMPAIGN SCHEDULE</h3>
+                <p className="font-mono text-xs text-[#00FFFF]">JANUARY 9–16, 2026</p>
               </div>
 
-              {/* DAY 1 */}
+              {/* Strategy Overview */}
+              <div className="p-4 bg-gray-900/50 rounded border border-gray-800 space-y-3">
+                <p className="font-mono text-sm text-gray-300">
+                  We are arriving early to secure the terrain before the chaos starts, and we are staying late to sweep the deals when the tourists leave.
+                </p>
+                <h4 className="font-mono text-[#00FFFF] font-bold tracking-wide">The Strategy:</h4>
+                <div className="space-y-2 font-mono text-xs text-gray-300">
+                  <p><span className="text-yellow-400">Jan 9-11 (The Setup):</span> We aren't just tourists. We are setting up our "Embassy." We find where the parties are, we tip the concierges, we get the intel.</p>
+                  <p><span className="text-green-400">Jan 12-14 (The Assault - With Team):</span> High-intensity hunting. We hit the "Big Dogs" (protecting billions) and the "Young Guns" (desperate to prove safety).</p>
+                  <p><span className="text-purple-400">Jan 15-16 (The Closer - You Only):</span> The "Kingmaker" days. The noise is gone, only the decision-makers remain.</p>
+                </div>
+                <p className="font-mono text-sm text-white font-bold mt-4">Here is your dossier and timeline.</p>
+              </div>
+
+              {/* PHASE 1: INFILTRATION */}
               <div className="space-y-4">
                 <div className="flex items-center gap-3 pb-2 border-b border-yellow-500/30">
-                  <Calendar className="h-5 w-5 text-yellow-400" />
+                  <Target className="h-5 w-5 text-yellow-400" />
                   <div>
-                    <h4 className="font-mono text-yellow-400 font-bold tracking-wide">DAY 1: MONDAY, JAN 12</h4>
-                    <p className="font-mono text-xs text-gray-400">Focus: Generative AI Leaders (The ones most at risk of lying)</p>
+                    <h4 className="font-mono text-yellow-400 font-bold tracking-wide">PHASE 1: INFILTRATION (Jan 9 – 11)</h4>
+                    <p className="font-mono text-xs text-gray-400">Objective: Intel, Setup, and Soft Targets.</p>
                   </div>
                 </div>
 
-                {/* Target 1 */}
-                <div className="pl-4 border-l-2 border-[#00FFFF]/30 space-y-3">
+                <div className="pl-4 border-l-2 border-yellow-500/30 space-y-3">
+                  {/* Friday Jan 9 */}
                   <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-xs text-[#00FFFF]">09:00 AM</span>
-                      <span className="font-mono text-white font-bold">TARGET 1: AMBIENCE HEALTHCARE</span>
+                      <Calendar className="h-4 w-4 text-yellow-400" />
+                      <span className="font-mono text-yellow-400 font-bold">FRIDAY, JAN 9: LANDFALL</span>
                     </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They just raised $243M. They build an "AI Operating System" for hospitals. If their AI messes up a diagnosis code, they are finished.</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Mike Ng (CEO) or Nikhil Buduma (Chief Scientist)</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> Westin St. Francis Lobby (The "Zoo")</p>
-                      <p className="text-white mt-2 italic">"You guys are the OS. But who is auditing the OS? We provide the safety layer."</p>
+                    <div className="space-y-2 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">12:00 PM:</span> Check-in. Establish the "War Room."</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">03:00 PM:</span> Recon Mission: Walk the lobbies of the St. Regis and Four Seasons. This is where the private suites are being set up.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">07:00 PM:</span> Dinner at Kokkari Estiatorio. It's a power spot. If you see a badge, you buy them a drink.</p>
                     </div>
                   </div>
 
-                  {/* Target 2 */}
+                  {/* Saturday Jan 10 */}
                   <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-xs text-[#00FFFF]">12:00 PM</span>
-                      <span className="font-mono text-white font-bold">TARGET 2: ABIRIDGE</span>
+                      <Calendar className="h-4 w-4 text-yellow-400" />
+                      <span className="font-mono text-yellow-400 font-bold">SATURDAY, JAN 10: THE PERIMETER</span>
                     </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Raised $316M. They record doctor-patient conversations. Privacy and accuracy are their entire business.</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Dr. Shivdev Rao (CEO)</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> Union Square Coffee (Intercept)</p>
-                      <p className="text-white mt-2 italic">"Your AI summarizes medical advice. If it hallucinates a prescription, you get sued. Synth fixes that."</p>
+                    <div className="space-y-2 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">10:00 AM:</span> Coffee at The Grove (Yerba Buena). Watch for early VC arrivals.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">02:00 PM:</span> Target Prep: Review the "Lovable" links. Ensure the "Sovereign Seal" demo is flawless on mobile.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">08:00 PM:</span> Drinks at The View Lounge (Marriott Marquis). The "Biotech Showcase" attendees land today. They are hungry for connections.</p>
                     </div>
                   </div>
 
-                  {/* Target 3 */}
+                  {/* Sunday Jan 11 */}
                   <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-xs text-[#00FFFF]">03:00 PM</span>
-                      <span className="font-mono text-white font-bold">TARGET 3: HIPPOCRATIC AI</span>
+                      <Calendar className="h-4 w-4 text-yellow-400" />
+                      <span className="font-mono text-yellow-400 font-bold">SUNDAY, JAN 11: THE WHISPER PARTIES</span>
                     </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They are obsessed with "Safety-First LLMs." They raised $50M+. Their entire brand is safety. They need a third-party audit to prove it.</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Munjal Shah (CEO)</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> St. Regis Bar</p>
-                      <p className="text-white mt-2 italic">"You claim safety. We prove it. Let us run a 'Sovereign Audit' on your model for $250k."</p>
+                    <div className="space-y-2 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">04:00 PM:</span> The "Clift" Reception: Usually an early mixer.</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">06:00 PM:</span> St. Regis Lobby: This is the "night before the war." The biggest VCs (A16Z, Khosla) often have private dinners here. You are there to be seen.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* DAY 2 */}
+              {/* PHASE 2: THE ASSAULT */}
               <div className="space-y-4">
                 <div className="flex items-center gap-3 pb-2 border-b border-green-500/30">
-                  <Calendar className="h-5 w-5 text-green-400" />
+                  <Crosshair className="h-5 w-5 text-green-400" />
                   <div>
-                    <h4 className="font-mono text-green-400 font-bold tracking-wide">DAY 2: TUESDAY, JAN 13</h4>
-                    <p className="font-mono text-xs text-gray-400">Focus: Medical Data & Research (Where accuracy is worth billions)</p>
+                    <h4 className="font-mono text-green-400 font-bold tracking-wide">PHASE 2: THE ASSAULT (Jan 12 – 14)</h4>
+                    <p className="font-mono text-xs text-gray-400">Team: You, Chris, John. | Pace: Maximum Intensity.</p>
                   </div>
                 </div>
 
-                <div className="pl-4 border-l-2 border-[#00FFFF]/30 space-y-3">
-                  {/* Target 4 */}
-                  <div className="p-3 bg-gray-900/50 rounded border border-red-500/30 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 bg-red-500 text-white font-mono text-[10px] px-2 py-0.5 tracking-wider">
-                      #1 TARGET
-                    </div>
+                <div className="pl-4 border-l-2 border-green-500/30 space-y-3">
+                  {/* Monday Jan 12 */}
+                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-xs text-[#00FFFF]">09:00 AM</span>
-                      <span className="font-mono text-white font-bold">TARGET 4: OPENEVIDENCE</span>
+                      <Calendar className="h-4 w-4 text-green-400" />
+                      <span className="font-mono text-green-400 font-bold">MONDAY, JAN 12: SHOCK & AWE</span>
                     </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Raised $210M (Series B). They are the "Google for Doctors." If they give a doctor the wrong answer, patients die.</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Daniel Nadler (Founder)</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> Four Seasons Lobby</p>
-                      <p className="text-white mt-2 italic">"You are the source of truth. We are the verification of truth. Partner with us."</p>
+                    <p className="font-mono text-xs text-gray-400 mb-3">Focus: The "Young Guns" (Asses on Fire).</p>
+                    
+                    <div className="space-y-3">
+                      {/* Target: Ambience */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-gray-700">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">09:00 AM</span>
+                          <span className="font-mono text-white font-bold text-xs">AMBIENCE HEALTHCARE ($243M raised)</span>
+                        </div>
+                        <div className="font-mono text-[10px] space-y-1">
+                          <p className="text-gray-400">Status: "Young Gun" ($1B Val)</p>
+                          <p className="text-gray-300"><span className="text-yellow-400">The Pain:</span> They are growing too fast. They are the "OS" for hospitals. One error kills them.</p>
+                          <p className="text-white italic">"You're moving at light speed. We are your brakes."</p>
+                          <p className="text-gray-400"><MapPin className="h-3 w-3 inline mr-1" />Westin St. Francis (Main Hall)</p>
+                        </div>
+                      </div>
+
+                      {/* JPM Lunch */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-gray-700">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">12:00 PM</span>
+                          <span className="font-mono text-white font-bold text-xs">J.P. MORGAN MAIN LUNCH</span>
+                        </div>
+                        <p className="font-mono text-[10px] text-gray-300">Mission: Divide and conquer. Chris takes the left side of the room, John takes the right. You float.</p>
+                      </div>
+
+                      {/* Target: Hippocratic */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-red-500/30 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-red-500 text-white font-mono text-[8px] px-1 py-0.5">CRITICAL</div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">03:00 PM</span>
+                          <span className="font-mono text-white font-bold text-xs">HIPPOCRATIC AI ($126M raised)</span>
+                        </div>
+                        <div className="font-mono text-[10px] space-y-1">
+                          <p className="text-gray-400">Status: "Young Gun" ($3.5B Val). CRITICAL TARGET.</p>
+                          <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Their entire brand is safety. They just raised money specifically for this.</p>
+                          <p className="text-white italic">"You claim safety. Synth proves it. Let's run a $250k audit."</p>
+                          <p className="text-gray-400"><MapPin className="h-3 w-3 inline mr-1" />St. Regis Suites</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Target 5 */}
+                  {/* Tuesday Jan 13 */}
                   <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-xs text-[#00FFFF]">12:00 PM</span>
-                      <span className="font-mono text-white font-bold">TARGET 5: TENNR</span>
+                      <Calendar className="h-4 w-4 text-green-400" />
+                      <span className="font-mono text-green-400 font-bold">TUESDAY, JAN 13: THE DATA WHALES</span>
                     </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Raised $101M. They automate messy medical faxes and documents. High error rate potential.</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Trey Holterman (CEO)</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> JPM Conference Floor</p>
-                      <p className="text-white mt-2 italic">"We can clean your error rates by 99% using multi-agent consensus."</p>
+                    <p className="font-mono text-xs text-gray-400 mb-3">Focus: The "Big Dogs" (Protecting the Chest).</p>
+                    
+                    <div className="space-y-3">
+                      {/* Target: OpenEvidence */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-red-500/30 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-red-500 text-white font-mono text-[8px] px-1 py-0.5">THE BIG DOG</div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">09:00 AM</span>
+                          <span className="font-mono text-white font-bold text-xs">OPENEVIDENCE ($12B Valuation Target)</span>
+                        </div>
+                        <div className="font-mono text-[10px] space-y-1">
+                          <p className="text-gray-400">Status: THE BIG DOG. (Rumored raising $250M now).</p>
+                          <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They are the "Google for Doctors." If they lie, they get sued for malpractice.</p>
+                          <p className="text-white italic">"Daniel (CEO), you are worth $12B. You have zero insurance against hallucination liability. We are that insurance."</p>
+                          <p className="text-gray-400"><MapPin className="h-3 w-3 inline mr-1" />Four Seasons Lobby</p>
+                        </div>
+                      </div>
+
+                      {/* Target: Tennr */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-gray-700">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">01:00 PM</span>
+                          <span className="font-mono text-white font-bold text-xs">TENNR ($101M raised)</span>
+                        </div>
+                        <div className="font-mono text-[10px] space-y-1">
+                          <p className="text-gray-400">Status: "Young Gun" (High Pressure).</p>
+                          <p className="text-gray-300"><span className="text-yellow-400">The Pain:</span> They automate medical faxes. If they misread a fax, a patient loses care.</p>
+                          <p className="text-white italic">"We clean your data before it hits the model."</p>
+                          <p className="text-gray-400"><MapPin className="h-3 w-3 inline mr-1" />Westin Mezzanine</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Target 6 */}
+                  {/* Wednesday Jan 14 */}
                   <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-xs text-[#00FFFF]">03:00 PM</span>
-                      <span className="font-mono text-white font-bold">TARGET 6: FORMATION BIO</span>
+                      <Calendar className="h-4 w-4 text-green-400" />
+                      <span className="font-mono text-green-400 font-bold">WEDNESDAY, JAN 14: THE EXIT (Chris & John Depart)</span>
                     </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Raised $372M. They use AI to run drug trials.</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Benjamine Liu (CEO)</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> Private Suite / Meeting Room</p>
-                      <p className="text-white mt-2 italic">"FDA compliance requires 100% accuracy. Our 'Senate' architecture guarantees it."</p>
+                    <p className="font-mono text-xs text-gray-400 mb-3">Focus: Locking the Contracts.</p>
+                    
+                    <div className="space-y-3">
+                      {/* Target: Abridge */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-gray-700">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">09:00 AM</span>
+                          <span className="font-mono text-white font-bold text-xs">ABRIDGE ($316M raised)</span>
+                        </div>
+                        <div className="font-mono text-[10px] space-y-1">
+                          <p className="text-gray-400">Status: "Big Dog" ($5.3B Val).</p>
+                          <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They record doctor conversations. Privacy is their god.</p>
+                          <p className="text-white italic">"We provide the Sovereign Seal of privacy for every transcript."</p>
+                          <p className="text-gray-400"><MapPin className="h-3 w-3 inline mr-1" />Meeting Suites near Moscone/InterContinental</p>
+                        </div>
+                      </div>
+
+                      {/* Target: Formation Bio */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-gray-700">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">02:00 PM</span>
+                          <span className="font-mono text-white font-bold text-xs">FORMATION BIO ($372M raised)</span>
+                        </div>
+                        <div className="font-mono text-[10px] space-y-1">
+                          <p className="text-gray-400">Status: "Big Dog" (Pharma).</p>
+                          <p className="text-white italic">"FDA trials require 100% accuracy. We guarantee it."</p>
+                        </div>
+                      </div>
+
+                      {/* Team Debrief */}
+                      <div className="p-2 bg-[#00FFFF]/10 rounded border border-[#00FFFF]/30">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">05:00 PM</span>
+                          <span className="font-mono text-white font-bold text-xs">TEAM DEBRIEF</span>
+                        </div>
+                        <p className="font-mono text-[10px] text-gray-300">Handover of all contacts/notes from Chris & John to you before they fly out.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* DAY 3 */}
+              {/* PHASE 3: THE CLOSER */}
               <div className="space-y-4">
                 <div className="flex items-center gap-3 pb-2 border-b border-purple-500/30">
-                  <Calendar className="h-5 w-5 text-purple-400" />
+                  <Crown className="h-5 w-5 text-purple-400" />
                   <div>
-                    <h4 className="font-mono text-purple-400 font-bold tracking-wide">DAY 3: WEDNESDAY, JAN 14</h4>
-                    <p className="font-mono text-xs text-gray-400">Focus: The VC Whales (Selling the Equity, not the Contract)</p>
+                    <h4 className="font-mono text-purple-400 font-bold tracking-wide">PHASE 3: THE CLOSER (Jan 15 – 16)</h4>
+                    <p className="font-mono text-xs text-gray-400">Operator: You (Solo). | Focus: The Check Writers (VCs).</p>
                   </div>
                 </div>
 
-                <div className="pl-4 border-l-2 border-[#00FFFF]/30 space-y-3">
-                  {/* Target 7 */}
+                <div className="pl-4 border-l-2 border-purple-500/30 space-y-3">
+                  {/* Thursday Jan 15 */}
                   <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-xs text-[#00FFFF]">09:00 AM</span>
-                      <span className="font-mono text-white font-bold">TARGET 7: ANDREESSEN HOROWITZ (A16Z BIO)</span>
+                      <Calendar className="h-4 w-4 text-purple-400" />
+                      <span className="font-mono text-purple-400 font-bold">THURSDAY, JAN 15: THE KINGMAKERS</span>
                     </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They led almost every round listed above. They are heavily exposed to AI risk.</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Vijay Pande (General Partner)</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> The St. Regis (They usually rent a whole floor)</p>
-                      <p className="text-white mt-2 italic">"You have $1B invested in AI Health. You have no insurance against hallucination liability. We are that insurance."</p>
+                    <p className="font-mono text-xs text-gray-400 mb-3">The noise is gone. Now we hunt the money.</p>
+                    
+                    <div className="space-y-3">
+                      {/* A16Z */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-gray-700">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">10:00 AM</span>
+                          <span className="font-mono text-white font-bold text-xs">ANDREESSEN HOROWITZ (A16Z BIO)</span>
+                        </div>
+                        <div className="font-mono text-[10px] space-y-1">
+                          <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They backed Ambience, Hippocratic, and Formation Bio. They are exposed.</p>
+                          <p className="text-gray-300"><span className="text-[#00FFFF]">The Move:</span> Text the Partners you met earlier. "I'm still here. Let's talk about protecting your portfolio."</p>
+                          <p className="text-gray-400"><MapPin className="h-3 w-3 inline mr-1" />St. Regis (They often keep the suite all week)</p>
+                        </div>
+                      </div>
+
+                      {/* Khosla */}
+                      <div className="p-2 bg-gray-800/50 rounded border border-gray-700">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Clock className="h-3 w-3 text-[#00FFFF]" />
+                          <span className="font-mono text-[10px] text-[#00FFFF]">01:00 PM</span>
+                          <span className="font-mono text-white font-bold text-xs">KHOSLA VENTURES</span>
+                        </div>
+                        <div className="font-mono text-[10px] space-y-1">
+                          <p className="text-gray-300"><span className="text-[#00FFFF]">The Move:</span> Find Alex Morgan (Partner).</p>
+                          <p className="text-white italic">"Vinod likes the impossible. We are the impossible."</p>
+                        </div>
+                      </div>
+
+                      {/* Survivors Drink */}
+                      <div className="p-2 bg-purple-900/30 rounded border border-purple-500/30">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Beer className="h-3 w-3 text-purple-400" />
+                          <span className="font-mono text-[10px] text-purple-400">07:00 PM</span>
+                          <span className="font-mono text-white font-bold text-xs">THE SURVIVORS DRINK</span>
+                        </div>
+                        <p className="font-mono text-[10px] text-gray-300">Go to the Hotel Zetta bar (The Cavalier). This is where the people who really run things hang out after the event.</p>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Target 8 */}
+                  {/* Friday Jan 16 */}
                   <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-xs text-[#00FFFF]">12:00 PM</span>
-                      <span className="font-mono text-white font-bold">TARGET 8: KHOSLA VENTURES</span>
+                      <Calendar className="h-4 w-4 text-purple-400" />
+                      <span className="font-mono text-purple-400 font-bold">FRIDAY, JAN 16: DEBRIEF & DEPARTURE</span>
                     </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> Vinod Khosla loves "impossible" tech. They backed OpenAI early.</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Who:</span> Alex Morgan (Partner)</p>
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> InterContinental Hotel</p>
-                      <p className="text-white mt-2 italic">"We aren't building another model. We are building the brakes for the models you already own."</p>
-                    </div>
-                  </div>
-
-                  {/* Closing Drink */}
-                  <div className="p-3 bg-gradient-to-r from-purple-900/30 via-transparent to-purple-900/30 rounded border border-purple-500/30">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Beer className="h-4 w-4 text-purple-400" />
-                      <span className="font-mono text-xs text-purple-400">03:00 PM</span>
-                      <span className="font-mono text-white font-bold">THE CLOSING DRINK</span>
-                    </div>
-                    <div className="space-y-1 font-mono text-xs">
-                      <p className="text-gray-300"><span className="text-[#00FFFF]">Location:</span> The St. Regis Lobby Bar</p>
-                      <p className="text-gray-300"><span className="text-yellow-400">Mission:</span> This is where "The Boys" assemble. We invite the targets we met earlier to come have a drink with us. This is where you close the $250k deals on a handshake.</p>
+                    <div className="space-y-2 font-mono text-xs">
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">09:00 AM:</span> Final coffee meetings with anyone who said "maybe."</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">11:00 AM:</span> Review the "Soft Commits."</p>
+                      <p className="text-gray-300"><span className="text-[#00FFFF]">02:00 PM:</span> Wheels up.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* LOGISTICS */}
+              {/* HIT LIST SUMMARY */}
               <div className="border-t border-[#00FFFF]/20 pt-6 space-y-4">
                 <h4 className="font-mono text-[#00FFFF] font-bold tracking-widest flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  LOGISTICS FOR "THE BOYS"
+                  <Target className="h-4 w-4" />
+                  YOUR HIT LIST SUMMARY
                 </h4>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Shirt className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-white font-bold text-sm">Dress Code</span>
-                    </div>
-                    <p className="font-mono text-xs text-gray-300">
-                      "Billionaire Casual." No suits. Cashmere sweaters, dark jeans, expensive boots. Look like you already made it.
-                    </p>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <div className="p-2 bg-red-500/10 rounded border border-red-500/30">
+                    <p className="font-mono text-xs"><span className="text-red-400 font-bold">OpenEvidence ($12B Val)</span> <span className="text-gray-400">– The Whale</span></p>
                   </div>
-                  <div className="p-3 bg-gray-900/50 rounded border border-gray-800">
-                    <div className="flex items-center gap-2 mb-2">
-                      <MapPin className="h-4 w-4 text-[#00FFFF]" />
-                      <span className="font-mono text-white font-bold text-sm">The "Deal Room"</span>
-                    </div>
-                    <p className="font-mono text-xs text-gray-300">
-                      Keep the Lovable link ready on your phone. If a VC gets interested, you don't send a deck. You text them the link to the "Vault."
-                    </p>
+                  <div className="p-2 bg-gray-900/50 rounded border border-gray-700">
+                    <p className="font-mono text-xs"><span className="text-white font-bold">Abridge ($5.3B Val)</span> <span className="text-gray-400">– The Shield</span></p>
+                  </div>
+                  <div className="p-2 bg-gray-900/50 rounded border border-gray-700">
+                    <p className="font-mono text-xs"><span className="text-white font-bold">Hippocratic AI ($3.5B Val)</span> <span className="text-gray-400">– The Safety Play</span></p>
+                  </div>
+                  <div className="p-2 bg-gray-900/50 rounded border border-gray-700">
+                    <p className="font-mono text-xs"><span className="text-white font-bold">Formation Bio ($372M Cash)</span> <span className="text-gray-400">– The Pharma Play</span></p>
+                  </div>
+                  <div className="p-2 bg-gray-900/50 rounded border border-gray-700">
+                    <p className="font-mono text-xs"><span className="text-white font-bold">Ambience ($1B Val)</span> <span className="text-gray-400">– The OS Play</span></p>
+                  </div>
+                  <div className="p-2 bg-gray-900/50 rounded border border-gray-700">
+                    <p className="font-mono text-xs"><span className="text-white font-bold">Tennr ($101M Cash)</span> <span className="text-gray-400">– The Automation Play</span></p>
                   </div>
                 </div>
+                <p className="font-mono text-sm text-white font-bold text-center pt-2">You have the roadmap. Now we execute.</p>
               </div>
             </CardContent>
           </Card>

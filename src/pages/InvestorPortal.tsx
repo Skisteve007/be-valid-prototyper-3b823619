@@ -107,18 +107,8 @@ const InvestorPortal = () => {
         <div className="relative z-10">
           {/* Hero Header */}
           <div className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
-            {/* Header nav - Deal Room button + Admin Synth button + Hidden trigger for discovery */}
+            {/* Header nav - Admin Synth button + Hidden trigger for discovery */}
             <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
-              {/* Deal Room Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate("/admin/deal-room")}
-                className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 hover:border-amber-400"
-              >
-                <FileText className="h-4 w-4 mr-2" />
-                Deal Room
-              </Button>
               {/* Hidden trigger - mysterious sparkle anyone can discover */}
               <SynthButton variant="hidden-trigger" />
               {/* Full SYNTH button - admin only */}
@@ -131,6 +121,19 @@ const InvestorPortal = () => {
               DEAL ROOM
             </h1>
             <p className="text-cyan-400/80 text-lg tracking-wide mb-6">Valid<sup className="text-[0.5em]">™</sup> Investor Portal</p>
+            
+            {/* Primary CTA to Deal Room */}
+            <div className="flex justify-center mb-8">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => navigate("/deal-room")}
+                className="gap-2"
+              >
+                <FileText className="h-5 w-5" />
+                Open Deal Room
+              </Button>
+            </div>
             
             {/* Secondary Quote */}
             <p className="text-base md:text-lg text-amber-300/80 italic tracking-wide mb-8 max-w-xl mx-auto">

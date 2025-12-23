@@ -11,6 +11,7 @@ import { AgeGate } from "./components/AgeGate";
 import { AccessGate } from "./components/AccessGate";
 import Footer from "./components/Footer";
 import SynthButton from "@/components/SynthButton";
+import ResponsiveHeader from "@/components/ResponsiveHeader";
 // SiteGate removed as global wrapper - use AccessGate for protected routes instead
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -131,6 +132,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
             <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
+              <ResponsiveHeader />
               <SynthButton variant="fab" />
               <Suspense fallback={<PageLoader />}>
                 <Routes>

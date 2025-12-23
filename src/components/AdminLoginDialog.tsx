@@ -17,7 +17,8 @@ import {
 
 const ADMIN_EMAILS = [
   "sgrillocce@gmail.com",
-  "aeidigitalsolutions@gmail.com"
+  "aeidigitalsolutions@gmail.com",
+  "jamesumner@gmail.com"
 ];
 
 interface AdminLoginDialogProps {

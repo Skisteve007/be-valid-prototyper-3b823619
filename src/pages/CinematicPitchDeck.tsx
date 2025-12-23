@@ -323,10 +323,13 @@ const CinematicPitchDeck: React.FC = () => {
       {/* Top-right: Deal Room + hidden trigger + slide counter */}
       <div className="fixed top-6 right-6 z-20 flex items-center gap-3">
         <Button
-          variant="secondary"
+          variant="outline"
           size="sm"
           onClick={() => navigate("/deal-room")}
-          className="gap-2"
+          className="gap-2 border-cyan-500/60 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 hover:text-cyan-200 animate-pulse"
+          style={{
+            boxShadow: "0 0 16px hsl(180 70% 50% / 0.4), 0 0 32px hsl(180 70% 50% / 0.2)",
+          }}
           aria-label="Open Deal Room"
         >
           <FileText className="h-4 w-4" />

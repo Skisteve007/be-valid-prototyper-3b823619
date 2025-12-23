@@ -184,28 +184,38 @@ const DealRoom = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
+              {/* PRIORITY ONE - Glowing urgent item */}
+              <div className="flex items-start gap-3 font-mono text-sm p-3 rounded border border-yellow-500/50 bg-yellow-500/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-transparent to-yellow-500/20 animate-pulse pointer-events-none" />
+                <Zap className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" style={{ filter: "drop-shadow(0 0 8px #facc15)" }} />
+                <div className="relative z-10">
+                  <span className="text-yellow-400 font-bold">⚡ PRIORITY ONE:</span>{" "}
+                  <span className="text-white font-bold">UI/UX "WIZARD" BUILD ($3,500)</span>
+                  <p className="text-gray-300 mt-1 text-xs">
+                    Retaining top-tier Creative Developer for the 'Iron Man' Chrome Extension Interface + High-Fidelity Motion Video for the SF Pitch.
+                  </p>
+                  <span className="inline-block mt-1 text-xs text-red-400 font-bold tracking-wider animate-pulse">
+                    🔴 HIRING IMMEDIATELY
+                  </span>
+                </div>
+              </div>
+
               <div className="flex items-center gap-3 font-mono text-sm">
-                <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                <span className="text-xl">📦</span>
                 <span className="text-gray-300">
-                  <span className="text-white font-bold">Target:</span> J.P. Morgan Healthcare Conference (San Francisco).
+                  <span className="text-white font-bold">ASSET PREP:</span> Strategic Maps & Playbooks (Printing at FedEx).
                 </span>
               </div>
               <div className="flex items-center gap-3 font-mono text-sm">
-                <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                <span className="text-xl">🏨</span>
                 <span className="text-gray-300">
-                  <span className="text-white font-bold">Asset Prep:</span> Sales Playbooks & Technical Maps (Currently printing at FedEx Kinkos).
+                  <span className="text-white font-bold">DEPLOYMENT:</span> Command Center Suite (St. Regis/W Hotel).
                 </span>
               </div>
               <div className="flex items-center gap-3 font-mono text-sm">
-                <Circle className="h-5 w-5 text-gray-500 flex-shrink-0" />
+                <span className="text-xl">✈️</span>
                 <span className="text-gray-300">
-                  <span className="text-white font-bold">Deployment:</span> Secure "Command Center" Suite at St. Regis/W Hotel.
-                </span>
-              </div>
-              <div className="flex items-center gap-3 font-mono text-sm">
-                <Circle className="h-5 w-5 text-gray-500 flex-shrink-0" />
-                <span className="text-gray-300">
-                  <span className="text-white font-bold">Strike Team:</span> Grillo, Chris, John (Boots on the ground Jan 10).
+                  <span className="text-white font-bold">STRIKE TEAM:</span> Grillo, Chris, John (Boots on ground).
                 </span>
               </div>
             </CardContent>

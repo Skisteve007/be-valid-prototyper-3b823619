@@ -37,16 +37,50 @@ const commitmentLevels = [
   },
 ];
 
+// Seed contribution
+const SEED_CONTRIBUTIONS = [
+  {
+    name: "Steve",
+    amount: 2000,
+    breakdown: "Micro Patent Registration, Print Work, Paid Developer Support, JP Morgan Tickets, SF Travel & Return",
+  },
+];
+
 const DealRoom = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
-  const [currentRaised, setCurrentRaised] = useState(0);
+  const [contributions, setContributions] = useState<Array<{ name: string; amount: number; breakdown?: string }>>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     amount: "",
   });
+
+  // Fetch contributions from investor_leads
+  useEffect(() => {
+    const fetchContributions = async () => {
+      const { data, error } = await supabase
+        .from("investor_leads")
+        .select("name, tranche_interest")
+        .ilike("tranche_interest", "deal_room_%");
+
+      if (!error && data) {
+        const dbContributions = data.map((lead) => {
+          const amountMatch = lead.tranche_interest.match(/\$(\d+)/);
+          const amount = amountMatch ? parseInt(amountMatch[1], 10) : 0;
+          return { name: lead.name, amount };
+        });
+        setContributions(dbContributions);
+      }
+    };
+    fetchContributions();
+  }, []);
+
+  // Calculate total raised (seed + db contributions)
+  const seedTotal = SEED_CONTRIBUTIONS.reduce((sum, c) => sum + c.amount, 0);
+  const dbTotal = contributions.reduce((sum, c) => sum + c.amount, 0);
+  const currentRaised = seedTotal + dbTotal;
 
   // Simulate loading animation for the progress bar
   const [displayedRaised, setDisplayedRaised] = useState(0);
@@ -96,8 +130,6 @@ const DealRoom = () => {
     }
   };
 
-  const progressPercent = (displayedRaised / MISSION_TARGET) * 100;
-
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
       <Helmet>
@@ -132,7 +164,7 @@ const DealRoom = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8 space-y-12">
-        {/* THE WAR CHEST - Progress Bar */}
+        {/* THE WAR CHEST - Progress Bar + Scorecard */}
         <section className="max-w-3xl mx-auto">
           <Card className="bg-black/50 border border-[#00FFFF]/30 overflow-hidden relative">
             <div className="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/5 via-transparent to-[#00FFFF]/5 pointer-events-none" />
@@ -145,20 +177,20 @@ const DealRoom = () => {
             <CardContent className="space-y-4">
               <div className="relative">
                 <Progress 
-                  value={progressPercent} 
+                  value={(displayedRaised / MISSION_TARGET) * 100} 
                   className="h-8 bg-gray-900 border border-[#00FFFF]/20 rounded-sm overflow-hidden"
                 />
                 <div 
                   className="absolute inset-0 h-8 rounded-sm transition-all duration-1000 ease-out"
                   style={{
-                    width: `${progressPercent}%`,
+                    width: `${(displayedRaised / MISSION_TARGET) * 100}%`,
                     background: "linear-gradient(90deg, #00FFFF, #00CED1)",
                     boxShadow: "0 0 20px #00FFFF, 0 0 40px #00FFFF50",
                   }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="font-mono text-sm text-white font-bold drop-shadow-lg">
-                    {progressPercent.toFixed(1)}% SECURED
+                    {((displayedRaised / MISSION_TARGET) * 100).toFixed(1)}% SECURED
                   </span>
                 </div>
               </div>
@@ -169,6 +201,50 @@ const DealRoom = () => {
                 <span className="text-gray-400">
                   TARGET: <span className="text-white">${MISSION_TARGET.toLocaleString()}</span>
                 </span>
+              </div>
+
+              {/* SCORECARD */}
+              <div className="border-t border-[#00FFFF]/20 pt-4 mt-4">
+                <h3 className="font-mono text-xs text-[#00FFFF] tracking-widest mb-3 flex items-center gap-2">
+                  <Users className="h-3 w-3" />
+                  MISSION BACKERS
+                </h3>
+                <div className="space-y-2">
+                  {/* Seed Contributions */}
+                  {SEED_CONTRIBUTIONS.map((contrib, idx) => (
+                    <div key={`seed-${idx}`} className="flex items-start gap-3 p-3 bg-gray-900/50 rounded border border-[#00FFFF]/20">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#00FFFF]/20 border border-[#00FFFF]/50 flex items-center justify-center">
+                        <span className="text-[#00FFFF] font-bold text-sm">{contrib.name.charAt(0)}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-mono text-white font-bold text-sm">{contrib.name}</span>
+                          <span className="font-mono text-[#00FFFF] font-bold text-sm">${contrib.amount.toLocaleString()}</span>
+                        </div>
+                        {contrib.breakdown && (
+                          <p className="font-mono text-xs text-gray-400 mt-1 leading-relaxed">{contrib.breakdown}</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                  {/* DB Contributions */}
+                  {contributions.map((contrib, idx) => (
+                    <div key={`db-${idx}`} className="flex items-center gap-3 p-3 bg-gray-900/50 rounded border border-gray-700">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-800 border border-gray-600 flex items-center justify-center">
+                        <span className="text-gray-400 font-bold text-sm">{contrib.name.charAt(0)}</span>
+                      </div>
+                      <div className="flex-1 flex items-center justify-between">
+                        <span className="font-mono text-gray-300 text-sm">{contrib.name}</span>
+                        <span className="font-mono text-[#00FFFF] font-bold text-sm">${contrib.amount.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  ))}
+                  {contributions.length === 0 && (
+                    <p className="font-mono text-xs text-gray-500 text-center py-2">
+                      Be the next to join the mission...
+                    </p>
+                  )}
+                </div>
               </div>
             </CardContent>
           </Card>

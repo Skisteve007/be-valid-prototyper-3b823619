@@ -12,7 +12,8 @@ import logo from "@/assets/valid-logo.jpeg";
 
 const ADMIN_EMAILS = [
   "sgrillocce@gmail.com",
-  "aeidigitalsolutions@gmail.com"
+  "aeidigitalsolutions@gmail.com",
+  "jamesumner@gmail.com"
 ];
 
 const AdminSetup = () => {

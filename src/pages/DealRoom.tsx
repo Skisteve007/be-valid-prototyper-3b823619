@@ -10,7 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-const MISSION_TARGET = 50000;
+const MISSION_TARGET = 15000;
 
 const commitmentLevels = [
   {

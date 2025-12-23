@@ -35,7 +35,7 @@ const pitchDeckImages = [
 
 // PUBLIC PDF URL - Same as PitchDeck.tsx for consistency
 const INVESTOR_DECK_PDF_URL = "/images/pitch/VALID-Investor-Deck-2025.pdf";
-const AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com"];
+const AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com", "steve@bevalid.app"];
 const TRANCHE_1_CAP = 200000;
 
 type InvestorStatus = "Contract Sent" | "Signed" | "Funds Wired" | "Cleared in Bank";

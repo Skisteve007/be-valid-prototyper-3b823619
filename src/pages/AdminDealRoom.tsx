@@ -13,25 +13,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import logo from "@/assets/valid-logo.jpeg";
-import PitchCarousel from "@/components/admin/PitchCarousel";
-
-// Pitch deck slide images
-const pitchDeckImages = [
-  '/images/pitch/slide-01.jpg',
-  '/images/pitch/slide-02.jpg?v=20251217',
-  '/images/pitch/slide-03.jpg',
-  '/images/pitch/slide-04.jpg',
-  '/images/pitch/slide-05.jpg?v=20251217',
-  '/images/pitch/slide-06.jpg',
-  '/images/pitch/slide-07.jpg',
-  '/images/pitch/slide-08.jpg',
-  '/images/pitch/slide-09.jpg',
-  '/images/pitch/slide-10.jpg',
-  '/images/pitch/slide-11.png',
-  '/images/pitch/slide-12.jpg',
-  '/images/pitch/slide-13.jpg',
-  '/images/pitch/slide-14.jpg',
-];
 
 // PUBLIC PDF URL - Same as PitchDeck.tsx for consistency
 const INVESTOR_DECK_PDF_URL = "/images/pitch/VALID-Investor-Deck-2025.pdf";
@@ -532,22 +513,6 @@ const AdminDealRoom = () => {
           </div>
         </div>
 
-        {/* Pitch Deck Carousel */}
-        <div className="max-w-5xl mx-auto mb-16">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-300 via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-2 font-orbitron tracking-wide drop-shadow-[0_0_25px_rgba(45,212,191,0.8)] animate-[pulse_2s_ease-in-out_infinite]">
-              PITCH DECK
-            </h2>
-            <p className="text-muted-foreground text-sm">
-              Auto-advances every 5 seconds • Hover to pause • Click arrows or swipe to navigate
-            </p>
-          </div>
-          {/* 3D Gradient Container for Pitch Deck */}
-          <div className="relative p-1 rounded-2xl bg-gradient-to-br from-cyan-500/40 via-blue-600/30 to-purple-600/40 shadow-[0_0_40px_rgba(0,200,255,0.3),0_20px_60px_rgba(0,0,0,0.5)] transform perspective-1000 hover:scale-[1.01] transition-all duration-500">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-transparent via-white/5 to-white/10 pointer-events-none" />
-            <PitchCarousel images={pitchDeckImages} autoAdvanceMs={5000} />
-          </div>
-        </div>
 
         <div className="max-w-2xl mx-auto">
           {/* Tranche Selector */}

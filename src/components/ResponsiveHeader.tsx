@@ -67,36 +67,36 @@ const ResponsiveHeader = () => {
         </Link>
 
         {/* Right Side Controls */}
-        <div className="flex items-center gap-1.5 sm:gap-4">
-          {/* Admin Panel - small teal text */}
-          <button
-            onClick={handleAdminClick}
-            disabled={checkingAuth}
-            className="text-[10px] text-teal-300 hover:text-teal-200 transition-colors disabled:opacity-50"
-          >
-            {isAdmin ? 'Admin Panel' : 'Admin'}
-          </button>
-
-          {/* Partner Solutions Button - Visible on all screens */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Partner Solutions Button */}
           <Link 
             to="/partners" 
-            className="px-2 sm:px-4 py-1.5 sm:py-2 text-[0.6rem] sm:text-sm font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 hover:shadow-[0_0_20px_rgba(251,191,36,0.4)] transition-all whitespace-nowrap"
+            className="px-3 sm:px-4 py-1.5 sm:py-2 text-[0.6rem] sm:text-xs font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 hover:shadow-[0_0_16px_rgba(251,191,36,0.35)] transition-all whitespace-nowrap"
           >
             Partners
           </Link>
-          
+
           {/* Theme Toggle - hidden on very small screens */}
           <div className="hidden sm:block">
             <ThemeToggle />
           </div>
-          
+
           {/* Member Login Pill */}
           <Link 
             to="/auth?mode=login" 
-            className="px-2 sm:px-6 py-1.5 sm:py-2.5 text-[0.6rem] sm:text-sm font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all whitespace-nowrap"
+            className="px-3 sm:px-4 py-1.5 sm:py-2 text-[0.6rem] sm:text-xs font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/15 hover:shadow-[0_0_16px_rgba(0,240,255,0.35)] transition-all whitespace-nowrap"
           >
             Login
           </Link>
+
+          {/* Admin Panel */}
+          <button
+            onClick={handleAdminClick}
+            disabled={checkingAuth}
+            className="px-2.5 sm:px-3 py-1.5 sm:py-2 text-[0.55rem] sm:text-[0.65rem] font-bold tracking-wide uppercase rounded-full border border-teal-300/40 bg-black/20 text-teal-200 hover:bg-black/30 hover:border-teal-200/60 transition-colors disabled:opacity-50 whitespace-nowrap"
+          >
+            {isAdmin ? "Admin Panel" : "Admin"}
+          </button>
         </div>
       </header>
 

@@ -269,13 +269,153 @@ const DealRoom = () => {
           </Card>
         </section>
 
-        {/* MISSION LOGISTICS - Tactical Breakdown */}
+        {/* WHY $50K - DETAILED ALLOCATION */}
+        <section className="max-w-3xl mx-auto">
+          <Card className="bg-black/50 border border-red-500/30 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 via-transparent to-[#00FFFF]/5 pointer-events-none" />
+            <CardHeader>
+              <CardTitle className="text-red-400 font-mono text-sm tracking-widest flex items-center gap-2">
+                <DollarSign className="h-4 w-4" />
+                WHY WE NEED $50,000 - TACTICAL ALLOCATION
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="font-mono text-xs text-gray-400 border-b border-gray-800 pb-3">
+                Every dollar has a mission. Here's exactly where the capital deploys:
+              </p>
+              
+              {/* LEGAL & CORPORATE */}
+              <div className="space-y-2">
+                <h4 className="font-mono text-xs text-[#00FFFF] tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#00FFFF] rounded-full animate-pulse" />
+                  LEGAL & CORPORATE STRUCTURE
+                </h4>
+                <div className="grid gap-2 pl-4">
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Corporate Attorney (Formation, Contracts, IP)</span>
+                    <span className="text-[#00FFFF] font-bold">$5,000</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Provisional Patent Filing (SYNTH™)</span>
+                    <span className="text-[#00FFFF] font-bold">$2,500</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* TALENT ACQUISITION */}
+              <div className="space-y-2">
+                <h4 className="font-mono text-xs text-yellow-400 tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
+                  TALENT ACQUISITION (IMMEDIATE)
+                </h4>
+                <div className="grid gap-2 pl-4">
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
+                    <span className="text-gray-300">UI/UX "Wizard" Developer (Chrome Extension)</span>
+                    <span className="text-yellow-400 font-bold">$3,500</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
+                    <span className="text-gray-300">Lead Full Stack Designer/Developer</span>
+                    <span className="text-yellow-400 font-bold">$3,500</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Motion Graphics / Video Editor</span>
+                    <span className="text-[#00FFFF] font-bold">$2,000</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* SF OPERATION */}
+              <div className="space-y-2">
+                <h4 className="font-mono text-xs text-purple-400 tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
+                  OPERATION SAN FRANCISCO (J.P. MORGAN WEEK)
+                </h4>
+                <div className="grid gap-2 pl-4">
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Command Center Suite (St. Regis/W Hotel)</span>
+                    <span className="text-[#00FFFF] font-bold">$4,000</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Airfare (Strike Team: 3 Operators)</span>
+                    <span className="text-[#00FFFF] font-bold">$3,000</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">J.P. Morgan Conference Tickets</span>
+                    <span className="text-[#00FFFF] font-bold">$2,500</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Ground Transport & Logistics</span>
+                    <span className="text-[#00FFFF] font-bold">$1,500</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Client Entertainment & Meetings</span>
+                    <span className="text-[#00FFFF] font-bold">$3,000</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* MARKETING & ASSETS */}
+              <div className="space-y-2">
+                <h4 className="font-mono text-xs text-green-400 tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  MARKETING & PITCH ASSETS
+                </h4>
+                <div className="grid gap-2 pl-4">
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">High-Fidelity Demo Video Production</span>
+                    <span className="text-[#00FFFF] font-bold">$3,000</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Pitch Decks & Strategic Playbooks (Print)</span>
+                    <span className="text-[#00FFFF] font-bold">$1,500</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Branded Collateral & Leave-Behinds</span>
+                    <span className="text-[#00FFFF] font-bold">$1,000</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* INFRASTRUCTURE */}
+              <div className="space-y-2">
+                <h4 className="font-mono text-xs text-blue-400 tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                  INFRASTRUCTURE & RUNWAY
+                </h4>
+                <div className="grid gap-2 pl-4">
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Cloud Infrastructure (3 months)</span>
+                    <span className="text-[#00FFFF] font-bold">$2,000</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Software & Tooling Subscriptions</span>
+                    <span className="text-[#00FFFF] font-bold">$1,500</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Contingency / Emergency Fund</span>
+                    <span className="text-[#00FFFF] font-bold">$5,500</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* TOTAL */}
+              <div className="border-t border-[#00FFFF]/30 pt-4 mt-4">
+                <div className="flex justify-between items-center font-mono text-lg p-3 bg-[#00FFFF]/10 rounded border border-[#00FFFF]/50">
+                  <span className="text-white font-bold">TOTAL MISSION CAPITAL</span>
+                  <span className="text-[#00FFFF] font-bold text-xl">$50,000</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* MISSION LOGISTICS - Tactical Priorities */}
         <section className="max-w-3xl mx-auto">
           <Card className="bg-black/50 border border-[#00FFFF]/30">
             <CardHeader>
               <CardTitle className="text-[#00FFFF] font-mono text-sm tracking-widest flex items-center gap-2">
                 <Target className="h-4 w-4" />
-                MISSION LOGISTICS (STAGE $15K → $50K)
+                TACTICAL PRIORITIES (NEXT 30 DAYS)
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -308,6 +448,18 @@ const DealRoom = () => {
                   <span className="inline-block mt-1 text-xs text-red-400 font-bold tracking-wider animate-pulse">
                     🔴 HIRING IMMEDIATELY
                   </span>
+                </div>
+              </div>
+
+              {/* PRIORITY THREE - Legal */}
+              <div className="flex items-start gap-3 font-mono text-sm p-3 rounded border border-[#00FFFF]/30 bg-[#00FFFF]/5">
+                <Check className="h-5 w-5 text-[#00FFFF] flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-[#00FFFF] font-bold">PRIORITY THREE:</span>{" "}
+                  <span className="text-white font-bold">CORPORATE ATTORNEY RETAINER ($5,000)</span>
+                  <p className="text-gray-300 mt-1 text-xs">
+                    Entity formation, operating agreements, IP assignments, investor contracts, and NDAs for SF meetings.
+                  </p>
                 </div>
               </div>
 

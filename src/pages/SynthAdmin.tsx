@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
   ArrowLeft, Home, Brain, Shield, AlertTriangle, CheckCircle, XCircle, 
   UserCheck, Clock, Filter, RefreshCw, Settings, ChevronDown, ChevronRight,
-  BarChart3, FileText, Sliders, Lightbulb
+  BarChart3, FileText, Sliders, Lightbulb, Scale
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
@@ -231,6 +231,10 @@ const SynthAdmin = () => {
               <TabsTrigger value="think-tank" className="data-[state=active]:bg-cyan-500/20">
                 <Lightbulb className="w-4 h-4 mr-2" />
                 Think Tank
+              </TabsTrigger>
+              <TabsTrigger value="debate" className="data-[state=active]:bg-purple-500/20">
+                <Scale className="w-4 h-4 mr-2" />
+                AI Debate
               </TabsTrigger>
             </TabsList>
 
@@ -505,6 +509,70 @@ const SynthAdmin = () => {
             {/* Think Tank Tab */}
             <TabsContent value="think-tank" className="space-y-6">
               <ThinkTankManager />
+            </TabsContent>
+
+            {/* AI Debate Tab */}
+            <TabsContent value="debate" className="space-y-6">
+              <div className="bg-card border border-purple-500/30 rounded-xl p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                      <Scale className="w-5 h-5 text-purple-400" />
+                      AI Debate Room
+                    </h3>
+                    <p className="text-muted-foreground text-sm mt-1">
+                      Multi-model Senate debate with 7 AI providers
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Link
+                    to="/debate-room"
+                    className="p-6 rounded-xl bg-purple-500/10 border border-purple-500/30 hover:bg-purple-500/20 transition group"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                        <Scale className="w-5 h-5 text-purple-400" />
+                      </div>
+                      <h4 className="text-foreground font-semibold group-hover:text-purple-400 transition">
+                        Public Demo
+                      </h4>
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      Run debates with available AI providers. Shows senator cards and judge verdicts.
+                    </p>
+                  </Link>
+                  
+                  <Link
+                    to="/synth/senate-lab"
+                    className="p-6 rounded-xl bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 transition group"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                        <Brain className="w-5 h-5 text-cyan-400" />
+                      </div>
+                      <h4 className="text-foreground font-semibold group-hover:text-cyan-400 transition">
+                        Admin Lab
+                      </h4>
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      Full admin access with raw JSON, session IDs, and internal debugging.
+                    </p>
+                  </Link>
+                </div>
+                
+                <div className="mt-6 p-4 rounded-lg bg-muted/50 border border-border">
+                  <h4 className="text-sm font-medium text-foreground mb-2">Senate Providers</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {['OpenAI', 'Anthropic', 'Google Gemini', 'DeepSeek', 'xAI Grok', 'Mistral', 'Llama'].map((provider) => (
+                      <span key={provider} className="px-2 py-1 rounded text-xs bg-purple-500/10 text-purple-400 border border-purple-500/30">
+                        {provider}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </TabsContent>
           </Tabs>
         </main>

@@ -2463,6 +2463,148 @@ export type Database = {
           },
         ]
       }
+      senate_conflicts: {
+        Row: {
+          challenge_id: string
+          conflict_question: string
+          created_at: string
+          id: string
+          resolution_notes: string | null
+          resolved: boolean | null
+          senators_involved: string[]
+          topic: string | null
+        }
+        Insert: {
+          challenge_id: string
+          conflict_question: string
+          created_at?: string
+          id?: string
+          resolution_notes?: string | null
+          resolved?: boolean | null
+          senators_involved: string[]
+          topic?: string | null
+        }
+        Update: {
+          challenge_id?: string
+          conflict_question?: string
+          created_at?: string
+          id?: string
+          resolution_notes?: string | null
+          resolved?: boolean | null
+          senators_involved?: string[]
+          topic?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "senate_conflicts_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "senate_sessions"
+            referencedColumns: ["challenge_id"]
+          },
+        ]
+      }
+      senate_messages: {
+        Row: {
+          challenge_id: string
+          created_at: string
+          id: string
+          latency_ms: number | null
+          model: string
+          output_json: Json
+          provider: string
+          round: number
+          speaker: string
+          tokens_used: number | null
+        }
+        Insert: {
+          challenge_id: string
+          created_at?: string
+          id?: string
+          latency_ms?: number | null
+          model: string
+          output_json: Json
+          provider: string
+          round?: number
+          speaker: string
+          tokens_used?: number | null
+        }
+        Update: {
+          challenge_id?: string
+          created_at?: string
+          id?: string
+          latency_ms?: number | null
+          model?: string
+          output_json?: Json
+          provider?: string
+          round?: number
+          speaker?: string
+          tokens_used?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "senate_messages_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "senate_sessions"
+            referencedColumns: ["challenge_id"]
+          },
+        ]
+      }
+      senate_sessions: {
+        Row: {
+          budget: Json | null
+          challenge_id: string
+          completed_at: string | null
+          confidence: number | null
+          created_at: string
+          created_by_email: string
+          domain: string | null
+          error_message: string | null
+          estimated_cost_usd: number | null
+          id: string
+          judge_output_json: Json | null
+          prompt: string
+          status: string
+          total_latency_ms: number | null
+          total_tokens_used: number | null
+        }
+        Insert: {
+          budget?: Json | null
+          challenge_id: string
+          completed_at?: string | null
+          confidence?: number | null
+          created_at?: string
+          created_by_email: string
+          domain?: string | null
+          error_message?: string | null
+          estimated_cost_usd?: number | null
+          id?: string
+          judge_output_json?: Json | null
+          prompt: string
+          status?: string
+          total_latency_ms?: number | null
+          total_tokens_used?: number | null
+        }
+        Update: {
+          budget?: Json | null
+          challenge_id?: string
+          completed_at?: string | null
+          confidence?: number | null
+          created_at?: string
+          created_by_email?: string
+          domain?: string | null
+          error_message?: string | null
+          estimated_cost_usd?: number | null
+          id?: string
+          judge_output_json?: Json | null
+          prompt?: string
+          status?: string
+          total_latency_ms?: number | null
+          total_tokens_used?: number | null
+        }
+        Relationships: []
+      }
       shadow_leads: {
         Row: {
           city: string

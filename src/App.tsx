@@ -114,6 +114,8 @@ const SynthInternalComplianceRoadmap = lazy(() => import("./pages/SynthInternalC
 const SynthInternalDataLifecycle = lazy(() => import("./pages/SynthInternalDataLifecycle"));
 const SynthInternalThirdParty = lazy(() => import("./pages/SynthInternalThirdParty"));
 const SynthInternalGhostToken = lazy(() => import("./pages/SynthInternalGhostToken"));
+const DebateRoom = lazy(() => import("./pages/DebateRoom"));
+const SynthSenateLab = lazy(() => import("./pages/SynthSenateLab"));
 
 const queryClient = new QueryClient();
 
@@ -177,6 +179,8 @@ const App = () => (
                   <Route path="/synth/dossier" element={<SynthDossier />} />
                   <Route path="/synth/intake" element={<SynthIntake />} />
                   <Route path="/synth/e2e-test" element={<SynthE2ETest />} />
+                  <Route path="/synth/senate-lab" element={<SynthSenateLab />} />
+                  <Route path="/debate-room" element={<DebateRoom />} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

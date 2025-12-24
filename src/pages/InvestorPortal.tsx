@@ -108,7 +108,16 @@ const InvestorPortal = () => {
           {/* Hero Header */}
           <header className="border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
             <div className="container mx-auto px-4 pt-4">
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigate("/debate-room")}
+                  className="gap-2 border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
+                >
+                  <Cpu className="h-4 w-4" />
+                  Debate Room (Demo)
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"

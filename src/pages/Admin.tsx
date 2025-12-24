@@ -36,7 +36,6 @@ import TrafficAnalytics from "@/components/admin/TrafficAnalytics";
 import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
 import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
-import ThinkTankManager from "@/components/admin/ThinkTankManager";
 import { SynthAdminTab } from "@/components/admin/SynthAdminTab";
 import {
   DndContext,
@@ -695,9 +694,6 @@ const Admin = () => {
             <TabsTrigger value="webhooks" className="cursor-pointer text-xs px-2 py-2">
               <Webhook className="h-3 w-3 mr-1" />
               Webhooks
-            </TabsTrigger>
-            <TabsTrigger value="think-tank" className="cursor-pointer text-xs px-2 py-2">
-              🧠 Think Tank
             </TabsTrigger>
             <TabsTrigger
               value="synth"

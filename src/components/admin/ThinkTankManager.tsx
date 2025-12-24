@@ -259,7 +259,7 @@ const ThinkTankManager = () => {
               New Entry
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto top-[5%] translate-y-0">
             <DialogHeader>
               <DialogTitle>{editingEntry ? 'Edit Entry' : 'Create New Entry'}</DialogTitle>
             </DialogHeader>
@@ -449,7 +449,7 @@ const ThinkTankManager = () => {
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deleteConfirmId} onOpenChange={() => setDeleteConfirmId(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="top-[20%] translate-y-0">
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Entry?</AlertDialogTitle>
             <AlertDialogDescription>

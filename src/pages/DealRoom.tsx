@@ -156,7 +156,18 @@ const DealRoom = () => {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      {/* HEADER - TOP SECRET BANNER */}
+       {/* THE INVITE TEXT - Strategic Strike */}
+       <section className="container mx-auto px-4 pb-6 max-w-3xl">
+         <Card className="bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 border border-[#00FFFF]/50">
+           <CardContent className="py-6">
+             <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
+               "This is a <span className="text-[#00FFFF] font-bold">Strategic Strike</span>. We aren't just asking for capital; we are building a coalition. If you back this mission, you are welcome to fly out and <span className="text-[#00FFFF] font-bold">join the raid</span>. We will be in the room with the targets."
+             </p>
+           </CardContent>
+         </Card>
+       </section>
+
+       {/* HEADER - TOP SECRET BANNER */}
       <header className="border-b border-[#00FFFF]/20 bg-black/90 backdrop-blur-sm sticky top-32 sm:top-24 md:top-16 z-50">
         <div className="flex items-center justify-center gap-3 py-2 bg-gradient-to-r from-black via-red-950/20 to-black border-b border-red-500/30">
           <span className="relative flex h-3 w-3">
@@ -181,18 +192,6 @@ const DealRoom = () => {
           </p>
         </div>
       </header>
-
-      {/* THE INVITE TEXT - Strategic Strike */}
-      <section className="container mx-auto px-4 pt-6 pb-0 max-w-3xl">
-        <Card className="bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 border border-[#00FFFF]/50">
-          <CardContent className="py-6">
-            <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
-              "This is a <span className="text-[#00FFFF] font-bold">Strategic Strike</span>. We aren't just asking for capital; we are building a coalition. If you back this mission, you are welcome to fly out and <span className="text-[#00FFFF] font-bold">join the raid</span>. We will be in the room with the targets."
-            </p>
-          </CardContent>
-        </Card>
-      </section>
-
       <main className="container mx-auto px-4 py-8 space-y-12">
         {/* THE WAR CHEST - Progress Bar + Scorecard */}
         <section className="max-w-3xl mx-auto">

@@ -304,11 +304,15 @@ const DealRoom = () => {
                 <div className="grid gap-2 pl-4">
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">Corporate Attorney (Formation, Contracts, IP)</span>
-                    <span className="text-[#00FFFF] font-bold">$5,000</span>
+                    <span className="text-[#00FFFF] font-bold">$7,500</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
-                    <span className="text-gray-300">Provisional Patent Filing (SYNTH™)</span>
-                    <span className="text-[#00FFFF] font-bold">$2,500</span>
+                    <span className="text-gray-300">Provisional Patent Filing - Stage 1</span>
+                    <span className="text-[#00FFFF] font-bold">$1,500</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Provisional Patent Filing - Stage 2</span>
+                    <span className="text-[#00FFFF] font-bold">$5,500</span>
                   </div>
                 </div>
               </div>
@@ -332,6 +336,10 @@ const DealRoom = () => {
                     <span className="text-gray-300">Motion Graphics / Video Editor</span>
                     <span className="text-[#00FFFF] font-bold">$2,000</span>
                   </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">Security Expert</span>
+                    <span className="text-[#00FFFF] font-bold">$2,500</span>
+                  </div>
                 </div>
               </div>
 
@@ -352,7 +360,7 @@ const DealRoom = () => {
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">J.P. Morgan Conference Tickets</span>
-                    <span className="text-[#00FFFF] font-bold">$2,500</span>
+                    <span className="text-[#00FFFF] font-bold">$1,500</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">Ground Transport & Logistics</span>
@@ -374,7 +382,7 @@ const DealRoom = () => {
                 <div className="grid gap-2 pl-4">
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">High-Fidelity Demo Video Production</span>
-                    <span className="text-[#00FFFF] font-bold">$3,000</span>
+                    <span className="text-[#00FFFF] font-bold">$2,000</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">Pitch Decks & Strategic Playbooks (Print)</span>
@@ -467,7 +475,7 @@ const DealRoom = () => {
                 <Check className="h-5 w-5 text-[#00FFFF] flex-shrink-0 mt-0.5" />
                 <div>
                   <span className="text-[#00FFFF] font-bold">PRIORITY THREE:</span>{" "}
-                  <span className="text-white font-bold">CORPORATE ATTORNEY RETAINER ($5,000)</span>
+                  <span className="text-white font-bold">CORPORATE ATTORNEY RETAINER ($7,500)</span>
                   <p className="text-gray-300 mt-1 text-xs">
                     Entity formation, operating agreements, IP assignments, investor contracts, and NDAs for SF meetings.
                   </p>

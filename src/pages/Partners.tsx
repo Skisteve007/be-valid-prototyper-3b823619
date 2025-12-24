@@ -8,6 +8,8 @@ import { ShieldCheck, DollarSign, Lock, Zap, Share2, CheckCircle2, TrendingUp, A
 import { Link } from 'react-router-dom';
 import VibeIdEcosystem from "@/components/VibeIdEcosystem";
 import CorporateRevenueSimulator from "@/components/CorporateRevenueSimulator";
+import BackButton from "@/components/BackButton";
+import { AdminFooter } from "@/components/AdminFooter";
 
 interface ThesisCardProps {
   icon: React.ReactNode;
@@ -89,6 +91,7 @@ const Partners = () => {
       <nav className="border-b border-white/10 bg-black/90 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-5 sm:py-6 flex justify-between items-center">
           <div className="flex items-center gap-4 sm:gap-6">
+            <BackButton fallbackPath="/" />
             <span className="text-2xl sm:text-3xl md:text-4xl font-bold font-orbitron tracking-[0.15em] sm:tracking-[0.18em] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400 drop-shadow-[0_0_20px_rgba(0,240,255,0.6)]">VALID<sup className="text-[0.5em] text-cyan-400">™</sup></span>
             <Link 
               to="/pitch-deck" 
@@ -1053,6 +1056,7 @@ const Partners = () => {
         <p>© 2025 VALID™. Infrastructure for the Real World.</p>
       </footer>
 
+      <AdminFooter />
     </div>
   );
 };

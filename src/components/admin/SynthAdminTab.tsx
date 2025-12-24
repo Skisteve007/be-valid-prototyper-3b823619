@@ -4,15 +4,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   ArrowRight, BookOpen, Bot, Brain, ScrollText, Settings2, 
   BarChart3, FileText, Sliders, Lightbulb, RefreshCw,
-  CheckCircle, Shield, XCircle, UserCheck, AlertTriangle
+  CheckCircle, Shield, XCircle, UserCheck, AlertTriangle,
+  Scale, Send, Loader2, Gavel
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import ThinkTankManager from "./ThinkTankManager";
+import { SenateSeatCard, SeatBallot } from "@/components/synth/SenateSeatCard";
+import { SenateJudgeCard, JudgeOutput, ParticipationSummary } from "@/components/synth/SenateJudgeCard";
 
 interface AuditLog {
   id: string;
@@ -40,6 +44,44 @@ interface Policy {
   is_active: boolean;
   updated_at: string;
 }
+
+interface SenateRunResponseV1 {
+  response_version: "v1";
+  trace_id: string;
+  created_at: string;
+  request: { prompt: string; context_ids?: string[]; mode?: string };
+  weights: { normalization: string; by_seat_id: Record<string, number> };
+  seats: SeatBallot[];
+  judge: JudgeOutput;
+  participation_summary: ParticipationSummary;
+  contested: boolean;
+  contested_reasons: string[];
+}
+
+// Default offline seat configuration - 6 Senators + 1 Judge architecture
+const createDefaultSeats = (): SeatBallot[] => [
+  { ballot_version: "v1", seat_id: 1, seat_name: "Senator 1 — OpenAI", provider: 'OpenAI', model: 'GPT-4o', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 2, seat_name: "Senator 2 — Anthropic", provider: 'Anthropic', model: 'Claude 3.5', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 3, seat_name: "Senator 3 — Google", provider: 'Google', model: 'Gemini 1.5', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 4, seat_name: "Senator 4 — Meta", provider: 'Meta', model: 'Llama 3', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 5, seat_name: "Senator 5 — DeepSeek", provider: 'DeepSeek', model: 'V3', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+  { ballot_version: "v1", seat_id: 6, seat_name: "Senator 6 — Mistral", provider: 'Mistral', model: 'Large', status: 'offline', stance: 'abstain', score: 0, confidence: 0, risk_flags: [], key_points: [], counterpoints: [], timing: { latency_ms: 0 } },
+];
+
+const createDefaultParticipation = (): ParticipationSummary => ({
+  online_seats: [],
+  offline_seats: [1, 2, 3, 4, 5, 6],
+  timeout_seats: [],
+  error_seats: []
+});
+
+const createDefaultJudge = (): JudgeOutput => ({
+  provider: "OpenAI",
+  model: "o1",
+  final_answer: "",
+  rationale: [],
+  risk_verdict: { level: "medium", notes: [] }
+});
 
 const StatCard = ({ label, value, color }: { label: string; value: string | number; color: string }) => {
   const colorClasses: Record<string, string> = {
@@ -74,6 +116,18 @@ export function SynthAdminTab() {
   const [selectedLog, setSelectedLog] = useState<AuditLog | null>(null);
   const [filterOutcome, setFilterOutcome] = useState<string>('all');
   const [filterRisk, setFilterRisk] = useState<string>('all');
+
+  // Senate state
+  const [senatePrompt, setSenatePrompt] = useState('');
+  const [senateLoading, setSenateLoading] = useState(false);
+  const [seats, setSeats] = useState<SeatBallot[]>(createDefaultSeats());
+  const [judgeOutput, setJudgeOutput] = useState<JudgeOutput | null>(null);
+  const [participationSummary, setParticipationSummary] = useState<ParticipationSummary>(createDefaultParticipation());
+  const [contested, setContested] = useState(false);
+  const [contestedReasons, setContestedReasons] = useState<string[]>([]);
+  const [traceId, setTraceId] = useState('');
+
+  const weights = { seat_1: 17, seat_2: 17, seat_3: 17, seat_4: 17, seat_5: 16, seat_6: 16 };
 
   const [stats, setStats] = useState({
     total: 0,
@@ -148,6 +202,54 @@ export function SynthAdminTab() {
     }
   };
 
+  // Senate run handler
+  const handleSenateRun = async () => {
+    if (!senatePrompt.trim()) {
+      toast.error('Please enter a prompt');
+      return;
+    }
+
+    setSenateLoading(true);
+    setSeats(createDefaultSeats());
+    setJudgeOutput(null);
+    setParticipationSummary(createDefaultParticipation());
+    setContested(false);
+    setContestedReasons([]);
+    setTraceId('pending...');
+
+    try {
+      const { data, error } = await supabase.functions.invoke('synth-senate-run', {
+        body: { prompt: senatePrompt.trim() }
+      });
+
+      if (error) throw error;
+
+      const response = data as SenateRunResponseV1;
+
+      if (response.seats) {
+        setSeats(response.seats);
+      }
+      if (response.judge) {
+        setJudgeOutput(response.judge);
+      }
+      if (response.participation_summary) {
+        setParticipationSummary(response.participation_summary);
+      }
+      if (response.trace_id) {
+        setTraceId(response.trace_id);
+      }
+      setContested(response.contested || false);
+      setContestedReasons(response.contested_reasons || []);
+
+      toast.success(response.contested ? 'Senate run complete (CONTESTED)' : 'Senate run complete');
+    } catch (error) {
+      console.error('Senate run error:', error);
+      toast.error('Senate run failed. Please try again.');
+    } finally {
+      setSenateLoading(false);
+    }
+  };
+
   const filteredLogs = logs.filter(log => {
     if (filterOutcome !== 'all' && log.outcome !== filterOutcome) return false;
     if (filterRisk !== 'all' && log.risk_decision !== filterRisk) return false;
@@ -191,11 +293,11 @@ export function SynthAdminTab() {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center gap-2">
-                <Bot className="h-5 w-5 text-primary" />
-                SYNTH™ Senate Console
+                <Scale className="h-5 w-5 text-primary" />
+                SYNTH™ Neuro Oversight Nexus
               </CardTitle>
               <CardDescription>
-                4-Agent Senate: Skeptic, Optimist, Fact-Checker, and Realist (Grok).
+                7-Seat Senate Architecture: 6 AI Senators deliberate, 1 Judge arbitrates final decisions.
               </CardDescription>
             </div>
             <Button
@@ -211,10 +313,13 @@ export function SynthAdminTab() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            <Badge variant="outline">🔴 Skeptic</Badge>
-            <Badge variant="outline">🟢 Optimist</Badge>
-            <Badge variant="outline">🔵 Fact-Checker</Badge>
-            <Badge variant="outline">⚡ Realist (Grok)</Badge>
+            <Badge variant="outline" className="border-emerald-500/50 text-emerald-400">🟢 Senator 1: OpenAI</Badge>
+            <Badge variant="outline" className="border-orange-500/50 text-orange-400">🟠 Senator 2: Anthropic</Badge>
+            <Badge variant="outline" className="border-blue-500/50 text-blue-400">🔵 Senator 3: Google</Badge>
+            <Badge variant="outline" className="border-indigo-500/50 text-indigo-400">🟣 Senator 4: Meta</Badge>
+            <Badge variant="outline" className="border-cyan-500/50 text-cyan-400">🔷 Senator 5: DeepSeek</Badge>
+            <Badge variant="outline" className="border-amber-500/50 text-amber-400">🟡 Senator 6: Mistral</Badge>
+            <Badge variant="outline" className="border-purple-500/50 text-purple-400">⚖️ Judge: OpenAI o1</Badge>
           </div>
 
           {/* Quick Links */}
@@ -231,8 +336,8 @@ export function SynthAdminTab() {
               Docs
               <BookOpen className="h-4 w-4" />
             </Button>
-            <Button variant="outline" onClick={() => navigate("/synth")} className="justify-between">
-              SYNTH Console
+            <Button variant="outline" onClick={() => navigate("/synth/senate")} className="justify-between">
+              Full Senate
               <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
@@ -240,8 +345,12 @@ export function SynthAdminTab() {
       </Card>
 
       {/* Full Architecture Tabs */}
-      <Tabs defaultValue="dashboard" className="space-y-6">
-        <TabsList className="bg-muted/50 border border-border">
+      <Tabs defaultValue="senate" className="space-y-6">
+        <TabsList className="bg-muted/50 border border-border flex-wrap">
+          <TabsTrigger value="senate" className="data-[state=active]:bg-purple-500/20">
+            <Scale className="w-4 h-4 mr-2" />
+            Senate
+          </TabsTrigger>
           <TabsTrigger value="dashboard" className="data-[state=active]:bg-blue-500/20">
             <BarChart3 className="w-4 h-4 mr-2" />
             Dashboard
@@ -259,6 +368,87 @@ export function SynthAdminTab() {
             Think Tank
           </TabsTrigger>
         </TabsList>
+
+        {/* Senate Tab - 6 Senators + 1 Judge */}
+        <TabsContent value="senate" className="space-y-6">
+          {/* Input Panel */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Gavel className="w-5 h-5 text-purple-400" />
+                Senate Deliberation
+              </CardTitle>
+              <CardDescription>
+                Enter your prompt to run through the 7-seat Senate: 6 AI Senators evaluate, 1 Judge delivers the final verdict.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <Textarea
+                  placeholder="Enter the text you want the Senate to evaluate..."
+                  value={senatePrompt}
+                  onChange={(e) => setSenatePrompt(e.target.value)}
+                  className="min-h-[120px] font-mono text-sm"
+                />
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-muted-foreground">
+                    {senatePrompt.length} characters • 6 senators + 1 judge will deliberate
+                  </p>
+                  <Button 
+                    onClick={handleSenateRun} 
+                    disabled={senateLoading || !senatePrompt.trim()}
+                  >
+                    {senateLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Running Senate...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Run Senate
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 6 Senator Grid */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <Brain className="w-5 h-5 text-cyan-400" />
+                Senate Seats (6 Senators)
+              </h3>
+              <Badge variant="outline" className="border-border">
+                {seats.filter(s => s.status === 'online').length}/6 Online
+              </Badge>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {seats.map((seat) => (
+                <SenateSeatCard 
+                  key={seat.seat_id} 
+                  seat={seat} 
+                  weight={weights[`seat_${seat.seat_id}` as keyof typeof weights] || 17}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Judge Output */}
+          {(judgeOutput || senateLoading) && (
+            <SenateJudgeCard 
+              judge={judgeOutput || createDefaultJudge()}
+              participation_summary={participationSummary}
+              contested={contested}
+              contested_reasons={contestedReasons}
+              trace_id={traceId}
+              isLoading={senateLoading && !judgeOutput}
+            />
+          )}
+        </TabsContent>
 
         {/* Dashboard Tab */}
         <TabsContent value="dashboard" className="space-y-6">

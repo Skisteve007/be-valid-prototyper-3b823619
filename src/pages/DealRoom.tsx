@@ -182,6 +182,17 @@ const DealRoom = () => {
         </div>
       </header>
 
+      {/* THE INVITE TEXT - Strategic Strike */}
+      <section className="container mx-auto px-4 pt-6 pb-0 max-w-3xl">
+        <Card className="bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 border border-[#00FFFF]/50">
+          <CardContent className="py-6">
+            <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
+              "This is a <span className="text-[#00FFFF] font-bold">Strategic Strike</span>. We aren't just asking for capital; we are building a coalition. If you back this mission, you are welcome to fly out and <span className="text-[#00FFFF] font-bold">join the raid</span>. We will be in the room with the targets."
+            </p>
+          </CardContent>
+        </Card>
+      </section>
+
       <main className="container mx-auto px-4 py-8 space-y-12">
         {/* THE WAR CHEST - Progress Bar + Scorecard */}
         <section className="max-w-3xl mx-auto">
@@ -484,18 +495,6 @@ const DealRoom = () => {
             </CardContent>
           </Card>
         </section>
-
-        {/* THE INVITE TEXT */}
-        <section className="max-w-3xl mx-auto">
-          <Card className="bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 border border-[#00FFFF]/50">
-            <CardContent className="py-6">
-              <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
-                "This is a <span className="text-[#00FFFF] font-bold">Strategic Strike</span>. We aren't just asking for capital; we are building a coalition. If you back this mission, you are welcome to fly out and <span className="text-[#00FFFF] font-bold">join the raid</span>. We will be in the room with the targets."
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-
         {/* THE INTEL - Bullet Points */}
         <section className="max-w-3xl mx-auto">
           <Card className="bg-black/50 border border-[#00FFFF]/30">

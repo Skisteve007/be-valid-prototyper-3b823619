@@ -110,6 +110,10 @@ const DealRoom = lazy(() => import("./pages/DealRoom"));
 const AdminSecurityPositioning = lazy(() => import("./pages/AdminSecurityPositioning"));
 const SenateAutopilotDocs = lazy(() => import("./pages/SenateAutopilotDocs"));
 const SenateOrchestratorSpec = lazy(() => import("./pages/SenateOrchestratorSpec"));
+const SynthInternalComplianceRoadmap = lazy(() => import("./pages/SynthInternalComplianceRoadmap"));
+const SynthInternalDataLifecycle = lazy(() => import("./pages/SynthInternalDataLifecycle"));
+const SynthInternalThirdParty = lazy(() => import("./pages/SynthInternalThirdParty"));
+const SynthInternalGhostToken = lazy(() => import("./pages/SynthInternalGhostToken"));
 
 const queryClient = new QueryClient();
 

@@ -232,10 +232,18 @@ const Synth = () => {
             </div>
             
             {/* Navigation Buttons */}
-            <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 max-w-5xl mx-auto">
+              <Button
+                onClick={() => navigate('/synth/senate')}
+                className="synth-btn-primary font-semibold py-6"
+              >
+                <Scale className="w-4 h-4 mr-2" />
+                Senate (7)
+              </Button>
               <Button
                 onClick={() => navigate('/synth/console')}
-                className="synth-btn-primary font-semibold py-6"
+                variant="outline"
+                className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 py-6 bg-transparent"
               >
                 Console
               </Button>

@@ -94,7 +94,7 @@ const ThinkTank = () => {
           <meta name="description" content={selectedEntry.excerpt || selectedEntry.title} />
         </Helmet>
         
-        <main className="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
+        <main className="container mx-auto px-4 pt-16 sm:pt-20 pb-16 max-w-4xl">
           <Button
             variant="ghost"
             onClick={() => setSelectedEntry(null)}
@@ -170,7 +170,7 @@ const ThinkTank = () => {
         <meta name="description" content="SYNTH™ standards, playbooks, decision logs, and templates for the VALID™ ecosystem." />
       </Helmet>
       
-      <main className="container mx-auto px-4 pt-24 pb-16">
+      <main className="container mx-auto px-4 pt-16 sm:pt-20 pb-16">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 mb-4">

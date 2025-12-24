@@ -120,7 +120,7 @@ const Partners = () => {
               className="flex items-center gap-1.5 px-2.5 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-[10px] sm:text-xs font-bold rounded-full transition-all uppercase tracking-wider shadow-[0_0_14px_rgba(245,158,11,0.28)] hover:shadow-[0_0_22px_rgba(245,158,11,0.45)]"
             >
               <Building2 className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden xs:inline">Deal Room</span>
+              <span className="hidden xs:inline">Deal Room 1</span>
             </Link>
             <Link 
               to="/vendor-pricing" 

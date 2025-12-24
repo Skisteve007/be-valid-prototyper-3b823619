@@ -91,13 +91,6 @@ const ResponsiveHeader = () => {
 
           {/* Right Side Controls */}
           <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
-            {/* Debate Room Demo Button */}
-            <Link
-              to="/debate-room"
-              className="px-3 sm:px-4 py-1.5 sm:py-2 text-[0.6rem] sm:text-xs font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-purple-400/60 bg-purple-500/10 text-purple-400 hover:bg-purple-500/15 hover:shadow-[0_0_16px_rgba(168,85,247,0.35)] transition-all whitespace-nowrap"
-            >
-              AI Debate
-            </Link>
 
             {/* Partner Solutions Button */}
             <Link

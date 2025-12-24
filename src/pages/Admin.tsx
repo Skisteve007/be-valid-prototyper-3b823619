@@ -634,75 +634,75 @@ const Admin = () => {
           </div>
           
           {/* Desktop Tab Navigation */}
-          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-4">
-            <TabsTrigger value="members" className="cursor-pointer text-xs px-2 py-2">
-              <Users className="h-3 w-3 mr-1" />
+          <TabsList className="hidden md:grid w-full grid-cols-7 gap-0.5 h-auto p-0.5 mb-2">
+            <TabsTrigger value="members" className="cursor-pointer text-[10px] px-1 py-1">
+              <Users className="h-2.5 w-2.5 mr-0.5" />
               Members
             </TabsTrigger>
-            <TabsTrigger value="sponsors" className="cursor-pointer text-xs px-2 py-2">
+            <TabsTrigger value="sponsors" className="cursor-pointer text-[10px] px-1 py-1">
               Sponsors
             </TabsTrigger>
-            <TabsTrigger value="lab-integrations" className="cursor-pointer text-xs px-2 py-2">
-              <FlaskConical className="h-3 w-3 mr-1" />
+            <TabsTrigger value="lab-integrations" className="cursor-pointer text-[10px] px-1 py-1">
+              <FlaskConical className="h-2.5 w-2.5 mr-0.5" />
               Labs
             </TabsTrigger>
-            <TabsTrigger value="developers" className="cursor-pointer text-xs px-2 py-2">
-              <Code className="h-3 w-3 mr-1" />
+            <TabsTrigger value="developers" className="cursor-pointer text-[10px] px-1 py-1">
+              <Code className="h-2.5 w-2.5 mr-0.5" />
               Dev
             </TabsTrigger>
-            <TabsTrigger value="campaigns" className="cursor-pointer text-xs px-2 py-2">
+            <TabsTrigger value="campaigns" className="cursor-pointer text-[10px] px-1 py-1">
               Campaigns
             </TabsTrigger>
-            <TabsTrigger value="venues" className="cursor-pointer text-xs px-2 py-2">
-              <Globe className="h-3 w-3 mr-1" />
+            <TabsTrigger value="venues" className="cursor-pointer text-[10px] px-1 py-1">
+              <Globe className="h-2.5 w-2.5 mr-0.5" />
               Venues
             </TabsTrigger>
-            <TabsTrigger value="sales-team" className="cursor-pointer text-xs px-2 py-2">
+            <TabsTrigger value="sales-team" className="cursor-pointer text-[10px] px-1 py-1">
               Sales
             </TabsTrigger>
           </TabsList>
           
           {/* Second Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-10 gap-1 h-auto p-1 mb-6">
-            <TabsTrigger value="lead-outreach" className="cursor-pointer text-xs px-2 py-2">
+          <TabsList className="hidden md:grid w-full grid-cols-10 gap-0.5 h-auto p-0.5 mb-4">
+            <TabsTrigger value="lead-outreach" className="cursor-pointer text-[10px] px-1 py-1">
               📧 Leads
             </TabsTrigger>
-            <TabsTrigger value="investor-crm" className="cursor-pointer text-xs px-2 py-2">
+            <TabsTrigger value="investor-crm" className="cursor-pointer text-[10px] px-1 py-1">
               💼 Investors
             </TabsTrigger>
-            <TabsTrigger value="quick-branding" className="cursor-pointer text-xs px-2 py-2">
-              <Zap className="h-3 w-3 mr-1" />
+            <TabsTrigger value="quick-branding" className="cursor-pointer text-[10px] px-1 py-1">
+              <Zap className="h-2.5 w-2.5 mr-0.5" />
               Setup
             </TabsTrigger>
-            <TabsTrigger value="scanner" className="cursor-pointer text-xs px-2 py-2">
-              <QrCode className="h-3 w-3 mr-1" />
+            <TabsTrigger value="scanner" className="cursor-pointer text-[10px] px-1 py-1">
+              <QrCode className="h-2.5 w-2.5 mr-0.5" />
               Scanner
             </TabsTrigger>
-            <TabsTrigger value="idv-management" className="cursor-pointer text-xs px-2 py-2">
+            <TabsTrigger value="idv-management" className="cursor-pointer text-[10px] px-1 py-1">
               🪪 IDV
             </TabsTrigger>
-            <TabsTrigger value="access-control" className="cursor-pointer text-xs px-2 py-2">
+            <TabsTrigger value="access-control" className="cursor-pointer text-[10px] px-1 py-1">
               🔐 Access
             </TabsTrigger>
-            <TabsTrigger value="traffic" className="cursor-pointer text-xs px-2 py-2">
-              <BarChart3 className="h-3 w-3 mr-1" />
+            <TabsTrigger value="traffic" className="cursor-pointer text-[10px] px-1 py-1">
+              <BarChart3 className="h-2.5 w-2.5 mr-0.5" />
               Traffic
             </TabsTrigger>
-            <TabsTrigger value="pricing" className="cursor-pointer text-xs px-2 py-2">
+            <TabsTrigger value="pricing" className="cursor-pointer text-[10px] px-1 py-1">
               💰 Pricing
             </TabsTrigger>
-            <TabsTrigger value="webhooks" className="cursor-pointer text-xs px-2 py-2">
-              <Webhook className="h-3 w-3 mr-1" />
+            <TabsTrigger value="webhooks" className="cursor-pointer text-[10px] px-1 py-1">
+              <Webhook className="h-2.5 w-2.5 mr-0.5" />
               Webhooks
             </TabsTrigger>
             <TabsTrigger
               value="synth"
-              className={`cursor-pointer text-xs px-2 py-2 border border-primary/30 ${
+              className={`cursor-pointer text-[10px] px-1 py-1 border border-primary/30 ${
                 canUnlockSynth ? "bg-primary/10" : "opacity-70 cursor-not-allowed"
               }`}
               title={canUnlockSynth ? "Open SYNTH™" : "Locked: only Steve@bevalid.app can unlock"}
             >
-              🤖 SYNTH™{canUnlockSynth ? "" : " (Locked)"}
+              🤖 SYNTH™{canUnlockSynth ? "" : " 🔒"}
             </TabsTrigger>
           </TabsList>
           

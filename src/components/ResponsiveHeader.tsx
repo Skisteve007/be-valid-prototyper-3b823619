@@ -26,7 +26,11 @@ const ResponsiveHeader = () => {
     pathname.startsWith("/auth") ||
     pathname.startsWith("/login") ||
     pathname.startsWith("/signup") ||
-    pathname.startsWith("/access-portal");
+    pathname.startsWith("/access-portal") ||
+    pathname.startsWith("/partners") ||
+    pathname.startsWith("/investor") ||
+    pathname.startsWith("/pitch") ||
+    pathname.startsWith("/deck");
 
   useEffect(() => {
     const checkAdminStatus = async () => {

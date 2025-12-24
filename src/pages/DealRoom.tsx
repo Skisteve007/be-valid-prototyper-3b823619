@@ -150,14 +150,14 @@ const DealRoom = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white overflow-hidden pt-32 sm:pt-24 md:pt-16">
       <Helmet>
         <title>THE DEAL ROOM | VALID™</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       {/* HEADER - TOP SECRET BANNER */}
-      <header className="border-b border-[#00FFFF]/20 bg-black/90 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-[#00FFFF]/20 bg-black/90 backdrop-blur-sm sticky top-32 sm:top-24 md:top-16 z-50">
         <div className="flex items-center justify-center gap-3 py-2 bg-gradient-to-r from-black via-red-950/20 to-black border-b border-red-500/30">
           <span className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>

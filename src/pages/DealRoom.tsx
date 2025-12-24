@@ -157,7 +157,7 @@ const DealRoom = () => {
       </Helmet>
 
        {/* THE INVITE TEXT - Strategic Strike */}
-       <section className="container mx-auto px-4 pb-6 max-w-3xl">
+       <section className="container mx-auto px-4 pt-6 pb-6 max-w-3xl">
          <Card className="bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 border border-[#00FFFF]/50">
            <CardContent className="py-6">
              <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">

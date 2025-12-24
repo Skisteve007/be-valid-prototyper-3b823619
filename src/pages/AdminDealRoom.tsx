@@ -425,7 +425,7 @@ const AdminDealRoom = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#111]">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#111] pt-16">
       {/* Header */}
       <header className="border-b border-white/10 bg-black/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">

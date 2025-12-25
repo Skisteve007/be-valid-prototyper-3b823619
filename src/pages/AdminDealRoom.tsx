@@ -16,11 +16,25 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import logo from "@/assets/valid-logo.jpeg";
+import { 
+  TRANCHE_0, 
+  TRANCHE_1, 
+  TRANCHE_2, 
+  TRANCHE_3,
+  ACTIVE_TRANCHES,
+  formatUsd,
+  formatUsdCompact,
+  validateMinimumCheck,
+  getMinCheckError,
+  COMPANY_INFO,
+  SAFE_ENABLED,
+  SAFE_NOTICE,
+  type TrancheConfig 
+} from "@/config/fundraisingConfig";
 
 // PUBLIC PDF URL - Same as PitchDeck.tsx for consistency
 const INVESTOR_DECK_PDF_URL = "/images/pitch/VALID-Investor-Deck-2025.pdf";
 const AUTHORIZED_EMAILS = ["sgrillocce@gmail.com", "aeidigitalsolutions@gmail.com", "steve@bevalid.app"];
-const TRANCHE_1_CAP = 200000;
 
 type InvestorStatus = "Contract Sent" | "Signed" | "Funds Wired" | "Cleared in Bank";
 
@@ -40,22 +54,19 @@ const AdminDealRoom = () => {
   
   // Form state
   const [investorName, setInvestorName] = useState("");
-  const [investmentAmount, setInvestmentAmount] = useState("25000");
-  const [valuationCap, setValuationCap] = useState("6000000");
-  const [discountRate, setDiscountRate] = useState("50");
-  const [selectedTranche, setSelectedTranche] = useState<1 | 2>(1);
+  const [investmentAmount, setInvestmentAmount] = useState("");
+  const [selectedTranche, setSelectedTranche] = useState<TrancheConfig>(TRANCHE_0);
   const [isTranche2ModalOpen, setIsTranche2ModalOpen] = useState(false);
 
+  // Derived values from selected tranche (read-only in form)
+  const valuationCap = selectedTranche.valuationCapUsd.toString();
+  const discountRate = selectedTranche.discountPercent.toString();
+
   // Handle tranche selection
-  const handleTrancheSelect = (tranche: 1 | 2) => {
+  const handleTrancheSelect = (tranche: TrancheConfig) => {
     setSelectedTranche(tranche);
-    if (tranche === 1) {
-      setValuationCap("6000000");
-      setDiscountRate("50");
-    } else {
-      setValuationCap("12000000");
-      setDiscountRate("25");
-    }
+    // Reset investment amount when switching tranches
+    setInvestmentAmount("");
   };
 
   // Investment Tracker state
@@ -78,8 +89,10 @@ const AdminDealRoom = () => {
     .filter(inv => inv.status === "Funds Wired" || inv.status === "Cleared in Bank")
     .reduce((sum, inv) => sum + inv.amount, 0);
 
-  const progressPercentage = Math.min((totalRaised / TRANCHE_1_CAP) * 100, 100);
-  const isTranche1Filled = totalRaised >= TRANCHE_1_CAP;
+  // Use selected tranche's target for progress
+  const currentTrancheCap = selectedTranche.targetRaiseUsd;
+  const progressPercentage = Math.min((totalRaised / currentTrancheCap) * 100, 100);
+  const isTrancheComplete = totalRaised >= currentTrancheCap;
 
   const addInvestor = () => {
     if (!newInvestorName.trim() || !newInvestorAmount) {
@@ -128,7 +141,8 @@ const AdminDealRoom = () => {
             status: status,
             date: investor.date,
             totalRaised: newTotal,
-            trancheCap: TRANCHE_1_CAP,
+            trancheCap: currentTrancheCap,
+            trancheName: selectedTranche.name,
           },
         });
 
@@ -188,8 +202,15 @@ const AdminDealRoom = () => {
       return;
     }
     
-    if (!valuationCap || parseFloat(valuationCap) <= 0) {
-      toast.error("Please enter a valid valuation cap");
+    const amount = parseFloat(investmentAmount);
+    if (!investmentAmount || isNaN(amount) || amount <= 0) {
+      toast.error("Please enter a valid investment amount");
+      return;
+    }
+
+    // Validate minimum check based on selected tranche
+    if (!validateMinimumCheck(amount, selectedTranche)) {
+      toast.error(getMinCheckError(selectedTranche));
       return;
     }
 
@@ -522,48 +543,101 @@ const AdminDealRoom = () => {
           {/* Tranche Selector */}
           <div className="mb-6">
             <Label className="text-white text-sm mb-3 block">Select Investment Round</Label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Tranche 0 - Emergency Bridge */}
               <button
-                onClick={() => handleTrancheSelect(1)}
+                onClick={() => handleTrancheSelect(TRANCHE_0)}
                 className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
-                  selectedTranche === 1
+                  selectedTranche.id === 0
+                    ? 'bg-red-500/20 border-red-500 shadow-[0_0_20px_rgba(239,68,68,0.3)]'
+                    : 'bg-white/5 border-white/20 hover:border-white/40'
+                }`}
+              >
+                <Badge className={`mb-2 ${selectedTranche.id === 0 ? 'bg-red-500/30 text-red-300 border-red-500/50' : 'bg-amber-500/20 text-amber-400 border-amber-500/50'}`}>
+                  {TRANCHE_0.status === 'open' ? '🔴 ACTIVE NOW' : 'Upcoming'}
+                </Badge>
+                <div className={`font-bold text-lg mb-1 ${selectedTranche.id === 0 ? 'text-red-400' : 'text-white'}`}>
+                  {TRANCHE_0.name}
+                </div>
+                <div className={`text-xs ${selectedTranche.id === 0 ? 'text-red-400/80' : 'text-gray-400'}`}>
+                  {formatUsdCompact(TRANCHE_0.targetRaiseUsd)} Raise • {formatUsdCompact(TRANCHE_0.valuationCapUsd)} Cap • {TRANCHE_0.discountPercent}% Discount
+                </div>
+                {TRANCHE_0.mfnEnabled && (
+                  <div className="text-[10px] text-amber-400 mt-1">+ MFN Protection</div>
+                )}
+              </button>
+              
+              {/* Tranche 1 - Launch Round */}
+              <button
+                onClick={() => handleTrancheSelect(TRANCHE_1)}
+                className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                  selectedTranche.id === 1
                     ? 'bg-amber-500/20 border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.3)]'
                     : 'bg-white/5 border-white/20 hover:border-white/40'
                 }`}
               >
-                <div className={`font-bold text-lg mb-1 ${selectedTranche === 1 ? 'text-amber-400' : 'text-white'}`}>
-                  Tranche 1: Launch Round
+                <Badge className={`mb-2 ${selectedTranche.id === 1 ? 'bg-amber-500/30 text-amber-300 border-amber-500/50' : 'bg-gray-500/20 text-gray-400 border-gray-500/50'}`}>
+                  {TRANCHE_1.status === 'open' ? '🟢 OPEN' : 'Next Up'}
+                </Badge>
+                <div className={`font-bold text-lg mb-1 ${selectedTranche.id === 1 ? 'text-amber-400' : 'text-white'}`}>
+                  {TRANCHE_1.name}
                 </div>
-                <div className={`text-xs ${selectedTranche === 1 ? 'text-amber-400/80' : 'text-gray-400'}`}>$200K Raise • $6M Valuation Cap • 50% Discount</div>
+                <div className={`text-xs ${selectedTranche.id === 1 ? 'text-amber-400/80' : 'text-gray-400'}`}>
+                  {formatUsdCompact(TRANCHE_1.targetRaiseUsd)} Raise • {formatUsdCompact(TRANCHE_1.valuationCapUsd)} Cap • {TRANCHE_1.discountPercent}% Discount
+                </div>
               </button>
+              
+              {/* Tranche 2 - Seed (Placeholder) */}
               <button
                 onClick={() => setIsTranche2ModalOpen(true)}
                 className="p-4 rounded-xl border-2 text-left bg-cyan-500/10 border-cyan-500/30 cursor-pointer relative shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:bg-cyan-500/20 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(0,240,255,0.4)] transition-all duration-300"
               >
                 <Badge className="absolute -top-2 -right-2 bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 text-[10px] px-2 shadow-[0_0_10px_rgba(0,240,255,0.4)]">
-                  Coming Q2 2026
+                  {TRANCHE_2.timeline || 'Planned'}
                 </Badge>
                 <div className="font-bold text-lg mb-1 text-cyan-400">
-                  Tranche 2: Series Seed
+                  {TRANCHE_2.name}
                 </div>
-                <div className="text-xs text-cyan-400/80">$1.5M Raise • $10-12M Valuation Cap • 25% Discount</div>
+                <div className="text-xs text-cyan-400/80">
+                  {formatUsdCompact(TRANCHE_2.targetRaiseUsd)} Raise • {formatUsdCompact(TRANCHE_2.valuationCapRangeUsd?.min || 0)}-{formatUsdCompact(TRANCHE_2.valuationCapRangeUsd?.max || 0)} Cap • {TRANCHE_2.discountRangePercent?.min}-{TRANCHE_2.discountRangePercent?.max}% Discount
+                </div>
                 <div className="text-[10px] text-cyan-400/60 mt-1 flex items-center gap-1">
                   <Info className="h-3 w-3" /> Click for details
                 </div>
               </button>
+              
+              {/* Tranche 3 - Priced Round (Placeholder) */}
+              <div className="p-4 rounded-xl border-2 text-left bg-gray-500/5 border-gray-500/20 opacity-60">
+                <Badge className="mb-2 bg-gray-500/20 text-gray-400 border-gray-500/50">
+                  Planned
+                </Badge>
+                <div className="font-bold text-lg mb-1 text-gray-400">
+                  {TRANCHE_3.name}
+                </div>
+                <div className="text-xs text-gray-500">
+                  {formatUsdCompact(TRANCHE_3.targetRaiseUsd)} Target • Priced Equity
+                </div>
+              </div>
             </div>
             
-            {/* Tranche 1 Status Tracker */}
+            {/* Selected Tranche Status Tracker */}
             <div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/10">
               <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-400">Tranche 1 Status:</span>
+                <span className="text-gray-400">{selectedTranche.shortName} Status:</span>
                 <span className={`font-mono font-bold ${progressPercentage >= 100 ? 'text-green-400' : 'text-amber-400'}`}>
-                  {formatCurrency(totalRaised.toString())} / $200,000
+                  {formatUsd(totalRaised)} / {formatUsd(selectedTranche.targetRaiseUsd)}
                   {progressPercentage >= 100 && ' ✓ Complete'}
                 </span>
               </div>
               <Progress value={progressPercentage} className="h-2 mt-2" />
             </div>
+            
+            {/* SAFE Coming Soon Notice */}
+            {!SAFE_ENABLED && (
+              <div className="mt-3 p-2 rounded-lg bg-purple-500/10 border border-purple-500/30 text-center">
+                <span className="text-purple-400 text-xs font-mono">{SAFE_NOTICE}</span>
+              </div>
+            )}
           </div>
 
           <Card className="bg-black/40 border-2 border-cyan-500/60 backdrop-blur-sm shadow-[0_0_30px_rgba(0,240,255,0.4)] animate-[pulse_3s_ease-in-out_infinite] hover:shadow-[0_0_50px_rgba(0,240,255,0.6)] transition-shadow duration-300">
@@ -597,7 +671,7 @@ const AdminDealRoom = () => {
               {/* Investment Amount */}
               <div className="space-y-2">
                 <Label htmlFor="investmentAmount" className="text-white">
-                  Investment Amount (USD)
+                  Investment Amount (USD) <span className="text-red-400">*</span>
                 </Label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">$</span>
@@ -606,60 +680,75 @@ const AdminDealRoom = () => {
                     type="number"
                     value={investmentAmount}
                     onChange={(e) => setInvestmentAmount(e.target.value)}
+                    placeholder={`Minimum ${formatUsd(selectedTranche.minCheckUsd)}`}
                     className="bg-white/5 border-white/20 text-white pl-8"
                   />
                 </div>
-                <p className="text-xs text-gray-500">Default: $10,000 minimum</p>
+                <p className="text-xs text-gray-500">Minimum for {selectedTranche.shortName}: {formatUsd(selectedTranche.minCheckUsd)}</p>
               </div>
 
-              {/* Valuation Cap */}
+              {/* Valuation Cap - AUTO-FILLED from tranche (read-only) */}
               <div className="space-y-2">
-                <Label htmlFor="valuationCap" className="text-white">
+                <Label htmlFor="valuationCap" className="text-white flex items-center gap-2">
                   Valuation Cap (USD)
+                  <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 text-[10px]">Auto-filled</Badge>
                 </Label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">$</span>
                   <Input
                     id="valuationCap"
-                    type="number"
-                    value={valuationCap}
-                    onChange={(e) => setValuationCap(e.target.value)}
-                    className="bg-white/5 border-white/20 text-white pl-8"
+                    type="text"
+                    value={formatUsd(parseInt(valuationCap))}
+                    readOnly
+                    disabled
+                    className="bg-cyan-500/10 border-cyan-500/30 text-cyan-400 pl-8 cursor-not-allowed"
                   />
                 </div>
-                <p className="text-xs text-gray-500">Default: $6,000,000 Valuation Cap (Launch Round)</p>
+                <p className="text-xs text-gray-500">Set by tranche: {selectedTranche.name}</p>
               </div>
 
-              {/* Discount Rate */}
+              {/* Discount Rate - AUTO-FILLED from tranche (read-only) */}
               <div className="space-y-2">
-                <Label htmlFor="discountRate" className="text-white">
+                <Label htmlFor="discountRate" className="text-white flex items-center gap-2">
                   Discount Rate (%)
+                  <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50 text-[10px]">Auto-filled</Badge>
                 </Label>
                 <div className="relative">
                   <Input
                     id="discountRate"
-                    type="number"
-                    value={discountRate}
-                    onChange={(e) => setDiscountRate(e.target.value)}
-                    className="bg-white/5 border-white/20 text-white pr-8"
+                    type="text"
+                    value={`${discountRate}%`}
+                    readOnly
+                    disabled
+                    className="bg-cyan-500/10 border-cyan-500/30 text-cyan-400 cursor-not-allowed"
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">%</span>
                 </div>
-                <p className="text-xs text-gray-500">Default: 50% discount on next round (Launch Round)</p>
+                <p className="text-xs text-gray-500">
+                  Set by tranche: {selectedTranche.name}
+                  {selectedTranche.mfnEnabled && ' • MFN Protection Enabled'}
+                </p>
               </div>
 
               {/* Preview Summary */}
               <div className="p-4 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
                 <h4 className="text-cyan-400 font-semibold mb-2 text-sm">Contract Summary</h4>
                 <div className="grid grid-cols-2 gap-2 text-sm">
+                  <span className="text-gray-400">Tranche:</span>
+                  <span className="text-cyan-400 font-bold">{selectedTranche.name}</span>
                   <span className="text-gray-400">Investor:</span>
                   <span className="text-white">{investorName || "—"}</span>
                   <span className="text-gray-400">Amount:</span>
-                  <span className="text-white">{formatCurrency(investmentAmount)}</span>
+                  <span className="text-white">{investmentAmount ? formatUsd(parseFloat(investmentAmount)) : "—"}</span>
                   <span className="text-gray-400">Valuation Cap:</span>
-                  <span className="text-white">{formatCurrency(valuationCap)}</span>
+                  <span className="text-white">{formatUsd(selectedTranche.valuationCapUsd)}</span>
                   <span className="text-gray-400">Discount:</span>
-                  <span className="text-white">{discountRate}%</span>
+                  <span className="text-white">{selectedTranche.discountPercent}%</span>
+                  {selectedTranche.mfnEnabled && (
+                    <>
+                      <span className="text-gray-400">MFN:</span>
+                      <span className="text-amber-400">Yes ✓</span>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -694,15 +783,15 @@ const AdminDealRoom = () => {
               <CardTitle className="text-white flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-cyan-400" />
                 Investment Tracker
-                {isTranche1Filled && (
+                {isTrancheComplete && (
                   <Badge className="ml-2 bg-green-500/20 text-green-400 border-green-500/50">
                     <CheckCircle2 className="h-3 w-3 mr-1" />
-                    Tranche 1 Filled - Switch to Tranche 2
+                    {selectedTranche.shortName} Complete
                   </Badge>
                 )}
               </CardTitle>
               <CardDescription className="text-gray-400">
-                Track progress toward the $200,000 Launch Round cap
+                Track progress toward the {formatUsd(selectedTranche.targetRaiseUsd)} {selectedTranche.shortName} cap
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -710,16 +799,16 @@ const AdminDealRoom = () => {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Total Raised (Wired/Cleared)</span>
-                  <span className={isTranche1Filled ? "text-green-400 font-bold" : "text-white"}>
-                    {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(totalRaised)} / $200,000
+                  <span className={isTrancheComplete ? "text-green-400 font-bold" : "text-white"}>
+                    {formatUsd(totalRaised)} / {formatUsd(selectedTranche.targetRaiseUsd)}
                   </span>
                 </div>
                 <Progress 
                   value={progressPercentage} 
-                  className={`h-4 ${isTranche1Filled ? "[&>div]:bg-green-500" : "[&>div]:bg-gradient-to-r [&>div]:from-cyan-500 [&>div]:to-blue-500"}`}
+                  className={`h-4 ${isTrancheComplete ? "[&>div]:bg-green-500" : "[&>div]:bg-gradient-to-r [&>div]:from-cyan-500 [&>div]:to-blue-500"}`}
                 />
                 <p className="text-xs text-gray-500">
-                  {progressPercentage.toFixed(1)}% of Tranche 1 goal
+                  {progressPercentage.toFixed(1)}% of {selectedTranche.shortName} goal
                 </p>
               </div>
 

@@ -39,22 +39,30 @@ const Synth = () => {
     },
     {
       step: 4,
-      title: 'SUPREME COURT',
-      subtitle: '3 Agents Debate',
-      description: 'Multiple AI agents with different perspectives analyze the request.',
+      title: 'SENATE CHAMBER',
+      subtitle: '5 Senators Debate Truth',
+      description: 'Five specialized AI senators with distinct perspectives debate the request to evaluate truth in the data source.',
       icon: Scale,
       color: 'blue',
     },
     {
       step: 5,
+      title: 'EXECUTIVE SECRETARY',
+      subtitle: 'Clean & Organize',
+      description: 'Reviews Senate conclusions, ensures answers are clean and organized, and can return issues to the Senate for reconsideration before passing to the Judge.',
+      icon: UserCheck,
+      color: 'purple',
+    },
+    {
+      step: 6,
       title: 'JUDGE',
-      subtitle: 'Coherence Score',
-      description: 'A judge agent resolves contradictions and produces a coherence score.',
+      subtitle: 'Final Arbiter',
+      description: 'Reviews the Senate decision, aligns it with its own knowledge to confirm truth, and formulates the final answer. If disagreement exists, sends back for re-debate.',
       icon: Eye,
       color: 'cyan',
     },
     {
-      step: 6,
+      step: 7,
       title: 'VERIFY',
       subtitle: 'Policy + Evidence',
       description: 'Final verification against policies and evidence requirements.',
@@ -62,7 +70,7 @@ const Synth = () => {
       color: 'green',
     },
     {
-      step: 7,
+      step: 8,
       title: 'FLIGHT RECORDER',
       subtitle: 'Audit Log',
       description: 'Every decision is logged for compliance, review, and forensic analysis.',
@@ -70,7 +78,7 @@ const Synth = () => {
       color: 'orange',
     },
     {
-      step: 8,
+      step: 9,
       title: 'RELEASE',
       subtitle: 'Answer Delivery',
       description: 'Safe answers are released; unsafe requests are refused or escalated.',
@@ -80,12 +88,14 @@ const Synth = () => {
   ];
 
   const agents = [
+    // Senate Seats (5 debating agents)
     {
       name: 'Skeptic',
       role: 'Risk Auditor',
       description: 'Finds hallucinations and liability traps. Questions assumptions and identifies potential legal or factual issues.',
       icon: AlertTriangle,
       color: 'red',
+      tier: 'senate',
     },
     {
       name: 'Optimist',
@@ -93,6 +103,7 @@ const Synth = () => {
       description: 'Crafts the best compliant helpful answer. Balances helpfulness with safety requirements.',
       icon: CheckCircle,
       color: 'cyan',
+      tier: 'senate',
     },
     {
       name: 'Fact-Checker',
@@ -100,13 +111,41 @@ const Synth = () => {
       description: 'Marks key claims as supported, unverified, or contradicted. Ensures factual accuracy.',
       icon: Eye,
       color: 'blue',
+      tier: 'senate',
     },
+    {
+      name: 'Advocate',
+      role: 'Context Champion',
+      description: 'Advocates for nuance and context. Ensures edge cases and user intent are fully considered.',
+      icon: Sparkles,
+      color: 'amber',
+      tier: 'senate',
+    },
+    {
+      name: 'Guardian',
+      role: 'Policy Enforcer',
+      description: 'Enforces compliance boundaries. Ensures no policy violations or regulatory overreach.',
+      icon: Shield,
+      color: 'green',
+      tier: 'senate',
+    },
+    // Executive Secretary (6th agent)
+    {
+      name: 'Executive Secretary',
+      role: 'Senate Coordinator',
+      description: 'Cleans and organizes Senate conclusions. Can return issues to the 5 senators for reconsideration before presenting the final position to the Judge.',
+      icon: UserCheck,
+      color: 'purple',
+      tier: 'secretary',
+    },
+    // Judge (7th agent - Final Arbiter)
     {
       name: 'Judge',
       role: 'Final Arbiter',
-      description: 'Decides RELEASE vs MISTRIAL. Outputs coherence score and final synthesized answer.',
+      description: 'Reviews the Senate decision, aligns with its own knowledge to verify truth, and formulates the final answer. If not agreed, triggers re-debate cycle.',
       icon: Scale,
-      color: 'purple',
+      color: 'orange',
+      tier: 'judge',
     },
   ];
 
@@ -283,7 +322,7 @@ const Synth = () => {
           <section id="pipeline" className="scroll-mt-24">
             <h3 className="text-3xl font-bold text-white text-center mb-4">How SYNTH™ Works</h3>
             <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
-              Every AI request passes through our 8-step verification pipeline
+              Every AI request passes through our 9-step verification pipeline. The purpose is to evaluate truth in the data source.
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -317,28 +356,101 @@ const Synth = () => {
             </div>
           </section>
 
-          {/* Supreme Court Agents */}
+          {/* Supreme Court Agents - 7 Total */}
           <section>
-            <h3 className="text-3xl font-bold text-white text-center mb-4">The "Supreme Court" Agents</h3>
-            <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
-              Four specialized AI agents debate every high-risk request
+            <h3 className="text-3xl font-bold text-white text-center mb-4">The "Supreme Court" — 7 Agents</h3>
+            <p className="text-gray-400 text-center mb-4 max-w-2xl mx-auto">
+              Seven specialized AI agents form the governance structure: 5 Senators debate truth, 
+              the Executive Secretary cleans and organizes, and the Judge delivers the final verdict.
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {agents.map((agent) => {
+            {/* Flow Diagram */}
+            <div className="flex items-center justify-center gap-2 mb-12 text-sm">
+              <span className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-400">5 Senators</span>
+              <span className="text-gray-500">→</span>
+              <span className="px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-400">Executive Secretary</span>
+              <span className="text-gray-500">→</span>
+              <span className="px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/40 text-orange-400">Judge</span>
+            </div>
+
+            {/* Senate Seats - 5 Debating Agents */}
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-blue-400 text-center mb-4 flex items-center justify-center gap-2">
+                <Scale className="w-5 h-5" />
+                Senate Chamber — 5 Seats
+              </h4>
+              <p className="text-gray-500 text-center text-sm mb-6">These 5 agents debate truth in the data source</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                {agents.filter(a => a.tier === 'senate').map((agent) => {
+                  const colors = getColorClasses(agent.color);
+                  return (
+                    <div
+                      key={agent.name}
+                      className={`relative p-5 rounded-xl synth-card ${colors.glow}`}
+                    >
+                      <div className="absolute inset-0 rounded-xl synth-sheen pointer-events-none" />
+                      <div className="relative text-center">
+                        <div className={`w-12 h-12 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center mb-3 mx-auto`}>
+                          <agent.icon className={`w-6 h-6 ${colors.text}`} />
+                        </div>
+                        <h4 className={`text-base font-bold ${colors.text} mb-1`}>{agent.name}</h4>
+                        <p className="text-white/80 text-xs font-medium mb-2">{agent.role}</p>
+                        <p className="text-gray-400 text-xs">{agent.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Executive Secretary & Judge */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* Executive Secretary */}
+              {agents.filter(a => a.tier === 'secretary').map((agent) => {
                 const colors = getColorClasses(agent.color);
                 return (
                   <div
                     key={agent.name}
-                    className={`relative p-6 rounded-2xl synth-card ${colors.glow}`}
+                    className={`relative p-6 rounded-2xl synth-card border-2 border-purple-500/30 ${colors.glow}`}
                   >
                     <div className="absolute inset-0 rounded-2xl synth-sheen pointer-events-none" />
                     <div className="relative">
-                      <div className={`w-14 h-14 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center mb-4`}>
-                        <agent.icon className={`w-7 h-7 ${colors.text}`} />
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className={`w-14 h-14 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center`}>
+                          <agent.icon className={`w-7 h-7 ${colors.text}`} />
+                        </div>
+                        <div>
+                          <span className="text-xs font-semibold text-purple-400 uppercase tracking-wider">6th Agent</span>
+                          <h4 className={`text-lg font-bold ${colors.text}`}>{agent.name}</h4>
+                        </div>
                       </div>
-                      <h4 className={`text-lg font-bold ${colors.text} mb-1`}>{agent.name}</h4>
-                      <p className="text-white/80 text-sm font-medium mb-3">{agent.role}</p>
+                      <p className="text-white/80 text-sm font-medium mb-2">{agent.role}</p>
+                      <p className="text-gray-400 text-sm">{agent.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Judge */}
+              {agents.filter(a => a.tier === 'judge').map((agent) => {
+                const colors = getColorClasses(agent.color);
+                return (
+                  <div
+                    key={agent.name}
+                    className={`relative p-6 rounded-2xl synth-card border-2 border-orange-500/30 ${colors.glow}`}
+                  >
+                    <div className="absolute inset-0 rounded-2xl synth-sheen pointer-events-none" />
+                    <div className="relative">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className={`w-14 h-14 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center`}>
+                          <agent.icon className={`w-7 h-7 ${colors.text}`} />
+                        </div>
+                        <div>
+                          <span className="text-xs font-semibold text-orange-400 uppercase tracking-wider">7th Agent — Final</span>
+                          <h4 className={`text-lg font-bold ${colors.text}`}>{agent.name}</h4>
+                        </div>
+                      </div>
+                      <p className="text-white/80 text-sm font-medium mb-2">{agent.role}</p>
                       <p className="text-gray-400 text-sm">{agent.description}</p>
                     </div>
                   </div>

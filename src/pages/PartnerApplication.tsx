@@ -7,7 +7,9 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign, Briefcase, Mail, Eye } from "lucide-react";
+import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign, Briefcase, Mail, Eye, X, ScrollText } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import jsPDF from "jspdf";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,6 +30,7 @@ const PartnerApplication = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [generatedReferralCode, setGeneratedReferralCode] = useState("");
+  const [showContractPreview, setShowContractPreview] = useState(false);
 
   // Handle payment success callback
   useEffect(() => {
@@ -696,100 +699,7 @@ const PartnerApplication = () => {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => {
-                  // Generate sample contract for preview
-                  const doc = new jsPDF();
-                  const pageWidth = doc.internal.pageSize.getWidth();
-                  const margin = 20;
-                  const contentWidth = pageWidth - (margin * 2);
-                  let y = 20;
-                  
-                  const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-                  // Title
-                  doc.setFontSize(16);
-                  doc.setFont("helvetica", "bold");
-                  doc.text("STRATEGIC PARTNER AGREEMENT", pageWidth / 2, y, { align: "center" });
-                  y += 10;
-                  doc.setFontSize(10);
-                  doc.setFont("helvetica", "italic");
-                  doc.text("SAMPLE PREVIEW - NOT A BINDING DOCUMENT", pageWidth / 2, y, { align: "center" });
-                  y += 15;
-
-                  doc.setFont("helvetica", "normal");
-                  doc.text("Giant Ventures, LLC d/b/a Clean Check", pageWidth / 2, y, { align: "center" });
-                  y += 15;
-
-                  // Key Terms Box
-                  doc.setDrawColor(0);
-                  doc.setLineWidth(0.5);
-                  doc.rect(margin, y, contentWidth, 35);
-                  y += 8;
-                  
-                  doc.setFontSize(10);
-                  doc.setFont("helvetica", "bold");
-                  doc.text("Partner:", margin + 5, y);
-                  doc.setFont("helvetica", "normal");
-                  doc.text("[Your Name]", margin + 30, y);
-                  y += 7;
-                  
-                  doc.setFont("helvetica", "bold");
-                  doc.text("Investment Amount:", margin + 5, y);
-                  doc.setFont("helvetica", "normal");
-                  doc.text("[Selected Amount]", margin + 50, y);
-                  y += 7;
-                  
-                  doc.setFont("helvetica", "bold");
-                  doc.text("Effective Date:", margin + 5, y);
-                  doc.setFont("helvetica", "normal");
-                  doc.text("[Date of Payment]", margin + 40, y);
-                  y += 20;
-
-                  const addSection = (title: string, content: string) => {
-                    doc.setFont("helvetica", "bold");
-                    doc.setFontSize(11);
-                    doc.text(title, margin, y);
-                    y += 7;
-                    doc.setFont("helvetica", "normal");
-                    doc.setFontSize(10);
-                    const lines = doc.splitTextToSize(content, contentWidth);
-                    doc.text(lines, margin, y);
-                    y += lines.length * 5 + 8;
-                  };
-
-                  addSection("1. APPOINTMENT", "Company hereby appoints Partner as a non-exclusive Strategic Partner for the purpose of referring potential customers to Company's verification services. Partner accepts such appointment subject to the terms and conditions set forth herein.");
-                  
-                  addSection("2. INVESTMENT COMMITMENT", "Partner hereby commits to invest the selected amount in USD in the Company's Strategic Partner Program. This investment entitles Partner to the following benefits and commission structure.");
-                  
-                  addSection("3. COMMISSION STRUCTURE", "Partner shall receive: 20% commission on first-year subscription revenue from referred customers; 10% commission on renewal revenue for years 2-3; Commissions are paid monthly for the preceding calendar month. Minimum payout threshold is $50 USD.");
-                  
-                  addSection("4. TERM AND TERMINATION", "This Agreement shall commence on the Effective Date and continue for a period of one (1) year, automatically renewing for successive one-year terms unless terminated by either party with thirty (30) days written notice.");
-                  
-                  addSection("5. INTELLECTUAL PROPERTY", "Partner acknowledges that all intellectual property, trade secrets, and proprietary information of Company remain the exclusive property of Company. Partner shall not use Company's trademarks except as expressly authorized in writing.");
-                  
-                  addSection("6. CONFIDENTIALITY", "Partner agrees to maintain strict confidentiality of all non-public information, including but not limited to: customer lists, pricing strategies, technology implementations, and business operations. This obligation survives termination of this Agreement.");
-
-                  y += 10;
-                  doc.setFont("helvetica", "bold");
-                  doc.text("COMPANY:", margin, y);
-                  y += 7;
-                  doc.setFont("helvetica", "normal");
-                  doc.text("Giant Ventures, LLC", margin, y);
-                  y += 5;
-                  doc.text("By: Steven Grillo, Managing Member", margin, y);
-                  y += 15;
-
-                  doc.setFont("helvetica", "bold");
-                  doc.text("PARTNER:", margin, y);
-                  y += 7;
-                  doc.setFont("helvetica", "normal");
-                  doc.text("[Partner Signature]", margin, y);
-                  y += 5;
-                  doc.text("Date: [Upon Payment Confirmation]", margin, y);
-
-                  doc.save("CleanCheck_Strategic_Partner_Agreement_SAMPLE.pdf");
-                  toast.success("Sample contract downloaded for review!");
-                }}
+                onClick={() => setShowContractPreview(true)}
                 className="border-amber-500/50 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 hover:text-amber-200"
               >
                 <Eye className="mr-2 h-4 w-4" />
@@ -798,6 +708,106 @@ const PartnerApplication = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Contract Preview Modal */}
+        <Dialog open={showContractPreview} onOpenChange={setShowContractPreview}>
+          <DialogContent className="max-w-3xl max-h-[90vh] bg-slate-900 border-amber-500/30">
+            <DialogHeader>
+              <DialogTitle className="text-white flex items-center gap-2">
+                <ScrollText className="h-5 w-5 text-amber-400" />
+                Strategic Partner Agreement
+              </DialogTitle>
+              <DialogDescription className="text-amber-400 font-medium">
+                SAMPLE PREVIEW - NOT A BINDING DOCUMENT
+              </DialogDescription>
+            </DialogHeader>
+            
+            <ScrollArea className="h-[60vh] pr-4">
+              <div className="space-y-6 text-slate-300 text-sm">
+                {/* Header */}
+                <div className="text-center border-b border-slate-700 pb-4">
+                  <p className="text-slate-400">Giant Ventures, LLC d/b/a Clean Check</p>
+                </div>
+
+                {/* Key Terms Box */}
+                <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 space-y-2">
+                  <div className="flex gap-2">
+                    <span className="font-bold text-white">Partner:</span>
+                    <span className="text-slate-400">[Your Name]</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="font-bold text-white">Investment Amount:</span>
+                    <span className="text-slate-400">[Selected Amount]</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="font-bold text-white">Effective Date:</span>
+                    <span className="text-slate-400">[Date of Payment]</span>
+                  </div>
+                </div>
+
+                {/* Sections */}
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="font-bold text-white text-base mb-2">1. APPOINTMENT</h3>
+                    <p>Company hereby appoints Partner as a non-exclusive Strategic Partner for the purpose of referring potential customers to Company's verification services. Partner accepts such appointment subject to the terms and conditions set forth herein.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-white text-base mb-2">2. INVESTMENT COMMITMENT</h3>
+                    <p>Partner hereby commits to invest the selected amount in USD in the Company's Strategic Partner Program. This investment entitles Partner to the following benefits and commission structure.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-white text-base mb-2">3. COMMISSION STRUCTURE</h3>
+                    <p>Partner shall receive: 20% commission on first-year subscription revenue from referred customers; 10% commission on renewal revenue for years 2-3; Commissions are paid monthly for the preceding calendar month. Minimum payout threshold is $50 USD.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-white text-base mb-2">4. TERM AND TERMINATION</h3>
+                    <p>This Agreement shall commence on the Effective Date and continue for a period of one (1) year, automatically renewing for successive one-year terms unless terminated by either party with thirty (30) days written notice.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-white text-base mb-2">5. INTELLECTUAL PROPERTY</h3>
+                    <p>Partner acknowledges that all intellectual property, trade secrets, and proprietary information of Company remain the exclusive property of Company. Partner shall not use Company's trademarks except as expressly authorized in writing.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold text-white text-base mb-2">6. CONFIDENTIALITY</h3>
+                    <p>Partner agrees to maintain strict confidentiality of all non-public information, including but not limited to: customer lists, pricing strategies, technology implementations, and business operations. This obligation survives termination of this Agreement.</p>
+                  </div>
+                </div>
+
+                {/* Signatures */}
+                <div className="border-t border-slate-700 pt-4 space-y-4">
+                  <div>
+                    <p className="font-bold text-white">COMPANY:</p>
+                    <p>Giant Ventures, LLC</p>
+                    <p>By: Steven Grillo, Managing Member</p>
+                  </div>
+                  <div>
+                    <p className="font-bold text-white">PARTNER:</p>
+                    <p className="text-slate-400">[Partner Signature]</p>
+                    <p className="text-slate-400">Date: [Upon Payment Confirmation]</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollArea>
+
+            <div className="flex flex-col gap-3 pt-4 border-t border-slate-700">
+              <p className="text-xs text-slate-500 text-center">
+                By completing the application form below and processing payment, you agree to the terms of this agreement.
+                Your signed contract will be available for download after payment is confirmed.
+              </p>
+              <Button
+                onClick={() => setShowContractPreview(false)}
+                className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold"
+              >
+                I Understand - Continue to Application
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <Card className="bg-slate-900/80 border-pink-500/30 shadow-2xl shadow-pink-500/10">
           <CardHeader>

@@ -96,8 +96,9 @@ const PartnerApplication = () => {
     const maturityDateStr = maturityDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     
     const investmentAmount = formData.investmentAmount || "0";
-    const valuationCap = "6000000";
-    const discountRate = "50";
+    // Use Tranche 1 terms for partner applications
+    const valuationCap = "8000000";
+    const discountRate = "20";
 
     const formatCurrency = (amount: string) => {
       return new Intl.NumberFormat('en-US', {

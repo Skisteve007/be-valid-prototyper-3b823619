@@ -245,11 +245,14 @@ const AdminDealRoom = () => {
         return lines.length * lineHeight;
       };
 
-      // Title - Convertible Note Header
+      // Title - Convertible Note Header with Tranche
       doc.setFontSize(14);
       doc.setFont("helvetica", "bold");
       doc.text("CONVERTIBLE PROMISSORY NOTE", pageWidth / 2, y, { align: "center" });
-      y += 12;
+      y += 7;
+      doc.setFontSize(10);
+      doc.text(`${selectedTranche.name}`, pageWidth / 2, y, { align: "center" });
+      y += 10;
 
       // Securities Disclaimer
       doc.setFontSize(8);

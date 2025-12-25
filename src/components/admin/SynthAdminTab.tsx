@@ -346,26 +346,26 @@ export function SynthAdminTab() {
 
       {/* Full Architecture Tabs */}
       <Tabs defaultValue="senate" className="space-y-6">
-        <TabsList className="bg-muted/50 border border-border flex-wrap">
-          <TabsTrigger value="senate" className="data-[state=active]:bg-purple-500/20">
-            <Scale className="w-4 h-4 mr-2" />
-            Senate
+        <TabsList className="bg-muted/50 border border-border w-full grid grid-cols-5 h-auto p-1">
+          <TabsTrigger value="senate" className="data-[state=active]:bg-purple-500/20 flex flex-col gap-1 py-2 px-1 text-[10px] sm:flex-row sm:text-xs sm:gap-1.5 sm:py-1.5 sm:px-2">
+            <Scale className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Senate</span>
           </TabsTrigger>
-          <TabsTrigger value="dashboard" className="data-[state=active]:bg-blue-500/20">
-            <BarChart3 className="w-4 h-4 mr-2" />
-            Dashboard
+          <TabsTrigger value="dashboard" className="data-[state=active]:bg-blue-500/20 flex flex-col gap-1 py-2 px-1 text-[10px] sm:flex-row sm:text-xs sm:gap-1.5 sm:py-1.5 sm:px-2">
+            <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Dashboard</span>
           </TabsTrigger>
-          <TabsTrigger value="logs" className="data-[state=active]:bg-blue-500/20">
-            <FileText className="w-4 h-4 mr-2" />
-            Audit Logs
+          <TabsTrigger value="logs" className="data-[state=active]:bg-blue-500/20 flex flex-col gap-1 py-2 px-1 text-[10px] sm:flex-row sm:text-xs sm:gap-1.5 sm:py-1.5 sm:px-2">
+            <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Logs</span>
           </TabsTrigger>
-          <TabsTrigger value="policies" className="data-[state=active]:bg-blue-500/20">
-            <Sliders className="w-4 h-4 mr-2" />
-            Policies
+          <TabsTrigger value="policies" className="data-[state=active]:bg-blue-500/20 flex flex-col gap-1 py-2 px-1 text-[10px] sm:flex-row sm:text-xs sm:gap-1.5 sm:py-1.5 sm:px-2">
+            <Sliders className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Policies</span>
           </TabsTrigger>
-          <TabsTrigger value="think-tank" className="data-[state=active]:bg-cyan-500/20">
-            <Lightbulb className="w-4 h-4 mr-2" />
-            Think Tank
+          <TabsTrigger value="think-tank" className="data-[state=active]:bg-cyan-500/20 flex flex-col gap-1 py-2 px-1 text-[10px] sm:flex-row sm:text-xs sm:gap-1.5 sm:py-1.5 sm:px-2">
+            <Lightbulb className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>Ideas</span>
           </TabsTrigger>
         </TabsList>
 

@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign, Briefcase, Mail } from "lucide-react";
+import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign, Briefcase, Mail, Eye } from "lucide-react";
 import jsPDF from "jspdf";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
@@ -262,11 +262,16 @@ const PartnerApplication = () => {
           email: formData.email,
           amount: parseInt(formData.investmentAmount),
           tier: `partner_${formData.investmentAmount}`,
+          phone: formData.phone,
+          linkedinUrl: formData.linkedinUrl,
           accreditedInvestor: formData.accreditedInvestor,
           investmentExperience: formData.investmentExperience,
+          sourceOfFunds: formData.sourceOfFunds,
           investmentObjective: formData.investmentObjective,
           riskTolerance: formData.riskTolerance,
+          referralSource: formData.referralSource,
           paymentMethod: formData.paymentMethod,
+          paymentHandle: formData.paymentHandle,
           referralCode: generatedReferralCode,
         }
       });
@@ -676,6 +681,123 @@ const PartnerApplication = () => {
             Join our global network of partners earning recurring commissions. Complete your application below.
           </p>
         </div>
+
+        {/* Preview Contract Button */}
+        <Card className="bg-slate-800/50 border-amber-500/30 mb-6">
+          <CardContent className="py-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3 text-center sm:text-left">
+                <Eye className="h-5 w-5 text-amber-400 flex-shrink-0" />
+                <div>
+                  <p className="text-white font-medium">Review Investment Contract</p>
+                  <p className="text-slate-400 text-sm">Preview the terms you'll be agreeing to</p>
+                </div>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  // Generate sample contract for preview
+                  const doc = new jsPDF();
+                  const pageWidth = doc.internal.pageSize.getWidth();
+                  const margin = 20;
+                  const contentWidth = pageWidth - (margin * 2);
+                  let y = 20;
+                  
+                  const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                  // Title
+                  doc.setFontSize(16);
+                  doc.setFont("helvetica", "bold");
+                  doc.text("STRATEGIC PARTNER AGREEMENT", pageWidth / 2, y, { align: "center" });
+                  y += 10;
+                  doc.setFontSize(10);
+                  doc.setFont("helvetica", "italic");
+                  doc.text("SAMPLE PREVIEW - NOT A BINDING DOCUMENT", pageWidth / 2, y, { align: "center" });
+                  y += 15;
+
+                  doc.setFont("helvetica", "normal");
+                  doc.text("Giant Ventures, LLC d/b/a Clean Check", pageWidth / 2, y, { align: "center" });
+                  y += 15;
+
+                  // Key Terms Box
+                  doc.setDrawColor(0);
+                  doc.setLineWidth(0.5);
+                  doc.rect(margin, y, contentWidth, 35);
+                  y += 8;
+                  
+                  doc.setFontSize(10);
+                  doc.setFont("helvetica", "bold");
+                  doc.text("Partner:", margin + 5, y);
+                  doc.setFont("helvetica", "normal");
+                  doc.text("[Your Name]", margin + 30, y);
+                  y += 7;
+                  
+                  doc.setFont("helvetica", "bold");
+                  doc.text("Investment Amount:", margin + 5, y);
+                  doc.setFont("helvetica", "normal");
+                  doc.text("[Selected Amount]", margin + 50, y);
+                  y += 7;
+                  
+                  doc.setFont("helvetica", "bold");
+                  doc.text("Effective Date:", margin + 5, y);
+                  doc.setFont("helvetica", "normal");
+                  doc.text("[Date of Payment]", margin + 40, y);
+                  y += 20;
+
+                  const addSection = (title: string, content: string) => {
+                    doc.setFont("helvetica", "bold");
+                    doc.setFontSize(11);
+                    doc.text(title, margin, y);
+                    y += 7;
+                    doc.setFont("helvetica", "normal");
+                    doc.setFontSize(10);
+                    const lines = doc.splitTextToSize(content, contentWidth);
+                    doc.text(lines, margin, y);
+                    y += lines.length * 5 + 8;
+                  };
+
+                  addSection("1. APPOINTMENT", "Company hereby appoints Partner as a non-exclusive Strategic Partner for the purpose of referring potential customers to Company's verification services. Partner accepts such appointment subject to the terms and conditions set forth herein.");
+                  
+                  addSection("2. INVESTMENT COMMITMENT", "Partner hereby commits to invest the selected amount in USD in the Company's Strategic Partner Program. This investment entitles Partner to the following benefits and commission structure.");
+                  
+                  addSection("3. COMMISSION STRUCTURE", "Partner shall receive: 20% commission on first-year subscription revenue from referred customers; 10% commission on renewal revenue for years 2-3; Commissions are paid monthly for the preceding calendar month. Minimum payout threshold is $50 USD.");
+                  
+                  addSection("4. TERM AND TERMINATION", "This Agreement shall commence on the Effective Date and continue for a period of one (1) year, automatically renewing for successive one-year terms unless terminated by either party with thirty (30) days written notice.");
+                  
+                  addSection("5. INTELLECTUAL PROPERTY", "Partner acknowledges that all intellectual property, trade secrets, and proprietary information of Company remain the exclusive property of Company. Partner shall not use Company's trademarks except as expressly authorized in writing.");
+                  
+                  addSection("6. CONFIDENTIALITY", "Partner agrees to maintain strict confidentiality of all non-public information, including but not limited to: customer lists, pricing strategies, technology implementations, and business operations. This obligation survives termination of this Agreement.");
+
+                  y += 10;
+                  doc.setFont("helvetica", "bold");
+                  doc.text("COMPANY:", margin, y);
+                  y += 7;
+                  doc.setFont("helvetica", "normal");
+                  doc.text("Giant Ventures, LLC", margin, y);
+                  y += 5;
+                  doc.text("By: Steven Grillo, Managing Member", margin, y);
+                  y += 15;
+
+                  doc.setFont("helvetica", "bold");
+                  doc.text("PARTNER:", margin, y);
+                  y += 7;
+                  doc.setFont("helvetica", "normal");
+                  doc.text("[Partner Signature]", margin, y);
+                  y += 5;
+                  doc.text("Date: [Upon Payment Confirmation]", margin, y);
+
+                  doc.save("CleanCheck_Strategic_Partner_Agreement_SAMPLE.pdf");
+                  toast.success("Sample contract downloaded for review!");
+                }}
+                className="border-amber-500/50 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 hover:text-amber-200"
+              >
+                <Eye className="mr-2 h-4 w-4" />
+                Preview Sample Contract
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card className="bg-slate-900/80 border-pink-500/30 shadow-2xl shadow-pink-500/10">
           <CardHeader>

@@ -214,29 +214,34 @@ const DemoSenateQA = () => {
                 ))}
               </div>
 
-              <Button 
-                onClick={handleRunDebate} 
-                disabled={isRunning}
-                className="w-full"
-                size="lg"
-              >
-                {isRunning ? (
-                  <>
-                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
-                    Running Review...
-                  </>
-                ) : !isLoggedIn ? (
-                  <>
-                    <LogIn className="h-5 w-5 mr-2" />
-                    Sign in to Run
-                  </>
-                ) : (
-                  <>
-                    <Play className="h-5 w-5 mr-2" />
-                    Run Review
-                  </>
-                )}
-              </Button>
+              <div className="space-y-2">
+                <Button 
+                  onClick={handleRunDebate} 
+                  disabled={isRunning}
+                  className="w-full"
+                  size="lg"
+                >
+                  {isRunning ? (
+                    <>
+                      <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                      Running Review...
+                    </>
+                  ) : !isLoggedIn ? (
+                    <>
+                      <LogIn className="h-5 w-5 mr-2" />
+                      Sign in to Run
+                    </>
+                  ) : (
+                    <>
+                      <Play className="h-5 w-5 mr-2" />
+                      Run Review
+                    </>
+                  )}
+                </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  Viewing is public. Running requires sign-in (for trace/audit and rate limiting).
+                </p>
+              </div>
             </CardContent>
           </Card>
 

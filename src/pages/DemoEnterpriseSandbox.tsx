@@ -108,7 +108,7 @@ const DemoEnterpriseSandbox = () => {
                   <p className="text-muted-foreground text-sm mb-4">
                     Valid/SYNTH is a <strong>governance conduit</strong>, not a data warehouse. Your foundational sources 
                     (KYC vendors, EHRs, authoritative systems) house raw data. We orchestrate verification, apply multi-model 
-                    governance, and return a signed, time-limited token. We retain only minimal artifacts (hashes/timestamps).
+                    governance, and return a time-limited token linked to an integrity proof. We retain only minimal artifacts (hashes/timestamps).
                   </p>
                   <FlowDiagram variant="conduit" />
                 </div>
@@ -229,21 +229,26 @@ const DemoEnterpriseSandbox = () => {
                   </div>
                 </div>
 
-                <div className="flex gap-2">
-                  <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
-                  <Button onClick={handleSimulateVerification} className="flex-1">
-                    {!isLoggedIn ? (
-                      <>
-                        <LogIn className="h-4 w-4 mr-2" />
-                        Sign in to Run
-                      </>
-                    ) : (
-                      <>
-                        Run Verification
-                        <ArrowRight className="h-4 w-4 ml-2" />
-                      </>
-                    )}
-                  </Button>
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
+                    <Button onClick={handleSimulateVerification} className="flex-1">
+                      {!isLoggedIn ? (
+                        <>
+                          <LogIn className="h-4 w-4 mr-2" />
+                          Sign in to Run
+                        </>
+                      ) : (
+                        <>
+                          Run Verification
+                          <ArrowRight className="h-4 w-4 ml-2" />
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground text-center">
+                    Viewing is public. Running requires sign-in (for trace/audit and rate limiting).
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -262,7 +267,7 @@ const DemoEnterpriseSandbox = () => {
                   <div className="text-center">
                     <h3 className="text-lg font-semibold text-foreground mb-2">Verifying...</h3>
                     <p className="text-sm text-muted-foreground">
-                      Querying source → Applying governance → Generating signed token
+                      Querying source → Applying governance → Generating token
                     </p>
                   </div>
                 </div>

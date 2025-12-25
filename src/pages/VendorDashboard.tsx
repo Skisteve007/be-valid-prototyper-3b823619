@@ -121,57 +121,106 @@ const VendorDashboard = () => {
 
   const checkAccessAndLoadData = async () => {
     try {
-      // DEMO MODE: Bypass auth for testing
-      // Load first venue for demo purposes
-      const { data: venues } = await supabase
-        .from("partner_venues")
-        .select("id, venue_name, industry_type")
-        .limit(1)
+      // Check authentication first
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        // Not logged in - redirect to auth
+        toast.error("Please sign in to access the vendor dashboard.");
+        navigate("/auth?mode=login&redirect=/vendor-portal/dashboard");
+        return;
+      }
+
+      // Check if user has vendor/staff/admin access
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id);
+
+      const isAdmin = roles?.some(r => r.role === "administrator") || false;
+
+      // Check venue operator status
+      const { data: venueOp } = await supabase
+        .from("venue_operators")
+        .select("access_level, venue_id")
+        .eq("user_id", user.id)
         .maybeSingle();
 
-      if (venues) {
-        setVenueId(venues.id);
-        setVenueName(venues.venue_name);
-        setIndustryType(venues.industry_type || "Nightlife");
-        await loadVenueData(venues.id);
-        await loadStations(venues.id);
+      const isVendor = isAdmin || 
+        venueOp?.access_level === "owner" || 
+        venueOp?.access_level === "manager";
+      const isStaff = venueOp?.access_level === "staff";
+
+      // If not authorized, redirect to vendor portal landing
+      if (!isAdmin && !isVendor && !isStaff) {
+        toast.error("Vendor access required. Request onboarding to continue.");
+        navigate("/vendor-portal");
+        return;
+      }
+
+      // User is authorized - load venue data
+      if (venueOp?.venue_id) {
+        setVenueId(venueOp.venue_id);
+        const { data: venue } = await supabase
+          .from("partner_venues")
+          .select("venue_name, industry_type")
+          .eq("id", venueOp.venue_id)
+          .maybeSingle();
+        
+        if (venue) {
+          setVenueName(venue.venue_name);
+          setIndustryType(venue.industry_type || "Nightlife");
+          await loadVenueData(venueOp.venue_id);
+          await loadStations(venueOp.venue_id);
+        }
+      } else if (isAdmin) {
+        // Admin can see first venue for demo purposes
+        const { data: venues } = await supabase
+          .from("partner_venues")
+          .select("id, venue_name, industry_type")
+          .limit(1)
+          .maybeSingle();
+
+        if (venues) {
+          setVenueId(venues.id);
+          setVenueName(venues.venue_name);
+          setIndustryType(venues.industry_type || "Nightlife");
+          await loadVenueData(venues.id);
+          await loadStations(venues.id);
+        } else {
+          // Fallback demo data if no venues exist
+          loadDemoData();
+        }
       } else {
-        // Fallback demo data if no venues exist
-        setVenueName("Demo Venue");
-        setStats({
-          headcount: 247,
-          totalRevenue: 18450,
-          scansPerMinute: 4.2,
-          doorRevenue: 4500,
-          barRevenue: 9200,
-          concessionsRevenue: 2800,
-          swagRevenue: 1950
-        });
-        setStaffList([
-          { id: "1", name: "Mike T.", station: "Main Door", scans: 89, revenue: 890, rejections: 3, voids: 1 },
-          { id: "2", name: "Sarah L.", station: "Bar", scans: 156, revenue: 4200, rejections: 0, voids: 2 },
-          { id: "3", name: "James K.", station: "VIP", scans: 45, revenue: 2100, rejections: 1, voids: 0 },
-          { id: "4", name: "Alex R.", station: "Concessions", scans: 78, revenue: 1560, rejections: 2, voids: 5 }
-        ]);
-        generateTrendData();
+        // No venue assigned - show demo data
+        loadDemoData();
       }
     } catch (error) {
       console.error("Error loading dashboard:", error);
-      // Load demo data on error
-      setVenueName("Demo Venue");
-      setStats({
-        headcount: 247,
-        totalRevenue: 18450,
-        scansPerMinute: 4.2,
-        doorRevenue: 4500,
-        barRevenue: 9200,
-        concessionsRevenue: 2800,
-        swagRevenue: 1950
-      });
-      generateTrendData();
+      loadDemoData();
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const loadDemoData = () => {
+    setVenueName("Demo Venue");
+    setStats({
+      headcount: 247,
+      totalRevenue: 18450,
+      scansPerMinute: 4.2,
+      doorRevenue: 4500,
+      barRevenue: 9200,
+      concessionsRevenue: 2800,
+      swagRevenue: 1950
+    });
+    setStaffList([
+      { id: "1", name: "Mike T.", station: "Main Door", scans: 89, revenue: 890, rejections: 3, voids: 1 },
+      { id: "2", name: "Sarah L.", station: "Bar", scans: 156, revenue: 4200, rejections: 0, voids: 2 },
+      { id: "3", name: "James K.", station: "VIP", scans: 45, revenue: 2100, rejections: 1, voids: 0 },
+      { id: "4", name: "Alex R.", station: "Concessions", scans: 78, revenue: 1560, rejections: 2, voids: 5 }
+    ]);
+    generateTrendData();
   };
 
   const loadStations = async (venueId: string) => {

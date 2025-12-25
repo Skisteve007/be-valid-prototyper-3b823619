@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign, Briefcase, Mail, Eye, X, ScrollText } from "lucide-react";
+import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign, Briefcase, Mail, Eye, X, ScrollText, AlertTriangle } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import jsPDF from "jspdf";
@@ -32,6 +32,7 @@ const PartnerApplication = () => {
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [generatedReferralCode, setGeneratedReferralCode] = useState("");
   const [showContractPreview, setShowContractPreview] = useState(false);
+  const [accreditedConfirmed, setAccreditedConfirmed] = useState(false);
 
   // Handle payment success callback
   useEffect(() => {
@@ -202,6 +203,25 @@ const PartnerApplication = () => {
     doc.setFont("helvetica", "normal");
     doc.text(`${maturityDateStr} (the "Maturity Date")`, margin + 36, y);
     y += 12;
+
+    // WARNING #1 - LLC / C-Corp conversion risk
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bolditalic");
+    const llcWarning = "Important: The issuing entity on this instrument is Giant Ventures, LLC (Texas) d/b/a 'Valid'. If we later convert to a Delaware C-Corp or restructure the equity, conversion mechanics may require additional documentation. Investors should review the issuer entity and capitalization assumptions.";
+    const llcWarningLines = doc.splitTextToSize(llcWarning, contentWidth);
+    if (y + (llcWarningLines.length * 3.5) > 275) {
+      doc.addPage();
+      y = 20;
+    }
+    doc.text(llcWarningLines, margin, y);
+    y += llcWarningLines.length * 3.5 + 4;
+
+    // WARNING #2 - Accredited investor reminder
+    const accreditedWarning = "Important: This offering is intended only for accredited investors. Do not proceed unless you qualify as an accredited investor under Rule 501 of Regulation D. This investment is speculative and you may lose all of your investment.";
+    const accreditedWarningLines = doc.splitTextToSize(accreditedWarning, contentWidth);
+    doc.text(accreditedWarningLines, margin, y);
+    y += accreditedWarningLines.length * 3.5 + 6;
+    doc.setFont("helvetica", "normal");
 
     // Principal paragraph
     addText(`FOR VALUE RECEIVED, the Company promises to pay to the Holder or its permitted assigns the Principal Amount, together with accrued and unpaid interest thereon, if any, on the terms set forth below.`);
@@ -717,10 +737,47 @@ const PartnerApplication = () => {
                   <p className="text-sm text-slate-300"><strong>Referral Code:</strong> {generatedReferralCode || "Pending"}</p>
                 </div>
                 
+                {/* Warning #1 - LLC / C-Corp Conversion Risk */}
+                <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3">
+                  <div className="flex items-start gap-2">
+                    <AlertTriangle className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-amber-200/90 leading-relaxed">
+                      <span className="font-bold">Important:</span> The issuing entity is Giant Ventures, LLC (Texas) d/b/a "Valid". If we later convert to a Delaware C-Corp, conversion mechanics may require additional documentation.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Warning #2 - Accredited Investor Reminder */}
+                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                  <div className="flex items-start gap-2">
+                    <AlertTriangle className="h-4 w-4 text-red-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs text-red-200/90 leading-relaxed">
+                      <span className="font-bold">Important:</span> This offering is intended only for accredited investors under Rule 501 of Regulation D. This investment is speculative and you may lose all of your investment.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Accredited Investor Checkbox */}
+                <div className="flex items-start gap-3 p-3 bg-slate-800/50 rounded-lg border border-slate-700">
+                  <Checkbox 
+                    id="accredited-confirm-partner"
+                    checked={accreditedConfirmed}
+                    onCheckedChange={(checked) => setAccreditedConfirmed(checked === true)}
+                    className="mt-0.5 border-green-500 data-[state=checked]:bg-green-500 data-[state=checked]:border-green-500"
+                  />
+                  <Label 
+                    htmlFor="accredited-confirm-partner" 
+                    className="text-sm text-slate-300 cursor-pointer leading-relaxed"
+                  >
+                    I confirm I am an accredited investor and understand the risks.
+                  </Label>
+                </div>
+
                 <Button
                   onClick={generatePartnerContract}
+                  disabled={!accreditedConfirmed}
                   variant="outline"
-                  className="w-full py-4 border-slate-600 bg-slate-800 text-white hover:bg-slate-700"
+                  className="w-full py-4 border-slate-600 bg-slate-800 text-white hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Download className="mr-2 h-5 w-5" />
                   Download Partner Agreement (PDF)

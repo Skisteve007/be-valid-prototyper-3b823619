@@ -2879,6 +2879,84 @@ export type Database = {
           },
         ]
       }
+      strategic_investors: {
+        Row: {
+          accredited_status: string
+          admin_email_sent: boolean | null
+          admin_notes: string | null
+          confirmation_email_sent: boolean | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          investment_amount: number
+          investment_experience: string
+          investment_objective: string
+          linkedin_url: string | null
+          payment_completed_at: string | null
+          payment_handle: string | null
+          payment_method: string
+          payment_status: string | null
+          phone: string | null
+          referral_code: string | null
+          referral_source: string | null
+          risk_tolerance: string
+          source_of_funds: string | null
+          stripe_payment_intent: string | null
+          updated_at: string
+        }
+        Insert: {
+          accredited_status: string
+          admin_email_sent?: boolean | null
+          admin_notes?: string | null
+          confirmation_email_sent?: boolean | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          investment_amount: number
+          investment_experience: string
+          investment_objective: string
+          linkedin_url?: string | null
+          payment_completed_at?: string | null
+          payment_handle?: string | null
+          payment_method: string
+          payment_status?: string | null
+          phone?: string | null
+          referral_code?: string | null
+          referral_source?: string | null
+          risk_tolerance: string
+          source_of_funds?: string | null
+          stripe_payment_intent?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accredited_status?: string
+          admin_email_sent?: boolean | null
+          admin_notes?: string | null
+          confirmation_email_sent?: boolean | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          investment_amount?: number
+          investment_experience?: string
+          investment_objective?: string
+          linkedin_url?: string | null
+          payment_completed_at?: string | null
+          payment_handle?: string | null
+          payment_method?: string
+          payment_status?: string | null
+          phone?: string | null
+          referral_code?: string | null
+          referral_source?: string | null
+          risk_tolerance?: string
+          source_of_funds?: string | null
+          stripe_payment_intent?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       stripe_webhook_events: {
         Row: {
           created_at: string

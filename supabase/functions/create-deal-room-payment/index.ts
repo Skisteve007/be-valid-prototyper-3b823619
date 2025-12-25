@@ -17,12 +17,17 @@ serve(async (req) => {
       email, 
       amount, 
       tier,
+      phone,
+      linkedinUrl,
       // Investor profile data
       accreditedInvestor,
       investmentExperience,
+      sourceOfFunds,
       investmentObjective,
       riskTolerance,
+      referralSource,
       paymentMethod,
+      paymentHandle,
       referralCode,
     } = await req.json();
 
@@ -49,16 +54,21 @@ serve(async (req) => {
       customerId = customer.id;
     }
 
-    // Encode investor data for success URL
+    // Encode ALL investor data for success URL
     const investorData = encodeURIComponent(JSON.stringify({
       investorName: name,
       investorEmail: email,
       investmentAmount: amount.toString(),
+      phone: phone || '',
+      linkedinUrl: linkedinUrl || '',
       accreditedStatus: accreditedInvestor || '',
       investmentExperience: investmentExperience || '',
+      sourceOfFunds: sourceOfFunds || '',
       investmentObjective: investmentObjective || '',
       riskTolerance: riskTolerance || '',
+      referralSource: referralSource || '',
       paymentMethod: paymentMethod || 'credit_card',
+      paymentHandle: paymentHandle || '',
       referralCode: referralCode || '',
     }));
 
@@ -92,7 +102,7 @@ serve(async (req) => {
       },
     });
 
-    return new Response(JSON.stringify({ url: session.url }), {
+    return new Response(JSON.stringify({ url: session.url, sessionId: session.id }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });

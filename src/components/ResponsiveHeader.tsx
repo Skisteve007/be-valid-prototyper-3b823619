@@ -30,7 +30,8 @@ const ResponsiveHeader = () => {
     pathname.startsWith("/partners") ||
     pathname.startsWith("/investor") ||
     pathname.startsWith("/pitch") ||
-    pathname.startsWith("/deck");
+    pathname.startsWith("/deck") ||
+    pathname.startsWith("/partner-application");
 
   useEffect(() => {
     const checkAdminStatus = async () => {

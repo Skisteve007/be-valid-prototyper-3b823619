@@ -260,7 +260,7 @@ const SiteGate = ({ children }: { children: React.ReactNode }) => {
             {/* Legal Notice */}
             <div className="mt-6 pt-4 border-t border-white/10">
               <p className="text-[10px] text-gray-500 leading-relaxed">
-                <strong className="text-gray-400">LEGAL NOTICE:</strong> The Valid™ platform, Ghost™ privacy architecture, and all associated methodologies are exclusive Intellectual Property protected by Common Law Trademark rights and pending patent filings.
+                <strong className="text-gray-400">LEGAL NOTICE:</strong> Patent Pending (Provisional). © Giant Ventures, LLC (Texas). The Valid™ platform, Ghost™ privacy architecture, SYNTH™, and all associated methodologies are exclusive Intellectual Property. Certain aspects are the subject of one or more provisional patent applications.
               </p>
             </div>
           </div>

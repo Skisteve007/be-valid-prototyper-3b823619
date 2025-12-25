@@ -31,6 +31,7 @@ const LabDashboard = lazy(() => import("./pages/LabDashboard"));
 const Terms = lazy(() => import("./pages/Terms"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Refund = lazy(() => import("./pages/Refund"));
+const Patents = lazy(() => import("./pages/Patents"));
 const Compliance2257 = lazy(() => import("./pages/Compliance2257"));
 const ViewProfile = lazy(() => import("./pages/ViewProfile"));
 const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
@@ -207,6 +208,7 @@ const App = () => (
                   <Route path="/terms" element={<AgeGate><Terms /></AgeGate>} />
                   <Route path="/privacy" element={<AgeGate><Privacy /></AgeGate>} />
                   <Route path="/refund" element={<AgeGate><Refund /></AgeGate>} />
+                  <Route path="/legal/patents" element={<AgeGate><Patents /></AgeGate>} />
                   <Route path="/2257-compliance" element={<AgeGate><Compliance2257 /></AgeGate>} />
                   
                   {/* PROFILE & CERTIFICATE ROUTES */}

@@ -117,6 +117,12 @@ const SynthInternalThirdParty = lazy(() => import("./pages/SynthInternalThirdPar
 const SynthInternalGhostToken = lazy(() => import("./pages/SynthInternalGhostToken"));
 const DebateRoom = lazy(() => import("./pages/DebateRoom"));
 const SynthSenateLab = lazy(() => import("./pages/SynthSenateLab"));
+const DemoHub = lazy(() => import("./pages/DemoHub"));
+const DemoRouter = lazy(() => import("./pages/DemoRouter"));
+const DemoSenateQA = lazy(() => import("./pages/DemoSenateQA"));
+const DemoMonitoring = lazy(() => import("./pages/DemoMonitoring"));
+const DemoEnterpriseSandbox = lazy(() => import("./pages/DemoEnterpriseSandbox"));
+const DemoAuditVerifier = lazy(() => import("./pages/DemoAuditVerifier"));
 
 const queryClient = new QueryClient();
 
@@ -182,6 +188,12 @@ const App = () => (
                   <Route path="/synth/e2e-test" element={<SynthE2ETest />} />
                   <Route path="/synth/senate-lab" element={<SynthSenateLab />} />
                   <Route path="/debate-room" element={<DebateRoom />} />
+                  <Route path="/demos" element={<DemoHub />} />
+                  <Route path="/demos/router" element={<DemoRouter />} />
+                  <Route path="/demos/senate-qa" element={<DemoSenateQA />} />
+                  <Route path="/demos/monitoring" element={<DemoMonitoring />} />
+                  <Route path="/demos/enterprise-sandbox" element={<DemoEnterpriseSandbox />} />
+                  <Route path="/demos/audit-verifier" element={<DemoAuditVerifier />} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

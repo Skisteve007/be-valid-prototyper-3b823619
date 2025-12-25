@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,8 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign } from "lucide-react";
+import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign, Briefcase, Mail } from "lucide-react";
 import jsPDF from "jspdf";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
 
 const INVESTMENT_TIERS = [
   { value: "5000", label: "$5,000" },
@@ -20,10 +22,43 @@ const INVESTMENT_TIERS = [
 
 const PartnerApplication = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [paymentComplete, setPaymentComplete] = useState(false);
   const [generatedReferralCode, setGeneratedReferralCode] = useState("");
+
+  // Handle payment success callback
+  useEffect(() => {
+    const paymentSuccess = searchParams.get('payment_success');
+    const investorDataParam = searchParams.get('investor_data');
+    
+    if (paymentSuccess === 'true' && investorDataParam) {
+      try {
+        const investorData = JSON.parse(decodeURIComponent(investorDataParam));
+        // Send confirmation email
+        supabase.functions.invoke('send-investment-confirmation', {
+          body: {
+            ...investorData,
+            transactionDate: new Date().toISOString(),
+          }
+        }).then(({ error }) => {
+          if (error) {
+            console.error('Failed to send confirmation email:', error);
+          } else {
+            toast.success("Investment confirmed! Confirmation email sent.");
+          }
+        });
+        setPaymentComplete(true);
+        setSubmissionSuccess(true);
+        // Clear URL params
+        navigate('/partner-application', { replace: true });
+      } catch (e) {
+        console.error('Error parsing investor data:', e);
+      }
+    }
+  }, [searchParams, navigate]);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -31,6 +66,14 @@ const PartnerApplication = () => {
     investmentAmount: "",
     paymentMethod: "credit_card",
     paymentHandle: "",
+    // Investor-specific fields
+    accreditedInvestor: "",
+    investmentExperience: "",
+    sourceOfFunds: "",
+    investmentObjective: "",
+    riskTolerance: "",
+    referralSource: "",
+    linkedinUrl: "",
   });
   const [idFrontFile, setIdFrontFile] = useState<File | null>(null);
   const [idBackFile, setIdBackFile] = useState<File | null>(null);
@@ -219,13 +262,18 @@ const PartnerApplication = () => {
           email: formData.email,
           amount: parseInt(formData.investmentAmount),
           tier: `partner_${formData.investmentAmount}`,
+          accreditedInvestor: formData.accreditedInvestor,
+          investmentExperience: formData.investmentExperience,
+          investmentObjective: formData.investmentObjective,
+          riskTolerance: formData.riskTolerance,
+          paymentMethod: formData.paymentMethod,
+          referralCode: generatedReferralCode,
         }
       });
 
       if (error) throw error;
       if (data?.url) {
-        window.open(data.url, '_blank');
-        toast.success("Payment page opened in new tab");
+        window.location.href = data.url; // Redirect in same tab for callback
       } else {
         throw new Error("No payment URL returned");
       }
@@ -274,6 +322,11 @@ const PartnerApplication = () => {
 
     if (!formData.fullName || !formData.email || !formData.phone || !formData.paymentHandle || !formData.investmentAmount) {
       toast.error("Please fill in all required fields including investment amount");
+      return;
+    }
+
+    if (!formData.accreditedInvestor || !formData.investmentExperience || !formData.sourceOfFunds || !formData.investmentObjective || !formData.riskTolerance) {
+      toast.error("Please complete all investor qualification questions");
       return;
     }
 
@@ -682,6 +735,144 @@ const PartnerApplication = () => {
                     placeholder="(555) 123-4567"
                     className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
                     required
+                  />
+                </div>
+              </div>
+
+              {/* Investor Qualification */}
+              <div className="space-y-4 pt-4 border-t border-slate-700">
+                <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                  <Briefcase className="h-4 w-4" />
+                  Investor Qualification
+                </h3>
+                
+                <div className="space-y-2">
+                  <Label className="text-slate-300">Accredited Investor Status *</Label>
+                  <Select 
+                    value={formData.accreditedInvestor} 
+                    onValueChange={(value) => setFormData({ ...formData, accreditedInvestor: value })}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                      <SelectValue placeholder="Select your accredited status" />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-50 bg-slate-800 border-slate-600">
+                      <SelectItem value="accredited_income">Accredited - Income ($200K+ individual / $300K+ joint)</SelectItem>
+                      <SelectItem value="accredited_networth">Accredited - Net Worth ($1M+ excluding primary residence)</SelectItem>
+                      <SelectItem value="accredited_professional">Accredited - Licensed Professional (Series 7, 65, 82)</SelectItem>
+                      <SelectItem value="accredited_entity">Accredited - Entity ($5M+ in assets)</SelectItem>
+                      <SelectItem value="sophisticated">Sophisticated Investor (non-accredited)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-slate-500">SEC regulations may require accredited investor verification for certain investment amounts.</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-slate-300">Investment Experience *</Label>
+                  <Select 
+                    value={formData.investmentExperience} 
+                    onValueChange={(value) => setFormData({ ...formData, investmentExperience: value })}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                      <SelectValue placeholder="Select your experience level" />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-50 bg-slate-800 border-slate-600">
+                      <SelectItem value="first_time">First-Time Angel/Seed Investor</SelectItem>
+                      <SelectItem value="some_experience">1-3 Private Investments</SelectItem>
+                      <SelectItem value="experienced">4-10 Private Investments</SelectItem>
+                      <SelectItem value="professional">Professional Investor (10+ investments)</SelectItem>
+                      <SelectItem value="institutional">Institutional/Fund Manager</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-slate-300">Source of Investment Funds *</Label>
+                  <Select 
+                    value={formData.sourceOfFunds} 
+                    onValueChange={(value) => setFormData({ ...formData, sourceOfFunds: value })}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                      <SelectValue placeholder="Select source of funds" />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-50 bg-slate-800 border-slate-600">
+                      <SelectItem value="personal_savings">Personal Savings</SelectItem>
+                      <SelectItem value="business_income">Business Income/Profits</SelectItem>
+                      <SelectItem value="investment_returns">Investment Returns/Portfolio</SelectItem>
+                      <SelectItem value="retirement">Retirement Funds (Self-Directed IRA)</SelectItem>
+                      <SelectItem value="inheritance">Inheritance/Gift</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-slate-300">Investment Objective *</Label>
+                  <Select 
+                    value={formData.investmentObjective} 
+                    onValueChange={(value) => setFormData({ ...formData, investmentObjective: value })}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                      <SelectValue placeholder="What is your primary objective?" />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-50 bg-slate-800 border-slate-600">
+                      <SelectItem value="growth">Capital Growth / High Returns</SelectItem>
+                      <SelectItem value="strategic">Strategic Partnership / Industry Access</SelectItem>
+                      <SelectItem value="diversification">Portfolio Diversification</SelectItem>
+                      <SelectItem value="impact">Impact Investing / Mission Alignment</SelectItem>
+                      <SelectItem value="network">Network & Deal Flow Access</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-slate-300">Risk Tolerance *</Label>
+                  <Select 
+                    value={formData.riskTolerance} 
+                    onValueChange={(value) => setFormData({ ...formData, riskTolerance: value })}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                      <SelectValue placeholder="Select your risk tolerance" />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-50 bg-slate-800 border-slate-600">
+                      <SelectItem value="conservative">Conservative - Prefer lower risk, stable returns</SelectItem>
+                      <SelectItem value="moderate">Moderate - Balanced risk/reward approach</SelectItem>
+                      <SelectItem value="aggressive">Aggressive - Comfortable with high-risk, high-reward</SelectItem>
+                      <SelectItem value="speculative">Speculative - Understand potential total loss</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-slate-500">Early-stage investments carry significant risk including potential loss of entire investment.</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-slate-300">How did you hear about this opportunity?</Label>
+                  <Select 
+                    value={formData.referralSource} 
+                    onValueChange={(value) => setFormData({ ...formData, referralSource: value })}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                      <SelectValue placeholder="Select referral source" />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-50 bg-slate-800 border-slate-600">
+                      <SelectItem value="linkedin">LinkedIn</SelectItem>
+                      <SelectItem value="twitter">Twitter/X</SelectItem>
+                      <SelectItem value="personal_referral">Personal Referral</SelectItem>
+                      <SelectItem value="investor_network">Investor Network/Platform</SelectItem>
+                      <SelectItem value="event">Conference/Event</SelectItem>
+                      <SelectItem value="website">Company Website</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="linkedinUrl" className="text-slate-300">LinkedIn Profile URL</Label>
+                  <Input
+                    id="linkedinUrl"
+                    name="linkedinUrl"
+                    value={formData.linkedinUrl}
+                    onChange={handleInputChange}
+                    placeholder="https://linkedin.com/in/yourprofile"
+                    className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
                   />
                 </div>
               </div>

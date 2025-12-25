@@ -6,7 +6,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock, ExternalLink, FileDown, Pin } from "lucide-react";
+import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock, ExternalLink, FileDown, Pin, Lightbulb } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ThinkTankManager from "@/components/admin/ThinkTankManager";
 import { jsPDF } from "jspdf";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -853,6 +855,25 @@ const AdminDealRoom = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* SYNTH™ Think Tank Section */}
+        <div className="max-w-4xl mx-auto mt-16">
+          <Tabs defaultValue="think-tank" className="space-y-6">
+            <TabsList className="bg-purple-500/10 border border-purple-500/30 w-full grid grid-cols-1 h-auto p-1">
+              <TabsTrigger 
+                value="think-tank" 
+                className="data-[state=active]:bg-purple-500/20 flex items-center gap-2 py-3 px-4 text-sm"
+              >
+                <Lightbulb className="w-4 h-4" />
+                <span>SYNTH™ Think Tank</span>
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="think-tank" className="space-y-6">
+              <ThinkTankManager />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

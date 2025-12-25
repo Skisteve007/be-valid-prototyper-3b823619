@@ -105,7 +105,7 @@ const DemoHub = () => {
                   <p className="text-muted-foreground text-sm mb-4">
                     Foundational sources (KYC vendors, hospitals, labs) house your raw data. We orchestrate verification, 
                     apply multi-model governance, and return results. We retain minimal artifacts (hashes/timestamps/votes) 
-                    and issue a signed, time-limited verification token — shareable via Ghost QR without exposing underlying records.
+                    and issue a time-limited verification token — shareable via Ghost QR without exposing underlying records.
                   </p>
                   <Button asChild size="sm">
                     <Link to="/demos/router">

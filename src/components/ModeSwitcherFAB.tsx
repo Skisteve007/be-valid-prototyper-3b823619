@@ -4,11 +4,13 @@ import { Ghost, Home, LayoutDashboard, Building2, ShieldCheck, Users, Briefcase,
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useVendorAccess } from "@/hooks/useVendorAccess";
+import { useToast } from "@/hooks/use-toast";
 
 const ModeSwitcherFAB = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
   const { isLoggedIn, isAdmin, isVendor, isStaff, hasInvestorAccess, hasPartnerAccess, loading } = useVendorAccess();
 
   // Don't show on auth pages
@@ -16,13 +18,31 @@ const ModeSwitcherFAB = () => {
     return null;
   }
 
-  const handleNavigate = (path: string, requiresAuth?: boolean) => {
+  const handleNavigate = (path: string, requiresAuth?: boolean, requiresVendorAccess?: boolean) => {
     setOpen(false);
+    
+    // Check if login is required
     if (requiresAuth && !isLoggedIn) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to continue.",
+      });
       navigate(`/auth?mode=login&redirect=${encodeURIComponent(path)}`);
-    } else {
-      navigate(path);
+      return;
     }
+    
+    // Check if vendor access is required
+    if (requiresVendorAccess && !isVendor && !isStaff && !isAdmin) {
+      toast({
+        title: "Access required",
+        description: "Request vendor onboarding to access the dashboard.",
+        variant: "destructive",
+      });
+      navigate("/vendor-portal");
+      return;
+    }
+    
+    navigate(path);
   };
 
   const menuItems = [
@@ -32,8 +52,8 @@ const ModeSwitcherFAB = () => {
     { label: "Demos", icon: Sparkles, path: "/demos", show: true },
     { label: "For Business", icon: Building2, path: "/vendor-portal", show: true },
     
-    // Vendor/Staff only
-    { label: "Vendor Dashboard", icon: Briefcase, path: "/vendor-portal/dashboard", show: isVendor || isStaff || isAdmin },
+    // Vendor/Staff only - show to logged in users who have access
+    { label: "Vendor Dashboard", icon: Briefcase, path: "/vendor-portal/dashboard", show: isVendor || isStaff || isAdmin, requiresVendorAccess: true },
     
     // Admin only
     { label: "Admin", icon: ShieldCheck, path: "/admin", show: isAdmin },
@@ -77,7 +97,7 @@ const ModeSwitcherFAB = () => {
                 key={item.path}
                 variant={location.pathname === item.path ? "secondary" : "ghost"}
                 className="w-full justify-start gap-3 h-10"
-                onClick={() => handleNavigate(item.path, item.requiresAuth)}
+                onClick={() => handleNavigate(item.path, item.requiresAuth, (item as any).requiresVendorAccess)}
               >
                 <item.icon className="h-4 w-4" />
                 <span className="text-sm">{item.label}</span>

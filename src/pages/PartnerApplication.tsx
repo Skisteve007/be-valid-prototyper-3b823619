@@ -7,20 +7,30 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download } from "lucide-react";
+import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download, CreditCard, DollarSign } from "lucide-react";
 import jsPDF from "jspdf";
+
+const INVESTMENT_TIERS = [
+  { value: "5000", label: "$5,000" },
+  { value: "10000", label: "$10,000" },
+  { value: "25000", label: "$25,000" },
+  { value: "50000", label: "$50,000" },
+  { value: "100000", label: "$100,000" },
+];
 
 const PartnerApplication = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [generatedReferralCode, setGeneratedReferralCode] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
-    payoutMethod: "paypal",
-    payoutHandle: "",
+    investmentAmount: "",
+    paymentMethod: "credit_card",
+    paymentHandle: "",
   });
   const [idFrontFile, setIdFrontFile] = useState<File | null>(null);
   const [idBackFile, setIdBackFile] = useState<File | null>(null);
@@ -88,9 +98,16 @@ const PartnerApplication = () => {
     y += 7;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Payout Method:", margin + 5, y);
+    doc.text("Investment Amount:", margin + 5, y);
     doc.setFont("helvetica", "normal");
-    doc.text(`${formData.payoutMethod.charAt(0).toUpperCase() + formData.payoutMethod.slice(1)} - ${formData.payoutHandle}`, margin + 45, y);
+    const investmentLabel = INVESTMENT_TIERS.find(t => t.value === formData.investmentAmount)?.label || formData.investmentAmount;
+    doc.text(investmentLabel, margin + 50, y);
+    y += 7;
+    
+    doc.setFont("helvetica", "bold");
+    doc.text("Payment Method:", margin + 5, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${formData.paymentMethod.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())} - ${formData.paymentHandle}`, margin + 45, y);
     y += 7;
     
     doc.setFont("helvetica", "bold");
@@ -105,8 +122,15 @@ const PartnerApplication = () => {
     addText("Company hereby appoints Partner as a non-exclusive Strategic Partner for the purpose of referring potential customers to Company's verification services. Partner accepts such appointment subject to the terms and conditions set forth herein.", 10, false, 5);
     y += 8;
 
-    // Section 2 - Commission
-    addText("2. COMMISSION STRUCTURE", 11, true, 6);
+    // Section 2 - Investment
+    addText("2. INVESTMENT COMMITMENT", 11, true, 6);
+    y += 3;
+    const investmentLabelForContract = INVESTMENT_TIERS.find(t => t.value === formData.investmentAmount)?.label || `$${formData.investmentAmount}`;
+    addText(`Partner hereby commits to invest ${investmentLabelForContract} USD in the Company's Strategic Partner Program. This investment entitles Partner to the following benefits and commission structure.`, 10, false, 5);
+    y += 8;
+
+    // Section 3 - Commission
+    addText("3. COMMISSION STRUCTURE", 11, true, 6);
     y += 3;
     addText("Partner shall receive the following commissions on qualified referrals:", 10, false, 5);
     y += 3;
@@ -115,26 +139,26 @@ const PartnerApplication = () => {
     addText("• Commissions are paid monthly for the preceding calendar month", 10, false, 5);
     y += 8;
 
-    // Section 3 - Payment
-    addText("3. PAYMENT TERMS", 11, true, 6);
+    // Section 4 - Payment
+    addText("4. PAYMENT TERMS", 11, true, 6);
     y += 3;
-    addText(`Commissions shall be paid via ${formData.payoutMethod.charAt(0).toUpperCase() + formData.payoutMethod.slice(1)} to the account designated by Partner (${formData.payoutHandle}). Minimum payout threshold is $50 USD. Payments are processed on or before the 15th of each month.`, 10, false, 5);
+    addText(`Investment payment shall be made via ${formData.paymentMethod.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())} to the account designated by Company. Minimum payout threshold for commissions is $50 USD. Commission payments are processed on or before the 15th of each month.`, 10, false, 5);
     y += 8;
 
-    // Section 4 - Term
-    addText("4. TERM AND TERMINATION", 11, true, 6);
+    // Section 5 - Term
+    addText("5. TERM AND TERMINATION", 11, true, 6);
     y += 3;
     addText("This Agreement shall commence on the Effective Date and continue for a period of one (1) year, automatically renewing for successive one-year terms unless terminated by either party with thirty (30) days written notice.", 10, false, 5);
     y += 8;
 
-    // Section 5 - IP Assignment
-    addText("5. INTELLECTUAL PROPERTY", 11, true, 6);
+    // Section 6 - IP Assignment
+    addText("6. INTELLECTUAL PROPERTY", 11, true, 6);
     y += 3;
     addText("Partner acknowledges that all intellectual property, trade secrets, and proprietary information of Company remain the exclusive property of Company. Partner shall not use Company's trademarks except as expressly authorized in writing.", 10, false, 5);
     y += 8;
 
-    // Section 6 - Confidentiality
-    addText("6. CONFIDENTIALITY", 11, true, 6);
+    // Section 7 - Confidentiality
+    addText("7. CONFIDENTIALITY", 11, true, 6);
     y += 3;
     addText("Partner agrees to maintain strict confidentiality of all non-public information, including but not limited to: customer lists, pricing strategies, technology implementations, and business operations. This obligation survives termination of this Agreement.", 10, false, 5);
     y += 15;
@@ -180,6 +204,39 @@ const PartnerApplication = () => {
     }
   };
 
+  // Process investment payment via Stripe
+  const handleProcessPayment = async () => {
+    if (!formData.investmentAmount) {
+      toast.error("Investment amount is required");
+      return;
+    }
+
+    setIsProcessingPayment(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('create-deal-room-payment', {
+        body: {
+          name: formData.fullName,
+          email: formData.email,
+          amount: parseInt(formData.investmentAmount),
+          tier: `partner_${formData.investmentAmount}`,
+        }
+      });
+
+      if (error) throw error;
+      if (data?.url) {
+        window.open(data.url, '_blank');
+        toast.success("Payment page opened in new tab");
+      } else {
+        throw new Error("No payment URL returned");
+      }
+    } catch (error: any) {
+      console.error("Payment error:", error);
+      toast.error(error.message || "Failed to process payment");
+    } finally {
+      setIsProcessingPayment(false);
+    }
+  };
+
   const generateReferralCode = (name: string) => {
     const cleanName = name.replace(/[^a-zA-Z]/g, "").toUpperCase().slice(0, 6);
     const random = Math.random().toString(36).substring(2, 6).toUpperCase();
@@ -215,8 +272,8 @@ const PartnerApplication = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.payoutHandle) {
-      toast.error("Please fill in all required fields");
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.paymentHandle || !formData.investmentAmount) {
+      toast.error("Please fill in all required fields including investment amount");
       return;
     }
 
@@ -257,8 +314,9 @@ const PartnerApplication = () => {
               fullName: formData.fullName,
               email: formData.email,
               phone: formData.phone,
-              payoutMethod: formData.payoutMethod,
-              payoutHandle: formData.payoutHandle,
+              paymentMethod: formData.paymentMethod,
+              paymentHandle: formData.paymentHandle,
+              investmentAmount: formData.investmentAmount,
               idFrontBase64,
               idBackBase64,
               idFrontName: idFrontFile.name,
@@ -303,8 +361,8 @@ const PartnerApplication = () => {
             referral_code: referralCode,
             full_name: formData.fullName,
             email: formData.email,
-            paypal_email: formData.payoutHandle,
-            payout_method: formData.payoutMethod,
+            paypal_email: formData.paymentHandle,
+            payout_method: formData.paymentMethod,
             phone_number: formData.phone,
             id_front_url: idFrontUrl,
             id_back_url: idBackUrl,
@@ -320,8 +378,9 @@ const PartnerApplication = () => {
               fullName: formData.fullName,
               email: formData.email,
               phone: formData.phone,
-              payoutMethod: formData.payoutMethod,
-              payoutHandle: formData.payoutHandle,
+              paymentMethod: formData.paymentMethod,
+              paymentHandle: formData.paymentHandle,
+              investmentAmount: formData.investmentAmount,
               referralCode: referralCode,
               idFrontUrl: idFrontUrl,
               idBackUrl: idBackUrl,
@@ -354,8 +413,8 @@ const PartnerApplication = () => {
             referral_code: referralCode,
             full_name: formData.fullName,
             email: formData.email,
-            paypal_email: formData.payoutHandle,
-            payout_method: formData.payoutMethod,
+            paypal_email: formData.paymentHandle,
+            payout_method: formData.paymentMethod,
             phone_number: formData.phone,
             id_front_url: idFrontUrl,
             id_back_url: idBackUrl,
@@ -371,8 +430,9 @@ const PartnerApplication = () => {
               fullName: formData.fullName,
               email: formData.email,
               phone: formData.phone,
-              payoutMethod: formData.payoutMethod,
-              payoutHandle: formData.payoutHandle,
+              paymentMethod: formData.paymentMethod,
+              paymentHandle: formData.paymentHandle,
+              investmentAmount: formData.investmentAmount,
               referralCode: referralCode,
               idFrontUrl: idFrontUrl,
               idBackUrl: idBackUrl,
@@ -460,7 +520,7 @@ const PartnerApplication = () => {
               <CardHeader>
                 <CardTitle className="text-white flex items-center justify-center gap-2">
                   <FileText className="h-5 w-5 text-amber-400" />
-                  Generate Partner Contract
+                  Partner Agreement
                 </CardTitle>
                 <CardDescription className="text-slate-400">
                   Download your official partner agreement with all terms and conditions
@@ -470,17 +530,63 @@ const PartnerApplication = () => {
                 <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-700 text-left">
                   <p className="text-sm text-slate-300 mb-2"><strong>Partner:</strong> {formData.fullName}</p>
                   <p className="text-sm text-slate-300 mb-2"><strong>Email:</strong> {formData.email}</p>
-                  <p className="text-sm text-slate-300 mb-2"><strong>Payout:</strong> {formData.payoutMethod} - {formData.payoutHandle}</p>
-                  <p className="text-sm text-slate-300"><strong>Code:</strong> {generatedReferralCode || "Pending"}</p>
+                  <p className="text-sm text-slate-300 mb-2"><strong>Investment:</strong> {INVESTMENT_TIERS.find(t => t.value === formData.investmentAmount)?.label || formData.investmentAmount}</p>
+                  <p className="text-sm text-slate-300 mb-2"><strong>Payment Method:</strong> {formData.paymentMethod.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())}</p>
+                  <p className="text-sm text-slate-300"><strong>Referral Code:</strong> {generatedReferralCode || "Pending"}</p>
                 </div>
                 
                 <Button
                   onClick={generatePartnerContract}
-                  className="w-full py-6 text-lg font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/25"
+                  variant="outline"
+                  className="w-full py-4 border-slate-600 bg-slate-800 text-white hover:bg-slate-700"
                 >
                   <Download className="mr-2 h-5 w-5" />
                   Download Partner Agreement (PDF)
                 </Button>
+              </CardContent>
+            </Card>
+
+            {/* Payment Processing Card */}
+            <Card className="bg-slate-900/80 border-amber-500/30 shadow-2xl shadow-amber-500/10 mb-6">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center justify-center gap-2">
+                  <CreditCard className="h-5 w-5 text-amber-400" />
+                  Process Investment Payment
+                </CardTitle>
+                <CardDescription className="text-slate-400">
+                  Complete your investment by processing your payment
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-amber-500/10 rounded-lg border border-amber-500/30 text-center">
+                  <DollarSign className="h-8 w-8 text-amber-400 mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-white mb-1">
+                    {INVESTMENT_TIERS.find(t => t.value === formData.investmentAmount)?.label || `$${formData.investmentAmount}`}
+                  </p>
+                  <p className="text-sm text-slate-400">Strategic Partner Investment</p>
+                </div>
+                
+                <Button
+                  onClick={handleProcessPayment}
+                  disabled={isProcessingPayment}
+                  className="w-full py-6 text-lg font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/25"
+                >
+                  {isProcessingPayment ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="mr-2 h-5 w-5" />
+                      Confirm Payment
+                    </>
+                  )}
+                </Button>
+                
+                <p className="text-xs text-slate-500 text-center">
+                  Secure payment processed via Stripe. You'll be redirected to complete your payment.
+                </p>
               </CardContent>
             </Card>
 
@@ -580,37 +686,63 @@ const PartnerApplication = () => {
                 </div>
               </div>
 
-              {/* Payout Setup */}
+              {/* Investment Amount */}
               <div className="space-y-4 pt-4 border-t border-slate-700">
-                <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-wider">Payout Setup</h3>
+                <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-wider">Investment Amount</h3>
                 
                 <div className="space-y-2">
-                  <Label className="text-slate-300">Payout Method *</Label>
-                <Select 
-                  value={formData.payoutMethod} 
-                  onValueChange={(value) => setFormData({ ...formData, payoutMethod: value })}
-                >
-                  <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
-                    <SelectValue placeholder="Select payout method" />
-                  </SelectTrigger>
-                  <SelectContent position="popper" className="z-50">
+                  <Label className="text-slate-300">Select Investment Tier *</Label>
+                  <Select 
+                    value={formData.investmentAmount} 
+                    onValueChange={(value) => setFormData({ ...formData, investmentAmount: value })}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                      <SelectValue placeholder="Select investment amount" />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-50 bg-slate-800 border-slate-600">
+                      {INVESTMENT_TIERS.map((tier) => (
+                        <SelectItem key={tier.value} value={tier.value}>{tier.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Payment Method */}
+              <div className="space-y-4 pt-4 border-t border-slate-700">
+                <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-wider">Payment Method</h3>
+                
+                <div className="space-y-2">
+                  <Label className="text-slate-300">How will you pay? *</Label>
+                  <Select 
+                    value={formData.paymentMethod} 
+                    onValueChange={(value) => setFormData({ ...formData, paymentMethod: value })}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                      <SelectValue placeholder="Select payment method" />
+                    </SelectTrigger>
+                    <SelectContent position="popper" className="z-50 bg-slate-800 border-slate-600">
+                      <SelectItem value="credit_card">Credit Card</SelectItem>
                       <SelectItem value="paypal">PayPal</SelectItem>
                       <SelectItem value="venmo">Venmo</SelectItem>
-                      <SelectItem value="zelle">Zelle</SelectItem>
+                      <SelectItem value="coinbase">Coinbase</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="payoutHandle" className="text-slate-300">
-                    {formData.payoutMethod === "zelle" ? "Zelle Email/Phone" : `${formData.payoutMethod.charAt(0).toUpperCase() + formData.payoutMethod.slice(1)} Email/Handle`} *
+                  <Label htmlFor="paymentHandle" className="text-slate-300">
+                    {formData.paymentMethod === "venmo" ? "Venmo @Handle" : 
+                     formData.paymentMethod === "coinbase" ? "Coinbase Email" :
+                     formData.paymentMethod === "credit_card" ? "Email for Receipt" :
+                     "PayPal Email"} *
                   </Label>
                   <Input
-                    id="payoutHandle"
-                    name="payoutHandle"
-                    value={formData.payoutHandle}
+                    id="paymentHandle"
+                    name="paymentHandle"
+                    value={formData.paymentHandle}
                     onChange={handleInputChange}
-                    placeholder={formData.payoutMethod === "venmo" ? "@username" : "email@example.com"}
+                    placeholder={formData.paymentMethod === "venmo" ? "@username" : "email@example.com"}
                     className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
                     required
                   />

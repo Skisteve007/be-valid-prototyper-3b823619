@@ -10,6 +10,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import DemoBanner from "@/components/demos/DemoBanner";
 import DemoShareButton from "@/components/demos/DemoShareButton";
+import SynthScorecard from "@/components/reports/SynthScorecard";
+import { transformToScorecard, generateAuditProof, downloadJSON } from "@/lib/reportUtils";
 
 interface SenatorBallot {
   seat_id: number;
@@ -52,6 +54,15 @@ const DemoSenateQA = () => {
   const [prompt, setPrompt] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState<DebateResult | null>(null);
+  const [showScorecard, setShowScorecard] = useState(false);
+
+  const scorecardData = result ? transformToScorecard(result as any) : null;
+
+  const handleDownloadJSON = () => {
+    if (!result) return;
+    const auditProof = generateAuditProof(result as any, "qa");
+    downloadJSON(auditProof, `synth-audit-${result.trace_id}.json`);
+  };
 
   const handleRunDebate = async () => {
     if (!prompt.trim()) {
@@ -361,10 +372,29 @@ const DemoSenateQA = () => {
                 </CardContent>
               </Card>
 
-              {/* Trace ID */}
-              <p className="text-xs text-muted-foreground text-center">
-                Trace ID: {result.trace_id}
-              </p>
+              {/* Trace ID & Scorecard Toggle */}
+              <div className="text-center space-y-2">
+                <p className="text-xs text-muted-foreground">
+                  Trace ID: {result.trace_id}
+                </p>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowScorecard(!showScorecard)}
+                >
+                  {showScorecard ? "Hide Scorecard" : "View Scorecard"}
+                </Button>
+              </div>
+
+              {/* Scorecard */}
+              {showScorecard && scorecardData && (
+                <div className="max-w-md mx-auto mt-6">
+                  <SynthScorecard 
+                    data={scorecardData}
+                    onDownloadJSON={handleDownloadJSON}
+                  />
+                </div>
+              )}
             </div>
           )}
         </main>

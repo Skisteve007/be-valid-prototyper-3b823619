@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
-import { MessageSquare, Play, Loader2, AlertTriangle, CheckCircle, XCircle, Sparkles, Users, Clock } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { MessageSquare, Play, Loader2, AlertTriangle, CheckCircle, XCircle, Sparkles, Users, Clock, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -55,6 +55,22 @@ const DemoSenateQA = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState<DebateResult | null>(null);
   const [showScorecard, setShowScorecard] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setIsLoggedIn(!!user);
+    };
+    checkAuth();
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      setIsLoggedIn(!!session?.user);
+    });
+    
+    return () => subscription.unsubscribe();
+  }, []);
 
   const scorecardData = result ? transformToScorecard(result as any) : null;
 
@@ -65,6 +81,12 @@ const DemoSenateQA = () => {
   };
 
   const handleRunDebate = async () => {
+    // Require login to run
+    if (!isLoggedIn) {
+      navigate(`/auth?mode=login&redirect=${encodeURIComponent('/demos/senate-qa')}`);
+      return;
+    }
+
     if (!prompt.trim()) {
       toast.error("Please enter a question");
       return;
@@ -81,10 +103,10 @@ const DemoSenateQA = () => {
       if (error) throw error;
 
       setResult(data);
-      toast.success("Debate complete!");
+      toast.success("Review complete!");
     } catch (error) {
-      console.error("Debate error:", error);
-      toast.error("Failed to run debate. Please try again.");
+      console.error("Review error:", error);
+      toast.error("Failed to run review. Please try again.");
     } finally {
       setIsRunning(false);
     }
@@ -194,19 +216,24 @@ const DemoSenateQA = () => {
 
               <Button 
                 onClick={handleRunDebate} 
-                disabled={!prompt.trim() || isRunning}
+                disabled={isRunning}
                 className="w-full"
                 size="lg"
               >
                 {isRunning ? (
                   <>
                     <Loader2 className="h-5 w-5 mr-2 animate-spin" />
-                    Running Senate...
+                    Running Review...
+                  </>
+                ) : !isLoggedIn ? (
+                  <>
+                    <LogIn className="h-5 w-5 mr-2" />
+                    Sign in to Run
                   </>
                 ) : (
                   <>
                     <Play className="h-5 w-5 mr-2" />
-                    Run Senate
+                    Run Review
                   </>
                 )}
               </Button>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Ghost, Home, LayoutDashboard, Building2, ShieldCheck, Users, Briefcase, X } from "lucide-react";
+import { Ghost, Home, LayoutDashboard, Building2, ShieldCheck, Users, Briefcase, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useVendorAccess } from "@/hooks/useVendorAccess";
@@ -16,30 +16,32 @@ const ModeSwitcherFAB = () => {
     return null;
   }
 
-  const handleNavigate = (path: string) => {
+  const handleNavigate = (path: string, requiresAuth?: boolean) => {
     setOpen(false);
-    navigate(path);
+    if (requiresAuth && !isLoggedIn) {
+      navigate(`/auth?mode=login&redirect=${encodeURIComponent(path)}`);
+    } else {
+      navigate(path);
+    }
   };
 
   const menuItems = [
     // Always visible
     { label: "Home", icon: Home, path: "/", show: true },
-    { label: "Demos", icon: Ghost, path: "/demos", show: true },
+    { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard", show: true, requiresAuth: true },
+    { label: "Demos", icon: Sparkles, path: "/demos", show: true },
     { label: "For Business", icon: Building2, path: "/vendor-portal", show: true },
     
-    // Logged in users
-    { label: "My Dashboard", icon: LayoutDashboard, path: "/dashboard", show: isLoggedIn },
+    // Vendor/Staff only
+    { label: "Vendor Dashboard", icon: Briefcase, path: "/vendor-portal/dashboard", show: isVendor || isStaff || isAdmin },
     
-    // Vendor/Staff
-    { label: "Vendor Dashboard", icon: Briefcase, path: "/vendor-portal/dashboard", show: isVendor || isStaff },
-    
-    // Admin
+    // Admin only
     { label: "Admin", icon: ShieldCheck, path: "/admin", show: isAdmin },
     
-    // Investor access
+    // Investor access only
     { label: "Investor Portal", icon: Users, path: "/investor-portal", show: hasInvestorAccess },
     
-    // Partner access
+    // Partner access only
     { label: "Partners", icon: Users, path: "/partners", show: hasPartnerAccess },
   ];
 
@@ -75,7 +77,7 @@ const ModeSwitcherFAB = () => {
                 key={item.path}
                 variant={location.pathname === item.path ? "secondary" : "ghost"}
                 className="w-full justify-start gap-3 h-10"
-                onClick={() => handleNavigate(item.path)}
+                onClick={() => handleNavigate(item.path, item.requiresAuth)}
               >
                 <item.icon className="h-4 w-4" />
                 <span className="text-sm">{item.label}</span>

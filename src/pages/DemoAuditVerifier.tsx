@@ -187,11 +187,11 @@ const DemoAuditVerifier = () => {
               <div className="flex items-start gap-4">
                 <Shield className="h-8 w-8 text-primary shrink-0" />
                 <div>
-                  <h2 className="text-lg font-semibold text-foreground mb-2">Token Verification</h2>
+                  <h2 className="text-lg font-semibold text-foreground mb-2">Integrity Proof Verification</h2>
                   <p className="text-muted-foreground text-sm">
-                    Every Valid token includes a cryptographic signature and audit hash. This verifier checks:
-                    (1) signature authenticity, (2) timestamp integrity, (3) hash match against our audit log.
-                    Tampering is immediately detected.
+                    Every Valid token includes an audit hash and timestamp. This verifier checks:
+                    (1) hash integrity, (2) timestamp validity, (3) match against our audit log.
+                    Any modification is immediately detected.
                   </p>
                 </div>
               </div>

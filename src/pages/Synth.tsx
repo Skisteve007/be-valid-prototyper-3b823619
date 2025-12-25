@@ -457,6 +457,86 @@ const Synth = () => {
                 );
               })}
             </div>
+
+            {/* Decision Flow Process */}
+            <div className="mt-16 max-w-4xl mx-auto">
+              <h4 className="text-xl font-bold text-white text-center mb-6">The Decision Flow</h4>
+              <p className="text-gray-400 text-center mb-8 max-w-2xl mx-auto">
+                Every question or data analysis follows a rigorous deliberation process to ensure truth and accuracy.
+              </p>
+              
+              <div className="synth-card rounded-2xl p-6 space-y-6">
+                {/* Step 1 */}
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center flex-shrink-0 text-cyan-400 font-bold text-sm">1</div>
+                  <div>
+                    <h5 className="text-white font-semibold mb-1">Question Enters the Senate Chamber</h5>
+                    <p className="text-gray-400 text-sm">A question or data for analysis is submitted to the Supreme Court. All 5 Senate agents receive the input simultaneously.</p>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/50 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-sm">2</div>
+                  <div>
+                    <h5 className="text-white font-semibold mb-1">Senate Deliberation</h5>
+                    <p className="text-gray-400 text-sm">The 5 Senate agents—Skeptic, Optimist, Fact-Checker, Advocate, and Guardian—debate the most factual and accurate response. Each agent applies their specialized lens until consensus is reached.</p>
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500/50 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-sm">3</div>
+                  <div>
+                    <h5 className="text-white font-semibold mb-1">Executive Secretary Review</h5>
+                    <p className="text-gray-400 text-sm">The Senate's consensus is passed to the Executive Secretary, who reviews, cleans, and organizes the response. She confirms with the Senate: <span className="text-purple-300 italic">"This is what you want to present?"</span></p>
+                  </div>
+                </div>
+
+                {/* Step 4 */}
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/50 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-sm">4</div>
+                  <div>
+                    <h5 className="text-white font-semibold mb-1">Refinement Loop (If Needed)</h5>
+                    <p className="text-gray-400 text-sm">If the Executive Secretary identifies improvements or concerns, she sends recommendations back to the Senate. The Senate reviews, deliberates again, and returns a refined decision. This cycle repeats until the Executive Secretary approves the final position.</p>
+                  </div>
+                </div>
+
+                {/* Step 5 */}
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-orange-500/20 border border-orange-500/50 flex items-center justify-center flex-shrink-0 text-orange-400 font-bold text-sm">5</div>
+                  <div>
+                    <h5 className="text-white font-semibold mb-1">Submission to the Judge</h5>
+                    <p className="text-gray-400 text-sm">Once the Executive Secretary gives final approval, the polished Senate position is submitted to the Judge for review.</p>
+                  </div>
+                </div>
+
+                {/* Step 6 */}
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center flex-shrink-0 text-cyan-400 font-bold text-sm">6</div>
+                  <div>
+                    <h5 className="text-white font-semibold mb-1">Judge Formulates Final Answer</h5>
+                    <p className="text-gray-400 text-sm">The Judge reviews the Senate's decision, aligns it with its own knowledge to verify truth, and formulates the final authoritative answer. This answer is then released or flagged for further action.</p>
+                  </div>
+                </div>
+
+                {/* Visual Flow Diagram */}
+                <div className="mt-8 pt-6 border-t border-white/10">
+                  <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
+                    <span className="px-3 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">Question In</span>
+                    <span className="text-gray-500">→</span>
+                    <span className="px-3 py-2 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400">5 Senators Debate</span>
+                    <span className="text-gray-500">→</span>
+                    <span className="px-3 py-2 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400">Executive Secretary</span>
+                    <span className="text-gray-500 hidden sm:inline">⟲</span>
+                    <span className="px-3 py-2 rounded-lg bg-orange-500/10 border border-orange-500/30 text-orange-400">Judge</span>
+                    <span className="text-gray-500">→</span>
+                    <span className="px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">Final Answer</span>
+                  </div>
+                  <p className="text-center text-gray-500 text-xs mt-3">⟲ indicates potential refinement loop between Executive Secretary and Senate</p>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Output Modes */}

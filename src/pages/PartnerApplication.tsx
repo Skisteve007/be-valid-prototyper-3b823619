@@ -13,6 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import jsPDF from "jspdf";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
+import { TRANCHE_1, formatUsd, COMPANY_INFO } from "@/config/fundraisingConfig";
 
 const INVESTMENT_TIERS = [
   { value: "5000", label: "$5,000" },
@@ -82,7 +83,7 @@ const PartnerApplication = () => {
   const [idBackFile, setIdBackFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState({ front: false, back: false });
 
-  // Generate Convertible Promissory Note PDF (matches Tranche 1)
+  // Generate Convertible Promissory Note PDF (uses Tranche 1 terms)
   const generatePartnerContract = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -92,13 +93,15 @@ const PartnerApplication = () => {
     
     const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const maturityDate = new Date();
-    maturityDate.setMonth(maturityDate.getMonth() + 18);
+    maturityDate.setMonth(maturityDate.getMonth() + TRANCHE_1.maturityMonths);
     const maturityDateStr = maturityDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     
     const investmentAmount = formData.investmentAmount || "0";
-    // Use Tranche 1 terms for partner applications
-    const valuationCap = "8000000";
-    const discountRate = "20";
+    const valuationCap = TRANCHE_1.valuationCapUsd.toString();
+    const discountRate = TRANCHE_1.discountPercent.toString();
+    const interestRate = TRANCHE_1.interestRate;
+    const qualifiedFinancingThreshold = 500000;
+    const investorName = formData.fullName || "[Investor Name]";
 
     const formatCurrency = (amount: string) => {
       return new Intl.NumberFormat('en-US', {
@@ -110,7 +113,7 @@ const PartnerApplication = () => {
     };
 
     // Helper function to add text and handle page breaks
-    const addText = (text: string, fontSize: number = 10, isBold: boolean = false, lineHeight: number = 5) => {
+    const addText = (text: string, fontSize: number = 9, isBold: boolean = false, lineHeight: number = 4.5) => {
       doc.setFontSize(fontSize);
       doc.setFont("helvetica", isBold ? "bold" : "normal");
       const lines = doc.splitTextToSize(text, contentWidth);
@@ -123,186 +126,235 @@ const PartnerApplication = () => {
       return lines.length * lineHeight;
     };
 
-    // Title - Convertible Note Header
+    const addSectionHeader = (text: string) => {
+      if (y > 250) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "bold");
+      doc.text(text, margin, y);
+      y += 6;
+    };
+
+    // Title - Convertible Note Header with Tranche
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.text("CONVERTIBLE PROMISSORY NOTE", pageWidth / 2, y, { align: "center" });
-    y += 12;
+    y += 7;
+    doc.setFontSize(10);
+    doc.text(`${TRANCHE_1.name}`, pageWidth / 2, y, { align: "center" });
+    y += 10;
 
-    // Securities Disclaimer
-    doc.setFontSize(8);
+    // Full Securities Disclaimer
+    doc.setFontSize(7);
     doc.setFont("helvetica", "bolditalic");
-    const disclaimerText = "THIS NOTE AND THE SECURITIES ISSUABLE UPON CONVERSION HEREOF HAVE NOT BEEN REGISTERED UNDER THE SECURITIES ACT OF 1933, AS AMENDED.";
+    const disclaimerText = "THIS NOTE AND THE SECURITIES ISSUABLE UPON CONVERSION HEREOF HAVE NOT BEEN REGISTERED UNDER THE SECURITIES ACT OF 1933, AS AMENDED (THE \"SECURITIES ACT\"), OR UNDER ANY STATE SECURITIES LAWS. THIS NOTE IS BEING ISSUED IN RELIANCE UPON EXEMPTIONS FROM REGISTRATION REQUIREMENTS AND MAY NOT BE SOLD, TRANSFERRED OR OTHERWISE DISPOSED OF EXCEPT PURSUANT TO AN EFFECTIVE REGISTRATION STATEMENT OR AN APPLICABLE EXEMPTION.";
     const disclaimerLines = doc.splitTextToSize(disclaimerText, contentWidth);
-    doc.text(disclaimerLines, pageWidth / 2, y, { align: "center" });
-    y += disclaimerLines.length * 4 + 10;
+    doc.text(disclaimerLines, margin, y);
+    y += disclaimerLines.length * 3.5 + 8;
 
     // Key Terms Box
     doc.setDrawColor(0);
     doc.setLineWidth(0.5);
-    doc.rect(margin, y, contentWidth, 60);
-    y += 8;
-    
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "bold");
-    doc.text("Company:", margin + 5, y);
-    doc.setFont("helvetica", "normal");
-    doc.text("Giant Ventures, LLC (Texas Limited Liability Company) d/b/a \"Valid\"", margin + 35, y);
+    doc.rect(margin, y, contentWidth, 56);
     y += 7;
     
+    doc.setFontSize(9);
     doc.setFont("helvetica", "bold");
-    doc.text("Holder:", margin + 5, y);
+    doc.text("Company:", margin + 3, y);
     doc.setFont("helvetica", "normal");
-    doc.text(formData.fullName || "[Investor Name]", margin + 25, y);
-    y += 7;
+    doc.text("Giant Ventures, LLC, a Texas limited liability company, d/b/a \"Valid\" (the \"Company\")", margin + 28, y);
+    y += 6;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Principal Amount:", margin + 5, y);
+    doc.text("Holder:", margin + 3, y);
     doc.setFont("helvetica", "normal");
-    doc.text(formatCurrency(investmentAmount), margin + 45, y);
-    y += 7;
+    doc.text(`${investorName} (the "Holder")`, margin + 22, y);
+    y += 6;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Valuation Cap:", margin + 5, y);
+    doc.text("Principal Amount:", margin + 3, y);
     doc.setFont("helvetica", "normal");
-    doc.text(formatCurrency(valuationCap), margin + 40, y);
-    y += 7;
+    doc.text(`${formatCurrency(investmentAmount)} (the "Principal Amount")`, margin + 42, y);
+    y += 6;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Discount Rate:", margin + 5, y);
+    doc.text("Valuation Cap:", margin + 3, y);
     doc.setFont("helvetica", "normal");
-    doc.text(`${discountRate}%`, margin + 40, y);
-    y += 7;
+    doc.text(`${formatCurrency(valuationCap)} (the "Valuation Cap")`, margin + 36, y);
+    y += 6;
+    
+    doc.setFont("helvetica", "bold");
+    doc.text("Discount Rate:", margin + 3, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${discountRate}% (the "Discount Rate")`, margin + 36, y);
+    y += 6;
 
     doc.setFont("helvetica", "bold");
-    doc.text("Maturity Date:", margin + 5, y);
+    doc.text("Issue Date:", margin + 3, y);
     doc.setFont("helvetica", "normal");
-    doc.text(`${maturityDateStr} (18 months from Issue Date)`, margin + 40, y);
-    y += 7;
+    doc.text(currentDate, margin + 28, y);
+    y += 6;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Issue Date:", margin + 5, y);
+    doc.text("Maturity Date:", margin + 3, y);
     doc.setFont("helvetica", "normal");
-    doc.text(currentDate, margin + 30, y);
-    y += 15;
+    doc.text(`${maturityDateStr} (the "Maturity Date")`, margin + 36, y);
+    y += 12;
 
     // Principal paragraph
-    const principalText = `FOR VALUE RECEIVED, Giant Ventures, LLC, a Texas Limited Liability Company (the "Company"), promises to pay to ${formData.fullName || "[Investor Name]"} (the "Holder"), or the Holder's assigns, the principal sum of ${formatCurrency(investmentAmount)} (the "Principal Amount"), together with accrued and unpaid interest thereon, on the terms and conditions set forth below.`;
-    addText(principalText, 10, false, 5);
-    y += 10;
+    addText(`FOR VALUE RECEIVED, the Company promises to pay to the Holder or its permitted assigns the Principal Amount, together with accrued and unpaid interest thereon, if any, on the terms set forth below.`);
+    y += 6;
 
     // Section 1 - Interest
-    addText("1. Interest", 11, true, 6);
-    y += 3;
-    const interestText = `This Note shall bear simple interest at a rate of 0% per annum. No interest shall accrue or be payable on this Note.`;
-    addText(interestText, 10, false, 5);
-    y += 8;
+    addSectionHeader("1. Interest.");
+    const interestText = interestRate === 0 
+      ? `This Note shall bear simple interest at a rate of 0% per annum. No interest shall accrue or be payable on this Note.`
+      : `This Note shall bear simple interest at a rate of ${interestRate}% per annum. Interest shall accrue from the Issue Date and be payable only upon repayment or conversion.`;
+    addText(interestText);
+    y += 5;
 
     // Section 2 - Maturity
-    addText("2. Maturity", 11, true, 6);
-    y += 3;
-    const maturityText = `Unless earlier converted pursuant to Section 3, the outstanding Principal Amount of this Note shall be due and payable on ${maturityDateStr} (the "Maturity Date"), which is eighteen (18) months from the Issue Date.`;
-    addText(maturityText, 10, false, 5);
-    y += 8;
+    addSectionHeader("2. Maturity; Payment.");
+    addText(`Unless earlier converted pursuant to Section 3, the outstanding Principal Amount (and any accrued interest) shall be due and payable on the Maturity Date. The Company may prepay this Note only with the Holder's written consent.`);
+    y += 5;
 
     // Section 3 - Conversion
-    addText("3. Conversion", 11, true, 6);
+    addSectionHeader("3. Conversion.");
+    
+    addText("3.1 Qualified Financing Automatic Conversion.", 9, true);
+    y += 2;
+    addText(`Upon the closing of the Company's next equity financing in which the Company receives at least ${formatUsd(qualifiedFinancingThreshold)} in gross cash proceeds from the sale of its equity securities (excluding conversion of this Note or other convertible instruments) (a "Qualified Financing"), the outstanding Principal Amount (and any accrued interest) shall automatically convert into the same class or series of equity securities issued to the new money investors in the Qualified Financing ("Financing Securities").`);
     y += 3;
+    addText(`The conversion price per unit/share shall be the lesser of:`);
+    addText(`(a) the price per unit/share equal to (the Valuation Cap divided by the Company's Fully Diluted Capitalization immediately prior to the Qualified Financing), or`);
+    addText(`(b) the price per unit/share equal to (${100 - parseInt(discountRate)}%) of the price per unit/share paid by the new money investors in the Qualified Financing.`);
+    y += 4;
 
-    const conversion3a = `(a) Qualified Financing. Upon the closing of an equity financing in which the Company raises at least $500,000 in gross proceeds (a "Qualified Financing"), the outstanding Principal Amount shall automatically convert into equity securities of the same type issued in the Qualified Financing at a conversion price equal to the lesser of: (i) the Valuation Cap Price (${formatCurrency(valuationCap)} divided by the Company's fully-diluted capitalization), or (ii) the Discount Price (${100 - parseInt(discountRate)}% of the price per share paid by investors in the Qualified Financing).`;
-    addText(conversion3a, 10, false, 5);
+    addText("3.2 Fully Diluted Capitalization.", 9, true);
+    y += 2;
+    addText(`"Fully Diluted Capitalization" means, as of immediately prior to the Qualified Financing, the total number of outstanding equity interests (or shares, if the Company has converted to a corporation), assuming full conversion/exercise of all outstanding options, warrants, and other rights to acquire equity, and including any equity reserved for issuance under any employee equity incentive plan, but excluding (i) the securities issuable upon conversion of this Note and (ii) other convertible instruments that convert in the Qualified Financing (to avoid double counting).`);
+    y += 4;
+
+    addText("3.3 Change of Control.", 9, true);
+    y += 2;
+    addText(`If a Change of Control (as defined below) occurs prior to conversion in a Qualified Financing, then the Holder shall have the right to elect (one time, by written notice delivered before the closing of the Change of Control) either:`);
+    addText(`(a) repayment in cash of the outstanding Principal Amount (and any accrued interest), OR`);
+    addText(`(b) conversion of the outstanding Principal Amount (and any accrued interest) into the same form of consideration as the holders of the Company's equity receive in the Change of Control, at a conversion price based on the Valuation Cap (i.e., Valuation Cap divided by Fully Diluted Capitalization, determined immediately prior to the Change of Control).`);
+    y += 3;
+    addText(`"Change of Control" means (i) a sale of all or substantially all of the Company's assets, (ii) a merger or consolidation resulting in the holders of the Company's equity immediately prior to such transaction owning less than a majority of the voting power immediately after, or (iii) any other transaction in which a third party acquires control of the Company.`);
+    y += 4;
+
+    addText("3.4 Maturity Conversion (Optional; Company Election).", 9, true);
+    y += 2;
+    addText(`If this Note has not converted pursuant to Section 3.1 prior to the Maturity Date, then, at the Company's election, either:`);
+    addText(`(a) the Company shall repay the outstanding Principal Amount (and any accrued interest), OR`);
+    addText(`(b) the Note shall convert into the Company's most senior outstanding equity securities then issued (or if none, common equity) at a conversion price based on the Valuation Cap (Valuation Cap divided by Fully Diluted Capitalization), determined as of the Maturity Date.`);
     y += 5;
 
-    const conversion3b = `(b) Change of Control. If a Change of Control (sale, merger, or acquisition) occurs prior to conversion, the Holder may elect to either: (i) receive a cash payment equal to two times (2x) the Principal Amount, or (ii) convert the Principal Amount at the Valuation Cap Price.`;
-    addText(conversion3b, 10, false, 5);
+    // Section 4 - Events of Default
+    addSectionHeader("4. Events of Default.");
+    addText(`Each of the following constitutes an "Event of Default": (i) the Company's failure to pay amounts due under this Note when due and such failure continues for ten (10) days after written notice; (ii) the Company files for bankruptcy or insolvency; (iii) the Company makes an assignment for the benefit of creditors; or (iv) the Company materially breaches this Note and fails to cure within fifteen (15) days after written notice.`);
+    addText(`Upon an Event of Default, the Holder may declare the Note immediately due and payable; provided, however, the Holder agrees that its remedy shall be limited to repayment of the Principal Amount plus accrued interest, if any, and the Holder shall not seek to impose personal liability on any manager, member, officer, or employee of the Company solely by virtue of this Note.`);
     y += 5;
 
-    const conversion3c = `(c) Maturity Conversion. If this Note has not been converted or repaid prior to the Maturity Date, the outstanding Principal Amount shall automatically convert into equity securities of the Company at the Valuation Cap Price.`;
-    addText(conversion3c, 10, false, 5);
+    // Section 5 - Company Representations
+    addSectionHeader("5. Company Representations.");
+    addText(`The Company represents that (a) it is duly organized and in good standing under the laws of Texas, (b) it has authority to execute and deliver this Note, and (c) the execution and delivery of this Note have been duly authorized.`);
+    y += 5;
+
+    // Section 6 - Holder Representations
+    addSectionHeader("6. Holder Representations.");
+    addText(`The Holder represents that (a) it has authority to execute and deliver this Note, (b) it is an "accredited investor" under Rule 501 of Regulation D, and (c) it is acquiring this Note for investment and not with a view to distribution.`);
+    y += 5;
+
+    // Section 7 - Transfer; Assignment
+    addSectionHeader("7. Transfer; Assignment.");
+    addText(`The Holder may transfer or assign this Note only (i) to an affiliate, or (ii) with the Company's written consent (not to be unreasonably withheld), and in all cases in compliance with applicable securities laws. Any permitted transferee takes subject to this Note's terms.`);
+    y += 5;
+
+    // Section 8 - Amendments; Waivers
+    addSectionHeader("8. Amendments; Waivers.");
+    addText(`Any term of this Note may be amended or waived only with the written consent of the Company and the Holder; provided that if the Company issues multiple notes of the same form, the Company may provide that amendments may be approved by holders of a majority of the outstanding principal amount of such notes.`);
+    y += 5;
+
+    // Section 9 - Governing Law
+    addSectionHeader("9. Governing Law; Venue.");
+    addText(`This Note shall be governed by and construed in accordance with the laws of the State of Texas, without regard to conflicts of law principles. The parties consent to exclusive venue in state or federal courts located in Palm Beach County, Florida or Harris County, Texas.`);
+    y += 5;
+
+    // Section 10 - Miscellaneous
+    addSectionHeader("10. Miscellaneous.");
+    addText(`Notices shall be in writing and delivered by email and/or certified mail to the addresses provided below (or as updated by notice). This Note constitutes the entire agreement with respect to its subject matter and supersedes prior discussions.`);
     y += 10;
-
-    // Section 4 - Company Representations
-    addText("4. Company Representations", 11, true, 6);
-    y += 3;
-
-    const rep4a = `(a) The Company is a Limited Liability Company duly organized, validly existing, and in good standing under the laws of the state of Texas.`;
-    addText(rep4a, 10, false, 5);
-    y += 5;
-
-    const rep4b = `(b) The execution, delivery, and performance of this Note by the Company has been duly authorized by all necessary limited liability company action.`;
-    addText(rep4b, 10, false, 5);
-    y += 10;
-
-    // Section 5 - Holder Representations
-    addText("5. Holder Representations", 11, true, 6);
-    y += 3;
-
-    const rep5a = `(a) The Holder has full legal capacity, power, and authority to execute and deliver this Note.`;
-    addText(rep5a, 10, false, 5);
-    y += 5;
-
-    const rep5b = `(b) The Holder is an accredited investor as such term is defined in Rule 501 of Regulation D under the Securities Act.`;
-    addText(rep5b, 10, false, 5);
-    y += 5;
-
-    const rep5c = `(c) The Holder acknowledges that this investment is speculative and involves a high degree of risk, including the risk of losing the entire investment.`;
-    addText(rep5c, 10, false, 5);
-    y += 15;
 
     // Witness statement
     doc.setFont("helvetica", "bolditalic");
-    doc.setFontSize(10);
-    const witnessText = "IN WITNESS WHEREOF, the undersigned have caused this Note to be duly executed and delivered as of the Issue Date.";
+    doc.setFontSize(9);
+    const witnessText = "IN WITNESS WHEREOF, the undersigned have executed this Note as of the Issue Date.";
     const witnessLines = doc.splitTextToSize(witnessText, contentWidth);
-    if (y + 60 > 275) {
+    if (y + 70 > 275) {
       doc.addPage();
       y = 20;
     }
     doc.text(witnessLines, margin, y);
-    y += witnessLines.length * 5 + 15;
+    y += witnessLines.length * 4.5 + 12;
 
     // Company Signature Block
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.text("COMPANY: Giant Ventures, LLC", margin, y);
-    y += 15;
+    y += 12;
 
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.text("Signature: _________________________________", margin, y);
-    y += 8;
-    doc.text("By: Steven Grillo", margin, y);
+    doc.setFontSize(9);
+    doc.text("By: _________________________________", margin, y);
     y += 6;
+    doc.text("Name: Steven Grillo", margin, y);
+    y += 5;
     doc.text("Title: Chief Executive Officer", margin, y);
-    y += 6;
+    y += 5;
     doc.text("Address: Boca Raton, FL 33487", margin, y);
-    y += 20;
+    y += 5;
+    doc.text("Email: steve@bevalid.app", margin, y);
+    y += 15;
 
     // Holder Signature Block
+    if (y + 40 > 275) {
+      doc.addPage();
+      y = 20;
+    }
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(11);
-    doc.text(`HOLDER: ${formData.fullName || "[Investor Name]"}`, margin, y);
-    y += 15;
+    doc.setFontSize(10);
+    doc.text(`HOLDER: ${investorName}`, margin, y);
+    y += 12;
 
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.text("Signature: _________________________________", margin, y);
-    y += 8;
+    doc.setFontSize(9);
+    doc.text("Signature: _________________________", margin, y);
+    y += 6;
+    doc.text(`Name: ${investorName}`, margin, y);
+    y += 5;
+    doc.text("Address: ___________________________", margin, y);
+    y += 5;
+    doc.text("Email: _____________________________", margin, y);
+    y += 5;
     doc.text(`Date: ${currentDate}`, margin, y);
 
     // Footer on each page
     const totalPages = doc.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.setFontSize(8);
+      doc.setFontSize(7);
       doc.setTextColor(128);
-      doc.text("CONFIDENTIAL - Giant Ventures, LLC d/b/a Valid", pageWidth / 2, 290, { align: "center" });
-      doc.text(`Page ${i} of ${totalPages}`, pageWidth / 2, 295, { align: "center" });
+      doc.text(`CONFIDENTIAL - Giant Ventures, LLC d/b/a Valid | ${TRANCHE_1.shortName}`, pageWidth / 2, 290, { align: "center" });
+      doc.text(`Page ${i} of ${totalPages}`, pageWidth - margin, 290, { align: "right" });
       doc.setTextColor(0);
     }
 
     // Save PDF
-    const fileName = `Convertible_Note_${(formData.fullName || "Investor").replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+    const fileName = `Convertible_Note_${TRANCHE_1.shortName.replace(/\s+/g, '_')}_${(investorName).replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(fileName);
     toast.success("Convertible Note downloaded successfully!");
   };

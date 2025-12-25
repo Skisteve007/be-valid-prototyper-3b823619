@@ -115,19 +115,49 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Create affiliate record in database (for existing users who can't insert via RLS)
     // First check if affiliate already exists for this email
-    const { data: existingAffiliate } = await supabaseAdmin
+    const { data: existingAffiliate, error: lookupError } = await supabaseAdmin
       .from("affiliates")
-      .select("id")
+      .select("id, user_id")
       .eq("email", data.email)
       .maybeSingle();
 
-    if (!existingAffiliate) {
-      // Create new affiliate record without user_id (for existing users not logged in)
-      // We'll use a placeholder UUID and let admin link it later if needed
+    if (lookupError) {
+      console.error("Error looking up affiliate:", lookupError);
+    }
+
+    if (existingAffiliate) {
+      // Update existing affiliate with new info
+      const { error: updateError } = await supabaseAdmin
+        .from("affiliates")
+        .update({
+          full_name: data.fullName,
+          phone_number: data.phone,
+          payout_method: data.payoutMethod,
+          paypal_email: data.payoutHandle,
+          id_front_url: idFrontUrl,
+          id_back_url: idBackUrl,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", existingAffiliate.id);
+
+      if (updateError) {
+        console.error("Error updating affiliate record:", updateError);
+      } else {
+        console.log("Existing affiliate record updated for:", data.email);
+      }
+    } else {
+      // Check if user exists in auth.users by email and get their user_id
+      const { data: authUser } = await supabaseAdmin.auth.admin.listUsers();
+      const matchedUser = authUser?.users?.find(u => u.email === data.email);
+      
+      // Generate a unique user_id if user doesn't exist (UUID based on email hash)
+      const userId = matchedUser?.id || crypto.randomUUID();
+      
+      // Create new affiliate record
       const { error: insertError } = await supabaseAdmin
         .from("affiliates")
         .insert({
-          user_id: '00000000-0000-0000-0000-000000000000', // Placeholder for unlinked applications
+          user_id: userId,
           referral_code: referralCode,
           full_name: data.fullName,
           email: data.email,
@@ -141,28 +171,13 @@ const handler = async (req: Request): Promise<Response> => {
 
       if (insertError) {
         console.error("Error creating affiliate record:", insertError);
-        // Don't throw - still send notification even if DB insert fails
+        // If it's a foreign key error, the user doesn't have a profile yet
+        // We'll still proceed with notification - admin can link later
+        if (insertError.code === '23503') {
+          console.log("Foreign key constraint - user profile doesn't exist yet. Application will be tracked via email notification.");
+        }
       } else {
-        console.log("Affiliate record created successfully");
-      }
-    } else {
-      // Update existing affiliate with new info
-      const { error: updateError } = await supabaseAdmin
-        .from("affiliates")
-        .update({
-          full_name: data.fullName,
-          phone_number: data.phone,
-          payout_method: data.payoutMethod,
-          paypal_email: data.payoutHandle,
-          id_front_url: idFrontUrl,
-          id_back_url: idBackUrl,
-        })
-        .eq("email", data.email);
-
-      if (updateError) {
-        console.error("Error updating affiliate record:", updateError);
-      } else {
-        console.log("Existing affiliate record updated");
+        console.log("Affiliate record created successfully for:", data.email);
       }
     }
 

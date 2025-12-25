@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock, ExternalLink, FileDown, Pin, Lightbulb } from "lucide-react";
+import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock, ExternalLink, FileDown, Pin, Lightbulb, Info, Target, Calendar, DollarSign, Users } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThinkTankManager from "@/components/admin/ThinkTankManager";
 import { jsPDF } from "jspdf";
@@ -14,6 +14,7 @@ import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import logo from "@/assets/valid-logo.jpeg";
 
 // PUBLIC PDF URL - Same as PitchDeck.tsx for consistency
@@ -43,6 +44,7 @@ const AdminDealRoom = () => {
   const [valuationCap, setValuationCap] = useState("6000000");
   const [discountRate, setDiscountRate] = useState("50");
   const [selectedTranche, setSelectedTranche] = useState<1 | 2>(1);
+  const [isTranche2ModalOpen, setIsTranche2ModalOpen] = useState(false);
 
   // Handle tranche selection
   const handleTrancheSelect = (tranche: 1 | 2) => {
@@ -534,8 +536,9 @@ const AdminDealRoom = () => {
                 </div>
                 <div className={`text-xs ${selectedTranche === 1 ? 'text-amber-400/80' : 'text-gray-400'}`}>$200K Raise • $6M Valuation Cap • 50% Discount</div>
               </button>
-              <div
-                className="p-4 rounded-xl border-2 text-left bg-cyan-500/10 border-cyan-500/30 cursor-not-allowed relative shadow-[0_0_15px_rgba(0,240,255,0.2)]"
+              <button
+                onClick={() => setIsTranche2ModalOpen(true)}
+                className="p-4 rounded-xl border-2 text-left bg-cyan-500/10 border-cyan-500/30 cursor-pointer relative shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:bg-cyan-500/20 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(0,240,255,0.4)] transition-all duration-300"
               >
                 <Badge className="absolute -top-2 -right-2 bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 text-[10px] px-2 shadow-[0_0_10px_rgba(0,240,255,0.4)]">
                   Coming Q2 2026
@@ -544,7 +547,10 @@ const AdminDealRoom = () => {
                   Tranche 2: Series Seed
                 </div>
                 <div className="text-xs text-cyan-400/80">$1.5M Raise • $10-12M Valuation Cap • 25% Discount</div>
-              </div>
+                <div className="text-[10px] text-cyan-400/60 mt-1 flex items-center gap-1">
+                  <Info className="h-3 w-3" /> Click for details
+                </div>
+              </button>
             </div>
             
             {/* Tranche 1 Status Tracker */}
@@ -876,6 +882,118 @@ const AdminDealRoom = () => {
           </Tabs>
         </div>
       </div>
+
+      {/* Tranche 2 Information Modal */}
+      <Dialog open={isTranche2ModalOpen} onOpenChange={setIsTranche2ModalOpen}>
+        <DialogContent className="bg-black/95 border border-cyan-500/50 text-white max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-cyan-400 font-mono tracking-widest text-center text-xl">
+              TRANCHE 2: SERIES SEED
+            </DialogTitle>
+            <DialogDescription className="text-gray-400 text-center font-mono text-xs">
+              Coming Q2 2026
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-6 pt-4">
+            {/* Key Terms */}
+            <div className="space-y-3">
+              <h3 className="font-mono text-cyan-400 text-sm tracking-widest flex items-center gap-2">
+                <DollarSign className="h-4 w-4" />
+                KEY TERMS
+              </h3>
+              <div className="grid gap-2">
+                <div className="flex justify-between items-center p-3 bg-cyan-500/10 rounded border border-cyan-500/30">
+                  <span className="text-gray-300 font-mono text-sm">Target Raise</span>
+                  <span className="text-cyan-400 font-bold font-mono">$1,500,000</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-cyan-500/10 rounded border border-cyan-500/30">
+                  <span className="text-gray-300 font-mono text-sm">Valuation Cap</span>
+                  <span className="text-cyan-400 font-bold font-mono">$10M - $12M</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-cyan-500/10 rounded border border-cyan-500/30">
+                  <span className="text-gray-300 font-mono text-sm">Discount Rate</span>
+                  <span className="text-cyan-400 font-bold font-mono">25%</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Timeline */}
+            <div className="space-y-3">
+              <h3 className="font-mono text-cyan-400 text-sm tracking-widest flex items-center gap-2">
+                <Calendar className="h-4 w-4" />
+                TIMELINE
+              </h3>
+              <div className="p-3 bg-white/5 rounded border border-white/10">
+                <div className="space-y-2 font-mono text-sm">
+                  <p className="text-gray-300">
+                    <span className="text-cyan-400 font-bold">Q1 2026:</span> Complete Tranche 1 deployment
+                  </p>
+                  <p className="text-gray-300">
+                    <span className="text-cyan-400 font-bold">Q2 2026:</span> Open Series Seed round
+                  </p>
+                  <p className="text-gray-300">
+                    <span className="text-cyan-400 font-bold">Q3 2026:</span> Close round, scale operations
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Use of Funds */}
+            <div className="space-y-3">
+              <h3 className="font-mono text-cyan-400 text-sm tracking-widest flex items-center gap-2">
+                <Target className="h-4 w-4" />
+                USE OF FUNDS
+              </h3>
+              <div className="grid gap-2">
+                <div className="flex justify-between items-center p-2 bg-white/5 rounded border border-white/10">
+                  <span className="text-gray-400 font-mono text-xs">Engineering & Product</span>
+                  <span className="text-white font-mono text-xs">40%</span>
+                </div>
+                <div className="flex justify-between items-center p-2 bg-white/5 rounded border border-white/10">
+                  <span className="text-gray-400 font-mono text-xs">Sales & Marketing</span>
+                  <span className="text-white font-mono text-xs">30%</span>
+                </div>
+                <div className="flex justify-between items-center p-2 bg-white/5 rounded border border-white/10">
+                  <span className="text-gray-400 font-mono text-xs">Operations & Legal</span>
+                  <span className="text-white font-mono text-xs">20%</span>
+                </div>
+                <div className="flex justify-between items-center p-2 bg-white/5 rounded border border-white/10">
+                  <span className="text-gray-400 font-mono text-xs">Reserve</span>
+                  <span className="text-white font-mono text-xs">10%</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Prerequisites */}
+            <div className="space-y-3">
+              <h3 className="font-mono text-cyan-400 text-sm tracking-widest flex items-center gap-2">
+                <Users className="h-4 w-4" />
+                PREREQUISITES
+              </h3>
+              <div className="p-3 bg-amber-500/10 rounded border border-amber-500/30">
+                <p className="font-mono text-xs text-amber-400/90">
+                  Tranche 2 opens after Tranche 1 ($200K) is fully deployed and key milestones are hit:
+                </p>
+                <ul className="mt-2 space-y-1 font-mono text-xs text-gray-300">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="h-3 w-3 text-amber-400" />
+                    Patent applications filed
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="h-3 w-3 text-amber-400" />
+                    Core team assembled
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="h-3 w-3 text-amber-400" />
+                    Enterprise LOIs secured
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

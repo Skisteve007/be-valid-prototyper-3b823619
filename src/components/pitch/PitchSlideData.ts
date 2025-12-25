@@ -184,9 +184,9 @@ export const pitchSlides: SlideData[] = [
     subtitle: "Tranche 1 — Launch Round",
     stats: [
       { label: "Raise", value: "$200K" },
-      { label: "Valuation Cap", value: "$6M" },
-      { label: "Discount", value: "50%" },
-      { label: "Minimum", value: "$15K" }
+      { label: "Valuation Cap", value: "$8M" },
+      { label: "Discount", value: "20%" },
+      { label: "Minimum", value: "$5K" }
     ],
     highlight: "Convertible Note — 18 Month Maturity",
     layout: 'stats',

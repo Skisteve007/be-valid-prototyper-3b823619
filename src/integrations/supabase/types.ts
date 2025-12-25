@@ -3145,6 +3145,211 @@ export type Database = {
         }
         Relationships: []
       }
+      synth_demo_audit_proofs: {
+        Row: {
+          audit_json: Json
+          created_at: string
+          id: string
+          trace_id: string
+        }
+        Insert: {
+          audit_json: Json
+          created_at?: string
+          id?: string
+          trace_id: string
+        }
+        Update: {
+          audit_json?: Json
+          created_at?: string
+          id?: string
+          trace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "synth_demo_audit_proofs_trace_id_fkey"
+            columns: ["trace_id"]
+            isOneToOne: true
+            referencedRelation: "synth_demo_runs"
+            referencedColumns: ["trace_id"]
+          },
+        ]
+      }
+      synth_demo_metrics_daily: {
+        Row: {
+          avg_latency_ms: number | null
+          avg_synth_index: number | null
+          contested_count: number
+          created_at: string
+          date: string
+          deny_count: number
+          id: string
+          judge_used_count: number
+          mode: string
+          pass_count: number
+          review_count: number
+          seat_metrics: Json | null
+          total_runs: number
+          updated_at: string
+        }
+        Insert: {
+          avg_latency_ms?: number | null
+          avg_synth_index?: number | null
+          contested_count?: number
+          created_at?: string
+          date: string
+          deny_count?: number
+          id?: string
+          judge_used_count?: number
+          mode?: string
+          pass_count?: number
+          review_count?: number
+          seat_metrics?: Json | null
+          total_runs?: number
+          updated_at?: string
+        }
+        Update: {
+          avg_latency_ms?: number | null
+          avg_synth_index?: number | null
+          contested_count?: number
+          created_at?: string
+          date?: string
+          deny_count?: number
+          id?: string
+          judge_used_count?: number
+          mode?: string
+          pass_count?: number
+          review_count?: number
+          seat_metrics?: Json | null
+          total_runs?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      synth_demo_run_metrics: {
+        Row: {
+          abstain_reason: string | null
+          confidence: number | null
+          created_at: string
+          id: string
+          latency_ms: number | null
+          model: string
+          provider: string
+          risk_flags_hash: string | null
+          score: number | null
+          seat_id: number
+          seat_name: string
+          stance: string | null
+          status: string
+          trace_id: string
+        }
+        Insert: {
+          abstain_reason?: string | null
+          confidence?: number | null
+          created_at?: string
+          id?: string
+          latency_ms?: number | null
+          model: string
+          provider: string
+          risk_flags_hash?: string | null
+          score?: number | null
+          seat_id: number
+          seat_name: string
+          stance?: string | null
+          status: string
+          trace_id: string
+        }
+        Update: {
+          abstain_reason?: string | null
+          confidence?: number | null
+          created_at?: string
+          id?: string
+          latency_ms?: number | null
+          model?: string
+          provider?: string
+          risk_flags_hash?: string | null
+          score?: number | null
+          seat_id?: number
+          seat_name?: string
+          stance?: string | null
+          status?: string
+          trace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "synth_demo_run_metrics_trace_id_fkey"
+            columns: ["trace_id"]
+            isOneToOne: false
+            referencedRelation: "synth_demo_runs"
+            referencedColumns: ["trace_id"]
+          },
+        ]
+      }
+      synth_demo_runs: {
+        Row: {
+          avg_confidence: number | null
+          avg_score: number | null
+          conflict_score: number | null
+          contested: boolean
+          created_at: string
+          id: string
+          input_hash: string | null
+          judge_used: boolean
+          mode: string
+          online_seat_count: number
+          previous_hash: string | null
+          record_hash: string
+          retention_mode: string
+          run_type: string
+          seat_count: number
+          synth_index: number | null
+          tier: string
+          trace_id: string
+          user_id: string | null
+        }
+        Insert: {
+          avg_confidence?: number | null
+          avg_score?: number | null
+          conflict_score?: number | null
+          contested?: boolean
+          created_at?: string
+          id?: string
+          input_hash?: string | null
+          judge_used?: boolean
+          mode?: string
+          online_seat_count?: number
+          previous_hash?: string | null
+          record_hash: string
+          retention_mode?: string
+          run_type?: string
+          seat_count?: number
+          synth_index?: number | null
+          tier?: string
+          trace_id: string
+          user_id?: string | null
+        }
+        Update: {
+          avg_confidence?: number | null
+          avg_score?: number | null
+          conflict_score?: number | null
+          contested?: boolean
+          created_at?: string
+          id?: string
+          input_hash?: string | null
+          judge_used?: boolean
+          mode?: string
+          online_seat_count?: number
+          previous_hash?: string | null
+          record_hash?: string
+          retention_mode?: string
+          run_type?: string
+          seat_count?: number
+          synth_index?: number | null
+          tier?: string
+          trace_id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       synth_entitlements: {
         Row: {
           created_at: string

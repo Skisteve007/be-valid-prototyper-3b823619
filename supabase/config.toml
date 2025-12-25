@@ -140,3 +140,9 @@ verify_jwt = true
 
 [functions.synth-e2e-test]
 verify_jwt = true
+
+[functions.synth-metrics]
+verify_jwt = false
+
+[functions.synth-audit-verify]
+verify_jwt = false

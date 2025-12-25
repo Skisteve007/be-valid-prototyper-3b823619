@@ -57,6 +57,13 @@ const Footer = () => {
           <p className="text-xs text-slate-400">Contact: <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a></p>
         </div>
 
+        {/* Patent Pending Notice */}
+        <div className="text-center py-2 border-t border-slate-600">
+          <p className="text-[10px] text-slate-400 leading-relaxed">
+            Patent Pending (Provisional). © Giant Ventures, LLC (Texas). Certain aspects of the Valid / SYNTH / Ghost Protocol systems are the subject of one or more provisional patent applications.
+          </p>
+        </div>
+
         {/* Links & Compliance Row */}
         <div className="flex flex-wrap items-center justify-between gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
           {/* Left side - legal links */}
@@ -66,6 +73,8 @@ const Footer = () => {
             <Link to="/privacy" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.privacy')}</Link>
             <span className="text-white font-bold">|</span>
             <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.refund')}</Link>
+            <span className="text-white font-bold">|</span>
+            <Link to="/legal/patents" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Patents</Link>
             <span className="text-white font-bold">|</span>
             <Link to="/vendor-portal" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">For Enterprise</Link>
             <span className="text-white font-bold">|</span>

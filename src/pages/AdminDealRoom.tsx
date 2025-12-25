@@ -839,6 +839,13 @@ const AdminDealRoom = () => {
                 </div>
               </div>
 
+              {/* Patent Pending Notice */}
+              <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-3">
+                <p className="text-xs text-cyan-300/90 leading-relaxed">
+                  <span className="font-bold">Patent Pending (Provisional)</span> — filed by Giant Ventures, LLC (Texas). Details available under NDA.
+                </p>
+              </div>
+
               {/* Warning #1 - LLC / C-Corp Conversion Risk */}
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
                 <div className="flex items-start gap-3">

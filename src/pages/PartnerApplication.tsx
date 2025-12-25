@@ -82,7 +82,7 @@ const PartnerApplication = () => {
   const [idBackFile, setIdBackFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState({ front: false, back: false });
 
-  // Generate Partner Agreement PDF
+  // Generate Convertible Promissory Note PDF (matches Tranche 1)
   const generatePartnerContract = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -91,8 +91,24 @@ const PartnerApplication = () => {
     let y = 20;
     
     const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const maturityDate = new Date();
+    maturityDate.setMonth(maturityDate.getMonth() + 18);
+    const maturityDateStr = maturityDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    
+    const investmentAmount = formData.investmentAmount || "0";
+    const valuationCap = "6000000";
+    const discountRate = "50";
 
-    // Helper function to add text
+    const formatCurrency = (amount: string) => {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(parseFloat(amount));
+    };
+
+    // Helper function to add text and handle page breaks
     const addText = (text: string, fontSize: number = 10, isBold: boolean = false, lineHeight: number = 5) => {
       doc.setFontSize(fontSize);
       doc.setFont("helvetica", isBold ? "bold" : "normal");
@@ -106,136 +122,188 @@ const PartnerApplication = () => {
       return lines.length * lineHeight;
     };
 
-    // Title
-    doc.setFontSize(16);
+    // Title - Convertible Note Header
+    doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("STRATEGIC PARTNER AGREEMENT", pageWidth / 2, y, { align: "center" });
-    y += 15;
+    doc.text("CONVERTIBLE PROMISSORY NOTE", pageWidth / 2, y, { align: "center" });
+    y += 12;
 
-    // Company Info
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text("Giant Ventures, LLC d/b/a Clean Check", pageWidth / 2, y, { align: "center" });
-    y += 15;
+    // Securities Disclaimer
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bolditalic");
+    const disclaimerText = "THIS NOTE AND THE SECURITIES ISSUABLE UPON CONVERSION HEREOF HAVE NOT BEEN REGISTERED UNDER THE SECURITIES ACT OF 1933, AS AMENDED.";
+    const disclaimerLines = doc.splitTextToSize(disclaimerText, contentWidth);
+    doc.text(disclaimerLines, pageWidth / 2, y, { align: "center" });
+    y += disclaimerLines.length * 4 + 10;
 
     // Key Terms Box
     doc.setDrawColor(0);
     doc.setLineWidth(0.5);
-    doc.rect(margin, y, contentWidth, 50);
+    doc.rect(margin, y, contentWidth, 60);
     y += 8;
     
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
-    doc.text("Partner:", margin + 5, y);
+    doc.text("Company:", margin + 5, y);
     doc.setFont("helvetica", "normal");
-    doc.text(formData.fullName, margin + 30, y);
+    doc.text("Giant Ventures, LLC (Texas Limited Liability Company) d/b/a \"Valid\"", margin + 35, y);
     y += 7;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Email:", margin + 5, y);
+    doc.text("Holder:", margin + 5, y);
     doc.setFont("helvetica", "normal");
-    doc.text(formData.email, margin + 25, y);
+    doc.text(formData.fullName || "[Investor Name]", margin + 25, y);
     y += 7;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Referral Code:", margin + 5, y);
+    doc.text("Principal Amount:", margin + 5, y);
     doc.setFont("helvetica", "normal");
-    doc.text(generatedReferralCode || "Pending Assignment", margin + 40, y);
+    doc.text(formatCurrency(investmentAmount), margin + 45, y);
     y += 7;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Investment Amount:", margin + 5, y);
+    doc.text("Valuation Cap:", margin + 5, y);
     doc.setFont("helvetica", "normal");
-    const investmentLabel = INVESTMENT_TIERS.find(t => t.value === formData.investmentAmount)?.label || formData.investmentAmount;
-    doc.text(investmentLabel, margin + 50, y);
+    doc.text(formatCurrency(valuationCap), margin + 40, y);
     y += 7;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Payment Method:", margin + 5, y);
+    doc.text("Discount Rate:", margin + 5, y);
     doc.setFont("helvetica", "normal");
-    doc.text(`${formData.paymentMethod.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())} - ${formData.paymentHandle}`, margin + 45, y);
+    doc.text(`${discountRate}%`, margin + 40, y);
+    y += 7;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Maturity Date:", margin + 5, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${maturityDateStr} (18 months from Issue Date)`, margin + 40, y);
     y += 7;
     
     doc.setFont("helvetica", "bold");
-    doc.text("Effective Date:", margin + 5, y);
+    doc.text("Issue Date:", margin + 5, y);
     doc.setFont("helvetica", "normal");
-    doc.text(currentDate, margin + 40, y);
+    doc.text(currentDate, margin + 30, y);
+    y += 15;
+
+    // Principal paragraph
+    const principalText = `FOR VALUE RECEIVED, Giant Ventures, LLC, a Texas Limited Liability Company (the "Company"), promises to pay to ${formData.fullName || "[Investor Name]"} (the "Holder"), or the Holder's assigns, the principal sum of ${formatCurrency(investmentAmount)} (the "Principal Amount"), together with accrued and unpaid interest thereon, on the terms and conditions set forth below.`;
+    addText(principalText, 10, false, 5);
+    y += 10;
+
+    // Section 1 - Interest
+    addText("1. Interest", 11, true, 6);
+    y += 3;
+    const interestText = `This Note shall bear simple interest at a rate of 0% per annum. No interest shall accrue or be payable on this Note.`;
+    addText(interestText, 10, false, 5);
+    y += 8;
+
+    // Section 2 - Maturity
+    addText("2. Maturity", 11, true, 6);
+    y += 3;
+    const maturityText = `Unless earlier converted pursuant to Section 3, the outstanding Principal Amount of this Note shall be due and payable on ${maturityDateStr} (the "Maturity Date"), which is eighteen (18) months from the Issue Date.`;
+    addText(maturityText, 10, false, 5);
+    y += 8;
+
+    // Section 3 - Conversion
+    addText("3. Conversion", 11, true, 6);
+    y += 3;
+
+    const conversion3a = `(a) Qualified Financing. Upon the closing of an equity financing in which the Company raises at least $500,000 in gross proceeds (a "Qualified Financing"), the outstanding Principal Amount shall automatically convert into equity securities of the same type issued in the Qualified Financing at a conversion price equal to the lesser of: (i) the Valuation Cap Price (${formatCurrency(valuationCap)} divided by the Company's fully-diluted capitalization), or (ii) the Discount Price (${100 - parseInt(discountRate)}% of the price per share paid by investors in the Qualified Financing).`;
+    addText(conversion3a, 10, false, 5);
+    y += 5;
+
+    const conversion3b = `(b) Change of Control. If a Change of Control (sale, merger, or acquisition) occurs prior to conversion, the Holder may elect to either: (i) receive a cash payment equal to two times (2x) the Principal Amount, or (ii) convert the Principal Amount at the Valuation Cap Price.`;
+    addText(conversion3b, 10, false, 5);
+    y += 5;
+
+    const conversion3c = `(c) Maturity Conversion. If this Note has not been converted or repaid prior to the Maturity Date, the outstanding Principal Amount shall automatically convert into equity securities of the Company at the Valuation Cap Price.`;
+    addText(conversion3c, 10, false, 5);
+    y += 10;
+
+    // Section 4 - Company Representations
+    addText("4. Company Representations", 11, true, 6);
+    y += 3;
+
+    const rep4a = `(a) The Company is a Limited Liability Company duly organized, validly existing, and in good standing under the laws of the state of Texas.`;
+    addText(rep4a, 10, false, 5);
+    y += 5;
+
+    const rep4b = `(b) The execution, delivery, and performance of this Note by the Company has been duly authorized by all necessary limited liability company action.`;
+    addText(rep4b, 10, false, 5);
+    y += 10;
+
+    // Section 5 - Holder Representations
+    addText("5. Holder Representations", 11, true, 6);
+    y += 3;
+
+    const rep5a = `(a) The Holder has full legal capacity, power, and authority to execute and deliver this Note.`;
+    addText(rep5a, 10, false, 5);
+    y += 5;
+
+    const rep5b = `(b) The Holder is an accredited investor as such term is defined in Rule 501 of Regulation D under the Securities Act.`;
+    addText(rep5b, 10, false, 5);
+    y += 5;
+
+    const rep5c = `(c) The Holder acknowledges that this investment is speculative and involves a high degree of risk, including the risk of losing the entire investment.`;
+    addText(rep5c, 10, false, 5);
+    y += 15;
+
+    // Witness statement
+    doc.setFont("helvetica", "bolditalic");
+    doc.setFontSize(10);
+    const witnessText = "IN WITNESS WHEREOF, the undersigned have caused this Note to be duly executed and delivered as of the Issue Date.";
+    const witnessLines = doc.splitTextToSize(witnessText, contentWidth);
+    if (y + 60 > 275) {
+      doc.addPage();
+      y = 20;
+    }
+    doc.text(witnessLines, margin, y);
+    y += witnessLines.length * 5 + 15;
+
+    // Company Signature Block
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("COMPANY: Giant Ventures, LLC", margin, y);
+    y += 15;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text("Signature: _________________________________", margin, y);
+    y += 8;
+    doc.text("By: Steven Grillo", margin, y);
+    y += 6;
+    doc.text("Title: Chief Executive Officer", margin, y);
+    y += 6;
+    doc.text("Address: Boca Raton, FL 33487", margin, y);
     y += 20;
 
-    // Section 1 - Appointment
-    addText("1. APPOINTMENT", 11, true, 6);
-    y += 3;
-    addText("Company hereby appoints Partner as a non-exclusive Strategic Partner for the purpose of referring potential customers to Company's verification services. Partner accepts such appointment subject to the terms and conditions set forth herein.", 10, false, 5);
-    y += 8;
-
-    // Section 2 - Investment
-    addText("2. INVESTMENT COMMITMENT", 11, true, 6);
-    y += 3;
-    const investmentLabelForContract = INVESTMENT_TIERS.find(t => t.value === formData.investmentAmount)?.label || `$${formData.investmentAmount}`;
-    addText(`Partner hereby commits to invest ${investmentLabelForContract} USD in the Company's Strategic Partner Program. This investment entitles Partner to the following benefits and commission structure.`, 10, false, 5);
-    y += 8;
-
-    // Section 3 - Commission
-    addText("3. COMMISSION STRUCTURE", 11, true, 6);
-    y += 3;
-    addText("Partner shall receive the following commissions on qualified referrals:", 10, false, 5);
-    y += 3;
-    addText("• 20% commission on first-year subscription revenue from referred customers", 10, false, 5);
-    addText("• 10% commission on renewal revenue for years 2-3", 10, false, 5);
-    addText("• Commissions are paid monthly for the preceding calendar month", 10, false, 5);
-    y += 8;
-
-    // Section 4 - Payment
-    addText("4. PAYMENT TERMS", 11, true, 6);
-    y += 3;
-    addText(`Investment payment shall be made via ${formData.paymentMethod.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())} to the account designated by Company. Minimum payout threshold for commissions is $50 USD. Commission payments are processed on or before the 15th of each month.`, 10, false, 5);
-    y += 8;
-
-    // Section 5 - Term
-    addText("5. TERM AND TERMINATION", 11, true, 6);
-    y += 3;
-    addText("This Agreement shall commence on the Effective Date and continue for a period of one (1) year, automatically renewing for successive one-year terms unless terminated by either party with thirty (30) days written notice.", 10, false, 5);
-    y += 8;
-
-    // Section 6 - IP Assignment
-    addText("6. INTELLECTUAL PROPERTY", 11, true, 6);
-    y += 3;
-    addText("Partner acknowledges that all intellectual property, trade secrets, and proprietary information of Company remain the exclusive property of Company. Partner shall not use Company's trademarks except as expressly authorized in writing.", 10, false, 5);
-    y += 8;
-
-    // Section 7 - Confidentiality
-    addText("7. CONFIDENTIALITY", 11, true, 6);
-    y += 3;
-    addText("Partner agrees to maintain strict confidentiality of all non-public information, including but not limited to: customer lists, pricing strategies, technology implementations, and business operations. This obligation survives termination of this Agreement.", 10, false, 5);
-    y += 15;
-
-    // Signature Block
-    addText("IN WITNESS WHEREOF, the parties have executed this Agreement as of the Effective Date.", 10, false, 5);
-    y += 15;
-
+    // Holder Signature Block
     doc.setFont("helvetica", "bold");
-    doc.text("COMPANY:", margin, y);
-    y += 7;
-    doc.setFont("helvetica", "normal");
-    doc.text("Giant Ventures, LLC", margin, y);
-    y += 5;
-    doc.text("By: Steven Grillo, Managing Member", margin, y);
+    doc.setFontSize(11);
+    doc.text(`HOLDER: ${formData.fullName || "[Investor Name]"}`, margin, y);
     y += 15;
 
-    doc.setFont("helvetica", "bold");
-    doc.text("PARTNER:", margin, y);
-    y += 7;
     doc.setFont("helvetica", "normal");
-    doc.text(formData.fullName, margin, y);
-    y += 5;
-    doc.text("Signature: ________________________", margin, y);
-    y += 5;
+    doc.setFontSize(10);
+    doc.text("Signature: _________________________________", margin, y);
+    y += 8;
     doc.text(`Date: ${currentDate}`, margin, y);
 
+    // Footer on each page
+    const totalPages = doc.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(128);
+      doc.text("CONFIDENTIAL - Giant Ventures, LLC d/b/a Valid", pageWidth / 2, 290, { align: "center" });
+      doc.text(`Page ${i} of ${totalPages}`, pageWidth / 2, 295, { align: "center" });
+      doc.setTextColor(0);
+    }
+
     // Save PDF
-    const fileName = `CleanCheck_Partner_Agreement_${formData.fullName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+    const fileName = `Convertible_Note_${(formData.fullName || "Investor").replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(fileName);
-    toast.success("Contract downloaded successfully!");
+    toast.success("Convertible Note downloaded successfully!");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -715,10 +783,10 @@ const PartnerApplication = () => {
             <DialogHeader>
               <DialogTitle className="text-white flex items-center gap-2">
                 <ScrollText className="h-5 w-5 text-amber-400" />
-                Strategic Partner Agreement
+                Convertible Promissory Note
               </DialogTitle>
               <DialogDescription className="text-amber-400 font-medium">
-                SAMPLE PREVIEW - NOT A BINDING DOCUMENT
+                SAMPLE PREVIEW - Tranche 1: Launch Round ($6M Cap, 50% Discount)
               </DialogDescription>
             </DialogHeader>
             
@@ -726,78 +794,118 @@ const PartnerApplication = () => {
               <div className="space-y-6 text-slate-300 text-sm">
                 {/* Header */}
                 <div className="text-center border-b border-slate-700 pb-4">
-                  <p className="text-slate-400">Giant Ventures, LLC d/b/a Clean Check</p>
+                  <h2 className="text-lg font-bold text-white mb-2">CONVERTIBLE PROMISSORY NOTE</h2>
+                  <p className="text-xs text-amber-400 italic mb-3">THIS NOTE AND THE SECURITIES ISSUABLE UPON CONVERSION HEREOF HAVE NOT BEEN REGISTERED UNDER THE SECURITIES ACT OF 1933, AS AMENDED.</p>
                 </div>
 
                 {/* Key Terms Box */}
                 <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 space-y-2">
                   <div className="flex gap-2">
-                    <span className="font-bold text-white">Partner:</span>
+                    <span className="font-bold text-white">Company:</span>
+                    <span className="text-slate-300">Giant Ventures, LLC d/b/a "Valid"</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="font-bold text-white">Holder:</span>
                     <span className="text-slate-400">[Your Name]</span>
                   </div>
                   <div className="flex gap-2">
-                    <span className="font-bold text-white">Investment Amount:</span>
-                    <span className="text-slate-400">[Selected Amount]</span>
+                    <span className="font-bold text-white">Principal Amount:</span>
+                    <span className="text-amber-400">[Selected Investment Amount]</span>
                   </div>
                   <div className="flex gap-2">
-                    <span className="font-bold text-white">Effective Date:</span>
+                    <span className="font-bold text-white">Valuation Cap:</span>
+                    <span className="text-slate-300">$6,000,000</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="font-bold text-white">Discount Rate:</span>
+                    <span className="text-slate-300">50%</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="font-bold text-white">Maturity Date:</span>
+                    <span className="text-slate-300">18 months from Issue Date</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="font-bold text-white">Issue Date:</span>
                     <span className="text-slate-400">[Date of Payment]</span>
                   </div>
                 </div>
 
+                {/* Principal Statement */}
+                <p className="text-slate-300 leading-relaxed">
+                  FOR VALUE RECEIVED, Giant Ventures, LLC, a Texas Limited Liability Company (the "Company"), promises to pay to the Holder, or the Holder's assigns, the Principal Amount, together with accrued and unpaid interest thereon, on the terms and conditions set forth below.
+                </p>
+
                 {/* Sections */}
                 <div className="space-y-4">
                   <div>
-                    <h3 className="font-bold text-white text-base mb-2">1. APPOINTMENT</h3>
-                    <p>Company hereby appoints Partner as a non-exclusive Strategic Partner for the purpose of referring potential customers to Company's verification services. Partner accepts such appointment subject to the terms and conditions set forth herein.</p>
+                    <h3 className="font-bold text-white text-base mb-2">1. Interest</h3>
+                    <p>This Note shall bear simple interest at a rate of 0% per annum. No interest shall accrue or be payable on this Note.</p>
                   </div>
 
                   <div>
-                    <h3 className="font-bold text-white text-base mb-2">2. INVESTMENT COMMITMENT</h3>
-                    <p>Partner hereby commits to invest the selected amount in USD in the Company's Strategic Partner Program. This investment entitles Partner to the following benefits and commission structure.</p>
+                    <h3 className="font-bold text-white text-base mb-2">2. Maturity</h3>
+                    <p>Unless earlier converted pursuant to Section 3, the outstanding Principal Amount of this Note shall be due and payable on the Maturity Date, which is eighteen (18) months from the Issue Date.</p>
                   </div>
 
                   <div>
-                    <h3 className="font-bold text-white text-base mb-2">3. COMMISSION STRUCTURE</h3>
-                    <p>Partner shall receive: 20% commission on first-year subscription revenue from referred customers; 10% commission on renewal revenue for years 2-3; Commissions are paid monthly for the preceding calendar month. Minimum payout threshold is $50 USD.</p>
+                    <h3 className="font-bold text-white text-base mb-2">3. Conversion</h3>
+                    <div className="space-y-3">
+                      <p><span className="text-amber-400">(a) Qualified Financing.</span> Upon the closing of an equity financing in which the Company raises at least $500,000 in gross proceeds, the outstanding Principal Amount shall automatically convert into equity securities at a conversion price equal to the lesser of: (i) the Valuation Cap Price ($6,000,000 divided by the Company's fully-diluted capitalization), or (ii) the Discount Price (50% of the price per share paid by investors in the Qualified Financing).</p>
+                      <p><span className="text-amber-400">(b) Change of Control.</span> If a Change of Control (sale, merger, or acquisition) occurs prior to conversion, the Holder may elect to either: (i) receive a cash payment equal to two times (2x) the Principal Amount, or (ii) convert the Principal Amount at the Valuation Cap Price.</p>
+                      <p><span className="text-amber-400">(c) Maturity Conversion.</span> If this Note has not been converted or repaid prior to the Maturity Date, the outstanding Principal Amount shall automatically convert into equity securities of the Company at the Valuation Cap Price.</p>
+                    </div>
                   </div>
 
                   <div>
-                    <h3 className="font-bold text-white text-base mb-2">4. TERM AND TERMINATION</h3>
-                    <p>This Agreement shall commence on the Effective Date and continue for a period of one (1) year, automatically renewing for successive one-year terms unless terminated by either party with thirty (30) days written notice.</p>
+                    <h3 className="font-bold text-white text-base mb-2">4. Company Representations</h3>
+                    <div className="space-y-2">
+                      <p>(a) The Company is a Limited Liability Company duly organized, validly existing, and in good standing under the laws of the state of Texas.</p>
+                      <p>(b) The execution, delivery, and performance of this Note by the Company has been duly authorized by all necessary limited liability company action.</p>
+                    </div>
                   </div>
 
                   <div>
-                    <h3 className="font-bold text-white text-base mb-2">5. INTELLECTUAL PROPERTY</h3>
-                    <p>Partner acknowledges that all intellectual property, trade secrets, and proprietary information of Company remain the exclusive property of Company. Partner shall not use Company's trademarks except as expressly authorized in writing.</p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-bold text-white text-base mb-2">6. CONFIDENTIALITY</h3>
-                    <p>Partner agrees to maintain strict confidentiality of all non-public information, including but not limited to: customer lists, pricing strategies, technology implementations, and business operations. This obligation survives termination of this Agreement.</p>
+                    <h3 className="font-bold text-white text-base mb-2">5. Holder Representations</h3>
+                    <div className="space-y-2">
+                      <p>(a) The Holder has full legal capacity, power, and authority to execute and deliver this Note.</p>
+                      <p>(b) The Holder is an accredited investor as such term is defined in Rule 501 of Regulation D under the Securities Act.</p>
+                      <p>(c) The Holder acknowledges that this investment is speculative and involves a high degree of risk, including the risk of losing the entire investment.</p>
+                    </div>
                   </div>
                 </div>
+
+                {/* Witness Statement */}
+                <p className="italic text-slate-400 border-t border-slate-700 pt-4">
+                  IN WITNESS WHEREOF, the undersigned have caused this Note to be duly executed and delivered as of the Issue Date.
+                </p>
 
                 {/* Signatures */}
                 <div className="border-t border-slate-700 pt-4 space-y-4">
                   <div>
-                    <p className="font-bold text-white">COMPANY:</p>
-                    <p>Giant Ventures, LLC</p>
-                    <p>By: Steven Grillo, Managing Member</p>
+                    <p className="font-bold text-white">COMPANY: Giant Ventures, LLC</p>
+                    <p>Signature: _________________________________</p>
+                    <p>By: Steven Grillo</p>
+                    <p>Title: Chief Executive Officer</p>
+                    <p>Address: Boca Raton, FL 33487</p>
                   </div>
                   <div>
-                    <p className="font-bold text-white">PARTNER:</p>
-                    <p className="text-slate-400">[Partner Signature]</p>
+                    <p className="font-bold text-white">HOLDER: [Your Name]</p>
+                    <p>Signature: _________________________________</p>
                     <p className="text-slate-400">Date: [Upon Payment Confirmation]</p>
                   </div>
                 </div>
+
+                {/* Footer */}
+                <p className="text-xs text-slate-500 text-center border-t border-slate-700 pt-4">
+                  CONFIDENTIAL - Giant Ventures, LLC d/b/a Valid
+                </p>
               </div>
             </ScrollArea>
 
             <div className="flex flex-col gap-3 pt-4 border-t border-slate-700">
               <p className="text-xs text-slate-500 text-center">
-                By completing the application form below and processing payment, you agree to the terms of this agreement.
-                Your signed contract will be available for download after payment is confirmed.
+                By completing the application form below and processing payment, you agree to the terms of this Convertible Promissory Note.
+                Your signed note will be available for download after payment is confirmed.
               </p>
               <Button
                 onClick={() => setShowContractPreview(false)}

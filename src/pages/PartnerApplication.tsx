@@ -711,7 +711,7 @@ const PartnerApplication = () => {
 
         {/* Contract Preview Modal */}
         <Dialog open={showContractPreview} onOpenChange={setShowContractPreview}>
-          <DialogContent className="max-w-3xl max-h-[90vh] bg-slate-900 border-amber-500/30">
+          <DialogContent className="max-w-3xl max-h-[90vh] bg-slate-900 border-amber-500/30 top-[5%] translate-y-0 sm:top-[10%]">
             <DialogHeader>
               <DialogTitle className="text-white flex items-center gap-2">
                 <ScrollText className="h-5 w-5 text-amber-400" />

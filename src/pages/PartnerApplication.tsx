@@ -7,11 +7,14 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles } from "lucide-react";
+import { Loader2, Shield, Upload, CheckCircle2, ArrowLeft, Sparkles, FileText, Download } from "lucide-react";
+import jsPDF from "jspdf";
 
 const PartnerApplication = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [generatedReferralCode, setGeneratedReferralCode] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -22,6 +25,148 @@ const PartnerApplication = () => {
   const [idFrontFile, setIdFrontFile] = useState<File | null>(null);
   const [idBackFile, setIdBackFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState({ front: false, back: false });
+
+  // Generate Partner Agreement PDF
+  const generatePartnerContract = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 20;
+    const contentWidth = pageWidth - (margin * 2);
+    let y = 20;
+    
+    const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Helper function to add text
+    const addText = (text: string, fontSize: number = 10, isBold: boolean = false, lineHeight: number = 5) => {
+      doc.setFontSize(fontSize);
+      doc.setFont("helvetica", isBold ? "bold" : "normal");
+      const lines = doc.splitTextToSize(text, contentWidth);
+      if (y + (lines.length * lineHeight) > 275) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(lines, margin, y);
+      y += lines.length * lineHeight;
+      return lines.length * lineHeight;
+    };
+
+    // Title
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("STRATEGIC PARTNER AGREEMENT", pageWidth / 2, y, { align: "center" });
+    y += 15;
+
+    // Company Info
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("Giant Ventures, LLC d/b/a Clean Check", pageWidth / 2, y, { align: "center" });
+    y += 15;
+
+    // Key Terms Box
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.5);
+    doc.rect(margin, y, contentWidth, 50);
+    y += 8;
+    
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text("Partner:", margin + 5, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(formData.fullName, margin + 30, y);
+    y += 7;
+    
+    doc.setFont("helvetica", "bold");
+    doc.text("Email:", margin + 5, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(formData.email, margin + 25, y);
+    y += 7;
+    
+    doc.setFont("helvetica", "bold");
+    doc.text("Referral Code:", margin + 5, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(generatedReferralCode || "Pending Assignment", margin + 40, y);
+    y += 7;
+    
+    doc.setFont("helvetica", "bold");
+    doc.text("Payout Method:", margin + 5, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${formData.payoutMethod.charAt(0).toUpperCase() + formData.payoutMethod.slice(1)} - ${formData.payoutHandle}`, margin + 45, y);
+    y += 7;
+    
+    doc.setFont("helvetica", "bold");
+    doc.text("Effective Date:", margin + 5, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(currentDate, margin + 40, y);
+    y += 20;
+
+    // Section 1 - Appointment
+    addText("1. APPOINTMENT", 11, true, 6);
+    y += 3;
+    addText("Company hereby appoints Partner as a non-exclusive Strategic Partner for the purpose of referring potential customers to Company's verification services. Partner accepts such appointment subject to the terms and conditions set forth herein.", 10, false, 5);
+    y += 8;
+
+    // Section 2 - Commission
+    addText("2. COMMISSION STRUCTURE", 11, true, 6);
+    y += 3;
+    addText("Partner shall receive the following commissions on qualified referrals:", 10, false, 5);
+    y += 3;
+    addText("• 20% commission on first-year subscription revenue from referred customers", 10, false, 5);
+    addText("• 10% commission on renewal revenue for years 2-3", 10, false, 5);
+    addText("• Commissions are paid monthly for the preceding calendar month", 10, false, 5);
+    y += 8;
+
+    // Section 3 - Payment
+    addText("3. PAYMENT TERMS", 11, true, 6);
+    y += 3;
+    addText(`Commissions shall be paid via ${formData.payoutMethod.charAt(0).toUpperCase() + formData.payoutMethod.slice(1)} to the account designated by Partner (${formData.payoutHandle}). Minimum payout threshold is $50 USD. Payments are processed on or before the 15th of each month.`, 10, false, 5);
+    y += 8;
+
+    // Section 4 - Term
+    addText("4. TERM AND TERMINATION", 11, true, 6);
+    y += 3;
+    addText("This Agreement shall commence on the Effective Date and continue for a period of one (1) year, automatically renewing for successive one-year terms unless terminated by either party with thirty (30) days written notice.", 10, false, 5);
+    y += 8;
+
+    // Section 5 - IP Assignment
+    addText("5. INTELLECTUAL PROPERTY", 11, true, 6);
+    y += 3;
+    addText("Partner acknowledges that all intellectual property, trade secrets, and proprietary information of Company remain the exclusive property of Company. Partner shall not use Company's trademarks except as expressly authorized in writing.", 10, false, 5);
+    y += 8;
+
+    // Section 6 - Confidentiality
+    addText("6. CONFIDENTIALITY", 11, true, 6);
+    y += 3;
+    addText("Partner agrees to maintain strict confidentiality of all non-public information, including but not limited to: customer lists, pricing strategies, technology implementations, and business operations. This obligation survives termination of this Agreement.", 10, false, 5);
+    y += 15;
+
+    // Signature Block
+    addText("IN WITNESS WHEREOF, the parties have executed this Agreement as of the Effective Date.", 10, false, 5);
+    y += 15;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("COMPANY:", margin, y);
+    y += 7;
+    doc.setFont("helvetica", "normal");
+    doc.text("Giant Ventures, LLC", margin, y);
+    y += 5;
+    doc.text("By: Steven Grillo, Managing Member", margin, y);
+    y += 15;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("PARTNER:", margin, y);
+    y += 7;
+    doc.setFont("helvetica", "normal");
+    doc.text(formData.fullName, margin, y);
+    y += 5;
+    doc.text("Signature: ________________________", margin, y);
+    y += 5;
+    doc.text(`Date: ${currentDate}`, margin, y);
+
+    // Save PDF
+    const fileName = `CleanCheck_Partner_Agreement_${formData.fullName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(fileName);
+    toast.success("Contract downloaded successfully!");
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -127,9 +272,11 @@ const PartnerApplication = () => {
           }
 
           console.log("Application submitted via edge function:", result);
-          toast.success("Application submitted! An admin will review your application and contact you.");
-          navigate("/");
-          return;
+          if (result?.referralCode) {
+            setGeneratedReferralCode(result.referralCode);
+          }
+          setSubmissionSuccess(true);
+          toast.success("Application submitted! Generate your contract below.");
         }
         
         if (signUpError) throw signUpError;
@@ -187,8 +334,9 @@ const PartnerApplication = () => {
           // Don't fail the submission if notification fails
         }
 
-        toast.success("Application submitted! Check your email to set your password.");
-        navigate("/sales-portal");
+        setGeneratedReferralCode(referralCode);
+        setSubmissionSuccess(true);
+        toast.success("Application submitted! Generate your contract below.");
       } else {
         // User is logged in, just create affiliate record
         setUploadProgress({ front: true, back: false });
@@ -237,8 +385,9 @@ const PartnerApplication = () => {
           // Don't fail the submission if notification fails
         }
 
-        toast.success("Application submitted successfully!");
-        navigate("/sales-portal");
+        setGeneratedReferralCode(referralCode);
+        setSubmissionSuccess(true);
+        toast.success("Application submitted! Generate your contract below.");
       }
     } catch (error: any) {
       console.error("Application error:", error);
@@ -287,6 +436,74 @@ const PartnerApplication = () => {
       </header>
 
       <main className="relative container mx-auto px-4 py-12 max-w-2xl">
+        {submissionSuccess ? (
+          // Success State with Contract Generation
+          <div className="text-center">
+            <div className="mb-8">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/20 border-2 border-green-500 mb-6">
+                <CheckCircle2 className="h-10 w-10 text-green-400" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                Application Submitted!
+              </h1>
+              <p className="text-slate-400 max-w-lg mx-auto mb-2">
+                Your partner application has been received. An admin will review and approve your account shortly.
+              </p>
+              {generatedReferralCode && (
+                <p className="text-amber-400 font-mono text-lg mt-4">
+                  Your Referral Code: <span className="font-bold">{generatedReferralCode}</span>
+                </p>
+              )}
+            </div>
+
+            <Card className="bg-slate-900/80 border-green-500/30 shadow-2xl shadow-green-500/10 mb-6">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center justify-center gap-2">
+                  <FileText className="h-5 w-5 text-amber-400" />
+                  Generate Partner Contract
+                </CardTitle>
+                <CardDescription className="text-slate-400">
+                  Download your official partner agreement with all terms and conditions
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-700 text-left">
+                  <p className="text-sm text-slate-300 mb-2"><strong>Partner:</strong> {formData.fullName}</p>
+                  <p className="text-sm text-slate-300 mb-2"><strong>Email:</strong> {formData.email}</p>
+                  <p className="text-sm text-slate-300 mb-2"><strong>Payout:</strong> {formData.payoutMethod} - {formData.payoutHandle}</p>
+                  <p className="text-sm text-slate-300"><strong>Code:</strong> {generatedReferralCode || "Pending"}</p>
+                </div>
+                
+                <Button
+                  onClick={generatePartnerContract}
+                  className="w-full py-6 text-lg font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/25"
+                >
+                  <Download className="mr-2 h-5 w-5" />
+                  Download Partner Agreement (PDF)
+                </Button>
+              </CardContent>
+            </Card>
+
+            <div className="flex gap-4 justify-center">
+              <Button
+                variant="outline"
+                onClick={() => navigate("/sales-portal")}
+                className="border-slate-600 bg-slate-800 text-white hover:bg-slate-700"
+              >
+                Go to Sales Portal
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate("/")}
+                className="border-slate-600 bg-slate-800 text-white hover:bg-slate-700"
+              >
+                Return Home
+              </Button>
+            </div>
+          </div>
+        ) : (
+          // Application Form
+          <>
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-2 mb-6">
             <CheckCircle2 className="h-4 w-4 text-amber-400" />
@@ -482,6 +699,8 @@ const PartnerApplication = () => {
             </form>
           </CardContent>
         </Card>
+          </>
+        )}
       </main>
     </div>
   );

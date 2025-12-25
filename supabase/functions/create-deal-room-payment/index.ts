@@ -12,7 +12,19 @@ serve(async (req) => {
   }
 
   try {
-    const { name, email, amount, tier } = await req.json();
+    const { 
+      name, 
+      email, 
+      amount, 
+      tier,
+      // Investor profile data
+      accreditedInvestor,
+      investmentExperience,
+      investmentObjective,
+      riskTolerance,
+      paymentMethod,
+      referralCode,
+    } = await req.json();
 
     if (!name || !email || !amount) {
       throw new Error("Name, email, and amount are required");
@@ -32,10 +44,23 @@ serve(async (req) => {
       const customer = await stripe.customers.create({
         email,
         name,
-        metadata: { source: "deal_room", tier: tier || "custom" },
+        metadata: { source: "partner_investment", tier: tier || "custom" },
       });
       customerId = customer.id;
     }
+
+    // Encode investor data for success URL
+    const investorData = encodeURIComponent(JSON.stringify({
+      investorName: name,
+      investorEmail: email,
+      investmentAmount: amount.toString(),
+      accreditedStatus: accreditedInvestor || '',
+      investmentExperience: investmentExperience || '',
+      investmentObjective: investmentObjective || '',
+      riskTolerance: riskTolerance || '',
+      paymentMethod: paymentMethod || 'credit_card',
+      referralCode: referralCode || '',
+    }));
 
     // Create checkout session with custom amount
     const session = await stripe.checkout.sessions.create({
@@ -45,8 +70,8 @@ serve(async (req) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: `Deal Room Investment - ${tier?.toUpperCase() || "CUSTOM"}`,
-              description: `Strategic investment allocation for Operation San Francisco`,
+              name: `Strategic Partner Investment - ${tier?.toUpperCase() || "CUSTOM"}`,
+              description: `Strategic Partner investment in Giant Ventures LLC`,
             },
             unit_amount: Math.round(amount * 100), // Convert to cents
           },
@@ -54,12 +79,16 @@ serve(async (req) => {
         },
       ],
       mode: "payment",
-      success_url: `${req.headers.get("origin")}/deal-room?success=true&amount=${amount}&name=${encodeURIComponent(name)}`,
-      cancel_url: `${req.headers.get("origin")}/deal-room?canceled=true`,
+      success_url: `${req.headers.get("origin")}/partner-application?payment_success=true&investor_data=${investorData}`,
+      cancel_url: `${req.headers.get("origin")}/partner-application?payment_canceled=true`,
       metadata: {
-        source: "deal_room",
+        source: "partner_investment",
         investor_name: name,
+        investor_email: email,
         tier: tier || "custom",
+        accredited_status: accreditedInvestor || '',
+        investment_experience: investmentExperience || '',
+        referral_code: referralCode || '',
       },
     });
 
@@ -69,7 +98,7 @@ serve(async (req) => {
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error("Deal room payment error:", errorMessage);
+    console.error("Partner investment payment error:", errorMessage);
     return new Response(JSON.stringify({ error: errorMessage }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,

@@ -12,6 +12,7 @@ import { AccessGate } from "./components/AccessGate";
 import Footer from "./components/Footer";
 import SynthButton from "@/components/SynthButton";
 import ResponsiveHeader from "@/components/ResponsiveHeader";
+import ModeSwitcherFAB from "@/components/ModeSwitcherFAB";
 // SiteGate removed as global wrapper - use AccessGate for protected routes instead
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -150,6 +151,7 @@ const App = () => (
             <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
               <ResponsiveHeader />
               <SynthButton variant="fab" />
+              <ModeSwitcherFAB />
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   {/* PUBLIC ROUTES - No SiteGate protection */}

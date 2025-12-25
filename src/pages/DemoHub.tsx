@@ -15,9 +15,9 @@ const DemoHub = () => {
       subtitle: "Ask a Question",
       icon: MessageSquare,
       bullets: [
-        "Submit a prompt to 7 AI models in parallel",
-        "Watch real-time voting and debate",
-        "See Judge synthesize final answer",
+        "Submit a prompt to multiple AI systems",
+        "Watch step-by-step review process",
+        "See final synthesis with integrity proof",
       ],
       whoFor: "Everyone — try multi-model consensus",
       path: "/demos/senate-qa",
@@ -27,7 +27,7 @@ const DemoHub = () => {
       subtitle: "Live Metrics",
       icon: BarChart3,
       bullets: [
-        "Real-time seat health + latency charts",
+        "System health and latency overview",
         "Historical reliability metrics",
         "Audit log access and trace viewing",
       ],
@@ -48,12 +48,12 @@ const DemoHub = () => {
     },
     {
       title: "Demo D — Audit Proof Verifier",
-      subtitle: "Detect Tampering",
+      subtitle: "Verify Integrity",
       icon: FileCheck,
       bullets: [
         "Verify a token's authenticity",
-        "Check signature and timestamp integrity",
-        "Detect any modifications or forgery",
+        "Check hash and timestamp integrity",
+        "Detect any modifications",
       ],
       whoFor: "Security auditors, compliance teams",
       path: "/demos/audit-verifier",

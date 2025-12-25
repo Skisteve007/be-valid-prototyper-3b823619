@@ -1,19 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
-import { Shield, ArrowRight, CheckCircle, Database, Lock, QrCode, Sparkles, AlertTriangle } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Shield, ArrowRight, CheckCircle, Database, Lock, QrCode, Sparkles, AlertTriangle, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
 import DemoBanner from "@/components/demos/DemoBanner";
 import DemoShareButton from "@/components/demos/DemoShareButton";
 import FlowDiagram from "@/components/demos/FlowDiagram";
 
 const DemoEnterpriseSandbox = () => {
   const [step, setStep] = useState(1);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const navigate = useNavigate();
   const [verificationResult, setVerificationResult] = useState<null | {
     verified: boolean;
     token: string;
@@ -21,7 +24,27 @@ const DemoEnterpriseSandbox = () => {
     hash: string;
   }>(null);
 
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setIsLoggedIn(!!user);
+    };
+    checkAuth();
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      setIsLoggedIn(!!session?.user);
+    });
+    
+    return () => subscription.unsubscribe();
+  }, []);
+
   const handleSimulateVerification = () => {
+    // Require login to run
+    if (!isLoggedIn) {
+      navigate(`/auth?mode=login&redirect=${encodeURIComponent('/demos/enterprise-sandbox')}`);
+      return;
+    }
+
     // Simulate the verification process
     setTimeout(() => {
       setVerificationResult({
@@ -209,8 +232,17 @@ const DemoEnterpriseSandbox = () => {
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
                   <Button onClick={handleSimulateVerification} className="flex-1">
-                    Run Verification
-                    <ArrowRight className="h-4 w-4 ml-2" />
+                    {!isLoggedIn ? (
+                      <>
+                        <LogIn className="h-4 w-4 mr-2" />
+                        Sign in to Run
+                      </>
+                    ) : (
+                      <>
+                        Run Verification
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </>
+                    )}
                   </Button>
                 </div>
               </CardContent>

@@ -27,9 +27,9 @@ const DemoRouter = () => {
     {
       icon: MessageSquare,
       title: "B2C Quick",
-      subtitle: "Ask a question (Senate Q&A)",
+      subtitle: "Ask a question (Multi-Model Review)",
       bestFor: "End users, curious visitors, quick demos",
-      bullets: ["Submit any question", "Watch 7 AI models debate"],
+      bullets: ["Submit any question", "See step-by-step review process"],
       path: "/demos/senate-qa",
     },
     {
@@ -51,9 +51,9 @@ const DemoRouter = () => {
     {
       icon: FileCheck,
       title: "Security Proof",
-      subtitle: "Audit Proof Verifier (detect tampering)",
+      subtitle: "Audit Proof Verifier (verify integrity)",
       bestFor: "Security auditors, technical due diligence",
-      bullets: ["Verify token authenticity", "Detect modifications"],
+      bullets: ["Verify token authenticity", "Check hash/timestamp integrity"],
       path: "/demos/audit-verifier",
     },
   ];

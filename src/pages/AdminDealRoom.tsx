@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock, ExternalLink, FileDown, Pin, Lightbulb, Info, Target, Calendar, DollarSign, Users } from "lucide-react";
+import { Loader2, FileText, Download, Shield, ArrowLeft, Plus, Trash2, TrendingUp, CheckCircle2, Brain, Lock, ExternalLink, FileDown, Pin, Lightbulb, Info, Target, Calendar, DollarSign, Users, AlertTriangle } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThinkTankManager from "@/components/admin/ThinkTankManager";
 import { jsPDF } from "jspdf";
@@ -57,6 +58,7 @@ const AdminDealRoom = () => {
   const [investmentAmount, setInvestmentAmount] = useState("");
   const [selectedTranche, setSelectedTranche] = useState<TrancheConfig>(TRANCHE_0);
   const [isTranche2ModalOpen, setIsTranche2ModalOpen] = useState(false);
+  const [accreditedConfirmed, setAccreditedConfirmed] = useState(false);
 
   // Derived values from selected tranche (read-only in form)
   const valuationCap = selectedTranche.valuationCapUsd.toString();
@@ -325,6 +327,25 @@ const AdminDealRoom = () => {
       doc.setFont("helvetica", "normal");
       doc.text(`${maturityDateStr} (the "Maturity Date")`, margin + 36, y);
       y += 12;
+
+      // WARNING #1 - LLC / C-Corp conversion risk
+      doc.setFontSize(8);
+      doc.setFont("helvetica", "bolditalic");
+      const llcWarning = "Important: The issuing entity on this instrument is Giant Ventures, LLC (Texas) d/b/a 'Valid'. If we later convert to a Delaware C-Corp or restructure the equity, conversion mechanics may require additional documentation. Investors should review the issuer entity and capitalization assumptions.";
+      const llcWarningLines = doc.splitTextToSize(llcWarning, contentWidth);
+      if (y + (llcWarningLines.length * 3.5) > 275) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(llcWarningLines, margin, y);
+      y += llcWarningLines.length * 3.5 + 4;
+
+      // WARNING #2 - Accredited investor reminder
+      const accreditedWarning = "Important: This offering is intended only for accredited investors. Do not proceed unless you qualify as an accredited investor under Rule 501 of Regulation D. This investment is speculative and you may lose all of your investment.";
+      const accreditedWarningLines = doc.splitTextToSize(accreditedWarning, contentWidth);
+      doc.text(accreditedWarningLines, margin, y);
+      y += accreditedWarningLines.length * 3.5 + 6;
+      doc.setFont("helvetica", "normal");
 
       // Principal paragraph
       addText(`FOR VALUE RECEIVED, the Company promises to pay to the Holder or its permitted assigns the Principal Amount, together with accrued and unpaid interest thereon, if any, on the terms set forth below.`);
@@ -818,11 +839,47 @@ const AdminDealRoom = () => {
                 </div>
               </div>
 
+              {/* Warning #1 - LLC / C-Corp Conversion Risk */}
+              <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-amber-200/90 leading-relaxed">
+                    <span className="font-bold">Important:</span> The issuing entity on this instrument is Giant Ventures, LLC (Texas) d/b/a "Valid". If we later convert to a Delaware C-Corp or restructure the equity, conversion mechanics may require additional documentation. Investors should review the issuer entity and capitalization assumptions.
+                  </p>
+                </div>
+              </div>
+
+              {/* Warning #2 - Accredited Investor Reminder */}
+              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-red-200/90 leading-relaxed">
+                    <span className="font-bold">Important:</span> This offering is intended only for accredited investors. Do not proceed unless you qualify as an accredited investor under Rule 501 of Regulation D. This investment is speculative and you may lose all of your investment.
+                  </p>
+                </div>
+              </div>
+
+              {/* Accredited Investor Checkbox */}
+              <div className="flex items-start gap-3 p-3 bg-white/5 rounded-lg border border-white/10">
+                <Checkbox 
+                  id="accredited-confirm"
+                  checked={accreditedConfirmed}
+                  onCheckedChange={(checked) => setAccreditedConfirmed(checked === true)}
+                  className="mt-0.5 border-cyan-500 data-[state=checked]:bg-cyan-500 data-[state=checked]:border-cyan-500"
+                />
+                <Label 
+                  htmlFor="accredited-confirm" 
+                  className="text-sm text-gray-300 cursor-pointer leading-relaxed"
+                >
+                  I confirm I am an accredited investor and understand the risks.
+                </Label>
+              </div>
+
               {/* Generate Button */}
               <Button
                 onClick={generateConvertibleNotePDF}
-                disabled={generating || !investorName.trim() || !valuationCap || parseFloat(valuationCap) <= 0}
-                className="w-full h-14 text-lg font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-[0_0_30px_rgba(0,240,255,0.3)]"
+                disabled={generating || !investorName.trim() || !valuationCap || parseFloat(valuationCap) <= 0 || !accreditedConfirmed}
+                className="w-full h-14 text-lg font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-[0_0_30px_rgba(0,240,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {generating ? (
                   <>

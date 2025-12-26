@@ -146,3 +146,6 @@ verify_jwt = false
 
 [functions.synth-audit-verify]
 verify_jwt = false
+
+[functions.verify-qr-token]
+verify_jwt = false

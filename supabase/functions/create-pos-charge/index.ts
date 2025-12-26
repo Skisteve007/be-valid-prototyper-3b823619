@@ -39,10 +39,17 @@ serve(async (req) => {
       );
     }
 
+    if (amountCents <= 0) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "Amount must be greater than 0" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
+    }
+
     // 1) Look up profile by member_id
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
-      .select("id, member_id, full_name")
+      .select("id, user_id, member_id, full_name")
       .eq("member_id", memberId)
       .maybeSingle();
 
@@ -62,7 +69,86 @@ serve(async (req) => {
       );
     }
 
-    // 2) Load or create venue_billing_config
+    // 2) Verify staff authorization
+    const { data: venueOp } = await supabase
+      .from("venue_operators")
+      .select("id")
+      .eq("user_id", staffUserId)
+      .eq("venue_id", venueId)
+      .maybeSingle();
+
+    const { data: staffShift } = await supabase
+      .from("staff_shifts")
+      .select("id")
+      .eq("staff_user_id", staffUserId)
+      .eq("venue_id", venueId)
+      .eq("is_active", true)
+      .maybeSingle();
+
+    const { data: adminRole } = await supabase
+      .from("user_roles")
+      .select("id")
+      .eq("user_id", staffUserId)
+      .eq("role", "administrator")
+      .maybeSingle();
+
+    if (!venueOp && !staffShift && !adminRole) {
+      console.log("[create-pos-charge] Access denied for staff:", staffUserId);
+      return new Response(
+        JSON.stringify({ ok: false, error: "Access denied — not authorized for this venue" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 403 }
+      );
+    }
+
+    // 3) Get or create wallet for customer
+    let { data: wallet, error: walletError } = await supabase
+      .from("user_wallets")
+      .select("*")
+      .eq("user_id", profile.user_id)
+      .maybeSingle();
+
+    if (walletError && walletError.code !== "PGRST116") {
+      console.error("[create-pos-charge] Wallet lookup error:", walletError);
+      return new Response(
+        JSON.stringify({ ok: false, error: "Database error looking up wallet" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
+    }
+
+    // Create wallet if doesn't exist
+    if (!wallet) {
+      const { data: newWallet, error: createError } = await supabase
+        .from("user_wallets")
+        .insert({ user_id: profile.user_id, balance: 0 })
+        .select()
+        .single();
+
+      if (createError) {
+        console.error("[create-pos-charge] Create wallet error:", createError);
+        return new Response(
+          JSON.stringify({ ok: false, error: "Failed to create wallet" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+        );
+      }
+      wallet = newWallet;
+    }
+
+    // 4) Check wallet balance (balance is in dollars, amountCents is in cents)
+    const amountDollars = amountCents / 100;
+    const currentBalance = Number(wallet.balance) || 0;
+
+    if (currentBalance < amountDollars) {
+      console.log("[create-pos-charge] Insufficient funds:", { currentBalance, amountDollars });
+      return new Response(
+        JSON.stringify({ 
+          ok: false, 
+          error: `Insufficient wallet balance. Have $${currentBalance.toFixed(2)}, need $${amountDollars.toFixed(2)}` 
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
+    }
+
+    // 5) Load or create venue_billing_config
     let { data: billingConfig, error: configError } = await supabase
       .from("venue_billing_config")
       .select("*")
@@ -100,7 +186,7 @@ serve(async (req) => {
       billingConfig = newConfig;
     }
 
-    // 3) Compute platform fee
+    // 6) Compute platform fee
     let platformFeeCents = billingConfig.per_scan_fee_cents || 50;
     let usedFreeCredit = false;
     let freeCreditsRemaining = billingConfig.free_scan_credits_remaining || 0;
@@ -121,7 +207,7 @@ serve(async (req) => {
       }
     }
 
-    // 4) Calculate venue net (never negative)
+    // 7) Calculate venue net (never negative)
     if (amountCents < platformFeeCents) {
       return new Response(
         JSON.stringify({ ok: false, error: `Charge amount ($${(amountCents / 100).toFixed(2)}) is less than platform fee ($${(platformFeeCents / 100).toFixed(2)})` }),
@@ -131,7 +217,44 @@ serve(async (req) => {
 
     const venueNetCents = amountCents - platformFeeCents;
 
-    // 5) Insert pos_charges row
+    // 8) DEBIT WALLET (atomic operation)
+    const newBalanceDollars = currentBalance - amountDollars;
+    
+    const { error: debitError } = await supabase
+      .from("user_wallets")
+      .update({ 
+        balance: newBalanceDollars,
+        updated_at: new Date().toISOString()
+      })
+      .eq("id", wallet.id)
+      .eq("balance", currentBalance); // Optimistic lock
+
+    if (debitError) {
+      console.error("[create-pos-charge] Debit error:", debitError);
+      return new Response(
+        JSON.stringify({ ok: false, error: "Failed to debit wallet — please retry" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
+    }
+
+    // 9) Record wallet transaction
+    const { error: txError } = await supabase
+      .from("wallet_transactions")
+      .insert({
+        user_id: profile.user_id,
+        transaction_type: "pos_charge",
+        amount: -amountDollars, // Negative for debit
+        balance_after: newBalanceDollars,
+        description: `${chargeType} charge at venue`,
+        status: "completed",
+      });
+
+    if (txError) {
+      console.error("[create-pos-charge] Wallet tx log error:", txError);
+      // Non-fatal, continue
+    }
+
+    // 10) Insert pos_charges row
     const { data: charge, error: chargeError } = await supabase
       .from("pos_charges")
       .insert({
@@ -150,15 +273,21 @@ serve(async (req) => {
 
     if (chargeError) {
       console.error("[create-pos-charge] Insert charge error:", chargeError);
+      // Attempt to refund the wallet debit
+      await supabase
+        .from("user_wallets")
+        .update({ balance: currentBalance })
+        .eq("id", wallet.id);
+      
       return new Response(
-        JSON.stringify({ ok: false, error: "Failed to record charge" }),
+        JSON.stringify({ ok: false, error: "Failed to record charge — wallet refunded" }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
       );
     }
 
-    console.log("[create-pos-charge] Charge created:", charge.id);
+    console.log("[create-pos-charge] Charge created:", charge.id, "New balance:", newBalanceDollars);
 
-    // 6) Return success
+    // 11) Return success
     return new Response(
       JSON.stringify({
         ok: true,
@@ -174,6 +303,10 @@ serve(async (req) => {
           venue_net_cents: venueNetCents,
           used_free_credit: usedFreeCredit,
           free_scan_credits_remaining: freeCreditsRemaining,
+        },
+        wallet: {
+          previous_balance_cents: Math.round(currentBalance * 100),
+          new_balance_cents: Math.round(newBalanceDollars * 100),
         },
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }

@@ -27,6 +27,16 @@ interface Transaction {
   status: "success" | "failed" | "pending";
   platformFee?: number;
   usedFreeCredit?: boolean;
+  venueNet?: number;
+}
+
+interface ChargeResult {
+  previousBalanceCents: number;
+  newBalanceCents: number;
+  platformFeeCents: number;
+  venueNetCents: number;
+  usedFreeCredit: boolean;
+  freeCreditsRemaining: number;
 }
 
 const StaffPOS = () => {
@@ -41,10 +51,13 @@ const StaffPOS = () => {
   
   // Current guest state
   const [currentMemberId, setCurrentMemberId] = useState<string | null>(null);
+  const [currentGuestName, setCurrentGuestName] = useState<string | null>(null);
+  const [currentGuestBalance, setCurrentGuestBalance] = useState<number | null>(null);
   const [memberInputOpen, setMemberInputOpen] = useState(false);
   const [memberInputValue, setMemberInputValue] = useState("");
   const [pendingChargeType, setPendingChargeType] = useState<{ type: string; amount: number } | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [lastChargeResult, setLastChargeResult] = useState<ChargeResult | null>(null);
 
   useEffect(() => {
     checkAccessAndLoad();
@@ -167,6 +180,7 @@ const StaffPOS = () => {
       if (error) {
         console.error("Charge error:", error);
         toast.error(`Charge failed: ${error.message}`);
+        setLastScanResult("failed");
         return false;
       }
 
@@ -175,6 +189,26 @@ const StaffPOS = () => {
         setLastScanResult("failed");
         return false;
       }
+
+      // Update guest balance from response
+      if (data.wallet) {
+        setCurrentGuestBalance(data.wallet.new_balance_cents / 100);
+      }
+
+      // Update guest name if available
+      if (data.charge?.memberName) {
+        setCurrentGuestName(data.charge.memberName);
+      }
+
+      // Store last charge result for breakdown display
+      setLastChargeResult({
+        previousBalanceCents: data.wallet?.previous_balance_cents || 0,
+        newBalanceCents: data.wallet?.new_balance_cents || 0,
+        platformFeeCents: data.split.platform_fee_cents,
+        venueNetCents: data.split.venue_net_cents,
+        usedFreeCredit: data.split.used_free_credit,
+        freeCreditsRemaining: data.split.free_scan_credits_remaining,
+      });
 
       // Success - add to transaction log
       const newTx: Transaction = {
@@ -185,15 +219,20 @@ const StaffPOS = () => {
         status: "success",
         platformFee: data.split.platform_fee_cents / 100,
         usedFreeCredit: data.split.used_free_credit,
+        venueNet: data.split.venue_net_cents / 100,
       };
       setTransactions((prev) => [newTx, ...prev.slice(0, 19)]);
 
-      // Show success toast
+      // Show success toast with wallet info
       const feeMessage = data.split.used_free_credit
         ? "FREE credit used"
         : `Platform fee $${(data.split.platform_fee_cents / 100).toFixed(2)}`;
       
-      toast.success(`APPROVED — ${chargeType} $${(amountCents / 100).toFixed(2)} (${feeMessage})`);
+      const balanceMessage = data.wallet 
+        ? ` | Balance: $${(data.wallet.new_balance_cents / 100).toFixed(2)}`
+        : "";
+      
+      toast.success(`APPROVED — ${chargeType} $${(amountCents / 100).toFixed(2)} (${feeMessage})${balanceMessage}`);
       setLastScanResult("success");
 
       return true;
@@ -257,7 +296,10 @@ const StaffPOS = () => {
 
   const clearCurrentGuest = () => {
     setCurrentMemberId(null);
+    setCurrentGuestName(null);
+    setCurrentGuestBalance(null);
     setLastScanResult(null);
+    setLastChargeResult(null);
     toast.info("Guest cleared");
   };
 
@@ -293,22 +335,40 @@ const StaffPOS = () => {
           {/* Current Guest Indicator */}
           {currentMemberId && (
             <Card className="bg-slate-800 border-cyan-500/50">
-              <CardContent className="p-3 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4 text-cyan-400" />
-                  <span className="text-sm text-slate-300">Current Guest:</span>
-                  <Badge variant="outline" className="border-cyan-500 text-cyan-400">
-                    {currentMemberId}
-                  </Badge>
+              <CardContent className="p-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <User className="w-4 h-4 text-cyan-400" />
+                    <span className="text-sm text-slate-300">Guest:</span>
+                    <Badge variant="outline" className="border-cyan-500 text-cyan-400">
+                      {currentGuestName || currentMemberId}
+                    </Badge>
+                    {currentGuestBalance !== null && (
+                      <Badge className="bg-green-600 text-white">
+                        Balance: ${currentGuestBalance.toFixed(2)}
+                      </Badge>
+                    )}
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearCurrentGuest}
+                    className="text-slate-400 hover:text-white"
+                  >
+                    <XCircle className="w-4 h-4" />
+                  </Button>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={clearCurrentGuest}
-                  className="text-slate-400 hover:text-white"
-                >
-                  <XCircle className="w-4 h-4" />
-                </Button>
+                {/* Last charge breakdown */}
+                {lastChargeResult && (
+                  <div className="mt-2 pt-2 border-t border-slate-700 text-xs text-slate-400 grid grid-cols-2 gap-1">
+                    <span>Charged:</span>
+                    <span className="text-right text-green-400">${((lastChargeResult.previousBalanceCents - lastChargeResult.newBalanceCents) / 100).toFixed(2)}</span>
+                    <span>Platform Fee:</span>
+                    <span className="text-right">{lastChargeResult.usedFreeCredit ? "FREE" : `$${(lastChargeResult.platformFeeCents / 100).toFixed(2)}`}</span>
+                    <span>Venue Net:</span>
+                    <span className="text-right">${(lastChargeResult.venueNetCents / 100).toFixed(2)}</span>
+                  </div>
+                )}
               </CardContent>
             </Card>
           )}

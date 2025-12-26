@@ -1572,6 +1572,63 @@ export type Database = {
         }
         Relationships: []
       }
+      pos_charges: {
+        Row: {
+          amount_cents: number
+          charge_type: string
+          created_at: string
+          id: string
+          member_id: string
+          platform_fee_cents: number
+          profile_id: string
+          staff_user_id: string
+          used_free_credit: boolean
+          venue_id: string
+          venue_net_cents: number
+        }
+        Insert: {
+          amount_cents: number
+          charge_type: string
+          created_at?: string
+          id?: string
+          member_id: string
+          platform_fee_cents: number
+          profile_id: string
+          staff_user_id: string
+          used_free_credit?: boolean
+          venue_id: string
+          venue_net_cents: number
+        }
+        Update: {
+          amount_cents?: number
+          charge_type?: string
+          created_at?: string
+          id?: string
+          member_id?: string
+          platform_fee_cents?: number
+          profile_id?: string
+          staff_user_id?: string
+          used_free_credit?: boolean
+          venue_id?: string
+          venue_net_cents?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pos_charges_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_charges_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pos_transactions: {
         Row: {
           affiliate_id: string | null
@@ -4282,6 +4339,38 @@ export type Database = {
             foreignKeyName: "valid_transactions_venue_id_fkey"
             columns: ["venue_id"]
             isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      venue_billing_config: {
+        Row: {
+          created_at: string
+          free_scan_credits_remaining: number
+          per_scan_fee_cents: number
+          venue_id: string
+          venue_share_bps: number
+        }
+        Insert: {
+          created_at?: string
+          free_scan_credits_remaining?: number
+          per_scan_fee_cents?: number
+          venue_id: string
+          venue_share_bps?: number
+        }
+        Update: {
+          created_at?: string
+          free_scan_credits_remaining?: number
+          per_scan_fee_cents?: number
+          venue_id?: string
+          venue_share_bps?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venue_billing_config_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: true
             referencedRelation: "partner_venues"
             referencedColumns: ["id"]
           },

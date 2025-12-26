@@ -149,3 +149,6 @@ verify_jwt = false
 
 [functions.verify-qr-token]
 verify_jwt = false
+
+[functions.create-pos-charge]
+verify_jwt = false

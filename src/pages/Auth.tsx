@@ -27,6 +27,14 @@ const Auth = () => {
   const searchParams = new URLSearchParams(location.search);
   const mode = searchParams.get("mode") || "signup";
   const redirectTo = searchParams.get("redirect") || "/dashboard";
+
+  // Helper to navigate and scroll to top
+  const navigateToTop = (path: string) => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    navigate(path);
+    // Also schedule a scroll after navigation completes
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
+  };
   const discountCode = searchParams.get("discount") || localStorage.getItem('discountCode') || "";
   const [loading, setLoading] = useState(false);
   const [signupFirstName, setSignupFirstName] = useState("");
@@ -104,7 +112,7 @@ const Auth = () => {
         
         if (roleData) {
           // Admin - let them in regardless of email verification
-          navigate(redirectTo);
+          navigateToTop(redirectTo);
           return;
         }
         
@@ -117,7 +125,7 @@ const Auth = () => {
         
         if (profile?.email_verified) {
           // Redirect to saved destination or member dashboard
-          navigate(redirectTo);
+          navigateToTop(redirectTo);
         } else if (profile) {
           // User is logged in but email not verified - sign them out
           await supabase.auth.signOut();
@@ -172,7 +180,7 @@ const Auth = () => {
           if (profile?.email_verified) {
             saveUserDataLocally(session.user.email || result.email, profile.full_name || "", "biometric");
             toast.success("Welcome back!");
-            navigate(redirectTo);
+            navigateToTop(redirectTo);
             return;
           }
         }
@@ -260,7 +268,7 @@ const Auth = () => {
     
     setShowBiometricPrompt(false);
     setPendingBiometricSetup(null);
-    navigate(redirectTo);
+    navigateToTop(redirectTo);
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -302,7 +310,7 @@ const Auth = () => {
           
           saveUserDataLocally(data.user.email || loginEmail, profile?.full_name || "", "email");
           toast.success("Welcome back, Admin!");
-          navigate(redirectTo);
+          navigateToTop(redirectTo);
           return;
         }
         
@@ -355,7 +363,7 @@ const Auth = () => {
       }
 
       toast.success("Welcome back!");
-      navigate(redirectTo);
+      navigateToTop(redirectTo);
     } catch (error: any) {
       setLoading(false);
       toast.error(error.message || "Login failed");
@@ -562,7 +570,7 @@ const Auth = () => {
                     onClick={() => {
                       setShowBiometricPrompt(false);
                       setPendingBiometricSetup(null);
-                      navigate(redirectTo);
+                      navigateToTop(redirectTo);
                     }}
                     className="w-full text-muted-foreground"
                   >
@@ -645,7 +653,7 @@ const Auth = () => {
                           
                           if (roleData) {
                             // Admin - let them in
-                            navigate(redirectTo);
+                            navigateToTop(redirectTo);
                             return;
                           }
                           
@@ -656,7 +664,7 @@ const Auth = () => {
                             .single();
                           
                           if (profile?.email_verified) {
-                            navigate(redirectTo);
+                            navigateToTop(redirectTo);
                             return;
                           }
                         }

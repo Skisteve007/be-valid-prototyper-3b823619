@@ -38,10 +38,10 @@ const FlowDiagram = ({ variant }: FlowDiagramProps) => {
 
   // Conduit model diagram
   const steps = [
-    { icon: Database, label: "Customer Source of Truth (vendor/EHR/KYC)" },
+    { icon: Database, label: "Customer System of Record" },
     { icon: Shield, label: "Valid/SYNTH (govern + verify)" },
-    { icon: CheckCircle, label: "Signed Token" },
-    { icon: QrCode, label: "Ghost QR Share" },
+    { icon: CheckCircle, label: "Time-Limited Verification Token" },
+    { icon: QrCode, label: "Optional Share (no records exposed)" },
   ];
 
   return (

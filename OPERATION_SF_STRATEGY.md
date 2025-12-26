@@ -163,3 +163,86 @@ Date: ______________________
 ---
 
 *Print 20 copies or have ready on iPad for electronic signature.*
+
+---
+
+# 💵 OPERATION SF BUDGET — TARGET: $250,000
+
+## PRE-DEPLOYMENT
+
+| Line Item | Amount | Status |
+|-----------|--------|--------|
+| ~~Patent Provisional Filing~~ | ~~$2,500~~ | ✅ PAID (Steve) |
+| **UI/UX Designer** | **$3,000** | 🔲 Needed |
+| **Full Stack Designer** | **$3,000** | 🔲 Needed |
+| **Builder & Backend Motion Graphics** | **$2,000** | 🔲 Needed |
+| **Security Expert** — Jovianna (Cybersecurity Consultant) | **$5,000** | 🔲 Needed |
+
+> **Security Expert Contact:** Jovianna — [Details TBD]
+
+---
+
+## COMMAND CENTER (St. Regis San Francisco)
+
+| Line Item | Amount | Notes |
+|-----------|--------|-------|
+| **Command Center @ St. Regis** | **$5,000** | War room / meeting base |
+
+---
+
+## OPERATIONS TEAM
+
+| Line Item | Amount | Notes |
+|-----------|--------|-------|
+| **Air Strike Team** | **$4,000** | Field operatives |
+| **J.P. Morgan Conference Tickets** | **$3,500** | Access badges |
+| **Ground Transportation & Logistics** | **$2,000** | Ubers, car service |
+| **Client Engagement & Meetings** | **$3,000** | Dinners, entertainment |
+
+---
+
+## MARKETING & COLLATERAL
+
+| Line Item | Amount | Notes |
+|-----------|--------|-------|
+| **High-Fidelity Demo Production** | **$1,000** | Video / interactive demos |
+| **Pitch Deck & Strategy Books (Printed)** | **$500** | Physical leave-behinds |
+| **Leave-Behind Kits** | **$1,000** | Branded materials |
+
+---
+
+## INFRASTRUCTURE
+
+| Line Item | Amount | Notes |
+|-----------|--------|-------|
+| Cloud / Hosting | $500 | Supabase, Vercel |
+| Domain / SSL | $100 | bevalid.app |
+| Edge Functions | $200 | API calls |
+
+---
+
+## CONTINGENCY & EMERGENCY FUND
+
+| Line Item | Amount | Notes |
+|-----------|--------|-------|
+| **Extended Stay (Steve till Jan 16)** | **$3,000** | Additional lodging |
+| **Remaining Balance → Contingency** | **[AUTO-CALCULATED]** | Emergency buffer |
+
+---
+
+## 📊 BUDGET SUMMARY
+
+| Category | Subtotal |
+|----------|----------|
+| Pre-Deployment | $13,000 |
+| Command Center | $5,000 |
+| Operations Team | $12,500 |
+| Marketing & Collateral | $2,500 |
+| Infrastructure | $800 |
+| **Subtotal (Hard Costs)** | **$33,800** |
+| **Contingency Fund (incl. Extended Stay)** | **$216,200** |
+| **GRAND TOTAL** | **$250,000** |
+
+---
+
+*Last Updated: January 2025*

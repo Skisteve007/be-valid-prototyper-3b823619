@@ -8,15 +8,15 @@ const FlowDiagram = ({ variant }: FlowDiagramProps) => {
   if (variant === "senate") {
     const steps = [
       { icon: MessageSquare, label: "Input" },
-      { icon: Users, label: "Commons (multi-seat)" },
-      { icon: Scale, label: "Secretary (checks/conflicts)" },
-      { icon: CheckCircle, label: "Judge (final)" },
-      { icon: FileCheck, label: "Output + Audit Proof" },
+      { icon: Users, label: "Governance Pipeline" },
+      { icon: Scale, label: "Validation Checks" },
+      { icon: CheckCircle, label: "Arbitration (as needed)" },
+      { icon: FileCheck, label: "Output + Proof Record" },
     ];
 
     return (
       <div className="bg-card/50 border border-border rounded-lg p-4">
-        <p className="text-xs text-muted-foreground font-medium mb-3 text-center">Senate Deliberation Flow</p>
+        <p className="text-xs text-muted-foreground font-medium mb-3 text-center">Multi-Stage Governance Flow (High-Level)</p>
         <div className="flex flex-wrap items-center justify-center gap-2">
           {steps.map((step, i) => (
             <div key={i} className="flex items-center gap-2">

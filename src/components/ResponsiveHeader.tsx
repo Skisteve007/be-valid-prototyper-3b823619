@@ -122,14 +122,16 @@ const ResponsiveHeader = () => {
               Login
             </Link>
 
-            {/* Admin Panel */}
-            <button
-              onClick={handleAdminClick}
-              disabled={checkingAuth}
-              className="px-2.5 sm:px-3 py-1.5 sm:py-2 text-[0.55rem] sm:text-[0.65rem] font-bold tracking-wide uppercase rounded-full border border-teal-300/40 bg-black/20 text-teal-200 hover:bg-black/30 hover:border-teal-200/60 transition-colors disabled:opacity-50 whitespace-nowrap"
-            >
-              {isAdmin ? "Admin Panel" : "Admin"}
-            </button>
+            {/* Admin Panel - only show for admins */}
+            {isAdmin && (
+              <button
+                onClick={handleAdminClick}
+                disabled={checkingAuth}
+                className="px-2.5 sm:px-3 py-1.5 sm:py-2 text-[0.55rem] sm:text-[0.65rem] font-bold tracking-wide uppercase rounded-full border border-teal-300/40 bg-black/20 text-teal-200 hover:bg-black/30 hover:border-teal-200/60 transition-colors disabled:opacity-50 whitespace-nowrap"
+              >
+                Admin Panel
+              </button>
+            )}
           </div>
         </header>
       )}

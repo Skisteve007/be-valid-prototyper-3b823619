@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
 import { Sun, Moon } from 'lucide-react';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 
 const Footer = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [isDark, setIsDark] = useState(true);
+  const { isAdmin } = useIsAdmin();
 
   useEffect(() => {
     // Initialize theme state from DOM
@@ -80,20 +82,27 @@ const Footer = () => {
             <span className="text-white font-bold">|</span>
             <Link to="/demos" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Demos</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/think-tank" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Think Tank</Link>
+            {isAdmin && (
+              <>
+                <span className="text-white font-bold">|</span>
+                <Link to="/think-tank" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Think Tank</Link>
+              </>
+            )}
             <span className="text-white font-bold">•</span>
             <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: {t('footer.ageRequirement')}</span>
           </div>
           
-          {/* Right side - Admin Setup button only */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigate('/admin/setup')}
-              className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] uppercase tracking-wider"
-            >
-              Admin Setup
-            </button>
-          </div>
+          {/* Right side - Admin Setup button only for admins */}
+          {isAdmin && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => navigate('/admin/setup')}
+                className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] uppercase tracking-wider"
+              >
+                Admin Setup
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </footer>

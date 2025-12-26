@@ -20,12 +20,24 @@ import { useNavigate } from "react-router-dom";
 import logo from "@/assets/valid-logo.jpeg";
 
 type ScanResult = {
-  status: "verified" | "not_verified" | "loading" | null;
+  status: "verified" | "not_verified" | "expired" | "loading" | null;
   memberId?: string;
   displayName?: string;
   statusColor?: string;
   profileImage?: string;
   error?: string;
+  badges?: {
+    idv_verified?: boolean;
+    lab_certified?: boolean;
+    status_valid?: boolean;
+  };
+};
+
+type GhostQRPayload = {
+  t: string; // token
+  p: string; // profileId
+  v?: string; // version (e.g., "ghostware")
+  exp?: number; // expiration timestamp
 };
 
 const Scanner = () => {
@@ -98,8 +110,24 @@ const Scanner = () => {
     oscillator.stop(audioContext.currentTime + 0.2);
   };
 
-  // Parse VALID:<memberId> format
-  const parseQRCode = (input: string): string | null => {
+  // Parse Ghost QR JSON format
+  const parseGhostQR = (input: string): GhostQRPayload | null => {
+    const trimmed = input.trim();
+    if (!trimmed.startsWith("{")) return null;
+    
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (parsed.t && parsed.p) {
+        return { t: parsed.t, p: parsed.p, v: parsed.v, exp: parsed.exp };
+      }
+    } catch {
+      return null;
+    }
+    return null;
+  };
+
+  // Parse VALID:<memberId> format (legacy)
+  const parseLegacyQRCode = (input: string): string | null => {
     const trimmed = input.trim();
     
     // Match VALID:<memberId> format
@@ -114,6 +142,62 @@ const Scanner = () => {
     }
     
     return null;
+  };
+
+  // Verify Ghost QR token via edge function
+  const verifyGhostToken = async (payload: GhostQRPayload) => {
+    setScanResult({ status: "loading" });
+    
+    try {
+      console.log("[Scanner] Verifying Ghost QR token for profile:", payload.p);
+      
+      const { data, error } = await supabase.functions.invoke("verify-qr-token", {
+        body: { token: payload.t, profileId: payload.p },
+      });
+
+      if (error) {
+        console.error("[Scanner] Ghost verification error:", error);
+        setScanResult({ status: "not_verified", error: "Verification failed" });
+        playSound("error");
+        return;
+      }
+
+      console.log("[Scanner] Ghost verification result:", data?.result);
+
+      if (data?.result === "ALLOW") {
+        setScanResult({
+          status: "verified",
+          memberId: data.profile?.member_id,
+          displayName: data.profile?.display_name,
+          statusColor: data.badges?.status_color,
+          badges: {
+            idv_verified: data.badges?.idv_verified,
+            lab_certified: data.badges?.lab_certified,
+            status_valid: data.badges?.status_valid,
+          },
+        });
+        playSound("success");
+      } else if (data?.result === "EXPIRED") {
+        setScanResult({
+          status: "expired",
+          error: "Expired — ask guest to refresh code",
+        });
+        playSound("error");
+      } else {
+        setScanResult({
+          status: "not_verified",
+          error: data?.reason || "Invalid code",
+        });
+        playSound("error");
+      }
+    } catch (err) {
+      console.error("[Scanner] Ghost verification error:", err);
+      setScanResult({ status: "not_verified", error: "Connection error" });
+      playSound("error");
+    }
+
+    // Auto-clear after 5 seconds
+    setTimeout(() => setScanResult({ status: null }), 5000);
   };
 
   // Validate member via endpoint
@@ -161,15 +245,25 @@ const Scanner = () => {
     setTimeout(() => setScanResult({ status: null }), 5000);
   };
 
-  // Handle manual entry
+  // Handle manual entry - supports both Ghost QR JSON and legacy format
   const handleManualSubmit = () => {
-    const memberId = parseQRCode(manualInput);
+    // Try Ghost QR JSON first
+    const ghostPayload = parseGhostQR(manualInput);
+    if (ghostPayload) {
+      verifyGhostToken(ghostPayload);
+      setManualInput("");
+      setShowManualEntry(false);
+      return;
+    }
+
+    // Fallback to legacy VALID:CC-XXXXXXXX format
+    const memberId = parseLegacyQRCode(manualInput);
     if (memberId) {
       validateMember(memberId);
       setManualInput("");
       setShowManualEntry(false);
     } else {
-      toast.error("Invalid format. Use VALID:<MemberID> or CC-XXXXXXXX");
+      toast.error("Invalid format. Paste Ghost QR JSON or use VALID:CC-XXXXXXXX");
     }
   };
 
@@ -239,6 +333,14 @@ const Scanner = () => {
               )}
             </CardContent>
           </Card>
+        ) : scanResult.status === "expired" ? (
+          <Card className="w-full max-w-md bg-amber-500/20 border-4 border-amber-500 animate-in zoom-in-95">
+            <CardContent className="p-8 text-center space-y-4">
+              <XCircle className="h-24 w-24 text-amber-500 mx-auto" />
+              <h2 className="text-4xl font-black text-amber-500">EXPIRED</h2>
+              <p className="text-amber-400 text-sm">{scanResult.error || "Ask guest to refresh their code"}</p>
+            </CardContent>
+          </Card>
         ) : scanResult.status === "not_verified" ? (
           <Card className="w-full max-w-md bg-red-500/20 border-4 border-red-500 animate-in zoom-in-95">
             <CardContent className="p-8 text-center space-y-4">
@@ -261,7 +363,7 @@ const Scanner = () => {
             </div>
             <div className="space-y-2">
               <h2 className="text-2xl font-bold text-white">Ready to Scan</h2>
-              <p className="text-gray-400">Scan QR code with format: VALID:CC-XXXXXXXX</p>
+              <p className="text-gray-400">Scan Ghost QR or VALID:CC-XXXXXXXX</p>
             </div>
           </div>
         )}
@@ -275,8 +377,8 @@ const Scanner = () => {
               ref={inputRef}
               value={manualInput}
               onChange={(e) => setManualInput(e.target.value)}
-              placeholder="VALID:CC-12345678"
-              className="bg-white/10 border-white/20 text-white placeholder:text-gray-500"
+              placeholder='{"t":"token","p":"profileId"} or VALID:CC-12345678'
+              className="bg-white/10 border-white/20 text-white placeholder:text-gray-500 text-sm"
               onKeyDown={(e) => e.key === "Enter" && handleManualSubmit()}
             />
             <Button onClick={handleManualSubmit} className="bg-cyan-500 hover:bg-cyan-600">

@@ -10,7 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-const MISSION_TARGET = 250000;
+const MISSION_TARGET = 50000;
 
 const commitmentLevels = [
   {
@@ -424,7 +424,7 @@ const DealRoom = () => {
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-red-500/10 rounded border border-red-500/30">
                     <span className="text-gray-300">Remaining Balance → Contingency</span>
-                    <span className="text-red-400 font-bold">$213,200</span>
+                    <span className="text-red-400 font-bold">$13,200</span>
                   </div>
                 </div>
               </div>
@@ -459,12 +459,12 @@ const DealRoom = () => {
                   </div>
                   <div className="flex justify-between text-red-400 font-bold">
                     <span>Contingency Fund (incl. Extended Stay)</span>
-                    <span>$216,200</span>
+                    <span>$16,200</span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center font-mono text-lg p-3 bg-[#00FFFF]/10 rounded border border-[#00FFFF]/50 mt-3">
                   <span className="text-white font-bold">GRAND TOTAL</span>
-                  <span className="text-[#00FFFF] font-bold text-xl">$250,000</span>
+                  <span className="text-[#00FFFF] font-bold text-xl">$50,000</span>
                 </div>
               </div>
             </CardContent>

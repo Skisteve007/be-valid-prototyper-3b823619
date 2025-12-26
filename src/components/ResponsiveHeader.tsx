@@ -4,12 +4,14 @@ import { ThemeToggle } from "./ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminLoginDialog } from "./AdminLoginDialog";
 
+const STEVE_EMAILS = ['steve@bevalid.app', 'sgrillocce@gmail.com'];
+
 const ResponsiveHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSteveOwner, setIsSteveOwner] = useState(false);
   const [showLoginDialog, setShowLoginDialog] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
@@ -34,41 +36,34 @@ const ResponsiveHeader = () => {
     pathname.startsWith("/partner-application");
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
+    const checkSteveStatus = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         
-        if (session?.user) {
-          const { data: roleData } = await supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", session.user.id)
-            .eq("role", "administrator")
-            .maybeSingle();
-          
-          setIsAdmin(!!roleData);
+        if (session?.user?.email) {
+          setIsSteveOwner(STEVE_EMAILS.includes(session.user.email.toLowerCase()));
         } else {
-          setIsAdmin(false);
+          setIsSteveOwner(false);
         }
       } catch (error) {
-        console.error("Error checking admin status:", error);
-        setIsAdmin(false);
+        console.error("Error checking Steve status:", error);
+        setIsSteveOwner(false);
       } finally {
         setCheckingAuth(false);
       }
     };
 
-    checkAdminStatus();
+    checkSteveStatus();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      checkAdminStatus();
+      checkSteveStatus();
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const handleAdminClick = () => {
-    if (isAdmin) {
+    if (isSteveOwner) {
       navigate("/admin");
     } else {
       setShowLoginDialog(true);
@@ -122,8 +117,8 @@ const ResponsiveHeader = () => {
               Login
             </Link>
 
-            {/* Admin Panel - only show for admins */}
-            {isAdmin && (
+            {/* Admin Panel - only show for Steve */}
+            {isSteveOwner && (
               <button
                 onClick={handleAdminClick}
                 disabled={checkingAuth}

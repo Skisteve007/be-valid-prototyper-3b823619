@@ -3,13 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
 import { Sun, Moon } from 'lucide-react';
-import { useIsAdmin } from '@/hooks/useIsAdmin';
+import { useIsSteveOwner } from '@/hooks/useIsSteveOwner';
 
 const Footer = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [isDark, setIsDark] = useState(true);
-  const { isAdmin } = useIsAdmin();
+  const { isSteveOwner } = useIsSteveOwner();
 
   useEffect(() => {
     // Initialize theme state from DOM
@@ -83,7 +83,7 @@ const Footer = () => {
             <span className="text-white font-bold">|</span>
             <Link to="/demos" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Demos</Link>
             <span className="text-white font-bold">|</span>
-            {isAdmin && (
+            {isSteveOwner && (
               <>
                 <span className="text-white font-bold">|</span>
                 <Link to="/think-tank" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Think Tank</Link>
@@ -93,8 +93,8 @@ const Footer = () => {
             <span className="text-white font-bold drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">🔞 18 U.S.C. § 2257: {t('footer.ageRequirement')}</span>
           </div>
           
-          {/* Right side - Admin Setup button only for admins */}
-          {isAdmin && (
+          {/* Right side - Admin Setup button only for Steve */}
+          {isSteveOwner && (
             <div className="flex items-center gap-2">
               <button
                 onClick={() => navigate('/admin/setup')}

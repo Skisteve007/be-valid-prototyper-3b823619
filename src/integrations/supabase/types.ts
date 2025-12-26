@@ -5350,6 +5350,7 @@ export type Database = {
         Args: { increment_by?: number; stat_name: string }
         Returns: undefined
       }
+      is_steve_owner: { Args: never; Returns: boolean }
       is_venue_operator: {
         Args: { _user_id: string; _venue_id: string }
         Returns: boolean

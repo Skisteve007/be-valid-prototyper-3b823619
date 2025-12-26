@@ -10,6 +10,7 @@ import { Search, Brain, BookOpen, FileText, ClipboardList, Copy, Pin, ArrowLeft,
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Helmet } from 'react-helmet-async';
+import { SteveOwnerGate } from '@/components/SteveOwnerGate';
 
 type ThinkTankCategory = 'synth_standards' | 'playbooks' | 'decision_log' | 'templates';
 
@@ -329,4 +330,10 @@ const ThinkTank = () => {
   );
 };
 
-export default ThinkTank;
+const ThinkTankProtected = () => (
+  <SteveOwnerGate>
+    <ThinkTank />
+  </SteveOwnerGate>
+);
+
+export default ThinkTankProtected;

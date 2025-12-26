@@ -43,9 +43,10 @@ const Footer = () => {
           <p><strong className="text-white">{t('footer.disclaimerLabel')}</strong> {t('footer.disclaimerText')}</p>
         </div>
 
-        {/* Proprietary Rights Notice */}
+        {/* Legal Notice */}
         <div className="text-[10px] leading-relaxed mb-3 text-slate-400 border-t border-slate-600 pt-3">
-          <p><strong className="text-slate-300">{t('footer.legalNoticeLabel')}</strong> {t('footer.legalNoticeText')}</p>
+          <p className="mb-2"><strong className="text-slate-300">LEGAL NOTICE:</strong> This site is an authorized demonstration environment for the Valid™ platform. Content is provided for evaluation purposes only. No license is granted. Reverse engineering, automated scraping, or reproduction of any portion of this site or its underlying systems is prohibited. Valid™ is patent pending. © 2025 Giant Ventures LLC. All rights reserved.</p>
+          <p className="text-slate-500">If you are evaluating Valid™ on behalf of an organization and require an NDA prior to deeper technical discussion, please contact <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a>.</p>
         </div>
 
         {/* Language Selector */}

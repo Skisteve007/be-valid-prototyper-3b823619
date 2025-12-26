@@ -15,15 +15,15 @@ const DemoHub = () => {
 
   const demos = [
     {
-      title: "Demo A — Senate Q&A",
+      title: "Demo A — Governance Q&A",
       subtitle: "Ask a Question",
       icon: MessageSquare,
       bullets: [
-        "Submit a prompt to multiple AI systems",
-        "Watch step-by-step review process",
-        "See final synthesis with integrity proof",
+        "A single request processed through a governed multi-model pipeline",
+        "High-level governance status and decision trace (demo-safe)",
+        "Final response delivered with a verifiable proof record",
       ],
-      whoFor: "Everyone — try multi-model consensus",
+      whoFor: "Anyone evaluating multi-model governance",
       path: "/demos/senate-qa",
     },
     {
@@ -32,10 +32,10 @@ const DemoHub = () => {
       icon: BarChart3,
       bullets: [
         "System health and latency overview",
-        "Historical reliability metrics",
-        "Audit log access and trace viewing",
+        "Reliability trends over time",
+        "Trace viewing and audit access (demo-safe)",
       ],
-      whoFor: "Investors, compliance officers, partners",
+      whoFor: "Investors, compliance leaders, partners",
       path: "/demos/monitoring",
     },
     {
@@ -43,21 +43,21 @@ const DemoHub = () => {
       subtitle: "Data Stays With You",
       icon: Shield,
       bullets: [
-        "Simulate verification without uploading data",
-        "See conduit architecture in action",
-        "Preview integration flow for your systems",
+        "Simulated verification without uploading source data",
+        "Conduit architecture at a high level",
+        "Preview integration flow for enterprise systems",
       ],
       whoFor: "Enterprise buyers, security teams",
       path: "/demos/enterprise-sandbox",
     },
     {
-      title: "Demo D — Audit Proof Verifier",
+      title: "Demo D — Proof Record Verifier",
       subtitle: "Verify Integrity",
       icon: FileCheck,
       bullets: [
-        "Verify a token's authenticity",
-        "Check hash and timestamp integrity",
-        "Detect any modifications",
+        "Verify a proof record is valid",
+        "Confirm the record has not been modified",
+        "Check issuance / expiry status",
       ],
       whoFor: "Security auditors, compliance teams",
       path: "/demos/audit-verifier",

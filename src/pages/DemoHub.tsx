@@ -146,9 +146,10 @@ const DemoHub = () => {
                 <div>
                   <h2 className="text-lg font-semibold text-foreground mb-2">Valid/SYNTH: Governance Conduit, Not Data Warehouse</h2>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Foundational sources (KYC vendors, hospitals, labs) house your raw data. We orchestrate verification, 
-                    apply multi-model governance, and return results. We retain minimal artifacts (hashes/timestamps/votes) 
-                    and issue a time-limited verification token — shareable via Ghost QR without exposing underlying records.
+                    Your systems remain the system of record. Valid/SYNTH orchestrates verification and governance 
+                    across models and services, then returns results with a verifiable proof record. We retain only 
+                    minimal integrity artifacts needed for auditability and security, and can issue a time-limited 
+                    verification token for sharing results without exposing underlying records.
                   </p>
                   <Button asChild size="sm">
                     <Link to="/demos/router">

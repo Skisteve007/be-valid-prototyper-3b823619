@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { ArrowRight, Eye, EyeOff, Mail, Loader2, Fingerprint } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Mail, Loader2, Fingerprint, MessageCircle } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import { BetaBanner } from "@/components/BetaBanner";
@@ -544,6 +544,18 @@ const Auth = () => {
           <div className="mb-6">
             <BetaBanner variant="compact" />
           </div>
+
+          {/* Speak With Steve WhatsApp Button */}
+          <a
+            href="https://wa.me/15127810973"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mb-6 flex items-center justify-center gap-3 w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 transition-all duration-300 shadow-[0_0_30px_rgba(34,197,94,0.5)] hover:shadow-[0_0_50px_rgba(34,197,94,0.7)] animate-pulse hover:animate-none"
+            style={{ animationDuration: '2s' }}
+          >
+            <MessageCircle className="w-6 h-6" />
+            <span>Speak With Steve</span>
+          </a>
           
           {/* Biometric Setup Prompt Modal */}
           <Dialog open={showBiometricPrompt} onOpenChange={setShowBiometricPrompt}>

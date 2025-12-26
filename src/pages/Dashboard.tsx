@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
@@ -209,7 +209,7 @@ const Dashboard = () => {
       <header className="relative z-10 mx-4 md:mx-8 mt-4">
         <div className="backdrop-blur-xl bg-white/5 border border-[#00FFFF]/30 rounded-full px-3 md:px-6 py-3 md:py-4 shadow-[0_0_30px_rgba(0,255,255,0.15)]">
           <div className="flex items-center justify-between gap-2 md:gap-4">
-            {/* Left side - Back button */}
+            {/* Left side - Back button + Speak With Steve */}
             <div className="flex-shrink-0 flex items-center gap-2">
               <Button
                 onClick={() => navigate("/")}
@@ -219,6 +219,16 @@ const Dashboard = () => {
                 <ArrowLeft className="h-4 w-4" />
                 <span className="hidden md:inline ml-2">Home</span>
               </Button>
+              <a
+                href="https://wa.me/15127810973"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 shadow-[0_0_25px_rgba(34,197,94,0.5)] hover:shadow-[0_0_40px_rgba(34,197,94,0.7)] border border-green-500/60 bg-gradient-to-r from-green-500/20 to-emerald-500/20 hover:from-green-500/30 hover:to-emerald-500/30 text-green-400 font-bold min-h-[36px] md:min-h-[44px] px-3 md:px-4 rounded-full transition-all duration-300 animate-pulse hover:animate-none"
+                style={{ animationDuration: '2s' }}
+              >
+                <MessageCircle className="h-4 w-4" />
+                <span className="hidden md:inline">Speak With Steve</span>
+              </a>
             </div>
             
             {/* Center - Video logo */}

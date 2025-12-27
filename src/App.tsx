@@ -124,6 +124,7 @@ const DemoSenateQA = lazy(() => import("./pages/DemoSenateQA"));
 const DemoMonitoring = lazy(() => import("./pages/DemoMonitoring"));
 const DemoEnterpriseSandbox = lazy(() => import("./pages/DemoEnterpriseSandbox"));
 const DemoAuditVerifier = lazy(() => import("./pages/DemoAuditVerifier"));
+const DemoServiceNow = lazy(() => import("./pages/DemoServiceNow"));
 
 const queryClient = new QueryClient();
 
@@ -196,6 +197,7 @@ const App = () => (
                   <Route path="/demos/monitoring" element={<DemoMonitoring />} />
                   <Route path="/demos/enterprise-sandbox" element={<DemoEnterpriseSandbox />} />
                   <Route path="/demos/audit-verifier" element={<DemoAuditVerifier />} />
+                  <Route path="/demos/servicenow" element={<DemoServiceNow />} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

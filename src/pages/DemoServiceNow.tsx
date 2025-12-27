@@ -194,7 +194,8 @@ const DemoServiceNow = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                VALID is designed to minimize data exposure. Verification data stays with the source providers 
+                VALID doesn't warehouse sensitive identity or lab data—we orchestrate verification with trusted 
+                providers and return only a minimal proof token. Verification data stays with the source providers 
                 (e.g., LabCorp for lab verification and Footprint for identity verification). VALID acts as a 
                 secure conduit—requesting verification, enforcing access rules, and returning a privacy-preserving 
                 "Ghost Token" that signals the result without storing or sharing the underlying sensitive records.

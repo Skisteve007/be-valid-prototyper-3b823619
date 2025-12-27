@@ -116,21 +116,21 @@ const DemoHub = () => {
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-primary/10 border border-primary/30">
-                  <Sparkles className="h-6 w-6 text-primary" />
+          <div className="container mx-auto px-4 py-3 md:py-4">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 md:gap-3 min-w-0">
+                <div className="p-1.5 md:p-2 rounded-lg bg-primary/10 border border-primary/30 shrink-0">
+                  <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                 </div>
-                <div>
-                  <h1 className="text-xl font-bold text-foreground">Demo Hub</h1>
-                  <p className="text-sm text-muted-foreground">Experience Valid / SYNTH in action</p>
+                <div className="min-w-0">
+                  <h1 className="text-base md:text-xl font-bold text-foreground truncate">Demo Hub</h1>
+                  <p className="text-xs md:text-sm text-muted-foreground hidden sm:block">Experience Valid / SYNTH in action</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
                 <DemoShareButton />
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/">← Back to Home</Link>
+                <Button variant="outline" size="sm" asChild className="text-xs md:text-sm px-2 md:px-3">
+                  <Link to="/">← Home</Link>
                 </Button>
               </div>
             </div>

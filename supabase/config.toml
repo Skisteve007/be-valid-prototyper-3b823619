@@ -161,3 +161,6 @@ verify_jwt = false
 
 [functions.ghost-revoke]
 verify_jwt = true
+
+[functions.create-agreement-checkout]
+verify_jwt = false

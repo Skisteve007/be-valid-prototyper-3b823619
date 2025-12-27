@@ -182,7 +182,7 @@ const DemoHub = () => {
                 <Phone className="h-5 w-5 text-amber-400" />
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-foreground">30-Second Pitch Scripts by Vertical</h2>
+                <h2 className="text-lg font-semibold text-foreground">Pitch Scripts by Vertical</h2>
                 <p className="text-sm text-muted-foreground">Tailored messaging for different buyer personas</p>
               </div>
             </div>
@@ -215,7 +215,7 @@ const DemoHub = () => {
                       <div className="px-6 pb-6 border-t border-border/30 pt-4">
                         <div className="space-y-4">
                           <div>
-                            <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">30-Second Voiceover</p>
+                            <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">Pitch</p>
                             <p className="text-sm text-muted-foreground leading-relaxed italic">
                               "{exp.voiceover}"
                             </p>

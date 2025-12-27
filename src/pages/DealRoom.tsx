@@ -475,8 +475,8 @@ const DealRoom = () => {
                   TEAM ON BOARD
                 </h4>
                 
-                {/* Digital Forensics Now */}
-                <div className="p-4 bg-gradient-to-r from-purple-500/10 via-black to-purple-500/10 rounded border border-purple-500/30 space-y-3">
+                {/* Digital Forensics Now + Jovianna Gonzalez */}
+                <div className="p-4 bg-gradient-to-r from-purple-500/10 via-black to-[#00FFFF]/10 rounded border border-purple-500/30 space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/50 flex items-center justify-center">
                       <Cpu className="h-5 w-5 text-purple-400" />
@@ -489,22 +489,21 @@ const DealRoom = () => {
                   <p className="font-mono text-xs text-gray-300 leading-relaxed">
                     Digital Forensics Now is a digital forensics and cybersecurity firm delivering litigation-ready investigations for law firms, enterprises, and government across the U.S. and Latin America. The team conducts mobile, computer, and cloud forensics—recovering deleted communications and uncovering insider threats, IP theft, and regulatory exposure—while maintaining a defensible chain of custody. They support matters end-to-end, from remote collections through expert witness testimony, helping clients reduce risk, control costs, and strengthen case strategy.
                   </p>
-                </div>
-
-                {/* Jovianna Gonzalez */}
-                <div className="p-4 bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 rounded border border-[#00FFFF]/30 space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#00FFFF]/20 border border-[#00FFFF]/50 flex items-center justify-center">
-                      <span className="text-[#00FFFF] font-bold text-sm">JG</span>
+                  
+                  <div className="border-t border-[#00FFFF]/20 pt-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#00FFFF]/20 border border-[#00FFFF]/50 flex items-center justify-center">
+                        <span className="text-[#00FFFF] font-bold text-xs">JG</span>
+                      </div>
+                      <div>
+                        <h6 className="font-mono text-xs text-white font-bold">Jovianna Gonzalez — CEO</h6>
+                        <span className="font-mono text-[10px] text-[#00FFFF]">CCE, CEH, CHFI, IFCI, CEDS</span>
+                      </div>
                     </div>
-                    <div>
-                      <h5 className="font-mono text-sm text-white font-bold">Jovianna Gonzalez</h5>
-                      <span className="font-mono text-xs text-[#00FFFF]">CCE, CEH, CHFI, IFCI, CEDS</span>
-                    </div>
+                    <p className="font-mono text-xs text-gray-400 leading-relaxed mt-2">
+                      Jovianna Gonzalez is a certified digital forensics and cybersecurity professional and the leader of Digital Forensics Now, specializing in defensible evidence handling, forensic investigations, and courtroom-ready reporting.
+                    </p>
                   </div>
-                  <p className="font-mono text-xs text-gray-300 leading-relaxed">
-                    Jovianna Gonzalez is a certified digital forensics and cybersecurity professional (CCE, CEH, CHFI, IFCI, CEDS) and the leader of Digital Forensics Now, specializing in defensible evidence handling, forensic investigations, and courtroom-ready reporting.
-                  </p>
                 </div>
               </div>
             </CardContent>

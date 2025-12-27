@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { AlertTriangle, Target, Cpu, Wallet, Eye, Zap, Users, Plane, Check, Loader2, Video, CheckCircle, Circle, Calendar, MapPin, Clock, DollarSign, Crosshair, Beer, Crown } from "lucide-react";
+import { AlertTriangle, Target, Cpu, Wallet, Eye, Zap, Users, Plane, Check, Loader2, Video, CheckCircle, Circle, Calendar, MapPin, Clock, DollarSign, Crosshair, Beer, Crown, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -556,6 +556,22 @@ const DealRoom = () => {
                   </div>
                   <p className="font-mono text-xs text-gray-300 leading-relaxed">
                     Stripe will power initial payment processing through Stripe Connect to enable fast launch of card payments and marketplace-style payouts. This is an interim solution until our FBO (For Benefit Of) account structure is onboarded, at which point funds flow and settlement will transition to the banking rails.
+                  </p>
+                </div>
+
+                {/* AEI (AEiverse) */}
+                <div className="p-4 bg-gradient-to-r from-purple-500/10 via-black to-purple-500/10 rounded border border-purple-500/30 space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/50 flex items-center justify-center">
+                      <Code className="h-5 w-5 text-purple-400" />
+                    </div>
+                    <div>
+                      <h5 className="font-mono text-sm text-white font-bold">AEI (AEiverse)</h5>
+                      <span className="font-mono text-xs text-purple-400">Product Development • UI/UX • Build Sprints</span>
+                    </div>
+                  </div>
+                  <p className="font-mono text-xs text-gray-300 leading-relaxed">
+                    AEI is currently supporting VALID and SYNTH by providing product development execution across the web experience—helping us rapidly iterate UI/UX, flows, and demo-ready build quality. They assist with implementation support to connect front-end experiences to our platform services so core user journeys (onboarding, verification, admin/partner views) function end-to-end. AEI also helps accelerate delivery by handling build sprint capacity for deployment coordination as we drive toward launch milestones.
                   </p>
                 </div>
               </div>

@@ -207,7 +207,7 @@ const Hero = () => {
                   textShadow: '0 0 30px rgba(34,211,238,0.4), 0 0 60px rgba(192,132,252,0.3)',
                 }}
               >
-                Universal Lifestyle Key
+              Universal Lifestyle Wallet
               </h2>
               
               {/* VERIFY. PAY. VIBE. */}

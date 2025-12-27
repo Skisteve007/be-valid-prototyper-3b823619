@@ -47,13 +47,13 @@ const DemoAuditVerifier = () => {
           token: tokenInput || DEMO_TOKENS.valid,
           issuedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
           expiresAt: new Date(Date.now() + 22 * 60 * 60 * 1000).toISOString(),
-          issuer: "Valid/SYNTH Senate v2.1",
+          issuer: "Valid/SYNTH v2.1",
           signatureValid: true,
           hashMatch: true,
           claims: {
             verification_type: "age_21_plus",
             source_attestation: "verified_by_vendor",
-            governance_pass: "approved_by_senate",
+            governance_pass: "approved",
           },
         };
       } else if (tokenInput.includes("expired") || tokenInput === DEMO_TOKENS.expired) {
@@ -62,7 +62,7 @@ const DemoAuditVerifier = () => {
           token: tokenInput || DEMO_TOKENS.expired,
           issuedAt: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString(),
           expiresAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-          issuer: "Valid/SYNTH Senate v2.1",
+          issuer: "Valid/SYNTH v2.1",
           signatureValid: true,
           hashMatch: true,
         };
@@ -72,10 +72,10 @@ const DemoAuditVerifier = () => {
           token: tokenInput || DEMO_TOKENS.tampered,
           issuedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
           expiresAt: new Date(Date.now() + 18 * 60 * 60 * 1000).toISOString(),
-          issuer: "Valid/SYNTH Senate v2.1",
+          issuer: "Valid/SYNTH v2.1",
           signatureValid: false,
           hashMatch: false,
-          tamperedFields: ["claims.verification_type", "claims.expiry_timestamp"],
+          tamperedFields: ["claims.verification_type", "claims.expiry"],
         };
       } else if (tokenInput.trim()) {
         verificationResult = {
@@ -89,13 +89,13 @@ const DemoAuditVerifier = () => {
           token: DEMO_TOKENS.valid,
           issuedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
           expiresAt: new Date(Date.now() + 22 * 60 * 60 * 1000).toISOString(),
-          issuer: "Valid/SYNTH Senate v2.1",
+          issuer: "Valid/SYNTH v2.1",
           signatureValid: true,
           hashMatch: true,
           claims: {
             verification_type: "age_21_plus",
             source_attestation: "verified_by_vendor",
-            governance_pass: "approved_by_senate",
+            governance_pass: "approved",
           },
         };
       }
@@ -189,8 +189,8 @@ const DemoAuditVerifier = () => {
                 <div>
                   <h2 className="text-lg font-semibold text-foreground mb-2">Integrity Proof Verification</h2>
                   <p className="text-muted-foreground text-sm">
-                    Every Valid token includes an audit hash and timestamp. This verifier checks:
-                    (1) hash integrity, (2) timestamp validity, (3) match against our audit log.
+                    Every Valid token includes an integrity record. This verifier checks:
+                    (1) signature integrity, (2) validity window, (3) match against our audit log.
                     Any modification is immediately detected.
                   </p>
                 </div>

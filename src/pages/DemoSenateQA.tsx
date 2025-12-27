@@ -150,8 +150,8 @@ const DemoSenateQA = () => {
   return (
     <>
       <Helmet>
-        <title>Demo A — Senate Q&A | Valid™</title>
-        <meta name="description" content="Ask a question and watch 7 AI models debate to reach consensus. Live multi-model deliberation demo." />
+        <title>Demo A — AI Review Panel | Valid™</title>
+        <meta name="description" content="Ask a question and watch multiple AI models deliberate to reach consensus. Live multi-model governance demo." />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
@@ -167,8 +167,8 @@ const DemoSenateQA = () => {
                   <MessageSquare className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-foreground">Demo A — Senate Q&A</h1>
-                  <p className="text-sm text-muted-foreground">Ask a question → Senate answer</p>
+                  <h1 className="text-xl font-bold text-foreground">Demo A — AI Review Panel</h1>
+                  <p className="text-sm text-muted-foreground">Ask a question → Multi-model answer</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -195,7 +195,7 @@ const DemoSenateQA = () => {
               <Textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Ask any question you'd like the AI Senate to debate..."
+                placeholder="Ask any question you'd like the AI panel to review..."
                 rows={3}
                 className="resize-none"
               />
@@ -251,7 +251,7 @@ const DemoSenateQA = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Users className="h-4 w-4" />
-                  Seat Status
+                  Model Status
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -280,11 +280,11 @@ const DemoSenateQA = () => {
           {/* Results */}
           {result && (
             <div className="space-y-8">
-              {/* Senator Cards */}
+              {/* Model Cards */}
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                   <Users className="h-5 w-5" />
-                  Senator Votes
+                  Model Assessments
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {result.seats.map((seat) => (
@@ -327,7 +327,7 @@ const DemoSenateQA = () => {
                           </div>
                         ) : (
                           <p className="text-xs text-muted-foreground italic">
-                            {seat.status === "offline" ? "Seat offline" : 
+                            {seat.status === "offline" ? "Model offline" : 
                              seat.status === "timeout" ? "Request timed out" : 
                              seat.status === "abstain" ? "Abstained" :
                              "Error occurred"}
@@ -366,8 +366,8 @@ const DemoSenateQA = () => {
                       <Sparkles className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <CardTitle>Judge Final Decision</CardTitle>
-                      <CardDescription>Synthesized from all senator votes</CardDescription>
+                      <CardTitle>Final Decision</CardTitle>
+                      <CardDescription>Synthesized from all model assessments</CardDescription>
                     </div>
                   </div>
                 </CardHeader>

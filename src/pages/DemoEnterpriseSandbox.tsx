@@ -108,7 +108,7 @@ const DemoEnterpriseSandbox = () => {
                   <p className="text-muted-foreground text-sm mb-4">
                     Valid/SYNTH is a <strong>governance conduit</strong>, not a data warehouse. Your foundational sources 
                     (KYC vendors, EHRs, authoritative systems) house raw data. We orchestrate verification, apply multi-model 
-                    governance, and return a time-limited token linked to an integrity proof. We retain only minimal artifacts (hashes/timestamps).
+                    governance, and return a time-limited token linked to an integrity proof. We retain only minimal metadata.
                   </p>
                   <FlowDiagram variant="conduit" />
                 </div>
@@ -304,7 +304,7 @@ const DemoEnterpriseSandbox = () => {
                     <span className="text-foreground">{new Date(verificationResult.expires).toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Audit Hash</span>
+                    <span className="text-muted-foreground">Integrity Ref</span>
                     <code className="text-xs text-muted-foreground font-mono truncate max-w-48">{verificationResult.hash}</code>
                   </div>
                 </div>
@@ -323,7 +323,7 @@ const DemoEnterpriseSandbox = () => {
                   <div className="flex items-start gap-2 text-sm text-cyan-300">
                     <Shield className="h-4 w-4 mt-0.5 shrink-0" />
                     <span>
-                      <strong>What we retained:</strong> Timestamp, hash of verification request, token ID. 
+                      <strong>What we retained:</strong> Minimal metadata and token ID. 
                       <strong> What we didn't store:</strong> Your source credentials, raw verification data, PII.
                     </span>
                   </div>

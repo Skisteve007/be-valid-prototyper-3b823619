@@ -505,6 +505,27 @@ const DealRoom = () => {
                     </p>
                   </div>
                 </div>
+
+                {/* Footprint */}
+                <div className="p-4 bg-gradient-to-r from-green-500/10 via-black to-green-500/10 rounded border border-green-500/30 space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500/20 border border-green-500/50 flex items-center justify-center">
+                      <Eye className="h-5 w-5 text-green-400" />
+                    </div>
+                    <div>
+                      <h5 className="font-mono text-sm text-white font-bold">Footprint</h5>
+                      <span className="font-mono text-xs text-green-400">Identity Verification (IDV) Provider</span>
+                    </div>
+                  </div>
+                  <p className="font-mono text-xs text-gray-300 leading-relaxed">
+                    Footprint is an identity verification (IDV) provider that confirms a user's identity by using computer vision to compare a live selfie against the photo on a government-issued ID document. Their biometric matching mimics an in-person ID check (validate the ID, then confirm the person matches the ID photo) and is continuously improved for accuracy through Footprint and its underlying technology vendors.
+                  </p>
+                  <div className="border-t border-green-500/20 pt-3">
+                    <p className="font-mono text-xs text-green-400 leading-relaxed">
+                      <span className="text-white font-bold">For VALID:</span> Footprint powers the ID verification step during onboarding/check-in—helping ensure only real, verified users can enroll and receive QR-based access and payment privileges.
+                    </p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>

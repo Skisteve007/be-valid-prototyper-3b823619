@@ -8,6 +8,7 @@ import DemoBanner from "@/components/demos/DemoBanner";
 import DemoCard from "@/components/demos/DemoCard";
 import FlowDiagram from "@/components/demos/FlowDiagram";
 import DemoShareButton from "@/components/demos/DemoShareButton";
+import SideBySideSection from "@/components/demos/SideBySideSection";
 import { useState } from "react";
 
 const DemoHub = () => {
@@ -329,6 +330,9 @@ const DemoHub = () => {
               </div>
             </div>
           </div>
+
+          {/* Side-by-Side Competition Section */}
+          <SideBySideSection />
 
           {/* CTA for Sales */}
           <Card className="mt-8 border-cyan-500/30 bg-cyan-500/5">

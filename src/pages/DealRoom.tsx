@@ -421,7 +421,7 @@ const DealRoom = () => {
                     <span className="text-[#00FFFF] font-bold">$1,500</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
-                    <span className="text-gray-300">7 LLMs</span>
+                    <span className="text-gray-300">Agents</span>
                     <span className="text-[#00FFFF] font-bold">$2,000</span>
                   </div>
                 </div>

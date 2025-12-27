@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown } from "lucide-react";
+import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -239,6 +239,94 @@ const DemoHub = () => {
                   </Card>
                 </Collapsible>
               ))}
+            </div>
+          </div>
+
+          {/* Legal Case Studies - The Evidence */}
+          <div className="mt-12">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 border border-destructive/30 mb-4">
+                <AlertTriangle className="h-5 w-5 text-destructive" />
+                <span className="text-sm font-medium text-destructive">Legal Precedents</span>
+              </div>
+              <h2 className="text-2xl font-bold text-foreground mb-2">Why Governance Matters</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Real cases demonstrating the risks of unverified AI outputs and unvalidated user data.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Group 1: AI Hallucinations */}
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded-lg bg-orange-500/10 border border-orange-500/30">
+                    <AlertTriangle className="h-5 w-5 text-orange-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground">Risks of AI Hallucinations</h3>
+                    <p className="text-xs text-orange-400">(Bad Output)</p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <Card className="border-orange-500/20 bg-orange-500/5">
+                    <CardContent className="pt-4 pb-4">
+                      <h4 className="font-semibold text-foreground text-sm mb-1">Moffatt v. Air Canada (2024)</h4>
+                      <p className="text-xs text-muted-foreground">Company liable for chatbot promising a refund that didn't exist.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-orange-500/20 bg-orange-500/5">
+                    <CardContent className="pt-4 pb-4">
+                      <h4 className="font-semibold text-foreground text-sm mb-1">Mata v. Avianca (2023)</h4>
+                      <p className="text-xs text-muted-foreground">Lawyers sanctioned for using ChatGPT to cite fake court cases.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-orange-500/20 bg-orange-500/5">
+                    <CardContent className="pt-4 pb-4">
+                      <h4 className="font-semibold text-foreground text-sm mb-1">Walters v. OpenAI (2023)</h4>
+                      <p className="text-xs text-muted-foreground">AI sued for defamation after falsely accusing a man of embezzlement.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-orange-500/20 bg-orange-500/5">
+                    <CardContent className="pt-4 pb-4">
+                      <h4 className="font-semibold text-foreground text-sm mb-1">Hood v. OpenAI</h4>
+                      <p className="text-xs text-muted-foreground">Mayor threatened to sue after AI falsely claimed he was a criminal.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Group 2: Bad User Data */}
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/30">
+                    <AlertCircle className="h-5 w-5 text-red-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground">Risks of Bad User Data</h3>
+                    <p className="text-xs text-red-400">(Garbage Input)</p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <Card className="border-red-500/20 bg-red-500/5">
+                    <CardContent className="pt-4 pb-4">
+                      <h4 className="font-semibold text-foreground text-sm mb-1">JPMorgan v. Frank (2023)</h4>
+                      <p className="text-xs text-muted-foreground">Bank lost $175M acquiring a startup that had 4 million fake users.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-red-500/20 bg-red-500/5">
+                    <CardContent className="pt-4 pb-4">
+                      <h4 className="font-semibold text-foreground text-sm mb-1">Rideshare Class Actions</h4>
+                      <p className="text-xs text-muted-foreground">Companies sued when drivers used stolen IDs to bypass checks.</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-red-500/20 bg-red-500/5">
+                    <CardContent className="pt-4 pb-4">
+                      <h4 className="font-semibold text-foreground text-sm mb-1">Williams v. City of Detroit (2024)</h4>
+                      <p className="text-xs text-muted-foreground">City paid $300k settlement after bad photo input led to a wrongful AI arrest.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
             </div>
           </div>
 

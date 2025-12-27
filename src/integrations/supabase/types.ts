@@ -750,6 +750,96 @@ export type Database = {
           },
         ]
       }
+      ghost_token_events: {
+        Row: {
+          actor_id: string | null
+          actor_type: string | null
+          allowed_claims: string[] | null
+          created_at: string
+          event_type: string
+          id: string
+          jti: string
+          metadata: Json | null
+          profile_used:
+            | Database["public"]["Enums"]["ghost_share_profile"]
+            | null
+          purpose: string | null
+        }
+        Insert: {
+          actor_id?: string | null
+          actor_type?: string | null
+          allowed_claims?: string[] | null
+          created_at?: string
+          event_type: string
+          id?: string
+          jti: string
+          metadata?: Json | null
+          profile_used?:
+            | Database["public"]["Enums"]["ghost_share_profile"]
+            | null
+          purpose?: string | null
+        }
+        Update: {
+          actor_id?: string | null
+          actor_type?: string | null
+          allowed_claims?: string[] | null
+          created_at?: string
+          event_type?: string
+          id?: string
+          jti?: string
+          metadata?: Json | null
+          profile_used?:
+            | Database["public"]["Enums"]["ghost_share_profile"]
+            | null
+          purpose?: string | null
+        }
+        Relationships: []
+      }
+      ghost_tokens: {
+        Row: {
+          allowed_claims: string[] | null
+          audience: string
+          created_at: string
+          expires_at: string
+          id: string
+          issued_at: string
+          jti: string
+          revocation_reason: string | null
+          revoked_at: string | null
+          share_profile: Database["public"]["Enums"]["ghost_share_profile"]
+          subject_hash: string
+          user_id: string
+        }
+        Insert: {
+          allowed_claims?: string[] | null
+          audience?: string
+          created_at?: string
+          expires_at: string
+          id?: string
+          issued_at?: string
+          jti: string
+          revocation_reason?: string | null
+          revoked_at?: string | null
+          share_profile: Database["public"]["Enums"]["ghost_share_profile"]
+          subject_hash: string
+          user_id: string
+        }
+        Update: {
+          allowed_claims?: string[] | null
+          audience?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          issued_at?: string
+          jti?: string
+          revocation_reason?: string | null
+          revoked_at?: string | null
+          share_profile?: Database["public"]["Enums"]["ghost_share_profile"]
+          subject_hash?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       global_stats: {
         Row: {
           id: string
@@ -4212,6 +4302,60 @@ export type Database = {
         }
         Relationships: []
       }
+      user_share_locks: {
+        Row: {
+          category: Database["public"]["Enums"]["ghost_share_category"]
+          created_at: string
+          id: string
+          is_locked: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["ghost_share_category"]
+          created_at?: string
+          id?: string
+          is_locked?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["ghost_share_category"]
+          created_at?: string
+          id?: string
+          is_locked?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_share_policies: {
+        Row: {
+          active_profile: Database["public"]["Enums"]["ghost_share_profile"]
+          created_at: string
+          custom_locks: Json | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active_profile?: Database["public"]["Enums"]["ghost_share_profile"]
+          created_at?: string
+          custom_locks?: Json | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active_profile?: Database["public"]["Enums"]["ghost_share_profile"]
+          created_at?: string
+          custom_locks?: Json | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_wallets: {
         Row: {
           balance: number
@@ -5266,6 +5410,10 @@ export type Database = {
       }
       generate_member_id: { Args: never; Returns: string }
       generate_synth_codename: { Args: { p_tier?: string }; Returns: string }
+      get_ghost_allowed_claims: {
+        Args: { p_user_id: string }
+        Returns: string[]
+      }
       get_or_create_synth_entitlement: {
         Args: { p_user_id: string }
         Returns: {
@@ -5409,6 +5557,8 @@ export type Database = {
         | "paid"
         | "active_member"
         | "administrator"
+      ghost_share_category: "profile" | "id" | "funds" | "bio" | "tox"
+      ghost_share_profile: "public" | "minimal" | "custom" | "nothing"
       operator_event_type:
         | "STATION_SWITCH"
         | "SHIFT_START"
@@ -5618,6 +5768,8 @@ export const Constants = {
         "active_member",
         "administrator",
       ],
+      ghost_share_category: ["profile", "id", "funds", "bio", "tox"],
+      ghost_share_profile: ["public", "minimal", "custom", "nothing"],
       operator_event_type: [
         "STATION_SWITCH",
         "SHIFT_START",

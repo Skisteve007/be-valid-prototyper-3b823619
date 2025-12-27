@@ -152,3 +152,12 @@ verify_jwt = false
 
 [functions.create-pos-charge]
 verify_jwt = false
+
+[functions.ghost-token-mint]
+verify_jwt = true
+
+[functions.ghost-resolve]
+verify_jwt = false
+
+[functions.ghost-revoke]
+verify_jwt = true

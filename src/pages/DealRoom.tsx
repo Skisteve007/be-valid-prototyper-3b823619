@@ -301,14 +301,14 @@ const DealRoom = () => {
                   PRE-DEPLOYMENT
                 </h4>
                 <div className="grid gap-2 pl-4">
-                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800 opacity-50 relative">
-                    <span className="text-gray-500 relative">
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800 relative">
+                    <span className="text-red-400 relative">
                       Patent Provisional Filing
-                      <span className="absolute left-0 right-0 top-1/2 h-0.5 bg-yellow-400" style={{ transform: 'translateY(-50%)' }} />
+                      <span className="absolute left-0 right-0 top-1/2 h-0.5 bg-yellow-300 shadow-[0_0_8px_#facc15,0_0_16px_#facc15]" style={{ transform: 'translateY(-50%)' }} />
                     </span>
                     <span className="text-red-400 relative">
                       $2,500 ✅ PAID (Steve)
-                      <span className="absolute left-0 right-0 top-1/2 h-0.5 bg-yellow-400" style={{ transform: 'translateY(-50%)' }} />
+                      <span className="absolute left-0 right-0 top-1/2 h-0.5 bg-yellow-300 shadow-[0_0_8px_#facc15,0_0_16px_#facc15]" style={{ transform: 'translateY(-50%)' }} />
                     </span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">

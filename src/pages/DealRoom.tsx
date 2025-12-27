@@ -165,6 +165,15 @@ const DealRoom = () => {
               </p>
             </CardContent>
          </Card>
+         
+         {/* JP Morgan Week Info */}
+         <Card className="bg-gradient-to-r from-blue-500/10 via-black to-blue-500/10 border border-blue-500/50 mt-4">
+           <CardContent className="py-6">
+             <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
+               <span className="text-blue-400 font-bold">JP Morgan Week in San Francisco</span> centers around the massive, annual J.P. Morgan Healthcare Conference (JPM Week), usually held in January (<span className="text-blue-400 font-bold">Jan 12-15, 2026</span> for the 44th event) at hotels like The Westin St. Francis, drawing global pharma, biotech, investors, and innovators for networking, investment talks, and major industry trends, with significant offsite events, partnering forums (like BIO Partnering @JPM), and company presentations shaping the future of healthcare.
+             </p>
+           </CardContent>
+         </Card>
        </section>
 
        {/* HEADER - TOP SECRET BANNER */}

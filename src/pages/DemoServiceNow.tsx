@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Building2, Shield, FileCheck, Workflow, CheckCircle2, XCircle, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowLeft, Building2, Shield, FileCheck, Workflow, CheckCircle2, ArrowRight, Sparkles, Ghost, Lock, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DemoBanner from "@/components/demos/DemoBanner";
@@ -177,6 +177,63 @@ const DemoServiceNow = () => {
                     before they're acted upon. We're not competing—we're the governance layer that makes AI-powered 
                     ServiceNow deployments trustworthy and auditable.
                   </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Privacy - Conduit Model */}
+          <Card className="mb-8 border-purple-500/30 bg-gradient-to-r from-purple-500/5 via-background to-purple-500/5">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3 text-lg">
+                <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/30">
+                  <Lock className="h-5 w-5 text-purple-400" />
+                </div>
+                <span>How VALID Protects Privacy (Conduit Model)</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                VALID is designed to minimize data exposure. Verification data stays with the source providers 
+                (e.g., LabCorp for lab verification and Footprint for identity verification). VALID acts as a 
+                secure conduit—requesting verification, enforcing access rules, and returning a privacy-preserving 
+                "Ghost Token" that signals the result without storing or sharing the underlying sensitive records.
+              </p>
+              
+              {/* Conduit Flow Diagram */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-3 p-6 bg-card/50 rounded-lg border border-purple-500/20">
+                <div className="text-center p-3 bg-blue-500/10 rounded-lg border border-blue-500/30 min-w-[120px]">
+                  <Database className="h-6 w-6 text-blue-400 mx-auto mb-2" />
+                  <p className="text-xs font-medium text-foreground">Source Provider</p>
+                  <p className="text-[10px] text-muted-foreground">Data stays here</p>
+                </div>
+                <ArrowRight className="h-5 w-5 text-muted-foreground rotate-90 md:rotate-0" />
+                <div className="text-center p-3 bg-purple-500/10 rounded-lg border border-purple-500/30 min-w-[120px]">
+                  <Shield className="h-6 w-6 text-purple-400 mx-auto mb-2" />
+                  <p className="text-xs font-medium text-foreground">VALID Conduit</p>
+                  <p className="text-[10px] text-muted-foreground">Verify & enforce</p>
+                </div>
+                <ArrowRight className="h-5 w-5 text-muted-foreground rotate-90 md:rotate-0" />
+                <div className="text-center p-3 bg-cyan-500/10 rounded-lg border border-cyan-500/30 min-w-[120px]">
+                  <Ghost className="h-6 w-6 text-cyan-400 mx-auto mb-2" />
+                  <p className="text-xs font-medium text-foreground">Ghost Token</p>
+                  <p className="text-[10px] text-muted-foreground">Verified / Not / Expired</p>
+                </div>
+              </div>
+
+              {/* Token States */}
+              <div className="grid grid-cols-3 gap-3 pt-2">
+                <div className="text-center p-3 rounded-lg bg-green-500/10 border border-green-500/30">
+                  <CheckCircle2 className="h-5 w-5 text-green-400 mx-auto mb-1" />
+                  <p className="text-xs font-medium text-green-400">Verified</p>
+                </div>
+                <div className="text-center p-3 rounded-lg bg-red-500/10 border border-red-500/30">
+                  <Shield className="h-5 w-5 text-red-400 mx-auto mb-1" />
+                  <p className="text-xs font-medium text-red-400">Not Verified</p>
+                </div>
+                <div className="text-center p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+                  <Lock className="h-5 w-5 text-yellow-400 mx-auto mb-1" />
+                  <p className="text-xs font-medium text-yellow-400">Expired</p>
                 </div>
               </div>
             </CardContent>

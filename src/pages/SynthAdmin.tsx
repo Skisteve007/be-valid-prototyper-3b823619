@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import ThinkTankManager from '@/components/admin/ThinkTankManager';
+import { SteveOwnerGate } from '@/components/SteveOwnerGate';
 
 interface AuditLog {
   id: string;
@@ -615,4 +616,11 @@ const DetailRow = ({ label, value, className = '' }: { label: string; value: str
   </div>
 );
 
-export default SynthAdmin;
+// Wrap with SteveOwnerGate for Tier-0 access control
+const SynthAdminProtected = () => (
+  <SteveOwnerGate>
+    <SynthAdmin />
+  </SteveOwnerGate>
+);
+
+export default SynthAdminProtected;

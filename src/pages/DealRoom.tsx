@@ -526,6 +526,38 @@ const DealRoom = () => {
                     </p>
                   </div>
                 </div>
+
+                {/* JPMorgan Chase */}
+                <div className="p-4 bg-gradient-to-r from-blue-500/10 via-black to-blue-500/10 rounded border border-blue-500/30 space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/50 flex items-center justify-center">
+                      <DollarSign className="h-5 w-5 text-blue-400" />
+                    </div>
+                    <div>
+                      <h5 className="font-mono text-sm text-white font-bold">JPMorgan Chase</h5>
+                      <span className="font-mono text-xs text-blue-400">Banking • Wires • Escrow</span>
+                    </div>
+                  </div>
+                  <p className="font-mono text-xs text-gray-300 leading-relaxed">
+                    JPMorgan Chase will serve as our primary banking institution, handling inbound/outbound wires and supporting escrow-style fund flows as we scale. This provides enterprise-grade banking rails, stronger controls, and improved risk management for higher-value transactions.
+                  </p>
+                </div>
+
+                {/* Stripe */}
+                <div className="p-4 bg-gradient-to-r from-indigo-500/10 via-black to-indigo-500/10 rounded border border-indigo-500/30 space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500/20 border border-indigo-500/50 flex items-center justify-center">
+                      <Wallet className="h-5 w-5 text-indigo-400" />
+                    </div>
+                    <div>
+                      <h5 className="font-mono text-sm text-white font-bold">Stripe</h5>
+                      <span className="font-mono text-xs text-indigo-400">Payments • Stripe Connect</span>
+                    </div>
+                  </div>
+                  <p className="font-mono text-xs text-gray-300 leading-relaxed">
+                    Stripe will power initial payment processing through Stripe Connect to enable fast launch of card payments and marketplace-style payouts. This is an interim solution until our FBO (For Benefit Of) account structure is onboarded, at which point funds flow and settlement will transition to the banking rails.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>

@@ -182,8 +182,8 @@ const DemoHub = () => {
                 <Phone className="h-5 w-5 text-amber-400" />
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-foreground">Pitch Scripts by Vertical</h2>
-                <p className="text-sm text-muted-foreground">Tailored messaging for different buyer personas</p>
+                <h2 className="text-lg font-semibold text-foreground">Vertical Interests</h2>
+                <p className="text-sm text-muted-foreground">Tailored messages for your interested persona</p>
               </div>
             </div>
 

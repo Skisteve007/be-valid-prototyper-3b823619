@@ -17,6 +17,7 @@ import {
   Globe,
   Database
 } from "lucide-react";
+import TheAskSection from "@/components/operation-sf/TheAskSection";
 
 const OperationSF = () => {
   const navigate = useNavigate();
@@ -380,6 +381,9 @@ const OperationSF = () => {
           </div>
         </div>
       </section>
+
+      {/* THE ASK - Tiered Agreements */}
+      <TheAskSection />
 
       {/* CTA Section */}
       <section className="py-20 border-t border-border/30">

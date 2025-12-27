@@ -126,6 +126,8 @@ const DemoEnterpriseSandbox = lazy(() => import("./pages/DemoEnterpriseSandbox")
 const DemoAuditVerifier = lazy(() => import("./pages/DemoAuditVerifier"));
 const DemoServiceNow = lazy(() => import("./pages/DemoServiceNow"));
 const OperationSF = lazy(() => import("./pages/OperationSF"));
+const AgreementFlow = lazy(() => import("./pages/AgreementFlow"));
+const AgreementSuccess = lazy(() => import("./pages/AgreementSuccess"));
 
 const queryClient = new QueryClient();
 
@@ -289,6 +291,8 @@ const App = () => (
                   <Route path="/think-tank" element={<ThinkTank />} />
                   <Route path="/deal-room" element={<DealRoom />} />
                   <Route path="/operation-sf" element={<OperationSF />} />
+                  <Route path="/agreement/:tierId" element={<AgreementFlow />} />
+                  <Route path="/agreement-success" element={<AgreementSuccess />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

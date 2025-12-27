@@ -160,10 +160,10 @@ const DealRoom = () => {
        <section className="container mx-auto px-4 pt-6 pb-6 max-w-3xl">
          <Card className="bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 border border-[#00FFFF]/50">
            <CardContent className="py-6">
-             <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
-               "This is a <span className="text-[#00FFFF] font-bold">Strategic Strike</span>. We aren't just asking for capital; we are building a coalition. If you back this mission, you are welcome to fly out and <span className="text-[#00FFFF] font-bold">join the raid</span>. We will be in the room with the targets."
-             </p>
-           </CardContent>
+              <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
+                "This is a <span className="text-[#00FFFF] font-bold">strategic strike</span>—we're not just raising capital, we're building a coalition. The first $50,000 is a small friends-and-family entry for strong associates who want to help us open doors in San Francisco; if you back the mission, you're welcome to <span className="text-[#00FFFF] font-bold">join the "raid"</span> and be in the room with targets. Our raise ladder is $50k entry → $50k–$200k → $200k–$1.5M → up to a $6M cap, with allocations finalized in our terms."
+              </p>
+            </CardContent>
          </Card>
        </section>
 

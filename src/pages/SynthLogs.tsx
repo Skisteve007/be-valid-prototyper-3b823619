@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { SteveOwnerGate } from '@/components/SteveOwnerGate';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -403,4 +404,10 @@ const SynthLogs: React.FC = () => {
   );
 };
 
-export default SynthLogs;
+const SynthLogsProtected = () => (
+  <SteveOwnerGate>
+    <SynthLogs />
+  </SteveOwnerGate>
+);
+
+export default SynthLogsProtected;

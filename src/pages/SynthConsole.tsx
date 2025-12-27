@@ -23,6 +23,7 @@ import {
   BookOpen,
   Sparkles
 } from 'lucide-react';
+import { SteveOwnerGate } from '@/components/SteveOwnerGate';
 
 interface AuditResult {
   request_id: string;
@@ -395,4 +396,11 @@ const SynthConsole: React.FC = () => {
   );
 };
 
-export default SynthConsole;
+// Wrap with SteveOwnerGate for Tier-0 access control
+const SynthConsoleProtected = () => (
+  <SteveOwnerGate>
+    <SynthConsole />
+  </SteveOwnerGate>
+);
+
+export default SynthConsoleProtected;

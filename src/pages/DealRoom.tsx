@@ -295,7 +295,7 @@ const DealRoom = () => {
             <CardHeader>
               <CardTitle className="text-red-400 font-mono text-sm tracking-widest flex items-center gap-2">
                 <DollarSign className="h-4 w-4" />
-                WHY WE NEED $250,000 - TACTICAL ALLOCATION
+                WHY WE NEED $50,000 - TACTICAL ALLOCATION
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -333,13 +333,10 @@ const DealRoom = () => {
                     <span className="text-yellow-400 font-bold">$2,000</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
-                    <span className="text-gray-300">Security Expert — Jovianna (Cybersecurity Consultant)</span>
-                    <span className="text-yellow-400 font-bold">$5,000</span>
+                    <span className="text-gray-300">Security Expert — Jovianna (Cybersecurity Expert)</span>
+                    <span className="text-yellow-400 font-bold">$5,000 Deposit</span>
                   </div>
                 </div>
-                <p className="font-mono text-xs text-gray-500 pl-4 italic">
-                  Security Expert Contact: Jovianna — [Details TBD]
-                </p>
               </div>
 
               {/* COMMAND CENTER */}

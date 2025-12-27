@@ -1,7 +1,7 @@
 {
   "name": "VALID - Zero Trust Verification",
   "short_name": "VALID",
-  "description": "The Zero Trust Identity, Payment, and Access App. QR-Coded Access. Health Verified. Integrated Payment.",
+  "description": "Zero Trust verification for identity, QR access, and payments—built for real-world check-ins and enterprise-grade privacy.",
   "start_url": "/",
   "scope": "/",
   "id": "/",

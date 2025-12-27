@@ -409,16 +409,20 @@ const DealRoom = () => {
                 </h4>
                 <div className="grid gap-2 pl-4">
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
-                    <span className="text-gray-300">Cloud / Hosting (Supabase, Vercel)</span>
+                    <span className="text-gray-300">Cloud / Hosting (Supabase, Vercel, GitHub)</span>
                     <span className="text-[#00FFFF] font-bold">$500</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">Domain / SSL (bevalid.app)</span>
-                    <span className="text-[#00FFFF] font-bold">$100</span>
+                    <span className="text-[#00FFFF] font-bold">$200</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">Edge Functions (API calls)</span>
-                    <span className="text-[#00FFFF] font-bold">$200</span>
+                    <span className="text-[#00FFFF] font-bold">$1,500</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
+                    <span className="text-gray-300">7 LLMs</span>
+                    <span className="text-[#00FFFF] font-bold">$2,000</span>
                   </div>
                 </div>
               </div>

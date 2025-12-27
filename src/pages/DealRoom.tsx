@@ -590,6 +590,22 @@ const DealRoom = () => {
                     AEI is currently supporting VALID and SYNTH by providing product development execution across the web experience—helping us rapidly iterate UI/UX, flows, and demo-ready build quality. They assist with implementation support to connect front-end experiences to our platform services so core user journeys (onboarding, verification, admin/partner views) function end-to-end. AEI also helps accelerate delivery by handling build sprint capacity for deployment coordination as we drive toward launch milestones.
                   </p>
                 </div>
+
+                {/* Jim Jimco */}
+                <div className="p-4 bg-gradient-to-r from-orange-500/10 via-black to-orange-500/10 rounded border border-orange-500/30 space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-500/20 border border-orange-500/50 flex items-center justify-center">
+                      <span className="text-orange-400 font-bold text-sm">JJ</span>
+                    </div>
+                    <div>
+                      <h5 className="font-mono text-sm text-white font-bold">Jim Jimco</h5>
+                      <span className="font-mono text-xs text-orange-400">VP of Product and Marketing</span>
+                    </div>
+                  </div>
+                  <p className="font-mono text-xs text-gray-300 leading-relaxed">
+                    Jim contributes in many ways to the team. Right now, he's all about elbow grease, and everybody here knows he's such an intelligent guy. He has been playing devil's advocate, but we keep crushing it. Not we, the authorities do, the senate.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>

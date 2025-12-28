@@ -171,6 +171,7 @@ const DemoHub = () => {
               <a href="#overview" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Overview</a>
               <a href="#demos" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Demos</a>
               <a href="#proof" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Proof</a>
+              <a href="#ghost" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Ghost</a>
               <a href="#risks" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Risks</a>
               <a href="#integration" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Integration</a>
               <a href="#loi" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">LOI</a>
@@ -233,7 +234,9 @@ const DemoHub = () => {
           </div>
 
           {/* Ghost Ecosystem Module */}
-          <GhostEcosystemModule />
+          <div id="ghost" className="scroll-mt-32">
+            <GhostEcosystemModule />
+          </div>
 
           {/* Intro Card */}
           <Card id="proof" className="mb-8 border-primary/20 bg-primary/5 scroll-mt-32">
@@ -334,8 +337,39 @@ const DemoHub = () => {
             ))}
           </div>
 
+          {/* Deep Dive Section Header with Expand/Collapse All */}
+          <div className="mt-12 mb-4 flex items-center justify-between">
+            <h3 className="text-sm font-medium text-muted-foreground">Deep Dive</h3>
+            <div className="flex gap-2">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-xs h-7"
+                onClick={() => {
+                  setShowVerticals(true);
+                  setShowLegalCases(true);
+                  setShowSideBySide(true);
+                }}
+              >
+                Expand All Details
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-xs h-7"
+                onClick={() => {
+                  setShowVerticals(false);
+                  setShowLegalCases(false);
+                  setShowSideBySide(false);
+                }}
+              >
+                Collapse Details
+              </Button>
+            </div>
+          </div>
+
           {/* Explainer Menu - Collapsible */}
-          <Collapsible open={showVerticals} onOpenChange={setShowVerticals} className="mt-12">
+          <Collapsible open={showVerticals} onOpenChange={setShowVerticals}>
             <CollapsibleTrigger asChild>
               <div className="flex items-center justify-between cursor-pointer p-4 rounded-lg border border-border/50 hover:border-primary/30 bg-card/50 transition-colors">
                 <div className="flex items-center gap-3">

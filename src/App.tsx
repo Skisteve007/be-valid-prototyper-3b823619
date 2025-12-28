@@ -127,6 +127,7 @@ const DemoAuditVerifier = lazy(() => import("./pages/DemoAuditVerifier"));
 const DemoServiceNow = lazy(() => import("./pages/DemoServiceNow"));
 const DemoUploadVerdict = lazy(() => import("./pages/DemoUploadVerdict"));
 const DemoScaleConduit = lazy(() => import("./pages/DemoScaleConduit"));
+const DemoOperatorCertification = lazy(() => import("./pages/DemoOperatorCertification"));
 const OperationSF = lazy(() => import("./pages/OperationSF"));
 const AgreementFlow = lazy(() => import("./pages/AgreementFlow"));
 const AgreementSuccess = lazy(() => import("./pages/AgreementSuccess"));
@@ -204,6 +205,7 @@ const App = () => (
                   <Route path="/demos/audit-verifier" element={<DemoAuditVerifier />} />
                   <Route path="/demos/upload-verdict" element={<DemoUploadVerdict />} />
                   <Route path="/demos/scale-conduit" element={<DemoScaleConduit />} />
+                  <Route path="/demos/operator-certification" element={<DemoOperatorCertification />} />
                   <Route path="/demos/servicenow" element={<DemoServiceNow />} />
                   
                   {/* DOCUMENTATION ROUTES */}

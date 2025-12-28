@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot, FileUp, Scale, Handshake } from "lucide-react";
+import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot, FileUp, Scale, Handshake, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -21,27 +21,27 @@ const DemoHub = () => {
 
   const demos = [
     {
-      title: "Demo A — Governance Q&A",
-      subtitle: "Ask a Question",
+      title: "Demo A — Governed Decision (Single Run)",
+      subtitle: "One request → enforced verdict + proof record.",
       icon: MessageSquare,
       bullets: [
-        "A single request processed through a governed multi-model pipeline",
-        "High-level governance status and decision trace (demo-safe)",
-        "Final response delivered with a verifiable proof record",
+        "A single prompt processed through the governed pipeline (demo-safe)",
+        "Decision trace (checks → arbitration if needed → release/veto)",
+        "Final output with a verifiable proof record",
       ],
-      whoFor: "Anyone evaluating multi-model governance",
+      whoFor: "Teams evaluating decision enforcement on individual requests",
       path: "/demos/senate-qa",
     },
     {
-      title: "Demo B — Monitoring & Reliability",
-      subtitle: "Live Metrics",
+      title: "Demo B — Platform Monitoring & Audit",
+      subtitle: "Health, latency, and audit visibility across many decisions.",
       icon: BarChart3,
       bullets: [
-        "System health and latency overview",
-        "Reliability trends over time",
-        "Trace viewing and audit access (demo-safe)",
+        "System health, throughput, and latency overview",
+        "Reliability trends over time (demo-safe)",
+        "Trace viewing and audit access patterns (demo-safe)",
       ],
-      whoFor: "Investors, compliance leaders, partners",
+      whoFor: "Investors, compliance leaders, security teams",
       path: "/demos/monitoring",
     },
     {
@@ -91,6 +91,18 @@ const DemoHub = () => {
       ],
       whoFor: "Banks, universities, big enterprise security",
       path: "/demos/scale-conduit",
+    },
+    {
+      title: "Demo G — Operator Certification (Workforce)",
+      subtitle: "Measure and certify how humans use AI—over time.",
+      icon: UserCheck,
+      bullets: [
+        "A simulated multi-turn scenario scored for verification discipline and risk handling",
+        "A selectable evaluation window: 7 / 30 / 60 / 90 days",
+        "A certification report (PASS / REVIEW / FAIL) with proof record IDs",
+      ],
+      whoFor: "Regulated employers, universities, high-trust operations",
+      path: "/demos/operator-certification",
     },
   ];
 

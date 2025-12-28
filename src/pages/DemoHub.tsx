@@ -202,11 +202,10 @@ const DemoHub = () => {
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold text-foreground mb-1">SYNTH™ — The Moat</h2>
-                    <p className="text-xs text-cyan-400 font-medium mb-3">Multi-Model Adversarial Senate</p>
+                    <p className="text-xs text-cyan-400 font-medium mb-3">Adversarial Consensus Engine</p>
                     <p className="text-muted-foreground text-sm mb-4">
-                      The protective barrier that separates you from competition, bad actors, and terminated content. 
-                      SYNTH orchestrates <span className="text-foreground font-medium">multiple independent verifiers</span> for 
-                      consensus, contradiction detection, policy enforcement, and arbitration.
+                      SYNTH is an adversarial consensus moat—<span className="text-foreground font-medium">multiple independent verifiers</span> cross-examine 
+                      every output before it's allowed through. Bad actors, weak logic, and terminated content are stopped at the gate.
                     </p>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Bot className="h-4 w-4 text-cyan-400" />

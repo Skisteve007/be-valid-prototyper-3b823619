@@ -18,6 +18,7 @@ import {
   Database
 } from "lucide-react";
 import TheAskSection from "@/components/operation-sf/TheAskSection";
+import CampaignScheduleSection from "@/components/operation-sf/CampaignScheduleSection";
 
 const OperationSF = () => {
   const navigate = useNavigate();
@@ -384,6 +385,9 @@ const OperationSF = () => {
 
       {/* THE ASK - Tiered Agreements */}
       <TheAskSection />
+
+      {/* Campaign Schedule */}
+      <CampaignScheduleSection />
 
       {/* CTA Section */}
       <section className="py-20 border-t border-border/30">

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Copy, Check, BookOpen, MessageSquare, HelpCircle, AlertTriangle, Wrench, Mic, Target, Shield, Users, Clock, CheckSquare } from "lucide-react";
+import { Copy, Check, BookOpen, MessageSquare, HelpCircle, AlertTriangle, Wrench, Mic, Target, Shield, Users, Clock, CheckSquare, QrCode, Lock, Database, Ban } from "lucide-react";
 import { toast } from "sonner";
 
 interface PlaybookEntry {
@@ -337,6 +337,85 @@ A: "A short teardown and your criteria for 'pilot-ready.' If it passes, an intro
 
 **Owner:** CEO
 **Use when:** Andrew (mentor/technical), pilots, skeptics, reviewers`
+      }
+    ]
+  },
+  {
+    id: "conduit-qr-non-negotiables",
+    title: "Conduit QR Card — Non-Negotiables (Source-of-Truth Pattern)",
+    blocks: [
+      {
+        title: "Principle",
+        icon: <QrCode className="h-4 w-4" />,
+        content: `**We are a conduit, not a warehouse.** The QR card must never embed or directly expose sensitive payload data.
+
+**One-sentence description (for investors/mentors):**
+
+"The QR is a pointer to a consented, time‑limited session; data is pulled from the authoritative source, and we retain only attestations and audit logs—not underlying records."`
+      },
+      {
+        title: "Hard Rule 1 — QR Contains Only a Pointer",
+        icon: <Lock className="h-4 w-4" />,
+        content: `• The QR code encodes only: a URL to our domain + a random session/token ID.
+
+• **No PHI, no ID numbers, no insurance member IDs, no medical record data** in the QR payload.
+
+• Token is a random UUID — not correlated to any real-world identifier.
+
+• All sensitive data retrieval happens server-side after token validation.`
+      },
+      {
+        title: "Hard Rule 2 — Time-Limited, Single-Use Sessions",
+        icon: <Clock className="h-4 w-4" />,
+        content: `• Scan creates/opens a session that expires quickly (e.g., 30–60 seconds) and/or is single‑use.
+
+• The "viewer" receives only temporary access.
+
+• Token is invalidated after use or expiration — no replay attacks.
+
+• Each QR generation creates a fresh token (Ghostware™ evaporation pattern).`
+      },
+      {
+        title: "Hard Rule 3 — Authoritative Source Serves the Record",
+        icon: <Database className="h-4 w-4" />,
+        content: `• Medical records / lab results / ID proof are retrieved from the **source system** (hospital/EHR, lab portal, ID provider).
+
+• We broker **consent + routing**; we do not become the long‑term holder of the underlying record.
+
+• Data flows through us, not to us.
+
+• We are a verification conduit, not a data warehouse.`
+      },
+      {
+        title: "Hard Rule 4 — Minimize Retention",
+        icon: <Shield className="h-4 w-4" />,
+        content: `**We MAY store:**
+
+• consent/audit logs (who/when/what was authorized)
+• verification/attestation results (pass/fail + provider + timestamp)
+• minimal metadata required to operate and audit
+
+**We MUST NOT store:**
+
+• raw medical record PDFs/exports
+• raw ID images
+• full insurance card data
+• any PHI beyond attestation results`
+      },
+      {
+        title: "Hard Rule 5 — No Accidental Leakage",
+        icon: <Ban className="h-4 w-4" />,
+        content: `• Never put sensitive data in URLs/query strings.
+
+• Do not log raw payloads.
+
+• Disable caching for sensitive endpoints (no CDN/browser cache of PHI views).
+
+• No sensitive data to analytics/3rd-party scripts.
+
+• All sensitive API responses use appropriate no-cache headers.
+
+• Profile data shown to viewers is minimal (first name only, badges, no full PII).`
       }
     ]
   }

@@ -48,15 +48,15 @@ interface MetricsData {
   }>;
 }
 
-// Fallback seat metrics if no real data
+// Fallback seat metrics if no real data - Using generic labels for IP protection
 const FALLBACK_SEAT_METRICS = [
-  { provider: "OpenAI", model: "GPT-4o", uptime: 99.7, avgLatency: 1240, status: "healthy" },
-  { provider: "Anthropic", model: "Claude 3.5", uptime: 99.4, avgLatency: 1580, status: "healthy" },
-  { provider: "Google", model: "Gemini Pro", uptime: 98.9, avgLatency: 890, status: "healthy" },
-  { provider: "DeepSeek", model: "DeepSeek-V3", uptime: 97.2, avgLatency: 2100, status: "degraded" },
-  { provider: "xAI", model: "Grok-2", uptime: 96.5, avgLatency: 1450, status: "healthy" },
-  { provider: "Mistral", model: "Mistral Large", uptime: 98.1, avgLatency: 980, status: "healthy" },
-  { provider: "Meta", model: "Llama 3.1", uptime: 95.8, avgLatency: 1820, status: "healthy" },
+  { provider: "Provider A", model: "Model Alpha", uptime: 99.7, avgLatency: 1240, status: "healthy" },
+  { provider: "Provider B", model: "Model Beta", uptime: 99.4, avgLatency: 1580, status: "healthy" },
+  { provider: "Provider C", model: "Model Gamma", uptime: 98.9, avgLatency: 890, status: "healthy" },
+  { provider: "Provider D", model: "Model Delta", uptime: 97.2, avgLatency: 2100, status: "degraded" },
+  { provider: "Provider E", model: "Model Epsilon", uptime: 96.5, avgLatency: 1450, status: "healthy" },
+  { provider: "Provider F", model: "Model Zeta", uptime: 98.1, avgLatency: 980, status: "healthy" },
+  { provider: "Provider G", model: "Model Eta", uptime: 95.8, avgLatency: 1820, status: "healthy" },
 ];
 
 const DemoMonitoring = () => {

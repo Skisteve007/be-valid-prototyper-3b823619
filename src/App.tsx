@@ -15,8 +15,6 @@ import ResponsiveHeader from "@/components/ResponsiveHeader";
 import ModeSwitcherFAB from "@/components/ModeSwitcherFAB";
 // SiteGate removed as global wrapper - use AccessGate for protected routes instead
 import { Skeleton } from "@/components/ui/skeleton";
-// Validate Supabase config on app startup
-import "@/lib/supabase-validation";
 
 // Critical path - eager load
 import Index from "./pages/Index";

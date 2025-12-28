@@ -131,6 +131,7 @@ const DemoOperatorCertification = lazy(() => import("./pages/DemoOperatorCertifi
 const OperationSF = lazy(() => import("./pages/OperationSF"));
 const AgreementFlow = lazy(() => import("./pages/AgreementFlow"));
 const AgreementSuccess = lazy(() => import("./pages/AgreementSuccess"));
+const Careers = lazy(() => import("./pages/Careers"));
 
 const queryClient = new QueryClient();
 
@@ -299,6 +300,7 @@ const App = () => (
                   <Route path="/operation-sf" element={<OperationSF />} />
                   <Route path="/agreement/:tierId" element={<AgreementFlow />} />
                   <Route path="/agreement-success" element={<AgreementSuccess />} />
+                  <Route path="/careers" element={<Careers />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

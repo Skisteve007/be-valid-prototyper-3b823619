@@ -83,6 +83,7 @@ const Footer = () => {
             <span className="text-white font-bold">|</span>
             <Link to="/demos" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Demos</Link>
             <span className="text-white font-bold">|</span>
+            <Link to="/careers" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Careers</Link>
             {isSteveOwner && (
               <>
                 <span className="text-white font-bold">|</span>

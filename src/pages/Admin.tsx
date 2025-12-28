@@ -42,6 +42,7 @@ import { SalesBattlecardsTab } from "@/components/admin/SalesBattlecardsTab";
 import { CareersTab } from "@/components/admin/CareersTab";
 import { LegalTemplatesTab } from "@/components/admin/LegalTemplatesTab";
 import { HiringPacketTab } from "@/components/admin/HiringPacketTab";
+import { CEOPlaybookTab } from "@/components/admin/CEOPlaybookTab";
 import {
   DndContext,
   closestCenter,
@@ -712,6 +713,9 @@ const Admin = () => {
             <TabsTrigger value="hiring-packet" className="cursor-pointer text-[10px] px-1 py-1">
               📦 Packet
             </TabsTrigger>
+            <TabsTrigger value="ceo-playbook" className="cursor-pointer text-[10px] px-1 py-1">
+              📘 Playbook
+            </TabsTrigger>
             <TabsTrigger
               value="synth"
               className={`cursor-pointer text-[10px] px-1 py-1 border border-primary/30 ${
@@ -1091,6 +1095,10 @@ const Admin = () => {
 
           <TabsContent value="hiring-packet">
             <HiringPacketTab />
+          </TabsContent>
+
+          <TabsContent value="ceo-playbook">
+            <CEOPlaybookTab />
           </TabsContent>
 
           <TabsContent value="synth">

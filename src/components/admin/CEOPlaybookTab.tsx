@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Copy, Check, BookOpen, MessageSquare, HelpCircle } from "lucide-react";
+import { Copy, Check, BookOpen, MessageSquare, HelpCircle, AlertTriangle, Wrench, Mic } from "lucide-react";
 import { toast } from "sonner";
 
 interface PlaybookEntry {
@@ -115,6 +115,68 @@ Steve
 6. "How should we balance transparency (showing our work) vs. security (not exposing policy logic to adversaries)?"
 
 7. "If you were advising an enterprise on adopting AI governance, what would be your top 3 due diligence questions?"`
+      }
+    ]
+  },
+  {
+    id: "andrew-ng-readiness",
+    title: "Andrew Ng Challenges — Readiness Package (Holes, Fixes, Proof)",
+    blocks: [
+      {
+        title: "BLOCK 1 — Likely Attack Points (Holes)",
+        icon: <AlertTriangle className="h-4 w-4" />,
+        content: `• CERTIFIED/MISTRIAL definition is fuzzy → sounds like "truth"
+
+• Ground truth + evaluation dataset missing
+
+• LLM nondeterminism vs reproducibility claims
+
+• "We don't store data" vs what is logged/retained (hashes/traces can still be sensitive)
+
+• Customer-hosted runtime is a promise until packaged
+
+• Threat model (prompt injection, replay, tampering, insiders)
+
+• Defensibility/moat beyond "orchestrating models"`
+      },
+      {
+        title: "BLOCK 2 — Fixes (How we answer cleanly)",
+        icon: <Wrench className="h-4 w-4" />,
+        content: `• Define CERTIFIED as "meets policy-defined checks with evidence requirements" (not absolute truth)
+
+• Publish/maintain an evaluation plan: baseline comparison + confusion matrix + abstention rate + latency/cost
+
+• Clarify proof record: proves *what happened* (signed receipt) + policy version; reproducibility via trace + bounded nondeterminism
+
+• Add a "What we store / don't store" table + default minimal retention + customer-controlled mode
+
+• Package customer-hosted runtime: container + deploy guide + reference config (even early)
+
+• Threat model statement: signing, key rotation, idempotency, structured IO, access controls
+
+• Moat sentence: "enforcement + verifiable receipts + enterprise boundary deployment + integrations"`
+      },
+      {
+        title: "BLOCK 3 — The 7 Questions to Ask Andrew",
+        icon: <HelpCircle className="h-4 w-4" />,
+        content: `1) Most defensible definition of CERTIFIED?
+
+2) What evaluation would convince you this is real?
+
+3) What would a CISO/GC demand to believe conduit-first?
+
+4) What failure mode hits first in production?
+
+5) What component should we open-source for credibility?
+
+6) Minimum artifact to call customer-hosted "real"?
+
+7) Where is the moat?`
+      },
+      {
+        title: "BLOCK 4 — Talk Track (1 minute)",
+        icon: <Mic className="h-4 w-4" />,
+        content: `"We welcome audits because we ship proof records—tamper-evident receipts—rather than asking for trust. CERTIFIED means 'meets policy pack vX evidence requirements,' not absolute truth. Enterprise can run the runtime inside their boundary so raw payloads stay in their environment."`
       }
     ]
   }

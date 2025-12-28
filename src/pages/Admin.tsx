@@ -40,6 +40,7 @@ import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import { SynthAdminTab } from "@/components/admin/SynthAdminTab";
 import { SalesBattlecardsTab } from "@/components/admin/SalesBattlecardsTab";
 import { CareersTab } from "@/components/admin/CareersTab";
+import { LegalTemplatesTab } from "@/components/admin/LegalTemplatesTab";
 import {
   DndContext,
   closestCenter,
@@ -704,6 +705,9 @@ const Admin = () => {
             <TabsTrigger value="careers" className="cursor-pointer text-[10px] px-1 py-1">
               👥 Careers
             </TabsTrigger>
+            <TabsTrigger value="legal-templates" className="cursor-pointer text-[10px] px-1 py-1">
+              📜 Legal
+            </TabsTrigger>
             <TabsTrigger
               value="synth"
               className={`cursor-pointer text-[10px] px-1 py-1 border border-primary/30 ${
@@ -1075,6 +1079,10 @@ const Admin = () => {
 
           <TabsContent value="careers">
             <CareersTab />
+          </TabsContent>
+
+          <TabsContent value="legal-templates">
+            <LegalTemplatesTab />
           </TabsContent>
 
           <TabsContent value="synth">

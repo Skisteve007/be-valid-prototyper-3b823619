@@ -29,7 +29,12 @@ const DemoHub = () => {
       tagline: "The Whale",
       snapshot: "AI-powered medical search / evidence synthesis for clinicians. Publicly announced a $210M round at a $3.5B valuation (Jul 2025).",
       exposure: "Clinical decision support → hallucination risk = malpractice/liability risk. Needs \"release/veto\" enforcement + audit trail for every high-stakes answer.",
-      likelyStack: "Model monitoring + content safety + internal review processes (observability ≠ enforcement).",
+      stackCategories: [
+        "Model monitoring / evaluation dashboards (observability)",
+        "Content safety / policy filters (moderation)",
+        "Security + compliance controls for clinical workflows (PHI handling)",
+        "Internal QA / clinical review processes (human-in-the-loop)",
+      ],
       wedgeLine: "You're becoming clinical infrastructure. Infrastructure needs a liability shield: CERTIFIED vs MISTRIAL + court-ready proof records.",
       cta: "Offer: 45-day side-by-side proof in shadow mode → active veto.",
     },
@@ -39,7 +44,12 @@ const DemoHub = () => {
       tagline: "The Shield",
       snapshot: "AI clinical documentation: transcribes and structures patient-provider conversations into notes.",
       exposure: "Medical records are legal documents; transcription errors create care + legal risk. Heavy PHI surface area (privacy + retention + auditability).",
-      likelyStack: "HIPAA controls + security programs + vendor DPAs; may still lack per-output enforcement.",
+      stackCategories: [
+        "Clinical documentation workflow + EHR integration layer",
+        "PHI security controls (access, retention, audit)",
+        "Transcription accuracy QA + clinician review loops",
+        "Vendor compliance contracts (BAA/DPAs)",
+      ],
       wedgeLine: "You're writing the medical record. We certify every transcript output and attach a proof record.",
       cta: "Offer: transcript governance pack + proof record verifier for auditors.",
     },
@@ -49,7 +59,12 @@ const DemoHub = () => {
       tagline: "The Safety Play",
       snapshot: "Healthcare-focused AI models positioning around safety.",
       exposure: "Their brand promise is \"safe.\" Safety must be provable, not claimed. Buyers will ask: 'show me enforcement + audit trail.'",
-      likelyStack: "Evaluations + benchmarks + policy guardrails; not always real-time veto with proof.",
+      stackCategories: [
+        "Safety benchmarking + model evaluation harnesses",
+        "Guardrails / policy enforcement filters (pre/post processing)",
+        "Incident review + audit processes for safety claims",
+        "Enterprise security + compliance programs for healthcare AI",
+      ],
       wedgeLine: "Don't market 'safe'—ship provable safety. We run continuous audits and produce verifiable proof records.",
       cta: "Offer: paid 'Safety Audit' package (fixed price) + renewal.",
     },
@@ -59,7 +74,12 @@ const DemoHub = () => {
       tagline: "The Pharma Play",
       snapshot: "Uses AI/data to accelerate drug development and trials.",
       exposure: "Regulated domain (GxP mindset): traceability, validation, and audit trails matter. Data integrity errors can sink trials and timelines.",
-      likelyStack: "Data pipelines + QA processes; may not have AI decision proof artifacts.",
+      stackCategories: [
+        "Data pipelines + lineage tooling (traceability)",
+        "Validation / QA processes (regulated workflow mindset)",
+        "Access control + audit logging for sensitive research data",
+        "Model evaluation for R&D outputs (quality + reproducibility)",
+      ],
       wedgeLine: "FDA-grade work requires traceable decisions. We provide proof records and governance gates.",
       cta: "Offer: governance on trial-facing outputs + audit-ready proof artifacts.",
     },
@@ -69,7 +89,12 @@ const DemoHub = () => {
       tagline: "The OS Play",
       snapshot: "Ambient AI clinical scribing / workflow automation in provider settings.",
       exposure: "Real-time capture + summarization: errors propagate fast. PHI exposure + operational risk at scale.",
-      likelyStack: "Standard security + monitoring; may lack enforcement-grade certification per note.",
+      stackCategories: [
+        "Real-time capture + summarization pipeline (high throughput)",
+        "PHI security + retention policies (medical record implications)",
+        "Monitoring for drift/quality (observability)",
+        "Manual review + escalation workflows for edge cases",
+      ],
       wedgeLine: "You're the clinical OS. We are the safety kernel: certify notes before they enter the record.",
       cta: "Offer: batch + streaming governance for notes with proof records.",
     },
@@ -79,7 +104,12 @@ const DemoHub = () => {
       tagline: "The Automation Play",
       snapshot: "Automates healthcare fax/referral workflows into structured data.",
       exposure: "Misread/referral errors = care delays + compliance risk. Garbage-in → patient harm/outcomes risk.",
-      likelyStack: "OCR/ML pipeline monitoring; may lack per-item certification and dispute trail.",
+      stackCategories: [
+        "Document ingestion / extraction pipeline (OCR/ML)",
+        "Workflow automation + routing (referrals/tickets)",
+        "QA sampling + exception handling queues",
+        "Compliance controls for PHI moving through ops workflows",
+      ],
       wedgeLine: "Every referral becomes a liability object. We certify each extraction and produce a proof record.",
       cta: "Offer: 'clean-before-model' governance gate + proof record for every referral.",
     },
@@ -510,8 +540,13 @@ const DemoHub = () => {
                           <p className="text-foreground">{target.exposure}</p>
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-muted-foreground mb-1">What they likely use today:</p>
-                          <p className="text-foreground">{target.likelyStack}</p>
+                          <p className="text-sm font-medium text-muted-foreground mb-2">Where this sits in your current stack (safe categories):</p>
+                          <ul className="text-foreground space-y-1 list-disc list-inside text-sm">
+                            {target.stackCategories.map((category, idx) => (
+                              <li key={idx}>{category}</li>
+                            ))}
+                          </ul>
+                          <p className="text-xs text-muted-foreground italic mt-2">Most stacks can observe and log. Few can enforce a release/veto decision with a proof record.</p>
                         </div>
                         <div className="p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
                           <p className="text-sm font-medium text-cyan-400 mb-1">Your wedge line:</p>

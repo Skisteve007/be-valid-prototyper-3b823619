@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import DemoBanner from "@/components/demos/DemoBanner";
 import DemoShareButton from "@/components/demos/DemoShareButton";
+import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
 import SynthScorecard from "@/components/reports/SynthScorecard";
 import { transformToScorecard, generateAuditProof, downloadJSON } from "@/lib/reportUtils";
 
@@ -429,6 +430,11 @@ const DemoSenateQA = () => {
               )}
             </div>
           )}
+
+          {/* Footer Notice */}
+          <div className="text-center mt-8">
+            <DemoEnvironmentNotice variant="footer" />
+          </div>
         </main>
       </div>
     </>

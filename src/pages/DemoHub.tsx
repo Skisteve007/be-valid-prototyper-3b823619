@@ -216,9 +216,8 @@ const DemoHub = () => {
                       <div className="px-6 pb-6 border-t border-border/30 pt-4">
                         <div className="space-y-4">
                           <div>
-                            <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">Pitch</p>
                             <p className="text-sm text-muted-foreground leading-relaxed italic">
-                              "{exp.voiceover}"
+                              {exp.voiceover}
                             </p>
                             <p className="text-sm text-foreground mt-3">
                               I'm Steve Grillo. Get to know us at bevalid.app. Click the button if you'd like to speak to Steve directly—or call <span className="text-primary font-medium">512-781-0973</span>. We're excited to welcome you to our sandbox.

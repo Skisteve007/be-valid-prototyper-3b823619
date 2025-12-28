@@ -4,10 +4,10 @@
  */
 export function validateSupabaseConfig(): boolean {
   const url = import.meta.env.VITE_SUPABASE_URL;
-  const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
   
   if (!url || !key) {
-    console.error('[Supabase Config] Missing environment variables: VITE_SUPABASE_URL and/or VITE_SUPABASE_PUBLISHABLE_KEY');
+    console.error('[Supabase Config] Missing environment variables: VITE_SUPABASE_URL and/or VITE_SUPABASE_ANON_KEY');
     return false;
   }
 

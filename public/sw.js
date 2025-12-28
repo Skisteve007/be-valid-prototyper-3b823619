@@ -1,5 +1,5 @@
 // VALID Service Worker v1.0.0
-const CACHE_NAME = 'valid-app-v1';
+const CACHE_NAME = 'valid-app-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Assets to cache immediately on install

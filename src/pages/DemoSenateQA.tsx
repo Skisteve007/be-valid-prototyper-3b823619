@@ -137,13 +137,13 @@ const DemoSenateQA = () => {
 
   const getProviderColor = (provider: string) => {
     switch (provider) {
-      case "OpenAI": return "text-emerald-400";
-      case "Anthropic": return "text-amber-400";
-      case "Google": return "text-blue-400";
-      case "Meta": return "text-purple-400";
-      case "DeepSeek": return "text-cyan-400";
-      case "Mistral": return "text-orange-400";
-      case "xAI": return "text-pink-400";
+      case "Verifier A": return "text-emerald-400";
+      case "Verifier B": return "text-amber-400";
+      case "Verifier C": return "text-blue-400";
+      case "Verifier D": return "text-purple-400";
+      case "Verifier E": return "text-cyan-400";
+      case "Verifier F": return "text-orange-400";
+      case "Verifier G": return "text-pink-400";
       default: return "text-foreground";
     }
   };
@@ -258,13 +258,13 @@ const DemoSenateQA = () => {
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   {(result?.seats || [
-                    { seat_id: 1, provider: "OpenAI", status: isRunning ? "running" : "offline" },
-                    { seat_id: 2, provider: "Anthropic", status: isRunning ? "running" : "offline" },
-                    { seat_id: 3, provider: "Google", status: isRunning ? "running" : "offline" },
-                    { seat_id: 4, provider: "DeepSeek", status: isRunning ? "running" : "offline" },
-                    { seat_id: 5, provider: "xAI", status: isRunning ? "running" : "offline" },
-                    { seat_id: 6, provider: "Mistral", status: isRunning ? "running" : "offline" },
-                    { seat_id: 7, provider: "Meta", status: isRunning ? "running" : "offline" },
+                    { seat_id: 1, provider: "Verifier A", status: isRunning ? "running" : "offline" },
+                    { seat_id: 2, provider: "Verifier B", status: isRunning ? "running" : "offline" },
+                    { seat_id: 3, provider: "Verifier C", status: isRunning ? "running" : "offline" },
+                    { seat_id: 4, provider: "Verifier D", status: isRunning ? "running" : "offline" },
+                    { seat_id: 5, provider: "Verifier E", status: isRunning ? "running" : "offline" },
+                    { seat_id: 6, provider: "Verifier F", status: isRunning ? "running" : "offline" },
+                    { seat_id: 7, provider: "Verifier G", status: isRunning ? "running" : "offline" },
                   ]).map((seat: any) => (
                     <div key={seat.seat_id} className="flex items-center gap-1.5 px-2 py-1 rounded bg-muted/50 border border-border">
                       {getStatusIcon(seat.status)}

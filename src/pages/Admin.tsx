@@ -39,6 +39,7 @@ import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import { SynthAdminTab } from "@/components/admin/SynthAdminTab";
 import { SalesBattlecardsTab } from "@/components/admin/SalesBattlecardsTab";
+import { CareersTab } from "@/components/admin/CareersTab";
 import {
   DndContext,
   closestCenter,
@@ -665,7 +666,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Second Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-11 gap-0.5 h-auto p-0.5 mb-4">
+          <TabsList className="hidden md:grid w-full grid-cols-12 gap-0.5 h-auto p-0.5 mb-4">
             <TabsTrigger value="lead-outreach" className="cursor-pointer text-[10px] px-1 py-1">
               📧 Leads
             </TabsTrigger>
@@ -699,6 +700,9 @@ const Admin = () => {
             <TabsTrigger value="webhooks" className="cursor-pointer text-[10px] px-1 py-1">
               <Webhook className="h-2.5 w-2.5 mr-0.5" />
               Webhooks
+            </TabsTrigger>
+            <TabsTrigger value="careers" className="cursor-pointer text-[10px] px-1 py-1">
+              👥 Careers
             </TabsTrigger>
             <TabsTrigger
               value="synth"
@@ -1067,6 +1071,10 @@ const Admin = () => {
           
           <TabsContent value="webhooks">
             <WebhookEventsViewer />
+          </TabsContent>
+
+          <TabsContent value="careers">
+            <CareersTab />
           </TabsContent>
 
           <TabsContent value="synth">

@@ -47,6 +47,7 @@ const navItems = [
   { id: "pricing", label: "Pricing & Contracts", icon: DollarSign },
   { id: "webhooks", label: "Webhooks", icon: Webhook },
   { id: "careers", label: "Careers", icon: UserPlus },
+  { id: "legal-templates", label: "Legal Templates", icon: FileText },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canUnlockSynth }: AdminMobileNavProps) => {

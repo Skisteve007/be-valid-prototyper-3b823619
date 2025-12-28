@@ -3,8 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Copy, Check, Briefcase, Calendar } from "lucide-react";
+import { Copy, Check, Briefcase, Calendar, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 interface JobAd {
   id: string;
@@ -16,140 +17,120 @@ interface JobAd {
 const jobAds: JobAd[] = [
   {
     id: "enterprise-ae",
-    title: "Founding Enterprise AE (Technical) — SF",
-    summaryLine: "San Francisco (Hybrid) | $250k–$350k base + OTE $1M+",
-    fullAdText: `TITLE: Founding Enterprise AE (Technical) — AI Governance / Safety / "Conduit-First" Platform
-LOCATION: San Francisco (Hybrid)
-COMP: $250k–$350k base + aggressive commission/equity (OTE $1M+ for top performance)
+    title: "Founding Enterprise AE (Technical) — Contractor",
+    summaryLine: "SF/Hybrid | 15% of cash collected + equity | Uncapped",
+    fullAdText: `TITLE: Founding Enterprise AE (Technical) — Contractor (SF / Hybrid)
+CATEGORY: Enterprise AI Governance / Liability Shield
+UPSIDE: Uncapped. Paid on cash collected. Equity-forward.
 
-ABOUT THE ROLE
-We're building Valid/SYNTH: a conduit-first governance platform that enforces decisions (CERTIFIED vs MISTRIAL) and produces verifiable proof records—without becoming the system of record. We sell into regulated and high-liability environments where AI outputs and bad data create real legal exposure.
-
-You are a highly technical enterprise closer who can run the full cycle: discovery → technical validation → security review → procurement → close.
-
-WHAT YOU'LL DO
-- Own 6–7 figure enterprise deals end-to-end (CISO, GC, Compliance, Product, Data, AI leadership).
-- Lead technical discovery: deployment model, data boundary requirements, audit needs, integration points.
-- Run POVs: shadow mode → proof record verification → active enforcement.
-- Partner directly with founders to sharpen positioning, pricing, and playbooks.
-- Build a repeatable enterprise motion (targets, sequences, objection handling, mutual action plans).
+WHY THIS IS A BIG DEAL
+AI is getting companies sued. Monitoring isn't enforcement. Valid/SYNTH is built to enforce decisions (CERTIFIED vs MISTRIAL) and generate verifiable proof records—without becoming the system of record. We can run customer-hosted for enterprise boundaries.
 
 WHO YOU ARE
-- 7–10+ years enterprise sales, including complex technical/security reviews.
-- You can sell to regulated buyers and translate technical truth into executive clarity.
-- You can run a room with security and legal without over-claiming.
-- Strong with architecture diagrams, integration mapping, and POV design (you don't need to code, but you must be technical).
+You're the rare seller who can run a room with Security + Legal + Product and still close. You can explain "conduit-first" simply, run a POV, and move procurement without over-claiming.
 
-SIGNALS YOU'VE DONE THIS BEFORE
-- Closed $500k–$5M+ ARR deals (or equivalent large contracts).
-- Comfortable selling platform infrastructure, security, compliance, or AI governance.
-- Experience with procurement, MSAs, DPAs/BAAs, security questionnaires, SOC2, and risk reviews.
+WHAT YOU'LL DO
+- Close 6–7 figure enterprise contracts (regulated + high-liability orgs).
+- Run discovery → POV → security review → close.
+- Turn the demo into a paid 45-day proof sprint.
+- Build the playbook with the founder (targets, objections, sequences, pricing).
 
-WHY THIS ROLE
-- You'll define the enterprise motion from day one.
-- Massive urgency: buyers are being sued for AI mistakes and unverified data.
-- If you want to build a category and be paid like a top closer, this is it.
+COMP (CONTRACTOR, FAIR, SIMPLE)
+- Commission: 15% of first-year contract value CASH COLLECTED
+- Paid: 50% cash + 50% equity at collection milestone
+- Equity: issued via a written plan (options/RSAs depending on structure)
+No cash collected = nothing "owed" yet. When cash lands, you get paid.
 
 TO APPLY
 Email: steve@bevalid.app
-Subject: "Founding Enterprise AE — SF"
-Include: (1) LinkedIn, (2) 3 biggest deals closed, (3) why you're the right person for this exact category.`
+Subject: "Founding Enterprise AE"
+Include: LinkedIn + biggest 3 closes + why you're a fit for security/legal heavy deals.`
   },
   {
     id: "growth-ae",
-    title: "Growth AE (Main Street) — SF",
-    summaryLine: "San Francisco (Hybrid) + Field | $120k–$180k base + OTE ~$400k",
-    fullAdText: `TITLE: Growth AE (Main Street) — $5K Setup Deals, Fast Close Cycle
-LOCATION: San Francisco (Hybrid) + Field-friendly
-COMP: $120k–$180k base + commission (OTE ~$400k for top performance)
+    title: "Growth AE (Main Street) — Contractor",
+    summaryLine: "SF/Field | 15% of cash collected | Uncapped",
+    fullAdText: `TITLE: Growth AE (Main Street) — Contractor (SF / Field-Friendly)
+FOCUS: $5K setup deals + fast closes + volume
+UPSIDE: Uncapped. Paid on collected cash.
 
-ABOUT THE ROLE
-Valid/Ghost helps small and mid-sized operators (venues, clinics, salons, offices) verify and share trust signals through time-limited passes and governed decisions—fast onboarding, clear ROI, and low friction.
-
-We need a closer who thrives on volume, urgency, and clean execution. This role is built for someone who can turn attention (Instagram + inbound + outbound) into signed deals.
+WHY THIS ROLE WINS
+This isn't theory. You'll sell a working demo to operators who need trust fast: venues, clinics, salons, offices. Quick onboarding, clean value, tight story.
 
 WHAT YOU'LL DO
-- Close high-velocity deals (typical: $5K setup + ongoing).
-- Run short discovery and fast demos: "Upload & Verdict" + proof verification + share token.
-- Build a local pipeline (SF Bay Area) plus remote pipeline.
-- Handle objections quickly and ethically (privacy, "do you store data?", "is this real?").
-- Feed product and marketing: what's converting, what's confusing, what's blocking closes.
+- Close high-velocity deals (typically $5K setup + ongoing).
+- Run short demos (Upload & Verdict + Proof Verification + optional share token).
+- Source pipeline in SF (walk-ins, DMs, referrals, local partnerships).
+- Follow up like a machine and keep deals moving.
 
-WHO YOU ARE
-- Proven high-output seller (SMB, local business, SaaS, payments, security, or ops tooling).
-- You can work leads relentlessly: phone, text, DMs, in-person drops.
-- You write clean follow-ups and drive next steps without drama.
-- You don't need deep AI knowledge—you need speed, discipline, and integrity.
-
-BONUS POINTS
-- Experience with local operators: venues, healthcare clinics, hospitality, compliance-heavy SMBs.
-- Comfortable on camera / short-form content to support inbound demand.
+COMP (CONTRACTOR, PAID ON COLLECTION)
+- Commission: 15% of CASH COLLECTED on qualifying deals
+- Paid: 100% cash OR (optional) split cash/equity if you want more upside
+- No salary promises. This is for closers who want uncapped payout.
 
 TO APPLY
 Email: steve@bevalid.app
 Subject: "Growth AE — Main Street"
-Include: (1) LinkedIn, (2) last 12 months performance numbers, (3) why you win in high-velocity closes.`
+Include: your last 12 months numbers + why you win high-velocity.`
   },
   {
     id: "founding-engineer",
-    title: "Founding Engineer (Customer-Hosted Runtime) — SF",
-    summaryLine: "San Francisco (Hybrid) | Competitive salary + founding equity",
-    fullAdText: `TITLE: Founding Engineer — Customer-Hosted Runtime (Conduit-First AI Governance)
-LOCATION: San Francisco (Hybrid)
-COMP: Competitive salary + meaningful equity (founding-level). (Set range based on seniority.)
+    title: "Founding Engineer — Customer-Hosted Runtime — Contractor",
+    summaryLine: "SF/Hybrid | Equity-forward + milestone bonuses",
+    fullAdText: `TITLE: Founding Engineer — Customer-Hosted Runtime (Contractor, SF/Hybrid)
+MISSION: Build the enterprise-grade enforcement runtime that can run inside a customer VPC.
 
-ABOUT VALID/SYNTH
-We're building Valid/SYNTH: a conduit-first governance platform that enforces decisions (CERTIFIED vs MISTRIAL) and produces verifiable proof records—without becoming the system of record. We deploy side-by-side with enterprise systems, including customer-hosted runtime options where raw payloads stay inside the customer boundary.
+WHY THIS IS A HELL OF A DEAL
+If you've wanted to be "CTO energy" early—this is it. We're building a conduit-first governance layer that makes AI decisions provable (proof records) and enforceable (release/veto). Demos are live. Now we harden it for real enterprise use.
 
-We're past slides. Demos are live. Now we need a founding engineer to harden the runtime into world-class production infrastructure.
+WHAT YOU'LL BUILD
+- Customer-hosted runtime (containerized) that:
+  - ingests requests/events
+  - runs multiple verifiers in parallel (timeouts, retries, idempotency)
+  - outputs structured decision signals + proof record IDs
+- Scale posture: burst traffic, queues, backpressure, observability.
+- Security posture: keys, signatures, tenant isolation, audit logs.
 
-THE ROLE (WHAT YOU'LL BUILD)
-You will own the "SYNTH Runtime" — the customer-hosted enforcement layer that can run inside an enterprise VPC and handle high-throughput workloads.
+COMP (CONTRACTOR, CASH-LEAN, UPSIDE-HEAVY)
+- Monthly contractor pay: "as available" (be explicit in the conversation)
+- Equity: meaningful founding-level grant for the right person
+- Performance cash: milestone-based bonuses tied to revenue events / funded LOIs
 
-Core responsibilities:
-- Build and ship a customer-hosted runtime (containers) that:
-  - ingests events/requests (HTTP + queue-friendly patterns)
-  - fans out to multiple verification workers (parallel, timed, deterministic)
-  - returns structured decision signals (ALLOW/BLOCK/FLAG) + reason codes
-  - emits verifiable proof records (proof_id, hashes, timestamps, policy version, signatures)
-- Design for NFL-Sunday scale: burst handling, queues, backpressure, retries, idempotency.
-- Multi-tenant and policy isolation: per-customer rule packs, versioning, safe rollouts.
-- Observability: tracing, metrics, audit logs; clean integration with customer SIEM/log sinks.
-- Security first: secrets management, key rotation, least privilege, auditability.
-- Work directly with the founder on product truthfulness: no over-claims—everything provable.
+YOU'RE A FIT IF
+You've shipped distributed systems, you care about correctness, and you want ownership.
 
-WHAT "CONDUIT-FIRST" MEANS HERE
-- We do NOT custody customer source records by default.
-- Runtime can operate inside customer infrastructure to keep raw payloads in-bounds.
-- We return signed signals + proof artifacts, not a data warehouse.
-
-PREFERRED EXPERIENCE
-- Built distributed systems that scale (queues, worker pools, event-driven systems).
-- Shipped production SaaS infrastructure with strong security posture.
-- Comfortable with enterprise deployment patterns (Docker/Kubernetes, VPC constraints).
-- Bonus: experience with LLM/tool orchestration, policy engines, or compliance/audit systems.
-
-STACK
-We're pragmatic. You can propose the right stack.
-Comfortable options include Go, Python, and TypeScript for services; Postgres/Redis; containers; cloud-native primitives.
-The priority is reliability, security, and clarity—not hype.
-
-YOU'LL WIN IF YOU ARE
-- Fast, paranoid (in the good way), and obsessed with correctness.
-- Able to turn ambiguous goals into a tight execution plan.
-- Comfortable being the first "CTO energy" in the room.
-
-TO APPLY
-Email: steve@bevalid.app
+APPLY
+steve@bevalid.app
 Subject: "Founding Engineer — Runtime"
-Include:
-1) LinkedIn/GitHub
-2) 2–3 projects you've shipped that prove scale/reliability
-3) What you would build in the first 30 days here`
+Include: GitHub + 2 things you shipped + what you'd build in 30 days.`
+  },
+  {
+    id: "fullstack-engineer",
+    title: "Full-Stack Engineer — Demo/App/PWA — Contractor",
+    summaryLine: "SF/Remote | Equity + milestone bonuses",
+    fullAdText: `TITLE: Full-Stack Engineer — Demo/App/PWA (Contractor, SF/Remote)
+MISSION: Turn the demo experience into a gorgeous mobile-first app (PWA) that closes deals.
+
+WHAT YOU'LL DO
+- Make the Demo Hub + demos world-class: readable, fast, mobile-perfect.
+- Build PWA install flow (home screen app feel).
+- Implement clean UI systems (typography, cards, modals, routing).
+- Wire "Ghost preview flow" + time-limited token UX (demo-safe).
+
+COMP (CONTRACTOR, UPSIDE-FOCUSED)
+- Cash: limited initially
+- Equity: available
+- Bonuses tied to shipped milestones and/or revenue events
+
+APPLY
+steve@bevalid.app
+Subject: "Full-Stack — PWA"
+Include: portfolio + strongest UI project + availability.`
   }
 ];
 
 export function CareersTab() {
+  const navigate = useNavigate();
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handleCopyAd = async (ad: JobAd) => {
@@ -167,20 +148,30 @@ export function CareersTab() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <CardTitle className="text-2xl flex items-center gap-2">
                 <Briefcase className="h-6 w-6" />
-                Careers — Hiring Ads
+                Careers Vault — Hiring Ads
               </CardTitle>
               <CardDescription className="mt-2">
-                Copy/paste ready. Update here; use everywhere.
+                Copy/paste ready. This is the source of truth. Update here; use everywhere.
               </CardDescription>
             </div>
-            <Badge variant="outline" className="flex items-center gap-1">
-              <Calendar className="h-3 w-3" />
-              Last updated: Dec 28, 2024
-            </Badge>
+            <div className="flex items-center gap-3">
+              <Badge variant="outline" className="flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                Last updated: Dec 28, 2024
+              </Badge>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/careers")}
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                View Public Page
+              </Button>
+            </div>
           </div>
         </CardHeader>
         <CardContent>

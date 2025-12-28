@@ -7,11 +7,11 @@ interface FlowDiagramProps {
 const FlowDiagram = ({ variant }: FlowDiagramProps) => {
   if (variant === "senate") {
     const steps = [
-      { icon: MessageSquare, label: "Input" },
+      { icon: MessageSquare, label: "Input (Upload OR Stream)" },
       { icon: Users, label: "Governance Pipeline" },
       { icon: Scale, label: "Validation Checks" },
       { icon: CheckCircle, label: "Arbitration (as needed)" },
-      { icon: FileCheck, label: "Output + Proof Record" },
+      { icon: FileCheck, label: "Decision + Proof Record (+ Optional Share Token)" },
     ];
 
     return (
@@ -40,8 +40,8 @@ const FlowDiagram = ({ variant }: FlowDiagramProps) => {
   const steps = [
     { icon: Database, label: "Customer System of Record" },
     { icon: Shield, label: "Valid/SYNTH (govern + verify)" },
-    { icon: CheckCircle, label: "Time-Limited Verification Token" },
-    { icon: QrCode, label: "Optional Share (no records exposed)" },
+    { icon: CheckCircle, label: "Decision + Proof Record" },
+    { icon: QrCode, label: "Time-Limited Share Token (optional)" },
   ];
 
   return (

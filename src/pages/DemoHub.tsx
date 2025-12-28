@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot } from "lucide-react";
+import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot, FileUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -241,10 +241,73 @@ const DemoHub = () => {
           </Card>
 
           {/* Flow Diagrams */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
             <FlowDiagram variant="senate" />
             <FlowDiagram variant="conduit" />
           </div>
+
+          {/* Two Ways to Use Explainer */}
+          <Card className="mb-8 border-border/50 bg-card/50">
+            <CardContent className="pt-6">
+              <h3 className="text-sm font-semibold text-muted-foreground mb-4 text-center">
+                Two Ways to Use the Same Governance Pipeline
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Lane A */}
+                <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <FileUp className="h-5 w-5 text-primary" />
+                    <h4 className="font-semibold text-foreground text-sm">Lane A — Upload & Verdict (Simple)</h4>
+                  </div>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium mb-1">Who it's for:</p>
+                      <p className="text-foreground">Small teams, clubs/venues, pilots, compliance reviews</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium mb-1">What you input:</p>
+                      <p className="text-foreground">A document (e.g., a 10-page report), a transcript, or a single question</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium mb-1">What you get back:</p>
+                      <p className="text-foreground">A governed verdict (CERTIFIED / MISTRIAL), key reasons, and a proof record you can verify</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Lane B */}
+                <div className="p-4 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Layers className="h-5 w-5 text-cyan-400" />
+                    <h4 className="font-semibold text-foreground text-sm">Lane B — Enterprise Conduit (At Scale)</h4>
+                  </div>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium mb-1">Who it's for:</p>
+                      <p className="text-foreground">Universities, banks, large enterprises with existing systems</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium mb-1">What you input:</p>
+                      <p className="text-foreground">High-volume events or documents from your existing system (logs, transcripts, claims, tickets, records)</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium mb-1">How it works (side-by-side):</p>
+                      <p className="text-foreground">Your system remains the system of record. Valid/SYNTH receives a copy of the needed payload (or runs in your cloud), applies governance + verification, routes checks to approved services as needed, and returns results to your system.</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium mb-1">What you get back:</p>
+                      <p className="text-foreground">Decisions at throughput (allow/block/flag + reasons) plus proof records for auditability</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-center text-sm font-semibold text-foreground mt-6 pt-4 border-t border-border/30">
+                "We don't ask you to hand over your databases — we sit beside your stack and return governed decisions."
+              </p>
+            </CardContent>
+          </Card>
 
           {/* Demo Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

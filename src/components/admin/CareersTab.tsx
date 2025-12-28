@@ -16,6 +16,66 @@ interface JobAd {
 
 const jobAds: JobAd[] = [
   {
+    id: "cto",
+    title: "Founding CTO / Head of Engineering — Equity-First",
+    summaryLine: "SF/Hybrid or Remote (US) | Equity-first + cash ramps with revenue",
+    fullAdText: `TITLE: Founding CTO / Head of Engineering — Equity-First (Contractor Start)
+LOCATION: San Francisco (Hybrid) or Remote (US)
+COMP: Equity-first (meaningful stake). Cash limited initially; increases as revenue lands.
+
+WHY THIS ROLE EXISTS
+We're closing enterprise conversations around Valid/SYNTH: a conduit-first governance platform that enforces decisions (CERTIFIED vs MISTRIAL) and produces verifiable proof records—without becoming the system of record.
+
+We need a CTO-level operator who can:
+1) own the technical truth end-to-end,
+2) guide build priorities,
+3) confidently handle enterprise technical + security questions with the founder.
+
+This is a "glide through the whole platform" role—architecture, security posture, scale plan, and execution.
+
+WHAT YOU'LL OWN (DAY 1)
+- Technical strategy + architecture for a conduit-first platform:
+  - customer-hosted runtime option (enterprise VPC)
+  - hosted pilot path (minimized inputs) for speed
+  - proof record integrity + verification story
+- Engineering hiring plan: founding engineer(s) + full-stack + contractors.
+- Delivery: move from demo-grade to production-grade with world-class reliability.
+- Enterprise readiness: security questionnaires, deployment models, auditability, and integration patterns.
+- Founder support: be on calls when deep technical questions come up.
+
+WHAT YOU'LL BUILD / DIRECT
+- Customer-hosted "SYNTH Runtime" (containerized, queue-friendly, high-throughput).
+- Decision + proof record pipeline (signatures, timestamps, policy versioning, verification endpoints).
+- Observability and operational discipline (metrics, tracing, incident response basics).
+- A pragmatic stack choice (Go/Python/TypeScript—pick what wins).
+
+WHO YOU ARE
+- You've shipped production systems that scale (distributed systems, queues, worker pools).
+- You can speak security/legal/architecture with enterprise buyers without hand-waving.
+- You're calm under pressure and allergic to over-claims—everything must be provable.
+- You're a builder, not a slide-deck CTO.
+
+WHAT "EQUITY-FIRST" MEANS HERE
+- We are cash-lean right now.
+- You receive a meaningful stake for taking real ownership.
+- Cash compensation ramps with revenue and funded LOIs.
+- We'll put role expectations + equity terms in writing early.
+
+IDEAL BACKGROUND (ANY ONE OF THESE)
+- Security/compliance infrastructure
+- Healthcare/regulated software
+- High-scale SaaS platforms
+- AI/LLM platform engineering with strong governance instincts
+
+TO APPLY
+Email: steve@bevalid.app
+Subject: "CTO — Equity First"
+Include:
+1) LinkedIn/GitHub
+2) 2–3 systems you've shipped (scale/security/reliability)
+3) Your view on conduit-first: "customer-hosted runtime vs hosted pilot" in 5–10 lines`
+  },
+  {
     id: "enterprise-ae",
     title: "Founding Enterprise AE (Technical) — Contractor",
     summaryLine: "SF/Hybrid | 15% of cash collected + equity | Uncapped",

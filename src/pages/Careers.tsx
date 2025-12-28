@@ -36,6 +36,24 @@ interface RoleCard {
 
 const roles: RoleCard[] = [
   {
+    id: "cto",
+    title: "Founding CTO / Head of Engineering",
+    category: "Equity-First — SF/Hybrid or Remote (US)",
+    pitch: "Own the technical truth end-to-end. Guide build priorities. Confidently handle enterprise technical + security questions with the founder.",
+    whatYouDo: [
+      "Technical strategy + architecture for conduit-first platform (customer-hosted + hosted pilot)",
+      "Engineering hiring plan: founding engineers + full-stack + contractors",
+      "Enterprise readiness: security questionnaires, deployment models, auditability"
+    ],
+    youFitIf: [
+      "You've shipped production systems that scale (distributed systems, queues, worker pools)",
+      "You can speak security/legal/architecture with enterprise buyers without hand-waving",
+      "You're a builder, not a slide-deck CTO—everything must be provable"
+    ],
+    compSummary: "Equity-first (meaningful stake). Cash limited initially; increases as revenue lands.",
+    icon: <Shield className="h-6 w-6" />
+  },
+  {
     id: "enterprise-ae",
     title: "Founding Enterprise AE (Technical)",
     category: "Contractor — SF/Hybrid",

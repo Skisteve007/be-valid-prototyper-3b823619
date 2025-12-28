@@ -125,6 +125,8 @@ const DemoMonitoring = lazy(() => import("./pages/DemoMonitoring"));
 const DemoEnterpriseSandbox = lazy(() => import("./pages/DemoEnterpriseSandbox"));
 const DemoAuditVerifier = lazy(() => import("./pages/DemoAuditVerifier"));
 const DemoServiceNow = lazy(() => import("./pages/DemoServiceNow"));
+const DemoUploadVerdict = lazy(() => import("./pages/DemoUploadVerdict"));
+const DemoScaleConduit = lazy(() => import("./pages/DemoScaleConduit"));
 const OperationSF = lazy(() => import("./pages/OperationSF"));
 const AgreementFlow = lazy(() => import("./pages/AgreementFlow"));
 const AgreementSuccess = lazy(() => import("./pages/AgreementSuccess"));
@@ -200,6 +202,8 @@ const App = () => (
                   <Route path="/demos/monitoring" element={<DemoMonitoring />} />
                   <Route path="/demos/enterprise-sandbox" element={<DemoEnterpriseSandbox />} />
                   <Route path="/demos/audit-verifier" element={<DemoAuditVerifier />} />
+                  <Route path="/demos/upload-verdict" element={<DemoUploadVerdict />} />
+                  <Route path="/demos/scale-conduit" element={<DemoScaleConduit />} />
                   <Route path="/demos/servicenow" element={<DemoServiceNow />} />
                   
                   {/* DOCUMENTATION ROUTES */}

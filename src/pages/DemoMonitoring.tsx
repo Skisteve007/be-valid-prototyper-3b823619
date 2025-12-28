@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import DemoBanner from "@/components/demos/DemoBanner";
 import DemoShareButton from "@/components/demos/DemoShareButton";
+import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
 
 interface MetricsData {
   window: string;
@@ -389,6 +390,11 @@ const DemoMonitoring = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Footer Notice */}
+          <div className="text-center mt-8">
+            <DemoEnvironmentNotice variant="footer" />
+          </div>
         </main>
       </div>
     </>

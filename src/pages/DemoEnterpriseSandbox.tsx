@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import DemoBanner from "@/components/demos/DemoBanner";
 import DemoShareButton from "@/components/demos/DemoShareButton";
+import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
 import FlowDiagram from "@/components/demos/FlowDiagram";
 
 const DemoEnterpriseSandbox = () => {
@@ -335,6 +336,11 @@ const DemoEnterpriseSandbox = () => {
               </CardContent>
             </Card>
           )}
+
+          {/* Footer Notice */}
+          <div className="text-center mt-8">
+            <DemoEnvironmentNotice variant="footer" />
+          </div>
         </main>
       </div>
     </>

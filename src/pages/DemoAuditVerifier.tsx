@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import DemoBanner from "@/components/demos/DemoBanner";
 import DemoShareButton from "@/components/demos/DemoShareButton";
+import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
 
 // Example tokens for demo
 const DEMO_TOKENS = {
@@ -374,6 +375,11 @@ const DemoAuditVerifier = () => {
               </CardContent>
             </Card>
           )}
+
+          {/* Footer Notice */}
+          <div className="text-center mt-8">
+            <DemoEnvironmentNotice variant="footer" />
+          </div>
         </main>
       </div>
     </>

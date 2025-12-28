@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { toast } from "sonner";
 import { Plus, CheckCircle, DollarSign, Users, TrendingUp, Trash2, Eye, ShieldCheck, Clock, ExternalLink, BookOpen } from "lucide-react";
 import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
+import DemoLanguageTraining from "./DemoLanguageTraining";
 
 interface Affiliate {
   id: string;
@@ -282,6 +283,9 @@ const SalesTeamTab = () => {
 
   return (
     <div className="space-y-6">
+      {/* Demo Language Training - Pinned at Top */}
+      <DemoLanguageTraining />
+
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Sales Team Management</h2>

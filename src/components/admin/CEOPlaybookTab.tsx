@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Copy, Check, BookOpen, MessageSquare, HelpCircle, AlertTriangle, Wrench, Mic } from "lucide-react";
+import { Copy, Check, BookOpen, MessageSquare, HelpCircle, AlertTriangle, Wrench, Mic, Target, Shield, Users, Clock, CheckSquare } from "lucide-react";
 import { toast } from "sonner";
 
 interface PlaybookEntry {
@@ -177,6 +177,166 @@ Steve
         title: "BLOCK 4 — Talk Track (1 minute)",
         icon: <Mic className="h-4 w-4" />,
         content: `"We welcome audits because we ship proof records—tamper-evident receipts—rather than asking for trust. CERTIFIED means 'meets policy pack vX evidence requirements,' not absolute truth. Enterprise can run the runtime inside their boundary so raw payloads stay in their environment."`
+      }
+    ]
+  },
+  {
+    id: "andrew-conversation",
+    title: "Andrew Conversation — Mentor / Technical Teardown",
+    blocks: [
+      {
+        title: "Objective & Positioning",
+        icon: <Target className="h-4 w-4" />,
+        content: `**Objective**
+
+Position me as a serious operator-builder with real-world judgment who:
+- ships fast,
+- manages risk responsibly,
+- welcomes targeted technical review,
+- is not asking for money directly,
+- is asking for mentorship, criteria, and an intro to the right reviewer/pilot path.
+
+**What we accomplished (credibility anchors)**
+
+- Removed \`.env\` from the \`main\` branch (confirmed by 404).
+- Added \`.env\` to \`.gitignore\` to prevent accidental recommit.
+- Reinforced the core product principle: **conduit, not data warehouse** (minimize retention + enforce controls).
+
+Use this as proof of operational discipline: we find a leak → fix it → add guardrails.
+
+**Positioning (how to frame myself)**
+
+**Do say**
+- "I built the product end-to-end and I'm accountable for it."
+- "I'm treating this like production-grade: secrets stay out of source control; config is managed in deployment; backend access is controlled (e.g., RLS/policies)."
+- "I want a targeted teardown with clear criteria."
+
+**Do NOT say**
+- "I'm not a coder."
+- "I vibe-coded it."
+- "I pinned multiple LLMs against each other."
+- Anything that sounds like confusion or apology.`
+      },
+      {
+        title: "3-Part Conversation Structure",
+        icon: <MessageSquare className="h-4 w-4" />,
+        content: `**The 3-part structure for any conversation**
+
+1) **Purpose + demo** (what it does, in one sentence)
+
+2) **Evidence of seriousness** (controls, guardrails, risk posture)
+
+3) **Ask for next step** (review by trusted person, pilot criteria)`
+      },
+      {
+        title: "Copy/Paste Outreach Message to Andrew",
+        icon: <MessageSquare className="h-4 w-4" />,
+        content: `Subject: Quick review request — built from real-world risk work
+
+Andrew — I built something I think you'll appreciate because it comes from real-world risk work, not theory.
+
+**What it is (30 seconds):** [ONE sentence of what it does].
+**Why it matters:** it's designed as a **conduit, not a data warehouse** — minimize retention, enforce controls, and make audits/pilots easier.
+
+I'm not claiming to be a career engineer; I *am* claiming I'm a serious builder/operator who ships and tightens fast. I already put guardrails in place (e.g., removed committed env secrets and moved config to deployment).
+
+**Ask:** Would you do a **15–20 minute teardown** on (1) architecture/data flow and (2) security/privacy assumptions? If you think it's promising, I'd value your guidance on what "pilot-ready" should mean and who should pressure-test it.
+
+Demo: [link]
+One-pager (optional): [link]`
+      },
+      {
+        title: "Control Phrase (When Interrogated)",
+        icon: <Shield className="h-4 w-4" />,
+        content: `**If he starts "interrogating": the control phrase**
+
+Repeat calmly:
+
+"Totally fair—tell me the criteria you'd use to judge this, and I'll walk you through evidence for each one."
+
+Then move into:
+
+1) **Data flow**: what enters, what is stored, what is not stored
+
+2) **Controls**: auth, RLS/policies, retention, logging
+
+3) **Pilot plan**: who, what success is, timeline`
+      },
+      {
+        title: "Q&A Scenarios",
+        icon: <HelpCircle className="h-4 w-4" />,
+        content: `**Q: "Did you code this yourself?"**
+
+A: "I built it end-to-end and I'm accountable for it. I used modern tooling to move fast, and I'm putting formal review and controls around it now."
+
+---
+
+**Q: "Are you an engineer?"**
+
+A: "I'm an operator-builder. My strength is translating real-world risk into working systems, then hardening them with review and standards."
+
+---
+
+**Q: "This looks unsafe / amateur."**
+
+A: "That's why I want a teardown. We already fixed obvious exposures (e.g., removed committed env secrets and added guardrails). If you point to specific risks, I'll fix them and document the control."
+
+---
+
+**Q: "Tell me about your AI/LLM setup."**
+
+Goal: answer without opening an attack surface.
+
+Safe A (high-level, non-technical):
+"I use AI as an assistant for drafting and checking, but I don't outsource judgment to it. Final decisions, architecture choices, and security controls are mine, and everything is reviewable."
+
+If pressed:
+"Happy to share details with a technical reviewer under defined criteria. For this conversation, what matters is: the system is auditable, data-minimizing, and secured by backend controls—not by prompts."
+
+---
+
+**Q: "What's the biggest risk right now?"**
+
+A: "Hardening for pilot: formal threat model, confirm RLS/policies, secrets management in deployment, and making sure data retention is minimal and intentional."
+
+---
+
+**Q: "What do you want from me?"**
+
+A: "A short teardown and your criteria for 'pilot-ready.' If it passes, an intro to whoever you trust to pressure-test it—or the right person for a pilot conversation."`
+      },
+      {
+        title: "5-Minute Prep Checklist Before Any Call",
+        icon: <CheckSquare className="h-4 w-4" />,
+        content: `**5-minute prep checklist before any call**
+
+☐ One 20-second real-world story (the pain you lived).
+
+☐ One sentence: what it does + who it's for.
+
+☐ 3 credibility bullets: controls/guardrails you implemented.
+
+☐ One ask: "teardown + criteria + intro to reviewer/pilot path."`
+      },
+      {
+        title: "Demo Flow (7 Minutes)",
+        icon: <Clock className="h-4 w-4" />,
+        content: `**Demo flow (7 minutes)**
+
+1) The problem + who suffers (30s)
+
+2) Show the workflow end-to-end (3–4 min)
+
+3) Show the "conduit not warehouse" posture (what's stored vs not) (1 min)
+
+4) Show controls (RLS/policies, env management, audit trail) (1–2 min)
+
+5) Close with the ask (30s)
+
+---
+
+**Owner:** CEO
+**Use when:** Andrew (mentor/technical), pilots, skeptics, reviewers`
       }
     ]
   }

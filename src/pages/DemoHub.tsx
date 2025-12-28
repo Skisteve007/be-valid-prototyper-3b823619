@@ -284,15 +284,23 @@ const DemoHub = () => {
                   <div className="space-y-3 text-sm">
                     <div>
                       <p className="text-xs text-muted-foreground font-medium mb-1">Who it's for:</p>
-                      <p className="text-foreground">Small teams, clubs/venues, pilots, compliance reviews</p>
+                      <p className="text-foreground">Small teams and Main Street operators (clubs/venues, clinics, salons, offices), pilots, and compliance reviews.</p>
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground font-medium mb-1">What you input:</p>
-                      <p className="text-foreground">A document (e.g., a 10-page report), a transcript, or a single question</p>
+                      <ul className="text-foreground space-y-1 list-disc list-inside">
+                        <li><span className="font-medium">Single items:</span> a PDF/report (10–20+ pages), a transcript, a policy, or a contract.</li>
+                        <li><span className="font-medium">Ongoing workflow:</span> daily documents and client/staff entries from a small operation (typically 5–20 employees) — uploaded as batches or one-by-one.</li>
+                      </ul>
+                      <p className="text-xs text-muted-foreground mt-2 italic">Start small (one doc), then scale to routine daily verification without changing tools.</p>
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground font-medium mb-1">What you get back:</p>
-                      <p className="text-foreground">A governed verdict (CERTIFIED / MISTRIAL), key reasons, and a proof record you can verify</p>
+                      <ul className="text-foreground space-y-1 list-disc list-inside">
+                        <li>A governed verdict (CERTIFIED / MISTRIAL) with key reasons and recommended next steps</li>
+                        <li>A proof record you can verify and share (optional time-limited share token)</li>
+                        <li>Batch-friendly results: one verdict per item plus an overall summary for the set</li>
+                      </ul>
                     </div>
                   </div>
                 </div>

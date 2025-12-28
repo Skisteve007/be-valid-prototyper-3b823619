@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Layers, ShieldCheck, Eye, Zap, FileText, ArrowRight, Check, Clock, Play, Lock, Database, Server, Activity, FileSearch } from "lucide-react";
+import ContractPreviewDialog from "./ContractPreviewDialog";
 
 const vendorCategories = [
   {
@@ -99,6 +100,7 @@ const sectors = [
 
 const SideBySideSection = () => {
   const [isLoiOpen, setIsLoiOpen] = useState(false);
+  const [isContractPreviewOpen, setIsContractPreviewOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     companyName: "",
@@ -268,7 +270,12 @@ const SideBySideSection = () => {
                 Sign LOI / Start 45-Day Proof
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-muted-foreground hover:text-foreground"
+                onClick={() => setIsContractPreviewOpen(true)}
+              >
                 Request Redline
               </Button>
             </div>
@@ -434,6 +441,13 @@ const SideBySideSection = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Contract Preview / Redline Dialog */}
+      <ContractPreviewDialog
+        open={isContractPreviewOpen}
+        onOpenChange={setIsContractPreviewOpen}
+        onProceedToSign={() => setIsLoiOpen(true)}
+      />
     </div>
   );
 };

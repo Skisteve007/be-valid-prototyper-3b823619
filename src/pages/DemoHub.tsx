@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge } from "lucide-react";
+import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -167,18 +167,68 @@ const DemoHub = () => {
           {/* Demo Environment Notice Banner */}
           <DemoEnvironmentNotice variant="banner" />
 
+          {/* Architecture Overview - Valid vs SYNTH */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {/* Valid - The Castle */}
+            <Card className="border-emerald-500/30 bg-emerald-500/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-lg bg-emerald-500/20 border border-emerald-500/30 shrink-0">
+                    <Castle className="h-6 w-6 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold text-foreground mb-1">Valid™ — The Castle</h2>
+                    <p className="text-xs text-emerald-400 font-medium mb-3">Application Layer</p>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      The fortress that houses your identity and trust infrastructure. Valid contains the 
+                      <span className="text-foreground font-medium"> Ghost QR Pass</span> — a privacy-preserving 
+                      wallet for sharing verified credentials without exposing underlying data.
+                    </p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <QrCode className="h-4 w-4 text-emerald-400" />
+                      <span>Ghost demos coming soon</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* SYNTH - The Moat */}
+            <Card className="border-cyan-500/30 bg-cyan-500/5">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-lg bg-cyan-500/20 border border-cyan-500/30 shrink-0">
+                    <Layers className="h-6 w-6 text-cyan-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold text-foreground mb-1">SYNTH™ — The Moat</h2>
+                    <p className="text-xs text-cyan-400 font-medium mb-3">7-LLM Governance Engine</p>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      The protective barrier that separates you from competition, bad actors, and terminated content. 
+                      SYNTH orchestrates <span className="text-foreground font-medium">7 specialized LLMs</span> for 
+                      consensus, contradiction detection, policy enforcement, and arbitration.
+                    </p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Bot className="h-4 w-4 text-cyan-400" />
+                      <span>Multi-model governance + proof records</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Intro Card */}
           <Card className="mb-8 border-primary/20 bg-primary/5">
             <CardContent className="pt-6">
               <div className="flex items-start gap-4">
                 <Sparkles className="h-8 w-8 text-primary shrink-0" />
                 <div>
-                  <h2 className="text-lg font-semibold text-foreground mb-2">Valid/SYNTH: Governance Conduit, Not Data Warehouse</h2>
+                  <h2 className="text-lg font-semibold text-foreground mb-2">Governance Conduit, Not Data Warehouse</h2>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Your systems remain the system of record. Valid/SYNTH orchestrates verification and governance 
-                    across models and services, then returns results with a verifiable proof record. We retain only 
-                    minimal integrity artifacts needed for auditability and security, and can issue a time-limited 
-                    verification token for sharing results without exposing underlying records.
+                    Your systems remain the system of record. SYNTH orchestrates verification and governance 
+                    across models and services, then returns results with a verifiable proof record. Valid 
+                    provides the application layer where users interact with Ghost passes and verified credentials.
                   </p>
                   <Button asChild size="sm">
                     <Link to="/demos/router">

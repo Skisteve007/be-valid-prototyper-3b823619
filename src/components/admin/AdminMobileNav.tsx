@@ -20,7 +20,8 @@ import {
   Send,
   FileText,
   UserPlus,
-  Package
+  Package,
+  BookOpen
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -50,6 +51,7 @@ const navItems = [
   { id: "careers", label: "Careers", icon: UserPlus },
   { id: "legal-templates", label: "Legal Templates", icon: FileText },
   { id: "hiring-packet", label: "Hiring Packet", icon: Package },
+  { id: "ceo-playbook", label: "CEO Playbook", icon: BookOpen },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canUnlockSynth }: AdminMobileNavProps) => {

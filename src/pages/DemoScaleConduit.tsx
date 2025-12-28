@@ -25,29 +25,25 @@ import {
   Server,
   Shield
 } from "lucide-react";
+import { 
+  runGovernance,
+  type Tier,
+  type Verdict,
+  type Grade,
+  DEMO_MODE
+} from "@/lib/demoGovernanceEngine";
+import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
+import TierAwareCTA from "@/components/demos/TierAwareCTA";
 
 type Decision = {
   id: string;
   requestId: string;
-  grade: "GREEN" | "YELLOW" | "RED";
-  verdict: "CERTIFIED" | "MISTRIAL" | "MANUAL_REVIEW";
+  grade: Grade;
+  verdict: Verdict;
   reason: string;
   proofId: string;
   timestamp: Date;
 };
-
-const reasons = [
-  "All consensus checks passed",
-  "Policy compliance verified",
-  "Multi-model agreement confirmed",
-  "Contradiction check cleared",
-  "Source validation successful",
-  "Minor inconsistency detected",
-  "Confidence threshold not met",
-  "Policy violation flagged",
-  "Model disagreement detected",
-  "Source validation failed",
-];
 
 const DemoScaleConduit = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -62,31 +58,29 @@ const DemoScaleConduit = () => {
     certifiedRate: 0,
     totalProcessed: 0,
   });
+  const [selectedTier] = useState<Tier>(1); // Default to Tier 1 for Scale demo
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const counterRef = useRef(0);
 
-  const generateDecision = (): Decision => {
-    const rand = Math.random();
-    let grade: "GREEN" | "YELLOW" | "RED";
-    let verdict: "CERTIFIED" | "MISTRIAL" | "MANUAL_REVIEW";
+  const generateDecision = async (): Promise<Decision> => {
+    counterRef.current++;
+    const requestId = `req_${counterRef.current.toString(36).padStart(6, '0')}`;
     
-    if (rand > 0.15) {
-      grade = "GREEN";
-      verdict = "CERTIFIED";
-    } else if (rand > 0.05) {
-      grade = "YELLOW";
-      verdict = "MANUAL_REVIEW";
-    } else {
-      grade = "RED";
-      verdict = "MISTRIAL";
-    }
+    // Use the governance engine for deterministic results
+    const result = await runGovernance(
+      selectedTier,
+      "conduit",
+      "generic",
+      requestId + Date.now().toString()
+    );
 
     return {
       id: `dec_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
-      requestId: `req_${Math.random().toString(36).slice(2, 10)}`,
-      grade,
-      verdict,
-      reason: reasons[Math.floor(Math.random() * (grade === "GREEN" ? 5 : grade === "YELLOW" ? 7 : 10))],
-      proofId: `prf_${Math.random().toString(36).slice(2, 12)}`,
+      requestId,
+      grade: result.grade,
+      verdict: result.verdict,
+      reason: result.reasons[0] || "Processing complete",
+      proofId: result.proof_record.proof_id,
       timestamp: new Date(),
     };
   };
@@ -96,12 +90,13 @@ const DemoScaleConduit = () => {
     const rate = eventsPerSec[0];
     const interval = isBatchMode ? 1000 : Math.max(50, 1000 / rate);
 
-    intervalRef.current = setInterval(() => {
+    intervalRef.current = setInterval(async () => {
       const batchSize = isBatchMode ? Math.ceil(rate / 10) : 1;
       const newDecisions: Decision[] = [];
       
       for (let i = 0; i < batchSize; i++) {
-        newDecisions.push(generateDecision());
+        const decision = await generateDecision();
+        newDecisions.push(decision);
       }
 
       setDecisions(prev => [...newDecisions, ...prev].slice(0, 100));
@@ -133,6 +128,7 @@ const DemoScaleConduit = () => {
   const resetSimulation = () => {
     stopSimulation();
     setDecisions([]);
+    counterRef.current = 0;
     setMetrics({
       throughput: 0,
       queueDepth: 0,
@@ -157,20 +153,20 @@ const DemoScaleConduit = () => {
     }
   }, [eventsPerSec, isBatchMode]);
 
-  const getGradeIcon = (grade: string) => {
+  const getGradeIcon = (grade: Grade) => {
     switch (grade) {
-      case "GREEN": return <CheckCircle2 className="h-4 w-4 text-emerald-400" />;
-      case "YELLOW": return <AlertTriangle className="h-4 w-4 text-amber-400" />;
-      case "RED": return <XCircle className="h-4 w-4 text-red-400" />;
+      case "green": return <CheckCircle2 className="h-4 w-4 text-emerald-400" />;
+      case "yellow": return <AlertTriangle className="h-4 w-4 text-amber-400" />;
+      case "red": return <XCircle className="h-4 w-4 text-red-400" />;
       default: return null;
     }
   };
 
-  const getGradeColor = (grade: string) => {
+  const getGradeColor = (grade: Grade) => {
     switch (grade) {
-      case "GREEN": return "text-emerald-400";
-      case "YELLOW": return "text-amber-400";
-      case "RED": return "text-red-400";
+      case "green": return "text-emerald-400";
+      case "yellow": return "text-amber-400";
+      case "red": return "text-red-400";
       default: return "text-muted-foreground";
     }
   };
@@ -191,9 +187,16 @@ const DemoScaleConduit = () => {
                 <ArrowLeft className="h-4 w-4 mr-2" /> Back to Demo Hub
               </Link>
             </Button>
-            <Badge variant="outline" className="border-primary/50 text-primary">
-              DEMO F — ENTERPRISE SCALE
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="border-primary/50 text-primary">
+                DEMO F — ENTERPRISE SCALE
+              </Badge>
+              {DEMO_MODE && (
+                <Badge variant="outline" className="border-amber-500/50 text-amber-400 text-xs">
+                  DEMO MODE
+                </Badge>
+              )}
+            </div>
           </div>
         </header>
 
@@ -417,36 +420,17 @@ const DemoScaleConduit = () => {
                   </div>
                 )}
               </ScrollArea>
+              <DemoEnvironmentNotice variant="inline" />
             </CardContent>
           </Card>
 
-          {/* CTA Section */}
-          <Card className="border-emerald-500/30 bg-emerald-500/5">
-            <CardContent className="py-6">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-                    <FileText className="h-5 w-5 text-emerald-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Ready to Scale?</h3>
-                    <p className="text-sm text-muted-foreground">Sign the LOI and begin your 45-day proof sprint</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                    <Link to="/demos">
-                      Sign LOI / Start 45-Day Proof
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Link>
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
-                    <Link to="/demos">Request Redline</Link>
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Tier-Aware CTA Section */}
+          <TierAwareCTA tier={selectedTier} />
+
+          {/* Footer Notice */}
+          <div className="text-center mt-8">
+            <DemoEnvironmentNotice variant="footer" />
+          </div>
         </main>
       </div>
     </>

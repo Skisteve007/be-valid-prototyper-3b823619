@@ -13,7 +13,6 @@ import {
   CheckCircle2, 
   XCircle, 
   AlertTriangle,
-  ArrowRight,
   Copy,
   Share2,
   FileCheck,
@@ -22,17 +21,20 @@ import {
   Shield,
   Zap
 } from "lucide-react";
+import { 
+  runGovernanceWithProgress, 
+  generateShareToken as genToken,
+  type Tier,
+  type TraceStep,
+  type ProofRecord,
+  type GovernanceResult,
+  DEMO_MODE
+} from "@/lib/demoGovernanceEngine";
+import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
+import TierAwareCTA from "@/components/demos/TierAwareCTA";
 
 type VerdictStatus = "idle" | "uploading" | "processing" | "complete";
 type Verdict = "CERTIFIED" | "MISTRIAL";
-
-interface ProofRecord {
-  id: string;
-  hash: string;
-  issuedAt: string;
-  expiresAt: string;
-  verdict: Verdict;
-}
 
 interface Issue {
   severity: "high" | "medium" | "low";
@@ -40,62 +42,64 @@ interface Issue {
   checkpoint: string;
 }
 
-const pipelineSteps = [
-  { id: "input", label: "Input Validation", icon: Upload },
-  { id: "governance", label: "Governance Pipeline", icon: Shield },
-  { id: "checks", label: "Multi-Model Checks", icon: FileCheck },
-  { id: "arbitration", label: "Arbitration", icon: Zap },
-  { id: "output", label: "Output + Proof", icon: Sparkles },
-];
-
-const sampleIssues: Issue[] = [
-  { severity: "medium", description: "Unverified claim detected on page 3", checkpoint: "fact-check" },
-  { severity: "low", description: "Formatting inconsistency in section 2", checkpoint: "style-check" },
-  { severity: "high", description: "Potential policy violation in conclusion", checkpoint: "policy-check" },
-];
+const pipelineIcons: Record<string, typeof Upload> = {
+  "Input Validation": Upload,
+  "Governance Pipeline": Shield,
+  "Multi-Model Checks": FileCheck,
+  "Red Team Check": Zap,
+  "Arbitration": Zap,
+  "Output + Proof": Sparkles,
+};
 
 const DemoUploadVerdict = () => {
   const [status, setStatus] = useState<VerdictStatus>("idle");
   const [currentStep, setCurrentStep] = useState(0);
+  const [traceSteps, setTraceSteps] = useState<TraceStep[]>([]);
   const [verdict, setVerdict] = useState<Verdict | null>(null);
   const [proofRecord, setProofRecord] = useState<ProofRecord | null>(null);
-  const [issues, setIssues] = useState<Issue[]>([]);
+  const [reasons, setReasons] = useState<string[]>([]);
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
+  const [selectedTier] = useState<Tier>(2); // Default to Tier 2 for Upload demo
 
-  const simulatePipeline = async (name: string) => {
+  const runPipeline = async (name: string, content: string) => {
     setFileName(name);
     setStatus("uploading");
     setCurrentStep(0);
+    setTraceSteps([]);
     setVerdict(null);
     setProofRecord(null);
-    setIssues([]);
+    setReasons([]);
     setShareToken(null);
 
-    // Simulate upload
+    // Simulate upload delay
     await new Promise(r => setTimeout(r, 800));
     setStatus("processing");
 
-    // Simulate each pipeline step
-    for (let i = 0; i < pipelineSteps.length; i++) {
-      setCurrentStep(i);
-      await new Promise(r => setTimeout(r, 1000 + Math.random() * 500));
-    }
+    try {
+      const result = await runGovernanceWithProgress(
+        selectedTier,
+        "upload",
+        "generic",
+        content || name,
+        (stepIndex, step) => {
+          setCurrentStep(stepIndex);
+          setTraceSteps(prev => {
+            const newSteps = [...prev];
+            newSteps[stepIndex] = step;
+            return newSteps;
+          });
+        }
+      );
 
-    // Generate result
-    const isCertified = Math.random() > 0.3;
-    const finalVerdict: Verdict = isCertified ? "CERTIFIED" : "MISTRIAL";
-    
-    setVerdict(finalVerdict);
-    setIssues(isCertified ? sampleIssues.slice(0, 2) : sampleIssues);
-    setProofRecord({
-      id: `proof_${Date.now().toString(36)}`,
-      hash: `sha256:${Array.from({ length: 16 }, () => Math.random().toString(16).slice(2, 4)).join("")}`,
-      issuedAt: new Date().toISOString(),
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      verdict: finalVerdict,
-    });
-    setStatus("complete");
+      setVerdict(result.verdict);
+      setReasons(result.reasons);
+      setProofRecord(result.proof_record);
+      setStatus("complete");
+    } catch (error) {
+      toast.error("Pipeline processing failed");
+      setStatus("idle");
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,16 +109,22 @@ const DemoUploadVerdict = () => {
         toast.error("Demo limit: 10MB max");
         return;
       }
-      simulatePipeline(file.name);
+      // Read file content for deterministic verdict
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const content = event.target?.result as string || file.name;
+        runPipeline(file.name, content);
+      };
+      reader.readAsText(file);
     }
   };
 
   const useSampleReport = () => {
-    simulatePipeline("Sample_10_Page_Report.pdf");
+    runPipeline("Sample_10_Page_Report.pdf", "sample-report-content-demo");
   };
 
   const generateShareToken = () => {
-    const token = `vld_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+    const token = genToken();
     setShareToken(token);
     toast.success("Share token generated (valid 24 hours)");
   };
@@ -127,9 +137,10 @@ const DemoUploadVerdict = () => {
   const reset = () => {
     setStatus("idle");
     setCurrentStep(0);
+    setTraceSteps([]);
     setVerdict(null);
     setProofRecord(null);
-    setIssues([]);
+    setReasons([]);
     setShareToken(null);
     setFileName("");
   };
@@ -150,9 +161,16 @@ const DemoUploadVerdict = () => {
                 <ArrowLeft className="h-4 w-4 mr-2" /> Back to Demo Hub
               </Link>
             </Button>
-            <Badge variant="outline" className="border-primary/50 text-primary">
-              DEMO E — UPLOAD & VERDICT
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="border-primary/50 text-primary">
+                DEMO E — UPLOAD & VERDICT
+              </Badge>
+              {DEMO_MODE && (
+                <Badge variant="outline" className="border-amber-500/50 text-amber-400 text-xs">
+                  DEMO MODE
+                </Badge>
+              )}
+            </div>
           </div>
         </header>
 
@@ -217,34 +235,40 @@ const DemoUploadVerdict = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {pipelineSteps.map((step, i) => (
-                    <div key={step.id} className="flex items-center gap-4">
-                      <div className={`p-2 rounded-lg ${
-                        i < currentStep ? "bg-emerald-500/20" :
-                        i === currentStep ? "bg-primary/20 animate-pulse" :
-                        "bg-muted"
-                      }`}>
-                        <step.icon className={`h-5 w-5 ${
-                          i < currentStep ? "text-emerald-400" :
-                          i === currentStep ? "text-primary" :
-                          "text-muted-foreground"
-                        }`} />
-                      </div>
-                      <div className="flex-1">
-                        <p className={`font-medium ${
-                          i <= currentStep ? "text-foreground" : "text-muted-foreground"
+                  {traceSteps.map((step, i) => {
+                    const IconComponent = pipelineIcons[step.label] || Shield;
+                    return (
+                      <div key={i} className="flex items-center gap-4">
+                        <div className={`p-2 rounded-lg ${
+                          step.status === "complete" ? "bg-emerald-500/20" :
+                          step.status === "running" ? "bg-primary/20 animate-pulse" :
+                          "bg-muted"
                         }`}>
-                          {step.label}
-                        </p>
-                        {i === currentStep && (
-                          <Progress value={75} className="h-1 mt-1" />
+                          <IconComponent className={`h-5 w-5 ${
+                            step.status === "complete" ? "text-emerald-400" :
+                            step.status === "running" ? "text-primary" :
+                            "text-muted-foreground"
+                          }`} />
+                        </div>
+                        <div className="flex-1">
+                          <p className={`font-medium ${
+                            step.status !== "pending" ? "text-foreground" : "text-muted-foreground"
+                          }`}>
+                            {step.label}
+                          </p>
+                          {step.status === "running" && (
+                            <Progress value={75} className="h-1 mt-1" />
+                          )}
+                          {step.status === "complete" && (
+                            <p className="text-xs text-muted-foreground">{step.ms}ms</p>
+                          )}
+                        </div>
+                        {step.status === "complete" && (
+                          <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                         )}
                       </div>
-                      {i < currentStep && (
-                        <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -280,48 +304,32 @@ const DemoUploadVerdict = () => {
                     </div>
                   </div>
                   
-                  <div className="text-sm text-muted-foreground">
-                    {verdict === "CERTIFIED" 
-                      ? "Document passed governance checks with minor issues noted."
-                      : "Document flagged for review. Critical issues require attention."}
-                  </div>
+                  <DemoEnvironmentNotice variant="inline" />
                 </CardContent>
               </Card>
 
-              {/* Issues List */}
+              {/* Reasons List */}
               <Card className="mb-6">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
                     <AlertTriangle className="h-5 w-5 text-amber-400" />
-                    Issues Identified ({issues.length})
+                    Governance Findings ({reasons.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {issues.map((issue, i) => (
+                    {reasons.map((reason, i) => (
                       <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
                         <div className={`p-1 rounded-full ${
-                          issue.severity === "high" ? "bg-red-500/20" :
-                          issue.severity === "medium" ? "bg-amber-500/20" :
-                          "bg-blue-500/20"
+                          verdict === "MISTRIAL" ? "bg-red-500/20" : "bg-emerald-500/20"
                         }`}>
-                          <AlertTriangle className={`h-4 w-4 ${
-                            issue.severity === "high" ? "text-red-400" :
-                            issue.severity === "medium" ? "text-amber-400" :
-                            "text-blue-400"
-                          }`} />
+                          {verdict === "MISTRIAL" ? (
+                            <AlertTriangle className="h-4 w-4 text-red-400" />
+                          ) : (
+                            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                          )}
                         </div>
-                        <div className="flex-1">
-                          <p className="text-sm text-foreground">{issue.description}</p>
-                          <p className="text-xs text-muted-foreground">Checkpoint: {issue.checkpoint}</p>
-                        </div>
-                        <Badge variant="outline" className={`text-xs ${
-                          issue.severity === "high" ? "border-red-500/50 text-red-400" :
-                          issue.severity === "medium" ? "border-amber-500/50 text-amber-400" :
-                          "border-blue-500/50 text-blue-400"
-                        }`}>
-                          {issue.severity}
-                        </Badge>
+                        <p className="text-sm text-foreground">{reason}</p>
                       </div>
                     ))}
                   </div>
@@ -339,26 +347,34 @@ const DemoUploadVerdict = () => {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-muted-foreground">Record ID</p>
-                      <p className="font-mono text-foreground">{proofRecord.id}</p>
+                      <p className="text-muted-foreground">Proof ID</p>
+                      <p className="font-mono text-foreground text-xs">{proofRecord.proof_id}</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground">Hash</p>
-                      <p className="font-mono text-foreground text-xs truncate">{proofRecord.hash}</p>
+                      <p className="text-muted-foreground">Input Hash</p>
+                      <p className="font-mono text-foreground text-xs truncate">{proofRecord.input_hash}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <div>
                         <p className="text-muted-foreground">Issued At</p>
-                        <p className="text-foreground">{new Date(proofRecord.issuedAt).toLocaleString()}</p>
+                        <p className="text-foreground">{new Date(proofRecord.issued_at).toLocaleString()}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-muted-foreground" />
                       <div>
                         <p className="text-muted-foreground">Expires At</p>
-                        <p className="text-foreground">{new Date(proofRecord.expiresAt).toLocaleString()}</p>
+                        <p className="text-foreground">{new Date(proofRecord.expires_at).toLocaleString()}</p>
                       </div>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Policy Pack Version</p>
+                      <p className="font-mono text-foreground">{proofRecord.policy_pack_version}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Signature</p>
+                      <p className="font-mono text-foreground text-xs truncate">{proofRecord.signature}</p>
                     </div>
                   </div>
                   <div className="flex gap-2 mt-4">
@@ -407,33 +423,13 @@ const DemoUploadVerdict = () => {
             </>
           )}
 
-          {/* CTA Section */}
-          <Card className="border-emerald-500/30 bg-emerald-500/5">
-            <CardContent className="py-6">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-                    <FileText className="h-5 w-5 text-emerald-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Ready to Start?</h3>
-                    <p className="text-sm text-muted-foreground">Sign the LOI and begin your 45-day proof sprint</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                    <Link to="/demos">
-                      Sign LOI / Start 45-Day Proof
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Link>
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
-                    <Link to="/demos">Request Redline</Link>
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Tier-Aware CTA Section */}
+          <TierAwareCTA tier={selectedTier} />
+
+          {/* Footer Notice */}
+          <div className="text-center mt-8">
+            <DemoEnvironmentNotice variant="footer" />
+          </div>
         </main>
       </div>
     </>

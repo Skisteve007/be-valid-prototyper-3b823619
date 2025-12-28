@@ -9,6 +9,7 @@ import DemoCard from "@/components/demos/DemoCard";
 import FlowDiagram from "@/components/demos/FlowDiagram";
 import DemoShareButton from "@/components/demos/DemoShareButton";
 import SideBySideSection from "@/components/demos/SideBySideSection";
+import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
 import { useState } from "react";
 
 const DemoHub = () => {
@@ -163,6 +164,9 @@ const DemoHub = () => {
         </header>
 
         <main className="container mx-auto px-4 py-8 max-w-6xl">
+          {/* Demo Environment Notice Banner */}
+          <DemoEnvironmentNotice variant="banner" />
+
           {/* Intro Card */}
           <Card className="mb-8 border-primary/20 bg-primary/5">
             <CardContent className="pt-6">
@@ -371,6 +375,11 @@ const DemoHub = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Footer Notice */}
+          <div className="text-center mt-8">
+            <DemoEnvironmentNotice variant="footer" />
+          </div>
         </main>
       </div>
     </>

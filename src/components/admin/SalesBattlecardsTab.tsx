@@ -515,6 +515,83 @@ export function SalesBattlecardsTab() {
         </CardContent>
       </Card>
 
+      {/* Deployment Options (Plain English) */}
+      <Card className="border-indigo-500/30">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Server className="h-5 w-5 text-indigo-400" />
+            Deployment Options (Plain English) — Use This Script
+          </CardTitle>
+          <CardDescription>
+            Reduce buyer anxiety with consistent messaging
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* The Simple Script */}
+          <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <MessageSquare className="h-4 w-4 text-emerald-400" />
+                <span className="font-semibold text-emerald-400">The Simple Script (Say This)</span>
+              </div>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => copyToClipboard(
+                  `"We have two ways to run it. For enterprise, we deploy inside your environment—your systems stay the system of record and raw payloads don't leave your boundary. If you want to move fast, we can start with a hosted pilot using minimized inputs, then migrate in‑VPC for production. Either way, we return signed decision signals plus a verifiable proof record."`,
+                  "Deployment script"
+                )}
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-sm text-foreground italic">
+              "We have two ways to run it. For enterprise, we deploy inside your environment—your systems stay the system of record and raw payloads don't leave your boundary. If you want to move fast, we can start with a hosted pilot using minimized inputs, then migrate in‑VPC for production. Either way, we return signed decision signals plus a verifiable proof record."
+            </p>
+          </div>
+
+          {/* One-Line Rule */}
+          <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+            <div className="flex items-center gap-2 mb-2">
+              <Target className="h-4 w-4 text-blue-400" />
+              <span className="font-semibold text-blue-400">The One-Line Rule (Repeatable)</span>
+            </div>
+            <p className="text-sm text-foreground font-medium">
+              "Conduit-first by default; hosted pilot is an accelerator—not the end state."
+            </p>
+          </div>
+
+          {/* Objection Handling */}
+          <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertTriangle className="h-4 w-4 text-amber-400" />
+              <span className="font-semibold text-amber-400">Objection Handling</span>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm font-medium text-foreground">Q: "So you store our data?"</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  A: "No. In enterprise mode it runs in your environment. In pilot mode we minimize and purge quickly, and we still don't become your system of record. The proof record is an integrity artifact, not your source data."
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Do NOT Say */}
+          <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertTriangle className="h-4 w-4 text-red-400" />
+              <span className="font-semibold text-red-400">Do NOT Say</span>
+            </div>
+            <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
+              <li>"We store everything for you"</li>
+              <li>"We're your database"</li>
+              <li>"We hold the black box" (instead: "we provide the decision proof record")</li>
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* 45-Day Proof Sprint Checklist */}
       <Card className="border-cyan-500/30">
         <CardHeader>

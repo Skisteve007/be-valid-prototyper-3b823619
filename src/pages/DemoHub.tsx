@@ -357,6 +357,7 @@ const DemoHub = () => {
                     Your systems remain the system of record. SYNTH orchestrates verification and governance 
                     across models and services, then returns results with a verifiable proof record. Valid 
                     provides the application layer where users interact with Ghost passes and verified credentials.
+                    Enterprise deployments can run inside your environment so raw payloads stay within your boundary; for fast pilots, we can run a hosted sandbox with minimized inputs—then move in‑VPC for production.
                   </p>
                   <Button asChild size="sm">
                     <Link to="/demos/router">

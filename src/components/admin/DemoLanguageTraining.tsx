@@ -185,6 +185,22 @@ const DemoLanguageTraining = () => {
                   <strong>Never use:</strong> "fake," "not real," "prototype," "coming soon" on demo pages or in sales conversations.
                 </p>
               </div>
+
+              {/* Internal Architecture Note */}
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <ChevronDown className="h-4 w-4" />
+                  <span>Internal detail (restricted)</span>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="mt-2 p-3 rounded-lg bg-muted/30 border border-border/50">
+                    <p className="text-xs text-muted-foreground">
+                      Architecture uses multiple independent models/agents for adversarial cross-examination. 
+                      Do NOT list counts or vendor names unless explicitly required for a deal.
+                    </p>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             </CardContent>
           </CollapsibleContent>
         </Card>

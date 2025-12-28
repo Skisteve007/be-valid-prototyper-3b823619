@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot, FileUp } from "lucide-react";
+import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot, FileUp, Scale, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -10,10 +10,14 @@ import FlowDiagram from "@/components/demos/FlowDiagram";
 import DemoShareButton from "@/components/demos/DemoShareButton";
 import SideBySideSection from "@/components/demos/SideBySideSection";
 import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
+import GhostEcosystemModule from "@/components/demos/GhostEcosystemModule";
 import { useState } from "react";
 
 const DemoHub = () => {
   const [openExplainer, setOpenExplainer] = useState<string | null>(null);
+  const [showLegalCases, setShowLegalCases] = useState(false);
+  const [showSideBySide, setShowSideBySide] = useState(false);
+  const [showVerticals, setShowVerticals] = useState(false);
 
   const demos = [
     {
@@ -161,6 +165,17 @@ const DemoHub = () => {
               </div>
             </div>
           </div>
+          {/* Sticky Subnav */}
+          <div className="border-t border-border/50 bg-background/80 backdrop-blur-sm">
+            <nav className="container mx-auto px-4 py-2 flex gap-1 overflow-x-auto scrollbar-hide">
+              <a href="#overview" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Overview</a>
+              <a href="#demos" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Demos</a>
+              <a href="#proof" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Proof</a>
+              <a href="#risks" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Risks</a>
+              <a href="#integration" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Integration</a>
+              <a href="#loi" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">LOI</a>
+            </nav>
+          </div>
         </header>
 
         <main className="container mx-auto px-4 py-8 max-w-6xl">
@@ -168,7 +183,7 @@ const DemoHub = () => {
           <DemoEnvironmentNotice variant="banner" />
 
           {/* Architecture Overview - Valid vs SYNTH */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div id="overview" className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 scroll-mt-32">
             {/* Valid - The Castle */}
             <Card className="border-emerald-500/30 bg-emerald-500/5">
               <CardContent className="pt-6">
@@ -217,8 +232,11 @@ const DemoHub = () => {
             </Card>
           </div>
 
+          {/* Ghost Ecosystem Module */}
+          <GhostEcosystemModule />
+
           {/* Intro Card */}
-          <Card className="mb-8 border-primary/20 bg-primary/5">
+          <Card id="proof" className="mb-8 border-primary/20 bg-primary/5 scroll-mt-32">
             <CardContent className="pt-6">
               <div className="flex items-start gap-4">
                 <Sparkles className="h-8 w-8 text-primary shrink-0" />
@@ -310,180 +328,230 @@ const DemoHub = () => {
           </Card>
 
           {/* Demo Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div id="demos" className="grid grid-cols-1 md:grid-cols-2 gap-6 scroll-mt-32">
             {demos.map((demo) => (
               <DemoCard key={demo.path} {...demo} />
             ))}
           </div>
 
-          {/* Explainer Menu */}
-          <div className="mt-12">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                <Phone className="h-5 w-5 text-amber-400" />
+          {/* Explainer Menu - Collapsible */}
+          <Collapsible open={showVerticals} onOpenChange={setShowVerticals} className="mt-12">
+            <CollapsibleTrigger asChild>
+              <div className="flex items-center justify-between cursor-pointer p-4 rounded-lg border border-border/50 hover:border-primary/30 bg-card/50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                    <Phone className="h-5 w-5 text-amber-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold text-foreground">Vertical Interests</h2>
+                    <p className="text-sm text-muted-foreground">Tailored messages for your interested persona</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">{showVerticals ? 'Hide' : 'Show more'}</span>
+                  <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${showVerticals ? 'rotate-180' : ''}`} />
+                </div>
               </div>
-              <div>
-                <h2 className="text-lg font-semibold text-foreground">Vertical Interests</h2>
-                <p className="text-sm text-muted-foreground">Tailored messages for your interested persona</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {explainers.map((exp) => (
-                <Collapsible
-                  key={exp.id}
-                  open={openExplainer === exp.id}
-                  onOpenChange={(isOpen) => setOpenExplainer(isOpen ? exp.id : null)}
-                >
-                  <Card className="border-border/50 hover:border-primary/30 transition-colors">
-                    <CollapsibleTrigger asChild>
-                      <CardContent className="pt-4 pb-4 cursor-pointer">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-primary/10">
-                              <exp.icon className="h-5 w-5 text-primary" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                {explainers.map((exp) => (
+                  <Collapsible
+                    key={exp.id}
+                    open={openExplainer === exp.id}
+                    onOpenChange={(isOpen) => setOpenExplainer(isOpen ? exp.id : null)}
+                  >
+                    <Card className="border-border/50 hover:border-primary/30 transition-colors">
+                      <CollapsibleTrigger asChild>
+                        <CardContent className="pt-4 pb-4 cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 rounded-lg bg-primary/10">
+                                <exp.icon className="h-5 w-5 text-primary" />
+                              </div>
+                              <div>
+                                <h3 className="font-semibold text-foreground text-sm">{exp.title}</h3>
+                                <p className="text-xs text-muted-foreground">{exp.subtitle}</p>
+                              </div>
                             </div>
+                            <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${openExplainer === exp.id ? 'rotate-180' : ''}`} />
+                          </div>
+                        </CardContent>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <div className="px-6 pb-6 border-t border-border/30 pt-4">
+                          <div className="space-y-4">
                             <div>
-                              <h3 className="font-semibold text-foreground text-sm">{exp.title}</h3>
-                              <p className="text-xs text-muted-foreground">{exp.subtitle}</p>
+                              <p className="text-sm text-muted-foreground leading-relaxed italic">
+                                {exp.voiceover}
+                              </p>
+                              <p className="text-sm text-foreground mt-3">
+                                I'm Steve Grillo. Get to know us at bevalid.app. Click the button if you'd like to speak to Steve directly—or call <span className="text-primary font-medium">512-781-0973</span>. We're excited to welcome you to our sandbox.
+                              </p>
+                            </div>
+                            <div className="flex gap-4 pt-2 border-t border-border/20">
+                              <div className="flex-1">
+                                <p className="text-xs text-muted-foreground">Hook</p>
+                                <p className="text-sm font-medium text-foreground">{exp.hook}</p>
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-xs text-muted-foreground">Differentiator</p>
+                                <p className="text-sm font-medium text-foreground">{exp.differentiator}</p>
+                              </div>
                             </div>
                           </div>
-                          <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${openExplainer === exp.id ? 'rotate-180' : ''}`} />
                         </div>
+                      </CollapsibleContent>
+                    </Card>
+                  </Collapsible>
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Legal Case Studies - Collapsible */}
+          <Collapsible id="risks" open={showLegalCases} onOpenChange={setShowLegalCases} className="mt-12 scroll-mt-32">
+            <CollapsibleTrigger asChild>
+              <div className="flex items-center justify-between cursor-pointer p-4 rounded-lg border border-destructive/30 hover:border-destructive/50 bg-destructive/5 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-destructive/10 border border-destructive/30">
+                    <AlertTriangle className="h-5 w-5 text-destructive" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold text-foreground">Legal Precedents — Why Governance Matters</h2>
+                    <p className="text-sm text-muted-foreground">Real cases demonstrating the risks of unverified AI outputs</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">{showLegalCases ? 'Hide cases' : 'Show cases'}</span>
+                  <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${showLegalCases ? 'rotate-180' : ''}`} />
+                </div>
+              </div>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                {/* Group 1: AI Hallucinations */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-orange-500/10 border border-orange-500/30">
+                      <AlertTriangle className="h-5 w-5 text-orange-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Risks of AI Hallucinations</h3>
+                      <p className="text-xs text-orange-400">(Bad Output)</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Card className="border-orange-500/20 bg-orange-500/5">
+                      <CardContent className="pt-4 pb-4">
+                        <h4 className="font-semibold text-foreground text-sm mb-1">Moffatt v. Air Canada (2024)</h4>
+                        <p className="text-xs text-muted-foreground">Company liable for chatbot promising a refund that didn't exist.</p>
                       </CardContent>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <div className="px-6 pb-6 border-t border-border/30 pt-4">
-                        <div className="space-y-4">
-                          <div>
-                            <p className="text-sm text-muted-foreground leading-relaxed italic">
-                              {exp.voiceover}
-                            </p>
-                            <p className="text-sm text-foreground mt-3">
-                              I'm Steve Grillo. Get to know us at bevalid.app. Click the button if you'd like to speak to Steve directly—or call <span className="text-primary font-medium">512-781-0973</span>. We're excited to welcome you to our sandbox.
-                            </p>
-                          </div>
-                          <div className="flex gap-4 pt-2 border-t border-border/20">
-                            <div className="flex-1">
-                              <p className="text-xs text-muted-foreground">Hook</p>
-                              <p className="text-sm font-medium text-foreground">{exp.hook}</p>
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-xs text-muted-foreground">Differentiator</p>
-                              <p className="text-sm font-medium text-foreground">{exp.differentiator}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CollapsibleContent>
-                  </Card>
-                </Collapsible>
-              ))}
-            </div>
-          </div>
+                    </Card>
+                    <Card className="border-orange-500/20 bg-orange-500/5">
+                      <CardContent className="pt-4 pb-4">
+                        <h4 className="font-semibold text-foreground text-sm mb-1">Mata v. Avianca (2023)</h4>
+                        <p className="text-xs text-muted-foreground">Lawyers sanctioned for using ChatGPT to cite fake court cases.</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="border-orange-500/20 bg-orange-500/5">
+                      <CardContent className="pt-4 pb-4">
+                        <h4 className="font-semibold text-foreground text-sm mb-1">Walters v. OpenAI (2023)</h4>
+                        <p className="text-xs text-muted-foreground">AI sued for defamation after falsely accusing a man of embezzlement.</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="border-orange-500/20 bg-orange-500/5">
+                      <CardContent className="pt-4 pb-4">
+                        <h4 className="font-semibold text-foreground text-sm mb-1">Hood v. OpenAI</h4>
+                        <p className="text-xs text-muted-foreground">Mayor threatened to sue after AI falsely claimed he was a criminal.</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
 
-          {/* Legal Case Studies - The Evidence */}
-          <div className="mt-12">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive/10 border border-destructive/30 mb-4">
-                <AlertTriangle className="h-5 w-5 text-destructive" />
-                <span className="text-sm font-medium text-destructive">Legal Precedents</span>
+                {/* Group 2: Bad User Data */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/30">
+                      <AlertCircle className="h-5 w-5 text-red-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Risks of Bad User Data</h3>
+                      <p className="text-xs text-red-400">(Garbage Input)</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <Card className="border-red-500/20 bg-red-500/5">
+                      <CardContent className="pt-4 pb-4">
+                        <h4 className="font-semibold text-foreground text-sm mb-1">JPMorgan v. Frank (2023)</h4>
+                        <p className="text-xs text-muted-foreground">Bank lost $175M acquiring a startup that had 4 million fake users.</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="border-red-500/20 bg-red-500/5">
+                      <CardContent className="pt-4 pb-4">
+                        <h4 className="font-semibold text-foreground text-sm mb-1">Rideshare Class Actions</h4>
+                        <p className="text-xs text-muted-foreground">Companies sued when drivers used stolen IDs to bypass checks.</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="border-red-500/20 bg-red-500/5">
+                      <CardContent className="pt-4 pb-4">
+                        <h4 className="font-semibold text-foreground text-sm mb-1">Williams v. City of Detroit (2024)</h4>
+                        <p className="text-xs text-muted-foreground">City paid $300k settlement after bad photo input led to a wrongful AI arrest.</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
               </div>
-              <h2 className="text-2xl font-bold text-foreground mb-2">Why Governance Matters</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Real cases demonstrating the risks of unverified AI outputs and unvalidated user data.
-              </p>
-            </div>
+            </CollapsibleContent>
+          </Collapsible>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Group 1: AI Hallucinations */}
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-orange-500/10 border border-orange-500/30">
-                    <AlertTriangle className="h-5 w-5 text-orange-400" />
+          {/* Side-by-Side Competition Section - Collapsible */}
+          <Collapsible id="integration" open={showSideBySide} onOpenChange={setShowSideBySide} className="mt-8 scroll-mt-32">
+            <CollapsibleTrigger asChild>
+              <div className="flex items-center justify-between cursor-pointer p-4 rounded-lg border border-border/50 hover:border-primary/30 bg-card/50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-primary/10 border border-primary/30">
+                    <Scale className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground">Risks of AI Hallucinations</h3>
-                    <p className="text-xs text-orange-400">(Bad Output)</p>
+                    <h2 className="text-lg font-semibold text-foreground">Side-by-Side With Your Current Stack</h2>
+                    <p className="text-sm text-muted-foreground">See how Valid/SYNTH compares to existing solutions</p>
                   </div>
                 </div>
-                <div className="space-y-3">
-                  <Card className="border-orange-500/20 bg-orange-500/5">
-                    <CardContent className="pt-4 pb-4">
-                      <h4 className="font-semibold text-foreground text-sm mb-1">Moffatt v. Air Canada (2024)</h4>
-                      <p className="text-xs text-muted-foreground">Company liable for chatbot promising a refund that didn't exist.</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-orange-500/20 bg-orange-500/5">
-                    <CardContent className="pt-4 pb-4">
-                      <h4 className="font-semibold text-foreground text-sm mb-1">Mata v. Avianca (2023)</h4>
-                      <p className="text-xs text-muted-foreground">Lawyers sanctioned for using ChatGPT to cite fake court cases.</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-orange-500/20 bg-orange-500/5">
-                    <CardContent className="pt-4 pb-4">
-                      <h4 className="font-semibold text-foreground text-sm mb-1">Walters v. OpenAI (2023)</h4>
-                      <p className="text-xs text-muted-foreground">AI sued for defamation after falsely accusing a man of embezzlement.</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-orange-500/20 bg-orange-500/5">
-                    <CardContent className="pt-4 pb-4">
-                      <h4 className="font-semibold text-foreground text-sm mb-1">Hood v. OpenAI</h4>
-                      <p className="text-xs text-muted-foreground">Mayor threatened to sue after AI falsely claimed he was a criminal.</p>
-                    </CardContent>
-                  </Card>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">{showSideBySide ? 'Hide comparison' : 'Show comparison'}</span>
+                  <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${showSideBySide ? 'rotate-180' : ''}`} />
                 </div>
               </div>
-
-              {/* Group 2: Bad User Data */}
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/30">
-                    <AlertCircle className="h-5 w-5 text-red-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Risks of Bad User Data</h3>
-                    <p className="text-xs text-red-400">(Garbage Input)</p>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <Card className="border-red-500/20 bg-red-500/5">
-                    <CardContent className="pt-4 pb-4">
-                      <h4 className="font-semibold text-foreground text-sm mb-1">JPMorgan v. Frank (2023)</h4>
-                      <p className="text-xs text-muted-foreground">Bank lost $175M acquiring a startup that had 4 million fake users.</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-red-500/20 bg-red-500/5">
-                    <CardContent className="pt-4 pb-4">
-                      <h4 className="font-semibold text-foreground text-sm mb-1">Rideshare Class Actions</h4>
-                      <p className="text-xs text-muted-foreground">Companies sued when drivers used stolen IDs to bypass checks.</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="border-red-500/20 bg-red-500/5">
-                    <CardContent className="pt-4 pb-4">
-                      <h4 className="font-semibold text-foreground text-sm mb-1">Williams v. City of Detroit (2024)</h4>
-                      <p className="text-xs text-muted-foreground">City paid $300k settlement after bad photo input led to a wrongful AI arrest.</p>
-                    </CardContent>
-                  </Card>
-                </div>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="mt-4">
+                <SideBySideSection />
               </div>
-            </div>
-          </div>
-
-          {/* Side-by-Side Competition Section */}
-          <SideBySideSection />
+            </CollapsibleContent>
+          </Collapsible>
 
           {/* CTA for Sales */}
-          <Card className="mt-8 border-cyan-500/30 bg-cyan-500/5">
+          <Card id="loi" className="mt-8 border-cyan-500/30 bg-cyan-500/5 scroll-mt-32">
             <CardContent className="pt-6">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <p className="font-semibold text-foreground">Need a guided walkthrough?</p>
-                  <p className="text-sm text-muted-foreground">Use our Demo Router to send the right demo to the right audience.</p>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
+                    <Handshake className="h-5 w-5 text-cyan-400" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">Ready to Move Forward?</p>
+                    <p className="text-sm text-muted-foreground">Use our Demo Router to send the right demo to the right audience, or start a 45-day proof.</p>
+                  </div>
                 </div>
-                <Button asChild variant="outline" className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10">
-                  <Link to="/demos/router">Open Demo Router</Link>
-                </Button>
+                <div className="flex gap-2">
+                  <Button asChild variant="outline" className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10">
+                    <Link to="/demos/router">Open Demo Router</Link>
+                  </Button>
+                  <Button asChild className="bg-cyan-600 hover:bg-cyan-700 text-white">
+                    <Link to="/demos/enterprise-agreement">Sign LOI</Link>
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>

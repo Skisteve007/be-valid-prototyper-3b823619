@@ -96,13 +96,10 @@ export default function GhostwareQR() {
   const circumference = 2 * Math.PI * 54; // radius 54
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
-  // QR data
-  const qrData = token ? JSON.stringify({
-    t: token,
-    p: profileId,
-    v: 'ghostware',
-    exp: Date.now() + (timeLeft * 1000)
-  }) : '';
+  // QR data - CONDUIT PATTERN: Token-only pointer, no PHI/ID in payload
+  // The token is a random UUID that maps to a server-side session
+  const baseUrl = window.location.origin;
+  const qrData = token ? `${baseUrl}/scan?t=${token}` : '';
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 relative overflow-hidden">

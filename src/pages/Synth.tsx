@@ -356,11 +356,11 @@ const Synth = () => {
             </div>
           </section>
 
-          {/* Supreme Court Agents - 7 Total */}
+          {/* Supreme Court Agents */}
           <section>
-            <h3 className="text-3xl font-bold text-white text-center mb-4">The "Supreme Court" — 7 Agents</h3>
+            <h3 className="text-3xl font-bold text-white text-center mb-4">The "Supreme Court" — Adversarial Senate</h3>
             <p className="text-gray-400 text-center mb-4 max-w-2xl mx-auto">
-              Seven specialized AI agents form the governance structure: 5 Senators debate truth, 
+              Multiple independent AI agents form the governance structure: Senators debate truth, 
               the Executive Secretary cleans and organizes, and the Judge delivers the final verdict.
             </p>
             

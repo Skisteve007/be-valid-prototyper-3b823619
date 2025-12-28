@@ -202,10 +202,10 @@ const DemoHub = () => {
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold text-foreground mb-1">SYNTH™ — The Moat</h2>
-                    <p className="text-xs text-cyan-400 font-medium mb-3">7-LLM Governance Engine</p>
+                    <p className="text-xs text-cyan-400 font-medium mb-3">Multi-Model Adversarial Senate</p>
                     <p className="text-muted-foreground text-sm mb-4">
                       The protective barrier that separates you from competition, bad actors, and terminated content. 
-                      SYNTH orchestrates <span className="text-foreground font-medium">7 specialized LLMs</span> for 
+                      SYNTH orchestrates <span className="text-foreground font-medium">multiple independent verifiers</span> for 
                       consensus, contradiction detection, policy enforcement, and arbitration.
                     </p>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">

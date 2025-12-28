@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle } from "lucide-react";
+import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -62,6 +62,30 @@ const DemoHub = () => {
       ],
       whoFor: "Security auditors, compliance teams",
       path: "/demos/audit-verifier",
+    },
+    {
+      title: "Demo E — Upload & Verdict",
+      subtitle: "Drop a PDF. Get a governed verdict.",
+      icon: Upload,
+      bullets: [
+        "Upload a document (demo-safe)",
+        "System runs governance pipeline",
+        "Returns verdict + proof record + share token",
+      ],
+      whoFor: "Smaller buyers, fast pilots, legal/compliance",
+      path: "/demos/upload-verdict",
+    },
+    {
+      title: "Demo F — Enterprise Scale Conduit",
+      subtitle: "High-volume events in, governed decisions out.",
+      icon: Gauge,
+      bullets: [
+        "Simulated event stream / batch processing",
+        "Queue + throughput + latency metrics",
+        "Rolling decisions with proof records",
+      ],
+      whoFor: "Banks, universities, big enterprise security",
+      path: "/demos/scale-conduit",
     },
   ];
 

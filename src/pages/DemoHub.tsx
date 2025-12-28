@@ -334,6 +334,12 @@ const DemoHub = () => {
                     <div>
                       <p className="text-sm text-muted-foreground font-medium mb-1">Who it's for:</p>
                       <p className="text-foreground">Small teams and Main Street operators (clubs/venues, clinics, salons, offices), pilots, and compliance reviews.</p>
+                      <p className="text-sm text-primary mt-2">
+                        Best fit pricing:{" "}
+                        <a href="#loi" className="underline hover:text-primary/80 transition-colors">Main Street (Tier 3)</a>
+                        {" → "}
+                        <a href="#loi" className="underline hover:text-primary/80 transition-colors">Pilot (Tier 2)</a>
+                      </p>
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground font-medium mb-1">What you input:</p>
@@ -363,7 +369,13 @@ const DemoHub = () => {
                   <div className="space-y-4 text-base">
                     <div>
                       <p className="text-sm text-muted-foreground font-medium mb-1">Who it's for:</p>
-                      <p className="text-foreground">Universities, banks, large enterprises with existing systems</p>
+                      <p className="text-foreground">Universities, banks, large enterprises with existing systems.</p>
+                      <p className="text-sm text-cyan-400 mt-2">
+                        Best fit pricing:{" "}
+                        <a href="#loi" className="underline hover:text-cyan-300 transition-colors">Enterprise (Tier 1)</a>
+                        {" → "}
+                        <a href="#loi" className="underline hover:text-cyan-300 transition-colors">Sector / Exclusivity (Tier 0)</a>
+                      </p>
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground font-medium mb-1">What you input:</p>

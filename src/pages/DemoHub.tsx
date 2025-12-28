@@ -153,8 +153,8 @@ const DemoHub = () => {
                   <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <h1 className="text-base md:text-xl font-bold text-foreground truncate">Demo Hub</h1>
-                  <p className="text-xs md:text-sm text-muted-foreground hidden sm:block">Experience Valid / SYNTH in action</p>
+                  <h1 className="text-lg md:text-2xl font-bold text-foreground truncate">Demo Hub</h1>
+                  <p className="text-sm md:text-base text-muted-foreground hidden sm:block">Experience Valid / SYNTH in action</p>
                 </div>
               </div>
               <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
@@ -167,14 +167,14 @@ const DemoHub = () => {
           </div>
           {/* Sticky Subnav */}
           <div className="border-t border-border/50 bg-background/80 backdrop-blur-sm">
-            <nav className="container mx-auto px-4 py-2 flex gap-1 overflow-x-auto scrollbar-hide">
-              <a href="#overview" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Overview</a>
-              <a href="#demos" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Demos</a>
-              <a href="#proof" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Proof</a>
-              <a href="#ghost" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Ghost</a>
-              <a href="#risks" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Risks</a>
-              <a href="#integration" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">Integration</a>
-              <a href="#loi" className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md whitespace-nowrap transition-colors">LOI</a>
+            <nav className="container mx-auto px-4 py-2.5 flex gap-2 overflow-x-auto scrollbar-hide">
+              <a href="#overview" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Overview</a>
+              <a href="#demos" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Demos</a>
+              <a href="#proof" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Proof</a>
+              <a href="#ghost" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Ghost</a>
+              <a href="#risks" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Risks</a>
+              <a href="#integration" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Integration</a>
+              <a href="#loi" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">LOI</a>
             </nav>
           </div>
         </header>
@@ -193,14 +193,14 @@ const DemoHub = () => {
                     <Castle className="h-6 w-6 text-emerald-400" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-foreground mb-1">Valid™ — The Castle</h2>
-                    <p className="text-xs text-emerald-400 font-medium mb-3">Application Layer</p>
-                    <p className="text-muted-foreground text-sm mb-4">
+                    <h2 className="text-xl font-semibold text-foreground mb-1">Valid™ — The Castle</h2>
+                    <p className="text-sm text-emerald-400 font-medium mb-3">Application Layer</p>
+                    <p className="text-muted-foreground text-base mb-4">
                       The fortress that houses your identity and trust infrastructure. Valid contains the 
                       <span className="text-foreground font-medium"> Ghost QR Pass</span> — a privacy-preserving 
                       wallet for sharing verified credentials without exposing underlying data.
                     </p>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <QrCode className="h-4 w-4 text-emerald-400" />
                       <span>Ghost demos coming soon</span>
                     </div>
@@ -217,13 +217,13 @@ const DemoHub = () => {
                     <Layers className="h-6 w-6 text-cyan-400" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-foreground mb-1">SYNTH™ — The Moat</h2>
-                    <p className="text-xs text-cyan-400 font-medium mb-3">Adversarial Consensus Engine</p>
-                    <p className="text-muted-foreground text-sm mb-4">
+                    <h2 className="text-xl font-semibold text-foreground mb-1">SYNTH™ — The Moat</h2>
+                    <p className="text-sm text-cyan-400 font-medium mb-3">Adversarial Consensus Engine</p>
+                    <p className="text-muted-foreground text-base mb-4">
                       SYNTH is an adversarial consensus moat—<span className="text-foreground font-medium">multiple independent verifiers</span> cross-examine 
                       every output before it's allowed through. Bad actors, weak logic, and terminated content are stopped at the gate.
                     </p>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Bot className="h-4 w-4 text-cyan-400" />
                       <span>Multi-model governance + proof records</span>
                     </div>
@@ -244,8 +244,8 @@ const DemoHub = () => {
               <div className="flex items-start gap-4">
                 <Sparkles className="h-8 w-8 text-primary shrink-0" />
                 <div>
-                  <h2 className="text-lg font-semibold text-foreground mb-2">Governance Conduit, Not Data Warehouse</h2>
-                  <p className="text-muted-foreground text-sm mb-4">
+                  <h2 className="text-xl font-semibold text-foreground mb-2">Governance Conduit, Not Data Warehouse</h2>
+                  <p className="text-muted-foreground text-base mb-4">
                     Your systems remain the system of record. SYNTH orchestrates verification and governance 
                     across models and services, then returns results with a verifiable proof record. Valid 
                     provides the application layer where users interact with Ghost passes and verified credentials.
@@ -270,32 +270,32 @@ const DemoHub = () => {
           {/* Two Ways to Use Explainer */}
           <Card className="mb-8 border-border/50 bg-card/50">
             <CardContent className="pt-6">
-              <h3 className="text-sm font-semibold text-muted-foreground mb-4 text-center">
+              <h3 className="text-base font-semibold text-muted-foreground mb-4 text-center">
                 Two Ways to Use the Same Governance Pipeline
               </h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Lane A */}
-                <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+                <div className="p-5 rounded-lg bg-primary/5 border border-primary/20">
                   <div className="flex items-center gap-2 mb-3">
                     <FileUp className="h-5 w-5 text-primary" />
-                    <h4 className="font-semibold text-foreground text-sm">Lane A — Upload & Verdict (Simple)</h4>
+                    <h4 className="font-semibold text-foreground text-base">Lane A — Upload & Verdict (Simple)</h4>
                   </div>
-                  <div className="space-y-3 text-sm">
+                  <div className="space-y-4 text-base">
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium mb-1">Who it's for:</p>
+                      <p className="text-sm text-muted-foreground font-medium mb-1">Who it's for:</p>
                       <p className="text-foreground">Small teams and Main Street operators (clubs/venues, clinics, salons, offices), pilots, and compliance reviews.</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium mb-1">What you input:</p>
+                      <p className="text-sm text-muted-foreground font-medium mb-1">What you input:</p>
                       <ul className="text-foreground space-y-1 list-disc list-inside">
                         <li><span className="font-medium">Single items:</span> a PDF/report (10–20+ pages), a transcript, a policy, or a contract.</li>
                         <li><span className="font-medium">Ongoing workflow:</span> daily documents and client/staff entries from a small operation (typically 5–20 employees) — uploaded as batches or one-by-one.</li>
                       </ul>
-                      <p className="text-xs text-muted-foreground mt-2 italic">Start small (one doc), then scale to routine daily verification without changing tools.</p>
+                      <p className="text-sm text-muted-foreground mt-2 italic">Start small (one doc), then scale to routine daily verification without changing tools.</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium mb-1">What you get back:</p>
+                      <p className="text-sm text-muted-foreground font-medium mb-1">What you get back:</p>
                       <ul className="text-foreground space-y-1 list-disc list-inside">
                         <li>A governed verdict (CERTIFIED / MISTRIAL) with key reasons and recommended next steps</li>
                         <li>A proof record you can verify and share (optional time-limited share token)</li>
@@ -306,33 +306,33 @@ const DemoHub = () => {
                 </div>
 
                 {/* Lane B */}
-                <div className="p-4 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
+                <div className="p-5 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
                   <div className="flex items-center gap-2 mb-3">
                     <Layers className="h-5 w-5 text-cyan-400" />
-                    <h4 className="font-semibold text-foreground text-sm">Lane B — Enterprise Conduit (At Scale)</h4>
+                    <h4 className="font-semibold text-foreground text-base">Lane B — Enterprise Conduit (At Scale)</h4>
                   </div>
-                  <div className="space-y-3 text-sm">
+                  <div className="space-y-4 text-base">
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium mb-1">Who it's for:</p>
+                      <p className="text-sm text-muted-foreground font-medium mb-1">Who it's for:</p>
                       <p className="text-foreground">Universities, banks, large enterprises with existing systems</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium mb-1">What you input:</p>
+                      <p className="text-sm text-muted-foreground font-medium mb-1">What you input:</p>
                       <p className="text-foreground">High-volume events or documents from your existing system (logs, transcripts, claims, tickets, records)</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium mb-1">How it works (side-by-side):</p>
+                      <p className="text-sm text-muted-foreground font-medium mb-1">How it works (side-by-side):</p>
                       <p className="text-foreground">Your system remains the system of record. Valid/SYNTH receives a copy of the needed payload (or runs in your cloud), applies governance + verification, routes checks to approved services as needed, and returns results to your system.</p>
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground font-medium mb-1">What you get back:</p>
+                      <p className="text-sm text-muted-foreground font-medium mb-1">What you get back:</p>
                       <p className="text-foreground">Decisions at throughput (allow/block/flag + reasons) plus proof records for auditability</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <p className="text-center text-sm font-semibold text-foreground mt-6 pt-4 border-t border-border/30">
+              <p className="text-center text-base font-semibold text-foreground mt-6 pt-4 border-t border-border/30">
                 "We don't ask you to hand over your databases — we sit beside your stack and return governed decisions."
               </p>
             </CardContent>
@@ -347,12 +347,12 @@ const DemoHub = () => {
 
           {/* Deep Dive Section Header with Expand/Collapse All */}
           <div className="mt-12 mb-4 flex items-center justify-between">
-            <h3 className="text-sm font-medium text-muted-foreground">Deep Dive</h3>
+            <h3 className="text-base font-medium text-muted-foreground">Deep Dive</h3>
             <div className="flex gap-2">
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-xs h-7"
+                className="text-sm h-8"
                 onClick={() => {
                   setShowVerticals(true);
                   setShowLegalCases(true);
@@ -364,7 +364,7 @@ const DemoHub = () => {
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-xs h-7"
+                className="text-sm h-8"
                 onClick={() => {
                   setShowVerticals(false);
                   setShowLegalCases(false);
@@ -379,18 +379,18 @@ const DemoHub = () => {
           {/* Explainer Menu - Collapsible */}
           <Collapsible open={showVerticals} onOpenChange={setShowVerticals}>
             <CollapsibleTrigger asChild>
-              <div className="flex items-center justify-between cursor-pointer p-4 rounded-lg border border-border/50 hover:border-primary/30 bg-card/50 transition-colors">
+              <div className="flex items-center justify-between cursor-pointer p-5 rounded-lg border border-border/50 hover:border-primary/30 bg-card/50 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
                     <Phone className="h-5 w-5 text-amber-400" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-foreground">Vertical Interests</h2>
-                    <p className="text-sm text-muted-foreground">Tailored messages for your interested persona</p>
+                    <h2 className="text-xl font-semibold text-foreground">Vertical Interests</h2>
+                    <p className="text-base text-muted-foreground">Tailored messages for your interested persona</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">{showVerticals ? 'Hide' : 'Show more'}</span>
+                  <span className="text-sm text-muted-foreground">{showVerticals ? 'Hide' : 'Show more'}</span>
                   <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${showVerticals ? 'rotate-180' : ''}`} />
                 </div>
               </div>
@@ -412,8 +412,8 @@ const DemoHub = () => {
                                 <exp.icon className="h-5 w-5 text-primary" />
                               </div>
                               <div>
-                                <h3 className="font-semibold text-foreground text-sm">{exp.title}</h3>
-                                <p className="text-xs text-muted-foreground">{exp.subtitle}</p>
+                                <h3 className="font-semibold text-foreground text-base">{exp.title}</h3>
+                                <p className="text-sm text-muted-foreground">{exp.subtitle}</p>
                               </div>
                             </div>
                             <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${openExplainer === exp.id ? 'rotate-180' : ''}`} />
@@ -424,21 +424,21 @@ const DemoHub = () => {
                         <div className="px-6 pb-6 border-t border-border/30 pt-4">
                           <div className="space-y-4">
                             <div>
-                              <p className="text-sm text-muted-foreground leading-relaxed italic">
+                              <p className="text-base text-muted-foreground leading-relaxed italic">
                                 {exp.voiceover}
                               </p>
-                              <p className="text-sm text-foreground mt-3">
+                              <p className="text-base text-foreground mt-3">
                                 I'm Steve Grillo. Get to know us at bevalid.app. Click the button if you'd like to speak to Steve directly—or call <span className="text-primary font-medium">512-781-0973</span>. We're excited to welcome you to our sandbox.
                               </p>
                             </div>
                             <div className="flex gap-4 pt-2 border-t border-border/20">
                               <div className="flex-1">
-                                <p className="text-xs text-muted-foreground">Hook</p>
-                                <p className="text-sm font-medium text-foreground">{exp.hook}</p>
+                                <p className="text-sm text-muted-foreground">Hook</p>
+                                <p className="text-base font-medium text-foreground">{exp.hook}</p>
                               </div>
                               <div className="flex-1">
-                                <p className="text-xs text-muted-foreground">Differentiator</p>
-                                <p className="text-sm font-medium text-foreground">{exp.differentiator}</p>
+                                <p className="text-sm text-muted-foreground">Differentiator</p>
+                                <p className="text-base font-medium text-foreground">{exp.differentiator}</p>
                               </div>
                             </div>
                           </div>
@@ -452,20 +452,20 @@ const DemoHub = () => {
           </Collapsible>
 
           {/* Legal Case Studies - Collapsible */}
-          <Collapsible id="risks" open={showLegalCases} onOpenChange={setShowLegalCases} className="mt-12 scroll-mt-32">
+          <Collapsible id="risks" open={showLegalCases} onOpenChange={setShowLegalCases} className="mt-8 scroll-mt-32">
             <CollapsibleTrigger asChild>
-              <div className="flex items-center justify-between cursor-pointer p-4 rounded-lg border border-destructive/30 hover:border-destructive/50 bg-destructive/5 transition-colors">
+              <div className="flex items-center justify-between cursor-pointer p-5 rounded-lg border border-destructive/30 hover:border-destructive/50 bg-destructive/5 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-destructive/10 border border-destructive/30">
                     <AlertTriangle className="h-5 w-5 text-destructive" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-foreground">Legal Precedents — Why Governance Matters</h2>
-                    <p className="text-sm text-muted-foreground">Real cases demonstrating the risks of unverified AI outputs</p>
+                    <h2 className="text-xl font-semibold text-foreground">Legal Precedents — Why Governance Matters</h2>
+                    <p className="text-base text-muted-foreground">Real cases demonstrating the risks of unverified AI outputs</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">{showLegalCases ? 'Hide cases' : 'Show cases'}</span>
+                  <span className="text-sm text-muted-foreground">{showLegalCases ? 'Hide cases' : 'Show cases'}</span>
                   <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${showLegalCases ? 'rotate-180' : ''}`} />
                 </div>
               </div>
@@ -479,33 +479,33 @@ const DemoHub = () => {
                       <AlertTriangle className="h-5 w-5 text-orange-400" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground">Risks of AI Hallucinations</h3>
-                      <p className="text-xs text-orange-400">(Bad Output)</p>
+                      <h3 className="font-semibold text-foreground text-lg">Risks of AI Hallucinations</h3>
+                      <p className="text-sm text-orange-400">(Bad Output)</p>
                     </div>
                   </div>
                   <div className="space-y-3">
                     <Card className="border-orange-500/20 bg-orange-500/5">
                       <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-sm mb-1">Moffatt v. Air Canada (2024)</h4>
-                        <p className="text-xs text-muted-foreground">Company liable for chatbot promising a refund that didn't exist.</p>
+                        <h4 className="font-semibold text-foreground text-base mb-1">Moffatt v. Air Canada (2024)</h4>
+                        <p className="text-sm text-muted-foreground">Company liable for chatbot promising a refund that didn't exist.</p>
                       </CardContent>
                     </Card>
                     <Card className="border-orange-500/20 bg-orange-500/5">
                       <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-sm mb-1">Mata v. Avianca (2023)</h4>
-                        <p className="text-xs text-muted-foreground">Lawyers sanctioned for using ChatGPT to cite fake court cases.</p>
+                        <h4 className="font-semibold text-foreground text-base mb-1">Mata v. Avianca (2023)</h4>
+                        <p className="text-sm text-muted-foreground">Lawyers sanctioned for using ChatGPT to cite fake court cases.</p>
                       </CardContent>
                     </Card>
                     <Card className="border-orange-500/20 bg-orange-500/5">
                       <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-sm mb-1">Walters v. OpenAI (2023)</h4>
-                        <p className="text-xs text-muted-foreground">AI sued for defamation after falsely accusing a man of embezzlement.</p>
+                        <h4 className="font-semibold text-foreground text-base mb-1">Walters v. OpenAI (2023)</h4>
+                        <p className="text-sm text-muted-foreground">AI sued for defamation after falsely accusing a man of embezzlement.</p>
                       </CardContent>
                     </Card>
                     <Card className="border-orange-500/20 bg-orange-500/5">
                       <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-sm mb-1">Hood v. OpenAI</h4>
-                        <p className="text-xs text-muted-foreground">Mayor threatened to sue after AI falsely claimed he was a criminal.</p>
+                        <h4 className="font-semibold text-foreground text-base mb-1">Hood v. OpenAI</h4>
+                        <p className="text-sm text-muted-foreground">Mayor threatened to sue after AI falsely claimed he was a criminal.</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -518,27 +518,27 @@ const DemoHub = () => {
                       <AlertCircle className="h-5 w-5 text-red-400" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground">Risks of Bad User Data</h3>
-                      <p className="text-xs text-red-400">(Garbage Input)</p>
+                      <h3 className="font-semibold text-foreground text-lg">Risks of Bad User Data</h3>
+                      <p className="text-sm text-red-400">(Garbage Input)</p>
                     </div>
                   </div>
                   <div className="space-y-3">
                     <Card className="border-red-500/20 bg-red-500/5">
                       <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-sm mb-1">JPMorgan v. Frank (2023)</h4>
-                        <p className="text-xs text-muted-foreground">Bank lost $175M acquiring a startup that had 4 million fake users.</p>
+                        <h4 className="font-semibold text-foreground text-base mb-1">JPMorgan v. Frank (2023)</h4>
+                        <p className="text-sm text-muted-foreground">Bank lost $175M acquiring a startup that had 4 million fake users.</p>
                       </CardContent>
                     </Card>
                     <Card className="border-red-500/20 bg-red-500/5">
                       <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-sm mb-1">Rideshare Class Actions</h4>
-                        <p className="text-xs text-muted-foreground">Companies sued when drivers used stolen IDs to bypass checks.</p>
+                        <h4 className="font-semibold text-foreground text-base mb-1">Rideshare Class Actions</h4>
+                        <p className="text-sm text-muted-foreground">Companies sued when drivers used stolen IDs to bypass checks.</p>
                       </CardContent>
                     </Card>
                     <Card className="border-red-500/20 bg-red-500/5">
                       <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-sm mb-1">Williams v. City of Detroit (2024)</h4>
-                        <p className="text-xs text-muted-foreground">City paid $300k settlement after bad photo input led to a wrongful AI arrest.</p>
+                        <h4 className="font-semibold text-foreground text-base mb-1">Williams v. City of Detroit (2024)</h4>
+                        <p className="text-sm text-muted-foreground">City paid $300k settlement after bad photo input led to a wrongful AI arrest.</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -550,18 +550,18 @@ const DemoHub = () => {
           {/* Side-by-Side Competition Section - Collapsible */}
           <Collapsible id="integration" open={showSideBySide} onOpenChange={setShowSideBySide} className="mt-8 scroll-mt-32">
             <CollapsibleTrigger asChild>
-              <div className="flex items-center justify-between cursor-pointer p-4 rounded-lg border border-border/50 hover:border-primary/30 bg-card/50 transition-colors">
+              <div className="flex items-center justify-between cursor-pointer p-5 rounded-lg border border-border/50 hover:border-primary/30 bg-card/50 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-primary/10 border border-primary/30">
                     <Scale className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-foreground">Side-by-Side With Your Current Stack</h2>
-                    <p className="text-sm text-muted-foreground">See how Valid/SYNTH compares to existing solutions</p>
+                    <h2 className="text-xl font-semibold text-foreground">Side-by-Side With Your Current Stack</h2>
+                    <p className="text-base text-muted-foreground">See how Valid/SYNTH compares to existing solutions</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">{showSideBySide ? 'Hide comparison' : 'Show comparison'}</span>
+                  <span className="text-sm text-muted-foreground">{showSideBySide ? 'Hide comparison' : 'Show comparison'}</span>
                   <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${showSideBySide ? 'rotate-180' : ''}`} />
                 </div>
               </div>
@@ -582,8 +582,8 @@ const DemoHub = () => {
                     <Handshake className="h-5 w-5 text-cyan-400" />
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground">Ready to Move Forward?</p>
-                    <p className="text-sm text-muted-foreground">Use our Demo Router to send the right demo to the right audience, or start a 45-day proof.</p>
+                    <p className="font-semibold text-foreground text-lg">Ready to Move Forward?</p>
+                    <p className="text-base text-muted-foreground">Use our Demo Router to send the right demo to the right audience, or start a 45-day proof.</p>
                   </div>
                 </div>
                 <div className="flex gap-2">

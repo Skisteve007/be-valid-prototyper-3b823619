@@ -239,7 +239,7 @@ const DemoHub = () => {
           </div>
 
           {/* Intro Card */}
-          <Card id="proof" className="mb-8 border-primary/20 bg-primary/5 scroll-mt-32">
+          <Card id="proof" className="mb-4 border-primary/20 bg-primary/5 scroll-mt-32">
             <CardContent className="pt-6">
               <div className="flex items-start gap-4">
                 <Sparkles className="h-8 w-8 text-primary shrink-0" />
@@ -256,6 +256,43 @@ const DemoHub = () => {
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Link>
                   </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Pipeline, Not Vault Block */}
+          <Card className="mb-8 border-amber-500/20 bg-amber-500/5">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-4">
+                <Shield className="h-8 w-8 text-amber-400 shrink-0" />
+                <div>
+                  <h2 className="text-xl font-semibold text-foreground mb-2">Pipeline, Not Vault</h2>
+                  <p className="text-muted-foreground text-base mb-3">
+                    Your systems remain the system of record. Valid/SYNTH returns signed decision signals plus a verifiable proof record (integrity artifacts). Source records (PII/PHI, lab results, ID scans) stay with you and your verification providers—never inside Valid.
+                  </p>
+                  <Collapsible>
+                    <CollapsibleTrigger asChild>
+                      <Button variant="link" size="sm" className="p-0 h-auto text-amber-400 hover:text-amber-300">
+                        What's a proof record?
+                        <ChevronDown className="h-4 w-4 ml-1" />
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="mt-3 p-4 rounded-lg bg-muted/30 border border-border/30 text-sm text-muted-foreground space-y-2">
+                        <p className="font-medium text-foreground">A proof record contains:</p>
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>proof_id — unique identifier</li>
+                          <li>input_hash — hash of the input (not raw content)</li>
+                          <li>issued_at / expires_at — timestamps</li>
+                          <li>policy_pack_version — which rules were applied</li>
+                          <li>verdict + reason codes</li>
+                          <li>vendor_reference_ids — pointers to source systems</li>
+                        </ul>
+                        <p className="pt-2 text-xs italic">Source records (raw PII/PHI, lab files, ID images) are NOT stored—only minimal integrity artifacts needed for auditability.</p>
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
                 </div>
               </div>
             </CardContent>

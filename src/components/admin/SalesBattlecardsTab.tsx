@@ -412,6 +412,109 @@ export function SalesBattlecardsTab() {
         </CardContent>
       </Card>
 
+      {/* System of Record vs Proof Record */}
+      <Card className="border-purple-500/30">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Database className="h-5 w-5 text-purple-400" />
+            System of Record vs Proof Record
+          </CardTitle>
+          <CardDescription>
+            How to explain the "Black Box" — what we store vs what we don't
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* What we store */}
+          <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+            <div className="flex items-center gap-2 mb-3">
+              <Check className="h-4 w-4 text-emerald-400" />
+              <span className="font-semibold text-emerald-400">We Store (Minimal Integrity Artifacts)</span>
+            </div>
+            <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
+              <li>proof_id</li>
+              <li>input_hash (hash, not raw content)</li>
+              <li>issued_at, expires_at</li>
+              <li>policy_pack_version</li>
+              <li>verdict + reason codes (optional)</li>
+              <li>vendor_reference_ids (pointers only)</li>
+            </ul>
+          </div>
+
+          {/* What we do NOT store */}
+          <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertTriangle className="h-4 w-4 text-red-400" />
+              <span className="font-semibold text-red-400">We Do NOT Store (Source Records)</span>
+            </div>
+            <ul className="text-sm text-foreground space-y-1 list-disc list-inside">
+              <li>Raw PII/PHI documents</li>
+              <li>Lab result files</li>
+              <li>ID images/scans</li>
+              <li>Customer databases</li>
+              <li>Full transcripts (unless explicitly configured in the customer's environment under contract)</li>
+            </ul>
+          </div>
+
+          {/* Field Script */}
+          <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <MessageSquare className="h-4 w-4 text-blue-400" />
+                <span className="font-semibold text-blue-400">Field Script (Say This)</span>
+              </div>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => copyToClipboard(
+                  `"We're not a database and we're not your IDV/lab provider. Your system (often Supabase/Postgres/Snowflake/Salesforce) remains the system of record. Valid/SYNTH processes only what's needed to compute a decision, then returns a signed Signal Pack plus a verifiable Proof Record—hashes, timestamps, policy version, and vendor reference IDs. If there's a dispute, the raw evidence is retrieved from the original vendor or your system of record using those references."`,
+                  "Full rep script"
+                )}
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-sm text-foreground italic">
+              "We're not a database and we're not your IDV/lab provider. Your system (often Supabase/Postgres/Snowflake/Salesforce) remains the system of record. Valid/SYNTH processes only what's needed to compute a decision, then returns a signed Signal Pack plus a verifiable Proof Record—hashes, timestamps, policy version, and vendor reference IDs. If there's a dispute, the raw evidence is retrieved from the original vendor or your system of record using those references."
+            </p>
+          </div>
+
+          {/* Public 2-line version */}
+          <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <Eye className="h-4 w-4 text-amber-400" />
+                <span className="font-semibold text-amber-400">Public 2-Line Version</span>
+              </div>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => copyToClipboard(
+                  "Your systems remain the system of record. Valid/SYNTH returns signed decision signals plus a verifiable proof record (integrity artifacts). Source records (PII/PHI, lab results, ID scans) stay with you and your verification providers—never inside Valid.",
+                  "Public 2-line version"
+                )}
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-sm text-foreground">
+              Your systems remain the system of record. Valid/SYNTH returns signed decision signals plus a verifiable proof record (integrity artifacts). Source records (PII/PHI, lab results, ID scans) stay with you and your verification providers—never inside Valid.
+            </p>
+          </div>
+
+          {/* Don't Say This */}
+          <div className="p-4 rounded-lg bg-muted/30 border border-border/30">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+              <span className="font-semibold text-muted-foreground">Don't Say This</span>
+            </div>
+            <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+              <li>"We store your data"</li>
+              <li>"We hold the black box" — instead say: "we provide the decision black box / proof record"</li>
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* 45-Day Proof Sprint Checklist */}
       <Card className="border-cyan-500/30">
         <CardHeader>

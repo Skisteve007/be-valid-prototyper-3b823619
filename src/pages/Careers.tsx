@@ -281,6 +281,11 @@ export default function Careers() {
                         </h4>
                         <p className="text-sm text-muted-foreground">{role.compSummary}</p>
                       </div>
+
+                      {/* Engagement terms */}
+                      <p className="text-xs text-muted-foreground italic">
+                        Engagement: Independent contractor to start. NDA + IP assignment required.
+                      </p>
                     </div>
 
                     <Button 

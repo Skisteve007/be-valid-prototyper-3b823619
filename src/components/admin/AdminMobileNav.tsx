@@ -19,7 +19,8 @@ import {
   Webhook,
   Send,
   FileText,
-  UserPlus
+  UserPlus,
+  Package
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -48,6 +49,7 @@ const navItems = [
   { id: "webhooks", label: "Webhooks", icon: Webhook },
   { id: "careers", label: "Careers", icon: UserPlus },
   { id: "legal-templates", label: "Legal Templates", icon: FileText },
+  { id: "hiring-packet", label: "Hiring Packet", icon: Package },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canUnlockSynth }: AdminMobileNavProps) => {

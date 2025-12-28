@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Copy, Check, Briefcase, Calendar, ExternalLink } from "lucide-react";
+import { Copy, Check, Briefcase, Calendar, ExternalLink, FileText, Link } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,14 @@ interface JobAd {
   summaryLine: string;
   fullAdText: string;
 }
+
+const roleContracts: Record<string, string[]> = {
+  cto: ["Mutual NDA", "Independent Contractor Agreement", "Equity Addendum (if applicable)"],
+  "enterprise-ae": ["Mutual NDA", "Independent Contractor Agreement", "Commission Plan Addendum"],
+  "growth-ae": ["Mutual NDA", "Independent Contractor Agreement", "Commission Plan Addendum"],
+  "founding-engineer": ["Mutual NDA", "Independent Contractor Agreement", "Equity Addendum (if applicable)"],
+  "fullstack-engineer": ["Mutual NDA", "Independent Contractor Agreement"]
+};
 
 const jobAds: JobAd[] = [
   {
@@ -252,6 +260,30 @@ export function CareersTab() {
                 </AccordionTrigger>
                 <AccordionContent className="pb-4">
                   <div className="space-y-4">
+                    {/* Contracts this role signs */}
+                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
+                      <h4 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                        <FileText className="h-4 w-4 text-primary" />
+                        Contracts this role signs:
+                      </h4>
+                      <ul className="space-y-1">
+                        {(roleContracts[ad.id] || ["Mutual NDA", "Independent Contractor Agreement"]).map((contract, i) => (
+                          <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
+                            <Link className="h-3 w-3 text-primary" />
+                            {contract}
+                          </li>
+                        ))}
+                      </ul>
+                      <Button
+                        variant="link"
+                        size="sm"
+                        className="mt-2 h-auto p-0 text-primary"
+                        onClick={() => navigate("/admin?tab=legal-templates")}
+                      >
+                        View templates in Legal Templates →
+                      </Button>
+                    </div>
+
                     <pre className="whitespace-pre-wrap text-sm bg-muted/50 p-4 rounded-lg border font-mono overflow-x-auto">
                       {ad.fullAdText}
                     </pre>

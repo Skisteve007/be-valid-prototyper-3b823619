@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Fingerprint, Wallet, HeartPulse, RefreshCw } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface ToggleState {
   identity: boolean;
@@ -16,7 +18,8 @@ const GhostWalletPass = () => {
   });
   const [timeLeft, setTimeLeft] = useState(30);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [qrKey, setQrKey] = useState(Date.now());
+  const [token, setToken] = useState<string | null>(null);
+  const [profileId, setProfileId] = useState<string | null>(null);
 
   // Determine glow color based on active toggles
   const getGlowColor = useCallback(() => {
@@ -46,22 +49,58 @@ const GhostWalletPass = () => {
     cyan: 'from-cyan-500/20 to-cyan-500/5',
   };
 
-  // Refresh QR code
-  const refreshQR = useCallback(() => {
+  // CONDUIT PATTERN: Generate server-side token (no PHI in QR)
+  const generateToken = useCallback(async () => {
     setIsRefreshing(true);
-    setTimeout(() => {
-      setQrKey(Date.now());
-      setTimeLeft(30);
-      setIsRefreshing(false);
-    }, 500);
-  }, []);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setToken(null);
+        return;
+      }
 
-  // Countdown timer
+      // Get profile ID if not cached
+      if (!profileId) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('user_id', user.id)
+          .single();
+        if (profile) setProfileId(profile.id);
+      }
+
+      if (!profileId) return;
+
+      // Generate server-side token with permissions encoded server-side
+      const { data, error } = await supabase.functions.invoke('generate-qr-token', {
+        body: { 
+          profileId,
+          permissions: toggles // Permissions stored server-side, not in QR
+        }
+      });
+
+      if (error) throw error;
+      setToken(data.token);
+      setTimeLeft(30);
+    } catch (error) {
+      console.error('Token generation error:', error);
+      toast.error('Failed to generate code');
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [profileId, toggles]);
+
+  // Initial token generation
+  useEffect(() => {
+    generateToken();
+  }, [generateToken]);
+
+  // Countdown timer - regenerate on expiry
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          refreshQR();
+          generateToken();
           return 30;
         }
         return prev - 1;
@@ -69,22 +108,14 @@ const GhostWalletPass = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [refreshQR]);
+  }, [generateToken]);
 
-  // Generate QR data based on active toggles
-  const generateQRData = () => {
-    const data = {
-      id: qrKey,
-      permissions: {
-        identity: toggles.identity,
-        payment: toggles.payment,
-        health: toggles.health,
-      },
-      expires: Date.now() + 30000,
-      type: 'GHOST_TOKEN',
-    };
-    return JSON.stringify(data);
-  };
+  // CONDUIT PATTERN: QR contains only pointer URL (no PHI)
+  const getQRValue = useCallback(() => {
+    if (!token) return '';
+    const baseUrl = window.location.origin;
+    return `${baseUrl}/scan?t=${token}`;
+  }, [token]);
 
   // Progress ring calculation
   const radius = 58;
@@ -217,16 +248,20 @@ const GhostWalletPass = () => {
                 </div>
               )}
 
-              {/* QR Code */}
+              {/* QR Code - CONDUIT PATTERN: Token-only pointer */}
               <div className={`relative z-10 w-full h-full flex items-center justify-center p-1.5 transition-all duration-300 ${isRefreshing ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-                <QRCodeSVG
-                  key={qrKey}
-                  value={generateQRData()}
-                  size={84}
-                  level="H"
-                  bgColor="transparent"
-                  fgColor={glowColor === 'green' ? '#22c55e' : glowColor === 'blue' ? '#3b82f6' : glowColor === 'gold' ? '#eab308' : '#00f0ff'}
-                />
+                {token ? (
+                  <QRCodeSVG
+                    key={token}
+                    value={getQRValue()}
+                    size={84}
+                    level="H"
+                    bgColor="transparent"
+                    fgColor={glowColor === 'green' ? '#22c55e' : glowColor === 'blue' ? '#3b82f6' : glowColor === 'gold' ? '#eab308' : '#00f0ff'}
+                  />
+                ) : (
+                  <div className="text-[10px] text-gray-500 text-center">Loading...</div>
+                )}
               </div>
             </div>
           </div>
@@ -268,7 +303,7 @@ const GhostWalletPass = () => {
         {/* Manual Refresh Button */}
         <div className="relative z-10 mt-3 text-center">
           <button
-            onClick={refreshQR}
+            onClick={generateToken}
             disabled={isRefreshing}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all text-[10px] text-gray-400 hover:text-white disabled:opacity-50"
           >

@@ -179,6 +179,40 @@ Steve
         content: `"We welcome audits because we ship proof records—tamper-evident receipts—rather than asking for trust. CERTIFIED means 'meets policy pack vX evidence requirements,' not absolute truth. Enterprise can run the runtime inside their boundary so raw payloads stay in their environment."`
       }
     ]
+  },
+  {
+    id: "synth-plain-english",
+    title: "Synth — Plain-English Explanation (Use in emails, sales calls, and investor meetings)",
+    blocks: [
+      {
+        title: "One-Sentence Version",
+        icon: <MessageSquare className="h-4 w-4" />,
+        content: `Synth is a safety control room for AI agents: before an AI is allowed to take actions (use tools, browse, scan systems, change data), Synth checks rules, records everything, and can stop it instantly.`
+      },
+      {
+        title: "Layman's Translation of Core Features",
+        icon: <BookOpen className="h-4 w-4" />,
+        content: `Pre-execution policy gating: Before the AI takes an action, Synth asks "Is this allowed?" If not, it blocks it. If risky, it can require approval.
+
+Tamper-evident audit trail: Synth keeps a black-box recorder of what the AI tried to do and why, designed so nobody can quietly edit history later.
+
+Runtime containment / blast radius controls: Even if the AI misbehaves, it's kept inside a sandbox with limited permissions, budgets, time, and access.
+
+Emergency stop / kill switch: A big red stop button to shut the agent down immediately and revoke access.
+
+Evaluation harness / red-team scenarios: A stress-test course for agents: run dangerous scenarios on purpose to prove the controls work.`
+      },
+      {
+        title: "Proof Record (Plain English)",
+        icon: <Check className="h-4 w-4" />,
+        content: `A proof record is a receipt that shows what decision was made (allow/block/review), which rules were applied, when it happened, and a tamper-proof fingerprint so anyone can verify it wasn't altered.`
+      },
+      {
+        title: "Analogy",
+        icon: <HelpCircle className="h-4 w-4" />,
+        content: `Synth is a bouncer (enforces rules), security cameras (records everything), fire suppression (contains damage), and an emergency shutoff (stops action fast).`
+      }
+    ]
   }
 ];
 

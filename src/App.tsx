@@ -132,6 +132,7 @@ const OperationSF = lazy(() => import("./pages/OperationSF"));
 const AgreementFlow = lazy(() => import("./pages/AgreementFlow"));
 const AgreementSuccess = lazy(() => import("./pages/AgreementSuccess"));
 const Careers = lazy(() => import("./pages/Careers"));
+const Evolution2026PitchDeck = lazy(() => import("./pages/Evolution2026PitchDeck"));
 
 const queryClient = new QueryClient();
 
@@ -221,6 +222,8 @@ const App = () => (
                   <Route path="/investors" element={<AgeGate><AccessGate accessType="investor"><InvestorPortal /></AccessGate></AgeGate>} />
                   <Route path="/pitch-deck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
                   <Route path="/pitchdeck" element={<AccessGate accessType="investor"><PitchDeck /></AccessGate>} />
+                  <Route path="/evolution-2026" element={<AccessGate accessType="investor"><Evolution2026PitchDeck /></AccessGate>} />
+                  <Route path="/2026" element={<AccessGate accessType="investor"><Evolution2026PitchDeck /></AccessGate>} />
                   <Route path="/partners" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
                   <Route path="/partners/verification" element={<AgeGate><AccessGate accessType="partner"><Partners /></AccessGate></AgeGate>} />
                   <Route path="/partners/integrated-health-compliance" element={<AgeGate><AccessGate accessType="partner"><IntegratedHealthCompliance /></AccessGate></AgeGate>} />

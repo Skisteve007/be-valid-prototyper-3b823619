@@ -11,6 +11,7 @@ import { CanonicalExecutiveSummaryStrategic } from "./canonical/CanonicalExecuti
 import { CanonicalPitchDeckStrategic } from "./canonical/CanonicalPitchDeckStrategic";
 import { ApprovedVsForbiddenLanguage } from "./canonical/ApprovedVsForbiddenLanguage";
 import { CEOSecurityQADrill } from "./canonical/CEOSecurityQADrill";
+import { CEOPortfolio } from "./canonical/CEOPortfolio";
 import { PrintableHeading, LastUpdated, ConfidentialityBanner } from "./PrintStyles";
 
 // Existing playbook entries (reorganized)
@@ -212,6 +213,15 @@ export const CEOPlaybookTab = () => {
                   </AccordionTrigger>
                   <AccordionContent>
                     <CEOSecurityQADrill />
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="ceo-portfolio" className="border rounded-lg px-4">
+                  <AccordionTrigger className="text-lg font-semibold">
+                    CEO Professional Portfolio (PDF)
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <CEOPortfolio />
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

@@ -213,6 +213,127 @@ Evaluation harness / red-team scenarios: A stress-test course for agents: run da
         content: `Synth is a bouncer (enforces rules), security cameras (records everything), fire suppression (contains damage), and an emergency shutoff (stops action fast).`
       }
     ]
+  },
+  {
+    id: "fundraising-team-comp",
+    title: "Fundraising Team Compensation — Legal Structure",
+    blocks: [
+      {
+        title: "THE LAW — Why This Matters",
+        icon: <AlertTriangle className="h-4 w-4" />,
+        content: `⚠️ PAYING COMMISSION ON CAPITAL RAISED = ILLEGAL
+
+WHY?
+├── SEC regulates securities transactions
+├── Paying % of $ raised = "effecting transactions"
+├── Requires Broker-Dealer license
+├── Violations = fines, rescission, criminal charges
+└── Investors can sue to get money back`
+      },
+      {
+        title: "THE LEGAL WAY — What You CAN Do",
+        icon: <Check className="h-4 w-4" />,
+        content: `✅ WHAT YOU CAN DO:
+
+1. PAY FOR SERVICES (Not securities sales)
+   ├── Lead generation
+   ├── Marketing
+   ├── Introductions
+   ├── Scheduling
+   └── Administrative support
+
+2. PAY SALARY + BONUS + EQUITY
+   ├── Monthly retainer (not commission)
+   ├── Milestone bonuses (discretionary)
+   ├── Equity grants (vesting)
+   └── NOT tied directly to $ raised
+
+3. HIRE LICENSED BROKER-DEALER
+   ├── They can legally sell securities
+   ├── Typically charge 5-10% + warrants
+   └── You pay them, they pay their team`
+      },
+      {
+        title: "SAMPLE COMP STRUCTURE",
+        icon: <BookOpen className="h-4 w-4" />,
+        content: `BUSINESS DEVELOPMENT ASSOCIATE
+
+BASE:           $2,500 - $5,000/month
+EQUITY:         0.5% - 1.0% (4-year vest)
+BONUSES:        Milestone-based, discretionary
+
+├── 25 qualified intros:       $2,500
+├── 50 qualified intros:       $5,000
+├── Seed closes:               $10,000
+└── Series A closes:           $25,000
+
+THEIR ROLE:
+├── Find investors
+├── Make introductions
+├── Schedule meetings
+└── Support CEO
+
+CEO'S ROLE:
+├── Pitch investors
+├── Negotiate terms
+└── Close deals`
+      },
+      {
+        title: "RED FLAGS TO AVOID",
+        icon: <AlertTriangle className="h-4 w-4" />,
+        content: `❌ DON'T:
+├── Pay % commission on capital raised
+├── Call them "Sales Rep" for fundraising
+├── Let them negotiate terms
+├── Let them handle investor funds
+├── Promise commission tied to $ raised
+└── Skip legal agreements
+
+✅ DO:
+├── Pay salary/retainer
+├── Give equity with vesting
+├── Pay discretionary bonuses
+├── Call them "Business Development"
+├── You close all deals
+└── Get legal agreements signed`
+      },
+      {
+        title: "DOCUMENTS NEEDED",
+        icon: <Wrench className="h-4 w-4" />,
+        content: `1. Contractor Agreement or Employment Agreement
+2. Equity Grant Agreement (with 409A valuation)
+3. NDA / Confidentiality Agreement
+4. IP Assignment (if applicable)`
+      },
+      {
+        title: "WHEN TO HIRE A BROKER-DEALER",
+        icon: <HelpCircle className="h-4 w-4" />,
+        content: `CONSIDER A LICENSED PLACEMENT AGENT IF:
+├── Raising $5M+
+├── Need access to institutional investors
+├── Want someone else to "sell"
+├── Can afford 5-10% + warrants
+└── Want full legal protection
+
+PLACEMENT AGENT COSTS:
+├── 5-10% of capital raised
+├── + 1-5% warrant coverage
+├── + legal fees
+└── Worth it for big raises`
+      },
+      {
+        title: "BOTTOM LINE",
+        icon: <Mic className="h-4 w-4" />,
+        content: `YOU CAN PAY PEOPLE WELL TO HELP RAISE MONEY.
+JUST STRUCTURE IT AS SALARY + BONUS + EQUITY.
+NOT AS COMMISSION ON SECURITIES.
+
+CEO CLOSES DEALS.
+TEAM FILLS THE PIPELINE.
+EVERYONE WINS.
+LEGALLY.`
+      }
+    ]
   }
 ];
 

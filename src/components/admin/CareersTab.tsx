@@ -198,85 +198,86 @@ Include: portfolio + strongest UI project + availability.`
   },
   {
     id: "biz-dev-associate",
-    title: "Business Development Associate — $500K+ Total Comp Potential",
-    summaryLine: "Remote / SF | Base + Equity + Milestone Bonuses | Technical Sales",
-    fullAdText: `TITLE: Business Development Associate (NOT "Sales Rep")
-LOCATION: Remote / SF Bay Area
-COMP: $500K+ total potential (base + equity + milestone bonuses)
+    title: "Business Development Associate — VALID™ / Synthesized AI",
+    summaryLine: "Remote (US-based preferred) | Base + Equity + Milestone Bonuses | Contract / Full-time",
+    fullAdText: `Business Development Associate — VALID™ / Synthesized AI
+
+Location: Remote (US-based preferred)
+Type: Contract / Full-time available
+Compensation: Base + Equity + Milestone Bonuses
 
 ═══════════════════════════════════════════════════════════════════════════════
 
-WHY THIS TITLE?
-├── "Sales Rep" selling securities = Broker-Dealer territory
-├── "Business Development" = Lead gen, intros, marketing
-└── You close deals, they support
+ABOUT US:
+
+VALID™ is building the trust and payments infrastructure for nightlife, 
+entertainment, and beyond. Synthesized AI is our AI talent vetting platform. 
+We're raising capital to scale and need hungry, connected people to help us 
+get in front of the right investors.
 
 ═══════════════════════════════════════════════════════════════════════════════
 
-COMPENSATION PACKAGE:
+THE ROLE:
 
-BASE RETAINER:
+You'll be the engine behind our fundraising efforts — researching investors, 
+building lists, making intros, scheduling meetings, and keeping our pipeline 
+moving. The CEO closes deals. You fill the calendar.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+WHAT YOU'LL DO:
+├── Research and identify potential investors (VC, angels, family offices)
+├── Build and maintain target investor lists
+├── Make warm introductions to your network
+├── Schedule meetings for the CEO
+├── Prepare pitch decks and materials
+├── Manage CRM and follow-ups
+├── Coordinate investor events and demos
+└── Marketing and LinkedIn outreach
+
+WHAT YOU WON'T DO:
+├── Negotiate terms (CEO does this)
+├── Handle funds (legal/finance does this)
+└── Close deals (CEO does this)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+COMPENSATION:
+
+BASE:
 ├── $2,500/month (Part-time/Contract)
 └── $5,000/month (Full-time/Dedicated)
 
-EQUITY GRANT:
+EQUITY:
 ├── 0.5% - 1.0% ownership
 ├── 4-year vesting, 1-year cliff
 └── Standard startup equity terms
 
-MILESTONE BONUSES (Not tied to $ raised):
-├── 25 qualified investor intros:       $2,500 bonus
-├── 50 qualified investor intros:       $5,000 bonus
-├── Company closes Seed round:          $10,000 bonus
-├── Company closes Series A:            $25,000 bonus
-└── Bonuses are DISCRETIONARY, not guaranteed
+MILESTONE BONUSES (Not commission):
+├── 25 qualified intros:       $2,500
+├── 50 qualified intros:       $5,000
+├── Seed round closes:         $10,000
+└── Series A closes:           $25,000
 
 ═══════════════════════════════════════════════════════════════════════════════
 
-WHAT YOU DO (Legal):
-├── Research and identify potential investors
-├── Build target lists
-├── Make warm introductions
-├── Schedule meetings for CEO
-├── Prepare pitch materials
-├── Follow up with prospects
-├── CRM management
-├── Marketing and outreach
-└── Event coordination
-
-WHAT YOU DON'T DO (Illegal without license):
-├── Negotiate investment terms
-├── Handle investor funds
-├── Sign on behalf of company
-├── "Sell" or "close" investors
-└── Receive % commission on $ raised
+WHO YOU ARE:
+├── Hungry, motivated, entrepreneurial
+├── Strong network (investors, founders, executives)
+├── Excellent communicator
+├── Organized and reliable
+├── Believes in the vision
+└── Wants equity upside, not just a paycheck
 
 ═══════════════════════════════════════════════════════════════════════════════
 
-TOTAL POTENTIAL COMP (Year 1):
+TO APPLY:
 
-Base (12 months × $5K):              $60,000
-Milestone bonuses:                    $42,500
-Equity (1% of $13B vision):          $130,000,000 potential
-────────────────────────────────────────────
-TOTAL CASH Y1:                       $102,500
-TOTAL EQUITY UPSIDE:                 Life-changing
-
-This is how you motivate without breaking the law.
-
-═══════════════════════════════════════════════════════════════════════════════
-
-IDEAL BACKGROUND:
-- Experience in B2B sales, fundraising, or investor relations
-- Strong network in VC/angel investor communities
-- Excellent communication and follow-up skills
-- Organized, self-motivated, CRM-proficient
-- Technical aptitude (can explain AI governance at a high level)
-
-TO APPLY
 Email: steve@bevalid.app
-Subject: "Biz Dev Associate — $500K+"
-Include: LinkedIn + biggest intro wins + why you're a fit for investor-facing work.`
+Subject: "Biz Dev — Let's Raise"
+
+No resume needed. Just show us you're hungry.
+Send a short note on why you're the one + your LinkedIn.`
   }
 ];
 

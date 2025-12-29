@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Printer } from "lucide-react";
+import { Printer, Download, Shield, CheckCircle, ArrowRight } from "lucide-react";
+import logo from "@/assets/valid-logo.jpeg";
 
 export const PrintButton = ({ className }: { className?: string }) => {
   const handlePrint = () => {
@@ -18,10 +19,66 @@ export const PrintButton = ({ className }: { className?: string }) => {
   );
 };
 
+export const ExportPDFButton = ({ className }: { className?: string }) => {
+  const handleExport = () => {
+    window.print(); // Browser print dialog allows PDF export
+  };
+
+  return (
+    <Button
+      variant="outline"
+      onClick={handleExport}
+      className={`print:hidden ${className || ""}`}
+    >
+      <Download className="h-4 w-4 mr-2" />
+      Export PDF
+    </Button>
+  );
+};
+
 export const LastUpdated = () => (
   <p className="text-sm text-muted-foreground mb-4 print:text-black">
     Last Updated: 2025-12-29
   </p>
+);
+
+export const BrandedHeader = ({ 
+  title, 
+  variant = "synth" 
+}: { 
+  title: string;
+  variant?: "synth" | "valid" | "both";
+}) => (
+  <div className="flex items-center justify-between mb-6 pb-4 border-b print:border-black">
+    <div className="flex items-center gap-3">
+      <img src={logo} alt="VALID" className="h-10 w-10 rounded-lg print:h-12 print:w-12" />
+      <span className="text-lg font-bold print:text-black">{title}</span>
+    </div>
+    <div className="text-right">
+      <span className="text-sm font-semibold text-primary print:text-black">
+        {variant === "synth" && "SYNTH™"}
+        {variant === "valid" && "VALID™"}
+        {variant === "both" && "SYNTH™ / VALID™"}
+      </span>
+    </div>
+  </div>
+);
+
+export const LegalFooter = () => (
+  <div className="mt-8 pt-4 border-t text-xs text-muted-foreground print:text-gray-600 print:border-black space-y-1">
+    <p className="font-semibold">Confidential — For discussion purposes only.</p>
+    <p>© 2025 Giant Ventures LLC. All rights reserved.</p>
+    <p>SYNTH™ and VALID™ are trademarks of Giant Ventures LLC.</p>
+    <p>Do not distribute without permission. No guarantee of accuracy; information subject to change.</p>
+  </div>
+);
+
+export const ConfidentialityBanner = () => (
+  <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-4 mb-6 print:bg-red-50 print:border-red-500">
+    <p className="text-red-400 font-bold text-center print:text-red-700">
+      ⚠️ CONFIDENTIAL INTERNAL MATERIAL — Do not forward externally. No reverse engineering or reproduction.
+    </p>
+  </div>
 );
 
 export const PrintableSection = ({ 
@@ -140,6 +197,70 @@ export const QualityGateChecklist = () => (
         <span>Reviewer: ____________</span>
         <span className="ml-8">Date: ____________</span>
       </div>
+    </div>
+  </div>
+);
+
+// Simple conceptual visuals for decks
+export const SimpleFlowDiagram = () => (
+  <div className="my-6 p-6 bg-muted/30 rounded-lg print:bg-gray-50 print:border print:border-gray-300">
+    <div className="flex items-center justify-center gap-4 flex-wrap">
+      <div className="flex flex-col items-center">
+        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:bg-blue-100">
+          <span className="text-2xl">📥</span>
+        </div>
+        <span className="text-sm mt-2 font-medium print:text-black">Input</span>
+      </div>
+      <ArrowRight className="h-6 w-6 text-muted-foreground print:text-gray-500" />
+      <div className="flex flex-col items-center">
+        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:bg-blue-100">
+          <Shield className="h-8 w-8 text-primary print:text-blue-600" />
+        </div>
+        <span className="text-sm mt-2 font-medium print:text-black">Verify</span>
+      </div>
+      <ArrowRight className="h-6 w-6 text-muted-foreground print:text-gray-500" />
+      <div className="flex flex-col items-center">
+        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:bg-blue-100">
+          <CheckCircle className="h-8 w-8 text-primary print:text-blue-600" />
+        </div>
+        <span className="text-sm mt-2 font-medium print:text-black">Audit</span>
+      </div>
+    </div>
+  </div>
+);
+
+export const LayerCakeDiagram = () => (
+  <div className="my-6 p-6 bg-muted/30 rounded-lg print:bg-gray-50 print:border print:border-gray-300">
+    <div className="space-y-3">
+      <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 text-center print:bg-blue-50 print:border-blue-300">
+        <span className="font-semibold print:text-black">Outputs / Actions</span>
+        <p className="text-xs text-muted-foreground print:text-gray-600">Governed decisions, verified results</p>
+      </div>
+      <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-4 text-center print:bg-cyan-50 print:border-cyan-300">
+        <span className="font-bold text-cyan-400 print:text-cyan-700">SYNTH™ Governance Layer</span>
+        <p className="text-xs text-muted-foreground print:text-gray-600">Policy control, verification, audit trails</p>
+      </div>
+      <div className="bg-muted border border-border rounded-lg p-4 text-center print:bg-gray-100 print:border-gray-300">
+        <span className="font-semibold print:text-black">Systems of Record</span>
+        <p className="text-xs text-muted-foreground print:text-gray-600">Existing data, AI models, enterprise tools</p>
+      </div>
+    </div>
+  </div>
+);
+
+export const PhysicalDigitalSplit = () => (
+  <div className="my-6 grid grid-cols-2 gap-4">
+    <div className="p-4 border rounded-lg text-center print:border-black">
+      <div className="text-3xl mb-2">🏢</div>
+      <span className="font-bold print:text-black">VALID™ / GhostPass™</span>
+      <p className="text-xs text-muted-foreground mt-1 print:text-gray-600">Physical World Verification</p>
+      <p className="text-xs print:text-black">Identity • Access • Payments</p>
+    </div>
+    <div className="p-4 border rounded-lg text-center print:border-black">
+      <div className="text-3xl mb-2">🤖</div>
+      <span className="font-bold print:text-black">SYNTH™</span>
+      <p className="text-xs text-muted-foreground mt-1 print:text-gray-600">Digital AI Governance</p>
+      <p className="text-xs print:text-black">Policy • Audit • Control</p>
     </div>
   </div>
 );

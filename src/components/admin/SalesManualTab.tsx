@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { PrintableHeading, LastUpdated } from "./PrintStyles";
+import { PrintableHeading, LastUpdated, ConfidentialityBanner } from "./PrintStyles";
 import { WhatWeSell } from "./sales/WhatWeSell";
 import { SalesPitchDeck } from "./sales/SalesPitchDeck";
 import { DiscoveryQuestions } from "./sales/DiscoveryQuestions";
@@ -15,6 +15,7 @@ import { IncumbentPositioning } from "./sales/IncumbentPositioning";
 export const SalesManualTab = () => {
   return (
     <div className="space-y-6">
+      <ConfidentialityBanner />
       <Card>
         <CardHeader>
           <CardTitle className="text-3xl">📒 Sales Manual</CardTitle>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard, QualityGateChecklist, BrandedHeader, LegalFooter, SimpleFlowDiagram } from "../PrintStyles";
 
 const slides = [
   {
@@ -127,6 +127,8 @@ export const CanonicalPitchDeckInvestor = () => {
 
   return (
     <div className="space-y-6">
+      <BrandedHeader title="Pitch Deck — Investor" variant="both" />
+      
       <div className="flex justify-between items-start">
         <div>
           <PrintableHeading level={1}>Pitch Deck — Investor (Canonical)</PrintableHeading>
@@ -138,8 +140,11 @@ export const CanonicalPitchDeckInvestor = () => {
             Copy All
           </Button>
           <PrintButton />
+          <ExportPDFButton />
         </div>
       </div>
+
+      <SimpleFlowDiagram />
 
       <div className="grid gap-4">
         {slides.map((slide) => (
@@ -161,6 +166,7 @@ export const CanonicalPitchDeckInvestor = () => {
       </div>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </div>
   );
 };

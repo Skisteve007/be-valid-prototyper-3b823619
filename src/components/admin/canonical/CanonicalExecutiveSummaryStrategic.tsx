@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableBulletList, PrintableCard, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableBulletList, PrintableCard, QualityGateChecklist, BrandedHeader, LegalFooter, PhysicalDigitalSplit } from "../PrintStyles";
 
 export const CanonicalExecutiveSummaryStrategic = () => {
   const [copied, setCopied] = useState(false);
@@ -55,6 +55,8 @@ WHAT WE WANT
 
   return (
     <div className="space-y-6">
+      <BrandedHeader title="Executive Summary — Strategic" variant="synth" />
+      
       <div className="flex justify-between items-start">
         <div>
           <PrintableHeading level={1}>Executive Summary — Strategic (NVIDIA / NASA / Elon)</PrintableHeading>
@@ -67,6 +69,7 @@ WHAT WE WANT
             Copy All
           </Button>
           <PrintButton />
+          <ExportPDFButton />
         </div>
       </div>
 
@@ -123,7 +126,10 @@ WHAT WE WANT
         ]} />
       </PrintableCard>
 
+      <PhysicalDigitalSplit />
+
       <QualityGateChecklist />
+      <LegalFooter />
     </div>
   );
 };

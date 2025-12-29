@@ -104,3 +104,42 @@ export const DeprecationBanner = () => (
     </p>
   </div>
 );
+
+export const QualityGateChecklist = () => (
+  <div className="mt-8 p-6 border-2 border-dashed rounded-lg print:border-black">
+    <h4 className="text-lg font-bold mb-4 print:text-black">FINAL Q&A PASS (CHECKLIST)</h4>
+    <div className="space-y-2 print:text-black">
+      <div className="flex items-center gap-2">
+        <span className="font-mono">☐</span>
+        <span>Readable at high-school level</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="font-mono">☐</span>
+        <span>No secret sauce disclosed</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="font-mono">☐</span>
+        <span>No overclaims (no "guaranteed/unhackable/100% secure")</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="font-mono">☐</span>
+        <span>Clear who it's for + what problem it solves</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="font-mono">☐</span>
+        <span>Print-ready layout</span>
+      </div>
+    </div>
+    <div className="mt-4 pt-4 border-t print:border-black print:text-black">
+      <div className="flex items-center gap-4">
+        <span>Passed:</span>
+        <span className="font-mono">☐ Yes</span>
+        <span className="font-mono">☐ No</span>
+      </div>
+      <div className="mt-2">
+        <span>Reviewer: ____________</span>
+        <span className="ml-8">Date: ____________</span>
+      </div>
+    </div>
+  </div>
+);

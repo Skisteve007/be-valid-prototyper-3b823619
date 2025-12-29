@@ -8,16 +8,85 @@ import { toast } from "sonner";
 interface HiringPacket {
   id: string;
   roleTitle: string;
-  icon: React.ReactNode;
+  icon: React.ComponentType<{ className?: string }>;
   contracts: string[];
   packetMessage: string;
 }
 
 const hiringPackets: HiringPacket[] = [
   {
+    id: 'biz-dev-associate',
+    roleTitle: 'Business Development Associate',
+    icon: Briefcase,
+    contracts: ['Equity Agreement', 'NDA', 'Contractor Agreement'],
+    packetMessage: `VALID™ / SYNTHESIZED AI — BUSINESS DEVELOPMENT ASSOCIATE
+
+═══════════════════════════════════════════════════════════════════════
+
+ROLE: Business Development Associate
+(Lead generation, intros, marketing — NOT securities sales)
+
+═══════════════════════════════════════════════════════════════════════
+
+COMPENSATION PACKAGE:
+
+BASE RETAINER:
+├── $2,500/month (Part-time/Contract)
+└── $5,000/month (Full-time/Dedicated)
+
+EQUITY GRANT:
+├── 0.5% - 1.0% ownership
+├── 4-year vesting, 1-year cliff
+└── Standard startup equity terms
+
+MILESTONE BONUSES (Not tied to $ raised):
+├── 25 qualified investor intros:    $2,500 bonus
+├── 50 qualified investor intros:    $5,000 bonus
+├── Company closes Seed round:       $10,000 bonus
+├── Company closes Series A:         $25,000 bonus
+└── Bonuses are DISCRETIONARY, not guaranteed
+
+═══════════════════════════════════════════════════════════════════════
+
+WHAT YOU DO (Legal):
+├── Research and identify potential investors
+├── Build target lists
+├── Make warm introductions
+├── Schedule meetings for CEO
+├── Prepare pitch materials
+├── Follow up with prospects
+├── CRM management
+├── Marketing and outreach
+└── Event coordination
+
+WHAT YOU DON'T DO (Requires license):
+├── Negotiate investment terms
+├── Handle investor funds
+├── Sign on behalf of company
+├── "Sell" or "close" investors
+└── Receive % commission on $ raised
+
+═══════════════════════════════════════════════════════════════════════
+
+TOTAL POTENTIAL COMP (Year 1):
+
+Base (12 months × $5K):              $60,000
+Milestone bonuses:                   $42,500
+Equity (1% of $13B vision):          Life-changing upside
+──────────────────────────────────────────────
+TOTAL CASH Y1:                       $102,500
+TOTAL EQUITY UPSIDE:                 Generational wealth potential
+
+═══════════════════════════════════════════════════════════════════════
+
+This is how we build together. Welcome to the mission.
+
+— VALID™ / Synthesized AI Leadership`
+  },
+  {
     id: "cto",
     roleTitle: "Founding CTO / Head of Engineering",
-    icon: <Shield className="h-5 w-5" />,
+    icon: Shield,
     contracts: ["Mutual NDA", "Independent Contractor Agreement"],
     packetMessage: `HIRING PACKET — Founding CTO / Head of Engineering (Equity-First)
 
@@ -41,7 +110,7 @@ Giant Ventures LLC`
   {
     id: "founding-engineer",
     roleTitle: "Founding Engineer — Customer-Hosted Runtime",
-    icon: <Code className="h-5 w-5" />,
+    icon: Code,
     contracts: ["Mutual NDA", "Independent Contractor Agreement"],
     packetMessage: `HIRING PACKET — Founding Engineer (Customer-Hosted Runtime)
 
@@ -65,7 +134,7 @@ Giant Ventures LLC`
   {
     id: "fullstack-engineer",
     roleTitle: "Full-Stack Engineer — Demo/App/PWA",
-    icon: <Rocket className="h-5 w-5" />,
+    icon: Rocket,
     contracts: ["Mutual NDA", "Independent Contractor Agreement"],
     packetMessage: `HIRING PACKET — Full-Stack Engineer (Demo/App/PWA)
 
@@ -89,7 +158,7 @@ Giant Ventures LLC`
   {
     id: "enterprise-ae",
     roleTitle: "Founding Enterprise AE (Technical)",
-    icon: <Target className="h-5 w-5" />,
+    icon: Target,
     contracts: ["Mutual NDA", "Independent Contractor Agreement", "Commission Plan Addendum"],
     packetMessage: `HIRING PACKET — Founding Enterprise AE (Technical)
 
@@ -116,7 +185,7 @@ Giant Ventures LLC`
   {
     id: "growth-ae",
     roleTitle: "Growth AE (Main Street)",
-    icon: <Users className="h-5 w-5" />,
+    icon: Users,
     contracts: ["Mutual NDA", "Independent Contractor Agreement", "Commission Plan Addendum"],
     packetMessage: `HIRING PACKET — Growth AE (Main Street)
 
@@ -192,7 +261,7 @@ export function HiringPacketTab() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
                     <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                      {packet.icon}
+                      <packet.icon className="h-5 w-5" />
                     </div>
                     <CardTitle className="text-base">{packet.roleTitle}</CardTitle>
                   </div>

@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Maximize2, Copy, Check, ExternalLink } from "lucide-react";
+import { ArrowLeft, Maximize2, Copy, Check, ExternalLink, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 import logo from "@/assets/valid-logo.jpeg";
 import Evolution2026Carousel from "@/components/pitch/Evolution2026Carousel";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const Evolution2026PitchDeck = () => {
   const navigate = useNavigate();
@@ -48,6 +49,15 @@ VALID™ / GHOST™ Pass applies the same trust approach to the real world: fast
         background: 'linear-gradient(180deg, #0a0a0f 0%, #0d1117 50%, #0a0a0f 100%)'
       }}
     >
+      {/* Deprecation Banner */}
+      <Alert variant="destructive" className="mx-4 mt-4 bg-yellow-500/20 border-yellow-500/50">
+        <AlertTriangle className="h-4 w-4" />
+        <AlertTitle>Deprecated</AlertTitle>
+        <AlertDescription>
+          This page has been archived. Please use the <strong>Canonical Pitch & Positioning</strong> section in Admin → CEO Playbook for the current materials.
+        </AlertDescription>
+      </Alert>
+
       {/* Navigation */}
       <div className="sticky top-0 z-50 backdrop-blur-lg bg-black/60 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">

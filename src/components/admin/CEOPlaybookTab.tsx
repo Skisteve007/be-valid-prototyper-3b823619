@@ -10,6 +10,7 @@ import { CanonicalPitchDeckInvestor } from "./canonical/CanonicalPitchDeckInvest
 import { CanonicalExecutiveSummaryStrategic } from "./canonical/CanonicalExecutiveSummaryStrategic";
 import { CanonicalPitchDeckStrategic } from "./canonical/CanonicalPitchDeckStrategic";
 import { ApprovedVsForbiddenLanguage } from "./canonical/ApprovedVsForbiddenLanguage";
+import { CEOSecurityQADrill } from "./canonical/CEOSecurityQADrill";
 import { PrintableHeading, LastUpdated } from "./PrintStyles";
 
 // Existing playbook entries (reorganized)
@@ -201,6 +202,15 @@ export const CEOPlaybookTab = () => {
                   </AccordionTrigger>
                   <AccordionContent>
                     <ApprovedVsForbiddenLanguage />
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="security-qa" className="border rounded-lg px-4">
+                  <AccordionTrigger className="text-lg font-semibold">
+                    Security & Infrastructure: CEO Q&A Drill
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <CEOSecurityQADrill />
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

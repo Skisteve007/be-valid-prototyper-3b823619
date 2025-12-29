@@ -43,6 +43,7 @@ import { CareersTab } from "@/components/admin/CareersTab";
 import { LegalTemplatesTab } from "@/components/admin/LegalTemplatesTab";
 import { HiringPacketTab } from "@/components/admin/HiringPacketTab";
 import { CEOPlaybookTab } from "@/components/admin/CEOPlaybookTab";
+import { SalesManualTab } from "@/components/admin/SalesManualTab";
 import {
   DndContext,
   closestCenter,
@@ -700,7 +701,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Third Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-4">
+          <TabsList className="hidden md:grid w-full grid-cols-8 gap-1 h-auto p-1 mb-4">
             <TabsTrigger value="pricing" className="cursor-pointer text-sm px-2 py-2">
               💰 Pricing
             </TabsTrigger>
@@ -719,6 +720,9 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="ceo-playbook" className="cursor-pointer text-sm px-2 py-2">
               📘 Playbook
+            </TabsTrigger>
+            <TabsTrigger value="sales-manual" className="cursor-pointer text-sm px-2 py-2">
+              📒 Sales
             </TabsTrigger>
             <TabsTrigger
               value="synth"
@@ -1103,6 +1107,10 @@ const Admin = () => {
 
           <TabsContent value="ceo-playbook">
             <CEOPlaybookTab />
+          </TabsContent>
+
+          <TabsContent value="sales-manual">
+            <SalesManualTab />
           </TabsContent>
 
           <TabsContent value="synth">

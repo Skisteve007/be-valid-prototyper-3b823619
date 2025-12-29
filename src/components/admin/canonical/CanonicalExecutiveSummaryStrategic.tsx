@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableBulletList, PrintableCard } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableBulletList, PrintableCard, QualityGateChecklist } from "../PrintStyles";
 
 export const CanonicalExecutiveSummaryStrategic = () => {
   const [copied, setCopied] = useState(false);
@@ -122,6 +122,8 @@ WHAT WE WANT
           "Technical feedback on deployment requirements for high-stakes environments"
         ]} />
       </PrintableCard>
+
+      <QualityGateChecklist />
     </div>
   );
 };

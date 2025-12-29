@@ -1,4 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface QuestionGroup {
@@ -47,6 +47,7 @@ const questionGroups: QuestionGroup[] = [
 export const DiscoveryQuestions = () => {
   return (
     <PrintableSection>
+      <BrandedHeader title="Discovery Questions" variant="both" />
       <div className="flex items-center justify-between mb-6">
         <PrintableHeading level={2}>Discovery Questions (Use This on Calls)</PrintableHeading>
         <PrintButton />
@@ -89,6 +90,7 @@ export const DiscoveryQuestions = () => {
       </Card>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </PrintableSection>
   );
 };

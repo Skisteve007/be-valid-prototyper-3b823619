@@ -1,4 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableBulletList, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableBulletList, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Slide {
@@ -155,6 +155,7 @@ const slides: Slide[] = [
 export const SalesPitchDeck = () => {
   return (
     <PrintableSection>
+      <BrandedHeader title="Sales Pitch Deck" variant="both" />
       <div className="flex items-center justify-between mb-6">
         <PrintableHeading level={2}>Pitch Deck — Sales Training (Canonical)</PrintableHeading>
         <PrintButton />
@@ -187,6 +188,7 @@ export const SalesPitchDeck = () => {
       </div>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </PrintableSection>
   );
 };

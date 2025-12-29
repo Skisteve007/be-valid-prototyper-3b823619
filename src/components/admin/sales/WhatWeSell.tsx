@@ -1,4 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableParagraph, PrintableBulletList, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableParagraph, PrintableBulletList, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { ExternalLink } from "lucide-react";
 export const WhatWeSell = () => {
   return (
     <PrintableSection>
+      <BrandedHeader title="What We Sell" variant="both" />
       <div className="flex items-center justify-between mb-6">
         <PrintableHeading level={2}>What We Sell (In Plain English)</PrintableHeading>
         <PrintButton />
@@ -91,6 +92,7 @@ export const WhatWeSell = () => {
       </Button>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </PrintableSection>
   );
 };

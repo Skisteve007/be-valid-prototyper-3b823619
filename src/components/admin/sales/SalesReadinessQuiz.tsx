@@ -1,4 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface QuizQuestion {
@@ -124,6 +124,7 @@ const quizQuestions: QuizQuestion[] = [
 export const SalesReadinessQuiz = () => {
   return (
     <PrintableSection>
+      <BrandedHeader title="Sales Readiness Quiz" variant="both" />
       <div className="flex items-center justify-between mb-6">
         <PrintableHeading level={2}>Sales Readiness Quiz (10 Questions)</PrintableHeading>
         <PrintButton />
@@ -175,6 +176,7 @@ export const SalesReadinessQuiz = () => {
       </Card>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </PrintableSection>
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -107,6 +107,7 @@ const personaData: PersonaFAQs[] = [
 export const FAQsByPersona = () => {
   return (
     <PrintableSection>
+      <BrandedHeader title="FAQs by Persona" variant="both" />
       <div className="flex items-center justify-between mb-6">
         <PrintableHeading level={2}>FAQs by Persona (Use on Calls)</PrintableHeading>
         <PrintButton />
@@ -185,6 +186,7 @@ export const FAQsByPersona = () => {
       </div>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </PrintableSection>
   );
 };

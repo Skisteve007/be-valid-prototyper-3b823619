@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard, QualityGateChecklist } from "../PrintStyles";
 
 const slides = [
   {
@@ -153,6 +153,8 @@ export const CanonicalPitchDeckStrategic = () => {
           </PrintableCard>
         ))}
       </div>
+
+      <QualityGateChecklist />
     </div>
   );
 };

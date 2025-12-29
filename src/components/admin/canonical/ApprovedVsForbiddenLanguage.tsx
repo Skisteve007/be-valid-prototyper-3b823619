@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check, AlertTriangle, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableCard } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableCard, QualityGateChecklist } from "../PrintStyles";
 
 const approvedPhrases = [
   { phrase: "Policy-governed decisions", context: "Describing how SYNTH works" },
@@ -120,6 +120,8 @@ ${forbiddenPhrases.map(p => `• "${p.phrase}" — ${p.reason}`).join('\n')}`;
           </div>
         </PrintableCard>
       </div>
+
+      <QualityGateChecklist />
     </div>
   );
 };

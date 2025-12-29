@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableBulletList, PrintableCard } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableBulletList, PrintableCard, QualityGateChecklist } from "../PrintStyles";
 
 export const CanonicalExecutiveSummaryInvestor = () => {
   const [copied, setCopied] = useState(false);
@@ -138,6 +138,8 @@ Platform licensing plus usage-based verification fees. Venues pay per scan; ente
           → See Pricing tab in Admin for detailed menu and packages.
         </PrintableParagraph>
       </PrintableCard>
+
+      <QualityGateChecklist />
     </div>
   );
 };

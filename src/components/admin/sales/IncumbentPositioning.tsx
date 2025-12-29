@@ -1,9 +1,10 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableParagraph, PrintableBulletList, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableParagraph, PrintableBulletList, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const IncumbentPositioning = () => {
   return (
     <PrintableSection>
+      <BrandedHeader title="Platform Integration" variant="both" />
       <div className="flex items-center justify-between mb-6">
         <PrintableHeading level={2}>How We Fit With Big Platforms</PrintableHeading>
         <PrintButton />
@@ -122,6 +123,7 @@ export const IncumbentPositioning = () => {
       </Card>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </PrintableSection>
   );
 };

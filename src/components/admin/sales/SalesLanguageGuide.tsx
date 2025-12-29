@@ -1,10 +1,11 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableParagraph, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableParagraph, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, XCircle } from "lucide-react";
 
 export const SalesLanguageGuide = () => {
   return (
     <PrintableSection>
+      <BrandedHeader title="Sales Language Guide" variant="both" />
       <div className="flex items-center justify-between mb-6">
         <PrintableHeading level={2}>Approved vs Forbidden Language (Sales Training)</PrintableHeading>
         <PrintButton />
@@ -115,6 +116,7 @@ export const SalesLanguageGuide = () => {
       </Card>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </PrintableSection>
   );
 };

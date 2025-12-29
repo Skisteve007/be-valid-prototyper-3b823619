@@ -11,7 +11,7 @@ import { CanonicalExecutiveSummaryStrategic } from "./canonical/CanonicalExecuti
 import { CanonicalPitchDeckStrategic } from "./canonical/CanonicalPitchDeckStrategic";
 import { ApprovedVsForbiddenLanguage } from "./canonical/ApprovedVsForbiddenLanguage";
 import { CEOSecurityQADrill } from "./canonical/CEOSecurityQADrill";
-import { PrintableHeading, LastUpdated } from "./PrintStyles";
+import { PrintableHeading, LastUpdated, ConfidentialityBanner } from "./PrintStyles";
 
 // Existing playbook entries (reorganized)
 const outreachEntries = [
@@ -139,6 +139,7 @@ export const CEOPlaybookTab = () => {
 
   return (
     <div className="space-y-6">
+      <ConfidentialityBanner />
       <Card>
         <CardHeader>
           <CardTitle className="text-3xl">📘 CEO Playbook</CardTitle>

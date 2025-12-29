@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard, QualityGateChecklist, BrandedHeader, LegalFooter, SimpleFlowDiagram } from "../PrintStyles";
 
 const slides = [
   {
@@ -120,6 +120,8 @@ export const CanonicalPitchDeckStrategic = () => {
 
   return (
     <div className="space-y-6">
+      <BrandedHeader title="Pitch Deck — Strategic" variant="synth" />
+      
       <div className="flex justify-between items-start">
         <div>
           <PrintableHeading level={1}>Pitch Deck — Strategic (NVIDIA / NASA / Elon)</PrintableHeading>
@@ -132,8 +134,11 @@ export const CanonicalPitchDeckStrategic = () => {
             Copy All
           </Button>
           <PrintButton />
+          <ExportPDFButton />
         </div>
       </div>
+
+      <SimpleFlowDiagram />
 
       <div className="grid gap-4">
         {slides.map((slide) => (
@@ -155,6 +160,7 @@ export const CanonicalPitchDeckStrategic = () => {
       </div>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </div>
   );
 };

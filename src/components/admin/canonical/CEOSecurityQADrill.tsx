@@ -1,4 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface QAItem {
@@ -74,9 +74,14 @@ const qaItems: QAItem[] = [
 export const CEOSecurityQADrill = () => {
   return (
     <PrintableSection>
+      <BrandedHeader title="CEO Security Q&A Drill" variant="both" />
+      
       <div className="flex items-center justify-between mb-6">
         <PrintableHeading level={2}>Security & Infrastructure: CEO Q&A Drill</PrintableHeading>
-        <PrintButton />
+        <div className="flex gap-2 print:hidden">
+          <PrintButton />
+          <ExportPDFButton />
+        </div>
       </div>
       <LastUpdated />
 
@@ -110,6 +115,7 @@ export const CEOSecurityQADrill = () => {
       </div>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </PrintableSection>
   );
 };

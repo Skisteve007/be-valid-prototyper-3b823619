@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableBulletList, PrintableCard, QualityGateChecklist } from "../PrintStyles";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableParagraph, PrintableBulletList, PrintableCard, QualityGateChecklist, BrandedHeader, LegalFooter, LayerCakeDiagram } from "../PrintStyles";
 
 export const CanonicalExecutiveSummaryInvestor = () => {
   const [copied, setCopied] = useState(false);
@@ -61,6 +61,8 @@ Platform licensing plus usage-based verification fees. Venues pay per scan; ente
 
   return (
     <div className="space-y-6">
+      <BrandedHeader title="Executive Summary — Investor" variant="both" />
+      
       <div className="flex justify-between items-start">
         <div>
           <PrintableHeading level={1}>Executive Summary — Investor (Canonical)</PrintableHeading>
@@ -72,6 +74,7 @@ Platform licensing plus usage-based verification fees. Venues pay per scan; ente
             Copy All
           </Button>
           <PrintButton />
+          <ExportPDFButton />
         </div>
       </div>
 
@@ -111,6 +114,8 @@ Platform licensing plus usage-based verification fees. Venues pay per scan; ente
         ]} />
       </PrintableCard>
 
+      <LayerCakeDiagram />
+
       <PrintableCard>
         <PrintableHeading level={2}>Why Now</PrintableHeading>
         <PrintableBulletList items={[
@@ -140,6 +145,7 @@ Platform licensing plus usage-based verification fees. Venues pay per scan; ente
       </PrintableCard>
 
       <QualityGateChecklist />
+      <LegalFooter />
     </div>
   );
 };

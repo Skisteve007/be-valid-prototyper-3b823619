@@ -334,6 +334,107 @@ EVERYONE WINS.
 LEGALLY.`
       }
     ]
+  },
+  {
+    id: "synth-enterprise-disclosure",
+    title: "SYNTH Enterprise Disclosure — What You CAN Say to NVIDIA/NASA-Level Teams",
+    blocks: [
+      {
+        title: "What SYNTH Is (Safe to Disclose)",
+        icon: <BookOpen className="h-4 w-4" />,
+        content: `A multi-model AI governance system built to make high-stakes AI decisions:
+• Auditable
+• Configurable
+• Fault-tolerant
+• Tamper-evident`
+      },
+      {
+        title: "Core Architecture (Safe to Share)",
+        icon: <Wrench className="h-4 w-4" />,
+        content: `• 7 "Seat" models + 1 "Judge" (independent arbitration)
+
+• Parallel invocation of seats with fault tolerance (timeouts/errors/rate limits → abstain + reason codes)
+
+• Structured ballot protocol (standard fields: stance, score, confidence, risk flags, reasoning, latency)
+
+• Weighted aggregation into a SYNTH Index with configurable thresholds (pass/review/deny)
+
+• Escalation triggers (variance threshold, veto/escalate stance) → Judge decision logged separately`
+      },
+      {
+        title: "Governance Controls",
+        icon: <Check className="h-4 w-4" />,
+        content: `• Per-organization weight calibration (weights must sum to 100), RBAC-controlled, with calibration audit
+
+• Operational budget governance (timeouts/token/cost circuit breakers)`
+      },
+      {
+        title: "Security / Adversarial Resistance",
+        icon: <AlertTriangle className="h-4 w-4" />,
+        content: `• Session Lock detection (token length shift, readability shift, language shift) with escalation ladder (verify → restrict → lock)
+
+• Probation mode (stricter thresholds + enhanced logging, time-bounded)
+
+• Third-party dependency degradation modes (fail-closed / last-known-good / queue-retry)`
+      },
+      {
+        title: "Privacy Posture",
+        icon: <Check className="h-4 w-4" />,
+        content: `Zero-persistence "airlock" + data minimization:
+• Process sensitive payloads ephemerally
+• Retain only minimal cryptographic artifacts and structured records per retention mode`
+      },
+      {
+        title: "Auditability / Compliance Posture",
+        icon: <BookOpen className="h-4 w-4" />,
+        content: `• Hash-chained audit trail (tamper-evident ordering) implemented via database trigger
+
+• Supplement expands to Merkle/signature/WORM/external anchoring options and SIEM export`
+      },
+      {
+        title: "Deployment Embodiments",
+        icon: <Wrench className="h-4 w-4" />,
+        content: `• GUI and workflow embodiments (Chrome extension prefill)
+
+• Supplemental disclosure explicitly covers headless enterprise deployment (container/serverless/VPC/on-prem)`
+      },
+      {
+        title: "VALID Governance Engine Contributions",
+        icon: <Check className="h-4 w-4" />,
+        content: `The governance engine is usable beyond content moderation—explicitly including:
+• Identity verification
+• Trust scoring
+• High-stakes evaluation decisions
+
+Extends into signed ephemeral tokens + replay protection (aligns with Ghost token/QR concept at systems level without exposing exact token design).`
+      },
+      {
+        title: "Big Tech / NASA / NVIDIA Relevant (Still Factual)",
+        icon: <MessageSquare className="h-4 w-4" />,
+        content: `A governed consensus pipeline that is:
+• Multi-model redundant
+• Policy constrained
+• Budget-controlled
+• Tamper-evident
+• Deployable inside a secure enterprise boundary (VPC/on-prem)
+
+A way to turn agent outputs into auditable artifacts suitable for regulated/risk environments.
+
+A path to pair with Omniverse/digital twins: agents can propose actions, SYNTH governs/validates and logs before actions are taken.`
+      },
+      {
+        title: "⛔ DO NOT SHARE (If Secrecy is the Goal)",
+        icon: <AlertTriangle className="h-4 w-4" />,
+        content: `If emailing elite targets, DO NOT send:
+
+❌ The exact seat/provider list and weights
+❌ The exact anomaly thresholds
+❌ Database schemas/functions/triggers
+❌ Detailed pipeline diagrams
+
+Instead, use a high-level "capabilities description" (executive summary format).`
+      }
+    ]
   }
 ];
 

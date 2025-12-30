@@ -29,6 +29,7 @@ export const SalesManualTab = () => {
             <TabsList className="flex flex-wrap h-auto gap-1 mb-6">
               <TabsTrigger value="what-we-sell" className="text-xs sm:text-sm">What We Sell</TabsTrigger>
               <TabsTrigger value="pitch-deck" className="text-xs sm:text-sm">Pitch Deck</TabsTrigger>
+              <TabsTrigger value="ghost" className="text-xs sm:text-sm">Ghost</TabsTrigger>
               <TabsTrigger value="discovery" className="text-xs sm:text-sm">Discovery</TabsTrigger>
               <TabsTrigger value="objections" className="text-xs sm:text-sm">Objections</TabsTrigger>
               <TabsTrigger value="language" className="text-xs sm:text-sm">Language</TabsTrigger>
@@ -44,6 +45,10 @@ export const SalesManualTab = () => {
 
             <TabsContent value="pitch-deck">
               <SalesPitchDeck />
+            </TabsContent>
+
+            <TabsContent value="ghost">
+              <GhostExplainer />
             </TabsContent>
 
             <TabsContent value="discovery">

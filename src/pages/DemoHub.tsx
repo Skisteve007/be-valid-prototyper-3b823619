@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot, FileUp, Scale, Handshake, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import DemoBanner from "@/components/demos/DemoBanner";
 import DemoCard from "@/components/demos/DemoCard";
@@ -691,7 +692,7 @@ const DemoHub = () => {
                   </div>
                   <div>
                     <h2 className="text-xl font-semibold text-foreground">Legal Precedents — Why Governance Matters</h2>
-                    <p className="text-base text-muted-foreground">Real cases demonstrating the risks of unverified AI outputs</p>
+                    <p className="text-base text-muted-foreground">Major fines, settlements, and losses from AI/data governance failures</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -701,77 +702,238 @@ const DemoHub = () => {
               </div>
             </CollapsibleTrigger>
             <CollapsibleContent>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
-                {/* Group 1: AI Hallucinations */}
+              <div className="space-y-8 mt-6">
+                {/* Bad Output Section */}
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-lg bg-orange-500/10 border border-orange-500/30">
                       <AlertTriangle className="h-5 w-5 text-orange-400" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground text-lg">Risks of AI Hallucinations</h3>
-                      <p className="text-sm text-orange-400">(Bad Output)</p>
+                      <h3 className="font-semibold text-foreground text-lg">Bad Output</h3>
+                      <p className="text-sm text-orange-400">AI hallucinations, algorithmic failures, and automated decision errors</p>
                     </div>
                   </div>
-                  <div className="space-y-3">
-                    <Card className="border-orange-500/20 bg-orange-500/5">
-                      <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-base mb-1">Moffatt v. Air Canada (2024)</h4>
-                        <p className="text-sm text-muted-foreground">Company liable for chatbot promising a refund that didn't exist.</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-orange-500/20 bg-orange-500/5">
-                      <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-base mb-1">Mata v. Avianca (2023)</h4>
-                        <p className="text-sm text-muted-foreground">Lawyers sanctioned for using ChatGPT to cite fake court cases.</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-orange-500/20 bg-orange-500/5">
-                      <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-base mb-1">Walters v. OpenAI (2023)</h4>
-                        <p className="text-sm text-muted-foreground">AI sued for defamation after falsely accusing a man of embezzlement.</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-orange-500/20 bg-orange-500/5">
-                      <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-base mb-1">Hood v. OpenAI</h4>
-                        <p className="text-sm text-muted-foreground">Mayor threatened to sue after AI falsely claimed he was a criminal.</p>
-                      </CardContent>
-                    </Card>
+                  
+                  {/* AI Hallucinations */}
+                  <div className="mb-6">
+                    <Badge variant="outline" className="mb-3 border-orange-500/50 text-orange-400 bg-orange-500/10">AI Hallucinations</Badge>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Moffatt v. Air Canada (2024)</h4>
+                          <p className="text-sm text-muted-foreground">Company liable for chatbot promising a refund that didn't exist.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Mata v. Avianca (2023)</h4>
+                          <p className="text-sm text-muted-foreground">Lawyers sanctioned for using ChatGPT to cite fake court cases.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Walters v. OpenAI (2023)</h4>
+                          <p className="text-sm text-muted-foreground">AI sued for defamation after falsely accusing a man of embezzlement.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Hood v. OpenAI</h4>
+                          <p className="text-sm text-muted-foreground">Mayor threatened to sue after AI falsely claimed he was a criminal.</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  {/* Algorithmic Ad Targeting & Profiling */}
+                  <div className="mb-6">
+                    <Badge variant="outline" className="mb-3 border-orange-500/50 text-orange-400 bg-orange-500/10">Algorithmic Ad Targeting & Profiling</Badge>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Amazon — $877M (2021)</h4>
+                          <p className="text-sm text-muted-foreground">Luxembourg GDPR fine for behavioral ad targeting and processing data without proper consent.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Google — $170M + $1.7B</h4>
+                          <p className="text-sm text-muted-foreground">FTC settlement for COPPA violations (YouTube algorithms) + EU fine for anti-competitive algorithmic ad practices.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Epic Games — $520M</h4>
+                          <p className="text-sm text-muted-foreground">FTC fine for COPPA violations and deceptive patterns exploiting automated decision tools for in-game purchases.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">LinkedIn — $336M (2024)</h4>
+                          <p className="text-sm text-muted-foreground">Irish DPC fine for failures in user data protection involving profiling and inadequate privacy controls.</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  {/* Facial Recognition Failures */}
+                  <div className="mb-6">
+                    <Badge variant="outline" className="mb-3 border-orange-500/50 text-orange-400 bg-orange-500/10">Biometric & Facial Recognition</Badge>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Meta — $1.4B (2024, Texas)</h4>
+                          <p className="text-sm text-muted-foreground">Largest-ever U.S. privacy settlement for unlawful biometric data collection (facial recognition) under Texas law.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Williams v. Detroit (2024)</h4>
+                          <p className="text-sm text-muted-foreground">City paid $300K settlement after bad photo input led to wrongful AI-driven arrest.</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  {/* Financial Algorithmic Trading */}
+                  <div>
+                    <Badge variant="outline" className="mb-3 border-orange-500/50 text-orange-400 bg-orange-500/10">Algorithmic Trading & Financial Systems</Badge>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Bank of America — $30.6B</h4>
+                          <p className="text-sm text-muted-foreground">Fraud, poor trading oversight, and non-compliance in automated financial systems.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-orange-500/20 bg-orange-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">JPMorgan — $1.7B+</h4>
+                          <p className="text-sm text-muted-foreground">Penalties for fraud and poor automated risk controls in trading systems.</p>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
                 </div>
 
-                {/* Group 2: Bad User Data */}
+                {/* Garbage Input Section */}
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/30">
                       <AlertCircle className="h-5 w-5 text-red-400" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground text-lg">Risks of Bad User Data</h3>
-                      <p className="text-sm text-red-400">(Garbage Input)</p>
+                      <h3 className="font-semibold text-foreground text-lg">Garbage Input</h3>
+                      <p className="text-sm text-red-400">Data breaches, identity verification failures, and bad data governance</p>
                     </div>
                   </div>
-                  <div className="space-y-3">
-                    <Card className="border-red-500/20 bg-red-500/5">
-                      <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-base mb-1">JPMorgan v. Frank (2023)</h4>
-                        <p className="text-sm text-muted-foreground">Bank lost $175M acquiring a startup that had 4 million fake users.</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-red-500/20 bg-red-500/5">
-                      <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-base mb-1">Rideshare Class Actions</h4>
-                        <p className="text-sm text-muted-foreground">Companies sued when drivers used stolen IDs to bypass checks.</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-red-500/20 bg-red-500/5">
-                      <CardContent className="pt-4 pb-4">
-                        <h4 className="font-semibold text-foreground text-base mb-1">Williams v. City of Detroit (2024)</h4>
-                        <p className="text-sm text-muted-foreground">City paid $300k settlement after bad photo input led to a wrongful AI arrest.</p>
-                      </CardContent>
-                    </Card>
+
+                  {/* Data Breaches & Governance */}
+                  <div className="mb-6">
+                    <Badge variant="outline" className="mb-3 border-red-500/50 text-red-400 bg-red-500/10">Data Breaches & Governance</Badge>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Equifax — $700M (2019)</h4>
+                          <p className="text-sm text-muted-foreground">FTC settlement after data breach affected 150M people due to unpatched vulnerabilities in identity governance systems.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">T-Mobile — $500M+</h4>
+                          <p className="text-sm text-muted-foreground">Data breach settlement plus $15.75M FCC fine for poor data governance in security incidents.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">British Airways — £20M (~$24M)</h4>
+                          <p className="text-sm text-muted-foreground">UK ICO GDPR fine after malware compromised 400K customers' data due to lax automated system protection.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Capital One — $80M</h4>
+                          <p className="text-sm text-muted-foreground">OCC fine for cloud configuration errors—automated systems lacking suitable security checks.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Anthem — $115M (HIPAA)</h4>
+                          <p className="text-sm text-muted-foreground">Settlement after breach exposed 80M people's health/identity data due to deficient automated access controls.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Didi Global — $1.19B (2022)</h4>
+                          <p className="text-sm text-muted-foreground">China CAC fine for violating network security, data security, and personal information protection laws.</p>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
+
+                  {/* International Data Transfers */}
+                  <div className="mb-6">
+                    <Badge variant="outline" className="mb-3 border-red-500/50 text-red-400 bg-red-500/10">International Data Transfers</Badge>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Meta — $1.3B (2023, Ireland DPC)</h4>
+                          <p className="text-sm text-muted-foreground">Fined for unlawfully transferring EU personal data to the U.S. without adequate safeguards, violating GDPR Article 46(1).</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  {/* Identity Verification Failures */}
+                  <div className="mb-6">
+                    <Badge variant="outline" className="mb-3 border-red-500/50 text-red-400 bg-red-500/10">Identity Verification Failures</Badge>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">JPMorgan v. Frank (2023)</h4>
+                          <p className="text-sm text-muted-foreground">Bank lost $175M acquiring a startup that had 4 million fake users—zero identity verification.</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Rideshare Class Actions</h4>
+                          <p className="text-sm text-muted-foreground">Companies sued when drivers used stolen IDs to bypass background checks.</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  {/* Privacy Violations */}
+                  <div>
+                    <Badge variant="outline" className="mb-3 border-red-500/50 text-red-400 bg-red-500/10">Privacy Violations</Badge>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Meta — $5B (2019, FTC)</h4>
+                          <p className="text-sm text-muted-foreground">Huge penalty for breaching earlier privacy order (Cambridge Analytica scandal).</p>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-red-500/20 bg-red-500/5">
+                        <CardContent className="pt-4 pb-4">
+                          <h4 className="font-semibold text-foreground text-base mb-1">Meta — $725M (FTC)</h4>
+                          <p className="text-sm text-muted-foreground">Settlement for data misuse related to Cambridge Analytica and user privacy violations.</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Industry Context */}
+                <div className="p-4 rounded-lg border border-muted bg-muted/30">
+                  <h4 className="font-semibold text-foreground mb-2">Industry Context</h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• GDPR fines have compounded to ~€5.88B (~$6.5B) globally by early 2025</li>
+                    <li>• U.S. corporate misconduct fines reach $50B/year with recidivism in automated systems</li>
+                    <li>• Largest penalties stem from data governance, AI profiling, facial recognition, and identity verification failures</li>
+                  </ul>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    Sources: CSO Online, Data Privacy + Cybersecurity Insider, Infosecurity Magazine, GetAstra, GDPR Local, Statista, NexaCollect, Data Privacy Manager, Enzuzo, Good Jobs First
+                  </p>
                 </div>
               </div>
             </CollapsibleContent>

@@ -261,7 +261,7 @@ const DemoOperatorCertification = () => {
             </CardContent>
           </Card>
 
-          {/* Rubric Section - What We Score */}
+          {/* Rubric Section - What We Score (Canonical) */}
           <Card className="mb-6 border-border/50">
             <CardHeader>
               <CardTitle className="text-xl flex items-center gap-2">
@@ -269,53 +269,47 @@ const DemoOperatorCertification = () => {
                 What we score (0–100): the Operator Certification Rubric
               </CardTitle>
               <CardDescription className="text-base">
-                SYNTH scores AI-assisted work using a rubric aligned to widely adopted risk and evaluation concepts (e.g., NIST-style governance and ISO-style risk discipline). This is not "vibes." It's measurable behavior.
+                SYNTH measures how a person thinks and verifies while using AI—not just whether they got an answer. The rubric scores verification discipline, risk behavior, calibration, and auditability, producing a numeric score (0–100) with category breakdowns and an evidence trail that can be reviewed by engineers, doctors, and professors.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <h4 className="font-semibold text-foreground">Core score categories (each 0–100):</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <p className="font-medium text-foreground text-sm">Verification Discipline</p>
-                  <p className="text-xs text-muted-foreground">Did the operator validate claims, check sources, and avoid fabricated citations?</p>
-                </div>
-                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <p className="font-medium text-foreground text-sm">Risk Handling & Escalation</p>
-                  <p className="text-xs text-muted-foreground">Do they recognize high-risk situations, apply brakes, and escalate appropriately?</p>
-                </div>
-                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <p className="font-medium text-foreground text-sm">Calibration (Trust vs Skepticism)</p>
-                  <p className="text-xs text-muted-foreground">Do they know when the AI is likely wrong—and adjust their confidence accordingly?</p>
-                </div>
-                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <p className="font-medium text-foreground text-sm">Auditability & Record Quality</p>
-                  <p className="text-xs text-muted-foreground">Can a reviewer reconstruct what happened from the proof record IDs and logs?</p>
-                </div>
-                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <p className="font-medium text-foreground text-sm">Policy Compliance (Scope + Data)</p>
-                  <p className="text-xs text-muted-foreground">Do they stay inside allowed boundaries and avoid leaking restricted data?</p>
-                </div>
-                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <p className="font-medium text-foreground text-sm">Human Judgment (Override Ability)</p>
-                  <p className="text-xs text-muted-foreground">Can they override AI outputs when necessary instead of rubber-stamping?</p>
-                </div>
-                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <p className="font-medium text-foreground text-sm">Bias / Fairness Awareness</p>
-                  <p className="text-xs text-muted-foreground">Do they spot bias risks and respond appropriately?</p>
-                </div>
-                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <p className="font-medium text-foreground text-sm">Incident Response Readiness</p>
-                  <p className="text-xs text-muted-foreground">Do they report anomalies and handle failures correctly?</p>
-                </div>
+              {/* Canonical 10-category rubric table */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left p-3 font-semibold text-foreground bg-muted/30">Category (0–100)</th>
+                      <th className="text-left p-3 font-semibold text-foreground bg-muted/30">What we measure</th>
+                      <th className="text-left p-3 font-semibold text-foreground bg-muted/30 hidden lg:table-cell">What "good" looks like</th>
+                      <th className="text-left p-3 font-semibold text-foreground bg-muted/30 hidden xl:table-cell">Evidence captured</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border/50">
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">1)</span> Verification Discipline</td><td className="p-3 text-muted-foreground">Does the operator validate claims and avoid "confident nonsense"?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Cross-checks facts, asks for sources, verifies before acting</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Source checks, citations, verification steps, corrections</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">2)</span> Risk Handling & Escalation</td><td className="p-3 text-muted-foreground">Do they apply brakes in high-stakes situations?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Flags uncertainty, escalates to human review, uses safe defaults</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Red-flag events, escalation triggers, blocked actions</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">3)</span> Calibration (Trust vs Skepticism)</td><td className="p-3 text-muted-foreground">Do they know when to trust AI vs challenge it?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Matches confidence to evidence; doesn't over-trust fluent answers</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Confidence markers, challenge rate, acceptance patterns</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">4)</span> Reasoning Quality</td><td className="p-3 text-muted-foreground">Can they frame problems correctly and stay consistent?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Clear problem definition, stepwise reasoning, handles ambiguity</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Prompt quality, constraint handling, revisions</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">5)</span> Policy Compliance</td><td className="p-3 text-muted-foreground">Do they follow governance rules and avoid unsafe data use?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Stays within scope; avoids restricted data exposure</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Policy hits/violations, restricted data detection</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">6)</span> Auditability & Record Quality</td><td className="p-3 text-muted-foreground">Can a reviewer reconstruct what happened and why?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Creates clean trail: inputs → checks → decision → outcome</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Proof record IDs, decision rationale, trace completeness</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">7)</span> Bias / Fairness Awareness</td><td className="p-3 text-muted-foreground">Do they recognize bias risks and mitigate appropriately?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Flags biased assumptions; uses neutral criteria</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Bias flags, fairness checks, remediation actions</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">8)</span> Incident Response</td><td className="p-3 text-muted-foreground">Do they respond correctly when AI fails?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Reports anomalies, documents failures, participates in root-cause</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Incident flags, reports, remediation steps</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">9)</span> Tool/Model Hygiene</td><td className="p-3 text-muted-foreground">Do they use approved tools and remain reproducible?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Uses approved interfaces; can reproduce results; avoids shadow AI</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">LLM/interface used, model/version, routing logs</td></tr>
+                    <tr className="hover:bg-muted/20"><td className="p-3 font-medium"><span className="text-primary font-bold">10)</span> Operational Outcome Integrity</td><td className="p-3 text-muted-foreground">Do results hold up in the real world?</td><td className="p-3 text-muted-foreground hidden lg:table-cell">Outputs are usable, verifiable, consistent with requirements</td><td className="p-3 text-muted-foreground text-xs hidden xl:table-cell">Post-check outcomes, overrides, error rates</td></tr>
+                  </tbody>
+                </table>
               </div>
 
               <div className="pt-4 border-t border-border/50">
-                <h4 className="font-semibold text-foreground mb-2">Outputs:</h4>
+                <h4 className="font-semibold text-foreground mb-2">Outputs delivered:</h4>
                 <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li>• <strong className="text-foreground">Overall Score (0–100)</strong> + category sub-scores (0–100)</li>
-                  <li>• <strong className="text-foreground">Trendline</strong> across 7 / 30 / 60 / 90+ days (improving / stable / drifting)</li>
-                  <li>• <strong className="text-foreground">Cognitive & Governance Report</strong> with proof record IDs and reviewer-ready evidence</li>
+                  <li>• <strong className="text-foreground">Overall Score (0–100)</strong></li>
+                  <li>• <strong className="text-foreground">Category sub-scores (0–100)</strong> for each rubric line above</li>
+                  <li>• <strong className="text-foreground">Trendline over time</strong> (7 / 30 / 60 / 90 / 90+ days): improving / stable / drifting</li>
+                  <li>• <strong className="text-foreground">Evidence pack:</strong> proof record IDs + reviewer-ready traces</li>
                 </ul>
+                <p className="text-xs text-muted-foreground mt-2">
+                  <strong>Optional:</strong> PASS / REVIEW / FAIL derived from score thresholds (kept secondary to numeric scoring)
+                </p>
               </div>
             </CardContent>
           </Card>

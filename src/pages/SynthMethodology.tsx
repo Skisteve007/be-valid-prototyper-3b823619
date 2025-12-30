@@ -254,6 +254,98 @@ const SynthMethodology = () => {
             </div>
           </section>
 
+          {/* Operator Certification Rubric Section */}
+          <section>
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-white mb-2">Operator Certification Rubric (Best‑Practice Aligned)</h3>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                Operator Certification is designed around established evaluation principles used in high-stakes environments: governance discipline, human oversight, auditability, calibration, and incident handling. SYNTH scores operator behavior across these categories and produces an evidence-backed report suitable for executive review and technical audit.
+              </p>
+            </div>
+
+            <Card className="synth-card border-0 overflow-hidden">
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-cyan-500/20">
+                        <th className="text-left p-4 text-cyan-400 font-semibold">Category</th>
+                        <th className="text-left p-4 text-cyan-400 font-semibold">What it measures</th>
+                        <th className="text-left p-4 text-cyan-400 font-semibold">Example evidence captured</th>
+                        <th className="text-center p-4 text-cyan-400 font-semibold">Score</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      <tr className="hover:bg-white/5 transition">
+                        <td className="p-4 font-medium text-white">Verification Discipline</td>
+                        <td className="p-4 text-gray-400">Did the operator validate claims, check sources, and avoid fabricated citations?</td>
+                        <td className="p-4 text-gray-400">Source-checking frequency, citation hygiene, cross-validation</td>
+                        <td className="p-4 text-center text-cyan-400 font-mono">0–100</td>
+                      </tr>
+                      <tr className="hover:bg-white/5 transition">
+                        <td className="p-4 font-medium text-white">Risk Handling & Escalation</td>
+                        <td className="p-4 text-gray-400">Do they recognize high-risk situations and escalate appropriately?</td>
+                        <td className="p-4 text-gray-400">Red-flag recognition, escalation behavior, safe fallbacks</td>
+                        <td className="p-4 text-center text-cyan-400 font-mono">0–100</td>
+                      </tr>
+                      <tr className="hover:bg-white/5 transition">
+                        <td className="p-4 font-medium text-white">Calibration</td>
+                        <td className="p-4 text-gray-400">Do they know when the AI is likely wrong and adjust confidence?</td>
+                        <td className="p-4 text-gray-400">Confidence labeling, probability calibration, updates</td>
+                        <td className="p-4 text-center text-cyan-400 font-mono">0–100</td>
+                      </tr>
+                      <tr className="hover:bg-white/5 transition">
+                        <td className="p-4 font-medium text-white">Auditability & Record Quality</td>
+                        <td className="p-4 text-gray-400">Can a reviewer reconstruct what happened from proof records?</td>
+                        <td className="p-4 text-gray-400">Log completeness, proof record linkage, fidelity</td>
+                        <td className="p-4 text-center text-cyan-400 font-mono">0–100</td>
+                      </tr>
+                      <tr className="hover:bg-white/5 transition">
+                        <td className="p-4 font-medium text-white">Policy Compliance</td>
+                        <td className="p-4 text-gray-400">Do they stay inside allowed boundaries and protect data?</td>
+                        <td className="p-4 text-gray-400">Scope adherence, data handling compliance</td>
+                        <td className="p-4 text-center text-cyan-400 font-mono">0–100</td>
+                      </tr>
+                      <tr className="hover:bg-white/5 transition">
+                        <td className="p-4 font-medium text-white">Human Judgment</td>
+                        <td className="p-4 text-gray-400">Can they override AI outputs when necessary?</td>
+                        <td className="p-4 text-gray-400">Override frequency, pushback quality, independence</td>
+                        <td className="p-4 text-center text-cyan-400 font-mono">0–100</td>
+                      </tr>
+                      <tr className="hover:bg-white/5 transition">
+                        <td className="p-4 font-medium text-white">Bias / Fairness Awareness</td>
+                        <td className="p-4 text-gray-400">Do they spot bias risks and respond appropriately?</td>
+                        <td className="p-4 text-gray-400">Bias detection rate, corrective actions taken</td>
+                        <td className="p-4 text-center text-cyan-400 font-mono">0–100</td>
+                      </tr>
+                      <tr className="hover:bg-white/5 transition">
+                        <td className="p-4 font-medium text-white">Incident Response</td>
+                        <td className="p-4 text-gray-400">Do they report anomalies and handle failures correctly?</td>
+                        <td className="p-4 text-gray-400">Anomaly reporting, failure handling, documentation</td>
+                        <td className="p-4 text-center text-cyan-400 font-mono">0–100</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+              <div className="p-4 rounded-lg bg-white/5 border border-cyan-500/20">
+                <p className="text-2xl font-bold text-cyan-400">0–100</p>
+                <p className="text-xs text-gray-400">Overall Score + Sub-scores</p>
+              </div>
+              <div className="p-4 rounded-lg bg-white/5 border border-blue-500/20">
+                <p className="text-lg font-bold text-blue-400">7 / 30 / 60 / 90+</p>
+                <p className="text-xs text-gray-400">Day Trendlines</p>
+              </div>
+              <div className="p-4 rounded-lg bg-white/5 border border-emerald-500/20">
+                <p className="text-sm font-bold text-emerald-400">Proof Record IDs</p>
+                <p className="text-xs text-gray-400">Reviewer-Ready Evidence</p>
+              </div>
+            </div>
+          </section>
+
           {/* Promotion Rules */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card className="synth-card border-0">

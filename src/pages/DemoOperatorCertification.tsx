@@ -261,6 +261,64 @@ const DemoOperatorCertification = () => {
             </CardContent>
           </Card>
 
+          {/* Rubric Section - What We Score */}
+          <Card className="mb-6 border-border/50">
+            <CardHeader>
+              <CardTitle className="text-xl flex items-center gap-2">
+                <FileCheck className="h-5 w-5 text-primary" />
+                What we score (0–100): the Operator Certification Rubric
+              </CardTitle>
+              <CardDescription className="text-base">
+                SYNTH scores AI-assisted work using a rubric aligned to widely adopted risk and evaluation concepts (e.g., NIST-style governance and ISO-style risk discipline). This is not "vibes." It's measurable behavior.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <h4 className="font-semibold text-foreground">Core score categories (each 0–100):</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                  <p className="font-medium text-foreground text-sm">Verification Discipline</p>
+                  <p className="text-xs text-muted-foreground">Did the operator validate claims, check sources, and avoid fabricated citations?</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                  <p className="font-medium text-foreground text-sm">Risk Handling & Escalation</p>
+                  <p className="text-xs text-muted-foreground">Do they recognize high-risk situations, apply brakes, and escalate appropriately?</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                  <p className="font-medium text-foreground text-sm">Calibration (Trust vs Skepticism)</p>
+                  <p className="text-xs text-muted-foreground">Do they know when the AI is likely wrong—and adjust their confidence accordingly?</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                  <p className="font-medium text-foreground text-sm">Auditability & Record Quality</p>
+                  <p className="text-xs text-muted-foreground">Can a reviewer reconstruct what happened from the proof record IDs and logs?</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                  <p className="font-medium text-foreground text-sm">Policy Compliance (Scope + Data)</p>
+                  <p className="text-xs text-muted-foreground">Do they stay inside allowed boundaries and avoid leaking restricted data?</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                  <p className="font-medium text-foreground text-sm">Human Judgment (Override Ability)</p>
+                  <p className="text-xs text-muted-foreground">Can they override AI outputs when necessary instead of rubber-stamping?</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                  <p className="font-medium text-foreground text-sm">Bias / Fairness Awareness</p>
+                  <p className="text-xs text-muted-foreground">Do they spot bias risks and respond appropriately?</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30 border border-border/30">
+                  <p className="font-medium text-foreground text-sm">Incident Response Readiness</p>
+                  <p className="text-xs text-muted-foreground">Do they report anomalies and handle failures correctly?</p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-border/50">
+                <h4 className="font-semibold text-foreground mb-2">Outputs:</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• <strong className="text-foreground">Overall Score (0–100)</strong> + category sub-scores (0–100)</li>
+                  <li>• <strong className="text-foreground">Trendline</strong> across 7 / 30 / 60 / 90+ days (improving / stable / drifting)</li>
+                  <li>• <strong className="text-foreground">Cognitive & Governance Report</strong> with proof record IDs and reviewer-ready evidence</li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Controls Section */}
           <Card className="mb-6 border-border/50">

@@ -752,14 +752,14 @@ const DemoHub = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <Card className="border-orange-500/20 bg-orange-500/5">
                         <CardContent className="pt-4 pb-4">
-                          <h4 className="font-semibold text-foreground text-base mb-1">Amazon — $877M (2021)</h4>
-                          <p className="text-sm text-muted-foreground">Luxembourg GDPR fine for behavioral ad targeting and processing data without proper consent.</p>
+                          <h4 className="font-semibold text-foreground text-base mb-1">Amazon — $887M (2021)</h4>
+                          <p className="text-sm text-muted-foreground">Luxembourg GDPR fine (€746M) for behavioral ad targeting and processing data without proper consent.</p>
                         </CardContent>
                       </Card>
                       <Card className="border-orange-500/20 bg-orange-500/5">
                         <CardContent className="pt-4 pb-4">
-                          <h4 className="font-semibold text-foreground text-base mb-1">Google — $170M + $1.7B</h4>
-                          <p className="text-sm text-muted-foreground">FTC settlement for COPPA violations (YouTube algorithms) + EU fine for anti-competitive algorithmic ad practices.</p>
+                          <h4 className="font-semibold text-foreground text-base mb-1">Google — $170M (2019, FTC)</h4>
+                          <p className="text-sm text-muted-foreground">FTC settlement for COPPA violations tied to YouTube's algorithms collecting children's data without consent.</p>
                         </CardContent>
                       </Card>
                       <Card className="border-orange-500/20 bg-orange-500/5">
@@ -802,14 +802,14 @@ const DemoHub = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <Card className="border-orange-500/20 bg-orange-500/5">
                         <CardContent className="pt-4 pb-4">
-                          <h4 className="font-semibold text-foreground text-base mb-1">Bank of America — $30.6B</h4>
-                          <p className="text-sm text-muted-foreground">Fraud, poor trading oversight, and non-compliance in automated financial systems.</p>
+                          <h4 className="font-semibold text-foreground text-base mb-1">Bank of America — $16.65B (2014)</h4>
+                          <p className="text-sm text-muted-foreground">Historic DOJ settlement for mortgage-related fraud—largest civil settlement ever with a single entity.</p>
                         </CardContent>
                       </Card>
                       <Card className="border-orange-500/20 bg-orange-500/5">
                         <CardContent className="pt-4 pb-4">
-                          <h4 className="font-semibold text-foreground text-base mb-1">JPMorgan — $1.7B+</h4>
-                          <p className="text-sm text-muted-foreground">Penalties for fraud and poor automated risk controls in trading systems.</p>
+                          <h4 className="font-semibold text-foreground text-base mb-1">JPMorgan — $13B (2013)</h4>
+                          <p className="text-sm text-muted-foreground">DOJ settlement for mortgage fraud and poor automated risk controls in financial systems.</p>
                         </CardContent>
                       </Card>
                     </div>

@@ -8,14 +8,14 @@ import { Link } from "react-router-dom";
 const DEMO_ROUTES = [
   { path: "/demos", name: "Demo Hub", description: "Main demo landing page with all governance demos" },
   { path: "/demos/router", name: "Demo Router", description: "Choose-your-path demo selector for prospects" },
-  { path: "/demos/senate-qa", name: "Demo A — AI Review Panel", description: "Multi-model consensus governance demo" },
+  { path: "/demos/operator-certification", name: "Demo A — Operator Certification (Workforce)", description: "Measure and certify how humans use AI over time" },
   { path: "/demos/monitoring", name: "Demo B — Monitoring", description: "Real-time governance monitoring dashboard" },
   { path: "/demos/enterprise-sandbox", name: "Demo C — Enterprise Sandbox", description: "Data residency and enterprise controls demo" },
   { path: "/demos/audit-verifier", name: "Demo D — Proof Verifier", description: "Tamper-evident audit trail verification" },
   { path: "/demos/upload-verdict", name: "Demo E — Upload & Verdict", description: "Document upload with governance verdict" },
   { path: "/demos/scale-conduit", name: "Demo F — Scale Conduit", description: "High-volume enterprise integration demo" },
-  { path: "/demos/operator-certification", name: "Demo G — Operator Certification", description: "Workforce AI discipline certification" },
-  { path: "/demos/servicenow", name: "Demo H — ServiceNow Integration", description: "Enterprise ticketing integration demo" },
+  { path: "/demos/senate-qa", name: "Senate QA — AI Review Panel", description: "Multi-model consensus governance demo" },
+  { path: "/demos/servicenow", name: "ServiceNow Integration", description: "Enterprise ticketing integration demo" },
 ];
 
 export const DemoAccessDocumentation = () => {

@@ -117,17 +117,18 @@ const DemoHub = () => {
   ];
 
   const demos = [
+    // TOP 3 — Reordered per restructure pack
     {
-      title: "Demo A — Governed Decision (Single Run)",
-      subtitle: "One request → enforced verdict + proof record.",
-      icon: MessageSquare,
+      title: "Demo A — Operator Certification (Workforce)",
+      subtitle: "Measure, monitor, and certify how humans use AI—over time.",
+      icon: UserCheck,
       bullets: [
-        "A single prompt processed through the governed pipeline (demo-safe)",
-        "Decision trace (checks → arbitration if needed → release/veto)",
-        "Final output with a verifiable proof record",
+        "A simulated multi-turn scenario scored for verification discipline and risk handling",
+        "A selectable evaluation window: 7 / 30 / 60 / 90 days to reveal behavior trends",
+        "A certification report (PASS / REVIEW / FAIL) with proof record IDs",
       ],
-      whoFor: "Teams evaluating decision enforcement on individual requests",
-      path: "/demos/senate-qa",
+      whoFor: "Regulated employers, universities, critical infrastructure, high-trust operations",
+      path: "/demos/operator-certification",
     },
     {
       title: "Demo B — Platform Monitoring & Audit",
@@ -153,6 +154,7 @@ const DemoHub = () => {
       whoFor: "Enterprise buyers, security teams",
       path: "/demos/enterprise-sandbox",
     },
+    // Remaining demos
     {
       title: "Demo D — Proof Record Verifier",
       subtitle: "Verify Integrity",
@@ -190,16 +192,16 @@ const DemoHub = () => {
       path: "/demos/scale-conduit",
     },
     {
-      title: "Demo G — Operator Certification (Workforce)",
-      subtitle: "Measure and certify how humans use AI—over time.",
-      icon: UserCheck,
+      title: "Senate QA — AI Review Panel",
+      subtitle: "One request → enforced verdict + proof record.",
+      icon: MessageSquare,
       bullets: [
-        "A simulated multi-turn scenario scored for verification discipline and risk handling",
-        "A selectable evaluation window: 7 / 30 / 60 / 90 days",
-        "A certification report (PASS / REVIEW / FAIL) with proof record IDs",
+        "A single prompt processed through the governed pipeline (demo-safe)",
+        "Decision trace (checks → arbitration if needed → release/veto)",
+        "Final output with a verifiable proof record",
       ],
-      whoFor: "Regulated employers, universities, high-trust operations",
-      path: "/demos/operator-certification",
+      whoFor: "Teams evaluating decision enforcement on individual requests",
+      path: "/demos/senate-qa",
     },
   ];
 

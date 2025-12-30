@@ -172,6 +172,37 @@ const enterpriseDisclosureEntry = {
 • Detailed pipeline diagrams`
 };
 
+const operatorCertificationEntry = {
+  title: "Operator Certification — The Enterprise Wedge",
+  content: `OPERATOR CERTIFICATION — THE ENTERPRISE WEDGE
+
+Operator Certification turns AI usage into a measurable standard. It answers:
+• Who verifies vs who shortcuts?
+• Who escalates risk correctly under ambiguity?
+• Who is safe to operate in high-trust environments?
+
+This creates:
+• A hiring differentiator (screen candidates for disciplined AI use)
+• A training program (improve behavior over 30/60/90 days)
+• Audit-ready defensibility when decisions are questioned
+
+SYNTH becomes the FLIGHT RECORDER for AI-assisted work:
+✓ Enforceable standards
+✓ Measurable behavior
+✓ Proof when it matters
+
+TALK TRACK — WHY ENTERPRISES BUY SYNTH:
+Enterprises don't buy "accuracy." They buy CONTROL and DEFENSIBILITY.
+
+AI is already being used across the organization—often informally. The risk isn't the average hallucination rate; it's the TAIL RISK: one wrong answer in a high-stakes workflow can trigger major financial loss, legal exposure, and reputational damage.
+
+SYNTH gives leadership:
+• Visibility into how AI is being used (approved or not)
+• Policy enforcement for high-stakes workflows
+• Proof records (audit logs) showing what happened and why
+• Operator Certification to measure verification discipline over time (PASS/REVIEW/FAIL)`
+};
+
 export const CEOPlaybookTab = () => {
   const [copiedBlock, setCopiedBlock] = useState<string | null>(null);
 
@@ -361,6 +392,23 @@ export const CEOPlaybookTab = () => {
                 <CardContent>
                   <pre className="whitespace-pre-wrap text-sm bg-muted/50 p-4 rounded-lg print:bg-white print:text-black">
                     {enterpriseDisclosureEntry.content}
+                  </pre>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle className="text-xl">{operatorCertificationEntry.title}</CardTitle>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleCopy(operatorCertificationEntry.content, "operator-cert")}
+                  >
+                    {copiedBlock === "operator-cert" ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  <pre className="whitespace-pre-wrap text-sm bg-muted/50 p-4 rounded-lg print:bg-white print:text-black">
+                    {operatorCertificationEntry.content}
                   </pre>
                 </CardContent>
               </Card>

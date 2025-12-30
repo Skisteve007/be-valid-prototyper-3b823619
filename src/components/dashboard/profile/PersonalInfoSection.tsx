@@ -52,6 +52,7 @@ interface PersonalInfoSectionProps {
   shareFundsEnabled?: boolean;
   shareBioEnabled?: boolean;
   shareToxEnabled?: boolean;
+  shareProfileEnabled?: boolean;
   onShareToggle?: (field: string, value: boolean) => void;
   userId?: string;
   // Sports teams
@@ -91,6 +92,7 @@ export const PersonalInfoSection = ({
   shareFundsEnabled = false,
   shareBioEnabled = false,
   shareToxEnabled = false,
+  shareProfileEnabled = false,
   onShareToggle,
   userId,
   selectedTeams = { nfl: [], nba: [], nhl: [], mlb: [] },
@@ -402,6 +404,27 @@ export const PersonalInfoSection = ({
                         )}
                       </div>
                     </button>
+                    
+                    {/* PROFILE Toggle */}
+                    <button
+                      type="button"
+                      onClick={() => onShareToggle?.('share_profile_enabled', !shareProfileEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareProfileEnabled 
+                          ? 'bg-purple-500/30 border-2 border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]' 
+                          : 'bg-purple-500/10 border border-purple-400/30'
+                      }`}
+                    >
+                      <User className="w-5 h-5 text-purple-400" />
+                      <span className="text-[9px] font-bold text-purple-400 tracking-wider">PROFILE</span>
+                      <div className="bg-black rounded p-0.5">
+                        {shareProfileEnabled ? (
+                          <Unlock className="w-4 h-4 text-purple-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-purple-400" strokeWidth={3} />
+                        )}
+                      </div>
+                    </button>
                     </div>
                   </div>
                 </div>
@@ -419,7 +442,7 @@ export const PersonalInfoSection = ({
                   {/* Choose Your Share Section */}
                   <div className="p-3 rounded-lg border border-white/10 bg-white/5">
                     <p className="text-[10px] text-gray-400 uppercase tracking-wider text-center mb-2">CHOOSE YOUR SHARE</p>
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-5 gap-2">
                     {/* ID Toggle */}
                     <button
                       type="button"
@@ -500,6 +523,27 @@ export const PersonalInfoSection = ({
                           <Unlock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
                         ) : (
                           <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                        )}
+                      </div>
+                    </button>
+                    
+                    {/* PROFILE Toggle */}
+                    <button
+                      type="button"
+                      onClick={() => onShareToggle?.('share_profile_enabled', !shareProfileEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareProfileEnabled 
+                          ? 'bg-purple-500/30 border-2 border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]' 
+                          : 'bg-purple-500/10 border border-purple-400/30'
+                      }`}
+                    >
+                      <User className="w-5 h-5 text-purple-400" />
+                      <span className="text-[9px] font-bold text-purple-400 tracking-wider">PROFILE</span>
+                      <div className="bg-black rounded p-0.5">
+                        {shareProfileEnabled ? (
+                          <Unlock className="w-4 h-4 text-purple-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-purple-400" strokeWidth={3} />
                         )}
                       </div>
                     </button>

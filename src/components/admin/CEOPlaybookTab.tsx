@@ -81,6 +81,53 @@ ANALOGY:
 Synth is a bouncer (enforces rules), security cameras (records everything), fire suppression (contains damage), and emergency shutoff (stops action fast).`
 };
 
+const ghostTokenCarrierEntry = {
+  title: "Ghost Token Carrier — SpaceX Analogy (CEO Pitch Version)",
+  content: `GHOST TOKEN CARRIER (CEO explanation you can reuse in pitches)
+
+Think of the Ghost Pass like SpaceX transporting astronauts and precious cargo.
+
+SpaceX doesn't BECOME the astronaut. It doesn't BECOME NASA. It's the CARRIER—a secure, controlled transport layer that gets something valuable from Point A to Point B safely, with the right checks, telemetry, and procedures.
+
+Ghost works the same way:
+
+THE SOURCE OF TRUTH STAYS WHERE IT BELONGS:
+• Labs hold lab records
+• IDV providers hold identity records
+• Issuers hold credential truth
+• Ghost/VALID doesn't warehouse those sensitive records
+
+Instead, Ghost carries a time-bound, permissioned token that says:
+"This user authorizes this vendor to verify this specific thing for this specific purpose."
+
+WHAT THE GHOST QR ACTUALLY IS:
+A Ghost Pass QR is a token carrier:
+• It contains tokenized permissions (not raw data)
+• It's short-lived by default (30s) to reduce replay/screenshot abuse
+• It can be extended by the user (30s / 2m / 5m) when a stable code is needed
+
+WHAT THE VENDOR GETS (B2B):
+Vendors don't need to store a mountain of PII just to operate. They get:
+• A simple operational result: Green / Yellow / Red
+• Only the minimal fields the user authorized and the vendor requires
+• An auditable trail of: what was requested, what was authorized, what decision was returned
+
+If a vendor needs deeper evidence (in regulated cases), they can use their own direct link/integration to the issuer/source-of-record. Ghost doesn't lock anyone in.
+
+WHY THIS REDUCES EXPOSURE:
+This model reduces risk because:
+• You minimize custody of sensitive records
+• You reduce what vendors collect/store by default
+• You keep verification anchored to issuer attestations (the parties already responsible for the truth)
+
+FUTURE-READY: BEYOND QR
+When we say "QR," we mean the current interface. The underlying mechanics are interface-agnostic:
+• QR today
+• Spatial / device-native / next-gen modalities as the market shifts
+
+If a partner needs the most advanced interaction model, we can deliver it.`
+};
+
 const fundraisingEntry = {
   title: "Fundraising Team Compensation — Legal Structure",
   content: `⚠️ PAYING COMMISSION ON CAPITAL RAISED = ILLEGAL
@@ -276,6 +323,23 @@ export const CEOPlaybookTab = () => {
                 <CardContent>
                   <pre className="whitespace-pre-wrap text-sm bg-muted/50 p-4 rounded-lg print:bg-white print:text-black">
                     {plainEnglishEntry.content}
+                  </pre>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle className="text-xl">{ghostTokenCarrierEntry.title}</CardTitle>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleCopy(ghostTokenCarrierEntry.content, "ghost-carrier")}
+                  >
+                    {copiedBlock === "ghost-carrier" ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  <pre className="whitespace-pre-wrap text-sm bg-muted/50 p-4 rounded-lg print:bg-white print:text-black">
+                    {ghostTokenCarrierEntry.content}
                   </pre>
                 </CardContent>
               </Card>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Ghost, Eye, Mail, Lock, QrCode, Timer, ShieldCheck, Scan, ShieldX, ArrowLeft } from "lucide-react";
+import { Ghost, Eye, Mail, Lock, QrCode, Timer, ShieldCheck, Scan, ShieldX, ArrowLeft, Wallet, CheckCircle, Clock, Users, Building, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,29 +28,121 @@ const GhostEcosystemModule = () => {
 
   const handleRequestSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, this would submit to a contact pipeline
     toast.success("Request submitted! We'll be in touch soon.");
     setRequestOpen(false);
     setFormData({ name: "", email: "", org: "", useCase: "" });
   };
 
+  const includedAttributes = [
+    { label: "Identity / Eligibility", desc: "Prove 'eligible' without exposing full ID" },
+    { label: "Health Status", desc: "Proof-only; labs remain the source of truth" },
+    { label: "Screening / Compliance", desc: "Proof-only verification status" },
+    { label: "Funded Wallet Credential", desc: "Payment-ready signal" },
+    { label: "Profile Share", desc: "User-approved profile fields" },
+  ];
+
   return (
     <>
       <Card className="border-emerald-500/30 bg-emerald-500/5 mb-8">
         <CardContent className="pt-6">
-          <div className="flex flex-col sm:flex-row items-start gap-4">
-            <div className="p-3 rounded-lg bg-emerald-500/20 border border-emerald-500/30 shrink-0">
-              <Ghost className="h-6 w-6 text-emerald-400" />
-            </div>
-            <div className="flex-1 min-w-0 w-full">
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <h2 className="text-lg font-semibold text-foreground">Ghost Ecosystem Demos</h2>
-                <Badge variant="outline" className="text-xs border-amber-500/50 text-amber-400 bg-amber-500/10 shrink-0">
-                  Coming Soon
-                </Badge>
+          <div className="flex flex-col gap-4">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row items-start gap-4">
+              <div className="p-3 rounded-lg bg-emerald-500/20 border border-emerald-500/30 shrink-0">
+                <Ghost className="h-6 w-6 text-emerald-400" />
               </div>
-              <p className="text-xs text-emerald-400 font-medium mb-3">Wallet + Pass mechanics (privacy-preserving)</p>
-              <p className="text-muted-foreground text-sm mb-4">
+              <div className="flex-1 min-w-0 w-full">
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <h2 className="text-lg font-semibold text-foreground">Ghost Ecosystem Demos</h2>
+                  <Badge variant="outline" className="text-xs border-amber-500/50 text-amber-400 bg-amber-500/10 shrink-0">
+                    Coming Soon
+                  </Badge>
+                </div>
+                <p className="text-xs text-emerald-400 font-medium mb-3">Wallet + Pass mechanics (privacy-preserving)</p>
+              </div>
+            </div>
+
+            {/* Core Explanation */}
+            <div className="p-4 rounded-lg bg-muted/30 border border-border">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <strong className="text-foreground">Ghost is a wallet + pass</strong> that lets users share only what's required—and reveal nothing else. 
+                A Ghost Pass QR does not carry sensitive records. It carries <strong className="text-emerald-400">tokenized, permissioned access</strong> that 
+                authorizes verification against the source of record (labs, IDV providers, issuers).
+              </p>
+            </div>
+
+            {/* Time-bound Token */}
+            <div className="p-4 rounded-lg bg-amber-500/5 border border-amber-500/20">
+              <div className="flex items-center gap-2 mb-2">
+                <Timer className="h-4 w-4 text-amber-400" />
+                <h4 className="font-semibold text-foreground text-sm">Time-bound + User-controlled Token</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                By default, Ghost Pass rotates every <strong className="text-amber-400">30 seconds</strong> to reduce screenshot/replay risk. 
+                Users can optionally extend the refresh window (30s / 2m / 5m) for longer check-ins (e.g., hospital workflows).
+              </p>
+            </div>
+
+            {/* What Can Be Included */}
+            <div className="p-4 rounded-lg bg-muted/30 border border-border">
+              <h4 className="font-semibold text-foreground text-sm mb-3">What Can Be Included (User-selected, Permissioned)</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {includedAttributes.map((attr, idx) => (
+                  <div key={idx} className="flex items-start gap-2 p-2 rounded bg-background/50">
+                    <CheckCircle className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs font-medium text-foreground">{attr.label}</p>
+                      <p className="text-xs text-muted-foreground">{attr.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* How Verification Works */}
+            <div className="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
+              <div className="flex items-center gap-2 mb-2">
+                <Scan className="h-4 w-4 text-emerald-400" />
+                <h4 className="font-semibold text-foreground text-sm">How Verification Works (Simple for Ops)</h4>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">
+                Vendors define requirements up front. At scan time, they receive a <strong className="text-emerald-400">Green / Yellow / Red</strong> decision 
+                plus only the minimum authorized attributes. That decision is derived from issuer/source-of-record attestations (not user-entered claims).
+              </p>
+              <div className="grid grid-cols-3 gap-2">
+                <div className="p-2 rounded bg-emerald-500/10 border border-emerald-500/30 text-center">
+                  <div className="text-lg font-bold text-emerald-400">GREEN</div>
+                  <p className="text-xs text-muted-foreground">Verified</p>
+                </div>
+                <div className="p-2 rounded bg-amber-500/10 border border-amber-500/30 text-center">
+                  <div className="text-lg font-bold text-amber-400">YELLOW</div>
+                  <p className="text-xs text-muted-foreground">Limited</p>
+                </div>
+                <div className="p-2 rounded bg-red-500/10 border border-red-500/30 text-center">
+                  <div className="text-lg font-bold text-red-400">RED</div>
+                  <p className="text-xs text-muted-foreground">Denied</p>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                If deeper evidence is required, vendors can use their own direct integration/link to the issuer. 
+                <strong className="text-foreground"> Ghost/VALID is a conduit—not the data warehouse.</strong>
+              </p>
+            </div>
+
+            {/* Future-Ready */}
+            <div className="p-3 rounded-lg bg-muted/20 border border-border">
+              <div className="flex items-center gap-2">
+                <Rocket className="h-4 w-4 text-muted-foreground" />
+                <p className="text-xs text-muted-foreground">
+                  <strong className="text-foreground">Future-ready interfaces:</strong> Today the pass is delivered via QR; the same Ghost token mechanics 
+                  are designed to extend to spatial and next-gen interaction modes upon request.
+                </p>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="pt-2">
+              <p className="text-sm text-muted-foreground mb-3">
                 Ghost Pass and wallet demos are being packaged into interactive scenarios. 
                 For now, you can preview the flow and request early access.
               </p>
@@ -100,14 +192,49 @@ const GhostEcosystemModule = () => {
           </DialogHeader>
           
           <div className="space-y-6 py-4">
+            {/* SpaceX Analogy */}
+            <div className="p-4 rounded-lg bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/20">
+              <div className="flex items-center gap-2 mb-2">
+                <Rocket className="h-5 w-5 text-emerald-400" />
+                <h4 className="font-semibold text-foreground">The SpaceX Analogy</h4>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">
+                Think of the Ghost Pass like <strong className="text-foreground">SpaceX transporting astronauts and precious cargo</strong>.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                SpaceX doesn't <em>become</em> the astronaut. It doesn't <em>become</em> NASA. 
+                It's the <strong className="text-emerald-400">carrier</strong>—a secure, controlled transport layer that gets something valuable 
+                from Point A to Point B safely, with the right checks, telemetry, and procedures.
+              </p>
+            </div>
+
             {/* What Ghost Is */}
             <div className="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
               <h4 className="font-semibold text-foreground mb-2">What Ghost Is</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground mb-3">
                 Ghost is a privacy-preserving pass and wallet inside VALID. Users can share only what they choose, 
-                as time-limited status signals. Underlying records stay with the system of record (your systems or 
-                approved verification sources).
+                as time-limited status signals. Underlying records stay with the system of record.
               </p>
+              <div className="space-y-2">
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-muted-foreground">
+                    <strong className="text-foreground">The source of truth stays where it belongs:</strong> Labs hold lab records. IDV providers hold identity records. Issuers hold credential truth.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-muted-foreground">
+                    Ghost/VALID <strong className="text-foreground">doesn't warehouse those sensitive records</strong>.
+                  </p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-sm text-muted-foreground">
+                    Ghost carries a <strong className="text-emerald-400">time-bound, permissioned token</strong> that says: "This user authorizes this vendor to verify this specific thing for this specific purpose."
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* The 4-Step Flow */}
@@ -141,11 +268,12 @@ const GhostEcosystemModule = () => {
                   <div>
                     <h5 className="font-semibold text-foreground mb-1">Generate the Ghost QR Pass</h5>
                     <p className="text-sm text-muted-foreground">
-                      A dynamic QR is generated for sharing. It contains an opaque reference — not personal data.
+                      A dynamic QR is generated. It contains <strong className="text-foreground">tokenized permissions</strong> (not raw data). 
+                      Short-lived by default (30s) to reduce replay/screenshot abuse. Can be extended (30s / 2m / 5m) when needed.
                     </p>
                     <div className="mt-2 p-3 bg-background rounded border border-dashed border-emerald-500/30 text-center">
                       <QrCode className="h-12 w-12 text-emerald-400 mx-auto opacity-60" />
-                      <p className="text-xs text-muted-foreground mt-1">Dynamic QR • Opaque Reference Only</p>
+                      <p className="text-xs text-muted-foreground mt-1">Dynamic QR • Tokenized Permissions • Time-bound</p>
                     </div>
                   </div>
                 </div>
@@ -157,9 +285,14 @@ const GhostEcosystemModule = () => {
                   </div>
                   <div>
                     <h5 className="font-semibold text-foreground mb-1">Scan & Verify</h5>
-                    <p className="text-sm text-muted-foreground">
-                      The scanner (venue or partner) receives a status response (e.g., verified/not verified + allowed signals). No raw records are exposed.
+                    <p className="text-sm text-muted-foreground mb-2">
+                      The scanner (venue or partner) receives:
                     </p>
+                    <ul className="text-sm text-muted-foreground space-y-1 ml-4">
+                      <li>• A simple operational result: <strong className="text-emerald-400">Green / Yellow / Red</strong></li>
+                      <li>• Only the minimal fields the user authorized and the vendor requires</li>
+                      <li>• An auditable trail of: what was requested, what was authorized, what decision was returned</li>
+                    </ul>
                   </div>
                 </div>
 
@@ -171,15 +304,28 @@ const GhostEcosystemModule = () => {
                   <div>
                     <h5 className="font-semibold text-foreground mb-1">Auto-Expire + Safety Controls</h5>
                     <p className="text-sm text-muted-foreground">
-                      The share token expires quickly (e.g., ~30 seconds) and can be revoked. Screenshots and stale tokens fail safely.
+                      The share token expires quickly and can be revoked. Screenshots and stale tokens fail safely.
                     </p>
                     <div className="mt-2 flex items-center gap-2 text-xs text-amber-400">
                       <Timer className="h-3 w-3" />
-                      <span>~30 second TTL • User-revocable • Screenshot-safe</span>
+                      <span>30s default TTL • User-extendable • User-revocable • Screenshot-safe</span>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Why This Reduces Exposure */}
+            <div className="p-4 rounded-lg bg-muted/30 border border-border">
+              <div className="flex items-center gap-2 mb-2">
+                <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                <h4 className="font-semibold text-foreground text-sm">Why This Reduces Exposure</h4>
+              </div>
+              <ul className="text-sm text-muted-foreground space-y-1">
+                <li>• You minimize custody of sensitive records</li>
+                <li>• You reduce what vendors collect/store by default</li>
+                <li>• You keep verification anchored to issuer attestations (the parties already responsible for the truth)</li>
+              </ul>
             </div>
 
             {/* What the Scanner Sees */}
@@ -199,9 +345,6 @@ const GhostEcosystemModule = () => {
                   <p className="text-xs text-muted-foreground">Not verified. Do not admit.</p>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mt-2 text-center">
-                Optional: "Proof Record Available" indicator (yes/no)
-              </p>
             </div>
 
             {/* What We Do NOT Do */}

@@ -153,7 +153,7 @@ const INDUSTRY_PACKAGES = [
 ];
 
 export const PackagingPricing = () => {
-  const [pricingMenuOpen, setPricingMenuOpen] = useState(false);
+  const [pricingMenuOpen, setPricingMenuOpen] = useState(true);
   const [industryPackagesOpen, setIndustryPackagesOpen] = useState(false);
 
   return (

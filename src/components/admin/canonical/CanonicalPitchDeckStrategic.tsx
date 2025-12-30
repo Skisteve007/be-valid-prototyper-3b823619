@@ -120,7 +120,7 @@ export const CanonicalPitchDeckStrategic = () => {
 
   return (
     <div className="space-y-6 print-content">
-      <BrandedHeader title="Pitch Deck — Strategic" variant="synth" />
+      <BrandedHeader title="Confidential Pitch Materials" variant="synth" />
       
       <div className="flex justify-between items-start">
         <div>

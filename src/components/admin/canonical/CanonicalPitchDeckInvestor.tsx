@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard, QualityGateChecklist, BrandedHeader, LegalFooter, SimpleFlowDiagram } from "../PrintStyles";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard, BrandedHeader, LegalFooter, SimpleFlowDiagram } from "../PrintStyles";
 
 const slides = [
   {
@@ -165,7 +165,6 @@ export const CanonicalPitchDeckInvestor = () => {
         ))}
       </div>
 
-      <QualityGateChecklist />
       <LegalFooter />
     </div>
   );

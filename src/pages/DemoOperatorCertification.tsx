@@ -167,7 +167,7 @@ const DemoOperatorCertification = () => {
     <>
       <Helmet>
         <title>Demo A — Operator Certification (Workforce) | Valid™</title>
-        <meta name="description" content="Measure, monitor, and certify how humans use AI—over time. Scoring for verification discipline, risk handling, and policy compliance." />
+        <meta name="description" content="Numerically score how people use AI—over time (0–100). Includes category sub-scores, trendlines, LLM/interface traceability, and proof record IDs." />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
@@ -184,7 +184,7 @@ const DemoOperatorCertification = () => {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Demo A — Operator Certification (Workforce)</h1>
-                  <p className="text-sm text-muted-foreground">Measure, monitor, and certify how humans use AI—over time.</p>
+                  <p className="text-sm text-muted-foreground">Numerically score how people use AI—over time (0–100).</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -208,42 +208,54 @@ const DemoOperatorCertification = () => {
                 What You'll See
               </CardTitle>
               <CardDescription className="text-base">
-                Most enterprises already have "AI-assisted work" happening across engineering, ops, support, finance, and recruiting—often without proof, controls, or consistency. This demo shows how SYNTH turns human+AI work into something <strong className="text-foreground">auditable and defensible</strong>.
+                SYNTH doesn't just grade outputs. It evaluates <strong className="text-foreground">operator cognition and verification behavior</strong> across real AI-assisted work and produces an evidence-backed report that executives can read and technical reviewers can audit.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
-                  <span>A simulated multi-turn scenario where the operator must follow verification rules (source checks, escalation, red-flags)</span>
+                  <span>A simulated multi-turn scenario scored for <strong className="text-foreground">verification discipline</strong>, <strong className="text-foreground">risk handling</strong>, and <strong className="text-foreground">decision quality</strong></span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
-                  <span>Scoring for <strong className="text-foreground">verification discipline</strong>, <strong className="text-foreground">risk handling</strong>, and <strong className="text-foreground">policy compliance</strong> (not just "got the answer")</span>
+                  <span>A selectable evaluation window: <strong className="text-foreground">7 / 30 / 60 / 90 days</strong> (trendlines + drift detection)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
-                  <span>A selectable evaluation window: <strong className="text-foreground">7 / 30 / 60 / 90 days</strong> to reveal behavior trends (improving vs drifting)</span>
+                  <span>A <strong className="text-foreground">Cognitive & Governance Scorecard (0–100)</strong> with category sub-scores (0–100):</span>
+                </li>
+              </ul>
+              
+              <div className="pl-6 ml-1 border-l-2 border-purple-500/30 space-y-1.5 text-sm text-muted-foreground">
+                <p><strong className="text-foreground">Verification Discipline:</strong> source-checking, citation hygiene, cross-validation</p>
+                <p><strong className="text-foreground">Risk Handling:</strong> red-flag recognition, escalation behavior, safe fallbacks</p>
+                <p><strong className="text-foreground">Reasoning Quality:</strong> problem framing, consistency, error correction, pushback handling</p>
+                <p><strong className="text-foreground">Policy Compliance:</strong> staying within allowed scopes, data handling rules</p>
+              </div>
+
+              <ul className="space-y-2 text-sm text-muted-foreground pt-2">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
+                  <span><strong className="text-foreground">Interface / Model Traceability:</strong> visibility into which AI interface/LLM was used during evaluated work (for governance and reproducibility)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
-                  <span>A certification output: <strong className="text-foreground">PASS / REVIEW / FAIL</strong> with <strong className="text-foreground">proof record IDs</strong> and a traceable explanation of why</span>
+                  <span>A reviewable <strong className="text-foreground">evidence trail:</strong> proof record IDs + "why" traces that explain each score</span>
                 </li>
               </ul>
 
               <div className="pt-4 border-t border-border/50">
-                <h4 className="font-semibold text-foreground mb-2">Why it matters (enterprise impact):</h4>
+                <h4 className="font-semibold text-foreground mb-2">Outputs:</h4>
                 <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li>• Detects "confident nonsense" and shortcut behavior before it becomes incidents</li>
-                  <li>• Creates defensible records for regulated/high-trust roles</li>
-                  <li>• Helps hiring teams and managers distinguish true operators from AI-assisted bluffing</li>
-                  <li>• Enables role-based standards for high-performance environments (critical infrastructure, healthcare, aerospace/defense, finance)</li>
+                  <li>• <strong className="text-foreground">Overall Score (0–100)</strong> + sub-scores (0–100) + trendline (improving / stable / drifting)</li>
+                  <li>• Optional executive summary label: <strong className="text-foreground">PASS / REVIEW / FAIL</strong> derived from score thresholds (kept as a summary layer, not the product)</li>
                 </ul>
               </div>
 
               <div className="pt-4 border-t border-border/50">
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">Who it's for:</strong> Regulated employers, critical infrastructure, healthcare, aerospace/defense, universities, and high-trust operations.
+                  <strong className="text-foreground">Who it's for:</strong> Regulated employers, universities, critical infrastructure, aerospace/defense, and high-trust operations.
                 </p>
               </div>
             </CardContent>

@@ -120,14 +120,14 @@ const DemoHub = () => {
     // TOP 3 — Reordered per restructure pack
     {
       title: "Demo A — Operator Certification (Workforce)",
-      subtitle: "Measure, monitor, and certify how humans use AI—over time.",
+      subtitle: "Numerically score how people use AI—over time (0–100).",
       icon: UserCheck,
       bullets: [
-        "A simulated multi-turn scenario scored for verification discipline and risk handling",
-        "A selectable evaluation window: 7 / 30 / 60 / 90 days to reveal behavior trends",
-        "A certification report (PASS / REVIEW / FAIL) with proof record IDs",
+        "Category sub-scores (0–100): Verification Discipline, Risk Handling, Reasoning Quality, Policy Compliance",
+        "Trendlines + drift detection over 7 / 30 / 60 / 90 day windows",
+        "LLM/interface traceability and proof record IDs",
       ],
-      whoFor: "Regulated employers, universities, critical infrastructure, high-trust operations",
+      whoFor: "Regulated employers, universities, critical infrastructure, aerospace/defense, and high-trust operations",
       path: "/demos/operator-certification",
     },
     {

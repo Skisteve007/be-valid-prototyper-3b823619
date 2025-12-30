@@ -199,16 +199,16 @@ const App = () => (
                   <Route path="/synth/e2e-test" element={<SynthE2ETest />} />
                   <Route path="/synth/senate-lab" element={<SynthSenateLab />} />
                   <Route path="/debate-room" element={<DebateRoom />} />
-                  <Route path="/demos" element={<DemoHub />} />
-                  <Route path="/demos/router" element={<DemoRouter />} />
-                  <Route path="/demos/senate-qa" element={<DemoSenateQA />} />
-                  <Route path="/demos/monitoring" element={<DemoMonitoring />} />
-                  <Route path="/demos/enterprise-sandbox" element={<DemoEnterpriseSandbox />} />
-                  <Route path="/demos/audit-verifier" element={<DemoAuditVerifier />} />
-                  <Route path="/demos/upload-verdict" element={<DemoUploadVerdict />} />
-                  <Route path="/demos/scale-conduit" element={<DemoScaleConduit />} />
-                  <Route path="/demos/operator-certification" element={<DemoOperatorCertification />} />
-                  <Route path="/demos/servicenow" element={<DemoServiceNow />} />
+                  <Route path="/demos" element={<AccessGate accessType="partner"><DemoHub /></AccessGate>} />
+                  <Route path="/demos/router" element={<AccessGate accessType="partner"><DemoRouter /></AccessGate>} />
+                  <Route path="/demos/senate-qa" element={<AccessGate accessType="partner"><DemoSenateQA /></AccessGate>} />
+                  <Route path="/demos/monitoring" element={<AccessGate accessType="partner"><DemoMonitoring /></AccessGate>} />
+                  <Route path="/demos/enterprise-sandbox" element={<AccessGate accessType="partner"><DemoEnterpriseSandbox /></AccessGate>} />
+                  <Route path="/demos/audit-verifier" element={<AccessGate accessType="partner"><DemoAuditVerifier /></AccessGate>} />
+                  <Route path="/demos/upload-verdict" element={<AccessGate accessType="partner"><DemoUploadVerdict /></AccessGate>} />
+                  <Route path="/demos/scale-conduit" element={<AccessGate accessType="partner"><DemoScaleConduit /></AccessGate>} />
+                  <Route path="/demos/operator-certification" element={<AccessGate accessType="partner"><DemoOperatorCertification /></AccessGate>} />
+                  <Route path="/demos/servicenow" element={<AccessGate accessType="partner"><DemoServiceNow /></AccessGate>} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

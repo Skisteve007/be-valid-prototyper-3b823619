@@ -127,7 +127,7 @@ export const CanonicalPitchDeckInvestor = () => {
 
   return (
     <div className="space-y-6 print-content">
-      <BrandedHeader title="Pitch Deck — Investor" variant="both" />
+      <BrandedHeader title="Confidential Pitch Materials" variant="both" />
       
       <div className="flex justify-between items-start">
         <div>

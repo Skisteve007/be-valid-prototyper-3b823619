@@ -2,15 +2,85 @@ import { Button } from "@/components/ui/button";
 import { Printer, Download, Shield, CheckCircle, ArrowRight } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
-export const PrintButton = ({ className }: { className?: string }) => {
-  const handlePrint = () => {
-    window.print();
-  };
+const cloneStylesIntoDocument = (targetDoc: Document) => {
+  document
+    .querySelectorAll<HTMLLinkElement | HTMLStyleElement>(
+      'link[rel="stylesheet"], style'
+    )
+    .forEach((node) => {
+      targetDoc.head.appendChild(node.cloneNode(true));
+    });
+};
 
+const printHTMLElement = async (rootEl: HTMLElement) => {
+  const iframe = document.createElement("iframe");
+  iframe.setAttribute("aria-hidden", "true");
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "0";
+  iframe.style.opacity = "0";
+
+  document.body.appendChild(iframe);
+
+  const win = iframe.contentWindow;
+  const doc = win?.document;
+  if (!win || !doc) {
+    iframe.remove();
+    window.print();
+    return;
+  }
+
+  doc.open();
+  doc.write("<!doctype html><html><head></head><body></body></html>");
+  doc.close();
+
+  doc.documentElement.className = document.documentElement.className;
+  cloneStylesIntoDocument(doc);
+
+  const clone = rootEl.cloneNode(true) as HTMLElement;
+  doc.body.appendChild(clone);
+
+  // Wait for images so logo/badges don't render low-quality or late.
+  const imgs = Array.from(doc.images);
+  await new Promise<void>((resolve) => {
+    if (imgs.length === 0) return resolve();
+    let done = 0;
+    const finish = () => {
+      done += 1;
+      if (done >= imgs.length) resolve();
+    };
+    imgs.forEach((img) => {
+      if (img.complete) return finish();
+      img.addEventListener("load", finish, { once: true });
+      img.addEventListener("error", finish, { once: true });
+    });
+  });
+
+  win.focus();
+  win.print();
+
+  // Cleanup after the print dialog opens.
+  setTimeout(() => iframe.remove(), 1000);
+};
+
+const printClosestContentRoot = async (triggerEl: HTMLElement | null) => {
+  const root =
+    (triggerEl?.closest(".print-content") as HTMLElement | null) ??
+    document.querySelector<HTMLElement>(".print-content");
+
+  if (!root) return window.print();
+
+  await printHTMLElement(root);
+};
+
+export const PrintButton = ({ className }: { className?: string }) => {
   return (
     <Button
       variant="outline"
-      onClick={handlePrint}
+      onClick={(e) => void printClosestContentRoot(e.currentTarget)}
       className={`print:hidden ${className || ""}`}
     >
       <Printer className="h-4 w-4 mr-2" />
@@ -20,14 +90,10 @@ export const PrintButton = ({ className }: { className?: string }) => {
 };
 
 export const ExportPDFButton = ({ className }: { className?: string }) => {
-  const handleExport = () => {
-    window.print(); // Browser print dialog allows PDF export
-  };
-
   return (
     <Button
       variant="outline"
-      onClick={handleExport}
+      onClick={(e) => void printClosestContentRoot(e.currentTarget)}
       className={`print:hidden ${className || ""}`}
     >
       <Download className="h-4 w-4 mr-2" />
@@ -42,17 +108,24 @@ export const LastUpdated = () => (
   </p>
 );
 
-export const BrandedHeader = ({ 
-  title, 
-  variant = "synth" 
-}: { 
+export const BrandedHeader = ({
+  title,
+  variant = "synth",
+}: {
   title: string;
   variant?: "synth" | "valid" | "both";
 }) => (
-  <div className="print-header flex items-center justify-between mb-6 pb-4 border-b print:!border-gray-800 print:!border-b-2">
-    <div className="flex items-center gap-3">
-      <img src={logo} alt="VALID" className="h-10 w-10 rounded-lg print:h-12 print:w-12" />
-      <span className="text-lg font-bold print:!text-black">{title}</span>
+  <header className="print-header flex items-center justify-between mb-6 pb-4 border-b print:!border-gray-800 print:!border-b-2">
+    <div className="flex items-center gap-3 min-w-0">
+      <img
+        src={logo}
+        alt="VALID logo"
+        className="h-9 w-9 rounded-md print:h-10 print:w-10"
+        loading="eager"
+      />
+      <span className="text-base font-semibold print:!text-black truncate">
+        {title}
+      </span>
     </div>
     <div className="text-right">
       <span className="text-sm font-semibold text-primary print:!text-gray-800">
@@ -61,7 +134,7 @@ export const BrandedHeader = ({
         {variant === "both" && "SYNTH™ / VALID™"}
       </span>
     </div>
-  </div>
+  </header>
 );
 
 export const LegalFooter = () => (
@@ -88,7 +161,7 @@ export const PrintableSection = ({
   children: React.ReactNode; 
   className?: string;
 }) => (
-  <div className={`print:bg-white print:text-black print:p-8 ${className}`}>
+  <div className={`print-content print:bg-white print:text-black print:p-8 ${className}`}>
     {children}
   </div>
 );

@@ -176,6 +176,68 @@ const operatorCertificationEntry = {
   title: "Operator Certification — The Enterprise Wedge",
   content: `OPERATOR CERTIFICATION — THE ENTERPRISE WEDGE
 
+SYNTH measures how a person thinks and verifies while using AI—not just whether they got an answer.
+
+═══════════════════════════════════════════════════════════════════
+CANONICAL RUBRIC (10 Categories, each 0–100)
+═══════════════════════════════════════════════════════════════════
+
+1) Verification Discipline
+   Does the operator validate claims and avoid "confident nonsense"?
+   Evidence: Source checks, citations, verification steps, corrections
+
+2) Risk Handling & Escalation
+   Do they apply brakes in high-stakes situations?
+   Evidence: Red-flag events, escalation triggers, blocked actions
+
+3) Calibration (Trust vs Skepticism)
+   Do they know when to trust AI vs challenge it?
+   Evidence: Confidence markers, challenge rate, acceptance patterns
+
+4) Reasoning Quality (Problem Solving)
+   Can they frame problems correctly and stay consistent?
+   Evidence: Prompt quality, constraint handling, revisions
+
+5) Policy Compliance (Scope + Data Handling)
+   Do they follow governance rules and avoid unsafe data use?
+   Evidence: Policy hits/violations, restricted data detection
+
+6) Auditability & Record Quality
+   Can a reviewer reconstruct what happened and why?
+   Evidence: Proof record IDs, decision rationale, trace completeness
+
+7) Bias / Fairness Awareness
+   Do they recognize bias risks and mitigate appropriately?
+   Evidence: Bias flags, fairness checks, remediation actions
+
+8) Incident Response Readiness
+   Do they respond correctly when AI fails?
+   Evidence: Incident flags, reports, remediation steps
+
+9) Tool/Model Hygiene (Interface Traceability)
+   Do they use approved tools and remain reproducible?
+   Evidence: LLM/interface used, model/version, routing logs
+
+10) Operational Outcome Integrity
+    Do results hold up in the real world?
+    Evidence: Post-check outcomes, overrides, error rates
+
+═══════════════════════════════════════════════════════════════════
+OUTPUTS DELIVERED
+═══════════════════════════════════════════════════════════════════
+
+• Overall Score (0–100)
+• Category sub-scores (0–100) for each rubric line
+• Trendline over time (7 / 30 / 60 / 90 / 90+ days): improving / stable / drifting
+• Evidence pack: proof record IDs + reviewer-ready traces
+
+Optional (summary layer only):
+• PASS / REVIEW / FAIL derived from score thresholds
+
+═══════════════════════════════════════════════════════════════════
+THE ENTERPRISE VALUE
+═══════════════════════════════════════════════════════════════════
+
 Operator Certification turns AI usage into a measurable standard. It answers:
 • Who verifies vs who shortcuts?
 • Who escalates risk correctly under ambiguity?
@@ -191,7 +253,10 @@ SYNTH becomes the FLIGHT RECORDER for AI-assisted work:
 ✓ Measurable behavior
 ✓ Proof when it matters
 
-TALK TRACK — WHY ENTERPRISES BUY SYNTH:
+═══════════════════════════════════════════════════════════════════
+TALK TRACK — WHY ENTERPRISES BUY SYNTH
+═══════════════════════════════════════════════════════════════════
+
 Enterprises don't buy "accuracy." They buy CONTROL and DEFENSIBILITY.
 
 AI is already being used across the organization—often informally. The risk isn't the average hallucination rate; it's the TAIL RISK: one wrong answer in a high-stakes workflow can trigger major financial loss, legal exposure, and reputational damage.
@@ -200,7 +265,7 @@ SYNTH gives leadership:
 • Visibility into how AI is being used (approved or not)
 • Policy enforcement for high-stakes workflows
 • Proof records (audit logs) showing what happened and why
-• Operator Certification to measure verification discipline over time (PASS/REVIEW/FAIL)`
+• Operator Certification to measure verification discipline over time (0–100 numeric)`
 };
 
 export const CEOPlaybookTab = () => {

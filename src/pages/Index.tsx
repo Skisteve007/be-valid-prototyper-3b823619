@@ -1,10 +1,11 @@
 // Pipeline Test v2: Fresh deployment - Dec 14, 2024 @ 15:42 UTC
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown, Brain, FileText, UserCheck, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import Hero from "@/components/Hero";
 import { PricingSection } from "@/components/PricingSection";
 import { BetaBanner } from "@/components/BetaBanner";
@@ -127,8 +128,73 @@ const Index = () => {
         <Hero />
       </div>
 
+      {/* SYNTH ENTERPRISE BLOCK - AI Governance */}
+      <section className="relative z-10 py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <Card className={`border-cyan-500/30 ${isDark ? 'bg-cyan-500/5' : 'bg-cyan-50'}`}>
+            <CardContent className="pt-8 pb-8 px-6 md:px-10">
+              <div className="flex items-start gap-4 mb-6">
+                <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/20 border border-cyan-500/30' : 'bg-cyan-100'}`}>
+                  <Brain className="h-8 w-8 text-cyan-500" />
+                </div>
+                <div>
+                  <h2 className={`text-2xl md:text-3xl font-bold font-orbitron mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    AI is already inside your company.
+                  </h2>
+                  <p className={`text-lg ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
+                    Are you governing it—or guessing?
+                  </p>
+                </div>
+              </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
+                  <Shield className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Policy Enforcement</h3>
+                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
+                    Enforce verification rules for AI-assisted work before decisions ship.
+                  </p>
+                </div>
+                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
+                  <FileText className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Monitoring + Audit Logs</h3>
+                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
+                    Proof records for every decision—court-ready when it matters.
+                  </p>
+                </div>
+                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
+                  <UserCheck className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Workforce Certification</h3>
+                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
+                    PASS / REVIEW / FAIL scoring over time—not just a snapshot.
+                  </p>
+                </div>
+              </div>
 
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  asChild
+                  className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold"
+                >
+                  <Link to="/demos">
+                    Request Demo Access
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className={`${isDark ? 'border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10' : 'border-cyan-500 text-cyan-600 hover:bg-cyan-50'}`}
+                >
+                  <Link to="/demos/operator-certification">
+                    See Operator Certification
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
       {/* PIPELINE, NOT VAULT - Trust Enhancer with Image Background */}
       <section className="relative z-10 overflow-hidden">
         <div 

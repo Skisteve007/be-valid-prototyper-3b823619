@@ -177,6 +177,31 @@ const TrustCenter: React.FC = () => {
             You control who sees your trust score.
           </p>
         </div>
+
+        {/* AI Governance Section */}
+        <div className="mt-6 p-4 bg-card rounded-xl border border-cyan-500/30">
+          <div className="flex items-center gap-2 text-cyan-400 text-sm mb-2">
+            <Shield className="w-4 h-4" />
+            AI Governance
+          </div>
+          <p className="text-muted-foreground text-xs leading-relaxed mb-3">
+            SYNTH™ provides enterprise-grade AI governance: policy enforcement, audit logs, and proof records for every AI-assisted decision.
+          </p>
+          <div className="flex gap-2 flex-wrap">
+            <button
+              onClick={() => navigate('/synth/logs')}
+              className="text-xs px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition"
+            >
+              View Audit Logs
+            </button>
+            <button
+              onClick={() => navigate('/synth/docs')}
+              className="text-xs px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition"
+            >
+              SYNTH™ Docs
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

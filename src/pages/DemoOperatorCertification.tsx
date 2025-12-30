@@ -166,8 +166,8 @@ const DemoOperatorCertification = () => {
   return (
     <>
       <Helmet>
-        <title>Demo G — Operator Certification | Valid™</title>
-        <meta name="description" content="SYNTH measures how a user uses AI—not just what the AI says. Certify operator verification discipline over time." />
+        <title>Demo A — Operator Certification (Workforce) | Valid™</title>
+        <meta name="description" content="Measure, monitor, and certify how humans use AI—over time. Scoring for verification discipline, risk handling, and policy compliance." />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
@@ -183,8 +183,8 @@ const DemoOperatorCertification = () => {
                   <UserCheck className="h-6 w-6 text-purple-400" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-foreground">Operator Certification (Demo)</h1>
-                  <p className="text-sm text-muted-foreground">SYNTH measures how a user uses AI—not just what the AI says.</p>
+                  <h1 className="text-xl font-bold text-foreground">Demo A — Operator Certification (Workforce)</h1>
+                  <p className="text-sm text-muted-foreground">Measure, monitor, and certify how humans use AI—over time.</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -199,6 +199,56 @@ const DemoOperatorCertification = () => {
 
         <main className="container mx-auto px-4 py-8 max-w-5xl">
           <DemoEnvironmentNotice variant="banner" />
+
+          {/* Demo Explainer Section - Canonical Copy */}
+          <Card className="mb-6 border-purple-500/30 bg-purple-500/5">
+            <CardHeader>
+              <CardTitle className="text-xl flex items-center gap-2">
+                <UserCheck className="h-5 w-5 text-purple-400" />
+                What You'll See
+              </CardTitle>
+              <CardDescription className="text-base">
+                Most enterprises already have "AI-assisted work" happening across engineering, ops, support, finance, and recruiting—often without proof, controls, or consistency. This demo shows how SYNTH turns human+AI work into something <strong className="text-foreground">auditable and defensible</strong>.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
+                  <span>A simulated multi-turn scenario where the operator must follow verification rules (source checks, escalation, red-flags)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
+                  <span>Scoring for <strong className="text-foreground">verification discipline</strong>, <strong className="text-foreground">risk handling</strong>, and <strong className="text-foreground">policy compliance</strong> (not just "got the answer")</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
+                  <span>A selectable evaluation window: <strong className="text-foreground">7 / 30 / 60 / 90 days</strong> to reveal behavior trends (improving vs drifting)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 mt-0.5 text-purple-400 shrink-0" />
+                  <span>A certification output: <strong className="text-foreground">PASS / REVIEW / FAIL</strong> with <strong className="text-foreground">proof record IDs</strong> and a traceable explanation of why</span>
+                </li>
+              </ul>
+
+              <div className="pt-4 border-t border-border/50">
+                <h4 className="font-semibold text-foreground mb-2">Why it matters (enterprise impact):</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• Detects "confident nonsense" and shortcut behavior before it becomes incidents</li>
+                  <li>• Creates defensible records for regulated/high-trust roles</li>
+                  <li>• Helps hiring teams and managers distinguish true operators from AI-assisted bluffing</li>
+                  <li>• Enables role-based standards for high-performance environments (critical infrastructure, healthcare, aerospace/defense, finance)</li>
+                </ul>
+              </div>
+
+              <div className="pt-4 border-t border-border/50">
+                <p className="text-sm text-muted-foreground">
+                  <strong className="text-foreground">Who it's for:</strong> Regulated employers, critical infrastructure, healthcare, aerospace/defense, universities, and high-trust operations.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
 
           {/* Controls Section */}
           <Card className="mb-6 border-border/50">

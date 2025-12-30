@@ -126,7 +126,7 @@ export const CanonicalPitchDeckInvestor = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 print-content">
       <BrandedHeader title="Pitch Deck — Investor" variant="both" />
       
       <div className="flex justify-between items-start">
@@ -150,13 +150,13 @@ export const CanonicalPitchDeckInvestor = () => {
         {slides.map((slide) => (
           <PrintableCard key={slide.number}>
             <div className="flex items-start gap-4">
-              <div className="bg-primary/10 text-primary font-bold rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0">
+              <div className="bg-primary/10 text-primary font-bold rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 print:!bg-teal-100 print:!text-teal-700 print:!border print:!border-teal-400">
                 {slide.number}
               </div>
               <div className="flex-1">
                 <PrintableHeading level={3}>{slide.title}</PrintableHeading>
                 {slide.subtitle && (
-                  <p className="text-muted-foreground mb-3 italic print:text-gray-600">{slide.subtitle}</p>
+                  <p className="text-muted-foreground mb-3 italic print:!text-gray-600">{slide.subtitle}</p>
                 )}
                 <PrintableBulletList items={slide.bullets} />
               </div>

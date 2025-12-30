@@ -37,7 +37,7 @@ export const ExportPDFButton = ({ className }: { className?: string }) => {
 };
 
 export const LastUpdated = () => (
-  <p className="text-sm text-muted-foreground mb-4 print:text-black">
+  <p className="text-sm text-muted-foreground mb-4 print:!text-gray-700">
     Last Updated: 2025-12-29
   </p>
 );
@@ -49,13 +49,13 @@ export const BrandedHeader = ({
   title: string;
   variant?: "synth" | "valid" | "both";
 }) => (
-  <div className="flex items-center justify-between mb-6 pb-4 border-b print:border-black">
+  <div className="print-header flex items-center justify-between mb-6 pb-4 border-b print:!border-gray-800 print:!border-b-2">
     <div className="flex items-center gap-3">
       <img src={logo} alt="VALID" className="h-10 w-10 rounded-lg print:h-12 print:w-12" />
-      <span className="text-lg font-bold print:text-black">{title}</span>
+      <span className="text-lg font-bold print:!text-black">{title}</span>
     </div>
     <div className="text-right">
-      <span className="text-sm font-semibold text-primary print:text-black">
+      <span className="text-sm font-semibold text-primary print:!text-gray-800">
         {variant === "synth" && "SYNTH™"}
         {variant === "valid" && "VALID™"}
         {variant === "both" && "SYNTH™ / VALID™"}
@@ -65,8 +65,8 @@ export const BrandedHeader = ({
 );
 
 export const LegalFooter = () => (
-  <div className="mt-8 pt-4 border-t text-xs text-muted-foreground print:text-gray-600 print:border-black space-y-1">
-    <p className="font-semibold">Confidential — For discussion purposes only.</p>
+  <div className="print-footer mt-8 pt-4 border-t text-xs text-muted-foreground print:!text-gray-700 print:!border-gray-800 space-y-1">
+    <p className="font-semibold print:!text-gray-900">Confidential — For discussion purposes only.</p>
     <p>© 2025 Giant Ventures LLC. All rights reserved.</p>
     <p>SYNTH™ and VALID™ are trademarks of Giant Ventures LLC.</p>
     <p>Do not distribute without permission. No guarantee of accuracy; information subject to change.</p>
@@ -74,8 +74,8 @@ export const LegalFooter = () => (
 );
 
 export const ConfidentialityBanner = () => (
-  <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-4 mb-6 print:bg-red-50 print:border-red-500">
-    <p className="text-red-400 font-bold text-center print:text-red-700">
+  <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-4 mb-6 print:!bg-red-50 print:!border-red-600 print:!border-2">
+    <p className="text-red-400 font-bold text-center print:!text-red-700">
       ⚠️ CONFIDENTIAL INTERNAL MATERIAL — Do not forward externally. No reverse engineering or reproduction.
     </p>
   </div>
@@ -149,7 +149,7 @@ export const PrintableCard = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={`border rounded-lg p-6 mb-6 print:border-black print:bg-white ${className}`}>
+  <div className={`border rounded-lg p-6 mb-6 print:!border-gray-800 print:!border-2 print:!bg-white ${className}`}>
     {children}
   </div>
 );
@@ -163,9 +163,9 @@ export const DeprecationBanner = () => (
 );
 
 export const QualityGateChecklist = () => (
-  <div className="mt-8 p-6 border-2 border-dashed rounded-lg print:border-black">
-    <h4 className="text-lg font-bold mb-4 print:text-black">FINAL Q&A PASS (CHECKLIST)</h4>
-    <div className="space-y-2 print:text-black">
+  <div className="mt-8 p-6 border-2 border-dashed rounded-lg print:!border-gray-800 print:!border-2">
+    <h4 className="text-lg font-bold mb-4 print:!text-black">FINAL Q&A PASS (CHECKLIST)</h4>
+    <div className="space-y-2 print:!text-black">
       <div className="flex items-center gap-2">
         <span className="font-mono">☐</span>
         <span>Readable at high-school level</span>
@@ -187,7 +187,7 @@ export const QualityGateChecklist = () => (
         <span>Print-ready layout</span>
       </div>
     </div>
-    <div className="mt-4 pt-4 border-t print:border-black print:text-black">
+    <div className="mt-4 pt-4 border-t print:!border-gray-800 print:!text-black">
       <div className="flex items-center gap-4">
         <span>Passed:</span>
         <span className="font-mono">☐ Yes</span>
@@ -203,27 +203,27 @@ export const QualityGateChecklist = () => (
 
 // Simple conceptual visuals for decks
 export const SimpleFlowDiagram = () => (
-  <div className="my-6 p-6 bg-muted/30 rounded-lg print:bg-gray-50 print:border print:border-gray-300">
+  <div className="my-6 p-6 bg-muted/30 rounded-lg print:!bg-gray-100 print:!border print:!border-gray-400">
     <div className="flex items-center justify-center gap-4 flex-wrap">
       <div className="flex flex-col items-center">
-        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:bg-blue-100">
+        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:!bg-blue-100 print:!border print:!border-blue-400">
           <span className="text-2xl">📥</span>
         </div>
-        <span className="text-sm mt-2 font-medium print:text-black">Input</span>
+        <span className="text-sm mt-2 font-medium print:!text-black">Input</span>
       </div>
-      <ArrowRight className="h-6 w-6 text-muted-foreground print:text-gray-500" />
+      <ArrowRight className="h-6 w-6 text-muted-foreground print:!text-gray-600" />
       <div className="flex flex-col items-center">
-        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:bg-blue-100">
-          <Shield className="h-8 w-8 text-primary print:text-blue-600" />
+        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:!bg-blue-100 print:!border print:!border-blue-400">
+          <Shield className="h-8 w-8 text-primary print:!text-blue-700" />
         </div>
-        <span className="text-sm mt-2 font-medium print:text-black">Verify</span>
+        <span className="text-sm mt-2 font-medium print:!text-black">Verify</span>
       </div>
-      <ArrowRight className="h-6 w-6 text-muted-foreground print:text-gray-500" />
+      <ArrowRight className="h-6 w-6 text-muted-foreground print:!text-gray-600" />
       <div className="flex flex-col items-center">
-        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:bg-blue-100">
-          <CheckCircle className="h-8 w-8 text-primary print:text-blue-600" />
+        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center print:!bg-blue-100 print:!border print:!border-blue-400">
+          <CheckCircle className="h-8 w-8 text-primary print:!text-blue-700" />
         </div>
-        <span className="text-sm mt-2 font-medium print:text-black">Audit</span>
+        <span className="text-sm mt-2 font-medium print:!text-black">Audit</span>
       </div>
     </div>
   </div>

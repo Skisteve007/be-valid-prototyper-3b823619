@@ -119,13 +119,13 @@ export const CanonicalPitchDeckStrategic = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 print-content">
       <BrandedHeader title="Pitch Deck — Strategic" variant="synth" />
       
       <div className="flex justify-between items-start">
         <div>
           <PrintableHeading level={1}>Pitch Deck — Strategic (NVIDIA / NASA / Elon)</PrintableHeading>
-          <p className="text-muted-foreground mb-2">Canonical Version</p>
+          <p className="text-muted-foreground mb-2 print:!text-gray-700">Canonical Version</p>
           <LastUpdated />
         </div>
         <div className="flex gap-2 print:hidden">
@@ -144,13 +144,13 @@ export const CanonicalPitchDeckStrategic = () => {
         {slides.map((slide) => (
           <PrintableCard key={slide.number}>
             <div className="flex items-start gap-4">
-              <div className="bg-cyan-500/10 text-cyan-400 font-bold rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0">
+              <div className="bg-cyan-500/10 text-cyan-400 font-bold rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 print:!bg-cyan-100 print:!text-cyan-700 print:!border print:!border-cyan-400">
                 {slide.number}
               </div>
               <div className="flex-1">
                 <PrintableHeading level={3}>{slide.title}</PrintableHeading>
                 {slide.subtitle && (
-                  <p className="text-muted-foreground mb-3 italic print:text-gray-600">{slide.subtitle}</p>
+                  <p className="text-muted-foreground mb-3 italic print:!text-gray-600">{slide.subtitle}</p>
                 )}
                 <PrintableBulletList items={slide.bullets} />
               </div>

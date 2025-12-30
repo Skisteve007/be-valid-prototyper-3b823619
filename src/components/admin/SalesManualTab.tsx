@@ -12,6 +12,7 @@ import { FAQsByPersona } from "./sales/FAQsByPersona";
 import { PackagingPricing } from "./sales/PackagingPricing";
 import { IncumbentPositioning } from "./sales/IncumbentPositioning";
 import { GhostExplainer } from "./sales/GhostExplainer";
+import { LegalPrecedents } from "./sales/LegalPrecedents";
 
 export const SalesManualTab = () => {
   return (
@@ -31,6 +32,7 @@ export const SalesManualTab = () => {
               <TabsTrigger value="what-we-sell" className="text-xs sm:text-sm">What We Sell</TabsTrigger>
               <TabsTrigger value="pitch-deck" className="text-xs sm:text-sm">Pitch Deck</TabsTrigger>
               <TabsTrigger value="ghost" className="text-xs sm:text-sm">Ghost</TabsTrigger>
+              <TabsTrigger value="legal" className="text-xs sm:text-sm">Legal</TabsTrigger>
               <TabsTrigger value="discovery" className="text-xs sm:text-sm">Discovery</TabsTrigger>
               <TabsTrigger value="objections" className="text-xs sm:text-sm">Objections</TabsTrigger>
               <TabsTrigger value="language" className="text-xs sm:text-sm">Language</TabsTrigger>
@@ -50,6 +52,10 @@ export const SalesManualTab = () => {
 
             <TabsContent value="ghost">
               <GhostExplainer />
+            </TabsContent>
+
+            <TabsContent value="legal">
+              <LegalPrecedents />
             </TabsContent>
 
             <TabsContent value="discovery">

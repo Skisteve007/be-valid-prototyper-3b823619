@@ -855,3 +855,200 @@ html, body, #root {
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
 }
+
+/* ============================================
+   PRINT / PDF EXPORT STYLES
+   Clean document-only output with proper colors
+   ============================================ */
+@media print {
+  /* Reset to clean white background */
+  html, body, #root {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Hide all navigation, sidebars, and non-document elements */
+  nav,
+  header:not(.print-header),
+  footer:not(.print-footer),
+  aside,
+  [class*="sidebar"],
+  [class*="Sidebar"],
+  [class*="navigation"],
+  [class*="Navigation"],
+  [class*="tabs-list"],
+  [class*="TabsList"],
+  [role="tablist"],
+  [class*="accordion-trigger"]:not(.print-show),
+  .print\\:hidden,
+  button:not(.print-show),
+  [class*="toast"],
+  [class*="Toast"],
+  [class*="dialog"],
+  [class*="Dialog"],
+  [class*="modal"],
+  [class*="Modal"],
+  [class*="dropdown"],
+  [class*="Dropdown"],
+  [class*="popover"],
+  [class*="Popover"] {
+    display: none !important;
+  }
+
+  /* Ensure main content fills the page */
+  main, article, section, .print-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+  }
+
+  /* Force all text to be black and readable */
+  h1, h2, h3, h4, h5, h6 {
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  p, span, li, td, th, label, div {
+    color: black !important;
+  }
+
+  /* Ensure proper colors print (not grayed out) */
+  .bg-red-500, .bg-red-600, .text-red-500, .text-red-600,
+  [class*="destructive"], [class*="Destructive"] {
+    background-color: #ef4444 !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .text-red-400, .text-red-500, .text-red-600, .text-red-700 {
+    color: #dc2626 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .bg-cyan-500, .text-cyan-400, .text-cyan-500 {
+    color: #0891b2 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Slide number badges - cyan on print */
+  [class*="bg-cyan"] {
+    background-color: #e0f7fa !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Primary colors */
+  .bg-primary, .text-primary {
+    color: #0d7377 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  [class*="bg-primary"] {
+    background-color: #e0f2f1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Muted text should be dark gray, not light */
+  .text-muted-foreground {
+    color: #4b5563 !important;
+  }
+
+  /* Card styling for print */
+  [class*="Card"], [class*="card"], .border {
+    border: 1px solid #374151 !important;
+    background: white !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  /* Confidentiality banners - MUST be visible and red */
+  [class*="confidential"], [class*="Confidential"],
+  [class*="bg-red"] {
+    background-color: #fef2f2 !important;
+    border-color: #ef4444 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Legal footer styling */
+  [class*="LegalFooter"], .print-footer {
+    display: block !important;
+    border-top: 1px solid #374151 !important;
+    padding-top: 16px !important;
+    margin-top: 32px !important;
+    color: #4b5563 !important;
+  }
+
+  /* Quality gate checklist */
+  [class*="QualityGate"], .border-dashed {
+    border: 2px dashed #374151 !important;
+    page-break-inside: avoid;
+  }
+
+  /* Flow diagram styling */
+  [class*="FlowDiagram"], [class*="bg-muted"] {
+    background-color: #f3f4f6 !important;
+    border: 1px solid #d1d5db !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Branded header - keep visible */
+  [class*="BrandedHeader"] {
+    display: flex !important;
+    border-bottom: 2px solid #374151 !important;
+  }
+
+  /* Page breaks */
+  h1, h2 {
+    page-break-after: avoid;
+  }
+
+  /* Remove background gradients */
+  [class*="gradient"], [class*="Gradient"] {
+    background: white !important;
+  }
+
+  /* Links should be visible */
+  a {
+    color: #1d4ed8 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Tables */
+  table {
+    border-collapse: collapse !important;
+  }
+
+  th, td {
+    border: 1px solid #374151 !important;
+    padding: 8px !important;
+  }
+
+  /* Ensure icons print with color */
+  svg {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 0.75in;
+    size: letter;
+  }
+
+  /* First page no margin-top for cleaner look */
+  @page :first {
+    margin-top: 0.5in;
+  }
+}

@@ -11,6 +11,7 @@ import { SalesReadinessQuiz } from "./sales/SalesReadinessQuiz";
 import { FAQsByPersona } from "./sales/FAQsByPersona";
 import { PackagingPricing } from "./sales/PackagingPricing";
 import { IncumbentPositioning } from "./sales/IncumbentPositioning";
+import { GhostExplainer } from "./sales/GhostExplainer";
 
 export const SalesManualTab = () => {
   return (

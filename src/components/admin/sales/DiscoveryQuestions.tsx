@@ -1,5 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableCard, BrandedHeader, LegalFooter } from "../PrintStyles";
 
 interface QuestionGroup {
   category: string;
@@ -46,51 +45,45 @@ const questionGroups: QuestionGroup[] = [
 
 export const DiscoveryQuestions = () => {
   return (
-    <PrintableSection>
+    <div className="space-y-6 print-content">
       <BrandedHeader title="Discovery Questions" variant="both" />
-      <div className="flex items-center justify-between mb-6">
-        <PrintableHeading level={2}>Discovery Questions (Use This on Calls)</PrintableHeading>
-        <PrintButton />
+      
+      <div className="flex justify-between items-start">
+        <div>
+          <PrintableHeading level={2}>Discovery Questions (Use This on Calls)</PrintableHeading>
+          <p className="text-muted-foreground mb-2 print:!text-gray-700">15 questions to uncover pain and qualify the opportunity</p>
+          <LastUpdated />
+        </div>
+        <div className="flex gap-2 print:hidden">
+          <PrintButton />
+          <ExportPDFButton />
+        </div>
       </div>
-      <LastUpdated />
 
-      <p className="text-muted-foreground mb-6 print:text-black">
-        15 questions to uncover pain and qualify the opportunity. Pick 5–8 per call based on the prospect's role.
-      </p>
-
-      <div className="space-y-6">
+      <div className="grid gap-4">
         {questionGroups.map((group, index) => (
-          <Card key={index} className="print:border-black print:bg-white print:break-inside-avoid">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg print:text-black">{group.category}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ol className="list-decimal list-inside space-y-2">
-                {group.questions.map((question, qIndex) => (
-                  <li key={qIndex} className="text-base print:text-black">{question}</li>
-                ))}
-              </ol>
-            </CardContent>
-          </Card>
+          <PrintableCard key={index}>
+            <PrintableHeading level={3}>{group.category}</PrintableHeading>
+            <ol className="list-decimal list-inside space-y-2 mt-3">
+              {group.questions.map((question, qIndex) => (
+                <li key={qIndex} className="text-base print:!text-black">{question}</li>
+              ))}
+            </ol>
+          </PrintableCard>
         ))}
       </div>
 
-      <Card className="mt-6 print:border-black print:bg-white">
-        <CardHeader>
-          <CardTitle className="text-lg print:text-black">Pro Tips</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="list-disc list-inside space-y-2 print:text-black">
-            <li>Let them talk. Your job is to listen, not pitch.</li>
-            <li>Take notes on their exact words — use their language back to them.</li>
-            <li>If they say "we don't have that problem," ask "how do you know?"</li>
-            <li>Always end with: "What would make this a priority for you this quarter?"</li>
-          </ul>
-        </CardContent>
-      </Card>
+      <PrintableCard>
+        <PrintableHeading level={3}>Pro Tips</PrintableHeading>
+        <ul className="list-disc list-inside space-y-2 mt-3 print:!text-black">
+          <li>Let them talk. Your job is to listen, not pitch.</li>
+          <li>Take notes on their exact words — use their language back to them.</li>
+          <li>If they say "we don't have that problem," ask "how do you know?"</li>
+          <li>Always end with: "What would make this a priority for you this quarter?"</li>
+        </ul>
+      </PrintableCard>
 
-      <QualityGateChecklist />
       <LegalFooter />
-    </PrintableSection>
+    </div>
   );
 };

@@ -1,5 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableBulletList, BrandedHeader, LegalFooter } from "../PrintStyles";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableBulletList, PrintableCard, BrandedHeader, LegalFooter } from "../PrintStyles";
 
 interface Slide {
   number: number;
@@ -154,40 +153,44 @@ const slides: Slide[] = [
 
 export const SalesPitchDeck = () => {
   return (
-    <PrintableSection>
+    <div className="space-y-6 print-content">
       <BrandedHeader title="Sales Pitch Deck" variant="both" />
-      <div className="flex items-center justify-between mb-6">
-        <PrintableHeading level={2}>Pitch Deck — Sales Training (Canonical)</PrintableHeading>
-        <PrintButton />
+      
+      <div className="flex justify-between items-start">
+        <div>
+          <PrintableHeading level={2}>Pitch Deck — Sales Training (Canonical)</PrintableHeading>
+          <p className="text-muted-foreground mb-2 print:!text-gray-700">12 slides with talk tracks</p>
+          <LastUpdated />
+        </div>
+        <div className="flex gap-2 print:hidden">
+          <PrintButton />
+          <ExportPDFButton />
+        </div>
       </div>
-      <LastUpdated />
 
-      <p className="text-muted-foreground mb-6 print:text-black">
-        12 slides with talk tracks. Use this as your field guide. Position SYNTH first, then VALID/GhostPass.
-      </p>
-
-      <div className="space-y-6">
+      <div className="grid gap-4">
         {slides.map((slide) => (
-          <Card key={slide.number} className="print:border-black print:bg-white print:break-inside-avoid">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg print:text-black">
-                Slide {slide.number}: {slide.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <PrintableBulletList items={slide.bullets} />
-              {slide.talkTrack && (
-                <div className="bg-muted/50 p-3 rounded-lg print:bg-gray-100">
-                  <p className="text-sm font-medium text-primary print:text-black">💬 Talk Track:</p>
-                  <p className="text-sm italic print:text-black">{slide.talkTrack}</p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <PrintableCard key={slide.number}>
+            <div className="flex items-start gap-4">
+              <div className="bg-primary/10 text-primary font-bold rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 print:!bg-teal-100 print:!text-teal-700 print:!border print:!border-teal-400">
+                {slide.number}
+              </div>
+              <div className="flex-1">
+                <PrintableHeading level={3}>{slide.title}</PrintableHeading>
+                <PrintableBulletList items={slide.bullets} />
+                {slide.talkTrack && (
+                  <div className="mt-3 p-3 rounded-lg bg-muted/50 print:!bg-gray-100 print:!border print:!border-gray-300">
+                    <p className="text-sm font-medium text-primary print:!text-black">💬 Talk Track:</p>
+                    <p className="text-sm italic print:!text-gray-700">{slide.talkTrack}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </PrintableCard>
         ))}
       </div>
 
       <LegalFooter />
-    </PrintableSection>
+    </div>
   );
 };

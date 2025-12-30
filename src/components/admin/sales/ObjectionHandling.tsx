@@ -1,5 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, BrandedHeader, LegalFooter } from "../PrintStyles";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PrintButton, ExportPDFButton, LastUpdated, PrintableHeading, PrintableCard, BrandedHeader, LegalFooter } from "../PrintStyles";
 
 interface Objection {
   whatTheySay: string;
@@ -72,41 +71,42 @@ const objections: Objection[] = [
 
 export const ObjectionHandling = () => {
   return (
-    <PrintableSection>
+    <div className="space-y-6 print-content">
       <BrandedHeader title="Objection Handling" variant="both" />
-      <div className="flex items-center justify-between mb-6">
-        <PrintableHeading level={2}>Objection Handling (Scripts)</PrintableHeading>
-        <PrintButton />
+      
+      <div className="flex justify-between items-start">
+        <div>
+          <PrintableHeading level={2}>Objection Handling (Scripts)</PrintableHeading>
+          <p className="text-muted-foreground mb-2 print:!text-gray-700">12 common objections with responses</p>
+          <LastUpdated />
+        </div>
+        <div className="flex gap-2 print:hidden">
+          <PrintButton />
+          <ExportPDFButton />
+        </div>
       </div>
-      <LastUpdated />
 
-      <p className="text-muted-foreground mb-6 print:text-black">
-        12 common objections with responses. Keep answers short. Always end with a follow-up question to keep the conversation going.
-      </p>
-
-      <div className="space-y-4">
+      <div className="grid gap-4">
         {objections.map((obj, index) => (
-          <Card key={index} className="print:border-black print:bg-white print:break-inside-avoid">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base font-bold print:text-black">
-                {index + 1}. "{obj.whatTheySay}"
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
+          <PrintableCard key={index}>
+            <PrintableHeading level={3}>
+              {index + 1}. "{obj.whatTheySay}"
+            </PrintableHeading>
+            <div className="space-y-3 mt-3">
               <div>
-                <p className="text-sm font-semibold text-primary print:text-black">Best Response:</p>
-                <p className="text-sm print:text-black">{obj.bestResponse}</p>
+                <p className="text-sm font-semibold text-primary print:!text-black">Best Response:</p>
+                <p className="text-sm print:!text-black">{obj.bestResponse}</p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-amber-600 print:text-black">Follow-Up Question:</p>
-                <p className="text-sm italic print:text-black">"{obj.followUp}"</p>
+                <p className="text-sm font-semibold text-amber-600 print:!text-black">Follow-Up Question:</p>
+                <p className="text-sm italic print:!text-gray-700">"{obj.followUp}"</p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </PrintableCard>
         ))}
       </div>
 
       <LegalFooter />
-    </PrintableSection>
+    </div>
   );
 };

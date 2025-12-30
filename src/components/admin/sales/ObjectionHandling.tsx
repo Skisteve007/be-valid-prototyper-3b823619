@@ -1,4 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Objection {
@@ -106,7 +106,6 @@ export const ObjectionHandling = () => {
         ))}
       </div>
 
-      <QualityGateChecklist />
       <LegalFooter />
     </PrintableSection>
   );

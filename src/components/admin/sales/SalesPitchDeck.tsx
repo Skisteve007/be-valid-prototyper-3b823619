@@ -1,4 +1,4 @@
-import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableBulletList, QualityGateChecklist, BrandedHeader, LegalFooter } from "../PrintStyles";
+import { PrintButton, LastUpdated, PrintableSection, PrintableHeading, PrintableBulletList, BrandedHeader, LegalFooter } from "../PrintStyles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Slide {
@@ -187,7 +187,6 @@ export const SalesPitchDeck = () => {
         ))}
       </div>
 
-      <QualityGateChecklist />
       <LegalFooter />
     </PrintableSection>
   );

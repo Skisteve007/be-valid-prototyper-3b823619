@@ -33,20 +33,20 @@ const Footer = () => {
       
         {/* Core Tagline */}
         <div className="text-center mb-4 pb-4 border-b border-slate-600">
-          <p className="text-lg font-bold text-white tracking-wide">Fluid. Frictionless. Trusted. Zero Stored.</p>
-          <p className="text-xs text-gray-400 mt-1">Pipeline, Not Vault — Your data is verified, then purged. Never stored.</p>
+          <p className="text-lg font-bold text-white tracking-wide">{t('footer.tagline')}</p>
+          <p className="text-xs text-gray-400 mt-1">{t('footer.taglineDesc')}</p>
         </div>
 
       {/* Compact Legal Section */}
         <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-slate-200">
-          <p>© 2025 Giant Ventures LLC. All rights reserved. VALID™ and Ghost™ are trademarks.</p>
+          <p>{t('footer.copyrightCompany')}</p>
           <p><strong className="text-white">{t('footer.disclaimerLabel')}</strong> {t('footer.disclaimerText')}</p>
         </div>
 
         {/* Legal Notice */}
         <div className="text-[10px] leading-relaxed mb-3 text-slate-400 border-t border-slate-600 pt-3">
-          <p className="mb-2"><strong className="text-slate-300">LEGAL NOTICE:</strong> This site is an authorized demonstration environment for the Valid™ platform. Content is provided for evaluation purposes only. No license is granted. Reverse engineering, automated scraping, or reproduction of any portion of this site or its underlying systems is prohibited. Valid™ is patent pending. © 2025 Giant Ventures LLC. All rights reserved.</p>
-          <p className="text-slate-500">If you are evaluating Valid™ on behalf of an organization and require an NDA prior to deeper technical discussion, please contact <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a>.</p>
+          <p className="mb-2"><strong className="text-slate-300">{t('footer.legalNoticeLabel')}</strong> {t('footer.legalNoticeText')}</p>
+          <p className="text-slate-500">{t('footer.ndaContact')} <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a>.</p>
         </div>
 
         {/* Language Selector */}
@@ -57,13 +57,13 @@ const Footer = () => {
 
         {/* Contact Email */}
         <div className="text-center py-2 border-t border-slate-600">
-          <p className="text-xs text-slate-400">Contact: <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a></p>
+          <p className="text-xs text-slate-400">{t('footer.contact')}: <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a></p>
         </div>
 
         {/* Patent Pending Notice */}
         <div className="text-center py-2 border-t border-slate-600">
           <p className="text-[10px] text-slate-400 leading-relaxed">
-            Patent Pending (Provisional). © Giant Ventures, LLC (Texas). Certain aspects of the Valid / SYNTH / Ghost Protocol systems are the subject of one or more provisional patent applications.
+            {t('footer.patentPending')}
           </p>
         </div>
 
@@ -77,17 +77,17 @@ const Footer = () => {
             <span className="text-white font-bold">|</span>
             <Link to="/refund" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.refund')}</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/legal/patents" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Patents</Link>
+            <Link to="/legal/patents" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.patents')}</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/vendor-portal" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">For Enterprise</Link>
+            <Link to="/vendor-portal" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.forEnterprise')}</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/demos" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Demos</Link>
+            <Link to="/demos" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.demos')}</Link>
             <span className="text-white font-bold">|</span>
-            <Link to="/careers" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Careers</Link>
+            <Link to="/careers" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.careers')}</Link>
             {isSteveOwner && (
               <>
                 <span className="text-white font-bold">|</span>
-                <Link to="/think-tank" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">Think Tank</Link>
+                <Link to="/think-tank" className="hover:text-cyan-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.thinkTank')}</Link>
               </>
             )}
             <span className="text-white font-bold">•</span>
@@ -101,7 +101,7 @@ const Footer = () => {
                 onClick={() => navigate('/admin/setup')}
                 className="text-sm px-4 py-2 rounded font-bold transition-all duration-300 hover:scale-105 focus:outline-none bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.8)] hover:shadow-[0_0_30px_rgba(37,99,235,1)] uppercase tracking-wider"
               >
-                Admin Setup
+                {t('footer.adminSetup')}
               </button>
             </div>
           )}

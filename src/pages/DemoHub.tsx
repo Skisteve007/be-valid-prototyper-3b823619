@@ -274,15 +274,15 @@ const DemoHub = () => {
             </div>
           </div>
           {/* Sticky Subnav */}
-          <div className="border-t border-border/50 bg-background/80 backdrop-blur-sm">
-            <nav className="container mx-auto px-4 py-2.5 flex gap-2 overflow-x-auto scrollbar-hide">
-              <a href="#overview" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Overview</a>
-              <a href="#demos" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Demos</a>
-              <a href="#proof" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Proof</a>
-              <a href="#ghost" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Ghost</a>
-              <a href="#risks" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Risks</a>
-              <a href="#integration" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Integration</a>
-              <a href="#loi" className="px-4 py-2 text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">LOI</a>
+          <div className="border-t border-border/50 bg-background/80 backdrop-blur-sm overflow-hidden">
+            <nav className="container mx-auto px-4 py-2.5 flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide">
+              <a href="#overview" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Overview</a>
+              <a href="#demos" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Demos</a>
+              <a href="#proof" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Proof</a>
+              <a href="#ghost" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Ghost</a>
+              <a href="#risks" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Risks</a>
+              <a href="#integration" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Integration</a>
+              <a href="#loi" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">LOI</a>
             </nav>
           </div>
         </header>

@@ -135,9 +135,15 @@ export const PrintableBulletList = ({
   items: string[];
   className?: string;
 }) => (
-  <ul className={`list-disc list-inside space-y-2 mb-4 print:text-black ${className}`}>
+  <ul className={`list-disc list-outside pl-5 space-y-2 mb-4 print:text-black ${className}`}> 
     {items.map((item, index) => (
-      <li key={index} className="text-base leading-relaxed">{item}</li>
+      <li
+        key={index}
+        className="text-base leading-relaxed"
+        style={{ breakInside: "avoid", pageBreakInside: "avoid" }}
+      >
+        {item}
+      </li>
     ))}
   </ul>
 );
@@ -149,7 +155,10 @@ export const PrintableCard = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={`border rounded-lg p-6 mb-6 print:!border-gray-800 print:!border-2 print:!bg-white ${className}`}>
+  <div
+    className={`border rounded-lg p-6 mb-6 print:!border-gray-800 print:!border-2 print:!bg-white ${className}`}
+    style={{ breakInside: "avoid-page", pageBreakInside: "avoid" }}
+  >
     {children}
   </div>
 );

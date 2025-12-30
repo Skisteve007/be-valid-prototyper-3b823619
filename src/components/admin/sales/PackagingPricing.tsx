@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { AlertTriangle, ChevronDown, ChevronUp, CheckCircle2, DollarSign, Calendar, FileText, Clock, Shield } from "lucide-react";
 import { AGREEMENT_TIERS, TierConfig } from "@/config/agreementTiers";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { UniversalPaymentTerms } from "@/components/shared/UniversalPaymentTerms";
 
 const TierSummaryCard = ({ tier }: { tier: TierConfig }) => {
   const getTierColor = (id: string) => {
@@ -163,6 +164,11 @@ export const PackagingPricing = () => {
         <PrintButton />
       </div>
       <LastUpdated />
+
+      {/* Universal Payment Terms - Canonical Block */}
+      <div className="mb-6">
+        <UniversalPaymentTerms />
+      </div>
 
       <Card className="mb-6 border-amber-500 bg-amber-500/10 print:border-black print:bg-white">
         <CardContent className="pt-6">

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import TheAskSection from "@/components/operation-sf/TheAskSection";
 import CampaignScheduleSection from "@/components/operation-sf/CampaignScheduleSection";
+import { UniversalPaymentTerms } from "@/components/shared/UniversalPaymentTerms";
 
 const OperationSF = () => {
   const navigate = useNavigate();
@@ -70,6 +71,10 @@ const OperationSF = () => {
         </div>
         <div className="relative z-10">
           <TheAskSection />
+          {/* Universal Payment Terms - Canonical Block */}
+          <div className="container mx-auto px-4 mt-8">
+            <UniversalPaymentTerms />
+          </div>
         </div>
       </section>
 

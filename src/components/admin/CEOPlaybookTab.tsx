@@ -14,6 +14,7 @@ import { CEOSecurityQADrill } from "./canonical/CEOSecurityQADrill";
 import { CEOPortfolio } from "./canonical/CEOPortfolio";
 import { DemoAccessDocumentation } from "./canonical/DemoAccessDocumentation";
 import { PrintableHeading, LastUpdated, ConfidentialityBanner } from "./PrintStyles";
+import { UniversalPaymentTerms } from "@/components/shared/UniversalPaymentTerms";
 
 // Existing playbook entries (reorganized)
 const outreachEntries = [
@@ -305,6 +306,12 @@ export const CEOPlaybookTab = () => {
 
             <TabsContent value="canonical" className="space-y-6">
               <PrintableHeading level={2}>00 — Canonical Pitch & Positioning (Print-Ready)</PrintableHeading>
+              
+              {/* Universal Payment Terms - Canonical Block */}
+              <div className="mb-6">
+                <UniversalPaymentTerms />
+              </div>
+              
               <Accordion type="single" collapsible className="w-full space-y-2">
                 <AccordionItem value="exec-investor" className="border rounded-lg px-4">
                   <AccordionTrigger className="text-lg font-semibold">

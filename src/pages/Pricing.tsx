@@ -38,6 +38,7 @@ import industryStadiumBg from "@/assets/industry-stadium-bg.jpg";
 import industryHospitalityBg from "@/assets/industry-hospitality-bg.jpg";
 import industryUniversityBg from "@/assets/industry-university-bg.jpg";
 import TheAskSection from "@/components/operation-sf/TheAskSection";
+import { UniversalPaymentTerms } from "@/components/shared/UniversalPaymentTerms";
 
 const hardwareOptions = [
   {
@@ -83,6 +84,11 @@ const Pricing = () => {
       <main className="pt-20">
         {/* Enterprise Deployment Tiers - Prominent */}
         <TheAskSection />
+        
+        {/* Universal Payment Terms - Canonical Block */}
+        <div className="container mx-auto px-4 py-8">
+          <UniversalPaymentTerms />
+        </div>
 
         {/* Hero Header */}
         <section className="py-12 md:py-20 bg-gradient-to-b from-cyan-500/10 via-background to-background">

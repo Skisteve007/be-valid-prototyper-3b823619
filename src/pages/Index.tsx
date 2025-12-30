@@ -1,5 +1,5 @@
 // Pipeline Test v2: Fresh deployment - Dec 14, 2024 @ 15:42 UTC
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown, Brain, FileText, UserCheck, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -7,10 +7,12 @@ import { useReferralTracking } from "@/hooks/useReferralTracking";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Hero from "@/components/Hero";
-import { PricingSection } from "@/components/PricingSection";
-import { BetaBanner } from "@/components/BetaBanner";
 
-// Background images for feature cards
+// Lazy load non-critical below-fold components
+const PricingSection = lazy(() => import("@/components/PricingSection").then(m => ({ default: m.PricingSection })));
+const BetaBanner = lazy(() => import("@/components/BetaBanner").then(m => ({ default: m.BetaBanner })));
+
+// Import background images (Vite will handle optimization)
 import militaryFortressImg from "@/assets/military-fortress-card.jpg";
 import acceptedAnywhereImg from "@/assets/accepted-anywhere-card.jpg";
 import yourDataRulesImg from "@/assets/your-data-your-rules-card.jpg";
@@ -296,12 +298,21 @@ const Index = () => {
           
           {/* BETA BANNER - Below Login button, shrunk */}
           <div className="mt-4 max-w-xs mx-auto scale-90">
-            <BetaBanner />
+            <Suspense fallback={<div className="h-8" />}>
+              <BetaBanner />
+            </Suspense>
           </div>
           
           {/* PRICING CARDS - Directly below Login button */}
           <div className="mt-8 w-full max-w-5xl mx-auto">
-            <PricingSection />
+            <Suspense fallback={
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-pulse">
+                <div className="h-64 bg-muted/20 rounded-xl" />
+                <div className="h-64 bg-muted/20 rounded-xl" />
+              </div>
+            }>
+              <PricingSection />
+            </Suspense>
           </div>
         </div>
       </section>

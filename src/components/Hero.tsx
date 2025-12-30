@@ -26,11 +26,11 @@ const Hero = () => {
   
   usePageViewTracking('/');
 
-  // Fetch real visitor count and animate to it
+  // Fetch real visitor count AFTER initial render (non-blocking)
   useEffect(() => {
-    const fetchAndAnimateCounter = async () => {
+    // Use requestIdleCallback or setTimeout to defer DB call
+    const fetchCounter = async () => {
       try {
-        // Fetch current visitor count from global_stats
         const { data, error } = await supabase
           .from('global_stats')
           .select('stat_value')
@@ -39,9 +39,9 @@ const Hero = () => {
         
         const target = error || !data ? 1144 : (data.stat_value || 1144);
         
-        // Animate counter to target
-        const duration = 2000;
-        const steps = 60;
+        // Quick animation to target
+        const duration = 1000; // Reduced from 2000ms
+        const steps = 30; // Reduced from 60
         const increment = target / steps;
         let current = 0;
         
@@ -62,9 +62,14 @@ const Hero = () => {
       }
     };
 
-    fetchAndAnimateCounter();
+    // Defer the fetch to not block initial paint
+    const timeoutId = setTimeout(fetchCounter, 100);
+    
+    return () => clearTimeout(timeoutId);
+  }, []);
 
-    // Subscribe to real-time updates
+  // Subscribe to real-time updates (deferred)
+  useEffect(() => {
     const channel = supabase
       .channel('visitor-counter')
       .on(

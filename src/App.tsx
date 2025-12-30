@@ -136,14 +136,12 @@ const Evolution2026PitchDeck = lazy(() => import("./pages/Evolution2026PitchDeck
 
 const queryClient = new QueryClient();
 
-// Loading fallback component
+// Minimal loading fallback for faster perceived load
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
-    <div className="space-y-4 w-full max-w-md p-8">
-      <Skeleton className="h-12 w-3/4 mx-auto" />
-      <Skeleton className="h-4 w-full" />
-      <Skeleton className="h-4 w-5/6" />
-      <Skeleton className="h-32 w-full" />
+    <div className="flex flex-col items-center gap-3">
+      <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      <span className="text-sm text-muted-foreground">Loading...</span>
     </div>
   </div>
 );

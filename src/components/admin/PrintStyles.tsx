@@ -65,11 +65,11 @@ export const BrandedHeader = ({
 );
 
 export const LegalFooter = () => (
-  <div className="print-footer mt-8 pt-4 border-t text-xs text-muted-foreground print:!text-gray-700 print:!border-gray-800 space-y-1">
-    <p className="font-semibold print:!text-gray-900">Confidential — For discussion purposes only.</p>
-    <p>© 2025 Giant Ventures LLC. All rights reserved.</p>
-    <p>SYNTH™ and VALID™ are trademarks of Giant Ventures LLC.</p>
-    <p>Do not distribute without permission. No guarantee of accuracy; information subject to change.</p>
+  <div className="print-footer mt-8 pt-4 border-t border-border text-xs space-y-1 text-foreground/70 print:!text-gray-800 print:!border-gray-400">
+    <p className="font-semibold text-foreground print:!text-black">Confidential — For discussion purposes only.</p>
+    <p className="text-foreground/80 print:!text-gray-700">© 2025 Giant Ventures LLC. All rights reserved.</p>
+    <p className="text-foreground/80 print:!text-gray-700">SYNTH™ and VALID™ are trademarks of Giant Ventures LLC.</p>
+    <p className="text-foreground/80 print:!text-gray-700">Do not distribute without permission. No guarantee of accuracy; information subject to change.</p>
   </div>
 );
 

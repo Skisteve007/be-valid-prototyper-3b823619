@@ -859,6 +859,7 @@ html, body, #root {
 /* ============================================
    PRINT / PDF EXPORT STYLES
    Clean document-only output with proper colors
+   Executive-ready PDF export
    ============================================ */
 @media print {
   /* Reset to clean white background */
@@ -870,7 +871,9 @@ html, body, #root {
     color-adjust: exact !important;
   }
 
-  /* Hide all navigation, sidebars, and non-document elements */
+  /* CRITICAL: Hide EVERYTHING except print-content */
+  body > *:not(#root),
+  #root > *:not(.print-content):not(:has(.print-content)),
   nav,
   header:not(.print-header),
   footer:not(.print-footer),
@@ -881,8 +884,12 @@ html, body, #root {
   [class*="Navigation"],
   [class*="tabs-list"],
   [class*="TabsList"],
+  [class*="TabsContent"]:not(:has(.print-content)),
   [role="tablist"],
-  [class*="accordion-trigger"]:not(.print-show),
+  [class*="accordion"]:not(:has(.print-content)),
+  [class*="Accordion"]:not(:has(.print-content)),
+  [class*="accordion-trigger"],
+  [class*="AccordionTrigger"],
   .print\\:hidden,
   button:not(.print-show),
   [class*="toast"],
@@ -894,16 +901,35 @@ html, body, #root {
   [class*="dropdown"],
   [class*="Dropdown"],
   [class*="popover"],
-  [class*="Popover"] {
+  [class*="Popover"],
+  [class*="CEOPlaybook"]:not(:has(.print-content)),
+  [class*="AdminTabs"],
+  [class*="admin-nav"],
+  [class*="scroll-area"],
+  [class*="ScrollArea"] {
     display: none !important;
   }
 
-  /* Ensure main content fills the page */
-  main, article, section, .print-content {
+  /* Make print-content the only visible element */
+  .print-content {
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 20px !important;
+    padding: 0.5in !important;
+    background: white !important;
+    z-index: 99999 !important;
+  }
+
+  /* Ensure main content fills the page */
+  main, article, section {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   /* Force all text to be black and readable */
@@ -980,13 +1006,25 @@ html, body, #root {
     print-color-adjust: exact !important;
   }
 
-  /* Legal footer styling */
+  /* Legal footer styling - MUST BE VISIBLE */
   [class*="LegalFooter"], .print-footer {
     display: block !important;
-    border-top: 1px solid #374151 !important;
+    border-top: 2px solid #374151 !important;
     padding-top: 16px !important;
     margin-top: 32px !important;
-    color: #4b5563 !important;
+    background: white !important;
+  }
+
+  .print-footer p {
+    color: #1f2937 !important;
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+  }
+
+  .print-footer p:first-child {
+    font-weight: 700 !important;
+    color: #000000 !important;
+    font-size: 12px !important;
   }
 
   /* Quality gate checklist */

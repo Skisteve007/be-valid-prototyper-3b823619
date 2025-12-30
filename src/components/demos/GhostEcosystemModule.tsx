@@ -38,14 +38,14 @@ const GhostEcosystemModule = () => {
     <>
       <Card className="border-emerald-500/30 bg-emerald-500/5 mb-8">
         <CardContent className="pt-6">
-          <div className="flex items-start gap-4">
+          <div className="flex flex-col sm:flex-row items-start gap-4">
             <div className="p-3 rounded-lg bg-emerald-500/20 border border-emerald-500/30 shrink-0">
               <Ghost className="h-6 w-6 text-emerald-400" />
             </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
+            <div className="flex-1 min-w-0 w-full">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h2 className="text-lg font-semibold text-foreground">Ghost Ecosystem Demos</h2>
-                <Badge variant="outline" className="text-xs border-amber-500/50 text-amber-400 bg-amber-500/10">
+                <Badge variant="outline" className="text-xs border-amber-500/50 text-amber-400 bg-amber-500/10 shrink-0">
                   Coming Soon
                 </Badge>
               </div>
@@ -54,11 +54,11 @@ const GhostEcosystemModule = () => {
                 Ghost Pass and wallet demos are being packaged into interactive scenarios. 
                 For now, you can preview the flow and request early access.
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2">
                 <Button 
                   size="sm" 
                   onClick={() => setPreviewOpen(true)}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white w-full sm:w-auto"
                 >
                   <Eye className="h-4 w-4 mr-2" />
                   Preview Ghost Flow
@@ -67,7 +67,7 @@ const GhostEcosystemModule = () => {
                   size="sm" 
                   variant="outline"
                   onClick={() => setRequestOpen(true)}
-                  className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10"
+                  className="border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 w-full sm:w-auto"
                 >
                   <Mail className="h-4 w-4 mr-2" />
                   Request Ghost Demo Access
@@ -76,7 +76,7 @@ const GhostEcosystemModule = () => {
                   size="sm" 
                   variant="outline"
                   disabled
-                  className="opacity-50"
+                  className="opacity-50 w-full sm:w-auto"
                 >
                   Launch Ghost Demo (Coming Soon)
                 </Button>

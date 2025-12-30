@@ -96,11 +96,12 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
   const [sharingSensoryPrefsEnabled, setSharingSensoryPrefsEnabled] = useState(false);
   const [sharingSpecificActivitiesEnabled, setSharingSpecificActivitiesEnabled] = useState(false);
   
-  // Quick share toggle states (ID, FUNDS, BIO, TOX)
+  // Quick share toggle states (ID, FUNDS, BIO, TOX, PROFILE)
   const [shareIdEnabled, setShareIdEnabled] = useState(false);
   const [shareFundsEnabled, setShareFundsEnabled] = useState(false);
   const [shareBioEnabled, setShareBioEnabled] = useState(false);
   const [shareToxEnabled, setShareToxEnabled] = useState(false);
+  const [shareProfileEnabled, setShareProfileEnabled] = useState(false);
   
   // Sports teams selection (local state only)
   const [selectedTeams, setSelectedTeams] = useState<{ nfl: string[]; nba: string[]; nhl: string[]; mlb: string[] }>({
@@ -782,11 +783,13 @@ const ProfileTab = forwardRef<ProfileTabRef, ProfileTabProps>(({ userId, onUpdat
         shareFundsEnabled={shareFundsEnabled}
         shareBioEnabled={shareBioEnabled}
         shareToxEnabled={shareToxEnabled}
+        shareProfileEnabled={shareProfileEnabled}
         onShareToggle={(field, value) => {
           if (field === 'share_id_enabled') setShareIdEnabled(value);
           if (field === 'share_funds_enabled') setShareFundsEnabled(value);
           if (field === 'share_bio_enabled') setShareBioEnabled(value);
           if (field === 'share_tox_enabled') setShareToxEnabled(value);
+          if (field === 'share_profile_enabled') setShareProfileEnabled(value);
         }}
         userId={userId}
         selectedTeams={selectedTeams}

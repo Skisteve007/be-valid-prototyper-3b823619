@@ -88,7 +88,7 @@ const phases: Phase[] = [
         label: "TUE",
         title: "TUESDAY, JAN 13: THE DATA WHALES (Big Dogs)",
         entries: [
-          { time: "09:00 AM", location: "Four Seasons Lobby", target: "OPENEVIDENCE (Target $12B valuation) — THE BIG DOG", move: "\"You have zero insurance against hallucination liability. We are that insurance.\"" },
+          { time: "09:00 AM", location: "Four Seasons Lobby", target: "OPENEVIDENCE ($6B valuation) — THE BIG DOG", move: "\"You have zero insurance against hallucination liability. We are that insurance.\"" },
           { time: "01:00 PM", location: "Westin Mezzanine", target: "TENNR ($101M raised)", move: "\"We clean your data before it hits the model.\"" },
         ],
       },
@@ -134,7 +134,7 @@ const phases: Phase[] = [
 ];
 
 const hitList = [
-  { name: "OpenEvidence", valuation: "$12B target", hook: "The Whale" },
+  { name: "OpenEvidence", valuation: "$6B", hook: "The Whale" },
   { name: "Abridge", valuation: "$5.3B", hook: "The Shield" },
   { name: "Hippocratic AI", valuation: "$3.5B", hook: "The Safety Play" },
   { name: "Formation Bio", valuation: "$372M", hook: "The Pharma Play" },

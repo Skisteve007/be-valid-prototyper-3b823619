@@ -383,8 +383,17 @@ const OperationSF = () => {
         </div>
       </section>
 
-      {/* THE ASK - Tiered Agreements */}
-      <TheAskSection />
+      {/* THE ASK - Tiered Agreements - PROMINENT with glow */}
+      <section className="relative">
+        {/* Glow effect background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-primary/10 to-primary/5" />
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/20 rounded-full blur-[120px] animate-pulse" />
+        </div>
+        <div className="relative z-10">
+          <TheAskSection />
+        </div>
+      </section>
 
       {/* Campaign Schedule */}
       <CampaignScheduleSection />

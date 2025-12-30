@@ -914,12 +914,12 @@ const DealRoom = () => {
                         <div className="flex items-center gap-2 mb-1">
                           <Clock className="h-3 w-3 text-[#00FFFF]" />
                           <span className="font-mono text-[10px] text-[#00FFFF]">09:00 AM</span>
-                          <span className="font-mono text-white font-bold text-xs">OPENEVIDENCE ($12B Valuation Target)</span>
+                          <span className="font-mono text-white font-bold text-xs">OPENEVIDENCE ($6B Valuation)</span>
                         </div>
                         <div className="font-mono text-[10px] space-y-1">
-                          <p className="text-gray-400">Status: THE BIG DOG. (Rumored raising $250M now).</p>
+                          <p className="text-gray-400">Status: THE BIG DOG. (Recently raised $200M).</p>
                           <p className="text-gray-300"><span className="text-yellow-400">The Intel:</span> They are the "Google for Doctors." If they lie, they get sued for malpractice.</p>
-                          <p className="text-white italic">"Daniel (CEO), you are worth $12B. You have zero insurance against hallucination liability. We are that insurance."</p>
+                          <p className="text-white italic">"Daniel (CEO), you are worth $6B. You have zero insurance against hallucination liability. We are that insurance."</p>
                           <p className="text-gray-400"><MapPin className="h-3 w-3 inline mr-1" />Four Seasons Lobby</p>
                         </div>
                       </div>
@@ -1074,7 +1074,7 @@ const DealRoom = () => {
                 </h4>
                 <div className="grid md:grid-cols-2 gap-3">
                   <div className="p-2 bg-red-500/10 rounded border border-red-500/30">
-                    <p className="font-mono text-xs"><span className="text-red-400 font-bold">OpenEvidence ($12B Val)</span> <span className="text-gray-400">– The Whale</span></p>
+                    <p className="font-mono text-xs"><span className="text-red-400 font-bold">OpenEvidence ($6B Val)</span> <span className="text-gray-400">– The Whale</span></p>
                   </div>
                   <div className="p-2 bg-gray-900/50 rounded border border-gray-700">
                     <p className="font-mono text-xs"><span className="text-white font-bold">Abridge ($5.3B Val)</span> <span className="text-gray-400">– The Shield</span></p>

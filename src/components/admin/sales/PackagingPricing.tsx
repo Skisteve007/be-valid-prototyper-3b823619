@@ -301,6 +301,62 @@ export const PackagingPricing = () => {
         </Collapsible>
       </div>
 
+      {/* Operator Certification Pricing Drivers */}
+      <Card className="mb-6 border-purple-500/50 bg-purple-500/5 print:border-black print:bg-white">
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2 print:text-black">
+            <Shield className="h-5 w-5 text-purple-500 print:text-black" />
+            SYNTH Operator Certification — Pricing Drivers
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-muted-foreground print:text-black">
+            AI governance scoring for workforce and candidates: 0–100 score, sub-scores, trendlines, and audit-ready reports over 7–90+ days.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="p-3 rounded-lg bg-muted/30 border border-border/50 print:border-black">
+              <p className="font-medium text-sm print:text-black flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-purple-500 print:text-black" />
+                Number of Operators Evaluated
+              </p>
+              <p className="text-xs text-muted-foreground print:text-black">Per billing period</p>
+            </div>
+            <div className="p-3 rounded-lg bg-muted/30 border border-border/50 print:border-black">
+              <p className="font-medium text-sm print:text-black flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-purple-500 print:text-black" />
+                Evaluation Window
+              </p>
+              <p className="text-xs text-muted-foreground print:text-black">7 / 30 / 60 / 90 / 90+ days</p>
+            </div>
+            <div className="p-3 rounded-lg bg-muted/30 border border-border/50 print:border-black">
+              <p className="font-medium text-sm print:text-black flex items-center gap-2">
+                <FileText className="h-4 w-4 text-purple-500 print:text-black" />
+                Report Depth
+              </p>
+              <ul className="text-xs text-muted-foreground print:text-black mt-1 space-y-0.5">
+                <li>• Executive Summary (score + trend)</li>
+                <li>• Full Report (sub-scores + failure modes + evidence)</li>
+              </ul>
+            </div>
+            <div className="p-3 rounded-lg bg-muted/30 border border-border/50 print:border-black">
+              <p className="font-medium text-sm print:text-black flex items-center gap-2">
+                <Shield className="h-4 w-4 text-purple-500 print:text-black" />
+                Integrations / Traceability
+              </p>
+              <ul className="text-xs text-muted-foreground print:text-black mt-1 space-y-0.5">
+                <li>• LLM/interface tracking scope</li>
+                <li>• Audit exports (if applicable)</li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-xs text-muted-foreground italic print:text-black">
+            Contact sales for enterprise pricing. Custom integrations and on-premise deployment available.
+          </p>
+        </CardContent>
+      </Card>
+
       {/* Print-only: Always show content */}
       <div className="hidden print:block space-y-6">
         <PrintableHeading level={3}>Pricing Menu (All Tiers)</PrintableHeading>

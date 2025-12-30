@@ -70,7 +70,8 @@
     <link rel="manifest" href="/manifest.json?v=4" />
     
     <!-- Preload critical above-fold images (LCP optimization) -->
-    <link rel="preload" href="/valid_portal.mp4" as="video" type="video/mp4" />
+    <link rel="preload" href="/valid_portal.mp4" as="video" type="video/mp4" fetchpriority="high" />
+    <link rel="preload" href="/landing-hero-earth.jpg" as="image" fetchpriority="high" />
     <link rel="preload" href="/app-icon.jpg" as="image" />
     
     <!-- Critical CSS for preventing layout shifts (above-the-fold only) -->

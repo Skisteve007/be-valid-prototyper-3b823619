@@ -82,13 +82,13 @@ const Pricing = () => {
       </Helmet>
 
       <main className="pt-20">
+        {/* Universal Payment Terms - Canonical Block (Top-of-page) */}
+        <section className="container mx-auto px-4 py-8">
+          <UniversalPaymentTerms />
+        </section>
+
         {/* Enterprise Deployment Tiers - Prominent */}
         <TheAskSection />
-        
-        {/* Universal Payment Terms - Canonical Block */}
-        <div className="container mx-auto px-4 py-8">
-          <UniversalPaymentTerms />
-        </div>
 
         {/* Hero Header */}
         <section className="py-12 md:py-20 bg-gradient-to-b from-cyan-500/10 via-background to-background">

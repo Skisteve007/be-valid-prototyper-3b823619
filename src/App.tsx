@@ -20,6 +20,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import Pricing from "./pages/Pricing";
+import OperationSF from "./pages/OperationSF";
 
 // Lazy loaded pages for code splitting
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -66,7 +68,7 @@ const IntegratedHealthCompliance = lazy(() => import("./pages/IntegratedHealthCo
 const MyAccess = lazy(() => import("./pages/MyAccess"));
 const LabPortal = lazy(() => import("./pages/LabPortal"));
 const PlatformFeatures = lazy(() => import("./pages/PlatformFeatures"));
-const Pricing = lazy(() => import("./pages/Pricing"));
+const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const TrustCenter = lazy(() => import("./pages/TrustCenter"));
 const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
 const Synth = lazy(() => import("./pages/Synth"));
@@ -173,6 +175,7 @@ const App = () => (
                   
                   {/* ADMIN ROUTES */}
                   <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />
+                  <Route path="/admin/sales" element={<AgeGate><Admin /></AgeGate>} />
                   <Route path="/admin/login" element={<AgeGate><AdminLogin /></AgeGate>} />
                   <Route path="/admin/setup" element={<AgeGate><AdminSetup /></AgeGate>} />
                   <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />

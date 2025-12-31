@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +15,8 @@ import {
   ArrowRight,
   Fingerprint,
   Globe,
-  Database
+  Database,
+  Presentation
 } from "lucide-react";
 import TheAskSection from "@/components/operation-sf/TheAskSection";
 import CampaignScheduleSection from "@/components/operation-sf/CampaignScheduleSection";
@@ -417,6 +418,27 @@ const OperationSF = () => {
             </Button>
             <Button onClick={() => navigate("/pitch-deck")} variant="outline" size="lg" className="text-lg px-8 py-6 h-auto">
               View Pitch Deck
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Investor Pitch Deck Section */}
+      <section className="py-16 border-t border-border/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <Badge className="mb-6 bg-cyan-500/20 text-cyan-400 border-cyan-500/50">
+              INVESTOR MATERIALS
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">View Investor Pitch Deck</h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Full cinematic presentation covering the VALID™ vision, market opportunity, and investment terms.
+            </p>
+            <Button asChild size="lg" className="gap-2">
+              <Link to="/pitch">
+                <Presentation className="h-5 w-5" />
+                Open Investor Pitch Deck
+              </Link>
             </Button>
           </div>
         </div>

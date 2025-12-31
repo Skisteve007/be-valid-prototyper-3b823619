@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot, FileUp, Scale, Handshake, UserCheck } from "lucide-react";
+import { MessageSquare, BarChart3, Shield, FileCheck, ArrowRight, Sparkles, Building2, Code2, ClipboardCheck, HeartPulse, Phone, ChevronDown, AlertTriangle, AlertCircle, Upload, Gauge, Castle, Layers, QrCode, Bot, FileUp, Scale, Handshake, UserCheck, Presentation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -988,6 +988,29 @@ const DemoHub = () => {
                     <Link to="/demos/enterprise-agreement">Sign LOI</Link>
                   </Button>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Investor Pitch Deck Section */}
+          <Card className="mt-8 border-cyan-500/30 bg-gradient-to-br from-cyan-500/5 to-transparent">
+            <CardContent className="pt-8 pb-8">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="p-4 rounded-xl bg-cyan-500/20 border border-cyan-500/30 shrink-0">
+                  <Presentation className="h-8 w-8 text-cyan-400" />
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="text-xl font-bold mb-2">Investor Pitch Deck</h3>
+                  <p className="text-muted-foreground">
+                    View the full cinematic presentation covering the VALID™ vision, market opportunity, and investment terms.
+                  </p>
+                </div>
+                <Button asChild size="lg" className="gap-2 shrink-0">
+                  <Link to="/pitch">
+                    <Presentation className="h-5 w-5" />
+                    View Deck
+                  </Link>
+                </Button>
               </div>
             </CardContent>
           </Card>

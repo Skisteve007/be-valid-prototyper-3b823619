@@ -22,6 +22,7 @@ import { LabIntegrationsTab } from "@/components/admin/LabIntegrationsTab";
 import { DevelopersIntegrationsTab } from "@/components/admin/DevelopersIntegrationsTab";
 import { CampaignsTab } from "@/components/admin/CampaignsTab";
 import { VenueDirectoryTab } from "@/components/admin/VenueDirectoryTab";
+import { AccountsTab } from "@/components/admin/accounts";
 import SalesTeamTab from "@/components/admin/SalesTeamTab";
 import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
 import { QuickBrandingTool } from "@/components/admin/QuickBrandingTool";
@@ -660,9 +661,8 @@ const Admin = () => {
             <TabsTrigger value="campaigns" className="cursor-pointer text-sm px-2 py-2">
               Campaigns
             </TabsTrigger>
-            <TabsTrigger value="venues" className="cursor-pointer text-sm px-2 py-2">
-              <Globe className="h-4 w-4 mr-1" />
-              Venues
+            <TabsTrigger value="accounts" className="cursor-pointer text-sm px-2 py-2">
+              🏢 Accounts
             </TabsTrigger>
             <TabsTrigger value="sales-team" className="cursor-pointer text-sm px-2 py-2">
               Sales
@@ -1031,6 +1031,10 @@ const Admin = () => {
           
           <TabsContent value="venues">
             <VenueDirectoryTab />
+          </TabsContent>
+          
+          <TabsContent value="accounts">
+            <AccountsTab />
           </TabsContent>
           
           <TabsContent value="sales-team">

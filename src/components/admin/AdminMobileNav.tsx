@@ -21,7 +21,8 @@ import {
   FileText,
   UserPlus,
   Package,
-  BookOpen
+  BookOpen,
+  Building2
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -34,10 +35,10 @@ interface AdminMobileNavProps {
 const navItems = [
   { id: "members", label: "VALID Members", icon: Users },
   { id: "sponsors", label: "Sponsor Management", icon: Shield },
+  { id: "accounts", label: "Accounts", icon: Building2 },
   { id: "lab-integrations", label: "Lab Integrations", icon: FlaskConical },
   { id: "developers", label: "Developers", icon: Code },
   { id: "campaigns", label: "Campaigns", icon: Globe },
-  { id: "venues", label: "Venue Directory", icon: Globe },
   { id: "sales-team", label: "Sales Team", icon: DollarSign },
   { id: "lead-outreach", label: "Lead Outreach", icon: Target },
   { id: "investor-crm", label: "Investor CRM", icon: Briefcase },

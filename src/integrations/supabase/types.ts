@@ -459,6 +459,139 @@ export type Database = {
           },
         ]
       }
+      depot_signal_intake: {
+        Row: {
+          created_at: string
+          expires_at: string | null
+          ghost_token_jti: string | null
+          id: string
+          metadata: Json | null
+          request_id: string | null
+          result_hash: string | null
+          signal_result: string
+          signal_type: Database["public"]["Enums"]["depot_signal_type"]
+          source_id: string | null
+          source_name: string | null
+          user_id: string
+          verified_at: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string | null
+          ghost_token_jti?: string | null
+          id?: string
+          metadata?: Json | null
+          request_id?: string | null
+          result_hash?: string | null
+          signal_result: string
+          signal_type: Database["public"]["Enums"]["depot_signal_type"]
+          source_id?: string | null
+          source_name?: string | null
+          user_id: string
+          verified_at?: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string | null
+          ghost_token_jti?: string | null
+          id?: string
+          metadata?: Json | null
+          request_id?: string | null
+          result_hash?: string | null
+          signal_result?: string
+          signal_type?: Database["public"]["Enums"]["depot_signal_type"]
+          source_id?: string | null
+          source_name?: string | null
+          user_id?: string
+          verified_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "depot_signal_intake_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "depot_signal_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      depot_signal_sources: {
+        Row: {
+          api_endpoint: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          source_name: string
+          source_type: Database["public"]["Enums"]["depot_signal_type"]
+        }
+        Insert: {
+          api_endpoint?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          source_name: string
+          source_type: Database["public"]["Enums"]["depot_signal_type"]
+        }
+        Update: {
+          api_endpoint?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          source_name?: string
+          source_type?: Database["public"]["Enums"]["depot_signal_type"]
+        }
+        Relationships: []
+      }
+      depot_verification_records: {
+        Row: {
+          created_at: string
+          depot_id: string
+          expires_at: string | null
+          id: string
+          overall_status: string
+          signal_intake_ids: string[] | null
+          signals_checked: number
+          signals_passed: number
+          updated_at: string
+          user_id: string
+          verified_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          depot_id: string
+          expires_at?: string | null
+          id?: string
+          overall_status?: string
+          signal_intake_ids?: string[] | null
+          signals_checked?: number
+          signals_passed?: number
+          updated_at?: string
+          user_id: string
+          verified_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          depot_id?: string
+          expires_at?: string | null
+          id?: string
+          overall_status?: string
+          signal_intake_ids?: string[] | null
+          signals_checked?: number
+          signals_passed?: number
+          updated_at?: string
+          user_id?: string
+          verified_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "depot_verification_records_depot_id_fkey"
+            columns: ["depot_id"]
+            isOneToOne: false
+            referencedRelation: "partner_depot_config"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       discount_codes: {
         Row: {
           code: string
@@ -1595,6 +1728,62 @@ export type Database = {
           zero_trust_liability?: string
         }
         Relationships: []
+      }
+      partner_depot_config: {
+        Row: {
+          api_key_hash: string | null
+          created_at: string
+          custom_signals: Json | null
+          depot_name: string
+          description: string | null
+          fail_action: string
+          id: string
+          is_active: boolean
+          partial_pass_threshold: number | null
+          required_signals: Database["public"]["Enums"]["depot_signal_type"][]
+          updated_at: string
+          venue_id: string
+          webhook_url: string | null
+        }
+        Insert: {
+          api_key_hash?: string | null
+          created_at?: string
+          custom_signals?: Json | null
+          depot_name?: string
+          description?: string | null
+          fail_action?: string
+          id?: string
+          is_active?: boolean
+          partial_pass_threshold?: number | null
+          required_signals?: Database["public"]["Enums"]["depot_signal_type"][]
+          updated_at?: string
+          venue_id: string
+          webhook_url?: string | null
+        }
+        Update: {
+          api_key_hash?: string | null
+          created_at?: string
+          custom_signals?: Json | null
+          depot_name?: string
+          description?: string | null
+          fail_action?: string
+          id?: string
+          is_active?: boolean
+          partial_pass_threshold?: number | null
+          required_signals?: Database["public"]["Enums"]["depot_signal_type"][]
+          updated_at?: string
+          venue_id?: string
+          webhook_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_depot_config_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       partner_venues: {
         Row: {
@@ -5557,6 +5746,21 @@ export type Database = {
         | "paid"
         | "active_member"
         | "administrator"
+      depot_signal_type:
+        | "age_verified"
+        | "idv_status"
+        | "background_check"
+        | "terrorist_list_clear"
+        | "covid_vaccinated"
+        | "health_card"
+        | "drug_test_clear"
+        | "license_verified"
+        | "education_verified"
+        | "employment_verified"
+        | "credit_check"
+        | "insurance_verified"
+        | "certification_valid"
+        | "custom"
       ghost_share_category: "profile" | "id" | "funds" | "bio" | "tox"
       ghost_share_profile: "public" | "minimal" | "custom" | "nothing"
       operator_event_type:
@@ -5767,6 +5971,22 @@ export const Constants = {
         "paid",
         "active_member",
         "administrator",
+      ],
+      depot_signal_type: [
+        "age_verified",
+        "idv_status",
+        "background_check",
+        "terrorist_list_clear",
+        "covid_vaccinated",
+        "health_card",
+        "drug_test_clear",
+        "license_verified",
+        "education_verified",
+        "employment_verified",
+        "credit_check",
+        "insurance_verified",
+        "certification_valid",
+        "custom",
       ],
       ghost_share_category: ["profile", "id", "funds", "bio", "tox"],
       ghost_share_profile: ["public", "minimal", "custom", "nothing"],

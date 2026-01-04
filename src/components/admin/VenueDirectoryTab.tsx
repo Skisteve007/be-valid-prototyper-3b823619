@@ -42,7 +42,7 @@ interface PayoutRecord {
   bank_endpoint: string | null;
 }
 
-type IndustryFilter = 'all' | 'Nightlife' | 'Adult' | 'Workforce' | 'Transportation' | 'Rentals' | 'Sports';
+type IndustryFilter = 'all' | 'Nightlife' | 'Adult' | 'Workforce' | 'Transportation' | 'Rentals' | 'Sports' | 'Enterprises' | 'Health' | 'Law';
 
 const INDUSTRY_CONFIG: Record<string, { icon: typeof Wine; color: string; label: string; emoji: string }> = {
   'Nightlife': { icon: Wine, color: 'bg-blue-500 text-white', label: 'Nightlife & Events', emoji: '🍸' },
@@ -51,6 +51,9 @@ const INDUSTRY_CONFIG: Record<string, { icon: typeof Wine; color: string; label:
   'Transportation': { icon: Car, color: 'bg-emerald-500 text-white', label: 'Transportation', emoji: '🚕' },
   'Rentals': { icon: Key, color: 'bg-yellow-500 text-black', label: 'Rentals', emoji: '🔑' },
   'Sports': { icon: Trophy, color: 'bg-purple-500 text-white', label: 'Sports & Arenas', emoji: '🏟️' },
+  'Enterprises': { icon: Building2, color: 'bg-cyan-500 text-white', label: 'Enterprises', emoji: '🏢' },
+  'Health': { icon: Building2, color: 'bg-red-500 text-white', label: 'Health-Based', emoji: '🏥' },
+  'Law': { icon: Building2, color: 'bg-indigo-500 text-white', label: 'Law & Compliance', emoji: '⚖️' },
 };
 
 export const VenueDirectoryTab = () => {
@@ -281,6 +284,9 @@ export const VenueDirectoryTab = () => {
     Transportation: venues.filter(v => v.industry_type === 'Transportation').length,
     Rentals: venues.filter(v => v.industry_type === 'Rentals').length,
     Sports: venues.filter(v => v.industry_type === 'Sports').length,
+    Enterprises: venues.filter(v => v.industry_type === 'Enterprises').length,
+    Health: venues.filter(v => v.industry_type === 'Health').length,
+    Law: venues.filter(v => v.industry_type === 'Law').length,
   };
 
   if (loading) {
@@ -375,6 +381,9 @@ export const VenueDirectoryTab = () => {
                       <SelectItem value="Transportation">🚕 Transportation</SelectItem>
                       <SelectItem value="Rentals">🔑 Rentals</SelectItem>
                       <SelectItem value="Sports">🏟️ Sports & Arenas</SelectItem>
+                      <SelectItem value="Enterprises">🏢 Enterprises</SelectItem>
+                      <SelectItem value="Health">🏥 Health-Based</SelectItem>
+                      <SelectItem value="Law">⚖️ Law & Compliance</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -493,6 +502,30 @@ export const VenueDirectoryTab = () => {
           >
             🏟️ Sports ({industryCounts.Sports})
           </Button>
+          <Button
+            variant={industryFilter === 'Enterprises' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setIndustryFilter('Enterprises')}
+            className={industryFilter === 'Enterprises' ? 'bg-cyan-500 hover:bg-cyan-600' : ''}
+          >
+            🏢 Enterprises ({industryCounts.Enterprises})
+          </Button>
+          <Button
+            variant={industryFilter === 'Health' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setIndustryFilter('Health')}
+            className={industryFilter === 'Health' ? 'bg-red-500 hover:bg-red-600' : ''}
+          >
+            🏥 Health ({industryCounts.Health})
+          </Button>
+          <Button
+            variant={industryFilter === 'Law' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setIndustryFilter('Law')}
+            className={industryFilter === 'Law' ? 'bg-indigo-500 hover:bg-indigo-600' : ''}
+          >
+            ⚖️ Law ({industryCounts.Law})
+          </Button>
         </div>
 
         {/* Search & Country Filter */}
@@ -609,6 +642,9 @@ export const VenueDirectoryTab = () => {
                                 <SelectItem value="Transportation">🚕 Transportation</SelectItem>
                                 <SelectItem value="Rentals">🔑 Rentals</SelectItem>
                                 <SelectItem value="Sports">🏟️ Sports & Arenas</SelectItem>
+                                <SelectItem value="Enterprises">🏢 Enterprises</SelectItem>
+                                <SelectItem value="Health">🏥 Health-Based</SelectItem>
+                                <SelectItem value="Law">⚖️ Law & Compliance</SelectItem>
                               </SelectContent>
                             </Select>
                           </div>
@@ -821,6 +857,9 @@ export const VenueDirectoryTab = () => {
                                     <SelectItem value="Transportation">🚕 Transportation</SelectItem>
                                     <SelectItem value="Rentals">🔑 Rentals</SelectItem>
                                     <SelectItem value="Sports">🏟️ Sports & Arenas</SelectItem>
+                                    <SelectItem value="Enterprises">🏢 Enterprises</SelectItem>
+                                    <SelectItem value="Health">🏥 Health-Based</SelectItem>
+                                    <SelectItem value="Law">⚖️ Law & Compliance</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </div>

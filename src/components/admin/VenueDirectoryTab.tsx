@@ -7,13 +7,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
-import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard, DollarSign, History, TrendingUp, Trophy, ChevronLeft, ChevronRight, Percent } from "lucide-react";
+import { Loader2, Search, Mail, Globe, MapPin, Building2, Edit, Wine, Sparkles, HardHat, Car, Key, Plus, Banknote, CreditCard, DollarSign, History, TrendingUp, Trophy, ChevronLeft, ChevronRight, Percent, Zap } from "lucide-react";
 import { format } from "date-fns";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
 import { MobileDataCard, ResponsiveDataList } from "./MobileDataCard";
 import { VenueOperatorsManager } from "./VenueOperatorsManager";
+import { PartnerDepotConfig } from "./PartnerDepotConfig";
 
 interface Venue {
   id: string;
@@ -93,6 +94,10 @@ export const VenueDirectoryTab = () => {
     gm_email: "",
   });
   const [addingVenue, setAddingVenue] = useState(false);
+  
+  // Depot config state
+  const [showDepotConfig, setShowDepotConfig] = useState(false);
+  const [depotConfigVenue, setDepotConfigVenue] = useState<Venue | null>(null);
 
   useEffect(() => {
     loadVenues();
@@ -748,6 +753,17 @@ export const VenueDirectoryTab = () => {
                     >
                       <History className="h-5 w-5" />
                     </Button>
+                    <Button 
+                      size="lg"
+                      variant="ghost"
+                      className="h-12 text-cyan-500"
+                      onClick={() => {
+                        setDepotConfigVenue(venue);
+                        setShowDepotConfig(true);
+                      }}
+                    >
+                      <Zap className="h-5 w-5" />
+                    </Button>
                     </div>
                   }
                 />
@@ -818,6 +834,18 @@ export const VenueDirectoryTab = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-1">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          className="text-cyan-500"
+                          onClick={() => {
+                            setDepotConfigVenue(venue);
+                            setShowDepotConfig(true);
+                          }}
+                          title="Signal Depot"
+                        >
+                          <Zap className="h-4 w-4" />
+                        </Button>
                         <Dialog>
                           <DialogTrigger asChild>
                             <Button 
@@ -1129,6 +1157,28 @@ export const VenueDirectoryTab = () => {
     
     {/* Venue Operators Section */}
     <VenueOperatorsManager />
+    
+    {/* Depot Configuration Dialog */}
+    <Dialog open={showDepotConfig} onOpenChange={setShowDepotConfig}>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Zap className="h-5 w-5 text-cyan-400" />
+            Signal Depot Configuration
+          </DialogTitle>
+          <DialogDescription>
+            Configure verification requirements for {depotConfigVenue?.venue_name}
+          </DialogDescription>
+        </DialogHeader>
+        {depotConfigVenue && (
+          <PartnerDepotConfig 
+            venueId={depotConfigVenue.id} 
+            venueName={depotConfigVenue.venue_name}
+            onClose={() => setShowDepotConfig(false)}
+          />
+        )}
+      </DialogContent>
+    </Dialog>
     </>
   );
 };

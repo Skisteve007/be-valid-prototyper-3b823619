@@ -6,7 +6,12 @@ export type IndustryType =
   | 'Workforce' 
   | 'Medical' 
   | 'Rentals' 
-  | 'Security';
+  | 'Security'
+  | 'Enterprises'
+  | 'Health'
+  | 'Law'
+  | 'Adult'
+  | 'Sports';
 
 export interface IndustryLabels {
   // Live Operations metrics
@@ -128,6 +133,81 @@ export const INDUSTRY_CONFIG: Record<IndustryType, IndustryLabels> = {
     ],
     staffRoles: ['Guard', 'Patrol Officer', 'Supervisor', 'K-9 Handler', 'Executive Protection'],
     stationTypes: ['Post', 'Patrol Route', 'Checkpoint', 'Command Center', 'Entry Gate']
+  },
+  
+  Enterprises: {
+    primaryMetric: 'Active Employees',
+    secondaryMetric: 'Compliance Rate',
+    tertiaryMetric: 'Verifications Today',
+    assignmentUnit: 'Department',
+    assignmentUnitPlural: 'Departments',
+    revenueCategories: [
+      { id: 'verification', label: 'Verifications', color: '#3b82f6' },
+      { id: 'compliance', label: 'Compliance Fees', color: '#22c55e' },
+      { id: 'subscription', label: 'Subscriptions', color: '#f59e0b' }
+    ],
+    staffRoles: ['HR Admin', 'Compliance Officer', 'Department Head', 'Security Admin'],
+    stationTypes: ['Entry Gate', 'Department', 'Verification Kiosk', 'Admin Office']
+  },
+  
+  Health: {
+    primaryMetric: 'Patients Verified',
+    secondaryMetric: 'Health Cards Active',
+    tertiaryMetric: 'Compliance Rate',
+    assignmentUnit: 'Facility',
+    assignmentUnitPlural: 'Facilities',
+    revenueCategories: [
+      { id: 'verification', label: 'Health Verifications', color: '#ef4444' },
+      { id: 'testing', label: 'Testing Services', color: '#22c55e' },
+      { id: 'cards', label: 'Health Cards', color: '#3b82f6' }
+    ],
+    staffRoles: ['Nurse', 'Technician', 'Physician', 'Admin', 'Compliance Officer'],
+    stationTypes: ['Testing Station', 'Verification Desk', 'Lab', 'Admin Office']
+  },
+  
+  Law: {
+    primaryMetric: 'Cases Verified',
+    secondaryMetric: 'Background Checks',
+    tertiaryMetric: 'Compliance Audits',
+    assignmentUnit: 'Office',
+    assignmentUnitPlural: 'Offices',
+    revenueCategories: [
+      { id: 'background', label: 'Background Checks', color: '#6366f1' },
+      { id: 'compliance', label: 'Compliance', color: '#22c55e' },
+      { id: 'verification', label: 'Verifications', color: '#3b82f6' }
+    ],
+    staffRoles: ['Attorney', 'Paralegal', 'Compliance Officer', 'Investigator'],
+    stationTypes: ['Office', 'Court Liaison', 'Verification Desk', 'Records']
+  },
+  
+  Adult: {
+    primaryMetric: 'Headcount',
+    secondaryMetric: 'VIP Revenue',
+    tertiaryMetric: 'Verifications',
+    assignmentUnit: 'Station',
+    assignmentUnitPlural: 'Stations',
+    revenueCategories: [
+      { id: 'door', label: 'Door Entry', color: '#f59e0b' },
+      { id: 'vip', label: 'VIP Services', color: '#ec4899' },
+      { id: 'bar', label: 'Bar Sales', color: '#22c55e' }
+    ],
+    staffRoles: ['Host', 'Security', 'VIP Host', 'Manager', 'Bartender'],
+    stationTypes: ['Door', 'VIP', 'Bar', 'Stage', 'Security Desk']
+  },
+  
+  Sports: {
+    primaryMetric: 'Fan Attendance',
+    secondaryMetric: 'Concession Sales',
+    tertiaryMetric: 'VIP Box Occupancy',
+    assignmentUnit: 'Section',
+    assignmentUnitPlural: 'Sections',
+    revenueCategories: [
+      { id: 'tickets', label: 'Ticket Sales', color: '#a855f7' },
+      { id: 'concessions', label: 'Concessions', color: '#22c55e' },
+      { id: 'merchandise', label: 'Merchandise', color: '#f59e0b' }
+    ],
+    staffRoles: ['Usher', 'Security', 'Concessions', 'Box Office', 'Event Staff'],
+    stationTypes: ['Gate', 'Section', 'Concession Stand', 'VIP Box', 'Press Box']
   }
 };
 

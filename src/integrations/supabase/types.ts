@@ -14,6 +14,202 @@ export type Database = {
   }
   public: {
     Tables: {
+      account_connectors: {
+        Row: {
+          account_id: string
+          api_endpoint: string | null
+          auth_type: string | null
+          connector_name: string
+          connector_type: Database["public"]["Enums"]["connector_type"]
+          created_at: string
+          id: string
+          is_active: boolean | null
+          last_test_at: string | null
+          last_test_status: string | null
+          updated_at: string
+          vault_endpoint: string | null
+          vault_type: Database["public"]["Enums"]["vault_storage_type"] | null
+        }
+        Insert: {
+          account_id: string
+          api_endpoint?: string | null
+          auth_type?: string | null
+          connector_name: string
+          connector_type: Database["public"]["Enums"]["connector_type"]
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          last_test_at?: string | null
+          last_test_status?: string | null
+          updated_at?: string
+          vault_endpoint?: string | null
+          vault_type?: Database["public"]["Enums"]["vault_storage_type"] | null
+        }
+        Update: {
+          account_id?: string
+          api_endpoint?: string | null
+          auth_type?: string | null
+          connector_name?: string
+          connector_type?: Database["public"]["Enums"]["connector_type"]
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          last_test_at?: string | null
+          last_test_status?: string | null
+          updated_at?: string
+          vault_endpoint?: string | null
+          vault_type?: Database["public"]["Enums"]["vault_storage_type"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "account_connectors_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "enterprise_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      account_deployments: {
+        Row: {
+          account_id: string
+          consensus_threshold: number
+          created_at: string
+          default_action: string
+          deployment_name: string
+          environment: Database["public"]["Enums"]["deployment_env"]
+          id: string
+          is_active: boolean | null
+          lens_1_enabled: boolean | null
+          lens_2_enabled: boolean | null
+          lens_3_enabled: boolean | null
+          lens_4_enabled: boolean | null
+          lens_5_enabled: boolean | null
+          lens_6_enabled: boolean | null
+          lens_7_enabled: boolean | null
+          ttl_minutes: number
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          consensus_threshold?: number
+          created_at?: string
+          default_action?: string
+          deployment_name: string
+          environment?: Database["public"]["Enums"]["deployment_env"]
+          id?: string
+          is_active?: boolean | null
+          lens_1_enabled?: boolean | null
+          lens_2_enabled?: boolean | null
+          lens_3_enabled?: boolean | null
+          lens_4_enabled?: boolean | null
+          lens_5_enabled?: boolean | null
+          lens_6_enabled?: boolean | null
+          lens_7_enabled?: boolean | null
+          ttl_minutes?: number
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          consensus_threshold?: number
+          created_at?: string
+          default_action?: string
+          deployment_name?: string
+          environment?: Database["public"]["Enums"]["deployment_env"]
+          id?: string
+          is_active?: boolean | null
+          lens_1_enabled?: boolean | null
+          lens_2_enabled?: boolean | null
+          lens_3_enabled?: boolean | null
+          lens_4_enabled?: boolean | null
+          lens_5_enabled?: boolean | null
+          lens_6_enabled?: boolean | null
+          lens_7_enabled?: boolean | null
+          ttl_minutes?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "account_deployments_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "enterprise_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      account_proof_records: {
+        Row: {
+          account_id: string
+          connector_refs: Json | null
+          created_at: string
+          deployment_id: string | null
+          flags: string[] | null
+          id: string
+          input_hash: string
+          lens_summaries: Json | null
+          output_hash: string
+          proof_record_id: string
+          request_type: string
+          requester_hash: string | null
+          scores: Json | null
+          signature: string | null
+          signed_at: string | null
+          verdict: string
+        }
+        Insert: {
+          account_id: string
+          connector_refs?: Json | null
+          created_at?: string
+          deployment_id?: string | null
+          flags?: string[] | null
+          id?: string
+          input_hash: string
+          lens_summaries?: Json | null
+          output_hash: string
+          proof_record_id: string
+          request_type: string
+          requester_hash?: string | null
+          scores?: Json | null
+          signature?: string | null
+          signed_at?: string | null
+          verdict: string
+        }
+        Update: {
+          account_id?: string
+          connector_refs?: Json | null
+          created_at?: string
+          deployment_id?: string | null
+          flags?: string[] | null
+          id?: string
+          input_hash?: string
+          lens_summaries?: Json | null
+          output_hash?: string
+          proof_record_id?: string
+          request_type?: string
+          requester_hash?: string | null
+          scores?: Json | null
+          signature?: string | null
+          signed_at?: string | null
+          verdict?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "account_proof_records_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "enterprise_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "account_proof_records_deployment_id_fkey"
+            columns: ["deployment_id"]
+            isOneToOne: false
+            referencedRelation: "account_deployments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       admin_sales_assets: {
         Row: {
           calendly_link: string | null
@@ -829,6 +1025,126 @@ export type Database = {
           verified_at?: string | null
         }
         Relationships: []
+      }
+      enterprise_accounts: {
+        Row: {
+          account_name: string
+          created_at: string
+          data_classes: string[] | null
+          data_environment:
+            | Database["public"]["Enums"]["data_environment"]
+            | null
+          id: string
+          industry: string
+          intake_completed_at: string | null
+          last_run_at: string | null
+          last_verdict: string | null
+          location_city: string | null
+          location_country: string | null
+          output_preference: string | null
+          status: string
+          total_runs: number | null
+          updated_at: string
+          use_cases: string[] | null
+        }
+        Insert: {
+          account_name: string
+          created_at?: string
+          data_classes?: string[] | null
+          data_environment?:
+            | Database["public"]["Enums"]["data_environment"]
+            | null
+          id?: string
+          industry?: string
+          intake_completed_at?: string | null
+          last_run_at?: string | null
+          last_verdict?: string | null
+          location_city?: string | null
+          location_country?: string | null
+          output_preference?: string | null
+          status?: string
+          total_runs?: number | null
+          updated_at?: string
+          use_cases?: string[] | null
+        }
+        Update: {
+          account_name?: string
+          created_at?: string
+          data_classes?: string[] | null
+          data_environment?:
+            | Database["public"]["Enums"]["data_environment"]
+            | null
+          id?: string
+          industry?: string
+          intake_completed_at?: string | null
+          last_run_at?: string | null
+          last_verdict?: string | null
+          location_city?: string | null
+          location_country?: string | null
+          output_preference?: string | null
+          status?: string
+          total_runs?: number | null
+          updated_at?: string
+          use_cases?: string[] | null
+        }
+        Relationships: []
+      }
+      ephemeral_payload_vault: {
+        Row: {
+          account_id: string
+          created_at: string
+          customer_vault_ref: string | null
+          deployment_id: string | null
+          expires_at: string
+          flush_reason: string | null
+          flushed_at: string | null
+          id: string
+          payload_hash: string
+          payload_size_bytes: number | null
+          payload_type: string
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          customer_vault_ref?: string | null
+          deployment_id?: string | null
+          expires_at: string
+          flush_reason?: string | null
+          flushed_at?: string | null
+          id?: string
+          payload_hash: string
+          payload_size_bytes?: number | null
+          payload_type: string
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          customer_vault_ref?: string | null
+          deployment_id?: string | null
+          expires_at?: string
+          flush_reason?: string | null
+          flushed_at?: string | null
+          id?: string
+          payload_hash?: string
+          payload_size_bytes?: number | null
+          payload_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ephemeral_payload_vault_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "enterprise_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ephemeral_payload_vault_deployment_id_fkey"
+            columns: ["deployment_id"]
+            isOneToOne: false
+            referencedRelation: "account_deployments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       exception_queue: {
         Row: {
@@ -5597,7 +5913,9 @@ export type Database = {
           should_escalate: boolean
         }[]
       }
+      flush_expired_payloads: { Args: never; Returns: undefined }
       generate_member_id: { Args: never; Returns: string }
+      generate_proof_record_id: { Args: never; Returns: string }
       generate_synth_codename: { Args: { p_tier?: string }; Returns: string }
       get_ghost_allowed_claims: {
         Args: { p_user_id: string }
@@ -5746,6 +6064,9 @@ export type Database = {
         | "paid"
         | "active_member"
         | "administrator"
+      connector_type: "source_of_truth" | "customer_vault"
+      data_environment: "on_prem" | "cloud" | "hybrid"
+      deployment_env: "dev" | "stage" | "prod"
       depot_signal_type:
         | "age_verified"
         | "idv_status"
@@ -5826,6 +6147,7 @@ export type Database = {
         | "playbooks"
         | "decision_log"
         | "templates"
+      vault_storage_type: "s3" | "azure" | "gcs" | "sftp" | "on_prem"
       venue_category:
         | "Nightlife"
         | "Gentlemen"
@@ -5972,6 +6294,9 @@ export const Constants = {
         "active_member",
         "administrator",
       ],
+      connector_type: ["source_of_truth", "customer_vault"],
+      data_environment: ["on_prem", "cloud", "hybrid"],
+      deployment_env: ["dev", "stage", "prod"],
       depot_signal_type: [
         "age_verified",
         "idv_status",
@@ -6059,6 +6384,7 @@ export const Constants = {
         "decision_log",
         "templates",
       ],
+      vault_storage_type: ["s3", "azure", "gcs", "sftp", "on_prem"],
       venue_category: [
         "Nightlife",
         "Gentlemen",

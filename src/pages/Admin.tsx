@@ -25,6 +25,7 @@ import { VenueDirectoryTab } from "@/components/admin/VenueDirectoryTab";
 import { AccountsTab } from "@/components/admin/accounts";
 import SalesTeamTab from "@/components/admin/SalesTeamTab";
 import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
+import { AdminSidebarNav } from "@/components/admin/AdminSidebarNav";
 import { QuickBrandingTool } from "@/components/admin/QuickBrandingTool";
 import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
 import { LeadOutreachTab } from "@/components/admin/LeadOutreachTab";
@@ -603,7 +604,18 @@ const Admin = () => {
           {/* Mobile Navigation */}
           <AdminMobileNav activeTab={activeTab} onTabChange={handleTabChange} canAccessDealRoom={!!canAccessDealRoom} canUnlockSynth={!!canUnlockSynth} />
 
-          <div className="md:hidden mt-3 space-y-2">
+          <div className="md:grid md:grid-cols-[260px_1fr] md:gap-6 md:mt-6">
+            <aside className="hidden md:block">
+              <AdminSidebarNav
+                activeTab={activeTab}
+                onTabChange={handleTabChange}
+                canAccessDealRoom={!!canAccessDealRoom}
+                canUnlockSynth={!!canUnlockSynth}
+              />
+            </aside>
+
+            <div className="min-w-0">
+              <div className="md:hidden mt-3 space-y-2">
             <Button
               variant="outline"
               className={`w-full justify-center gap-2 border border-primary/30 ${
@@ -1120,6 +1132,8 @@ const Admin = () => {
           <TabsContent value="synth">
             <SynthAdminTab />
           </TabsContent>
+            </div>
+          </div>
         </Tabs>
       </main>
     </div>

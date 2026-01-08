@@ -26,17 +26,32 @@ const DemoEnvironmentNotice = ({
       <DialogHeader>
         <DialogTitle className="flex items-center gap-2">
           <Info className="h-5 w-5 text-primary" />
-          Demo Environment Notice
+          Demo Mode Notice — Limited Input, Real Governance Signals
         </DialogTitle>
         <DialogDescription className="text-left pt-4 space-y-4">
           <p>
-            This experience demonstrates the Valid/SYNTH governance workflow, 
-            proof-record verification, and integration patterns. Outputs shown 
-            may be produced using demo-safe simulation and sample data.
+            This interface is currently operating in demo mode to demonstrate how 
+            VALID | SYNTH™ performs governed AI validation.
           </p>
           <p>
-            Production deployments run with client-specific rule packs and 
-            verified integrations under contract.
+            For the purposes of this demo, the system processes only the data you 
+            explicitly and permissibly provide through this form. Do not submit 
+            sensitive, regulated, or production data unless you are authorized to do so.
+          </p>
+          <p>
+            In a live deployment, VALID | SYNTH™ does not rely on uploaded documents. 
+            Instead, it operates simultaneously alongside your existing AI platform or 
+            source of truth, observing the same data at the same time—without intercepting, 
+            storing, or retaining it.
+          </p>
+          <p>
+            All content evaluated during validation is immediately purged. The system emits 
+            only a governance signal (scores, verdicts, and cryptographic proof), never the 
+            underlying data.
+          </p>
+          <p className="font-medium text-foreground/80">
+            This demo reflects the exact governance logic and audit mechanics used in 
+            production—only the data ingestion method differs.
           </p>
         </DialogDescription>
       </DialogHeader>

@@ -11,11 +11,12 @@ interface DemoCardProps {
   bullets: string[];
   whoFor: string;
   path: string;
+  pulsate?: boolean;
 }
 
-const DemoCard = ({ title, subtitle, icon: Icon, bullets, whoFor, path }: DemoCardProps) => {
+const DemoCard = ({ title, subtitle, icon: Icon, bullets, whoFor, path, pulsate }: DemoCardProps) => {
   return (
-    <Card className="border-border/50 hover:border-primary/40 transition-colors h-full flex flex-col">
+    <Card className={`border-border/50 hover:border-primary/40 transition-colors h-full flex flex-col ${pulsate ? 'animate-[pulse-blue_2s_ease-in-out_infinite] shadow-[0_0_20px_rgba(59,130,246,0.3)]' : ''}`}>
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 rounded-lg bg-primary/10 border border-primary/30">

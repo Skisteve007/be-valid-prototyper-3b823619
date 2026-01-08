@@ -129,6 +129,7 @@ const DemoHub = () => {
       ],
       whoFor: "Legal, medical, and enterprise professionals needing governed document validation",
       path: "/vendor-depot",
+      pulsate: true,
     },
     // TOP 3 — Reordered per restructure pack
     {

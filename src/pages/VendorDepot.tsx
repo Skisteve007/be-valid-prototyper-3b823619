@@ -226,16 +226,18 @@ const VendorDepot = () => {
         {/* Header */}
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
           <div className="container mx-auto px-4 py-3">
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="shrink-0">
                 <ArrowLeft className="h-5 w-5" />
               </Button>
-              <div className="p-2 rounded-lg bg-primary/10 border border-primary/30">
-                <Upload className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-foreground">Vendor Depot</h1>
-                <p className="text-xs text-muted-foreground">Upload for SYNTH Validation</p>
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="p-2 rounded-lg bg-primary/10 border border-primary/30 shrink-0">
+                  <Upload className="h-5 w-5 text-primary" />
+                </div>
+                <div className="min-w-0">
+                  <h1 className="text-lg font-bold text-foreground truncate">Vendor Depot</h1>
+                  <p className="text-xs text-muted-foreground">VALID | SYNTH™ Document Intake</p>
+                </div>
               </div>
             </div>
           </div>

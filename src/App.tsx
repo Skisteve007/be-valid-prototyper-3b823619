@@ -134,6 +134,7 @@ const AgreementFlow = lazy(() => import("./pages/AgreementFlow"));
 const AgreementSuccess = lazy(() => import("./pages/AgreementSuccess"));
 const Careers = lazy(() => import("./pages/Careers"));
 const Evolution2026PitchDeck = lazy(() => import("./pages/Evolution2026PitchDeck"));
+const GhostDemos = lazy(() => import("./pages/GhostDemos"));
 
 const queryClient = new QueryClient();
 
@@ -209,6 +210,7 @@ const App = () => (
                   <Route path="/demos/scale-conduit" element={<AccessGate accessType="partner"><DemoScaleConduit /></AccessGate>} />
                   <Route path="/demos/operator-certification" element={<AccessGate accessType="partner"><DemoOperatorCertification /></AccessGate>} />
                   <Route path="/demos/servicenow" element={<AccessGate accessType="partner"><DemoServiceNow /></AccessGate>} />
+                  <Route path="/demos/ghost" element={<AccessGate accessType="partner"><GhostDemos /></AccessGate>} />
                   
                   {/* DOCUMENTATION ROUTES */}
                   <Route path="/partner/help" element={<AgeGate><PartnerHelp /></AgeGate>} />

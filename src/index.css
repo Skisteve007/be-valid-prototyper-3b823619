@@ -302,6 +302,18 @@ All colors MUST be HSL.
   animation: gentle-glow 3s ease-in-out infinite;
 }
 
+/* Slow pulsating blue glow for Vendor Depot cards */
+@keyframes pulse-blue {
+  0%, 100% {
+    box-shadow: 0 0 15px 3px rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px 6px rgba(59, 130, 246, 0.5);
+    border-color: rgba(59, 130, 246, 0.6);
+  }
+}
+
 /* Mobile Optimizations */
 @layer utilities {
   .scrollbar-hide {

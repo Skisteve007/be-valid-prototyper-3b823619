@@ -117,6 +117,19 @@ const DemoHub = () => {
   ];
 
   const demos = [
+    // VENDOR DEPOT — Primary CTA
+    {
+      title: "Vendor Depot",
+      subtitle: "Upload documents for AI-governed validation",
+      icon: Upload,
+      bullets: [
+        "Attorneys, doctors, enterprise vendors submit documents",
+        "Multi-model validation through 7-seat AI Senate",
+        "Proof record + scores returned within 20 minutes",
+      ],
+      whoFor: "Legal, medical, and enterprise professionals needing governed document validation",
+      path: "/vendor-depot",
+    },
     // TOP 3 — Reordered per restructure pack
     {
       title: "Demo A — Operator Certification (Workforce)",

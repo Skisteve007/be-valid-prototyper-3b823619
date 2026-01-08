@@ -260,6 +260,19 @@ const VendorDepot = () => {
             </CardContent>
           </Card>
 
+          {/* Demo Notice */}
+          <Card className="mb-6 border-border/50 bg-muted/30">
+            <CardContent className="pt-4 pb-4">
+              <p className="text-xs text-muted-foreground">
+                This experience demonstrates the Valid/SYNTH governance workflow, proof-record verification, 
+                and integration patterns. Outputs shown may be produced using demo-safe simulation and sample data.
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Production deployments run with client-specific rule packs and verified integrations under contract.
+              </p>
+            </CardContent>
+          </Card>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Vendor Info */}
             <Card>

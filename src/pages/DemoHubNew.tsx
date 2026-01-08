@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { 
   Sparkles, MessageSquare, Scale, Building2, UserCheck, 
-  ArrowRight, Calendar, Copy, Check, Shield
+  ArrowRight, Calendar, Copy, Check, Shield, Upload
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -27,6 +27,16 @@ const DemoHubNew = () => {
   };
 
   const primaryPaths = [
+    {
+      title: "Vendor Depot",
+      subtitle: "Upload documents for AI-governed validation",
+      time: "5 min",
+      icon: Upload,
+      path: "/vendor-depot",
+      color: "from-orange-500 to-amber-500",
+      borderColor: "border-orange-500/30",
+      bgColor: "bg-orange-500/5",
+    },
     {
       title: "Try a Decision",
       subtitle: "Run a governed verdict with proof record",
@@ -108,7 +118,7 @@ const DemoHubNew = () => {
           </div>
 
           {/* Primary CTA Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
             {primaryPaths.map((item) => {
               const Icon = item.icon;
               return (

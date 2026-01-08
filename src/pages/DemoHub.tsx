@@ -11,7 +11,6 @@ import FlowDiagram from "@/components/demos/FlowDiagram";
 import DemoShareButton from "@/components/demos/DemoShareButton";
 import SideBySideSection from "@/components/demos/SideBySideSection";
 import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
-import GhostEcosystemModule from "@/components/demos/GhostEcosystemModule";
 import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Target } from "lucide-react";
@@ -296,7 +295,7 @@ const DemoHub = () => {
               <a href="#overview" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Overview</a>
               <a href="#demos" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Demos</a>
               <a href="#proof" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Proof</a>
-              <a href="#ghost" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Ghost</a>
+              <Link to="/demos/ghost" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Ghost</Link>
               <a href="#risks" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Risks</a>
               <a href="#integration" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">Integration</a>
               <a href="#loi" className="flex-shrink-0 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-foreground bg-muted/40 hover:bg-muted/60 rounded-full whitespace-nowrap transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-border/50">LOI</a>
@@ -357,12 +356,6 @@ const DemoHub = () => {
               </CardContent>
             </Card>
           </div>
-
-          {/* Ghost Ecosystem Module */}
-          <div id="ghost" className="scroll-mt-32">
-            <GhostEcosystemModule />
-          </div>
-
           {/* Intro Card */}
           <Card id="proof" className="mb-4 border-primary/20 bg-primary/5 scroll-mt-32">
             <CardContent className="pt-6">

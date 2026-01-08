@@ -58,6 +58,7 @@ const AccessApproved = lazy(() => import("./pages/AccessApproved"));
 const SharedLocation = lazy(() => import("./pages/SharedLocation"));
 const VendorPortal = lazy(() => import("./pages/VendorPortal"));
 const VendorDashboard = lazy(() => import("./pages/VendorDashboard"));
+const VendorDepot = lazy(() => import("./pages/VendorDepot"));
 const StaffPOS = lazy(() => import("./pages/StaffPOS"));
 const InvestorPortal = lazy(() => import("./pages/InvestorPortal"));
 const ApiDocs = lazy(() => import("./pages/ApiDocs"));
@@ -262,6 +263,7 @@ const App = () => (
                   <Route path="/pricing" element={<AgeGate><Pricing /></AgeGate>} />
                   <Route path="/vendor-portal" element={<VendorPortal />} />
                   <Route path="/vendor-portal/dashboard" element={<VendorDashboard />} />
+                  <Route path="/vendor-depot" element={<VendorDepot />} />
                   <Route path="/staff/pos" element={<StaffPOS />} />
                   
                   {/* VENUE ROUTES */}

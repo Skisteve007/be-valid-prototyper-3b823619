@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, DollarSign, BarChart3, Lock } from "lucide-react";
+import { Users, DollarSign, BarChart3, Lock, Upload } from "lucide-react";
 import validLogo from "@/assets/valid-logo.jpeg";
 import { Helmet } from "react-helmet-async";
 
@@ -96,6 +96,36 @@ const VendorPortal = () => {
               <Lock className="w-5 h-5 mr-2" />
               Vendor Login
             </Button>
+          </div>
+        </section>
+
+        {/* Vendor Depot CTA */}
+        <section className="py-8 px-4">
+          <div className="max-w-4xl mx-auto">
+            <Card 
+              className="bg-gradient-to-r from-orange-500/20 to-amber-500/20 border-orange-500/30 backdrop-blur-sm cursor-pointer hover:shadow-[0_0_30px_rgba(249,115,22,0.3)] transition-all"
+              onClick={() => navigate("/vendor-depot")}
+            >
+              <CardContent className="py-8">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 shadow-lg">
+                    <Upload className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-2xl font-bold text-white mb-2">Vendor Depot</h3>
+                    <p className="text-slate-300 mb-4">
+                      Upload documents for AI-governed validation. Attorneys, doctors, and enterprise vendors can submit for multi-model verification with proof records.
+                    </p>
+                    <Button 
+                      className="bg-orange-500 hover:bg-orange-400 text-white font-bold"
+                    >
+                      <Upload className="w-4 h-4 mr-2" />
+                      Upload Documents
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 

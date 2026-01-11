@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Shield, ShieldCheck, ChevronLeft, Fingerprint, FlaskConical, Heart, Lock } from 'lucide-react';
+import { Shield, ShieldCheck, ChevronLeft, Fingerprint, FlaskConical, Heart, Lock, Ear, Eye, Apple, Hand, Wind, Upload, Radio } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import BackButton from '@/components/BackButton';
+import { toast } from 'sonner';
 
 const TrustCenter: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +13,12 @@ const TrustCenter: React.FC = () => {
   const [statuses, setStatuses] = useState({
     id: 'none' as 'verified' | 'pending' | 'none',
     healthLab: 'none' as 'verified' | 'pending' | 'none',
-    toxicology: 'none' as 'verified' | 'pending' | 'none'
+    toxicology: 'none' as 'verified' | 'pending' | 'none',
+    audiology: 'none' as 'verified' | 'pending' | 'none',
+    visual: 'none' as 'verified' | 'pending' | 'none',
+    taste: 'none' as 'verified' | 'pending' | 'none',
+    touch: 'none' as 'verified' | 'pending' | 'none',
+    atmospheric: 'none' as 'verified' | 'pending' | 'none'
   });
 
   useEffect(() => {
@@ -45,7 +51,12 @@ const TrustCenter: React.FC = () => {
         setStatuses({
           id: idStatus as 'verified' | 'pending' | 'none',
           healthLab: healthLabStatus as 'verified' | 'pending' | 'none',
-          toxicology: toxStatus as 'verified' | 'pending' | 'none'
+          toxicology: toxStatus as 'verified' | 'pending' | 'none',
+          audiology: 'none', // Signal from API source of truth
+          visual: 'none', // Signal from API source of truth
+          taste: 'none', // Signal from API source of truth
+          touch: 'none', // Signal from API source of truth
+          atmospheric: 'none' // Signal from API source of truth
         });
         
         // Calculate trust score
@@ -81,9 +92,26 @@ const TrustCenter: React.FC = () => {
     }
     return (
       <span className="flex items-center gap-1 text-muted-foreground text-xs">
-        Not Started
+        <Radio className="w-3 h-3" />
+        Awaiting Signal
       </span>
     );
+  };
+
+  // Handler for signal-based verification (API conduit)
+  const handleSignalVerification = (type: string) => {
+    toast.info(`${type} verification ready`, {
+      description: 'Awaiting signal from source of truth. Upload supported for manual verification.',
+    });
+  };
+
+  // Handler for document upload (goes to API source of truth)
+  const handleUpload = (type: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    toast.info(`Upload for ${type}`, {
+      description: 'Document will be sent to source of truth for verification. No data stored locally.',
+    });
+    // TODO: Implement file upload that sends to API source of truth
   };
 
   return (
@@ -163,6 +191,142 @@ const TrustCenter: React.FC = () => {
               </div>
             </div>
             <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
+          </button>
+
+          {/* Sensory Verification Section */}
+          <div className="pt-4 pb-2">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Sensory Verification</h2>
+            <p className="text-xs text-muted-foreground mt-1">Signal conduit — no data stored, only verification signals received</p>
+          </div>
+
+          {/* Audiology */}
+          <button
+            onClick={() => handleSignalVerification('Audiology')}
+            className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                <Ear className="w-6 h-6 text-blue-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-foreground font-semibold">Audiology</div>
+                <StatusBadge status={statuses.audiology} />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={(e) => handleUpload('Audiology', e)}
+                className="p-2 rounded-full bg-blue-500/10 hover:bg-blue-500/20 transition"
+              >
+                <Upload className="w-4 h-4 text-blue-400" />
+              </button>
+              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
+            </div>
+          </button>
+
+          {/* Visual */}
+          <button
+            onClick={() => handleSignalVerification('Visual')}
+            className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center">
+                <Eye className="w-6 h-6 text-amber-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-foreground font-semibold">Visual</div>
+                <StatusBadge status={statuses.visual} />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={(e) => handleUpload('Visual', e)}
+                className="p-2 rounded-full bg-amber-500/10 hover:bg-amber-500/20 transition"
+              >
+                <Upload className="w-4 h-4 text-amber-400" />
+              </button>
+              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
+            </div>
+          </button>
+
+          {/* Taste */}
+          <button
+            onClick={() => handleSignalVerification('Taste Sense')}
+            className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-rose-500/20 flex items-center justify-center">
+                <Apple className="w-6 h-6 text-rose-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-foreground font-semibold">Taste Sense</div>
+                <StatusBadge status={statuses.taste} />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={(e) => handleUpload('Taste Sense', e)}
+                className="p-2 rounded-full bg-rose-500/10 hover:bg-rose-500/20 transition"
+              >
+                <Upload className="w-4 h-4 text-rose-400" />
+              </button>
+              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
+            </div>
+          </button>
+
+          {/* Touch */}
+          <button
+            onClick={() => handleSignalVerification('Touch Sense')}
+            className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <Hand className="w-6 h-6 text-emerald-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-foreground font-semibold">Touch Sense</div>
+                <StatusBadge status={statuses.touch} />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={(e) => handleUpload('Touch Sense', e)}
+                className="p-2 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 transition"
+              >
+                <Upload className="w-4 h-4 text-emerald-400" />
+              </button>
+              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
+            </div>
+          </button>
+
+          {/* Atmospheric Balance */}
+          <button
+            onClick={() => handleSignalVerification('Atmospheric Balance')}
+            className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                <Wind className="w-6 h-6 text-indigo-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-foreground font-semibold">Atmospheric Balance</div>
+                <StatusBadge status={statuses.atmospheric} />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={(e) => handleUpload('Atmospheric Balance', e)}
+                className="p-2 rounded-full bg-indigo-500/10 hover:bg-indigo-500/20 transition"
+              >
+                <Upload className="w-4 h-4 text-indigo-400" />
+              </button>
+              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
+            </div>
           </button>
         </div>
 

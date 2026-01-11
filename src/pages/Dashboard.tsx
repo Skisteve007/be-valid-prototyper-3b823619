@@ -500,24 +500,73 @@ const Dashboard = () => {
                 </TabsContent>
 
                 <TabsContent value="senate">
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div className="text-center mb-6">
                       <h2 className="text-xl font-bold bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">The Senate</h2>
                       <p className="text-[#E0E0E0]/60 text-sm mt-1">AI Governance & Verification</p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {[1, 2, 3, 4, 5, 6, 7].map((seat) => (
-                        <div 
-                          key={seat}
-                          className="backdrop-blur-xl bg-black/40 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center min-h-[150px] hover:border-cyan-500/40 transition-all duration-300"
-                        >
-                          <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-3">
-                            <Scale className="w-6 h-6 text-cyan-400" />
-                          </div>
-                          <span className="text-[#E0E0E0]/80 font-medium">Seat {seat}</span>
-                          <span className="text-[#E0E0E0]/40 text-xs mt-1">Placeholder</span>
+                    
+                    {/* Judicial Pyramid Layout */}
+                    <div className="space-y-6">
+                      {/* Top Tier - Chief Judge (Seat 1) */}
+                      <div className="flex flex-col items-center">
+                        <div className="text-xs uppercase tracking-widest text-cyan-400 mb-3 font-semibold flex items-center gap-2">
+                          <Scale className="w-4 h-4" />
+                          Chief Judge
                         </div>
-                      ))}
+                        <div 
+                          className="backdrop-blur-xl bg-black/40 border-2 border-cyan-500/50 rounded-xl p-6 flex flex-col items-center justify-center min-h-[150px] w-full max-w-xs hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-300"
+                        >
+                          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border-2 border-cyan-400/50 flex items-center justify-center mb-3 shadow-[0_0_20px_rgba(0,255,255,0.4)]">
+                            <Scale className="w-7 h-7 text-cyan-300" />
+                          </div>
+                          <span className="text-white font-semibold">Seat 1</span>
+                          <span className="text-cyan-400/80 text-xs mt-1">OpenAI • GPT-4o</span>
+                        </div>
+                      </div>
+
+                      {/* Second Tier - Executive Secretary (Seat 2) */}
+                      <div className="flex flex-col items-center">
+                        <div className="text-xs uppercase tracking-widest text-purple-400 mb-3 font-semibold">
+                          Executive Secretary
+                        </div>
+                        <div 
+                          className="backdrop-blur-xl bg-black/40 border-2 border-purple-500/50 rounded-xl p-6 flex flex-col items-center justify-center min-h-[150px] w-full max-w-xs hover:border-purple-400 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-all duration-300"
+                        >
+                          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500/30 to-pink-500/30 border-2 border-purple-400/50 flex items-center justify-center mb-3 shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                            <Scale className="w-7 h-7 text-purple-300" />
+                          </div>
+                          <span className="text-white font-semibold">Seat 2</span>
+                          <span className="text-purple-400/80 text-xs mt-1">Anthropic • Claude 3.5</span>
+                        </div>
+                      </div>
+
+                      {/* Bottom Tier - 5 Senate Members (Seats 3-7) */}
+                      <div className="flex flex-col items-center">
+                        <div className="text-xs uppercase tracking-widest text-gray-400 mb-3 font-semibold">
+                          Senate Members
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full max-w-5xl">
+                          {[
+                            { seat: 3, provider: 'Google', model: 'Gemini 1.5', color: 'blue' },
+                            { seat: 4, provider: 'Meta', model: 'Llama 3', color: 'indigo' },
+                            { seat: 5, provider: 'DeepSeek', model: 'V3', color: 'teal' },
+                            { seat: 6, provider: 'Mistral', model: 'Large', color: 'amber' },
+                            { seat: 7, provider: 'xAI', model: 'Grok', color: 'red' },
+                          ].map(({ seat, provider, model, color }) => (
+                            <div 
+                              key={seat}
+                              className="backdrop-blur-xl bg-black/40 border border-white/20 rounded-xl p-5 flex flex-col items-center justify-center min-h-[140px] hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,255,255,0.2)] transition-all duration-300"
+                            >
+                              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center mb-3">
+                                <Scale className="w-6 h-6 text-gray-400" />
+                              </div>
+                              <span className="text-[#E0E0E0]/90 font-medium">Seat {seat}</span>
+                              <span className="text-[#E0E0E0]/50 text-xs mt-1">{provider} • {model}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </TabsContent>

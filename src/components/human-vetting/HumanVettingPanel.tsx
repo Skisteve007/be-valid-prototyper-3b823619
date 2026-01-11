@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Eye, Users, Activity, Brain, Target, Shield, Zap, Clock, TrendingUp, BarChart3, CheckCircle, Sparkles, Building2, User, Briefcase, GraduationCap, Rocket } from 'lucide-react';
+import { X, Eye, Users, Activity, Brain, Target, Shield, Zap, Clock, TrendingUp, BarChart3, CheckCircle, Sparkles, Building2, User, Briefcase, GraduationCap, Rocket, Layers } from 'lucide-react';
+import AISenateResearchTabs from './AISenateResearchTabs';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -61,11 +62,14 @@ const USE_CASES = [
 ];
 
 const SCORING_CATEGORIES = [
-  { name: 'Verification Discipline', score: 87, color: 'from-cyan-500 to-cyan-400' },
-  { name: 'Risk Handling', score: 92, color: 'from-emerald-500 to-emerald-400' },
-  { name: 'Reasoning Quality', score: 78, color: 'from-amber-500 to-amber-400' },
-  { name: 'Auditability', score: 95, color: 'from-violet-500 to-violet-400' },
-  { name: 'Tool Hygiene', score: 84, color: 'from-blue-500 to-blue-400' },
+  { name: 'Epistemic Humility & Verification', score: 87, color: 'from-cyan-500 to-cyan-400', tier: 1 },
+  { name: 'Security Discipline & Data Hygiene', score: 92, color: 'from-emerald-500 to-emerald-400', tier: 1 },
+  { name: 'Clear Intent & Specification', score: 78, color: 'from-amber-500 to-amber-400', tier: 1 },
+  { name: 'Multi-Model Orchestration', score: 85, color: 'from-violet-500 to-violet-400', tier: 2 },
+  { name: 'Structured Output Mastery', score: 91, color: 'from-blue-500 to-blue-400', tier: 2 },
+  { name: 'Operational Circuit Breakers', score: 88, color: 'from-indigo-500 to-indigo-400', tier: 2 },
+  { name: 'Dynamic Trust & Auditability', score: 94, color: 'from-fuchsia-500 to-fuchsia-400', tier: 3 },
+  { name: 'Beneficial Ambition', score: 82, color: 'from-rose-500 to-rose-400', tier: 3 },
 ];
 
 const HumanVettingPanel: React.FC<HumanVettingPanelProps> = ({
@@ -385,31 +389,71 @@ const HumanVettingPanel: React.FC<HumanVettingPanelProps> = ({
                 </div>
               </div>
 
-              {/* What Gets Measured */}
+              {/* What Gets Measured - Tiered Rubric */}
               <div className="p-4 rounded-xl bg-gradient-to-br from-violet-500/5 to-purple-500/5 border border-violet-500/30">
-                <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                <h4 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
                   <Target className="w-4 h-4 text-violet-400" />
-                  What Gets Measured
+                  The Grand Unified Vetting Rubric
                 </h4>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  {[
-                    'Verification Discipline',
-                    'Risk Handling & Escalation',
-                    'Calibration Accuracy',
-                    'Reasoning Quality',
-                    'Policy Compliance',
-                    'Auditability',
-                    'Bias Awareness',
-                    'Incident Response',
-                    'Tool Hygiene',
-                    'Outcome Integrity'
-                  ].map((metric, idx) => (
-                    <div key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-background/50">
-                      <CheckCircle className="w-3 h-3 text-violet-400" />
-                      <span className="text-foreground">{metric}</span>
+                
+                {/* Tier 1: Foundation */}
+                <div className="mb-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-5 h-5 rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
+                      <span className="text-[9px] font-bold text-cyan-400">T1</span>
                     </div>
-                  ))}
+                    <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wide">Foundation: Safety & Integrity</span>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1.5 pl-7">
+                    {['Epistemic Humility & Verification Reflex', 'Security Discipline & Data Hygiene', 'Clear Intent & Specification'].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 p-1.5 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
+                        <CheckCircle className="w-3 h-3 text-cyan-400" />
+                        <span className="text-[10px] text-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
+                {/* Tier 2: Architecture */}
+                <div className="mb-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-5 h-5 rounded-full bg-violet-500/20 border border-violet-500/40 flex items-center justify-center">
+                      <span className="text-[9px] font-bold text-violet-400">T2</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-violet-400 uppercase tracking-wide">Architecture: Systemic Control</span>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1.5 pl-7">
+                    {['Multi-Model Orchestration (N ≥ 2)', 'Structured Output Mastery (Artificial Languages)', 'Operational Circuit Breakers'].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 p-1.5 rounded-lg bg-violet-500/5 border border-violet-500/20">
+                        <Layers className="w-3 h-3 text-violet-400" />
+                        <span className="text-[10px] text-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tier 3: Wisdom */}
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-5 h-5 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center">
+                      <span className="text-[9px] font-bold text-amber-400">T3</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wide">Wisdom: Governance & Partnership</span>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1.5 pl-7">
+                    {['Dynamic Trust & Auditability', 'Beneficial Ambition', 'Failure-First Design'].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 p-1.5 rounded-lg bg-amber-500/5 border border-amber-500/20">
+                        <Sparkles className="w-3 h-3 text-amber-400" />
+                        <span className="text-[10px] text-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* AI Senate Research Tabs */}
+              <div className="p-4 rounded-xl bg-gradient-to-br from-cyan-500/5 to-violet-500/5 border border-cyan-500/30">
+                <AISenateResearchTabs />
               </div>
 
               {/* Action Buttons */}

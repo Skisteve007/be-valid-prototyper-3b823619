@@ -342,7 +342,6 @@ const Dashboard = () => {
                 {/* Human Vetting Pill - AI Cognitive Assessment */}
                 <HumanVettingPill 
                   isActive={false}
-                  onClick={() => setShowHumanVetting(true)}
                 />
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">

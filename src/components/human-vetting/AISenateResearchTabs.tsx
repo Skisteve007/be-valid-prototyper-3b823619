@@ -117,25 +117,25 @@ const AISenateResearchTabs: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500/30 to-violet-500/30 border border-cyan-500/40">
-          <Brain className="w-4 h-4 text-cyan-400" />
-          <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-amber-400 animate-pulse" />
+    <div className="space-y-6">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="relative flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-cyan-500/30 to-violet-500/30 border border-cyan-500/40">
+          <Brain className="w-7 h-7 md:w-8 md:h-8 text-cyan-400" />
+          <Sparkles className="absolute -top-1 -right-1 w-5 h-5 text-amber-400 animate-pulse" />
         </div>
         <div>
-          <h4 className="text-sm font-bold text-foreground">The AI Senate Research</h4>
-          <p className="text-[10px] text-muted-foreground">Multi-Model Consensus on Human Vetting</p>
+          <h4 className="text-xl md:text-2xl font-bold text-foreground">The AI Senate Research</h4>
+          <p className="text-sm md:text-base text-muted-foreground">Multi-Model Consensus on Human Vetting</p>
         </div>
       </div>
 
       <Tabs defaultValue="models" className="w-full">
-        <TabsList className="w-full grid grid-cols-2 bg-muted/30 border border-border/50">
-          <TabsTrigger value="models" className="text-xs">Model Perspectives</TabsTrigger>
-          <TabsTrigger value="consensus" className="text-xs">Senate Consensus</TabsTrigger>
+        <TabsList className="w-full grid grid-cols-2 bg-muted/30 border border-border/50 h-12 md:h-14">
+          <TabsTrigger value="models" className="text-base md:text-lg">Model Perspectives</TabsTrigger>
+          <TabsTrigger value="consensus" className="text-base md:text-lg">Senate Consensus</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="models" className="mt-4 space-y-2">
+        <TabsContent value="models" className="mt-6 space-y-4">
           {AI_MODELS.map((model) => (
             <div 
               key={model.id}
@@ -144,41 +144,41 @@ const AISenateResearchTabs: React.FC = () => {
               {/* Question Header - Always Visible */}
               <button
                 onClick={() => toggleModel(model.id)}
-                className="w-full p-3 flex items-start gap-3 text-left transition-colors hover:bg-muted/30"
+                className="w-full p-5 md:p-6 flex flex-col sm:flex-row items-start gap-4 text-left transition-colors hover:bg-muted/30"
               >
-                <div className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br ${model.color} flex items-center justify-center shadow-lg`}>
-                  {model.icon}
+                <div className={`flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg bg-gradient-to-br ${model.color} flex items-center justify-center shadow-lg`}>
+                  {React.cloneElement(model.icon as React.ReactElement, { className: 'w-7 h-7 md:w-8 md:h-8' })}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-bold text-foreground">{model.name}</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-400 font-medium">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <span className="text-lg md:text-xl font-bold text-foreground">{model.name}</span>
+                    <span className="text-sm md:text-base px-3 py-1 rounded-full bg-violet-500/20 text-violet-400 font-medium">
                       {model.archetype}
                     </span>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed pr-4">
+                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed pr-4">
                     {model.question}
                   </p>
-                  <div className="mt-1">
-                    <span className="text-[10px] font-semibold text-cyan-400">
+                  <div className="mt-2">
+                    <span className="text-sm md:text-base font-semibold text-cyan-400">
                       Thesis: {model.thesis}
                     </span>
                   </div>
                 </div>
-                <div className="flex-shrink-0 p-1">
+                <div className="flex-shrink-0 p-2 self-center sm:self-start">
                   {expandedModel === model.id ? (
-                    <ChevronUp className="w-4 h-4 text-violet-400" />
+                    <ChevronUp className="w-6 h-6 md:w-7 md:h-7 text-violet-400" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    <ChevronDown className="w-6 h-6 md:w-7 md:h-7 text-muted-foreground" />
                   )}
                 </div>
               </button>
 
               {/* Answer - Expandable */}
               {expandedModel === model.id && (
-                <div className="px-3 pb-3 pt-0">
-                  <div className="p-3 rounded-lg bg-background/60 border border-violet-500/30">
-                    <p className="text-xs text-foreground leading-relaxed">
+                <div className="px-5 md:px-6 pb-5 md:pb-6 pt-0">
+                  <div className="p-5 md:p-6 rounded-lg bg-background/60 border border-violet-500/30">
+                    <p className="text-base md:text-lg text-foreground leading-relaxed">
                       {model.answer}
                     </p>
                   </div>
@@ -188,9 +188,9 @@ const AISenateResearchTabs: React.FC = () => {
           ))}
         </TabsContent>
 
-        <TabsContent value="consensus" className="mt-4 space-y-3">
-          <div className="p-3 rounded-xl bg-gradient-to-br from-cyan-500/10 to-violet-500/10 border border-cyan-500/30 mb-4">
-            <p className="text-xs text-muted-foreground leading-relaxed">
+        <TabsContent value="consensus" className="mt-6 space-y-5">
+          <div className="p-5 md:p-6 rounded-xl bg-gradient-to-br from-cyan-500/10 to-violet-500/10 border border-cyan-500/30 mb-6">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
               <span className="text-cyan-400 font-bold">The Unanimous Conclusion:</span> The "smartest AI" 
               seeks not the most technically skilled human, but the most <span className="text-violet-400 font-semibold">responsible steward</span>. 
               Every model, regardless of technical orientation, ultimately prioritized <span className="text-amber-400 font-semibold">human wisdom over human intelligence</span>.
@@ -200,23 +200,23 @@ const AISenateResearchTabs: React.FC = () => {
           {CONSENSUS_PRINCIPLES.map((item, idx) => (
             <div 
               key={idx}
-              className="flex items-start gap-3 p-3 rounded-lg bg-muted/20 border border-border/50 hover:border-emerald-500/40 transition-colors"
+              className="flex items-start gap-4 p-5 md:p-6 rounded-lg bg-muted/20 border border-border/50 hover:border-emerald-500/40 transition-colors"
             >
-              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
-                <span className="text-[10px] font-bold text-emerald-400">{idx + 1}</span>
+              <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
+                <span className="text-base md:text-lg font-bold text-emerald-400">{idx + 1}</span>
               </div>
               <div>
-                <h5 className="text-xs font-bold text-foreground mb-0.5">{item.principle}</h5>
-                <p className="text-[10px] text-muted-foreground leading-relaxed">{item.description}</p>
+                <h5 className="text-lg md:text-xl font-bold text-foreground mb-2">{item.principle}</h5>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">{item.description}</p>
               </div>
             </div>
           ))}
 
-          <div className="p-3 rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 mt-4">
-            <p className="text-[10px] text-muted-foreground text-center italic">
+          <div className="p-5 md:p-6 rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 mt-6">
+            <p className="text-base md:text-lg text-muted-foreground text-center italic">
               "The future belongs not to humans who use AI as tools, but to those who build <span className="text-amber-400 font-semibold">constitutional partnerships</span> with it."
               <br />
-              <span className="text-[9px] text-amber-400/70">— The Sovereign Orchestrator Framework</span>
+              <span className="text-sm text-amber-400/70">— The Sovereign Orchestrator Framework</span>
             </p>
           </div>
         </TabsContent>

@@ -27,24 +27,36 @@ const VETTING_DURATIONS: VettingDuration[] = [
 
 const USE_CASES = [
   {
-    icon: <User className="w-5 h-5 text-cyan-400" />,
+    id: 'personal',
+    icon: <User className="w-6 h-6 text-cyan-400" />,
     title: "Personal Development",
-    description: "Test and improve your AI collaboration skills for self-improvement"
+    description: "Sharpen your AI collaboration instincts through structured cognitive exercises and real-time feedback",
+    highlight: "Self-paced learning with personalized insights",
+    customNote: null
   },
   {
-    icon: <Briefcase className="w-5 h-5 text-emerald-400" />,
+    id: 'recruitment',
+    icon: <Briefcase className="w-6 h-6 text-emerald-400" />,
     title: "Recruitment & Hiring",
-    description: "Validate candidates' cognitive agility and AI-augmented problem solving"
+    description: "Screen candidates' reasoning agility, verification habits, and AI-augmented problem-solving under controlled conditions",
+    highlight: "Pre-hire cognitive benchmarking",
+    customNote: "We build custom assessment scopes tailored to your hiring criteria"
   },
   {
-    icon: <Building2 className="w-5 h-5 text-violet-400" />,
-    title: "Employee Monitoring",
-    description: "Measure workforce AI utilization patterns and productivity"
+    id: 'monitoring',
+    icon: <Building2 className="w-6 h-6 text-violet-400" />,
+    title: "Workforce Oversight",
+    description: "Continuous observation of how teams leverage LLMs—measure productivity, compliance, and cognitive discipline",
+    highlight: "Real-time workforce intelligence",
+    customNote: "Custom monitoring dashboards designed for your operational needs"
   },
   {
-    icon: <Rocket className="w-5 h-5 text-amber-400" />,
-    title: "Enterprise Integration",
-    description: "Custom work scopes for NASA, NVIDIA, Oracle-level cognitive assessment"
+    id: 'enterprise',
+    icon: <Rocket className="w-6 h-6 text-amber-400" />,
+    title: "Enterprise Programs",
+    description: "NASA, NVIDIA, Oracle-grade cognitive certification with fully bespoke work scopes and evaluation frameworks",
+    highlight: "White-glove integration",
+    customNote: "End-to-end custom solutions: your protocols, your metrics, your compliance standards"
   },
 ];
 
@@ -87,8 +99,8 @@ const HumanVettingPanel: React.FC<HumanVettingPanelProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden bg-gradient-to-br from-background via-background to-background border-2 border-violet-500/40 rounded-2xl shadow-[0_0_60px_rgba(139,92,246,0.3)]">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-12 p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
+      <div className="relative w-full max-w-4xl max-h-[85vh] overflow-hidden bg-gradient-to-br from-background via-background to-background border-2 border-violet-500/50 rounded-2xl shadow-[0_0_80px_rgba(139,92,246,0.4)]">
         
         {/* Animated border glow */}
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-violet-500/10 animate-pulse pointer-events-none" />
@@ -300,17 +312,37 @@ const HumanVettingPanel: React.FC<HumanVettingPanelProps> = ({
               </div>
 
               {/* Use Cases Grid */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {USE_CASES.map((useCase, idx) => (
                   <div 
                     key={idx}
-                    className="p-3 rounded-xl bg-muted/30 border border-border/50 hover:border-violet-500/40 transition-all"
+                    className="group relative p-5 rounded-xl bg-gradient-to-br from-muted/40 to-muted/20 border-2 border-border/60 hover:border-violet-500/60 hover:shadow-[0_0_25px_rgba(139,92,246,0.2)] transition-all duration-300 cursor-pointer"
                   >
-                    <div className="flex items-center gap-2 mb-1">
-                      {useCase.icon}
-                      <span className="text-xs font-semibold text-foreground">{useCase.title}</span>
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 p-3 rounded-xl bg-background/80 border border-border/50 group-hover:border-violet-500/40 transition-colors">
+                        {useCase.icon}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-bold text-foreground mb-1 group-hover:text-violet-400 transition-colors">
+                          {useCase.title}
+                        </h4>
+                        <p className="text-xs text-muted-foreground mb-2 leading-relaxed">
+                          {useCase.description}
+                        </p>
+                        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-violet-500/10 border border-violet-500/30">
+                          <Sparkles className="w-3 h-3 text-violet-400" />
+                          <span className="text-[10px] font-medium text-violet-400">{useCase.highlight}</span>
+                        </div>
+                        {useCase.customNote && (
+                          <div className="mt-3 p-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                            <p className="text-[10px] text-amber-400 font-medium flex items-center gap-1.5">
+                              <Shield className="w-3 h-3" />
+                              {useCase.customNote}
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-[10px] text-muted-foreground">{useCase.description}</p>
                   </div>
                 ))}
               </div>

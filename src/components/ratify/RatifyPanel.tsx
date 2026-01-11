@@ -1,7 +1,8 @@
-import React from 'react';
-import { X, Scale, CheckCircle, AlertTriangle, ChevronLeft, ChevronRight, Sparkles, FileText, GraduationCap, Stethoscope, Gavel } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { X, Scale, CheckCircle, AlertTriangle, ChevronLeft, ChevronRight, Sparkles, FileText, GraduationCap, Stethoscope, Gavel, Upload, FileUp, Brain, Shield, Zap, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { RatifyCorrection } from '@/hooks/useRatify';
+import { toast } from 'sonner';
 
 interface RatifyPanelProps {
   isOpen: boolean;
@@ -26,6 +27,11 @@ const RatifyPanel: React.FC<RatifyPanelProps> = ({
   onRatifyAll,
   onDismiss,
 }) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [showCorrections, setShowCorrections] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   if (!isOpen) return null;
 
   const currentIndex = activeCorrection 
@@ -72,6 +78,73 @@ const RatifyPanel: React.FC<RatifyPanelProps> = ({
     }
   };
 
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Accept common document types
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/plain',
+        'text/markdown',
+      ];
+      
+      if (allowedTypes.includes(file.type) || file.name.endsWith('.md') || file.name.endsWith('.txt')) {
+        setSelectedFile(file);
+        toast.success(`Selected: ${file.name}`);
+      } else {
+        toast.error('Please upload a PDF, Word document, or text file');
+      }
+    }
+  };
+
+  const handleSubmitToSenate = async () => {
+    if (!selectedFile) {
+      toast.error('Please select a document first');
+      return;
+    }
+
+    setIsUploading(true);
+    
+    // Simulate processing - in production this would call the Senate API
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    toast.success('Document submitted to the Senate for review!', {
+      description: 'You will be notified when corrections are ready for ratification.'
+    });
+    
+    setSelectedFile(null);
+    setIsUploading(false);
+    setShowCorrections(true);
+  };
+
+  const capabilities = [
+    {
+      icon: <Brain className="w-5 h-5 text-cyan-400" />,
+      title: "AI Hallucination Detection",
+      description: "Identifies when AI generates plausible but false information"
+    },
+    {
+      icon: <Eye className="w-5 h-5 text-emerald-400" />,
+      title: "Factual Verification",
+      description: "Cross-references claims against trusted sources"
+    },
+    {
+      icon: <Shield className="w-5 h-5 text-amber-400" />,
+      title: "Citation Validation",
+      description: "Ensures proper sourcing for academic and legal standards"
+    },
+    {
+      icon: <Zap className="w-5 h-5 text-violet-400" />,
+      title: "Logic Analysis",
+      description: "Detects logical inconsistencies and contradictions"
+    }
+  ];
+
+  // Show corrections view if we have pending corrections and user clicked to see them
+  const showCorrectionsView = showCorrections && pendingCorrections.length > 0 && activeCorrection;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-2xl max-h-[90vh] overflow-hidden bg-gradient-to-br from-background via-background to-background border-2 border-emerald-500/40 rounded-2xl shadow-[0_0_60px_rgba(16,185,129,0.3)]">
@@ -82,7 +155,7 @@ const RatifyPanel: React.FC<RatifyPanelProps> = ({
         {/* Header */}
         <div className="relative flex items-center justify-between p-4 border-b border-border/50">
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
               <Scale className="w-5 h-5 text-emerald-400" />
             </div>
             <div>
@@ -91,7 +164,10 @@ const RatifyPanel: React.FC<RatifyPanelProps> = ({
                 <Sparkles className="w-4 h-4 text-amber-400" />
               </h2>
               <p className="text-xs text-muted-foreground">
-                {pendingCorrections.length} correction{pendingCorrections.length !== 1 ? 's' : ''} awaiting your approval
+                {showCorrectionsView 
+                  ? `${pendingCorrections.length} correction${pendingCorrections.length !== 1 ? 's' : ''} awaiting your approval`
+                  : 'Your AI-Powered Fact Verification Assistant'
+                }
               </p>
             </div>
           </div>
@@ -124,8 +200,20 @@ const RatifyPanel: React.FC<RatifyPanelProps> = ({
 
         {/* Content */}
         <div className="relative p-4 overflow-y-auto max-h-[60vh]">
-          {activeCorrection ? (
+          {showCorrectionsView ? (
+            // Corrections Review View
             <div className="space-y-4">
+              {/* Back button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowCorrections(false)}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <ChevronLeft className="w-4 h-4 mr-1" />
+                Back to Upload
+              </Button>
+
               {/* Category & Severity badge */}
               <div className="flex items-center justify-between">
                 <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border ${getSeverityColor(activeCorrection.severity)}`}>
@@ -198,16 +286,115 @@ const RatifyPanel: React.FC<RatifyPanelProps> = ({
               )}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-8 text-center">
-              <CheckCircle className="w-12 h-12 text-emerald-400 mb-3" />
-              <p className="text-foreground font-medium">All corrections have been ratified</p>
-              <p className="text-sm text-muted-foreground mt-1">Your content is verified and ready</p>
+            // Welcome / Upload View
+            <div className="space-y-6">
+              {/* Explainer Section */}
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500/30 to-cyan-500/30 border border-emerald-400/50 mb-4 shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+                  <Scale className="w-8 h-8 text-emerald-400" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  The Senate Votes. You Ratify.
+                </h3>
+                <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                  Upload any document—thesis, medical note, legal brief, or report—and our AI Senate will 
+                  review it for errors, hallucinations, and missing citations. You retain final approval.
+                </p>
+              </div>
+
+              {/* Capabilities Grid */}
+              <div className="grid grid-cols-2 gap-3">
+                {capabilities.map((cap, idx) => (
+                  <div 
+                    key={idx}
+                    className="p-3 rounded-xl bg-muted/30 border border-border/50 hover:border-emerald-500/40 transition-all"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      {cap.icon}
+                      <span className="text-xs font-semibold text-foreground">{cap.title}</span>
+                    </div>
+                    <p className="text-[10px] text-muted-foreground">{cap.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Upload Section */}
+              <div className="relative">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileSelect}
+                  accept=".pdf,.doc,.docx,.txt,.md"
+                  className="hidden"
+                />
+                
+                <div 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="relative cursor-pointer p-8 rounded-xl border-2 border-dashed border-emerald-500/40 bg-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-500/60 transition-all group"
+                >
+                  {/* Animated glow */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-500/5 via-cyan-500/5 to-emerald-500/5 animate-pulse pointer-events-none" />
+                  
+                  <div className="relative flex flex-col items-center gap-3 text-center">
+                    <div className="flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 group-hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all">
+                      <FileUp className="w-7 h-7 text-emerald-400" />
+                    </div>
+                    
+                    {selectedFile ? (
+                      <>
+                        <p className="text-sm font-medium text-emerald-400">{selectedFile.name}</p>
+                        <p className="text-xs text-muted-foreground">Click to select a different file</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-sm font-medium text-foreground">
+                          Drop your document here or click to browse
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Supports PDF, Word, and text files
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <Button
+                onClick={handleSubmitToSenate}
+                disabled={!selectedFile || isUploading}
+                className="w-full relative px-6 py-3 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-bold rounded-xl shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:shadow-[0_0_35px_rgba(16,185,129,0.7)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isUploading ? (
+                  <span className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Submitting to Senate...
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <Upload className="w-4 h-4" />
+                    Submit for Senate Review
+                  </span>
+                )}
+              </Button>
+
+              {/* View existing corrections if any */}
+              {pendingCorrections.length > 0 && (
+                <Button
+                  variant="outline"
+                  onClick={() => setShowCorrections(true)}
+                  className="w-full border-amber-500/40 text-amber-400 hover:bg-amber-500/10"
+                >
+                  <AlertTriangle className="w-4 h-4 mr-2" />
+                  View {pendingCorrections.length} Pending Correction{pendingCorrections.length !== 1 ? 's' : ''}
+                </Button>
+              )}
             </div>
           )}
         </div>
 
-        {/* Footer Actions */}
-        {activeCorrection && (
+        {/* Footer Actions - Only show when viewing corrections */}
+        {showCorrectionsView && activeCorrection && (
           <div className="relative p-4 border-t border-border/50 flex items-center justify-between gap-3">
             <Button
               variant="ghost"
@@ -248,8 +435,10 @@ const RatifyPanel: React.FC<RatifyPanelProps> = ({
         {/* Legal footer note */}
         <div className="relative px-4 py-2 border-t border-border/30 bg-muted/20">
           <p className="text-[9px] text-muted-foreground text-center">
-            By clicking "Ratify & Apply," you formally consent to replace your original text with the Senate-verified correction. 
-            <span className="text-emerald-400/80 ml-1">Human action required for liability protection.</span>
+            {showCorrectionsView 
+              ? <>By clicking "Ratify & Apply," you formally consent to replace your original text with the Senate-verified correction. <span className="text-emerald-400/80 ml-1">Human action required for liability protection.</span></>
+              : <>Ratify™ uses multi-model AI consensus to verify facts and detect errors. <span className="text-emerald-400/80">Your approval is always required before any changes are applied.</span></>
+            }
           </p>
         </div>
       </div>

@@ -123,7 +123,7 @@ const TrustCenter: React.FC = () => {
         <meta name="description" content="Manage your verification credentials and trust score" />
       </Helmet>
       
-      <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
+      <div className="min-h-screen bg-background text-foreground p-4 md:p-8 pt-20 md:pt-24">
         {/* Header with Back Button */}
         <div className="flex items-center gap-4 mb-4">
           <BackButton />

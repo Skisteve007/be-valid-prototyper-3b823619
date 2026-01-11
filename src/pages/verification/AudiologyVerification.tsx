@@ -7,10 +7,13 @@ const AudiologyVerification: React.FC = () => {
     <VerificationSignalPage
       title="Audiology"
       scientificName="Auditory System Verification"
-      description="Hearing and auditory processing verification. Signal received from certified audiological assessment sources."
+      description="Comprehensive hearing assessment measuring frequency response, speech recognition, and auditory processing capabilities."
+      signalType="Audiometric data signals including pure-tone thresholds (250Hz-8kHz), speech discrimination scores, and tympanometry readings from certified audiological facilities."
+      howItWorks="Your hearing test results are transmitted directly from certified audiology centers. We receive only the verification signal (pass/caution/fail) — never the raw audiogram data. Results reflect your current auditory health status."
       icon={<Ear className="w-12 h-12" />}
       iconColorClass="text-blue-400"
       glowColorClass="bg-blue-500/10"
+      accentColor="blue"
     />
   );
 };

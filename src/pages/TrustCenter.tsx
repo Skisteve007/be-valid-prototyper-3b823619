@@ -213,6 +213,7 @@ const TrustCenter: React.FC = () => {
               </div>
               <div className="text-left">
                 <div className="text-foreground font-semibold">Audiology</div>
+                <p className="text-muted-foreground text-xs max-w-[200px]">Hearing acuity & auditory processing assessment</p>
                 <StatusBadge status={statuses.audiology} />
               </div>
             </div>
@@ -231,6 +232,7 @@ const TrustCenter: React.FC = () => {
               </div>
               <div className="text-left">
                 <div className="text-foreground font-semibold">Visual</div>
+                <p className="text-muted-foreground text-xs max-w-[200px]">Ophthalmic health & vision clarity verification</p>
                 <StatusBadge status={statuses.visual} />
               </div>
             </div>
@@ -249,6 +251,7 @@ const TrustCenter: React.FC = () => {
               </div>
               <div className="text-left">
                 <div className="text-foreground font-semibold">Taste Sense</div>
+                <p className="text-muted-foreground text-xs max-w-[200px]">Gustatory function & taste receptor sensitivity</p>
                 <StatusBadge status={statuses.taste} />
               </div>
             </div>
@@ -267,6 +270,7 @@ const TrustCenter: React.FC = () => {
               </div>
               <div className="text-left">
                 <div className="text-foreground font-semibold">Touch Sense</div>
+                <p className="text-muted-foreground text-xs max-w-[200px]">Tactile perception & nerve response testing</p>
                 <StatusBadge status={statuses.touch} />
               </div>
             </div>
@@ -285,7 +289,7 @@ const TrustCenter: React.FC = () => {
               </div>
               <div className="text-left">
                 <div className="text-foreground font-semibold">Olfactory</div>
-                <div className="text-muted-foreground text-xs">Pheromone Detection</div>
+                <p className="text-muted-foreground text-xs max-w-[200px]">Pheromone signature & scent receptor analysis</p>
                 <StatusBadge status={statuses.olfactory} />
               </div>
             </div>
@@ -304,6 +308,7 @@ const TrustCenter: React.FC = () => {
               </div>
               <div className="text-left">
                 <div className="text-foreground font-semibold">Atmospheric Balance</div>
+                <p className="text-muted-foreground text-xs max-w-[200px]">Environmental equilibrium & biometric harmony</p>
                 <StatusBadge status={statuses.atmospheric} />
               </div>
             </div>

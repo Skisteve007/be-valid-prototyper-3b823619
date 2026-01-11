@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, Users, Activity, Brain, Target, Shield, Zap, Clock, TrendingUp, BarChart3, CheckCircle, Sparkles, Building2, User, Briefcase, Rocket, ArrowLeft } from 'lucide-react';
 import AISenateResearchTabs from '@/components/human-vetting/AISenateResearchTabs';
+import ScientificScoreVisualization from '@/components/human-vetting/ScientificScoreVisualization';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-
 interface VettingDuration {
   id: string;
   label: string;
@@ -130,7 +130,7 @@ const HumanVetting: React.FC = () => {
         </div>
 
         {showPreview ? (
-          /* Example Score Preview */
+          /* Example Score Preview - NASA/SpaceX Grade Scientific Visualization */
           <div className="space-y-10">
             <Button
               variant="ghost"
@@ -144,129 +144,42 @@ const HumanVetting: React.FC = () => {
 
             {/* Example Header */}
             <div className="text-center">
-              <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-violet-500/20 border border-violet-500/40 mb-5">
-                <Activity className="w-5 h-5 md:w-6 md:h-6 text-violet-400 animate-pulse" />
-                <span className="text-base md:text-lg font-semibold text-violet-400">LIVE EXAMPLE DATA</span>
+              <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-cyan-500/20 border border-cyan-500/40 mb-5">
+                <Activity className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 animate-pulse" />
+                <span className="text-base md:text-lg font-semibold text-cyan-400 tracking-wider">LIVE ANALYSIS DATA</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
                 Operator Certification Report
               </h2>
               <p className="text-lg md:text-xl text-muted-foreground mt-3">
-                30-Day Evaluation Window • Subject ID: DEMO-001
+                30-Day Evaluation Window • Subject ID: DEMO-001 • Classification: CERTIFIED
               </p>
             </div>
 
-            {/* Overall Score */}
-            <div className="relative p-8 md:p-10 rounded-2xl bg-gradient-to-br from-violet-500/10 to-purple-500/10 border-2 border-violet-500/40 shadow-[0_0_50px_rgba(139,92,246,0.3)]">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-                <span className="text-lg md:text-xl font-semibold text-muted-foreground uppercase tracking-wider">Overall Score</span>
-                <div className="flex items-center gap-3">
-                  <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
-                  <span className="text-base md:text-lg text-emerald-400 font-medium">+4.2% vs baseline</span>
-                </div>
-              </div>
-              
-              {/* Large score display */}
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-8 md:gap-12">
-                <div className="relative text-center sm:text-left">
-                  <div className="text-8xl md:text-9xl font-black bg-gradient-to-r from-violet-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                    87
-                  </div>
-                  <div className="text-lg md:text-xl text-muted-foreground">/100</div>
-                </div>
-                
-                {/* Circular progress visualization */}
-                <div className="relative w-36 h-36 md:w-44 md:h-44">
-                  <svg className="w-full h-full transform -rotate-90">
-                    <circle
-                      cx="50%"
-                      cy="50%"
-                      r="45%"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="none"
-                      className="text-muted/20"
-                    />
-                    <circle
-                      cx="50%"
-                      cy="50%"
-                      r="45%"
-                      stroke="url(#scoreGradient)"
-                      strokeWidth="8"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeDasharray={`${87 * 3.01} 301`}
-                      className="transition-all duration-1000"
-                    />
-                    <defs>
-                      <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#8B5CF6" />
-                        <stop offset="100%" stopColor="#06B6D4" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <CheckCircle className="w-14 h-14 md:w-16 md:h-16 text-emerald-400" />
-                  </div>
-                </div>
-
-                {/* Status badge */}
-                <div className="flex-1 min-w-[200px] text-center sm:text-left">
-                  <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-emerald-500/20 border border-emerald-500/40">
-                    <div className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-lg md:text-xl font-semibold text-emerald-400">CERTIFIED</span>
-                  </div>
-                  <p className="text-base md:text-lg text-muted-foreground mt-3">
-                    Verified AI collaboration competency
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Category Scores */}
-            <div className="space-y-6">
-              <h3 className="text-xl md:text-2xl font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-3">
-                <BarChart3 className="w-6 h-6 md:w-7 md:h-7" />
-                Category Breakdown
-              </h3>
-              
-              <div className="grid gap-5 md:gap-6 lg:grid-cols-2">
-                {SCORING_CATEGORIES.map((cat, idx) => (
-                  <div key={idx} className="relative p-5 md:p-6 rounded-xl bg-muted/20 border border-border/50">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-base md:text-lg font-medium text-foreground">{cat.name}</span>
-                      <span className="text-base md:text-lg font-bold text-foreground">{cat.score}/100</span>
-                    </div>
-                    <div className="relative h-4 md:h-5 rounded-full bg-muted/40 overflow-hidden">
-                      <div 
-                        className={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r ${cat.color}`}
-                        style={{ width: `${cat.score}%`, transition: 'width 1s ease-out' }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* Scientific Score Visualization */}
+            <ScientificScoreVisualization />
 
             {/* Activity Timeline Preview */}
-            <div className="p-6 md:p-8 rounded-2xl bg-muted/20 border border-border/50">
-              <h3 className="text-xl md:text-2xl font-semibold text-muted-foreground uppercase tracking-wider mb-6 flex items-center gap-3">
+            <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-slate-900/80 to-slate-800/80 border border-emerald-500/20">
+              <h3 className="text-xl md:text-2xl font-bold text-emerald-400 mb-6 flex items-center gap-3">
                 <Activity className="w-6 h-6 md:w-7 md:h-7" />
-                Recent Activity Log
+                VERIFICATION EVENT LOG
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {[
-                  { time: '2m ago', event: 'Verification checkpoint passed', status: 'success' },
-                  { time: '15m ago', event: 'Adversarial query detected & handled', status: 'success' },
-                  { time: '1h ago', event: 'Complex reasoning task completed', status: 'success' },
-                  { time: '3h ago', event: 'Citation accuracy verified', status: 'warning' },
+                  { time: '2m ago', event: 'Verification checkpoint passed', status: 'success', code: 'VCP-001' },
+                  { time: '15m ago', event: 'Adversarial query detected & handled', status: 'success', code: 'ADV-047' },
+                  { time: '1h ago', event: 'Complex reasoning task completed', status: 'success', code: 'CRT-112' },
+                  { time: '3h ago', event: 'Citation accuracy verified', status: 'warning', code: 'CAV-089' },
+                  { time: '6h ago', event: 'Multi-model consensus achieved', status: 'success', code: 'MMC-034' },
                 ].map((log, idx) => (
-                  <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 p-4 md:p-5 rounded-lg bg-background/50">
-                    <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
-                      log.status === 'success' ? 'bg-emerald-400' : 'bg-amber-400'
+                  <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 p-4 md:p-5 rounded-lg bg-slate-950/50 border border-border/30 hover:border-cyan-500/30 transition-colors">
+                    <div className={`w-3 h-3 rounded-full flex-shrink-0 shadow-[0_0_8px] ${
+                      log.status === 'success' ? 'bg-emerald-400 shadow-emerald-400/50' : 'bg-amber-400 shadow-amber-400/50'
                     }`} />
-                    <span className="text-base md:text-lg text-muted-foreground w-24 flex-shrink-0">{log.time}</span>
-                    <span className="text-base md:text-lg text-foreground">{log.event}</span>
+                    <span className="text-sm md:text-base text-cyan-400/80 font-mono w-20 flex-shrink-0">{log.time}</span>
+                    <span className="text-sm md:text-base text-muted-foreground font-mono flex-shrink-0">[{log.code}]</span>
+                    <span className="text-base md:text-lg text-foreground flex-1">{log.event}</span>
                   </div>
                 ))}
               </div>

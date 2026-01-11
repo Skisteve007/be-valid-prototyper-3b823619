@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { CurrencyProvider } from "./providers/CurrencyProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { RatifyProvider } from "@/contexts/RatifyContext";
 import { AgeGate } from "./components/AgeGate";
 import { AccessGate } from "./components/AccessGate";
 import Footer from "./components/Footer";
@@ -159,11 +160,12 @@ const App = () => (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <CurrencyProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-            <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
+          <RatifyProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+              <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
               <ResponsiveHeader />
               <SynthButton variant="fab" />
               <ModeSwitcherFAB />
@@ -331,6 +333,7 @@ const App = () => (
             </div>
             </BrowserRouter>
           </TooltipProvider>
+          </RatifyProvider>
         </CurrencyProvider>
       </QueryClientProvider>
     </HelmetProvider>

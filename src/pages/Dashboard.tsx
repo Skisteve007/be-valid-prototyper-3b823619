@@ -10,7 +10,6 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
 
-
 import { LabVerificationTab } from "@/components/dashboard/LabVerificationTab";
 import { SafetyScreenTab } from "@/components/dashboard/SafetyScreenTab";
 import { PrivateInbox } from "@/components/dashboard/PrivateInbox";
@@ -27,6 +26,8 @@ import { BetaMemberBadge } from "@/components/BetaMemberBadge";
 import { isBetaPeriodActive } from "@/config/betaConfig";
 import { BountyMission } from "@/components/gamification";
 import { PrivacyBadgeB2C } from "@/components/privacy";
+import { RatifyPill, RatifyPanel } from "@/components/ratify";
+import { useRatifyContext } from "@/contexts/RatifyContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -45,6 +46,22 @@ const Dashboard = () => {
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const profileTabRef = useRef<ProfileTabRef>(null);
+  
+  // Ratify context for AI-powered fact checking
+  const {
+    corrections,
+    pendingCorrections,
+    hasCorrections,
+    hasPendingCorrections,
+    activeCorrection,
+    setActiveCorrection,
+    ratifyCorrection,
+    ratifyAll,
+    dismissCorrection,
+    isPanelOpen,
+    openPanel,
+    closePanel,
+  } = useRatifyContext();
 
   const tabs = ["profile", "wallet", "senate", "lab-verification", "safety-screen", "verify-id"];
 
@@ -311,6 +328,14 @@ const Dashboard = () => {
                   <Ghost className="w-4 h-4 text-amber-400" />
                   <span className="text-xs font-semibold text-amber-400">Ghost Pass™</span>
                 </button>
+                
+                {/* Ratify Pill - AI Fact Checking */}
+                <RatifyPill 
+                  pendingCount={pendingCorrections.length}
+                  hasCorrections={hasCorrections}
+                  onClick={openPanel}
+                  latestCorrection={activeCorrection}
+                />
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
                 Welcome to your Universal Lifestyle Wallet. One place for identity, safety, and access.
@@ -522,6 +547,19 @@ const Dashboard = () => {
         open={showShareModal} 
         onClose={() => setShowShareModal(false)} 
         userId={user.id} 
+      />
+
+      {/* Ratify Panel - AI Fact Checking Modal */}
+      <RatifyPanel
+        isOpen={isPanelOpen}
+        onClose={closePanel}
+        corrections={corrections}
+        pendingCorrections={pendingCorrections}
+        activeCorrection={activeCorrection}
+        onSelectCorrection={setActiveCorrection}
+        onRatify={ratifyCorrection}
+        onRatifyAll={ratifyAll}
+        onDismiss={dismissCorrection}
       />
     </div>
   );

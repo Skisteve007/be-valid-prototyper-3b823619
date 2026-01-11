@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle, Scale } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
@@ -45,7 +45,7 @@ const Dashboard = () => {
   const touchEndX = useRef<number>(0);
   const profileTabRef = useRef<ProfileTabRef>(null);
 
-  const tabs = ["profile", "lab-verification", "safety-screen", "verify-id"];
+  const tabs = ["profile", "senate", "lab-verification", "safety-screen", "verify-id"];
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -397,6 +397,14 @@ const Dashboard = () => {
                         <span>Profile</span>
                       </TabsTrigger>
 
+                      <TabsTrigger 
+                        value="senate" 
+                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
+                      >
+                        <Scale className="h-4 w-4 mr-1.5" />
+                        <span>The Senate</span>
+                      </TabsTrigger>
+
                       {/* Trust Center - Navigates to /trust-center page */}
                       <button 
                         type="button"
@@ -446,6 +454,28 @@ const Dashboard = () => {
                   />
                 </TabsContent>
 
+                <TabsContent value="senate">
+                  <div className="space-y-4">
+                    <div className="text-center mb-6">
+                      <h2 className="text-xl font-bold bg-gradient-to-r from-[#00FFFF] to-cyan-400 bg-clip-text text-transparent">The Senate</h2>
+                      <p className="text-[#E0E0E0]/60 text-sm mt-1">AI Governance & Verification</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[1, 2, 3, 4, 5, 6, 7].map((seat) => (
+                        <div 
+                          key={seat}
+                          className="backdrop-blur-xl bg-black/40 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center min-h-[150px] hover:border-cyan-500/40 transition-all duration-300"
+                        >
+                          <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-3">
+                            <Scale className="w-6 h-6 text-cyan-400" />
+                          </div>
+                          <span className="text-[#E0E0E0]/80 font-medium">Seat {seat}</span>
+                          <span className="text-[#E0E0E0]/40 text-xs mt-1">Placeholder</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </TabsContent>
                 
                 <TabsContent value="lab-verification">
                   <LabVerificationTab userId={user.id} />

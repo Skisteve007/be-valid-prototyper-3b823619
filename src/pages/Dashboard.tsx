@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle, Scale, Wallet } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle, Scale, Wallet, Eye } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
@@ -28,6 +28,7 @@ import { BountyMission } from "@/components/gamification";
 import { PrivacyBadgeB2C } from "@/components/privacy";
 import { RatifyPill, RatifyPanel } from "@/components/ratify";
 import { useRatifyContext } from "@/contexts/RatifyContext";
+import { HumanVettingPill, HumanVettingPanel } from "@/components/human-vetting";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const Dashboard = () => {
   const [vibeMetadata, setVibeMetadata] = useState<Record<string, any>>({});
   const [statusColor, setStatusColor] = useState<string>("green");
   const [showGhostPass, setShowGhostPass] = useState(false);
+  const [showHumanVetting, setShowHumanVetting] = useState(false);
   const [profileSaveState, setProfileSaveState] = useState({ hasChanges: false, saving: false, saveSuccess: false });
   const longPressHandlers = useLongPressHome();
   const touchStartX = useRef<number>(0);
@@ -336,6 +338,12 @@ const Dashboard = () => {
                   onClick={openPanel}
                   latestCorrection={activeCorrection}
                 />
+                
+                {/* Human Vetting Pill - AI Cognitive Assessment */}
+                <HumanVettingPill 
+                  isActive={false}
+                  onClick={() => setShowHumanVetting(true)}
+                />
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
                 Welcome to your Universal Lifestyle Wallet. One place for identity, safety, and access.
@@ -560,6 +568,12 @@ const Dashboard = () => {
         onRatify={ratifyCorrection}
         onRatifyAll={ratifyAll}
         onDismiss={dismissCorrection}
+      />
+
+      {/* Human Vetting Panel - AI Cognitive Assessment Modal */}
+      <HumanVettingPanel
+        isOpen={showHumanVetting}
+        onClose={() => setShowHumanVetting(false)}
       />
     </div>
   );

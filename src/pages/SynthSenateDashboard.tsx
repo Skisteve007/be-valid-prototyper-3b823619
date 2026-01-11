@@ -293,23 +293,60 @@ const SynthSenateDashboard: React.FC = () => {
               </CardContent>
             </Card>
 
-            {/* 7 Seat Grid - Mobile: stacked, Desktop: 7-column */}
+            {/* Judicial Pyramid Layout */}
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">Senate Seats</h3>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold text-white">Senate Chamber</h3>
                 <Badge variant="outline" className="border-gray-600 text-gray-400">
                   {seats.filter(s => s.status === 'online').length}/7 Online
                 </Badge>
               </div>
-              {/* Mobile: 1 col, Tablet: 2 cols, Desktop: 4 cols, XL: 7 cols - ALL 7 ALWAYS VISIBLE */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 md:gap-4">
-                {seats.map((seat) => (
-                  <SenateSeatCard 
-                    key={seat.seat_id} 
-                    seat={seat} 
-                    weight={weights[`seat_${seat.seat_id}` as keyof typeof weights] || 14}
-                  />
-                ))}
+              
+              {/* Pyramid Structure */}
+              <div className="space-y-6">
+                {/* Top Tier - Judge (Seat 1 - OpenAI) */}
+                <div className="flex flex-col items-center">
+                  <div className="text-xs uppercase tracking-widest text-cyan-400 mb-2 font-semibold flex items-center gap-2">
+                    <Scale className="w-4 h-4" />
+                    Chief Judge
+                  </div>
+                  <div className="w-full max-w-sm">
+                    <SenateSeatCard 
+                      seat={seats[0]} 
+                      weight={weights.seat_1}
+                    />
+                  </div>
+                </div>
+
+                {/* Second Tier - Executive Secretary (Seat 2 - Anthropic) */}
+                <div className="flex flex-col items-center">
+                  <div className="text-xs uppercase tracking-widest text-purple-400 mb-2 font-semibold">
+                    Executive Secretary
+                  </div>
+                  <div className="w-full max-w-sm">
+                    <SenateSeatCard 
+                      seat={seats[1]} 
+                      weight={weights.seat_2}
+                    />
+                  </div>
+                </div>
+
+                {/* Bottom Tier - 5 Senate Members */}
+                <div className="flex flex-col items-center">
+                  <div className="text-xs uppercase tracking-widest text-gray-400 mb-3 font-semibold">
+                    Senate Members
+                  </div>
+                  {/* Mobile: 1 col, Tablet: 2-3 cols, Desktop: 5 cols */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 w-full max-w-6xl">
+                    {seats.slice(2).map((seat) => (
+                      <SenateSeatCard 
+                        key={seat.seat_id} 
+                        seat={seat} 
+                        weight={weights[`seat_${seat.seat_id}` as keyof typeof weights] || 14}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 

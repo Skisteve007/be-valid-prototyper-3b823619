@@ -203,7 +203,7 @@ const TrustCenter: React.FC = () => {
 
           {/* Audiology */}
           <button
-            onClick={() => handleSignalVerification('Audiology')}
+            onClick={() => navigate('/verification/audiology')}
             className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
@@ -216,20 +216,12 @@ const TrustCenter: React.FC = () => {
                 <StatusBadge status={statuses.audiology} />
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={(e) => handleUpload('Audiology', e)}
-                className="p-2 rounded-full bg-blue-500/10 hover:bg-blue-500/20 transition"
-              >
-                <Upload className="w-4 h-4 text-blue-400" />
-              </button>
-              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
-            </div>
+            <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
           </button>
 
           {/* Visual */}
           <button
-            onClick={() => handleSignalVerification('Visual')}
+            onClick={() => navigate('/verification/visual')}
             className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
@@ -242,20 +234,12 @@ const TrustCenter: React.FC = () => {
                 <StatusBadge status={statuses.visual} />
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={(e) => handleUpload('Visual', e)}
-                className="p-2 rounded-full bg-amber-500/10 hover:bg-amber-500/20 transition"
-              >
-                <Upload className="w-4 h-4 text-amber-400" />
-              </button>
-              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
-            </div>
+            <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
           </button>
 
           {/* Taste */}
           <button
-            onClick={() => handleSignalVerification('Taste Sense')}
+            onClick={() => navigate('/verification/taste')}
             className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
@@ -268,20 +252,12 @@ const TrustCenter: React.FC = () => {
                 <StatusBadge status={statuses.taste} />
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={(e) => handleUpload('Taste Sense', e)}
-                className="p-2 rounded-full bg-rose-500/10 hover:bg-rose-500/20 transition"
-              >
-                <Upload className="w-4 h-4 text-rose-400" />
-              </button>
-              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
-            </div>
+            <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
           </button>
 
           {/* Touch */}
           <button
-            onClick={() => handleSignalVerification('Touch Sense')}
+            onClick={() => navigate('/verification/touch')}
             className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
@@ -294,20 +270,12 @@ const TrustCenter: React.FC = () => {
                 <StatusBadge status={statuses.touch} />
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={(e) => handleUpload('Touch Sense', e)}
-                className="p-2 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 transition"
-              >
-                <Upload className="w-4 h-4 text-emerald-400" />
-              </button>
-              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
-            </div>
+            <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
           </button>
 
           {/* Olfactory (Smell/Pheromones) */}
           <button
-            onClick={() => handleSignalVerification('Olfactory')}
+            onClick={() => navigate('/verification/olfactory')}
             className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
@@ -321,20 +289,12 @@ const TrustCenter: React.FC = () => {
                 <StatusBadge status={statuses.olfactory} />
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={(e) => handleUpload('Olfactory', e)}
-                className="p-2 rounded-full bg-pink-500/10 hover:bg-pink-500/20 transition"
-              >
-                <Upload className="w-4 h-4 text-pink-400" />
-              </button>
-              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
-            </div>
+            <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
           </button>
 
           {/* Atmospheric Balance */}
           <button
-            onClick={() => handleSignalVerification('Atmospheric Balance')}
+            onClick={() => navigate('/verification/atmospheric')}
             className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
@@ -347,15 +307,7 @@ const TrustCenter: React.FC = () => {
                 <StatusBadge status={statuses.atmospheric} />
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={(e) => handleUpload('Atmospheric Balance', e)}
-                className="p-2 rounded-full bg-indigo-500/10 hover:bg-indigo-500/20 transition"
-              >
-                <Upload className="w-4 h-4 text-indigo-400" />
-              </button>
-              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
-            </div>
+            <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
           </button>
         </div>
 

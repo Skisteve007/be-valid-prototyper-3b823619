@@ -135,6 +135,12 @@ const AgreementSuccess = lazy(() => import("./pages/AgreementSuccess"));
 const Careers = lazy(() => import("./pages/Careers"));
 const Evolution2026PitchDeck = lazy(() => import("./pages/Evolution2026PitchDeck"));
 const GhostDemos = lazy(() => import("./pages/GhostDemos"));
+const AudiologyVerification = lazy(() => import("./pages/verification/AudiologyVerification"));
+const VisualVerification = lazy(() => import("./pages/verification/VisualVerification"));
+const TasteVerification = lazy(() => import("./pages/verification/TasteVerification"));
+const TouchVerification = lazy(() => import("./pages/verification/TouchVerification"));
+const OlfactoryVerification = lazy(() => import("./pages/verification/OlfactoryVerification"));
+const AtmosphericVerification = lazy(() => import("./pages/verification/AtmosphericVerification"));
 
 const queryClient = new QueryClient();
 
@@ -252,6 +258,15 @@ const App = () => (
                   <Route path="/lab-kit-order" element={<AgeGate><LabKitOrder /></AgeGate>} />
                   <Route path="/toxicology-kit-order" element={<AgeGate><ToxicologyKitOrder /></AgeGate>} />
                   <Route path="/health-panel-order" element={<AgeGate><HealthPanelOrder /></AgeGate>} />
+                  
+                  {/* SENSORY VERIFICATION ROUTES */}
+                  <Route path="/verification/audiology" element={<AgeGate><AudiologyVerification /></AgeGate>} />
+                  <Route path="/verification/visual" element={<AgeGate><VisualVerification /></AgeGate>} />
+                  <Route path="/verification/taste" element={<AgeGate><TasteVerification /></AgeGate>} />
+                  <Route path="/verification/touch" element={<AgeGate><TouchVerification /></AgeGate>} />
+                  <Route path="/verification/olfactory" element={<AgeGate><OlfactoryVerification /></AgeGate>} />
+                  <Route path="/verification/atmospheric" element={<AgeGate><AtmosphericVerification /></AgeGate>} />
+                  
                   <Route path="/payment-success" element={<AgeGate><PaymentSuccess /></AgeGate>} />
                   <Route path="/wallet-funding-success" element={<AgeGate><WalletFundingSuccess /></AgeGate>} />
                   

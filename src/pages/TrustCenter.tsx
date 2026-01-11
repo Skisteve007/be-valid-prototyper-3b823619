@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Shield, ShieldCheck, ChevronLeft, Fingerprint, FlaskConical, Heart, Lock, Ear, Eye, Apple, Hand, Wind, Upload, Radio } from 'lucide-react';
+import { Shield, ShieldCheck, ChevronLeft, Fingerprint, FlaskConical, Heart, Lock, Ear, Eye, Apple, Hand, Wind, Upload, Radio, Droplets } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import BackButton from '@/components/BackButton';
 import { toast } from 'sonner';
@@ -18,6 +18,7 @@ const TrustCenter: React.FC = () => {
     visual: 'none' as 'verified' | 'pending' | 'none',
     taste: 'none' as 'verified' | 'pending' | 'none',
     touch: 'none' as 'verified' | 'pending' | 'none',
+    olfactory: 'none' as 'verified' | 'pending' | 'none',
     atmospheric: 'none' as 'verified' | 'pending' | 'none'
   });
 
@@ -56,6 +57,7 @@ const TrustCenter: React.FC = () => {
           visual: 'none', // Signal from API source of truth
           taste: 'none', // Signal from API source of truth
           touch: 'none', // Signal from API source of truth
+          olfactory: 'none', // Signal from API source of truth (pheromone detection)
           atmospheric: 'none' // Signal from API source of truth
         });
         
@@ -298,6 +300,33 @@ const TrustCenter: React.FC = () => {
                 className="p-2 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 transition"
               >
                 <Upload className="w-4 h-4 text-emerald-400" />
+              </button>
+              <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
+            </div>
+          </button>
+
+          {/* Olfactory (Smell/Pheromones) */}
+          <button
+            onClick={() => handleSignalVerification('Olfactory')}
+            className="w-full bg-card border border-border rounded-2xl p-5 flex items-center justify-between hover:bg-muted/50 active:bg-muted/70 transition touch-manipulation"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center">
+                <Droplets className="w-6 h-6 text-pink-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-foreground font-semibold">Olfactory</div>
+                <div className="text-muted-foreground text-xs">Pheromone Detection</div>
+                <StatusBadge status={statuses.olfactory} />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={(e) => handleUpload('Olfactory', e)}
+                className="p-2 rounded-full bg-pink-500/10 hover:bg-pink-500/20 transition"
+              >
+                <Upload className="w-4 h-4 text-pink-400" />
               </button>
               <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
             </div>

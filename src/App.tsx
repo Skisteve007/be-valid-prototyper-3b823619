@@ -142,7 +142,7 @@ const TasteVerification = lazy(() => import("./pages/verification/TasteVerificat
 const TouchVerification = lazy(() => import("./pages/verification/TouchVerification"));
 const OlfactoryVerification = lazy(() => import("./pages/verification/OlfactoryVerification"));
 const AtmosphericVerification = lazy(() => import("./pages/verification/AtmosphericVerification"));
-
+const HumanVetting = lazy(() => import("./pages/HumanVetting"));
 const queryClient = new QueryClient();
 
 // Minimal loading fallback for faster perceived load
@@ -180,6 +180,7 @@ const App = () => (
                   <Route path="/dashboard" element={<AgeGate><Dashboard /></AgeGate>} />
                   <Route path="/profile" element={<AgeGate><Dashboard /></AgeGate>} />
                   <Route path="/wallet" element={<AgeGate><Dashboard /></AgeGate>} />
+                  <Route path="/human-vetting" element={<AgeGate><HumanVetting /></AgeGate>} />
                   
                   {/* ADMIN ROUTES */}
                   <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />

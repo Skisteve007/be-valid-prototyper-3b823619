@@ -1,24 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Users, Activity, Sparkles, Eye } from 'lucide-react';
 
 interface HumanVettingPillProps {
   isActive: boolean;
   daysRemaining?: number;
   score?: number;
-  onClick: () => void;
 }
 
 const HumanVettingPill: React.FC<HumanVettingPillProps> = ({
   isActive,
   daysRemaining,
   score,
-  onClick,
 }) => {
+  const navigate = useNavigate();
   const hasActiveVetting = isActive && daysRemaining && daysRemaining > 0;
 
   return (
     <button
-      onClick={onClick}
+      onClick={() => navigate('/human-vetting')}
       className={`
         relative flex items-center gap-2 px-4 py-2 rounded-full
         border transition-all duration-300 touch-manipulation

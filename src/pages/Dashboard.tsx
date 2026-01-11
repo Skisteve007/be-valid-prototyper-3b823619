@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle, Scale } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle, Scale, Wallet } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
@@ -20,6 +20,7 @@ import ShareProfileModal from "@/components/dashboard/ShareProfileModal";
 import MySignalSection from "@/components/dashboard/profile/MySignalSection";
 import LocationPulseSection from "@/components/dashboard/profile/LocationPulseSection";
 import { VerifyIDTab } from "@/components/dashboard/VerifyIDTab";
+import { WalletTab } from "@/components/dashboard/WalletTab";
 import logo from "@/assets/valid-logo.jpeg";
 import { BetaBanner } from "@/components/BetaBanner";
 import { BetaMemberBadge } from "@/components/BetaMemberBadge";
@@ -45,7 +46,7 @@ const Dashboard = () => {
   const touchEndX = useRef<number>(0);
   const profileTabRef = useRef<ProfileTabRef>(null);
 
-  const tabs = ["profile", "senate", "lab-verification", "safety-screen", "verify-id"];
+  const tabs = ["profile", "wallet", "senate", "lab-verification", "safety-screen", "verify-id"];
 
   // Check if tab parameter is in URL
   useEffect(() => {
@@ -398,6 +399,14 @@ const Dashboard = () => {
                       </TabsTrigger>
 
                       <TabsTrigger 
+                        value="wallet" 
+                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-amber-500/30 data-[state=active]:text-amber-300 data-[state=active]:shadow-[0_0_20px_rgba(245,158,11,0.6)] data-[state=active]:border data-[state=active]:border-amber-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
+                      >
+                        <Wallet className="h-4 w-4 mr-1.5" />
+                        <span>Wallet</span>
+                      </TabsTrigger>
+
+                      <TabsTrigger 
                         value="senate" 
                         className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
                       >
@@ -452,6 +461,10 @@ const Dashboard = () => {
                     onUpdate={handleProfileUpdate}
                     onSaveStateChange={setProfileSaveState}
                   />
+                </TabsContent>
+
+                <TabsContent value="wallet">
+                  <WalletTab userId={user.id} onOpenGhostPass={() => setShowGhostPass(true)} />
                 </TabsContent>
 
                 <TabsContent value="senate">

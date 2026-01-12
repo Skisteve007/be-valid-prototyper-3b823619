@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { ArrowRight, Eye, EyeOff, Mail, Loader2, Fingerprint, MessageCircle } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
-import { BetaBanner } from "@/components/BetaBanner";
+import { JoinFreePills } from "@/components/JoinFreePills";
 import { 
   isWebAuthnAvailable, 
   hasWebAuthnCredential, 
@@ -540,9 +540,9 @@ const Auth = () => {
 
       <main className="relative min-h-[calc(100vh-200px)] flex items-start md:items-center justify-center py-6 md:py-12 px-4 z-10">
         <div className="container mx-auto w-[95vw] max-w-lg mt-4 md:mt-0">
-          {/* Beta Banner - Above Forms */}
+          {/* Join Free Pills - Above Forms */}
           <div className="mb-6">
-            <BetaBanner variant="compact" />
+            <JoinFreePills />
           </div>
 
           {/* Speak With Steve WhatsApp Button */}

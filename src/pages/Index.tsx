@@ -9,8 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Hero from "@/components/Hero";
 
 // Lazy load non-critical below-fold components
-const PricingSection = lazy(() => import("@/components/PricingSection").then(m => ({ default: m.PricingSection })));
-const BetaBanner = lazy(() => import("@/components/BetaBanner").then(m => ({ default: m.BetaBanner })));
+const JoinFreePills = lazy(() => import("@/components/JoinFreePills").then(m => ({ default: m.JoinFreePills })));
 
 // Import background images (Vite will handle optimization)
 import militaryFortressImg from "@/assets/military-fortress-card.jpg";
@@ -301,22 +300,10 @@ const Index = () => {
             {t('cta.loginButton')}
           </button>
           
-          {/* BETA BANNER - Below Login button, shrunk */}
-          <div className="mt-4 max-w-xs mx-auto scale-90">
-            <Suspense fallback={<div className="h-8" />}>
-              <BetaBanner />
-            </Suspense>
-          </div>
-          
-          {/* PRICING CARDS - Directly below Login button */}
-          <div className="mt-8 w-full max-w-5xl mx-auto">
-            <Suspense fallback={
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-pulse">
-                <div className="h-64 bg-muted/20 rounded-xl" />
-                <div className="h-64 bg-muted/20 rounded-xl" />
-              </div>
-            }>
-              <PricingSection />
+          {/* JOIN FREE PILLS - Below Login button */}
+          <div className="mt-8 w-full max-w-4xl mx-auto">
+            <Suspense fallback={<div className="h-16" />}>
+              <JoinFreePills />
             </Suspense>
           </div>
         </div>

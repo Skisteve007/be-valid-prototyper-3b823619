@@ -29,6 +29,7 @@ import { PrivacyBadgeB2C } from "@/components/privacy";
 import { RatifyPill, RatifyPanel } from "@/components/ratify";
 import { useRatifyContext } from "@/contexts/RatifyContext";
 import { HumanVettingPill, HumanVettingPanel } from "@/components/human-vetting";
+import { GovernanceStandardPill } from "@/components/governance";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -343,6 +344,9 @@ const Dashboard = () => {
                 <HumanVettingPill 
                   isActive={false}
                 />
+                
+                {/* Governance Standard Constitution Pill */}
+                <GovernanceStandardPill />
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
                 Welcome to your Universal Lifestyle Wallet. One place for identity, safety, and access.

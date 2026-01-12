@@ -26,32 +26,26 @@ const DemoEnvironmentNotice = ({
       <DialogHeader>
         <DialogTitle className="flex items-center gap-2">
           <Info className="h-5 w-5 text-primary" />
-          Demo Mode Notice — Limited Input, Real Governance Signals
+          Demo Environment Notice
         </DialogTitle>
         <DialogDescription className="text-left pt-4 space-y-4">
           <p>
-            This interface is currently operating in demo mode to demonstrate how 
-            VALID | SYNTH™ performs governed AI validation.
+            This page operates in demonstration mode. For demo purposes, users should 
+            submit only data they are permitted to share.
+          </p>
+          <p>
+            In production, <strong>VALID | SYNTH™</strong> operates simultaneously with your existing 
+            AI platform or system of record, analyzes data in real time, emits a governance 
+            signal, and then immediately purges the data. No user data is retained.
           </p>
           <p>
             For the purposes of this demo, the system processes only the data you 
             explicitly and permissibly provide through this form. Do not submit 
             sensitive, regulated, or production data unless you are authorized to do so.
           </p>
-          <p>
-            In a live deployment, VALID | SYNTH™ does not rely on uploaded documents. 
-            Instead, it operates simultaneously alongside your existing AI platform or 
-            source of truth, observing the same data at the same time—without intercepting, 
-            storing, or retaining it.
-          </p>
-          <p>
-            All content evaluated during validation is immediately purged. The system emits 
-            only a governance signal (scores, verdicts, and cryptographic proof), never the 
-            underlying data.
-          </p>
-          <p className="font-medium text-foreground/80">
-            This demo reflects the exact governance logic and audit mechanics used in 
-            production—only the data ingestion method differs.
+          <p className="font-medium text-foreground/80 border-t border-border pt-4 mt-4">
+            <strong>VALID | SYNTH™</strong> is a patented system created by Steven Grillo, 
+            Founder of Giant Ventures LLC.
           </p>
         </DialogDescription>
       </DialogHeader>

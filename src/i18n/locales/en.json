@@ -157,7 +157,10 @@
     "selectLanguage": "Select Language",
     "ageRequirement": "All users 18+",
     "admin": "Admin",
-    "adminPanel": "Admin Panel"
+    "adminPanel": "Admin Panel",
+    "identityAnchor": "VALID | SYNTH™ is a patented AI governance and multi-model consensus system created by Steven Grillo, Founder & System Architect of Giant Ventures LLC.",
+    "noAffiliation": "No affiliation with similarly named individuals or unrelated products.",
+    "founderStatement": "Founded by Steven Grillo, Giant Ventures LLC developed VALID | SYNTH™ to provide real-time, non-retentive AI governance through multi-model consensus."
   },
   "auth": {
     "welcomeBack": "Welcome Back",

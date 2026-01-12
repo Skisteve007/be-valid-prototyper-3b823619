@@ -135,6 +135,11 @@ const Index = () => {
         <div className="max-w-5xl mx-auto">
           <Card className={`border-cyan-500/30 ${isDark ? 'bg-cyan-500/5' : 'bg-cyan-50'}`}>
             <CardContent className="pt-8 pb-8 px-6 md:px-10">
+              {/* Founder Statement */}
+              <p className={`text-sm mb-6 ${isDark ? 'text-cyan-400/80' : 'text-cyan-700'}`}>
+                {t('footer.founderStatement')}
+              </p>
+              
               <div className="flex items-start gap-4 mb-6">
                 <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/20 border border-cyan-500/30' : 'bg-cyan-100'}`}>
                   <Brain className="h-8 w-8 text-cyan-500" />

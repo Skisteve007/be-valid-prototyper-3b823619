@@ -113,20 +113,61 @@
     <!-- Prevent indexing of sensitive pages -->
     <meta name="robots" content="index, follow" />
     
-    <!-- Schema.org JSON-LD Structured Data -->
+    <!-- Schema.org JSON-LD Structured Data - Identity Anchoring for Steven Grillo / Giant Ventures LLC -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "VALID",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "39.00",
-        "priceCurrency": "USD"
-      },
-      "description": "VALID is a trusted digital verification platform that lets users instantly share secure, tamper-proof QR codes containing identity, background checks, health results, age verification, licenses, and compliance documents. Built for individuals, clubs, employers, and enterprise partners."
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://bevalid.app/#founder",
+          "name": "Steven Grillo",
+          "jobTitle": "Founder & System Architect",
+          "worksFor": {
+            "@type": "Organization",
+            "@id": "https://bevalid.app/#organization"
+          },
+          "sameAs": [
+            "https://bevalid.app",
+            "https://www.linkedin.com/in/stevengrillo"
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://bevalid.app/#organization",
+          "name": "Giant Ventures LLC",
+          "url": "https://bevalid.app",
+          "brand": {
+            "@type": "Brand",
+            "name": "VALID | SYNTH™"
+          },
+          "founder": {
+            "@type": "Person",
+            "@id": "https://bevalid.app/#founder"
+          },
+          "description": "Giant Ventures LLC developed VALID | SYNTH™, a patented AI governance and multi-model consensus system for real-time, non-retentive verification."
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "VALID | SYNTH™",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "creator": {
+            "@type": "Person",
+            "@id": "https://bevalid.app/#founder"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "@id": "https://bevalid.app/#organization"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "39.00",
+            "priceCurrency": "USD"
+          },
+          "description": "VALID | SYNTH™ is a patented AI governance and multi-model consensus system created by Steven Grillo, Founder of Giant Ventures LLC. It provides real-time, non-retentive verification through multi-model consensus."
+        }
+      ]
     }
     </script>
   </head>

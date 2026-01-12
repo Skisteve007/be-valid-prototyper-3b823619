@@ -67,6 +67,16 @@ const Footer = () => {
           </p>
         </div>
 
+        {/* Identity Anchor - Canonical Founder Attribution */}
+        <div className="text-center py-3 border-t border-slate-600 bg-slate-900/50">
+          <p className="text-[11px] text-slate-300 leading-relaxed max-w-3xl mx-auto">
+            {t('footer.identityAnchor')}
+          </p>
+          <p className="text-[9px] text-slate-500 mt-1.5 italic">
+            {t('footer.noAffiliation')}
+          </p>
+        </div>
+
         {/* Links & Compliance Row */}
         <div className="flex flex-wrap items-center justify-between gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
           {/* Left side - legal links */}

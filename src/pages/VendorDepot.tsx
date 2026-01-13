@@ -227,7 +227,7 @@ const VendorDepot = () => {
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
           <div className="container mx-auto px-4 py-3">
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="shrink-0">
+              <Button variant="ghost" size="icon" onClick={() => navigate("/demos")} className="shrink-0">
                 <ArrowLeft className="h-5 w-5" />
               </Button>
               <div className="flex items-center gap-3 min-w-0">

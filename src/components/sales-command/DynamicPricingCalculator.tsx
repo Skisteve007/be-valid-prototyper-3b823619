@@ -38,65 +38,87 @@ const PRICING_TIERS: PricingTier[] = [
   {
     id: "solo",
     name: "SOLO",
-    subtitle: "$999/year",
-    priceRange: "$999 – $2,499/year",
-    minPrice: 999,
-    maxPrice: 2499,
-    duration: "Annual Subscription",
+    subtitle: "$4.99/mo",
+    priceRange: "$4.99 – $29/mo",
+    minPrice: 5, // $4.99/mo
+    maxPrice: 29,
+    duration: "Monthly Subscription",
     deliverables: [
       "Full 7-Seat Senate Architecture",
-      "Up to 1,000 Queries/Month",
-      "Compliance Widget Integration",
-      "100 QR Scans Included/Month",
+      "Up to 500 Queries/Month",
+      "Basic Widget Integration",
+      "50 QR Scans Included/Month",
       "Basic Audit Logs"
     ],
     color: "green",
-    includedQueries: 1000,
-    queryOverageRate: 8, // $0.08 per query
-    includedScans: 100,
+    includedQueries: 500,
+    queryOverageRate: 10, // $0.10 per query
+    includedScans: 50,
+    scanOverageRate: 100, // $1.00 per scan
+    deepCheckRate: 250 // $2.50 per deep check
+  },
+  {
+    id: "starter",
+    name: "STARTER",
+    subtitle: "$29 – $99/mo",
+    priceRange: "$29 – $99/mo",
+    minPrice: 29,
+    maxPrice: 99,
+    duration: "Monthly Subscription",
+    deliverables: [
+      "Full 7-Seat Senate Architecture",
+      "Up to 2,500 Queries/Month",
+      "Compliance Widget Integration",
+      "250 QR Scans Included/Month",
+      "Standard Audit Logs"
+    ],
+    color: "cyan",
+    includedQueries: 2500,
+    queryOverageRate: 6, // $0.06 per query
+    includedScans: 250,
     scanOverageRate: 75, // $0.75 per scan
     deepCheckRate: 200 // $2.00 per deep check
   },
   {
-    id: "main-street",
-    name: "MAIN STREET",
-    subtitle: "$2,500 – $9,999/year",
-    priceRange: "$2,500 – $9,999/year",
-    minPrice: 2500,
-    maxPrice: 9999,
-    duration: "Annual Subscription",
+    id: "professional",
+    name: "PROFESSIONAL",
+    subtitle: "$99 – $499/mo",
+    priceRange: "$99 – $499/mo",
+    minPrice: 99,
+    maxPrice: 499,
+    duration: "Monthly Subscription",
     deliverables: [
       "Full 7-Seat Senate Architecture",
-      "Up to 10,000 Queries/Month",
-      "Compliance Widget Integration",
-      "1,000 QR Scans Included/Month",
-      "Basic Audit Logs"
+      "Up to 15,000 Queries/Month",
+      "API Integration Support",
+      "1,500 QR Scans Included/Month",
+      "Advanced Audit Logs"
     ],
-    color: "cyan",
-    includedQueries: 10000,
-    queryOverageRate: 5, // $0.05 per query
-    includedScans: 1000,
+    color: "blue",
+    includedQueries: 15000,
+    queryOverageRate: 4, // $0.04 per query
+    includedScans: 1500,
     scanOverageRate: 50, // $0.50 per scan
     deepCheckRate: 150 // $1.50 per deep check
   },
   {
-    id: "growth",
-    name: "GROWTH",
-    subtitle: "$10K – $49K/year",
-    priceRange: "$10,000 – $49,999/year",
-    minPrice: 10000,
-    maxPrice: 49999,
-    duration: "Annual License",
+    id: "business",
+    name: "BUSINESS",
+    subtitle: "$499 – $1,999/mo",
+    priceRange: "$499 – $1,999/mo",
+    minPrice: 499,
+    maxPrice: 1999,
+    duration: "Monthly Subscription",
     deliverables: [
       "Full 7-Seat Senate Architecture",
-      "Up to 100,000 Queries/Month",
-      "Liability Shield API Integration",
+      "Up to 75,000 Queries/Month",
+      "Liability Shield API",
       "10,000 QR Scans Included/Month",
-      "Adversarial Red Teaming"
+      "Priority Support"
     ],
     color: "purple",
-    includedQueries: 100000,
-    queryOverageRate: 3, // $0.03 per query
+    includedQueries: 75000,
+    queryOverageRate: 2, // $0.02 per query
     includedScans: 10000,
     scanOverageRate: 30, // $0.30 per scan
     deepCheckRate: 100 // $1.00 per deep check
@@ -104,20 +126,20 @@ const PRICING_TIERS: PricingTier[] = [
   {
     id: "enterprise",
     name: "ENTERPRISE",
-    subtitle: "$50K – $250K/year",
-    priceRange: "$50,000 – $250,000/year",
-    minPrice: 50000,
-    maxPrice: 250000,
-    duration: "Annual License",
+    subtitle: "$2K – $10K/mo",
+    priceRange: "$2,000 – $10,000/mo",
+    minPrice: 2000,
+    maxPrice: 10000,
+    duration: "Annual Contract",
     deliverables: [
       "Full 7-Seat Senate Architecture",
-      "Up to 1,000,000 Queries/Month",
+      "Up to 500,000 Queries/Month",
       "On-Premise Deployment Option",
       "100,000 QR Scans Included/Month",
       "Custom Constitution Calibration"
     ],
     color: "amber",
-    includedQueries: 1000000,
+    includedQueries: 500000,
     queryOverageRate: 1, // $0.01 per query
     includedScans: 100000,
     scanOverageRate: 15, // $0.15 per scan
@@ -126,10 +148,10 @@ const PRICING_TIERS: PricingTier[] = [
   {
     id: "sovereign",
     name: "SECTOR SOVEREIGN",
-    subtitle: "$250K – $5M+",
-    priceRange: "$250,000 – $5,000,000+",
-    minPrice: 250000,
-    maxPrice: 5000000,
+    subtitle: "$10K+/mo",
+    priceRange: "$10,000+/mo",
+    minPrice: 10000,
+    maxPrice: 100000,
     duration: "Multi-Year Exclusive",
     deliverables: [
       "Full 7-Seat Senate Architecture",
@@ -209,14 +231,14 @@ const SCAN_TIERS = [
 ];
 
 export function DynamicPricingCalculator() {
-  const [userTierIndex, setUserTierIndex] = useState(3); // Default to 41-100 tier
-  const [queriesPerUserDay, setQueriesPerUserDay] = useState(10);
-  const [scanTierIndex, setScanTierIndex] = useState(6); // Default to 500 scans
+  const [userTierIndex, setUserTierIndex] = useState(0); // Default to 1-10 tier (solo)
+  const [queriesPerUserDay, setQueriesPerUserDay] = useState(5);
+  const [scanTierIndex, setScanTierIndex] = useState(3); // Default to 50 scans
   const [isHighLiability, setIsHighLiability] = useState(false);
   const [checkType, setCheckType] = useState("basic");
   
   const [recommendedTier, setRecommendedTier] = useState<PricingTier>(PRICING_TIERS[0]);
-  const [estimatedPrice, setEstimatedPrice] = useState(0);
+  const [estimatedPrice, setEstimatedPrice] = useState(4.99);
   const [monthlyQueries, setMonthlyQueries] = useState(0);
   const [queryOverage, setQueryOverage] = useState(0);
   const [queryOverageCost, setQueryOverageCost] = useState(0);
@@ -224,8 +246,8 @@ export function DynamicPricingCalculator() {
   const [scanOverageCost, setScanOverageCost] = useState(0);
 
   // Get actual values from tier indices
-  const users = USER_TIERS[userTierIndex]?.display || 100;
-  const monthlyScans = SCAN_TIERS[scanTierIndex]?.value || 500;
+  const users = USER_TIERS[userTierIndex]?.display || 10;
+  const monthlyScans = SCAN_TIERS[scanTierIndex]?.value || 50;
   const currentUserTier = USER_TIERS[userTierIndex];
   const currentScanTier = SCAN_TIERS[scanTierIndex];
 
@@ -243,46 +265,61 @@ export function DynamicPricingCalculator() {
     const userFactor = users;
     const scanFactor = monthlyScans;
 
-    if (isHighLiability || queryFactor > 1000000 || userFactor > 2000 || scanFactor > 100000) {
-      // SOVEREIGN: High liability, 1M+ queries, 2K+ users, or 100K+ scans
-      tier = PRICING_TIERS[4];
-      price = 250000 + (userFactor > 5000 ? (userFactor - 5000) * 50 : 0);
-    } else if (queryFactor > 100000 || userFactor > 500 || scanFactor > 10000) {
-      // ENTERPRISE: 100K+ queries, 500+ users, or 10K+ scans
-      tier = PRICING_TIERS[3];
+    // Industry-scaled pricing from $4.99/mo to $10K+/mo
+    if (isHighLiability || queryFactor > 500000 || userFactor > 2000 || scanFactor > 100000) {
+      // SOVEREIGN: High liability, 500K+ queries, 2K+ users, or 100K+ scans
+      tier = PRICING_TIERS[5];
       const utilizationRatio = Math.max(
         queryFactor / 1000000,
+        userFactor / 10000,
+        scanFactor / 500000
+      );
+      price = 10000 + (utilizationRatio * 90000);
+    } else if (queryFactor > 75000 || userFactor > 500 || scanFactor > 10000) {
+      // ENTERPRISE: 75K+ queries, 500+ users, or 10K+ scans
+      tier = PRICING_TIERS[4];
+      const utilizationRatio = Math.max(
+        queryFactor / 500000,
         userFactor / 2000,
         scanFactor / 100000
       );
-      price = 50000 + (utilizationRatio * 200000);
-    } else if (queryFactor > 10000 || userFactor > 40 || scanFactor > 1000) {
-      // GROWTH: 10K+ queries, 40+ users, or 1K+ scans
-      tier = PRICING_TIERS[2];
+      price = 2000 + (utilizationRatio * 8000);
+    } else if (queryFactor > 15000 || userFactor > 100 || scanFactor > 1500) {
+      // BUSINESS: 15K+ queries, 100+ users, or 1.5K+ scans
+      tier = PRICING_TIERS[3];
       const utilizationRatio = Math.max(
-        queryFactor / 100000,
+        queryFactor / 75000,
         userFactor / 500,
         scanFactor / 10000
       );
-      price = 10000 + (utilizationRatio * 39999);
-    } else if (queryFactor > 1000 || userFactor > 10 || scanFactor > 100) {
-      // MAIN STREET: 1K+ queries, 10+ users, or 100+ scans
+      price = 499 + (utilizationRatio * 1500);
+    } else if (queryFactor > 2500 || userFactor > 20 || scanFactor > 250) {
+      // PROFESSIONAL: 2.5K+ queries, 20+ users, or 250+ scans
+      tier = PRICING_TIERS[2];
+      const utilizationRatio = Math.max(
+        queryFactor / 15000,
+        userFactor / 100,
+        scanFactor / 1500
+      );
+      price = 99 + (utilizationRatio * 400);
+    } else if (queryFactor > 500 || userFactor > 10 || scanFactor > 50) {
+      // STARTER: 500+ queries, 10+ users, or 50+ scans
       tier = PRICING_TIERS[1];
       const utilizationRatio = Math.max(
-        queryFactor / 10000,
-        userFactor / 40,
-        scanFactor / 1000
+        queryFactor / 2500,
+        userFactor / 20,
+        scanFactor / 250
       );
-      price = 2500 + (utilizationRatio * 7499);
+      price = 29 + (utilizationRatio * 70);
     } else {
-      // SOLO: Entry level
+      // SOLO: Entry level - starts at $4.99/mo
       tier = PRICING_TIERS[0];
       const utilizationRatio = Math.max(
-        queryFactor / 1000,
+        queryFactor / 500,
         userFactor / 10,
-        scanFactor / 100
+        scanFactor / 50
       );
-      price = 999 + (utilizationRatio * 1500);
+      price = 4.99 + (utilizationRatio * 24);
     }
 
     // Calculate query overage
@@ -303,7 +340,7 @@ export function DynamicPricingCalculator() {
     }
 
     setRecommendedTier(tier);
-    setEstimatedPrice(Math.round(price));
+    setEstimatedPrice(price < 100 ? Math.round(price * 100) / 100 : Math.round(price));
     setQueryOverage(qOverage);
     setQueryOverageCost(Math.round(qOverageFee));
     setScanOverage(sOverage);
@@ -314,8 +351,8 @@ export function DynamicPricingCalculator() {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      minimumFractionDigits: value < 100 ? 2 : 0,
+      maximumFractionDigits: value < 100 ? 2 : 0
     }).format(value);
   };
 
@@ -552,19 +589,13 @@ export function DynamicPricingCalculator() {
           {/* Recommended Tier */}
           <Card className="border-2 border-cyan-500/50 bg-black/40">
             <CardContent className="p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Badge variant="outline" className="border-cyan-500 text-cyan-400 font-mono">
-                  RECOMMENDED
-                </Badge>
-              </div>
-              
               <h3 className="text-2xl font-bold text-foreground mb-1">{recommendedTier.name}</h3>
               <p className="text-muted-foreground mb-4">{recommendedTier.subtitle}</p>
               
               <div className="p-4 rounded-lg bg-black/40 mb-4">
-                <p className="text-xs font-mono text-muted-foreground mb-1">BASE PRICE</p>
+                <p className="text-xs font-mono text-muted-foreground mb-1">MONTHLY PRICE</p>
                 <p className="text-3xl font-bold text-cyan-400 font-mono">
-                  {formatCurrency(estimatedPrice)}
+                  {formatCurrency(estimatedPrice)}<span className="text-lg text-muted-foreground">/mo</span>
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   Range: {recommendedTier.priceRange}

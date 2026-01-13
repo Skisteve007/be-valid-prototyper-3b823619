@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ScrollText, Scale, Shield, Users, Lock, Eye, Zap, FileCheck, AlertTriangle } from "lucide-react";
+import { ArrowLeft, ScrollText, Shield, Users, Lock, Eye, Zap, FileCheck, AlertTriangle } from "lucide-react";
+import allianceSeal from "@/assets/alliance-seal.png";
 
 const GovernanceConstitution = () => {
   const navigate = useNavigate();
@@ -137,11 +138,17 @@ const GovernanceConstitution = () => {
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Title Block */}
         <div className="text-center mb-12 border-b border-amber-500/30 pb-8">
-          <div className="flex justify-center mb-6">
-            <div className="p-4 rounded-full bg-amber-500/20 border border-amber-500/40 shadow-[0_0_30px_rgba(245,158,11,0.4)]">
-              <Scale className="h-12 w-12 text-amber-400" />
+          {/* Alliance Seal */}
+          <div className="flex justify-center mb-8">
+            <div className="relative">
+              <img 
+                src={allianceSeal} 
+                alt="AI Constitutional Alliance - The Grillo AI Governance Standard Seal" 
+                className="w-40 h-40 md:w-52 md:h-52 object-contain drop-shadow-[0_0_30px_rgba(245,158,11,0.6)]"
+              />
             </div>
           </div>
+          
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-amber-400 mb-6 tracking-wide">
             THE GRILLO AI GOVERNANCE STANDARD
           </h1>
@@ -153,6 +160,43 @@ const GovernanceConstitution = () => {
           </p>
           <p className="text-lg md:text-xl text-muted-foreground mt-3">
             A Unified Doctrine for Human-AI Coexistence
+          </p>
+        </div>
+
+        {/* AI Constitutional Alliance Badge Section */}
+        <div className="bg-gradient-to-br from-amber-500/10 via-card/50 to-amber-500/10 backdrop-blur-md border border-amber-500/40 rounded-xl p-8 mb-10 text-center">
+          <div className="flex justify-center mb-6">
+            <img 
+              src={allianceSeal} 
+              alt="AI Constitutional Alliance Badge" 
+              className="w-24 h-24 object-contain drop-shadow-[0_0_20px_rgba(245,158,11,0.5)]"
+            />
+          </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-amber-400 mb-4">
+            AI CONSTITUTIONAL ALLIANCE
+          </h3>
+          <p className="text-lg md:text-xl text-foreground leading-relaxed mb-6 max-w-2xl mx-auto">
+            Organizations bearing this seal have committed to the <span className="text-amber-400 font-semibold">Grillo AI Governance Standard</span>—the definitive framework for responsible artificial intelligence deployment.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4 text-left max-w-3xl mx-auto">
+            <div className="bg-card/40 border border-amber-500/20 rounded-lg p-4">
+              <Shield className="h-6 w-6 text-amber-400 mb-2" />
+              <h4 className="text-amber-300 font-semibold mb-1">Governance Aligned</h4>
+              <p className="text-muted-foreground text-sm">Certified adherence to multi-model consensus and human sovereignty principles.</p>
+            </div>
+            <div className="bg-card/40 border border-amber-500/20 rounded-lg p-4">
+              <Eye className="h-6 w-6 text-amber-400 mb-2" />
+              <h4 className="text-amber-300 font-semibold mb-1">Audit Ready</h4>
+              <p className="text-muted-foreground text-sm">Immutable decision trails and cryptographic proof of compliance.</p>
+            </div>
+            <div className="bg-card/40 border border-amber-500/20 rounded-lg p-4">
+              <Lock className="h-6 w-6 text-amber-400 mb-2" />
+              <h4 className="text-amber-300 font-semibold mb-1">Trust Verified</h4>
+              <p className="text-muted-foreground text-sm">Continuous evaluation against constitutional statutes and safety standards.</p>
+            </div>
+          </div>
+          <p className="text-muted-foreground text-sm mt-6 italic">
+            Alliance members demonstrate to partners, clients, and regulators that their AI systems operate within a verified constitutional framework.
           </p>
         </div>
 
@@ -517,7 +561,7 @@ const GovernanceConstitution = () => {
         {/* Article VI */}
         <section className="mb-10">
           <div className="flex items-center gap-3 mb-4">
-            <Scale className="h-6 w-6 text-amber-400" />
+            <Zap className="h-6 w-6 text-amber-400" />
             <h2 className="text-2xl font-bold text-amber-400">ARTICLE VI: DYNAMIC TRUST & MERIT-BASED INFLUENCE</h2>
           </div>
           <p className="text-muted-foreground italic mb-4">Establishing adaptive, earned authority for AI components</p>

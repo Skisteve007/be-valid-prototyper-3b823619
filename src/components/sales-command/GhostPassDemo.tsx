@@ -24,7 +24,7 @@ interface FlowStep {
 const PRINCIPAL_CARGO = [
   { id: "identity", label: "Identity", icon: Fingerprint, color: "blue", description: "Verified ID without exposing personal data" },
   { id: "wallet", label: "Pre-Funded Wallet", icon: Wallet, color: "amber", description: "No credit cards, no chargebacks" },
-  { id: "health", label: "Bio-Status", icon: HeartPulse, color: "emerald", description: "Health/lab verification signals" },
+  { id: "health", label: "Bio-Status", icon: HeartPulse, color: "purple", description: "Health/lab verification signals" },
 ];
 
 export function GhostPassDemo() {
@@ -360,7 +360,7 @@ export function GhostPassDemo() {
                 switch (item.color) {
                   case 'blue': return { border: 'border-blue-500', bg: 'bg-blue-500/20', text: 'text-blue-400', iconBg: 'bg-blue-500/30' };
                   case 'amber': return { border: 'border-amber-500', bg: 'bg-amber-500/20', text: 'text-amber-400', iconBg: 'bg-amber-500/30' };
-                  case 'emerald': return { border: 'border-emerald-500', bg: 'bg-emerald-500/20', text: 'text-emerald-400', iconBg: 'bg-emerald-500/30' };
+                  case 'purple': return { border: 'border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.5)]', bg: 'bg-purple-500/25', text: 'text-purple-300', iconBg: 'bg-purple-500/40' };
                   default: return { border: 'border-muted', bg: 'bg-black/40', text: 'text-muted-foreground', iconBg: 'bg-muted/20' };
                 }
               };

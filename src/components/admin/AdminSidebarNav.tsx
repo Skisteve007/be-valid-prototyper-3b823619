@@ -1,4 +1,4 @@
-import { Building2, Users } from "lucide-react";
+import { Building2, Users, Target, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface AdminSidebarNavProps {
@@ -30,6 +30,26 @@ export const AdminSidebarNav = ({ activeTab, onTabChange }: AdminSidebarNavProps
         >
           <Building2 className="h-4 w-4" />
           Accounts
+        </Button>
+
+        <Button
+          type="button"
+          variant={activeTab === "pipeline" ? "default" : "ghost"}
+          className="w-full justify-start gap-2"
+          onClick={() => onTabChange("pipeline")}
+        >
+          <Target className="h-4 w-4" />
+          Pipeline
+        </Button>
+
+        <Button
+          type="button"
+          variant={activeTab === "hiring" ? "default" : "ghost"}
+          className="w-full justify-start gap-2"
+          onClick={() => onTabChange("hiring")}
+        >
+          <UserPlus className="h-4 w-4" />
+          Hiring
         </Button>
       </nav>
     </aside>

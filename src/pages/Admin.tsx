@@ -23,7 +23,7 @@ import { DevelopersIntegrationsTab } from "@/components/admin/DevelopersIntegrat
 import { CampaignsTab } from "@/components/admin/CampaignsTab";
 import { VenueDirectoryTab } from "@/components/admin/VenueDirectoryTab";
 import { AccountsTab } from "@/components/admin/accounts";
-import SalesTeamTab from "@/components/admin/SalesTeamTab";
+import { SalesHubTab } from "@/components/admin/SalesHubTab";
 import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
 import { AdminSidebarNav } from "@/components/admin/AdminSidebarNav";
 import { QuickBrandingTool } from "@/components/admin/QuickBrandingTool";
@@ -40,12 +40,10 @@ import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
 import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import { SynthAdminTab } from "@/components/admin/SynthAdminTab";
-import { SalesBattlecardsTab } from "@/components/admin/SalesBattlecardsTab";
 import { CareersTab } from "@/components/admin/CareersTab";
 import { LegalTemplatesTab } from "@/components/admin/LegalTemplatesTab";
 import { HiringPacketTab } from "@/components/admin/HiringPacketTab";
 import { CEOPlaybookTab } from "@/components/admin/CEOPlaybookTab";
-import { SalesManualTab } from "@/components/admin/SalesManualTab";
 import {
   DndContext,
   closestCenter,
@@ -665,18 +663,15 @@ const Admin = () => {
             <TabsTrigger value="accounts" className="cursor-pointer text-sm px-2 py-2">
               🏢 Accounts
             </TabsTrigger>
-            <TabsTrigger value="sales-team" className="cursor-pointer text-sm px-2 py-2">
-              Sales
+            <TabsTrigger value="sales-hub" className="cursor-pointer text-sm px-2 py-2 bg-primary/10 border border-primary/30">
+              💼 Sales Hub
             </TabsTrigger>
           </TabsList>
           
           {/* Second Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-8 gap-1 h-auto p-1 mb-2">
+          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-2">
             <TabsTrigger value="lead-outreach" className="cursor-pointer text-sm px-2 py-2">
               📧 Leads
-            </TabsTrigger>
-            <TabsTrigger value="battlecards" className="cursor-pointer text-sm px-2 py-2">
-              🎯 Battlecards
             </TabsTrigger>
             <TabsTrigger value="investor-crm" className="cursor-pointer text-sm px-2 py-2">
               💼 Investors
@@ -702,7 +697,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Third Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-8 gap-1 h-auto p-1 mb-4">
+          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-4">
             <TabsTrigger value="pricing" className="cursor-pointer text-sm px-2 py-2">
               💰 Pricing
             </TabsTrigger>
@@ -721,9 +716,6 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="ceo-playbook" className="cursor-pointer text-sm px-2 py-2">
               📘 Playbook
-            </TabsTrigger>
-            <TabsTrigger value="sales-manual" className="cursor-pointer text-sm px-2 py-2">
-              📒 Sales
             </TabsTrigger>
             <TabsTrigger
               value="synth"
@@ -1038,12 +1030,8 @@ const Admin = () => {
             <AccountsTab />
           </TabsContent>
           
-          <TabsContent value="sales-team">
-            <SalesTeamTab />
-          </TabsContent>
-          
-          <TabsContent value="battlecards">
-            <SalesBattlecardsTab />
+          <TabsContent value="sales-hub">
+            <SalesHubTab />
           </TabsContent>
           
           <TabsContent value="lead-outreach">
@@ -1112,10 +1100,6 @@ const Admin = () => {
 
           <TabsContent value="ceo-playbook">
             <CEOPlaybookTab />
-          </TabsContent>
-
-          <TabsContent value="sales-manual">
-            <SalesManualTab />
           </TabsContent>
 
           <TabsContent value="synth">

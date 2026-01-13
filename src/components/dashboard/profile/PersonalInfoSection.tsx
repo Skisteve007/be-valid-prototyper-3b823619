@@ -312,12 +312,6 @@ export const PersonalInfoSection = ({
                 
                 {/* Share Icons Section - Right side on desktop */}
                 <div className="hidden md:flex flex-col items-start gap-3">
-                  {/* Principal Cargo Title */}
-                  <div className="flex items-center gap-2 w-full">
-                    <Package className="w-4 h-4 text-cyan-400" />
-                    <p className="text-xs text-cyan-400 uppercase tracking-widest font-bold">PRINCIPAL CARGO</p>
-                  </div>
-                  
                   <div className="flex items-start gap-3">
                     {/* My Teams Selector - Sibling pill */}
                     <SportsTeamSelector 
@@ -325,8 +319,13 @@ export const PersonalInfoSection = ({
                       onTeamsChange={onTeamsChange || (() => {})} 
                     />
                     
-                    {/* Choose Your Share Section */}
+                    {/* Choose Your Share Section with Principal Cargo inside */}
                     <div className="flex flex-col items-center justify-center p-3 rounded-lg border border-white/10 bg-white/5">
+                      {/* Principal Cargo Title - Inside the pill */}
+                      <div className="flex items-center gap-2 mb-2">
+                        <Package className="w-4 h-4 text-cyan-400" />
+                        <p className="text-xs text-cyan-400 uppercase tracking-widest font-bold">PRINCIPAL CARGO</p>
+                      </div>
                       <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2">CHOOSE YOUR SHARE</p>
                       <div className="flex gap-2">
                       {/* ID Toggle */}
@@ -443,12 +442,6 @@ export const PersonalInfoSection = ({
                 
                 {/* Mobile Share Icons Section */}
                 <div className="md:hidden w-full mt-3 space-y-3">
-                  {/* Principal Cargo Title */}
-                  <div className="flex items-center justify-center gap-2">
-                    <Package className="w-4 h-4 text-cyan-400" />
-                    <p className="text-xs text-cyan-400 uppercase tracking-widest font-bold">PRINCIPAL CARGO</p>
-                  </div>
-                  
                   {/* My Teams Selector - Sibling row on mobile */}
                   <div className="flex justify-center">
                     <SportsTeamSelector 
@@ -457,8 +450,13 @@ export const PersonalInfoSection = ({
                     />
                   </div>
                   
-                  {/* Choose Your Share Section */}
+                  {/* Choose Your Share Section with Principal Cargo inside */}
                   <div className="p-3 rounded-lg border border-white/10 bg-white/5">
+                    {/* Principal Cargo Title - Inside the pill */}
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Package className="w-4 h-4 text-cyan-400" />
+                      <p className="text-xs text-cyan-400 uppercase tracking-widest font-bold">PRINCIPAL CARGO</p>
+                    </div>
                     <p className="text-[10px] text-gray-400 uppercase tracking-wider text-center mb-2">CHOOSE YOUR SHARE</p>
                     <div className="grid grid-cols-5 gap-2">
                     {/* ID Toggle */}

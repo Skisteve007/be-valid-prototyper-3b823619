@@ -8,7 +8,9 @@ import {
   Smartphone, Building2, Lock, Zap, Wallet, HeartPulse,
   CreditCard, DollarSign, Users, Timer, AlertTriangle,
   TrendingUp, Banknote, ShieldOff, Receipt, PieChart,
-  UserCheck, Scale, Search, FileSearch
+  UserCheck, Scale, Search, FileSearch, ArrowDown,
+  MonitorCheck, Store, Database, Landmark, ArrowDownRight,
+  CircleDollarSign, ArrowRightLeft, Settings
 } from "lucide-react";
 
 interface FlowStep {
@@ -191,6 +193,12 @@ export function GhostPassDemo() {
               icon={UserCheck} 
               title="Promoter Tracking" 
               description="Track sales by promoter/staff. Configurable commission (default 10%) per Ghost Pass sold."
+              color="amber"
+            />
+            <BenefitItem 
+              icon={PieChart} 
+              title="Vendor Pool Revenue" 
+              description="30% of all Ghost Pass sales go into a shared pool. Your share is based on usage—more scans, more payout."
               color="amber"
             />
           </CardContent>
@@ -396,7 +404,7 @@ export function GhostPassDemo() {
         </CardContent>
       </Card>
 
-      {/* Flow Diagram */}
+      {/* Enhanced Verification Flow Diagram */}
       <Card className="border-cyan-500/30 bg-black/40">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg font-mono text-foreground">VERIFICATION FLOW</CardTitle>
@@ -418,9 +426,9 @@ export function GhostPassDemo() {
             </Button>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-6">
+          {/* Main Flow Steps */}
           <div className="relative">
-            {/* Connection Lines */}
             <div className="absolute top-[50px] left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-0.5 bg-cyan-500/20">
               <div 
                 className="h-full bg-cyan-400 transition-all duration-500"
@@ -428,7 +436,6 @@ export function GhostPassDemo() {
               />
             </div>
 
-            {/* Steps */}
             <div className="grid grid-cols-4 gap-4 relative z-10">
               {flowSteps.map((step) => (
                 <div key={step.id} className="flex flex-col items-center text-center">
@@ -459,9 +466,130 @@ export function GhostPassDemo() {
             </div>
           </div>
 
+          {/* Step 2 Branch: Point of Entry Decision */}
+          <div className="p-4 rounded-xl border border-blue-500/30 bg-blue-500/5">
+            <div className="flex items-center gap-2 mb-3">
+              <MonitorCheck className="h-5 w-5 text-blue-400" />
+              <p className="font-mono text-sm text-blue-400">STEP 2 BRANCH: POINT OF ENTRY DECISION</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-3 rounded-lg border border-blue-500/20 bg-black/40 text-center">
+                <Eye className="h-5 w-5 text-blue-400 mx-auto mb-2" />
+                <p className="text-xs font-semibold text-blue-300">VIEW SIGNAL</p>
+                <p className="text-[10px] text-muted-foreground">Door staff sees VERIFIED or DENIED</p>
+              </div>
+              <div className="p-3 rounded-lg border border-amber-500/20 bg-black/40 text-center">
+                <Database className="h-5 w-5 text-amber-400 mx-auto mb-2" />
+                <p className="text-xs font-semibold text-amber-300">ON-PREM STORAGE</p>
+                <p className="text-[10px] text-muted-foreground">Optional: venue can store signal locally if needed</p>
+              </div>
+              <div className="p-3 rounded-lg border border-purple-500/20 bg-black/40 text-center">
+                <MonitorCheck className="h-5 w-5 text-purple-400 mx-auto mb-2" />
+                <p className="text-xs font-semibold text-purple-300">MANAGEMENT STATION</p>
+                <p className="text-[10px] text-muted-foreground">Signal also sent to authoritative management</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 3 Branch: Multiple Concession Points */}
+          <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/5">
+            <div className="flex items-center gap-2 mb-3">
+              <Store className="h-5 w-5 text-amber-400" />
+              <p className="font-mono text-sm text-amber-400">STEP 3 EXPANSION: MULTIPLE CONCESSION POINTS</p>
+            </div>
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <div className="p-2 rounded-lg border border-amber-500/30 bg-black/40 text-center w-20">
+                <Wallet className="h-4 w-4 text-amber-400 mx-auto mb-1" />
+                <p className="text-[9px] text-amber-300">BAR</p>
+              </div>
+              <ArrowDownRight className="h-4 w-4 text-amber-400/50 hidden md:block" />
+              <div className="p-2 rounded-lg border border-amber-500/30 bg-black/40 text-center w-20">
+                <Wallet className="h-4 w-4 text-amber-400 mx-auto mb-1" />
+                <p className="text-[9px] text-amber-300">VIP</p>
+              </div>
+              <ArrowDownRight className="h-4 w-4 text-amber-400/50 hidden md:block" />
+              <div className="p-2 rounded-lg border border-amber-500/30 bg-black/40 text-center w-20">
+                <Wallet className="h-4 w-4 text-amber-400 mx-auto mb-1" />
+                <p className="text-[9px] text-amber-300">FOOD</p>
+              </div>
+              <ArrowDownRight className="h-4 w-4 text-amber-400/50 hidden md:block" />
+              <div className="p-2 rounded-lg border border-amber-500/30 bg-black/40 text-center w-20">
+                <Wallet className="h-4 w-4 text-amber-400 mx-auto mb-1" />
+                <p className="text-[9px] text-amber-300">MERCH</p>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground text-center mt-3">
+              Customer uses pre-funded wallet at multiple concession points throughout the venue
+            </p>
+          </div>
+
+          {/* Step 4 Branch: User-Controlled Destruction */}
+          <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/5">
+            <div className="flex items-center gap-2 mb-3">
+              <Settings className="h-5 w-5 text-red-400" />
+              <p className="font-mono text-sm text-red-400">STEP 4 DETAIL: USER-CONTROLLED DATA DESTRUCTION</p>
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">
+              The customer pre-selects their destruction preference. Three options available:
+            </p>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="p-2 rounded-lg border border-red-500/30 bg-black/40 text-center">
+                <Timer className="h-4 w-4 text-red-400 mx-auto mb-1" />
+                <p className="text-[10px] text-red-300 font-semibold">60 SECONDS</p>
+                <p className="text-[9px] text-muted-foreground">Immediate after session</p>
+              </div>
+              <div className="p-2 rounded-lg border border-amber-500/30 bg-black/40 text-center">
+                <Clock className="h-4 w-4 text-amber-400 mx-auto mb-1" />
+                <p className="text-[10px] text-amber-300 font-semibold">24 HOURS</p>
+                <p className="text-[9px] text-muted-foreground">Next-day cleanup</p>
+              </div>
+              <div className="p-2 rounded-lg border border-purple-500/30 bg-black/40 text-center">
+                <Trash2 className="h-4 w-4 text-purple-400 mx-auto mb-1" />
+                <p className="text-[10px] text-purple-300 font-semibold">END OF EVENT</p>
+                <p className="text-[9px] text-muted-foreground">When event closes</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 5: Financial Capture to Payout */}
+          <div className="p-4 rounded-xl border border-green-500/30 bg-green-500/5">
+            <div className="flex items-center gap-2 mb-3">
+              <Landmark className="h-5 w-5 text-green-400" />
+              <p className="font-mono text-sm text-green-400">STEP 5: FINANCIAL CAPTURE → PAYOUT</p>
+            </div>
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <div className="p-3 rounded-lg border border-green-500/30 bg-black/40 text-center">
+                <Wallet className="h-5 w-5 text-green-400 mx-auto mb-1" />
+                <p className="text-[10px] text-green-300 font-semibold">PRE-FUNDED WALLET</p>
+                <p className="text-[9px] text-muted-foreground">Customer's loaded funds</p>
+              </div>
+              <ArrowRight className="h-4 w-4 text-green-400" />
+              <div className="p-3 rounded-lg border border-cyan-500/30 bg-black/40 text-center">
+                <Landmark className="h-5 w-5 text-cyan-400 mx-auto mb-1" />
+                <p className="text-[10px] text-cyan-300 font-semibold">FBO BANK</p>
+                <p className="text-[9px] text-muted-foreground">Like PayPal holding</p>
+              </div>
+              <ArrowRight className="h-4 w-4 text-green-400" />
+              <div className="p-3 rounded-lg border border-amber-500/30 bg-black/40 text-center">
+                <CircleDollarSign className="h-5 w-5 text-amber-400 mx-auto mb-1" />
+                <p className="text-[10px] text-amber-300 font-semibold">CAPTURES</p>
+                <p className="text-[9px] text-muted-foreground">Each transaction logged</p>
+              </div>
+              <ArrowRight className="h-4 w-4 text-green-400" />
+              <div className="p-3 rounded-lg border border-green-500/30 bg-black/40 text-center">
+                <Banknote className="h-5 w-5 text-green-400 mx-auto mb-1" />
+                <p className="text-[10px] text-green-300 font-semibold">VENDOR PAYOUT</p>
+                <p className="text-[9px] text-muted-foreground">Within hours of request</p>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground text-center mt-3">
+              Funds flow from customer wallet → FBO bank → financial captures → vendor disbursement within hours of requesting
+            </p>
+          </div>
+
           {/* Active Step Detail */}
           {currentStep > 0 && (
-            <div className="mt-8 p-4 rounded-lg border border-cyan-500/30 bg-cyan-500/5">
+            <div className="p-4 rounded-lg border border-cyan-500/30 bg-cyan-500/5">
               <div className="flex items-center gap-3">
                 {(() => {
                   const ActiveIcon = flowSteps[currentStep - 1]?.icon || Shield;
@@ -477,13 +605,13 @@ export function GhostPassDemo() {
 
           {/* Completion State */}
           {currentStep === 4 && !isRunning && (
-            <div className="mt-4 p-4 rounded-lg border-2 border-green-500 bg-green-500/10">
+            <div className="p-4 rounded-lg border-2 border-green-500 bg-green-500/10">
               <div className="flex items-center gap-3">
                 <Check className="h-6 w-6 text-green-400" />
                 <div>
                   <p className="font-semibold text-green-400">VERIFICATION COMPLETE</p>
                   <p className="text-sm text-muted-foreground">
-                    Customer verified. Wallet active. Zero data stored. Token expires in 60 seconds.
+                    Customer verified. Wallet active. Zero data stored. Token expires per user preference.
                   </p>
                 </div>
               </div>

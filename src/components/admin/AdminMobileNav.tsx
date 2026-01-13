@@ -13,16 +13,14 @@ import {
   QrCode,
   Shield,
   Target,
-  Briefcase,
   BarChart3,
   Lock,
   Webhook,
   Send,
-  FileText,
   UserPlus,
-  Package,
   BookOpen,
-  Building2
+  Building2,
+  FileText
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -39,9 +37,8 @@ const navItems = [
   { id: "lab-integrations", label: "Lab Integrations", icon: FlaskConical },
   { id: "developers", label: "Developers", icon: Code },
   { id: "campaigns", label: "Campaigns", icon: Globe },
-  { id: "sales-team", label: "Sales Team", icon: DollarSign },
-  { id: "lead-outreach", label: "Lead Outreach", icon: Target },
-  { id: "investor-crm", label: "Investor CRM", icon: Briefcase },
+  { id: "sales-hub", label: "Sales Hub", icon: DollarSign },
+  { id: "pipeline", label: "Pipeline", icon: Target },
   { id: "quick-branding", label: "Fast Event Setup", icon: Zap },
   { id: "scanner", label: "QR Scanner", icon: QrCode },
   { id: "idv-management", label: "IDV Management", icon: Shield },
@@ -49,9 +46,7 @@ const navItems = [
   { id: "traffic", label: "Traffic Analytics", icon: BarChart3 },
   { id: "pricing", label: "Pricing & Contracts", icon: DollarSign },
   { id: "webhooks", label: "Webhooks", icon: Webhook },
-  { id: "careers", label: "Careers", icon: UserPlus },
-  { id: "legal-templates", label: "Legal Templates", icon: FileText },
-  { id: "hiring-packet", label: "Hiring Packet", icon: Package },
+  { id: "hiring", label: "Hiring & Legal", icon: UserPlus },
   { id: "ceo-playbook", label: "CEO Playbook", icon: BookOpen },
 ];
 

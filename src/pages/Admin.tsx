@@ -28,9 +28,9 @@ import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
 import { AdminSidebarNav } from "@/components/admin/AdminSidebarNav";
 import { QuickBrandingTool } from "@/components/admin/QuickBrandingTool";
 import { ScannerFullscreen } from "@/components/admin/ScannerFullscreen";
-import { LeadOutreachTab } from "@/components/admin/LeadOutreachTab";
 import { MembersTab } from "@/components/admin/MembersTab";
-import { InvestorCRMTab } from "@/components/admin/InvestorCRMTab";
+import { PipelineTab } from "@/components/admin/PipelineTab";
+import { HiringTab } from "@/components/admin/HiringTab";
 import { IDVManagementTab } from "@/components/admin/IDVManagementTab";
 import { AccessApprovalManager } from "@/components/admin/AccessApprovalManager";
 import StaffShiftManager from "@/components/admin/StaffShiftManager";
@@ -40,9 +40,6 @@ import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
 import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import { SynthAdminTab } from "@/components/admin/SynthAdminTab";
-import { CareersTab } from "@/components/admin/CareersTab";
-import { LegalTemplatesTab } from "@/components/admin/LegalTemplatesTab";
-import { HiringPacketTab } from "@/components/admin/HiringPacketTab";
 import { CEOPlaybookTab } from "@/components/admin/CEOPlaybookTab";
 import {
   DndContext,
@@ -669,12 +666,9 @@ const Admin = () => {
           </TabsList>
           
           {/* Second Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-2">
-            <TabsTrigger value="lead-outreach" className="cursor-pointer text-sm px-2 py-2">
-              📧 Leads
-            </TabsTrigger>
-            <TabsTrigger value="investor-crm" className="cursor-pointer text-sm px-2 py-2">
-              💼 Investors
+          <TabsList className="hidden md:grid w-full grid-cols-6 gap-1 h-auto p-1 mb-2">
+            <TabsTrigger value="pipeline" className="cursor-pointer text-sm px-2 py-2">
+              🎯 Pipeline
             </TabsTrigger>
             <TabsTrigger value="quick-branding" className="cursor-pointer text-sm px-2 py-2">
               <Zap className="h-4 w-4 mr-1" />
@@ -697,7 +691,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Third Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-4">
+          <TabsList className="hidden md:grid w-full grid-cols-5 gap-1 h-auto p-1 mb-4">
             <TabsTrigger value="pricing" className="cursor-pointer text-sm px-2 py-2">
               💰 Pricing
             </TabsTrigger>
@@ -705,14 +699,8 @@ const Admin = () => {
               <Webhook className="h-4 w-4 mr-1" />
               Webhooks
             </TabsTrigger>
-            <TabsTrigger value="careers" className="cursor-pointer text-sm px-2 py-2">
-              👥 Careers
-            </TabsTrigger>
-            <TabsTrigger value="legal-templates" className="cursor-pointer text-sm px-2 py-2">
-              📜 Legal
-            </TabsTrigger>
-            <TabsTrigger value="hiring-packet" className="cursor-pointer text-sm px-2 py-2">
-              📦 Packet
+            <TabsTrigger value="hiring" className="cursor-pointer text-sm px-2 py-2">
+              👥 Hiring
             </TabsTrigger>
             <TabsTrigger value="ceo-playbook" className="cursor-pointer text-sm px-2 py-2">
               📘 Playbook
@@ -1034,12 +1022,8 @@ const Admin = () => {
             <SalesHubTab />
           </TabsContent>
           
-          <TabsContent value="lead-outreach">
-            <LeadOutreachTab />
-          </TabsContent>
-          
-          <TabsContent value="investor-crm">
-            <InvestorCRMTab />
+          <TabsContent value="pipeline">
+            <PipelineTab />
           </TabsContent>
           
           <TabsContent value="quick-branding">
@@ -1086,16 +1070,8 @@ const Admin = () => {
             <WebhookEventsViewer />
           </TabsContent>
 
-          <TabsContent value="careers">
-            <CareersTab />
-          </TabsContent>
-
-          <TabsContent value="legal-templates">
-            <LegalTemplatesTab />
-          </TabsContent>
-
-          <TabsContent value="hiring-packet">
-            <HiringPacketTab />
+          <TabsContent value="hiring">
+            <HiringTab />
           </TabsContent>
 
           <TabsContent value="ceo-playbook">

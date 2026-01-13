@@ -7,7 +7,8 @@ import {
   Fingerprint, Eye, EyeOff, Trash2, ArrowRight, 
   Smartphone, Building2, Lock, Zap, Wallet, HeartPulse,
   CreditCard, DollarSign, Users, Timer, AlertTriangle,
-  TrendingUp, Banknote, ShieldOff, Receipt
+  TrendingUp, Banknote, ShieldOff, Receipt, PieChart,
+  UserCheck, Scale, Search, FileSearch
 } from "lucide-react";
 
 interface FlowStep {
@@ -23,7 +24,7 @@ interface FlowStep {
 const PRINCIPAL_CARGO = [
   { id: "identity", label: "Identity", icon: Fingerprint, color: "blue", description: "Verified ID without exposing personal data" },
   { id: "wallet", label: "Pre-Funded Wallet", icon: Wallet, color: "amber", description: "No credit cards, no chargebacks" },
-  { id: "health", label: "Bio-Status", icon: HeartPulse, color: "green", description: "Health/lab verification signals" },
+  { id: "health", label: "Bio-Status", icon: HeartPulse, color: "emerald", description: "Health/lab verification signals" },
 ];
 
 export function GhostPassDemo() {
@@ -129,7 +130,13 @@ export function GhostPassDemo() {
             <BenefitItem 
               icon={Wallet} 
               title="Pre-Funded Wallet" 
-              description="Load it once, spend anywhere. No declined cards, no transaction anxiety."
+              description="No blocked credit cards, no declined transactions. Full control over your spending."
+              color="green"
+            />
+            <BenefitItem 
+              icon={CreditCard} 
+              title="Money Management" 
+              description="Keep control of your money in one place. Load once, spend anywhere."
               color="green"
             />
             <BenefitItem 
@@ -153,7 +160,7 @@ export function GhostPassDemo() {
             <BenefitItem 
               icon={ShieldOff} 
               title="Zero Data Liability" 
-              description="Never store customer PII. Can't breach what you don't have."
+              description="Never store customer PII. Data stays at source. Can't breach what you don't have."
               color="amber"
             />
             <BenefitItem 
@@ -170,13 +177,168 @@ export function GhostPassDemo() {
             />
             <BenefitItem 
               icon={Banknote} 
-              title="Instant Settlement" 
-              description="Get paid immediately. No waiting 3-5 days for merchant processing."
+              title="Fast Settlement" 
+              description="Get paid within a few hours of requesting. No waiting 3-5 days for processing."
+              color="amber"
+            />
+            <BenefitItem 
+              icon={Timer} 
+              title="Eliminate Bottlenecks" 
+              description="Faster door entry, faster bar service. No fumbling for IDs or cards."
+              color="amber"
+            />
+            <BenefitItem 
+              icon={UserCheck} 
+              title="Promoter Tracking" 
+              description="Track sales by promoter/staff. Configurable commission (default 10%) per Ghost Pass sold."
               color="amber"
             />
           </CardContent>
         </Card>
       </div>
+
+      {/* Revenue Share Model */}
+      <Card className="border-cyan-500/30 bg-cyan-500/5">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <PieChart className="h-5 w-5 text-cyan-400" />
+            <CardTitle className="text-lg font-mono text-cyan-400">GHOST PASS REVENUE SHARE</CardTitle>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Every Ghost Pass sold creates revenue for multiple parties. Establishments are incentivized to promote Ghost Pass adoption.
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="p-4 rounded-xl border-2 border-amber-500/50 bg-amber-500/10 text-center">
+              <div className="text-3xl font-bold text-amber-400 font-mono">30%</div>
+              <p className="text-sm font-semibold text-amber-300 mt-1">VENUE</p>
+              <p className="text-xs text-muted-foreground">Direct to establishment</p>
+            </div>
+            <div className="p-4 rounded-xl border-2 border-cyan-500/50 bg-cyan-500/10 text-center">
+              <div className="text-3xl font-bold text-cyan-400 font-mono">30%</div>
+              <p className="text-sm font-semibold text-cyan-300 mt-1">VALID™</p>
+              <p className="text-xs text-muted-foreground">Platform fee</p>
+            </div>
+            <div className="p-4 rounded-xl border-2 border-purple-500/50 bg-purple-500/10 text-center">
+              <div className="text-3xl font-bold text-purple-400 font-mono">30%</div>
+              <p className="text-sm font-semibold text-purple-300 mt-1">VENDOR POOL</p>
+              <p className="text-xs text-muted-foreground">Split by usage (like Spotify)</p>
+            </div>
+            <div className="p-4 rounded-xl border-2 border-green-500/50 bg-green-500/10 text-center">
+              <div className="text-3xl font-bold text-green-400 font-mono">10%</div>
+              <p className="text-sm font-semibold text-green-300 mt-1">PROMOTER</p>
+              <p className="text-xs text-muted-foreground">Vendor-configurable</p>
+            </div>
+          </div>
+          <div className="mt-4 p-3 rounded-lg bg-purple-500/10 border border-purple-500/30">
+            <p className="text-sm text-purple-300">
+              <strong>Vendor Pool:</strong> All participating establishments share a 30% pool, distributed based on usage volume—
+              just like Spotify royalties. Higher usage = bigger payout. This incentivizes venues to drive Ghost Pass adoption.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Two-Tier Identification */}
+      <Card className="border-blue-500/30 bg-blue-500/5">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <Scale className="h-5 w-5 text-blue-400" />
+            <CardTitle className="text-lg font-mono text-blue-400">TWO-TIER IDENTIFICATION</CardTitle>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Explain to prospects: We offer two levels of identity verification based on their security needs.
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border-2 border-blue-500/30 bg-black/40">
+              <div className="flex items-center gap-2 mb-3">
+                <Fingerprint className="h-5 w-5 text-blue-400" />
+                <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/50">TIER 1</Badge>
+              </div>
+              <h4 className="font-semibold text-blue-300 mb-2">Standard Verification</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-green-400" />
+                  Confirms person is who they claim to be
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-green-400" />
+                  Age verification (21+, 18+, etc.)
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-green-400" />
+                  Real-time identity match
+                </li>
+              </ul>
+            </div>
+            <div className="p-4 rounded-xl border-2 border-red-500/30 bg-black/40">
+              <div className="flex items-center gap-2 mb-3">
+                <FileSearch className="h-5 w-5 text-red-400" />
+                <Badge className="bg-red-500/20 text-red-400 border-red-500/50">TIER 2</Badge>
+              </div>
+              <h4 className="font-semibold text-red-300 mb-2">Deep Screening</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <Search className="h-4 w-4 text-red-400" />
+                  Terrorist watch list check
+                </li>
+                <li className="flex items-center gap-2">
+                  <Search className="h-4 w-4 text-red-400" />
+                  Most wanted list check
+                </li>
+                <li className="flex items-center gap-2">
+                  <Search className="h-4 w-4 text-red-400" />
+                  Sexual predator registry check
+                </li>
+                <li className="flex items-center gap-2">
+                  <Search className="h-4 w-4 text-red-400" />
+                  In-depth background screening
+                </li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Privacy & Compliance Objection Handler */}
+      <Card className="border-yellow-500/30 bg-yellow-500/5">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-yellow-400" />
+            <CardTitle className="text-lg font-mono text-yellow-400">HANDLING PRIVACY OBJECTIONS</CardTitle>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Prospects will ask about HIPAA, PII, and data capture. Here's how to address it:
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="p-4 rounded-lg border border-yellow-500/30 bg-black/40">
+            <p className="text-foreground italic mb-4">
+              "We're a <strong className="text-cyan-400">conduit</strong>, not a warehouse. We throw the signal, not store the data. 
+              All verification happens in real-time at check-in. The data stays with its source—the IDV provider, the lab, the health system. 
+              We only pass through a binary VERIFIED or NOT VERIFIED signal. If there's ever a dispute, the customer goes directly to their 
+              source data provider, not to you. You never touch, store, or assume liability for any PII or health information."
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline" className="border-green-500/50 text-green-400 font-mono text-xs">
+                HIPAA Safe
+              </Badge>
+              <Badge variant="outline" className="border-green-500/50 text-green-400 font-mono text-xs">
+                PII Never Stored
+              </Badge>
+              <Badge variant="outline" className="border-green-500/50 text-green-400 font-mono text-xs">
+                Source-of-Truth Architecture
+              </Badge>
+              <Badge variant="outline" className="border-green-500/50 text-green-400 font-mono text-xs">
+                Zero Liability Transfer
+              </Badge>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Principal Cargo Section */}
       <Card className="border-purple-500/30 bg-purple-500/5">
@@ -191,43 +353,45 @@ export function GhostPassDemo() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-3 gap-4">
-            {PRINCIPAL_CARGO.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setActiveToggles(prev => ({ ...prev, [item.id]: !prev[item.id as keyof typeof prev] }))}
-                className={`p-4 rounded-xl border-2 transition-all duration-300 text-center ${
-                  activeToggles[item.id as keyof typeof activeToggles]
-                    ? `border-${item.color}-500 bg-${item.color}-500/20 shadow-[0_0_15px_rgba(0,0,0,0.3)]`
-                    : 'border-muted bg-black/40 opacity-50'
-                }`}
-              >
-                <div className={`w-12 h-12 mx-auto rounded-lg flex items-center justify-center mb-2 ${
-                  activeToggles[item.id as keyof typeof activeToggles] ? `bg-${item.color}-500/30` : 'bg-muted/20'
-                }`}>
-                  <item.icon className={`h-6 w-6 ${
-                    activeToggles[item.id as keyof typeof activeToggles] 
-                      ? item.color === 'blue' ? 'text-blue-400' : item.color === 'amber' ? 'text-amber-400' : 'text-green-400'
-                      : 'text-muted-foreground'
-                  }`} />
-                </div>
-                <p className={`font-mono text-sm font-bold ${
-                  activeToggles[item.id as keyof typeof activeToggles]
-                    ? item.color === 'blue' ? 'text-blue-400' : item.color === 'amber' ? 'text-amber-400' : 'text-green-400'
-                    : 'text-muted-foreground'
-                }`}>
-                  {item.label}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
-                <Badge 
-                  variant="outline" 
-                  className={`mt-2 text-[10px] ${
-                    activeToggles[item.id as keyof typeof activeToggles] ? 'border-green-500 text-green-400' : 'border-muted text-muted-foreground'
+            {PRINCIPAL_CARGO.map((item) => {
+              const isActive = activeToggles[item.id as keyof typeof activeToggles];
+              const getColorClasses = () => {
+                if (!isActive) return { border: 'border-muted', bg: 'bg-black/40', text: 'text-muted-foreground', iconBg: 'bg-muted/20' };
+                switch (item.color) {
+                  case 'blue': return { border: 'border-blue-500', bg: 'bg-blue-500/20', text: 'text-blue-400', iconBg: 'bg-blue-500/30' };
+                  case 'amber': return { border: 'border-amber-500', bg: 'bg-amber-500/20', text: 'text-amber-400', iconBg: 'bg-amber-500/30' };
+                  case 'emerald': return { border: 'border-emerald-500', bg: 'bg-emerald-500/20', text: 'text-emerald-400', iconBg: 'bg-emerald-500/30' };
+                  default: return { border: 'border-muted', bg: 'bg-black/40', text: 'text-muted-foreground', iconBg: 'bg-muted/20' };
+                }
+              };
+              const colors = getColorClasses();
+              
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveToggles(prev => ({ ...prev, [item.id]: !prev[item.id as keyof typeof prev] }))}
+                  className={`p-4 rounded-xl border-2 transition-all duration-300 text-center ${colors.border} ${colors.bg} ${
+                    isActive ? 'shadow-[0_0_15px_rgba(0,0,0,0.3)]' : 'opacity-50'
                   }`}
                 >
-                  {activeToggles[item.id as keyof typeof activeToggles] ? 'SHARING' : 'HIDDEN'}
-                </Badge>
-              </button>
-            ))}
+                  <div className={`w-12 h-12 mx-auto rounded-lg flex items-center justify-center mb-2 ${colors.iconBg}`}>
+                    <item.icon className={`h-6 w-6 ${colors.text}`} />
+                  </div>
+                  <p className={`font-mono text-sm font-bold ${colors.text}`}>
+                    {item.label}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
+                  <Badge 
+                    variant="outline" 
+                    className={`mt-2 text-[10px] ${
+                      isActive ? 'border-green-500 text-green-400' : 'border-muted text-muted-foreground'
+                    }`}
+                  >
+                    {isActive ? 'SHARING' : 'HIDDEN'}
+                  </Badge>
+                </button>
+              );
+            })}
           </div>
         </CardContent>
       </Card>
@@ -349,9 +513,9 @@ export function GhostPassDemo() {
           color="purple"
         />
         <StatCard
-          value="INSTANT"
-          label="Settlement"
-          description="No 3-5 day wait"
+          value="30%"
+          label="Direct Revenue"
+          description="Per Ghost Pass sold"
           color="amber"
         />
       </div>
@@ -367,8 +531,9 @@ export function GhostPassDemo() {
               <p className="font-bold text-amber-400 mb-2 font-mono">THE PITCH</p>
               <p className="text-lg text-foreground italic mb-4">
                 "Your customers load their Ghost Pass wallet once and never reach for their pocket again—no ID, no credit card. 
-                You eliminate chargebacks, save 75% on processing fees, and get paid instantly. Plus, you never store a single 
-                piece of customer data, so there's nothing to breach, nothing to lose, zero liability."
+                You eliminate chargebacks, save 75% on processing fees, and get paid within a few hours of requesting. Plus, you never store a single 
+                piece of customer data, so there's nothing to breach, nothing to lose, zero liability. And for every Ghost Pass you sell, 
+                you keep 30% directly, plus you're entered into a usage-based pool that pays out like Spotify royalties."
               </p>
               <div className="flex flex-wrap gap-2">
                 <Badge variant="outline" className="border-green-500/50 text-green-400 font-mono text-xs">
@@ -384,8 +549,8 @@ export function GhostPassDemo() {
                   Zero Liability
                 </Badge>
                 <Badge variant="outline" className="border-amber-500/50 text-amber-400 font-mono text-xs">
-                  <Banknote className="h-3 w-3 mr-1" />
-                  Instant Payouts
+                  <PieChart className="h-3 w-3 mr-1" />
+                  30% + Pool Revenue
                 </Badge>
               </div>
             </div>

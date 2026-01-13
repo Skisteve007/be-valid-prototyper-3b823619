@@ -5468,7 +5468,9 @@ export type Database = {
           allow_door_to_collect_payment: boolean | null
           created_at: string | null
           id: string
+          liveness_check_mode: string | null
           offline_mode_enabled: boolean | null
+          require_liveness_on_scan: boolean | null
           updated_at: string | null
           venue_id: string
         }
@@ -5477,7 +5479,9 @@ export type Database = {
           allow_door_to_collect_payment?: boolean | null
           created_at?: string | null
           id?: string
+          liveness_check_mode?: string | null
           offline_mode_enabled?: boolean | null
+          require_liveness_on_scan?: boolean | null
           updated_at?: string | null
           venue_id: string
         }
@@ -5486,7 +5490,9 @@ export type Database = {
           allow_door_to_collect_payment?: boolean | null
           created_at?: string | null
           id?: string
+          liveness_check_mode?: string | null
           offline_mode_enabled?: boolean | null
+          require_liveness_on_scan?: boolean | null
           updated_at?: string | null
           venue_id?: string
         }

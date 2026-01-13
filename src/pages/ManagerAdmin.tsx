@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { 
   Settings, Wifi, WifiOff, CheckCircle, XCircle, AlertTriangle, 
   Users, RefreshCw, ArrowLeft, Smartphone, Monitor, HelpCircle,
-  Clock, Camera
+  Clock, Camera, Fingerprint, ShieldCheck
 } from "lucide-react";
 import ManualCheckEvidence from "@/components/manager/ManualCheckEvidence";
 import ScanLogTable from "@/components/manager/ScanLogTable";
@@ -29,6 +29,8 @@ interface VenueSettings {
   age_policy: string;
   allow_door_to_collect_payment: boolean;
   offline_mode_enabled: boolean;
+  require_liveness_on_scan?: boolean;
+  liveness_check_mode?: string;
 }
 
 interface Device {
@@ -173,6 +175,36 @@ const ManagerAdmin = () => {
     }
   };
 
+  const saveLivenessMode = async (mode: string) => {
+    if (!selectedVenueId || !venueSettings) return;
+    setIsSaving(true);
+
+    try {
+      const { error } = await supabase
+        .from("venue_settings")
+        .update({ 
+          liveness_check_mode: mode, 
+          require_liveness_on_scan: mode !== 'off',
+          updated_at: new Date().toISOString() 
+        })
+        .eq("id", venueSettings.id);
+
+      if (error) throw error;
+
+      setVenueSettings({ 
+        ...venueSettings, 
+        liveness_check_mode: mode, 
+        require_liveness_on_scan: mode !== 'off' 
+      });
+      toast.success("Liveness verification mode saved!");
+    } catch (error) {
+      console.error("Error saving liveness mode:", error);
+      toast.error("Failed to save liveness mode");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   const getDeviceIcon = (type: string) => {
     switch (type) {
       case "scanner":
@@ -297,6 +329,51 @@ const ManagerAdmin = () => {
                       <p className="text-sm text-muted-foreground mt-2">
                         Members under this age will be denied entry automatically.
                       </p>
+                    </div>
+
+                    {/* Footprint Liveness Verification */}
+                    <div className="border-t pt-6">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Fingerprint className="w-5 h-5 text-primary" />
+                        <label className="block text-sm font-medium">Footprint Liveness Verification</label>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Control when to require real-time identity verification at the door using Footprint.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <Button
+                          variant={venueSettings?.liveness_check_mode === "off" || !venueSettings?.liveness_check_mode ? "default" : "outline"}
+                          onClick={() => saveLivenessMode("off")}
+                          disabled={isSaving}
+                          size="sm"
+                        >
+                          <XCircle className="w-4 h-4 mr-2" />
+                          Off
+                        </Button>
+                        <Button
+                          variant={venueSettings?.liveness_check_mode === "suspicious_only" ? "default" : "outline"}
+                          onClick={() => saveLivenessMode("suspicious_only")}
+                          disabled={isSaving}
+                          size="sm"
+                        >
+                          <AlertTriangle className="w-4 h-4 mr-2" />
+                          Suspicious Only
+                        </Button>
+                        <Button
+                          variant={venueSettings?.liveness_check_mode === "all_scans" ? "default" : "outline"}
+                          onClick={() => saveLivenessMode("all_scans")}
+                          disabled={isSaving}
+                          size="sm"
+                        >
+                          <ShieldCheck className="w-4 h-4 mr-2" />
+                          All Scans
+                        </Button>
+                      </div>
+                      <div className="mt-3 text-xs text-muted-foreground space-y-1">
+                        <p><strong>Off:</strong> Token validation only (fastest)</p>
+                        <p><strong>Suspicious Only:</strong> Manual re-verify button available for staff</p>
+                        <p><strong>All Scans:</strong> Every entry triggers Footprint liveness check</p>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

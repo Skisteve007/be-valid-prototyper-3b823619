@@ -15,7 +15,10 @@ import {
   VolumeX,
   Flashlight,
   EyeOff,
-  DollarSign
+  DollarSign,
+  Fingerprint,
+  ShieldCheck,
+  Loader2
 } from "lucide-react";
 import logo from "@/assets/valid-logo.jpeg";
 
@@ -27,9 +30,10 @@ interface ScannerFullscreenProps {
 }
 
 type ScanResult = {
-  status: "valid" | "invalid" | "expired" | "incognito" | null;
+  status: "valid" | "invalid" | "expired" | "incognito" | "liveness_pending" | null;
   name?: string;
   memberId?: string;
+  userId?: string;
   expiresAt?: string;
   isIncognito?: boolean;
   revenueSplit?: {
@@ -40,11 +44,35 @@ type ScanResult = {
   };
 };
 
+type LivenessMode = 'off' | 'suspicious_only' | 'all_scans';
+
 export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: ScannerFullscreenProps) => {
   const [wakeLockActive, setWakeLockActive] = useState(false);
   const [scanResult, setScanResult] = useState<ScanResult>({ status: null });
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [livenessMode, setLivenessMode] = useState<LivenessMode>('off');
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verificationLink, setVerificationLink] = useState<string | null>(null);
   const wakeLockRef = useRef<WakeLockSentinel | null>(null);
+
+  // Load venue settings to get liveness mode
+  useEffect(() => {
+    const loadVenueSettings = async () => {
+      if (!venueId) return;
+      
+      const { data, error } = await supabase
+        .from('venue_settings')
+        .select('liveness_check_mode')
+        .eq('venue_id', venueId)
+        .maybeSingle();
+      
+      if (data?.liveness_check_mode) {
+        setLivenessMode(data.liveness_check_mode as LivenessMode);
+      }
+    };
+    
+    loadVenueSettings();
+  }, [venueId]);
 
   // Request Wake Lock to keep screen on
   useEffect(() => {
@@ -124,13 +152,47 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
     oscillator.stop(audioContext.currentTime + 0.2);
   };
 
+  // Trigger Footprint liveness check
+  const triggerLivenessCheck = async (userId: string, reason: string = 'manual_request') => {
+    if (!venueId) {
+      toast.error("Venue ID not configured");
+      return;
+    }
+
+    setIsVerifying(true);
+    setVerificationLink(null);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('door-liveness-check', {
+        body: {
+          user_id: userId,
+          venue_id: venueId,
+          reason: reason,
+        }
+      });
+
+      if (error) throw error;
+
+      if (data?.verification_link) {
+        setVerificationLink(data.verification_link);
+        setScanResult(prev => ({ ...prev, status: 'liveness_pending' }));
+        toast.success("Liveness verification initiated");
+      }
+    } catch (error) {
+      console.error("Error triggering liveness check:", error);
+      toast.error("Failed to initiate liveness verification");
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
   // Process Incognito scan and trigger revenue split
   const processIncognitoScan = async (token: string): Promise<ScanResult> => {
     try {
       // Verify the incognito token
       const { data: tokenData, error: tokenError } = await supabase
         .from('qr_access_tokens')
-        .select('*, profiles!inner(id, status_color, member_id, full_name)')
+        .select('*, profiles!inner(id, status_color, member_id, full_name, user_id)')
         .eq('token', token)
         .single();
 
@@ -156,6 +218,11 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
         });
       }
 
+      // Check if liveness is required for all scans
+      if (livenessMode === 'all_scans' && tokenData.profiles?.user_id) {
+        await triggerLivenessCheck(tokenData.profiles.user_id, 'all_scans_policy');
+      }
+
       // The payment was already processed when the incognito token was generated
       // The venue receives their share automatically via the transaction record
       const revenueSplit = {
@@ -168,6 +235,7 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
       return {
         status: 'incognito',
         memberId: tokenData.profiles?.member_id,
+        userId: tokenData.profiles?.user_id,
         expiresAt: tokenData.expires_at,
         isIncognito: true,
         revenueSplit
@@ -182,9 +250,9 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
   const handleManualEntry = async () => {
     // Demo: Simulate different scan results including incognito
     const demoResults: ScanResult[] = [
-      { status: "valid", name: "John D.", memberId: "CC-12345678", expiresAt: "2025-03-01" },
+      { status: "valid", name: "John D.", memberId: "CC-12345678", userId: "demo-user-1", expiresAt: "2025-03-01" },
       { status: "expired", name: "Jane S.", memberId: "CC-87654321", expiresAt: "2024-12-01" },
-      { status: "incognito", memberId: "CC-PRIVATE", expiresAt: "2025-01-05", isIncognito: true, revenueSplit: { total: 5, venue: 2, cleancheck: 2, promoter: 1 } },
+      { status: "incognito", memberId: "CC-PRIVATE", userId: "demo-user-2", expiresAt: "2025-01-05", isIncognito: true, revenueSplit: { total: 5, venue: 2, cleancheck: 2, promoter: 1 } },
       { status: "invalid" },
     ];
     
@@ -192,8 +260,16 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
     setScanResult(result);
     playSound(result.status === "valid" || result.status === "incognito" ? "success" : "error");
     
-    // Auto-clear after 5 seconds
-    setTimeout(() => setScanResult({ status: null }), 5000);
+    // If liveness mode is all_scans and we have a valid result, trigger liveness
+    if (livenessMode === 'all_scans' && result.userId && (result.status === 'valid' || result.status === 'incognito')) {
+      await triggerLivenessCheck(result.userId, 'all_scans_policy');
+    }
+    
+    // Auto-clear after 10 seconds (longer for liveness)
+    setTimeout(() => {
+      setScanResult({ status: null });
+      setVerificationLink(null);
+    }, 10000);
   };
 
   const handleClose = () => {
@@ -220,6 +296,14 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
           icon: <EyeOff className="h-24 w-24 text-gray-500" />,
           text: "INCOGNITO VERIFIED",
           textColor: "text-gray-500",
+        };
+      case "liveness_pending":
+        return {
+          bg: "bg-blue-500/20",
+          border: "border-blue-500",
+          icon: <Fingerprint className="h-24 w-24 text-blue-500 animate-pulse" />,
+          text: "LIVENESS CHECK",
+          textColor: "text-blue-500",
         };
       case "expired":
         return {
@@ -253,6 +337,12 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
             <img src={venueLogo} alt="Venue" className="h-10 w-auto" />
           ) : (
             <img src={logo} alt="VALID" className="h-10 w-auto" />
+          )}
+          {livenessMode !== 'off' && (
+            <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/50">
+              <Fingerprint className="w-3 h-3 mr-1" />
+              Liveness: {livenessMode === 'all_scans' ? 'All' : 'Suspicious'}
+            </Badge>
           )}
         </div>
         <div className="flex items-center gap-2">
@@ -322,6 +412,44 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
                   </div>
                 </div>
               )}
+
+              {/* Liveness verification link */}
+              {verificationLink && scanResult.status === 'liveness_pending' && (
+                <div className="mt-4 p-4 bg-blue-500/10 rounded-lg border border-blue-500/30">
+                  <p className="text-sm text-blue-400 mb-3">Ask the guest to complete verification:</p>
+                  <Button
+                    onClick={() => window.open(verificationLink, '_blank')}
+                    className="w-full bg-blue-600 hover:bg-blue-700"
+                  >
+                    <Fingerprint className="w-4 h-4 mr-2" />
+                    Open Verification
+                  </Button>
+                </div>
+              )}
+
+              {/* Re-verify button for suspicious_only mode */}
+              {livenessMode === 'suspicious_only' && 
+               scanResult.userId && 
+               (scanResult.status === 'valid' || scanResult.status === 'incognito') && (
+                <div className="mt-4 pt-4 border-t border-border">
+                  <Button
+                    variant="outline"
+                    onClick={() => triggerLivenessCheck(scanResult.userId!, 'suspicious_manual')}
+                    disabled={isVerifying}
+                    className="w-full border-yellow-500/50 text-yellow-500 hover:bg-yellow-500/10"
+                  >
+                    {isVerifying ? (
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <Fingerprint className="w-4 h-4 mr-2" />
+                    )}
+                    Re-verify with Footprint
+                  </Button>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Use if identity seems suspicious
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         ) : (
@@ -341,6 +469,12 @@ export const ScannerFullscreen = ({ onClose, venueLogo, venueId, promoterId }: S
               <p className="text-muted-foreground">
                 Position QR code within the frame
               </p>
+              {livenessMode !== 'off' && (
+                <p className="text-xs text-blue-400 flex items-center justify-center gap-1">
+                  <Fingerprint className="w-3 h-3" />
+                  Footprint liveness: {livenessMode === 'all_scans' ? 'Required for all' : 'Available on request'}
+                </p>
+              )}
             </div>
           </div>
         )}

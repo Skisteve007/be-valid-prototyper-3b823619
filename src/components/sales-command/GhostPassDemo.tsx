@@ -5,7 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Shield, QrCode, User, Check, X, Clock, 
   Fingerprint, Eye, EyeOff, Trash2, ArrowRight, 
-  Smartphone, Building2, Lock, Zap
+  Smartphone, Building2, Lock, Zap, Wallet, HeartPulse,
+  CreditCard, DollarSign, Users, Timer, AlertTriangle,
+  TrendingUp, Banknote, ShieldOff, Receipt
 } from "lucide-react";
 
 interface FlowStep {
@@ -17,42 +19,54 @@ interface FlowStep {
   detail: string;
 }
 
+// Principal Cargo items that users can choose to share
+const PRINCIPAL_CARGO = [
+  { id: "identity", label: "Identity", icon: Fingerprint, color: "blue", description: "Verified ID without exposing personal data" },
+  { id: "wallet", label: "Pre-Funded Wallet", icon: Wallet, color: "amber", description: "No credit cards, no chargebacks" },
+  { id: "health", label: "Bio-Status", icon: HeartPulse, color: "green", description: "Health/lab verification signals" },
+];
+
 export function GhostPassDemo() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [activeToggles, setActiveToggles] = useState({
+    identity: true,
+    wallet: true,
+    health: false,
+  });
 
   const flowSteps: FlowStep[] = [
     {
       id: 1,
       icon: QrCode,
-      title: "QR SCAN",
-      description: "User presents Ghost Pass QR",
+      title: "CUSTOMER SCANS",
+      description: "Ghost Pass presented at door",
       status: currentStep >= 1 ? (currentStep === 1 ? "active" : "complete") : "pending",
-      detail: "Encrypted ephemeral token scanned at venue entry point"
+      detail: "Customer presents their Ghost Pass QR. They control what signals to share via Principal Cargo toggles."
     },
     {
       id: 2,
       icon: Shield,
-      title: "SYNTH VERIFICATION",
-      description: "Senate validates identity",
+      title: "INSTANT VERIFICATION",
+      description: "SYNTH validates signals",
       status: currentStep >= 2 ? (currentStep === 2 ? "active" : "complete") : "pending",
-      detail: "Multi-model consensus verifies identity signals without storing PII"
+      detail: "Multi-model Senate verifies identity + wallet balance + any health signals—without storing PII."
     },
     {
       id: 3,
-      icon: Check,
-      title: "GHOST PASS GRANTED",
-      description: "Temporary access issued",
+      icon: Wallet,
+      title: "PRE-FUNDED PAYMENT",
+      description: "Wallet ready to spend",
       status: currentStep >= 3 ? (currentStep === 3 ? "active" : "complete") : "pending",
-      detail: "Time-bound access token (30s–5m TTL) with venue-specific permissions"
+      detail: "Customer's pre-funded wallet is live. No credit cards needed. No chargebacks possible. Instant settlement."
     },
     {
       id: 4,
       icon: Trash2,
-      title: "AUTO-REVOCATION",
-      description: "Zero persistence guaranteed",
+      title: "ZERO RETENTION",
+      description: "Data self-destructs",
       status: currentStep >= 4 ? (currentStep === 4 ? "active" : "complete") : "pending",
-      detail: "Token expires automatically. No PII stored. Audit record only."
+      detail: "Session ends, token expires. Venue never housed any customer data. Zero liability, zero breach risk."
     },
   ];
 
@@ -80,33 +94,143 @@ export function GhostPassDemo() {
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-cyan-400 font-mono">
             <Shield className="h-6 w-6" />
-            MODULE C: GHOST PASS DEMO
+            MODULE C: GHOST PASS™ DEMO
           </CardTitle>
           <p className="text-muted-foreground">
-            For Events, Venues, and Identity verification. SYNTH isn't just for AI—it's for humans too.
-            Show how we verify identity with zero data retention.
+            The Ghost Pass is a pre-funded, privacy-first wallet that benefits <strong className="text-cyan-400">both</strong> customers 
+            and establishments. Show prospects how it eliminates chargebacks, speeds up entry, and removes liability.
           </p>
         </CardHeader>
       </Card>
 
-      {/* Value Props */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <ValueCard
-          icon={Lock}
-          title="Stop Ticket Fraud"
-          description="QR tokens are cryptographically bound to verified identity"
-        />
-        <ValueCard
-          icon={EyeOff}
-          title="Stop Data Leaks"
-          description="We verify without storing. No PII honey pot."
-        />
-        <ValueCard
-          icon={Trash2}
-          title="Zero Persistence"
-          description="Tokens auto-expire. Nothing to breach."
-        />
+      {/* Two-Column Value Props: Customer vs Business */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Customer Benefits */}
+        <Card className="border-green-500/30 bg-green-500/5">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <User className="h-5 w-5 text-green-400" />
+              <CardTitle className="text-lg font-mono text-green-400">FOR THE CUSTOMER</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <BenefitItem 
+              icon={Fingerprint} 
+              title="No Wallet Fumbling" 
+              description="No ID, no credit card needed at the door or bar. Just scan and go."
+              color="green"
+            />
+            <BenefitItem 
+              icon={Eye} 
+              title="Privacy Control" 
+              description="Customer chooses what to share via Principal Cargo toggles. Their data, their rules."
+              color="green"
+            />
+            <BenefitItem 
+              icon={Wallet} 
+              title="Pre-Funded Wallet" 
+              description="Load it once, spend anywhere. No declined cards, no transaction anxiety."
+              color="green"
+            />
+            <BenefitItem 
+              icon={Timer} 
+              title="Faster Entry & Service" 
+              description="Skip the bottlenecks. Verified and ready to spend in under 2 seconds."
+              color="green"
+            />
+          </CardContent>
+        </Card>
+
+        {/* Business Benefits */}
+        <Card className="border-amber-500/30 bg-amber-500/5">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <Building2 className="h-5 w-5 text-amber-400" />
+              <CardTitle className="text-lg font-mono text-amber-400">FOR THE ESTABLISHMENT</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <BenefitItem 
+              icon={ShieldOff} 
+              title="Zero Data Liability" 
+              description="Never store customer PII. Can't breach what you don't have."
+              color="amber"
+            />
+            <BenefitItem 
+              icon={Receipt} 
+              title="No Chargebacks" 
+              description="Pre-funded wallet = no disputes, no reversals, no fraud headaches."
+              color="amber"
+            />
+            <BenefitItem 
+              icon={DollarSign} 
+              title="75% Lower Fees" 
+              description="Bypass credit card processing fees. Save 75% on every transaction."
+              color="amber"
+            />
+            <BenefitItem 
+              icon={Banknote} 
+              title="Instant Settlement" 
+              description="Get paid immediately. No waiting 3-5 days for merchant processing."
+              color="amber"
+            />
+          </CardContent>
+        </Card>
       </div>
+
+      {/* Principal Cargo Section */}
+      <Card className="border-purple-500/30 bg-purple-500/5">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <Lock className="h-5 w-5 text-purple-400" />
+            <CardTitle className="text-lg font-mono text-purple-400">PRINCIPAL CARGO (User-Controlled Signals)</CardTitle>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Customers choose exactly what to share. Each signal is a toggle—on or off. The venue only sees what the customer allows.
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-3 gap-4">
+            {PRINCIPAL_CARGO.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveToggles(prev => ({ ...prev, [item.id]: !prev[item.id as keyof typeof prev] }))}
+                className={`p-4 rounded-xl border-2 transition-all duration-300 text-center ${
+                  activeToggles[item.id as keyof typeof activeToggles]
+                    ? `border-${item.color}-500 bg-${item.color}-500/20 shadow-[0_0_15px_rgba(0,0,0,0.3)]`
+                    : 'border-muted bg-black/40 opacity-50'
+                }`}
+              >
+                <div className={`w-12 h-12 mx-auto rounded-lg flex items-center justify-center mb-2 ${
+                  activeToggles[item.id as keyof typeof activeToggles] ? `bg-${item.color}-500/30` : 'bg-muted/20'
+                }`}>
+                  <item.icon className={`h-6 w-6 ${
+                    activeToggles[item.id as keyof typeof activeToggles] 
+                      ? item.color === 'blue' ? 'text-blue-400' : item.color === 'amber' ? 'text-amber-400' : 'text-green-400'
+                      : 'text-muted-foreground'
+                  }`} />
+                </div>
+                <p className={`font-mono text-sm font-bold ${
+                  activeToggles[item.id as keyof typeof activeToggles]
+                    ? item.color === 'blue' ? 'text-blue-400' : item.color === 'amber' ? 'text-amber-400' : 'text-green-400'
+                    : 'text-muted-foreground'
+                }`}>
+                  {item.label}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">{item.description}</p>
+                <Badge 
+                  variant="outline" 
+                  className={`mt-2 text-[10px] ${
+                    activeToggles[item.id as keyof typeof activeToggles] ? 'border-green-500 text-green-400' : 'border-muted text-muted-foreground'
+                  }`}
+                >
+                  {activeToggles[item.id as keyof typeof activeToggles] ? 'SHARING' : 'HIDDEN'}
+                </Badge>
+              </button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Flow Diagram */}
       <Card className="border-cyan-500/30 bg-black/40">
@@ -142,7 +266,7 @@ export function GhostPassDemo() {
 
             {/* Steps */}
             <div className="grid grid-cols-4 gap-4 relative z-10">
-              {flowSteps.map((step, idx) => (
+              {flowSteps.map((step) => (
                 <div key={step.id} className="flex flex-col items-center text-center">
                   <div className={`
                     w-12 h-12 rounded-full flex items-center justify-center mb-3 transition-all duration-300
@@ -195,7 +319,7 @@ export function GhostPassDemo() {
                 <div>
                   <p className="font-semibold text-green-400">VERIFICATION COMPLETE</p>
                   <p className="text-sm text-muted-foreground">
-                    Identity verified. Access granted. Token will self-destruct in 5 minutes.
+                    Customer verified. Wallet active. Zero data stored. Token expires in 60 seconds.
                   </p>
                 </div>
               </div>
@@ -204,19 +328,31 @@ export function GhostPassDemo() {
         </CardContent>
       </Card>
 
-      {/* Use Cases */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <UseCaseCard
-          icon={Building2}
-          title="Events & Venues"
-          pitch="Stop ticket fraud at the door. Every scan is verified against a cryptographic identity—no more screenshot scams."
-          stats={["20% fraud reduction", "Zero data liability", "Sub-second verification"]}
+      {/* ROI Stats for Business */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatCard
+          value="75%"
+          label="Lower Processing Fees"
+          description="vs. credit card fees"
+          color="green"
         />
-        <UseCaseCard
-          icon={Smartphone}
-          title="Age-Restricted Access"
-          pitch="Verify age without storing birthdates. Perfect for bars, cannabis dispensaries, and adult venues."
-          stats={["COPPA compliant", "CCPA compliant", "No PII stored"]}
+        <StatCard
+          value="0"
+          label="Chargebacks"
+          description="Pre-funded = no disputes"
+          color="cyan"
+        />
+        <StatCard
+          value="<2s"
+          label="Verification Time"
+          description="No bottlenecks"
+          color="purple"
+        />
+        <StatCard
+          value="INSTANT"
+          label="Settlement"
+          description="No 3-5 day wait"
+          color="amber"
         />
       </div>
 
@@ -229,10 +365,29 @@ export function GhostPassDemo() {
             </div>
             <div>
               <p className="font-bold text-amber-400 mb-2 font-mono">THE PITCH</p>
-              <p className="text-lg text-foreground italic">
-                "Ticket fraud is costing you 20%. Ghost Pass kills it with identity verification that deletes itself. 
-                Stop Ticket Fraud. Stop Data Leaks. Zero Storage."
+              <p className="text-lg text-foreground italic mb-4">
+                "Your customers load their Ghost Pass wallet once and never reach for their pocket again—no ID, no credit card. 
+                You eliminate chargebacks, save 75% on processing fees, and get paid instantly. Plus, you never store a single 
+                piece of customer data, so there's nothing to breach, nothing to lose, zero liability."
               </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline" className="border-green-500/50 text-green-400 font-mono text-xs">
+                  <DollarSign className="h-3 w-3 mr-1" />
+                  75% Fee Savings
+                </Badge>
+                <Badge variant="outline" className="border-cyan-500/50 text-cyan-400 font-mono text-xs">
+                  <Receipt className="h-3 w-3 mr-1" />
+                  Zero Chargebacks
+                </Badge>
+                <Badge variant="outline" className="border-purple-500/50 text-purple-400 font-mono text-xs">
+                  <ShieldOff className="h-3 w-3 mr-1" />
+                  Zero Liability
+                </Badge>
+                <Badge variant="outline" className="border-amber-500/50 text-amber-400 font-mono text-xs">
+                  <Banknote className="h-3 w-3 mr-1" />
+                  Instant Payouts
+                </Badge>
+              </div>
             </div>
           </div>
         </CardContent>
@@ -241,52 +396,55 @@ export function GhostPassDemo() {
   );
 }
 
-interface ValueCardProps {
+interface BenefitItemProps {
   icon: React.ElementType;
   title: string;
   description: string;
+  color: "green" | "amber" | "cyan" | "purple";
 }
 
-function ValueCard({ icon: Icon, title, description }: ValueCardProps) {
+function BenefitItem({ icon: Icon, title, description, color }: BenefitItemProps) {
+  const colorClasses = {
+    green: "text-green-400",
+    amber: "text-amber-400",
+    cyan: "text-cyan-400",
+    purple: "text-purple-400",
+  };
+
   return (
-    <Card className="border-cyan-500/20 bg-black/40">
-      <CardContent className="p-4 flex items-start gap-3">
-        <div className="p-2 rounded-lg bg-cyan-500/10">
-          <Icon className="h-5 w-5 text-cyan-400" />
-        </div>
-        <div>
-          <h4 className="font-semibold text-foreground mb-1">{title}</h4>
-          <p className="text-sm text-muted-foreground">{description}</p>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="flex items-start gap-3">
+      <div className={`p-1.5 rounded-lg bg-black/40 ${colorClasses[color]}`}>
+        <Icon className="h-4 w-4" />
+      </div>
+      <div>
+        <h4 className={`font-semibold text-sm ${colorClasses[color]}`}>{title}</h4>
+        <p className="text-xs text-muted-foreground">{description}</p>
+      </div>
+    </div>
   );
 }
 
-interface UseCaseCardProps {
-  icon: React.ElementType;
-  title: string;
-  pitch: string;
-  stats: string[];
+interface StatCardProps {
+  value: string;
+  label: string;
+  description: string;
+  color: "green" | "amber" | "cyan" | "purple";
 }
 
-function UseCaseCard({ icon: Icon, title, pitch, stats }: UseCaseCardProps) {
+function StatCard({ value, label, description, color }: StatCardProps) {
+  const colorClasses = {
+    green: "border-green-500/30 text-green-400",
+    amber: "border-amber-500/30 text-amber-400",
+    cyan: "border-cyan-500/30 text-cyan-400",
+    purple: "border-purple-500/30 text-purple-400",
+  };
+
   return (
-    <Card className="border-cyan-500/30 bg-black/40">
-      <CardContent className="p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <Icon className="h-6 w-6 text-cyan-400" />
-          <h3 className="font-bold text-lg">{title}</h3>
-        </div>
-        <p className="text-muted-foreground mb-4">{pitch}</p>
-        <div className="flex flex-wrap gap-2">
-          {stats.map((stat, i) => (
-            <Badge key={i} variant="outline" className="border-green-500/50 text-green-400 font-mono text-xs">
-              <Check className="h-3 w-3 mr-1" />
-              {stat}
-            </Badge>
-          ))}
-        </div>
+    <Card className={`${colorClasses[color]} bg-black/40`}>
+      <CardContent className="p-4 text-center">
+        <p className={`text-2xl font-bold font-mono ${colorClasses[color].split(' ')[1]}`}>{value}</p>
+        <p className="text-sm font-semibold text-foreground">{label}</p>
+        <p className="text-xs text-muted-foreground">{description}</p>
       </CardContent>
     </Card>
   );

@@ -1,12 +1,110 @@
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ScrollText, Scale, Shield, Users, Lock, Eye, Zap, FileCheck, AlertTriangle } from "lucide-react";
 
 const GovernanceConstitution = () => {
   const navigate = useNavigate();
 
+  const pageTitle = "Grillo AI Governance Standard (GAGS) | Constitutional Framework for AI Systems";
+  const pageDescription = "The first mechanical constitution for autonomous AI agents. A comprehensive AI governance standard, compliance framework, and risk management doctrine for human-AI coexistence. Created by Steven Grillo, featuring seven-model consensus on AI operational statutes.";
+  const pageKeywords = "AI governance, AI governance standard, AI compliance, AI risk management, AI risk mitigation, AI guidelines, AI standards, intelligence governance, constitutional framework, AI doctrine, human AI coexistence, human vetting, human integration with AI, AI ethics, AI safety, AI accountability, autonomous AI governance, multi-model AI consensus, AI operational standards, Grillo AI Governance Standard, GAGS, SYNTH framework, AI constitutional framework, artificial intelligence governance, AI regulatory framework, machine learning governance, AI safety standards, responsible AI, trustworthy AI, AI oversight, AI audit, AI transparency, AI accountability framework";
+  const canonicalUrl = "https://www.bevalid.app/governance-constitution";
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": pageTitle,
+    "description": pageDescription,
+    "url": canonicalUrl,
+    "keywords": pageKeywords,
+    "author": {
+      "@type": "Person",
+      "name": "Steven Grillo",
+      "jobTitle": "Architect of SYNTH™",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Giant Ventures LLC"
+      }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Giant Ventures LLC",
+      "url": "https://www.bevalid.app"
+    },
+    "datePublished": "2026-01-11",
+    "dateModified": "2026-01-13",
+    "mainEntity": {
+      "@type": "CreativeWork",
+      "name": "The Grillo AI Governance Standard",
+      "alternateName": ["GAGS", "Constitutional Framework for AI Governance"],
+      "description": "The first comprehensive constitutional framework for artificial intelligence governance derived from direct consultation with seven independent large language model systems.",
+      "version": "1.0",
+      "author": {
+        "@type": "Person",
+        "name": "Steven Grillo"
+      },
+      "keywords": pageKeywords,
+      "about": [
+        { "@type": "Thing", "name": "Artificial Intelligence Governance" },
+        { "@type": "Thing", "name": "AI Compliance" },
+        { "@type": "Thing", "name": "AI Risk Management" },
+        { "@type": "Thing", "name": "Human-AI Coexistence" },
+        { "@type": "Thing", "name": "AI Ethics" },
+        { "@type": "Thing", "name": "AI Safety Standards" }
+      ]
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-foreground">
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>{pageTitle}</title>
+        <meta name="title" content={pageTitle} />
+        <meta name="description" content={pageDescription} />
+        <meta name="keywords" content={pageKeywords} />
+        <meta name="author" content="Steven Grillo, Giant Ventures LLC" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <link rel="canonical" href={canonicalUrl} />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:site_name" content="VALID | SYNTH™" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="article:author" content="Steven Grillo" />
+        <meta property="article:published_time" content="2026-01-11T14:37:00Z" />
+        <meta property="article:section" content="AI Governance" />
+        <meta property="article:tag" content="AI Governance" />
+        <meta property="article:tag" content="AI Compliance" />
+        <meta property="article:tag" content="AI Risk Management" />
+        <meta property="article:tag" content="AI Standards" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={canonicalUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:creator" content="@stevengrillo" />
+
+        {/* Additional SEO Meta Tags */}
+        <meta name="classification" content="AI Governance, Technology, Standards" />
+        <meta name="category" content="AI Governance Standard" />
+        <meta name="coverage" content="Worldwide" />
+        <meta name="distribution" content="Global" />
+        <meta name="rating" content="General" />
+        <meta name="subject" content="Constitutional Framework for Artificial Intelligence Governance" />
+        <meta name="topic" content="AI Governance, AI Compliance, AI Risk Management, AI Standards" />
+        <meta name="summary" content={pageDescription} />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-amber-500/30">
         <div className="container mx-auto px-4 pt-16 pb-4 flex items-center justify-between">

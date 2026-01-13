@@ -11,6 +11,7 @@ import FlowDiagram from "@/components/demos/FlowDiagram";
 import DemoShareButton from "@/components/demos/DemoShareButton";
 import SideBySideSection from "@/components/demos/SideBySideSection";
 import DemoEnvironmentNotice from "@/components/demos/DemoEnvironmentNotice";
+import ConduitCostExplainer from "@/components/demos/ConduitCostExplainer";
 import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Target } from "lucide-react";
@@ -421,6 +422,11 @@ const DemoHub = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
             <FlowDiagram variant="senate" />
             <FlowDiagram variant="conduit" />
+          </div>
+
+          {/* Cost Savings Explainer - How SYNTH saves 75%+ on data storage */}
+          <div className="mb-8">
+            <ConduitCostExplainer variant="card" />
           </div>
 
           {/* Two Ways to Use Explainer */}

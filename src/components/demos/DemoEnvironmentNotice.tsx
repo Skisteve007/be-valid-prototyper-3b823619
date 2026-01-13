@@ -34,9 +34,14 @@ const DemoEnvironmentNotice = ({
             submit only data they are permitted to share.
           </p>
           <p>
-            In production, <strong>VALID | SYNTH™</strong> operates simultaneously with your existing 
-            AI platform or system of record, analyzes data in real time, emits a governance 
-            signal, and then immediately purges the data. No user data is retained.
+            In production, <strong>VALID | SYNTH™</strong> operates as a <strong>conduit</strong> — it runs 
+            simultaneously alongside your existing AI platform or system of record, analyzes data in real time, 
+            emits a governance signal, and then immediately purges the data. <strong>No user data is retained.</strong>
+          </p>
+          <p>
+            <strong className="text-cyan-400">75%+ Data Savings:</strong> SYNTH™ filters conversations for subject 
+            and anchor words, flushing non-pertinent data immediately. Your existing data warehouse, our 
+            governance layer — cutting storage costs and latency dramatically.
           </p>
           <p>
             For the purposes of this demo, the system processes only the data you 
@@ -45,7 +50,7 @@ const DemoEnvironmentNotice = ({
           </p>
           <p className="font-medium text-foreground/80 border-t border-border pt-4 mt-4">
             <strong>VALID | SYNTH™</strong> is a patented system created by Steven Grillo, 
-            Founder of Giant Ventures LLC.
+            Founder of Giant Ventures LLC. <em className="text-muted-foreground">We check. We don't collect.</em>
           </p>
         </DialogDescription>
       </DialogHeader>
@@ -59,12 +64,13 @@ const DemoEnvironmentNotice = ({
           <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
           <div className="flex-1">
             <p className="text-sm text-muted-foreground">
-              This experience demonstrates the Valid/SYNTH governance workflow, 
-              proof-record verification, and integration patterns. Outputs shown 
-              may be produced using demo-safe simulation and sample data.
+              <strong className="text-foreground">Conduit Architecture:</strong> This experience demonstrates the Valid/SYNTH governance workflow, 
+              proof-record verification, and integration patterns. In production, SYNTH™ operates alongside your 
+              existing systems — analyzing, governing, then <strong>immediately purging data</strong>. No storage, only signals.
             </p>
             <p className="text-xs text-muted-foreground mt-2">
-              Production deployments run with client-specific rule packs and verified integrations under contract.
+              <span className="text-cyan-400 font-medium">75%+ data/latency reduction</span> — SYNTH™ filters for subject/anchor words, 
+              flushing the rest. Your warehouse, our governance layer.
             </p>
           </div>
           {showAdminIndicator && (

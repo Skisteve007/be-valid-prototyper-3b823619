@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { 
   ArrowLeft, 
   Shield, 
@@ -16,10 +19,13 @@ import {
   Fingerprint,
   Globe,
   Database,
-  Presentation
+  Presentation,
+  Target,
+  ChevronDown
 } from "lucide-react";
 import TheAskSection from "@/components/operation-sf/TheAskSection";
 import CampaignScheduleSection from "@/components/operation-sf/CampaignScheduleSection";
+import TargetIntelSection from "@/components/operation-sf/TargetIntelSection";
 import { UniversalPaymentTerms } from "@/components/shared/UniversalPaymentTerms";
 
 const OperationSF = () => {
@@ -401,6 +407,9 @@ const OperationSF = () => {
         </div>
       </section>
 
+
+      {/* Target Intel Section */}
+      <TargetIntelSection />
 
       {/* Campaign Schedule */}
       <CampaignScheduleSection />

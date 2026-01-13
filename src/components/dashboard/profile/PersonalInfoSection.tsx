@@ -6,7 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, CheckCircle, Upload, Move, Activity, Zap, Ghost, Fingerprint, CreditCard, HeartPulse, FlaskConical } from "lucide-react";
+import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, CheckCircle, Upload, Move, Activity, Zap, Ghost, Fingerprint, CreditCard, HeartPulse, FlaskConical, Package } from "lucide-react";
+import { SensoryVerificationShuttle } from "./SensoryVerificationShuttle";
 import { useRef, useState } from "react";
 import { ImageCropDialog } from "./ImageCropDialog";
 import MemberBetaSurvey from "@/components/MemberBetaSurvey";
@@ -310,127 +311,144 @@ export const PersonalInfoSection = ({
                 </div>
                 
                 {/* Share Icons Section - Right side on desktop */}
-                <div className="hidden md:flex items-start gap-3">
-                  {/* My Teams Selector - Sibling pill */}
-                  <SportsTeamSelector 
-                    selectedTeams={selectedTeams} 
-                    onTeamsChange={onTeamsChange || (() => {})} 
-                  />
+                <div className="hidden md:flex flex-col items-start gap-3">
+                  {/* Principal Cargo Title */}
+                  <div className="flex items-center gap-2 w-full">
+                    <Package className="w-4 h-4 text-cyan-400" />
+                    <p className="text-xs text-cyan-400 uppercase tracking-widest font-bold">PRINCIPAL CARGO</p>
+                  </div>
                   
-                  {/* Choose Your Share Section */}
-                  <div className="flex flex-col items-center justify-center p-3 rounded-lg border border-white/10 bg-white/5">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2">CHOOSE YOUR SHARE</p>
-                    <div className="flex gap-2">
-                    {/* ID Toggle */}
-                    <button
-                      type="button"
-                      onClick={() => onShareToggle?.('share_id_enabled', !shareIdEnabled)}
-                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
-                        shareIdEnabled 
-                          ? 'bg-cyan-500/30 border-2 border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)]' 
-                          : 'bg-cyan-500/10 border border-cyan-400/30'
-                      }`}
-                    >
-                      <Fingerprint className="w-5 h-5 text-cyan-400" />
-                      <span className="text-[9px] font-bold text-cyan-400 tracking-wider">ID</span>
-                      <div className="bg-black rounded p-0.5">
-                        {shareIdEnabled ? (
-                          <Unlock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
-                        ) : (
-                          <Lock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
-                        )}
-                      </div>
-                    </button>
+                  <div className="flex items-start gap-3">
+                    {/* My Teams Selector - Sibling pill */}
+                    <SportsTeamSelector 
+                      selectedTeams={selectedTeams} 
+                      onTeamsChange={onTeamsChange || (() => {})} 
+                    />
                     
-                    {/* FUNDS Toggle */}
-                    <button
-                      type="button"
-                      onClick={() => onShareToggle?.('share_funds_enabled', !shareFundsEnabled)}
-                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
-                        shareFundsEnabled 
-                          ? 'bg-green-500/30 border-2 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.4)]' 
-                          : 'bg-green-500/10 border border-green-400/30'
-                      }`}
-                    >
-                      <CreditCard className="w-5 h-5 text-green-400" />
-                      <span className="text-[9px] font-bold text-green-400 tracking-wider">FUNDS</span>
-                      <div className="bg-black rounded p-0.5">
-                        {shareFundsEnabled ? (
-                          <Unlock className="w-4 h-4 text-green-400" strokeWidth={3} />
-                        ) : (
-                          <Lock className="w-4 h-4 text-green-400" strokeWidth={3} />
-                        )}
+                    {/* Choose Your Share Section */}
+                    <div className="flex flex-col items-center justify-center p-3 rounded-lg border border-white/10 bg-white/5">
+                      <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-2">CHOOSE YOUR SHARE</p>
+                      <div className="flex gap-2">
+                      {/* ID Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => onShareToggle?.('share_id_enabled', !shareIdEnabled)}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                          shareIdEnabled 
+                            ? 'bg-cyan-500/30 border-2 border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)]' 
+                            : 'bg-cyan-500/10 border border-cyan-400/30'
+                        }`}
+                      >
+                        <Fingerprint className="w-5 h-5 text-cyan-400" />
+                        <span className="text-[9px] font-bold text-cyan-400 tracking-wider">ID</span>
+                        <div className="bg-black rounded p-0.5">
+                          {shareIdEnabled ? (
+                            <Unlock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                          ) : (
+                            <Lock className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+                          )}
+                        </div>
+                      </button>
+                      
+                      {/* FUNDS Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => onShareToggle?.('share_funds_enabled', !shareFundsEnabled)}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                          shareFundsEnabled 
+                            ? 'bg-green-500/30 border-2 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.4)]' 
+                            : 'bg-green-500/10 border border-green-400/30'
+                        }`}
+                      >
+                        <CreditCard className="w-5 h-5 text-green-400" />
+                        <span className="text-[9px] font-bold text-green-400 tracking-wider">FUNDS</span>
+                        <div className="bg-black rounded p-0.5">
+                          {shareFundsEnabled ? (
+                            <Unlock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                          ) : (
+                            <Lock className="w-4 h-4 text-green-400" strokeWidth={3} />
+                          )}
+                        </div>
+                      </button>
+                      
+                      {/* BIO Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => onShareToggle?.('share_bio_enabled', !shareBioEnabled)}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                          shareBioEnabled 
+                            ? 'bg-rose-500/30 border-2 border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.4)]' 
+                            : 'bg-rose-500/10 border border-rose-400/30'
+                        }`}
+                      >
+                        <HeartPulse className="w-5 h-5 text-rose-400" />
+                        <span className="text-[9px] font-bold text-rose-400 tracking-wider">BIO</span>
+                        <div className="bg-black rounded p-0.5">
+                          {shareBioEnabled ? (
+                            <Unlock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                          ) : (
+                            <Lock className="w-4 h-4 text-rose-400" strokeWidth={3} />
+                          )}
+                        </div>
+                      </button>
+                      
+                      {/* TOX Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => onShareToggle?.('share_tox_enabled', !shareToxEnabled)}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                          shareToxEnabled 
+                            ? 'bg-yellow-500/30 border-2 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.4)]' 
+                            : 'bg-yellow-500/10 border border-yellow-400/30'
+                        }`}
+                      >
+                        <FlaskConical className="w-5 h-5 text-yellow-400" />
+                        <span className="text-[9px] font-bold text-yellow-400 tracking-wider">TOX</span>
+                        <div className="bg-black rounded p-0.5">
+                          {shareToxEnabled ? (
+                            <Unlock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                          ) : (
+                            <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
+                          )}
+                        </div>
+                      </button>
+                      
+                      {/* PROFILE Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => onShareToggle?.('share_profile_enabled', !shareProfileEnabled)}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                          shareProfileEnabled 
+                            ? 'bg-purple-500/30 border-2 border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]' 
+                            : 'bg-purple-500/10 border border-purple-400/30'
+                        }`}
+                      >
+                        <User className="w-5 h-5 text-purple-400" />
+                        <span className="text-[9px] font-bold text-purple-400 tracking-wider">PROFILE</span>
+                        <div className="bg-black rounded p-0.5">
+                          {shareProfileEnabled ? (
+                            <Unlock className="w-4 h-4 text-purple-400" strokeWidth={3} />
+                          ) : (
+                            <Lock className="w-4 h-4 text-purple-400" strokeWidth={3} />
+                          )}
+                        </div>
+                      </button>
                       </div>
-                    </button>
-                    
-                    {/* BIO Toggle */}
-                    <button
-                      type="button"
-                      onClick={() => onShareToggle?.('share_bio_enabled', !shareBioEnabled)}
-                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
-                        shareBioEnabled 
-                          ? 'bg-rose-500/30 border-2 border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.4)]' 
-                          : 'bg-rose-500/10 border border-rose-400/30'
-                      }`}
-                    >
-                      <HeartPulse className="w-5 h-5 text-rose-400" />
-                      <span className="text-[9px] font-bold text-rose-400 tracking-wider">BIO</span>
-                      <div className="bg-black rounded p-0.5">
-                        {shareBioEnabled ? (
-                          <Unlock className="w-4 h-4 text-rose-400" strokeWidth={3} />
-                        ) : (
-                          <Lock className="w-4 h-4 text-rose-400" strokeWidth={3} />
-                        )}
-                      </div>
-                    </button>
-                    
-                    {/* TOX Toggle */}
-                    <button
-                      type="button"
-                      onClick={() => onShareToggle?.('share_tox_enabled', !shareToxEnabled)}
-                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
-                        shareToxEnabled 
-                          ? 'bg-yellow-500/30 border-2 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.4)]' 
-                          : 'bg-yellow-500/10 border border-yellow-400/30'
-                      }`}
-                    >
-                      <FlaskConical className="w-5 h-5 text-yellow-400" />
-                      <span className="text-[9px] font-bold text-yellow-400 tracking-wider">TOX</span>
-                      <div className="bg-black rounded p-0.5">
-                        {shareToxEnabled ? (
-                          <Unlock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
-                        ) : (
-                          <Lock className="w-4 h-4 text-yellow-400" strokeWidth={3} />
-                        )}
-                      </div>
-                    </button>
-                    
-                    {/* PROFILE Toggle */}
-                    <button
-                      type="button"
-                      onClick={() => onShareToggle?.('share_profile_enabled', !shareProfileEnabled)}
-                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
-                        shareProfileEnabled 
-                          ? 'bg-purple-500/30 border-2 border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]' 
-                          : 'bg-purple-500/10 border border-purple-400/30'
-                      }`}
-                    >
-                      <User className="w-5 h-5 text-purple-400" />
-                      <span className="text-[9px] font-bold text-purple-400 tracking-wider">PROFILE</span>
-                      <div className="bg-black rounded p-0.5">
-                        {shareProfileEnabled ? (
-                          <Unlock className="w-4 h-4 text-purple-400" strokeWidth={3} />
-                        ) : (
-                          <Lock className="w-4 h-4 text-purple-400" strokeWidth={3} />
-                        )}
-                      </div>
-                    </button>
                     </div>
+                    
+                    {/* Physical Monitoring / Sensory Verification Shuttle */}
+                    <SensoryVerificationShuttle />
                   </div>
                 </div>
                 
                 {/* Mobile Share Icons Section */}
                 <div className="md:hidden w-full mt-3 space-y-3">
+                  {/* Principal Cargo Title */}
+                  <div className="flex items-center justify-center gap-2">
+                    <Package className="w-4 h-4 text-cyan-400" />
+                    <p className="text-xs text-cyan-400 uppercase tracking-widest font-bold">PRINCIPAL CARGO</p>
+                  </div>
+                  
                   {/* My Teams Selector - Sibling row on mobile */}
                   <div className="flex justify-center">
                     <SportsTeamSelector 
@@ -549,6 +567,9 @@ export const PersonalInfoSection = ({
                     </button>
                     </div>
                   </div>
+                  
+                  {/* Physical Monitoring / Sensory Verification Shuttle - Mobile */}
+                  <SensoryVerificationShuttle />
                 </div>
               </>
             ) : (

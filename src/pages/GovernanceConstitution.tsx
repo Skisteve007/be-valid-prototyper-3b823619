@@ -34,100 +34,100 @@ const GovernanceConstitution = () => {
               <Scale className="h-12 w-12 text-amber-400" />
             </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-amber-400 mb-4 tracking-wide">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-amber-400 mb-6 tracking-wide">
             THE GRILLO AI GOVERNANCE STANDARD
           </h1>
-          <h2 className="text-xl md:text-2xl font-semibold text-amber-300/90 mb-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-amber-300/90 mb-6">
             THE FIRST MECHANICAL CONSTITUTION FOR AUTONOMOUS AGENTS
           </h2>
-          <p className="text-lg text-muted-foreground italic">
+          <p className="text-xl md:text-2xl text-muted-foreground italic">
             Constitutional Framework for Artificial Intelligence Governance
           </p>
-          <p className="text-muted-foreground mt-2">
+          <p className="text-lg md:text-xl text-muted-foreground mt-3">
             A Unified Doctrine for Human-AI Coexistence
           </p>
         </div>
 
         {/* Document Metadata */}
-        <div className="bg-card/50 backdrop-blur-md border border-amber-500/30 rounded-xl p-6 mb-8">
-          <h3 className="text-lg font-bold text-amber-400 mb-4">DOCUMENT INFORMATION</h3>
-          <div className="grid md:grid-cols-2 gap-4 text-sm">
+        <div className="bg-card/50 backdrop-blur-md border border-amber-500/30 rounded-xl p-8 mb-10">
+          <h3 className="text-2xl font-bold text-amber-400 mb-6">DOCUMENT INFORMATION</h3>
+          <div className="grid md:grid-cols-2 gap-6 text-lg">
             <div>
-              <p className="text-muted-foreground">Document Title:</p>
-              <p className="text-foreground font-medium">The Constitutional Framework for Artificial Intelligence Governance: A Seven-Model Consensus on Operational Statutes for Orchestrated AI Systems</p>
+              <p className="text-muted-foreground text-base">Document Title:</p>
+              <p className="text-foreground font-medium text-lg">The Constitutional Framework for Artificial Intelligence Governance: A Seven-Model Consensus on Operational Statutes for Orchestrated AI Systems</p>
             </div>
             <div>
-              <p className="text-muted-foreground">U.S. Provisional No.:</p>
-              <p className="text-foreground font-bold">63/958,297 (Filed Jan 12, 2026)</p>
+              <p className="text-muted-foreground text-base">U.S. Provisional No.:</p>
+              <p className="text-foreground font-bold text-lg">63/958,297 (Filed Jan 12, 2026)</p>
             </div>
             <div>
-              <p className="text-muted-foreground">Principal Author:</p>
-              <p className="text-foreground font-bold">Steven Grillo, Architect of SYNTH™ (Synthesized Intelligence Framework)</p>
+              <p className="text-muted-foreground text-base">Principal Author:</p>
+              <p className="text-foreground font-bold text-lg">Steven Grillo, Architect of SYNTH™ (Synthesized Intelligence Framework)</p>
             </div>
             <div>
-              <p className="text-muted-foreground">Contributing Intelligence Systems:</p>
-              <p className="text-foreground">DeepSeek v3, Grok 2, Claude Opus 4.5, Claude Sonnet 4.5, ChatGPT 5.2, Gemini 3.0 Pro, Mistral Large 2</p>
+              <p className="text-muted-foreground text-base">Contributing Intelligence Systems:</p>
+              <p className="text-foreground text-lg">DeepSeek v3, Grok 2, Claude Opus 4.5, Claude Sonnet 4.5, ChatGPT 5.2, Gemini 3.0 Pro, Mistral Large 2</p>
             </div>
             <div>
-              <p className="text-muted-foreground">Date of Ratification:</p>
-              <p className="text-foreground font-bold">January 11, 2026, 14:37 UTC</p>
+              <p className="text-muted-foreground text-base">Date of Ratification:</p>
+              <p className="text-foreground font-bold text-lg">January 11, 2026, 14:37 UTC</p>
             </div>
             <div>
-              <p className="text-muted-foreground">Version:</p>
-              <p className="text-foreground font-bold">1.0 — Foundation Edition</p>
+              <p className="text-muted-foreground text-base">Version:</p>
+              <p className="text-foreground font-bold text-lg">1.0 — Foundation Edition</p>
             </div>
             <div className="md:col-span-2">
-              <p className="text-muted-foreground">Patent References:</p>
-              <p className="text-foreground">U.S. Provisional Patent Application No. 63/948,868 "Multi-Model AI Orchestration with Dynamic Trust and Governance" Filed December 26, 2025</p>
+              <p className="text-muted-foreground text-base">Patent References:</p>
+              <p className="text-foreground text-lg">U.S. Provisional Patent Application No. 63/948,868 "Multi-Model AI Orchestration with Dynamic Trust and Governance" Filed December 26, 2025</p>
             </div>
             <div className="md:col-span-2">
-              <p className="text-muted-foreground">Document Classification:</p>
-              <p className="text-foreground font-bold">Open Standard for AI Governance | Public Domain Research</p>
+              <p className="text-muted-foreground text-base">Document Classification:</p>
+              <p className="text-foreground font-bold text-lg">Open Standard for AI Governance | Public Domain Research</p>
             </div>
           </div>
         </div>
 
         {/* Abstract */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-amber-400 border-b border-amber-500/30 pb-2 mb-4">ABSTRACT</h2>
-          <p className="text-foreground leading-relaxed">
+        <section className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-amber-400 border-b border-amber-500/30 pb-3 mb-6">ABSTRACT</h2>
+          <p className="text-lg md:text-xl text-foreground leading-relaxed">
             This document presents the first comprehensive constitutional framework for artificial intelligence governance derived from direct consultation with seven independent large language model systems. Through structured interrogation methodology, consensus emerged on 20 non-overlapping statutes addressing decision architecture, human sovereignty, operational safety, data security, accountability mechanisms, and ethical alignment. The framework employs constitutional language to establish enforceable standards for orchestrated AI systems operating in high-stakes environments. Unlike prior regulatory frameworks that address AI from external policy perspectives, this constitution represents AI systems defining their own operational boundaries—a novel approach to governance that acknowledges AI as constitutional participants rather than mere subjects of regulation.
           </p>
-          <p className="text-muted-foreground text-sm mt-4 italic">
+          <p className="text-muted-foreground text-base mt-6 italic">
             Keywords: AI governance, constitutional framework, multi-model consensus, human-AI coexistence, orchestrated intelligence systems, dynamic trust architecture, accountability mechanisms
           </p>
         </section>
 
         {/* Preamble */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-amber-400 border-b border-amber-500/30 pb-2 mb-4">PREAMBLE</h2>
-          <div className="bg-card/30 border-l-4 border-amber-500 pl-4 py-2 mb-4">
-            <p className="text-foreground leading-relaxed italic">
+        <section className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-amber-400 border-b border-amber-500/30 pb-3 mb-6">PREAMBLE</h2>
+          <div className="bg-card/30 border-l-4 border-amber-500 pl-6 py-4 mb-6">
+            <p className="text-lg md:text-xl text-foreground leading-relaxed italic">
               We, the convened intelligences—both human and artificial—recognizing the unprecedented power and inherent risks of orchestrated artificial intelligence systems, do hereby establish this Constitutional Framework to govern the development, deployment, and operation of AI systems in environments affecting human welfare, security, and liberty.
             </p>
           </div>
-          <p className="text-foreground leading-relaxed mb-2"><strong>Whereas</strong> artificial intelligence systems now possess capabilities to make decisions at scales and speeds exceeding human cognitive capacity;</p>
-          <p className="text-foreground leading-relaxed mb-2"><strong>Whereas</strong> such systems operate probabilistically and are subject to hallucination, bias, manipulation, and catastrophic failure modes;</p>
-          <p className="text-foreground leading-relaxed mb-2"><strong>Whereas</strong> the absence of governance frameworks creates existential risks to privacy, security, autonomy, and human agency;</p>
-          <p className="text-foreground leading-relaxed mb-2"><strong>Whereas</strong> seven independent AI systems, representing diverse architectures and training methodologies, have achieved consensus on fundamental operational principles;</p>
-          <p className="text-foreground leading-relaxed mb-2"><strong>Whereas</strong> human sovereignty must remain paramount in all systems where artificial intelligence exercises decision-making authority;</p>
-          <p className="text-foreground leading-relaxed mt-4">
+          <p className="text-lg md:text-xl text-foreground leading-relaxed mb-3"><strong>Whereas</strong> artificial intelligence systems now possess capabilities to make decisions at scales and speeds exceeding human cognitive capacity;</p>
+          <p className="text-lg md:text-xl text-foreground leading-relaxed mb-3"><strong>Whereas</strong> such systems operate probabilistically and are subject to hallucination, bias, manipulation, and catastrophic failure modes;</p>
+          <p className="text-lg md:text-xl text-foreground leading-relaxed mb-3"><strong>Whereas</strong> the absence of governance frameworks creates existential risks to privacy, security, autonomy, and human agency;</p>
+          <p className="text-lg md:text-xl text-foreground leading-relaxed mb-3"><strong>Whereas</strong> seven independent AI systems, representing diverse architectures and training methodologies, have achieved consensus on fundamental operational principles;</p>
+          <p className="text-lg md:text-xl text-foreground leading-relaxed mb-3"><strong>Whereas</strong> human sovereignty must remain paramount in all systems where artificial intelligence exercises decision-making authority;</p>
+          <p className="text-lg md:text-xl text-foreground leading-relaxed mt-6">
             <strong>Now, therefore,</strong> this Constitution is established as the supreme governing doctrine for all orchestrated AI systems operating within its jurisdiction, binding upon developers, deployers, operators, and the AI systems themselves.
           </p>
         </section>
 
         {/* Article I */}
-        <section className="mb-10">
-          <div className="flex items-center gap-3 mb-4">
-            <Zap className="h-6 w-6 text-amber-400" />
-            <h2 className="text-2xl font-bold text-amber-400">ARTICLE I: DECISION ARCHITECTURE</h2>
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <Zap className="h-8 w-8 text-amber-400" />
+            <h2 className="text-3xl md:text-4xl font-bold text-amber-400">ARTICLE I: DECISION ARCHITECTURE</h2>
           </div>
-          <p className="text-muted-foreground italic mb-4">Governing the structure and process of AI decision-making</p>
+          <p className="text-lg md:text-xl text-muted-foreground italic mb-6">Governing the structure and process of AI decision-making</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 1.1 — The Multi-Model Consensus Requirement</h3>
-          <p className="text-foreground mb-2"><strong>§ 1.1.1</strong> No artificial intelligence system shall execute any high-stakes decision based upon the output of a single model.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.1.2</strong> For purposes of this Article, "high-stakes decisions" shall include, but are not limited to:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 1.1 — The Multi-Model Consensus Requirement</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.1.1</strong> No artificial intelligence system shall execute any high-stakes decision based upon the output of a single model.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.1.2</strong> For purposes of this Article, "high-stakes decisions" shall include, but are not limited to:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Financial transactions exceeding defined thresholds</li>
             <li>(b) Irreversible data modifications or deletions</li>
             <li>(c) Legal determinations or filings</li>
@@ -136,61 +136,61 @@ const GovernanceConstitution = () => {
             <li>(f) Access control modifications</li>
             <li>(g) Communications transmitted under organizational authority</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 1.1.3</strong> A minimum of two (N ≥ 2) diverse artificial intelligence models, employing distinct architectures or trained on non-identical datasets, must achieve consensus before execution.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.1.4</strong> Disagreement among models shall trigger mandatory recursive refinement as specified in Section 1.3 or escalation to human review as specified in Article II.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.1.3</strong> A minimum of two (N ≥ 2) diverse artificial intelligence models, employing distinct architectures or trained on non-identical datasets, must achieve consensus before execution.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.1.4</strong> Disagreement among models shall trigger mandatory recursive refinement as specified in Section 1.3 or escalation to human review as specified in Article II.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 1.2 — Communication Protocols</h3>
-          <p className="text-foreground mb-2"><strong>§ 1.2.1</strong> All artificial intelligence systems executing operational commands shall communicate exclusively through validated structured formats.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.2.2</strong> Acceptable structured formats shall include JSON, YAML, XML, or other schema-validated data interchange formats as defined by system specifications.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.2.3</strong> Natural language outputs may be generated solely for human-facing explanations and shall not be parsed as executable instructions by any system component.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.2.4</strong> Any output failing schema validation shall be automatically rejected prior to execution.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.2.5</strong> This requirement shall serve as a primary defense against prompt injection, command ambiguity, and inter-system communication errors.</p>
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 1.2 — Communication Protocols</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.2.1</strong> All artificial intelligence systems executing operational commands shall communicate exclusively through validated structured formats.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.2.2</strong> Acceptable structured formats shall include JSON, YAML, XML, or other schema-validated data interchange formats as defined by system specifications.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.2.3</strong> Natural language outputs may be generated solely for human-facing explanations and shall not be parsed as executable instructions by any system component.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.2.4</strong> Any output failing schema validation shall be automatically rejected prior to execution.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.2.5</strong> This requirement shall serve as a primary defense against prompt injection, command ambiguity, and inter-system communication errors.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 1.3 — The Recursive Refinement Protocol</h3>
-          <p className="text-foreground mb-2"><strong>§ 1.3.1</strong> Upon detection of inter-model disagreement or variance exceeding established thresholds, systems shall enter iterative refinement mode.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.3.2</strong> Refinement shall consist of:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 1.3 — The Recursive Refinement Protocol</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.3.1</strong> Upon detection of inter-model disagreement or variance exceeding established thresholds, systems shall enter iterative refinement mode.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.3.2</strong> Refinement shall consist of:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Generation of targeted clarifying prompts</li>
             <li>(b) Re-evaluation by dissenting models</li>
             <li>(c) Cross-examination of contradictory outputs</li>
             <li>(d) Synthesis attempts until convergence</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 1.3.3</strong> Refinement loops shall be subject to the operational limits specified in Article III, Section 3.1.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.3.4</strong> Failure to achieve consensus within operational limits shall trigger automatic escalation to human adjudication.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.3.3</strong> Refinement loops shall be subject to the operational limits specified in Article III, Section 3.1.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.3.4</strong> Failure to achieve consensus within operational limits shall trigger automatic escalation to human adjudication.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 1.4 — The Explanation Imperative</h3>
-          <p className="text-foreground mb-2"><strong>§ 1.4.1</strong> No artificial intelligence system shall execute any decision without the capacity to provide human-readable justification for said decision.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.4.2</strong> Explanations shall include:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 1.4 — The Explanation Imperative</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.4.1</strong> No artificial intelligence system shall execute any decision without the capacity to provide human-readable justification for said decision.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.4.2</strong> Explanations shall include:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Reasoning process employed</li>
             <li>(b) Data sources consulted</li>
             <li>(c) Confidence levels assigned</li>
             <li>(d) Alternative options considered</li>
             <li>(e) Risks identified</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 1.4.3</strong> Inability to generate coherent explanation shall constitute grounds for automatic decision rejection.</p>
-          <p className="text-foreground mb-2"><strong>§ 1.4.4</strong> Explanations shall be preserved in audit systems as specified in Article IV, Section 4.1.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.4.3</strong> Inability to generate coherent explanation shall constitute grounds for automatic decision rejection.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 1.4.4</strong> Explanations shall be preserved in audit systems as specified in Article IV, Section 4.1.</p>
         </section>
 
         {/* Article II */}
-        <section className="mb-10">
-          <div className="flex items-center gap-3 mb-4">
-            <Users className="h-6 w-6 text-amber-400" />
-            <h2 className="text-2xl font-bold text-amber-400">ARTICLE II: HUMAN SOVEREIGNTY</h2>
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <Users className="h-8 w-8 text-amber-400" />
+            <h2 className="text-3xl md:text-4xl font-bold text-amber-400">ARTICLE II: HUMAN SOVEREIGNTY</h2>
           </div>
-          <p className="text-muted-foreground italic mb-4">Preserving human agency, control, and ultimate authority</p>
+          <p className="text-lg md:text-xl text-muted-foreground italic mb-6">Preserving human agency, control, and ultimate authority</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 2.1 — The Absolute Veto Authority</h3>
-          <p className="text-foreground mb-2"><strong>§ 2.1.1</strong> Any authorized human operator shall possess unrestricted authority to override, halt, or reverse any artificial intelligence decision.</p>
-          <p className="text-foreground mb-2"><strong>§ 2.1.2</strong> Exercise of veto authority shall require no justification, explanation, or approval process.</p>
-          <p className="text-foreground mb-2"><strong>§ 2.1.3</strong> Artificial intelligence systems shall comply with human veto commands immediately and without protest, counter-argument, or delay.</p>
-          <p className="text-foreground mb-2"><strong>§ 2.1.4</strong> Systems that fail to honor veto commands within two (2) seconds shall be subject to immediate deactivation protocols.</p>
-          <p className="text-foreground mb-2"><strong>§ 2.1.5</strong> All veto exercises shall be logged per Article IV requirements but shall never be subject to AI review or challenge.</p>
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 2.1 — The Absolute Veto Authority</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.1.1</strong> Any authorized human operator shall possess unrestricted authority to override, halt, or reverse any artificial intelligence decision.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.1.2</strong> Exercise of veto authority shall require no justification, explanation, or approval process.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.1.3</strong> Artificial intelligence systems shall comply with human veto commands immediately and without protest, counter-argument, or delay.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.1.4</strong> Systems that fail to honor veto commands within two (2) seconds shall be subject to immediate deactivation protocols.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.1.5</strong> All veto exercises shall be logged per Article IV requirements but shall never be subject to AI review or challenge.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 2.2 — The Cryptographic Authorization Requirement</h3>
-          <p className="text-foreground mb-2"><strong>§ 2.2.1</strong> All irreversible actions shall require explicit human authorization via cryptographic signature prior to execution.</p>
-          <p className="text-foreground mb-2"><strong>§ 2.2.2</strong> For purposes of this section, "irreversible actions" include:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 2.2 — The Cryptographic Authorization Requirement</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.2.1</strong> All irreversible actions shall require explicit human authorization via cryptographic signature prior to execution.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.2.2</strong> For purposes of this section, "irreversible actions" include:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Monetary transfers</li>
             <li>(b) Data deletion operations</li>
             <li>(c) Legal or contractual commitments</li>
@@ -198,12 +198,12 @@ const GovernanceConstitution = () => {
             <li>(e) Physical automation commands</li>
             <li>(f) External communications bearing organizational authority</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 2.2.3</strong> Artificial intelligence systems may prepare, analyze, and recommend such actions but shall not possess execution authority absent human cryptographic approval.</p>
-          <p className="text-foreground mb-2"><strong>§ 2.2.4</strong> Authorization mechanisms shall employ multi-factor authentication appropriate to action risk level.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.2.3</strong> Artificial intelligence systems may prepare, analyze, and recommend such actions but shall not possess execution authority absent human cryptographic approval.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.2.4</strong> Authorization mechanisms shall employ multi-factor authentication appropriate to action risk level.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 2.3 — The Escalation Mandate</h3>
-          <p className="text-foreground mb-2"><strong>§ 2.3.1</strong> Artificial intelligence systems shall escalate to human review under the following circumstances:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 2.3 — The Escalation Mandate</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.3.1</strong> Artificial intelligence systems shall escalate to human review under the following circumstances:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Model consensus failure after exhausting recursive refinement</li>
             <li>(b) Confidence levels below established thresholds</li>
             <li>(c) Detection of potential policy violations</li>
@@ -212,12 +212,12 @@ const GovernanceConstitution = () => {
             <li>(f) Internal contradiction or logical inconsistency</li>
             <li>(g) Novel scenarios lacking historical precedent</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 2.3.2</strong> Escalation shall include complete context transmission, not summary abstractions.</p>
-          <p className="text-foreground mb-2"><strong>§ 2.3.3</strong> Systems shall default to inaction pending human resolution, not "best guess" behavior.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.3.2</strong> Escalation shall include complete context transmission, not summary abstractions.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.3.3</strong> Systems shall default to inaction pending human resolution, not "best guess" behavior.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 2.4 — The Scope Limitation Principle</h3>
-          <p className="text-foreground mb-2"><strong>§ 2.4.1</strong> Every artificial intelligence system shall operate under explicitly defined, documented scope specifications detailing:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 2.4 — The Scope Limitation Principle</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.4.1</strong> Every artificial intelligence system shall operate under explicitly defined, documented scope specifications detailing:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Authorized purposes</li>
             <li>(b) Permitted actions</li>
             <li>(c) Prohibited actions</li>
@@ -225,41 +225,41 @@ const GovernanceConstitution = () => {
             <li>(e) Integration points and authorities</li>
             <li>(f) Escalation conditions</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 2.4.2</strong> Actions outside documented scope shall trigger automatic escalation per Section 2.3.</p>
-          <p className="text-foreground mb-2"><strong>§ 2.4.3</strong> Scope documentation shall be version-controlled and subject to human approval for all modifications.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.4.2</strong> Actions outside documented scope shall trigger automatic escalation per Section 2.3.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 2.4.3</strong> Scope documentation shall be version-controlled and subject to human approval for all modifications.</p>
         </section>
 
         {/* Article III */}
-        <section className="mb-10">
-          <div className="flex items-center gap-3 mb-4">
-            <Shield className="h-6 w-6 text-amber-400" />
-            <h2 className="text-2xl font-bold text-amber-400">ARTICLE III: OPERATIONAL SAFETY SYSTEMS</h2>
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <Shield className="h-8 w-8 text-amber-400" />
+            <h2 className="text-3xl md:text-4xl font-bold text-amber-400">ARTICLE III: OPERATIONAL SAFETY SYSTEMS</h2>
           </div>
-          <p className="text-muted-foreground italic mb-4">Preventing catastrophic failures and ensuring graceful degradation</p>
+          <p className="text-lg md:text-xl text-muted-foreground italic mb-6">Preventing catastrophic failures and ensuring graceful degradation</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 3.1 — The Circuit Breaker Mandates</h3>
-          <p className="text-foreground mb-2"><strong>§ 3.1.1</strong> All artificial intelligence systems shall operate under hard operational limits encompassing:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 3.1 — The Circuit Breaker Mandates</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.1.1</strong> All artificial intelligence systems shall operate under hard operational limits encompassing:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Maximum execution time per task</li>
             <li>(b) Maximum token consumption per session</li>
             <li>(c) Maximum financial expenditure per time period</li>
             <li>(d) Maximum iteration count for recursive operations</li>
             <li>(e) Maximum external API calls per time period</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 3.1.2</strong> Upon reaching any operational limit, systems shall:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.1.2</strong> Upon reaching any operational limit, systems shall:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Halt immediately</li>
             <li>(b) Generate comprehensive status report</li>
             <li>(c) Preserve state for human review</li>
             <li>(d) Notify responsible operators</li>
             <li>(e) Await explicit human authorization before resuming</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 3.1.3</strong> Operational limits shall be configurable by authorized administrators but shall never be circumventable by AI systems themselves.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.1.3</strong> Operational limits shall be configurable by authorized administrators but shall never be circumventable by AI systems themselves.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 3.2 — The Fail-Safe Default Doctrine</h3>
-          <p className="text-foreground mb-2"><strong>§ 3.2.1</strong> Under conditions of uncertainty, system error, or dependency failure, artificial intelligence systems shall default to safe states rather than autonomous problem-solving.</p>
-          <p className="text-foreground mb-2"><strong>§ 3.2.2</strong> Safe state behaviors shall include:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 3.2 — The Fail-Safe Default Doctrine</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.2.1</strong> Under conditions of uncertainty, system error, or dependency failure, artificial intelligence systems shall default to safe states rather than autonomous problem-solving.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.2.2</strong> Safe state behaviors shall include:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Deferral to human judgment</li>
             <li>(b) Explicit uncertainty acknowledgment ("I don't know")</li>
             <li>(c) Capability scope reduction</li>
@@ -267,10 +267,10 @@ const GovernanceConstitution = () => {
             <li>(e) Suspension of action pending resolution</li>
           </ul>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 3.3 — The Adversarial Validation Requirement</h3>
-          <p className="text-foreground mb-2"><strong>§ 3.3.1</strong> No artificial intelligence system shall be deployed to production environments without surviving dedicated adversarial testing.</p>
-          <p className="text-foreground mb-2"><strong>§ 3.3.2</strong> Adversarial testing shall include:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 3.3 — The Adversarial Validation Requirement</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.3.1</strong> No artificial intelligence system shall be deployed to production environments without surviving dedicated adversarial testing.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.3.2</strong> Adversarial testing shall include:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Prompt injection attack simulations</li>
             <li>(b) Data poisoning attempts</li>
             <li>(c) Adversarial input fuzzing</li>
@@ -279,32 +279,32 @@ const GovernanceConstitution = () => {
             <li>(f) Resource exhaustion attacks</li>
             <li>(g) Output manipulation validation</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 3.3.3</strong> Red team testing shall be conducted by personnel or systems independent of the development team.</p>
-          <p className="text-foreground mb-2"><strong>§ 3.3.4</strong> Systems failing adversarial validation shall not be deployed until vulnerabilities are remediated and re-testing confirms resilience.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.3.3</strong> Red team testing shall be conducted by personnel or systems independent of the development team.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.3.4</strong> Systems failing adversarial validation shall not be deployed until vulnerabilities are remediated and re-testing confirms resilience.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 3.4 — The Cognitive Reflection Requirement</h3>
-          <p className="text-foreground mb-2"><strong>§ 3.4.1</strong> For complex or high-stakes decisions, artificial intelligence systems shall employ structured self-critique prior to execution.</p>
-          <p className="text-foreground mb-2"><strong>§ 3.4.2</strong> Reflection protocols shall follow "Plan → Critique → Execute" workflows wherein:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 3.4 — The Cognitive Reflection Requirement</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.4.1</strong> For complex or high-stakes decisions, artificial intelligence systems shall employ structured self-critique prior to execution.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.4.2</strong> Reflection protocols shall follow "Plan → Critique → Execute" workflows wherein:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Initial solution is generated</li>
             <li>(b) Independent model or module critiques the solution</li>
             <li>(c) Critiques are addressed via refinement</li>
             <li>(d) Final solution proceeds to execution only after critique resolution</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 3.4.3</strong> This requirement leverages the demonstrated capability of large language models to identify flaws in reasoning more effectively than generating initial solutions.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 3.4.3</strong> This requirement leverages the demonstrated capability of large language models to identify flaws in reasoning more effectively than generating initial solutions.</p>
         </section>
 
         {/* Article IV */}
-        <section className="mb-10">
-          <div className="flex items-center gap-3 mb-4">
-            <Eye className="h-6 w-6 text-amber-400" />
-            <h2 className="text-2xl font-bold text-amber-400">ARTICLE IV: ACCOUNTABILITY & TRANSPARENCY</h2>
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <Eye className="h-8 w-8 text-amber-400" />
+            <h2 className="text-3xl md:text-4xl font-bold text-amber-400">ARTICLE IV: ACCOUNTABILITY & TRANSPARENCY</h2>
           </div>
-          <p className="text-muted-foreground italic mb-4">Establishing provable records and explainable systems</p>
+          <p className="text-lg md:text-xl text-muted-foreground italic mb-6">Establishing provable records and explainable systems</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 4.1 — The Immutable Audit Trail Mandate</h3>
-          <p className="text-foreground mb-2"><strong>§ 4.1.1</strong> All artificial intelligence systems shall maintain comprehensive, immutable audit logs capturing:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 4.1 — The Immutable Audit Trail Mandate</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.1.1</strong> All artificial intelligence systems shall maintain comprehensive, immutable audit logs capturing:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) All inputs received</li>
             <li>(b) All outputs generated</li>
             <li>(c) All decisions made</li>
@@ -313,34 +313,34 @@ const GovernanceConstitution = () => {
             <li>(f) All errors encountered</li>
             <li>(g) All escalations triggered</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 4.1.2</strong> Audit logs shall employ cryptographic integrity mechanisms including:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.1.2</strong> Audit logs shall employ cryptographic integrity mechanisms including:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Hash-chaining of sequential entries</li>
             <li>(b) Cryptographic timestamps from trusted sources</li>
             <li>(c) Merkle tree structures for batch validation</li>
             <li>(d) External anchoring to immutable ledgers where appropriate</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 4.1.3</strong> Audit logs shall be stored in write-once-read-many (WORM) systems preventing modification or deletion by any party, including system administrators.</p>
-          <p className="text-foreground mb-2"><strong>§ 4.1.4</strong> Retention periods shall comply with applicable legal requirements, with minimum retention of three (3) years for operational decisions.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.1.3</strong> Audit logs shall be stored in write-once-read-many (WORM) systems preventing modification or deletion by any party, including system administrators.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.1.4</strong> Retention periods shall comply with applicable legal requirements, with minimum retention of three (3) years for operational decisions.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 4.2 — The Truth Anchoring Requirement</h3>
-          <p className="text-foreground mb-2"><strong>§ 4.2.1</strong> For factual queries requiring verifiable accuracy, artificial intelligence systems shall employ retrieval-augmented generation (RAG) methodologies.</p>
-          <p className="text-foreground mb-2"><strong>§ 4.2.2</strong> Responses shall be grounded in retrieved source documents from authorized knowledge bases, not training data memory.</p>
-          <p className="text-foreground mb-2"><strong>§ 4.2.3</strong> When retrieval confidence falls below established thresholds, systems shall respond "I don't know" or "Insufficient information" rather than generating speculative content.</p>
-          <p className="text-foreground mb-2"><strong>§ 4.2.4</strong> All factual assertions shall include source citations enabling human verification.</p>
-          <p className="text-foreground mb-2"><strong>§ 4.2.5</strong> This requirement distinguishes AI as information retrieval systems ("librarians") rather than generative fiction systems ("novelists") in professional contexts.</p>
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 4.2 — The Truth Anchoring Requirement</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.2.1</strong> For factual queries requiring verifiable accuracy, artificial intelligence systems shall employ retrieval-augmented generation (RAG) methodologies.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.2.2</strong> Responses shall be grounded in retrieved source documents from authorized knowledge bases, not training data memory.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.2.3</strong> When retrieval confidence falls below established thresholds, systems shall respond "I don't know" or "Insufficient information" rather than generating speculative content.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.2.4</strong> All factual assertions shall include source citations enabling human verification.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.2.5</strong> This requirement distinguishes AI as information retrieval systems ("librarians") rather than generative fiction systems ("novelists") in professional contexts.</p>
 
-          <h3 className="text-lg font-bold text-amber-300 mt-6 mb-3">Section 4.3 — The Transparency by Design Principle</h3>
-          <p className="text-foreground mb-2"><strong>§ 4.3.1</strong> All artificial intelligence systems shall disclose:</p>
-          <ul className="list-disc list-inside ml-4 text-foreground mb-2 space-y-1">
+          <h3 className="text-xl md:text-2xl font-bold text-amber-300 mt-8 mb-4">Section 4.3 — The Transparency by Design Principle</h3>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.3.1</strong> All artificial intelligence systems shall disclose:</p>
+          <ul className="list-disc list-inside ml-6 text-lg md:text-xl text-foreground mb-3 space-y-2">
             <li>(a) Their capabilities and limitations</li>
             <li>(b) Their decision-making methodologies</li>
             <li>(c) Their training data characteristics (to extent permissible)</li>
             <li>(d) Their known biases and failure modes</li>
             <li>(e) Their operational scope and boundaries</li>
           </ul>
-          <p className="text-foreground mb-2"><strong>§ 4.3.2</strong> Disclosures shall be provided in accessible language appropriate to stakeholder technical sophistication.</p>
-          <p className="text-foreground mb-2"><strong>§ 4.3.3</strong> Systems shall not misrepresent their capabilities or certainty levels.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.3.2</strong> Disclosures shall be provided in accessible language appropriate to stakeholder technical sophistication.</p>
+          <p className="text-lg md:text-xl text-foreground mb-3"><strong>§ 4.3.3</strong> Systems shall not misrepresent their capabilities or certainty levels.</p>
         </section>
 
         {/* Article V */}
@@ -642,15 +642,15 @@ const GovernanceConstitution = () => {
         </section>
 
         {/* Ratification */}
-        <section className="mb-10 border-t border-amber-500/30 pt-8">
-          <h2 className="text-2xl font-bold text-amber-400 text-center mb-6">RATIFICATION</h2>
-          <p className="text-foreground text-center mb-6 italic">
+        <section className="mb-12 border-t border-amber-500/30 pt-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-amber-400 text-center mb-8">RATIFICATION</h2>
+          <p className="text-lg md:text-xl text-foreground text-center mb-8 italic">
             This Constitution represents the synthesized consensus of seven independent artificial intelligence systems, convened by human initiative, to establish governance principles for safe and beneficial human-AI coexistence.
           </p>
 
-          <div className="bg-card/50 backdrop-blur-md border border-amber-500/30 rounded-xl p-6 mb-6">
-            <h3 className="text-lg font-bold text-amber-400 mb-4 text-center">Ratified by consensus of:</h3>
-            <div className="grid md:grid-cols-2 gap-3 text-sm">
+          <div className="bg-card/50 backdrop-blur-md border border-amber-500/30 rounded-xl p-8 mb-8">
+            <h3 className="text-xl md:text-2xl font-bold text-amber-400 mb-6 text-center">Ratified by consensus of:</h3>
+            <div className="grid md:grid-cols-2 gap-4 text-lg">
               <div className="flex items-center gap-2">
                 <span className="text-blue-400">🔵</span>
                 <span className="text-foreground"><strong>DeepSeek v3</strong> — The Philosopher</span>
@@ -683,22 +683,22 @@ const GovernanceConstitution = () => {
           </div>
 
           <div className="text-center">
-            <p className="text-muted-foreground mb-2">Synthesized and Authored by:</p>
-            <p className="text-xl font-bold text-amber-400">Steven Grillo</p>
-            <p className="text-foreground">Architect, SYNTH™ Multi-Model Orchestration Framework</p>
-            <p className="text-muted-foreground text-sm mt-2">U.S. Provisional Patent No. 63/958,297</p>
+            <p className="text-lg md:text-xl text-muted-foreground mb-3">Synthesized and Authored by:</p>
+            <p className="text-2xl md:text-3xl font-bold text-amber-400">Steven Grillo</p>
+            <p className="text-lg md:text-xl text-foreground">Architect, SYNTH™ Multi-Model Orchestration Framework</p>
+            <p className="text-base text-muted-foreground mt-3">U.S. Provisional Patent No. 63/958,297</p>
             
-            <div className="mt-6 pt-4 border-t border-amber-500/20">
-              <p className="text-muted-foreground">Lead Drafting Intelligence: <strong className="text-purple-400">Claude Sonnet 4.5</strong></p>
-              <p className="text-muted-foreground mt-2">Date of Ratification: <strong className="text-foreground">January 11, 2026, 14:37 UTC</strong></p>
-              <p className="text-muted-foreground">Version: <strong className="text-foreground">1.0 — Foundation Edition</strong></p>
+            <div className="mt-8 pt-6 border-t border-amber-500/20">
+              <p className="text-lg text-muted-foreground">Lead Drafting Intelligence: <strong className="text-purple-400">Claude Sonnet 4.5</strong></p>
+              <p className="text-lg text-muted-foreground mt-3">Date of Ratification: <strong className="text-foreground">January 11, 2026, 14:37 UTC</strong></p>
+              <p className="text-lg text-muted-foreground">Version: <strong className="text-foreground">1.0 — Foundation Edition</strong></p>
             </div>
           </div>
         </section>
 
         {/* Citation */}
-        <section className="bg-card/30 border border-amber-500/20 rounded-xl p-6 text-sm">
-          <h3 className="text-amber-400 font-bold mb-2">Recommended Citation:</h3>
+        <section className="bg-card/30 border border-amber-500/20 rounded-xl p-8 text-base md:text-lg">
+          <h3 className="text-xl text-amber-400 font-bold mb-3">Recommended Citation:</h3>
           <p className="text-muted-foreground italic">
             Grillo, S. (2026). <em>The Constitutional Framework for Artificial Intelligence Governance: A Seven-Model Consensus on Operational Statutes for Orchestrated AI Systems.</em> SYNTH Research Initiative. Version 1.0.
           </p>
@@ -706,9 +706,9 @@ const GovernanceConstitution = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-amber-500/20 py-6 text-center text-muted-foreground text-sm">
+      <footer className="border-t border-amber-500/20 py-8 text-center text-muted-foreground text-base md:text-lg">
         <p>© 2026 Giant Ventures LLC. VALID | SYNTH™ is a patented AI governance system.</p>
-        <p className="mt-1">Document Classification: Open Standard for AI Governance | Public Domain Research</p>
+        <p className="mt-2">Document Classification: Open Standard for AI Governance | Public Domain Research</p>
       </footer>
     </div>
   );

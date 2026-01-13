@@ -6,9 +6,9 @@ import { ArrowLeft, ScrollText, Scale, Shield, Users, Lock, Eye, Zap, FileCheck,
 const GovernanceConstitution = () => {
   const navigate = useNavigate();
 
-  const pageTitle = "Grillo AI Governance Standard (GAGS) | Constitutional Framework for AI Systems";
-  const pageDescription = "The first mechanical constitution for autonomous AI agents. A comprehensive AI governance standard, compliance framework, and risk management doctrine for human-AI coexistence. Created by Steven Grillo, featuring seven-model consensus on AI operational statutes.";
-  const pageKeywords = "AI governance, AI governance standard, AI compliance, AI risk management, AI risk mitigation, AI guidelines, AI standards, intelligence governance, constitutional framework, AI doctrine, human AI coexistence, human vetting, human integration with AI, AI ethics, AI safety, AI accountability, autonomous AI governance, multi-model AI consensus, AI operational standards, Grillo AI Governance Standard, GAGS, SYNTH framework, AI constitutional framework, artificial intelligence governance, AI regulatory framework, machine learning governance, AI safety standards, responsible AI, trustworthy AI, AI oversight, AI audit, AI transparency, AI accountability framework";
+  const pageTitle = "Grillo AI Governance Standard (GAGS) | Constitutional Framework for AI Systems | SYNTH™";
+  const pageDescription = "The first mechanical constitution for autonomous AI agents. A comprehensive AI governance standard, compliance framework, and risk management doctrine for human-AI coexistence. Created by Steven Grillo, featuring seven-model consensus on AI operational statutes. SYNTH™ synthesized intelligence framework for LLM orchestration, agentic governance, and AI decision-making.";
+  const pageKeywords = "AI governance, AI governance standard, AI compliance, AI risk management, AI risk mitigation, AI guidelines, AI standards, intelligence governance, constitutional framework, AI doctrine, human AI coexistence, human vetting, human integration with AI, AI ethics, AI safety, AI accountability, autonomous AI governance, multi-model AI consensus, AI operational standards, Grillo AI Governance Standard, GAGS, SYNTH framework, AI constitutional framework, artificial intelligence governance, AI regulatory framework, machine learning governance, AI safety standards, responsible AI, trustworthy AI, AI oversight, AI audit, AI transparency, AI accountability framework, human vetting AI, human interaction AI, human AI training, large language model training, LLM training, agentic training, agentic governance, agentic AI, AI agents governance, AI attorney, AI attorneys, AI law, AI legal compliance, AI legal framework, HIPAA guidance, HIPAA AI, HIPAA AI guardrails, HIPAA AI compliance, HIPAA artificial intelligence, healthcare AI compliance, cyber AI security, security AI, AI security, AI cybersecurity, cybersecurity AI governance, SYNTH, synthesized AI, synthesized intelligence, AI orchestration, LLM orchestration, large language model orchestration, AI communication, AI decision-making, AI decision making, multi-agent AI, multi-model orchestration, AI consensus, AI deliberation, AI judgment, AI reasoning, machine learning orchestration, neural network governance, deep learning governance, generative AI governance, GenAI compliance, ChatGPT governance, Claude governance, Gemini governance, GPT governance, enterprise AI governance, corporate AI compliance, AI policy framework, AI operational guidelines, AI behavioral standards";
   const canonicalUrl = "https://www.bevalid.app/governance-constitution";
 
   const structuredData = {
@@ -37,7 +37,7 @@ const GovernanceConstitution = () => {
     "mainEntity": {
       "@type": "CreativeWork",
       "name": "The Grillo AI Governance Standard",
-      "alternateName": ["GAGS", "Constitutional Framework for AI Governance"],
+      "alternateName": ["GAGS", "Constitutional Framework for AI Governance", "SYNTH Framework", "Synthesized Intelligence Framework"],
       "description": "The first comprehensive constitutional framework for artificial intelligence governance derived from direct consultation with seven independent large language model systems.",
       "version": "1.0",
       "author": {
@@ -51,7 +51,17 @@ const GovernanceConstitution = () => {
         { "@type": "Thing", "name": "AI Risk Management" },
         { "@type": "Thing", "name": "Human-AI Coexistence" },
         { "@type": "Thing", "name": "AI Ethics" },
-        { "@type": "Thing", "name": "AI Safety Standards" }
+        { "@type": "Thing", "name": "AI Safety Standards" },
+        { "@type": "Thing", "name": "Human Vetting" },
+        { "@type": "Thing", "name": "Agentic Governance" },
+        { "@type": "Thing", "name": "LLM Orchestration" },
+        { "@type": "Thing", "name": "SYNTH Framework" },
+        { "@type": "Thing", "name": "AI Attorney" },
+        { "@type": "Thing", "name": "AI Law" },
+        { "@type": "Thing", "name": "HIPAA AI Compliance" },
+        { "@type": "Thing", "name": "Cyber AI Security" },
+        { "@type": "Thing", "name": "AI Decision Making" },
+        { "@type": "Thing", "name": "Synthesized Intelligence" }
       ]
     }
   };

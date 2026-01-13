@@ -151,4 +151,61 @@ Pricing for SYNTH™ Operator Certification is driven by:
 
 ---
 
+## 7-Seat Senate Architecture
+
+**Every client receives the full 7-Seat Senate — no exceptions.**
+
+| Seat | Role | Current Provider |
+|------|------|------------------|
+| 1 | Chief Judge | OpenAI (GPT-4o) |
+| 2 | Executive Secretary | Anthropic (Claude 3.5) |
+| 3 | Senator | Google (Gemini 1.5) |
+| 4 | Senator | Meta (Llama 3) |
+| 5 | Senator | DeepSeek (V3) |
+| 6 | Senator | Mistral (Large) |
+| 7 | Senator | xAI (Grok) |
+
+### Seat Interchangeability Policy
+
+Seats are **model-agnostic and interchangeable**. If a new LLM enters the market and outperforms an incumbent on:
+- Drift benchmarks (stability over time)
+- Hallucination rates (simplistic to complex questioning)
+- Consensus accuracy
+
+...it earns a seat. Clients are buying **governance architecture**, not vendor lock-in.
+
+---
+
+## Scan Pricing & Allocations
+
+### Included Scans by Tier
+
+| Tier | Included Scans/Month | Overage Rate | Deep Check Rate |
+|------|---------------------|--------------|-----------------|
+| MAIN STREET | 2,500 | $0.50/scan | $1.50/check |
+| GROWTH | 25,000 | $0.25/scan | $1.00/check |
+| ENTERPRISE | 100,000 | $0.10/scan | $0.50/check |
+| SOVEREIGN | Unlimited | $0.07/scan* | $0.25/check |
+
+*Sovereign overage only applies if custom cap negotiated
+
+### Check Types
+
+| Check Type | Description | Rate Multiplier |
+|------------|-------------|-----------------|
+| Basic Verification | Age/Identity confirmation | 1x |
+| Standard Screening | ID + Background check | 2x |
+| Deep Screening | Terrorist, Most Wanted, Sexual Predator | 3x |
+
+### Venue Size Guidelines
+
+| Venue Capacity | Recommended Tier | Est. Monthly Scans |
+|----------------|------------------|-------------------|
+| <500 people | MAIN STREET | 1,000–2,500 |
+| 500–2,000 | GROWTH | 5,000–25,000 |
+| 2,000–10,000 | ENTERPRISE | 25,000–100,000 |
+| 10,000+ (Stadiums) | SOVEREIGN | 100,000+ |
+
+---
+
 *Version 1.0 | January 2026 | Giant Ventures LLC*

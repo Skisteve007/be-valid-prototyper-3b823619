@@ -9,7 +9,7 @@ const GovernanceConstitution = () => {
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-foreground">
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-amber-500/30">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 pt-16 pb-4 flex items-center justify-between">
           <Button
             variant="ghost"
             onClick={() => navigate(-1)}

@@ -7,8 +7,8 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { 
   Calculator, DollarSign, AlertTriangle, Shield,
-  Zap, FileText, ArrowRight, Check, QrCode, Users,
-  Info, Workflow, ScanLine
+  Zap, ArrowRight, Check, QrCode, Users,
+  Info, ScanLine, Activity, TrendingUp
 } from "lucide-react";
 import {
   Tooltip,
@@ -27,9 +27,11 @@ interface PricingTier {
   duration: string;
   deliverables: string[];
   color: string;
+  includedQueries: number; // Monthly Senate queries included
+  queryOverageRate: number; // cents per query over limit
   includedScans: number;
-  scanOverageRate: number; // cents per scan
-  deepCheckRate: number; // cents per deep ID check
+  scanOverageRate: number;
+  deepCheckRate: number;
 }
 
 const PRICING_TIERS: PricingTier[] = [
@@ -43,15 +45,17 @@ const PRICING_TIERS: PricingTier[] = [
     duration: "Monthly Subscription",
     deliverables: [
       "Full 7-Seat Senate Architecture",
+      "Up to 10,000 Queries/Month",
       "Compliance Widget Integration",
-      "Sector Pack (Preloaded Rules)",
-      "Ghost Token Scanner Software",
-      "2,500 Scans Included/Month"
+      "2,500 QR Scans Included/Month",
+      "Basic Audit Logs"
     ],
     color: "cyan",
+    includedQueries: 10000,
+    queryOverageRate: 5, // $0.05 per query
     includedScans: 2500,
-    scanOverageRate: 50, // $0.50 per scan
-    deepCheckRate: 150 // $1.50 per deep check
+    scanOverageRate: 50,
+    deepCheckRate: 150
   },
   {
     id: "growth",
@@ -63,15 +67,17 @@ const PRICING_TIERS: PricingTier[] = [
     duration: "90-Day Pilot",
     deliverables: [
       "Full 7-Seat Senate Architecture",
-      "Liability Shield API",
-      "\"Verified by Valid\" Badge",
-      "Adversarial Red Teaming",
-      "25,000 Scans Included/Month"
+      "Up to 250,000 Queries/Month",
+      "Liability Shield API Integration",
+      "25,000 QR Scans Included/Month",
+      "Adversarial Red Teaming"
     ],
     color: "purple",
+    includedQueries: 250000,
+    queryOverageRate: 2, // $0.02 per query
     includedScans: 25000,
-    scanOverageRate: 25, // $0.25 per scan
-    deepCheckRate: 100 // $1.00 per deep check
+    scanOverageRate: 25,
+    deepCheckRate: 100
   },
   {
     id: "enterprise",
@@ -83,15 +89,17 @@ const PRICING_TIERS: PricingTier[] = [
     duration: "Annual License",
     deliverables: [
       "Full 7-Seat Senate Architecture",
-      "On-Premise Deployment",
-      "45-Day Custom Calibration",
-      "Ghost Token Integration",
-      "100,000 Scans Included/Month"
+      "Up to 2,000,000 Queries/Month",
+      "On-Premise Deployment Option",
+      "100,000 QR Scans Included/Month",
+      "Custom Constitution Calibration"
     ],
     color: "amber",
+    includedQueries: 2000000,
+    queryOverageRate: 0.5, // $0.005 per query
     includedScans: 100000,
-    scanOverageRate: 10, // $0.10 per scan
-    deepCheckRate: 50 // $0.50 per deep check
+    scanOverageRate: 10,
+    deepCheckRate: 50
   },
   {
     id: "sovereign",
@@ -103,15 +111,17 @@ const PRICING_TIERS: PricingTier[] = [
     duration: "3-Year Exclusive",
     deliverables: [
       "Full 7-Seat Senate Architecture",
+      "Unlimited Queries",
       "Exclusive Sector License",
-      "White Label Rights",
-      "Source Code Escrow",
-      "Unlimited Scans"
+      "Unlimited QR Scans",
+      "White Label + Source Code Escrow"
     ],
     color: "red",
-    includedScans: -1, // Unlimited
-    scanOverageRate: 7, // $0.07 per scan (if custom cap)
-    deepCheckRate: 25 // $0.25 per deep check
+    includedQueries: -1, // Unlimited
+    queryOverageRate: 0,
+    includedScans: -1,
+    scanOverageRate: 7,
+    deepCheckRate: 25
   }
 ];
 
@@ -122,58 +132,67 @@ const CHECK_TYPES = [
 ];
 
 export function DynamicPricingCalculator() {
-  const [workflows, setWorkflows] = useState(5);
+  const [users, setUsers] = useState(50);
+  const [queriesPerUserDay, setQueriesPerUserDay] = useState(10);
   const [monthlyScans, setMonthlyScans] = useState(10000);
   const [isHighLiability, setIsHighLiability] = useState(false);
-  const [budget, setBudget] = useState(75000);
   const [checkType, setCheckType] = useState("basic");
   
   const [recommendedTier, setRecommendedTier] = useState<PricingTier>(PRICING_TIERS[0]);
   const [estimatedPrice, setEstimatedPrice] = useState(0);
-  const [overageScans, setOverageScans] = useState(0);
-  const [overageCost, setOverageCost] = useState(0);
+  const [monthlyQueries, setMonthlyQueries] = useState(0);
+  const [queryOverage, setQueryOverage] = useState(0);
+  const [queryOverageCost, setQueryOverageCost] = useState(0);
+  const [scanOverage, setScanOverage] = useState(0);
+  const [scanOverageCost, setScanOverageCost] = useState(0);
 
   useEffect(() => {
+    // Calculate monthly queries: users × queries/day × 22 working days
+    const calculatedMonthlyQueries = users * queriesPerUserDay * 22;
+    setMonthlyQueries(calculatedMonthlyQueries);
+
+    // Determine tier based on query volume
     let tier: PricingTier;
     let price: number;
 
-    // Determine tier based on budget and liability
-    if (isHighLiability || budget >= 1000000) {
+    if (isHighLiability || calculatedMonthlyQueries > 2000000) {
       tier = PRICING_TIERS[3]; // Sovereign
-      price = Math.max(1000000, budget);
-    } else if (budget >= 200000) {
+      price = 1000000 + (calculatedMonthlyQueries > 5000000 ? (calculatedMonthlyQueries - 5000000) * 0.001 : 0);
+    } else if (calculatedMonthlyQueries > 250000) {
       tier = PRICING_TIERS[2]; // Enterprise
       price = 250000;
-    } else if (budget >= 50000) {
+    } else if (calculatedMonthlyQueries > 10000) {
       tier = PRICING_TIERS[1]; // Growth
-      price = 75000;
+      price = 75000 + ((calculatedMonthlyQueries - 10000) / 240000) * 225000; // Scale within tier
     } else {
       tier = PRICING_TIERS[0]; // Main Street
       price = 5000 + (499 * 12); // First year cost
     }
 
-    // Calculate overage
-    let overage = 0;
-    let overageFee = 0;
-    if (tier.includedScans !== -1 && monthlyScans > tier.includedScans) {
-      overage = monthlyScans - tier.includedScans;
-      const checkMultiplier = CHECK_TYPES.find(c => c.id === checkType)?.multiplier || 1;
-      overageFee = (overage * tier.scanOverageRate * checkMultiplier) / 100;
+    // Calculate query overage
+    let qOverage = 0;
+    let qOverageFee = 0;
+    if (tier.includedQueries !== -1 && calculatedMonthlyQueries > tier.includedQueries) {
+      qOverage = calculatedMonthlyQueries - tier.includedQueries;
+      qOverageFee = (qOverage * tier.queryOverageRate) / 100;
     }
 
-    // Add workflow complexity factor
-    if (workflows > 10) {
-      price *= 1.15;
-    }
-    if (workflows > 20) {
-      price *= 1.25;
+    // Calculate scan overage
+    let sOverage = 0;
+    let sOverageFee = 0;
+    if (tier.includedScans !== -1 && monthlyScans > tier.includedScans) {
+      sOverage = monthlyScans - tier.includedScans;
+      const checkMultiplier = CHECK_TYPES.find(c => c.id === checkType)?.multiplier || 1;
+      sOverageFee = (sOverage * tier.scanOverageRate * checkMultiplier) / 100;
     }
 
     setRecommendedTier(tier);
     setEstimatedPrice(Math.round(price));
-    setOverageScans(overage);
-    setOverageCost(Math.round(overageFee));
-  }, [workflows, monthlyScans, isHighLiability, budget, checkType]);
+    setQueryOverage(qOverage);
+    setQueryOverageCost(Math.round(qOverageFee));
+    setScanOverage(sOverage);
+    setScanOverageCost(Math.round(sOverageFee));
+  }, [users, queriesPerUserDay, monthlyScans, isHighLiability, checkType]);
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -188,6 +207,12 @@ export function DynamicPricingCalculator() {
     return new Intl.NumberFormat('en-US').format(value);
   };
 
+  const formatCompact = (value: number) => {
+    if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+    if (value >= 1000) return `${(value / 1000).toFixed(0)}K`;
+    return value.toString();
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -198,8 +223,8 @@ export function DynamicPricingCalculator() {
             MODULE B: DYNAMIC PRICING ENGINE
           </CardTitle>
           <p className="text-muted-foreground">
-            Slider-based calculator that recommends the optimal package based on client requirements. 
-            Use this during discovery calls to anchor pricing discussions.
+            Volume-based calculator that scales from solo operators to enterprise deployments. 
+            Pricing based on Senate query volume — how often AI decisions are governed.
           </p>
         </CardHeader>
       </Card>
@@ -226,7 +251,7 @@ export function DynamicPricingCalculator() {
                 </TooltipProvider>
               </h4>
               <p className="text-sm text-muted-foreground mt-1">
-                <span className="text-purple-400 font-medium">Seats are model-agnostic and interchangeable.</span> If a new LLM outperforms an incumbent on drift and hallucination benchmarks (simplistic to complex questioning), it earns a seat. You're buying governance architecture, not vendor lock-in.
+                <span className="text-purple-400 font-medium">Seats are model-agnostic and interchangeable.</span> If a new LLM outperforms an incumbent on drift and hallucination benchmarks, it earns a seat. You're buying governance architecture, not vendor lock-in.
               </p>
             </div>
           </div>
@@ -240,52 +265,95 @@ export function DynamicPricingCalculator() {
             <CardTitle className="text-lg font-mono text-foreground">CLIENT PARAMETERS</CardTitle>
           </CardHeader>
           <CardContent className="space-y-8">
-            {/* Workflows Monitored */}
+            {/* Users Governed */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <Label className="flex items-center gap-2">
-                  <Workflow className="h-4 w-4 text-cyan-400" />
-                  Workflows Monitored
+                  <Users className="h-4 w-4 text-cyan-400" />
+                  Users Governed
                 </Label>
-                <span className="font-mono text-cyan-400 text-lg">{workflows}</span>
+                <span className="font-mono text-cyan-400 text-lg">{formatNumber(users)}</span>
               </div>
               <Slider
-                value={[workflows]}
-                onValueChange={(v) => setWorkflows(v[0])}
+                value={[users]}
+                onValueChange={(v) => setUsers(v[0])}
                 min={1}
-                max={50}
-                step={1}
+                max={10000}
+                step={users < 100 ? 1 : users < 1000 ? 10 : 100}
                 className="py-4"
               />
               <div className="flex justify-between text-xs text-muted-foreground font-mono">
                 <span>1</span>
-                <span>25</span>
-                <span>50+</span>
+                <span>1,000</span>
+                <span>10,000+</span>
               </div>
               <p className="text-xs text-muted-foreground">
-                Number of AI workflows, deployments, or use cases governed by the Senate
+                Employees, agents, or systems using AI that passes through the Senate
               </p>
             </div>
 
-            {/* Monthly Scans */}
+            {/* Queries per User per Day */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label className="flex items-center gap-2">
+                  <Activity className="h-4 w-4 text-cyan-400" />
+                  Queries per User/Day
+                </Label>
+                <span className="font-mono text-cyan-400 text-lg">{queriesPerUserDay}</span>
+              </div>
+              <Slider
+                value={[queriesPerUserDay]}
+                onValueChange={(v) => setQueriesPerUserDay(v[0])}
+                min={1}
+                max={200}
+                step={1}
+                className="py-4"
+              />
+              <div className="flex justify-between text-xs text-muted-foreground font-mono">
+                <span>1/day</span>
+                <span>50/day</span>
+                <span>200+/day</span>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                How often each user triggers AI decisions that need governance
+              </p>
+            </div>
+
+            {/* Calculated Monthly Volume */}
+            <div className="p-4 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-cyan-400" />
+                  <div>
+                    <p className="text-sm font-medium text-foreground">Monthly Senate Queries</p>
+                    <p className="text-xs text-muted-foreground">{formatNumber(users)} users × {queriesPerUserDay}/day × 22 days</p>
+                  </div>
+                </div>
+                <p className="text-2xl font-bold font-mono text-cyan-400">
+                  {formatCompact(monthlyQueries)}
+                </p>
+              </div>
+            </div>
+
+            {/* Monthly QR Scans */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <Label className="flex items-center gap-2">
                   <QrCode className="h-4 w-4 text-cyan-400" />
-                  Expected Monthly Scans
+                  Expected Monthly QR Scans
                 </Label>
                 <span className="font-mono text-cyan-400 text-lg">{formatNumber(monthlyScans)}</span>
               </div>
               <Slider
                 value={[monthlyScans]}
                 onValueChange={(v) => setMonthlyScans(v[0])}
-                min={1000}
+                min={0}
                 max={500000}
                 step={1000}
                 className="py-4"
               />
               <div className="flex justify-between text-xs text-muted-foreground font-mono">
-                <span>1K</span>
+                <span>0</span>
                 <span>250K</span>
                 <span>500K+</span>
               </div>
@@ -319,30 +387,6 @@ export function DynamicPricingCalculator() {
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
-
-            {/* Client Budget */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <Label className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4 text-cyan-400" />
-                  Client Budget
-                </Label>
-                <span className="font-mono text-cyan-400 text-lg">{formatCurrency(budget)}</span>
-              </div>
-              <Slider
-                value={[budget]}
-                onValueChange={(v) => setBudget(v[0])}
-                min={5000}
-                max={5000000}
-                step={5000}
-                className="py-4"
-              />
-              <div className="flex justify-between text-xs text-muted-foreground font-mono">
-                <span>$5K</span>
-                <span>$500K</span>
-                <span>$5M+</span>
               </div>
             </div>
 
@@ -396,11 +440,60 @@ export function DynamicPricingCalculator() {
                 </p>
               </div>
 
+              {/* Query Allocation */}
+              <div className="p-4 rounded-lg bg-cyan-500/10 border border-cyan-500/30 mb-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="h-4 w-4 text-cyan-400" />
+                  <p className="text-sm font-mono text-cyan-400">SENATE QUERY ALLOCATION</p>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="text-muted-foreground">Included/Month</p>
+                    <p className="font-bold text-foreground">
+                      {recommendedTier.includedQueries === -1 ? 'Unlimited' : formatCompact(recommendedTier.includedQueries)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">Overage Rate</p>
+                    <p className="font-bold text-foreground">
+                      ${(recommendedTier.queryOverageRate / 100).toFixed(3)}/query
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">Your Expected</p>
+                    <p className="font-bold text-foreground">{formatCompact(monthlyQueries)}/mo</p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">Utilization</p>
+                    <p className={`font-bold ${
+                      recommendedTier.includedQueries === -1 ? 'text-green-400' :
+                      monthlyQueries > recommendedTier.includedQueries ? 'text-amber-400' : 'text-green-400'
+                    }`}>
+                      {recommendedTier.includedQueries === -1 ? '∞' : 
+                        `${Math.round((monthlyQueries / recommendedTier.includedQueries) * 100)}%`}
+                    </p>
+                  </div>
+                </div>
+
+                {queryOverage > 0 && (
+                  <div className="mt-3 pt-3 border-t border-cyan-500/30">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm text-amber-400">
+                        ⚠️ {formatCompact(queryOverage)} queries over limit
+                      </p>
+                      <p className="text-sm font-mono text-amber-400">
+                        +{formatCurrency(queryOverageCost)}/mo
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {/* Scan Allocation */}
               <div className="p-4 rounded-lg bg-purple-500/10 border border-purple-500/30 mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <QrCode className="h-4 w-4 text-purple-400" />
-                  <p className="text-sm font-mono text-purple-400">SCAN ALLOCATION</p>
+                  <p className="text-sm font-mono text-purple-400">QR SCAN ALLOCATION</p>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -415,26 +508,16 @@ export function DynamicPricingCalculator() {
                       ${(recommendedTier.scanOverageRate / 100).toFixed(2)}/scan
                     </p>
                   </div>
-                  <div>
-                    <p className="text-muted-foreground">Deep Check Rate</p>
-                    <p className="font-bold text-foreground">
-                      ${(recommendedTier.deepCheckRate / 100).toFixed(2)}/check
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-muted-foreground">Your Expected</p>
-                    <p className="font-bold text-foreground">{formatNumber(monthlyScans)}/mo</p>
-                  </div>
                 </div>
 
-                {overageScans > 0 && (
+                {scanOverage > 0 && (
                   <div className="mt-3 pt-3 border-t border-purple-500/30">
                     <div className="flex items-center justify-between">
                       <p className="text-sm text-amber-400">
-                        ⚠️ {formatNumber(overageScans)} scans over limit
+                        ⚠️ {formatNumber(scanOverage)} scans over limit
                       </p>
                       <p className="text-sm font-mono text-amber-400">
-                        +{formatCurrency(overageCost)}/mo
+                        +{formatCurrency(scanOverageCost)}/mo
                       </p>
                     </div>
                   </div>
@@ -481,11 +564,14 @@ export function DynamicPricingCalculator() {
                   </div>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground mt-2">
                     <span className="flex items-center gap-1">
-                      <QrCode className="h-3 w-3" />
-                      {tier.includedScans === -1 ? '∞' : formatNumber(tier.includedScans)} scans
+                      <Zap className="h-3 w-3" />
+                      {tier.includedQueries === -1 ? '∞' : formatCompact(tier.includedQueries)} queries
                     </span>
                     <span>|</span>
-                    <span>${(tier.scanOverageRate / 100).toFixed(2)} overage</span>
+                    <span className="flex items-center gap-1">
+                      <QrCode className="h-3 w-3" />
+                      {tier.includedScans === -1 ? '∞' : formatCompact(tier.includedScans)} scans
+                    </span>
                   </div>
                 </div>
               ))}

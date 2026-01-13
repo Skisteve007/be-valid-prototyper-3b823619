@@ -144,6 +144,7 @@ const OlfactoryVerification = lazy(() => import("./pages/verification/OlfactoryV
 const AtmosphericVerification = lazy(() => import("./pages/verification/AtmosphericVerification"));
 const HumanVetting = lazy(() => import("./pages/HumanVetting"));
 const GovernanceConstitution = lazy(() => import("./pages/GovernanceConstitution"));
+const SynthSalesCommandCenter = lazy(() => import("./pages/SynthSalesCommandCenter"));
 const queryClient = new QueryClient();
 
 // Minimal loading fallback for faster perceived load
@@ -192,6 +193,7 @@ const App = () => (
                   <Route path="/admin/deal-room" element={<AgeGate><AdminDealRoom /></AgeGate>} />
                   <Route path="/admin/documentation" element={<AgeGate><AdminDocumentation /></AgeGate>} />
                   <Route path="/admin/security-positioning" element={<AgeGate><AdminSecurityPositioning /></AgeGate>} />
+                  <Route path="/admin/sales-command" element={<AgeGate><SynthSalesCommandCenter /></AgeGate>} />
                   <Route path="/synth-vault" element={<SynthVault />} />
                   <Route path="/synth" element={<AgeGate><Synth /></AgeGate>} />
                   <Route path="/synth/admin" element={<AgeGate><SynthAdmin /></AgeGate>} />

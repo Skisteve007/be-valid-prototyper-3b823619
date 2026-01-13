@@ -131,10 +131,65 @@ const CHECK_TYPES = [
   { id: "deep", name: "Deep Screening", description: "Terrorist, Most Wanted, Sexual Predator", multiplier: 3 }
 ];
 
+// User tier breakpoints for pricing stability
+const USER_TIERS = [
+  { min: 1, max: 10, label: "1-10", display: 10 },
+  { min: 11, max: 20, label: "11-20", display: 20 },
+  { min: 21, max: 40, label: "21-40", display: 40 },
+  { min: 41, max: 100, label: "41-100", display: 100 },
+  { min: 101, max: 200, label: "101-200", display: 200 },
+  { min: 201, max: 300, label: "201-300", display: 300 },
+  { min: 301, max: 400, label: "301-400", display: 400 },
+  { min: 401, max: 500, label: "401-500", display: 500 },
+  { min: 501, max: 600, label: "501-600", display: 600 },
+  { min: 601, max: 700, label: "601-700", display: 700 },
+  { min: 701, max: 800, label: "701-800", display: 800 },
+  { min: 801, max: 900, label: "801-900", display: 900 },
+  { min: 901, max: 1000, label: "901-1K", display: 1000 },
+  { min: 1001, max: 1100, label: "1K-1.1K", display: 1100 },
+  { min: 1101, max: 1200, label: "1.1K-1.2K", display: 1200 },
+  { min: 1201, max: 1300, label: "1.2K-1.3K", display: 1300 },
+  { min: 1301, max: 1400, label: "1.3K-1.4K", display: 1400 },
+  { min: 1401, max: 1500, label: "1.4K-1.5K", display: 1500 },
+  { min: 1501, max: 1600, label: "1.5K-1.6K", display: 1600 },
+  { min: 1601, max: 1700, label: "1.6K-1.7K", display: 1700 },
+  { min: 1701, max: 1800, label: "1.7K-1.8K", display: 1800 },
+  { min: 1801, max: 1900, label: "1.8K-1.9K", display: 1900 },
+  { min: 1901, max: 2000, label: "1.9K-2K", display: 2000 },
+  { min: 2001, max: 3000, label: "2K-3K", display: 3000 },
+  { min: 3001, max: 4000, label: "3K-4K", display: 4000 },
+  { min: 4001, max: 5000, label: "4K-5K", display: 5000 },
+  { min: 5001, max: 6000, label: "5K-6K", display: 6000 },
+  { min: 6001, max: 7000, label: "6K-7K", display: 7000 },
+  { min: 7001, max: 8000, label: "7K-8K", display: 8000 },
+  { min: 8001, max: 9000, label: "8K-9K", display: 9000 },
+  { min: 9001, max: 10000, label: "9K-10K", display: 10000 },
+];
+
+// QR Scan tier breakpoints for small-to-enterprise scaling
+const SCAN_TIERS = [
+  { value: 5, label: "5" },
+  { value: 10, label: "10" },
+  { value: 20, label: "20" },
+  { value: 50, label: "50" },
+  { value: 100, label: "100" },
+  { value: 200, label: "200" },
+  { value: 500, label: "500" },
+  { value: 1000, label: "1K" },
+  { value: 2500, label: "2.5K" },
+  { value: 5000, label: "5K" },
+  { value: 10000, label: "10K" },
+  { value: 25000, label: "25K" },
+  { value: 50000, label: "50K" },
+  { value: 100000, label: "100K" },
+  { value: 250000, label: "250K" },
+  { value: 500000, label: "500K" },
+];
+
 export function DynamicPricingCalculator() {
-  const [users, setUsers] = useState(50);
+  const [userTierIndex, setUserTierIndex] = useState(3); // Default to 41-100 tier
   const [queriesPerUserDay, setQueriesPerUserDay] = useState(10);
-  const [monthlyScans, setMonthlyScans] = useState(10000);
+  const [scanTierIndex, setScanTierIndex] = useState(6); // Default to 500 scans
   const [isHighLiability, setIsHighLiability] = useState(false);
   const [checkType, setCheckType] = useState("basic");
   
@@ -146,24 +201,30 @@ export function DynamicPricingCalculator() {
   const [scanOverage, setScanOverage] = useState(0);
   const [scanOverageCost, setScanOverageCost] = useState(0);
 
+  // Get actual values from tier indices
+  const users = USER_TIERS[userTierIndex]?.display || 100;
+  const monthlyScans = SCAN_TIERS[scanTierIndex]?.value || 500;
+  const currentUserTier = USER_TIERS[userTierIndex];
+  const currentScanTier = SCAN_TIERS[scanTierIndex];
+
   useEffect(() => {
     // Calculate monthly queries: users × queries/day × 22 working days
     const calculatedMonthlyQueries = users * queriesPerUserDay * 22;
     setMonthlyQueries(calculatedMonthlyQueries);
 
-    // Determine tier based on query volume
+    // Determine tier based on query volume AND user count
     let tier: PricingTier;
     let price: number;
 
-    if (isHighLiability || calculatedMonthlyQueries > 2000000) {
+    if (isHighLiability || calculatedMonthlyQueries > 2000000 || users > 2000) {
       tier = PRICING_TIERS[3]; // Sovereign
       price = 1000000 + (calculatedMonthlyQueries > 5000000 ? (calculatedMonthlyQueries - 5000000) * 0.001 : 0);
-    } else if (calculatedMonthlyQueries > 250000) {
+    } else if (calculatedMonthlyQueries > 250000 || users > 500) {
       tier = PRICING_TIERS[2]; // Enterprise
       price = 250000;
-    } else if (calculatedMonthlyQueries > 10000) {
+    } else if (calculatedMonthlyQueries > 10000 || users > 40) {
       tier = PRICING_TIERS[1]; // Growth
-      price = 75000 + ((calculatedMonthlyQueries - 10000) / 240000) * 225000; // Scale within tier
+      price = 75000 + ((calculatedMonthlyQueries - 10000) / 240000) * 225000;
     } else {
       tier = PRICING_TIERS[0]; // Main Street
       price = 5000 + (499 * 12); // First year cost
@@ -177,7 +238,7 @@ export function DynamicPricingCalculator() {
       qOverageFee = (qOverage * tier.queryOverageRate) / 100;
     }
 
-    // Calculate scan overage
+    // Calculate scan overage with tier-aware pricing
     let sOverage = 0;
     let sOverageFee = 0;
     if (tier.includedScans !== -1 && monthlyScans > tier.includedScans) {
@@ -265,30 +326,31 @@ export function DynamicPricingCalculator() {
             <CardTitle className="text-lg font-mono text-foreground">CLIENT PARAMETERS</CardTitle>
           </CardHeader>
           <CardContent className="space-y-8">
-            {/* Users Governed */}
+            {/* Users Governed - Tier-based */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <Label className="flex items-center gap-2">
                   <Users className="h-4 w-4 text-cyan-400" />
                   Users Governed
                 </Label>
-                <span className="font-mono text-cyan-400 text-lg">{formatNumber(users)}</span>
+                <span className="font-mono text-cyan-400 text-lg">{currentUserTier?.label || "1-10"} users</span>
               </div>
               <Slider
-                value={[users]}
-                onValueChange={(v) => setUsers(v[0])}
-                min={1}
-                max={10000}
-                step={users < 100 ? 1 : users < 1000 ? 10 : 100}
+                value={[userTierIndex]}
+                onValueChange={(v) => setUserTierIndex(v[0])}
+                min={0}
+                max={USER_TIERS.length - 1}
+                step={1}
                 className="py-4"
               />
               <div className="flex justify-between text-xs text-muted-foreground font-mono">
-                <span>1</span>
-                <span>1,000</span>
-                <span>10,000+</span>
+                <span>1-10</span>
+                <span>100-500</span>
+                <span>2K-10K</span>
               </div>
               <p className="text-xs text-muted-foreground">
-                Employees, agents, or systems using AI that passes through the Senate
+                Employees, agents, or systems using AI that passes through the Senate. 
+                <span className="text-cyan-400"> Same price per tier</span> — scales in brackets.
               </p>
             </div>
 
@@ -297,9 +359,19 @@ export function DynamicPricingCalculator() {
               <div className="flex items-center justify-between">
                 <Label className="flex items-center gap-2">
                   <Activity className="h-4 w-4 text-cyan-400" />
-                  Queries per User/Day
+                  Senate Queries per User/Day
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Info className="h-3 w-3 text-muted-foreground" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p className="text-sm">A <span className="font-semibold">Senate Query</span> is triggered each time a user's AI action is submitted for governance review — the Senate evaluates, debates, and returns a verified decision.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </Label>
-                <span className="font-mono text-cyan-400 text-lg">{queriesPerUserDay}</span>
+                <span className="font-mono text-cyan-400 text-lg">{queriesPerUserDay}/day</span>
               </div>
               <Slider
                 value={[queriesPerUserDay]}
@@ -315,7 +387,7 @@ export function DynamicPricingCalculator() {
                 <span>200+/day</span>
               </div>
               <p className="text-xs text-muted-foreground">
-                How often each user triggers AI decisions that need governance
+                Each time a user asks the Senate to verify or govern an AI decision
               </p>
             </div>
 
@@ -335,28 +407,32 @@ export function DynamicPricingCalculator() {
               </div>
             </div>
 
-            {/* Monthly QR Scans */}
+            {/* Monthly QR Scans - Tier-based */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <Label className="flex items-center gap-2">
                   <QrCode className="h-4 w-4 text-cyan-400" />
                   Expected Monthly QR Scans
                 </Label>
-                <span className="font-mono text-cyan-400 text-lg">{formatNumber(monthlyScans)}</span>
+                <span className="font-mono text-cyan-400 text-lg">{currentScanTier?.label || "500"}</span>
               </div>
               <Slider
-                value={[monthlyScans]}
-                onValueChange={(v) => setMonthlyScans(v[0])}
+                value={[scanTierIndex]}
+                onValueChange={(v) => setScanTierIndex(v[0])}
                 min={0}
-                max={500000}
-                step={1000}
+                max={SCAN_TIERS.length - 1}
+                step={1}
                 className="py-4"
               />
               <div className="flex justify-between text-xs text-muted-foreground font-mono">
-                <span>0</span>
-                <span>250K</span>
-                <span>500K+</span>
+                <span>5</span>
+                <span>1K</span>
+                <span>500K</span>
               </div>
+              <p className="text-xs text-muted-foreground">
+                Door scans, identity verifications, or check-ins per month. 
+                <span className="text-cyan-400"> Scales from solo to enterprise.</span>
+              </p>
             </div>
 
             {/* Check Type Selection */}

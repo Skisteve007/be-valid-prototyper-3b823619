@@ -404,7 +404,8 @@ const TrustSignalSection = ({
                 </div>
 
                 <p className="text-xs text-muted-foreground pl-1 leading-relaxed">
-                  Documents are uploaded to the source of truth API for verification. VALID™ is a conduit — no data stored locally.
+                  <strong className="text-cyan-400">Conduit Rule:</strong> Documents are uploaded to the source-of-truth API for verification. 
+                  VALID™ is a conduit — no raw data stored locally. Only verification signals and proof records are retained.
                 </p>
               </div>
 
@@ -560,7 +561,8 @@ const TrustSignalSection = ({
                 </div>
 
                 <p className="text-[10px] text-muted-foreground pl-1 leading-relaxed">
-                  Sensory signals are received from external hardware APIs (security checkpoints, medical devices). Upload option available for manual verification.
+                  <strong className="text-cyan-400">Conduit Rule:</strong> Sensory signals are received from external hardware APIs (security checkpoints, medical devices). 
+                  VALID™ never stores raw data — only verification signals. Upload sends documents directly to source-of-truth APIs.
                 </p>
               </div>
             </div>

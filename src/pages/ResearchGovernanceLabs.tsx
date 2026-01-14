@@ -5,9 +5,16 @@ import { ArrowLeft, FlaskConical, Scale, Brain, Shield, FileText, Users, Sparkle
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PDFViewerModal } from "@/components/PDFViewerModal";
+import { TextDocumentModal } from "@/components/TextDocumentModal";
 
 const ResearchGovernanceLabs = () => {
   const [pdfModal, setPdfModal] = useState<{ isOpen: boolean; url: string; title: string }>({
+    isOpen: false,
+    url: "",
+    title: ""
+  });
+
+  const [textModal, setTextModal] = useState<{ isOpen: boolean; url: string; title: string }>({
     isOpen: false,
     url: "",
     title: ""

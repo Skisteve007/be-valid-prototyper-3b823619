@@ -31,7 +31,7 @@ const badgeJsonLd = {
 };
 
 const SynthSalesCommandCenter = () => {
-  const [activeTab, setActiveTab] = useState("education");
+  const [activeTab, setActiveTab] = useState("pricing");
 
   return (
     <>
@@ -91,18 +91,18 @@ const SynthSalesCommandCenter = () => {
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="w-full bg-black/40 border border-cyan-500/30 p-1 h-auto flex-wrap gap-1 mb-8">
                 <TabsTrigger 
-                  value="education" 
-                  className="flex-1 min-w-[140px] data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 font-mono text-sm py-3"
-                >
-                  <Terminal className="h-4 w-4 mr-2" />
-                  EDUCATION HUB
-                </TabsTrigger>
-                <TabsTrigger 
                   value="pricing" 
                   className="flex-1 min-w-[140px] data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 font-mono text-sm py-3"
                 >
                   <Calculator className="h-4 w-4 mr-2" />
                   PRICING ENGINE
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="education" 
+                  className="flex-1 min-w-[140px] data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-400 font-mono text-sm py-3"
+                >
+                  <Terminal className="h-4 w-4 mr-2" />
+                  EDUCATION HUB
                 </TabsTrigger>
                 <TabsTrigger 
                   value="ghost" 
@@ -120,12 +120,12 @@ const SynthSalesCommandCenter = () => {
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="education" className="mt-0">
-                <SenateSimulator />
-              </TabsContent>
-
               <TabsContent value="pricing" className="mt-0">
                 <DynamicPricingCalculator />
+              </TabsContent>
+
+              <TabsContent value="education" className="mt-0">
+                <SenateSimulator />
               </TabsContent>
 
               <TabsContent value="ghost" className="mt-0">

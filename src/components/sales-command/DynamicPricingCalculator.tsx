@@ -23,7 +23,7 @@ const PRICING_CONFIG = {
   version: "1.0",
   defaults: {
     working_days_per_month: 22,
-    risk_multiplier: { low: 1.0, medium: 1.1, high: 1.25 },
+    risk_multiplier: { low: 1.0, medium: 1.5, high: 2.0 },
     negotiation_range: 0.20
   },
   tiers: {
@@ -484,34 +484,57 @@ export function DynamicPricingCalculator() {
                 <AlertTriangle className="h-4 w-4 text-amber-400" />
                 Industry Risk Level
               </Label>
-              <div className="grid grid-cols-3 gap-2">
-                {(["low", "medium", "high"] as RiskLevel[]).map((level) => (
-                  <div
-                    key={level}
-                    onClick={() => setRiskLevel(level)}
-                    className={`p-3 rounded-lg border cursor-pointer transition-all text-center ${
-                      riskLevel === level
-                        ? level === "high" 
-                          ? 'border-red-500 bg-red-500/10' 
-                          : level === "medium"
-                          ? 'border-amber-500 bg-amber-500/10'
-                          : 'border-green-500 bg-green-500/10'
-                        : 'border-border/30 bg-black/20 hover:border-border/50'
-                    }`}
-                  >
-                    <p className="font-medium text-sm capitalize">{level}</p>
-                    <p className="text-xs text-muted-foreground">
-                      ×{PRICING_CONFIG.defaults.risk_multiplier[level].toFixed(2)}
-                    </p>
-                  </div>
-                ))}
+              <div className="grid gap-2">
+                {(["low", "medium", "high"] as RiskLevel[]).map((level) => {
+                  const riskDetails = {
+                    low: {
+                      multiplierLabel: "Base Rate",
+                      examples: "Retail, Hospitality, Entertainment, Events, Nightlife"
+                    },
+                    medium: {
+                      multiplierLabel: "+50%",
+                      examples: "Insurance, Real Estate, HR/Recruiting, Education"
+                    },
+                    high: {
+                      multiplierLabel: "+100% (2×)",
+                      examples: "Medical/Healthcare, Legal, Financial Services, Government"
+                    }
+                  };
+                  
+                  return (
+                    <div
+                      key={level}
+                      onClick={() => setRiskLevel(level)}
+                      className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                        riskLevel === level
+                          ? level === "high" 
+                            ? 'border-red-500 bg-red-500/10' 
+                            : level === "medium"
+                            ? 'border-amber-500 bg-amber-500/10'
+                            : 'border-green-500 bg-green-500/10'
+                          : 'border-border/30 bg-black/20 hover:border-border/50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="font-medium text-sm capitalize">{level} Risk</p>
+                        <Badge 
+                          variant="outline" 
+                          className={`font-mono text-xs ${
+                            level === "high" ? "border-red-500/50 text-red-400" :
+                            level === "medium" ? "border-amber-500/50 text-amber-400" :
+                            "border-green-500/50 text-green-400"
+                          }`}
+                        >
+                          {riskDetails[level].multiplierLabel}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        {riskDetails[level].examples}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
-              {riskLevel === "high" && (
-                <p className="text-xs text-amber-400 flex items-center gap-1">
-                  <Shield className="h-3 w-3" />
-                  Medical, Legal, Financial, Government sectors
-                </p>
-              )}
             </div>
           </CardContent>
         </Card>

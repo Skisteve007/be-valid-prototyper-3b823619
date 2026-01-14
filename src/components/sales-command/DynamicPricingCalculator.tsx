@@ -669,6 +669,14 @@ export function DynamicPricingCalculator() {
               <p className="text-sm text-muted-foreground text-center">
                 We run alongside Salesforce as a non-biased governance filter — proofreading and policy-to-code guardrails before data reaches clients.
               </p>
+              
+              <Button 
+                onClick={() => window.open('/cost-comparison', '_blank')}
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-black font-bold py-3 mt-4"
+              >
+                <FileText className="h-5 w-5 mr-2" />
+                View Full Cost Comparison One-Pager
+              </Button>
             </CardContent>
           </Card>
 

@@ -145,6 +145,7 @@ const AtmosphericVerification = lazy(() => import("./pages/verification/Atmosphe
 const HumanVetting = lazy(() => import("./pages/HumanVetting"));
 const GovernanceConstitution = lazy(() => import("./pages/GovernanceConstitution"));
 const SynthSalesCommandCenter = lazy(() => import("./pages/SynthSalesCommandCenter"));
+const ResearchGovernanceLabs = lazy(() => import("./pages/ResearchGovernanceLabs"));
 const queryClient = new QueryClient();
 
 // Minimal loading fallback for faster perceived load
@@ -184,6 +185,7 @@ const App = () => (
                   <Route path="/wallet" element={<AgeGate><Dashboard /></AgeGate>} />
                   <Route path="/human-vetting" element={<AgeGate><HumanVetting /></AgeGate>} />
                   <Route path="/governance-constitution" element={<AgeGate><GovernanceConstitution /></AgeGate>} />
+                  <Route path="/research-governance-labs" element={<AgeGate><ResearchGovernanceLabs /></AgeGate>} />
                   
                   {/* ADMIN ROUTES */}
                   <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />

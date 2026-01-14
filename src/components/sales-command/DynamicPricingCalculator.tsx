@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { 
   Calculator, 
   Users, 
@@ -18,11 +19,15 @@ import {
   Building2,
   Crown,
   Plug,
-  Fingerprint
+  Fingerprint,
+  FileText,
+  Sparkles
 } from "lucide-react";
+import { PricingProposalDialog } from "./pricing/PricingProposalDialog";
+import { OrderFormDialog } from "./pricing/OrderFormDialog";
 
 // Types
-type TierKey = "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
+type TierKey = "solo_lite" | "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
 type RiskLevel = "low" | "medium" | "high";
 
 interface TierConfig {
@@ -35,16 +40,21 @@ interface TierConfig {
   port_overage_usd: number;
 }
 
-// Configuration from JSON spec v1.2
+// Configuration from JSON spec v1.2 + Solo Lite
 const PRICING_CONFIG = {
   version: "1.2",
   defaults: {
     working_days_per_month: 22,
-    risk_multiplier: { low: 1.0, medium: 1.1, high: 1.25 },
+    risk_multiplier: { low: 1.0, medium: 1.1, high: 1.25 } as Record<RiskLevel, number>,
     negotiation_range_percent: 0.20,
     verification_addon_enabled_by_default: false
   },
   tiers: {
+    solo_lite: {
+      anchor_min_usd: 39, anchor_mid_usd: 49, anchor_max_usd: 59,
+      included_queries: 250, included_ports: 1,
+      query_overage_usd: 0.08, port_overage_usd: 49
+    },
     solo: {
       anchor_min_usd: 79, anchor_mid_usd: 99, anchor_max_usd: 149,
       included_queries: 1000, included_ports: 2,
@@ -76,7 +86,6 @@ const PRICING_CONFIG = {
       query_overage_usd: 0.08, port_overage_usd: 999
     }
   } as Record<TierKey, TierConfig>,
-  // Verification check pricing - flat per check (optional add-on)
   verification_rates_usd: {
     basic: 1.80,
     standard: 2.60,
@@ -85,7 +94,7 @@ const PRICING_CONFIG = {
   owner_guards: {
     min_margin_percent: 0.35,
     query_floor_usd: 0.08,
-    port_floor_usd: { solo: 99, starter: 99, professional: 199, business: 299, enterprise: 499, sector_sovereign: 999 },
+    port_floor_usd: { solo_lite: 49, solo: 99, starter: 99, professional: 199, business: 299, enterprise: 499, sector_sovereign: 999 },
     allow_discount_below_floor: false
   },
   competitor_parity: {
@@ -94,9 +103,10 @@ const PRICING_CONFIG = {
   }
 };
 
-const TIER_ORDER: TierKey[] = ["solo", "starter", "professional", "business", "enterprise", "sector_sovereign"];
+const TIER_ORDER: TierKey[] = ["solo_lite", "solo", "starter", "professional", "business", "enterprise", "sector_sovereign"];
 
 const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode }> = {
+  solo_lite: { name: "Solo Lite", icon: <Sparkles className="h-4 w-4" /> },
   solo: { name: "Solo", icon: <Users className="h-4 w-4" /> },
   starter: { name: "Starter", icon: <Zap className="h-4 w-4" /> },
   professional: { name: "Professional", icon: <TrendingUp className="h-4 w-4" /> },
@@ -109,7 +119,7 @@ export function DynamicPricingCalculator() {
   // Client inputs
   const [usersGoverned, setUsersGoverned] = useState(10);
   const [queriesPerDay, setQueriesPerDay] = useState(10);
-  const [highLiability, setHighLiability] = useState(false);
+  const [riskLevel, setRiskLevel] = useState<RiskLevel>("low");
   const [portsConnected, setPortsConnected] = useState(2);
   const [manualTier, setManualTier] = useState<TierKey | null>(null);
   
@@ -119,6 +129,10 @@ export function DynamicPricingCalculator() {
   const [checksStandard, setChecksStandard] = useState(0);
   const [checksDeep, setChecksDeep] = useState(0);
 
+  // Dialogs
+  const [proposalOpen, setProposalOpen] = useState(false);
+  const [orderFormOpen, setOrderFormOpen] = useState(false);
+
   // Derived calculations
   const calculations = useMemo(() => {
     const { defaults, tiers, verification_rates_usd, competitor_parity } = PRICING_CONFIG;
@@ -127,11 +141,10 @@ export function DynamicPricingCalculator() {
     const msq = usersGoverned * queriesPerDay * defaults.working_days_per_month;
     
     // Risk multiplier
-    const riskLevel: RiskLevel = highLiability ? "high" : "low";
     const riskMultiplier = defaults.risk_multiplier[riskLevel];
     
     // Auto-recommend tier (lowest that covers MSQ)
-    let recommendedTier: TierKey = "solo";
+    let recommendedTier: TierKey = "solo_lite";
     for (const tier of TIER_ORDER) {
       const config = tiers[tier];
       const queriesCovered = config.included_queries === -1 || msq <= config.included_queries;
@@ -181,7 +194,7 @@ export function DynamicPricingCalculator() {
     const totalOverage = queryOverage + portOverage;
     const suggestUpgrade = totalOverage > tierConfig.anchor_mid_usd * 0.4 && selectedTier !== "sector_sovereign";
     
-    // Competitor parity (Agentforce) - simplified: just actions @ $0.10 × MSQ
+    // Competitor parity (Agentforce) - actions @ $0.10 × MSQ
     const agentforceBaseline = msq * competitor_parity.agentforce_action_usd;
     const savingsPercent = agentforceBaseline > 0 
       ? Math.round((1 - (totalMonthly / agentforceBaseline)) * 100) 
@@ -211,12 +224,57 @@ export function DynamicPricingCalculator() {
       agentforceBaseline,
       savingsPercent
     };
-  }, [usersGoverned, queriesPerDay, highLiability, portsConnected, manualTier, verificationEnabled, checksBasic, checksStandard, checksDeep]);
+  }, [usersGoverned, queriesPerDay, riskLevel, portsConnected, manualTier, verificationEnabled, checksBasic, checksStandard, checksDeep]);
 
   const formatCurrency = (amount: number) => {
     if (amount >= 1000000) return `$${(amount / 1000000).toFixed(1)}M`;
     if (amount >= 1000) return `$${(amount / 1000).toFixed(1)}K`;
     return `$${Math.round(amount).toLocaleString()}`;
+  };
+
+  // Proposal data
+  const proposalData = {
+    usersGoverned,
+    queriesPerDay,
+    msq: calculations.msq,
+    verificationEnabled,
+    checksBasic,
+    checksStandard,
+    checksDeep,
+    basicChecksCost: calculations.basicChecksCost,
+    standardChecksCost: calculations.standardChecksCost,
+    deepChecksCost: calculations.deepChecksCost,
+    totalVerificationCost: calculations.totalVerificationCost,
+    portsConnected,
+    riskLevel: calculations.riskLevel,
+    riskMultiplier: calculations.riskMultiplier,
+    selectedTier: calculations.selectedTier,
+    tierLabel: TIER_LABELS[calculations.selectedTier].name,
+    includedQueries: calculations.tierConfig.included_queries,
+    includedPorts: calculations.tierConfig.included_ports,
+    anchor: calculations.tierConfig.anchor_mid_usd,
+    queryOverage: calculations.queryOverage,
+    portOverage: calculations.portOverage,
+    totalMonthly: calculations.totalMonthly,
+    rangeLow: calculations.rangeLow,
+    rangeHigh: calculations.rangeHigh,
+    agentforceBaseline: calculations.agentforceBaseline,
+    savingsPercent: calculations.savingsPercent
+  };
+
+  // Order form data
+  const orderFormData = {
+    tierLabel: TIER_LABELS[calculations.selectedTier].name,
+    includedQueries: calculations.tierConfig.included_queries,
+    includedPorts: calculations.tierConfig.included_ports,
+    portOverageRate: calculations.tierConfig.port_overage_usd,
+    verificationEnabled,
+    anchor: calculations.tierConfig.anchor_mid_usd,
+    queryOverage: calculations.queryOverage,
+    verificationCost: calculations.totalVerificationCost,
+    portOverage: calculations.portOverage,
+    riskMultiplier: calculations.riskMultiplier,
+    totalMonthly: calculations.totalMonthly
   };
 
   return (
@@ -435,21 +493,35 @@ export function DynamicPricingCalculator() {
                 </p>
               </div>
 
-              {/* High Liability Toggle */}
-              <div className="flex items-center justify-between p-3 rounded-lg border border-border/30 bg-black/20">
-                <div className="space-y-0.5">
+              {/* Risk Level Radio */}
+              <div className="p-3 rounded-lg border border-border/30 bg-black/20">
+                <div className="space-y-3">
                   <Label className="text-sm font-medium flex items-center gap-2">
                     <AlertTriangle className="h-4 w-4 text-amber-400" />
-                    High-Liability Industry
+                    Industry Risk Level
                   </Label>
+                  <RadioGroup
+                    value={riskLevel}
+                    onValueChange={(v) => setRiskLevel(v as RiskLevel)}
+                    className="flex gap-4"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="low" id="risk-low" />
+                      <Label htmlFor="risk-low" className="text-sm cursor-pointer">Low (×1.00)</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="medium" id="risk-medium" />
+                      <Label htmlFor="risk-medium" className="text-sm cursor-pointer">Medium (×1.10)</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="high" id="risk-high" />
+                      <Label htmlFor="risk-high" className="text-sm cursor-pointer">High (×1.25)</Label>
+                    </div>
+                  </RadioGroup>
                   <p className="text-xs text-muted-foreground">
-                    Medical, Legal, Financial, Government (+25%)
+                    High: Medical, Legal, Financial, Government
                   </p>
                 </div>
-                <Switch
-                  checked={highLiability}
-                  onCheckedChange={setHighLiability}
-                />
               </div>
             </CardContent>
           </Card>
@@ -466,7 +538,7 @@ export function DynamicPricingCalculator() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
                 {TIER_ORDER.map((tier) => {
                   const config = PRICING_CONFIG.tiers[tier];
                   const isSelected = calculations.selectedTier === tier;
@@ -476,24 +548,24 @@ export function DynamicPricingCalculator() {
                     <div
                       key={tier}
                       onClick={() => setManualTier(tier === manualTier ? null : tier)}
-                      className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                      className={`p-2 rounded-lg border cursor-pointer transition-all ${
                         isSelected
                           ? 'border-primary bg-primary/10'
                           : 'border-border/30 bg-black/20 hover:border-border/50'
                       }`}
                     >
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-1.5 mb-1">
                         {TIER_LABELS[tier].icon}
-                        <span className="font-medium text-sm">{TIER_LABELS[tier].name}</span>
+                        <span className="font-medium text-xs">{TIER_LABELS[tier].name}</span>
                       </div>
                       <p className="text-xs text-muted-foreground">
                         ${config.anchor_min_usd}–${config.anchor_max_usd === 9999999 ? '∞' : config.anchor_max_usd.toLocaleString()}
                       </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()} queries, {config.included_ports === -1 ? '∞' : config.included_ports} ports
+                      <p className="text-xs text-muted-foreground">
+                        {config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()} Q, {config.included_ports === -1 ? '∞' : config.included_ports} P
                       </p>
                       {isRecommended && (
-                        <Badge className="mt-2 bg-primary/20 text-primary text-xs">
+                        <Badge className="mt-1 bg-primary/20 text-primary text-[10px] px-1.5 py-0">
                           Recommended
                         </Badge>
                       )}
@@ -653,7 +725,7 @@ export function DynamicPricingCalculator() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Risk multiplier:</span>
-                  <span className={highLiability ? 'text-amber-400' : ''}>
+                  <span className={riskLevel !== 'low' ? 'text-amber-400' : ''}>
                     ×{calculations.riskMultiplier.toFixed(2)}
                   </span>
                 </div>
@@ -684,14 +756,9 @@ export function DynamicPricingCalculator() {
               
               <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/30">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium">Grillo AI governed queries @ $0.080 overage + anchor:</span>
+                  <span className="text-sm font-medium">Grillo AI @ $0.080 overage + anchor:</span>
                   <span className="text-green-400 font-bold">{formatCurrency(calculations.totalMonthly)}/mo</span>
                 </div>
-                {verificationEnabled && calculations.totalVerificationCost > 0 && (
-                  <p className="text-xs text-muted-foreground mt-1">
-                    + Optional verification: {formatCurrency(calculations.totalVerificationCost)}/mo (per check, no "credits")
-                  </p>
-                )}
                 {calculations.savingsPercent > 0 && (
                   <p className="text-xs text-green-400 mt-1">
                     <Check className="h-3 w-3 inline mr-1" />
@@ -729,26 +796,45 @@ export function DynamicPricingCalculator() {
             </CardContent>
           </Card>
 
-          {/* Marketing Copy */}
+          {/* Client-Facing Explainer */}
           <div className="p-4 rounded-lg bg-gradient-to-r from-primary/5 to-cyan-500/5 border border-primary/20">
-            <p className="text-sm text-muted-foreground italic leading-relaxed">
-              <strong className="text-foreground">Is your AI legally defensible?</strong> Our Constitution implements "Reasonable Care" standards now emerging across state liability laws. It provides exact protocols to prevent agentic drift and negligence claims. Download the blueprint for secured, compliant, defensible AI.
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              <strong className="text-foreground">Why this makes sense:</strong> You tell us how many people use AI, how often it needs governance, optional verification checks, and connected systems. You see a clear monthly anchor with simple, transparent overages. No "credits." Every plan includes the 7-Seat Senate plus audit trails and Reasonable Care controls.
             </p>
           </div>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button className="flex-1 bg-primary hover:bg-primary/90">
+            <Button 
+              className="flex-1 bg-primary hover:bg-primary/90"
+              onClick={() => setProposalOpen(true)}
+            >
               <Check className="h-4 w-4 mr-2" />
               Generate Proposal
             </Button>
-            <Button variant="outline" className="flex-1">
-              <Download className="h-4 w-4 mr-2" />
-              Download Constitution
+            <Button 
+              variant="outline" 
+              className="flex-1"
+              onClick={() => setOrderFormOpen(true)}
+            >
+              <FileText className="h-4 w-4 mr-2" />
+              Create Order Form
             </Button>
           </div>
         </div>
       </div>
+
+      {/* Dialogs */}
+      <PricingProposalDialog 
+        open={proposalOpen} 
+        onOpenChange={setProposalOpen}
+        data={proposalData}
+      />
+      <OrderFormDialog 
+        open={orderFormOpen} 
+        onOpenChange={setOrderFormOpen}
+        data={orderFormData}
+      />
     </div>
   );
 }

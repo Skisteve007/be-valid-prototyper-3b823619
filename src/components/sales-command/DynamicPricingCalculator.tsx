@@ -29,7 +29,7 @@ import { PricingProposalDialog } from "./pricing/PricingProposalDialog";
 import { OrderFormDialog } from "./pricing/OrderFormDialog";
 
 // Types
-type TierKey = "solo_lite" | "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
+type TierKey = "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
 type RiskLevel = "low" | "medium" | "high";
 
 interface TierConfig {
@@ -54,11 +54,6 @@ const PRICING_CONFIG = {
     verification_addon_enabled_by_default: false
   },
   tiers: {
-    solo_lite: {
-      anchor_min_usd: 39, anchor_mid_usd: 49, anchor_max_usd: 59,
-      included_queries: 250, included_ports: 1, included_ghost_pass_scans: 100,
-      query_overage_usd: 0.08, ghost_pass_rate_usd: 0.75, port_overage_usd: 49
-    },
     solo: {
       anchor_min_usd: 79, anchor_mid_usd: 99, anchor_max_usd: 149,
       included_queries: 1000, included_ports: 2, included_ghost_pass_scans: 250,
@@ -98,8 +93,8 @@ const PRICING_CONFIG = {
   owner_guards: {
     min_margin_percent: 0.35,
     query_floor_usd: 0.08,
-    min_ghost_pass_rate_usd: { solo_lite: 0.75, solo: 0.75, starter: 0.65, professional: 0.55, business: 0.45, enterprise: 0.10, sector_sovereign: 0.06 },
-    port_floor_usd: { solo_lite: 49, solo: 99, starter: 99, professional: 199, business: 299, enterprise: 499, sector_sovereign: 999 },
+    min_ghost_pass_rate_usd: { solo: 0.75, starter: 0.65, professional: 0.55, business: 0.45, enterprise: 0.10, sector_sovereign: 0.06 },
+    port_floor_usd: { solo: 99, starter: 99, professional: 199, business: 299, enterprise: 499, sector_sovereign: 999 },
     allow_discount_below_floor: false
   },
   competitor_parity: {
@@ -108,16 +103,15 @@ const PRICING_CONFIG = {
   }
 };
 
-const TIER_ORDER: TierKey[] = ["solo_lite", "solo", "starter", "professional", "business", "enterprise", "sector_sovereign"];
+const TIER_ORDER: TierKey[] = ["solo", "starter", "professional", "business", "enterprise", "sector_sovereign"];
 
-const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode }> = {
-  solo_lite: { name: "Solo Lite", icon: <Sparkles className="h-5 w-5" /> },
-  solo: { name: "Solo", icon: <Users className="h-5 w-5" /> },
-  starter: { name: "Starter", icon: <Zap className="h-5 w-5" /> },
-  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" /> },
-  business: { name: "Business", icon: <Building2 className="h-5 w-5" /> },
-  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" /> },
-  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" /> }
+const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode; ideal: string }> = {
+  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, ideal: "Solo pros & 1–10 person teams" },
+  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, ideal: "5–25 person firms (law, clinics)" },
+  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, ideal: "25–100 staff, multi-department" },
+  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, ideal: "100–500 staff, multi-site ops" },
+  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, ideal: "500–2,500 staff, divisional" },
+  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, ideal: "Stadiums, leagues, universities" }
 };
 
 export function DynamicPricingCalculator() {
@@ -152,7 +146,7 @@ export function DynamicPricingCalculator() {
     const riskMultiplier = defaults.risk_multiplier[riskLevel];
     
     // Auto-recommend tier (lowest that covers MSQ)
-    let recommendedTier: TierKey = "solo_lite";
+    let recommendedTier: TierKey = "solo";
     for (const tier of TIER_ORDER) {
       const config = tiers[tier];
       const queriesCovered = config.included_queries === -1 || msq <= config.included_queries;
@@ -684,9 +678,12 @@ export function DynamicPricingCalculator() {
                 <Shield className="h-7 w-7 text-primary" />
                 Tier Selection
               </CardTitle>
+              <p className="text-base text-muted-foreground mt-2">
+                Pick the first tier where MSQ, Ports, and Scans all fit. If any exceeds the cap, move up.
+              </p>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {TIER_ORDER.map((tier) => {
                   const config = PRICING_CONFIG.tiers[tier];
                   const isSelected = calculations.selectedTier === tier;
@@ -696,27 +693,47 @@ export function DynamicPricingCalculator() {
                     <div
                       key={tier}
                       onClick={() => setManualTier(tier === manualTier ? null : tier)}
-                      className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                      className={`p-5 rounded-lg border cursor-pointer transition-all ${
                         isSelected
-                          ? 'border-primary bg-primary/10'
+                          ? 'border-primary bg-primary/10 ring-2 ring-primary/30'
                           : 'border-border/30 bg-black/20 hover:border-border/50'
                       }`}
                     >
-                      <div className="flex items-center gap-2 mb-2">
-                        {TIER_LABELS[tier].icon}
-                        <span className="font-medium text-base">{TIER_LABELS[tier].name}</span>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary/20' : 'bg-muted/20'}`}>
+                          {TIER_LABELS[tier].icon}
+                        </div>
+                        <div>
+                          <span className="font-semibold text-lg block">{TIER_LABELS[tier].name}</span>
+                          <span className="text-primary font-mono text-base">
+                            ${config.anchor_min_usd}–${config.anchor_max_usd === 9999999 ? '∞' : '$' + config.anchor_max_usd.toLocaleString()}/mo
+                          </span>
+                        </div>
+                        {isRecommended && (
+                          <Badge className="ml-auto bg-primary/20 text-primary text-sm px-2 py-0.5">
+                            Recommended
+                          </Badge>
+                        )}
                       </div>
-                      <p className="text-base text-muted-foreground">
-                        ${config.anchor_min_usd}–${config.anchor_max_usd === 9999999 ? '∞' : config.anchor_max_usd.toLocaleString()}
+                      
+                      <div className="space-y-2 text-base">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Queries:</span>
+                          <span className="font-mono">{config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()}/mo</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Ports:</span>
+                          <span className="font-mono">{config.included_ports === -1 ? '∞' : config.included_ports}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Ghost Pass:</span>
+                          <span className="font-mono">{config.included_ghost_pass_scans === -1 ? '∞' : config.included_ghost_pass_scans.toLocaleString()}/mo</span>
+                        </div>
+                      </div>
+                      
+                      <p className="text-sm text-cyan-400/80 mt-3 pt-3 border-t border-border/20">
+                        {TIER_LABELS[tier].ideal}
                       </p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()} Q, {config.included_ghost_pass_scans === -1 ? '∞' : config.included_ghost_pass_scans.toLocaleString()} S
-                      </p>
-                      {isRecommended && (
-                        <Badge className="mt-2 bg-primary/20 text-primary text-sm px-2 py-0.5">
-                          Recommended
-                        </Badge>
-                      )}
                     </div>
                   );
                 })}
@@ -726,7 +743,7 @@ export function DynamicPricingCalculator() {
                 <div className="mt-4 p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
                   <p className="text-base text-amber-400 flex items-center gap-2">
                     <TrendingUp className="h-5 w-5" />
-                    Overage exceeds 40% of anchor — consider upgrading tier
+                    Overage exceeds 40% of anchor — consider upgrading tier to save money
                   </p>
                 </div>
               )}

@@ -151,34 +151,38 @@ const ResearchGovernanceLabs = () => {
                         <FileText className="h-5 w-5 text-purple-400" />
                       </div>
                       <div className="flex gap-2">
-                        <a 
-                          href={pub.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex-1"
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex-1 border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
+                          onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = pub.link;
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                          }}
                         >
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className="w-full border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
-                          >
-                            <ExternalLink className="h-4 w-4 mr-2" />
-                            Read
-                          </Button>
-                        </a>
-                        <a 
-                          href={pub.link} 
-                          download
-                          className="flex-1"
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          Read
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          className="flex-1 bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white"
+                          onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = pub.link;
+                            link.download = pub.link.split('/').pop() || 'document.pdf';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                          }}
                         >
-                          <Button 
-                            size="sm" 
-                            className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white"
-                          >
-                            <Download className="h-4 w-4 mr-2" />
-                            Download
-                          </Button>
-                        </a>
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>

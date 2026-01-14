@@ -48,7 +48,9 @@ import {
   Wifi,
   Server,
   Plus,
-  Pencil
+  Pencil,
+  Crown,
+  Check as CheckIcon
 } from "lucide-react";
 
 export interface Port {
@@ -58,7 +60,19 @@ export interface Port {
   icon: React.ReactNode;
   description: string;
   isCustom?: boolean;
+  isPremium?: boolean;
 }
+
+// Premium Enterprise Connector IDs (trigger Platform Expansion Fee when over tier limit)
+export const PREMIUM_CONNECTOR_IDS = [
+  // Legal & CRM (Education category)
+  "litify", "intapp_dealcloud", "clio_manage", "filevine", "actionstep", "lawmatics", "dynamics365_enterprise", "hubspot_enterprise",
+  // Medical & Healthcare (Education & Risk Assessment category)
+  "epic_ehr", "cerner_oracle", "athenahealth_ehr", "eclinicalworks", "nextgen_healthcare", "drchrono", "kareo_tebra", "jane_app"
+];
+
+// Platform Expansion Fee for premium connectors beyond tier limit
+export const PLATFORM_EXPANSION_FEE_USD = 49;
 
 export interface CustomPort {
   id: string;
@@ -127,7 +141,30 @@ export const PORT_CATEGORIES: PortCategory[] = [
       { id: "powerschool", name: "PowerSchool", category: "Education", icon: <Users className="h-4 w-4" />, description: "K-12 SIS" },
       { id: "ellucian", name: "Ellucian Banner", category: "Education", icon: <Database className="h-4 w-4" />, description: "Higher Ed ERP" },
       { id: "workday_student", name: "Workday Student", category: "Education", icon: <Cloud className="h-4 w-4" />, description: "Student Information" },
-      { id: "moodle", name: "Moodle", category: "Education", icon: <BookOpen className="h-4 w-4" />, description: "Open-source LMS" }
+      { id: "moodle", name: "Moodle", category: "Education", icon: <BookOpen className="h-4 w-4" />, description: "Open-source LMS" },
+      // Premium Enterprise Legal & CRM Connectors
+      { id: "litify", name: "Litify", category: "Education", icon: <Scale className="h-4 w-4" />, description: "Legal Operations Platform", isPremium: true },
+      { id: "intapp_dealcloud", name: "Intapp DealCloud", category: "Education", icon: <Building2 className="h-4 w-4" />, description: "Deal Management CRM", isPremium: true },
+      { id: "clio_manage", name: "Clio Manage", category: "Education", icon: <Scale className="h-4 w-4" />, description: "Law Practice Management", isPremium: true },
+      { id: "filevine", name: "Filevine", category: "Education", icon: <FileText className="h-4 w-4" />, description: "Legal Case Management", isPremium: true },
+      { id: "actionstep", name: "Actionstep", category: "Education", icon: <ClipboardList className="h-4 w-4" />, description: "Legal Practice Automation", isPremium: true },
+      { id: "lawmatics", name: "Lawmatics", category: "Education", icon: <Briefcase className="h-4 w-4" />, description: "Legal CRM & Marketing", isPremium: true },
+      { id: "dynamics365_enterprise", name: "Microsoft Dynamics 365", category: "Education", icon: <Building className="h-4 w-4" />, description: "Enterprise CRM Suite", isPremium: true },
+      { id: "hubspot_enterprise", name: "HubSpot Enterprise", category: "Education", icon: <Building2 className="h-4 w-4" />, description: "Enterprise Marketing Hub", isPremium: true }
+    ]
+  },
+  {
+    name: "Education & Risk Assessment",
+    ports: [
+      // Premium Medical & Healthcare Connectors
+      { id: "epic_ehr", name: "Epic", category: "Education & Risk Assessment", icon: <HeartPulse className="h-4 w-4" />, description: "Enterprise EHR/EMR", isPremium: true },
+      { id: "cerner_oracle", name: "Cerner (Oracle Health)", category: "Education & Risk Assessment", icon: <Stethoscope className="h-4 w-4" />, description: "Oracle Health Platform", isPremium: true },
+      { id: "athenahealth_ehr", name: "Athenahealth", category: "Education & Risk Assessment", icon: <Cloud className="h-4 w-4" />, description: "Cloud-based EHR", isPremium: true },
+      { id: "eclinicalworks", name: "eClinicalWorks", category: "Education & Risk Assessment", icon: <Database className="h-4 w-4" />, description: "Ambulatory EHR", isPremium: true },
+      { id: "nextgen_healthcare", name: "NextGen Healthcare", category: "Education & Risk Assessment", icon: <HeartPulse className="h-4 w-4" />, description: "Healthcare Solutions", isPremium: true },
+      { id: "drchrono", name: "DrChrono", category: "Education & Risk Assessment", icon: <Stethoscope className="h-4 w-4" />, description: "Medical Practice EHR", isPremium: true },
+      { id: "kareo_tebra", name: "Kareo (Tebra)", category: "Education & Risk Assessment", icon: <Pill className="h-4 w-4" />, description: "Practice Management", isPremium: true },
+      { id: "jane_app", name: "Jane App", category: "Education & Risk Assessment", icon: <CalendarDays className="h-4 w-4" />, description: "Health Practice Software", isPremium: true }
     ]
   },
   {
@@ -350,42 +387,62 @@ export function PortSelector({
       {/* Port Categories */}
       <ScrollArea className="h-[400px] pr-4">
         <div className="space-y-4">
-          {PORT_CATEGORIES.map(category => (
-            <div key={category.name} className="space-y-2">
-              <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                {category.name}
-              </h4>
-              <div className="grid grid-cols-2 gap-2">
-                {category.ports.map(port => {
-                  const isSelected = selectedPorts.includes(port.id);
-                  return (
-                    <button
-                      key={port.id}
-                      type="button"
-                      onClick={() => togglePort(port.id)}
-                      className={`flex items-center gap-2 p-2.5 rounded-lg text-left text-sm transition-all ${
-                        isSelected
-                          ? 'bg-primary/20 border border-primary/50 text-foreground'
-                          : 'bg-black/20 border border-border/30 text-muted-foreground hover:border-border/50 hover:bg-black/30'
-                      }`}
-                    >
-                      <div className={`p-1.5 rounded ${isSelected ? 'bg-primary/30' : 'bg-muted/20'}`}>
-                        {port.icon}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <span className={`block font-medium truncate ${isSelected ? 'text-foreground' : ''}`}>
-                          {port.name}
-                        </span>
-                        <span className="block text-xs text-muted-foreground truncate">
-                          {port.description}
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
+          {PORT_CATEGORIES.map(category => {
+            const hasPremiumPorts = category.ports.some(p => p.isPremium);
+            return (
+              <div key={category.name} className="space-y-2">
+                <h4 className={`text-sm font-semibold uppercase tracking-wider flex items-center gap-2 ${
+                  hasPremiumPorts ? 'text-amber-400' : 'text-muted-foreground'
+                }`}>
+                  {category.name}
+                  {hasPremiumPorts && (
+                    <Badge variant="outline" className="text-[10px] border-amber-500/30 text-amber-400 py-0">
+                      PREMIUM
+                    </Badge>
+                  )}
+                </h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {category.ports.map(port => {
+                    const isSelected = selectedPorts.includes(port.id);
+                    const isPremium = port.isPremium;
+                    return (
+                      <button
+                        key={port.id}
+                        type="button"
+                        onClick={() => togglePort(port.id)}
+                        className={`flex items-center gap-2 p-2.5 rounded-lg text-left text-sm transition-all ${
+                          isSelected
+                            ? isPremium
+                              ? 'bg-amber-500/20 border border-amber-500/50 text-foreground'
+                              : 'bg-primary/20 border border-primary/50 text-foreground'
+                            : 'bg-black/20 border border-border/30 text-muted-foreground hover:border-border/50 hover:bg-black/30'
+                        }`}
+                      >
+                        <div className={`p-1.5 rounded ${
+                          isSelected 
+                            ? isPremium ? 'bg-amber-500/30' : 'bg-primary/30' 
+                            : 'bg-muted/20'
+                        }`}>
+                          {port.icon}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <span className={`block font-medium truncate ${isSelected ? 'text-foreground' : ''}`}>
+                            {port.name}
+                            {isPremium && (
+                              <Crown className="inline-block h-3 w-3 ml-1 text-amber-400" />
+                            )}
+                          </span>
+                          <span className="block text-xs text-muted-foreground truncate">
+                            {port.description}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Custom / Other Ports Section */}
           <div className="space-y-2 pt-2 border-t border-border/30">
@@ -415,7 +472,7 @@ export function PortSelector({
                         : 'bg-muted/20 text-muted-foreground hover:bg-muted/30'
                     }`}
                   >
-                    {customPort.enabled ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                    {customPort.enabled ? <CheckIcon className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                   </button>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">

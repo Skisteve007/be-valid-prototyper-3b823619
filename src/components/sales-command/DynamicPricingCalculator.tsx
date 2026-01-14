@@ -33,6 +33,7 @@ type RiskLevel = "low" | "medium" | "high";
 
 interface TierConfig {
   user_range: { min: number; max: number };
+  platform_fee_usd: number;
   per_user_rate_usd: number;
   included_queries_per_user: number;
   included_ghost_pass_per_user: number;
@@ -42,19 +43,21 @@ interface TierConfig {
   port_overage_usd: number;
 }
 
-// Per-user pricing configuration from spec
+// Per-user pricing configuration from spec v1.1 (Platform Fee + Per-User)
 const PRICING_CONFIG = {
-  version: "per-user-1.0",
+  version: "per-user-1.1",
   defaults: {
     working_days_per_month: 22,
     risk_multiplier: { low: 1.0, medium: 1.30, high: 1.70 } as Record<RiskLevel, number>,
     negotiation_range_percent: 0.20,
-    verification_addon_enabled_by_default: false
+    verification_addon_enabled_by_default: false,
+    risk_applies_to: "variable_usage_only" // overages + verification only
   },
   tiers: {
     solo: {
       user_range: { min: 1, max: 5 },
-      per_user_rate_usd: 15,
+      platform_fee_usd: 99,
+      per_user_rate_usd: 35,
       included_queries_per_user: 200,
       included_ghost_pass_per_user: 50,
       ports_cap: 2,
@@ -64,7 +67,8 @@ const PRICING_CONFIG = {
     },
     starter: {
       user_range: { min: 6, max: 10 },
-      per_user_rate_usd: 14,
+      platform_fee_usd: 499,
+      per_user_rate_usd: 95,
       included_queries_per_user: 500,
       included_ghost_pass_per_user: 100,
       ports_cap: 3,
@@ -74,7 +78,8 @@ const PRICING_CONFIG = {
     },
     professional: {
       user_range: { min: 11, max: 25 },
-      per_user_rate_usd: 12,
+      platform_fee_usd: 999,
+      per_user_rate_usd: 85,
       included_queries_per_user: 1000,
       included_ghost_pass_per_user: 200,
       ports_cap: 5,
@@ -84,7 +89,8 @@ const PRICING_CONFIG = {
     },
     business: {
       user_range: { min: 26, max: 100 },
-      per_user_rate_usd: 10,
+      platform_fee_usd: 2499,
+      per_user_rate_usd: 70,
       included_queries_per_user: 1000,
       included_ghost_pass_per_user: 300,
       ports_cap: 8,
@@ -94,7 +100,8 @@ const PRICING_CONFIG = {
     },
     enterprise: {
       user_range: { min: 101, max: 500 },
-      per_user_rate_usd: 8,
+      platform_fee_usd: 6999,
+      per_user_rate_usd: 55,
       included_queries_per_user: 1000,
       included_ghost_pass_per_user: 500,
       ports_cap: 12,
@@ -104,7 +111,8 @@ const PRICING_CONFIG = {
     },
     sector_sovereign: {
       user_range: { min: 501, max: -1 },
-      per_user_rate_usd: 6.5,
+      platform_fee_usd: 19999,
+      per_user_rate_usd: 45,
       included_queries_per_user: -1,
       included_ghost_pass_per_user: -1,
       ports_cap: -1,
@@ -133,13 +141,13 @@ const PRICING_CONFIG = {
 
 const TIER_ORDER: TierKey[] = ["solo", "starter", "professional", "business", "enterprise", "sector_sovereign"];
 
-const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode; userRange: string; priceRange: string }> = {
-  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, userRange: "1–5 users", priceRange: "$79–$149/mo OR $15/user" },
-  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, userRange: "6–10 users", priceRange: "$149–$399/mo OR $14/user" },
-  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, userRange: "11–25 users", priceRange: "$399–$999/mo OR $12/user" },
-  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, userRange: "26–100 users", priceRange: "$999–$2,499/mo OR $10/user" },
-  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, userRange: "101–500 users", priceRange: "$2,500–$10,000/mo OR $8/user" },
-  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, userRange: "501+ users", priceRange: "Custom ($6–$7/user)" }
+const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode; userRange: string; priceDisplay: string }> = {
+  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, userRange: "1–5 users", priceDisplay: "$99 + $35/user/mo" },
+  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, userRange: "6–10 users", priceDisplay: "$499 + $95/user/mo" },
+  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, userRange: "11–25 users", priceDisplay: "$999 + $85/user/mo" },
+  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, userRange: "26–100 users", priceDisplay: "$2,499 + $70/user/mo" },
+  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, userRange: "101–500 users", priceDisplay: "$6,999 + $55/user/mo" },
+  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, userRange: "501+ users", priceDisplay: "$19,999+ + $45/user/mo" }
 };
 
 export function DynamicPricingCalculator() {
@@ -205,8 +213,14 @@ export function DynamicPricingCalculator() {
     const selectedTier = manualTier || recommendedTier;
     const tierConfig = tiers[selectedTier];
     
+    // Platform fee (fixed per tier)
+    const platformFee = tierConfig.platform_fee_usd;
+    
     // Per-user subtotal
     const perUserSubtotal = usersGoverned * tierConfig.per_user_rate_usd;
+    
+    // Base subtotal = Platform fee + Per-user subtotal
+    const baseSubtotal = platformFee + perUserSubtotal;
     
     // Included org totals (scale per user)
     const includedQueriesTotal = tierConfig.included_queries_per_user === -1 
@@ -243,9 +257,12 @@ export function DynamicPricingCalculator() {
     const deepChecksCost = verificationEnabled ? checksDeep * verification_rates_usd.deep : 0;
     const totalVerificationCost = basicChecksCost + standardChecksCost + deepChecksCost;
     
-    // Subtotal and total
-    const subtotal = perUserSubtotal + queryOverage + ghostPassOverage + portOverage + totalVerificationCost;
-    const totalMonthly = subtotal * riskMultiplier;
+    // Variable usage = overages + verification (risk applies here only)
+    const variableUsage = queryOverage + ghostPassOverage + totalVerificationCost;
+    const riskAdjustedVariableUsage = variableUsage * riskMultiplier;
+    
+    // Total = Base (fixed) + Risk-adjusted variable + Port overage (not risk-adjusted)
+    const totalMonthly = baseSubtotal + riskAdjustedVariableUsage + portOverage;
     
     // Negotiation range
     const rangeLow = Math.round(totalMonthly * (1 - defaults.negotiation_range_percent));
@@ -256,9 +273,9 @@ export function DynamicPricingCalculator() {
       ? 0 
       : Math.round((msq / includedQueriesTotal) * 100);
     
-    // Suggest upgrade if overage > 40% of per-user subtotal
+    // Suggest upgrade if variable overages > 40% of base subtotal
     const totalOverage = queryOverage + ghostPassOverage + portOverage;
-    const suggestUpgrade = totalOverage > perUserSubtotal * 0.4 && selectedTier !== "sector_sovereign";
+    const suggestUpgrade = totalOverage > baseSubtotal * 0.4 && selectedTier !== "sector_sovereign";
     
     // Competitor parity (Agentforce) - $290/user/mo license baseline
     const agentforceLicenseBaseline = usersGoverned * 290; // Enterprise + Agentforce add-on
@@ -274,7 +291,9 @@ export function DynamicPricingCalculator() {
       recommendedTier,
       selectedTier,
       tierConfig,
+      platformFee,
       perUserSubtotal,
+      baseSubtotal,
       includedQueriesTotal,
       includedGhostPassTotal,
       queryOverageCount,
@@ -288,7 +307,8 @@ export function DynamicPricingCalculator() {
       standardChecksCost,
       deepChecksCost,
       totalVerificationCost,
-      subtotal,
+      variableUsage,
+      riskAdjustedVariableUsage,
       totalMonthly,
       rangeLow,
       rangeHigh,
@@ -330,7 +350,9 @@ export function DynamicPricingCalculator() {
     includedGhostPassScans: calculations.includedGhostPassTotal,
     ghostPassRate: calculations.tierConfig.ghost_pass_rate_usd,
     includedPorts: calculations.tierConfig.ports_cap,
-    anchor: calculations.perUserSubtotal,
+    platformFee: calculations.platformFee,
+    perUserRate: calculations.tierConfig.per_user_rate_usd,
+    anchor: calculations.baseSubtotal,
     queryOverage: calculations.queryOverage,
     portOverage: calculations.portOverage,
     totalMonthly: calculations.totalMonthly,
@@ -350,12 +372,17 @@ export function DynamicPricingCalculator() {
     includedPorts: calculations.tierConfig.ports_cap,
     portOverageRate: calculations.tierConfig.port_overage_usd,
     verificationEnabled,
-    anchor: calculations.perUserSubtotal,
+    platformFee: calculations.platformFee,
+    perUserRate: calculations.tierConfig.per_user_rate_usd,
+    usersGoverned,
+    anchor: calculations.baseSubtotal,
     queryOverage: calculations.queryOverage,
     ghostPassOverage: calculations.ghostPassOverage,
     verificationCost: calculations.totalVerificationCost,
     portOverage: calculations.portOverage,
     riskMultiplier: calculations.riskMultiplier,
+    variableUsage: calculations.variableUsage,
+    riskAdjustedVariableUsage: calculations.riskAdjustedVariableUsage,
     totalMonthly: calculations.totalMonthly
   };
 
@@ -424,8 +451,8 @@ export function DynamicPricingCalculator() {
                       </div>
                       
                       <div className="mb-3">
-                        <span className="text-primary font-mono text-base font-semibold">
-                          ${config.per_user_rate_usd}/user/mo
+                        <span className="text-primary font-mono text-sm font-semibold block">
+                          ${config.platform_fee_usd.toLocaleString()} + ${config.per_user_rate_usd}/user/mo
                         </span>
                       </div>
                       
@@ -619,7 +646,7 @@ export function DynamicPricingCalculator() {
               <div className="p-5 rounded-lg bg-green-500/10 border border-green-500/30 space-y-3">
                 <p className="text-base font-semibold text-green-400 uppercase tracking-wide">Giant Ventures LLC</p>
                 <div className="flex justify-between items-center text-lg">
-                  <span className="text-muted-foreground">{usersGoverned} users × ${calculations.tierConfig.per_user_rate_usd}/user:</span>
+                  <span className="text-muted-foreground">${calculations.platformFee.toLocaleString()} + {usersGoverned} × ${calculations.tierConfig.per_user_rate_usd}/user:</span>
                   <span className="text-green-400 font-bold text-2xl">{formatCurrency(calculations.totalMonthly)}/mo</span>
                 </div>
                 {calculations.savingsPercent > 0 && (
@@ -989,7 +1016,7 @@ export function DynamicPricingCalculator() {
                   <div className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
                     <span>
-                      <strong className="text-foreground">{usersGoverned.toLocaleString()} governed users</strong> on {calculations.selectedTier.charAt(0).toUpperCase() + calculations.selectedTier.slice(1).replace('_', ' ')} tier @ ${calculations.tierConfig.per_user_rate_usd}/user
+                      <strong className="text-foreground">{usersGoverned.toLocaleString()} governed users</strong> on {calculations.selectedTier.charAt(0).toUpperCase() + calculations.selectedTier.slice(1).replace('_', ' ')} tier (${calculations.platformFee.toLocaleString()} + ${calculations.tierConfig.per_user_rate_usd}/user)
                     </span>
                   </div>
                   <div className="flex items-start gap-3">
@@ -1043,49 +1070,70 @@ export function DynamicPricingCalculator() {
               {/* Breakdown */}
               <div className="p-5 rounded-lg bg-black/20 space-y-3 text-base">
                 <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wide mb-3">Cost Breakdown</h4>
+                
+                {/* Base pricing - Platform + Per-user */}
+                <div className="flex justify-between font-medium text-primary">
+                  <span>Platform fee:</span>
+                  <span>${calculations.platformFee.toLocaleString()}</span>
+                </div>
                 <div className="flex justify-between font-medium">
                   <span>{usersGoverned} × ${calculations.tierConfig.per_user_rate_usd}/user:</span>
                   <span>{formatCurrency(calculations.perUserSubtotal)}</span>
                 </div>
-                {calculations.queryOverage > 0 && (
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Query overage ({calculations.queryOverageCount.toLocaleString()} extra):</span>
-                    <span>+{formatCurrency(calculations.queryOverage)}</span>
+                <div className="flex justify-between border-t border-border/20 pt-2 font-semibold">
+                  <span>Base subtotal:</span>
+                  <span>{formatCurrency(calculations.baseSubtotal)}</span>
+                </div>
+                
+                {/* Variable usage (overages) */}
+                {(calculations.queryOverage > 0 || calculations.ghostPassOverage > 0 || calculations.totalVerificationCost > 0) && (
+                  <div className="pt-2 space-y-2">
+                    <p className="text-sm text-muted-foreground uppercase tracking-wide">Variable Usage (Risk Applies)</p>
+                    {calculations.queryOverage > 0 && (
+                      <div className="flex justify-between text-muted-foreground">
+                        <span>Query overage ({calculations.queryOverageCount.toLocaleString()} extra):</span>
+                        <span>+{formatCurrency(calculations.queryOverage)}</span>
+                      </div>
+                    )}
+                    {calculations.ghostPassOverage > 0 && (
+                      <div className="flex justify-between text-muted-foreground">
+                        <span>Ghost Pass overage ({calculations.ghostPassOverageCount.toLocaleString()} extra):</span>
+                        <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
+                      </div>
+                    )}
+                    {verificationEnabled && calculations.totalVerificationCost > 0 && (
+                      <div className="flex justify-between text-muted-foreground">
+                        <span>Verification checks:</span>
+                        <span className="text-cyan-400">+{formatCurrency(calculations.totalVerificationCost)}</span>
+                      </div>
+                    )}
+                    {riskLevel !== 'low' && (
+                      <div className="flex justify-between text-amber-400">
+                        <span>Risk ×{calculations.riskMultiplier.toFixed(2)} on variable:</span>
+                        <span>= {formatCurrency(calculations.riskAdjustedVariableUsage)}</span>
+                      </div>
+                    )}
                   </div>
                 )}
-                {calculations.ghostPassOverage > 0 && (
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Ghost Pass overage ({calculations.ghostPassOverageCount.toLocaleString()} extra):</span>
-                    <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
-                  </div>
-                )}
-                {verificationEnabled && calculations.totalVerificationCost > 0 && (
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Verification checks:</span>
-                    <span className="text-cyan-400">+{formatCurrency(calculations.totalVerificationCost)}</span>
-                  </div>
-                )}
+                
+                {/* Port overage (not risk-adjusted) */}
                 {calculations.portOverage > 0 && (
                   <div className="flex justify-between text-muted-foreground">
                     <span>Ports overage ({calculations.portOverageCount} extra):</span>
                     <span>+{formatCurrency(calculations.portOverage)}</span>
                   </div>
                 )}
-                <div className="flex justify-between border-t border-border/20 pt-3">
-                  <span>Subtotal:</span>
-                  <span>{formatCurrency(calculations.subtotal)}</span>
+                
+                {/* Total */}
+                <div className="flex justify-between border-t border-primary/30 pt-3 mt-3 text-lg font-bold text-primary">
+                  <span>Total Monthly:</span>
+                  <span>{formatCurrency(calculations.totalMonthly)}</span>
                 </div>
-                {riskLevel !== 'low' && (
-                  <div className="flex justify-between text-amber-400">
-                    <span>Risk multiplier ×{calculations.riskMultiplier.toFixed(2)}:</span>
-                    <span>{formatCurrency(calculations.totalMonthly)}</span>
-                  </div>
-                )}
               </div>
 
               {/* Per-user math explainer */}
               <p className="text-sm text-muted-foreground text-center">
-                <strong className="text-foreground">Per-user math:</strong> {usersGoverned} users × ${calculations.tierConfig.per_user_rate_usd}/user = ${calculations.perUserSubtotal}/mo base
+                <strong className="text-foreground">Per-user math:</strong> {usersGoverned} users × ${calculations.tierConfig.per_user_rate_usd}/user + ${calculations.platformFee.toLocaleString()} platform = ${calculations.baseSubtotal.toLocaleString()}/mo
               </p>
             </CardContent>
           </Card>

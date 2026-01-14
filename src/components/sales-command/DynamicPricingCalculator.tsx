@@ -25,7 +25,7 @@ import {
 import { PricingProposalDialog } from "./pricing/PricingProposalDialog";
 import { OrderFormDialog } from "./pricing/OrderFormDialog";
 import { AIGovernanceBadge } from "./pricing/AIGovernanceBadge";
-import { PortSelector, ALL_PORTS, CustomPort } from "./pricing/PortSelector";
+import { PortSelector, ALL_PORTS, CustomPort, PREMIUM_CONNECTOR_IDS, PLATFORM_EXPANSION_FEE_USD } from "./pricing/PortSelector";
 
 // Types
 type TierKey = "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
@@ -251,6 +251,15 @@ export function DynamicPricingCalculator() {
       : Math.max(portsConnected - tierConfig.ports_cap, 0);
     const portOverage = portOverageCount * tierConfig.port_overage_usd;
     
+    // Platform Expansion Fee for premium connectors exceeding tier limit
+    // Count premium connectors that are selected
+    const premiumPortsSelected = selectedPorts.filter(portId => PREMIUM_CONNECTOR_IDS.includes(portId)).length;
+    // Premium ports beyond tier cap are charged at $49/month each (Platform Expansion Fee)
+    const premiumPortsOverTierLimit = tierConfig.ports_cap === -1 
+      ? 0 
+      : Math.min(premiumPortsSelected, portOverageCount);
+    const platformExpansionFee = premiumPortsOverTierLimit * PLATFORM_EXPANSION_FEE_USD;
+    
     // Verification add-on (flat per-check pricing, only if enabled)
     const basicChecksCost = verificationEnabled ? checksBasic * verification_rates_usd.basic : 0;
     const standardChecksCost = verificationEnabled ? checksStandard * verification_rates_usd.standard : 0;
@@ -261,8 +270,8 @@ export function DynamicPricingCalculator() {
     const variableUsage = queryOverage + ghostPassOverage + totalVerificationCost;
     const riskAdjustedVariableUsage = variableUsage * riskMultiplier;
     
-    // Total = Base (fixed) + Risk-adjusted variable + Port overage (not risk-adjusted)
-    const totalMonthly = baseSubtotal + riskAdjustedVariableUsage + portOverage;
+    // Total = Base (fixed) + Risk-adjusted variable + Port overage (not risk-adjusted) + Platform Expansion Fee
+    const totalMonthly = baseSubtotal + riskAdjustedVariableUsage + portOverage + platformExpansionFee;
     
     // Negotiation range
     const rangeLow = Math.round(totalMonthly * (1 - defaults.negotiation_range_percent));
@@ -274,7 +283,7 @@ export function DynamicPricingCalculator() {
       : Math.round((msq / includedQueriesTotal) * 100);
     
     // Suggest upgrade if variable overages > 40% of base subtotal
-    const totalOverage = queryOverage + ghostPassOverage + portOverage;
+    const totalOverage = queryOverage + ghostPassOverage + portOverage + platformExpansionFee;
     const suggestUpgrade = totalOverage > baseSubtotal * 0.4 && selectedTier !== "sector_sovereign";
     
     // Competitor parity (Agentforce) - $290/user/mo license baseline
@@ -303,6 +312,9 @@ export function DynamicPricingCalculator() {
       ghostPassUtilization,
       portOverageCount,
       portOverage,
+      premiumPortsSelected,
+      premiumPortsOverTierLimit,
+      platformExpansionFee,
       basicChecksCost,
       standardChecksCost,
       deepChecksCost,
@@ -318,7 +330,7 @@ export function DynamicPricingCalculator() {
       savingsVsAgentforce,
       savingsPercent
     };
-  }, [usersGoverned, queriesPerDay, riskLevel, portsConnected, manualTier, ghostPassScans, verificationEnabled, checksBasic, checksStandard, checksDeep]);
+  }, [usersGoverned, queriesPerDay, riskLevel, portsConnected, selectedPorts, manualTier, ghostPassScans, verificationEnabled, checksBasic, checksStandard, checksDeep]);
 
   const formatCurrency = (amount: number) => {
     if (amount >= 1000000) return `$${(amount / 1000000).toFixed(1)}M`;
@@ -620,6 +632,38 @@ export function DynamicPricingCalculator() {
                   </div>
                 </div>
               </div>
+
+              {/* Premium Enterprise Connectors - Platform Expansion Fee */}
+              {calculations.premiumPortsSelected > 0 && (
+                <div className="p-4 rounded-lg border border-amber-500/30 bg-amber-500/5">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-lg font-medium flex items-center gap-2">
+                      <Crown className="h-5 w-5 text-amber-400" />
+                      Premium Enterprise Connectors
+                    </span>
+                    <Badge variant="outline" className="font-mono text-sm border-amber-500/30 text-amber-400">
+                      $49/port/mo expansion fee
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 text-base">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Premium Selected:</span>
+                      <span className="text-amber-400">{calculations.premiumPortsSelected}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Over Tier Limit:</span>
+                      <span className="text-amber-400">{calculations.premiumPortsOverTierLimit}</span>
+                    </div>
+                    <div className="col-span-2 flex justify-between pt-2 border-t border-amber-500/20">
+                      <span className="text-muted-foreground font-medium">Platform Expansion Fee:</span>
+                      <span className="text-amber-400 font-bold">+{formatCurrency(calculations.platformExpansionFee)}</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Legal & Healthcare connectors require secure authentication for compliance (HIPAA, SOC2, Legal Professional Privilege).
+                  </p>
+                </div>
+              )}
             </CardContent>
           </Card>
 

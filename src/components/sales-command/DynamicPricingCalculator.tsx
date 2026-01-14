@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { PricingProposalDialog } from "./pricing/PricingProposalDialog";
 import { OrderFormDialog } from "./pricing/OrderFormDialog";
+import { ServiceAgreementDialog } from "./pricing/ServiceAgreementDialog";
 import { AIGovernanceBadge } from "./pricing/AIGovernanceBadge";
 import { PortSelector, ALL_PORTS, CustomPort, PREMIUM_CONNECTOR_IDS, PLATFORM_EXPANSION_FEE_USD } from "./pricing/PortSelector";
 
@@ -179,6 +180,7 @@ export function DynamicPricingCalculator() {
   // Dialogs
   const [proposalOpen, setProposalOpen] = useState(false);
   const [orderFormOpen, setOrderFormOpen] = useState(false);
+  const [agreementOpen, setAgreementOpen] = useState(false);
 
   // Derived calculations
   const calculations = useMemo(() => {
@@ -1209,6 +1211,13 @@ export function DynamicPricingCalculator() {
           <FileText className="h-6 w-6 mr-2" />
           Create Order Form
         </Button>
+        <Button 
+          className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-black font-bold text-lg py-7"
+          onClick={() => setAgreementOpen(true)}
+        >
+          <Shield className="h-6 w-6 mr-2" />
+          Sign Agreement & Pay
+        </Button>
       </div>
 
       {/* Dialogs */}
@@ -1220,6 +1229,11 @@ export function DynamicPricingCalculator() {
       <OrderFormDialog 
         open={orderFormOpen} 
         onOpenChange={setOrderFormOpen}
+        data={orderFormData}
+      />
+      <ServiceAgreementDialog
+        open={agreementOpen}
+        onOpenChange={setAgreementOpen}
         data={orderFormData}
       />
     </div>

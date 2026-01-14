@@ -196,10 +196,10 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
             <div className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-white/10 rounded-xl p-4 mb-4">
               <div className="flex items-center gap-2 mb-2">
                 <Zap className="w-5 h-5 text-yellow-400" />
-                <h4 className="font-bold text-white">The Connection Game</h4>
+                <h4 className="font-bold text-white">Spot The Glow</h4>
               </div>
               <p className="text-sm text-white/70 leading-relaxed">
-                Your signal reflects who you are tonight. Find 3 people whose signals match yours and start a real conversation. When signals align, connections spark!
+                When you set your signal, your whole phone lights up that color for others to see. Spot someone glowing the same color as you? That means their answers match yours. Walk up and say what's up—you might meet a future business partner, your next best friend, or someone special.
               </p>
             </div>
 
@@ -207,20 +207,20 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
             <div className="space-y-3 mb-4">
               <h4 className="text-sm font-bold text-white/80 flex items-center gap-2">
                 <MessageCircle className="w-4 h-4 text-cyan-400" />
-                How It Works
+                How To Play
               </h4>
               <div className="space-y-2">
                 <div className="flex items-start gap-3 bg-white/5 rounded-lg p-3">
                   <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold flex items-center justify-center shrink-0">1</span>
-                  <p className="text-sm text-white/70">Scan someone's QR code to see their signal vibe</p>
+                  <p className="text-sm text-white/70">Look around—phones glowing your color mean matching signals</p>
                 </div>
                 <div className="flex items-start gap-3 bg-white/5 rounded-lg p-3">
                   <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold flex items-center justify-center shrink-0">2</span>
-                  <p className="text-sm text-white/70">If your signals match, you've found a vibe match!</p>
+                  <p className="text-sm text-white/70">Walk up and introduce yourself—you already vibe the same way</p>
                 </div>
                 <div className="flex items-start gap-3 bg-white/5 rounded-lg p-3">
                   <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold flex items-center justify-center shrink-0">3</span>
-                  <p className="text-sm text-white/70">Start a conversation—you already have something in common</p>
+                  <p className="text-sm text-white/70">Scan their QR to confirm the match and log your connection</p>
                 </div>
               </div>
             </div>
@@ -228,12 +228,12 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
             {/* Tonight's Target */}
             <div className={`p-4 rounded-xl bg-gradient-to-r ${SIGNAL_COLORS[target]} bg-opacity-20 border border-white/10 mb-4`}>
               <div className="text-center">
-                <Heart className="w-6 h-6 mx-auto mb-2 text-white animate-pulse" />
+                <Target className="w-6 h-6 mx-auto mb-2 text-white animate-pulse" />
                 <p className="text-lg font-bold text-white mb-1">
-                  Tonight: Find 3 "{SIGNAL_LABELS[target]}" Signals
+                  Tonight's Mission: 3 "{SIGNAL_LABELS[target]}" Vibes
                 </p>
                 <p className="text-xs text-white/70">
-                  Connect with others broadcasting the {SIGNAL_LABELS[target]} vibe
+                  Spot the glow, start the convo, see who you meet
                 </p>
               </div>
             </div>

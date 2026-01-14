@@ -281,12 +281,12 @@ export function DynamicPricingCalculator() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="text-center space-y-2">
-        <h2 className="text-2xl font-bold text-foreground flex items-center justify-center gap-2">
-          <Calculator className="h-6 w-6 text-primary" />
+      <div className="text-center space-y-3">
+        <h2 className="text-3xl font-bold text-foreground flex items-center justify-center gap-3">
+          <Calculator className="h-8 w-8 text-primary" />
           7-Seat Senate Pricing
         </h2>
-        <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Plain-English pricing, monthly. No "credits." Every plan includes the full 7-Seat Senate (model-agnostic, interchangeable).
         </p>
       </div>
@@ -296,17 +296,17 @@ export function DynamicPricingCalculator() {
         <div className="space-y-4">
           {/* Users & Queries */}
           <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl flex items-center gap-2">
+                <Users className="h-6 w-6 text-primary" />
                 Client Inputs
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-8">
               {/* Users Governed - Exponential slider with manual input */}
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <Label className="text-sm font-medium">Users Governed</Label>
+                  <Label className="text-base font-medium">Users Governed</Label>
                   <Input
                     type="number"
                     value={usersGoverned}
@@ -314,7 +314,7 @@ export function DynamicPricingCalculator() {
                       const val = parseInt(e.target.value) || 1;
                       setUsersGoverned(Math.max(1, Math.min(100000, val)));
                     }}
-                    className="w-24 h-7 text-right font-mono text-sm"
+                    className="w-28 h-9 text-right font-mono text-base"
                     min={1}
                     max={100000}
                   />
@@ -331,7 +331,7 @@ export function DynamicPricingCalculator() {
                   step={0.01}
                   className="cursor-pointer"
                 />
-                <div className="flex justify-between text-xs text-muted-foreground">
+                <div className="flex justify-between text-sm text-muted-foreground">
                   <span>1</span>
                   <span>10</span>
                   <span>100</span>
@@ -342,10 +342,10 @@ export function DynamicPricingCalculator() {
               </div>
 
               {/* Queries per Day */}
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <Label className="text-sm font-medium">Senate Queries per User per Day</Label>
-                  <Badge variant="outline" className="font-mono">{queriesPerDay}</Badge>
+                  <Label className="text-base font-medium">Senate Queries per User per Day</Label>
+                  <Badge variant="outline" className="font-mono text-base px-3 py-1">{queriesPerDay}</Badge>
                 </div>
                 <Slider
                   value={[queriesPerDay]}
@@ -355,24 +355,24 @@ export function DynamicPricingCalculator() {
                   step={1}
                   className="cursor-pointer"
                 />
-                <div className="flex justify-between text-xs text-muted-foreground">
+                <div className="flex justify-between text-sm text-muted-foreground">
                   <span>1</span>
                   <span>200+</span>
                 </div>
               </div>
 
               {/* Monthly Senate Queries (Auto) */}
-              <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+              <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm flex items-center gap-2">
-                    <MessageSquare className="h-4 w-4 text-primary" />
+                  <span className="text-base flex items-center gap-2">
+                    <MessageSquare className="h-5 w-5 text-primary" />
                     Monthly Senate Queries (auto)
                   </span>
-                  <Badge className="bg-primary/20 text-primary font-mono">
+                  <Badge className="bg-primary/20 text-primary font-mono text-base px-3 py-1">
                     {calculations.msq.toLocaleString()}
                   </Badge>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-sm text-muted-foreground mt-2">
                   {usersGoverned.toLocaleString()} × {queriesPerDay} × 22 work days
                 </p>
               </div>
@@ -381,35 +381,35 @@ export function DynamicPricingCalculator() {
 
           {/* Verification Checks - Optional Add-on */}
           <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-3">
+            <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Fingerprint className="h-5 w-5 text-cyan-400" />
+                <CardTitle className="text-xl flex items-center gap-2">
+                  <Fingerprint className="h-6 w-6 text-cyan-400" />
                   Verification Checks
-                  <Badge variant="outline" className="text-xs">Optional Add-on</Badge>
+                  <Badge variant="outline" className="text-sm">Optional Add-on</Badge>
                 </CardTitle>
                 <Switch
                   checked={verificationEnabled}
                   onCheckedChange={setVerificationEnabled}
                 />
               </div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Enable to price verification checks per check
               </p>
             </CardHeader>
-            <CardContent className={`space-y-5 transition-opacity ${!verificationEnabled ? 'opacity-50 pointer-events-none' : ''}`}>
+            <CardContent className={`space-y-6 transition-opacity ${!verificationEnabled ? 'opacity-50 pointer-events-none' : ''}`}>
               {/* Basic Checks */}
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <Label className="text-sm">
+                  <Label className="text-base">
                     <span className="font-medium">Basic</span>
-                    <span className="text-muted-foreground ml-2 text-xs">(Age/Identity)</span>
+                    <span className="text-muted-foreground ml-2 text-sm">(Age/Identity)</span>
                   </Label>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="font-mono bg-green-500/10 text-green-400 border-green-500/30">
+                  <div className="flex items-center gap-3">
+                    <Badge variant="outline" className="font-mono text-base bg-green-500/10 text-green-400 border-green-500/30 px-3 py-1">
                       {checksBasic.toLocaleString()}
                     </Badge>
-                    <span className="text-xs text-muted-foreground">@ $1.80 each</span>
+                    <span className="text-sm text-muted-foreground">@ $1.80 each</span>
                   </div>
                 </div>
                 <Slider
@@ -423,17 +423,17 @@ export function DynamicPricingCalculator() {
               </div>
 
               {/* Standard Checks */}
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <Label className="text-sm">
+                  <Label className="text-base">
                     <span className="font-medium">Standard</span>
-                    <span className="text-muted-foreground ml-2 text-xs">(ID + Background)</span>
+                    <span className="text-muted-foreground ml-2 text-sm">(ID + Background)</span>
                   </Label>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="font-mono bg-amber-500/10 text-amber-400 border-amber-500/30">
+                  <div className="flex items-center gap-3">
+                    <Badge variant="outline" className="font-mono text-base bg-amber-500/10 text-amber-400 border-amber-500/30 px-3 py-1">
                       {checksStandard.toLocaleString()}
                     </Badge>
-                    <span className="text-xs text-muted-foreground">@ $2.60 each</span>
+                    <span className="text-sm text-muted-foreground">@ $2.60 each</span>
                   </div>
                 </div>
                 <Slider
@@ -447,17 +447,17 @@ export function DynamicPricingCalculator() {
               </div>
 
               {/* Deep Checks */}
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <Label className="text-sm">
+                  <Label className="text-base">
                     <span className="font-medium">Deep</span>
-                    <span className="text-muted-foreground ml-2 text-xs">(Most Wanted / Predator / Terrorist)</span>
+                    <span className="text-muted-foreground ml-2 text-sm">(Most Wanted / Predator / Terrorist)</span>
                   </Label>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="font-mono bg-red-500/10 text-red-400 border-red-500/30">
+                  <div className="flex items-center gap-3">
+                    <Badge variant="outline" className="font-mono text-base bg-red-500/10 text-red-400 border-red-500/30 px-3 py-1">
                       {checksDeep.toLocaleString()}
                     </Badge>
-                    <span className="text-xs text-muted-foreground">@ $3.60 each</span>
+                    <span className="text-sm text-muted-foreground">@ $3.60 each</span>
                   </div>
                 </div>
                 <Slider
@@ -472,10 +472,10 @@ export function DynamicPricingCalculator() {
 
               {/* Total Verification Cost */}
               {verificationEnabled && (
-                <div className="p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
+                <div className="p-4 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm">Total Verification Add-on</span>
-                    <Badge className="bg-cyan-500/20 text-cyan-400 font-mono">
+                    <span className="text-base">Total Verification Add-on</span>
+                    <Badge className="bg-cyan-500/20 text-cyan-400 font-mono text-base px-3 py-1">
                       {formatCurrency(calculations.totalVerificationCost)}
                     </Badge>
                   </div>
@@ -486,18 +486,18 @@ export function DynamicPricingCalculator() {
 
           {/* Ports & Liability */}
           <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Plug className="h-5 w-5 text-violet-400" />
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl flex items-center gap-2">
+                <Plug className="h-6 w-6 text-violet-400" />
                 Integrations & Risk
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-5">
+            <CardContent className="space-y-6">
               {/* Ports Connected */}
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <Label className="text-sm font-medium">Ports Connected</Label>
-                  <Badge variant="outline" className="font-mono">{portsConnected}</Badge>
+                  <Label className="text-base font-medium">Ports Connected</Label>
+                  <Badge variant="outline" className="font-mono text-base px-3 py-1">{portsConnected}</Badge>
                 </div>
                 <Slider
                   value={[portsConnected]}
@@ -507,37 +507,37 @@ export function DynamicPricingCalculator() {
                   step={1}
                   className="cursor-pointer"
                 />
-                <p className="text-xs text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   Salesforce, CRM, Ticketing, Legal, Access Control, etc.
                 </p>
               </div>
 
               {/* Risk Level Radio */}
-              <div className="p-3 rounded-lg border border-border/30 bg-black/20">
-                <div className="space-y-3">
-                  <Label className="text-sm font-medium flex items-center gap-2">
-                    <AlertTriangle className="h-4 w-4 text-amber-400" />
+              <div className="p-4 rounded-lg border border-border/30 bg-black/20">
+                <div className="space-y-4">
+                  <Label className="text-base font-medium flex items-center gap-2">
+                    <AlertTriangle className="h-5 w-5 text-amber-400" />
                     Industry Risk Level
                   </Label>
                   <RadioGroup
                     value={riskLevel}
                     onValueChange={(v) => setRiskLevel(v as RiskLevel)}
-                    className="flex gap-4"
+                    className="flex gap-6"
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="low" id="risk-low" />
-                      <Label htmlFor="risk-low" className="text-sm cursor-pointer">Low (×1.00)</Label>
+                      <Label htmlFor="risk-low" className="text-base cursor-pointer">Low (×1.00)</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="medium" id="risk-medium" />
-                      <Label htmlFor="risk-medium" className="text-sm cursor-pointer">Medium (×1.30)</Label>
+                      <Label htmlFor="risk-medium" className="text-base cursor-pointer">Medium (×1.30)</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="high" id="risk-high" />
-                      <Label htmlFor="risk-high" className="text-sm cursor-pointer">High (×1.70)</Label>
+                      <Label htmlFor="risk-high" className="text-base cursor-pointer">High (×1.70)</Label>
                     </div>
                   </RadioGroup>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm text-muted-foreground">
                     High: Medical, Legal, Financial, Government
                   </p>
                 </div>
@@ -550,14 +550,14 @@ export function DynamicPricingCalculator() {
         <div className="space-y-4">
           {/* Tier Selection */}
           <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Shield className="h-5 w-5 text-primary" />
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl flex items-center gap-2">
+                <Shield className="h-6 w-6 text-primary" />
                 Tier Selection
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {TIER_ORDER.map((tier) => {
                   const config = PRICING_CONFIG.tiers[tier];
                   const isSelected = calculations.selectedTier === tier;
@@ -567,24 +567,24 @@ export function DynamicPricingCalculator() {
                     <div
                       key={tier}
                       onClick={() => setManualTier(tier === manualTier ? null : tier)}
-                      className={`p-2 rounded-lg border cursor-pointer transition-all ${
+                      className={`p-3 rounded-lg border cursor-pointer transition-all ${
                         isSelected
                           ? 'border-primary bg-primary/10'
                           : 'border-border/30 bg-black/20 hover:border-border/50'
                       }`}
                     >
-                      <div className="flex items-center gap-1.5 mb-1">
+                      <div className="flex items-center gap-2 mb-1">
                         {TIER_LABELS[tier].icon}
-                        <span className="font-medium text-xs">{TIER_LABELS[tier].name}</span>
+                        <span className="font-medium text-sm">{TIER_LABELS[tier].name}</span>
                       </div>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         ${config.anchor_min_usd}–${config.anchor_max_usd === 9999999 ? '∞' : config.anchor_max_usd.toLocaleString()}
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         {config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()} Q, {config.included_ports === -1 ? '∞' : config.included_ports} P
                       </p>
                       {isRecommended && (
-                        <Badge className="mt-1 bg-primary/20 text-primary text-[10px] px-1.5 py-0">
+                        <Badge className="mt-1 bg-primary/20 text-primary text-xs px-2 py-0.5">
                           Recommended
                         </Badge>
                       )}
@@ -594,9 +594,9 @@ export function DynamicPricingCalculator() {
               </div>
               
               {calculations.suggestUpgrade && (
-                <div className="mt-3 p-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                  <p className="text-xs text-amber-400 flex items-center gap-1">
-                    <TrendingUp className="h-3 w-3" />
+                <div className="mt-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                  <p className="text-sm text-amber-400 flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4" />
                     Overage exceeds 40% of anchor — consider upgrading tier
                   </p>
                 </div>
@@ -606,17 +606,17 @@ export function DynamicPricingCalculator() {
 
           {/* Allocation & Overages */}
           <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Senate Queries Allocation</CardTitle>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl">Senate Queries Allocation</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-5">
               {/* Queries */}
-              <div className="p-3 rounded-lg border border-border/20 bg-black/20">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium">Senate Queries</span>
-                  <Badge variant="outline" className="font-mono text-xs">$0.080/query overage</Badge>
+              <div className="p-4 rounded-lg border border-border/20 bg-black/20">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-base font-medium">Senate Queries</span>
+                  <Badge variant="outline" className="font-mono text-sm">$0.080/query overage</Badge>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="grid grid-cols-2 gap-3 text-base">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Included:</span>
                     <span>{calculations.tierConfig.included_queries === -1 ? '∞' : calculations.tierConfig.included_queries.toLocaleString()}</span>
@@ -640,12 +640,12 @@ export function DynamicPricingCalculator() {
 
               {/* Verification Add-on */}
               {verificationEnabled && (
-                <div className="p-3 rounded-lg border border-cyan-500/20 bg-cyan-500/5">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-cyan-400">Verification Add-on</span>
-                    <Badge variant="outline" className="font-mono text-xs border-cyan-500/30">per check</Badge>
+                <div className="p-4 rounded-lg border border-cyan-500/20 bg-cyan-500/5">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-base font-medium text-cyan-400">Verification Add-on</span>
+                    <Badge variant="outline" className="font-mono text-sm border-cyan-500/30">per check</Badge>
                   </div>
-                  <div className="space-y-1 text-sm">
+                  <div className="space-y-2 text-base">
                     {checksBasic > 0 && (
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Basic: {checksBasic.toLocaleString()} × $1.80</span>
@@ -664,7 +664,7 @@ export function DynamicPricingCalculator() {
                         <span className="text-cyan-400">= {formatCurrency(calculations.deepChecksCost)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between border-t border-cyan-500/20 pt-1 mt-1">
+                    <div className="flex justify-between border-t border-cyan-500/20 pt-2 mt-2">
                       <span className="text-muted-foreground font-medium">Total Verification:</span>
                       <span className="text-cyan-400 font-medium">{formatCurrency(calculations.totalVerificationCost)}</span>
                     </div>
@@ -673,14 +673,14 @@ export function DynamicPricingCalculator() {
               )}
 
               {/* Ports */}
-              <div className="p-3 rounded-lg border border-border/20 bg-black/20">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium">Ports</span>
-                  <Badge variant="outline" className="font-mono text-xs">
+              <div className="p-4 rounded-lg border border-border/20 bg-black/20">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-base font-medium">Ports</span>
+                  <Badge variant="outline" className="font-mono text-sm">
                     ${calculations.tierConfig.port_overage_usd}/extra port
                   </Badge>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="grid grid-cols-2 gap-3 text-base">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Included:</span>
                     <span>{calculations.tierConfig.included_ports === -1 ? '∞' : calculations.tierConfig.included_ports}</span>
@@ -704,22 +704,22 @@ export function DynamicPricingCalculator() {
 
           {/* Monthly Price */}
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Monthly Price (Anchor)</CardTitle>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl">Monthly Price (Anchor)</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-5">
               <div className="text-center">
-                <p className="text-4xl font-bold text-primary">
+                <p className="text-5xl font-bold text-primary">
                   {formatCurrency(calculations.totalMonthly)}
-                  <span className="text-lg font-normal text-muted-foreground">/mo</span>
+                  <span className="text-xl font-normal text-muted-foreground">/mo</span>
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-base text-muted-foreground mt-2">
                   Range: {formatCurrency(calculations.rangeLow)} – {formatCurrency(calculations.rangeHigh)} (±20%)
                 </p>
               </div>
 
               {/* Breakdown */}
-              <div className="p-3 rounded-lg bg-black/20 space-y-2 text-sm">
+              <div className="p-4 rounded-lg bg-black/20 space-y-3 text-base">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Tier anchor ({TIER_LABELS[calculations.selectedTier].name}):</span>
                   <span>{formatCurrency(calculations.tierConfig.anchor_mid_usd)}</span>
@@ -738,7 +738,7 @@ export function DynamicPricingCalculator() {
                   <span className="text-muted-foreground">Ports overage:</span>
                   <span>+{formatCurrency(calculations.portOverage)}</span>
                 </div>
-                <div className="flex justify-between border-t border-border/20 pt-2">
+                <div className="flex justify-between border-t border-border/20 pt-3">
                   <span className="text-muted-foreground">Subtotal:</span>
                   <span>{formatCurrency(calculations.subtotal)}</span>
                 </div>
@@ -748,7 +748,7 @@ export function DynamicPricingCalculator() {
                     ×{calculations.riskMultiplier.toFixed(2)}
                   </span>
                 </div>
-                <div className="flex justify-between border-t border-border/20 pt-2 font-medium">
+                <div className="flex justify-between border-t border-border/20 pt-3 font-medium text-lg">
                   <span>Total Monthly:</span>
                   <span className="text-primary">{formatCurrency(calculations.totalMonthly)}</span>
                 </div>
@@ -758,35 +758,35 @@ export function DynamicPricingCalculator() {
 
           {/* Competitor Parity */}
           <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-green-400" />
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl flex items-center gap-2">
+                <TrendingUp className="h-6 w-6 text-green-400" />
                 Competitor Parity Check
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="p-3 rounded-lg bg-black/20 space-y-2 text-sm">
-                <p className="text-xs text-muted-foreground font-medium mb-2">Salesforce Agentforce baseline</p>
+            <CardContent className="space-y-4">
+              <div className="p-4 rounded-lg bg-black/20 space-y-3 text-base">
+                <p className="text-sm text-muted-foreground font-medium mb-2">Salesforce Agentforce baseline</p>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Actions @ $0.10 each (Flex):</span>
                   <span className="text-red-400">~{formatCurrency(calculations.agentforceBaseline)}/mo</span>
                 </div>
               </div>
               
-              <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/30">
+              <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/30">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium">Grillo AI @ $0.080 overage + anchor:</span>
-                  <span className="text-green-400 font-bold">{formatCurrency(calculations.totalMonthly)}/mo</span>
+                  <span className="text-base font-medium">Grillo AI @ $0.080 overage + anchor:</span>
+                  <span className="text-green-400 font-bold text-lg">{formatCurrency(calculations.totalMonthly)}/mo</span>
                 </div>
                 {calculations.savingsPercent > 0 && (
-                  <p className="text-xs text-green-400 mt-1">
-                    <Check className="h-3 w-3 inline mr-1" />
+                  <p className="text-sm text-green-400 mt-2">
+                    <Check className="h-4 w-4 inline mr-1" />
                     ~{calculations.savingsPercent}% savings (governance + audit included)
                   </p>
                 )}
               </div>
               
-              <p className="text-xs text-muted-foreground italic">
+              <p className="text-sm text-muted-foreground italic">
                 You buy governance architecture, not vendor lock-in. Best model earns a seat.
               </p>
             </CardContent>
@@ -794,21 +794,21 @@ export function DynamicPricingCalculator() {
 
           {/* Architecture Notes */}
           <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Architecture Notes</CardTitle>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl">Architecture Notes</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
+              <ul className="space-y-3 text-base text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
                   <span>Full 7-Seat Senate (model-agnostic seats; best model earns a seat)</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
+                <li className="flex items-start gap-3">
+                  <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
                   <span>Governance + audit — immutable trails, human approvals, drift/hallucination checks</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <Check className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
+                <li className="flex items-start gap-3">
+                  <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
                   <span>SYNTH reduces conversational noise by ~75% and captures key decision points</span>
                 </li>
               </ul>
@@ -816,27 +816,27 @@ export function DynamicPricingCalculator() {
           </Card>
 
           {/* Client-Facing Explainer */}
-          <div className="p-4 rounded-lg bg-gradient-to-r from-primary/5 to-cyan-500/5 border border-primary/20">
-            <p className="text-sm text-muted-foreground leading-relaxed">
+          <div className="p-5 rounded-lg bg-gradient-to-r from-primary/5 to-cyan-500/5 border border-primary/20">
+            <p className="text-base text-muted-foreground leading-relaxed">
               <strong className="text-foreground">Why this makes sense:</strong> You tell us how many people use AI, how often it needs governance, optional verification checks, and connected systems. You see a clear monthly anchor with simple, transparent overages. No "credits." Every plan includes the 7-Seat Senate plus audit trails and Reasonable Care controls.
             </p>
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Button 
-              className="flex-1 bg-primary hover:bg-primary/90"
+              className="flex-1 bg-primary hover:bg-primary/90 text-base py-6"
               onClick={() => setProposalOpen(true)}
             >
-              <Check className="h-4 w-4 mr-2" />
+              <Check className="h-5 w-5 mr-2" />
               Generate Proposal
             </Button>
             <Button 
               variant="outline" 
-              className="flex-1"
+              className="flex-1 text-base py-6"
               onClick={() => setOrderFormOpen(true)}
             >
-              <FileText className="h-4 w-4 mr-2" />
+              <FileText className="h-5 w-5 mr-2" />
               Create Order Form
             </Button>
           </div>

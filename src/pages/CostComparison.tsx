@@ -7,23 +7,23 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { BADGE_CONFIG, getBadgeDisplayName } from "@/config/badgeConfig";
 
-// Tier configuration data
+// Tier configuration data (35–60% Savings Model)
 const TIERS = [
-  { id: "solo", name: "Solo", userRange: "1–5", platformFee: 99, perUser: 35, queriesPerUser: 200, ghostPassPerUser: 50, portsCap: 2 },
-  { id: "starter", name: "Starter", userRange: "6–10", platformFee: 499, perUser: 95, queriesPerUser: 500, ghostPassPerUser: 100, portsCap: 3 },
-  { id: "professional", name: "Professional", userRange: "11–25", platformFee: 999, perUser: 85, queriesPerUser: 1000, ghostPassPerUser: 200, portsCap: 5 },
-  { id: "business", name: "Business", userRange: "26–100", platformFee: 2499, perUser: 70, queriesPerUser: 1000, ghostPassPerUser: 300, portsCap: 8 },
-  { id: "enterprise", name: "Enterprise", userRange: "101–500", platformFee: 6999, perUser: 55, queriesPerUser: 1000, ghostPassPerUser: 500, portsCap: 12 },
-  { id: "sovereign", name: "Sector Sovereign", userRange: "501+", platformFee: 19999, perUser: 45, queriesPerUser: -1, ghostPassPerUser: -1, portsCap: -1 },
+  { id: "solo", name: "Solo", userRange: "1–5", platformFee: 149, perUser: 49, queriesPerUser: 300, ghostPassPerUser: 75, portsCap: 2, portOverage: 99 },
+  { id: "starter", name: "Starter", userRange: "6–10", platformFee: 599, perUser: 109, queriesPerUser: 600, ghostPassPerUser: 150, portsCap: 3, portOverage: 149 },
+  { id: "professional", name: "Professional", userRange: "11–25", platformFee: 1299, perUser: 95, queriesPerUser: 1200, ghostPassPerUser: 300, portsCap: 5, portOverage: 199 },
+  { id: "business", name: "Business", userRange: "26–100", platformFee: 3499, perUser: 79, queriesPerUser: 1200, ghostPassPerUser: 400, portsCap: 8, portOverage: 299 },
+  { id: "enterprise", name: "Enterprise", userRange: "101–500", platformFee: 7999, perUser: 65, queriesPerUser: 1200, ghostPassPerUser: 600, portsCap: 12, portOverage: 499 },
+  { id: "sovereign", name: "Sector Sovereign", userRange: "501+", platformFee: 19999, perUser: 65, queriesPerUser: -1, ghostPassPerUser: -1, portsCap: -1, portOverage: -1 },
 ];
 
-// Savings comparison data
+// Savings comparison data (updated for 35–60% model)
 const SAVINGS_SCENARIOS = [
-  { scenario: "Law office", users: 3, giantCost: 204, agentforceCost: 870, savings: 76 },
-  { scenario: "Small firm", users: 10, giantCost: 1449, agentforceCost: 2900, savings: 50 },
-  { scenario: "Growing firm", users: 25, giantCost: 3124, agentforceCost: 7250, savings: 57 },
-  { scenario: "Mid-market", users: 100, giantCost: 9499, agentforceCost: 29000, savings: 67 },
-  { scenario: "Enterprise", users: 2000, giantCost: 116999, agentforceCost: 580000, savings: 80 },
+  { scenario: "Solo practice", users: 5, giantCost: 394, agentforceCost: 1450, savings: 73 },
+  { scenario: "Small firm", users: 10, giantCost: 1689, agentforceCost: 2900, savings: 42 },
+  { scenario: "Growing firm", users: 25, giantCost: 3674, agentforceCost: 7250, savings: 49 },
+  { scenario: "Mid-market", users: 100, giantCost: 11399, agentforceCost: 29000, savings: 61 },
+  { scenario: "Enterprise", users: 1000, giantCost: 72999, agentforceCost: 290000, savings: 75 },
 ];
 
 // Competitor pricing data
@@ -69,12 +69,12 @@ const CostComparison = () => {
   return (
     <>
       <Helmet>
-        <title>Cost Comparison: Giant Ventures vs CRM AI Stacks | Save 40–60% vs Agentforce</title>
-        <meta name="description" content="Compare Giant Ventures LLC AI governance pricing to Salesforce Agentforce, Dynamics, HubSpot, and more. Save 40–60% while adding 7-Seat Senate controls, immutable audits, and zero-trust data handling." />
+        <title>Cost Comparison: Giant Ventures vs CRM AI Stacks | Save 35–60% vs Agentforce</title>
+        <meta name="description" content="Compare Giant Ventures LLC AI governance pricing to Salesforce Agentforce, Dynamics, HubSpot, and more. Save 35–60% while adding 7-Seat Senate controls, immutable audits, and zero-trust data handling." />
         <meta name="keywords" content="AI governance pricing, Salesforce Agentforce alternative, CRM AI governance, enterprise AI controls, Reasonable Care, Giant Ventures LLC" />
         <link rel="canonical" href="https://bevalid.app/cost-comparison" />
         <meta property="og:title" content="Cost Comparison: Giant Ventures vs CRM AI Stacks" />
-        <meta property="og:description" content="Save 40–60% vs Agentforce license baselines while adding executive-grade AI governance controls." />
+        <meta property="og:description" content="Save 35–60% vs Agentforce license baselines while adding executive-grade AI governance controls." />
         <meta property="og:url" content="https://bevalid.app/cost-comparison" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(jsonLdOrg)}</script>
@@ -96,13 +96,13 @@ const CostComparison = () => {
             <div className="max-w-4xl mx-auto text-center">
               <Badge variant="outline" className="mb-6 border-cyan-500/50 text-cyan-400 px-4 py-1.5">
                 <TrendingDown className="h-3.5 w-3.5 mr-2" />
-                40–60% SAVINGS VS AGENTFORCE
+                35–60% SAVINGS VS AGENTFORCE
               </Badge>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
                 Govern AI Everywhere — Save{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                  40–60%
+                  35–60%
                 </span>{" "}
                 vs Agentforce License Baselines
               </h1>
@@ -337,7 +337,7 @@ const CostComparison = () => {
                   </div>
                   <div className="mt-6 p-4 bg-muted/50 rounded-lg">
                     <p className="text-sm text-muted-foreground">
-                      <strong className="text-foreground">Risk Multipliers:</strong> Low ×1.00 • Medium ×1.30 • High ×1.70 — 
+                      <strong className="text-foreground">Risk Multipliers:</strong> Low ×1.00 • Medium ×1.30 • High ×1.50 — 
                       applied only to variable usage (overages + verification), not to base fees.
                     </p>
                   </div>
@@ -382,7 +382,7 @@ const CostComparison = () => {
                 <CardContent className="p-6 text-center">
                   <p className="text-lg text-foreground">
                     <strong>Our value proposition:</strong> Add governance, audit trails, and human approvals to any CRM — 
-                    at 40–60% less than Agentforce license baselines.
+                    at 35–60% less than Agentforce license baselines.
                   </p>
                 </CardContent>
               </Card>

@@ -43,12 +43,12 @@ interface TierConfig {
   port_overage_usd: number;
 }
 
-// Per-user pricing configuration from spec v1.1 (Platform Fee + Per-User)
+// Per-user pricing configuration (35–60% Savings Model)
 const PRICING_CONFIG = {
-  version: "per-user-1.1",
+  version: "per-user-1.2",
   defaults: {
     working_days_per_month: 22,
-    risk_multiplier: { low: 1.0, medium: 1.30, high: 1.70 } as Record<RiskLevel, number>,
+    risk_multiplier: { low: 1.0, medium: 1.30, high: 1.50 } as Record<RiskLevel, number>,
     negotiation_range_percent: 0.20,
     verification_addon_enabled_by_default: false,
     risk_applies_to: "variable_usage_only" // overages + verification only
@@ -56,10 +56,10 @@ const PRICING_CONFIG = {
   tiers: {
     solo: {
       user_range: { min: 1, max: 5 },
-      platform_fee_usd: 99,
-      per_user_rate_usd: 35,
-      included_queries_per_user: 200,
-      included_ghost_pass_per_user: 50,
+      platform_fee_usd: 149,
+      per_user_rate_usd: 49,
+      included_queries_per_user: 300,
+      included_ghost_pass_per_user: 75,
       ports_cap: 2,
       query_overage_usd: 0.08,
       ghost_pass_rate_usd: 0.75,
@@ -67,43 +67,43 @@ const PRICING_CONFIG = {
     },
     starter: {
       user_range: { min: 6, max: 10 },
-      platform_fee_usd: 499,
-      per_user_rate_usd: 95,
-      included_queries_per_user: 500,
-      included_ghost_pass_per_user: 100,
+      platform_fee_usd: 599,
+      per_user_rate_usd: 109,
+      included_queries_per_user: 600,
+      included_ghost_pass_per_user: 150,
       ports_cap: 3,
       query_overage_usd: 0.08,
-      ghost_pass_rate_usd: 0.65,
-      port_overage_usd: 99
+      ghost_pass_rate_usd: 0.55,
+      port_overage_usd: 149
     },
     professional: {
       user_range: { min: 11, max: 25 },
-      platform_fee_usd: 999,
-      per_user_rate_usd: 85,
-      included_queries_per_user: 1000,
-      included_ghost_pass_per_user: 200,
+      platform_fee_usd: 1299,
+      per_user_rate_usd: 95,
+      included_queries_per_user: 1200,
+      included_ghost_pass_per_user: 300,
       ports_cap: 5,
       query_overage_usd: 0.08,
-      ghost_pass_rate_usd: 0.55,
+      ghost_pass_rate_usd: 0.45,
       port_overage_usd: 199
     },
     business: {
       user_range: { min: 26, max: 100 },
-      platform_fee_usd: 2499,
-      per_user_rate_usd: 70,
-      included_queries_per_user: 1000,
-      included_ghost_pass_per_user: 300,
+      platform_fee_usd: 3499,
+      per_user_rate_usd: 79,
+      included_queries_per_user: 1200,
+      included_ghost_pass_per_user: 400,
       ports_cap: 8,
       query_overage_usd: 0.08,
-      ghost_pass_rate_usd: 0.45,
+      ghost_pass_rate_usd: 0.35,
       port_overage_usd: 299
     },
     enterprise: {
       user_range: { min: 101, max: 500 },
-      platform_fee_usd: 6999,
-      per_user_rate_usd: 55,
-      included_queries_per_user: 1000,
-      included_ghost_pass_per_user: 500,
+      platform_fee_usd: 7999,
+      per_user_rate_usd: 65,
+      included_queries_per_user: 1200,
+      included_ghost_pass_per_user: 600,
       ports_cap: 12,
       query_overage_usd: 0.08,
       ghost_pass_rate_usd: 0.10,
@@ -112,7 +112,7 @@ const PRICING_CONFIG = {
     sector_sovereign: {
       user_range: { min: 501, max: -1 },
       platform_fee_usd: 19999,
-      per_user_rate_usd: 45,
+      per_user_rate_usd: 65,
       included_queries_per_user: -1,
       included_ghost_pass_per_user: -1,
       ports_cap: -1,

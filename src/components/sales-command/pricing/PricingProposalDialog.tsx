@@ -34,7 +34,8 @@ interface ProposalData {
   totalMonthly: number;
   rangeLow: number;
   rangeHigh: number;
-  agentforceBaseline: number;
+  agentforceLicenseBaseline: number;
+  savingsVsAgentforce: number;
   savingsPercent: number;
 }
 
@@ -96,11 +97,13 @@ COMMERCIALS
 • TOTAL MONTHLY: ${formatCurrency(data.totalMonthly)}/mo
 
 ═══════════════════════════════════════════════════════
-OPTIONAL COMPETITOR PARITY
+COMPETITOR COMPARISON: SALESFORCE AGENTFORCE
 ═══════════════════════════════════════════════════════
-• Competitor baseline (@$0.10/action): ~${formatCurrency(data.agentforceBaseline)}/mo
-• QR/event parity: present only if client provides comparable vendor rate
-• Estimated savings vs competitor: ~${data.savingsPercent}%
+• Agentforce license baseline: ~${formatCurrency(data.agentforceLicenseBaseline)}/mo
+  (${data.usersGoverned} users × $290/user — Enterprise + Agentforce add-on)
+• Giant Ventures total: ${formatCurrency(data.totalMonthly)}/mo
+• Savings: ${formatCurrency(data.savingsVsAgentforce)}/mo (~${data.savingsPercent}%)
+• Note: Agentforce baseline excludes implementation ($50k–$150k), training, and consumption fees
 
 ═══════════════════════════════════════════════════════
 NOTES
@@ -255,15 +258,19 @@ Click "Create Order Form" to finalize
           {/* Competitor Parity */}
           {data.savingsPercent > 0 && (
             <div className="space-y-2">
-              <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Competitor Parity</h3>
-              <div className="text-sm p-3 rounded-lg bg-green-500/10 border border-green-500/20 space-y-1">
+              <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Competitor Comparison</h3>
+              <div className="text-sm p-3 rounded-lg bg-green-500/10 border border-green-500/20 space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Competitor baseline (@$0.10/action):</span>
-                  <span className="text-red-400">~{formatCurrency(data.agentforceBaseline)}/mo</span>
+                  <span className="text-muted-foreground">Salesforce Agentforce ({data.usersGoverned} × $290):</span>
+                  <span className="text-red-400 font-medium">{formatCurrency(data.agentforceLicenseBaseline)}/mo</span>
                 </div>
-                <div className="flex justify-between font-medium">
-                  <span>Estimated savings:</span>
-                  <span className="text-green-400">~{data.savingsPercent}%</span>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Giant Ventures total:</span>
+                  <span className="text-green-400 font-medium">{formatCurrency(data.totalMonthly)}/mo</span>
+                </div>
+                <div className="flex justify-between font-medium pt-1 border-t border-green-500/20">
+                  <span>Monthly savings:</span>
+                  <span className="text-green-400">{formatCurrency(data.savingsVsAgentforce)} (~{data.savingsPercent}%)</span>
                 </div>
               </div>
             </div>

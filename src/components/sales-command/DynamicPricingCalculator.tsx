@@ -250,10 +250,11 @@ export function DynamicPricingCalculator() {
     const totalOverage = queryOverage + ghostPassOverage + portOverage;
     const suggestUpgrade = totalOverage > perUserSubtotal * 0.4 && selectedTier !== "sector_sovereign";
     
-    // Competitor parity (Agentforce) - actions @ $0.10 × MSQ
-    const agentforceBaseline = msq * competitor_parity.agentforce_action_usd;
-    const savingsPercent = agentforceBaseline > 0 
-      ? Math.round((1 - (totalMonthly / agentforceBaseline)) * 100) 
+    // Competitor parity (Agentforce) - $290/user/mo license baseline
+    const agentforceLicenseBaseline = usersGoverned * 290; // Enterprise + Agentforce add-on
+    const savingsVsAgentforce = agentforceLicenseBaseline - totalMonthly;
+    const savingsPercent = agentforceLicenseBaseline > 0 
+      ? Math.round((1 - (totalMonthly / agentforceLicenseBaseline)) * 100) 
       : 0;
     
     return {
@@ -283,7 +284,8 @@ export function DynamicPricingCalculator() {
       rangeHigh,
       queryUtilization,
       suggestUpgrade,
-      agentforceBaseline,
+      agentforceLicenseBaseline,
+      savingsVsAgentforce,
       savingsPercent
     };
   }, [usersGoverned, queriesPerDay, riskLevel, portsConnected, manualTier, ghostPassScans, verificationEnabled, checksBasic, checksStandard, checksDeep]);
@@ -324,7 +326,8 @@ export function DynamicPricingCalculator() {
     totalMonthly: calculations.totalMonthly,
     rangeLow: calculations.rangeLow,
     rangeHigh: calculations.rangeHigh,
-    agentforceBaseline: calculations.agentforceBaseline,
+    agentforceLicenseBaseline: calculations.agentforceLicenseBaseline,
+    savingsVsAgentforce: calculations.savingsVsAgentforce,
     savingsPercent: calculations.savingsPercent
   };
 
@@ -592,26 +595,43 @@ export function DynamicPricingCalculator() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-5">
-              <div className="p-5 rounded-lg bg-black/20 space-y-4 text-lg">
-                <p className="text-base text-muted-foreground font-medium mb-2">Salesforce Agentforce baseline</p>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Actions @ $0.10 each (Flex):</span>
-                  <span className="text-red-400">~{formatCurrency(calculations.agentforceBaseline)}/mo</span>
+              <div className="p-5 rounded-lg bg-red-500/10 border border-red-500/30 space-y-4">
+                <p className="text-base font-semibold text-red-400 uppercase tracking-wide">Salesforce Agentforce (Licenses Only)</p>
+                <div className="flex justify-between items-center text-lg">
+                  <span className="text-muted-foreground">{usersGoverned} users × $290/user:</span>
+                  <span className="text-red-400 font-bold text-2xl">{formatCurrency(calculations.agentforceLicenseBaseline)}/mo</span>
                 </div>
+                <p className="text-sm text-muted-foreground">
+                  Enterprise Edition ($165/user) + Agentforce ($125/user). Excludes implementation ($50k–$150k), training, and consumption fees.
+                </p>
               </div>
               
-              <div className="p-5 rounded-lg bg-green-500/10 border border-green-500/30">
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium">Giant Ventures @ $0.08 overage + per-user:</span>
-                  <span className="text-green-400 font-bold text-xl">{formatCurrency(calculations.totalMonthly)}/mo</span>
+              <div className="p-5 rounded-lg bg-green-500/10 border border-green-500/30 space-y-3">
+                <p className="text-base font-semibold text-green-400 uppercase tracking-wide">Giant Ventures LLC</p>
+                <div className="flex justify-between items-center text-lg">
+                  <span className="text-muted-foreground">{usersGoverned} users × ${calculations.tierConfig.per_user_rate_usd}/user:</span>
+                  <span className="text-green-400 font-bold text-2xl">{formatCurrency(calculations.totalMonthly)}/mo</span>
                 </div>
                 {calculations.savingsPercent > 0 && (
-                  <p className="text-base text-green-400 mt-3">
-                    <Check className="h-5 w-5 inline mr-2" />
-                    ~{calculations.savingsPercent}% savings (governance + audit included)
-                  </p>
+                  <div className="pt-3 border-t border-green-500/30">
+                    <div className="flex items-center gap-3">
+                      <Badge className="bg-green-500/20 text-green-400 text-lg px-4 py-1">
+                        Save {calculations.savingsPercent}%
+                      </Badge>
+                      <span className="text-green-400 font-semibold">
+                        {formatCurrency(calculations.savingsVsAgentforce)} saved/mo
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Governance, audit trails, human approvals, and drift checks included.
+                    </p>
+                  </div>
                 )}
               </div>
+              
+              <p className="text-sm text-muted-foreground text-center">
+                We run alongside Salesforce as a non-biased governance filter — proofreading and policy-to-code guardrails before data reaches clients.
+              </p>
             </CardContent>
           </Card>
 

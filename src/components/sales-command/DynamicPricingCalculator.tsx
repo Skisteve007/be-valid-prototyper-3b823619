@@ -45,7 +45,7 @@ const PRICING_CONFIG = {
   version: "1.2",
   defaults: {
     working_days_per_month: 22,
-    risk_multiplier: { low: 1.0, medium: 1.1, high: 1.25 } as Record<RiskLevel, number>,
+    risk_multiplier: { low: 1.0, medium: 1.3, high: 1.7 } as Record<RiskLevel, number>,
     negotiation_range_percent: 0.20,
     verification_addon_enabled_by_default: false
   },
@@ -511,11 +511,11 @@ export function DynamicPricingCalculator() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="medium" id="risk-medium" />
-                      <Label htmlFor="risk-medium" className="text-sm cursor-pointer">Medium (×1.10)</Label>
+                      <Label htmlFor="risk-medium" className="text-sm cursor-pointer">Medium (×1.30)</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="high" id="risk-high" />
-                      <Label htmlFor="risk-high" className="text-sm cursor-pointer">High (×1.25)</Label>
+                      <Label htmlFor="risk-high" className="text-sm cursor-pointer">High (×1.70)</Label>
                     </div>
                   </RadioGroup>
                   <p className="text-xs text-muted-foreground">

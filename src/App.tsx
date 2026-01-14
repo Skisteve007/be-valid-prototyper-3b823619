@@ -147,6 +147,11 @@ const HumanVetting = lazy(() => import("./pages/HumanVetting"));
 const GovernanceConstitution = lazy(() => import("./pages/GovernanceConstitution"));
 const SynthSalesCommandCenter = lazy(() => import("./pages/SynthSalesCommandCenter"));
 const ResearchGovernanceLabs = lazy(() => import("./pages/ResearchGovernanceLabs"));
+const StevenGrillo = lazy(() => import("./pages/seo/StevenGrillo"));
+const BrandSafety = lazy(() => import("./pages/seo/BrandSafety"));
+const GeneticAIFoundations = lazy(() => import("./pages/seo/whitepapers/GeneticAIFoundations"));
+const SynthesizedAIOrchestration = lazy(() => import("./pages/seo/whitepapers/SynthesizedAIOrchestration"));
+const AIOrchestrationCostSavings = lazy(() => import("./pages/seo/whitepapers/AIOrchestrationCostSavings"));
 const queryClient = new QueryClient();
 
 // Minimal loading fallback for faster perceived load
@@ -332,6 +337,13 @@ const App = () => (
                   <Route path="/agreement/:tierId" element={<AgreementFlow />} />
                   <Route path="/agreement-success" element={<AgreementSuccess />} />
                   <Route path="/careers" element={<Careers />} />
+                  
+                  {/* SEO & BRAND SAFETY ROUTES */}
+                  <Route path="/steven-grillo" element={<StevenGrillo />} />
+                  <Route path="/brand-safety" element={<BrandSafety />} />
+                  <Route path="/whitepapers/genetic-ai-foundations" element={<GeneticAIFoundations />} />
+                  <Route path="/whitepapers/synthesized-ai-orchestration" element={<SynthesizedAIOrchestration />} />
+                  <Route path="/whitepapers/ai-orchestration-cost-savings" element={<AIOrchestrationCostSavings />} />
                   
                   {/* CATCH-ALL - Must be last */}
                   <Route path="*" element={<AgeGate><NotFound /></AgeGate>} />

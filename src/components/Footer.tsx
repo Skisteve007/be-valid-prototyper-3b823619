@@ -75,6 +75,9 @@ const Footer = () => {
           <p className="text-[9px] text-slate-500 mt-1.5 italic">
             {t('footer.noAffiliation')}
           </p>
+          <p className="text-[9px] text-slate-500 mt-1.5">
+            Not affiliated with the television personality named "Steven Grillo." See our <Link to="/brand-safety" className="text-cyan-400 hover:underline">Brand Safety</Link> notice.
+          </p>
         </div>
 
         {/* Links & Compliance Row */}

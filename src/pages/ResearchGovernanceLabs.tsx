@@ -58,6 +58,7 @@ const ResearchGovernanceLabs = () => {
     {
       title: "Grillo AI Governance Standard Constitution",
       type: "Governance Document",
+      description: "Is your AI legally defensible? This Constitution outlines the mandatory 'Reasonable Care' standards now required across emerging state liability laws. It provides the exact protocols necessary to protect your enterprise from agentic drift and negligence claims. Download the official blueprint for secured, compliant, and defensible AI operations today.",
       link: "/governance-constitution",
       isPdf: false
     },
@@ -206,13 +207,18 @@ const ResearchGovernanceLabs = () => {
                   <Link key={index} to={pub.link}>
                     <Card className="bg-card/50 border-border/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] cursor-pointer group">
                       <CardContent className="p-4 flex items-center justify-between">
-                        <div>
+                        <div className="flex-1">
                           <h3 className="font-semibold text-foreground group-hover:text-purple-400 transition-colors">
                             {pub.title}
                           </h3>
                           <p className="text-sm text-muted-foreground">{pub.type}</p>
+                          {'description' in pub && pub.description && (
+                            <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                              {(pub as any).description}
+                            </p>
+                          )}
                         </div>
-                        <ArrowLeft className="h-5 w-5 text-muted-foreground rotate-180 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
+                        <ArrowLeft className="h-5 w-5 text-muted-foreground rotate-180 group-hover:text-purple-400 group-hover:translate-x-1 transition-all shrink-0 ml-4" />
                       </CardContent>
                     </Card>
                   </Link>

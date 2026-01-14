@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ScrollText, Shield, Users, Lock, Eye, Zap, FileCheck, AlertTriangle } from "lucide-react";
@@ -6,6 +7,25 @@ import allianceSeal from "@/assets/alliance-seal.png";
 
 const GovernanceConstitution = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const currentPathRef = useRef(location.pathname);
+  useEffect(() => {
+    currentPathRef.current = location.pathname;
+  }, [location.pathname]);
+
+  const handleBack = () => {
+    const currentPath = currentPathRef.current;
+
+    navigate(-1);
+
+    // Fallback: if there's no in-app history (or it doesn't move), send the user back to the dashboard.
+    window.setTimeout(() => {
+      if (window.location.pathname === currentPath) {
+        navigate("/wallet");
+      }
+    }, 150);
+  };
 
   const pageTitle = "Grillo AI Governance Standard (GAGS) | Constitutional Framework for AI Systems | SYNTH™";
   const pageDescription = "The first mechanical constitution for autonomous AI agents. A comprehensive AI governance standard, compliance framework, and risk management doctrine for human-AI coexistence. Created by Steven Grillo, featuring seven-model consensus on AI operational statutes. SYNTH™ synthesized intelligence framework for LLM orchestration, agentic governance, and AI decision-making.";
@@ -121,7 +141,7 @@ const GovernanceConstitution = () => {
         <div className="container mx-auto px-4 pt-16 pb-4 flex items-center justify-between">
           <Button
             variant="ghost"
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             className="text-amber-400 hover:text-amber-300"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />

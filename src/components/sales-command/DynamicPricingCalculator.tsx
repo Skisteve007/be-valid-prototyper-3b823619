@@ -314,47 +314,6 @@ export function DynamicPricingCalculator() {
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Left Column - Tier Selection + Allocations */}
         <div className="space-y-6">
-          {/* Running Calculator - Sticky */}
-          <Card className="bg-gradient-to-br from-primary/20 to-primary/10 border-primary/40 sticky top-20 z-40 shadow-lg shadow-primary/10">
-            <CardContent className="py-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/20">
-                    <Calculator className="h-6 w-6 text-primary" />
-                  </div>
-                  <span className="font-semibold text-lg">Running Total</span>
-                </div>
-                <div className="text-right">
-                  <p className="text-3xl font-bold text-primary">
-                    {formatCurrency(calculations.totalMonthly)}
-                    <span className="text-base font-normal text-muted-foreground">/mo</span>
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Range: {formatCurrency(calculations.rangeLow)} – {formatCurrency(calculations.rangeHigh)}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3 pt-3 border-t border-primary/20 grid grid-cols-4 gap-2 text-sm">
-                <div className="text-center">
-                  <span className="block text-muted-foreground">Anchor</span>
-                  <span className="font-mono text-primary">{formatCurrency(calculations.tierConfig.anchor_mid_usd)}</span>
-                </div>
-                <div className="text-center">
-                  <span className="block text-muted-foreground">Queries</span>
-                  <span className="font-mono text-primary">+{formatCurrency(calculations.queryOverage)}</span>
-                </div>
-                <div className="text-center">
-                  <span className="block text-muted-foreground">Ghost</span>
-                  <span className="font-mono text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
-                </div>
-                <div className="text-center">
-                  <span className="block text-muted-foreground">Risk</span>
-                  <span className={`font-mono ${riskLevel !== 'low' ? 'text-amber-400' : 'text-muted-foreground'}`}>×{calculations.riskMultiplier.toFixed(2)}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Tier Selection */}
           <Card className="bg-card/50 border-border/30">
             <CardHeader className="pb-4">
@@ -465,51 +424,6 @@ export function DynamicPricingCalculator() {
                     <span className="text-primary">+{formatCurrency(calculations.queryOverage)}</span>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Ghost Pass QR Scans Allocation */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl flex items-center gap-3">
-                <QrCode className="h-7 w-7 text-violet-400" />
-                Ghost Pass — QR Scans
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="p-5 rounded-lg border border-violet-500/20 bg-violet-500/5">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Allocation</span>
-                  <Badge variant="outline" className="font-mono text-base border-violet-500/30 text-violet-400">
-                    ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)}/scan overage
-                  </Badge>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-lg">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_ghost_pass_scans === -1 ? '∞' : calculations.tierConfig.included_ghost_pass_scans.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Expected:</span>
-                    <span>{ghostPassScans.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Utilization:</span>
-                    <span className={calculations.ghostPassUtilization > 100 ? 'text-amber-400' : ''}>
-                      {calculations.ghostPassUtilization}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Overage:</span>
-                    <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
-                  </div>
-                </div>
-                {calculations.ghostPassOverageCount > 0 && (
-                  <p className="text-base text-muted-foreground mt-3">
-                    {calculations.ghostPassOverageCount.toLocaleString()} scans × ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)} = +{formatCurrency(calculations.ghostPassOverage)}
-                  </p>
-                )}
               </div>
             </CardContent>
           </Card>
@@ -791,6 +705,41 @@ export function DynamicPricingCalculator() {
                     ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)}/scan
                   </Badge>
                 </div>
+              </div>
+
+              {/* Ghost Pass QR Scans Allocation - moved here */}
+              <div className="p-5 rounded-lg border border-violet-500/20 bg-violet-500/5">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-medium">Allocation included</span>
+                  <Badge variant="outline" className="font-mono text-base border-violet-500/30 text-violet-400">
+                    ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)}/scan overage
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-lg">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Included:</span>
+                    <span>{calculations.tierConfig.included_ghost_pass_scans === -1 ? '∞' : calculations.tierConfig.included_ghost_pass_scans.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Expected:</span>
+                    <span>{ghostPassScans.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Utilization:</span>
+                    <span className={calculations.ghostPassUtilization > 100 ? 'text-amber-400' : ''}>
+                      {calculations.ghostPassUtilization}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Overage:</span>
+                    <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
+                  </div>
+                </div>
+                {calculations.ghostPassOverageCount > 0 && (
+                  <p className="text-base text-muted-foreground mt-3">
+                    {calculations.ghostPassOverageCount.toLocaleString()} scans × ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)} = +{formatCurrency(calculations.ghostPassOverage)}
+                  </p>
+                )}
               </div>
             </CardContent>
           </Card>

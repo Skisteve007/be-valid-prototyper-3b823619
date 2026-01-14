@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { 
+import { Input } from "@/components/ui/input";
+import {
   Calculator, 
   Users, 
   MessageSquare, 
@@ -302,23 +303,41 @@ export function DynamicPricingCalculator() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Users Governed */}
+              {/* Users Governed - Exponential slider with manual input */}
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <Label className="text-sm font-medium">Users Governed</Label>
-                  <Badge variant="outline" className="font-mono">{usersGoverned.toLocaleString()}</Badge>
+                  <Input
+                    type="number"
+                    value={usersGoverned}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value) || 1;
+                      setUsersGoverned(Math.max(1, Math.min(100000, val)));
+                    }}
+                    className="w-24 h-7 text-right font-mono text-sm"
+                    min={1}
+                    max={100000}
+                  />
                 </div>
                 <Slider
-                  value={[usersGoverned]}
-                  onValueChange={([v]) => setUsersGoverned(v)}
-                  min={1}
-                  max={10000}
-                  step={1}
+                  value={[Math.log10(Math.max(1, usersGoverned))]}
+                  onValueChange={([v]) => {
+                    // Exponential scale: slider 0-5 maps to 1-100,000
+                    const expValue = Math.round(Math.pow(10, v));
+                    setUsersGoverned(Math.max(1, Math.min(100000, expValue)));
+                  }}
+                  min={0}
+                  max={5}
+                  step={0.01}
                   className="cursor-pointer"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
                   <span>1</span>
+                  <span>10</span>
+                  <span>100</span>
+                  <span>1K</span>
                   <span>10K</span>
+                  <span>100K</span>
                 </div>
               </div>
 

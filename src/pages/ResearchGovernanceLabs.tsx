@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, FlaskConical, Scale, Brain, Shield, FileText, Users, Sparkles, BookOpen } from "lucide-react";
+import { ArrowLeft, FlaskConical, Scale, Brain, Shield, FileText, Users, Sparkles, BookOpen, Download, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -55,22 +55,32 @@ const ResearchGovernanceLabs = () => {
     {
       title: "Grillo AI Governance Standard Constitution",
       type: "Governance Document",
-      link: "/governance-constitution"
+      link: "/governance-constitution",
+      isPdf: false
     },
     {
       title: "Human Vetting Methodology",
       type: "Research Paper",
-      link: "/human-vetting"
+      link: "/human-vetting",
+      isPdf: false
     },
     {
       title: "SYNTH™ Senate Architecture",
       type: "Technical Specification",
-      link: "/synth/methodology"
+      link: "/synth/methodology",
+      isPdf: false
     },
     {
       title: "Operator Certification Rubric",
       type: "Evaluation Framework",
-      link: "/demos/operator-certification"
+      link: "/demos/operator-certification",
+      isPdf: false
+    },
+    {
+      title: "Governance Labs: Qualifying Agentic Risk",
+      type: "Research Paper",
+      link: "/documents/Grillo_Agentic_Drift_2026.pdf",
+      isPdf: true
     }
   ];
 
@@ -163,19 +173,68 @@ const ResearchGovernanceLabs = () => {
 
             <div className="grid md:grid-cols-2 gap-4">
               {publications.map((pub, index) => (
-                <Link key={index} to={pub.link}>
-                  <Card className="bg-card/50 border-border/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] cursor-pointer group">
-                    <CardContent className="p-4 flex items-center justify-between">
-                      <div>
-                        <h3 className="font-semibold text-foreground group-hover:text-purple-400 transition-colors">
-                          {pub.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">{pub.type}</p>
+                pub.isPdf ? (
+                  <Card 
+                    key={index} 
+                    className="bg-card/50 border-border/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)]"
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <h3 className="font-semibold text-foreground">
+                            {pub.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">{pub.type}</p>
+                        </div>
+                        <FileText className="h-5 w-5 text-purple-400" />
                       </div>
-                      <ArrowLeft className="h-5 w-5 text-muted-foreground rotate-180 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
+                      <div className="flex gap-2">
+                        <a 
+                          href={pub.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex-1"
+                        >
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="w-full border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
+                          >
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            Read
+                          </Button>
+                        </a>
+                        <a 
+                          href={pub.link} 
+                          download
+                          className="flex-1"
+                        >
+                          <Button 
+                            size="sm" 
+                            className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white"
+                          >
+                            <Download className="h-4 w-4 mr-2" />
+                            Download
+                          </Button>
+                        </a>
+                      </div>
                     </CardContent>
                   </Card>
-                </Link>
+                ) : (
+                  <Link key={index} to={pub.link}>
+                    <Card className="bg-card/50 border-border/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] cursor-pointer group">
+                      <CardContent className="p-4 flex items-center justify-between">
+                        <div>
+                          <h3 className="font-semibold text-foreground group-hover:text-purple-400 transition-colors">
+                            {pub.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">{pub.type}</p>
+                        </div>
+                        <ArrowLeft className="h-5 w-5 text-muted-foreground rotate-180 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
+                      </CardContent>
+                    </Card>
+                  </Link>
+                )
               ))}
             </div>
           </section>

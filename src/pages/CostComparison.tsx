@@ -9,21 +9,21 @@ import { BADGE_CONFIG, getBadgeDisplayName } from "@/config/badgeConfig";
 
 // Tier configuration data (35–60% Savings Model)
 const TIERS = [
-  { id: "solo", name: "Solo", userRange: "1–5", platformFee: 149, perUser: 49, queriesPerUser: 300, ghostPassPerUser: 75, portsCap: 2, portOverage: 99 },
-  { id: "starter", name: "Starter", userRange: "6–10", platformFee: 599, perUser: 109, queriesPerUser: 600, ghostPassPerUser: 150, portsCap: 3, portOverage: 149 },
-  { id: "professional", name: "Professional", userRange: "11–25", platformFee: 1299, perUser: 95, queriesPerUser: 1200, ghostPassPerUser: 300, portsCap: 5, portOverage: 199 },
-  { id: "business", name: "Business", userRange: "26–100", platformFee: 3499, perUser: 79, queriesPerUser: 1200, ghostPassPerUser: 400, portsCap: 8, portOverage: 299 },
-  { id: "enterprise", name: "Enterprise", userRange: "101–500", platformFee: 7999, perUser: 65, queriesPerUser: 1200, ghostPassPerUser: 600, portsCap: 12, portOverage: 499 },
-  { id: "sovereign", name: "Sector Sovereign", userRange: "501+", platformFee: 19999, perUser: 65, queriesPerUser: -1, ghostPassPerUser: -1, portsCap: -1, portOverage: -1 },
+  { id: "solo", name: "Solo", userRange: "1–3", platformFee: 149, perUser: 74, queriesPerUser: 300, ghostPassPerUser: 75, portsCap: 2, portOverage: 99 },
+  { id: "starter", name: "Starter", userRange: "4–7", platformFee: 599, perUser: 164, queriesPerUser: 600, ghostPassPerUser: 150, portsCap: 3, portOverage: 149 },
+  { id: "professional", name: "Professional", userRange: "8–15", platformFee: 1299, perUser: 143, queriesPerUser: 1200, ghostPassPerUser: 300, portsCap: 5, portOverage: 199 },
+  { id: "business", name: "Business", userRange: "16–50", platformFee: 3499, perUser: 119, queriesPerUser: 1200, ghostPassPerUser: 400, portsCap: 8, portOverage: 299 },
+  { id: "enterprise", name: "Enterprise", userRange: "51–200", platformFee: 7999, perUser: 98, queriesPerUser: 1200, ghostPassPerUser: 600, portsCap: 12, portOverage: 499 },
+  { id: "sovereign", name: "Sector Sovereign", userRange: "201+", platformFee: 19999, perUser: 98, queriesPerUser: -1, ghostPassPerUser: -1, portsCap: -1, portOverage: -1 },
 ];
 
-// Savings comparison data (updated for 35–60% model)
+// Savings comparison data (updated for new per-user rates)
 const SAVINGS_SCENARIOS = [
-  { scenario: "Solo practice", users: 5, giantCost: 394, agentforceCost: 1450, savings: 73 },
-  { scenario: "Small firm", users: 10, giantCost: 1689, agentforceCost: 2900, savings: 42 },
-  { scenario: "Growing firm", users: 25, giantCost: 3674, agentforceCost: 7250, savings: 49 },
-  { scenario: "Mid-market", users: 100, giantCost: 11399, agentforceCost: 29000, savings: 61 },
-  { scenario: "Enterprise", users: 1000, giantCost: 72999, agentforceCost: 290000, savings: 75 },
+  { scenario: "Solo practice", users: 3, giantCost: 371, agentforceCost: 870, savings: 57 },
+  { scenario: "Small team", users: 7, giantCost: 1747, agentforceCost: 2030, savings: 14 },
+  { scenario: "Growing firm", users: 15, giantCost: 3444, agentforceCost: 4350, savings: 21 },
+  { scenario: "Mid-market", users: 50, giantCost: 9449, agentforceCost: 14500, savings: 35 },
+  { scenario: "Enterprise", users: 200, giantCost: 27599, agentforceCost: 58000, savings: 52 },
 ];
 
 // Competitor pricing data

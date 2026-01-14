@@ -55,9 +55,9 @@ const PRICING_CONFIG = {
   },
   tiers: {
     solo: {
-      user_range: { min: 1, max: 5 },
+      user_range: { min: 1, max: 3 },
       platform_fee_usd: 149,
-      per_user_rate_usd: 49,
+      per_user_rate_usd: 74,
       included_queries_per_user: 300,
       included_ghost_pass_per_user: 75,
       ports_cap: 2,
@@ -66,9 +66,9 @@ const PRICING_CONFIG = {
       port_overage_usd: 99
     },
     starter: {
-      user_range: { min: 6, max: 10 },
+      user_range: { min: 4, max: 7 },
       platform_fee_usd: 599,
-      per_user_rate_usd: 109,
+      per_user_rate_usd: 164,
       included_queries_per_user: 600,
       included_ghost_pass_per_user: 150,
       ports_cap: 3,
@@ -77,9 +77,9 @@ const PRICING_CONFIG = {
       port_overage_usd: 149
     },
     professional: {
-      user_range: { min: 11, max: 25 },
+      user_range: { min: 8, max: 15 },
       platform_fee_usd: 1299,
-      per_user_rate_usd: 95,
+      per_user_rate_usd: 143,
       included_queries_per_user: 1200,
       included_ghost_pass_per_user: 300,
       ports_cap: 5,
@@ -88,9 +88,9 @@ const PRICING_CONFIG = {
       port_overage_usd: 199
     },
     business: {
-      user_range: { min: 26, max: 100 },
+      user_range: { min: 16, max: 50 },
       platform_fee_usd: 3499,
-      per_user_rate_usd: 79,
+      per_user_rate_usd: 119,
       included_queries_per_user: 1200,
       included_ghost_pass_per_user: 400,
       ports_cap: 8,
@@ -99,9 +99,9 @@ const PRICING_CONFIG = {
       port_overage_usd: 299
     },
     enterprise: {
-      user_range: { min: 101, max: 500 },
+      user_range: { min: 51, max: 200 },
       platform_fee_usd: 7999,
-      per_user_rate_usd: 65,
+      per_user_rate_usd: 98,
       included_queries_per_user: 1200,
       included_ghost_pass_per_user: 600,
       ports_cap: 12,
@@ -110,9 +110,9 @@ const PRICING_CONFIG = {
       port_overage_usd: 499
     },
     sector_sovereign: {
-      user_range: { min: 501, max: -1 },
+      user_range: { min: 201, max: -1 },
       platform_fee_usd: 19999,
-      per_user_rate_usd: 65,
+      per_user_rate_usd: 98,
       included_queries_per_user: -1,
       included_ghost_pass_per_user: -1,
       ports_cap: -1,
@@ -142,12 +142,12 @@ const PRICING_CONFIG = {
 const TIER_ORDER: TierKey[] = ["solo", "starter", "professional", "business", "enterprise", "sector_sovereign"];
 
 const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode; userRange: string; priceDisplay: string }> = {
-  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, userRange: "1–5 users", priceDisplay: "$99 + $35/user/mo" },
-  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, userRange: "6–10 users", priceDisplay: "$499 + $95/user/mo" },
-  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, userRange: "11–25 users", priceDisplay: "$999 + $85/user/mo" },
-  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, userRange: "26–100 users", priceDisplay: "$2,499 + $70/user/mo" },
-  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, userRange: "101–500 users", priceDisplay: "$6,999 + $55/user/mo" },
-  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, userRange: "501+ users", priceDisplay: "$19,999+ + $45/user/mo" }
+  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, userRange: "1–3 users", priceDisplay: "$149 + $74/user/mo" },
+  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, userRange: "4–7 users", priceDisplay: "$599 + $164/user/mo" },
+  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, userRange: "8–15 users", priceDisplay: "$1,299 + $143/user/mo" },
+  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, userRange: "16–50 users", priceDisplay: "$3,499 + $119/user/mo" },
+  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, userRange: "51–200 users", priceDisplay: "$7,999 + $98/user/mo" },
+  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, userRange: "201+ users", priceDisplay: "$19,999+ + $98/user/mo" }
 };
 
 export function DynamicPricingCalculator() {

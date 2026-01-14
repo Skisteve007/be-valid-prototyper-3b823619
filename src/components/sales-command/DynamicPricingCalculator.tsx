@@ -485,10 +485,18 @@ export function DynamicPricingCalculator() {
                     <span className="text-muted-foreground ml-2 text-base">(Age/Identity)</span>
                   </Label>
                   <div className="flex items-center gap-3">
-                    <Badge variant="outline" className="font-mono text-lg bg-green-500/10 text-green-400 border-green-500/30 px-4 py-1">
-                      {checksBasic.toLocaleString()}
-                    </Badge>
-                    <span className="text-base text-muted-foreground">@ $1.80 each</span>
+                    <Input
+                      type="number"
+                      value={checksBasic}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value) || 0;
+                        setChecksBasic(Math.max(0, Math.min(100000, val)));
+                      }}
+                      className="w-28 h-9 text-right font-mono text-base bg-green-500/10 text-green-400 border-green-500/30"
+                      min={0}
+                      max={100000}
+                    />
+                    <span className="text-base text-muted-foreground">@ $1.80</span>
                   </div>
                 </div>
                 <Slider
@@ -496,7 +504,7 @@ export function DynamicPricingCalculator() {
                   onValueChange={([v]) => setChecksBasic(v)}
                   min={0}
                   max={10000}
-                  step={10}
+                  step={100}
                   className="cursor-pointer"
                 />
               </div>
@@ -509,10 +517,18 @@ export function DynamicPricingCalculator() {
                     <span className="text-muted-foreground ml-2 text-base">(ID + Background)</span>
                   </Label>
                   <div className="flex items-center gap-3">
-                    <Badge variant="outline" className="font-mono text-lg bg-amber-500/10 text-amber-400 border-amber-500/30 px-4 py-1">
-                      {checksStandard.toLocaleString()}
-                    </Badge>
-                    <span className="text-base text-muted-foreground">@ $2.60 each</span>
+                    <Input
+                      type="number"
+                      value={checksStandard}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value) || 0;
+                        setChecksStandard(Math.max(0, Math.min(100000, val)));
+                      }}
+                      className="w-28 h-9 text-right font-mono text-base bg-amber-500/10 text-amber-400 border-amber-500/30"
+                      min={0}
+                      max={100000}
+                    />
+                    <span className="text-base text-muted-foreground">@ $2.60</span>
                   </div>
                 </div>
                 <Slider
@@ -520,7 +536,7 @@ export function DynamicPricingCalculator() {
                   onValueChange={([v]) => setChecksStandard(v)}
                   min={0}
                   max={10000}
-                  step={10}
+                  step={100}
                   className="cursor-pointer"
                 />
               </div>
@@ -533,10 +549,18 @@ export function DynamicPricingCalculator() {
                     <span className="text-muted-foreground ml-2 text-base">(Most Wanted / Predator / Terrorist)</span>
                   </Label>
                   <div className="flex items-center gap-3">
-                    <Badge variant="outline" className="font-mono text-lg bg-red-500/10 text-red-400 border-red-500/30 px-4 py-1">
-                      {checksDeep.toLocaleString()}
-                    </Badge>
-                    <span className="text-base text-muted-foreground">@ $3.60 each</span>
+                    <Input
+                      type="number"
+                      value={checksDeep}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value) || 0;
+                        setChecksDeep(Math.max(0, Math.min(100000, val)));
+                      }}
+                      className="w-28 h-9 text-right font-mono text-base bg-red-500/10 text-red-400 border-red-500/30"
+                      min={0}
+                      max={100000}
+                    />
+                    <span className="text-base text-muted-foreground">@ $3.60</span>
                   </div>
                 </div>
                 <Slider
@@ -544,7 +568,7 @@ export function DynamicPricingCalculator() {
                   onValueChange={([v]) => setChecksDeep(v)}
                   min={0}
                   max={10000}
-                  step={10}
+                  step={100}
                   className="cursor-pointer"
                 />
               </div>

@@ -312,7 +312,344 @@ export function DynamicPricingCalculator() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        {/* Left Column - Inputs */}
+        {/* Left Column - Tier Selection + Allocations */}
+        <div className="space-y-6">
+          {/* Running Calculator - Sticky */}
+          <Card className="bg-gradient-to-br from-primary/20 to-primary/10 border-primary/40 sticky top-20 z-40 shadow-lg shadow-primary/10">
+            <CardContent className="py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-primary/20">
+                    <Calculator className="h-6 w-6 text-primary" />
+                  </div>
+                  <span className="font-semibold text-lg">Running Total</span>
+                </div>
+                <div className="text-right">
+                  <p className="text-3xl font-bold text-primary">
+                    {formatCurrency(calculations.totalMonthly)}
+                    <span className="text-base font-normal text-muted-foreground">/mo</span>
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Range: {formatCurrency(calculations.rangeLow)} – {formatCurrency(calculations.rangeHigh)}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 pt-3 border-t border-primary/20 grid grid-cols-4 gap-2 text-sm">
+                <div className="text-center">
+                  <span className="block text-muted-foreground">Anchor</span>
+                  <span className="font-mono text-primary">{formatCurrency(calculations.tierConfig.anchor_mid_usd)}</span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-muted-foreground">Queries</span>
+                  <span className="font-mono text-primary">+{formatCurrency(calculations.queryOverage)}</span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-muted-foreground">Ghost</span>
+                  <span className="font-mono text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-muted-foreground">Risk</span>
+                  <span className={`font-mono ${riskLevel !== 'low' ? 'text-amber-400' : 'text-muted-foreground'}`}>×{calculations.riskMultiplier.toFixed(2)}</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Tier Selection */}
+          <Card className="bg-card/50 border-border/30">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl flex items-center gap-3">
+                <Shield className="h-7 w-7 text-primary" />
+                Tier Selection
+              </CardTitle>
+              <p className="text-base text-muted-foreground mt-2">
+                Pick the first tier where MSQ, Ports, and Scans all fit. If any exceeds the cap, move up.
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {TIER_ORDER.map((tier) => {
+                  const config = PRICING_CONFIG.tiers[tier];
+                  const isSelected = calculations.selectedTier === tier;
+                  const isRecommended = calculations.recommendedTier === tier && !manualTier;
+                  
+                  return (
+                    <div
+                      key={tier}
+                      onClick={() => setManualTier(tier === manualTier ? null : tier)}
+                      className={`p-5 rounded-lg border cursor-pointer transition-all ${
+                        isSelected
+                          ? 'border-primary bg-primary/10 ring-2 ring-primary/30'
+                          : 'border-border/30 bg-black/20 hover:border-border/50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary/20' : 'bg-muted/20'}`}>
+                          {TIER_LABELS[tier].icon}
+                        </div>
+                        <div>
+                          <span className="font-semibold text-lg block">{TIER_LABELS[tier].name}</span>
+                          <span className="text-primary font-mono text-base">
+                            ${config.anchor_min_usd}–${config.anchor_max_usd === 9999999 ? '∞' : '$' + config.anchor_max_usd.toLocaleString()}/mo
+                          </span>
+                        </div>
+                        {isRecommended && (
+                          <Badge className="ml-auto bg-primary/20 text-primary text-sm px-2 py-0.5">
+                            Recommended
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      <div className="space-y-2 text-base">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Queries:</span>
+                          <span className="font-mono">{config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()}/mo</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Ports:</span>
+                          <span className="font-mono">{config.included_ports === -1 ? '∞' : config.included_ports}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Ghost Pass:</span>
+                          <span className="font-mono">{config.included_ghost_pass_scans === -1 ? '∞' : config.included_ghost_pass_scans.toLocaleString()}/mo</span>
+                        </div>
+                      </div>
+                      
+                      <p className="text-sm text-cyan-400/80 mt-3 pt-3 border-t border-border/20">
+                        {TIER_LABELS[tier].ideal}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              {calculations.suggestUpgrade && (
+                <div className="mt-4 p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                  <p className="text-base text-amber-400 flex items-center gap-2">
+                    <TrendingUp className="h-5 w-5" />
+                    Overage exceeds 40% of anchor — consider upgrading tier to save money
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Senate Queries Allocation */}
+          <Card className="bg-card/50 border-border/30">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl">Senate Queries</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-5 rounded-lg border border-border/20 bg-black/20">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-medium">Allocation</span>
+                  <Badge variant="outline" className="font-mono text-base">$0.080/query overage</Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-lg">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Included:</span>
+                    <span>{calculations.tierConfig.included_queries === -1 ? '∞' : calculations.tierConfig.included_queries.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Expected:</span>
+                    <span>{calculations.msq.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Utilization:</span>
+                    <span className={calculations.queryUtilization > 100 ? 'text-amber-400' : ''}>
+                      {calculations.queryUtilization}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Overage:</span>
+                    <span className="text-primary">+{formatCurrency(calculations.queryOverage)}</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Ghost Pass QR Scans Allocation */}
+          <Card className="bg-card/50 border-border/30">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl flex items-center gap-3">
+                <QrCode className="h-7 w-7 text-violet-400" />
+                Ghost Pass — QR Scans
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-5 rounded-lg border border-violet-500/20 bg-violet-500/5">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-medium">Allocation</span>
+                  <Badge variant="outline" className="font-mono text-base border-violet-500/30 text-violet-400">
+                    ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)}/scan overage
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-lg">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Included:</span>
+                    <span>{calculations.tierConfig.included_ghost_pass_scans === -1 ? '∞' : calculations.tierConfig.included_ghost_pass_scans.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Expected:</span>
+                    <span>{ghostPassScans.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Utilization:</span>
+                    <span className={calculations.ghostPassUtilization > 100 ? 'text-amber-400' : ''}>
+                      {calculations.ghostPassUtilization}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Overage:</span>
+                    <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
+                  </div>
+                </div>
+                {calculations.ghostPassOverageCount > 0 && (
+                  <p className="text-base text-muted-foreground mt-3">
+                    {calculations.ghostPassOverageCount.toLocaleString()} scans × ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)} = +{formatCurrency(calculations.ghostPassOverage)}
+                  </p>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Verification Add-on */}
+          {verificationEnabled && (
+            <Card className="bg-card/50 border-border/30">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-2xl flex items-center gap-3">
+                  <Fingerprint className="h-7 w-7 text-cyan-400" />
+                  Verification Add-on
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="p-5 rounded-lg border border-cyan-500/20 bg-cyan-500/5">
+                  <div className="space-y-3 text-lg">
+                    {checksBasic > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Basic: {checksBasic.toLocaleString()} × $1.80</span>
+                        <span className="text-cyan-400">= {formatCurrency(calculations.basicChecksCost)}</span>
+                      </div>
+                    )}
+                    {checksStandard > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Standard: {checksStandard.toLocaleString()} × $2.60</span>
+                        <span className="text-cyan-400">= {formatCurrency(calculations.standardChecksCost)}</span>
+                      </div>
+                    )}
+                    {checksDeep > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Deep: {checksDeep.toLocaleString()} × $3.60</span>
+                        <span className="text-cyan-400">= {formatCurrency(calculations.deepChecksCost)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between border-t border-cyan-500/20 pt-3 mt-3">
+                      <span className="font-medium">Total Verification:</span>
+                      <span className="text-cyan-400 font-medium">{formatCurrency(calculations.totalVerificationCost)}</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Ports */}
+          <Card className="bg-card/50 border-border/30">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl">Ports</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-5 rounded-lg border border-border/20 bg-black/20">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-medium">Allocation</span>
+                  <Badge variant="outline" className="font-mono text-base">
+                    ${calculations.tierConfig.port_overage_usd}/extra port
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-lg">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Included:</span>
+                    <span>{calculations.tierConfig.included_ports === -1 ? '∞' : calculations.tierConfig.included_ports}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Connected:</span>
+                    <span>{portsConnected}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Extra:</span>
+                    <span>{calculations.portOverageCount}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Overage:</span>
+                    <span className="text-primary">+{formatCurrency(calculations.portOverage)}</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Competitor Parity */}
+          <Card className="bg-card/50 border-border/30">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl flex items-center gap-3">
+                <TrendingUp className="h-7 w-7 text-green-400" />
+                Competitor Parity Check
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <div className="p-5 rounded-lg bg-black/20 space-y-4 text-lg">
+                <p className="text-base text-muted-foreground font-medium mb-2">Salesforce Agentforce baseline</p>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Actions @ $0.10 each (Flex):</span>
+                  <span className="text-red-400">~{formatCurrency(calculations.agentforceBaseline)}/mo</span>
+                </div>
+              </div>
+              
+              <div className="p-5 rounded-lg bg-green-500/10 border border-green-500/30">
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-medium">Giant Ventures @ $0.080 overage + anchor:</span>
+                  <span className="text-green-400 font-bold text-xl">{formatCurrency(calculations.totalMonthly)}/mo</span>
+                </div>
+                {calculations.savingsPercent > 0 && (
+                  <p className="text-base text-green-400 mt-3">
+                    <Check className="h-5 w-5 inline mr-2" />
+                    ~{calculations.savingsPercent}% savings (governance + audit included)
+                  </p>
+                )}
+              </div>
+              
+              <p className="text-base text-muted-foreground italic">
+                You buy governance architecture, not vendor lock-in. Best model earns a seat.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Architecture Notes */}
+          <Card className="bg-card/50 border-border/30">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl">Architecture Notes</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-4 text-lg text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
+                  <span>Full 7-Seat Senate (model-agnostic seats; best model earns a seat)</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
+                  <span>Governance + audit — immutable trails, human approvals, drift/hallucination checks</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
+                  <span>Ghost Pass is fast QR validation (gate/turnstile/entry); not a KYC identity check</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right Column - Client Inputs */}
         <div className="space-y-6">
           {/* Users & Queries */}
           <Card className="bg-card/50 border-border/30">
@@ -741,246 +1078,9 @@ export function DynamicPricingCalculator() {
                 </div>
               </div>
             </CardContent>
-          </Card>
-        </div>
+        </Card>
 
-        {/* Right Column - Output */}
-        <div className="space-y-6">
-          {/* Tier Selection */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl flex items-center gap-3">
-                <Shield className="h-7 w-7 text-primary" />
-                Tier Selection
-              </CardTitle>
-              <p className="text-base text-muted-foreground mt-2">
-                Pick the first tier where MSQ, Ports, and Scans all fit. If any exceeds the cap, move up.
-              </p>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {TIER_ORDER.map((tier) => {
-                  const config = PRICING_CONFIG.tiers[tier];
-                  const isSelected = calculations.selectedTier === tier;
-                  const isRecommended = calculations.recommendedTier === tier && !manualTier;
-                  
-                  return (
-                    <div
-                      key={tier}
-                      onClick={() => setManualTier(tier === manualTier ? null : tier)}
-                      className={`p-5 rounded-lg border cursor-pointer transition-all ${
-                        isSelected
-                          ? 'border-primary bg-primary/10 ring-2 ring-primary/30'
-                          : 'border-border/30 bg-black/20 hover:border-border/50'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary/20' : 'bg-muted/20'}`}>
-                          {TIER_LABELS[tier].icon}
-                        </div>
-                        <div>
-                          <span className="font-semibold text-lg block">{TIER_LABELS[tier].name}</span>
-                          <span className="text-primary font-mono text-base">
-                            ${config.anchor_min_usd}–${config.anchor_max_usd === 9999999 ? '∞' : '$' + config.anchor_max_usd.toLocaleString()}/mo
-                          </span>
-                        </div>
-                        {isRecommended && (
-                          <Badge className="ml-auto bg-primary/20 text-primary text-sm px-2 py-0.5">
-                            Recommended
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="space-y-2 text-base">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Queries:</span>
-                          <span className="font-mono">{config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()}/mo</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Ports:</span>
-                          <span className="font-mono">{config.included_ports === -1 ? '∞' : config.included_ports}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Ghost Pass:</span>
-                          <span className="font-mono">{config.included_ghost_pass_scans === -1 ? '∞' : config.included_ghost_pass_scans.toLocaleString()}/mo</span>
-                        </div>
-                      </div>
-                      
-                      <p className="text-sm text-cyan-400/80 mt-3 pt-3 border-t border-border/20">
-                        {TIER_LABELS[tier].ideal}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-              
-              {calculations.suggestUpgrade && (
-                <div className="mt-4 p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                  <p className="text-base text-amber-400 flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5" />
-                    Overage exceeds 40% of anchor — consider upgrading tier to save money
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Senate Queries Allocation */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Senate Queries</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="p-5 rounded-lg border border-border/20 bg-black/20">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Allocation</span>
-                  <Badge variant="outline" className="font-mono text-base">$0.080/query overage</Badge>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-lg">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_queries === -1 ? '∞' : calculations.tierConfig.included_queries.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Expected:</span>
-                    <span>{calculations.msq.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Utilization:</span>
-                    <span className={calculations.queryUtilization > 100 ? 'text-amber-400' : ''}>
-                      {calculations.queryUtilization}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Overage:</span>
-                    <span className="text-primary">+{formatCurrency(calculations.queryOverage)}</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Ghost Pass QR Scans Allocation */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl flex items-center gap-3">
-                <QrCode className="h-7 w-7 text-violet-400" />
-                Ghost Pass — QR Scans
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="p-5 rounded-lg border border-violet-500/20 bg-violet-500/5">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Allocation</span>
-                  <Badge variant="outline" className="font-mono text-base border-violet-500/30 text-violet-400">
-                    ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)}/scan overage
-                  </Badge>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-lg">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_ghost_pass_scans === -1 ? '∞' : calculations.tierConfig.included_ghost_pass_scans.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Expected:</span>
-                    <span>{ghostPassScans.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Utilization:</span>
-                    <span className={calculations.ghostPassUtilization > 100 ? 'text-amber-400' : ''}>
-                      {calculations.ghostPassUtilization}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Overage:</span>
-                    <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
-                  </div>
-                </div>
-                {calculations.ghostPassOverageCount > 0 && (
-                  <p className="text-base text-muted-foreground mt-3">
-                    {calculations.ghostPassOverageCount.toLocaleString()} scans × ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)} = +{formatCurrency(calculations.ghostPassOverage)}
-                  </p>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Verification Add-on */}
-          {verificationEnabled && (
-            <Card className="bg-card/50 border-border/30">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-2xl flex items-center gap-3">
-                  <Fingerprint className="h-7 w-7 text-cyan-400" />
-                  Verification Add-on
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="p-5 rounded-lg border border-cyan-500/20 bg-cyan-500/5">
-                  <div className="space-y-3 text-lg">
-                    {checksBasic > 0 && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Basic: {checksBasic.toLocaleString()} × $1.80</span>
-                        <span className="text-cyan-400">= {formatCurrency(calculations.basicChecksCost)}</span>
-                      </div>
-                    )}
-                    {checksStandard > 0 && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Standard: {checksStandard.toLocaleString()} × $2.60</span>
-                        <span className="text-cyan-400">= {formatCurrency(calculations.standardChecksCost)}</span>
-                      </div>
-                    )}
-                    {checksDeep > 0 && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Deep: {checksDeep.toLocaleString()} × $3.60</span>
-                        <span className="text-cyan-400">= {formatCurrency(calculations.deepChecksCost)}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between border-t border-cyan-500/20 pt-3 mt-3">
-                      <span className="font-medium">Total Verification:</span>
-                      <span className="text-cyan-400 font-medium">{formatCurrency(calculations.totalVerificationCost)}</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Ports */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Ports</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="p-5 rounded-lg border border-border/20 bg-black/20">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Allocation</span>
-                  <Badge variant="outline" className="font-mono text-base">
-                    ${calculations.tierConfig.port_overage_usd}/extra port
-                  </Badge>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-lg">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_ports === -1 ? '∞' : calculations.tierConfig.included_ports}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Connected:</span>
-                    <span>{portsConnected}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Extra:</span>
-                    <span>{calculations.portOverageCount}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Overage:</span>
-                    <span className="text-primary">+{formatCurrency(calculations.portOverage)}</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Monthly Price */}
+          {/* Monthly Price Summary */}
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl">Monthly Price (Anchor)</CardTitle>
@@ -1038,91 +1138,32 @@ export function DynamicPricingCalculator() {
             </CardContent>
           </Card>
 
-          {/* Competitor Parity */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl flex items-center gap-3">
-                <TrendingUp className="h-7 w-7 text-green-400" />
-                Competitor Parity Check
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              <div className="p-5 rounded-lg bg-black/20 space-y-4 text-lg">
-                <p className="text-base text-muted-foreground font-medium mb-2">Salesforce Agentforce baseline</p>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Actions @ $0.10 each (Flex):</span>
-                  <span className="text-red-400">~{formatCurrency(calculations.agentforceBaseline)}/mo</span>
-                </div>
-              </div>
-              
-              <div className="p-5 rounded-lg bg-green-500/10 border border-green-500/30">
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium">Giant Ventures @ $0.080 overage + anchor:</span>
-                  <span className="text-green-400 font-bold text-xl">{formatCurrency(calculations.totalMonthly)}/mo</span>
-                </div>
-                {calculations.savingsPercent > 0 && (
-                  <p className="text-base text-green-400 mt-3">
-                    <Check className="h-5 w-5 inline mr-2" />
-                    ~{calculations.savingsPercent}% savings (governance + audit included)
-                  </p>
-                )}
-              </div>
-              
-              <p className="text-base text-muted-foreground italic">
-                You buy governance architecture, not vendor lock-in. Best model earns a seat.
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Architecture Notes */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Architecture Notes</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-4 text-lg text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
-                  <span>Full 7-Seat Senate (model-agnostic seats; best model earns a seat)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
-                  <span>Governance + audit — immutable trails, human approvals, drift/hallucination checks</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
-                  <span>Ghost Pass is fast QR validation (gate/turnstile/entry); not a KYC identity check</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-
           {/* Client-Facing Explainer */}
           <div className="p-6 rounded-lg bg-gradient-to-r from-primary/5 to-cyan-500/5 border border-primary/20">
             <p className="text-lg text-muted-foreground leading-relaxed">
               <strong className="text-foreground">Why this makes sense:</strong> You tell us how many people use AI, how often it needs governance, expected Ghost Pass scans, optional verification checks, and connected systems. You see a clear monthly anchor with simple, transparent overages. No "credits." Every plan includes the 7-Seat Senate plus audit trails and Reasonable Care controls.
             </p>
           </div>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button 
-              className="flex-1 bg-primary hover:bg-primary/90 text-lg py-7"
-              onClick={() => setProposalOpen(true)}
-            >
-              <Check className="h-6 w-6 mr-2" />
-              Generate Proposal
-            </Button>
-            <Button 
-              variant="outline" 
-              className="flex-1 text-lg py-7"
-              onClick={() => setOrderFormOpen(true)}
-            >
-              <FileText className="h-6 w-6 mr-2" />
-              Create Order Form
-            </Button>
-          </div>
         </div>
+      </div>
+
+      {/* CTAs */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Button 
+          className="flex-1 bg-primary hover:bg-primary/90 text-lg py-7"
+          onClick={() => setProposalOpen(true)}
+        >
+          <Check className="h-6 w-6 mr-2" />
+          Generate Proposal
+        </Button>
+        <Button 
+          variant="outline" 
+          className="flex-1 text-lg py-7"
+          onClick={() => setOrderFormOpen(true)}
+        >
+          <FileText className="h-6 w-6 mr-2" />
+          Create Order Form
+        </Button>
       </div>
 
       {/* Dialogs */}

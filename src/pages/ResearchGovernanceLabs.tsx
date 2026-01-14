@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, FlaskConical, Scale, Brain, Shield, FileText, Users, Sparkles, BookOpen, Download, ExternalLink } from "lucide-react";
+import { ArrowLeft, FlaskConical, Scale, Brain, Shield, FileText, Users, Sparkles, BookOpen, Download, Eye } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { PDFViewerModal } from "@/components/PDFViewerModal";
 
 const ResearchGovernanceLabs = () => {
+  const [pdfModal, setPdfModal] = useState<{ isOpen: boolean; url: string; title: string }>({
+    isOpen: false,
+    url: "",
+    title: ""
+  });
+
   const researchAreas = [
     {
       icon: Brain,
@@ -156,16 +163,14 @@ const ResearchGovernanceLabs = () => {
                           size="sm" 
                           className="flex-1 border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
                           onClick={() => {
-                            const link = document.createElement('a');
-                            link.href = pub.link;
-                            link.target = '_blank';
-                            link.rel = 'noopener noreferrer';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
+                            setPdfModal({
+                              isOpen: true,
+                              url: pub.link,
+                              title: pub.title
+                            });
                           }}
                         >
-                          <ExternalLink className="h-4 w-4 mr-2" />
+                          <Eye className="h-4 w-4 mr-2" />
                           Read
                         </Button>
                         <Button 
@@ -269,6 +274,13 @@ const ResearchGovernanceLabs = () => {
           </section>
         </div>
       </main>
+
+      <PDFViewerModal
+        isOpen={pdfModal.isOpen}
+        onClose={() => setPdfModal({ isOpen: false, url: "", title: "" })}
+        pdfUrl={pdfModal.url}
+        title={pdfModal.title}
+      />
     </>
   );
 };

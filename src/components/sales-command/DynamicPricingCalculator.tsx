@@ -615,78 +615,129 @@ export function DynamicPricingCalculator() {
                 </p>
               </div>
 
-              {/* Risk Level Radio */}
+              {/* Industry Liability Level */}
               <div className="p-5 rounded-lg border border-border/30 bg-black/20">
                 <div className="space-y-5">
-                  <Label className="text-lg font-medium flex items-center gap-3">
-                    <AlertTriangle className="h-6 w-6 text-amber-400" />
-                    Industry Liability Level
-                  </Label>
-                  <RadioGroup
-                    value={riskLevel}
-                    onValueChange={(v) => setRiskLevel(v as RiskLevel)}
-                    className="space-y-4"
-                  >
-                    {/* Low Risk */}
-                    <div className={`p-4 rounded-lg border transition-all cursor-pointer ${
-                      riskLevel === 'low' 
-                        ? 'border-green-500/50 bg-green-500/10' 
-                        : 'border-border/30 bg-black/10 hover:border-border/50'
-                    }`}>
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem value="low" id="risk-low" />
-                        <div className="flex-1">
-                          <Label htmlFor="risk-low" className="text-lg cursor-pointer font-medium flex items-center gap-2">
-                            Low Risk
-                            <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">×1.00</Badge>
-                          </Label>
-                          <p className="text-base text-muted-foreground mt-1">
-                            Retail, hospitality, entertainment, general services, e-commerce, SaaS
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                  <div>
+                    <Label className="text-lg font-medium flex items-center gap-3">
+                      <AlertTriangle className="h-6 w-6 text-amber-400" />
+                      Industry Liability Level
+                    </Label>
+                    <p className="text-base text-muted-foreground mt-2">
+                      Select what matches your data and operations. If unsure, choose Medium.
+                    </p>
+                  </div>
+                  
+                  {/* Risk Pills */}
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setRiskLevel('low')}
+                      className={`px-6 py-3 rounded-full font-semibold text-base transition-all ${
+                        riskLevel === 'low'
+                          ? 'bg-green-500/30 text-green-400 border-2 border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]'
+                          : 'bg-green-500/10 text-green-400/70 border border-green-500/30 hover:bg-green-500/20'
+                      }`}
+                      title="No regulated data or alcohol/age-gate. Retail, services, basic SaaS."
+                    >
+                      Low ×1.00
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setRiskLevel('medium')}
+                      className={`px-6 py-3 rounded-full font-semibold text-base transition-all ${
+                        riskLevel === 'medium'
+                          ? 'bg-amber-500/30 text-amber-400 border-2 border-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]'
+                          : 'bg-amber-500/10 text-amber-400/70 border border-amber-500/30 hover:bg-amber-500/20'
+                      }`}
+                      title="PII/PCI/FERPA or alcohol/age-gated entry. Bars, restaurants, universities, e-commerce."
+                    >
+                      Medium ×1.30
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setRiskLevel('high')}
+                      className={`px-6 py-3 rounded-full font-semibold text-base transition-all ${
+                        riskLevel === 'high'
+                          ? 'bg-red-500/30 text-red-400 border-2 border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.3)]'
+                          : 'bg-red-500/10 text-red-400/70 border border-red-500/30 hover:bg-red-500/20'
+                      }`}
+                      title="PHI/GLBA/CJIS/ITAR, watchlists/biometrics, or large alcohol-served events. Hospitals, banks, courts, stadiums, festivals."
+                    >
+                      High ×1.70
+                    </button>
+                  </div>
 
-                    {/* Medium Risk */}
-                    <div className={`p-4 rounded-lg border transition-all cursor-pointer ${
-                      riskLevel === 'medium' 
-                        ? 'border-amber-500/50 bg-amber-500/10' 
-                        : 'border-border/30 bg-black/10 hover:border-border/50'
-                    }`}>
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem value="medium" id="risk-medium" />
-                        <div className="flex-1">
-                          <Label htmlFor="risk-medium" className="text-lg cursor-pointer font-medium flex items-center gap-2">
-                            Medium Risk
-                            <Badge variant="outline" className="bg-amber-500/20 text-amber-400 border-amber-500/30">×1.30</Badge>
-                          </Label>
-                          <p className="text-base text-muted-foreground mt-1">
-                            Insurance, real estate, HR/staffing, education, transportation, age-restricted venues
-                          </p>
+                  {/* Selected Risk Details */}
+                  <div className={`p-4 rounded-lg border transition-all ${
+                    riskLevel === 'low' ? 'border-green-500/30 bg-green-500/5' :
+                    riskLevel === 'medium' ? 'border-amber-500/30 bg-amber-500/5' :
+                    'border-red-500/30 bg-red-500/5'
+                  }`}>
+                    {riskLevel === 'low' && (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Check className="h-5 w-5 text-green-400" />
+                          <span className="font-medium text-green-400">Low Risk — ×1.00</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          No regulated data (PHI/GLBA/CJIS/ITAR), no age-restricted entry, minimal public-safety exposure, no alcohol-gated operations.
+                        </p>
+                        <div className="pt-2 border-t border-green-500/20">
+                          <p className="text-xs text-muted-foreground font-medium mb-2">EXAMPLES:</p>
+                          <ul className="text-sm text-muted-foreground space-y-1">
+                            <li>• Retail (non-pharmacy), general services, marketing agencies</li>
+                            <li>• Coffee shops, bakeries, fast-casual restaurants without alcohol</li>
+                            <li>• Basic SaaS (no stored PII), simple e-commerce catalogs</li>
+                            <li>• Museums, arcades without alcohol service</li>
+                          </ul>
                         </div>
                       </div>
-                    </div>
-
-                    {/* High Risk */}
-                    <div className={`p-4 rounded-lg border transition-all cursor-pointer ${
-                      riskLevel === 'high' 
-                        ? 'border-red-500/50 bg-red-500/10' 
-                        : 'border-border/30 bg-black/10 hover:border-border/50'
-                    }`}>
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem value="high" id="risk-high" />
-                        <div className="flex-1">
-                          <Label htmlFor="risk-high" className="text-lg cursor-pointer font-medium flex items-center gap-2">
-                            High Risk
-                            <Badge variant="outline" className="bg-red-500/20 text-red-400 border-red-500/30">×1.70</Badge>
-                          </Label>
-                          <p className="text-base text-muted-foreground mt-1">
-                            Medical/healthcare, legal, financial services, government, defense, regulated industries
-                          </p>
+                    )}
+                    {riskLevel === 'medium' && (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <AlertTriangle className="h-5 w-5 text-amber-400" />
+                          <span className="font-medium text-amber-400">Medium Risk — ×1.30</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Handles PII/PCI/FERPA and/or operates age-restricted entry or alcohol service; contractual/regulatory duties apply.
+                        </p>
+                        <div className="pt-2 border-t border-amber-500/20">
+                          <p className="text-xs text-muted-foreground font-medium mb-2">EXAMPLES:</p>
+                          <ul className="text-sm text-muted-foreground space-y-1">
+                            <li>• Bars, pubs, taprooms, breweries with ID checks</li>
+                            <li>• Restaurants with alcohol service, nightclubs/lounges (≤3,000 capacity)</li>
+                            <li>• Gentlemen's cabarets (no watchlists/biometrics)</li>
+                            <li>• Universities/campus events (FERPA), e-commerce with payments (PCI)</li>
+                            <li>• SaaS storing customer PII, insurance brokerage CRM, real estate</li>
+                          </ul>
                         </div>
                       </div>
-                    </div>
-                  </RadioGroup>
+                    )}
+                    {riskLevel === 'high' && (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Shield className="h-5 w-5 text-red-400" />
+                          <span className="font-medium text-red-400">High Risk — ×1.70</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Regulated/highly sensitive data (PHI/GLBA/SEC/CJIS/ITAR), privileged legal/financial data, public-safety ops, or large alcohol-serving events.
+                        </p>
+                        <div className="pt-2 border-t border-red-500/20">
+                          <p className="text-xs text-muted-foreground font-medium mb-2">EXAMPLES:</p>
+                          <ul className="text-sm text-muted-foreground space-y-1">
+                            <li>• Stadiums/arenas, leagues, large festivals/EDM with crowd-safety ops</li>
+                            <li>• Medical/healthcare (PHI/HIPAA), payers/providers</li>
+                            <li>• Legal firms/courts (privileged/attorney-client), eDiscovery</li>
+                            <li>• Banks/fintech/broker-dealers (GLBA/PCI/SOX/SEC)</li>
+                            <li>• Deep screening (watchlists/terrorist/sex offender), biometrics</li>
+                            <li>• Nightclubs with watchlists/biometrics OR &gt;3,000 occupancy</li>
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </CardContent>

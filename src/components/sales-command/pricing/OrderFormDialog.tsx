@@ -39,7 +39,7 @@ export function OrderFormDialog({ open, onOpenChange, data }: OrderFormDialogPro
   };
 
   const orderFormText = `
-ORDER FORM — GRILLO AI 7-SEAT SENATE (MONTHLY)
+ORDER FORM — GIANT VENTURES LLC 7-SEAT SENATE (MONTHLY)
 Generated: ${new Date().toLocaleDateString()}
 
 ═══════════════════════════════════════════════════════
@@ -81,7 +81,7 @@ Term: Month-to-month (cancel anytime; renews monthly)
 ═══════════════════════════════════════════════════════
 ORDER DOCUMENTS
 ═══════════════════════════════════════════════════════
-This Order Form incorporates the Grillo AI MSA.
+This Order Form incorporates the Giant Ventures LLC MSA.
 In case of conflict, the Order Form prevails for commercial terms.
 
 ═══════════════════════════════════════════════════════
@@ -92,7 +92,7 @@ Customer signature: ____________________  Date: ________
 Name / Title: __________________________
 
 
-Grillo AI signature: ____________________  Date: ________
+Giant Ventures LLC signature: ____________________  Date: ________
 Name / Title: __________________________
 
 
@@ -104,7 +104,7 @@ Reference: MSA available at https://bevalid.app/legal/msa
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `grillo-ai-order-form-${new Date().toISOString().split('T')[0]}.txt`;
+    a.download = `giant-ventures-order-form-${new Date().toISOString().split('T')[0]}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -248,7 +248,7 @@ Reference: MSA available at https://bevalid.app/legal/msa
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
-              Cancel anytime; renews monthly. This Order Form incorporates the Grillo AI MSA.
+              Cancel anytime; renews monthly. This Order Form incorporates the Giant Ventures LLC MSA.
             </p>
           </div>
 
@@ -268,7 +268,7 @@ Reference: MSA available at https://bevalid.app/legal/msa
               </div>
               <div className="flex justify-between items-end">
                 <div>
-                  <p className="text-muted-foreground mb-1">Grillo AI signature:</p>
+                  <p className="text-muted-foreground mb-1">Giant Ventures LLC signature:</p>
                   <div className="border-b border-muted-foreground/50 w-48 h-6"></div>
                 </div>
                 <div>

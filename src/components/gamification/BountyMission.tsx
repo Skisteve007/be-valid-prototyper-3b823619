@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Target, X, Sparkles } from 'lucide-react';
+import { Target, X, Sparkles, Users, MessageCircle, Zap, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 type SignalType = 'social' | 'thrill' | 'afterdark';
@@ -9,9 +9,9 @@ interface BountyMissionProps {
 }
 
 const SIGNAL_LABELS: Record<SignalType, string> = {
-  social: 'Chills',
-  thrill: 'Thrills',
-  afterdark: 'Opens'
+  social: 'Chill',
+  thrill: 'Thrill',
+  afterdark: 'Open'
 };
 
 const SIGNAL_COLORS: Record<SignalType, string> = {
@@ -138,6 +138,10 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
           0% { transform: translateY(0) rotate(0deg); opacity: 1; }
           100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.3); }
+          50% { box-shadow: 0 0 20px rgba(0, 240, 255, 0.6); }
+        }
       `}</style>
 
       {/* Mission Pill */}
@@ -154,9 +158,9 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Target className={`w-4 h-4 ${isComplete ? 'text-yellow-400' : 'text-cyan-400'}`} />
+            <Users className={`w-4 h-4 ${isComplete ? 'text-yellow-400' : 'text-cyan-400'}`} />
             <span className="text-sm font-medium text-white">
-              Find 3 {SIGNAL_LABELS[target]}.
+              Find 3 Signal Vibes
             </span>
           </div>
           <span className="text-xs text-white/60">{progress}/{targetCount}</span>
@@ -176,30 +180,68 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
         <div className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4" onClick={() => setIsModalOpen(false)}>
           <div 
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-sm bg-gradient-to-br from-gray-900 to-black border border-white/20 rounded-2xl p-6"
+            className="w-full max-w-sm bg-gradient-to-br from-gray-900 to-black border border-white/20 rounded-2xl p-6 max-h-[85vh] overflow-y-auto"
           >
             <div className="flex justify-between items-start mb-4">
-              <h3 className="text-lg font-bold text-white">Tonight's Mission</h3>
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-cyan-400" />
+                <h3 className="text-lg font-bold text-white">Signal Vibes</h3>
+              </div>
               <button onClick={() => setIsModalOpen(false)} className="p-1 hover:bg-white/10 rounded">
                 <X className="w-4 h-4 text-white/60" />
               </button>
             </div>
 
+            {/* Game Description */}
+            <div className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-white/10 rounded-xl p-4 mb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Zap className="w-5 h-5 text-yellow-400" />
+                <h4 className="font-bold text-white">The Connection Game</h4>
+              </div>
+              <p className="text-sm text-white/70 leading-relaxed">
+                Your signal reflects who you are tonight. Find 3 people whose signals match yours and start a real conversation. When signals align, connections spark!
+              </p>
+            </div>
+
+            {/* How to Play */}
+            <div className="space-y-3 mb-4">
+              <h4 className="text-sm font-bold text-white/80 flex items-center gap-2">
+                <MessageCircle className="w-4 h-4 text-cyan-400" />
+                How It Works
+              </h4>
+              <div className="space-y-2">
+                <div className="flex items-start gap-3 bg-white/5 rounded-lg p-3">
+                  <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                  <p className="text-sm text-white/70">Scan someone's QR code to see their signal vibe</p>
+                </div>
+                <div className="flex items-start gap-3 bg-white/5 rounded-lg p-3">
+                  <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                  <p className="text-sm text-white/70">If your signals match, you've found a vibe match!</p>
+                </div>
+                <div className="flex items-start gap-3 bg-white/5 rounded-lg p-3">
+                  <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                  <p className="text-sm text-white/70">Start a conversation—you already have something in common</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Tonight's Target */}
             <div className={`p-4 rounded-xl bg-gradient-to-r ${SIGNAL_COLORS[target]} bg-opacity-20 border border-white/10 mb-4`}>
               <div className="text-center">
-                <Target className="w-8 h-8 mx-auto mb-2 text-white" />
-                <p className="text-xl font-bold text-white mb-1">
-                  Scan 3 "{SIGNAL_LABELS[target]}" Users
+                <Heart className="w-6 h-6 mx-auto mb-2 text-white animate-pulse" />
+                <p className="text-lg font-bold text-white mb-1">
+                  Tonight: Find 3 "{SIGNAL_LABELS[target]}" Signals
                 </p>
-                <p className="text-sm text-white/70">
-                  Find members broadcasting the {SIGNAL_LABELS[target]} signal
+                <p className="text-xs text-white/70">
+                  Connect with others broadcasting the {SIGNAL_LABELS[target]} vibe
                 </p>
               </div>
             </div>
 
+            {/* Progress */}
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-sm">
-                <span className="text-white/60">Progress</span>
+                <span className="text-white/60">Connections Made</span>
                 <span className="text-white font-bold">{progress} / {targetCount}</span>
               </div>
               <div className="h-2 bg-white/10 rounded-full overflow-hidden">
@@ -214,6 +256,7 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
               </div>
             </div>
 
+            {/* Rewards */}
             <div className="bg-white/5 rounded-lg p-3 mb-4">
               <p className="text-xs text-white/60 mb-2">REWARDS</p>
               <div className="space-y-1 text-sm text-white/80">
@@ -224,7 +267,7 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
             </div>
 
             <p className="text-xs text-white/40 text-center">
-              Resets daily at 6:00 PM
+              New signals unlock daily at 6:00 PM
             </p>
           </div>
         </div>
@@ -250,7 +293,8 @@ export const BountyMission = ({ onBountyComplete }: BountyMissionProps) => {
           
           <div className="text-center">
             <Sparkles className="w-16 h-16 mx-auto mb-4 text-yellow-400 animate-pulse" />
-            <h2 className="text-3xl font-black text-white mb-2">MISSION COMPLETE!</h2>
+            <h2 className="text-3xl font-black text-white mb-2">VIBES CONNECTED!</h2>
+            <p className="text-lg text-white/70 mb-2">You found 3 Signal Matches</p>
             <p className="text-xl text-yellow-400 mb-6">{getRewardText()}</p>
             <Button 
               onClick={() => setShowReward(false)}

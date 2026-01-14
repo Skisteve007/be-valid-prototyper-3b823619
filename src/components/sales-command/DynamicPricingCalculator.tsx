@@ -49,7 +49,7 @@ const PRICING_CONFIG = {
   version: "demo-1.1",
   defaults: {
     working_days_per_month: 22,
-    risk_multiplier: { low: 1.0, medium: 1.1, high: 1.25 } as Record<RiskLevel, number>,
+    risk_multiplier: { low: 1.0, medium: 1.30, high: 1.70 } as Record<RiskLevel, number>,
     negotiation_range_percent: 0.20,
     verification_addon_enabled_by_default: false
   },
@@ -599,32 +599,76 @@ export function DynamicPricingCalculator() {
 
               {/* Risk Level Radio */}
               <div className="p-5 rounded-lg border border-border/30 bg-black/20">
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <Label className="text-lg font-medium flex items-center gap-3">
                     <AlertTriangle className="h-6 w-6 text-amber-400" />
-                    High-Liability Industry
+                    Industry Liability Level
                   </Label>
                   <RadioGroup
                     value={riskLevel}
                     onValueChange={(v) => setRiskLevel(v as RiskLevel)}
-                    className="flex flex-wrap gap-6"
+                    className="space-y-4"
                   >
-                    <div className="flex items-center space-x-3">
-                      <RadioGroupItem value="low" id="risk-low" />
-                      <Label htmlFor="risk-low" className="text-lg cursor-pointer">Off (×1.00)</Label>
+                    {/* Low Risk */}
+                    <div className={`p-4 rounded-lg border transition-all cursor-pointer ${
+                      riskLevel === 'low' 
+                        ? 'border-green-500/50 bg-green-500/10' 
+                        : 'border-border/30 bg-black/10 hover:border-border/50'
+                    }`}>
+                      <div className="flex items-center space-x-3">
+                        <RadioGroupItem value="low" id="risk-low" />
+                        <div className="flex-1">
+                          <Label htmlFor="risk-low" className="text-lg cursor-pointer font-medium flex items-center gap-2">
+                            Low Risk
+                            <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">×1.00</Badge>
+                          </Label>
+                          <p className="text-base text-muted-foreground mt-1">
+                            Retail, hospitality, entertainment, general services, e-commerce, SaaS
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <RadioGroupItem value="medium" id="risk-medium" />
-                      <Label htmlFor="risk-medium" className="text-lg cursor-pointer">Medium (×1.10)</Label>
+
+                    {/* Medium Risk */}
+                    <div className={`p-4 rounded-lg border transition-all cursor-pointer ${
+                      riskLevel === 'medium' 
+                        ? 'border-amber-500/50 bg-amber-500/10' 
+                        : 'border-border/30 bg-black/10 hover:border-border/50'
+                    }`}>
+                      <div className="flex items-center space-x-3">
+                        <RadioGroupItem value="medium" id="risk-medium" />
+                        <div className="flex-1">
+                          <Label htmlFor="risk-medium" className="text-lg cursor-pointer font-medium flex items-center gap-2">
+                            Medium Risk
+                            <Badge variant="outline" className="bg-amber-500/20 text-amber-400 border-amber-500/30">×1.30</Badge>
+                          </Label>
+                          <p className="text-base text-muted-foreground mt-1">
+                            Insurance, real estate, HR/staffing, education, transportation, age-restricted venues
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <RadioGroupItem value="high" id="risk-high" />
-                      <Label htmlFor="risk-high" className="text-lg cursor-pointer">On (×1.25)</Label>
+
+                    {/* High Risk */}
+                    <div className={`p-4 rounded-lg border transition-all cursor-pointer ${
+                      riskLevel === 'high' 
+                        ? 'border-red-500/50 bg-red-500/10' 
+                        : 'border-border/30 bg-black/10 hover:border-border/50'
+                    }`}>
+                      <div className="flex items-center space-x-3">
+                        <RadioGroupItem value="high" id="risk-high" />
+                        <div className="flex-1">
+                          <Label htmlFor="risk-high" className="text-lg cursor-pointer font-medium flex items-center gap-2">
+                            High Risk
+                            <Badge variant="outline" className="bg-red-500/20 text-red-400 border-red-500/30">×1.70</Badge>
+                          </Label>
+                          <p className="text-base text-muted-foreground mt-1">
+                            Medical/healthcare, legal, financial services, government, defense, regulated industries
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </RadioGroup>
-                  <p className="text-base text-muted-foreground">
-                    Medical, Legal, Financial, Government
-                  </p>
                 </div>
               </div>
             </CardContent>

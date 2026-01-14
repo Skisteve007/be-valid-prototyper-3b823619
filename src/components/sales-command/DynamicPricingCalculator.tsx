@@ -25,7 +25,7 @@ import {
 import { PricingProposalDialog } from "./pricing/PricingProposalDialog";
 import { OrderFormDialog } from "./pricing/OrderFormDialog";
 import { AIGovernanceBadge } from "./pricing/AIGovernanceBadge";
-import { PortSelector, ALL_PORTS } from "./pricing/PortSelector";
+import { PortSelector, ALL_PORTS, CustomPort } from "./pricing/PortSelector";
 
 // Types
 type TierKey = "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
@@ -148,10 +148,16 @@ export function DynamicPricingCalculator() {
   const [queriesPerDay, setQueriesPerDay] = useState(10);
   const [riskLevel, setRiskLevel] = useState<RiskLevel>("low");
   const [selectedPorts, setSelectedPorts] = useState<string[]>(["salesforce", "slack"]);
+  const [customPorts, setCustomPorts] = useState<CustomPort[]>([
+    { id: "custom_1", name: "", enabled: false },
+    { id: "custom_2", name: "", enabled: false },
+    { id: "custom_3", name: "", enabled: false }
+  ]);
   const [manualTier, setManualTier] = useState<TierKey | null>(null);
   
-  // Derived ports count from selected ports
-  const portsConnected = selectedPorts.length;
+  // Derived ports count from selected ports + enabled custom ports with names
+  const enabledCustomPorts = customPorts.filter(cp => cp.enabled && cp.name.trim()).length;
+  const portsConnected = selectedPorts.length + enabledCustomPorts;
   
   // Ghost Pass QR Scans
   const [ghostPassScans, setGhostPassScans] = useState(500);
@@ -893,6 +899,8 @@ export function DynamicPricingCalculator() {
               <PortSelector
                 selectedPorts={selectedPorts}
                 onPortsChange={setSelectedPorts}
+                customPorts={customPorts}
+                onCustomPortsChange={setCustomPorts}
                 maxPorts={calculations.tierConfig.ports_cap}
               />
 

@@ -60,7 +60,8 @@ const ResearchGovernanceLabs = () => {
       type: "Governance Document",
       description: "Is your AI legally defensible? This Constitution outlines the mandatory 'Reasonable Care' standards now required across emerging state liability laws. It provides the exact protocols necessary to protect your enterprise from agentic drift and negligence claims. Download the official blueprint for secured, compliant, and defensible AI operations today.",
       link: "/governance-constitution",
-      isPdf: false
+      isPdf: false,
+      downloadPdf: "/documents/The_Grillo_AI_Governance_Standard_Constitution.pdf"
     },
     {
       title: "Human Vetting Methodology",
@@ -204,13 +205,18 @@ const ResearchGovernanceLabs = () => {
                     </CardContent>
                   </Card>
                 ) : (
-                  <Link key={index} to={pub.link}>
-                    <Card className="bg-card/50 border-border/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] cursor-pointer group">
-                      <CardContent className="p-4 flex items-center justify-between">
+                  <Card 
+                    key={index} 
+                    className="bg-card/50 border-border/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)]"
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-foreground group-hover:text-purple-400 transition-colors">
-                            {pub.title}
-                          </h3>
+                          <Link to={pub.link} className="group">
+                            <h3 className="font-semibold text-foreground group-hover:text-purple-400 transition-colors">
+                              {pub.title}
+                            </h3>
+                          </Link>
                           <p className="text-sm text-muted-foreground">{pub.type}</p>
                           {'description' in pub && pub.description && (
                             <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
@@ -218,10 +224,32 @@ const ResearchGovernanceLabs = () => {
                             </p>
                           )}
                         </div>
-                        <ArrowLeft className="h-5 w-5 text-muted-foreground rotate-180 group-hover:text-purple-400 group-hover:translate-x-1 transition-all shrink-0 ml-4" />
-                      </CardContent>
-                    </Card>
-                  </Link>
+                        <Link to={pub.link} className="group">
+                          <ArrowLeft className="h-5 w-5 text-muted-foreground rotate-180 group-hover:text-purple-400 group-hover:translate-x-1 transition-all shrink-0 ml-4" />
+                        </Link>
+                      </div>
+                      {'downloadPdf' in pub && (pub as any).downloadPdf && (
+                        <div className="mt-4 pt-4 border-t border-border/50">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 font-semibold"
+                            onClick={() => {
+                              const link = document.createElement('a');
+                              link.href = (pub as any).downloadPdf;
+                              link.download = 'The_Grillo_AI_Governance_Standard_Constitution.pdf';
+                              document.body.appendChild(link);
+                              link.click();
+                              document.body.removeChild(link);
+                            }}
+                          >
+                            <Download className="h-4 w-4 mr-2" />
+                            Download AI Governance Standard Constitution
+                          </Button>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 )
               ))}
             </div>

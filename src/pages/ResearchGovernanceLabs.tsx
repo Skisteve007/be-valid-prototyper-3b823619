@@ -126,44 +126,6 @@ const ResearchGovernanceLabs = () => {
             </p>
           </div>
 
-          {/* Research Areas Grid */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-cyan-400" />
-              Active Research Areas
-            </h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {researchAreas.map((area, index) => (
-                <Card 
-                  key={index} 
-                  className="bg-card/50 border-border/50 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.1)]"
-                >
-                  <CardHeader className="pb-3">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${area.color} flex items-center justify-center mb-3`}>
-                      <area.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <CardTitle className="text-lg text-foreground">{area.title}</CardTitle>
-                    <div className="flex items-center gap-2">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${
-                        area.status === "Published" 
-                          ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" 
-                          : "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
-                      }`}>
-                        {area.status}
-                      </span>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-muted-foreground">
-                      {area.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-
           {/* Publications Section */}
           <section className="mb-16">
             <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
@@ -235,6 +197,44 @@ const ResearchGovernanceLabs = () => {
                     </Card>
                   </Link>
                 )
+              ))}
+            </div>
+          </section>
+
+          {/* Research Areas Grid */}
+          <section className="mb-16">
+            <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-cyan-400" />
+              Active Research Areas
+            </h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {researchAreas.map((area, index) => (
+                <Card 
+                  key={index} 
+                  className="bg-card/50 border-border/50 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,240,255,0.1)]"
+                >
+                  <CardHeader className="pb-3">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${area.color} flex items-center justify-center mb-3`}>
+                      <area.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <CardTitle className="text-lg text-foreground">{area.title}</CardTitle>
+                    <div className="flex items-center gap-2">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                        area.status === "Published" 
+                          ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" 
+                          : "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
+                      }`}>
+                        {area.status}
+                      </span>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-muted-foreground">
+                      {area.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </section>

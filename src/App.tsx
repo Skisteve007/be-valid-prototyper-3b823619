@@ -149,6 +149,7 @@ const SynthSalesCommandCenter = lazy(() => import("./pages/SynthSalesCommandCent
 const ResearchGovernanceLabs = lazy(() => import("./pages/ResearchGovernanceLabs"));
 const StevenGrillo = lazy(() => import("./pages/seo/StevenGrillo"));
 const BrandSafety = lazy(() => import("./pages/seo/BrandSafety"));
+const CostComparison = lazy(() => import("./pages/CostComparison"));
 const GeneticAIFoundations = lazy(() => import("./pages/seo/whitepapers/GeneticAIFoundations"));
 const SynthesizedAIOrchestration = lazy(() => import("./pages/seo/whitepapers/SynthesizedAIOrchestration"));
 const AIOrchestrationCostSavings = lazy(() => import("./pages/seo/whitepapers/AIOrchestrationCostSavings"));
@@ -341,6 +342,7 @@ const App = () => (
                   {/* SEO & BRAND SAFETY ROUTES */}
                   <Route path="/steven-grillo" element={<StevenGrillo />} />
                   <Route path="/brand-safety" element={<BrandSafety />} />
+                  <Route path="/cost-comparison" element={<CostComparison />} />
                   <Route path="/whitepapers/genetic-ai-foundations" element={<GeneticAIFoundations />} />
                   <Route path="/whitepapers/synthesized-ai-orchestration" element={<SynthesizedAIOrchestration />} />
                   <Route path="/whitepapers/ai-orchestration-cost-savings" element={<AIOrchestrationCostSavings />} />

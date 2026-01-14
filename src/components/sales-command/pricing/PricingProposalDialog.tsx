@@ -1,8 +1,9 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Download, Copy, Check } from "lucide-react";
+import { Download, Copy, Check, Shield } from "lucide-react";
 import { useState } from "react";
+import { BADGE_CONFIG, getBadgeDisplayName } from "@/config/badgeConfig";
 
 interface ProposalData {
   usersGoverned: number;
@@ -107,6 +108,7 @@ NOTES
 ✓ Full 7-Seat Senate included (model-agnostic seats; best model earns a seat)
 ✓ Immutable audit trails, approvals, drift/hallucination checks
 ✓ Ghost Pass is rapid QR validation; identity verification is separate add-on
+✓ ${getBadgeDisplayName()}: Included. Client is authorized to display the badge while subscription is active and ${BADGE_CONFIG.issuer} governance standards are met. See badge guidelines.
 
 Click "Create Order Form" to finalize
 `.trim();
@@ -282,6 +284,10 @@ Click "Create Order Form" to finalize
               <li className="flex items-start gap-2">
                 <Check className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
                 Ghost Pass is rapid QR validation; identity verification is separate add-on
+              </li>
+              <li className="flex items-start gap-2">
+                <Shield className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                {getBadgeDisplayName()} — included (display rights while subscription active)
               </li>
             </ul>
           </div>

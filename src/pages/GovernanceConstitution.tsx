@@ -19,10 +19,10 @@ const GovernanceConstitution = () => {
 
     navigate(-1);
 
-    // Fallback: if there's no in-app history (or it doesn't move), send the user back to the dashboard.
+    // Fallback: if there's no in-app history (or it doesn't move), send the user back to Research Labs.
     window.setTimeout(() => {
       if (window.location.pathname === currentPath) {
-        navigate("/wallet");
+        navigate("/research-governance-labs");
       }
     }, 150);
   };

@@ -352,11 +352,6 @@ const Dashboard = () => {
                 Welcome to your Universal Lifestyle Wallet. One place for identity, safety, and access.
               </p>
             </div>
-            
-            {/* Location Pulse - Separate Pill */}
-            <div className="mt-4">
-              <LocationPulseSection />
-            </div>
           </div>
           
           {/* My Signal Section - Top Priority */}
@@ -399,6 +394,11 @@ const Dashboard = () => {
                 <span className="text-green-400 text-[10px] font-bold">GDPR</span>
               </div>
               <span className="text-gray-500 text-[10px]">Enterprise Ready</span>
+            </div>
+            
+            {/* Location Pulse - Right above Bounty Mission */}
+            <div className="my-4">
+              <LocationPulseSection />
             </div>
             
             {/* Bounty Mission - Daily Quest */}

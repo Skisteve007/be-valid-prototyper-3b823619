@@ -8,6 +8,8 @@ interface ProposalData {
   usersGoverned: number;
   queriesPerDay: number;
   msq: number;
+  ghostPassScans: number;
+  ghostPassOverage: number;
   verificationEnabled: boolean;
   checksBasic: number;
   checksStandard: number;
@@ -22,6 +24,8 @@ interface ProposalData {
   selectedTier: string;
   tierLabel: string;
   includedQueries: number;
+  includedGhostPassScans: number;
+  ghostPassRate: number;
   includedPorts: number;
   anchor: number;
   queryOverage: number;
@@ -58,26 +62,32 @@ CLIENT INPUTS
 • Users governed: ${data.usersGoverned.toLocaleString()}
 • Queries per user per day: ${data.queriesPerDay}
 • Monthly Senate queries (22 days): ${data.msq.toLocaleString()}
+• Ghost Pass — QR scans (fast gate validation): ${data.ghostPassScans.toLocaleString()} per month
 • Verification add-on: ${data.verificationEnabled ? 'Enabled' : 'Disabled'}${data.verificationEnabled ? `
   - Basic: ${data.checksBasic.toLocaleString()} × $1.80 = ${formatCurrency(data.basicChecksCost)}
   - Standard: ${data.checksStandard.toLocaleString()} × $2.60 = ${formatCurrency(data.standardChecksCost)}
   - Deep: ${data.checksDeep.toLocaleString()} × $3.60 = ${formatCurrency(data.deepChecksCost)}` : ''}
 • Ports connected: ${data.portsConnected}
-• High-liability industry: ${data.riskLevel.charAt(0).toUpperCase() + data.riskLevel.slice(1)}
+• High-liability industry: ${data.riskLevel === 'low' ? 'Off' : data.riskLevel === 'medium' ? 'Medium' : 'On'}
 
 ═══════════════════════════════════════════════════════
 TIER & ALLOCATION
 ═══════════════════════════════════════════════════════
 • Tier: ${data.tierLabel}
 • Included queries: ${data.includedQueries === -1 ? '∞' : data.includedQueries.toLocaleString()}
+• Included Ghost Pass scans: ${data.includedGhostPassScans === -1 ? '∞' : data.includedGhostPassScans.toLocaleString()}
 • Included ports: ${data.includedPorts === -1 ? '∞' : data.includedPorts}
-• Overage rates: $0.080/query
+• Overage rates:
+  - Queries: $0.080/query
+  - Ghost Pass scans: $${data.ghostPassRate.toFixed(2)}/scan (above included)
+  - Ports: per tier rate
 
 ═══════════════════════════════════════════════════════
 COMMERCIALS
 ═══════════════════════════════════════════════════════
 • Anchor: ${formatCurrency(data.anchor)}/mo (range ${formatCurrency(data.rangeLow)}–${formatCurrency(data.rangeHigh)})
-• Query overage: ${formatCurrency(data.queryOverage)}${data.verificationEnabled ? `
+• Query overage: ${formatCurrency(data.queryOverage)}
+• Ghost Pass overage: ${formatCurrency(data.ghostPassOverage)}${data.verificationEnabled ? `
 • Verification add-on: ${formatCurrency(data.totalVerificationCost)}` : ''}
 • Port overage: ${formatCurrency(data.portOverage)}
 • Risk multiplier: ×${data.riskMultiplier.toFixed(2)}
@@ -85,9 +95,10 @@ COMMERCIALS
 • TOTAL MONTHLY: ${formatCurrency(data.totalMonthly)}/mo
 
 ═══════════════════════════════════════════════════════
-COMPETITOR PARITY (OPTIONAL)
+OPTIONAL COMPETITOR PARITY
 ═══════════════════════════════════════════════════════
 • Competitor baseline (@$0.10/action): ~${formatCurrency(data.agentforceBaseline)}/mo
+• QR/event parity: present only if client provides comparable vendor rate
 • Estimated savings vs competitor: ~${data.savingsPercent}%
 
 ═══════════════════════════════════════════════════════
@@ -95,7 +106,7 @@ NOTES
 ═══════════════════════════════════════════════════════
 ✓ Full 7-Seat Senate included (model-agnostic seats; best model earns a seat)
 ✓ Immutable audit trails, approvals, drift/hallucination checks
-✓ SYNTH reduces conversational noise by ~75% and captures key decision points
+✓ Ghost Pass is rapid QR validation; identity verification is separate add-on
 
 Click "Create Order Form" to finalize
 `.trim();
@@ -139,9 +150,10 @@ Click "Create Order Form" to finalize
               <div><span className="text-muted-foreground">Users governed:</span> {data.usersGoverned.toLocaleString()}</div>
               <div><span className="text-muted-foreground">Queries/day:</span> {data.queriesPerDay}</div>
               <div><span className="text-muted-foreground">MSQ:</span> {data.msq.toLocaleString()}</div>
+              <div><span className="text-muted-foreground">Ghost Pass scans:</span> {data.ghostPassScans.toLocaleString()}</div>
               <div><span className="text-muted-foreground">Ports:</span> {data.portsConnected}</div>
-              <div><span className="text-muted-foreground">Risk level:</span> {data.riskLevel}</div>
-              <div><span className="text-muted-foreground">Verification:</span> {data.verificationEnabled ? 'Enabled' : 'Disabled'}</div>
+              <div><span className="text-muted-foreground">Risk level:</span> {data.riskLevel === 'low' ? 'Off' : data.riskLevel}</div>
+              <div className="col-span-2"><span className="text-muted-foreground">Verification:</span> {data.verificationEnabled ? 'Enabled' : 'Disabled'}</div>
             </div>
           </div>
 
@@ -183,6 +195,14 @@ Click "Create Order Form" to finalize
                 <span>{data.includedQueries === -1 ? '∞' : data.includedQueries.toLocaleString()}</span>
               </div>
               <div className="flex justify-between">
+                <span className="text-muted-foreground">Included Ghost Pass scans:</span>
+                <span>{data.includedGhostPassScans === -1 ? '∞' : data.includedGhostPassScans.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Ghost Pass overage rate:</span>
+                <span>${data.ghostPassRate.toFixed(2)}/scan</span>
+              </div>
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Included ports:</span>
                 <span>{data.includedPorts === -1 ? '∞' : data.includedPorts}</span>
               </div>
@@ -204,6 +224,10 @@ Click "Create Order Form" to finalize
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Query overage:</span>
                 <span>+{formatCurrency(data.queryOverage)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Ghost Pass overage:</span>
+                <span className="text-violet-400">+{formatCurrency(data.ghostPassOverage)}</span>
               </div>
               {data.verificationEnabled && (
                 <div className="flex justify-between">
@@ -257,7 +281,7 @@ Click "Create Order Form" to finalize
               </li>
               <li className="flex items-start gap-2">
                 <Check className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
-                SYNTH reduces conversational noise by ~75%
+                Ghost Pass is rapid QR validation; identity verification is separate add-on
               </li>
             </ul>
           </div>

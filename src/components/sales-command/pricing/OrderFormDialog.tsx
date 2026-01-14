@@ -3,17 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Download, FileText, Check } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 import { useState } from "react";
 
 interface OrderFormData {
   tierLabel: string;
   includedQueries: number;
+  includedGhostPassScans: number;
+  ghostPassRate: number;
   includedPorts: number;
   portOverageRate: number;
   verificationEnabled: boolean;
   anchor: number;
   queryOverage: number;
+  ghostPassOverage: number;
   verificationCost: number;
   portOverage: number;
   riskMultiplier: number;
@@ -53,9 +56,16 @@ Primary contact (name/email): ${customerContact || '__________________________'}
 SERVICES
 ═══════════════════════════════════════════════════════
 Tier: ${data.tierLabel}
-Included per month: ${data.includedQueries === -1 ? '∞' : data.includedQueries.toLocaleString()} queries, ${data.includedPorts === -1 ? '∞' : data.includedPorts} ports
-Query overage: $0.080 per query (above included)
-Ports overage: $${data.portOverageRate} per port (above included)
+Included per month:
+  • Queries: ${data.includedQueries === -1 ? '∞' : data.includedQueries.toLocaleString()}
+  • Ghost Pass scans: ${data.includedGhostPassScans === -1 ? '∞' : data.includedGhostPassScans.toLocaleString()}
+  • Ports: ${data.includedPorts === -1 ? '∞' : data.includedPorts}
+
+Overage rates:
+  • Query overage: $0.080 per query (above included)
+  • Ghost Pass scan overage: $${data.ghostPassRate.toFixed(2)}/scan (above included)
+  • Ports overage: $${data.portOverageRate} per port (above included)
+
 Verification add-on (optional; per-check pricing if enabled):
   • Basic: $1.80/check • Standard: $2.60/check • Deep: $3.60/check
 
@@ -65,6 +75,7 @@ COMMERCIALS
 Monthly anchor: ${formatCurrency(data.anchor)}
 Estimated overages (non-binding):
   • Queries: ${formatCurrency(data.queryOverage)}
+  • Ghost Pass scans: ${formatCurrency(data.ghostPassOverage)}
   • Verification: ${formatCurrency(data.verificationCost)}
   • Ports: ${formatCurrency(data.portOverage)}
 Risk multiplier: ×${data.riskMultiplier.toFixed(2)}
@@ -172,12 +183,24 @@ Reference: MSA available at https://bevalid.app/legal/msa
                 <Badge variant="outline">{data.tierLabel}</Badge>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Included per month:</span>
-                <span>{data.includedQueries === -1 ? '∞' : data.includedQueries.toLocaleString()} queries, {data.includedPorts === -1 ? '∞' : data.includedPorts} ports</span>
+                <span className="text-muted-foreground">Included queries:</span>
+                <span>{data.includedQueries === -1 ? '∞' : data.includedQueries.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Included Ghost Pass scans:</span>
+                <span>{data.includedGhostPassScans === -1 ? '∞' : data.includedGhostPassScans.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Included ports:</span>
+                <span>{data.includedPorts === -1 ? '∞' : data.includedPorts}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Query overage:</span>
                 <span>$0.080 per query</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Ghost Pass overage:</span>
+                <span>${data.ghostPassRate.toFixed(2)}/scan</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Ports overage:</span>
@@ -201,6 +224,10 @@ Reference: MSA available at https://bevalid.app/legal/msa
               <div className="flex justify-between pl-4">
                 <span className="text-muted-foreground">Queries:</span>
                 <span>{formatCurrency(data.queryOverage)}</span>
+              </div>
+              <div className="flex justify-between pl-4">
+                <span className="text-muted-foreground">Ghost Pass scans:</span>
+                <span className="text-violet-400">{formatCurrency(data.ghostPassOverage)}</span>
               </div>
               {data.verificationEnabled && (
                 <div className="flex justify-between pl-4">

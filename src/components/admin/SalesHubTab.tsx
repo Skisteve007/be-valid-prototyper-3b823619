@@ -143,15 +143,15 @@ export const SalesHubTab = () => {
               </CardHeader>
             </Card>
             
-            <Card className="hover:border-primary/50 transition-colors cursor-pointer group" onClick={() => navigate("/admin/sales-command")}>
+            <Card className="hover:border-primary/50 transition-colors cursor-pointer group" onClick={() => navigate("/revenue-engine")}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 group-hover:text-primary transition-colors">
                   <Calculator className="h-5 w-5" />
-                  Pricing Calculator
+                  Pricing Engine
                   <ExternalLink className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </CardTitle>
                 <CardDescription>
-                  Dynamic slider-based calculator for Pilot, Alliance, and Enterprise tiers
+                  SaaS + Usage + Optional Modules — Point-of-Sale pricing structure
                 </CardDescription>
               </CardHeader>
             </Card>

@@ -615,28 +615,7 @@ export function DynamicPricingCalculator() {
             </CardContent>
           </Card>
 
-          {/* Architecture Notes */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Architecture Notes</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-4 text-lg text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
-                  <span>Full 7-Seat Senate (model-agnostic seats; best model earns a seat)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
-                  <span>Governance + audit — immutable trails, human approvals, drift/hallucination checks</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
-                  <span>Identity verification optional and priced per check: Basic $1.80 • Standard $2.60 • Deep $3.60</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+          {/* Senate Allocation moved below */}
         </div>
 
         {/* Right Column - Client Inputs */}
@@ -967,7 +946,7 @@ export function DynamicPricingCalculator() {
           {/* Monthly Price Summary */}
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">
             <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Monthly Price</CardTitle>
+              <CardTitle className="text-2xl">Monthly Price Summary</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="text-center">
@@ -980,33 +959,95 @@ export function DynamicPricingCalculator() {
                 </p>
               </div>
 
+              {/* What You're Getting - Dynamic Description */}
+              <div className="p-5 rounded-lg bg-black/30 border border-primary/20 space-y-4">
+                <h4 className="text-lg font-semibold text-primary flex items-center gap-2">
+                  <Shield className="h-5 w-5" />
+                  What's Included
+                </h4>
+                <div className="grid grid-cols-1 gap-3 text-base">
+                  <div className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
+                    <span>
+                      <strong className="text-foreground">{usersGoverned.toLocaleString()} governed users</strong> on {calculations.selectedTier.charAt(0).toUpperCase() + calculations.selectedTier.slice(1).replace('_', ' ')} tier @ ${calculations.tierConfig.per_user_rate_usd}/user
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
+                    <span>
+                      <strong className="text-foreground">{calculations.includedQueriesTotal.toLocaleString()} Senate queries</strong> included ({calculations.tierConfig.included_queries_per_user}/user × {usersGoverned})
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-violet-400 mt-0.5 shrink-0" />
+                    <span>
+                      <strong className="text-foreground">{calculations.includedGhostPassTotal.toLocaleString()} Ghost Pass scans</strong> included ({calculations.tierConfig.included_ghost_pass_per_user}/user × {usersGoverned})
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-cyan-400 mt-0.5 shrink-0" />
+                    <span>
+                      <strong className="text-foreground">Up to {calculations.tierConfig.ports_cap} connected ports</strong> (CRM, ticketing, access control, etc.)
+                    </span>
+                  </div>
+                  {verificationEnabled && (
+                    <div className="flex items-start gap-3">
+                      <Check className="h-5 w-5 text-amber-400 mt-0.5 shrink-0" />
+                      <span>
+                        <strong className="text-foreground">{(checksBasic + checksStandard + checksDeep).toLocaleString()} identity verifications</strong> ({checksBasic > 0 ? `${checksBasic} basic` : ''}{checksStandard > 0 ? `${checksBasic > 0 ? ', ' : ''}${checksStandard} standard` : ''}{checksDeep > 0 ? `${checksBasic + checksStandard > 0 ? ', ' : ''}${checksDeep} deep` : ''})
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Architecture Notes */}
+              <div className="p-5 rounded-lg bg-black/20 border border-border/20 space-y-3">
+                <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wide">Platform Architecture</h4>
+                <ul className="space-y-2 text-base text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
+                    <span>Full 7-Seat Senate (model-agnostic; best model earns a seat)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
+                    <span>Governance + audit — immutable trails, human approvals, drift checks</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-green-400 mt-0.5 shrink-0" />
+                    <span>Identity verification optional: Basic $1.80 • Standard $2.60 • Deep $3.60</span>
+                  </li>
+                </ul>
+              </div>
+
               {/* Breakdown */}
               <div className="p-5 rounded-lg bg-black/20 space-y-3 text-base">
+                <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wide mb-3">Cost Breakdown</h4>
                 <div className="flex justify-between font-medium">
                   <span>{usersGoverned} × ${calculations.tierConfig.per_user_rate_usd}/user:</span>
                   <span>{formatCurrency(calculations.perUserSubtotal)}</span>
                 </div>
                 {calculations.queryOverage > 0 && (
                   <div className="flex justify-between text-muted-foreground">
-                    <span>Query overage:</span>
+                    <span>Query overage ({calculations.queryOverageCount.toLocaleString()} extra):</span>
                     <span>+{formatCurrency(calculations.queryOverage)}</span>
                   </div>
                 )}
                 {calculations.ghostPassOverage > 0 && (
                   <div className="flex justify-between text-muted-foreground">
-                    <span>Ghost Pass overage:</span>
+                    <span>Ghost Pass overage ({calculations.ghostPassOverageCount.toLocaleString()} extra):</span>
                     <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
                   </div>
                 )}
                 {verificationEnabled && calculations.totalVerificationCost > 0 && (
                   <div className="flex justify-between text-muted-foreground">
-                    <span>Verification:</span>
+                    <span>Verification checks:</span>
                     <span className="text-cyan-400">+{formatCurrency(calculations.totalVerificationCost)}</span>
                   </div>
                 )}
                 {calculations.portOverage > 0 && (
                   <div className="flex justify-between text-muted-foreground">
-                    <span>Ports overage:</span>
+                    <span>Ports overage ({calculations.portOverageCount} extra):</span>
                     <span>+{formatCurrency(calculations.portOverage)}</span>
                   </div>
                 )}
@@ -1016,20 +1057,18 @@ export function DynamicPricingCalculator() {
                 </div>
                 {riskLevel !== 'low' && (
                   <div className="flex justify-between text-amber-400">
-                    <span>Risk ×{calculations.riskMultiplier.toFixed(2)}:</span>
+                    <span>Risk multiplier ×{calculations.riskMultiplier.toFixed(2)}:</span>
                     <span>{formatCurrency(calculations.totalMonthly)}</span>
                   </div>
                 )}
               </div>
+
+              {/* Per-user math explainer */}
+              <p className="text-sm text-muted-foreground text-center">
+                <strong className="text-foreground">Per-user math:</strong> {usersGoverned} users × ${calculations.tierConfig.per_user_rate_usd}/user = ${calculations.perUserSubtotal}/mo base
+              </p>
             </CardContent>
           </Card>
-
-          {/* Explainer */}
-          <div className="p-5 rounded-lg bg-primary/5 border border-primary/20">
-            <p className="text-base text-muted-foreground">
-              <strong className="text-foreground">Per-user math:</strong> {usersGoverned} users × ${calculations.tierConfig.per_user_rate_usd}/user = ${calculations.perUserSubtotal}/mo base. Included allocations scale with users. No "credits."
-            </p>
-          </div>
         </div>
       </div>
 

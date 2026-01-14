@@ -5,14 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import {
   Calculator, 
   Users, 
   MessageSquare, 
   Shield, 
-  Download,
   TrendingUp,
   Check,
   AlertTriangle,
@@ -22,7 +20,6 @@ import {
   Plug,
   Fingerprint,
   FileText,
-  Sparkles,
   QrCode
 } from "lucide-react";
 import { PricingProposalDialog } from "./pricing/PricingProposalDialog";
@@ -34,20 +31,19 @@ type TierKey = "solo" | "starter" | "professional" | "business" | "enterprise" |
 type RiskLevel = "low" | "medium" | "high";
 
 interface TierConfig {
-  anchor_min_usd: number;
-  anchor_mid_usd: number;
-  anchor_max_usd: number;
-  included_queries: number;
-  included_ports: number;
-  included_ghost_pass_scans: number;
+  user_range: { min: number; max: number };
+  per_user_rate_usd: number;
+  included_queries_per_user: number;
+  included_ghost_pass_per_user: number;
+  ports_cap: number;
   query_overage_usd: number;
   ghost_pass_rate_usd: number;
   port_overage_usd: number;
 }
 
-// Configuration from JSON spec demo-1.1
+// Per-user pricing configuration from spec
 const PRICING_CONFIG = {
-  version: "demo-1.1",
+  version: "per-user-1.0",
   defaults: {
     working_days_per_month: 22,
     risk_multiplier: { low: 1.0, medium: 1.30, high: 1.70 } as Record<RiskLevel, number>,
@@ -56,34 +52,64 @@ const PRICING_CONFIG = {
   },
   tiers: {
     solo: {
-      anchor_min_usd: 79, anchor_mid_usd: 99, anchor_max_usd: 149,
-      included_queries: 1000, included_ports: 2, included_ghost_pass_scans: 250,
-      query_overage_usd: 0.08, ghost_pass_rate_usd: 0.75, port_overage_usd: 99
+      user_range: { min: 1, max: 5 },
+      per_user_rate_usd: 15,
+      included_queries_per_user: 200,
+      included_ghost_pass_per_user: 50,
+      ports_cap: 2,
+      query_overage_usd: 0.08,
+      ghost_pass_rate_usd: 0.75,
+      port_overage_usd: 99
     },
     starter: {
-      anchor_min_usd: 149, anchor_mid_usd: 199, anchor_max_usd: 399,
-      included_queries: 5000, included_ports: 3, included_ghost_pass_scans: 1000,
-      query_overage_usd: 0.08, ghost_pass_rate_usd: 0.65, port_overage_usd: 99
+      user_range: { min: 6, max: 10 },
+      per_user_rate_usd: 14,
+      included_queries_per_user: 500,
+      included_ghost_pass_per_user: 100,
+      ports_cap: 3,
+      query_overage_usd: 0.08,
+      ghost_pass_rate_usd: 0.65,
+      port_overage_usd: 99
     },
     professional: {
-      anchor_min_usd: 399, anchor_mid_usd: 699, anchor_max_usd: 999,
-      included_queries: 25000, included_ports: 5, included_ghost_pass_scans: 5000,
-      query_overage_usd: 0.08, ghost_pass_rate_usd: 0.55, port_overage_usd: 199
+      user_range: { min: 11, max: 25 },
+      per_user_rate_usd: 12,
+      included_queries_per_user: 1000,
+      included_ghost_pass_per_user: 200,
+      ports_cap: 5,
+      query_overage_usd: 0.08,
+      ghost_pass_rate_usd: 0.55,
+      port_overage_usd: 199
     },
     business: {
-      anchor_min_usd: 999, anchor_mid_usd: 1799, anchor_max_usd: 2499,
-      included_queries: 100000, included_ports: 8, included_ghost_pass_scans: 15000,
-      query_overage_usd: 0.08, ghost_pass_rate_usd: 0.45, port_overage_usd: 299
+      user_range: { min: 26, max: 100 },
+      per_user_rate_usd: 10,
+      included_queries_per_user: 1000,
+      included_ghost_pass_per_user: 300,
+      ports_cap: 8,
+      query_overage_usd: 0.08,
+      ghost_pass_rate_usd: 0.45,
+      port_overage_usd: 299
     },
     enterprise: {
-      anchor_min_usd: 2500, anchor_mid_usd: 7500, anchor_max_usd: 10000,
-      included_queries: 500000, included_ports: 12, included_ghost_pass_scans: 100000,
-      query_overage_usd: 0.08, ghost_pass_rate_usd: 0.10, port_overage_usd: 499
+      user_range: { min: 101, max: 500 },
+      per_user_rate_usd: 8,
+      included_queries_per_user: 1000,
+      included_ghost_pass_per_user: 500,
+      ports_cap: 12,
+      query_overage_usd: 0.08,
+      ghost_pass_rate_usd: 0.10,
+      port_overage_usd: 499
     },
     sector_sovereign: {
-      anchor_min_usd: 10000, anchor_mid_usd: 25000, anchor_max_usd: 9999999,
-      included_queries: -1, included_ports: -1, included_ghost_pass_scans: -1,
-      query_overage_usd: 0.08, ghost_pass_rate_usd: 0.06, port_overage_usd: 999
+      user_range: { min: 501, max: -1 },
+      per_user_rate_usd: 6.5,
+      included_queries_per_user: -1,
+      included_ghost_pass_per_user: -1,
+      ports_cap: -1,
+      query_overage_usd: 0.08,
+      ghost_pass_rate_usd: 0.06,
+      port_overage_usd: 999
     }
   } as Record<TierKey, TierConfig>,
   verification_rates_usd: {
@@ -106,13 +132,13 @@ const PRICING_CONFIG = {
 
 const TIER_ORDER: TierKey[] = ["solo", "starter", "professional", "business", "enterprise", "sector_sovereign"];
 
-const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode; ideal: string }> = {
-  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, ideal: "Solo pros (1–5 users)" },
-  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, ideal: "5–10 users" },
-  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, ideal: "10–20 users" },
-  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, ideal: "20–50 users" },
-  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, ideal: "50–200 users" },
-  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, ideal: "200+ users (stadiums, leagues, universities)" }
+const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode; userRange: string; priceRange: string }> = {
+  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, userRange: "1–5 users", priceRange: "$79–$149/mo OR $15/user" },
+  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, userRange: "6–10 users", priceRange: "$149–$399/mo OR $14/user" },
+  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, userRange: "11–25 users", priceRange: "$399–$999/mo OR $12/user" },
+  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, userRange: "26–100 users", priceRange: "$999–$2,499/mo OR $10/user" },
+  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, userRange: "101–500 users", priceRange: "$2,500–$10,000/mo OR $8/user" },
+  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, userRange: "501+ users", priceRange: "Custom ($6–$7/user)" }
 };
 
 export function DynamicPricingCalculator() {
@@ -146,41 +172,59 @@ export function DynamicPricingCalculator() {
     // Risk multiplier
     const riskMultiplier = defaults.risk_multiplier[riskLevel];
     
-    // Auto-recommend tier (lowest that covers MSQ)
+    // Auto-recommend tier based on user count and ports
     let recommendedTier: TierKey = "solo";
     for (const tier of TIER_ORDER) {
       const config = tiers[tier];
-      const queriesCovered = config.included_queries === -1 || msq <= config.included_queries;
-      if (queriesCovered) {
+      const userFits = config.user_range.max === -1 
+        ? usersGoverned >= config.user_range.min 
+        : usersGoverned >= config.user_range.min && usersGoverned <= config.user_range.max;
+      const portsFit = config.ports_cap === -1 || portsConnected <= config.ports_cap;
+      
+      if (userFits && portsFit) {
         recommendedTier = tier;
         break;
       }
-      recommendedTier = tier; // If nothing covers, use highest
+      if (userFits) {
+        recommendedTier = tier;
+        break;
+      }
     }
     
     // Use manual tier if set, otherwise recommended
     const selectedTier = manualTier || recommendedTier;
     const tierConfig = tiers[selectedTier];
     
+    // Per-user subtotal
+    const perUserSubtotal = usersGoverned * tierConfig.per_user_rate_usd;
+    
+    // Included org totals (scale per user)
+    const includedQueriesTotal = tierConfig.included_queries_per_user === -1 
+      ? -1 
+      : usersGoverned * tierConfig.included_queries_per_user;
+    const includedGhostPassTotal = tierConfig.included_ghost_pass_per_user === -1 
+      ? -1 
+      : usersGoverned * tierConfig.included_ghost_pass_per_user;
+    
     // Calculate query overages
-    const queryOverageCount = tierConfig.included_queries === -1 
+    const queryOverageCount = includedQueriesTotal === -1 
       ? 0 
-      : Math.max(msq - tierConfig.included_queries, 0);
+      : Math.max(msq - includedQueriesTotal, 0);
     const queryOverage = queryOverageCount * tierConfig.query_overage_usd;
     
     // Ghost Pass scan overages
-    const ghostPassOverageCount = tierConfig.included_ghost_pass_scans === -1
+    const ghostPassOverageCount = includedGhostPassTotal === -1
       ? 0
-      : Math.max(ghostPassScans - tierConfig.included_ghost_pass_scans, 0);
+      : Math.max(ghostPassScans - includedGhostPassTotal, 0);
     const ghostPassOverage = ghostPassOverageCount * tierConfig.ghost_pass_rate_usd;
-    const ghostPassUtilization = tierConfig.included_ghost_pass_scans === -1
+    const ghostPassUtilization = includedGhostPassTotal === -1
       ? 0
-      : Math.round((ghostPassScans / tierConfig.included_ghost_pass_scans) * 100);
+      : Math.round((ghostPassScans / includedGhostPassTotal) * 100);
     
     // Port overages
-    const portOverageCount = tierConfig.included_ports === -1 
+    const portOverageCount = tierConfig.ports_cap === -1 
       ? 0 
-      : Math.max(portsConnected - tierConfig.included_ports, 0);
+      : Math.max(portsConnected - tierConfig.ports_cap, 0);
     const portOverage = portOverageCount * tierConfig.port_overage_usd;
     
     // Verification add-on (flat per-check pricing, only if enabled)
@@ -190,7 +234,7 @@ export function DynamicPricingCalculator() {
     const totalVerificationCost = basicChecksCost + standardChecksCost + deepChecksCost;
     
     // Subtotal and total
-    const subtotal = tierConfig.anchor_mid_usd + queryOverage + ghostPassOverage + portOverage + totalVerificationCost;
+    const subtotal = perUserSubtotal + queryOverage + ghostPassOverage + portOverage + totalVerificationCost;
     const totalMonthly = subtotal * riskMultiplier;
     
     // Negotiation range
@@ -198,13 +242,13 @@ export function DynamicPricingCalculator() {
     const rangeHigh = Math.round(totalMonthly * (1 + defaults.negotiation_range_percent));
     
     // Utilization percentage
-    const queryUtilization = tierConfig.included_queries === -1 
+    const queryUtilization = includedQueriesTotal === -1 
       ? 0 
-      : Math.round((msq / tierConfig.included_queries) * 100);
+      : Math.round((msq / includedQueriesTotal) * 100);
     
-    // Suggest upgrade if overage > 40% of anchor
+    // Suggest upgrade if overage > 40% of per-user subtotal
     const totalOverage = queryOverage + ghostPassOverage + portOverage;
-    const suggestUpgrade = totalOverage > tierConfig.anchor_mid_usd * 0.4 && selectedTier !== "sector_sovereign";
+    const suggestUpgrade = totalOverage > perUserSubtotal * 0.4 && selectedTier !== "sector_sovereign";
     
     // Competitor parity (Agentforce) - actions @ $0.10 × MSQ
     const agentforceBaseline = msq * competitor_parity.agentforce_action_usd;
@@ -219,6 +263,9 @@ export function DynamicPricingCalculator() {
       recommendedTier,
       selectedTier,
       tierConfig,
+      perUserSubtotal,
+      includedQueriesTotal,
+      includedGhostPassTotal,
       queryOverageCount,
       queryOverage,
       ghostPassOverageCount,
@@ -267,11 +314,11 @@ export function DynamicPricingCalculator() {
     riskMultiplier: calculations.riskMultiplier,
     selectedTier: calculations.selectedTier,
     tierLabel: TIER_LABELS[calculations.selectedTier].name,
-    includedQueries: calculations.tierConfig.included_queries,
-    includedGhostPassScans: calculations.tierConfig.included_ghost_pass_scans,
+    includedQueries: calculations.includedQueriesTotal,
+    includedGhostPassScans: calculations.includedGhostPassTotal,
     ghostPassRate: calculations.tierConfig.ghost_pass_rate_usd,
-    includedPorts: calculations.tierConfig.included_ports,
-    anchor: calculations.tierConfig.anchor_mid_usd,
+    includedPorts: calculations.tierConfig.ports_cap,
+    anchor: calculations.perUserSubtotal,
     queryOverage: calculations.queryOverage,
     portOverage: calculations.portOverage,
     totalMonthly: calculations.totalMonthly,
@@ -284,13 +331,13 @@ export function DynamicPricingCalculator() {
   // Order form data
   const orderFormData = {
     tierLabel: TIER_LABELS[calculations.selectedTier].name,
-    includedQueries: calculations.tierConfig.included_queries,
-    includedGhostPassScans: calculations.tierConfig.included_ghost_pass_scans,
+    includedQueries: calculations.includedQueriesTotal,
+    includedGhostPassScans: calculations.includedGhostPassTotal,
     ghostPassRate: calculations.tierConfig.ghost_pass_rate_usd,
-    includedPorts: calculations.tierConfig.included_ports,
+    includedPorts: calculations.tierConfig.ports_cap,
     portOverageRate: calculations.tierConfig.port_overage_usd,
     verificationEnabled,
-    anchor: calculations.tierConfig.anchor_mid_usd,
+    anchor: calculations.perUserSubtotal,
     queryOverage: calculations.queryOverage,
     ghostPassOverage: calculations.ghostPassOverage,
     verificationCost: calculations.totalVerificationCost,
@@ -308,22 +355,27 @@ export function DynamicPricingCalculator() {
           7-Seat Senate Pricing
         </h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Plain-English pricing, monthly. No "credits." Every plan includes the full 7-Seat Senate (model-agnostic, interchangeable).
+          Per-user pricing. No "credits." Every plan includes the full 7-Seat Senate (model-agnostic, interchangeable).
         </p>
+        <div className="p-4 bg-primary/10 border border-primary/30 rounded-lg max-w-3xl mx-auto">
+          <p className="text-base text-foreground">
+            <strong>How to pick your tier in 10 seconds:</strong> MSQ = Users × Queries/day × 22. Pick the tier where your Users and Ports fit.
+          </p>
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        {/* Left Column - Tier Selection + Allocations */}
+        {/* Left Column - Tier Selection */}
         <div className="space-y-6">
           {/* Tier Selection */}
           <Card className="bg-card/50 border-border/30">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl flex items-center gap-3">
                 <Shield className="h-7 w-7 text-primary" />
-                Tier Selection
+                Tier Selection (Per-User)
               </CardTitle>
               <p className="text-base text-muted-foreground mt-2">
-                Pick the first tier where MSQ, Ports, and Scans all fit. If any exceeds the cap, move up.
+                Pick the first tier where your Users range and Ports cap fit. Allocations scale per user.
               </p>
             </CardHeader>
             <CardContent>
@@ -347,37 +399,37 @@ export function DynamicPricingCalculator() {
                         <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary/20' : 'bg-muted/20'}`}>
                           {TIER_LABELS[tier].icon}
                         </div>
-                        <div>
+                        <div className="flex-1">
                           <span className="font-semibold text-lg block">{TIER_LABELS[tier].name}</span>
-                          <span className="text-primary font-mono text-base">
-                            ${config.anchor_min_usd}–${config.anchor_max_usd === 9999999 ? '∞' : '$' + config.anchor_max_usd.toLocaleString()}/mo
-                          </span>
+                          <span className="text-sm text-muted-foreground">{TIER_LABELS[tier].userRange}</span>
                         </div>
                         {isRecommended && (
-                          <Badge className="ml-auto bg-primary/20 text-primary text-sm px-2 py-0.5">
-                            Recommended
+                          <Badge className="bg-primary/20 text-primary text-xs px-2 py-0.5">
+                            Rec
                           </Badge>
                         )}
                       </div>
                       
-                      <div className="space-y-2 text-base">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Queries:</span>
-                          <span className="font-mono">{config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()}/mo</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Ports:</span>
-                          <span className="font-mono">{config.included_ports === -1 ? '∞' : config.included_ports}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Ghost Pass:</span>
-                          <span className="font-mono">{config.included_ghost_pass_scans === -1 ? '∞' : config.included_ghost_pass_scans.toLocaleString()}/mo</span>
-                        </div>
+                      <div className="mb-3">
+                        <span className="text-primary font-mono text-base font-semibold">
+                          ${config.per_user_rate_usd}/user/mo
+                        </span>
                       </div>
                       
-                      <p className="text-sm text-cyan-400/80 mt-3 pt-3 border-t border-border/20">
-                        {TIER_LABELS[tier].ideal}
-                      </p>
+                      <div className="space-y-1.5 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Queries/user:</span>
+                          <span className="font-mono">{config.included_queries_per_user === -1 ? '∞' : config.included_queries_per_user}/mo</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Ghost Pass/user:</span>
+                          <span className="font-mono">{config.included_ghost_pass_per_user === -1 ? '∞' : config.included_ghost_pass_per_user}/mo</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Ports cap:</span>
+                          <span className="font-mono">{config.ports_cap === -1 ? '∞' : config.ports_cap}</span>
+                        </div>
+                      </div>
                     </div>
                   );
                 })}
@@ -387,15 +439,14 @@ export function DynamicPricingCalculator() {
                 <div className="mt-4 p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
                   <p className="text-base text-amber-400 flex items-center gap-2">
                     <TrendingUp className="h-5 w-5" />
-                    Overage exceeds 40% of anchor — consider upgrading tier to save money
+                    Overage exceeds 40% of per-user subtotal — consider upgrading tier to save money
                   </p>
                 </div>
               )}
             </CardContent>
           </Card>
 
-
-          {/* Verification Add-on */}
+          {/* Verification Add-on (when enabled) */}
           {verificationEnabled && (
             <Card className="bg-card/50 border-border/30">
               <CardHeader className="pb-4">
@@ -435,23 +486,85 @@ export function DynamicPricingCalculator() {
             </Card>
           )}
 
-          {/* Ports */}
+          {/* Allocations Summary */}
           <Card className="bg-card/50 border-border/30">
             <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Ports</CardTitle>
+              <CardTitle className="text-2xl">Included Allocations (Org Total)</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                {usersGoverned} users × per-user allowances = org totals
+              </p>
             </CardHeader>
-            <CardContent>
-              <div className="p-5 rounded-lg border border-border/20 bg-black/20">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Allocation</span>
-                  <Badge variant="outline" className="font-mono text-base">
+            <CardContent className="space-y-4">
+              {/* Queries */}
+              <div className="p-4 rounded-lg border border-border/20 bg-black/20">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-lg font-medium">Senate Queries</span>
+                  <Badge variant="outline" className="font-mono text-sm">$0.08/query overage</Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-3 text-base">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Included:</span>
+                    <span>{calculations.includedQueriesTotal === -1 ? '∞' : calculations.includedQueriesTotal.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Expected:</span>
+                    <span>{calculations.msq.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Utilization:</span>
+                    <span className={calculations.queryUtilization > 100 ? 'text-amber-400' : ''}>
+                      {calculations.queryUtilization}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Overage:</span>
+                    <span className="text-primary">+{formatCurrency(calculations.queryOverage)}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Ghost Pass */}
+              <div className="p-4 rounded-lg border border-violet-500/20 bg-violet-500/5">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-lg font-medium">Ghost Pass Scans</span>
+                  <Badge variant="outline" className="font-mono text-sm border-violet-500/30 text-violet-400">
+                    ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)}/scan overage
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-3 text-base">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Included:</span>
+                    <span>{calculations.includedGhostPassTotal === -1 ? '∞' : calculations.includedGhostPassTotal.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Expected:</span>
+                    <span>{ghostPassScans.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Utilization:</span>
+                    <span className={calculations.ghostPassUtilization > 100 ? 'text-amber-400' : ''}>
+                      {calculations.ghostPassUtilization}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Overage:</span>
+                    <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Ports */}
+              <div className="p-4 rounded-lg border border-border/20 bg-black/20">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-lg font-medium">Ports</span>
+                  <Badge variant="outline" className="font-mono text-sm">
                     ${calculations.tierConfig.port_overage_usd}/extra port
                   </Badge>
                 </div>
-                <div className="grid grid-cols-2 gap-4 text-lg">
+                <div className="grid grid-cols-2 gap-3 text-base">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_ports === -1 ? '∞' : calculations.tierConfig.included_ports}</span>
+                    <span className="text-muted-foreground">Cap:</span>
+                    <span>{calculations.tierConfig.ports_cap === -1 ? '∞' : calculations.tierConfig.ports_cap}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Connected:</span>
@@ -489,7 +602,7 @@ export function DynamicPricingCalculator() {
               
               <div className="p-5 rounded-lg bg-green-500/10 border border-green-500/30">
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium">Giant Ventures @ $0.080 overage + anchor:</span>
+                  <span className="text-lg font-medium">Giant Ventures @ $0.08 overage + per-user:</span>
                   <span className="text-green-400 font-bold text-xl">{formatCurrency(calculations.totalMonthly)}/mo</span>
                 </div>
                 {calculations.savingsPercent > 0 && (
@@ -499,10 +612,6 @@ export function DynamicPricingCalculator() {
                   </p>
                 )}
               </div>
-              
-              <p className="text-base text-muted-foreground italic">
-                You buy governance architecture, not vendor lock-in. Best model earns a seat.
-              </p>
             </CardContent>
           </Card>
 
@@ -523,7 +632,7 @@ export function DynamicPricingCalculator() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="h-6 w-6 text-green-400 mt-0.5 shrink-0" />
-                  <span>Ghost Pass is fast QR validation (gate/turnstile/entry); not a KYC identity check</span>
+                  <span>Identity verification optional and priced per check: Basic $1.80 • Standard $2.60 • Deep $3.60</span>
                 </li>
               </ul>
             </CardContent>
@@ -541,7 +650,7 @@ export function DynamicPricingCalculator() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-8">
-              {/* Users Governed - Exponential slider with manual input */}
+              {/* Users Governed */}
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <Label className="text-lg font-medium">Users Governed</Label>
@@ -581,7 +690,7 @@ export function DynamicPricingCalculator() {
               {/* Queries per Day */}
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <Label className="text-lg font-medium">Senate Queries per User per Day</Label>
+                  <Label className="text-lg font-medium">Queries per User per Day</Label>
                   <Badge variant="outline" className="font-mono text-lg px-4 py-1">{queriesPerDay}</Badge>
                 </div>
                 <Slider
@@ -603,7 +712,7 @@ export function DynamicPricingCalculator() {
                 <div className="flex justify-between items-center">
                   <span className="text-lg flex items-center gap-3">
                     <MessageSquare className="h-6 w-6 text-primary" />
-                    Monthly Senate Queries (auto)
+                    Monthly Senate Queries (MSQ)
                   </span>
                   <Badge className="bg-primary/20 text-primary font-mono text-lg px-4 py-1">
                     {calculations.msq.toLocaleString()}
@@ -616,41 +725,6 @@ export function DynamicPricingCalculator() {
             </CardContent>
           </Card>
 
-          {/* Senate Queries Allocation */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Senate Queries</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="p-5 rounded-lg border border-border/20 bg-black/20">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Allocation</span>
-                  <Badge variant="outline" className="font-mono text-base">$0.080/query overage</Badge>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-lg">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_queries === -1 ? '∞' : calculations.tierConfig.included_queries.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Expected:</span>
-                    <span>{calculations.msq.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Utilization:</span>
-                    <span className={calculations.queryUtilization > 100 ? 'text-amber-400' : ''}>
-                      {calculations.queryUtilization}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Overage:</span>
-                    <span className="text-primary">+{formatCurrency(calculations.queryOverage)}</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Ghost Pass QR Scans */}
           <Card className="bg-card/50 border-border/30">
             <CardHeader className="pb-4">
@@ -658,9 +732,6 @@ export function DynamicPricingCalculator() {
                 <QrCode className="h-7 w-7 text-violet-400" />
                 Ghost Pass — QR Scans
               </CardTitle>
-              <p className="text-base text-muted-foreground mt-2">
-                Fast gate validation (separate from identity verification)
-              </p>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
@@ -689,80 +760,32 @@ export function DynamicPricingCalculator() {
                   step={0.01}
                   className="cursor-pointer"
                 />
-                <div className="flex justify-between text-base text-muted-foreground">
+                <div className="flex justify-between text-sm text-muted-foreground">
                   <span>0</span>
-                  <span>100</span>
                   <span>1K</span>
                   <span>10K</span>
                   <span>100K</span>
                   <span>1M</span>
-                  <span>5M+</span>
+                  <span>5M</span>
                 </div>
-              </div>
-
-              <div className="p-4 rounded-lg bg-violet-500/5 border border-violet-500/20">
-                <div className="flex justify-between items-center">
-                  <span className="text-base text-muted-foreground">Tier overage rate:</span>
-                  <Badge variant="outline" className="font-mono text-base border-violet-500/30 text-violet-400">
-                    ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)}/scan
-                  </Badge>
-                </div>
-              </div>
-
-              {/* Ghost Pass QR Scans Allocation - moved here */}
-              <div className="p-5 rounded-lg border border-violet-500/20 bg-violet-500/5">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Allocation included</span>
-                  <Badge variant="outline" className="font-mono text-base border-violet-500/30 text-violet-400">
-                    ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)}/scan overage
-                  </Badge>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-lg">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_ghost_pass_scans === -1 ? '∞' : calculations.tierConfig.included_ghost_pass_scans.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Expected:</span>
-                    <span>{ghostPassScans.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Utilization:</span>
-                    <span className={calculations.ghostPassUtilization > 100 ? 'text-amber-400' : ''}>
-                      {calculations.ghostPassUtilization}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Overage:</span>
-                    <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
-                  </div>
-                </div>
-                {calculations.ghostPassOverageCount > 0 && (
-                  <p className="text-base text-muted-foreground mt-3">
-                    {calculations.ghostPassOverageCount.toLocaleString()} scans × ${calculations.tierConfig.ghost_pass_rate_usd.toFixed(2)} = +{formatCurrency(calculations.ghostPassOverage)}
-                  </p>
-                )}
               </div>
             </CardContent>
           </Card>
 
-          {/* Verification Checks - Optional Add-on */}
+          {/* Verification Checks */}
           <Card className="bg-card/50 border-border/30">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-2xl flex items-center gap-3">
                   <Fingerprint className="h-7 w-7 text-cyan-400" />
                   Verification Checks
-                  <Badge variant="outline" className="text-base">Optional Add-on</Badge>
+                  <Badge variant="outline" className="text-base">Optional</Badge>
                 </CardTitle>
                 <Switch
                   checked={verificationEnabled}
                   onCheckedChange={setVerificationEnabled}
                 />
               </div>
-              <p className="text-base text-muted-foreground mt-2">
-                Enable to price identity verification checks per check
-              </p>
             </CardHeader>
             <CardContent className={`space-y-6 transition-opacity ${!verificationEnabled ? 'opacity-50 pointer-events-none' : ''}`}>
               {/* Basic Checks */}
@@ -776,10 +799,7 @@ export function DynamicPricingCalculator() {
                     <Input
                       type="number"
                       value={checksBasic}
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value) || 0;
-                        setChecksBasic(Math.max(0, Math.min(100000, val)));
-                      }}
+                      onChange={(e) => setChecksBasic(Math.max(0, Math.min(100000, parseInt(e.target.value) || 0)))}
                       className="w-28 h-9 text-right font-mono text-base bg-green-500/10 text-green-400 border-green-500/30"
                       min={0}
                       max={100000}
@@ -808,10 +828,7 @@ export function DynamicPricingCalculator() {
                     <Input
                       type="number"
                       value={checksStandard}
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value) || 0;
-                        setChecksStandard(Math.max(0, Math.min(100000, val)));
-                      }}
+                      onChange={(e) => setChecksStandard(Math.max(0, Math.min(100000, parseInt(e.target.value) || 0)))}
                       className="w-28 h-9 text-right font-mono text-base bg-amber-500/10 text-amber-400 border-amber-500/30"
                       min={0}
                       max={100000}
@@ -834,16 +851,13 @@ export function DynamicPricingCalculator() {
                 <div className="flex justify-between items-center">
                   <Label className="text-lg">
                     <span className="font-medium">Deep</span>
-                    <span className="text-muted-foreground ml-2 text-base">(Most Wanted / Predator / Terrorist)</span>
+                    <span className="text-muted-foreground ml-2 text-base">(Watchlist/Predator)</span>
                   </Label>
                   <div className="flex items-center gap-3">
                     <Input
                       type="number"
                       value={checksDeep}
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value) || 0;
-                        setChecksDeep(Math.max(0, Math.min(100000, val)));
-                      }}
+                      onChange={(e) => setChecksDeep(Math.max(0, Math.min(100000, parseInt(e.target.value) || 0)))}
                       className="w-28 h-9 text-right font-mono text-base bg-red-500/10 text-red-400 border-red-500/30"
                       min={0}
                       max={100000}
@@ -860,27 +874,15 @@ export function DynamicPricingCalculator() {
                   className="cursor-pointer"
                 />
               </div>
-
-              {/* Total Verification Cost */}
-              {verificationEnabled && (
-                <div className="p-5 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg">Total Verification Add-on</span>
-                    <Badge className="bg-cyan-500/20 text-cyan-400 font-mono text-lg px-4 py-1">
-                      {formatCurrency(calculations.totalVerificationCost)}
-                    </Badge>
-                  </div>
-                </div>
-              )}
             </CardContent>
           </Card>
 
-          {/* Ports & Liability */}
+          {/* Ports & Risk */}
           <Card className="bg-card/50 border-border/30">
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl flex items-center gap-3">
                 <Plug className="h-7 w-7 text-violet-400" />
-                Integrations & Risk
+                Ports & Risk
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-8">
@@ -899,11 +901,11 @@ export function DynamicPricingCalculator() {
                   className="cursor-pointer"
                 />
                 <p className="text-base text-muted-foreground">
-                  Salesforce, CRM, Ticketing, Legal, Access Control, etc.
+                  CRM, Ticketing, Access Control, etc.
                 </p>
               </div>
 
-              {/* Industry Liability Level */}
+              {/* Risk Level */}
               <div className="p-5 rounded-lg border border-border/30 bg-black/20">
                 <div className="space-y-5">
                   <div>
@@ -911,12 +913,8 @@ export function DynamicPricingCalculator() {
                       <AlertTriangle className="h-6 w-6 text-amber-400" />
                       Industry Liability Level
                     </Label>
-                    <p className="text-base text-muted-foreground mt-2">
-                      Select what matches your data and operations. If unsure, choose Medium.
-                    </p>
                   </div>
                   
-                  {/* Risk Pills */}
                   <div className="flex flex-wrap gap-3">
                     <button
                       type="button"
@@ -926,7 +924,6 @@ export function DynamicPricingCalculator() {
                           ? 'bg-green-500/30 text-green-400 border-2 border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]'
                           : 'bg-green-500/10 text-green-400/70 border border-green-500/30 hover:bg-green-500/20'
                       }`}
-                      title="No regulated data or alcohol/age-gate. Retail, services, basic SaaS."
                     >
                       Low ×1.00
                     </button>
@@ -938,7 +935,6 @@ export function DynamicPricingCalculator() {
                           ? 'bg-amber-500/30 text-amber-400 border-2 border-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]'
                           : 'bg-amber-500/10 text-amber-400/70 border border-amber-500/30 hover:bg-amber-500/20'
                       }`}
-                      title="PII/PCI/FERPA or alcohol/age-gated entry. Bars, restaurants, universities, e-commerce."
                     >
                       Medium ×1.30
                     </button>
@@ -950,86 +946,20 @@ export function DynamicPricingCalculator() {
                           ? 'bg-red-500/30 text-red-400 border-2 border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.3)]'
                           : 'bg-red-500/10 text-red-400/70 border border-red-500/30 hover:bg-red-500/20'
                       }`}
-                      title="PHI/GLBA/CJIS/ITAR, watchlists/biometrics, or large alcohol-served events. Hospitals, banks, courts, stadiums, festivals."
                     >
                       High ×1.70
                     </button>
                   </div>
 
-                  {/* Selected Risk Details */}
-                  <div className={`p-4 rounded-lg border transition-all ${
-                    riskLevel === 'low' ? 'border-green-500/30 bg-green-500/5' :
-                    riskLevel === 'medium' ? 'border-amber-500/30 bg-amber-500/5' :
-                    'border-red-500/30 bg-red-500/5'
-                  }`}>
-                    {riskLevel === 'low' && (
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2">
-                          <Check className="h-5 w-5 text-green-400" />
-                          <span className="font-medium text-green-400">Low Risk — ×1.00</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          No regulated data (PHI/GLBA/CJIS/ITAR), no age-restricted entry, minimal public-safety exposure, no alcohol-gated operations.
-                        </p>
-                        <div className="pt-2 border-t border-green-500/20">
-                          <p className="text-xs text-muted-foreground font-medium mb-2">EXAMPLES:</p>
-                          <ul className="text-sm text-muted-foreground space-y-1">
-                            <li>• Retail (non-pharmacy), general services, marketing agencies</li>
-                            <li>• Coffee shops, bakeries, fast-casual restaurants without alcohol</li>
-                            <li>• Basic SaaS (no stored PII), simple e-commerce catalogs</li>
-                            <li>• Museums, arcades without alcohol service</li>
-                          </ul>
-                        </div>
-                      </div>
-                    )}
-                    {riskLevel === 'medium' && (
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2">
-                          <AlertTriangle className="h-5 w-5 text-amber-400" />
-                          <span className="font-medium text-amber-400">Medium Risk — ×1.30</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          Handles PII/PCI/FERPA and/or operates age-restricted entry or alcohol service; contractual/regulatory duties apply.
-                        </p>
-                        <div className="pt-2 border-t border-amber-500/20">
-                          <p className="text-xs text-muted-foreground font-medium mb-2">EXAMPLES:</p>
-                          <ul className="text-sm text-muted-foreground space-y-1">
-                            <li>• Bars, pubs, taprooms, breweries with ID checks</li>
-                            <li>• Restaurants with alcohol service, nightclubs/lounges (≤3,000 capacity)</li>
-                            <li>• Gentlemen's cabarets (no watchlists/biometrics)</li>
-                            <li>• Universities/campus events (FERPA), e-commerce with payments (PCI)</li>
-                            <li>• SaaS storing customer PII, insurance brokerage CRM, real estate</li>
-                          </ul>
-                        </div>
-                      </div>
-                    )}
-                    {riskLevel === 'high' && (
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2">
-                          <Shield className="h-5 w-5 text-red-400" />
-                          <span className="font-medium text-red-400">High Risk — ×1.70</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          Regulated/highly sensitive data (PHI/GLBA/SEC/CJIS/ITAR), privileged legal/financial data, public-safety ops, or large alcohol-serving events.
-                        </p>
-                        <div className="pt-2 border-t border-red-500/20">
-                          <p className="text-xs text-muted-foreground font-medium mb-2">EXAMPLES:</p>
-                          <ul className="text-sm text-muted-foreground space-y-1">
-                            <li>• Stadiums/arenas, leagues, large festivals/EDM with crowd-safety ops</li>
-                            <li>• Medical/healthcare (PHI/HIPAA), payers/providers</li>
-                            <li>• Legal firms/courts (privileged/attorney-client), eDiscovery</li>
-                            <li>• Banks/fintech/broker-dealers (GLBA/PCI/SOX/SEC)</li>
-                            <li>• Deep screening (watchlists/terrorist/sex offender), biometrics</li>
-                            <li>• Nightclubs with watchlists/biometrics OR &gt;3,000 occupancy</li>
-                          </ul>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    {riskLevel === 'low' && 'No regulated data. Retail, services, basic SaaS.'}
+                    {riskLevel === 'medium' && 'PII/PCI/FERPA, bars, universities, e-commerce.'}
+                    {riskLevel === 'high' && 'PHI/GLBA/CJIS, hospitals, banks, stadiums.'}
+                  </p>
                 </div>
               </div>
             </CardContent>
-        </Card>
+          </Card>
 
           {/* AI Governance Badge */}
           <AIGovernanceBadge />
@@ -1037,7 +967,7 @@ export function DynamicPricingCalculator() {
           {/* Monthly Price Summary */}
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">
             <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Monthly Price (Anchor)</CardTitle>
+              <CardTitle className="text-2xl">Monthly Price</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="text-center">
@@ -1051,51 +981,53 @@ export function DynamicPricingCalculator() {
               </div>
 
               {/* Breakdown */}
-              <div className="p-5 rounded-lg bg-black/20 space-y-4 text-lg">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Tier anchor ({TIER_LABELS[calculations.selectedTier].name}):</span>
-                  <span>{formatCurrency(calculations.tierConfig.anchor_mid_usd)}</span>
+              <div className="p-5 rounded-lg bg-black/20 space-y-3 text-base">
+                <div className="flex justify-between font-medium">
+                  <span>{usersGoverned} × ${calculations.tierConfig.per_user_rate_usd}/user:</span>
+                  <span>{formatCurrency(calculations.perUserSubtotal)}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Query overage:</span>
-                  <span>+{formatCurrency(calculations.queryOverage)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Ghost Pass overage:</span>
-                  <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
-                </div>
+                {calculations.queryOverage > 0 && (
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Query overage:</span>
+                    <span>+{formatCurrency(calculations.queryOverage)}</span>
+                  </div>
+                )}
+                {calculations.ghostPassOverage > 0 && (
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Ghost Pass overage:</span>
+                    <span className="text-violet-400">+{formatCurrency(calculations.ghostPassOverage)}</span>
+                  </div>
+                )}
                 {verificationEnabled && calculations.totalVerificationCost > 0 && (
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Verification add-on:</span>
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Verification:</span>
                     <span className="text-cyan-400">+{formatCurrency(calculations.totalVerificationCost)}</span>
                   </div>
                 )}
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Ports overage:</span>
-                  <span>+{formatCurrency(calculations.portOverage)}</span>
-                </div>
-                <div className="flex justify-between border-t border-border/20 pt-4">
-                  <span className="text-muted-foreground">Subtotal:</span>
+                {calculations.portOverage > 0 && (
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Ports overage:</span>
+                    <span>+{formatCurrency(calculations.portOverage)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between border-t border-border/20 pt-3">
+                  <span>Subtotal:</span>
                   <span>{formatCurrency(calculations.subtotal)}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Risk multiplier:</span>
-                  <span className={riskLevel !== 'low' ? 'text-amber-400' : ''}>
-                    ×{calculations.riskMultiplier.toFixed(2)}
-                  </span>
-                </div>
-                <div className="flex justify-between border-t border-border/20 pt-4 font-medium text-xl">
-                  <span>Total Monthly:</span>
-                  <span className="text-primary">{formatCurrency(calculations.totalMonthly)}</span>
-                </div>
+                {riskLevel !== 'low' && (
+                  <div className="flex justify-between text-amber-400">
+                    <span>Risk ×{calculations.riskMultiplier.toFixed(2)}:</span>
+                    <span>{formatCurrency(calculations.totalMonthly)}</span>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
 
-          {/* Client-Facing Explainer */}
-          <div className="p-6 rounded-lg bg-gradient-to-r from-primary/5 to-cyan-500/5 border border-primary/20">
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">Why this makes sense:</strong> You tell us how many people use AI, how often it needs governance, expected Ghost Pass scans, optional verification checks, and connected systems. You see a clear monthly anchor with simple, transparent overages. No "credits." Every plan includes the 7-Seat Senate plus audit trails and Reasonable Care controls.
+          {/* Explainer */}
+          <div className="p-5 rounded-lg bg-primary/5 border border-primary/20">
+            <p className="text-base text-muted-foreground">
+              <strong className="text-foreground">Per-user math:</strong> {usersGoverned} users × ${calculations.tierConfig.per_user_rate_usd}/user = ${calculations.perUserSubtotal}/mo base. Included allocations scale with users. No "credits."
             </p>
           </div>
         </div>

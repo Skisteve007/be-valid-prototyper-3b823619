@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
 import { 
   Building2, 
   Scale, 
@@ -44,7 +46,9 @@ import {
   Fingerprint,
   Camera,
   Wifi,
-  Server
+  Server,
+  Plus,
+  Pencil
 } from "lucide-react";
 
 export interface Port {
@@ -53,6 +57,13 @@ export interface Port {
   category: string;
   icon: React.ReactNode;
   description: string;
+  isCustom?: boolean;
+}
+
+export interface CustomPort {
+  id: string;
+  name: string;
+  enabled: boolean;
 }
 
 interface PortCategory {
@@ -246,10 +257,18 @@ export const ALL_PORTS: Port[] = PORT_CATEGORIES.flatMap(cat => cat.ports);
 interface PortSelectorProps {
   selectedPorts: string[];
   onPortsChange: (ports: string[]) => void;
+  customPorts: CustomPort[];
+  onCustomPortsChange: (customPorts: CustomPort[]) => void;
   maxPorts?: number;
 }
 
-export function PortSelector({ selectedPorts, onPortsChange, maxPorts }: PortSelectorProps) {
+export function PortSelector({ 
+  selectedPorts, 
+  onPortsChange, 
+  customPorts,
+  onCustomPortsChange,
+  maxPorts 
+}: PortSelectorProps) {
   const togglePort = (portId: string) => {
     if (selectedPorts.includes(portId)) {
       onPortsChange(selectedPorts.filter(p => p !== portId));
@@ -258,7 +277,21 @@ export function PortSelector({ selectedPorts, onPortsChange, maxPorts }: PortSel
     }
   };
 
-  const selectedCount = selectedPorts.length;
+  const toggleCustomPort = (index: number) => {
+    const updated = [...customPorts];
+    updated[index] = { ...updated[index], enabled: !updated[index].enabled };
+    onCustomPortsChange(updated);
+  };
+
+  const updateCustomPortName = (index: number, name: string) => {
+    const updated = [...customPorts];
+    updated[index] = { ...updated[index], name };
+    onCustomPortsChange(updated);
+  };
+
+  // Count includes standard ports + enabled custom ports with names
+  const enabledCustomCount = customPorts.filter(cp => cp.enabled && cp.name.trim()).length;
+  const selectedCount = selectedPorts.length + enabledCustomCount;
 
   return (
     <div className="space-y-4">
@@ -281,7 +314,7 @@ export function PortSelector({ selectedPorts, onPortsChange, maxPorts }: PortSel
       </div>
 
       {/* Selected Ports Display */}
-      {selectedPorts.length > 0 && (
+      {(selectedPorts.length > 0 || customPorts.some(cp => cp.enabled && cp.name.trim())) && (
         <div className="flex flex-wrap gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
           {selectedPorts.map(portId => {
             const port = ALL_PORTS.find(p => p.id === portId);
@@ -299,6 +332,18 @@ export function PortSelector({ selectedPorts, onPortsChange, maxPorts }: PortSel
               </Badge>
             );
           })}
+          {customPorts.filter(cp => cp.enabled && cp.name.trim()).map((cp, idx) => (
+            <Badge 
+              key={cp.id}
+              variant="secondary"
+              className="flex items-center gap-1.5 px-2 py-1 cursor-pointer hover:bg-destructive/20 transition-colors bg-amber-500/20 border-amber-500/30"
+              onClick={() => toggleCustomPort(idx)}
+            >
+              <Plus className="h-3 w-3" />
+              {cp.name}
+              <span className="text-xs opacity-50">×</span>
+            </Badge>
+          ))}
         </div>
       )}
 
@@ -341,8 +386,80 @@ export function PortSelector({ selectedPorts, onPortsChange, maxPorts }: PortSel
               </div>
             </div>
           ))}
+
+          {/* Custom / Other Ports Section */}
+          <div className="space-y-2 pt-2 border-t border-border/30">
+            <h4 className="text-sm font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+              <Plus className="h-4 w-4" />
+              Other / Custom Ports
+            </h4>
+            <p className="text-xs text-muted-foreground mb-3">
+              Define up to 3 custom integrations not listed above
+            </p>
+            <div className="grid grid-cols-1 gap-3">
+              {customPorts.map((customPort, index) => (
+                <div 
+                  key={customPort.id}
+                  className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                    customPort.enabled && customPort.name.trim()
+                      ? 'bg-amber-500/10 border border-amber-500/30'
+                      : 'bg-black/20 border border-border/30'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleCustomPort(index)}
+                    className={`p-2 rounded transition-all ${
+                      customPort.enabled
+                        ? 'bg-amber-500/30 text-amber-400'
+                        : 'bg-muted/20 text-muted-foreground hover:bg-muted/30'
+                    }`}
+                  >
+                    {customPort.enabled ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                  </button>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <Pencil className="h-3.5 w-3.5 text-muted-foreground" />
+                      <Input
+                        type="text"
+                        placeholder={`Custom Port ${index + 1} (e.g., Internal ERP, Legacy System)`}
+                        value={customPort.name}
+                        onChange={(e) => updateCustomPortName(index, e.target.value)}
+                        className="h-8 bg-black/30 border-border/30 text-sm placeholder:text-muted-foreground/50"
+                      />
+                    </div>
+                  </div>
+                  <span className={`text-xs font-medium px-2 py-1 rounded ${
+                    customPort.enabled && customPort.name.trim()
+                      ? 'bg-amber-500/20 text-amber-400'
+                      : 'bg-muted/20 text-muted-foreground'
+                  }`}>
+                    {customPort.enabled && customPort.name.trim() ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </ScrollArea>
     </div>
+  );
+}
+
+// Check icon for custom ports
+function Check({ className }: { className?: string }) {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className}
+    >
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
   );
 }

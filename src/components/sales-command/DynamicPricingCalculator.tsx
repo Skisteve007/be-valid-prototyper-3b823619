@@ -25,6 +25,7 @@ import {
 import { PricingProposalDialog } from "./pricing/PricingProposalDialog";
 import { OrderFormDialog } from "./pricing/OrderFormDialog";
 import { AIGovernanceBadge } from "./pricing/AIGovernanceBadge";
+import { PortSelector, ALL_PORTS } from "./pricing/PortSelector";
 
 // Types
 type TierKey = "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
@@ -146,8 +147,11 @@ export function DynamicPricingCalculator() {
   const [usersGoverned, setUsersGoverned] = useState(10);
   const [queriesPerDay, setQueriesPerDay] = useState(10);
   const [riskLevel, setRiskLevel] = useState<RiskLevel>("low");
-  const [portsConnected, setPortsConnected] = useState(2);
+  const [selectedPorts, setSelectedPorts] = useState<string[]>(["salesforce", "slack"]);
   const [manualTier, setManualTier] = useState<TierKey | null>(null);
+  
+  // Derived ports count from selected ports
+  const portsConnected = selectedPorts.length;
   
   // Ghost Pass QR Scans
   const [ghostPassScans, setGhostPassScans] = useState(500);
@@ -885,24 +889,12 @@ export function DynamicPricingCalculator() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-8">
-              {/* Ports Connected */}
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <Label className="text-lg font-medium">Ports Connected</Label>
-                  <Badge variant="outline" className="font-mono text-lg px-4 py-1">{portsConnected}</Badge>
-                </div>
-                <Slider
-                  value={[portsConnected]}
-                  onValueChange={([v]) => setPortsConnected(v)}
-                  min={0}
-                  max={15}
-                  step={1}
-                  className="cursor-pointer"
-                />
-                <p className="text-base text-muted-foreground">
-                  CRM, Ticketing, Access Control, etc.
-                </p>
-              </div>
+              {/* Ports Selector */}
+              <PortSelector
+                selectedPorts={selectedPorts}
+                onPortsChange={setSelectedPorts}
+                maxPorts={calculations.tierConfig.ports_cap}
+              />
 
               {/* Risk Level */}
               <div className="p-5 rounded-lg border border-border/30 bg-black/20">

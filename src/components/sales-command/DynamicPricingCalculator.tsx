@@ -106,12 +106,12 @@ const PRICING_CONFIG = {
 const TIER_ORDER: TierKey[] = ["solo", "starter", "professional", "business", "enterprise", "sector_sovereign"];
 
 const TIER_LABELS: Record<TierKey, { name: string; icon: React.ReactNode; ideal: string }> = {
-  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, ideal: "Solo pros & 1–10 person teams" },
-  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, ideal: "5–25 person firms (law, clinics)" },
-  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, ideal: "25–100 staff, multi-department" },
-  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, ideal: "100–500 staff, multi-site ops" },
-  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, ideal: "500–2,500 staff, divisional" },
-  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, ideal: "Stadiums, leagues, universities" }
+  solo: { name: "Solo", icon: <Users className="h-5 w-5" />, ideal: "Solo pros (1–5 users)" },
+  starter: { name: "Starter", icon: <Zap className="h-5 w-5" />, ideal: "5–10 users" },
+  professional: { name: "Professional", icon: <TrendingUp className="h-5 w-5" />, ideal: "10–20 users" },
+  business: { name: "Business", icon: <Building2 className="h-5 w-5" />, ideal: "20–50 users" },
+  enterprise: { name: "Enterprise", icon: <Shield className="h-5 w-5" />, ideal: "50–200 users" },
+  sector_sovereign: { name: "Sector Sovereign", icon: <Crown className="h-5 w-5" />, ideal: "200+ users (stadiums, leagues, universities)" }
 };
 
 export function DynamicPricingCalculator() {

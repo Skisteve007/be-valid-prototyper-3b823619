@@ -87,7 +87,10 @@ const ResearchGovernanceLabs = () => {
       title: "Governance Labs: Qualifying Agentic Risk",
       type: "Research Paper",
       link: "/documents/Grillo_Agentic_Drift_2026.pdf",
-      isPdf: true
+      isPdf: true,
+      subHeadline: "Quantifying Agentic Risk in Enterprise Workflows",
+      headline: "The 6-Hour Drift: A Forensic Analysis of Contextual Decay",
+      abstract: "As Large Language Models (LLMs) evolve into autonomous \"Agents,\" liability shifts from creative hallucination to procedural drift.\n\nIn January 2026, Giant Ventures conducted a controlled stress-test of 5,000 autonomous interactions. We identified a critical \"Drift Threshold\" at 45 minutes, where single-model agents begin to ignore negative safety constraints by a factor of 14% (p < 0.001).\n\nThis research paper outlines the \"Contextual Bloat\" phenomenon and the mathematical efficacy of the Senate Architecture (Multi-Model Consensus) in reducing liability exposure by 99.2%."
     }
   ];
 
@@ -145,50 +148,51 @@ const ResearchGovernanceLabs = () => {
                 pub.isPdf ? (
                   <Card 
                     key={index} 
-                    className="bg-card/50 border-border/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)]"
+                    className="bg-card/50 border-border/50 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] md:col-span-2"
                   >
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <div>
-                          <h3 className="font-semibold text-foreground">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <p className="text-xs uppercase tracking-wider text-purple-400 mb-1">
                             {pub.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">{pub.type}</p>
+                          </p>
+                          {'subHeadline' in pub && (
+                            <p className="text-sm text-muted-foreground mb-2">
+                              {(pub as any).subHeadline}
+                            </p>
+                          )}
+                          {'headline' in pub && (
+                            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">
+                              {(pub as any).headline}
+                            </h3>
+                          )}
                         </div>
-                        <FileText className="h-5 w-5 text-purple-400" />
+                        <FileText className="h-6 w-6 text-purple-400 shrink-0 ml-4" />
                       </div>
-                      <div className="flex gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="flex-1 border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
-                          onClick={() => {
-                            setPdfModal({
-                              isOpen: true,
-                              url: pub.link,
-                              title: pub.title
-                            });
-                          }}
-                        >
-                          <Eye className="h-4 w-4 mr-2" />
-                          Read
-                        </Button>
-                        <Button 
-                          size="sm" 
-                          className="flex-1 bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white"
-                          onClick={() => {
-                            const link = document.createElement('a');
-                            link.href = pub.link;
-                            link.download = pub.link.split('/').pop() || 'document.pdf';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                          }}
-                        >
-                          <Download className="h-4 w-4 mr-2" />
-                          Download
-                        </Button>
-                      </div>
+                      
+                      {'abstract' in pub && (
+                        <div className="mb-6">
+                          <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                            {(pub as any).abstract}
+                          </p>
+                        </div>
+                      )}
+                      
+                      <Button 
+                        size="lg" 
+                        className="w-full md:w-auto bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white font-semibold"
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = pub.link;
+                          link.download = pub.link.split('/').pop() || 'document.pdf';
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        }}
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        DOWNLOAD WHITE PAPER (PDF)
+                      </Button>
                     </CardContent>
                   </Card>
                 ) : (

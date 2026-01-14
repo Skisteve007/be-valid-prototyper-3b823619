@@ -393,40 +393,6 @@ export function DynamicPricingCalculator() {
             </CardContent>
           </Card>
 
-          {/* Senate Queries Allocation */}
-          <Card className="bg-card/50 border-border/30">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl">Senate Queries</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="p-5 rounded-lg border border-border/20 bg-black/20">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Allocation</span>
-                  <Badge variant="outline" className="font-mono text-base">$0.080/query overage</Badge>
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-lg">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_queries === -1 ? '∞' : calculations.tierConfig.included_queries.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Expected:</span>
-                    <span>{calculations.msq.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Utilization:</span>
-                    <span className={calculations.queryUtilization > 100 ? 'text-amber-400' : ''}>
-                      {calculations.queryUtilization}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Overage:</span>
-                    <span className="text-primary">+{formatCurrency(calculations.queryOverage)}</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
 
           {/* Verification Add-on */}
           {verificationEnabled && (
@@ -645,6 +611,41 @@ export function DynamicPricingCalculator() {
                 <p className="text-base text-muted-foreground mt-3">
                   {usersGoverned.toLocaleString()} × {queriesPerDay} × 22 work days
                 </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Senate Queries Allocation */}
+          <Card className="bg-card/50 border-border/30">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl">Senate Queries</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-5 rounded-lg border border-border/20 bg-black/20">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-medium">Allocation</span>
+                  <Badge variant="outline" className="font-mono text-base">$0.080/query overage</Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-lg">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Included:</span>
+                    <span>{calculations.tierConfig.included_queries === -1 ? '∞' : calculations.tierConfig.included_queries.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Expected:</span>
+                    <span>{calculations.msq.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Utilization:</span>
+                    <span className={calculations.queryUtilization > 100 ? 'text-amber-400' : ''}>
+                      {calculations.queryUtilization}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Overage:</span>
+                    <span className="text-primary">+{formatCurrency(calculations.queryOverage)}</span>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>

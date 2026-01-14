@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { RatifyProvider } from "@/contexts/RatifyContext";
 import { AgeGate } from "./components/AgeGate";
 import { AccessGate } from "./components/AccessGate";
+import { AuthGate } from "./components/AuthGate";
 import Footer from "./components/Footer";
 import SynthButton from "@/components/SynthButton";
 import ResponsiveHeader from "@/components/ResponsiveHeader";
@@ -185,7 +186,7 @@ const App = () => (
                   <Route path="/wallet" element={<AgeGate><Dashboard /></AgeGate>} />
                   <Route path="/human-vetting" element={<AgeGate><HumanVetting /></AgeGate>} />
                   <Route path="/governance-constitution" element={<AgeGate><GovernanceConstitution /></AgeGate>} />
-                  <Route path="/research-governance-labs" element={<AgeGate><ResearchGovernanceLabs /></AgeGate>} />
+                  <Route path="/research-governance-labs" element={<AgeGate><AuthGate><ResearchGovernanceLabs /></AuthGate></AgeGate>} />
                   
                   {/* ADMIN ROUTES */}
                   <Route path="/admin" element={<AgeGate><Admin /></AgeGate>} />

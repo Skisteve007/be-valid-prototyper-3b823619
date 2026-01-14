@@ -351,6 +351,64 @@ const Dashboard = () => {
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
                 Welcome to your Universal Lifestyle Wallet. One place for identity, safety, and access.
               </p>
+              
+              {/* Tab Navigation - Inside Dashboard Pill */}
+              <div className="mt-4 overflow-x-auto overflow-y-hidden scrollbar-none -mx-2 px-2 pb-2 touch-pan-x">
+                <div className="relative inline-block">
+                  <div className="absolute inset-0 bg-blue-500/30 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: '2s' }} />
+                  <div className="relative inline-flex bg-black/60 backdrop-blur-md border-2 border-blue-500/60 rounded-2xl p-2 gap-1.5 min-w-max shadow-[0_0_25px_rgba(59,130,246,0.5),inset_0_0_15px_rgba(59,130,246,0.1)]">
+                    <button
+                      onClick={() => setActiveTab("profile")}
+                      className={`py-2.5 px-4 rounded-xl font-medium whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center ${activeTab === "profile" ? "bg-blue-500/30 text-white shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-blue-400/50" : "text-[#E0E0E0]/80"}`}
+                    >
+                      <UserIcon className="h-4 w-4 mr-1.5" />
+                      <span>Profile</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("wallet")}
+                      className={`py-2.5 px-4 rounded-xl font-medium whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center ${activeTab === "wallet" ? "bg-amber-500/30 text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.6)] border border-amber-400/50" : "text-[#E0E0E0]/80"}`}
+                    >
+                      <Wallet className="h-4 w-4 mr-1.5" />
+                      <span>Wallet</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("senate")}
+                      className={`py-2.5 px-4 rounded-xl font-medium whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center ${activeTab === "senate" ? "bg-blue-500/30 text-white shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-blue-400/50" : "text-[#E0E0E0]/80"}`}
+                    >
+                      <Scale className="h-4 w-4 mr-1.5" />
+                      <span>The Senate</span>
+                    </button>
+                    <button
+                      onClick={() => navigate('/trust-center')}
+                      className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium hover:bg-blue-500/20 hover:text-white whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center"
+                    >
+                      <Upload className="h-4 w-4 mr-1.5" />
+                      <span>Trust</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("lab-verification")}
+                      className={`py-2.5 px-4 rounded-xl font-medium whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center ${activeTab === "lab-verification" ? "bg-blue-500/30 text-white shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-blue-400/50" : "text-[#E0E0E0]/80"}`}
+                    >
+                      <FlaskConical className="h-4 w-4 mr-1.5" />
+                      <span>Health</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("safety-screen")}
+                      className={`py-2.5 px-4 rounded-xl font-medium whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center ${activeTab === "safety-screen" ? "bg-blue-500/30 text-white shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-blue-400/50" : "text-[#E0E0E0]/80"}`}
+                    >
+                      <ShieldCheck className="h-4 w-4 mr-1.5" />
+                      <span>Tox</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("verify-id")}
+                      className={`py-2.5 px-4 rounded-xl font-medium whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center ${activeTab === "verify-id" ? "bg-blue-500/30 text-white shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-blue-400/50" : "text-[#E0E0E0]/80"}`}
+                    >
+                      <Fingerprint className="h-4 w-4 mr-1.5" />
+                      <span>ID</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -417,74 +475,8 @@ const Dashboard = () => {
             {/* Private Inbox */}
             <PrivateInbox userId={user.id} onStatusUpdate={handleProfileUpdate} />
             
-            {/* Tab Navigation */}
+            {/* Tab Content - Navigation moved to Dashboard pill above */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="relative mb-6">
-                {/* Mobile-optimized horizontal scroll container */}
-              <div className="overflow-x-auto overflow-y-hidden scrollbar-none -mx-4 px-4 pb-3 touch-pan-x">
-                  {/* Blue glowing pill container for mobile navigation */}
-                  <div className="relative inline-block">
-                    <div className="absolute inset-0 bg-blue-500/30 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: '2s' }} />
-                    <TabsList className="relative inline-flex bg-black/60 backdrop-blur-md border-2 border-blue-500/60 rounded-2xl p-2 gap-1.5 min-w-max shadow-[0_0_25px_rgba(59,130,246,0.5),inset_0_0_15px_rgba(59,130,246,0.1)]">
-                      <TabsTrigger 
-                        value="profile" 
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
-                      >
-                        <UserIcon className="h-4 w-4 mr-1.5" />
-                        <span>Profile</span>
-                      </TabsTrigger>
-
-                      <TabsTrigger 
-                        value="wallet" 
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-amber-500/30 data-[state=active]:text-amber-300 data-[state=active]:shadow-[0_0_20px_rgba(245,158,11,0.6)] data-[state=active]:border data-[state=active]:border-amber-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
-                      >
-                        <Wallet className="h-4 w-4 mr-1.5" />
-                        <span>Wallet</span>
-                      </TabsTrigger>
-
-                      <TabsTrigger 
-                        value="senate" 
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
-                      >
-                        <Scale className="h-4 w-4 mr-1.5" />
-                        <span>The Senate</span>
-                      </TabsTrigger>
-
-                      {/* Trust Center - Navigates to /trust-center page */}
-                      <button 
-                        type="button"
-                        onClick={() => navigate('/trust-center')}
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium hover:bg-blue-500/20 hover:text-white whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300 flex items-center"
-                      >
-                        <Upload className="h-4 w-4 mr-1.5" />
-                        <span>Trust</span>
-                      </button>
-
-                      <TabsTrigger 
-                        value="lab-verification"
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
-                      >
-                        <FlaskConical className="h-4 w-4 mr-1.5" />
-                        <span>Health</span>
-                      </TabsTrigger>
-                      <TabsTrigger 
-                        value="safety-screen"
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
-                      >
-                        <ShieldCheck className="h-4 w-4 mr-1.5" />
-                        <span>Tox</span>
-                      </TabsTrigger>
-                      <TabsTrigger 
-                        value="verify-id"
-                        className="py-2.5 px-4 rounded-xl text-[#E0E0E0]/80 font-medium data-[state=active]:bg-blue-500/30 data-[state=active]:text-white data-[state=active]:shadow-[0_0_20px_rgba(59,130,246,0.6)] data-[state=active]:border data-[state=active]:border-blue-400/50 whitespace-nowrap text-xs sm:text-sm touch-manipulation transition-all duration-300"
-                      >
-                        <Fingerprint className="h-4 w-4 mr-1.5" />
-                        <span>ID</span>
-                      </TabsTrigger>
-                    </TabsList>
-                  </div>
-                </div>
-              </div>
               
               {/* Tab Content */}
               <div className="[&_.card]:backdrop-blur-xl [&_.card]:bg-black/40 [&_.card]:border-white/10 [&_h3]:text-[#E0E0E0] [&_label]:text-[#E0E0E0]/80 [&_p]:text-[#E0E0E0]/70">

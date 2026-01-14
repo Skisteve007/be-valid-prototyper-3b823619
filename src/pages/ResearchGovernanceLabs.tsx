@@ -178,21 +178,36 @@ const ResearchGovernanceLabs = () => {
                         </div>
                       )}
                       
-                      <Button 
-                        size="lg" 
-                        className="w-full md:w-auto bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white font-semibold"
-                        onClick={() => {
-                          const link = document.createElement('a');
-                          link.href = pub.link;
-                          link.download = pub.link.split('/').pop() || 'document.pdf';
-                          document.body.appendChild(link);
-                          link.click();
-                          document.body.removeChild(link);
-                        }}
-                      >
-                        <Download className="h-4 w-4 mr-2" />
-                        DOWNLOAD WHITE PAPER (PDF)
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Button 
+                          size="lg" 
+                          className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold"
+                          onClick={() => setPdfModal({
+                            isOpen: true,
+                            url: pub.link,
+                            title: (pub as any).headline || pub.title
+                          })}
+                        >
+                          <Eye className="h-4 w-4 mr-2" />
+                          VIEW WHITE PAPER
+                        </Button>
+                        <Button 
+                          size="lg" 
+                          variant="outline"
+                          className="w-full sm:w-auto border-purple-500/50 text-purple-400 hover:bg-purple-500/10 font-semibold"
+                          onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = pub.link;
+                            link.download = pub.link.split('/').pop() || 'document.pdf';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                          }}
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          DOWNLOAD WHITE PAPER (PDF)
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 ) : (

@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { PricingProposalDialog } from "./pricing/PricingProposalDialog";
 import { OrderFormDialog } from "./pricing/OrderFormDialog";
+import { AIGovernanceBadge } from "./pricing/AIGovernanceBadge";
 
 // Types
 type TierKey = "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
@@ -1029,6 +1030,9 @@ export function DynamicPricingCalculator() {
               </div>
             </CardContent>
         </Card>
+
+          {/* AI Governance Badge */}
+          <AIGovernanceBadge />
 
           {/* Monthly Price Summary */}
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">

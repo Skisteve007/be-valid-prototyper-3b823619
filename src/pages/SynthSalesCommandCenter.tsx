@@ -14,6 +14,21 @@ import { DynamicPricingCalculator } from "@/components/sales-command/DynamicPric
 import { GhostPassDemo } from "@/components/sales-command/GhostPassDemo";
 import { BattleCards } from "@/components/sales-command/BattleCards";
 import { CommandHeader } from "@/components/sales-command/CommandHeader";
+import { BADGE_CONFIG, getBadgeDisplayName } from "@/config/badgeConfig";
+
+// JSON-LD schema for AI Governance Badge
+const badgeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": getBadgeDisplayName(),
+  "provider": {
+    "@type": "Organization",
+    "name": BADGE_CONFIG.issuer,
+    "url": "https://bevalid.app"
+  },
+  "description": "Public badge indicating adherence to Reasonable Care AI governance controls, including policy-to-code guardrails, human approvals, immutable audit, and zero-trust data handling.",
+  "url": `https://bevalid.app${BADGE_CONFIG.guidelines_url}`
+};
 
 const SynthSalesCommandCenter = () => {
   const [activeTab, setActiveTab] = useState("education");
@@ -23,6 +38,9 @@ const SynthSalesCommandCenter = () => {
       <Helmet>
         <title>SYNTH Sales Command Center | Giant Ventures LLC</title>
         <meta name="robots" content="noindex, nofollow" />
+        <script type="application/ld+json">
+          {JSON.stringify(badgeJsonLd)}
+        </script>
       </Helmet>
       
       <main className="min-h-screen bg-[#0a0a0f] text-foreground">

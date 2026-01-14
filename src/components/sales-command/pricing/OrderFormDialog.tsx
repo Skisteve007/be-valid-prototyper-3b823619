@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, Shield } from "lucide-react";
 import { useState } from "react";
+import { BADGE_CONFIG, getBadgeDisplayName } from "@/config/badgeConfig";
 
 interface OrderFormData {
   tierLabel: string;
@@ -65,6 +66,8 @@ Overage rates:
   • Query overage: $0.080 per query (above included)
   • Ghost Pass scan overage: $${data.ghostPassRate.toFixed(2)}/scan (above included)
   • Ports overage: $${data.portOverageRate} per port (above included)
+
+Badge rights: Included — ${getBadgeDisplayName()} display authorization (subject to ${BADGE_CONFIG.issuer} badge guidelines and active, compliant use).
 
 Verification add-on (optional; per-check pricing if enabled):
   • Basic: $1.80/check • Standard: $2.60/check • Deep: $3.60/check
@@ -209,6 +212,10 @@ Reference: MSA available at https://bevalid.app/legal/msa
             </div>
             <div className="text-xs text-muted-foreground p-2 bg-cyan-500/5 border border-cyan-500/20 rounded">
               <span className="font-medium text-cyan-400">Verification add-on</span> (optional): Basic $1.80 • Standard $2.60 • Deep $3.60 per check
+            </div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground p-2 bg-primary/5 border border-primary/20 rounded mt-2">
+              <Shield className="h-4 w-4 text-primary shrink-0" />
+              <span><span className="font-medium text-primary">{getBadgeDisplayName()}</span> — display authorization included (subject to badge guidelines)</span>
             </div>
           </div>
 

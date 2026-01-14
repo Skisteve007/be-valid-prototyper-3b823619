@@ -4,21 +4,10 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, FlaskConical, Scale, Brain, Shield, FileText, Users, Sparkles, BookOpen, Download, Eye } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PDFViewerModal } from "@/components/PDFViewerModal";
-import { TextDocumentModal } from "@/components/TextDocumentModal";
+import { WhitePaperModal } from "@/components/WhitePaperModal";
 
 const ResearchGovernanceLabs = () => {
-  const [pdfModal, setPdfModal] = useState<{ isOpen: boolean; url: string; title: string }>({
-    isOpen: false,
-    url: "",
-    title: ""
-  });
-
-  const [textModal, setTextModal] = useState<{ isOpen: boolean; url: string; title: string }>({
-    isOpen: false,
-    url: "",
-    title: ""
-  });
+  const [whitePaperOpen, setWhitePaperOpen] = useState(false);
 
   const researchAreas = [
     {
@@ -189,11 +178,7 @@ const ResearchGovernanceLabs = () => {
                         <Button 
                           size="lg" 
                           className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold"
-                          onClick={() => setPdfModal({
-                            isOpen: true,
-                            url: pub.link,
-                            title: (pub as any).headline || pub.title
-                          })}
+                          onClick={() => setWhitePaperOpen(true)}
                         >
                           <Eye className="h-4 w-4 mr-2" />
                           VIEW WHITE PAPER
@@ -301,11 +286,11 @@ const ResearchGovernanceLabs = () => {
         </div>
       </main>
 
-      <PDFViewerModal
-        isOpen={pdfModal.isOpen}
-        onClose={() => setPdfModal({ isOpen: false, url: "", title: "" })}
-        pdfUrl={pdfModal.url}
-        title={pdfModal.title}
+      <WhitePaperModal
+        isOpen={whitePaperOpen}
+        onClose={() => setWhitePaperOpen(false)}
+        title="The 6-Hour Drift: A Forensic Analysis of Contextual Decay"
+        pdfUrl="/documents/Grillo_Agentic_Drift_2026.pdf"
       />
     </>
   );

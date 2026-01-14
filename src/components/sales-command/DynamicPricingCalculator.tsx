@@ -9,7 +9,6 @@ import {
   Calculator, 
   Users, 
   MessageSquare, 
-  QrCode, 
   Shield, 
   Download,
   TrendingUp,
@@ -18,29 +17,27 @@ import {
   Zap,
   Building2,
   Crown,
-  Plug
+  Plug,
+  Fingerprint
 } from "lucide-react";
 
 // Types
 type TierKey = "solo" | "starter" | "professional" | "business" | "enterprise" | "sector_sovereign";
 type RiskLevel = "low" | "medium" | "high";
-type VerificationType = "basic" | "standard" | "deep";
 
 interface TierConfig {
   anchor_min_usd: number;
   anchor_mid_usd: number;
   anchor_max_usd: number;
   included_queries: number;
-  included_scans: number;
   included_ports: number;
   query_overage_usd: number;
-  scan_base_usd: number;
   port_overage_usd: number;
 }
 
-// Configuration from JSON spec
+// Configuration from JSON spec - updated to remove scans from tiers
 const PRICING_CONFIG = {
-  version: "1.1",
+  version: "1.2",
   defaults: {
     working_days_per_month: 22,
     risk_multiplier: { low: 1.0, medium: 1.1, high: 1.25 },
@@ -49,36 +46,41 @@ const PRICING_CONFIG = {
   tiers: {
     solo: {
       anchor_min_usd: 79, anchor_mid_usd: 99, anchor_max_usd: 149,
-      included_queries: 1000, included_scans: 100, included_ports: 2,
-      query_overage_usd: 0.08, scan_base_usd: 0.75, port_overage_usd: 99
+      included_queries: 1000, included_ports: 2,
+      query_overage_usd: 0.08, port_overage_usd: 99
     },
     starter: {
       anchor_min_usd: 149, anchor_mid_usd: 199, anchor_max_usd: 399,
-      included_queries: 5000, included_scans: 500, included_ports: 3,
-      query_overage_usd: 0.08, scan_base_usd: 0.65, port_overage_usd: 99
+      included_queries: 5000, included_ports: 3,
+      query_overage_usd: 0.08, port_overage_usd: 99
     },
     professional: {
       anchor_min_usd: 399, anchor_mid_usd: 699, anchor_max_usd: 999,
-      included_queries: 25000, included_scans: 3000, included_ports: 5,
-      query_overage_usd: 0.08, scan_base_usd: 0.55, port_overage_usd: 199
+      included_queries: 25000, included_ports: 5,
+      query_overage_usd: 0.08, port_overage_usd: 199
     },
     business: {
       anchor_min_usd: 999, anchor_mid_usd: 1799, anchor_max_usd: 2499,
-      included_queries: 100000, included_scans: 15000, included_ports: 8,
-      query_overage_usd: 0.08, scan_base_usd: 0.45, port_overage_usd: 299
+      included_queries: 100000, included_ports: 8,
+      query_overage_usd: 0.08, port_overage_usd: 299
     },
     enterprise: {
       anchor_min_usd: 2500, anchor_mid_usd: 7500, anchor_max_usd: 10000,
-      included_queries: 500000, included_scans: 100000, included_ports: 12,
-      query_overage_usd: 0.08, scan_base_usd: 0.35, port_overage_usd: 499
+      included_queries: 500000, included_ports: 12,
+      query_overage_usd: 0.08, port_overage_usd: 499
     },
     sector_sovereign: {
       anchor_min_usd: 10000, anchor_mid_usd: 25000, anchor_max_usd: 9999999,
-      included_queries: -1, included_scans: -1, included_ports: -1,
-      query_overage_usd: 0.08, scan_base_usd: 0.25, port_overage_usd: 999
+      included_queries: -1, included_ports: -1,
+      query_overage_usd: 0.08, port_overage_usd: 999
     }
   } as Record<TierKey, TierConfig>,
-  verification_multiplier: { basic: 1.0, standard: 2.0, deep: 3.0 },
+  // New verification check pricing - flat per check, not tier-based
+  verification_checks: {
+    basic: { price: 1.80, label: "Age/Identity" },
+    standard: { price: 2.60, label: "ID + Background" },
+    deep: { price: 3.60, label: "Most Wanted / Sexual Predator / Terrorist" }
+  },
   competitor_parity: {
     agentforce_action_usd: 0.10,
     conversation_heuristic_divisor: 10,
@@ -101,34 +103,33 @@ export function DynamicPricingCalculator() {
   // Client inputs
   const [usersGoverned, setUsersGoverned] = useState(10);
   const [queriesPerDay, setQueriesPerDay] = useState(10);
-  const [scansBasic, setScansBasic] = useState(100);
-  const [scansStandard, setScansStandard] = useState(0);
-  const [scansDeep, setScansDeep] = useState(0);
   const [highLiability, setHighLiability] = useState(false);
   const [portsConnected, setPortsConnected] = useState(2);
   const [manualTier, setManualTier] = useState<TierKey | null>(null);
+  
+  // Verification Checks - Optional Add-on
+  const [verificationEnabled, setVerificationEnabled] = useState(false);
+  const [checksBasic, setChecksBasic] = useState(0);
+  const [checksStandard, setChecksStandard] = useState(0);
+  const [checksDeep, setChecksDeep] = useState(0);
 
   // Derived calculations
   const calculations = useMemo(() => {
-    const { defaults, tiers, verification_multiplier, competitor_parity } = PRICING_CONFIG;
+    const { defaults, tiers, verification_checks, competitor_parity } = PRICING_CONFIG;
     
     // Monthly Senate Queries
     const msq = usersGoverned * queriesPerDay * defaults.working_days_per_month;
-    
-    // Total scans
-    const totalScans = scansBasic + scansStandard + scansDeep;
     
     // Risk multiplier
     const riskLevel: RiskLevel = highLiability ? "high" : "low";
     const riskMultiplier = defaults.risk_multiplier[riskLevel];
     
-    // Auto-recommend tier (lowest that covers MSQ and scans)
+    // Auto-recommend tier (lowest that covers MSQ)
     let recommendedTier: TierKey = "solo";
     for (const tier of TIER_ORDER) {
       const config = tiers[tier];
       const queriesCovered = config.included_queries === -1 || msq <= config.included_queries;
-      const scansCovered = config.included_scans === -1 || totalScans <= config.included_scans;
-      if (queriesCovered && scansCovered) {
+      if (queriesCovered) {
         recommendedTier = tier;
         break;
       }
@@ -139,29 +140,11 @@ export function DynamicPricingCalculator() {
     const selectedTier = manualTier || recommendedTier;
     const tierConfig = tiers[selectedTier];
     
-    // Calculate overages
+    // Calculate query overages
     const queryOverageCount = tierConfig.included_queries === -1 
       ? 0 
       : Math.max(msq - tierConfig.included_queries, 0);
     const queryOverage = queryOverageCount * tierConfig.query_overage_usd;
-    
-    // Scan overages by type
-    const totalIncludedScans = tierConfig.included_scans === -1 ? Infinity : tierConfig.included_scans;
-    const totalScanOverage = Math.max(totalScans - totalIncludedScans, 0);
-    
-    // Weighted scan overage (proportional to scan types)
-    let scanOverage = 0;
-    if (totalScanOverage > 0 && totalScans > 0) {
-      const basicRatio = scansBasic / totalScans;
-      const standardRatio = scansStandard / totalScans;
-      const deepRatio = scansDeep / totalScans;
-      
-      const basicOverage = totalScanOverage * basicRatio * tierConfig.scan_base_usd * verification_multiplier.basic;
-      const standardOverage = totalScanOverage * standardRatio * tierConfig.scan_base_usd * verification_multiplier.standard;
-      const deepOverage = totalScanOverage * deepRatio * tierConfig.scan_base_usd * verification_multiplier.deep;
-      
-      scanOverage = basicOverage + standardOverage + deepOverage;
-    }
     
     // Port overages
     const portOverageCount = tierConfig.included_ports === -1 
@@ -169,24 +152,27 @@ export function DynamicPricingCalculator() {
       : Math.max(portsConnected - tierConfig.included_ports, 0);
     const portOverage = portOverageCount * tierConfig.port_overage_usd;
     
+    // Verification add-on (flat per-check pricing, only if enabled)
+    const basicChecksCost = verificationEnabled ? checksBasic * verification_checks.basic.price : 0;
+    const standardChecksCost = verificationEnabled ? checksStandard * verification_checks.standard.price : 0;
+    const deepChecksCost = verificationEnabled ? checksDeep * verification_checks.deep.price : 0;
+    const totalVerificationCost = basicChecksCost + standardChecksCost + deepChecksCost;
+    
     // Subtotal and total
-    const subtotal = tierConfig.anchor_mid_usd + queryOverage + scanOverage + portOverage;
+    const subtotal = tierConfig.anchor_mid_usd + queryOverage + portOverage + totalVerificationCost;
     const totalMonthly = subtotal * riskMultiplier;
     
     // Negotiation range
     const rangeLow = Math.round(totalMonthly * (1 - defaults.negotiation_range_percent));
     const rangeHigh = Math.round(totalMonthly * (1 + defaults.negotiation_range_percent));
     
-    // Utilization percentages
+    // Utilization percentage
     const queryUtilization = tierConfig.included_queries === -1 
       ? 0 
       : Math.round((msq / tierConfig.included_queries) * 100);
-    const scanUtilization = tierConfig.included_scans === -1 
-      ? 0 
-      : Math.round((totalScans / tierConfig.included_scans) * 100);
     
     // Suggest upgrade if overage > 40% of anchor
-    const totalOverage = queryOverage + scanOverage + portOverage;
+    const totalOverage = queryOverage + portOverage;
     const suggestUpgrade = totalOverage > tierConfig.anchor_mid_usd * 0.4 && selectedTier !== "sector_sovereign";
     
     // Competitor parity (Agentforce)
@@ -199,7 +185,6 @@ export function DynamicPricingCalculator() {
     
     return {
       msq,
-      totalScans,
       riskLevel,
       riskMultiplier,
       recommendedTier,
@@ -207,22 +192,24 @@ export function DynamicPricingCalculator() {
       tierConfig,
       queryOverageCount,
       queryOverage,
-      scanOverage,
       portOverageCount,
       portOverage,
+      basicChecksCost,
+      standardChecksCost,
+      deepChecksCost,
+      totalVerificationCost,
       subtotal,
       totalMonthly,
       rangeLow,
       rangeHigh,
       queryUtilization,
-      scanUtilization,
       suggestUpgrade,
       agentforceActions,
       agentforceConvos,
       agentforceTotal,
       savingsPercent
     };
-  }, [usersGoverned, queriesPerDay, scansBasic, scansStandard, scansDeep, highLiability, portsConnected, manualTier]);
+  }, [usersGoverned, queriesPerDay, highLiability, portsConnected, manualTier, verificationEnabled, checksBasic, checksStandard, checksDeep]);
 
   const formatCurrency = (amount: number) => {
     if (amount >= 1000000) return `$${(amount / 1000000).toFixed(1)}M`;
@@ -236,10 +223,10 @@ export function DynamicPricingCalculator() {
       <div className="text-center space-y-2">
         <h2 className="text-2xl font-bold text-foreground flex items-center justify-center gap-2">
           <Calculator className="h-6 w-6 text-primary" />
-          7-Seat Senate Pricing Engine
+          7-Seat Senate Pricing
         </h2>
         <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-          Plain-English pricing. Every plan includes the full 7-Seat Senate (model-agnostic, interchangeable).
+          Plain-English pricing, monthly. No "credits." Every plan includes the full 7-Seat Senate (model-agnostic, interchangeable).
         </p>
       </div>
 
@@ -278,7 +265,7 @@ export function DynamicPricingCalculator() {
               {/* Queries per Day */}
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <Label className="text-sm font-medium">Queries per User per Day</Label>
+                  <Label className="text-sm font-medium">Senate Queries per User per Day</Label>
                   <Badge variant="outline" className="font-mono">{queriesPerDay}</Badge>
                 </div>
                 <Slider
@@ -307,93 +294,114 @@ export function DynamicPricingCalculator() {
                   </Badge>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {usersGoverned} × {queriesPerDay} × 22 work days
+                  {usersGoverned.toLocaleString()} × {queriesPerDay} × 22 work days
                 </p>
               </div>
             </CardContent>
           </Card>
 
-          {/* QR Scans */}
+          {/* Verification Checks - Optional Add-on */}
           <Card className="bg-card/50 border-border/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <QrCode className="h-5 w-5 text-cyan-400" />
-                Monthly QR Scans
-              </CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Fingerprint className="h-5 w-5 text-cyan-400" />
+                  Verification Checks
+                  <Badge variant="outline" className="text-xs">Optional Add-on</Badge>
+                </CardTitle>
+                <Switch
+                  checked={verificationEnabled}
+                  onCheckedChange={setVerificationEnabled}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Enable to price verification checks per check
+              </p>
             </CardHeader>
-            <CardContent className="space-y-5">
-              {/* Basic Scans */}
+            <CardContent className={`space-y-5 transition-opacity ${!verificationEnabled ? 'opacity-50 pointer-events-none' : ''}`}>
+              {/* Basic Checks */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <Label className="text-sm">
                     <span className="font-medium">Basic</span>
-                    <span className="text-muted-foreground ml-2 text-xs">(Age/Identity) ×1</span>
+                    <span className="text-muted-foreground ml-2 text-xs">(Age/Identity)</span>
                   </Label>
-                  <Badge variant="outline" className="font-mono bg-green-500/10 text-green-400 border-green-500/30">
-                    {scansBasic.toLocaleString()}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="font-mono bg-green-500/10 text-green-400 border-green-500/30">
+                      {checksBasic.toLocaleString()}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">@ $1.80 each</span>
+                  </div>
                 </div>
                 <Slider
-                  value={[scansBasic]}
-                  onValueChange={([v]) => setScansBasic(v)}
+                  value={[checksBasic]}
+                  onValueChange={([v]) => setChecksBasic(v)}
                   min={0}
-                  max={50000}
-                  step={100}
+                  max={10000}
+                  step={10}
                   className="cursor-pointer"
                 />
               </div>
 
-              {/* Standard Scans */}
+              {/* Standard Checks */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <Label className="text-sm">
                     <span className="font-medium">Standard</span>
-                    <span className="text-muted-foreground ml-2 text-xs">(ID + Background) ×2</span>
+                    <span className="text-muted-foreground ml-2 text-xs">(ID + Background)</span>
                   </Label>
-                  <Badge variant="outline" className="font-mono bg-amber-500/10 text-amber-400 border-amber-500/30">
-                    {scansStandard.toLocaleString()}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="font-mono bg-amber-500/10 text-amber-400 border-amber-500/30">
+                      {checksStandard.toLocaleString()}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">@ $2.60 each</span>
+                  </div>
                 </div>
                 <Slider
-                  value={[scansStandard]}
-                  onValueChange={([v]) => setScansStandard(v)}
+                  value={[checksStandard]}
+                  onValueChange={([v]) => setChecksStandard(v)}
                   min={0}
-                  max={50000}
-                  step={100}
+                  max={10000}
+                  step={10}
                   className="cursor-pointer"
                 />
               </div>
 
-              {/* Deep Scans */}
+              {/* Deep Checks */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <Label className="text-sm">
                     <span className="font-medium">Deep</span>
-                    <span className="text-muted-foreground ml-2 text-xs">(Terrorist/Most Wanted/Predator) ×3</span>
+                    <span className="text-muted-foreground ml-2 text-xs">(Most Wanted / Predator / Terrorist)</span>
                   </Label>
-                  <Badge variant="outline" className="font-mono bg-red-500/10 text-red-400 border-red-500/30">
-                    {scansDeep.toLocaleString()}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="font-mono bg-red-500/10 text-red-400 border-red-500/30">
+                      {checksDeep.toLocaleString()}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">@ $3.60 each</span>
+                  </div>
                 </div>
                 <Slider
-                  value={[scansDeep]}
-                  onValueChange={([v]) => setScansDeep(v)}
+                  value={[checksDeep]}
+                  onValueChange={([v]) => setChecksDeep(v)}
                   min={0}
-                  max={50000}
-                  step={100}
+                  max={10000}
+                  step={10}
                   className="cursor-pointer"
                 />
               </div>
 
-              {/* Total Scans */}
-              <div className="p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Total Monthly Scans</span>
-                  <Badge className="bg-cyan-500/20 text-cyan-400 font-mono">
-                    {calculations.totalScans.toLocaleString()}
-                  </Badge>
+              {/* Total Verification Cost */}
+              {verificationEnabled && (
+                <div className="p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Total Verification Add-on</span>
+                    <Badge className="bg-cyan-500/20 text-cyan-400 font-mono">
+                      {formatCurrency(calculations.totalVerificationCost)}
+                    </Badge>
+                  </div>
                 </div>
-              </div>
+              )}
             </CardContent>
           </Card>
 
@@ -479,6 +487,9 @@ export function DynamicPricingCalculator() {
                       <p className="text-xs text-muted-foreground">
                         ${config.anchor_min_usd}–${config.anchor_max_usd === 9999999 ? '∞' : config.anchor_max_usd.toLocaleString()}
                       </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {config.included_queries === -1 ? '∞' : config.included_queries.toLocaleString()} queries, {config.included_ports === -1 ? '∞' : config.included_ports} ports
+                      </p>
                       {isRecommended && (
                         <Badge className="mt-2 bg-primary/20 text-primary text-xs">
                           Recommended
@@ -503,14 +514,14 @@ export function DynamicPricingCalculator() {
           {/* Allocation & Overages */}
           <Card className="bg-card/50 border-border/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Allocation & Overages</CardTitle>
+              <CardTitle className="text-lg">Senate Queries Allocation</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Queries */}
               <div className="p-3 rounded-lg border border-border/20 bg-black/20">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium">Senate Queries</span>
-                  <Badge variant="outline" className="font-mono text-xs">$0.080/query</Badge>
+                  <Badge variant="outline" className="font-mono text-xs">$0.080/query overage</Badge>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="flex justify-between">
@@ -534,42 +545,46 @@ export function DynamicPricingCalculator() {
                 </div>
               </div>
 
-              {/* Scans */}
-              <div className="p-3 rounded-lg border border-border/20 bg-black/20">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium">QR Scans</span>
-                  <Badge variant="outline" className="font-mono text-xs">
-                    ${calculations.tierConfig.scan_base_usd}/scan × multiplier
-                  </Badge>
+              {/* Verification Add-on */}
+              {verificationEnabled && (
+                <div className="p-3 rounded-lg border border-cyan-500/20 bg-cyan-500/5">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium text-cyan-400">Verification Add-on</span>
+                    <Badge variant="outline" className="font-mono text-xs border-cyan-500/30">per check</Badge>
+                  </div>
+                  <div className="space-y-1 text-sm">
+                    {checksBasic > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Basic: {checksBasic.toLocaleString()} × $1.80</span>
+                        <span className="text-cyan-400">= {formatCurrency(calculations.basicChecksCost)}</span>
+                      </div>
+                    )}
+                    {checksStandard > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Standard: {checksStandard.toLocaleString()} × $2.60</span>
+                        <span className="text-cyan-400">= {formatCurrency(calculations.standardChecksCost)}</span>
+                      </div>
+                    )}
+                    {checksDeep > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Deep: {checksDeep.toLocaleString()} × $3.60</span>
+                        <span className="text-cyan-400">= {formatCurrency(calculations.deepChecksCost)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between border-t border-cyan-500/20 pt-1 mt-1">
+                      <span className="text-muted-foreground font-medium">Total Verification:</span>
+                      <span className="text-cyan-400 font-medium">{formatCurrency(calculations.totalVerificationCost)}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Included:</span>
-                    <span>{calculations.tierConfig.included_scans === -1 ? '∞' : calculations.tierConfig.included_scans.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Expected:</span>
-                    <span>{calculations.totalScans.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Utilization:</span>
-                    <span className={calculations.scanUtilization > 100 ? 'text-amber-400' : ''}>
-                      {calculations.scanUtilization}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Overage:</span>
-                    <span className="text-primary">+{formatCurrency(calculations.scanOverage)}</span>
-                  </div>
-                </div>
-              </div>
+              )}
 
               {/* Ports */}
               <div className="p-3 rounded-lg border border-border/20 bg-black/20">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium">Ports</span>
                   <Badge variant="outline" className="font-mono text-xs">
-                    ${calculations.tierConfig.port_overage_usd}/port
+                    ${calculations.tierConfig.port_overage_usd}/extra port
                   </Badge>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-sm">
@@ -597,7 +612,7 @@ export function DynamicPricingCalculator() {
           {/* Monthly Price */}
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Monthly Price</CardTitle>
+              <CardTitle className="text-lg">Monthly Price (Anchor)</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center">
@@ -606,7 +621,7 @@ export function DynamicPricingCalculator() {
                   <span className="text-lg font-normal text-muted-foreground">/mo</span>
                 </p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Range: {formatCurrency(calculations.rangeLow)} – {formatCurrency(calculations.rangeHigh)}
+                  Range: {formatCurrency(calculations.rangeLow)} – {formatCurrency(calculations.rangeHigh)} (±20%)
                 </p>
               </div>
 
@@ -620,12 +635,14 @@ export function DynamicPricingCalculator() {
                   <span className="text-muted-foreground">Query overage:</span>
                   <span>+{formatCurrency(calculations.queryOverage)}</span>
                 </div>
+                {verificationEnabled && calculations.totalVerificationCost > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Verification add-on:</span>
+                    <span className="text-cyan-400">+{formatCurrency(calculations.totalVerificationCost)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Scan overage:</span>
-                  <span>+{formatCurrency(calculations.scanOverage)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Port overage:</span>
+                  <span className="text-muted-foreground">Ports overage:</span>
                   <span>+{formatCurrency(calculations.portOverage)}</span>
                 </div>
                 <div className="flex justify-between border-t border-border/20 pt-2">
@@ -656,14 +673,10 @@ export function DynamicPricingCalculator() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="p-3 rounded-lg bg-black/20 space-y-2 text-sm">
-                <p className="text-xs text-muted-foreground font-medium mb-2">Salesforce Agentforce (typical cost)</p>
+                <p className="text-xs text-muted-foreground font-medium mb-2">Salesforce Agentforce baseline</p>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Actions @ $0.10 each:</span>
+                  <span className="text-muted-foreground">Actions @ $0.10 each (Flex):</span>
                   <span>~{formatCurrency(calculations.agentforceActions)}/mo</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Conversations @ $2 (est.):</span>
-                  <span>~{formatCurrency(calculations.agentforceConvos)}/mo</span>
                 </div>
                 <div className="flex justify-between border-t border-border/20 pt-2">
                   <span className="text-muted-foreground">Agentforce Total:</span>
@@ -673,9 +686,14 @@ export function DynamicPricingCalculator() {
               
               <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/30">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium">Grillo AI Total:</span>
+                  <span className="text-sm font-medium">Grillo AI governed queries @ $0.080 overage + anchor:</span>
                   <span className="text-green-400 font-bold">{formatCurrency(calculations.totalMonthly)}/mo</span>
                 </div>
+                {verificationEnabled && calculations.totalVerificationCost > 0 && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    + Optional verification: {formatCurrency(calculations.totalVerificationCost)}/mo (per check, no "credits")
+                  </p>
+                )}
                 {calculations.savingsPercent > 0 && (
                   <p className="text-xs text-green-400 mt-1">
                     <Check className="h-3 w-3 inline mr-1" />
@@ -699,19 +717,26 @@ export function DynamicPricingCalculator() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <Check className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
-                  <span>Full 7-Seat Senate included (model-agnostic, interchangeable seats)</span>
+                  <span>Full 7-Seat Senate (model-agnostic seats; best model earns a seat)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
-                  <span>Governs AI decisions; reduces drift/hallucinations; creates immutable audit trails</span>
+                  <span>Governance + audit — immutable trails, human approvals, drift/hallucination checks</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
-                  <span>SYNTH captures key conversational points, cuts noisy data by ~75%</span>
+                  <span>SYNTH reduces conversational noise by ~75% and captures key decision points</span>
                 </li>
               </ul>
             </CardContent>
           </Card>
+
+          {/* Marketing Copy */}
+          <div className="p-4 rounded-lg bg-gradient-to-r from-primary/5 to-cyan-500/5 border border-primary/20">
+            <p className="text-sm text-muted-foreground italic leading-relaxed">
+              <strong className="text-foreground">Is your AI legally defensible?</strong> Our Constitution implements "Reasonable Care" standards now emerging across state liability laws. It provides exact protocols to prevent agentic drift and negligence claims. Download the blueprint for secured, compliant, defensible AI.
+            </p>
+          </div>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-3">

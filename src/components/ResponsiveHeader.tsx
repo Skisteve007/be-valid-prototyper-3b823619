@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminLoginDialog } from "./AdminLoginDialog";
+import { StrategicDevelopmentDialog } from "./StrategicDevelopmentDialog";
 
 const STEVE_EMAILS = ['steve@bevalid.app', 'sgrillocce@gmail.com'];
 
@@ -13,6 +14,7 @@ const ResponsiveHeader = () => {
 
   const [isSteveOwner, setIsSteveOwner] = useState(false);
   const [showLoginDialog, setShowLoginDialog] = useState(false);
+  const [showStrategicDialog, setShowStrategicDialog] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   const hideHeader =
@@ -126,6 +128,16 @@ const ResponsiveHeader = () => {
               Login
             </Link>
 
+            {/* Strategic Development - only show for Steve */}
+            {isSteveOwner && (
+              <button
+                onClick={() => setShowStrategicDialog(true)}
+                className="px-2.5 sm:px-3 py-1.5 sm:py-2 text-[0.55rem] sm:text-[0.65rem] font-bold tracking-wide uppercase rounded-full border border-cyan-400/40 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-300/60 transition-colors whitespace-nowrap"
+              >
+                Strategic Dev
+              </button>
+            )}
+
             {/* Admin Panel - only show for Steve */}
             {isSteveOwner && (
               <button
@@ -142,6 +154,10 @@ const ResponsiveHeader = () => {
 
       {!hideHeader && (
         <AdminLoginDialog open={showLoginDialog} onOpenChange={setShowLoginDialog} />
+      )}
+
+      {!hideHeader && (
+        <StrategicDevelopmentDialog open={showStrategicDialog} onOpenChange={setShowStrategicDialog} />
       )}
     </>
   );

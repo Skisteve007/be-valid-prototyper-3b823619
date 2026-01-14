@@ -35,13 +35,14 @@ interface TierConfig {
   port_overage_usd: number;
 }
 
-// Configuration from JSON spec - updated to remove scans from tiers
+// Configuration from JSON spec v1.2
 const PRICING_CONFIG = {
   version: "1.2",
   defaults: {
     working_days_per_month: 22,
     risk_multiplier: { low: 1.0, medium: 1.1, high: 1.25 },
-    negotiation_range_percent: 0.20
+    negotiation_range_percent: 0.20,
+    verification_addon_enabled_by_default: false
   },
   tiers: {
     solo: {
@@ -75,16 +76,21 @@ const PRICING_CONFIG = {
       query_overage_usd: 0.08, port_overage_usd: 999
     }
   } as Record<TierKey, TierConfig>,
-  // New verification check pricing - flat per check, not tier-based
-  verification_checks: {
-    basic: { price: 1.80, label: "Age/Identity" },
-    standard: { price: 2.60, label: "ID + Background" },
-    deep: { price: 3.60, label: "Most Wanted / Sexual Predator / Terrorist" }
+  // Verification check pricing - flat per check (optional add-on)
+  verification_rates_usd: {
+    basic: 1.80,
+    standard: 2.60,
+    deep: 3.60
+  },
+  owner_guards: {
+    min_margin_percent: 0.35,
+    query_floor_usd: 0.08,
+    port_floor_usd: { solo: 99, starter: 99, professional: 199, business: 299, enterprise: 499, sector_sovereign: 999 },
+    allow_discount_below_floor: false
   },
   competitor_parity: {
     agentforce_action_usd: 0.10,
-    conversation_heuristic_divisor: 10,
-    conversation_rate_usd: 2.0
+    show_parity_tile: true
   }
 };
 
@@ -115,7 +121,7 @@ export function DynamicPricingCalculator() {
 
   // Derived calculations
   const calculations = useMemo(() => {
-    const { defaults, tiers, verification_checks, competitor_parity } = PRICING_CONFIG;
+    const { defaults, tiers, verification_rates_usd, competitor_parity } = PRICING_CONFIG;
     
     // Monthly Senate Queries
     const msq = usersGoverned * queriesPerDay * defaults.working_days_per_month;
@@ -153,9 +159,9 @@ export function DynamicPricingCalculator() {
     const portOverage = portOverageCount * tierConfig.port_overage_usd;
     
     // Verification add-on (flat per-check pricing, only if enabled)
-    const basicChecksCost = verificationEnabled ? checksBasic * verification_checks.basic.price : 0;
-    const standardChecksCost = verificationEnabled ? checksStandard * verification_checks.standard.price : 0;
-    const deepChecksCost = verificationEnabled ? checksDeep * verification_checks.deep.price : 0;
+    const basicChecksCost = verificationEnabled ? checksBasic * verification_rates_usd.basic : 0;
+    const standardChecksCost = verificationEnabled ? checksStandard * verification_rates_usd.standard : 0;
+    const deepChecksCost = verificationEnabled ? checksDeep * verification_rates_usd.deep : 0;
     const totalVerificationCost = basicChecksCost + standardChecksCost + deepChecksCost;
     
     // Subtotal and total
@@ -175,12 +181,10 @@ export function DynamicPricingCalculator() {
     const totalOverage = queryOverage + portOverage;
     const suggestUpgrade = totalOverage > tierConfig.anchor_mid_usd * 0.4 && selectedTier !== "sector_sovereign";
     
-    // Competitor parity (Agentforce)
-    const agentforceActions = msq * competitor_parity.agentforce_action_usd;
-    const agentforceConvos = Math.ceil(msq / competitor_parity.conversation_heuristic_divisor) * competitor_parity.conversation_rate_usd;
-    const agentforceTotal = agentforceActions + agentforceConvos;
-    const savingsPercent = agentforceTotal > 0 
-      ? Math.round((1 - (totalMonthly / agentforceTotal)) * 100) 
+    // Competitor parity (Agentforce) - simplified: just actions @ $0.10 × MSQ
+    const agentforceBaseline = msq * competitor_parity.agentforce_action_usd;
+    const savingsPercent = agentforceBaseline > 0 
+      ? Math.round((1 - (totalMonthly / agentforceBaseline)) * 100) 
       : 0;
     
     return {
@@ -204,9 +208,7 @@ export function DynamicPricingCalculator() {
       rangeHigh,
       queryUtilization,
       suggestUpgrade,
-      agentforceActions,
-      agentforceConvos,
-      agentforceTotal,
+      agentforceBaseline,
       savingsPercent
     };
   }, [usersGoverned, queriesPerDay, highLiability, portsConnected, manualTier, verificationEnabled, checksBasic, checksStandard, checksDeep]);
@@ -676,11 +678,7 @@ export function DynamicPricingCalculator() {
                 <p className="text-xs text-muted-foreground font-medium mb-2">Salesforce Agentforce baseline</p>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Actions @ $0.10 each (Flex):</span>
-                  <span>~{formatCurrency(calculations.agentforceActions)}/mo</span>
-                </div>
-                <div className="flex justify-between border-t border-border/20 pt-2">
-                  <span className="text-muted-foreground">Agentforce Total:</span>
-                  <span className="text-red-400">~{formatCurrency(calculations.agentforceTotal)}/mo</span>
+                  <span className="text-red-400">~{formatCurrency(calculations.agentforceBaseline)}/mo</span>
                 </div>
               </div>
               

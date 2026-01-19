@@ -228,27 +228,21 @@ const Hero = () => {
 
               {/* CTA Row */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6">
-                {/* Primary CTA - Pulsating Glow with Free to Join */}
-                <div className="flex flex-col items-center">
-                  <span 
-                    className="text-xs font-bold uppercase tracking-widest mb-1.5"
-                    style={{ color: '#00E5E5' }}
-                  >
-                    Free to Join
-                  </span>
-                  <button 
-                    onClick={handleAccessClick}
-                    className="inline-flex items-center gap-2 px-7 py-3 font-semibold text-sm rounded-full transition-all duration-200 animate-pulse-glow"
-                    style={{
-                      backgroundColor: '#00E5E5',
-                      color: '#000000',
-                      boxShadow: '0 0 15px rgba(0,229,229,0.6), 0 0 30px rgba(0,229,229,0.4), 0 0 45px rgba(0,229,229,0.2)',
-                    }}
-                  >
-                    CLAIM YOUR ID
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
+                {/* Primary CTA - Pulsating Glow */}
+                <button 
+                  onClick={handleAccessClick}
+                  className="inline-flex items-center gap-2 px-7 py-3 font-semibold text-sm rounded-full transition-all duration-200 animate-pulse-glow"
+                  style={{
+                    backgroundColor: '#00E5E5',
+                    color: '#000000',
+                    boxShadow: '0 0 15px rgba(0,229,229,0.6), 0 0 30px rgba(0,229,229,0.4), 0 0 45px rgba(0,229,229,0.2)',
+                  }}
+                >
+                  <span className="text-xs opacity-80">Free to Join</span>
+                  <span className="mx-1">•</span>
+                  CLAIM YOUR ID
+                  <ArrowRight className="w-4 h-4" />
+                </button>
                 
                 {/* Secondary CTA */}
                 <a 

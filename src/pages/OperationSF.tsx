@@ -40,7 +40,7 @@ const OperationSF = () => {
             <ArrowLeft className="h-5 w-5 mr-2" /> Back
           </Button>
           <Badge variant="outline" className="border-primary/50 text-primary font-mono text-base px-4 py-1">
-            OPERATION SF INTEL
+            OPERATION MIDWEST INTEL
           </Badge>
         </div>
       </header>

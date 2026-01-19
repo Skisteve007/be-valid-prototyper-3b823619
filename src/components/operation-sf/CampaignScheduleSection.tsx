@@ -34,35 +34,35 @@ const phases: Phase[] = [
   {
     id: "infiltration",
     name: "PHASE 1: INFILTRATION",
-    dates: "Jan 9–11",
+    dates: "Mar 1–5",
     objective: "Intel, Setup, and Soft Targets.",
     team: "Solo",
     focus: ["Recon", "Relationships", "War Room"],
     days: [
       {
-        label: "FRI",
-        title: "FRIDAY, JAN 9: LANDFALL",
+        label: "SAT",
+        title: "SATURDAY, MAR 1: LANDFALL",
         entries: [
           { time: "12:00 PM", location: "Hotel", target: "Check-in", move: "Establish the 'War Room.'" },
-          { time: "03:00 PM", location: "St. Regis / Four Seasons", target: "Recon Mission", move: "Walk the lobbies. Observe early arrivals." },
-          { time: "07:00 PM", location: "Kokkari Estiatorio", target: "Dinner", move: "If you see a badge, buy them a drink." },
-        ],
-      },
-      {
-        label: "SAT",
-        title: "SATURDAY, JAN 10: THE PERIMETER",
-        entries: [
-          { time: "10:00 AM", location: "The Grove (Yerba Buena)", target: "Coffee", move: "Watch for early VC arrivals." },
-          { time: "02:00 PM", location: "War Room", target: "Target Prep", move: "Review Lovable links. Ensure 'Sovereign Seal' demo is flawless on mobile." },
-          { time: "08:00 PM", location: "The View Lounge (Marriott Marquis)", target: "Drinks", move: "Biotech Showcase attendees land today." },
+          { time: "03:00 PM", location: "Target Area", target: "Recon Mission", move: "Walk the lobbies. Observe early arrivals." },
+          { time: "07:00 PM", location: "Local Steakhouse", target: "Dinner", move: "If you see a badge, buy them a drink." },
         ],
       },
       {
         label: "SUN",
-        title: "SUNDAY, JAN 11: THE WHISPER PARTIES",
+        title: "SUNDAY, MAR 2: THE PERIMETER",
         entries: [
-          { time: "04:00 PM", location: "The Clift", target: "Reception", move: "Early mixer. Be seen, gather intel." },
-          { time: "06:00 PM", location: "St. Regis Lobby", target: "Night Before the War", move: "Be visible. Final positioning." },
+          { time: "10:00 AM", location: "Local Coffee Shop", target: "Coffee", move: "Watch for early VC arrivals." },
+          { time: "02:00 PM", location: "War Room", target: "Target Prep", move: "Review Lovable links. Ensure 'Sovereign Seal' demo is flawless on mobile." },
+          { time: "08:00 PM", location: "Hotel Bar", target: "Drinks", move: "Biotech Showcase attendees land today." },
+        ],
+      },
+      {
+        label: "MON",
+        title: "MONDAY, MAR 3: THE WHISPER PARTIES",
+        entries: [
+          { time: "04:00 PM", location: "Local Venue", target: "Reception", move: "Early mixer. Be seen, gather intel." },
+          { time: "06:00 PM", location: "Hotel Lobby", target: "Night Before the War", move: "Be visible. Final positioning." },
         ],
       },
     ],
@@ -70,33 +70,33 @@ const phases: Phase[] = [
   {
     id: "assault",
     name: "PHASE 2: THE ASSAULT",
-    dates: "Jan 12–14",
+    dates: "Mar 6–20",
     objective: "Hunt 'Big Dogs' + 'Young Guns' at maximum intensity.",
     team: "You, Chris, John",
     focus: ["Targets", "Divide & Conquer", "Close"],
     days: [
       {
-        label: "MON",
-        title: "MONDAY, JAN 12: SHOCK & AWE (Young Guns)",
+        label: "THU",
+        title: "THURSDAY, MAR 6: SHOCK & AWE (Young Guns)",
         entries: [
-          { time: "09:00 AM", location: "Westin St. Francis (Main Hall)", target: "AMBIENCE HEALTHCARE ($243M raised)", move: "\"You're moving at light speed. We are your brakes.\"" },
-          { time: "12:00 PM", location: "J.P. Morgan Main Lunch", target: "Network Blitz", move: "Divide and conquer. Chris left, John right, you float." },
-          { time: "03:00 PM", location: "St. Regis Suites", target: "HIPPOCRATIC AI ($126M raised) — CRITICAL", move: "\"You claim safety. SYNTH proves it. Let's run a $250k audit.\"" },
+          { time: "09:00 AM", location: "Conference Center", target: "AMBIENCE HEALTHCARE ($243M raised)", move: "\"You're moving at light speed. We are your brakes.\"" },
+          { time: "12:00 PM", location: "Main Lunch", target: "Network Blitz", move: "Divide and conquer. Chris left, John right, you float." },
+          { time: "03:00 PM", location: "Hotel Suites", target: "HIPPOCRATIC AI ($126M raised) — CRITICAL", move: "\"You claim safety. SYNTH proves it. Let's run a $250k audit.\"" },
         ],
       },
       {
-        label: "TUE",
-        title: "TUESDAY, JAN 13: THE DATA WHALES (Big Dogs)",
+        label: "FRI",
+        title: "FRIDAY, MAR 7: THE DATA WHALES (Big Dogs)",
         entries: [
-          { time: "09:00 AM", location: "Four Seasons Lobby", target: "OPENEVIDENCE ($6B valuation) — THE BIG DOG", move: "\"You have zero insurance against hallucination liability. We are that insurance.\"" },
-          { time: "01:00 PM", location: "Westin Mezzanine", target: "TENNR ($101M raised)", move: "\"We clean your data before it hits the model.\"" },
+          { time: "09:00 AM", location: "Hotel Lobby", target: "OPENEVIDENCE ($6B valuation) — THE BIG DOG", move: "\"You have zero insurance against hallucination liability. We are that insurance.\"" },
+          { time: "01:00 PM", location: "Mezzanine", target: "TENNR ($101M raised)", move: "\"We clean your data before it hits the model.\"" },
         ],
       },
       {
-        label: "WED",
-        title: "WEDNESDAY, JAN 14: THE EXIT (Chris & John depart)",
+        label: "SAT",
+        title: "SATURDAY, MAR 8: THE EXIT (Chris & John depart)",
         entries: [
-          { time: "09:00 AM", location: "Suites near Moscone/InterContinental", target: "ABRIDGE ($316M raised; $5.3B val)", move: "\"We provide the Sovereign Seal of privacy for every transcript.\"" },
+          { time: "09:00 AM", location: "Conference Suites", target: "ABRIDGE ($316M raised; $5.3B val)", move: "\"We provide the Sovereign Seal of privacy for every transcript.\"" },
           { time: "02:00 PM", location: "Pharma Suite", target: "FORMATION BIO ($372M raised)", move: "\"FDA trials require 100% accuracy. We guarantee it.\"" },
           { time: "05:00 PM", location: "War Room", target: "TEAM DEBRIEF", move: "Handover all contacts/notes before flights." },
         ],
@@ -106,27 +106,27 @@ const phases: Phase[] = [
   {
     id: "closer",
     name: "PHASE 3: THE CLOSER",
-    dates: "Jan 15–16",
+    dates: "Mar 21–Apr 15",
     objective: "Quiet days, decision makers only.",
     team: "You (Solo)",
     focus: ["Kingmakers", "Check Writers", "Lock Commits"],
     days: [
       {
-        label: "THU",
-        title: "THURSDAY, JAN 15: THE KINGMAKERS",
+        label: "FRI",
+        title: "FRIDAY, MAR 21: THE KINGMAKERS",
         entries: [
-          { time: "10:00 AM", location: "St. Regis", target: "ANDREESSEN HOROWITZ (A16Z BIO)", move: "Text partners met earlier: \"I'm still here. Let's talk about protecting your portfolio.\"" },
-          { time: "01:00 PM", location: "Khosla Ventures", target: "Alex Morgan (Partner)", move: "\"Vinod likes the impossible. We are the impossible.\"" },
-          { time: "07:00 PM", location: "Hotel Zetta bar (The Cavalier)", target: "THE SURVIVORS DRINK", move: "Connect with those who stayed." },
+          { time: "10:00 AM", location: "Hotel", target: "ANDREESSEN HOROWITZ (A16Z BIO)", move: "Text partners met earlier: \"I'm still here. Let's talk about protecting your portfolio.\"" },
+          { time: "01:00 PM", location: "VC Office", target: "Alex Morgan (Partner)", move: "\"Vinod likes the impossible. We are the impossible.\"" },
+          { time: "07:00 PM", location: "Hotel Bar", target: "THE SURVIVORS DRINK", move: "Connect with those who stayed." },
         ],
       },
       {
-        label: "FRI",
-        title: "FRIDAY, JAN 16: DEBRIEF & DEPARTURE",
+        label: "TUE",
+        title: "TUESDAY, APR 15: DEBRIEF & DEPARTURE",
         entries: [
           { time: "09:00 AM", location: "Various", target: "Final coffee meetings", move: "Anyone who said 'maybe.'" },
           { time: "11:00 AM", location: "War Room", target: "Review 'Soft Commits'", move: "Tally results. Prep follow-ups." },
-          { time: "02:00 PM", location: "SFO", target: "Wheels up", move: "Mission complete." },
+          { time: "02:00 PM", location: "Airport", target: "Wheels up", move: "Mission complete." },
         ],
       },
     ],
@@ -152,12 +152,12 @@ const CampaignScheduleSection = () => {
   };
 
   const copySchedule = () => {
-    const text = `FULL CAMPAIGN SCHEDULE — JANUARY 9–16, 2026
+    const text = `FULL CAMPAIGN SCHEDULE — MARCH 1 – APRIL 15, 2026
 
 Strategy:
-• Jan 9–11 (The Setup): Establish the "Embassy," tip concierges, gather intel.
-• Jan 12–14 (The Assault - With Team): Hunt "Big Dogs" + "Young Guns."
-• Jan 15–16 (The Closer - You Only): Quiet days, decision makers only.
+• Mar 1–5 (The Setup): Establish the "Embassy," tip concierges, gather intel.
+• Mar 6–20 (The Assault - With Team): Hunt "Big Dogs" + "Young Guns."
+• Mar 21–Apr 15 (The Closer - You Only): Quiet days, decision makers only.
 
 ${phases.map(phase => `
 ${phase.name} (${phase.dates})
@@ -186,7 +186,7 @@ ${hitList.map(h => `• ${h.name} (${h.valuation}) — ${h.hook}`).join('\n')}
             <span className="text-sm font-medium text-amber-400">Campaign Schedule</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">Full Campaign Schedule</h2>
-          <p className="text-xl md:text-2xl text-primary font-mono mb-2">JANUARY 9–16, 2026</p>
+          <p className="text-xl md:text-2xl text-primary font-mono mb-2">MARCH 1 – APRIL 15, 2026</p>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto italic">
             "Arrive early to secure terrain; stay late to close when the noise clears."
           </p>
@@ -198,15 +198,15 @@ ${hitList.map(h => `• ${h.name} (${h.valuation}) — ${h.hook}`).join('\n')}
             <h3 className="font-semibold text-foreground mb-3">Strategy Overview</h3>
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-3">
-                <Badge variant="outline" className="shrink-0 text-cyan-400 border-cyan-400/50">Jan 9–11</Badge>
+                <Badge variant="outline" className="shrink-0 text-cyan-400 border-cyan-400/50">Mar 1–5</Badge>
                 <span className="text-muted-foreground"><span className="text-foreground font-medium">The Setup:</span> Establish the "Embassy," tip concierges, gather intel.</span>
               </div>
               <div className="flex items-start gap-3">
-                <Badge variant="outline" className="shrink-0 text-orange-400 border-orange-400/50">Jan 12–14</Badge>
+                <Badge variant="outline" className="shrink-0 text-orange-400 border-orange-400/50">Mar 6–20</Badge>
                 <span className="text-muted-foreground"><span className="text-foreground font-medium">The Assault (With Team):</span> Hunt "Big Dogs" + "Young Guns."</span>
               </div>
               <div className="flex items-start gap-3">
-                <Badge variant="outline" className="shrink-0 text-emerald-400 border-emerald-400/50">Jan 15–16</Badge>
+                <Badge variant="outline" className="shrink-0 text-emerald-400 border-emerald-400/50">Mar 21–Apr 15</Badge>
                 <span className="text-muted-foreground"><span className="text-foreground font-medium">The Closer (Solo):</span> Quiet days, decision makers only.</span>
               </div>
             </div>
@@ -331,7 +331,7 @@ ${hitList.map(h => `• ${h.name} (${h.valuation}) — ${h.hook}`).join('\n')}
               </div>
               <div>
                 <CardTitle className="text-xl text-red-400">Hit List Summary</CardTitle>
-                <p className="text-sm text-muted-foreground">Primary targets for Operation SF</p>
+                <p className="text-sm text-muted-foreground">Primary targets for Operation Midwest Region</p>
               </div>
             </div>
           </CardHeader>

@@ -227,36 +227,24 @@ const Dashboard = () => {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 mx-4 md:mx-8 mt-4">
-        <div className="backdrop-blur-xl bg-white/5 border border-[#00FFFF]/30 rounded-full px-3 md:px-6 py-3 md:py-4 shadow-[0_0_30px_rgba(0,255,255,0.15)]">
-          <div className="flex items-center justify-between gap-2 md:gap-4">
-            {/* Left side - Back button + Speak With Steve */}
-            <div className="flex-shrink-0 flex items-center gap-2">
-              <Button
-                onClick={() => navigate("/")}
-                size="sm"
-                className="shadow-[0_0_20px_rgba(0,255,255,0.3)] border border-[#00FFFF]/40 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold min-h-[36px] md:min-h-[44px] px-2 md:px-4 rounded-full"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                <span className="hidden md:inline ml-2">Home</span>
-              </Button>
-              <a
-                href="https://wa.me/15127810973"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 shadow-[0_0_25px_rgba(34,197,94,0.5)] hover:shadow-[0_0_40px_rgba(34,197,94,0.7)] border border-green-500/60 bg-gradient-to-r from-green-500/20 to-emerald-500/20 hover:from-green-500/30 hover:to-emerald-500/30 text-green-400 font-bold min-h-[36px] md:min-h-[44px] px-3 md:px-4 rounded-full transition-all duration-300 animate-pulse hover:animate-none"
-                style={{ animationDuration: '2s' }}
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span className="hidden md:inline">Speak With Steve</span>
-              </a>
-            </div>
+      <header className="relative z-10 mx-3 md:mx-8 mt-3 md:mt-4">
+        <div className="backdrop-blur-xl bg-white/5 border border-[#00FFFF]/30 rounded-2xl md:rounded-full px-3 md:px-6 py-2.5 md:py-4 shadow-[0_0_30px_rgba(0,255,255,0.15)]">
+          <div className="flex items-center justify-between gap-2">
+            {/* Left side - Back button */}
+            <Button
+              onClick={() => navigate("/")}
+              size="sm"
+              className="shrink-0 shadow-[0_0_20px_rgba(0,255,255,0.3)] border border-[#00FFFF]/40 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold h-9 md:h-11 w-9 md:w-auto px-0 md:px-4 rounded-full"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span className="hidden md:inline ml-2">Home</span>
+            </Button>
             
             {/* Center - Video logo */}
-            <div className="flex justify-center flex-shrink-0">
-              <div className="relative cursor-pointer" {...longPressHandlers}>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/40 via-teal-500/40 to-cyan-500/40 blur-3xl rounded-full scale-150"></div>
-                <div className="relative h-20 md:h-32 aspect-[4/5] rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_30px_rgba(0,240,255,0.3)]">
+            <div className="flex justify-center shrink-0" {...longPressHandlers}>
+              <div className="relative cursor-pointer">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/40 via-teal-500/40 to-cyan-500/40 blur-2xl rounded-full scale-125"></div>
+                <div className="relative h-14 md:h-28 aspect-[4/5] rounded-lg md:rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_20px_rgba(0,240,255,0.3)]">
                   <video 
                     src="/valid_portal.mp4" 
                     autoPlay 
@@ -269,40 +257,45 @@ const Dashboard = () => {
               </div>
             </div>
             
-            {/* Right side - Share, Theme, Logout (desktop) */}
-            <div className="flex-shrink-0 flex gap-1 md:gap-2 items-center">
+            {/* Right side - Action buttons */}
+            <div className="shrink-0 flex gap-1.5 md:gap-2 items-center">
+              {/* WhatsApp - icon only on mobile */}
+              <a
+                href="https://wa.me/15127810973"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.4)] border border-green-500/60 bg-green-500/15 text-green-400 font-bold h-9 md:h-11 w-9 md:w-auto px-0 md:px-4 rounded-full transition-all"
+              >
+                <MessageCircle className="h-4 w-4" />
+                <span className="hidden md:inline ml-2">Chat</span>
+              </a>
+              
+              {/* Share */}
               <Button 
                 onClick={() => setShowShareModal(true)}
                 size="sm"
-                className="shadow-[0_0_20px_rgba(0,255,255,0.5)] border border-[#00FFFF]/60 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold min-h-[36px] md:min-h-[44px] px-2 md:px-5 rounded-full"
+                className="shadow-[0_0_15px_rgba(0,255,255,0.4)] border border-[#00FFFF]/60 bg-[#00FFFF]/10 text-[#00FFFF] hover:bg-[#00FFFF]/20 font-bold h-9 md:h-11 w-9 md:w-auto px-0 md:px-4 rounded-full"
               >
                 <Share2 className="h-4 w-4" />
                 <span className="hidden md:inline ml-2">Share</span>
               </Button>
-              <ThemeToggle />
-              {/* Logout - desktop only in header */}
+              
+              {/* Theme Toggle - hidden on mobile */}
+              <div className="hidden md:block">
+                <ThemeToggle />
+              </div>
+              
+              {/* Logout */}
               <Button 
                 onClick={handleLogout}
                 size="sm" 
-                className="hidden md:flex shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[44px] px-5 rounded-full"
+                className="shadow-[0_0_15px_rgba(236,72,153,0.4)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold h-9 md:h-11 w-9 md:w-auto px-0 md:px-4 rounded-full"
               >
                 <LogOut className="h-4 w-4" />
-                <span className="ml-2">Logout</span>
+                <span className="hidden md:inline ml-2">Logout</span>
               </Button>
             </div>
           </div>
-        </div>
-        
-        {/* Mobile: Logout button below header */}
-        <div className="flex md:hidden gap-2 mt-3 justify-center">
-          <Button 
-            onClick={handleLogout}
-            size="sm" 
-            className="flex-1 max-w-[140px] shadow-[0_0_20px_rgba(236,72,153,0.5)] border border-pink-500/60 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 font-bold min-h-[40px] px-3 rounded-full"
-          >
-            <LogOut className="h-4 w-4" />
-            <span className="ml-1.5 text-xs">Logout</span>
-          </Button>
         </div>
       </header>
 

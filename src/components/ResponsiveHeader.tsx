@@ -127,13 +127,13 @@ const ResponsiveHeader = () => {
                 Login
               </Link>
 
-              {/* Strategic Development - only show for Steve, hidden on mobile */}
+              {/* Strategic Development - only show for Steve */}
               {isSteveOwner && (
                 <button
                   onClick={() => setShowStrategicDialog(true)}
-                  className="hidden sm:flex px-2.5 sm:px-3 py-1.5 sm:py-2 text-[0.55rem] sm:text-[0.65rem] font-bold tracking-wide uppercase rounded-full border border-cyan-400/40 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-300/60 transition-colors whitespace-nowrap"
+                  className="px-2 sm:px-3 py-1.5 sm:py-2 text-[0.5rem] sm:text-[0.65rem] font-bold tracking-wide uppercase rounded-full border border-cyan-400/40 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-300/60 transition-colors whitespace-nowrap"
                 >
-                  Strategic Dev
+                  Dev
                 </button>
               )}
 

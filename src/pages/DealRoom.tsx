@@ -41,8 +41,8 @@ const commitmentLevels = [
 const SEED_CONTRIBUTIONS = [
   {
     name: "Steve",
-    amount: 2500,
-    breakdown: "Micro Patent Registration, Print Work, Paid Developer Support, JP Morgan Tickets, SF Travel & Return",
+    amount: 4000,
+    breakdown: "Micro Patent Registration, Print Work, Paid Developer Support, Midwest Travel & Return",
   },
 ];
 
@@ -161,18 +161,9 @@ const DealRoom = () => {
          <Card className="bg-gradient-to-r from-[#00FFFF]/10 via-black to-[#00FFFF]/10 border border-[#00FFFF]/50">
            <CardContent className="py-6">
               <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
-                "This is a <span className="text-[#00FFFF] font-bold">strategic strike</span>—we're not just raising capital, we're building a coalition. The first $50,000 is a small friends-and-family entry for strong associates who want to help us grab checks and LOIs in San Francisco; if you back the mission, you're welcome to <span className="text-[#00FFFF] font-bold">join the "raid"</span> and be in the room with targets. Our raise ladder is $50k entry → $50k–$200k → $200k–$1.5M → up to a $6M cap, with allocations finalized in our terms."
+                "This is a <span className="text-[#00FFFF] font-bold">strategic strike</span>—we're not just raising capital, we're building a coalition. The first $50,000 is a small friends-and-family entry for strong associates who want to help us grab checks and LOIs in the Midwest Region; if you back the mission, you're welcome to <span className="text-[#00FFFF] font-bold">join the "raid"</span> and be in the room with targets. Our raise ladder is $50k entry → $50k–$200k → $200k–$1.5M → up to a $6M cap, with allocations finalized in our terms."
               </p>
             </CardContent>
-         </Card>
-         
-         {/* JP Morgan Week Info */}
-         <Card className="bg-gradient-to-r from-blue-500/10 via-black to-blue-500/10 border border-blue-500/50 mt-4">
-           <CardContent className="py-6">
-             <p className="text-center font-mono text-sm sm:text-base text-gray-200 leading-relaxed">
-               <span className="text-blue-400 font-bold">JP Morgan Week in San Francisco</span> centers around the massive, annual J.P. Morgan Healthcare Conference (JPM Week), usually held in January (<span className="text-blue-400 font-bold">Jan 12-15, 2026</span> for the 44th event) at hotels like The Westin St. Francis, drawing global pharma, biotech, investors, and innovators for networking, investment talks, and major industry trends, with significant offsite events, partnering forums (like BIO Partnering @JPM), and company presentations shaping the future of healthcare.
-             </p>
-           </CardContent>
          </Card>
        </section>
 
@@ -192,10 +183,10 @@ const DealRoom = () => {
           </span>
         </div>
         <div className="container mx-auto px-4 py-6">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center tracking-wider">
-            <span className="text-[#00FFFF]">OPERATION</span>{" "}
-            <span className="text-white">SAN FRANCISCO</span>
-          </h1>
+         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center tracking-wider">
+           <span className="text-[#00FFFF]">OPERATION</span>{" "}
+           <span className="text-white">MIDWEST REGION</span>
+         </h1>
           <p className="text-center font-mono text-sm text-[#00FFFF]/70 mt-2 tracking-widest">
             // TACTICAL BRIDGE //
           </p>
@@ -322,11 +313,23 @@ const DealRoom = () => {
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
                     <span className="text-gray-300">UI/UX Designer</span>
-                    <span className="text-yellow-400 font-bold">$3,000</span>
+                    <span className="text-yellow-400 font-bold">$5,000</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
                     <span className="text-gray-300">Full Stack Designer</span>
+                    <span className="text-yellow-400 font-bold">$5,000</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
+                    <span className="text-gray-300">Junior Developer #1</span>
                     <span className="text-yellow-400 font-bold">$3,000</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
+                    <span className="text-gray-300">Junior Developer #2</span>
+                    <span className="text-yellow-400 font-bold">$3,000</span>
+                  </div>
+                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
+                    <span className="text-gray-300">Backend Senior Architect</span>
+                    <span className="text-yellow-400 font-bold">$2,500</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-yellow-500/10 rounded border border-yellow-500/30">
                     <span className="text-gray-300">Builder & Backend Motion Graphics</span>
@@ -343,12 +346,12 @@ const DealRoom = () => {
               <div className="space-y-2">
                 <h4 className="font-mono text-xs text-purple-400 tracking-widest flex items-center gap-2">
                   <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
-                  COMMAND CENTER (St. Regis San Francisco)
+                  COMMAND CENTER (War RIG Mobile, Midwest Region)
                 </h4>
                 <div className="grid gap-2 pl-4">
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-purple-500/10 rounded border border-purple-500/30">
-                    <span className="text-gray-300">Command Center @ St. Regis</span>
-                    <span className="text-purple-400 font-bold">$5,000</span>
+                    <span className="text-gray-300">War RIG Mobile — 45 Days</span>
+                    <span className="text-purple-400 font-bold">$7,000</span>
                   </div>
                 </div>
               </div>
@@ -365,16 +368,12 @@ const DealRoom = () => {
                     <span className="text-[#00FFFF] font-bold">$4,000</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
-                    <span className="text-gray-300">J.P. Morgan Conference Tickets</span>
-                    <span className="text-[#00FFFF] font-bold">$4,500</span>
-                  </div>
-                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">Ground Transportation & Logistics</span>
                     <span className="text-[#00FFFF] font-bold">$2,000</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">Client Engagement & Meetings</span>
-                    <span className="text-[#00FFFF] font-bold">$3,000</span>
+                    <span className="text-[#00FFFF] font-bold">$2,000</span>
                   </div>
                 </div>
               </div>
@@ -388,14 +387,14 @@ const DealRoom = () => {
                 <div className="grid gap-2 pl-4">
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">High-Fidelity Demo Production</span>
-                    <span className="text-[#00FFFF] font-bold">$1,000</span>
+                    <span className="text-[#00FFFF] font-bold">$3,000</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
                     <span className="text-gray-300">Pitch Deck & Strategy Books (Printed)</span>
                     <span className="text-[#00FFFF] font-bold">$500</span>
                   </div>
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
-                    <span className="text-gray-300">Leave-Behind Kits</span>
+                    <span className="text-gray-300">Leave-Behind Kits & Dossiers</span>
                     <span className="text-[#00FFFF] font-bold">$1,000</span>
                   </div>
                 </div>
@@ -405,7 +404,7 @@ const DealRoom = () => {
               <div className="space-y-2">
                 <h4 className="font-mono text-xs text-orange-400 tracking-widest flex items-center gap-2">
                   <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
-                  INFRASTRUCTURE
+                  INFRASTRUCTURE <span className="text-gray-500 text-[10px] font-normal">(Monthly Incurred Cost)</span>
                 </h4>
                 <div className="grid gap-2 pl-4">
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-gray-900/50 rounded border border-gray-800">
@@ -435,12 +434,8 @@ const DealRoom = () => {
                 </h4>
                 <div className="grid gap-2 pl-4">
                   <div className="flex justify-between items-center font-mono text-sm p-2 bg-red-500/10 rounded border border-red-500/30">
-                    <span className="text-gray-300">Extended Stay (Steve till Jan 16)</span>
+                    <span className="text-gray-300">War Rig</span>
                     <span className="text-red-400 font-bold">$3,000</span>
-                  </div>
-                  <div className="flex justify-between items-center font-mono text-sm p-2 bg-red-500/10 rounded border border-red-500/30">
-                    <span className="text-gray-300">Remaining Balance → Contingency</span>
-                    <span className="text-red-400 font-bold">$13,200</span>
                   </div>
                 </div>
               </div>
@@ -591,21 +586,6 @@ const DealRoom = () => {
                   </p>
                 </div>
 
-                {/* Jim Jimco */}
-                <div className="p-4 bg-gradient-to-r from-orange-500/10 via-black to-orange-500/10 rounded border border-orange-500/30 space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-500/20 border border-orange-500/50 flex items-center justify-center">
-                      <span className="text-orange-400 font-bold text-sm">JJ</span>
-                    </div>
-                    <div>
-                      <h5 className="font-mono text-sm text-white font-bold">Jim Jimco</h5>
-                      <span className="font-mono text-xs text-orange-400">VP of Product and Marketing</span>
-                    </div>
-                  </div>
-                  <p className="font-mono text-xs text-gray-300 leading-relaxed">
-                    Jim contributes in many ways to the team. Right now, he's all about elbow grease, and everybody here knows he's such an intelligent guy. He has been playing devil's advocate, but we keep crushing it. Not we, the authorities do, the senate.
-                  </p>
-                </div>
               </div>
             </CardContent>
           </Card>
@@ -627,7 +607,7 @@ const DealRoom = () => {
                 <Zap className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" style={{ filter: "drop-shadow(0 0 8px #facc15)" }} />
                 <div className="relative z-10">
                   <span className="text-yellow-400 font-bold">⚡ PRIORITY ONE:</span>{" "}
-                  <span className="text-white font-bold">UI/UX DESIGNER ($3,000)</span>
+                  <span className="text-white font-bold">UI/UX DESIGNER ($5,000)</span>
                   <p className="text-gray-300 mt-1 text-xs">
                     Retaining top-tier UI/UX Designer for high-fidelity interface design and visual language.
                   </p>
@@ -643,7 +623,7 @@ const DealRoom = () => {
                 <Zap className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" style={{ filter: "drop-shadow(0 0 8px #facc15)" }} />
                 <div className="relative z-10">
                   <span className="text-yellow-400 font-bold">⚡ PRIORITY TWO:</span>{" "}
-                  <span className="text-white font-bold">FULL STACK DESIGNER ($3,000)</span>
+                  <span className="text-white font-bold">FULL STACK DESIGNER ($5,000)</span>
                   <p className="text-gray-300 mt-1 text-xs">
                     Needed to take the helm of our platform. End-to-end ownership of product design and engineering.
                   </p>
@@ -653,12 +633,44 @@ const DealRoom = () => {
                 </div>
               </div>
 
-              {/* PRIORITY THREE - Security */}
+              {/* PRIORITY THREE - Junior Developers */}
               <div className="flex items-start gap-3 font-mono text-sm p-3 rounded border border-yellow-500/50 bg-yellow-500/10 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-transparent to-yellow-500/20 animate-pulse pointer-events-none" />
                 <Zap className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" style={{ filter: "drop-shadow(0 0 8px #facc15)" }} />
                 <div className="relative z-10">
                   <span className="text-yellow-400 font-bold">⚡ PRIORITY THREE:</span>{" "}
+                  <span className="text-white font-bold">TWO JUNIOR DEVELOPERS ($3,000 each)</span>
+                  <p className="text-gray-300 mt-1 text-xs">
+                    Two junior developers to support platform development and feature implementation.
+                  </p>
+                  <span className="inline-block mt-1 text-xs text-red-400 font-bold tracking-wider animate-pulse">
+                    🔴 HIRING IMMEDIATELY
+                  </span>
+                </div>
+              </div>
+
+              {/* PRIORITY FOUR - Backend Senior Architect */}
+              <div className="flex items-start gap-3 font-mono text-sm p-3 rounded border border-yellow-500/50 bg-yellow-500/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-transparent to-yellow-500/20 animate-pulse pointer-events-none" />
+                <Zap className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" style={{ filter: "drop-shadow(0 0 8px #facc15)" }} />
+                <div className="relative z-10">
+                  <span className="text-yellow-400 font-bold">⚡ PRIORITY FOUR:</span>{" "}
+                  <span className="text-white font-bold">BACKEND SENIOR ARCHITECT ($2,500)</span>
+                  <p className="text-gray-300 mt-1 text-xs">
+                    Senior backend architect to design and implement scalable platform infrastructure.
+                  </p>
+                  <span className="inline-block mt-1 text-xs text-red-400 font-bold tracking-wider animate-pulse">
+                    🔴 NEEDED
+                  </span>
+                </div>
+              </div>
+
+              {/* PRIORITY FIVE - Security */}
+              <div className="flex items-start gap-3 font-mono text-sm p-3 rounded border border-yellow-500/50 bg-yellow-500/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-transparent to-yellow-500/20 animate-pulse pointer-events-none" />
+                <Zap className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" style={{ filter: "drop-shadow(0 0 8px #facc15)" }} />
+                <div className="relative z-10">
+                  <span className="text-yellow-400 font-bold">⚡ PRIORITY FIVE:</span>{" "}
                   <span className="text-white font-bold">SECURITY EXPERT — JOVIANNA ($5,000)</span>
                   <p className="text-gray-300 mt-1 text-xs">
                     Cybersecurity consultant for platform hardening, penetration testing, and compliance review.
@@ -678,19 +690,13 @@ const DealRoom = () => {
               <div className="flex items-center gap-3 font-mono text-sm">
                 <span className="text-xl">🏨</span>
                 <span className="text-gray-300">
-                  <span className="text-white font-bold">COMMAND CENTER:</span> St. Regis San Francisco ($5,000).
+                  <span className="text-white font-bold">COMMAND CENTER:</span> War RIG Mobile, Midwest Region ($7,000).
                 </span>
               </div>
               <div className="flex items-center gap-3 font-mono text-sm">
                 <span className="text-xl">✈️</span>
                 <span className="text-gray-300">
                   <span className="text-white font-bold">AIR STRIKE TEAM:</span> Field operatives ($4,000).
-                </span>
-              </div>
-              <div className="flex items-center gap-3 font-mono text-sm">
-                <span className="text-xl">🎟️</span>
-                <span className="text-gray-300">
-                  <span className="text-white font-bold">J.P. MORGAN TICKETS:</span> Conference access ($3,500).
                 </span>
               </div>
             </CardContent>
@@ -712,7 +718,7 @@ const DealRoom = () => {
                   <div>
                     <h3 className="font-bold text-white uppercase tracking-wide">Mission</h3>
                     <p className="font-mono text-sm text-gray-300">
-                      Deploy to SF (J.P. Morgan Week) to audit Series B companies.
+                      Deploy to Midwest Region to audit Series B companies.
                     </p>
                   </div>
                 </div>

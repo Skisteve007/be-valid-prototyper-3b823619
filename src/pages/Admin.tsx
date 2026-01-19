@@ -514,82 +514,89 @@ const Admin = () => {
       )}
       
       <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div 
-              className="relative cursor-pointer"
-              {...longPressHandlers}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-3xl rounded-full scale-150"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/40 via-pink-400/40 to-blue-400/40 blur-2xl rounded-full scale-125 animate-pulse"></div>
-              <img src={logo} alt="Clean Check" className="relative h-12 md:h-18 w-auto select-none" draggable={false} />
+        <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
+          <div className="flex items-center justify-between gap-2">
+            {/* Left: Logo + Admin Label */}
+            <div className="flex items-center gap-2 shrink-0">
+              <div 
+                className="relative cursor-pointer"
+                {...longPressHandlers}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/60 via-pink-500/60 to-blue-500/60 blur-2xl rounded-full scale-125"></div>
+                <img src={logo} alt="Clean Check" className="relative h-10 md:h-16 w-auto select-none" draggable={false} />
+              </div>
+              <div className="hidden md:flex items-center gap-2 ml-2">
+                <Shield className="h-5 w-5 text-primary" />
+                <span className="font-semibold">Admin Panel</span>
+              </div>
             </div>
-            <div className="hidden md:flex items-center gap-2 ml-4">
-              <Shield className="h-5 w-5 text-primary" />
-              <span className="font-semibold">Admin Panel</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            {/* Deal Room Link - Only for authorized emails */}
-            {canAccessDealRoom && (
+            
+            {/* Right: Action Buttons */}
+            <div className="flex items-center gap-1.5 md:gap-2">
+              {/* Mobile: Compact icon buttons */}
               <Button 
                 variant="outline" 
-                onClick={() => navigate("/admin/deal-room")}
-                className="hidden md:flex border-amber-500/50 text-amber-400 hover:bg-amber-500/10"
+                size="icon"
+                className="md:hidden h-10 w-10"
+                onClick={() => setShowScanner(true)}
+                title="Quick Scanner"
               >
-                <Shield className="h-4 w-4 mr-2" />
-                Deal Room
+                <QrCode className="h-5 w-5" />
               </Button>
-            )}
+              
+              <Button 
+                variant="outline" 
+                size="icon"
+                className="md:hidden h-10 w-10"
+                onClick={() => navigate("/dashboard")}
+                title="Back to Dashboard"
+              >
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+              
+              {/* Desktop: Full buttons */}
+              {canAccessDealRoom && (
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate("/admin/deal-room")}
+                  className="hidden md:flex border-amber-500/50 text-amber-400 hover:bg-amber-500/10"
+                >
+                  <Shield className="h-4 w-4 mr-2" />
+                  Deal Room
+                </Button>
+              )}
 
-            <Button
-              variant="outline"
-              onClick={() => navigate("/staff-quickstart")}
-              className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
-            >
-              <BookOpen className="h-4 w-4 mr-2" />
-              Door Staff Training
-            </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate("/staff-quickstart")}
+                className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
+              >
+                <BookOpen className="h-4 w-4 mr-2" />
+                Door Staff Training
+              </Button>
 
-            <Button
-              variant="outline"
-              onClick={() => navigate("/manager-quickstart")}
-              className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
-            >
-              <BookOpen className="h-4 w-4 mr-2" />
-              Manager Training
-            </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate("/manager-quickstart")}
+                className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
+              >
+                <BookOpen className="h-4 w-4 mr-2" />
+                Manager Training
+              </Button>
 
-            <Button
-              variant="outline"
-              onClick={() => navigate("/ghost-pass-owner-guide")}
-              className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
-            >
-              <BookOpen className="h-4 w-4 mr-2" />
-              GHOST™ Pass Owner Guide
-            </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate("/ghost-pass-owner-guide")}
+                className="hidden md:flex shadow-[0_0_8px_rgba(250,204,21,0.3)] hover:shadow-[0_0_12px_rgba(250,204,21,0.5)] border-yellow-500/30"
+              >
+                <BookOpen className="h-4 w-4 mr-2" />
+                GHOST™ Pass Owner Guide
+              </Button>
 
-            {/* Quick Scanner Button - Mobile */}
-            <Button 
-              variant="outline" 
-              size="icon"
-              className="md:hidden h-12 w-12"
-              onClick={() => setShowScanner(true)}
-            >
-              <QrCode className="h-6 w-6" />
-            </Button>
-            {/* Back to Dashboard - Mobile */}
-            <Button 
-              variant="outline" 
-              size="icon"
-              className="md:hidden h-12 w-12"
-              onClick={() => navigate("/dashboard")}
-            >
-              <ArrowLeft className="h-6 w-6" />
-            </Button>
-            <Button variant="outline" onClick={() => navigate("/dashboard")} className="hidden md:flex">
-              Back to Dashboard
-            </Button>
+              <Button variant="outline" onClick={() => navigate("/dashboard")} className="hidden md:flex">
+                Back to Dashboard
+              </Button>
+            </div>
           </div>
         </div>
       </header>

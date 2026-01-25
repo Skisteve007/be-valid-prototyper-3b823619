@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { FileText, Rocket } from 'lucide-react';
-import { PDFViewerModal } from '@/components/PDFViewerModal';
+import { AdoptionRunwayModal } from './AdoptionRunwayModal';
 
 const AdoptionRunwayPill: React.FC = () => {
-  const [isPdfOpen, setIsPdfOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <button
-        onClick={() => setIsPdfOpen(true)}
+        onClick={() => setIsModalOpen(true)}
         className={`
           relative flex items-center gap-2 px-4 py-2 rounded-full
           border transition-all duration-300 touch-manipulation
@@ -38,11 +38,9 @@ const AdoptionRunwayPill: React.FC = () => {
         </div>
       </button>
 
-      <PDFViewerModal
-        isOpen={isPdfOpen}
-        onClose={() => setIsPdfOpen(false)}
-        pdfUrl="/documents/AI_GOVERNANCE_ADOPTION_RUNWAY-THE_GRILLO_STANDARD.pdf"
-        title="The Grillo AI Governance Adoption Runway"
+      <AdoptionRunwayModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </>
   );

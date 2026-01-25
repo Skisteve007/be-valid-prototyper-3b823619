@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ScrollText, Shield, Users, Lock, Eye, Zap, FileCheck, AlertTriangle } from "lucide-react";
 import allianceSeal from "@/assets/alliance-seal.png";
+import { AdoptionRunwayPill } from "@/components/governance";
 
 const GovernanceConstitution = () => {
   const navigate = useNavigate();
@@ -139,14 +140,17 @@ const GovernanceConstitution = () => {
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-amber-500/30">
         <div className="container mx-auto px-4 pt-16 pb-4 flex items-center justify-between">
-          <Button
-            variant="ghost"
-            onClick={handleBack}
-            className="text-amber-400 hover:text-amber-300"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              onClick={handleBack}
+              className="text-amber-400 hover:text-amber-300"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back
+            </Button>
+            <AdoptionRunwayPill />
+          </div>
           <div className="flex items-center gap-2">
             <ScrollText className="h-5 w-5 text-amber-400" />
             <span className="text-amber-400 font-bold text-sm">GAGS v1.0</span>

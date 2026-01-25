@@ -140,17 +140,14 @@ const GovernanceConstitution = () => {
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b border-amber-500/30">
         <div className="container mx-auto px-4 pt-16 pb-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              onClick={handleBack}
-              className="text-amber-400 hover:text-amber-300"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
-            </Button>
-            <AdoptionRunwayPill />
-          </div>
+          <Button
+            variant="ghost"
+            onClick={handleBack}
+            className="text-amber-400 hover:text-amber-300"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
           <div className="flex items-center gap-2">
             <ScrollText className="h-5 w-5 text-amber-400" />
             <span className="text-amber-400 font-bold text-sm">GAGS v1.0</span>
@@ -160,6 +157,10 @@ const GovernanceConstitution = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* Adoption Runway Pill - Top Left */}
+        <div className="mb-6">
+          <AdoptionRunwayPill />
+        </div>
         {/* Title Block */}
         <div className="text-center mb-12 border-b border-amber-500/30 pb-8">
           {/* Alliance Seal */}

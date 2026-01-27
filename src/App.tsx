@@ -175,7 +175,7 @@ const App = () => (
               <Toaster />
               <Sonner />
               <BrowserRouter>
-              <div className="min-h-screen flex flex-col overflow-x-hidden bg-background text-foreground">
+              <div className="min-h-screen flex flex-col overflow-x-hidden touch-pan-y bg-background text-foreground">
               <ResponsiveHeader />
               <SynthButton variant="fab" />
               <ModeSwitcherFAB />

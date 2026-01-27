@@ -60,6 +60,7 @@ import logo from "@/assets/valid-logo.jpeg";
 import HtmlPitchDeckCarousel from "@/components/pitch/HtmlPitchDeckCarousel";
 import SynthButton from "@/components/SynthButton";
 import RevenueModelSection from "@/components/pitch/RevenueModelSection";
+import PitchDeckPDFGenerator from "@/components/pitch/PitchDeckPDFGenerator";
 
 // NOTE: The PDF at this path is not reliably embeddable in Chrome.
 // We render the 14-slide deck as images below for maximum compatibility.
@@ -153,7 +154,10 @@ const scorecardData = [
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white selection:bg-cyan-500 selection:text-black relative overflow-hidden">
+    <div 
+      className="min-h-screen overflow-y-auto bg-[#0a0a0f] text-white selection:bg-cyan-500 selection:text-black relative"
+      style={{ WebkitOverflowScrolling: 'touch' }}
+    >
       
       {/* Pulsating glow keyframes */}
       <style>{`
@@ -332,35 +336,15 @@ const scorecardData = [
                   className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
                   style={{
                     fontSize: "clamp(14px, 1vw, 16px)",
-                    padding:
-                      "clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)",
+                    padding: "clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)",
                   }}
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   View Deck
                 </Button>
 
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    // Open in a new tab when possible; if blocked, fall back to same-tab navigation.
-                    const w = window.open(
-                      INVESTOR_DECK_PDF_URL,
-                      "_blank",
-                      "noopener,noreferrer",
-                    );
-                    if (!w) window.location.assign(INVESTOR_DECK_PDF_URL);
-                  }}
-                  className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
-                  style={{
-                    fontSize: "clamp(14px, 1vw, 16px)",
-                    padding:
-                      "clamp(10px, 1vw, 14px) clamp(20px, 2vw, 32px)",
-                  }}
-                >
-                  <FileDown className="w-4 h-4" />
-                  Open PDF
-                </Button>
+                {/* PDF Download & Share */}
+                <PitchDeckPDFGenerator variant="inline" />
               </div>
             </div>
 

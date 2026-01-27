@@ -203,4 +203,18 @@ export const pitchSlides: SlideData[] = [
     highlight: "Schedule a Call →",
     layout: 'cta',
   },
+  {
+    id: 16,
+    title: "APPENDIX",
+    subtitle: "Additional Materials Available",
+    bullets: [
+      "Detailed financial projections and models",
+      "Technical architecture documentation",
+      "Legal and compliance certifications",
+      "Partnership case studies",
+      "Full competitive analysis report"
+    ],
+    highlight: "Request additional materials at invest@bevalid.app",
+    layout: 'bullets',
+  },
 ];

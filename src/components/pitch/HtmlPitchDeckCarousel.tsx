@@ -191,7 +191,7 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
   // Mobile-first: use viewport height on small screens, aspect ratio on larger
   const slideContainerClass = isFullscreen
     ? "flex-1 min-h-0"
-    : "h-[70dvh] min-h-[280px] max-h-[82dvh] sm:h-auto sm:min-h-0 sm:max-h-none sm:aspect-[16/10] md:aspect-video";
+    : "h-[60dvh] min-h-[280px] max-h-[75dvh] sm:h-auto sm:min-h-0 sm:max-h-none sm:aspect-[16/10] md:aspect-video";
 
   return (
     <div
@@ -200,9 +200,12 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
         "relative bg-black flex flex-col group select-none " +
         (isFullscreen
           ? "fixed inset-0 z-50"
-          : "w-full rounded-lg md:rounded-2xl overflow-hidden border border-white/10")
+          : "w-full rounded-lg md:rounded-2xl border border-white/10")
       }
-      style={{ touchAction: isSwiping ? 'none' : 'pan-y' }}
+      style={{ 
+        touchAction: isSwiping ? 'none' : 'pan-y',
+        WebkitOverflowScrolling: 'touch'
+      }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -222,8 +225,11 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
           {pitchSlides.map((slide) => (
             <div
               key={slide.id}
-              className="h-full flex-shrink-0"
-              style={{ width: `${100 / totalSlides}%` }}
+              className="h-full flex-shrink-0 overflow-y-auto"
+              style={{ 
+                width: `${100 / totalSlides}%`,
+                WebkitOverflowScrolling: 'touch'
+              }}
             >
               <PitchSlide slide={slide} />
             </div>

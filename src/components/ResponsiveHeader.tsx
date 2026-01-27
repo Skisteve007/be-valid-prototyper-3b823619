@@ -93,7 +93,7 @@ const ResponsiveHeader = () => {
               {/* Mobile: Show only key buttons */}
               <Link
                 to="/research-governance-labs"
-                className="px-1 sm:px-4 py-0.5 sm:py-2 text-[0.38rem] sm:text-xs font-bold tracking-[0.08em] sm:tracking-wider leading-none uppercase rounded-full border border-purple-400/60 bg-purple-500/10 text-purple-400 hover:bg-purple-500/15 hover:shadow-[0_0_16px_rgba(168,85,247,0.35)] transition-all whitespace-nowrap"
+                className="inline-flex items-center justify-center !min-h-0 h-6 px-1 sm:px-4 py-0.5 sm:py-2 text-[0.32rem] sm:text-xs font-bold tracking-[0.08em] sm:tracking-wider leading-none uppercase rounded-full border border-purple-400/60 bg-purple-500/10 text-purple-400 hover:bg-purple-500/15 hover:shadow-[0_0_16px_rgba(168,85,247,0.35)] transition-all whitespace-nowrap"
               >
                 Labs
               </Link>
@@ -101,7 +101,7 @@ const ResponsiveHeader = () => {
               {/* Demos Button */}
               <Link
                 to="/demos"
-                className="px-1 sm:px-4 py-0.5 sm:py-2 text-[0.38rem] sm:text-xs font-bold tracking-[0.08em] sm:tracking-wider leading-none uppercase rounded-full border border-emerald-400/60 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/15 hover:shadow-[0_0_16px_rgba(52,211,153,0.35)] transition-all whitespace-nowrap"
+                className="inline-flex items-center justify-center !min-h-0 h-6 px-1 sm:px-4 py-0.5 sm:py-2 text-[0.32rem] sm:text-xs font-bold tracking-[0.08em] sm:tracking-wider leading-none uppercase rounded-full border border-emerald-400/60 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/15 hover:shadow-[0_0_16px_rgba(52,211,153,0.35)] transition-all whitespace-nowrap"
               >
                 Demos
               </Link>
@@ -109,7 +109,7 @@ const ResponsiveHeader = () => {
               {/* Partner Solutions Button */}
               <Link
                 to="/partners"
-                className="px-1 sm:px-4 py-0.5 sm:py-2 text-[0.38rem] sm:text-xs font-bold tracking-[0.08em] sm:tracking-wider leading-none uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 hover:shadow-[0_0_16px_rgba(251,191,36,0.35)] transition-all whitespace-nowrap"
+                className="inline-flex items-center justify-center !min-h-0 h-6 px-1 sm:px-4 py-0.5 sm:py-2 text-[0.32rem] sm:text-xs font-bold tracking-[0.08em] sm:tracking-wider leading-none uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 hover:shadow-[0_0_16px_rgba(251,191,36,0.35)] transition-all whitespace-nowrap"
               >
                 Partners
               </Link>
@@ -122,7 +122,7 @@ const ResponsiveHeader = () => {
               {/* Member Login Pill */}
               <Link
                 to="/auth?mode=login"
-                className="px-1 sm:px-4 py-0.5 sm:py-2 text-[0.38rem] sm:text-xs font-bold tracking-[0.08em] sm:tracking-wider leading-none uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/15 hover:shadow-[0_0_16px_rgba(0,240,255,0.35)] transition-all whitespace-nowrap"
+                className="inline-flex items-center justify-center !min-h-0 h-6 px-1 sm:px-4 py-0.5 sm:py-2 text-[0.32rem] sm:text-xs font-bold tracking-[0.08em] sm:tracking-wider leading-none uppercase rounded-full border border-cyan-400/60 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/15 hover:shadow-[0_0_16px_rgba(0,240,255,0.35)] transition-all whitespace-nowrap"
               >
                 Login
               </Link>

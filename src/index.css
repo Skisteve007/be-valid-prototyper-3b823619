@@ -444,7 +444,10 @@ All colors MUST be HSL.
     }
     
     /* Optimize touch targets */
-    button, a, [role="button"] {
+    /* NOTE: Do not force a 44px min-height on all links.
+       This was making header pills huge and could interfere with scrolling gestures in some WebViews.
+       Keep the larger touch target for actual buttons. */
+    button, [role="button"] {
       min-height: 44px;
     }
     
@@ -454,8 +457,11 @@ All colors MUST be HSL.
       min-height: 44px;
     }
     
-    /* Prevent double-tap zoom */
-    * {
+    /* Prevent double-tap zoom without breaking vertical scroll */
+    html, body {
+      touch-action: pan-y;
+    }
+    button, a, [role="button"], input, select, textarea {
       touch-action: manipulation;
     }
     

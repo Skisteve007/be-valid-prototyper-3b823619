@@ -9,7 +9,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   const chromeGradient = 'linear-gradient(180deg, #A0A0A0 0%, #D0D0D0 40%, #F0F0F0 70%, #FFFFFF 100%)';
   
   const renderCoverSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-8">
+    <div className="flex flex-col items-center justify-center min-h-full text-center px-4 sm:px-8">
       {slide.highlight && (
         <span 
           className="uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-8"
@@ -55,7 +55,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
     const isCompact = contentCount > 4;
     
     return (
-      <div className={`flex flex-col items-center h-full text-center px-3 sm:px-6 ${isCompact ? 'py-2 sm:py-4 justify-start pt-2 sm:pt-4' : 'py-6 sm:py-12 justify-center'}`}>
+      <div className={`flex flex-col items-center min-h-full text-center px-3 sm:px-6 ${isCompact ? 'py-2 sm:py-4 justify-start pt-2 sm:pt-4' : 'py-6 sm:py-12 justify-center'}`}>
         <h2 
           className={`font-bold ${isCompact ? 'mb-1 sm:mb-2' : 'mb-4 sm:mb-8'}`}
           style={{ 
@@ -105,7 +105,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
     const isCompact = statsCount > 6;
     
     return (
-      <div className={`flex flex-col items-center h-full text-center px-3 sm:px-6 ${isCompact ? 'py-2 sm:py-4 justify-start pt-2 sm:pt-4' : 'py-4 sm:py-12 justify-center'}`}>
+      <div className={`flex flex-col items-center min-h-full text-center px-3 sm:px-6 ${isCompact ? 'py-2 sm:py-4 justify-start pt-2 sm:pt-4' : 'py-4 sm:py-12 justify-center'}`}>
         <h2 
           className={`font-bold ${isCompact ? 'mb-1 sm:mb-2' : 'mb-3 sm:mb-8'}`}
           style={{ 
@@ -205,7 +205,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
     const isCompact = bulletCount > 4;
     
     return (
-      <div className={`flex flex-col items-center h-full text-center px-3 sm:px-6 ${isCompact ? 'py-3 sm:py-6 justify-start pt-4 sm:pt-8' : 'py-4 sm:py-12 justify-center'}`}>
+      <div className={`flex flex-col items-center min-h-full text-center px-3 sm:px-6 ${isCompact ? 'py-3 sm:py-6 justify-start pt-4 sm:pt-8' : 'py-4 sm:py-12 justify-center'}`}>
         <h2 
           className={`font-bold ${isCompact ? 'mb-2 sm:mb-3' : 'mb-3 sm:mb-6'}`}
           style={{ 
@@ -262,7 +262,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   };
 
   const renderComparisonSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-8 py-4 sm:py-12">
+    <div className="flex flex-col items-center justify-center min-h-full text-center px-4 sm:px-8 py-4 sm:py-12">
       <h2 
         className="font-bold mb-2 sm:mb-4"
         style={{ 
@@ -329,7 +329,7 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
   );
 
   const renderCtaSlide = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 py-4 sm:py-6">
+    <div className="flex flex-col items-center justify-center min-h-full text-center px-4 sm:px-6 py-4 sm:py-6">
       <h2 
         className="font-bold mb-2 sm:mb-4"
         style={{ 
@@ -524,14 +524,42 @@ const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
         }}
       />
 
-      {/* Slide content */}
+      {/* Slide content (scrollable per-card, especially on mobile) */}
       <div className="relative z-10 h-full">
-        {renderSlideContent()}
+        <div
+          className="h-full overflow-y-auto overflow-x-hidden p-6 md:p-8"
+          style={{
+            WebkitOverflowScrolling: 'touch',
+            // Ensure the last lines aren't hidden behind the scroll hint / iOS home bar
+            paddingBottom: 'max(5rem, env(safe-area-inset-bottom))',
+          }}
+        >
+          {renderSlideContent()}
+        </div>
+
+        {/* Mobile scroll hint (visual indicator that the card scrolls) */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-16 md:hidden"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.85))',
+          }}
+        />
+        <div className="pointer-events-none absolute bottom-3 inset-x-0 flex justify-center md:hidden">
+          <span
+            style={{
+              fontSize: '10px',
+              letterSpacing: '0.12em',
+              color: 'rgba(0, 229, 229, 0.7)',
+            }}
+          >
+            Scroll for more ↓
+          </span>
+        </div>
       </div>
 
       {/* Slide number */}
       <div 
-        className="absolute bottom-4 right-4"
+        className="absolute bottom-4 right-4 z-20"
         style={{
           fontSize: 'clamp(12px, 1.5vw, 16px)',
           color: 'rgba(0, 229, 229, 0.5)',

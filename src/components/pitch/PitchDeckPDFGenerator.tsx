@@ -24,105 +24,136 @@ const PitchDeckPDFGenerator: React.FC<PitchDeckPDFGeneratorProps> = ({
       // Dynamic import to reduce bundle size
       const { default: jsPDF } = await import("jspdf");
       
-      // Create landscape PDF for slides
+      // Use a standard page size for better mobile PDF viewer compatibility
       const doc = new jsPDF({
-        orientation: "landscape",
+        orientation: "portrait",
         unit: "pt",
-        format: [1920, 1080], // Full HD slide dimensions
+        format: "letter",
       });
 
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
-      const margin = 60;
+      const margin = 40;
       const contentWidth = pageWidth - margin * 2;
+      const footerY = pageHeight - 28;
+      const maxY = pageHeight - 64;
 
-      // Add each slide as a page
-      pitchSlides.forEach((slide, index) => {
+      const DEBUG = import.meta.env.DEV;
+
+      const lh = (fontSize: number) => Math.round(fontSize * 1.35);
+
+      const setRgb = (rgb: [number, number, number]) => {
+        doc.setTextColor(rgb[0], rgb[1], rgb[2]);
+      };
+
+      const drawCenteredWrapped = (text: string, y: number, fontSize: number, rgb: [number, number, number]) => {
+        doc.setFontSize(fontSize);
+        setRgb(rgb);
+        const lines = doc.splitTextToSize(text, contentWidth) as string[];
+        doc.text(lines, pageWidth / 2, y, { align: "center" });
+        return y + lines.length * lh(fontSize);
+      };
+
+      const drawLeftWrapped = (text: string, y: number, fontSize: number, rgb: [number, number, number]) => {
+        doc.setFontSize(fontSize);
+        setRgb(rgb);
+        const lines = doc.splitTextToSize(text, contentWidth) as string[];
+        doc.text(lines, margin, y);
+        return y + lines.length * lh(fontSize);
+      };
+
+      const drawBullet = (bullet: string, y: number, fontSize: number) => {
+        doc.setFontSize(fontSize);
+        // Bullet dot
+        setRgb([0, 229, 229]);
+        doc.text("•", margin, y);
+
+        // Wrapped bullet text
+        setRgb([230, 230, 230]);
+        const bulletLines = doc.splitTextToSize(bullet, contentWidth - 18) as string[];
+        doc.text(bulletLines, margin + 14, y);
+        return y + bulletLines.length * lh(fontSize) + 6;
+      };
+
+      // Add each slide as its own page (16 pages total)
+      for (let index = 0; index < pitchSlides.length; index++) {
+        const slide = pitchSlides[index];
+
         if (index > 0) {
-          doc.addPage();
+          doc.addPage("letter", "portrait");
+        }
+
+        if (DEBUG) {
+          console.debug("[PitchDeckPDF] slide", index + 1, slide);
         }
 
         // Background
         doc.setFillColor(10, 10, 15);
         doc.rect(0, 0, pageWidth, pageHeight, "F");
 
-        // Slide number indicator
-        doc.setFontSize(12);
-        doc.setTextColor(100, 100, 100);
-        doc.text(`${index + 1} / ${pitchSlides.length}`, pageWidth - margin, pageHeight - 30);
+        // Choose tighter typography for dense slides so nothing gets dropped.
+        const density = (slide.stats?.length ?? 0) + (slide.bullets?.length ?? 0) + (slide.content?.length ?? 0);
+        const titleSize = slide.layout === "cover" ? 30 : 26;
+        const subtitleSize = density > 10 ? 12 : 13;
+        const bodySize = density > 10 ? 10 : 11;
 
-        // VALID watermark
-        doc.setFontSize(10);
-        doc.setTextColor(0, 229, 229);
-        doc.text("VALID™ INVESTOR DECK", margin, pageHeight - 30);
+        let y = margin + 28;
 
-        // Layout based on slide type
-        const centerY = pageHeight / 2;
-
-        // Title
-        doc.setFontSize(slide.layout === "cover" ? 72 : 48);
-        doc.setTextColor(0, 229, 229);
-        const titleY = slide.layout === "cover" ? centerY - 100 : 120;
-        doc.text(slide.title, pageWidth / 2, titleY, { align: "center" });
-
-        // Subtitle
+        // Title / subtitle
+        y = drawCenteredWrapped(slide.title, y, titleSize, [0, 229, 229]);
         if (slide.subtitle) {
-          doc.setFontSize(slide.layout === "cover" ? 28 : 24);
-          doc.setTextColor(200, 200, 200);
-          doc.text(slide.subtitle, pageWidth / 2, titleY + 60, { align: "center" });
+          y += 8;
+          y = drawCenteredWrapped(slide.subtitle, y, subtitleSize, [230, 230, 230]);
         }
 
-        // Stats
+        y += 18;
+
+        // Stats (render as a wrapped list so long labels don't get cut off)
         if (slide.stats && slide.stats.length > 0) {
-          const statStartY = titleY + 140;
-          const statWidth = contentWidth / slide.stats.length;
-          
-          slide.stats.forEach((stat, statIdx) => {
-            const statX = margin + statWidth * statIdx + statWidth / 2;
-            
-            doc.setFontSize(36);
-            doc.setTextColor(255, 255, 255);
-            doc.text(stat.value, statX, statStartY, { align: "center" });
-            
-            doc.setFontSize(14);
-            doc.setTextColor(0, 229, 229);
-            doc.text(stat.label.toUpperCase(), statX, statStartY + 30, { align: "center" });
-          });
-        }
-
-        // Bullets
-        if (slide.bullets && slide.bullets.length > 0) {
-          const bulletStartY = slide.stats ? titleY + 260 : titleY + 120;
-          const bulletSpacing = 40;
-          
-          doc.setFontSize(20);
-          slide.bullets.forEach((bullet, bulletIdx) => {
-            doc.setTextColor(0, 229, 229);
-            doc.text("•", margin + 20, bulletStartY + bulletIdx * bulletSpacing);
-            doc.setTextColor(220, 220, 220);
-            doc.text(bullet, margin + 50, bulletStartY + bulletIdx * bulletSpacing);
-          });
+          for (const stat of slide.stats) {
+            const fontSize = y > maxY ? 8 : bodySize;
+            y = drawLeftWrapped(`${stat.label}: ${stat.value}`, y, fontSize, [255, 255, 255]);
+          }
+          y += 10;
         }
 
         // Content paragraphs
         if (slide.content && slide.content.length > 0) {
-          const contentStartY = titleY + 120;
-          doc.setFontSize(22);
-          doc.setTextColor(220, 220, 220);
-          
-          slide.content.forEach((text, textIdx) => {
-            doc.text(text, pageWidth / 2, contentStartY + textIdx * 50, { align: "center" });
-          });
+          for (const paragraph of slide.content) {
+            const fontSize = y > maxY ? 8 : bodySize;
+            y = drawLeftWrapped(paragraph, y, fontSize, [230, 230, 230]);
+            y += 6;
+          }
+          y += 6;
         }
 
-        // Highlight (CTA)
-        if (slide.highlight) {
-          doc.setFontSize(24);
-          doc.setTextColor(0, 229, 229);
-          const highlightY = slide.layout === "cta" ? pageHeight - 150 : pageHeight - 100;
-          doc.text(slide.highlight, pageWidth / 2, highlightY, { align: "center" });
+        // Bullets
+        if (slide.bullets && slide.bullets.length > 0) {
+          for (const bullet of slide.bullets) {
+            const fontSize = y > maxY ? 8 : bodySize;
+            y = drawBullet(bullet, y, fontSize);
+          }
         }
-      });
+
+        // Highlight (CTA / callout)
+        if (slide.highlight) {
+          y += 10;
+          const fontSize = y > maxY ? 8 : bodySize + 1;
+          y = drawLeftWrapped(slide.highlight, y, fontSize, [0, 229, 229]);
+        }
+
+        // Footer
+        doc.setFontSize(10);
+        setRgb([160, 160, 160]);
+        doc.text("VALID™ — Confidential", margin, footerY);
+        doc.text(`Slide ${index + 1} of ${pitchSlides.length}`, pageWidth - margin, footerY, {
+          align: "right",
+        });
+
+        if (DEBUG && y > maxY) {
+          console.warn(`[PitchDeckPDF] slide ${index + 1} content approached page limit`, { y, maxY });
+        }
+      }
 
       // Generate blob
       const pdfOutput = doc.output("blob");

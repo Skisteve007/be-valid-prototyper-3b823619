@@ -148,8 +148,9 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
     const deltaX = Math.abs(e.touches[0].clientX - touchStartRef.current.x);
     const deltaY = Math.abs(e.touches[0].clientY - touchStartRef.current.y);
     
-    // If horizontal movement is greater than vertical, we're swiping slides
-    if (deltaX > deltaY && deltaX > 10) {
+    // Only treat as a horizontal swipe when it's clearly horizontal.
+    // This prevents false positives that block vertical scrolling inside a slide.
+    if (deltaX > 14 && deltaX > deltaY * 1.25) {
       setIsSwiping(true);
       e.preventDefault(); // Prevent page scroll during horizontal swipe
     }
@@ -188,10 +189,10 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
   }, [showMusicPrompt]);
 
 
-  // Mobile-first: use viewport height on small screens, aspect ratio on larger
+  // Mobile-first: use fixed viewport height so each slide card can scroll internally
   const slideContainerClass = isFullscreen
     ? "flex-1 min-h-0"
-    : "h-[60dvh] min-h-[280px] max-h-[75dvh] sm:h-auto sm:min-h-0 sm:max-h-none sm:aspect-[16/10] md:aspect-video";
+    : "h-[70vh] min-h-[320px] max-h-[80vh] md:h-[80vh]";
 
   return (
     <div
@@ -225,7 +226,7 @@ const HtmlPitchDeckCarousel: React.FC<HtmlPitchDeckCarouselProps> = ({
           {pitchSlides.map((slide) => (
             <div
               key={slide.id}
-              className="h-full flex-shrink-0 overflow-y-auto"
+              className="h-full w-full min-w-full max-w-full flex-shrink-0 overflow-hidden"
               style={{ 
                 width: `${100 / totalSlides}%`,
                 WebkitOverflowScrolling: 'touch'

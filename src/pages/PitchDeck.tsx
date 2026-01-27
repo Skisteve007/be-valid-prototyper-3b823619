@@ -367,7 +367,7 @@ const scorecardData = [
             </div>
 
             {/* Slides (replaces blocked PDF embed) */}
-            <div id="investor-deck-slides" className="relative bg-black/60 rounded-lg overflow-hidden border border-white/10">
+            <div id="investor-deck-slides" className="relative bg-black/60 rounded-lg overflow-visible border border-white/10">
               <HtmlPitchDeckCarousel
                 openFullscreenRequest={deckOpenRequest}
               />

@@ -197,7 +197,10 @@ const VenueOperatorPortal = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div
+      className="min-h-screen overflow-y-auto bg-background"
+      style={{ WebkitOverflowScrolling: "touch" }}
+    >
       {/* Scanner Fullscreen */}
       {showScanner && selectedVenue && (
         <ScannerFullscreen 

@@ -91,6 +91,15 @@
       /* Hero placeholder to prevent CLS */
       #root { min-height: 100vh; }
     </style>
+
+    <!-- Mobile scroll hardening (requested): ensure root chain can scroll with momentum -->
+    <style>
+      html, body, #root {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -296,7 +305,8 @@
       
       html {
         -webkit-text-size-adjust: 100%;
-        touch-action: manipulation;
+        /* Allow vertical scrolling gestures reliably (especially in iOS WebViews) */
+        touch-action: pan-y;
       }
       
       body {
@@ -306,7 +316,8 @@
       
       /* Improve touch targets on mobile */
       @media (max-width: 768px) {
-        button, a, input, select, textarea {
+        /* NOTE: Do not force 44px min-height on <a> tags (header pills). */
+        button, input, select, textarea {
           min-height: 44px;
           min-width: 44px;
         }

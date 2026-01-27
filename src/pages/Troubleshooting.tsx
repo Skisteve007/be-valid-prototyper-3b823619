@@ -7,7 +7,10 @@ const Troubleshooting = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
+    <div
+      className="min-h-screen overflow-y-auto bg-background text-foreground p-4 md:p-8"
+      style={{ WebkitOverflowScrolling: "touch" }}
+    >
       <div className="max-w-3xl mx-auto">
         <Button
           variant="ghost"

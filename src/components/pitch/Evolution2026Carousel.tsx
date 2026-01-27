@@ -77,8 +77,11 @@ const Evolution2026Carousel: React.FC<Evolution2026CarouselProps> = ({
   return (
     <div
       ref={rootRef}
-      className="relative w-full bg-black select-none"
-      style={{ aspectRatio: "16/9" }}
+      className="relative w-full bg-black select-none overflow-visible"
+      style={{ 
+        aspectRatio: "16/9",
+        WebkitOverflowScrolling: 'touch'
+      }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

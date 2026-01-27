@@ -1,6 +1,6 @@
 // VALID Service Worker v1.0.2
 // NOTE: Bump CACHE_NAME to force mobile/PWA clients to fetch the latest assets.
-const CACHE_NAME = 'valid-app-v3';
+const CACHE_NAME = 'valid-app-v4';
 const OFFLINE_URL = '/offline.html';
 
 // Assets to cache immediately on install

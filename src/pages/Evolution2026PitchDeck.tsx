@@ -44,9 +44,10 @@ VALID™ / GHOST™ Pass applies the same trust approach to the real world: fast
 
   return (
     <div 
-      className="min-h-screen text-white"
+      className="min-h-screen overflow-y-auto text-white"
       style={{
-        background: 'linear-gradient(180deg, #0a0a0f 0%, #0d1117 50%, #0a0a0f 100%)'
+        background: 'linear-gradient(180deg, #0a0a0f 0%, #0d1117 50%, #0a0a0f 100%)',
+        WebkitOverflowScrolling: 'touch'
       }}
     >
       {/* Deprecation Banner */}

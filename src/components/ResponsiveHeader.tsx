@@ -93,7 +93,7 @@ const ResponsiveHeader = () => {
               {/* Mobile: Show only key buttons */}
               <Link
                 to="/research-governance-labs"
-                className="hidden sm:flex px-3 sm:px-4 py-1.5 sm:py-2 text-[0.6rem] sm:text-xs font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-purple-400/60 bg-purple-500/10 text-purple-400 hover:bg-purple-500/15 hover:shadow-[0_0_16px_rgba(168,85,247,0.35)] transition-all whitespace-nowrap"
+                className="px-2.5 sm:px-4 py-1.5 sm:py-2 text-[0.55rem] sm:text-xs font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-purple-400/60 bg-purple-500/10 text-purple-400 hover:bg-purple-500/15 hover:shadow-[0_0_16px_rgba(168,85,247,0.35)] transition-all whitespace-nowrap"
               >
                 Labs
               </Link>
@@ -106,10 +106,10 @@ const ResponsiveHeader = () => {
                 Demos
               </Link>
 
-              {/* Partner Solutions Button - hidden on mobile */}
+              {/* Partner Solutions Button */}
               <Link
                 to="/partners"
-                className="hidden sm:flex px-3 sm:px-4 py-1.5 sm:py-2 text-[0.6rem] sm:text-xs font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 hover:shadow-[0_0_16px_rgba(251,191,36,0.35)] transition-all whitespace-nowrap"
+                className="px-2.5 sm:px-4 py-1.5 sm:py-2 text-[0.55rem] sm:text-xs font-bold tracking-wide sm:tracking-wider uppercase rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15 hover:shadow-[0_0_16px_rgba(251,191,36,0.35)] transition-all whitespace-nowrap"
               >
                 Partners
               </Link>

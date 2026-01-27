@@ -38,7 +38,10 @@ const PilotReadiness = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
+    <div
+      className="min-h-screen overflow-y-auto bg-background text-foreground p-4 md:p-8"
+      style={{ WebkitOverflowScrolling: "touch" }}
+    >
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">

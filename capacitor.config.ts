@@ -8,6 +8,14 @@ const config: CapacitorConfig = {
     url: 'https://16cc7245-4b53-4d55-9023-a9d1ac8edb5b.lovableproject.com?forceHideBadge=true',
     cleartext: true
   },
+  ios: {
+    contentInset: 'never',
+    scrollEnabled: true,
+  },
+  android: {
+    allowMixedContent: true,
+    overscrollHistoryNavigation: false,
+  },
   plugins: {
     BiometricAuth: {
       androidTitle: 'VALID Login',

@@ -5,7 +5,7 @@ interface PitchSlideProps {
 }
 
 const PitchSlide: React.FC<PitchSlideProps> = ({ slide }) => {
-  // Chrome gradient style for metallic elements
+// Chrome gradient style for metallic elements (scrollable deck v2)
   const chromeGradient = 'linear-gradient(180deg, #A0A0A0 0%, #D0D0D0 40%, #F0F0F0 70%, #FFFFFF 100%)';
   
   const renderCoverSlide = () => (

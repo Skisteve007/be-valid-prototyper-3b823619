@@ -2536,6 +2536,11 @@ export type Database = {
           selected_interests: string[] | null
           sexual_orientation: string | null
           sexual_preferences: string | null
+          share_bio_enabled: boolean | null
+          share_funds_enabled: boolean | null
+          share_id_enabled: boolean | null
+          share_profile_enabled: boolean | null
+          share_tox_enabled: boolean | null
           sharing_interests_enabled: boolean | null
           sharing_orientation_enabled: boolean | null
           sharing_relationship_style_enabled: boolean | null
@@ -2638,6 +2643,11 @@ export type Database = {
           selected_interests?: string[] | null
           sexual_orientation?: string | null
           sexual_preferences?: string | null
+          share_bio_enabled?: boolean | null
+          share_funds_enabled?: boolean | null
+          share_id_enabled?: boolean | null
+          share_profile_enabled?: boolean | null
+          share_tox_enabled?: boolean | null
           sharing_interests_enabled?: boolean | null
           sharing_orientation_enabled?: boolean | null
           sharing_relationship_style_enabled?: boolean | null
@@ -2740,6 +2750,11 @@ export type Database = {
           selected_interests?: string[] | null
           sexual_orientation?: string | null
           sexual_preferences?: string | null
+          share_bio_enabled?: boolean | null
+          share_funds_enabled?: boolean | null
+          share_id_enabled?: boolean | null
+          share_profile_enabled?: boolean | null
+          share_tox_enabled?: boolean | null
           sharing_interests_enabled?: boolean | null
           sharing_orientation_enabled?: boolean | null
           sharing_relationship_style_enabled?: boolean | null

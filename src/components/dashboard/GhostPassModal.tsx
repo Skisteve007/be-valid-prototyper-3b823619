@@ -130,20 +130,22 @@ const GhostPassModal = ({
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .select('share_id_enabled, share_funds_enabled, share_bio_enabled, share_tox_enabled, share_profile_enabled')
+        .select('*')
         .eq('user_id', userId)
         .single();
 
       if (error) throw error;
 
       if (data) {
+        // Cast to handle new columns until types regenerate
+        const profileData = data as Record<string, unknown>;
         setToggles(prev => ({
           ...prev,
-          identity: data.share_id_enabled ?? prev.identity,
-          payment: data.share_funds_enabled ?? prev.payment,
-          health: data.share_bio_enabled ?? prev.health,
-          tox: data.share_tox_enabled ?? prev.tox,
-          profile: data.share_profile_enabled ?? prev.profile,
+          identity: (profileData.share_id_enabled as boolean) ?? prev.identity,
+          payment: (profileData.share_funds_enabled as boolean) ?? prev.payment,
+          health: (profileData.share_bio_enabled as boolean) ?? prev.health,
+          tox: (profileData.share_tox_enabled as boolean) ?? prev.tox,
+          profile: (profileData.share_profile_enabled as boolean) ?? prev.profile,
         }));
       }
     } catch (err) {
@@ -299,6 +301,7 @@ const GhostPassModal = ({
     fetchVenueSpend();
     fetchActiveVenue();
     fetchVenues();
+    fetchUserShareSettings();
 
     // Subscribe to wallet_transactions for real-time updates
     const walletChannel = supabase
@@ -381,7 +384,7 @@ const GhostPassModal = ({
       supabase.removeChannel(posChannel);
       supabase.removeChannel(sessionChannel);
     };
-  }, [userId, fetchBalance, fetchVenueSpend, fetchActiveVenue, fetchVenues]);
+  }, [userId, fetchBalance, fetchVenueSpend, fetchActiveVenue, fetchVenues, fetchUserShareSettings]);
 
   // Animate balance changes
   useEffect(() => {
@@ -480,6 +483,7 @@ const GhostPassModal = ({
           payment: toggles.payment,
           health: toggles.health,
           tox: toggles.tox,
+          profile: toggles.profile,
         },
       });
     }
@@ -493,6 +497,7 @@ const GhostPassModal = ({
         payment: toggles.payment,
         health: toggles.health,
         tox: toggles.tox,
+        profile: toggles.profile,
       },
       balance: toggles.payment ? balance : null,
       expires: Date.now() + 30000,
@@ -1022,7 +1027,7 @@ const GhostPassModal = ({
               <div className="flex justify-center gap-3 mb-4">
                 {/* ID Toggle - Kill Blue/Cyan */}
                 <button
-                  onClick={() => setToggles(prev => ({ ...prev, identity: !prev.identity }))}
+                  onClick={() => handleToggle('identity')}
                   className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.identity
                       ? 'bg-cyan-500/30 border-cyan-400 shadow-[0_0_20px_rgba(0,240,255,0.5)]'
@@ -1042,7 +1047,7 @@ const GhostPassModal = ({
 
                 {/* FUNDS Toggle - Green */}
                 <button
-                  onClick={() => setToggles(prev => ({ ...prev, payment: !prev.payment }))}
+                  onClick={() => handleToggle('payment')}
                   className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.payment
                       ? 'bg-green-500/30 border-green-400 shadow-[0_0_20px_rgba(34,197,94,0.5)]'
@@ -1062,7 +1067,7 @@ const GhostPassModal = ({
 
                 {/* BIO Toggle - Light Red (like header buttons) */}
                 <button
-                  onClick={() => setToggles(prev => ({ ...prev, health: !prev.health }))}
+                  onClick={() => handleToggle('health')}
                   className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.health
                       ? 'bg-rose-500/30 border-rose-400 shadow-[0_0_20px_rgba(251,113,133,0.5)]'
@@ -1082,7 +1087,7 @@ const GhostPassModal = ({
 
                 {/* TOX Toggle - Yellow */}
                 <button
-                  onClick={() => setToggles(prev => ({ ...prev, tox: !prev.tox }))}
+                  onClick={() => handleToggle('tox')}
                   className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
                     toggles.tox
                       ? 'bg-yellow-500/30 border-yellow-400 shadow-[0_0_20px_rgba(234,179,8,0.5)]'
@@ -1098,6 +1103,26 @@ const GhostPassModal = ({
                   </div>
                   <FlaskConical size={24} className={toggles.tox ? 'text-yellow-400' : 'text-yellow-400/50'} />
                   <span className={`text-[9px] font-bold ${toggles.tox ? 'text-yellow-400' : 'text-yellow-400/50'}`}>TOX</span>
+                </button>
+
+                {/* PROFILE Toggle - Purple */}
+                <button
+                  onClick={handleProfileClick}
+                  className={`relative flex flex-col items-center gap-1 p-3 rounded-xl border-2 transition-all duration-300 ${
+                    toggles.profile
+                      ? 'bg-purple-500/30 border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.5)]'
+                      : 'bg-purple-500/10 border-purple-400/30'
+                  }`}
+                >
+                  <div className="absolute -top-2 -right-2 bg-black rounded-full p-0.5">
+                    {toggles.profile ? (
+                      <Unlock size={16} className="text-purple-400" strokeWidth={3} />
+                    ) : (
+                      <Lock size={16} className="text-purple-400/50" strokeWidth={3} />
+                    )}
+                  </div>
+                  <User size={24} className={toggles.profile ? 'text-purple-400' : 'text-purple-400/50'} />
+                  <span className={`text-[9px] font-bold ${toggles.profile ? 'text-purple-400' : 'text-purple-400/50'}`}>PROFILE</span>
                 </button>
               </div>
 

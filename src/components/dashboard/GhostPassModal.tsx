@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Unlock, Zap, MapPin, ChevronDown, Clock, ArrowUp, FlaskConical } from 'lucide-react';
+import { Ghost, Check, X, Fingerprint, Wallet, HeartPulse, RefreshCw, Lock, Unlock, Zap, MapPin, ChevronDown, Clock, ArrowUp, FlaskConical, User } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 interface GhostPassModalProps {
   userId: string;
@@ -17,6 +18,7 @@ interface ToggleState {
   payment: boolean;
   health: boolean;
   tox: boolean;
+  profile: boolean;
 }
 
 interface ActiveVenue {
@@ -63,6 +65,7 @@ const GhostPassModal = ({
   open,
   onOpenChange
 }: GhostPassModalProps) => {
+  const navigate = useNavigate();
   const [internalOpen, setInternalOpen] = useState(false);
   
   // Use controlled or uncontrolled state
@@ -73,6 +76,7 @@ const GhostPassModal = ({
     payment: true,
     health: false,
     tox: false,
+    profile: false,
   });
   const [timeLeft, setTimeLeft] = useState(30);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -120,6 +124,83 @@ const GhostPassModal = ({
   
   const prevBalanceRef = useRef(balance);
   const prevSpentRef = useRef(venueSpend);
+
+  // Fetch user share settings from profiles table and sync with toggles
+  const fetchUserShareSettings = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('share_id_enabled, share_funds_enabled, share_bio_enabled, share_tox_enabled, share_profile_enabled')
+        .eq('user_id', userId)
+        .single();
+
+      if (error) throw error;
+
+      if (data) {
+        setToggles(prev => ({
+          ...prev,
+          identity: data.share_id_enabled ?? prev.identity,
+          payment: data.share_funds_enabled ?? prev.payment,
+          health: data.share_bio_enabled ?? prev.health,
+          tox: data.share_tox_enabled ?? prev.tox,
+          profile: data.share_profile_enabled ?? prev.profile,
+        }));
+      }
+    } catch (err) {
+      console.error('Error fetching share settings:', err);
+    }
+  }, [userId]);
+
+  // Sync toggle changes to profiles table
+  const syncToggleToProfile = useCallback(async (field: string, value: boolean) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ [field]: value, updated_at: new Date().toISOString() })
+        .eq('user_id', userId);
+
+      if (error) throw error;
+    } catch (err) {
+      console.error('Error syncing toggle:', err);
+    }
+  }, [userId]);
+
+  // Handle toggle with sync
+  const handleToggle = (key: keyof ToggleState) => {
+    const newValue = !toggles[key];
+    setToggles(prev => ({ ...prev, [key]: newValue }));
+    
+    // Map toggle keys to profile fields
+    const fieldMap: Record<keyof ToggleState, string> = {
+      identity: 'share_id_enabled',
+      payment: 'share_funds_enabled',
+      health: 'share_bio_enabled',
+      tox: 'share_tox_enabled',
+      profile: 'share_profile_enabled',
+    };
+    
+    syncToggleToProfile(fieldMap[key], newValue);
+  };
+
+  // Navigate to profile page
+  const handleProfileClick = () => {
+    // Toggle the profile share setting
+    handleToggle('profile');
+    
+    // If enabling profile, offer to navigate
+    if (!toggles.profile) {
+      toast.success('Profile sharing enabled', {
+        description: 'Your profile data will be included in QR scans',
+        action: {
+          label: 'View Profile',
+          onClick: () => {
+            setIsOpen(false);
+            navigate('/profile');
+          }
+        }
+      });
+    }
+  };
 
   // Fetch venues
   const fetchVenues = useCallback(async () => {

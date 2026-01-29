@@ -136,87 +136,94 @@ const Index = () => {
         <div className="max-w-5xl mx-auto">
           <Card className={`border-cyan-500/30 ${isDark ? 'bg-cyan-500/5' : 'bg-cyan-50'}`}>
             <CardContent className="pt-8 pb-8 px-6 md:px-10">
-              {/* Founder Statement */}
-              <p className={`text-sm mb-6 ${isDark ? 'text-cyan-400/80' : 'text-cyan-700'}`}>
-                {t('footer.founderStatement')}
-              </p>
-              
-              <div className="flex items-start gap-4 mb-6">
-                <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/20 border border-cyan-500/30' : 'bg-cyan-100'}`}>
-                  <Brain className="h-8 w-8 text-cyan-500" />
+              <div className="flex flex-col lg:flex-row gap-6">
+                {/* Left side - Intake Pill */}
+                <div className="lg:w-auto flex-shrink-0">
+                  <button
+                    onClick={() => setIsIntakeFormOpen(true)}
+                    className={`
+                      flex flex-col items-center gap-3 px-6 py-5 rounded-xl
+                      border transition-all duration-300 cursor-pointer w-full lg:w-auto
+                      ${isDark 
+                        ? 'bg-gradient-to-br from-purple-500/20 via-cyan-500/15 to-purple-500/20 border-purple-500/50 hover:border-purple-400 hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]' 
+                        : 'bg-gradient-to-br from-purple-100 via-cyan-50 to-purple-100 border-purple-300 hover:border-purple-400 hover:shadow-lg'
+                      }
+                    `}
+                  >
+                    <ClipboardList className={`h-8 w-8 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
+                    <span className={`text-sm font-semibold text-center leading-tight ${isDark ? 'text-purple-300' : 'text-purple-700'}`}>
+                      AI Evaluation<br />& Governance<br />Intake
+                    </span>
+                  </button>
                 </div>
-                <div>
-                  <h2 className={`text-2xl md:text-3xl font-bold font-orbitron mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                    AI is already inside your company.
-                  </h2>
-                  <p className={`text-lg ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
-                    Are you governing it—or guessing?
+
+                {/* Right side - Main content */}
+                <div className="flex-1">
+                  {/* Founder Statement */}
+                  <p className={`text-sm mb-6 ${isDark ? 'text-cyan-400/80' : 'text-cyan-700'}`}>
+                    {t('footer.founderStatement')}
                   </p>
+                  
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/20 border border-cyan-500/30' : 'bg-cyan-100'}`}>
+                      <Brain className="h-8 w-8 text-cyan-500" />
+                    </div>
+                    <div>
+                      <h2 className={`text-2xl md:text-3xl font-bold font-orbitron mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                        AI is already inside your company.
+                      </h2>
+                      <p className={`text-lg ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
+                        Are you governing it—or guessing?
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
+                      <Shield className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                      <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Policy Enforcement</h3>
+                      <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
+                        Enforce verification rules for AI-assisted work before decisions ship.
+                      </p>
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
+                      <FileText className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                      <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Monitoring + Audit Logs</h3>
+                      <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
+                        Proof records for every decision—court-ready when it matters.
+                      </p>
+                    </div>
+                    <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
+                      <UserCheck className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                      <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Workforce Certification</h3>
+                      <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
+                        PASS / REVIEW / FAIL scoring over time—not just a snapshot.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button
+                      asChild
+                      className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold"
+                    >
+                      <Link to="/demos">
+                        Request Demo Access
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className={`${isDark ? 'border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10' : 'border-cyan-500 text-cyan-600 hover:bg-cyan-50'}`}
+                    >
+                      <Link to="/demos/operator-certification">
+                        See Operator Certification
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
-                  <Shield className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Policy Enforcement</h3>
-                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
-                    Enforce verification rules for AI-assisted work before decisions ship.
-                  </p>
-                </div>
-                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
-                  <FileText className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Monitoring + Audit Logs</h3>
-                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
-                    Proof records for every decision—court-ready when it matters.
-                  </p>
-                </div>
-                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
-                  <UserCheck className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Workforce Certification</h3>
-                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
-                    PASS / REVIEW / FAIL scoring over time—not just a snapshot.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  asChild
-                  className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold"
-                >
-                  <Link to="/demos">
-                    Request Demo Access
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className={`${isDark ? 'border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10' : 'border-cyan-500 text-cyan-600 hover:bg-cyan-50'}`}
-                >
-                  <Link to="/demos/operator-certification">
-                    See Operator Certification
-                  </Link>
-                </Button>
-              </div>
-
-              {/* AI Governance Intake Pill */}
-              <button
-                onClick={() => setIsIntakeFormOpen(true)}
-                className={`
-                  mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full
-                  border transition-all duration-300 cursor-pointer
-                  ${isDark 
-                    ? 'bg-gradient-to-r from-purple-500/20 via-cyan-500/20 to-purple-500/20 border-purple-500/50 hover:border-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]' 
-                    : 'bg-gradient-to-r from-purple-100 via-cyan-100 to-purple-100 border-purple-300 hover:border-purple-400 hover:shadow-md'
-                  }
-                `}
-              >
-                <ClipboardList className={`h-4 w-4 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
-                <span className={`text-sm font-medium ${isDark ? 'text-purple-300' : 'text-purple-700'}`}>
-                  AI Evaluation & Governance Intake
-                </span>
-              </button>
             </CardContent>
           </Card>
         </div>

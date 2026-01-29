@@ -135,12 +135,41 @@ const Index = () => {
 
       {/* SYNTH ENTERPRISE BLOCK - AI Governance */}
       <section className="relative z-10 py-16 px-4">
-        {/* THE SYNTH Header */}
+        {/* SYNTH Header with animated effects */}
         <div className="max-w-6xl mx-auto text-center mb-8">
-          <h2 className="font-orbitron drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-            <span className="text-2xl font-normal text-white">THE </span>
-            <span className="text-5xl font-bold" style={{ color: '#00E5E5' }}>SYNTH</span>
-          </h2>
+          <div className="relative inline-block">
+            {/* Scanning line effect */}
+            <div 
+              className="absolute inset-0 overflow-hidden rounded-lg"
+              style={{ padding: '0 20px' }}
+            >
+              <div 
+                className="absolute left-0 right-0 h-1 animate-scan"
+                style={{ 
+                  background: 'linear-gradient(90deg, transparent, #00E5E5, transparent)',
+                  boxShadow: '0 0 20px #00E5E5, 0 0 40px #00E5E5'
+                }}
+              />
+            </div>
+            {/* Pulsating glow background */}
+            <div 
+              className="absolute inset-0 rounded-lg animate-glow opacity-30"
+              style={{ 
+                background: 'radial-gradient(ellipse at center, rgba(0,229,229,0.3) 0%, transparent 70%)'
+              }}
+            />
+            {/* SYNTH text */}
+            <h2 
+              className="relative font-orbitron text-5xl md:text-6xl font-bold tracking-widest py-4 px-8"
+              style={{ 
+                color: '#00E5E5',
+                textShadow: '0 0 10px rgba(0,229,229,0.8), 0 0 20px rgba(0,229,229,0.5), 0 0 40px rgba(0,229,229,0.3)',
+                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }}
+            >
+              SYNTH
+            </h2>
+          </div>
         </div>
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-6">
           {/* Left side - Pills (outside the card) */}

@@ -209,7 +209,7 @@ const AIGovernanceIntakeForm: React.FC<AIGovernanceIntakeFormProps> = ({ isOpen,
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-4xl max-h-[90vh] p-0">
+      <DialogContent className="sm:max-w-6xl max-h-[95vh] p-0">
         <DialogHeader className="px-6 pt-6 pb-4 border-b border-border/50">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30">

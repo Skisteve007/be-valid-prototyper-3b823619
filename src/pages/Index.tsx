@@ -1,13 +1,14 @@
 // Pipeline Test v2: Fresh deployment - Dec 14, 2024 @ 15:42 UTC
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown, Brain, FileText, UserCheck, ArrowRight, ClipboardList } from 'lucide-react';
+import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown, Brain, FileText, UserCheck, ArrowRight, ClipboardList, ShieldAlert } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Hero from "@/components/Hero";
 import AIGovernanceIntakeForm from "@/components/intake/AIGovernanceIntakeForm";
+import RiskStabilizationModal from "@/components/intake/RiskStabilizationModal";
 
 // Lazy load non-critical below-fold components
 const JoinFreePills = lazy(() => import("@/components/JoinFreePills").then(m => ({ default: m.JoinFreePills })));
@@ -24,6 +25,7 @@ const Index = () => {
   const { t } = useTranslation();
   useReferralTracking();
   const [isIntakeFormOpen, setIsIntakeFormOpen] = useState(false);
+  const [isRiskEngagementOpen, setIsRiskEngagementOpen] = useState(false);
 
   // --- THEME ENGINE - Sync with global dark class ---
   const [isDark, setIsDark] = useState(() => {
@@ -134,8 +136,27 @@ const Index = () => {
       {/* SYNTH ENTERPRISE BLOCK - AI Governance */}
       <section className="relative z-10 py-16 px-4">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-6">
-          {/* Left side - Intake Pill (outside the card) */}
-          <div className="flex-shrink-0">
+          {/* Left side - Pills (outside the card) */}
+          <div className="flex-shrink-0 flex flex-col gap-4">
+            {/* Risk Stabilization Pill - Above Intake */}
+            <button
+              onClick={() => setIsRiskEngagementOpen(true)}
+              className={`
+                flex flex-col items-center gap-3 px-6 py-5 rounded-xl
+                border transition-all duration-300 cursor-pointer
+                ${isDark 
+                  ? 'bg-gradient-to-br from-red-500/20 via-orange-500/15 to-red-500/20 border-red-500/50 hover:border-red-400 hover:shadow-[0_0_25px_rgba(239,68,68,0.4)]' 
+                  : 'bg-gradient-to-br from-red-100 via-orange-50 to-red-100 border-red-300 hover:border-red-400 hover:shadow-lg'
+                }
+              `}
+            >
+              <ShieldAlert className={`h-8 w-8 ${isDark ? 'text-red-400' : 'text-red-600'}`} />
+              <span className={`text-sm font-semibold text-center leading-tight ${isDark ? 'text-red-300' : 'text-red-700'}`}>
+                30-Day Risk<br />Stabilization<br />Engagement
+              </span>
+            </button>
+
+            {/* AI Evaluation Intake Pill */}
             <button
               onClick={() => setIsIntakeFormOpen(true)}
               className={`
@@ -224,6 +245,12 @@ const Index = () => {
           </Card>
         </div>
       </section>
+
+      {/* Risk Stabilization Modal */}
+      <RiskStabilizationModal 
+        isOpen={isRiskEngagementOpen} 
+        onClose={() => setIsRiskEngagementOpen(false)} 
+      />
 
       {/* AI Governance Intake Form Modal */}
       <AIGovernanceIntakeForm 

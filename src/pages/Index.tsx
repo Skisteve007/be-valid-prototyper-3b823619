@@ -1,12 +1,13 @@
 // Pipeline Test v2: Fresh deployment - Dec 14, 2024 @ 15:42 UTC
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown, Brain, FileText, UserCheck, ArrowRight } from 'lucide-react';
+import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown, Brain, FileText, UserCheck, ArrowRight, ClipboardList } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Hero from "@/components/Hero";
+import AIGovernanceIntakeForm from "@/components/intake/AIGovernanceIntakeForm";
 
 // Lazy load non-critical below-fold components
 const JoinFreePills = lazy(() => import("@/components/JoinFreePills").then(m => ({ default: m.JoinFreePills })));
@@ -22,6 +23,7 @@ const Index = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   useReferralTracking();
+  const [isIntakeFormOpen, setIsIntakeFormOpen] = useState(false);
 
   // --- THEME ENGINE - Sync with global dark class ---
   const [isDark, setIsDark] = useState(() => {
@@ -197,10 +199,34 @@ const Index = () => {
                   </Link>
                 </Button>
               </div>
+
+              {/* AI Governance Intake Pill */}
+              <button
+                onClick={() => setIsIntakeFormOpen(true)}
+                className={`
+                  mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full
+                  border transition-all duration-300 cursor-pointer
+                  ${isDark 
+                    ? 'bg-gradient-to-r from-purple-500/20 via-cyan-500/20 to-purple-500/20 border-purple-500/50 hover:border-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]' 
+                    : 'bg-gradient-to-r from-purple-100 via-cyan-100 to-purple-100 border-purple-300 hover:border-purple-400 hover:shadow-md'
+                  }
+                `}
+              >
+                <ClipboardList className={`h-4 w-4 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
+                <span className={`text-sm font-medium ${isDark ? 'text-purple-300' : 'text-purple-700'}`}>
+                  AI Evaluation & Governance Intake
+                </span>
+              </button>
             </CardContent>
           </Card>
         </div>
       </section>
+
+      {/* AI Governance Intake Form Modal */}
+      <AIGovernanceIntakeForm 
+        isOpen={isIntakeFormOpen} 
+        onClose={() => setIsIntakeFormOpen(false)} 
+      />
       {/* PIPELINE, NOT VAULT - Trust Enhancer with Image Background */}
       <section className="relative z-10 overflow-hidden">
         <div 

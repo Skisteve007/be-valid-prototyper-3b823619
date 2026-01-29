@@ -137,7 +137,8 @@ const AIGovernanceIntakeForm: React.FC<AIGovernanceIntakeFormProps> = ({ isOpen,
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from('ai_governance_intakes').insert({
+      // Using type assertion as the table was just created
+      const { error } = await (supabase.from('ai_governance_intakes' as never) as ReturnType<typeof supabase.from>).insert({
         full_name: data.full_name,
         work_email: data.work_email,
         organization: data.organization,
@@ -164,7 +165,7 @@ const AIGovernanceIntakeForm: React.FC<AIGovernanceIntakeFormProps> = ({ isOpen,
         preferred_reporting: data.preferred_reporting || [],
         budget_sensitivity: data.budget_sensitivity || null,
         update_cadence: data.update_cadence || null,
-      } as Record<string, unknown>);
+      });
 
       if (error) throw error;
 

@@ -337,6 +337,99 @@ export type Database = {
           },
         ]
       }
+      ai_governance_intakes: {
+        Row: {
+          ai_providers: string[] | null
+          applicable_policies: string[] | null
+          automation_level: string | null
+          budget_sensitivity: string | null
+          created_at: string
+          dataset_type: string[] | null
+          dataset_versioning: boolean | null
+          evaluation_focus: string[] | null
+          evaluation_frameworks: string[] | null
+          full_name: string
+          ground_truth_available: string | null
+          id: string
+          metrics_used: string[] | null
+          models_tested: string | null
+          organization: string
+          potential_impact: string[] | null
+          preferred_followup: string[] | null
+          preferred_reporting: string[] | null
+          primary_risk: string[] | null
+          primary_use_case: string[] | null
+          prompting_pattern: string[] | null
+          role_team: string | null
+          runtime_environment: string[] | null
+          success_30_days: string | null
+          system_description: string | null
+          system_name: string
+          update_cadence: string | null
+          work_email: string
+        }
+        Insert: {
+          ai_providers?: string[] | null
+          applicable_policies?: string[] | null
+          automation_level?: string | null
+          budget_sensitivity?: string | null
+          created_at?: string
+          dataset_type?: string[] | null
+          dataset_versioning?: boolean | null
+          evaluation_focus?: string[] | null
+          evaluation_frameworks?: string[] | null
+          full_name: string
+          ground_truth_available?: string | null
+          id?: string
+          metrics_used?: string[] | null
+          models_tested?: string | null
+          organization: string
+          potential_impact?: string[] | null
+          preferred_followup?: string[] | null
+          preferred_reporting?: string[] | null
+          primary_risk?: string[] | null
+          primary_use_case?: string[] | null
+          prompting_pattern?: string[] | null
+          role_team?: string | null
+          runtime_environment?: string[] | null
+          success_30_days?: string | null
+          system_description?: string | null
+          system_name: string
+          update_cadence?: string | null
+          work_email: string
+        }
+        Update: {
+          ai_providers?: string[] | null
+          applicable_policies?: string[] | null
+          automation_level?: string | null
+          budget_sensitivity?: string | null
+          created_at?: string
+          dataset_type?: string[] | null
+          dataset_versioning?: boolean | null
+          evaluation_focus?: string[] | null
+          evaluation_frameworks?: string[] | null
+          full_name?: string
+          ground_truth_available?: string | null
+          id?: string
+          metrics_used?: string[] | null
+          models_tested?: string | null
+          organization?: string
+          potential_impact?: string[] | null
+          preferred_followup?: string[] | null
+          preferred_reporting?: string[] | null
+          primary_risk?: string[] | null
+          primary_use_case?: string[] | null
+          prompting_pattern?: string[] | null
+          role_team?: string | null
+          runtime_environment?: string[] | null
+          success_30_days?: string | null
+          system_description?: string | null
+          system_name?: string
+          update_cadence?: string | null
+          work_email?: string
+        }
+        Relationships: []
+      }
       audit_logs: {
         Row: {
           created_at: string | null

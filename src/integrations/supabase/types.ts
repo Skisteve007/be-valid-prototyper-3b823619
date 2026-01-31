@@ -1341,6 +1341,14 @@ export type Database = {
           reentry_allowed: boolean | null
           reviewed_at: string | null
           reviewed_by: string | null
+          sensory_atmospheric: boolean | null
+          sensory_audiology: boolean | null
+          sensory_cargoes_enabled: boolean | null
+          sensory_notes: string | null
+          sensory_olfactory: boolean | null
+          sensory_taste: boolean | null
+          sensory_touch: boolean | null
+          sensory_visual: boolean | null
           settlement_currency: string | null
           special_instructions: string | null
           status: string | null
@@ -1408,6 +1416,14 @@ export type Database = {
           reentry_allowed?: boolean | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          sensory_atmospheric?: boolean | null
+          sensory_audiology?: boolean | null
+          sensory_cargoes_enabled?: boolean | null
+          sensory_notes?: string | null
+          sensory_olfactory?: boolean | null
+          sensory_taste?: boolean | null
+          sensory_touch?: boolean | null
+          sensory_visual?: boolean | null
           settlement_currency?: string | null
           special_instructions?: string | null
           status?: string | null
@@ -1475,6 +1491,14 @@ export type Database = {
           reentry_allowed?: boolean | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          sensory_atmospheric?: boolean | null
+          sensory_audiology?: boolean | null
+          sensory_cargoes_enabled?: boolean | null
+          sensory_notes?: string | null
+          sensory_olfactory?: boolean | null
+          sensory_taste?: boolean | null
+          sensory_touch?: boolean | null
+          sensory_visual?: boolean | null
           settlement_currency?: string | null
           special_instructions?: string | null
           status?: string | null

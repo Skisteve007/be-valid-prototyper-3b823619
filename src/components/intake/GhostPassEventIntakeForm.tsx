@@ -163,7 +163,17 @@ const formSchema = z.object({
   numManagementAccessCodes: z.number().min(0),
   numOwnershipGatewayCodes: z.number().min(0),
   
-  // Section 10: Compliance
+  // Section 10: Sensory Cargoes
+  sensoryCargosEnabled: z.boolean(),
+  sensoryAudiology: z.boolean(),
+  sensoryVisual: z.boolean(),
+  sensoryTaste: z.boolean(),
+  sensoryTouch: z.boolean(),
+  sensoryOlfactory: z.boolean(),
+  sensoryAtmospheric: z.boolean(),
+  sensoryNotes: z.string().optional(),
+  
+  // Section 11: Compliance
   jurisdictionNotes: z.string().optional(),
   specialInstructions: z.string().optional(),
   
@@ -243,6 +253,14 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
       estimatedStaffAtPeak: 10,
       numManagementAccessCodes: 1,
       numOwnershipGatewayCodes: 1,
+      sensoryCargosEnabled: false,
+      sensoryAudiology: false,
+      sensoryVisual: false,
+      sensoryTaste: false,
+      sensoryTouch: false,
+      sensoryOlfactory: false,
+      sensoryAtmospheric: false,
+      sensoryNotes: '',
       jurisdictionNotes: '',
       specialInstructions: '',
       submitterEmail: '',
@@ -274,6 +292,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
     { title: 'Vendors', icon: Store },
     { title: 'ID Requirements', icon: Shield },
     { title: 'Operations', icon: Settings },
+    { title: 'Sensory Cargoes', icon: Ghost },
     { title: 'Compliance & Submit', icon: FileText },
   ];
 
@@ -338,6 +357,14 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
           interaction_method: data.interactionMethod,
           enable_realtime_dashboard: data.enableRealtimeDashboard,
           estimated_staff_at_peak: data.estimatedStaffAtPeak || null,
+          sensory_cargoes_enabled: data.sensoryCargosEnabled,
+          sensory_audiology: data.sensoryAudiology,
+          sensory_visual: data.sensoryVisual,
+          sensory_taste: data.sensoryTaste,
+          sensory_touch: data.sensoryTouch,
+          sensory_olfactory: data.sensoryOlfactory,
+          sensory_atmospheric: data.sensoryAtmospheric,
+          sensory_notes: data.sensoryNotes || null,
           jurisdiction_notes: data.jurisdictionNotes || null,
           special_instructions: data.specialInstructions || null,
         });
@@ -2198,11 +2225,218 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                   </div>
                 )}
 
-                {/* SECTION 9: Compliance & Submit */}
+                {/* SECTION 10: Sensory Cargoes */}
                 {currentSection === 9 && (
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 mb-4">
-                      <Badge variant="outline" className="text-cyan-500 border-cyan-500">Section 10</Badge>
+                      <Badge variant="outline" className="text-purple-500 border-purple-500">Section 10</Badge>
+                      <h3 className="font-semibold">Sensory Cargoes</h3>
+                    </div>
+
+                    {/* Sensory Intro */}
+                    <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <Ghost className="h-5 w-5 text-purple-500 mt-0.5 shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-purple-400 mb-2">Advanced Sensory Data Projection</h4>
+                          <p className="text-sm text-muted-foreground">
+                            VALID™ supports projection of 6 Sensory Cargoes through your on-site hardware to requesting authorities. 
+                            Select which sensory signals you want attendees to be able to share at this event. 
+                            <strong className="text-foreground"> Pricing will be discussed after sensory requirements are finalized.</strong>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <FormField
+                      control={form.control}
+                      name="sensoryCargosEnabled"
+                      render={({ field }) => (
+                        <FormItem className="flex items-center justify-between rounded-lg border p-4 bg-muted/30">
+                          <div>
+                            <FormLabel className="text-base">Enable Sensory Cargo Projection?</FormLabel>
+                            <FormDescription>
+                              Allow attendees to share sensory verification data through on-site hardware.
+                            </FormDescription>
+                          </div>
+                          <FormControl>
+                            <Switch checked={field.value} onCheckedChange={field.onChange} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    {form.watch('sensoryCargosEnabled') && (
+                      <div className="space-y-4 mt-4">
+                        <h4 className="font-medium text-sm">Select Available Sensory Cargoes</h4>
+                        <FormDescription className="!mt-1">
+                          Choose which sensory signals attendees can project to requesting authorities via your venue hardware.
+                        </FormDescription>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {/* Audiology */}
+                          <FormField
+                            control={form.control}
+                            name="sensoryAudiology"
+                            render={({ field }) => (
+                              <FormItem className="flex items-start gap-3 rounded-lg border p-4 bg-card">
+                                <FormControl>
+                                  <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-1" />
+                                </FormControl>
+                                <div>
+                                  <FormLabel className="font-medium flex items-center gap-2">
+                                    <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/50">Audiology</Badge>
+                                  </FormLabel>
+                                  <FormDescription className="text-xs mt-1">
+                                    Hearing capacity and audio processing verification signals.
+                                  </FormDescription>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+
+                          {/* Visual */}
+                          <FormField
+                            control={form.control}
+                            name="sensoryVisual"
+                            render={({ field }) => (
+                              <FormItem className="flex items-start gap-3 rounded-lg border p-4 bg-card">
+                                <FormControl>
+                                  <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-1" />
+                                </FormControl>
+                                <div>
+                                  <FormLabel className="font-medium flex items-center gap-2">
+                                    <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/50">Visual</Badge>
+                                  </FormLabel>
+                                  <FormDescription className="text-xs mt-1">
+                                    Vision acuity, color perception, and optical verification signals.
+                                  </FormDescription>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+
+                          {/* Taste */}
+                          <FormField
+                            control={form.control}
+                            name="sensoryTaste"
+                            render={({ field }) => (
+                              <FormItem className="flex items-start gap-3 rounded-lg border p-4 bg-card">
+                                <FormControl>
+                                  <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-1" />
+                                </FormControl>
+                                <div>
+                                  <FormLabel className="font-medium flex items-center gap-2">
+                                    <Badge className="bg-pink-500/20 text-pink-400 border-pink-500/50">Taste</Badge>
+                                  </FormLabel>
+                                  <FormDescription className="text-xs mt-1">
+                                    Gustatory sensitivity and taste profile verification signals.
+                                  </FormDescription>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+
+                          {/* Touch */}
+                          <FormField
+                            control={form.control}
+                            name="sensoryTouch"
+                            render={({ field }) => (
+                              <FormItem className="flex items-start gap-3 rounded-lg border p-4 bg-card">
+                                <FormControl>
+                                  <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-1" />
+                                </FormControl>
+                                <div>
+                                  <FormLabel className="font-medium flex items-center gap-2">
+                                    <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/50">Touch</Badge>
+                                  </FormLabel>
+                                  <FormDescription className="text-xs mt-1">
+                                    Tactile sensitivity and haptic response verification signals.
+                                  </FormDescription>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+
+                          {/* Olfactory */}
+                          <FormField
+                            control={form.control}
+                            name="sensoryOlfactory"
+                            render={({ field }) => (
+                              <FormItem className="flex items-start gap-3 rounded-lg border p-4 bg-card">
+                                <FormControl>
+                                  <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-1" />
+                                </FormControl>
+                                <div>
+                                  <FormLabel className="font-medium flex items-center gap-2">
+                                    <Badge className="bg-green-500/20 text-green-400 border-green-500/50">Olfactory</Badge>
+                                  </FormLabel>
+                                  <FormDescription className="text-xs mt-1">
+                                    Pheromone signatures and scent detection verification signals.
+                                  </FormDescription>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+
+                          {/* Atmospheric */}
+                          <FormField
+                            control={form.control}
+                            name="sensoryAtmospheric"
+                            render={({ field }) => (
+                              <FormItem className="flex items-start gap-3 rounded-lg border p-4 bg-card">
+                                <FormControl>
+                                  <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-1" />
+                                </FormControl>
+                                <div>
+                                  <FormLabel className="font-medium flex items-center gap-2">
+                                    <Badge className="bg-indigo-500/20 text-indigo-400 border-indigo-500/50">Atmospheric</Badge>
+                                  </FormLabel>
+                                  <FormDescription className="text-xs mt-1">
+                                    Environmental awareness and atmospheric response verification signals.
+                                  </FormDescription>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+
+                        <FormField
+                          control={form.control}
+                          name="sensoryNotes"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Sensory Requirements Notes</FormLabel>
+                              <FormDescription>
+                                Describe any specific sensory projection requirements, hardware considerations, or special configurations needed for your event.
+                              </FormDescription>
+                              <FormControl>
+                                <Textarea 
+                                  placeholder="E.g., Need olfactory sensors at VIP entrance, visual verification at bar stations, atmospheric monitoring in outdoor areas..." 
+                                  className="min-h-[100px]"
+                                  {...field} 
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+                          <p className="text-sm text-amber-400 font-medium">
+                            💡 Sensory Cargo pricing is customized based on your selections and event requirements. Our team will provide a detailed quote after reviewing your intake.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* SECTION 11: Compliance & Submit */}
+                {currentSection === 10 && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Badge variant="outline" className="text-cyan-500 border-cyan-500">Section 11</Badge>
                       <h3 className="font-semibold">Compliance & Notes</h3>
                     </div>
 

@@ -89,6 +89,8 @@ const formSchema = z.object({
   venueName: z.string().optional(),
   venueAddress: z.string().optional(),
   estimatedAttendance: z.string(),
+  wearableIntegrationRequired: z.boolean(),
+  wearableTypes: z.array(z.string()),
   
   // Section 2: Entry Structure
   entryTypes: z.array(z.string()),
@@ -185,6 +187,8 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
       venueName: '',
       venueAddress: '',
       estimatedAttendance: '0-250',
+      wearableIntegrationRequired: false,
+      wearableTypes: [],
       entryTypes: [],
       numExteriorGaPoints: 1,
       numExteriorVipPoints: 0,
@@ -274,6 +278,8 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
           venue_name: data.venueName || null,
           venue_address: data.venueAddress || null,
           estimated_attendance: data.estimatedAttendance,
+          wearable_integration_required: data.wearableIntegrationRequired,
+          wearable_types: data.wearableTypes,
           entry_types: data.entryTypes,
           num_exterior_ga_entry_points: data.numExteriorGaPoints,
           num_exterior_vip_entry_points: data.numExteriorVipPoints,
@@ -533,6 +539,75 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                         </FormItem>
                       )}
                     />
+
+                    <Separator className="my-4" />
+                    
+                    {/* Wearable Identification Integration */}
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wide">Wearable Identification</h4>
+                      
+                      <FormField
+                        control={form.control}
+                        name="wearableIntegrationRequired"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                            <div className="space-y-0.5">
+                              <FormLabel className="text-base">Wearable ID Integration Required?</FormLabel>
+                              <FormDescription>
+                                Do attendees need to carry any wearable identification beyond QR code/tap? (e.g., RFID wristbands, NFC bracelets, lanyards)
+                              </FormDescription>
+                            </div>
+                            <FormControl>
+                              <Switch
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+
+                      {form.watch('wearableIntegrationRequired') && (
+                        <FormField
+                          control={form.control}
+                          name="wearableTypes"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Wearable Types Needed</FormLabel>
+                              <FormDescription>
+                                Select all wearable identification types you expect attendees to use
+                              </FormDescription>
+                              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                                {[
+                                  { id: 'rfid_wristband', label: 'RFID Wristband' },
+                                  { id: 'nfc_bracelet', label: 'NFC Bracelet' },
+                                  { id: 'rfid_lanyard', label: 'RFID Lanyard/Badge' },
+                                  { id: 'nfc_necklace', label: 'NFC Necklace' },
+                                  { id: 'smart_ring', label: 'Smart Ring' },
+                                  { id: 'fabric_wristband', label: 'Fabric Wristband (Printed QR)' },
+                                  { id: 'custom_wearable', label: 'Custom Wearable Device' },
+                                ].map((type) => (
+                                  <div key={type.id} className="flex items-center gap-2 p-2 rounded border">
+                                    <Checkbox
+                                      checked={field.value?.includes(type.id)}
+                                      onCheckedChange={(checked) => {
+                                        if (checked) {
+                                          field.onChange([...field.value, type.id]);
+                                        } else {
+                                          field.onChange(field.value?.filter((v: string) => v !== type.id));
+                                        }
+                                      }}
+                                    />
+                                    <label className="text-sm">{type.label}</label>
+                                  </div>
+                                ))}
+                              </div>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+                    </div>
 
                     <FormField
                       control={form.control}

@@ -90,7 +90,13 @@ const formSchema = z.object({
   venueAddress: z.string().optional(),
   estimatedAttendance: z.string(),
   wearableIntegrationRequired: z.boolean(),
+  wearableUseGhostPass: z.boolean(),
   wearableTypes: z.array(z.string()),
+  wearableVendorContactName: z.string().optional(),
+  wearableVendorContactEmail: z.string().email().optional().or(z.literal('')),
+  wearableVendorCompany: z.string().optional(),
+  wearableApiEndpoint: z.string().optional(),
+  wearableApiNotes: z.string().optional(),
   
   // Section 2: Entry Structure
   entryTypes: z.array(z.string()),
@@ -188,7 +194,13 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
       venueAddress: '',
       estimatedAttendance: '0-250',
       wearableIntegrationRequired: false,
+      wearableUseGhostPass: true,
       wearableTypes: [],
+      wearableVendorContactName: '',
+      wearableVendorContactEmail: '',
+      wearableVendorCompany: '',
+      wearableApiEndpoint: '',
+      wearableApiNotes: '',
       entryTypes: [],
       numExteriorGaPoints: 1,
       numExteriorVipPoints: 0,
@@ -279,7 +291,13 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
           venue_address: data.venueAddress || null,
           estimated_attendance: data.estimatedAttendance,
           wearable_integration_required: data.wearableIntegrationRequired,
+          wearable_use_ghost_pass: data.wearableUseGhostPass,
           wearable_types: data.wearableTypes,
+          wearable_vendor_contact_name: data.wearableVendorContactName || null,
+          wearable_vendor_contact_email: data.wearableVendorContactEmail || null,
+          wearable_vendor_company: data.wearableVendorCompany || null,
+          wearable_api_endpoint: data.wearableApiEndpoint || null,
+          wearable_api_notes: data.wearableApiNotes || null,
           entry_types: data.entryTypes,
           num_exterior_ga_entry_points: data.numExteriorGaPoints,
           num_exterior_vip_entry_points: data.numExteriorVipPoints,
@@ -568,44 +586,157 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                       />
 
                       {form.watch('wearableIntegrationRequired') && (
-                        <FormField
-                          control={form.control}
-                          name="wearableTypes"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Wearable Types Needed</FormLabel>
-                              <FormDescription>
-                                Select all wearable identification types you expect attendees to use
-                              </FormDescription>
-                              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-                                {[
-                                  { id: 'rfid_wristband', label: 'RFID Wristband' },
-                                  { id: 'nfc_bracelet', label: 'NFC Bracelet' },
-                                  { id: 'rfid_lanyard', label: 'RFID Lanyard/Badge' },
-                                  { id: 'nfc_necklace', label: 'NFC Necklace' },
-                                  { id: 'smart_ring', label: 'Smart Ring' },
-                                  { id: 'fabric_wristband', label: 'Fabric Wristband (Printed QR)' },
-                                  { id: 'custom_wearable', label: 'Custom Wearable Device' },
-                                ].map((type) => (
-                                  <div key={type.id} className="flex items-center gap-2 p-2 rounded border">
-                                    <Checkbox
-                                      checked={field.value?.includes(type.id)}
-                                      onCheckedChange={(checked) => {
-                                        if (checked) {
-                                          field.onChange([...field.value, type.id]);
-                                        } else {
-                                          field.onChange(field.value?.filter((v: string) => v !== type.id));
-                                        }
-                                      }}
-                                    />
-                                    <label className="text-sm">{type.label}</label>
-                                  </div>
-                                ))}
+                        <div className="space-y-4 p-4 rounded-lg border bg-muted/30">
+                          <FormField
+                            control={form.control}
+                            name="wearableTypes"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Wearable Types Needed</FormLabel>
+                                <FormDescription>
+                                  Select all wearable identification types you expect attendees to use
+                                </FormDescription>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                                  {[
+                                    { id: 'rfid_wristband', label: 'RFID Wristband' },
+                                    { id: 'nfc_bracelet', label: 'NFC Bracelet' },
+                                    { id: 'rfid_lanyard', label: 'RFID Lanyard/Badge' },
+                                    { id: 'nfc_necklace', label: 'NFC Necklace' },
+                                    { id: 'smart_ring', label: 'Smart Ring' },
+                                    { id: 'fabric_wristband', label: 'Fabric Wristband (Printed QR)' },
+                                    { id: 'custom_wearable', label: 'Custom Wearable Device' },
+                                  ].map((type) => (
+                                    <div key={type.id} className="flex items-center gap-2 p-2 rounded border bg-background">
+                                      <Checkbox
+                                        checked={field.value?.includes(type.id)}
+                                        onCheckedChange={(checked) => {
+                                          if (checked) {
+                                            field.onChange([...field.value, type.id]);
+                                          } else {
+                                            field.onChange(field.value?.filter((v: string) => v !== type.id));
+                                          }
+                                        }}
+                                      />
+                                      <label className="text-sm">{type.label}</label>
+                                    </div>
+                                  ))}
+                                </div>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <Separator className="my-4" />
+
+                          <FormField
+                            control={form.control}
+                            name="wearableUseGhostPass"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-center justify-between rounded-lg border bg-background p-4">
+                                <div className="space-y-0.5">
+                                  <FormLabel className="text-base">Tie Ghost Pass to Wearable?</FormLabel>
+                                  <FormDescription>
+                                    Would you like VALID™ to integrate Ghost Pass verification directly into the wearable identification system?
+                                  </FormDescription>
+                                </div>
+                                <FormControl>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+
+                          {!form.watch('wearableUseGhostPass') && (
+                            <div className="space-y-4 p-4 rounded-lg border border-amber-500/30 bg-amber-500/5">
+                              <h5 className="font-medium text-sm text-amber-400">Existing Wearable Vendor Details</h5>
+                              <p className="text-xs text-muted-foreground">
+                                Please provide contact and API details for your wearable identification vendor so we can coordinate integration.
+                              </p>
+
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <FormField
+                                  control={form.control}
+                                  name="wearableVendorCompany"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>Wearable Vendor Company</FormLabel>
+                                      <FormControl>
+                                        <Input placeholder="e.g., Intellitix, CrowdBlink" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+
+                                <FormField
+                                  control={form.control}
+                                  name="wearableVendorContactName"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>Vendor Contact Name</FormLabel>
+                                      <FormControl>
+                                        <Input placeholder="Primary contact at vendor" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+
+                                <FormField
+                                  control={form.control}
+                                  name="wearableVendorContactEmail"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>Vendor Contact Email</FormLabel>
+                                      <FormControl>
+                                        <Input type="email" placeholder="contact@vendor.com" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+
+                                <FormField
+                                  control={form.control}
+                                  name="wearableApiEndpoint"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>API Endpoint (if known)</FormLabel>
+                                      <FormControl>
+                                        <Input placeholder="https://api.vendor.com/v1" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
                               </div>
-                              <FormMessage />
-                            </FormItem>
+
+                              <FormField
+                                control={form.control}
+                                name="wearableApiNotes"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Integration Notes</FormLabel>
+                                    <FormDescription>
+                                      Any additional details about the wearable system, API documentation, or integration requirements
+                                    </FormDescription>
+                                    <FormControl>
+                                      <Textarea 
+                                        placeholder="e.g., Using their REST API v2, need webhook for scan events, SDK documentation at..." 
+                                        className="min-h-[80px]"
+                                        {...field} 
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
                           )}
-                        />
+                        </div>
                       )}
                     </div>
 

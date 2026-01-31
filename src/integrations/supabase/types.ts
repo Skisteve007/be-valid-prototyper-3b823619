@@ -1351,8 +1351,14 @@ export type Database = {
           vendors: Json | null
           venue_address: string | null
           venue_name: string | null
+          wearable_api_endpoint: string | null
+          wearable_api_notes: string | null
           wearable_integration_required: boolean | null
           wearable_types: string[] | null
+          wearable_use_ghost_pass: boolean | null
+          wearable_vendor_company: string | null
+          wearable_vendor_contact_email: string | null
+          wearable_vendor_contact_name: string | null
         }
         Insert: {
           accepted_wallet_methods?: string[] | null
@@ -1412,8 +1418,14 @@ export type Database = {
           vendors?: Json | null
           venue_address?: string | null
           venue_name?: string | null
+          wearable_api_endpoint?: string | null
+          wearable_api_notes?: string | null
           wearable_integration_required?: boolean | null
           wearable_types?: string[] | null
+          wearable_use_ghost_pass?: boolean | null
+          wearable_vendor_company?: string | null
+          wearable_vendor_contact_email?: string | null
+          wearable_vendor_contact_name?: string | null
         }
         Update: {
           accepted_wallet_methods?: string[] | null
@@ -1473,8 +1485,14 @@ export type Database = {
           vendors?: Json | null
           venue_address?: string | null
           venue_name?: string | null
+          wearable_api_endpoint?: string | null
+          wearable_api_notes?: string | null
           wearable_integration_required?: boolean | null
           wearable_types?: string[] | null
+          wearable_use_ghost_pass?: boolean | null
+          wearable_vendor_company?: string | null
+          wearable_vendor_contact_email?: string | null
+          wearable_vendor_contact_name?: string | null
         }
         Relationships: [
           {

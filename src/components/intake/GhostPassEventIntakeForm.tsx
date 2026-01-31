@@ -96,6 +96,17 @@ const formSchema = z.object({
   numExteriorVipPoints: z.number().min(0),
   numInteriorReentryPoints: z.number().min(0),
   reentryAllowed: z.boolean(),
+  // Interior Locations
+  interiorLocations: z.array(z.string()),
+  numBarLocations: z.number().min(0),
+  numServerStations: z.number().min(0),
+  numTableServiceAreas: z.number().min(0),
+  numFoodConcessions: z.number().min(0),
+  numMerchLocations: z.number().min(0),
+  // Outside Vendors
+  hasOutsideVendors: z.boolean(),
+  outsideVendorCount: z.number().min(0),
+  outsideVendorTypes: z.array(z.string()),
   
   // Section 3: Pass Types
   passTypes: z.array(passTypeSchema),
@@ -171,6 +182,15 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
       numExteriorVipPoints: 0,
       numInteriorReentryPoints: 0,
       reentryAllowed: false,
+      interiorLocations: [],
+      numBarLocations: 0,
+      numServerStations: 0,
+      numTableServiceAreas: 0,
+      numFoodConcessions: 0,
+      numMerchLocations: 0,
+      hasOutsideVendors: false,
+      outsideVendorCount: 0,
+      outsideVendorTypes: [],
       passTypes: [{ name: 'General Admission', duration: '1 Day', price: 25, appliesTo: 'GA', refundable: false }],
       acceptedWalletMethods: ['apple_pay', 'google_pay', 'card'],
       platformFeeEnabled: true,
@@ -244,6 +264,15 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
           num_exterior_vip_entry_points: data.numExteriorVipPoints,
           num_interior_reentry_points: data.numInteriorReentryPoints,
           reentry_allowed: data.reentryAllowed,
+          interior_locations: data.interiorLocations,
+          num_bar_locations: data.numBarLocations,
+          num_server_stations: data.numServerStations,
+          num_table_service_areas: data.numTableServiceAreas,
+          num_food_concessions: data.numFoodConcessions,
+          num_merch_locations: data.numMerchLocations,
+          has_outside_vendors: data.hasOutsideVendors,
+          outside_vendor_count: data.outsideVendorCount,
+          outside_vendor_types: data.outsideVendorTypes,
           pass_types: data.passTypes,
           accepted_wallet_methods: data.acceptedWalletMethods,
           platform_fee_enabled: data.platformFeeEnabled,
@@ -504,19 +533,20 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
 
                 {/* SECTION 1: Entry Structure */}
                 {currentSection === 1 && (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div className="flex items-center gap-2 mb-4">
                       <Badge variant="outline" className="text-cyan-500 border-cyan-500">Section 2</Badge>
                       <h3 className="font-semibold">Entry Structure</h3>
                     </div>
 
+                    {/* Entry Types */}
                     <FormField
                       control={form.control}
                       name="entryTypes"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Entry Types Offered</FormLabel>
-                          <div className="space-y-2">
+                          <div className="grid grid-cols-3 gap-2">
                             {['General Admission', 'VIP', 'Staff / Crew'].map((type) => (
                               <div key={type} className="flex items-center gap-2">
                                 <Checkbox
@@ -538,65 +568,257 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                       )}
                     />
 
-                    <div className="grid grid-cols-3 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="numExteriorGaPoints"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Exterior GA Entry Points</FormLabel>
-                            <FormControl>
-                              <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                    {/* Exterior Entry Points */}
+                    <div className="border rounded-lg p-4 space-y-4">
+                      <h4 className="font-medium text-sm text-muted-foreground">Exterior Entry Points</h4>
+                      <div className="grid grid-cols-3 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="numExteriorGaPoints"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>GA Entry Points</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="numExteriorVipPoints"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>VIP Entry Points</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="numInteriorReentryPoints"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Re-Entry Points</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
                       <FormField
                         control={form.control}
-                        name="numExteriorVipPoints"
+                        name="reentryAllowed"
                         render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Exterior VIP Entry Points</FormLabel>
+                          <FormItem className="flex items-center justify-between rounded-lg border p-3 bg-muted/30">
+                            <div>
+                              <FormLabel>Re-Entry Allowed?</FormLabel>
+                              <FormDescription>Allow guests to leave and return</FormDescription>
+                            </div>
                             <FormControl>
-                              <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              <Switch checked={field.value} onCheckedChange={field.onChange} />
                             </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={form.control}
-                        name="numInteriorReentryPoints"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Interior / Re-Entry Points</FormLabel>
-                            <FormControl>
-                              <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
-                            </FormControl>
-                            <FormMessage />
                           </FormItem>
                         )}
                       />
                     </div>
 
-                    <FormField
-                      control={form.control}
-                      name="reentryAllowed"
-                      render={({ field }) => (
-                        <FormItem className="flex items-center justify-between rounded-lg border p-4">
-                          <div>
-                            <FormLabel>Re-Entry Allowed?</FormLabel>
-                            <FormDescription>Allow guests to leave and return</FormDescription>
-                          </div>
-                          <FormControl>
-                            <Switch checked={field.value} onCheckedChange={field.onChange} />
-                          </FormControl>
-                        </FormItem>
+                    {/* Interior Locations */}
+                    <div className="border rounded-lg p-4 space-y-4">
+                      <h4 className="font-medium text-sm text-muted-foreground">Interior Locations</h4>
+                      <FormDescription>
+                        Specify where Ghost Pass scan points will be deployed inside the venue.
+                      </FormDescription>
+                      
+                      <FormField
+                        control={form.control}
+                        name="interiorLocations"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Location Types</FormLabel>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                              {[
+                                { value: 'bar', label: 'Bar' },
+                                { value: 'server_station', label: 'Server Stations' },
+                                { value: 'table_service', label: 'Table Service' },
+                                { value: 'food_concession', label: 'Food Concessions' },
+                                { value: 'merch_schwag', label: 'Merch / Schwag' },
+                                { value: 'vip_lounge', label: 'VIP Lounge' },
+                              ].map((loc) => (
+                                <div key={loc.value} className="flex items-center gap-2">
+                                  <Checkbox
+                                    checked={field.value?.includes(loc.value)}
+                                    onCheckedChange={(checked) => {
+                                      if (checked) {
+                                        field.onChange([...field.value, loc.value]);
+                                      } else {
+                                        field.onChange(field.value.filter((v) => v !== loc.value));
+                                      }
+                                    }}
+                                  />
+                                  <Label>{loc.label}</Label>
+                                </div>
+                              ))}
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="numBarLocations"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Bar Locations</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="numServerStations"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Server Stations</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="numTableServiceAreas"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Table Service Areas</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="numFoodConcessions"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Food Concessions</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="numMerchLocations"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Merch / Schwag Locations</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Outside Vendors */}
+                    <div className="border rounded-lg p-4 space-y-4">
+                      <h4 className="font-medium text-sm text-muted-foreground">Outside Vendor Integration</h4>
+                      <FormDescription>
+                        Will external vendors (artists, artisans, independent sellers) be operating at your event?
+                      </FormDescription>
+
+                      <FormField
+                        control={form.control}
+                        name="hasOutsideVendors"
+                        render={({ field }) => (
+                          <FormItem className="flex items-center justify-between rounded-lg border p-3 bg-muted/30">
+                            <div>
+                              <FormLabel>Outside Vendors Present?</FormLabel>
+                              <FormDescription>Third-party sellers integrated into Ghost Pass</FormDescription>
+                            </div>
+                            <FormControl>
+                              <Switch checked={field.value} onCheckedChange={field.onChange} />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+
+                      {form.watch('hasOutsideVendors') && (
+                        <>
+                          <FormField
+                            control={form.control}
+                            name="outsideVendorCount"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Number of Outside Vendors</FormLabel>
+                                <FormControl>
+                                  <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                                </FormControl>
+                                <FormDescription>Estimated number of external vendors at your event</FormDescription>
+                              </FormItem>
+                            )}
+                          />
+
+                          <FormField
+                            control={form.control}
+                            name="outsideVendorTypes"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Vendor Categories</FormLabel>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                  {[
+                                    { value: 'art', label: 'Art / Artwork' },
+                                    { value: 'crafts', label: 'Crafts / Handmade' },
+                                    { value: 'jewelry', label: 'Jewelry / Accessories' },
+                                    { value: 'apparel', label: 'Apparel / Clothing' },
+                                    { value: 'food_beverage', label: 'Food & Beverage' },
+                                    { value: 'services', label: 'Services / Experiences' },
+                                    { value: 'other', label: 'Other' },
+                                  ].map((cat) => (
+                                    <div key={cat.value} className="flex items-center gap-2">
+                                      <Checkbox
+                                        checked={field.value?.includes(cat.value)}
+                                        onCheckedChange={(checked) => {
+                                          if (checked) {
+                                            field.onChange([...field.value, cat.value]);
+                                          } else {
+                                            field.onChange(field.value.filter((v) => v !== cat.value));
+                                          }
+                                        }}
+                                      />
+                                      <Label>{cat.label}</Label>
+                                    </div>
+                                  ))}
+                                </div>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </>
                       )}
-                    />
+                    </div>
                   </div>
                 )}
 

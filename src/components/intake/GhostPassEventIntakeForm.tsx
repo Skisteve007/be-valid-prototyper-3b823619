@@ -1369,8 +1369,13 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                           
                           <div className="mt-4 p-3 rounded-lg bg-muted/50 border border-border">
                             <p className="text-xs text-muted-foreground">
-                              <strong>Scan Fee Pricing:</strong> Per-scan fees range from <strong>$0.10 to $0.50</strong> and are finalized after the intake review based on event specifications, expected volume, and liability tier. This applies to each authorization—whether at the door or at any point of sale.
+                              <strong>Scan Fee Pricing:</strong> Per-scan fees range from <strong>$0.15 to $0.75</strong> and are finalized after the intake review based on event specifications, expected volume, and liability tier. This applies to each authorization—whether at the door or at any point of sale.
                             </p>
+                            <ul className="text-xs text-muted-foreground mt-2 space-y-1 list-disc list-inside">
+                              <li><strong>Under 5,000 attendees:</strong> $0.50–$0.75/scan</li>
+                              <li><strong>5,000–25,000 attendees:</strong> $0.25–$0.50/scan</li>
+                              <li><strong>Enterprise/Stadiums (25,000+):</strong> $0.15–$0.25/scan</li>
+                            </ul>
                           </div>
                         </FormItem>
                       )}

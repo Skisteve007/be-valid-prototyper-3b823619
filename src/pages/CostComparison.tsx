@@ -328,7 +328,7 @@ const CostComparison = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-2">Ghost Pass Scans</h4>
-                      <p className="text-muted-foreground">Tier-based: $0.75→$0.10/scan</p>
+                      <p className="text-muted-foreground">Tier-based: $0.75→$0.15/scan</p>
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-2">Verification (Optional)</h4>

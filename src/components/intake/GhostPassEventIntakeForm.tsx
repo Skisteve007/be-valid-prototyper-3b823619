@@ -103,6 +103,7 @@ const formSchema = z.object({
   numTableServiceAreas: z.number().min(0),
   numFoodConcessions: z.number().min(0),
   numMerchLocations: z.number().min(0),
+  numVipLounges: z.number().min(0),
   // Outside Vendors
   hasOutsideVendors: z.boolean(),
   outsideVendorCount: z.number().min(0),
@@ -188,6 +189,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
       numTableServiceAreas: 0,
       numFoodConcessions: 0,
       numMerchLocations: 0,
+      numVipLounges: 0,
       hasOutsideVendors: false,
       outsideVendorCount: 0,
       outsideVendorTypes: [],
@@ -270,6 +272,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
           num_table_service_areas: data.numTableServiceAreas,
           num_food_concessions: data.numFoodConcessions,
           num_merch_locations: data.numMerchLocations,
+          num_vip_lounges: data.numVipLounges,
           has_outside_vendors: data.hasOutsideVendors,
           outside_vendor_count: data.outsideVendorCount,
           outside_vendor_types: data.outsideVendorTypes,
@@ -733,6 +736,22 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>Merch / Schwag Locations</FormLabel>
+                              <FormControl>
+                                <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="numVipLounges"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="flex items-center gap-2">
+                                VIP Lounges
+                                <Badge variant="secondary" className="text-xs bg-purple-500/20 text-purple-400 border-purple-500/30">Adjustable</Badge>
+                              </FormLabel>
                               <FormControl>
                                 <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
                               </FormControl>

@@ -36,24 +36,6 @@ interface RoleCard {
 
 const roles: RoleCard[] = [
   {
-    id: "cto",
-    title: "Founding CTO / Head of Engineering",
-    category: "Equity-First — SF/Hybrid or Remote (US)",
-    pitch: "Own the technical truth end-to-end. Guide build priorities. Confidently handle enterprise technical + security questions with the founder.",
-    whatYouDo: [
-      "Technical strategy + architecture for conduit-first platform (customer-hosted + hosted pilot)",
-      "Engineering hiring plan: founding engineers + full-stack + contractors",
-      "Enterprise readiness: security questionnaires, deployment models, auditability"
-    ],
-    youFitIf: [
-      "You've shipped production systems that scale (distributed systems, queues, worker pools)",
-      "You can speak security/legal/architecture with enterprise buyers without hand-waving",
-      "You're a builder, not a slide-deck CTO—everything must be provable"
-    ],
-    compSummary: "Equity-first (meaningful stake). Cash limited initially; increases as revenue lands.",
-    icon: <Shield className="h-6 w-6" />
-  },
-  {
     id: "enterprise-ae",
     title: "Founding Enterprise AE (Technical)",
     category: "Contractor — SF/Hybrid",
@@ -88,42 +70,6 @@ const roles: RoleCard[] = [
     ],
     compSummary: "15% of CASH COLLECTED on qualifying deals. 100% cash OR split cash/equity. Uncapped.",
     icon: <Users className="h-6 w-6" />
-  },
-  {
-    id: "founding-engineer",
-    title: "Founding Engineer — Customer-Hosted Runtime",
-    category: "Contractor — SF/Hybrid",
-    pitch: "Build the enterprise-grade enforcement runtime that can run inside a customer VPC. Be the 'CTO energy' early.",
-    whatYouDo: [
-      "Build customer-hosted runtime (containers) with parallel verifiers and proof records",
-      "Design for NFL-Sunday scale: burst handling, queues, backpressure, observability",
-      "Security posture: keys, signatures, tenant isolation, audit logs"
-    ],
-    youFitIf: [
-      "You've shipped distributed systems that scale (queues, worker pools, event-driven)",
-      "Comfortable with enterprise deployment patterns (Docker/Kubernetes, VPC constraints)",
-      "You care about correctness and want ownership"
-    ],
-    compSummary: "Monthly contractor pay + meaningful founding-level equity grant + milestone bonuses tied to revenue events.",
-    icon: <Code className="h-6 w-6" />
-  },
-  {
-    id: "fullstack-engineer",
-    title: "Full-Stack Engineer — Demo/App/PWA",
-    category: "Contractor — SF/Remote",
-    pitch: "Turn the demo experience into a gorgeous mobile-first app (PWA) that closes deals.",
-    whatYouDo: [
-      "Make the Demo Hub + demos world-class: readable, fast, mobile-perfect",
-      "Build PWA install flow (home screen app feel)",
-      "Wire Ghost preview flow + time-limited token UX (demo-safe)"
-    ],
-    youFitIf: [
-      "Strong UI/UX sense with React/TypeScript experience",
-      "You can ship fast and iterate based on feedback",
-      "Comfortable with mobile-first design and PWA patterns"
-    ],
-    compSummary: "Limited cash initially + equity available + bonuses tied to shipped milestones/revenue events.",
-    icon: <Rocket className="h-6 w-6" />
   }
 ];
 

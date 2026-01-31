@@ -112,6 +112,11 @@ const formSchema = z.object({
   settlementCurrency: z.string(),
   stripeConnectExists: z.boolean(),
   payoutTiming: z.string(),
+  payoutDestination: z.object({
+    method: z.string(),
+    accountEmail: z.string().optional(),
+    accountPhone: z.string().optional(),
+  }).optional(),
   
   // Section 6: Promoter Splits
   hasPromoter: z.boolean(),
@@ -124,6 +129,7 @@ const formSchema = z.object({
   idRequiredFor: z.array(z.string()),
   idMandatoryAtEntry: z.boolean(),
   additionalAttributes: z.array(z.string()),
+  idVerificationTier: z.string(),
   
   // Section 9: Operations
   interactionMethod: z.string(),
@@ -175,12 +181,14 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
       settlementCurrency: 'USD',
       stripeConnectExists: false,
       payoutTiming: 'daily',
+      payoutDestination: { method: '', accountEmail: '', accountPhone: '' },
       hasPromoter: false,
       promoterSplits: [],
       vendors: [],
       idRequiredFor: ['alcohol'],
       idMandatoryAtEntry: false,
       additionalAttributes: [],
+      idVerificationTier: 'tier_1',
       interactionMethod: 'both',
       enableRealtimeDashboard: true,
       estimatedStaffAtPeak: 10,
@@ -252,6 +260,8 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
           id_required_for: data.idRequiredFor,
           id_mandatory_at_entry: data.idMandatoryAtEntry,
           additional_attributes: data.additionalAttributes,
+          id_verification_tier: data.idVerificationTier,
+          payout_destination: data.stripeConnectExists ? null : data.payoutDestination,
           interaction_method: data.interactionMethod,
           enable_realtime_dashboard: data.enableRealtimeDashboard,
           estimated_staff_at_peak: data.estimatedStaffAtPeak || null,
@@ -318,7 +328,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+      <DialogContent className="max-w-6xl max-h-[90vh] p-0">
         <DialogHeader className="p-6 pb-0">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center">
@@ -725,11 +735,14 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Accepted Wallet Funding Methods</FormLabel>
-                          <div className="space-y-2">
+                          <div className="grid grid-cols-2 gap-2">
                             {[
                               { value: 'apple_pay', label: 'Apple Pay' },
                               { value: 'google_pay', label: 'Google Pay' },
                               { value: 'card', label: 'Credit / Debit' },
+                              { value: 'venmo', label: 'Venmo' },
+                              { value: 'paypal', label: 'PayPal' },
+                              { value: 'cashapp', label: 'Cash App' },
                             ].map((method) => (
                               <div key={method.value} className="flex items-center gap-2">
                                 <Checkbox
@@ -926,6 +939,70 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                         </FormItem>
                       )}
                     />
+
+                    {/* Payout Destination - shown when no Stripe Connect */}
+                    {!form.watch('stripeConnectExists') && (
+                      <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 space-y-4">
+                        <div>
+                          <h4 className="font-semibold text-amber-400 mb-1">Where should we send your payments?</h4>
+                          <p className="text-sm text-muted-foreground">
+                            For instant payouts from pre-funded wallets, we'll need your payment details.
+                          </p>
+                        </div>
+
+                        <FormField
+                          control={form.control}
+                          name="payoutDestination.method"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Payout Method</FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select payout method" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="venmo">Venmo</SelectItem>
+                                  <SelectItem value="paypal">PayPal</SelectItem>
+                                  <SelectItem value="cashapp">Cash App</SelectItem>
+                                  <SelectItem value="zelle">Zelle</SelectItem>
+                                  <SelectItem value="bank_transfer">Bank Transfer (ACH)</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </FormItem>
+                          )}
+                        />
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <FormField
+                            control={form.control}
+                            name="payoutDestination.accountEmail"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Account Email</FormLabel>
+                                <FormControl>
+                                  <Input type="email" placeholder="you@email.com" {...field} />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+
+                          <FormField
+                            control={form.control}
+                            name="payoutDestination.accountPhone"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Account Phone (optional)</FormLabel>
+                                <FormControl>
+                                  <Input type="tel" placeholder="+1 (555) 123-4567" {...field} />
+                                </FormControl>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -1220,7 +1297,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 mb-4">
                       <Badge variant="outline" className="text-cyan-500 border-cyan-500">Section 8</Badge>
-                      <h3 className="font-semibold">ID & Sensory Requirements</h3>
+                      <h3 className="font-semibold">ID & Verification Requirements</h3>
                     </div>
 
                     <FormField
@@ -1247,6 +1324,74 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                             ))}
                           </div>
                           <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    {/* ID Verification Tier Selection */}
+                    <FormField
+                      control={form.control}
+                      name="idVerificationTier"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ID Verification Level</FormLabel>
+                          <FormDescription className="mb-3">
+                            Select the level of identity verification required for this event
+                          </FormDescription>
+                          <div className="space-y-3">
+                            <div
+                              onClick={() => field.onChange('tier_1')}
+                              className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                                field.value === 'tier_1'
+                                  ? 'border-cyan-500 bg-cyan-500/10'
+                                  : 'border-border hover:border-cyan-500/50'
+                              }`}
+                            >
+                              <div className="flex items-center gap-3 mb-2">
+                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                                  field.value === 'tier_1' ? 'border-cyan-500' : 'border-muted-foreground'
+                                }`}>
+                                  {field.value === 'tier_1' && <div className="w-2 h-2 rounded-full bg-cyan-500" />}
+                                </div>
+                                <span className="font-semibold">Tier 1 — Basic ID Verification</span>
+                                <Badge variant="outline" className="text-cyan-500 border-cyan-500">Standard</Badge>
+                              </div>
+                              <ul className="text-sm text-muted-foreground ml-7 space-y-1">
+                                <li>✓ ID document is authentic (not forged)</li>
+                                <li>✓ Person matches the ID photo</li>
+                                <li>✓ Age verification</li>
+                                <li>✓ ID is not expired</li>
+                              </ul>
+                            </div>
+
+                            <div
+                              onClick={() => field.onChange('tier_2')}
+                              className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                                field.value === 'tier_2'
+                                  ? 'border-purple-500 bg-purple-500/10'
+                                  : 'border-border hover:border-purple-500/50'
+                              }`}
+                            >
+                              <div className="flex items-center gap-3 mb-2">
+                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                                  field.value === 'tier_2' ? 'border-purple-500' : 'border-muted-foreground'
+                                }`}>
+                                  {field.value === 'tier_2' && <div className="w-2 h-2 rounded-full bg-purple-500" />}
+                                </div>
+                                <span className="font-semibold">Tier 2 — Enhanced Background Check</span>
+                                <Badge variant="outline" className="text-purple-500 border-purple-500">Enhanced</Badge>
+                              </div>
+                              <p className="text-sm text-muted-foreground ml-7 mb-2">
+                                Includes all Tier 1 checks, plus:
+                              </p>
+                              <ul className="text-sm text-muted-foreground ml-7 space-y-1">
+                                <li>✓ Terrorist Watch List screening</li>
+                                <li>✓ Most Wanted List check</li>
+                                <li>✓ Sexual Predator Registry check</li>
+                                <li>✓ Criminal background screening</li>
+                              </ul>
+                            </div>
+                          </div>
                         </FormItem>
                       )}
                     />

@@ -104,6 +104,11 @@ const formSchema = z.object({
   numFoodConcessions: z.number().min(0),
   numMerchLocations: z.number().min(0),
   numVipLounges: z.number().min(0),
+  // Scan Hardware Deployment
+  numCountertopUnits: z.number().min(0),
+  countertopLocations: z.string().optional(),
+  numHandheldUnits: z.number().min(0),
+  handheldLocations: z.string().optional(),
   // Outside Vendors
   hasOutsideVendors: z.boolean(),
   outsideVendorCount: z.number().min(0),
@@ -190,6 +195,10 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
       numFoodConcessions: 0,
       numMerchLocations: 0,
       numVipLounges: 0,
+      numCountertopUnits: 0,
+      countertopLocations: '',
+      numHandheldUnits: 0,
+      handheldLocations: '',
       hasOutsideVendors: false,
       outsideVendorCount: 0,
       outsideVendorTypes: [],
@@ -273,6 +282,10 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
           num_food_concessions: data.numFoodConcessions,
           num_merch_locations: data.numMerchLocations,
           num_vip_lounges: data.numVipLounges,
+          num_countertop_units: data.numCountertopUnits,
+          countertop_locations: data.countertopLocations || null,
+          num_handheld_units: data.numHandheldUnits,
+          handheld_locations: data.handheldLocations || null,
           has_outside_vendors: data.hasOutsideVendors,
           outside_vendor_count: data.outsideVendorCount,
           outside_vendor_types: data.outsideVendorTypes,
@@ -748,16 +761,79 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                           name="numVipLounges"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="flex items-center gap-2">
-                                VIP Lounges
-                                <Badge variant="secondary" className="text-xs bg-purple-500/20 text-purple-400 border-purple-500/30">Adjustable</Badge>
-                              </FormLabel>
+                              <FormLabel>VIP Lounges</FormLabel>
                               <FormControl>
                                 <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
                               </FormControl>
                             </FormItem>
                           )}
                         />
+                      </div>
+
+                      {/* Scan Hardware Deployment */}
+                      <div className="border-t pt-4 mt-4">
+                        <h5 className="font-medium text-sm text-muted-foreground mb-2">Scan Hardware Deployment</h5>
+                        <FormDescription className="mb-4">
+                          Specify how many Ghost Pass scanners you need and where they'll be positioned.
+                        </FormDescription>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-3">
+                            <FormField
+                              control={form.control}
+                              name="numCountertopUnits"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Countertop Units (10" or 12" Android Pad)</FormLabel>
+                                  <FormControl>
+                                    <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="countertopLocations"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Countertop Placement</FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="e.g., Main bar, VIP entrance, merch booth" {...field} />
+                                  </FormControl>
+                                  <FormDescription>Where should countertop units be deployed?</FormDescription>
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <FormField
+                              control={form.control}
+                              name="numHandheldUnits"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Handheld Units (Phone-Size Scanners)</FormLabel>
+                                  <FormControl>
+                                    <Input type="number" min={0} {...field} onChange={e => field.onChange(parseInt(e.target.value) || 0)} />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="handheldLocations"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Handheld Placement</FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="e.g., Table servers, VIP hosts, roaming staff" {...field} />
+                                  </FormControl>
+                                  <FormDescription>Who will carry handheld scanners?</FormDescription>
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -775,7 +851,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                           <FormItem className="flex items-center justify-between rounded-lg border p-3 bg-muted/30">
                             <div>
                               <FormLabel>Outside Vendors Present?</FormLabel>
-                              <FormDescription>Third-party sellers integrated into Ghost Pass</FormDescription>
+                              <FormDescription>Third-party sellers integrated into Ghost Pass. Vendor details will be configured in the Vendor section.</FormDescription>
                             </div>
                             <FormControl>
                               <Switch checked={field.value} onCheckedChange={field.onChange} />

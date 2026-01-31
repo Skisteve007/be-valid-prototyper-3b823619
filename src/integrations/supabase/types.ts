@@ -1325,7 +1325,9 @@ export type Database = {
           num_food_concessions: number | null
           num_handheld_units: number | null
           num_interior_reentry_points: number | null
+          num_management_access_codes: number | null
           num_merch_locations: number | null
+          num_ownership_gateway_codes: number | null
           num_server_stations: number | null
           num_table_service_areas: number | null
           outside_vendor_count: number | null
@@ -1382,7 +1384,9 @@ export type Database = {
           num_food_concessions?: number | null
           num_handheld_units?: number | null
           num_interior_reentry_points?: number | null
+          num_management_access_codes?: number | null
           num_merch_locations?: number | null
+          num_ownership_gateway_codes?: number | null
           num_server_stations?: number | null
           num_table_service_areas?: number | null
           outside_vendor_count?: number | null
@@ -1439,7 +1443,9 @@ export type Database = {
           num_food_concessions?: number | null
           num_handheld_units?: number | null
           num_interior_reentry_points?: number | null
+          num_management_access_codes?: number | null
           num_merch_locations?: number | null
+          num_ownership_gateway_codes?: number | null
           num_server_stations?: number | null
           num_table_service_areas?: number | null
           outside_vendor_count?: number | null

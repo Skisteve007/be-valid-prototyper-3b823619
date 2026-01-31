@@ -1310,6 +1310,7 @@ export type Database = {
           id: string
           id_mandatory_at_entry: boolean | null
           id_required_for: string[] | null
+          id_verification_tier: string | null
           interaction_method: string | null
           jurisdiction_notes: string | null
           legal_business_name: string | null
@@ -1317,6 +1318,7 @@ export type Database = {
           num_exterior_vip_entry_points: number | null
           num_interior_reentry_points: number | null
           pass_types: Json | null
+          payout_destination: Json | null
           payout_timing: string | null
           platform_fee_amount: number | null
           platform_fee_enabled: boolean | null
@@ -1352,6 +1354,7 @@ export type Database = {
           id?: string
           id_mandatory_at_entry?: boolean | null
           id_required_for?: string[] | null
+          id_verification_tier?: string | null
           interaction_method?: string | null
           jurisdiction_notes?: string | null
           legal_business_name?: string | null
@@ -1359,6 +1362,7 @@ export type Database = {
           num_exterior_vip_entry_points?: number | null
           num_interior_reentry_points?: number | null
           pass_types?: Json | null
+          payout_destination?: Json | null
           payout_timing?: string | null
           platform_fee_amount?: number | null
           platform_fee_enabled?: boolean | null
@@ -1394,6 +1398,7 @@ export type Database = {
           id?: string
           id_mandatory_at_entry?: boolean | null
           id_required_for?: string[] | null
+          id_verification_tier?: string | null
           interaction_method?: string | null
           jurisdiction_notes?: string | null
           legal_business_name?: string | null
@@ -1401,6 +1406,7 @@ export type Database = {
           num_exterior_vip_entry_points?: number | null
           num_interior_reentry_points?: number | null
           pass_types?: Json | null
+          payout_destination?: Json | null
           payout_timing?: string | null
           platform_fee_amount?: number | null
           platform_fee_enabled?: boolean | null

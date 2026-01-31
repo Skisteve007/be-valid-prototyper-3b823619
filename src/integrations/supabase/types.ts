@@ -1306,17 +1306,26 @@ export type Database = {
           event_end_date: string | null
           event_name: string
           event_start_date: string
+          has_outside_vendors: boolean | null
           has_promoter: boolean | null
           id: string
           id_mandatory_at_entry: boolean | null
           id_required_for: string[] | null
           id_verification_tier: string | null
           interaction_method: string | null
+          interior_locations: string[] | null
           jurisdiction_notes: string | null
           legal_business_name: string | null
+          num_bar_locations: number | null
           num_exterior_ga_entry_points: number | null
           num_exterior_vip_entry_points: number | null
+          num_food_concessions: number | null
           num_interior_reentry_points: number | null
+          num_merch_locations: number | null
+          num_server_stations: number | null
+          num_table_service_areas: number | null
+          outside_vendor_count: number | null
+          outside_vendor_types: string[] | null
           pass_types: Json | null
           payout_destination: Json | null
           payout_timing: string | null
@@ -1350,17 +1359,26 @@ export type Database = {
           event_end_date?: string | null
           event_name: string
           event_start_date: string
+          has_outside_vendors?: boolean | null
           has_promoter?: boolean | null
           id?: string
           id_mandatory_at_entry?: boolean | null
           id_required_for?: string[] | null
           id_verification_tier?: string | null
           interaction_method?: string | null
+          interior_locations?: string[] | null
           jurisdiction_notes?: string | null
           legal_business_name?: string | null
+          num_bar_locations?: number | null
           num_exterior_ga_entry_points?: number | null
           num_exterior_vip_entry_points?: number | null
+          num_food_concessions?: number | null
           num_interior_reentry_points?: number | null
+          num_merch_locations?: number | null
+          num_server_stations?: number | null
+          num_table_service_areas?: number | null
+          outside_vendor_count?: number | null
+          outside_vendor_types?: string[] | null
           pass_types?: Json | null
           payout_destination?: Json | null
           payout_timing?: string | null
@@ -1394,17 +1412,26 @@ export type Database = {
           event_end_date?: string | null
           event_name?: string
           event_start_date?: string
+          has_outside_vendors?: boolean | null
           has_promoter?: boolean | null
           id?: string
           id_mandatory_at_entry?: boolean | null
           id_required_for?: string[] | null
           id_verification_tier?: string | null
           interaction_method?: string | null
+          interior_locations?: string[] | null
           jurisdiction_notes?: string | null
           legal_business_name?: string | null
+          num_bar_locations?: number | null
           num_exterior_ga_entry_points?: number | null
           num_exterior_vip_entry_points?: number | null
+          num_food_concessions?: number | null
           num_interior_reentry_points?: number | null
+          num_merch_locations?: number | null
+          num_server_stations?: number | null
+          num_table_service_areas?: number | null
+          outside_vendor_count?: number | null
+          outside_vendor_types?: string[] | null
           pass_types?: Json | null
           payout_destination?: Json | null
           payout_timing?: string | null

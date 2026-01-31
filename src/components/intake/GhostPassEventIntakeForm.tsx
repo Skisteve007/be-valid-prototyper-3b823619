@@ -1336,7 +1336,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                         <FormItem>
                           <FormLabel>ID Verification Level</FormLabel>
                           <FormDescription className="mb-3">
-                            Select the level of identity verification required for this event
+                            Select the level of identity verification required for this event. Each tier has different per-scan fees based on verification intensity.
                           </FormDescription>
                           <div className="space-y-3">
                             <div
@@ -1362,6 +1362,11 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                                 <li>✓ Age verification</li>
                                 <li>✓ ID is not expired</li>
                               </ul>
+                              <div className="mt-3 ml-7 p-2 rounded bg-cyan-500/5 border border-cyan-500/20">
+                                <p className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">
+                                  💰 Standard per-scan rate • Volume-tiered pricing
+                                </p>
+                              </div>
                             </div>
 
                             <div
@@ -1390,7 +1395,17 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                                 <li>✓ Sexual Predator Registry check</li>
                                 <li>✓ Criminal background screening</li>
                               </ul>
+                              <div className="mt-3 ml-7 p-2 rounded bg-purple-500/5 border border-purple-500/20">
+                                <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                                  💰 Premium per-scan rate • Higher multiplier for deep screening
+                                </p>
+                              </div>
                             </div>
+                          </div>
+                          <div className="mt-4 p-3 rounded-lg bg-muted/50 border border-border">
+                            <p className="text-xs text-muted-foreground">
+                              <strong>Pricing Note:</strong> Final per-scan rates are determined after intake review based on expected volume, event size, and liability tier. Volume-based discounts apply—larger events receive lower per-scan rates.
+                            </p>
                           </div>
                         </FormItem>
                       )}

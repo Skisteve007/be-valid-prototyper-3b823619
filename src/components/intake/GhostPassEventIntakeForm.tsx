@@ -729,13 +729,18 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                       <h3 className="font-semibold">Wallet & Payment Rules</h3>
                     </div>
 
+                    {/* Preferred Wallet Funding Methods */}
                     <FormField
                       control={form.control}
                       name="acceptedWalletMethods"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Accepted Wallet Funding Methods</FormLabel>
-                          <div className="grid grid-cols-2 gap-2">
+                          <FormLabel>Preferred Wallet Funding Methods</FormLabel>
+                          <FormDescription>
+                            Ghost Pass uses a <strong>pre-funded wallet</strong> system. VALID supports all major funding methods by default. 
+                            If your attendees have a <strong>strict preference</strong> for specific methods, select them below. Otherwise, leave blank to accept all.
+                          </FormDescription>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                             {[
                               { value: 'apple_pay', label: 'Apple Pay' },
                               { value: 'google_pay', label: 'Google Pay' },
@@ -759,42 +764,80 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                               </div>
                             ))}
                           </div>
+                          <p className="text-xs text-muted-foreground mt-2">
+                            💡 If no preferences are selected, all funding methods will be available to your attendees.
+                          </p>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
 
+                    {/* Per-Scan Fee Responsibility */}
                     <FormField
                       control={form.control}
                       name="platformFeeEnabled"
                       render={({ field }) => (
-                        <FormItem className="flex items-center justify-between rounded-lg border p-4">
-                          <div>
-                            <FormLabel>Enable Ghost Pass Platform Usage Fee?</FormLabel>
-                            <FormDescription>Platform fees are deducted automatically from the user wallet before payouts</FormDescription>
+                        <FormItem>
+                          <FormLabel>Per-Scan Fee Responsibility</FormLabel>
+                          <FormDescription>
+                            Ghost Pass charges a per-scan fee for each authorization event (door entry or purchase). Who should pay this fee?
+                          </FormDescription>
+                          <div className="space-y-3 mt-3">
+                            <div
+                              className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                                field.value === false
+                                  ? "border-primary bg-primary/5"
+                                  : "border-border hover:border-primary/50"
+                              }`}
+                              onClick={() => field.onChange(false)}
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                                  field.value === false ? "border-primary" : "border-muted-foreground"
+                                }`}>
+                                  {field.value === false && <div className="w-2 h-2 rounded-full bg-primary" />}
+                                </div>
+                                <div>
+                                  <p className="font-medium">Venue / Event Pays</p>
+                                  <p className="text-sm text-muted-foreground">
+                                    Your organization absorbs the per-scan fee. Seamless experience for attendees.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div
+                              className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                                field.value === true
+                                  ? "border-primary bg-primary/5"
+                                  : "border-border hover:border-primary/50"
+                              }`}
+                              onClick={() => field.onChange(true)}
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                                  field.value === true ? "border-primary" : "border-muted-foreground"
+                                }`}>
+                                  {field.value === true && <div className="w-2 h-2 rounded-full bg-primary" />}
+                                </div>
+                                <div>
+                                  <p className="font-medium">Attendee / User Pays</p>
+                                  <p className="text-sm text-muted-foreground">
+                                    The fee is deducted from the user's wallet balance per scan event.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <FormControl>
-                            <Switch checked={field.value} onCheckedChange={field.onChange} />
-                          </FormControl>
+                          
+                          <div className="mt-4 p-3 rounded-lg bg-muted/50 border border-border">
+                            <p className="text-xs text-muted-foreground">
+                              <strong>Scan Fee Pricing:</strong> Per-scan fees range from <strong>$0.10 to $0.50</strong> and are finalized after the intake review based on event specifications, expected volume, and liability tier. This applies to each authorization—whether at the door or at any point of sale.
+                            </p>
+                          </div>
                         </FormItem>
                       )}
                     />
-
-                    {form.watch('platformFeeEnabled') && (
-                      <FormField
-                        control={form.control}
-                        name="platformFeeAmount"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Platform Fee Amount ($)</FormLabel>
-                            <FormControl>
-                              <Input type="number" min={0} step={0.01} {...field} onChange={e => field.onChange(parseFloat(e.target.value) || 0)} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    )}
                   </div>
                 )}
 

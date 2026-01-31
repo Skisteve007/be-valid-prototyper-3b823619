@@ -1,7 +1,7 @@
 // Pipeline Test v2: Fresh deployment - Dec 14, 2024 @ 15:42 UTC
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown, Brain, FileText, UserCheck, ArrowRight, ClipboardList, ShieldAlert } from 'lucide-react';
+import { Sun, Moon, Globe, Ghost, Shield, Lock, ChevronDown, Brain, FileText, UserCheck, ArrowRight, ClipboardList, ShieldAlert, Ticket } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useReferralTracking } from "@/hooks/useReferralTracking";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Hero from "@/components/Hero";
 import AIGovernanceIntakeForm from "@/components/intake/AIGovernanceIntakeForm";
 import RiskStabilizationModal from "@/components/intake/RiskStabilizationModal";
+import { GhostPassEventIntakeForm } from "@/components/intake/GhostPassEventIntakeForm";
 
 // Lazy load non-critical below-fold components
 const JoinFreePills = lazy(() => import("@/components/JoinFreePills").then(m => ({ default: m.JoinFreePills })));
@@ -26,6 +27,7 @@ const Index = () => {
   useReferralTracking();
   const [isIntakeFormOpen, setIsIntakeFormOpen] = useState(false);
   const [isRiskEngagementOpen, setIsRiskEngagementOpen] = useState(false);
+  const [isGhostPassIntakeOpen, setIsGhostPassIntakeOpen] = useState(false);
 
   // --- THEME ENGINE - Sync with global dark class ---
   const [isDark, setIsDark] = useState(() => {
@@ -174,6 +176,24 @@ const Index = () => {
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-6">
           {/* Left side - Pills (outside the card) */}
           <div className="flex-shrink-0 flex flex-col gap-3">
+            {/* Ghost Pass Event Intake Pill */}
+            <button
+              onClick={() => setIsGhostPassIntakeOpen(true)}
+              className={`
+                flex items-center gap-3 px-5 py-3 rounded-full
+                border transition-all duration-300 cursor-pointer whitespace-nowrap
+                ${isDark 
+                  ? 'bg-gradient-to-r from-cyan-500/20 via-purple-500/15 to-cyan-500/20 border-cyan-500/50 hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(6,182,212,0.4)]' 
+                  : 'bg-gradient-to-r from-cyan-100 via-purple-50 to-cyan-100 border-cyan-300 hover:border-cyan-400 hover:shadow-lg'
+                }
+              `}
+            >
+              <Ticket className={`h-5 w-5 flex-shrink-0 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+              <span className={`text-sm font-semibold ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>
+                Ghost Pass Event Intake Survey
+              </span>
+            </button>
+
             {/* Risk Stabilization Pill - Horizontal */}
             <button
               onClick={() => setIsRiskEngagementOpen(true)}
@@ -292,6 +312,12 @@ const Index = () => {
       <AIGovernanceIntakeForm 
         isOpen={isIntakeFormOpen} 
         onClose={() => setIsIntakeFormOpen(false)} 
+      />
+
+      {/* Ghost Pass Event Intake Form Modal */}
+      <GhostPassEventIntakeForm 
+        isOpen={isGhostPassIntakeOpen} 
+        onClose={() => setIsGhostPassIntakeOpen(false)} 
       />
       {/* PIPELINE, NOT VAULT - Trust Enhancer with Image Background */}
       <section className="relative z-10 overflow-hidden">

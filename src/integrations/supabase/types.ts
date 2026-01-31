@@ -1292,6 +1292,143 @@ export type Database = {
           },
         ]
       }
+      ghost_pass_event_intakes: {
+        Row: {
+          accepted_wallet_methods: string[] | null
+          additional_attributes: string[] | null
+          bank_account_country: string | null
+          created_at: string
+          enable_realtime_dashboard: boolean | null
+          entity_type: string | null
+          entry_types: string[] | null
+          estimated_attendance: string | null
+          estimated_staff_at_peak: number | null
+          event_end_date: string | null
+          event_name: string
+          event_start_date: string
+          has_promoter: boolean | null
+          id: string
+          id_mandatory_at_entry: boolean | null
+          id_required_for: string[] | null
+          interaction_method: string | null
+          jurisdiction_notes: string | null
+          legal_business_name: string | null
+          num_exterior_ga_entry_points: number | null
+          num_exterior_vip_entry_points: number | null
+          num_interior_reentry_points: number | null
+          pass_types: Json | null
+          payout_timing: string | null
+          platform_fee_amount: number | null
+          platform_fee_enabled: boolean | null
+          promoter_splits: Json | null
+          reentry_allowed: boolean | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          settlement_currency: string | null
+          special_instructions: string | null
+          status: string | null
+          stripe_connect_exists: boolean | null
+          submitter_email: string | null
+          updated_at: string
+          vendor_id: string | null
+          vendors: Json | null
+          venue_address: string | null
+          venue_name: string | null
+        }
+        Insert: {
+          accepted_wallet_methods?: string[] | null
+          additional_attributes?: string[] | null
+          bank_account_country?: string | null
+          created_at?: string
+          enable_realtime_dashboard?: boolean | null
+          entity_type?: string | null
+          entry_types?: string[] | null
+          estimated_attendance?: string | null
+          estimated_staff_at_peak?: number | null
+          event_end_date?: string | null
+          event_name: string
+          event_start_date: string
+          has_promoter?: boolean | null
+          id?: string
+          id_mandatory_at_entry?: boolean | null
+          id_required_for?: string[] | null
+          interaction_method?: string | null
+          jurisdiction_notes?: string | null
+          legal_business_name?: string | null
+          num_exterior_ga_entry_points?: number | null
+          num_exterior_vip_entry_points?: number | null
+          num_interior_reentry_points?: number | null
+          pass_types?: Json | null
+          payout_timing?: string | null
+          platform_fee_amount?: number | null
+          platform_fee_enabled?: boolean | null
+          promoter_splits?: Json | null
+          reentry_allowed?: boolean | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          settlement_currency?: string | null
+          special_instructions?: string | null
+          status?: string | null
+          stripe_connect_exists?: boolean | null
+          submitter_email?: string | null
+          updated_at?: string
+          vendor_id?: string | null
+          vendors?: Json | null
+          venue_address?: string | null
+          venue_name?: string | null
+        }
+        Update: {
+          accepted_wallet_methods?: string[] | null
+          additional_attributes?: string[] | null
+          bank_account_country?: string | null
+          created_at?: string
+          enable_realtime_dashboard?: boolean | null
+          entity_type?: string | null
+          entry_types?: string[] | null
+          estimated_attendance?: string | null
+          estimated_staff_at_peak?: number | null
+          event_end_date?: string | null
+          event_name?: string
+          event_start_date?: string
+          has_promoter?: boolean | null
+          id?: string
+          id_mandatory_at_entry?: boolean | null
+          id_required_for?: string[] | null
+          interaction_method?: string | null
+          jurisdiction_notes?: string | null
+          legal_business_name?: string | null
+          num_exterior_ga_entry_points?: number | null
+          num_exterior_vip_entry_points?: number | null
+          num_interior_reentry_points?: number | null
+          pass_types?: Json | null
+          payout_timing?: string | null
+          platform_fee_amount?: number | null
+          platform_fee_enabled?: boolean | null
+          promoter_splits?: Json | null
+          reentry_allowed?: boolean | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          settlement_currency?: string | null
+          special_instructions?: string | null
+          status?: string | null
+          stripe_connect_exists?: boolean | null
+          submitter_email?: string | null
+          updated_at?: string
+          vendor_id?: string | null
+          vendors?: Json | null
+          venue_address?: string | null
+          venue_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ghost_pass_event_intakes_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ghost_token_events: {
         Row: {
           actor_id: string | null

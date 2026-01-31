@@ -1055,9 +1055,22 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                           <FormLabel>Preferred Wallet Funding Methods</FormLabel>
                           <FormDescription>
                             Ghost Pass uses a <strong>pre-funded wallet</strong> system. VALID supports all major funding methods by default. 
-                            If your attendees have a <strong>strict preference</strong> for specific methods, select them below. Otherwise, leave blank to accept all.
+                            If your attendees have a <strong>strict preference</strong> for specific methods, select them below.
                           </FormDescription>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                          <div className="flex items-center justify-between mt-2 mb-2">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={() => field.onChange(['apple_pay', 'google_pay', 'card', 'venmo', 'paypal', 'cashapp'])}
+                            >
+                              Accept All
+                            </Button>
+                            {field.value?.length === 6 && (
+                              <Badge variant="secondary" className="text-xs">All methods selected</Badge>
+                            )}
+                          </div>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                             {[
                               { value: 'apple_pay', label: 'Apple Pay' },
                               { value: 'google_pay', label: 'Google Pay' },
@@ -1081,9 +1094,6 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                               </div>
                             ))}
                           </div>
-                          <p className="text-xs text-muted-foreground mt-2">
-                            💡 If no preferences are selected, all funding methods will be available to your attendees.
-                          </p>
                           <FormMessage />
                         </FormItem>
                       )}

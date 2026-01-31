@@ -152,6 +152,8 @@ const formSchema = z.object({
   interactionMethod: z.string(),
   enableRealtimeDashboard: z.boolean(),
   estimatedStaffAtPeak: z.number().optional(),
+  numManagementAccessCodes: z.number().min(0),
+  numOwnershipGatewayCodes: z.number().min(0),
   
   // Section 10: Compliance
   jurisdictionNotes: z.string().optional(),
@@ -223,6 +225,8 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
       interactionMethod: 'both',
       enableRealtimeDashboard: true,
       estimatedStaffAtPeak: 10,
+      numManagementAccessCodes: 1,
+      numOwnershipGatewayCodes: 1,
       jurisdictionNotes: '',
       specialInstructions: '',
       submitterEmail: '',
@@ -1925,6 +1929,61 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                         </FormItem>
                       )}
                     />
+
+                    <Separator className="my-4" />
+
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-sm">Access Code Allocation</h4>
+                      <FormDescription className="!mt-1">
+                        Define how many access codes will be needed for management and ownership roles.
+                      </FormDescription>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="numManagementAccessCodes"
+                          render={({ field }) => (
+                            <FormItem className="p-4 rounded-lg border">
+                              <FormLabel>Management Access Codes</FormLabel>
+                              <FormDescription className="text-xs">
+                                For managers who need to make changes, view reports, and manage staff operations.
+                              </FormDescription>
+                              <FormControl>
+                                <Input 
+                                  type="number" 
+                                  min={0} 
+                                  {...field} 
+                                  onChange={e => field.onChange(parseInt(e.target.value) || 0)} 
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name="numOwnershipGatewayCodes"
+                          render={({ field }) => (
+                            <FormItem className="p-4 rounded-lg border">
+                              <FormLabel>Ownership Gateway Codes</FormLabel>
+                              <FormDescription className="text-xs">
+                                For owners/principals with full access and payout control. Each code is assigned to a specific owner.
+                              </FormDescription>
+                              <FormControl>
+                                <Input 
+                                  type="number" 
+                                  min={0} 
+                                  {...field} 
+                                  onChange={e => field.onChange(parseInt(e.target.value) || 0)} 
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
                   </div>
                 )}
 

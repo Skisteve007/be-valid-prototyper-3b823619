@@ -29,59 +29,59 @@ const Footer = () => {
   
   return (
     <footer className="w-full mt-auto border-t border-slate-400 dark:border-slate-700 bg-slate-800 dark:bg-slate-950">
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-6">
       
         {/* Core Tagline */}
-        <div className="text-center mb-4 pb-4 border-b border-slate-600">
-          <p className="text-lg font-bold text-white tracking-wide">{t('footer.tagline')}</p>
-          <p className="text-xs text-gray-400 mt-1">{t('footer.taglineDesc')}</p>
+        <div className="text-center mb-6 pb-6 border-b border-slate-600">
+          <p className="text-xl font-bold text-white tracking-wide">{t('footer.tagline')}</p>
+          <p className="text-sm text-gray-400 mt-2">{t('footer.taglineDesc')}</p>
         </div>
 
       {/* Compact Legal Section */}
-        <div className="text-[12px] leading-relaxed space-y-1.5 mb-3 text-slate-200">
+        <div className="text-sm leading-relaxed space-y-2 mb-4 text-slate-200">
           <p>{t('footer.copyrightCompany')}</p>
           <p><strong className="text-white">{t('footer.disclaimerLabel')}</strong> {t('footer.disclaimerText')}</p>
         </div>
 
         {/* Legal Notice */}
-        <div className="text-[10px] leading-relaxed mb-3 text-slate-400 border-t border-slate-600 pt-3">
+        <div className="text-sm leading-relaxed mb-4 text-slate-400 border-t border-slate-600 pt-4">
           <p className="mb-2"><strong className="text-slate-300">{t('footer.legalNoticeLabel')}</strong> {t('footer.legalNoticeText')}</p>
-          <p className="text-slate-500">{t('footer.ndaContact')} <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a>.</p>
+          <p className="text-slate-400">{t('footer.ndaContact')} <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a>.</p>
         </div>
 
         {/* Language Selector */}
-        <div className="border-t border-slate-600 pt-3 mb-3">
-          <p className="text-xs text-slate-400 mb-2 text-center">{t('footer.selectLanguage')}</p>
+        <div className="border-t border-slate-600 pt-4 mb-4">
+          <p className="text-sm text-slate-400 mb-3 text-center">{t('footer.selectLanguage')}</p>
           <LanguageSelector variant="footer" />
         </div>
 
         {/* Contact Email */}
-        <div className="text-center py-2 border-t border-slate-600">
-          <p className="text-xs text-slate-400">{t('footer.contact')}: <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a></p>
+        <div className="text-center py-3 border-t border-slate-600">
+          <p className="text-sm text-slate-400">{t('footer.contact')}: <a href="mailto:steve@bevalid.app" className="text-cyan-400 hover:underline">steve@bevalid.app</a></p>
         </div>
 
         {/* Patent Pending Notice */}
-        <div className="text-center py-2 border-t border-slate-600">
-          <p className="text-[10px] text-slate-400 leading-relaxed">
+        <div className="text-center py-3 border-t border-slate-600">
+          <p className="text-sm text-slate-400 leading-relaxed">
             {t('footer.patentPending')}
           </p>
         </div>
 
         {/* Identity Anchor - Canonical Founder Attribution */}
-        <div className="text-center py-3 border-t border-slate-600 bg-slate-900/50">
-          <p className="text-[11px] text-slate-300 leading-relaxed max-w-3xl mx-auto">
+        <div className="text-center py-4 border-t border-slate-600 bg-slate-900/50">
+          <p className="text-sm text-slate-300 leading-relaxed max-w-3xl mx-auto">
             {t('footer.identityAnchor')}
           </p>
-          <p className="text-[9px] text-slate-500 mt-1.5 italic">
+          <p className="text-xs text-slate-500 mt-2 italic">
             {t('footer.noAffiliation')}
           </p>
-          <p className="text-[9px] text-slate-500 mt-1.5">
+          <p className="text-xs text-slate-500 mt-2">
             Not affiliated with the television personality named "Steven Grillo." See our <Link to="/brand-safety" className="text-cyan-400 hover:underline">Brand Safety</Link> notice.
           </p>
         </div>
 
         {/* Links & Compliance Row */}
-        <div className="flex flex-wrap items-center justify-between gap-2 text-[13px] border-t border-slate-600 pt-3 bg-slate-950 -mx-4 px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 text-sm border-t border-slate-600 pt-4 bg-slate-950 -mx-4 px-4 py-4">
           {/* Left side - legal links */}
           <div className="flex flex-wrap items-center gap-2">
             <Link to="/terms" className="hover:text-emerald-400 transition-colors underline font-bold text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)]">{t('footer.terms')}</Link>

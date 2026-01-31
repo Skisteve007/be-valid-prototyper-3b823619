@@ -1297,6 +1297,7 @@ export type Database = {
           accepted_wallet_methods: string[] | null
           additional_attributes: string[] | null
           bank_account_country: string | null
+          countertop_locations: string | null
           created_at: string
           enable_realtime_dashboard: boolean | null
           entity_type: string | null
@@ -1306,6 +1307,7 @@ export type Database = {
           event_end_date: string | null
           event_name: string
           event_start_date: string
+          handheld_locations: string | null
           has_outside_vendors: boolean | null
           has_promoter: boolean | null
           id: string
@@ -1317,9 +1319,11 @@ export type Database = {
           jurisdiction_notes: string | null
           legal_business_name: string | null
           num_bar_locations: number | null
+          num_countertop_units: number | null
           num_exterior_ga_entry_points: number | null
           num_exterior_vip_entry_points: number | null
           num_food_concessions: number | null
+          num_handheld_units: number | null
           num_interior_reentry_points: number | null
           num_merch_locations: number | null
           num_server_stations: number | null
@@ -1350,6 +1354,7 @@ export type Database = {
           accepted_wallet_methods?: string[] | null
           additional_attributes?: string[] | null
           bank_account_country?: string | null
+          countertop_locations?: string | null
           created_at?: string
           enable_realtime_dashboard?: boolean | null
           entity_type?: string | null
@@ -1359,6 +1364,7 @@ export type Database = {
           event_end_date?: string | null
           event_name: string
           event_start_date: string
+          handheld_locations?: string | null
           has_outside_vendors?: boolean | null
           has_promoter?: boolean | null
           id?: string
@@ -1370,9 +1376,11 @@ export type Database = {
           jurisdiction_notes?: string | null
           legal_business_name?: string | null
           num_bar_locations?: number | null
+          num_countertop_units?: number | null
           num_exterior_ga_entry_points?: number | null
           num_exterior_vip_entry_points?: number | null
           num_food_concessions?: number | null
+          num_handheld_units?: number | null
           num_interior_reentry_points?: number | null
           num_merch_locations?: number | null
           num_server_stations?: number | null
@@ -1403,6 +1411,7 @@ export type Database = {
           accepted_wallet_methods?: string[] | null
           additional_attributes?: string[] | null
           bank_account_country?: string | null
+          countertop_locations?: string | null
           created_at?: string
           enable_realtime_dashboard?: boolean | null
           entity_type?: string | null
@@ -1412,6 +1421,7 @@ export type Database = {
           event_end_date?: string | null
           event_name?: string
           event_start_date?: string
+          handheld_locations?: string | null
           has_outside_vendors?: boolean | null
           has_promoter?: boolean | null
           id?: string
@@ -1423,9 +1433,11 @@ export type Database = {
           jurisdiction_notes?: string | null
           legal_business_name?: string | null
           num_bar_locations?: number | null
+          num_countertop_units?: number | null
           num_exterior_ga_entry_points?: number | null
           num_exterior_vip_entry_points?: number | null
           num_food_concessions?: number | null
+          num_handheld_units?: number | null
           num_interior_reentry_points?: number | null
           num_merch_locations?: number | null
           num_server_stations?: number | null

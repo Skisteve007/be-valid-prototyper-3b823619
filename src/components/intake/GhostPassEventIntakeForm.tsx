@@ -1706,9 +1706,40 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                         <FormItem>
                           <FormLabel>ID Verification Level</FormLabel>
                           <FormDescription className="mb-3">
-                            Select the level of identity verification required for this event. Each tier has different per-scan fees based on verification intensity.
+                            Select the level of identity verification required for this event. Tier 1 and Tier 2 incur additional charges on top of the per-scan fee.
                           </FormDescription>
                           <div className="space-y-3">
+                            {/* Self-Check Option */}
+                            <div
+                              onClick={() => field.onChange('self_check')}
+                              className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                                field.value === 'self_check'
+                                  ? 'border-green-500 bg-green-500/10'
+                                  : 'border-border hover:border-green-500/50'
+                              }`}
+                            >
+                              <div className="flex items-center gap-3 mb-2">
+                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                                  field.value === 'self_check' ? 'border-green-500' : 'border-muted-foreground'
+                                }`}>
+                                  {field.value === 'self_check' && <div className="w-2 h-2 rounded-full bg-green-500" />}
+                                </div>
+                                <span className="font-semibold">Self-Check</span>
+                                <Badge variant="outline" className="text-green-500 border-green-500">No Additional Charge</Badge>
+                              </div>
+                              <ul className="text-sm text-muted-foreground ml-7 space-y-1">
+                                <li>✓ User self-attests age/identity</li>
+                                <li>✓ Basic wallet activation</li>
+                                <li>✓ No document verification</li>
+                              </ul>
+                              <div className="mt-3 ml-7 p-2 rounded bg-green-500/5 border border-green-500/20">
+                                <p className="text-xs text-green-600 dark:text-green-400 font-medium">
+                                  ✨ Included with per-scan fee • No additional verification charges
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Tier 1 Option */}
                             <div
                               onClick={() => field.onChange('tier_1')}
                               className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
@@ -1734,11 +1765,12 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                               </ul>
                               <div className="mt-3 ml-7 p-2 rounded bg-cyan-500/5 border border-cyan-500/20">
                                 <p className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">
-                                  💰 Standard per-scan rate • Volume-tiered pricing
+                                  💰 Additional fee per verification • Volume-tiered pricing
                                 </p>
                               </div>
                             </div>
 
+                            {/* Tier 2 Option */}
                             <div
                               onClick={() => field.onChange('tier_2')}
                               className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
@@ -1767,14 +1799,14 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                               </ul>
                               <div className="mt-3 ml-7 p-2 rounded bg-purple-500/5 border border-purple-500/20">
                                 <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">
-                                  💰 Premium per-scan rate • Higher multiplier for deep screening
+                                  💰 Premium additional fee • Higher multiplier for deep screening
                                 </p>
                               </div>
                             </div>
                           </div>
                           <div className="mt-4 p-3 rounded-lg bg-muted/50 border border-border">
                             <p className="text-xs text-muted-foreground">
-                              <strong>Pricing Note:</strong> Final per-scan rates are determined after intake review based on expected volume, event size, and liability tier. Volume-based discounts apply—larger events receive lower per-scan rates.
+                              <strong>Pricing Note:</strong> Tier 1 and Tier 2 incur additional per-verification fees on top of the base per-scan rate. Final rates are determined after intake review based on expected volume, event size, and liability tier.
                             </p>
                           </div>
                         </FormItem>

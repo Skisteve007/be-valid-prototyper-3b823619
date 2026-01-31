@@ -2070,14 +2070,38 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                       <h3 className="font-semibold">Compliance & Notes</h3>
                     </div>
 
+                    {/* Zero-Trust Security Notice */}
+                    <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <Shield className="h-5 w-5 text-destructive mt-0.5 shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-destructive mb-2">Zero-Trust Security Environment</h4>
+                          <p className="text-sm text-muted-foreground">
+                            VALID™ operates exclusively in <strong>zero-trust, non-negotiable secure environments</strong>. 
+                            Before deployment, we must understand any specific event environment rules, local municipality 
+                            ordinances, or jurisdiction-specific requirements that may impact system configuration.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
                     <FormField
                       control={form.control}
                       name="jurisdictionNotes"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Jurisdiction / Local Rules (optional)</FormLabel>
+                          <FormLabel>Event Environment & Jurisdiction Rules</FormLabel>
+                          <FormDescription>
+                            List any local laws, municipality ordinances, venue-specific policies, or regulatory requirements 
+                            we need to configure prior to deployment (e.g., alcohol service restrictions, age verification 
+                            thresholds, data residency requirements, security clearance zones).
+                          </FormDescription>
                           <FormControl>
-                            <Textarea placeholder="Any local regulations or rules we should know about..." {...field} />
+                            <Textarea 
+                              placeholder="Example: State requires 21+ wristbands for alcohol zones; City ordinance mandates security checks at capacity 500+; Venue policy requires VIP ID re-verification every 4 hours..." 
+                              className="min-h-[120px]"
+                              {...field} 
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -2090,8 +2114,15 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Special Instructions or Notes</FormLabel>
+                          <FormDescription>
+                            Any additional operational considerations, timing constraints, or unique requirements for your event.
+                          </FormDescription>
                           <FormControl>
-                            <Textarea placeholder="Any special requirements or notes for your event..." {...field} />
+                            <Textarea 
+                              placeholder="Any special requirements or notes for your event..." 
+                              className="min-h-[100px]"
+                              {...field} 
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

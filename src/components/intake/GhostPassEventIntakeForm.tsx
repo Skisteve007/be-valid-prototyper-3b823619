@@ -2007,7 +2007,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                               </ul>
                               <div className="mt-3 ml-7 p-2 rounded bg-cyan-500/5 border border-cyan-500/20">
                                 <p className="text-xs text-cyan-600 dark:text-cyan-400 font-medium">
-                                  💰 <strong>$1.85</strong> per verification • Prices vary based on pool size
+                                  💰 <strong>$1.00–$2.00</strong> per verification • Prices vary based on pool size
                                 </p>
                               </div>
                             </div>
@@ -2041,14 +2041,14 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                               </ul>
                               <div className="mt-3 ml-7 p-2 rounded bg-purple-500/5 border border-purple-500/20">
                                 <p className="text-xs text-purple-600 dark:text-purple-400 font-medium">
-                                  💰 <strong>$2.85</strong> per enhanced background check • Prices vary based on pool size
+                                  💰 <strong>$2.85–$3.85</strong> per enhanced background check • Prices vary based on pool size
                                 </p>
                               </div>
                             </div>
                           </div>
                           <div className="mt-4 p-3 rounded-lg bg-muted/50 border border-border">
                             <p className="text-xs text-muted-foreground">
-                              <strong>Pricing Note:</strong> Tier 1 ($1.85/verification) and Tier 2 ($2.85/check) are base rates. Final pricing will change based on pool size requirements and expected volume. Rates are determined after intake review.
+                              <strong>Pricing Note:</strong> Tier 1 ($1.00–$2.00/verification) and Tier 2 ($2.85–$3.85/check) are base rate ranges. Final pricing will change based on pool size requirements and expected volume. Rates are determined after intake review.
                             </p>
                           </div>
                         </FormItem>

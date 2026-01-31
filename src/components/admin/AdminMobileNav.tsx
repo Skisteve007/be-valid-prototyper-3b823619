@@ -32,6 +32,7 @@ interface AdminMobileNavProps {
 
 const navItems = [
   { id: "members", label: "VALID Members", icon: Users },
+  { id: "think-tank", label: "Think Tank", icon: Target },
   { id: "sponsors", label: "Sponsor Management", icon: Shield },
   { id: "accounts", label: "Accounts", icon: Building2 },
   { id: "lab-integrations", label: "Lab Integrations", icon: FlaskConical },

@@ -41,6 +41,7 @@ import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import { SynthAdminTab } from "@/components/admin/SynthAdminTab";
 import { CEOPlaybookTab } from "@/components/admin/CEOPlaybookTab";
+import ThinkTankManager from "@/components/admin/ThinkTankManager";
 import {
   DndContext,
   closestCenter,
@@ -645,10 +646,13 @@ const Admin = () => {
           </div>
           
           {/* Desktop Tab Navigation */}
-          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-2">
+          <TabsList className="hidden md:grid w-full grid-cols-8 gap-1 h-auto p-1 mb-2">
             <TabsTrigger value="members" className="cursor-pointer text-sm px-2 py-2">
               <Users className="h-4 w-4 mr-1" />
               Members
+            </TabsTrigger>
+            <TabsTrigger value="think-tank" className="cursor-pointer text-sm px-2 py-2">
+              💡 Think Tank
             </TabsTrigger>
             <TabsTrigger value="sponsors" className="cursor-pointer text-sm px-2 py-2">
               Sponsors
@@ -725,6 +729,10 @@ const Admin = () => {
           
           <TabsContent value="members" className="space-y-8">
             <MembersTab />
+          </TabsContent>
+
+          <TabsContent value="think-tank" className="space-y-8">
+            <ThinkTankManager />
           </TabsContent>
           
           <TabsContent value="sponsors" className="space-y-8">

@@ -107,7 +107,7 @@ const PRICING_CONFIG = {
       included_ghost_pass_per_user: 600,
       ports_cap: 12,
       query_overage_usd: 0.08,
-      ghost_pass_rate_usd: 0.10,
+      ghost_pass_rate_usd: 0.15,
       port_overage_usd: 499
     },
     sector_sovereign: {
@@ -130,7 +130,7 @@ const PRICING_CONFIG = {
   owner_guards: {
     min_margin_percent: 0.35,
     query_floor_usd: 0.08,
-    min_ghost_pass_rate_usd: { solo: 0.75, starter: 0.65, professional: 0.55, business: 0.45, enterprise: 0.10, sector_sovereign: 0.06 },
+    min_ghost_pass_rate_usd: { solo: 0.75, starter: 0.65, professional: 0.55, business: 0.45, enterprise: 0.15, sector_sovereign: 0.10 },
     port_floor_usd: { solo: 99, starter: 99, professional: 199, business: 299, enterprise: 499, sector_sovereign: 999 },
     allow_discount_below_floor: false
   },

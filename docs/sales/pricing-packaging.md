@@ -184,8 +184,8 @@ Seats are **model-agnostic and interchangeable**. If a new LLM enters the market
 |------|---------------------|--------------|-----------------|
 | MAIN STREET | 2,500 | $0.50/scan | $1.50/check |
 | GROWTH | 25,000 | $0.25/scan | $1.00/check |
-| ENTERPRISE | 100,000 | $0.10/scan | $0.50/check |
-| SOVEREIGN | Unlimited | $0.07/scan* | $0.25/check |
+| ENTERPRISE | 100,000 | $0.15/scan | $0.50/check |
+| SOVEREIGN | Unlimited | $0.10/scan* | $0.25/check |
 
 *Sovereign overage only applies if custom cap negotiated
 

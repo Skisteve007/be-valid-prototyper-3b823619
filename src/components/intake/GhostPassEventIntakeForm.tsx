@@ -1418,21 +1418,27 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Additional Attributes Required</FormLabel>
-                          <div className="space-y-2">
-                            {['Medical Card', 'Age Verification', 'None'].map((item) => (
-                              <div key={item} className="flex items-center gap-2">
+                          <div className="grid grid-cols-2 gap-3">
+                            {[
+                              { label: 'Medical Card', value: 'medical_card' },
+                              { label: 'Age Verification', value: 'age_verification' },
+                              { label: 'Concealed Weapon Card', value: 'concealed_weapon_card' },
+                              { label: 'Corporate ID Card', value: 'corporate_id_card' },
+                              { label: 'Authoritative Assigned ID', value: 'authoritative_assigned_id' },
+                              { label: 'None', value: 'none' },
+                            ].map((item) => (
+                              <div key={item.value} className="flex items-center gap-2">
                                 <Checkbox
-                                  checked={field.value?.includes(item.toLowerCase().replace(' ', '_'))}
+                                  checked={field.value?.includes(item.value)}
                                   onCheckedChange={(checked) => {
-                                    const val = item.toLowerCase().replace(' ', '_');
                                     if (checked) {
-                                      field.onChange([...field.value, val]);
+                                      field.onChange([...field.value, item.value]);
                                     } else {
-                                      field.onChange(field.value.filter((v) => v !== val));
+                                      field.onChange(field.value.filter((v) => v !== item.value));
                                     }
                                   }}
                                 />
-                                <Label>{item}</Label>
+                                <Label>{item.label}</Label>
                               </div>
                             ))}
                           </div>

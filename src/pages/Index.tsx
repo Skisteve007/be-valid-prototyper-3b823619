@@ -173,40 +173,40 @@ const Index = () => {
         </div>
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-6">
           {/* Left side - Pills (outside the card) */}
-          <div className="flex-shrink-0 flex flex-col gap-4">
-            {/* Risk Stabilization Pill - Above Intake */}
+          <div className="flex-shrink-0 flex flex-col gap-3">
+            {/* Risk Stabilization Pill - Horizontal */}
             <button
               onClick={() => setIsRiskEngagementOpen(true)}
               className={`
-                flex flex-col items-center gap-3 px-6 py-5 rounded-xl
-                border transition-all duration-300 cursor-pointer
+                flex items-center gap-3 px-5 py-3 rounded-full
+                border transition-all duration-300 cursor-pointer whitespace-nowrap
                 ${isDark 
-                  ? 'bg-gradient-to-br from-red-500/20 via-orange-500/15 to-red-500/20 border-red-500/50 hover:border-red-400 hover:shadow-[0_0_25px_rgba(239,68,68,0.4)]' 
-                  : 'bg-gradient-to-br from-red-100 via-orange-50 to-red-100 border-red-300 hover:border-red-400 hover:shadow-lg'
+                  ? 'bg-gradient-to-r from-red-500/20 via-orange-500/15 to-red-500/20 border-red-500/50 hover:border-red-400 hover:shadow-[0_0_25px_rgba(239,68,68,0.4)]' 
+                  : 'bg-gradient-to-r from-red-100 via-orange-50 to-red-100 border-red-300 hover:border-red-400 hover:shadow-lg'
                 }
               `}
             >
-              <ShieldAlert className={`h-8 w-8 ${isDark ? 'text-red-400' : 'text-red-600'}`} />
-              <span className={`text-sm font-semibold text-center leading-tight ${isDark ? 'text-red-300' : 'text-red-700'}`}>
-                30-Day Risk<br />Stabilization<br />Engagement
+              <ShieldAlert className={`h-5 w-5 flex-shrink-0 ${isDark ? 'text-red-400' : 'text-red-600'}`} />
+              <span className={`text-sm font-semibold ${isDark ? 'text-red-300' : 'text-red-700'}`}>
+                30-Day Risk Stabilization
               </span>
             </button>
 
-            {/* AI Evaluation Intake Pill */}
+            {/* AI Evaluation Intake Pill - Horizontal */}
             <button
               onClick={() => setIsIntakeFormOpen(true)}
               className={`
-                flex flex-col items-center gap-3 px-6 py-5 rounded-xl
-                border transition-all duration-300 cursor-pointer
+                flex items-center gap-3 px-5 py-3 rounded-full
+                border transition-all duration-300 cursor-pointer whitespace-nowrap
                 ${isDark 
-                  ? 'bg-gradient-to-br from-purple-500/20 via-cyan-500/15 to-purple-500/20 border-purple-500/50 hover:border-purple-400 hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]' 
-                  : 'bg-gradient-to-br from-purple-100 via-cyan-50 to-purple-100 border-purple-300 hover:border-purple-400 hover:shadow-lg'
+                  ? 'bg-gradient-to-r from-purple-500/20 via-cyan-500/15 to-purple-500/20 border-purple-500/50 hover:border-purple-400 hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]' 
+                  : 'bg-gradient-to-r from-purple-100 via-cyan-50 to-purple-100 border-purple-300 hover:border-purple-400 hover:shadow-lg'
                 }
               `}
             >
-              <ClipboardList className={`h-8 w-8 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
-              <span className={`text-sm font-semibold text-center leading-tight ${isDark ? 'text-purple-300' : 'text-purple-700'}`}>
-                AI Evaluation<br />& Governance<br />Intake
+              <ClipboardList className={`h-5 w-5 flex-shrink-0 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
+              <span className={`text-sm font-semibold ${isDark ? 'text-purple-300' : 'text-purple-700'}`}>
+                AI Evaluation & Governance
               </span>
             </button>
           </div>

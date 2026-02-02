@@ -14,6 +14,64 @@ export type Database = {
   }
   public: {
     Tables: {
+      access_points: {
+        Row: {
+          access_type: string
+          created_at: string | null
+          device_id: string | null
+          event_id: string | null
+          id: string
+          interaction_mode: string | null
+          is_active: boolean | null
+          name: string
+          venue_id: string | null
+        }
+        Insert: {
+          access_type: string
+          created_at?: string | null
+          device_id?: string | null
+          event_id?: string | null
+          id?: string
+          interaction_mode?: string | null
+          is_active?: boolean | null
+          name: string
+          venue_id?: string | null
+        }
+        Update: {
+          access_type?: string
+          created_at?: string | null
+          device_id?: string | null
+          event_id?: string | null
+          id?: string
+          interaction_mode?: string | null
+          is_active?: boolean | null
+          name?: string
+          venue_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "access_points_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "venue_devices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "access_points_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "access_points_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       account_connectors: {
         Row: {
           account_id: string
@@ -432,39 +490,62 @@ export type Database = {
       }
       audit_logs: {
         Row: {
+          action_type: string | null
           created_at: string | null
           details: Json | null
+          event_id: string | null
           failed: number | null
           id: string
+          metadata: Json | null
           passed: number | null
+          source: string | null
           status: string
           timestamp: string | null
           trigger_type: string | null
+          wallet_id: string | null
           warned: number | null
         }
         Insert: {
+          action_type?: string | null
           created_at?: string | null
           details?: Json | null
+          event_id?: string | null
           failed?: number | null
           id?: string
+          metadata?: Json | null
           passed?: number | null
+          source?: string | null
           status: string
           timestamp?: string | null
           trigger_type?: string | null
+          wallet_id?: string | null
           warned?: number | null
         }
         Update: {
+          action_type?: string | null
           created_at?: string | null
           details?: Json | null
+          event_id?: string | null
           failed?: number | null
           id?: string
+          metadata?: Json | null
           passed?: number | null
+          source?: string | null
           status?: string
           timestamp?: string | null
           trigger_type?: string | null
+          wallet_id?: string | null
           warned?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       bar_tab_charges: {
         Row: {
@@ -1182,6 +1263,86 @@ export type Database = {
         }
         Relationships: []
       }
+      entry_logs: {
+        Row: {
+          access_point_id: string | null
+          deny_reason: string | null
+          entry_number: number | null
+          entry_type: string
+          event_id: string | null
+          id: string
+          scan_result: string | null
+          scan_source: string | null
+          timestamp: string | null
+          user_id: string | null
+          valid_scan_fee_charged: number | null
+          venue_id: string | null
+          venue_reentry_fee_charged: number | null
+          wallet_id: string | null
+        }
+        Insert: {
+          access_point_id?: string | null
+          deny_reason?: string | null
+          entry_number?: number | null
+          entry_type: string
+          event_id?: string | null
+          id?: string
+          scan_result?: string | null
+          scan_source?: string | null
+          timestamp?: string | null
+          user_id?: string | null
+          valid_scan_fee_charged?: number | null
+          venue_id?: string | null
+          venue_reentry_fee_charged?: number | null
+          wallet_id?: string | null
+        }
+        Update: {
+          access_point_id?: string | null
+          deny_reason?: string | null
+          entry_number?: number | null
+          entry_type?: string
+          event_id?: string | null
+          id?: string
+          scan_result?: string | null
+          scan_source?: string | null
+          timestamp?: string | null
+          user_id?: string | null
+          valid_scan_fee_charged?: number | null
+          venue_id?: string | null
+          venue_reentry_fee_charged?: number | null
+          wallet_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entry_logs_access_point_id_fkey"
+            columns: ["access_point_id"]
+            isOneToOne: false
+            referencedRelation: "access_points"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entry_logs_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entry_logs_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entry_logs_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "user_wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ephemeral_payload_vault: {
         Row: {
           account_id: string
@@ -1235,6 +1396,140 @@ export type Database = {
             columns: ["deployment_id"]
             isOneToOne: false
             referencedRelation: "account_deployments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      event_configuration: {
+        Row: {
+          created_at: string | null
+          custom_pass_rules: Json | null
+          event_id: string
+          id: string
+          id_verification_fee: number | null
+          id_verification_tier: string | null
+          initial_entry_fee: number | null
+          pass_price_1_day: number | null
+          pass_price_3_day: number | null
+          pass_price_7_day: number | null
+          pass_required: boolean | null
+          pool_split_percent: number | null
+          promoter_split_percent: number | null
+          reentry_max_count: number | null
+          updated_at: string | null
+          valid_reentry_scan_fee: number | null
+          valid_split_percent: number | null
+          venue_reentry_fee: number | null
+          venue_split_percent: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          custom_pass_rules?: Json | null
+          event_id: string
+          id?: string
+          id_verification_fee?: number | null
+          id_verification_tier?: string | null
+          initial_entry_fee?: number | null
+          pass_price_1_day?: number | null
+          pass_price_3_day?: number | null
+          pass_price_7_day?: number | null
+          pass_required?: boolean | null
+          pool_split_percent?: number | null
+          promoter_split_percent?: number | null
+          reentry_max_count?: number | null
+          updated_at?: string | null
+          valid_reentry_scan_fee?: number | null
+          valid_split_percent?: number | null
+          venue_reentry_fee?: number | null
+          venue_split_percent?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          custom_pass_rules?: Json | null
+          event_id?: string
+          id?: string
+          id_verification_fee?: number | null
+          id_verification_tier?: string | null
+          initial_entry_fee?: number | null
+          pass_price_1_day?: number | null
+          pass_price_3_day?: number | null
+          pass_price_7_day?: number | null
+          pass_required?: boolean | null
+          pool_split_percent?: number | null
+          promoter_split_percent?: number | null
+          reentry_max_count?: number | null
+          updated_at?: string | null
+          valid_reentry_scan_fee?: number | null
+          valid_split_percent?: number | null
+          venue_reentry_fee?: number | null
+          venue_split_percent?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_configuration_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: true
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          created_at: string | null
+          currency: string | null
+          end_time: string | null
+          event_name: string
+          id: string
+          organization_id: string | null
+          reentry_allowed: boolean | null
+          start_time: string
+          status: string | null
+          timezone: string | null
+          updated_at: string | null
+          venue_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          currency?: string | null
+          end_time?: string | null
+          event_name: string
+          id?: string
+          organization_id?: string | null
+          reentry_allowed?: boolean | null
+          start_time: string
+          status?: string | null
+          timezone?: string | null
+          updated_at?: string | null
+          venue_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          currency?: string | null
+          end_time?: string | null
+          event_name?: string
+          id?: string
+          organization_id?: string | null
+          reentry_allowed?: boolean | null
+          start_time?: string
+          status?: string | null
+          timezone?: string | null
+          updated_at?: string | null
+          venue_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "events_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "partner_venues"
             referencedColumns: ["id"]
           },
         ]
@@ -2276,6 +2571,8 @@ export type Database = {
           created_at: string
           id: string
           name: string
+          org_type: string | null
+          status: string | null
           updated_at: string
         }
         Insert: {
@@ -2284,6 +2581,8 @@ export type Database = {
           created_at?: string
           id?: string
           name: string
+          org_type?: string | null
+          status?: string | null
           updated_at?: string
         }
         Update: {
@@ -2292,6 +2591,8 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string
+          org_type?: string | null
+          status?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -3325,6 +3626,73 @@ export type Database = {
             columns: ["profile_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      receipts: {
+        Row: {
+          created_at: string | null
+          delivered: boolean | null
+          delivered_at: string | null
+          event_id: string | null
+          id: string
+          receipt_payload: Json
+          total_charged: number | null
+          transaction_id: string | null
+          user_id: string | null
+          valid_fee: number | null
+          venue_fee: number | null
+          wallet_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          delivered?: boolean | null
+          delivered_at?: string | null
+          event_id?: string | null
+          id?: string
+          receipt_payload?: Json
+          total_charged?: number | null
+          transaction_id?: string | null
+          user_id?: string | null
+          valid_fee?: number | null
+          venue_fee?: number | null
+          wallet_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          delivered?: boolean | null
+          delivered_at?: string | null
+          event_id?: string | null
+          id?: string
+          receipt_payload?: Json
+          total_charged?: number | null
+          transaction_id?: string | null
+          user_id?: string | null
+          valid_fee?: number | null
+          venue_fee?: number | null
+          wallet_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receipts_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipts_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "valid_transactions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipts_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "user_wallets"
             referencedColumns: ["id"]
           },
         ]
@@ -5209,33 +5577,39 @@ export type Database = {
         Row: {
           balance: number
           created_at: string
+          currency: string | null
           daily_funded_amount: number
           daily_funded_date: string | null
           id: string
           monthly_funded_amount: number
           monthly_funded_month: string | null
+          status: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
           balance?: number
           created_at?: string
+          currency?: string | null
           daily_funded_amount?: number
           daily_funded_date?: string | null
           id?: string
           monthly_funded_amount?: number
           monthly_funded_month?: string | null
+          status?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
           balance?: number
           created_at?: string
+          currency?: string | null
           daily_funded_amount?: number
           daily_funded_date?: string | null
           id?: string
           monthly_funded_amount?: number
           monthly_funded_month?: string | null
+          status?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -5243,9 +5617,11 @@ export type Database = {
       }
       valid_transactions: {
         Row: {
+          access_point_id: string | null
           community_pool_share: number | null
           created_at: string
           direct_payment_type: string | null
+          event_id: string | null
           gas_fee_applied: number
           ghost_pass_tier: string | null
           gross_amount: number
@@ -5260,6 +5636,7 @@ export type Database = {
           staff_user_id: string | null
           status: string
           transaction_fee_applied: number
+          transaction_type: string | null
           updated_at: string
           user_id: string
           valid_net: number
@@ -5269,9 +5646,11 @@ export type Database = {
           venue_share: number | null
         }
         Insert: {
+          access_point_id?: string | null
           community_pool_share?: number | null
           created_at?: string
           direct_payment_type?: string | null
+          event_id?: string | null
           gas_fee_applied?: number
           ghost_pass_tier?: string | null
           gross_amount: number
@@ -5286,6 +5665,7 @@ export type Database = {
           staff_user_id?: string | null
           status?: string
           transaction_fee_applied?: number
+          transaction_type?: string | null
           updated_at?: string
           user_id: string
           valid_net?: number
@@ -5295,9 +5675,11 @@ export type Database = {
           venue_share?: number | null
         }
         Update: {
+          access_point_id?: string | null
           community_pool_share?: number | null
           created_at?: string
           direct_payment_type?: string | null
+          event_id?: string | null
           gas_fee_applied?: number
           ghost_pass_tier?: string | null
           gross_amount?: number
@@ -5312,6 +5694,7 @@ export type Database = {
           staff_user_id?: string | null
           status?: string
           transaction_fee_applied?: number
+          transaction_type?: string | null
           updated_at?: string
           user_id?: string
           valid_net?: number
@@ -5321,6 +5704,20 @@ export type Database = {
           venue_share?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "valid_transactions_access_point_id_fkey"
+            columns: ["access_point_id"]
+            isOneToOne: false
+            referencedRelation: "access_points"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "valid_transactions_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "valid_transactions_promoter_id_fkey"
             columns: ["promoter_id"]
@@ -6305,11 +6702,13 @@ export type Database = {
         Returns: {
           balance: number
           created_at: string
+          currency: string | null
           daily_funded_amount: number
           daily_funded_date: string | null
           id: string
           monthly_funded_amount: number
           monthly_funded_month: string | null
+          status: string | null
           updated_at: string
           user_id: string
         }

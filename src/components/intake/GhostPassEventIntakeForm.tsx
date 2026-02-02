@@ -432,23 +432,23 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] p-0">
-        <DialogHeader className="p-6 pb-0">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center">
-              <Ghost className="h-5 w-5 text-white" />
+      <DialogContent className="w-[95vw] max-w-6xl max-h-[90vh] p-0 overflow-hidden">
+        <DialogHeader className="p-4 sm:p-6 pb-0">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+              <Ghost className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
-            <div>
-              <DialogTitle className="text-xl font-bold">Ghost Pass Event Intake Survey</DialogTitle>
-              <DialogDescription>
-                Configure your wallet-based access, identity, and payout system
+            <div className="min-w-0">
+              <DialogTitle className="text-base sm:text-xl font-bold truncate">Ghost Pass Event Intake</DialogTitle>
+              <DialogDescription className="text-xs sm:text-sm">
+                Configure access, identity, and payout
               </DialogDescription>
             </div>
           </div>
         </DialogHeader>
 
-        {/* Intro Text */}
-        <div className="px-6 py-3 bg-cyan-500/10 border-y border-cyan-500/20">
+        {/* Intro Text - Hidden on mobile for space */}
+        <div className="hidden sm:block px-6 py-3 bg-cyan-500/10 border-y border-cyan-500/20">
           <p className="text-sm text-muted-foreground">
             <strong className="text-foreground">Important:</strong> Ghost Pass is not just ticketing or payments. 
             It is a wallet-based access, identity, and payout system. The information collected here determines 
@@ -456,14 +456,23 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
           </p>
         </div>
 
-        {/* Section Navigation */}
-        <div className="px-6 py-3 border-b">
-          <div className="flex gap-1 overflow-x-auto pb-2">
+        {/* Section Navigation - Compact on mobile */}
+        <div className="px-3 sm:px-6 py-2 sm:py-3 border-b">
+          {/* Mobile: Show current section with stepper */}
+          <div className="flex sm:hidden items-center justify-between gap-2">
+            <span className="text-xs text-muted-foreground">
+              Step {currentSection + 1} of {sections.length}
+            </span>
+            <span className="text-sm font-medium truncate">{sections[currentSection].title}</span>
+          </div>
+          {/* Desktop: Full navigation */}
+          <div className="hidden sm:flex gap-1 overflow-x-auto pb-2">
             {sections.map((section, idx) => {
               const Icon = section.icon;
               return (
                 <button
                   key={idx}
+                  type="button"
                   onClick={() => setCurrentSection(idx)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
                     currentSection === idx
@@ -481,7 +490,7 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <ScrollArea className="h-[50vh] px-6">
+            <ScrollArea className="h-[55vh] sm:h-[50vh] px-3 sm:px-6">
               <div className="py-4 space-y-6">
                 {/* SECTION 0: Event Basics */}
                 {currentSection === 0 && (
@@ -2527,30 +2536,36 @@ export const GhostPassEventIntakeForm = ({ isOpen, onClose }: GhostPassEventInta
             </ScrollArea>
 
             {/* Footer Navigation */}
-            <div className="p-4 border-t flex justify-between">
+            <div className="p-3 sm:p-4 border-t flex justify-between items-center gap-2">
               <Button
                 type="button"
                 variant="outline"
                 onClick={prevSection}
                 disabled={currentSection === 0}
+                size="sm"
+                className="text-xs sm:text-sm"
               >
                 Previous
               </Button>
 
               <div className="flex gap-2">
                 {currentSection < sections.length - 1 ? (
-                  <Button type="button" onClick={nextSection}>
+                  <Button type="button" onClick={nextSection} size="sm" className="text-xs sm:text-sm">
                     Next
                   </Button>
                 ) : (
-                  <Button type="submit" disabled={isSubmitting} className="bg-cyan-500 hover:bg-cyan-600">
+                  <Button type="submit" disabled={isSubmitting} size="sm" className="bg-cyan-500 hover:bg-cyan-600 text-xs sm:text-sm">
                     {isSubmitting ? (
                       <>
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        Submitting...
+                        <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 animate-spin" />
+                        <span className="hidden xs:inline">Submitting...</span>
+                        <span className="xs:hidden">...</span>
                       </>
                     ) : (
-                      'Submit Event Intake'
+                      <span>
+                        <span className="hidden sm:inline">Submit Event Intake</span>
+                        <span className="sm:hidden">Submit</span>
+                      </span>
                     )}
                   </Button>
                 )}

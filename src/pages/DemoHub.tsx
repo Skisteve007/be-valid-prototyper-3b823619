@@ -24,22 +24,8 @@ const DemoHub = () => {
   
 
 
-  const demos = [
-    // VENDOR DEPOT — Primary CTA
-    {
-      title: "Vendor Depot",
-      subtitle: "Upload documents for AI-governed validation",
-      icon: Upload,
-      bullets: [
-        "Attorneys, doctors, enterprise vendors submit documents",
-        "Multi-model validation through 7-seat AI Senate",
-        "Proof record + scores returned within 20 minutes",
-      ],
-      whoFor: "Legal, medical, and enterprise professionals needing governed document validation",
-      path: "/vendor-depot",
-      pulsate: true,
-    },
-    // TOP 3 — Reordered per restructure pack
+  // Governance Demos (Senate-focused)
+  const governanceDemos = [
     {
       title: "Demo A — Operator Certification (Workforce)",
       subtitle: "Numerically score how people use AI—over time (0–100).",
@@ -76,7 +62,6 @@ const DemoHub = () => {
       whoFor: "Enterprise buyers, security teams",
       path: "/demos/enterprise-sandbox",
     },
-    // Remaining demos
     {
       title: "Demo D — Proof Record Verifier",
       subtitle: "Verify Integrity",
@@ -124,6 +109,34 @@ const DemoHub = () => {
       ],
       whoFor: "Teams evaluating decision enforcement on individual requests",
       path: "/demos/senate-qa",
+    },
+    {
+      title: "Vendor Depot",
+      subtitle: "Upload documents for AI-governed validation",
+      icon: Upload,
+      bullets: [
+        "Attorneys, doctors, enterprise vendors submit documents",
+        "Multi-model validation through 7-seat AI Senate",
+        "Proof record + scores returned within 20 minutes",
+      ],
+      whoFor: "Legal, medical, and enterprise professionals needing governed document validation",
+      path: "/vendor-depot",
+    },
+  ];
+
+  // Physical Access Demos (Ghost Pass-focused)
+  const physicalAccessDemos = [
+    {
+      title: "Ghost Pass — Event Entry",
+      subtitle: "Privacy-preserving venue access",
+      icon: QrCode,
+      bullets: [
+        "QR-based entry triggered at physical scan points",
+        "Age verification without exposing full ID",
+        "Wallet flows activated on-site, not online",
+      ],
+      whoFor: "Venues, festivals, nightlife operators",
+      path: "/demos/ghost",
     },
   ];
 
@@ -420,11 +433,40 @@ const DemoHub = () => {
             </CardContent>
           </Card>
 
-          {/* Demo Cards */}
-          <div id="demos" className="grid grid-cols-1 md:grid-cols-2 gap-6 scroll-mt-32">
-            {demos.map((demo) => (
-              <DemoCard key={demo.path} {...demo} />
-            ))}
+          {/* Governance Demos */}
+          <div id="demos" className="scroll-mt-32">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-lg bg-cyan-500/20 border border-cyan-500/30">
+                <Layers className="h-5 w-5 text-cyan-400" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-foreground">Governance Demos</h2>
+                <p className="text-sm text-cyan-400">Senate-powered AI decision control and audit</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+              {governanceDemos.map((demo) => (
+                <DemoCard key={demo.path} {...demo} />
+              ))}
+            </div>
+          </div>
+
+          {/* Physical Access Demos */}
+          <div className="scroll-mt-32">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-lg bg-purple-500/20 border border-purple-500/30">
+                <QrCode className="h-5 w-5 text-purple-400" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-foreground">Physical Access Demos</h2>
+                <p className="text-sm text-purple-400">Ghost Pass — real-world venue verification</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {physicalAccessDemos.map((demo) => (
+                <DemoCard key={demo.path} {...demo} />
+              ))}
+            </div>
           </div>
 
           {/* Deep Dive Section Header with Expand/Collapse All */}

@@ -135,47 +135,77 @@ const Index = () => {
         <Hero />
       </div>
 
-      {/* SYNTH ENTERPRISE BLOCK - AI Governance */}
+      {/* HUB-AND-SPOKE NAVIGATION */}
       <section className="relative z-10 py-16 px-4">
-        {/* SYNTH Header with animated effects */}
-        <div className="max-w-6xl mx-auto text-center mb-8">
-          <div className="relative inline-block">
-            {/* Scanning line effect */}
-            <div 
-              className="absolute inset-0 overflow-hidden rounded-lg"
-              style={{ padding: '0 20px' }}
-            >
-              <div 
-                className="absolute left-0 right-0 h-1 animate-scan"
-                style={{ 
-                  background: 'linear-gradient(90deg, transparent, #00E5E5, transparent)',
-                  boxShadow: '0 0 20px #00E5E5, 0 0 40px #00E5E5'
-                }}
-              />
-            </div>
-            {/* Pulsating glow background */}
-            <div 
-              className="absolute inset-0 rounded-lg animate-glow opacity-30"
-              style={{ 
-                background: 'radial-gradient(ellipse at center, rgba(0,229,229,0.3) 0%, transparent 70%)'
-              }}
-            />
-            {/* SYNTH text */}
-            <h2 
-              className="relative font-orbitron text-5xl md:text-6xl font-bold tracking-widest py-4 px-8"
-              style={{ 
-                color: '#00E5E5',
-                textShadow: '0 0 10px rgba(0,229,229,0.8), 0 0 20px rgba(0,229,229,0.5), 0 0 40px rgba(0,229,229,0.3)',
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-              }}
-            >
-              SYNTH
-            </h2>
-          </div>
+        {/* Platform Identity */}
+        <div className="max-w-6xl mx-auto text-center mb-12">
+          <h2 className={`text-3xl md:text-4xl font-bold font-orbitron mb-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <span className="text-cyan-500">BeValid.app</span> Platform
+          </h2>
+          <p className={`text-lg max-w-2xl mx-auto ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+            One platform, two powerful pillars: <strong>Governance</strong> for AI decision control, <strong>Physical Access</strong> for real-world verification.
+          </p>
         </div>
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-6">
-          {/* Left side - Pills (outside the card) */}
-          <div className="flex-shrink-0 flex flex-col gap-3">
+
+        {/* Hub Navigation Cards */}
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+          {/* Governance Pillar - Senate */}
+          <Card className={`border-cyan-500/40 ${isDark ? 'bg-cyan-500/10' : 'bg-cyan-50'} hover:border-cyan-400 transition-all duration-300 cursor-pointer group`} onClick={() => navigate('/demos')}>
+            <CardContent className="pt-8 pb-8 px-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/20 border border-cyan-500/30' : 'bg-cyan-100'}`}>
+                  <Brain className="h-8 w-8 text-cyan-500" />
+                </div>
+                <div>
+                  <p className={`text-xs font-semibold uppercase tracking-widest ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>Governance Layer</p>
+                  <h3 className={`text-2xl font-bold font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>The Senate</h3>
+                </div>
+              </div>
+              <p className={`mb-4 ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+                Multi-model AI consensus engine. Policy enforcement, contradiction detection, and court-ready audit trails for every AI-assisted decision.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className={`text-xs px-2 py-1 rounded-full ${isDark ? 'bg-cyan-500/20 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>Operator Certification</span>
+                <span className={`text-xs px-2 py-1 rounded-full ${isDark ? 'bg-cyan-500/20 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>Audit Logs</span>
+                <span className={`text-xs px-2 py-1 rounded-full ${isDark ? 'bg-cyan-500/20 text-cyan-300' : 'bg-cyan-100 text-cyan-700'}`}>Policy Rules</span>
+              </div>
+              <div className={`flex items-center gap-2 font-semibold ${isDark ? 'text-cyan-400' : 'text-cyan-600'} group-hover:gap-3 transition-all`}>
+                Explore Governance Demos <ArrowRight className="h-4 w-4" />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Physical Access Pillar - Ghost Pass */}
+          <Card className={`border-purple-500/40 ${isDark ? 'bg-purple-500/10' : 'bg-purple-50'} hover:border-purple-400 transition-all duration-300 cursor-pointer group`} onClick={() => navigate('/demos/ghost')}>
+            <CardContent className="pt-8 pb-8 px-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className={`p-3 rounded-xl ${isDark ? 'bg-purple-500/20 border border-purple-500/30' : 'bg-purple-100'}`}>
+                  <Ghost className="h-8 w-8 text-purple-500" />
+                </div>
+                <div>
+                  <p className={`text-xs font-semibold uppercase tracking-widest ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>Physical Access</p>
+                  <h3 className={`text-2xl font-bold font-orbitron ${isDark ? 'text-white' : 'text-slate-900'}`}>Ghost Pass</h3>
+                </div>
+              </div>
+              <p className={`mb-4 ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+                Privacy-preserving identity verification for real-world venues. QR-based entry, age verification, and wallet flows—all triggered at physical points.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className={`text-xs px-2 py-1 rounded-full ${isDark ? 'bg-purple-500/20 text-purple-300' : 'bg-purple-100 text-purple-700'}`}>Event Entry</span>
+                <span className={`text-xs px-2 py-1 rounded-full ${isDark ? 'bg-purple-500/20 text-purple-300' : 'bg-purple-100 text-purple-700'}`}>Age Verification</span>
+                <span className={`text-xs px-2 py-1 rounded-full ${isDark ? 'bg-purple-500/20 text-purple-300' : 'bg-purple-100 text-purple-700'}`}>Venue Access</span>
+              </div>
+              <div className={`flex items-center gap-2 font-semibold ${isDark ? 'text-purple-400' : 'text-purple-600'} group-hover:gap-3 transition-all`}>
+                Explore Physical Access <ArrowRight className="h-4 w-4" />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Engagement Pills - Moved under hub navigation */}
+        <div className="max-w-5xl mx-auto">
+          <p className={`text-center text-sm mb-4 ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>Quick Actions</p>
+          <div className="flex flex-wrap justify-center gap-3">
             {/* Ghost Pass Event Intake Pill */}
             <button
               onClick={() => setIsGhostPassIntakeOpen(true)}
@@ -190,11 +220,11 @@ const Index = () => {
             >
               <Ticket className={`h-5 w-5 flex-shrink-0 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
               <span className={`text-sm font-semibold ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>
-                Ghost Pass Event Intake Survey
+                Ghost Pass Event Intake
               </span>
             </button>
 
-            {/* Risk Stabilization Pill - Horizontal */}
+            {/* Risk Stabilization Pill */}
             <button
               onClick={() => setIsRiskEngagementOpen(true)}
               className={`
@@ -212,7 +242,7 @@ const Index = () => {
               </span>
             </button>
 
-            {/* AI Evaluation Intake Pill - Horizontal */}
+            {/* AI Evaluation Intake Pill */}
             <button
               onClick={() => setIsIntakeFormOpen(true)}
               className={`
@@ -230,75 +260,6 @@ const Index = () => {
               </span>
             </button>
           </div>
-
-          {/* Right side - Main card */}
-          <Card className={`flex-1 border-cyan-500/30 ${isDark ? 'bg-cyan-500/5' : 'bg-cyan-50'}`}>
-            <CardContent className="pt-8 pb-8 px-6 md:px-10">
-              {/* Founder Statement */}
-              <p className={`text-sm mb-6 ${isDark ? 'text-cyan-400/80' : 'text-cyan-700'}`}>
-                {t('footer.founderStatement')}
-              </p>
-              
-              <div className="flex items-start gap-4 mb-6">
-                <div className={`p-3 rounded-xl ${isDark ? 'bg-cyan-500/20 border border-cyan-500/30' : 'bg-cyan-100'}`}>
-                  <Brain className="h-8 w-8 text-cyan-500" />
-                </div>
-                <div>
-                  <h2 className={`text-2xl md:text-3xl font-bold font-orbitron mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                    AI is already inside your company.
-                  </h2>
-                  <p className={`text-lg ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
-                    Are you governing it—or guessing?
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
-                  <Shield className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Policy Enforcement</h3>
-                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
-                    Enforce verification rules for AI-assisted work before decisions ship.
-                  </p>
-                </div>
-                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
-                  <FileText className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Monitoring + Audit Logs</h3>
-                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
-                    Proof records for every decision—court-ready when it matters.
-                  </p>
-                </div>
-                <div className={`p-4 rounded-lg ${isDark ? 'bg-background/50 border border-border/50' : 'bg-white border border-slate-200'}`}>
-                  <UserCheck className={`h-5 w-5 mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                  <h3 className={`font-semibold mb-1 ${isDark ? 'text-foreground' : 'text-slate-900'}`}>Workforce Certification</h3>
-                  <p className={`text-sm ${isDark ? 'text-muted-foreground' : 'text-slate-600'}`}>
-                    PASS / REVIEW / FAIL scoring over time—not just a snapshot.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  asChild
-                  className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold"
-                >
-                  <Link to="/demos">
-                    Request Demo Access
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className={`${isDark ? 'border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10' : 'border-cyan-500 text-cyan-600 hover:bg-cyan-50'}`}
-                >
-                  <Link to="/demos/operator-certification">
-                    See Operator Certification
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </section>
 

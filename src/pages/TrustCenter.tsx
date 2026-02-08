@@ -134,9 +134,19 @@ const TrustCenter: React.FC = () => {
         </div>
         
         {/* Page Description */}
-        <p className="text-muted-foreground text-sm mb-6">
+        <p className="text-muted-foreground text-sm mb-4">
           Your verification hub. Build your trust score by completing identity checks — all verified in real-time, never stored.
         </p>
+
+        {/* Verification Credentials */}
+        <div className="mb-4">
+          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+            Verification Credentials
+          </h2>
+          <p className="text-xs text-muted-foreground mt-1">
+            Principal Cargo + client audit controls (B2C). Venue/admin operations remain separate (B2B).
+          </p>
+        </div>
 
         {/* GhostPass Portal - Primary Entry Point (B2C) */}
         <button
@@ -144,6 +154,7 @@ const TrustCenter: React.FC = () => {
           onClick={() => navigate('/trust-center/ghostpass-portal')}
           className="w-full rounded-2xl p-5 flex items-center justify-between border-2 transition touch-manipulation mb-6 bg-amber-500/10 border-amber-500/40 hover:bg-amber-500/20 active:bg-amber-500/30 shadow-[0_0_15px_rgba(255,215,0,0.2)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]"
           style={{ WebkitTapHighlightColor: 'transparent' }}
+          data-testid="ghostpass-portal-pill"
         >
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">

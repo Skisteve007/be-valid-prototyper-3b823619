@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,13 +19,17 @@ import {
   CheckCircle,
   XCircle,
   ChevronDown,
+  ChevronRight,
   Upload,
   Ear,
   Eye,
   Apple,
   Hand,
   Droplets,
-  Wind
+  Wind,
+  Ghost,
+  Database,
+  Wifi
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -64,6 +69,7 @@ const TrustSignalSection = ({
   referencesLocked,
   onReferencesLockedChange,
 }: TrustSignalSectionProps) => {
+  const navigate = useNavigate();
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [pendingVouches, setPendingVouches] = useState<Array<{id: string, referrer_user_id: string, full_name: string, member_id: string}>>([]);
@@ -260,6 +266,33 @@ const TrustSignalSection = ({
                   )}
                 </Button>
               </div>
+
+              {/* GhostPass Portal - Primary B2C entry point */}
+              <button
+                type="button"
+                onClick={() => navigate('/trust-center/ghostpass-portal')}
+                className="w-full rounded-2xl p-4 flex items-center justify-between border-2 transition touch-manipulation bg-amber-500/10 border-amber-500/40 hover:bg-amber-500/20 active:bg-amber-500/30 shadow-[0_0_15px_rgba(255,215,0,0.2)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+                data-testid="ghostpass-portal-pill"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+                    <Ghost className="w-5 h-5 text-amber-400" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-foreground font-semibold text-sm">GhostPass Portal</div>
+                    <p className="text-muted-foreground text-xs">Client audit logs & sharing controls</p>
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <Database className="w-3 h-3 text-amber-400" />
+                      <span className="text-[10px] text-amber-400">Tokens</span>
+                      <span className="text-muted-foreground/50">•</span>
+                      <Wifi className="w-3 h-3 text-amber-400" />
+                      <span className="text-[10px] text-amber-400">Real-time Sync</span>
+                    </div>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-amber-400" />
+              </button>
 
               {/* PRINCIPAL CARGO SUBSECTION */}
               <div className="p-3 rounded-lg border border-cyan-500/30 bg-cyan-500/5 space-y-3">

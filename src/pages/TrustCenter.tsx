@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Shield, ShieldCheck, ChevronLeft, Fingerprint, FlaskConical, Heart, Lock, Ear, Eye, Apple, Hand, Wind, Upload, Radio, Droplets } from 'lucide-react';
+import { Shield, ShieldCheck, ChevronLeft, Fingerprint, FlaskConical, Heart, Lock, Ear, Eye, Apple, Hand, Wind, Upload, Radio, Droplets, Ghost, Database, Wifi } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import BackButton from '@/components/BackButton';
 import { toast } from 'sonner';
@@ -144,6 +144,31 @@ const TrustCenter: React.FC = () => {
           <div className="text-cyan-400 text-sm font-medium">Trust Score</div>
           <div className="text-muted-foreground text-xs mt-2">Complete all verifications to reach 100</div>
         </div>
+
+        {/* GhostPass Portal - Primary Entry Point */}
+        <button
+          onClick={() => navigate('/trust-center/ghostpass-portal')}
+          className="w-full bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border-2 border-purple-500/40 rounded-2xl p-5 flex items-center justify-between hover:from-purple-500/20 hover:to-cyan-500/20 active:from-purple-500/30 active:to-cyan-500/30 transition touch-manipulation mb-6 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center border border-purple-500/50">
+              <Ghost className="w-6 h-6 text-purple-400" />
+            </div>
+            <div className="text-left">
+              <div className="text-foreground font-semibold">GhostPass Portal</div>
+              <p className="text-muted-foreground text-xs">Cold storage, audit logs & PWA sync</p>
+              <div className="flex items-center gap-1.5 mt-1">
+                <Database className="w-3 h-3 text-cyan-400" />
+                <span className="text-[10px] text-cyan-400">Tokens</span>
+                <span className="text-muted-foreground/50">•</span>
+                <Wifi className="w-3 h-3 text-emerald-400" />
+                <span className="text-[10px] text-emerald-400">Real-time Sync</span>
+              </div>
+            </div>
+          </div>
+          <ChevronLeft className="w-6 h-6 text-purple-400 rotate-180" />
+        </button>
 
         {/* Verification Options */}
         <div className="space-y-4">

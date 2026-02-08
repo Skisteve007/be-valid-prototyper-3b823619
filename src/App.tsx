@@ -71,6 +71,7 @@ const LabPortal = lazy(() => import("./pages/LabPortal"));
 const PlatformFeatures = lazy(() => import("./pages/PlatformFeatures"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const TrustCenter = lazy(() => import("./pages/TrustCenter"));
+const GhostPassPortalPage = lazy(() => import("./pages/GhostPassPortalPage"));
 const CinematicPitchDeck = lazy(() => import("./pages/CinematicPitchDeck"));
 const Synth = lazy(() => import("./pages/Synth"));
 const SynthAdmin = lazy(() => import("./pages/SynthAdmin"));
@@ -311,6 +312,7 @@ const App = () => (
                   <Route path="/security-compliance" element={<SecurityCompliance />} />
                   <Route path="/my-access" element={<AgeGate><MyAccess /></AgeGate>} />
                   <Route path="/trust-center" element={<AgeGate><TrustCenter /></AgeGate>} />
+                  <Route path="/trust-center/ghostpass-portal" element={<AgeGate><GhostPassPortalPage /></AgeGate>} />
                   <Route path="/pitch" element={<AccessGate accessType="investor"><CinematicPitchDeck /></AccessGate>} />
                   <Route path="/deck" element={<AccessGate accessType="investor"><CinematicPitchDeck /></AccessGate>} />
                   <Route path="/system-audit" element={<SystemAudit />} />

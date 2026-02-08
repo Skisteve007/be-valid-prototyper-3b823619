@@ -138,37 +138,38 @@ const TrustCenter: React.FC = () => {
           Your verification hub. Build your trust score by completing identity checks — all verified in real-time, never stored.
         </p>
 
+        {/* GhostPass Portal - Primary Entry Point (B2C) */}
+        <button
+          type="button"
+          onClick={() => navigate('/trust-center/ghostpass-portal')}
+          className="w-full rounded-2xl p-5 flex items-center justify-between border-2 transition touch-manipulation mb-6 bg-amber-500/10 border-amber-500/40 hover:bg-amber-500/20 active:bg-amber-500/30 shadow-[0_0_15px_rgba(255,215,0,0.2)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+              <Ghost className="w-6 h-6 text-amber-400" />
+            </div>
+            <div className="text-left">
+              <div className="text-foreground font-semibold">GhostPass Portal</div>
+              <p className="text-muted-foreground text-xs">Client audit logs & sharing controls (B2C)</p>
+              <div className="flex items-center gap-1.5 mt-1">
+                <Database className="w-3 h-3 text-amber-400" />
+                <span className="text-[10px] text-amber-400">Tokens</span>
+                <span className="text-muted-foreground/50">•</span>
+                <Wifi className="w-3 h-3 text-amber-400" />
+                <span className="text-[10px] text-amber-400">Real-time Sync</span>
+              </div>
+            </div>
+          </div>
+          <ChevronLeft className="w-6 h-6 text-amber-400 rotate-180" />
+        </button>
+
         {/* Trust Score */}
         <div className="bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 rounded-2xl p-6 border border-cyan-500/30 mb-6 text-center">
           <div className="text-6xl font-bold text-foreground mb-2">{trustScore}</div>
           <div className="text-cyan-400 text-sm font-medium">Trust Score</div>
           <div className="text-muted-foreground text-xs mt-2">Complete all verifications to reach 100</div>
         </div>
-
-        {/* GhostPass Portal - Primary Entry Point */}
-        <button
-          onClick={() => navigate('/trust-center/ghostpass-portal')}
-          className="w-full bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border-2 border-purple-500/40 rounded-2xl p-5 flex items-center justify-between hover:from-purple-500/20 hover:to-cyan-500/20 active:from-purple-500/30 active:to-cyan-500/30 transition touch-manipulation mb-6 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center border border-purple-500/50">
-              <Ghost className="w-6 h-6 text-purple-400" />
-            </div>
-            <div className="text-left">
-              <div className="text-foreground font-semibold">GhostPass Portal</div>
-              <p className="text-muted-foreground text-xs">Cold storage, audit logs & PWA sync</p>
-              <div className="flex items-center gap-1.5 mt-1">
-                <Database className="w-3 h-3 text-cyan-400" />
-                <span className="text-[10px] text-cyan-400">Tokens</span>
-                <span className="text-muted-foreground/50">•</span>
-                <Wifi className="w-3 h-3 text-emerald-400" />
-                <span className="text-[10px] text-emerald-400">Real-time Sync</span>
-              </div>
-            </div>
-          </div>
-          <ChevronLeft className="w-6 h-6 text-purple-400 rotate-180" />
-        </button>
 
         {/* Verification Options */}
         <div className="space-y-4">

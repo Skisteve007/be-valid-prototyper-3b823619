@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, CheckCircle, Upload, Move, Activity, Zap, Ghost, Fingerprint, CreditCard, HeartPulse, FlaskConical, Package } from "lucide-react";
+import { User, Home, MapPin, Cake, Users, Mail, Camera, Heart, Lock, Unlock, CheckCircle, Upload, Move, Activity, Zap, Ghost, Fingerprint, CreditCard, HeartPulse, FlaskConical, Package, Scale, Sparkles } from "lucide-react";
 import { SensoryVerificationShuttle } from "./SensoryVerificationShuttle";
 import { useRef, useState } from "react";
 import { ImageCropDialog } from "./ImageCropDialog";
@@ -54,6 +54,8 @@ interface PersonalInfoSectionProps {
   shareBioEnabled?: boolean;
   shareToxEnabled?: boolean;
   shareProfileEnabled?: boolean;
+  shareSenateEnabled?: boolean;
+  shareCustomEnabled?: boolean;
   onShareToggle?: (field: string, value: boolean) => void;
   userId?: string;
   // Sports teams
@@ -94,6 +96,8 @@ export const PersonalInfoSection = ({
   shareBioEnabled = false,
   shareToxEnabled = false,
   shareProfileEnabled = false,
+  shareSenateEnabled = false,
+  shareCustomEnabled = false,
   onShareToggle,
   userId,
   selectedTeams = { nfl: [], nba: [], nhl: [], mlb: [] },
@@ -432,6 +436,48 @@ export const PersonalInfoSection = ({
                           )}
                         </div>
                       </button>
+                      
+                      {/* SENATE Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => onShareToggle?.('share_senate_enabled', !shareSenateEnabled)}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                          shareSenateEnabled 
+                            ? 'bg-indigo-500/30 border-2 border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.4)]' 
+                            : 'bg-indigo-500/10 border border-indigo-400/30'
+                        }`}
+                      >
+                        <Scale className="w-5 h-5 text-indigo-400" />
+                        <span className="text-[9px] font-bold text-indigo-400 tracking-wider">SENATE</span>
+                        <div className="bg-black rounded p-0.5">
+                          {shareSenateEnabled ? (
+                            <Unlock className="w-4 h-4 text-indigo-400" strokeWidth={3} />
+                          ) : (
+                            <Lock className="w-4 h-4 text-indigo-400" strokeWidth={3} />
+                          )}
+                        </div>
+                      </button>
+                      
+                      {/* CUSTOM Toggle - Open for any requirement */}
+                      <button
+                        type="button"
+                        onClick={() => onShareToggle?.('share_custom_enabled', !shareCustomEnabled)}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                          shareCustomEnabled 
+                            ? 'bg-orange-500/30 border-2 border-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.4)]' 
+                            : 'bg-orange-500/10 border border-orange-400/30'
+                        }`}
+                      >
+                        <Sparkles className="w-5 h-5 text-orange-400" />
+                        <span className="text-[9px] font-bold text-orange-400 tracking-wider">CUSTOM</span>
+                        <div className="bg-black rounded p-0.5">
+                          {shareCustomEnabled ? (
+                            <Unlock className="w-4 h-4 text-orange-400" strokeWidth={3} />
+                          ) : (
+                            <Lock className="w-4 h-4 text-orange-400" strokeWidth={3} />
+                          )}
+                        </div>
+                      </button>
                       </div>
                     </div>
                     
@@ -458,7 +504,7 @@ export const PersonalInfoSection = ({
                       <p className="text-xs text-cyan-400 uppercase tracking-widest font-bold">PRINCIPAL CARGO</p>
                     </div>
                     <p className="text-[10px] text-gray-400 uppercase tracking-wider text-center mb-2">CHOOSE YOUR SHARE</p>
-                    <div className="grid grid-cols-5 gap-2">
+                    <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
                     {/* ID Toggle */}
                     <button
                       type="button"
@@ -560,6 +606,48 @@ export const PersonalInfoSection = ({
                           <Unlock className="w-4 h-4 text-purple-400" strokeWidth={3} />
                         ) : (
                           <Lock className="w-4 h-4 text-purple-400" strokeWidth={3} />
+                        )}
+                      </div>
+                    </button>
+                    
+                    {/* SENATE Toggle */}
+                    <button
+                      type="button"
+                      onClick={() => onShareToggle?.('share_senate_enabled', !shareSenateEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareSenateEnabled 
+                          ? 'bg-indigo-500/30 border-2 border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.4)]' 
+                          : 'bg-indigo-500/10 border border-indigo-400/30'
+                      }`}
+                    >
+                      <Scale className="w-5 h-5 text-indigo-400" />
+                      <span className="text-[9px] font-bold text-indigo-400 tracking-wider">SENATE</span>
+                      <div className="bg-black rounded p-0.5">
+                        {shareSenateEnabled ? (
+                          <Unlock className="w-4 h-4 text-indigo-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-indigo-400" strokeWidth={3} />
+                        )}
+                      </div>
+                    </button>
+                    
+                    {/* CUSTOM Toggle - Open for any requirement */}
+                    <button
+                      type="button"
+                      onClick={() => onShareToggle?.('share_custom_enabled', !shareCustomEnabled)}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all active:scale-95 ${
+                        shareCustomEnabled 
+                          ? 'bg-orange-500/30 border-2 border-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.4)]' 
+                          : 'bg-orange-500/10 border border-orange-400/30'
+                      }`}
+                    >
+                      <Sparkles className="w-5 h-5 text-orange-400" />
+                      <span className="text-[9px] font-bold text-orange-400 tracking-wider">CUSTOM</span>
+                      <div className="bg-black rounded p-0.5">
+                        {shareCustomEnabled ? (
+                          <Unlock className="w-4 h-4 text-orange-400" strokeWidth={3} />
+                        ) : (
+                          <Lock className="w-4 h-4 text-orange-400" strokeWidth={3} />
                         )}
                       </div>
                     </button>

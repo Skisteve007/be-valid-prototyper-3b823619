@@ -161,8 +161,8 @@ const TrustCenter: React.FC = () => {
               <Ghost className="w-6 h-6 text-amber-400" />
             </div>
             <div className="text-left">
-              <div className="text-foreground font-semibold">GhostPass Portal</div>
-              <p className="text-muted-foreground text-xs">Client audit logs & sharing controls (B2C)</p>
+              <div className="text-foreground font-semibold">Ghost Pass Command Center</div>
+              <p className="text-muted-foreground text-xs">Operations & audit hub</p>
               <div className="flex items-center gap-1.5 mt-1">
                 <Database className="w-3 h-3 text-amber-400" />
                 <span className="text-[10px] text-amber-400">Tokens</span>

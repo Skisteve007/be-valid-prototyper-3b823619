@@ -34,8 +34,8 @@ const GhostPassPortalPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>GhostPass Portal | Valid™</title>
-        <meta name="description" content="Manage your GhostPass tokens, scan history, and sharing permissions" />
+        <title>Ghost Pass Command Center | Valid™</title>
+        <meta name="description" content="Ghost Pass Command Center — operations and audit hub for tokens, scans, and permissions" />
       </Helmet>
       <GhostPassPortal userId={userId} />
     </>

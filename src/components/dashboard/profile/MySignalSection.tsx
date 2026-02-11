@@ -92,7 +92,7 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
   const [localMetadata, setLocalMetadata] = useState<Record<string, any>>(vibeMetadata || {});
   const [copiedLink, setCopiedLink] = useState<string | null>(null);
   const [broadcastActive, setBroadcastActive] = useState(false);
-  const [broadcastMessage, setBroadcastMessage] = useState("");
+  const [broadcastMessage, setBroadcastMessage] = useState(vibeMetadata?.broadcastMessage || "");
   const [simulateVenue, setSimulateVenue] = useState(false);
   const [showDevSettings, setShowDevSettings] = useState(false);
   const qrRef = useRef<HTMLDivElement>(null);
@@ -435,7 +435,12 @@ const MySignalSection = ({ vibeMetadata, onVibeMetadataChange, onStatusColorChan
           {/* Broadcast Message Input - FIRST, under header */}
           <Input
             value={broadcastMessage}
-            onChange={(e) => setBroadcastMessage(e.target.value)}
+           onChange={(e) => {
+              setBroadcastMessage(e.target.value);
+              const newMetadata = { ...localMetadata, broadcastMessage: e.target.value };
+              setLocalMetadata(newMetadata);
+              onVibeMetadataChange(newMetadata);
+            }}
             placeholder="Enter broadcast message..."
             maxLength={50}
             className="bg-background border-border text-foreground placeholder:text-muted-foreground mb-2 text-center"

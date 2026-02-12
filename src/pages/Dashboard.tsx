@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
-import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle, Scale, Wallet, Eye } from "lucide-react";
+import { LogOut, User as UserIcon, Upload, Home, FlaskConical, ShieldCheck, Share2, Fingerprint, Loader2, CheckCircle, Save, Ghost, ArrowLeft, MessageCircle, Scale, Wallet, Eye, ChevronRight } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLongPressHome } from "@/hooks/useLongPressHome";
 import ProfileTab, { ProfileTabRef } from "@/components/dashboard/ProfileTab";
@@ -29,7 +29,7 @@ import { PrivacyBadgeB2C } from "@/components/privacy";
 import { RatifyPill, RatifyPanel } from "@/components/ratify";
 import { useRatifyContext } from "@/contexts/RatifyContext";
 import { HumanVettingPill, HumanVettingPanel } from "@/components/human-vetting";
-import { GovernanceStandardPill } from "@/components/governance";
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -337,13 +337,28 @@ const Dashboard = () => {
                 <HumanVettingPill 
                   isActive={false}
                 />
-                
-                {/* Governance Standard Constitution Pill */}
-                <GovernanceStandardPill />
               </div>
               <p className="text-[#E0E0E0]/70 text-sm md:text-base mt-1">
                 Welcome to your Universal Lifestyle Wallet. One place for identity, safety, and access.
               </p>
+
+              {/* Trust Center - Primary Access */}
+              <button
+                onClick={() => navigate('/trust-center')}
+                className="w-full mt-3 rounded-2xl p-4 flex items-center justify-between border-2 transition touch-manipulation bg-cyan-500/10 border-cyan-500/40 hover:bg-cyan-500/20 active:bg-cyan-500/30 shadow-[0_0_15px_rgba(0,255,255,0.2)] hover:shadow-[0_0_20px_rgba(0,255,255,0.4)]"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center border border-cyan-500/30">
+                    <ShieldCheck className="w-5 h-5 text-cyan-400" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-foreground font-semibold text-sm">Trust Center</div>
+                    <p className="text-[#E0E0E0]/60 text-xs">Verify identity, health & sensory credentials</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-cyan-400" />
+              </button>
               
               {/* Tab Navigation - Inside Dashboard Pill */}
               <div className="mt-4 overflow-x-auto overflow-y-hidden scrollbar-none -mx-2 px-2 pb-2 touch-pan-x">

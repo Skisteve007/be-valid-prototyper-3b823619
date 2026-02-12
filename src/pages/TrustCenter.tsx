@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Shield, ShieldCheck, ChevronLeft, Fingerprint, FlaskConical, Heart, Lock, Ear, Eye, Apple, Hand, Wind, Upload, Radio, Droplets } from 'lucide-react';
+import { Shield, ShieldCheck, ChevronLeft, Fingerprint, FlaskConical, Heart, Lock, Ear, Eye, Apple, Hand, Wind, Upload, Radio, Droplets, Ghost, Database, Wifi } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import BackButton from '@/components/BackButton';
 import { toast } from 'sonner';
@@ -134,9 +134,46 @@ const TrustCenter: React.FC = () => {
         </div>
         
         {/* Page Description */}
-        <p className="text-muted-foreground text-sm mb-6">
+        <p className="text-muted-foreground text-sm mb-4">
           Your verification hub. Build your trust score by completing identity checks — all verified in real-time, never stored.
         </p>
+
+        {/* Verification Credentials */}
+        <div className="mb-4">
+          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+            Verification Credentials
+          </h2>
+          <p className="text-xs text-muted-foreground mt-1">
+            Principal Cargo + client audit controls (B2C). Venue/admin operations remain separate (B2B).
+          </p>
+        </div>
+
+        {/* GhostPass Portal - Primary Entry Point (B2C) */}
+        <button
+          type="button"
+          onClick={() => navigate('/trust-center/ghostpass-portal')}
+          className="w-full rounded-2xl p-5 flex items-center justify-between border-2 transition touch-manipulation mb-6 bg-amber-500/10 border-amber-500/40 hover:bg-amber-500/20 active:bg-amber-500/30 shadow-[0_0_15px_rgba(255,215,0,0.2)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)]"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+          data-testid="ghostpass-portal-pill"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+              <Ghost className="w-6 h-6 text-amber-400" />
+            </div>
+            <div className="text-left">
+              <div className="text-foreground font-semibold">Ghost Pass Command Center</div>
+              <p className="text-muted-foreground text-xs">Operations & audit hub</p>
+              <div className="flex items-center gap-1.5 mt-1">
+                <Database className="w-3 h-3 text-amber-400" />
+                <span className="text-[10px] text-amber-400">Tokens</span>
+                <span className="text-muted-foreground/50">•</span>
+                <Wifi className="w-3 h-3 text-amber-400" />
+                <span className="text-[10px] text-amber-400">Real-time Sync</span>
+              </div>
+            </div>
+          </div>
+          <ChevronLeft className="w-6 h-6 text-amber-400 rotate-180" />
+        </button>
 
         {/* Trust Score */}
         <div className="bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 rounded-2xl p-6 border border-cyan-500/30 mb-6 text-center">

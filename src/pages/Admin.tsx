@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen, Webhook, ArrowLeft, Send } from "lucide-react";
+import { Loader2, Plus, Trash2, ExternalLink, Shield, GripVertical, Eye, MousePointerClick, TrendingUp, Download, Calendar as CalendarIcon, FlaskConical, Code, Globe, Zap, QrCode, Users, BarChart3, BookOpen, Webhook, ArrowLeft, Send, AlertTriangle } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
@@ -40,6 +40,9 @@ import { PricingReferenceTab } from "@/components/admin/PricingReferenceTab";
 import { PricingContractsTab } from "@/components/admin/PricingContractsTab";
 import { WebhookEventsViewer } from "@/components/admin/WebhookEventsViewer";
 import { SynthAdminTab } from "@/components/admin/SynthAdminTab";
+import { GhostPassAdminTab } from "@/components/admin/GhostPassAdminTab";
+import { CommandCenterTab } from "@/components/admin/CommandCenterTab";
+import SCUMonitor from "@/components/admin/SCUMonitor";
 import { CEOPlaybookTab } from "@/components/admin/CEOPlaybookTab";
 import ThinkTankManager from "@/components/admin/ThinkTankManager";
 import {
@@ -250,6 +253,16 @@ const Admin = () => {
 
   const checkAdminAccess = async () => {
     try {
+      // In development mode, bypass authorization
+      if (import.meta.env.DEV) {
+        console.log('[DEV MODE] Admin access check bypassed for development');
+        setUserEmail('dev@localhost');
+        setIsAdmin(true);
+        await Promise.all([loadSponsors(), loadAnalytics()]);
+        setLoading(false);
+        return;
+      }
+
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
@@ -702,7 +715,7 @@ const Admin = () => {
           </TabsList>
           
           {/* Third Row of Tabs */}
-          <TabsList className="hidden md:grid w-full grid-cols-5 gap-1 h-auto p-1 mb-4">
+          <TabsList className="hidden md:grid w-full grid-cols-7 gap-1 h-auto p-1 mb-4">
             <TabsTrigger value="pricing" className="cursor-pointer text-sm px-2 py-2">
               💰 Pricing
             </TabsTrigger>
@@ -715,6 +728,14 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="ceo-playbook" className="cursor-pointer text-sm px-2 py-2">
               📘 Playbook
+            </TabsTrigger>
+            <TabsTrigger value="scu-monitor" className="cursor-pointer text-sm px-2 py-2 bg-cyan-500/10 border border-cyan-500/30">
+              <Shield className="h-4 w-4 mr-1" />
+              SCU Monitor
+            </TabsTrigger>
+            <TabsTrigger value="ghost-pass" className="cursor-pointer text-sm px-2 py-2 bg-red-500/10 border border-red-500/30">
+              <AlertTriangle className="h-4 w-4 mr-1" />
+              Ghost Pass
             </TabsTrigger>
             <TabsTrigger
               value="synth"
@@ -1095,6 +1116,14 @@ const Admin = () => {
 
           <TabsContent value="synth">
             <SynthAdminTab />
+          </TabsContent>
+
+          <TabsContent value="scu-monitor">
+            <SCUMonitor onBack={() => setActiveTab('members')} />
+          </TabsContent>
+
+          <TabsContent value="ghost-pass">
+            <CommandCenterTab />
           </TabsContent>
         </Tabs>
       </main>

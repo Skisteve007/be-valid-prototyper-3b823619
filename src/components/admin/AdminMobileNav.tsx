@@ -20,7 +20,8 @@ import {
   UserPlus,
   BookOpen,
   Building2,
-  FileText
+  FileText,
+  AlertTriangle
 } from "lucide-react";
 
 interface AdminMobileNavProps {
@@ -49,6 +50,8 @@ const navItems = [
   { id: "webhooks", label: "Webhooks", icon: Webhook },
   { id: "hiring", label: "Hiring & Legal", icon: UserPlus },
   { id: "ceo-playbook", label: "CEO Playbook", icon: BookOpen },
+  { id: "ghost-pass", label: "Ghost Pass Admin", icon: Shield },
+  { id: "command-center", label: "Command Center", icon: AlertTriangle },
 ];
 
 export const AdminMobileNav = ({ activeTab, onTabChange, canAccessDealRoom, canUnlockSynth }: AdminMobileNavProps) => {

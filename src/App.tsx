@@ -22,6 +22,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import SSOAuth from "./pages/SSOAuth";
 
 // Lazy loaded pages for code splitting
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -98,6 +99,8 @@ const ManagerAdmin = lazy(() => import("./pages/ManagerAdmin"));
 const DriverDashboard = lazy(() => import("./pages/DriverDashboard"));
 const StaffPayment = lazy(() => import("./pages/StaffPayment"));
 const AdminDocumentation = lazy(() => import("./pages/AdminDocumentation"));
+const AuditTrailPage = lazy(() => import("./pages/AuditTrailPage"));
+const VenueEventManager = lazy(() => import("./pages/VenueEventManager"));
 const PartnerHelp = lazy(() => import("./pages/PartnerHelp"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const WalletFundingSuccess = lazy(() => import("./pages/WalletFundingSuccess"));
@@ -181,6 +184,9 @@ const App = () => (
               <ModeSwitcherFAB />
               <Suspense fallback={<PageLoader />}>
                 <Routes>
+                  {/* SSO AUTHENTICATION ROUTE */}
+                  <Route path="/sso/:token" element={<SSOAuth />} />
+
                   {/* PUBLIC ROUTES - No SiteGate protection */}
                   <Route path="/" element={<AgeGate><Index /></AgeGate>} />
                   <Route path="/auth" element={<AgeGate><Auth /></AgeGate>} />
@@ -203,6 +209,7 @@ const App = () => (
                   <Route path="/admin/documentation" element={<AgeGate><AdminDocumentation /></AgeGate>} />
                   <Route path="/admin/security-positioning" element={<AgeGate><AdminSecurityPositioning /></AgeGate>} />
                   <Route path="/admin/sales-command" element={<AgeGate><SynthSalesCommandCenter /></AgeGate>} />
+                  <Route path="/audit-trail" element={<AgeGate><AuditTrailPage /></AgeGate>} />
                   <Route path="/synth-vault" element={<SynthVault />} />
                   <Route path="/synth" element={<AgeGate><Synth /></AgeGate>} />
                   <Route path="/synth/admin" element={<AgeGate><SynthAdmin /></AgeGate>} />
@@ -301,6 +308,7 @@ const App = () => (
                   
                   {/* VENUE ROUTES */}
                   <Route path="/venues/:slug" element={<VenueLanding />} />
+                  <Route path="/venue/events" element={<AgeGate><VenueEventManager /></AgeGate>} />
                   <Route path="/access-pending" element={<AccessPending />} />
                   <Route path="/access-approved" element={<AgeGate><AccessApproved /></AgeGate>} />
                   

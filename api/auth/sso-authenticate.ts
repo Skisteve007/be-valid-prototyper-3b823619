@@ -2,6 +2,7 @@
 // This service handles SSO token validation using ghost-pass Supabase
 
 import { ghostPassSupabase } from '../../src/integrations/supabase/ghostpass-client';
+import { syncUserToBeValid } from './user-sync-service';
 
 export interface SSOAuthResponse {
   access_token: string;
@@ -70,6 +71,9 @@ export const authenticateSSO = async (
     if (userError || !userData) {
       throw new Error('Associated user account not found');
     }
+
+    // Sync user to be-valid database if not already present
+    await syncUserToBeValid(userData.id, userData);
 
     // Create a session token for beVALID
     const sessionToken = crypto.randomUUID();

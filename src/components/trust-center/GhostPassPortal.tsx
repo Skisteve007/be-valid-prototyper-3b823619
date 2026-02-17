@@ -70,10 +70,10 @@ const GhostPassPortal: React.FC<GhostPassPortalProps> = ({ userId }) => {
   );
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-4 md:p-8 pt-20 md:pt-24">
+    <div className="min-h-screen bg-background text-foreground p-4 md:p-8 pt-24 md:pt-32">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <div className="flex items-center gap-4 w-full sm:w-auto">
           <BackButton fallbackPath="/trust-center" />
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center border border-purple-500/50">

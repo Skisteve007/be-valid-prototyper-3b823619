@@ -174,7 +174,7 @@ export const commandCenterApi = {
       // Get pending payouts
       const { data: pendingPayoutsData } = await ghostPassSupabase
         .from('payout_requests')
-        .select('*')
+        .select('id, vendor_user_id, amount_cents, status, requested_at, processed_at, processed_by, notes')
         .eq('status', 'PENDING')
         .order('requested_at', { ascending: false })
         .limit(10);
@@ -198,7 +198,7 @@ export const commandCenterApi = {
       // Get recent audit logs
       const { data: recentAuditData } = await ghostPassSupabase
         .from('audit_logs')
-        .select('*')
+        .select('id, admin_user_id, action, resource_type, resource_id, old_value, new_value, timestamp, metadata')
         .order('timestamp', { ascending: false })
         .limit(10);
 

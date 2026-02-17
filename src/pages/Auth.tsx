@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { ghostPassSupabase } from "@/integrations/supabase/ghostpass-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +20,39 @@ import {
   registerWebAuthnCredential,
   getStoredWebAuthnCredential
 } from "@/lib/webauthn";
+
+/**
+ * Helper function to sync user to ghost-pass database
+ * This ensures users can access ghost-pass features immediately after signup/login
+ */
+const syncUserToGhostPass = async (userId: string, email: string, role: 'USER' | 'ADMIN' | 'VENUE_ADMIN' = 'USER') => {
+  try {
+    console.log('[Auth] Syncing user to ghost-pass:', userId);
+    
+    const { data, error } = await ghostPassSupabase.functions.invoke('sync-user', {
+      body: {
+        userId,
+        email,
+        role,
+      },
+    });
+
+    if (error) {
+      console.warn('[Auth] Ghost-pass sync error (non-blocking):', error);
+      return false;
+    }
+
+    if (data?.success) {
+      console.log('[Auth] User successfully synced to ghost-pass');
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    console.warn('[Auth] Ghost-pass sync failed (non-blocking):', error);
+    return false;
+  }
+};
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -349,6 +383,11 @@ const Auth = () => {
         // Save user data locally for returning user experience
         saveUserDataLocally(data.user.email || loginEmail, profile?.full_name || "", "email");
         
+        // Sync user to ghost-pass database (non-blocking)
+        syncUserToGhostPass(data.user.id, data.user.email || loginEmail, 'USER').catch(err => 
+          console.warn('Ghost-pass sync failed:', err)
+        );
+        
         // Prompt biometric setup if available
         if (biometricAvailable && !hasWebAuthnCredential()) {
           setPendingBiometricSetup({
@@ -395,6 +434,14 @@ const Auth = () => {
         // User already exists
         toast.error("An account with this email already exists. Please log in.");
         return;
+      }
+
+      // Sync user to ghost-pass database if signup successful
+      if (data.user) {
+        // Sync to ghost-pass (non-blocking)
+        syncUserToGhostPass(data.user.id, signupEmail, 'USER').catch(err => 
+          console.warn('Ghost-pass sync failed:', err)
+        );
       }
 
       // Save discount code to localStorage for later use after email confirmation

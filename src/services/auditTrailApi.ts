@@ -92,17 +92,37 @@ export const getEntryPointAuditLogs = async (
   filters?: EntryPointAuditFilter
 ): Promise<EntryPointAuditLog[]> => {
   try {
-    // Call the database function to get filtered audit logs
-    const { data, error } = await ghostPassSupabase.rpc('get_entry_point_audit_logs' as any, {
-      p_entry_point_id: filters?.entry_point_id || null,
-      p_employee_name: filters?.employee_name || null,
-      p_action_type: filters?.action_type || null,
-      p_start_date: filters?.start_date || null,
-      p_end_date: filters?.end_date || null,
-      p_source_location: filters?.source_location || null,
-      p_limit: filters?.limit || 100,
-      p_offset: filters?.offset || 0
-    });
+    let query = ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    // Apply filters
+    if (filters?.entry_point_id) {
+      query = query.eq('entry_point_id', filters.entry_point_id);
+    }
+    if (filters?.employee_name) {
+      query = query.ilike('employee_name', `%${filters.employee_name}%`);
+    }
+    if (filters?.action_type) {
+      query = query.eq('action_type', filters.action_type);
+    }
+    if (filters?.start_date) {
+      query = query.gte('created_at', filters.start_date);
+    }
+    if (filters?.end_date) {
+      query = query.lte('created_at', filters.end_date);
+    }
+    if (filters?.source_location) {
+      query = query.eq('source_location', filters.source_location);
+    }
+
+    // Apply pagination
+    const limit = filters?.limit || 100;
+    const offset = filters?.offset || 0;
+    query = query.range(offset, offset + limit - 1);
+
+    const { data, error } = await query;
 
     if (error) throw error;
     return (data || []) as EntryPointAuditLog[];
@@ -122,37 +142,89 @@ export const getAuditSummary = async (days: number = 30): Promise<AuditSummarySt
     startDate.setDate(startDate.getDate() - days);
     const endDate = new Date();
 
-    // Call the database function to get summary stats
-    const { data, error } = await ghostPassSupabase.rpc('get_audit_summary_stats' as any, {
-      p_start_date: startDate.toISOString(),
-      p_end_date: endDate.toISOString()
-    });
+    // Get total actions
+    const { count: totalActions } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
 
-    if (error) throw error;
+    // Get total scans
+    const { count: totalScans } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*', { count: 'exact', head: true })
+      .eq('action_type', 'SCAN')
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
 
-    if (!data || (Array.isArray(data) && data.length === 0)) {
-      return {
-        period_days: days,
-        total_actions: 0,
-        total_scans: 0,
-        total_edits: 0,
-        total_creates: 0,
-        total_deactivates: 0,
-        unique_entry_points: 0,
-        unique_employees: 0,
-        most_active_entry_point: 'None',
-        most_active_employee: 'None'
-      };
-    }
+    // Get total edits
+    const { count: totalEdits } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*', { count: 'exact', head: true })
+      .eq('action_type', 'EDIT')
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
 
-    const stats = Array.isArray(data) ? data[0] : data;
+    // Get total creates
+    const { count: totalCreates } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*', { count: 'exact', head: true })
+      .eq('action_type', 'CREATE')
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
+
+    // Get total deactivates
+    const { count: totalDeactivates } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*', { count: 'exact', head: true })
+      .eq('action_type', 'DEACTIVATE')
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
+
+    // Get unique entry points
+    const { data: entryPoints } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('entry_point_id')
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
+
+    const uniqueEntryPoints = new Set((entryPoints || []).map((ep: any) => ep.entry_point_id)).size;
+
+    // Get unique employees
+    const { data: employees } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('employee_name')
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
+
+    const uniqueEmployees = new Set((employees || []).map((emp: any) => emp.employee_name)).size;
+
     return {
-      ...stats,
-      period_days: days
-    } as AuditSummaryStats;
+      period_days: days,
+      total_actions: totalActions || 0,
+      total_scans: totalScans || 0,
+      total_edits: totalEdits || 0,
+      total_creates: totalCreates || 0,
+      total_deactivates: totalDeactivates || 0,
+      unique_entry_points: uniqueEntryPoints,
+      unique_employees: uniqueEmployees,
+      most_active_entry_point: 'N/A',
+      most_active_employee: 'N/A'
+    };
   } catch (error) {
     console.error('Error fetching audit summary:', error);
-    throw error;
+    return {
+      period_days: days,
+      total_actions: 0,
+      total_scans: 0,
+      total_edits: 0,
+      total_creates: 0,
+      total_deactivates: 0,
+      unique_entry_points: 0,
+      unique_employees: 0,
+      most_active_entry_point: 'None',
+      most_active_employee: 'None'
+    };
   }
 };
 
@@ -177,16 +249,12 @@ export const getEntryPointHistory = async (
     }
 
     // Get audit history
-    const { data, error } = await ghostPassSupabase.rpc('get_entry_point_audit_logs' as any, {
-      p_entry_point_id: entryPointId,
-      p_employee_name: null,
-      p_action_type: null,
-      p_start_date: null,
-      p_end_date: null,
-      p_source_location: null,
-      p_limit: limit,
-      p_offset: 0
-    });
+    const { data, error } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*')
+      .eq('entry_point_id', entryPointId)
+      .order('created_at', { ascending: false })
+      .limit(limit);
 
     if (error) throw error;
     return (data || []) as EntryPointAuditLog[];
@@ -210,16 +278,13 @@ export const getEmployeeActivity = async (
     startDate.setDate(startDate.getDate() - days);
 
     // Get employee activity
-    const { data, error } = await ghostPassSupabase.rpc('get_entry_point_audit_logs' as any, {
-      p_entry_point_id: null,
-      p_employee_name: employeeName,
-      p_action_type: null,
-      p_start_date: startDate.toISOString(),
-      p_end_date: null,
-      p_source_location: null,
-      p_limit: limit,
-      p_offset: 0
-    });
+    const { data, error } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*')
+      .eq('employee_name', employeeName)
+      .gte('created_at', startDate.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(limit);
 
     if (error) throw error;
     return (data || []) as EntryPointAuditLog[];
@@ -242,16 +307,13 @@ export const getRecentScans = async (
     startDate.setHours(startDate.getHours() - hours);
 
     // Get recent scans
-    const { data, error } = await ghostPassSupabase.rpc('get_entry_point_audit_logs' as any, {
-      p_entry_point_id: null,
-      p_employee_name: null,
-      p_action_type: 'SCAN',
-      p_start_date: startDate.toISOString(),
-      p_end_date: null,
-      p_source_location: null,
-      p_limit: limit,
-      p_offset: 0
-    });
+    const { data, error } = await ghostPassSupabase
+      .from('entry_point_audit_logs' as any)
+      .select('*')
+      .eq('action_type', 'SCAN')
+      .gte('created_at', startDate.toISOString())
+      .order('created_at', { ascending: false })
+      .limit(limit);
 
     if (error) throw error;
 

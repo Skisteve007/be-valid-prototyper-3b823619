@@ -745,7 +745,7 @@ export const CommandCenterTab: React.FC = () => {
                   </p>
                   <button
                     onClick={() => {
-                      window.location.href = '/audit-trail';
+                      window.location.href = '/audit-trail?from=/trust-center/ghostpass-portal';
                     }}
                     className="px-6 py-3 bg-blue-500/20 border border-blue-500 text-blue-400 rounded-lg font-medium hover:bg-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
                   >

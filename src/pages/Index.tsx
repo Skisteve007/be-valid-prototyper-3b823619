@@ -256,7 +256,7 @@ const Index = () => {
             >
               <ClipboardList className={`h-5 w-5 flex-shrink-0 ${isDark ? 'text-purple-400' : 'text-purple-600'}`} />
               <span className={`text-sm font-semibold ${isDark ? 'text-purple-300' : 'text-purple-700'}`}>
-                AI Evaluation & Governance
+                AI Systems Evaluation & Governance
               </span>
             </button>
           </div>

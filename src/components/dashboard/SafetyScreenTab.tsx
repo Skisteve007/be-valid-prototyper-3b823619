@@ -64,10 +64,10 @@ export const SafetyScreenTab = ({ userId }: SafetyScreenTabProps) => {
   const handlePaymentComplete = async () => {
     setLoading(true);
     try {
-      // Generate unique 12-digit alphanumeric code
-      const barcodeValue = Array.from({ length: 12 }, () =>
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[Math.floor(Math.random() * 36)]
-      ).join("");
+      // Generate unique 12-digit alphanumeric code using cryptographically secure random values
+      const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      const randomBytes = crypto.getRandomValues(new Uint8Array(12));
+      const barcodeValue = Array.from(randomBytes, (byte) => CHARS[byte % CHARS.length]).join("");
 
       const { data: authData } = await supabase.auth.getUser();
       if (!authData.user) throw new Error("Not authenticated");

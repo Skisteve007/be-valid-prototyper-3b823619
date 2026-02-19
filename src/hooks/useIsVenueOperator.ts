@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ghostPassSupabase } from '@/integrations/supabase/ghostpass-client';
 
-// Development mode bypass
-const DEV_MODE = import.meta.env.DEV;
-
 export const useIsVenueOperator = () => {
   const [isVenueOperator, setIsVenueOperator] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -12,15 +9,6 @@ export const useIsVenueOperator = () => {
   useEffect(() => {
     const checkVenueOperatorStatus = async () => {
       try {
-        // In development mode, bypass authorization
-        if (DEV_MODE) {
-          console.log('[DEV MODE] Venue operator authorization bypassed for development');
-          setIsVenueOperator(true);
-          setUserEmail('dev@localhost');
-          setLoading(false);
-          return;
-        }
-
         const { data: { user } } = await ghostPassSupabase.auth.getUser();
         
         if (!user) {

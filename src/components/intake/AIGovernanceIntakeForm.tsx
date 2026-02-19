@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { X, Send, CheckCircle, ClipboardList } from 'lucide-react';
+import { X, Send, CheckCircle, ClipboardList, Bot } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -58,6 +59,14 @@ const formSchema = z.object({
   budget_sensitivity: z.string().optional(),
   update_cadence: z.string().optional(),
   approval_required: z.string().optional(),
+
+  // Section 9: Chatbot & AI Agent Inventory
+  has_existing_chatbot: z.string().optional(),
+  chatbot_maker: z.string().optional(),
+  chatbot_function_description: z.string().optional(),
+  chatbot_satisfaction: z.string().optional(),
+  desired_agent_capabilities: z.array(z.string()).optional(),
+  chatbot_interest_level: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -135,6 +144,12 @@ const AIGovernanceIntakeForm: React.FC<AIGovernanceIntakeFormProps> = ({ isOpen,
       budget_sensitivity: '',
       update_cadence: '',
       approval_required: '',
+      has_existing_chatbot: '',
+      chatbot_maker: '',
+      chatbot_function_description: '',
+      chatbot_satisfaction: '',
+      desired_agent_capabilities: [],
+      chatbot_interest_level: '',
     },
   });
 
@@ -575,6 +590,205 @@ const AIGovernanceIntakeForm: React.FC<AIGovernanceIntakeFormProps> = ({ isOpen,
                     ))}
                   </RadioGroup>
                 </div>
+              </div>
+            </div>
+
+            {/* Section 9: Chatbot & AI Agent Inventory */}
+            <div className="space-y-5">
+              <h3 className="text-lg font-semibold border-b border-border pb-2 flex items-center gap-2">
+                <Bot className="h-5 w-5 text-cyan-500" />
+                9. Chatbot & AI Agent Inventory
+                <span className="text-cyan-500 text-sm font-normal">(New Opportunity)</span>
+              </h3>
+
+              {/* Q1: Do you currently use any chatbots? */}
+              <div className="space-y-2">
+                <Label className="font-medium">Does your organization currently use any chatbots or conversational AI systems?</Label>
+                <RadioGroup
+                  value={form.watch('has_existing_chatbot')}
+                  onValueChange={(value) => form.setValue('has_existing_chatbot', value)}
+                >
+                  {['Yes — actively deployed', 'Yes — in pilot/testing', 'No — evaluating options', 'No — not on our roadmap'].map((option) => (
+                    <div key={option} className="flex items-center space-x-2">
+                      <RadioGroupItem value={option} id={`chatbot_status_${option.replace(/\s+/g, '-')}`} />
+                      <Label htmlFor={`chatbot_status_${option.replace(/\s+/g, '-')}`} className="font-normal cursor-pointer">{option}</Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
+
+              {/* Conditional: current chatbot details */}
+              {(form.watch('has_existing_chatbot') === 'Yes — actively deployed' || form.watch('has_existing_chatbot') === 'Yes — in pilot/testing') && (
+                <div className="space-y-4 p-4 rounded-lg border border-border bg-muted/30">
+                  <p className="text-sm text-muted-foreground font-medium">Current Chatbot Details</p>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="chatbot_maker">Who built or provides your current chatbot? (Maker / Vendor)</Label>
+                    <Select
+                      value={form.watch('chatbot_maker')}
+                      onValueChange={(value) => form.setValue('chatbot_maker', value)}
+                    >
+                      <SelectTrigger id="chatbot_maker">
+                        <SelectValue placeholder="Select maker or vendor..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="OpenAI / ChatGPT">OpenAI / ChatGPT</SelectItem>
+                        <SelectItem value="Microsoft Copilot">Microsoft Copilot (Azure / 365)</SelectItem>
+                        <SelectItem value="Google Gemini / Dialogflow">Google Gemini / Dialogflow</SelectItem>
+                        <SelectItem value="Salesforce Einstein">Salesforce Einstein</SelectItem>
+                        <SelectItem value="ServiceNow Virtual Agent">ServiceNow Virtual Agent</SelectItem>
+                        <SelectItem value="Intercom">Intercom</SelectItem>
+                        <SelectItem value="Zendesk AI">Zendesk AI</SelectItem>
+                        <SelectItem value="Drift">Drift</SelectItem>
+                        <SelectItem value="IBM Watson Assistant">IBM Watson Assistant</SelectItem>
+                        <SelectItem value="Amazon Lex">Amazon Lex / AWS</SelectItem>
+                        <SelectItem value="Custom / In-house built">Custom / In-house built</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="chatbot_function_description">What does it do? Describe its primary function and scope.</Label>
+                    <Textarea
+                      id="chatbot_function_description"
+                      {...form.register('chatbot_function_description')}
+                      placeholder="e.g., Handles tier-1 customer support tickets, answers FAQs, escalates to human agents..."
+                      className="min-h-[80px]"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>How satisfied is your team with the current chatbot?</Label>
+                    <RadioGroup
+                      value={form.watch('chatbot_satisfaction')}
+                      onValueChange={(value) => form.setValue('chatbot_satisfaction', value)}
+                    >
+                      {[
+                        'Very satisfied — no changes needed',
+                        'Somewhat satisfied — could be improved',
+                        'Neutral — open to alternatives',
+                        'Dissatisfied — actively looking for a replacement',
+                      ].map((option) => (
+                        <div key={option} className="flex items-center space-x-2">
+                          <RadioGroupItem value={option} id={`satisfaction_${option.replace(/\s+/g, '-')}`} />
+                          <Label htmlFor={`satisfaction_${option.replace(/\s+/g, '-')}`} className="font-normal cursor-pointer">{option}</Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </div>
+                </div>
+              )}
+
+              {/* Q2: Interest in specialized AI agents */}
+              <div className="space-y-3">
+                <Label className="font-medium">
+                  Which specialized AI Agent chatbots would benefit your organization? (Select all that apply)
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Each agent is purpose-built and fine-tuned for its domain — reducing hallucinations and improving accuracy vs. general-purpose chatbots.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {[
+                    {
+                      id: 'Intake & Identity Agent',
+                      label: 'Intake & Identity Agent',
+                      description: 'Collects name, phone, email, ID numbers (SSN, driver\'s license, health record IDs), credit card, and billing details. Validates format and completeness on intake.',
+                    },
+                    {
+                      id: 'Law, Compliance & Governance Agent',
+                      label: 'Law, Compliance & Governance Agent',
+                      description: 'Navigates regulatory frameworks (HIPAA, GDPR, SOC 2, CCPA), flags policy violations, drafts compliance summaries, and answers legal-adjacent questions.',
+                    },
+                    {
+                      id: 'Executive Assistant Agent',
+                      label: 'Executive Assistant Agent',
+                      description: 'Manages scheduling, drafts executive communications, synthesizes briefings, coordinates cross-team tasks, and supports C-suite operations.',
+                    },
+                    {
+                      id: 'Engineering & Coding Agent',
+                      label: 'Engineering & Coding Agent',
+                      description: 'Reviews code, generates boilerplate, debugs errors, documents APIs, suggests architecture patterns, and supports dev team workflows.',
+                    },
+                    {
+                      id: 'Client Support Agent',
+                      label: 'Client Support Agent',
+                      description: 'Handles tier-1 customer inquiries, troubleshoots common issues, manages escalations, and integrates with CRM/ticketing systems.',
+                    },
+                    {
+                      id: 'Sales & Revenue Agent',
+                      label: 'Sales & Revenue Agent',
+                      description: 'Qualifies leads, answers product/pricing questions, generates proposals, nurtures prospects, and provides real-time deal coaching.',
+                    },
+                    {
+                      id: 'HR & People Ops Agent',
+                      label: 'HR & People Ops Agent',
+                      description: 'Answers benefits/policy questions, supports onboarding flows, handles PTO requests, and assists with performance review processes.',
+                    },
+                    {
+                      id: 'Finance & Billing Agent',
+                      label: 'Finance & Billing Agent',
+                      description: 'Handles invoice questions, payment processing support, expense categorization, financial reporting summaries, and budget inquiries.',
+                    },
+                    {
+                      id: 'Security & Risk Agent',
+                      label: 'Security & Risk Agent',
+                      description: 'Monitors for anomalies, triages security alerts, answers threat-related questions, and supports SOC team workflows in real time.',
+                    },
+                    {
+                      id: 'Research & Intelligence Agent',
+                      label: 'Research & Intelligence Agent',
+                      description: 'Synthesizes market research, summarizes reports, tracks competitor activity, and delivers structured intelligence briefs on demand.',
+                    },
+                  ].map((agent) => {
+                    const currentValues = form.watch('desired_agent_capabilities') || [];
+                    const isChecked = currentValues.includes(agent.id);
+                    return (
+                      <div
+                        key={agent.id}
+                        className={`flex items-start space-x-3 p-3 rounded-lg border cursor-pointer transition-colors ${isChecked ? 'border-cyan-500/50 bg-cyan-500/5' : 'border-border hover:border-border/80 hover:bg-muted/30'}`}
+                        onClick={() => {
+                          const next = isChecked
+                            ? currentValues.filter((v: string) => v !== agent.id)
+                            : [...currentValues, agent.id];
+                          form.setValue('desired_agent_capabilities', next);
+                        }}
+                      >
+                        <Checkbox
+                          id={`agent_${agent.id}`}
+                          checked={isChecked}
+                          onCheckedChange={() => {}}
+                          className="mt-0.5 pointer-events-none"
+                        />
+                        <div>
+                          <p className="text-sm font-semibold leading-tight">{agent.label}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{agent.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Q3: Overall interest level */}
+              <div className="space-y-2">
+                <Label className="font-medium">Overall interest in deploying a specialized AI agent network?</Label>
+                <Select
+                  value={form.watch('chatbot_interest_level')}
+                  onValueChange={(value) => form.setValue('chatbot_interest_level', value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your interest level..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Ready to start — let's scope it">Ready to start — let's scope it</SelectItem>
+                    <SelectItem value="Interested — need internal approval">Interested — need internal approval</SelectItem>
+                    <SelectItem value="Exploring — 3–6 month horizon">Exploring — 3–6 month horizon</SelectItem>
+                    <SelectItem value="Research only — no commitment">Research only — no commitment</SelectItem>
+                    <SelectItem value="Not interested at this time">Not interested at this time</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

@@ -6,7 +6,7 @@ import type {
   AuditSummaryStats,
   RecentScansResponse,
   EntryPointActionType
-} from '@/integrations/supabase/types';
+} from '@/types/auditTrail';
 
 /**
  * Audit Trail API Service

@@ -7,7 +7,7 @@ import type {
   EntryPointActionType, 
   AuditSummaryStats,
   EntryPointAuditFilter 
-} from '@/integrations/supabase/types';
+} from '@/types/auditTrail';
 
 interface AuditTrailProps {
   className?: string;

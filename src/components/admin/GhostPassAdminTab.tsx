@@ -143,7 +143,7 @@ export const GhostPassAdminTab = () => {
         </TabsContent>
 
         <TabsContent value="scu-monitor" className="space-y-4">
-          <SCUMonitor />
+          <SCUMonitor onBack={() => {}} />
         </TabsContent>
 
         <TabsContent value="settings" className="space-y-4">

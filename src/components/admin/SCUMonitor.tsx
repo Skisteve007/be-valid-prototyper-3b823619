@@ -96,15 +96,12 @@ interface LiveSignalItem {
 // Governance data interfaces
 interface GhostPassSummary {
   total_signals: number;
-  by_status: {
-    approved: number;
-    rejected: number;
-  };
+  by_status: Record<string, number>;
 }
 
 interface SenateStats {
   pending_count: number;
-  escalated_count: number;
+  escalated_count?: number;
 }
 
 interface AuditTrailSummary {
@@ -433,7 +430,7 @@ const SensoryCargoMonitor: React.FC<SensoryCargoMonitorProps> = ({ onBack }) => 
       if (historyData.decisions && historyData.decisions.length > 0) {
         setAuditSummary({
           last_decision_timestamp: historyData.decisions[0].timestamp,
-          total_events: historyData.total_count || 0
+          total_events: (historyData as any).total_count || historyData.total || 0
         });
       }
     } catch (error) {

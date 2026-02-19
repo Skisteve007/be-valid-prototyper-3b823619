@@ -372,7 +372,7 @@ const TrustCenter: React.FC = () => {
         <div className="mt-6 p-4 bg-card rounded-xl border border-cyan-500/30">
           <div className="flex items-center gap-2 text-cyan-400 text-sm mb-2">
             <Shield className="w-4 h-4" />
-            AI Governance
+            AI Systems Evaluation & Governance
           </div>
           <p className="text-muted-foreground text-xs leading-relaxed mb-3">
             SYNTH™ provides enterprise-grade AI governance: policy enforcement, audit logs, and proof records for every AI-assisted decision.

@@ -72,7 +72,7 @@ export const useEnsureUserSync = () => {
         if (roleData) {
           if (roleData.role === 'administrator') {
             ghostPassRole = 'ADMIN';
-          } else if (roleData.role === 'venue_operator') {
+          } else if ((roleData.role as string) === 'venue_operator') {
             ghostPassRole = 'VENUE_ADMIN';
           }
         }

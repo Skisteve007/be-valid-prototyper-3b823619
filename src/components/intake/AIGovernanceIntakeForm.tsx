@@ -224,8 +224,8 @@ const AIGovernanceIntakeForm: React.FC<AIGovernanceIntakeFormProps> = ({ isOpen,
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-6xl max-h-[95vh] p-0">
-        <DialogHeader className="px-6 pt-6 pb-4 border-b border-border/50">
+      <DialogContent className="sm:max-w-6xl h-[95vh] p-0 flex flex-col">
+        <DialogHeader className="px-6 pt-6 pb-4 border-b border-border/50 flex-shrink-0">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
               <ClipboardList className="h-5 w-5 text-cyan-500" />
@@ -236,7 +236,7 @@ const AIGovernanceIntakeForm: React.FC<AIGovernanceIntakeFormProps> = ({ isOpen,
           </div>
         </DialogHeader>
 
-        <ScrollArea className="max-h-[calc(90vh-180px)]">
+        <ScrollArea className="flex-1 min-h-0">
           <form onSubmit={form.handleSubmit(onSubmit)} className="px-6 py-4 space-y-8">
             
             {/* Header Fields */}
@@ -801,7 +801,7 @@ const AIGovernanceIntakeForm: React.FC<AIGovernanceIntakeFormProps> = ({ isOpen,
         </ScrollArea>
 
         {/* Footer with Submit */}
-        <div className="px-6 py-4 border-t border-border/50 flex justify-end gap-3">
+        <div className="px-6 py-4 border-t border-border/50 flex justify-end gap-3 flex-shrink-0">
           <Button variant="outline" onClick={handleClose} type="button">
             Cancel
           </Button>

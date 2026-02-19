@@ -84,12 +84,10 @@ const StaffShiftManager = () => {
   };
 
   const generateQRToken = () => {
+    // Generate a cryptographically secure token
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let token = 'STAFF_';
-    for (let i = 0; i < 16; i++) {
-      token += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return token;
+    const randomBytes = crypto.getRandomValues(new Uint8Array(16));
+    return 'STAFF_' + Array.from(randomBytes, (byte) => chars[byte % chars.length]).join('');
   };
 
   const handleAddShift = async () => {

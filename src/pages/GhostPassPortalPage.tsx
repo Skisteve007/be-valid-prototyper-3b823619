@@ -16,17 +16,6 @@ const GhostPassPortalPage: React.FC = () => {
   const { syncing: userSyncing, synced: userSynced, error: syncError } = useEnsureUserSync();
 
   useEffect(() => {
-    // DEV MODE: Skip admin check for development
-    const DEV_SKIP_AUTH = import.meta.env.VITE_DEV_SKIP_AUTH === 'true';
-    
-    if (DEV_SKIP_AUTH) {
-      console.warn('⚠️ DEV MODE: Admin check disabled for Ghost Pass Command Center');
-      setIsAdmin(true);
-      setUserId('dev-user');
-      setLoading(false);
-      return;
-    }
-
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {

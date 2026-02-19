@@ -17,14 +17,6 @@ export const useIsAdmin = () => {
 
   const checkAdminStatus = async () => {
     try {
-      // In development mode, bypass authorization
-      if (import.meta.env.DEV) {
-        console.log('[DEV MODE] Admin authorization bypassed for development');
-        setIsAdmin(true);
-        setLoading(false);
-        return;
-      }
-
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {

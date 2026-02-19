@@ -73,13 +73,10 @@ export const LabPartnersManager = () => {
   };
 
   const generateApiKey = () => {
-    // Generate a secure 64-character API key
+    // Generate a cryptographically secure 60-character API key
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let apiKey = "lab_";
-    for (let i = 0; i < 60; i++) {
-      apiKey += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return apiKey;
+    const randomBytes = crypto.getRandomValues(new Uint8Array(60));
+    return "lab_" + Array.from(randomBytes, (byte) => chars[byte % chars.length]).join("");
   };
 
   const handleCreatePartner = async (e: React.FormEvent) => {

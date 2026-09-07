@@ -59,7 +59,7 @@ const DemoScaleConduit = () => {
     totalProcessed: 0,
   });
   const [selectedTier] = useState<Tier>(1); // Default to Tier 1 for Scale demo
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const counterRef = useRef(0);
 
   const generateDecision = async (): Promise<Decision> => {

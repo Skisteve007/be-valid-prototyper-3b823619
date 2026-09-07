@@ -113,6 +113,21 @@ const Footer = () => {
             </div>
           )}
         </div>
+
+        {/* Created by Marketing Wiz Pro */}
+        <div className="text-center py-3 border-t border-slate-600 bg-slate-950">
+          <p className="text-xs text-slate-500">
+            Created by{" "}
+            <a
+              href="https://www.marketingwizpro.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 hover:underline transition-colors font-medium"
+            >
+              Marketing Wiz Pro
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -127,7 +127,7 @@ const ShiftScheduler = ({ venueId, industryType }: ShiftSchedulerProps) => {
       .update({ 
         station_id: stationId,
         shift_assignment: shiftBlock
-      })
+      } as any)
       .eq("id", draggedStaff.id);
 
     if (error) {

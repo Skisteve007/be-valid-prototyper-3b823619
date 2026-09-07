@@ -65,7 +65,7 @@ export const syncUserToBeValid = async (
         event_id: userData.event_id,
         created_at: userData.created_at,
         updated_at: new Date().toISOString(),
-      });
+      } as any);
 
     if (insertError) {
       throw new Error(`Failed to create user profile: ${insertError.message}`);

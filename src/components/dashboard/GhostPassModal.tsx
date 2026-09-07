@@ -158,7 +158,7 @@ const GhostPassModal = ({
     try {
       const { error } = await supabase
         .from('profiles')
-        .update({ [field]: value, updated_at: new Date().toISOString() })
+        .update({ [field]: value, updated_at: new Date().toISOString() } as any)
         .eq('user_id', userId);
 
       if (error) throw error;

@@ -95,7 +95,7 @@ export const useAccessControl = (accessType: AccessType) => {
       // Update profile with request timestamp
       const { error: updateError } = await supabase
         .from("profiles")
-        .update({ [requestedAtField]: new Date().toISOString() })
+        .update({ [requestedAtField]: new Date().toISOString() } as any)
         .eq("user_id", session.user.id);
 
       if (updateError) throw updateError;

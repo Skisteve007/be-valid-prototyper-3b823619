@@ -117,7 +117,7 @@ export const AccessGate = ({ accessType, children }: AccessGateProps) => {
       // Update profile with request timestamp
       const { error: updateError } = await supabase
         .from("profiles")
-        .update({ [requestedAtField]: new Date().toISOString() })
+        .update({ [requestedAtField]: new Date().toISOString() } as any)
         .eq("user_id", user.id);
 
       if (updateError) throw updateError;

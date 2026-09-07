@@ -459,11 +459,8 @@ const PartnerApplication = () => {
 
     if (error) throw error;
 
-    const { data: { publicUrl } } = supabase.storage
-      .from("affiliate-docs")
-      .getPublicUrl(fileName);
-
-    return publicUrl;
+    // Bucket is private: store only the object path. Viewing uses signed URLs.
+    return fileName;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

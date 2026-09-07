@@ -278,12 +278,12 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in door-scan function:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     return new Response(
       JSON.stringify({ 
         status: 'INVALID',
         decision: 'NO',
-        message: errorMessage 
+        message: 'An error occurred processing this scan',
+        code: 'INTERNAL_ERROR'
       }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

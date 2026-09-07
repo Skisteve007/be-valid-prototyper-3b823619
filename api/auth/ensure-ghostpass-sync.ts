@@ -111,7 +111,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.error('Error in ensure-ghostpass-sync:', error);
     return res.status(500).json({
       error: 'Failed to sync user',
-      details: error.message
+      code: 'INTERNAL_ERROR'
     });
   }
 }

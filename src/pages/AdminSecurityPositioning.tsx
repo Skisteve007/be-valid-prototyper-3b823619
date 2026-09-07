@@ -187,6 +187,18 @@ const AdminSecurityPositioning = () => {
     doc.save("Security-Positioning-Internal.pdf");
   };
 
+  // Render **bold** without dangerouslySetInnerHTML — no HTML is ever injected.
+  const renderInline = (text: string) => {
+    const parts = text.split(/\*\*(.*?)\*\*/g);
+    return parts.map((part, i) =>
+      i % 2 === 1 ? (
+        <strong key={i} className="text-foreground">{part}</strong>
+      ) : (
+        <span key={i}>{part}</span>
+      )
+    );
+  };
+
   const renderMarkdown = (text: string) => {
     const lines = text.split('\n');
     const elements: JSX.Element[] = [];
@@ -197,13 +209,14 @@ const AdminSecurityPositioning = () => {
         elements.push(
           <ul key={`list-${elements.length}`} className="list-disc list-inside space-y-1 mb-4 text-muted-foreground">
             {listItems.map((item, i) => (
-              <li key={i} dangerouslySetInnerHTML={{ __html: item.replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>') }} />
+              <li key={i}>{renderInline(item)}</li>
             ))}
           </ul>
         );
         listItems = [];
       }
     };
+    
     
     lines.forEach((line, index) => {
       if (line.startsWith('## ')) {

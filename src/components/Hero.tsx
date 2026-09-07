@@ -20,7 +20,7 @@ const Hero = () => {
   const [activeSignal, setActiveSignal] = useState<SignalMode>('social');
   const [counter, setCounter] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   const signalOrder: SignalMode[] = ['social', 'pulse', 'thrill', 'afterdark'];
   

@@ -136,7 +136,7 @@ export function PricingContractsTab() {
     try {
       const { error } = await supabase
         .from("industry_packages")
-        .update({ [field]: value })
+        .update({ [field]: value } as any)
         .eq("id", id);
 
       if (error) throw error;

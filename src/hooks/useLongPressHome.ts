@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useLongPressHome = (delay: number = 500) => {
   const navigate = useNavigate();
-  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
+  const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleStart = () => {
     longPressTimer.current = setTimeout(() => {

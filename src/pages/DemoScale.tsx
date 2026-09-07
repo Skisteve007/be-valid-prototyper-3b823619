@@ -56,7 +56,7 @@ const DemoScale = () => {
     uptime: 99.97,
   });
   
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const counterRef = useRef(0);
 
   const rateValues = { low: 25, med: 75, high: 150 };

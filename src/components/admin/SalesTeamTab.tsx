@@ -680,7 +680,7 @@ const SalesTeamTab = () => {
                   <Label className="text-sm font-medium">Government ID (Front)</Label>
                   {selectedAffiliate.id_front_url ? (
                     (() => {
-                      const imageUrl = getStorageUrl(selectedAffiliate.id_front_url);
+                      const imageUrl = idUrls.front;
                       return imageUrl ? (
                         <a 
                           href={imageUrl} 
@@ -715,7 +715,7 @@ const SalesTeamTab = () => {
                   <Label className="text-sm font-medium">Government ID (Back)</Label>
                   {selectedAffiliate.id_back_url ? (
                     (() => {
-                      const imageUrl = getStorageUrl(selectedAffiliate.id_back_url);
+                      const imageUrl = idUrls.back;
                       return imageUrl ? (
                         <a 
                           href={imageUrl} 

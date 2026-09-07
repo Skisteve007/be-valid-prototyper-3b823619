@@ -239,9 +239,7 @@ const AdminSecurityPositioning = () => {
       } else if (line.trim()) {
         flushList();
         elements.push(
-          <p key={index} className="text-muted-foreground mb-3" dangerouslySetInnerHTML={{ 
-            __html: line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>') 
-          }} />
+          <p key={index} className="text-muted-foreground mb-3">{renderInline(line)}</p>
         );
       }
     });

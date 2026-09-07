@@ -12,10 +12,27 @@ serve(async (req) => {
   }
 
   try {
+    // Optional one-time setup token gate. When ADMIN_SETUP_TOKEN is configured,
+    // callers must present it, which removes the open-endpoint exposure.
+    const requiredSetupToken = Deno.env.get("ADMIN_SETUP_TOKEN");
+    if (requiredSetupToken) {
+      const providedToken = req.headers.get("X-Setup-Token") ?? "";
+      if (providedToken !== requiredSetupToken) {
+        console.warn("Rejected admin setup attempt: invalid setup token");
+        return new Response(
+          JSON.stringify({ success: false, error: "Not authorized" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 403 }
+        );
+      }
+    }
+
     const { email, password } = await req.json();
 
-    if (!email || !password) {
-      throw new Error("Email and password are required");
+    if (!email || typeof email !== "string" || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      throw new Error("A valid email is required");
+    }
+    if (!password || typeof password !== "string" || password.length < 12) {
+      throw new Error("Password must be at least 12 characters");
     }
 
     // Initialize Supabase client with service role key (bypasses RLS)
@@ -53,21 +70,11 @@ serve(async (req) => {
     let userId: string;
 
     if (userExists) {
-      console.log("User already exists:", userExists.id);
-      userId = userExists.id;
-
-      // Update their password
-      const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
-        userId,
-        { password }
+      // Never touch an existing account's password from this endpoint.
+      console.warn("Setup attempt targeted an existing account:", email);
+      throw new Error(
+        "An account with this email already exists. Use the login page or a password reset instead."
       );
-
-      if (updateError) {
-        console.error("Error updating user password:", updateError);
-        throw new Error("User exists but failed to update password");
-      }
-
-      console.log("Password updated for existing user");
     } else {
       // Create the user account
       const { data: userData, error: signUpError } = await supabaseAdmin.auth.admin.createUser({

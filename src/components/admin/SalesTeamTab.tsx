@@ -49,6 +49,7 @@ const SalesTeamTab = () => {
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [showIdDialog, setShowIdDialog] = useState(false);
   const [selectedAffiliate, setSelectedAffiliate] = useState<Affiliate | null>(null);
+  const [idUrls, setIdUrls] = useState<{ front: string | null; back: string | null }>({ front: null, back: null });
   const [newAffiliateEmail, setNewAffiliateEmail] = useState("");
   const [newReferralCode, setNewReferralCode] = useState("");
   const [adding, setAdding] = useState(false);
@@ -268,14 +269,40 @@ const SalesTeamTab = () => {
     }
   };
 
-  const getStorageUrl = (path: string | undefined) => {
-    if (!path) return null;
-    // If it's already a full URL, return it
-    if (path.startsWith('http')) return path;
-    // Otherwise, construct the public URL from storage
-    const { data } = supabase.storage.from('affiliate-docs').getPublicUrl(path);
-    return data?.publicUrl;
+  // ID documents live in a private bucket; resolve short-lived signed URLs.
+  const toObjectPath = (value?: string | null) => {
+    if (!value) return null;
+    const marker = "/affiliate-docs/";
+    const idx = value.indexOf(marker);
+    return idx >= 0 ? decodeURIComponent(value.slice(idx + marker.length)) : value;
   };
+
+  useEffect(() => {
+    let cancelled = false;
+    const sign = async (value?: string | null) => {
+      const path = toObjectPath(value);
+      if (!path) return null;
+      const { data } = await supabase.storage
+        .from("affiliate-docs")
+        .createSignedUrl(path, 300);
+      return data?.signedUrl ?? null;
+    };
+    const load = async () => {
+      if (!selectedAffiliate) {
+        setIdUrls({ front: null, back: null });
+        return;
+      }
+      const [front, back] = await Promise.all([
+        sign(selectedAffiliate.id_front_url),
+        sign(selectedAffiliate.id_back_url),
+      ]);
+      if (!cancelled) setIdUrls({ front, back });
+    };
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedAffiliate]);
 
   const totalOwed = affiliates.reduce((sum, a) => sum + (a.pending_earnings || 0), 0);
   const totalPaid = affiliates.reduce((sum, a) => sum + (a.total_earnings || 0), 0);
@@ -653,7 +680,7 @@ const SalesTeamTab = () => {
                   <Label className="text-sm font-medium">Government ID (Front)</Label>
                   {selectedAffiliate.id_front_url ? (
                     (() => {
-                      const imageUrl = getStorageUrl(selectedAffiliate.id_front_url);
+                      const imageUrl = idUrls.front;
                       return imageUrl ? (
                         <a 
                           href={imageUrl} 
@@ -688,7 +715,7 @@ const SalesTeamTab = () => {
                   <Label className="text-sm font-medium">Government ID (Back)</Label>
                   {selectedAffiliate.id_back_url ? (
                     (() => {
-                      const imageUrl = getStorageUrl(selectedAffiliate.id_back_url);
+                      const imageUrl = idUrls.back;
                       return imageUrl ? (
                         <a 
                           href={imageUrl} 

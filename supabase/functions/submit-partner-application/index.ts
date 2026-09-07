@@ -99,17 +99,10 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error(`Failed to upload ID back: ${backUploadError.message}`);
     }
 
-    // Get public URLs
-    const { data: frontUrlData } = supabaseAdmin.storage
-      .from("affiliate-docs")
-      .getPublicUrl(idFrontPath);
-    
-    const { data: backUrlData } = supabaseAdmin.storage
-      .from("affiliate-docs")
-      .getPublicUrl(idBackPath);
+    // Bucket is private: persist only object paths. Admin viewing uses signed URLs.
+    const idFrontUrl = idFrontPath;
+    const idBackUrl = idBackPath;
 
-    const idFrontUrl = frontUrlData.publicUrl;
-    const idBackUrl = backUrlData.publicUrl;
 
     console.log("Documents uploaded successfully");
 

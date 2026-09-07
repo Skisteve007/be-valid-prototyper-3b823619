@@ -67,7 +67,7 @@ serve(async (req) => {
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : "Unknown error";
     logStep("ERROR: Signature verification failed", { error: errorMessage });
-    return new Response(`Webhook signature verification failed: ${errorMessage}`, { status: 400 });
+    return new Response("Webhook signature verification failed", { status: 400 });
   }
 
   try {
@@ -329,7 +329,7 @@ serve(async (req) => {
     // Log failed webhook processing
     await logWebhookEvent(event.id, event.type, event.data.object, 500, undefined, errorMessage);
 
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    return new Response(JSON.stringify({ error: "Webhook processing failed", code: "INTERNAL_ERROR" }), {
       headers: { "Content-Type": "application/json" },
       status: 500,
     });

@@ -313,9 +313,8 @@ serve(async (req) => {
     );
   } catch (error: unknown) {
     console.error("[create-pos-charge] Error:", error);
-    const errorMessage = error instanceof Error ? error.message : "Internal server error";
     return new Response(
-      JSON.stringify({ ok: false, error: errorMessage }),
+      JSON.stringify({ ok: false, error: "An error occurred processing your request", code: "INTERNAL_ERROR" }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
     );
   }

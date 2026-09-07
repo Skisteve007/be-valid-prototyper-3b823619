@@ -53,21 +53,11 @@ serve(async (req) => {
     let userId: string;
 
     if (userExists) {
-      console.log("User already exists:", userExists.id);
-      userId = userExists.id;
-
-      // Update their password
-      const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
-        userId,
-        { password }
+      // Never touch an existing account's password from this endpoint.
+      console.warn("Setup attempt targeted an existing account:", email);
+      throw new Error(
+        "An account with this email already exists. Use the login page or a password reset instead."
       );
-
-      if (updateError) {
-        console.error("Error updating user password:", updateError);
-        throw new Error("User exists but failed to update password");
-      }
-
-      console.log("Password updated for existing user");
     } else {
       // Create the user account
       const { data: userData, error: signUpError } = await supabaseAdmin.auth.admin.createUser({
